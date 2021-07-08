@@ -20,7 +20,8 @@ const useStyles = makeStyles((theme) => ({
 
 const hasNimike = (tyyppi?: string) =>
   tyyppi !== KOULUTUS_TYYPPI.AMM_TUTKINNON_OSA &&
-  tyyppi !== KOULUTUS_TYYPPI.AMM_OSAAMISALA;
+  tyyppi !== KOULUTUS_TYYPPI.AMM_OSAAMISALA &&
+  tyyppi !== KOULUTUS_TYYPPI.TUVA;
 
 type Props = {
   nimikkeet: Array<Translateable>;
@@ -58,11 +59,13 @@ export const KoulutusInfoGrid = ({
     icon: <ExtensionOutlinedIcon className={classes.koulutusInfoGridIcon} />,
     title: t('koulutus.koulutustyyppi'),
     text: koulutusTyyppiString,
+    testid: 'koulutustyyppi',
   });
   perustiedotData.push({
     icon: <TimelapseIcon className={classes.koulutusInfoGridIcon} />,
     title: t('koulutus.koulutuksen-laajuus'),
     text: laajuus,
+    testid: 'opintojenLaajuus',
   });
 
   return (

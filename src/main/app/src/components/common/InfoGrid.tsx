@@ -60,6 +60,7 @@ type Props = {
     title: string;
     modalText?: JSX.Element | false;
     text: string;
+    testid?: string;
   }>;
   className?: string;
 };
@@ -127,7 +128,8 @@ export const InfoGrid = (props: Props) => {
                       className={classes.text}
                       component="div"
                       variant="body1"
-                      key={i}>
+                      key={i}
+                      data-cy={e['testid']}>
                       {line}
                     </Typography>
                   ))}
