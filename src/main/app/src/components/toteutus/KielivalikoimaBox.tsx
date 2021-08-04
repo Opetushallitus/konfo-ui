@@ -61,11 +61,12 @@ export const KielivalikoimaBox = ({
             <tbody>
               {kielivalikoimaKeys.map(
                 (valikoimaKey) =>
-                  kielivalikoima?.[valikoimaKey] && (
+                  // _.size() palauttaa nollan myös nil-arvoille
+                  _.size(kielivalikoima?.[valikoimaKey]) !== 0 && (
                     <tr key={valikoimaKey}>
                       <th className={classes.cell}>{t(`toteutus.${valikoimaKey}`)}</th>
                       <td className={classes.cell}>
-                        {localizeArrayToCommaSeparated(kielivalikoima[valikoimaKey])}
+                        {localizeArrayToCommaSeparated(kielivalikoima![valikoimaKey])}
                       </td>
                     </tr>
                   )
