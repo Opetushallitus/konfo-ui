@@ -569,7 +569,7 @@
   },
   {
     "method": "GET",
-    "url": "https://beta.hahtuvaopintopolku.fi/konfo-backend/kuvaus/4454270/osaamisalat?koodi-urit=osaamisala_2397,osaamisala_2401,osaamisala_2395,osaamisala_2398,osaamisala_2400,osaamisala_2396",
+    "url": "http://localhost:3005/konfo-backend/kuvaus/4454270/osaamisalat?koodi-urit=osaamisala_2397,osaamisala_2401,osaamisala_2395,osaamisala_2398,osaamisala_2400,osaamisala_2396",
     "response": {
       "body": [
         {
@@ -668,7 +668,7 @@
   },
   {
     "method": "GET",
-    "url": "https://beta.hahtuvaopintopolku.fi/konfo-backend/kuvaus/6930620/osaamisalat?koodi-urit=osaamisala_1734,osaamisala_1735,osaamisala_1733",
+    "url": "http://localhost:3005/konfo-backend/kuvaus/6930620/osaamisalat?koodi-urit=osaamisala_1734,osaamisala_1735,osaamisala_1733",
     "response": {
       "body": [],
       "status": 200
