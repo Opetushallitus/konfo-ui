@@ -140,10 +140,17 @@ export function getLocalizedOpintojenLaajuus(koulutus) {
         _fp.find('opintojenLaajuusyksikko', tutkinnonOsat)?.opintojenLaajuusyksikko
     ) || '';
 
-  const opintojenLaajuus =
-    opintojenLaajuusNumero &&
-    opintojenLaajuusYksikko &&
-    `${opintojenLaajuusNumero} ${opintojenLaajuusYksikko}`.trim();
+  let opintojenLaajuus;
+  if (opintojenLaajuusNumero) {
+    const includesYksikko = /\D+$/.test(opintojenLaajuusNumero);
+
+    if (includesYksikko) {
+      opintojenLaajuus = opintojenLaajuusNumero;
+    } else if (opintojenLaajuusYksikko) {
+      opintojenLaajuus = `${opintojenLaajuusNumero} ${opintojenLaajuusYksikko}`.trim();
+    }
+  }
+
   return opintojenLaajuus || getTranslationForKey('koulutus.ei-laajuutta');
 }
 
