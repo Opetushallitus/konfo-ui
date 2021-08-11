@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const HtmlTextBox = (props) => {
-  const { heading, className, html } = props;
+  const { heading, className, html, additionalContent } = props;
 
   const { t } = useTranslation();
   const [isTruncated, setIsTruncated] = useState(false);
@@ -58,7 +58,8 @@ const HtmlTextBox = (props) => {
       flexDirection="column"
       alignItems="center"
       width="100%"
-      className={className}>
+      className={className}
+      data-cy="kuvaus">
       <Typography variant="h2">{heading}</Typography>
       <Spacer />
       <ColoredPaperContent backgroundColor={educationTypeColorCode.ammatillinenGreenBg}>
@@ -75,6 +76,7 @@ const HtmlTextBox = (props) => {
               </button>
             </div>
           ) : null}
+          {additionalContent}
         </Box>
       </ColoredPaperContent>
     </Box>

@@ -43,6 +43,23 @@ const useStyles = makeStyles((theme) => ({
   tutkintoHeader: {
     textAlign: 'center',
   },
+  linkOnTheLeft: {
+    margin: '0 auto',
+    textAlign: 'left',
+  },
+  linkButton: {
+    backgroundColor: 'transparent',
+    border: 'none',
+    cursor: 'pointer',
+    display: 'inline',
+    padding: 0,
+    margin: '35px 0 0',
+    fontSize: '1rem',
+    fontWeight: 600,
+    lineHeight: '1.375rem',
+    color: '#378703',
+    fontFamily: 'Open Sans',
+  },
 }));
 
 const findEperuste = (koulutus) => (id) =>
@@ -152,6 +169,21 @@ export const KoulutusPage = () => {
             heading={t('koulutus.kuvaus')}
             html={createKoulutusHtml()}
             className={classes.root}
+            additionalContent={
+              !_.isEmpty(koulutus?.linkkiEPerusteisiin) && (
+                <Box className={classes.linkOnTheLeft}>
+                  <MuiLink
+                    target="_blank"
+                    rel="noopener"
+                    href={localize(koulutus?.linkkiEPerusteisiin)}
+                    className={classes.linkButton}
+                    data-cy="eperuste-linkki">
+                    {t('koulutus.eperuste-linkki')}
+                    <OpenInNewIcon />
+                  </MuiLink>
+                </Box>
+              )
+            }
           />
         )}
         {koulutus?.tutkinnonOsat ? (
