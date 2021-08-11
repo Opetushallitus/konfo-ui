@@ -5336,7 +5336,7 @@
   },
   {
     "method": "GET",
-    "url": "https://beta.hahtuvaopintopolku.fi/konfo-backend/kuvaus/2357203/osaamisalat",
+    "url": "http://localhost:3005/konfo-backend/kuvaus/2357203/osaamisalat",
     "response": {
       "body": [],
       "status": 200
@@ -5344,7 +5344,7 @@
   },
   {
     "method": "GET",
-    "url": "https://beta.testiopintopolku.fi/konfo-backend/suosittelu?koulutukset=1.2.246.562.13.00000000000000000623",
+    "url": "http://locahost:3005/konfo-backend/suosittelu?koulutukset=1.2.246.562.13.00000000000000000623",
     "response": {
       "body": "",
       "status": 500
