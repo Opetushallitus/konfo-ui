@@ -228,6 +228,7 @@ export const selectKoulutus = (oid) => (state) => {
   if (koulutusData) {
     return {
       kuvaus: koulutusData.metadata?.kuvaus,
+      linkkiEPerusteisiin: koulutusData.metadata?.linkkiEPerusteisiin,
       eperusteet: koulutusData.eperusteet,
       ePerusteId: koulutusData?.ePerusteId,
       tutkinnonOsat: koulutusData.metadata?.tutkinnonOsat,
