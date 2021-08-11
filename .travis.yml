@@ -29,6 +29,7 @@ matrix:
 
       install:
         - npm ci --no-audit --prefer-offline
+        - npm run build:test
 
       script:
         - npm run test:ci
