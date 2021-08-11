@@ -75,15 +75,117 @@
         "metadata": {
           "tyyppi": "tuva",
           "kuvaus": {
-            "fi": "<p>(Heidi testaa väh. 53 op osa 2.)</p><p>Laajuus onkin 38 viikkoa.</p>",
-			      "sv": "<p>Heidi testaa väh. 53 op osa 2 sv.</p>"
+            "fi": "<p>Tämä on kuvaus fi.</p>",
+			      "sv": "<p>Tämä on kuvaus sv.</p>"
 		      },
 		      "lisatiedot": [],
 		      "linkkiEPerusteisiin": {},
 		      "opintojenLaajuus": {
 			      "koodiUri": "opintojenlaajuus_38#1",
 			      "nimi": {
-				      "fi": "38"
+				      "fi": "38 viikkoa"
+			      }
+		      },
+		      "tutkintonimike": [],
+		      "opintojenLaajuusyksikko": {
+			      "koodiUri": "opintojenlaajuusyksikko_8#1",
+			      "nimi": {
+				      "fi": "viikkoa"
+			      }
+		      }
+	      },
+	      "koulutustyyppi": "tuva"
+      },
+      "status": 200
+    }
+  },{
+    "method": "GET",
+    "url": "http://localhost:3005/konfo-backend/koulutus/1.2.246.562.13.00000000000000000624",
+    "response": {
+      "body": {
+        "tila": "julkaistu",
+        "johtaaTutkintoon": false,
+        "koulutukset": [],
+        "tarjoajat": [
+          {
+            "paikkakunta": {
+              "koodiUri": "kunta_491",
+              "nimi": {
+                "fi": "Mikkeli",
+                "sv": "St Michel"
+              }
+            },
+            "nimi": {
+              "fi": "Etelä-Savon Koulutus Oy"
+            },
+            "oid": "1.2.246.562.10.401318955310"
+          },
+          {
+            "paikkakunta": {
+              "koodiUri": "kunta_491",
+              "nimi": {
+                "fi": "Mikkeli",
+                "sv": "St Michel"
+              }
+            },
+            "nimi": {
+              "fi": "Etelä-Savon ammattiopisto",
+              "sv": "Etelä-Savon ammattiopisto",
+              "en": "Etelä-Savon ammattiopisto"
+            },
+            "oid": "1.2.246.562.10.63885487908"
+          }
+        ],
+        "toteutukset": [],
+        "esikatselu": false,
+        "modified": "2021-07-07T08:46:28",
+        "nimi": {
+          "fi": "Tutkintokoulutukseen valmentava koulutus (TUVA)",
+          "sv": "Tutkintokoulutukseen valmentava koulutus (TUVA)"
+        },
+        "muokkaaja": {
+          "oid": "1.2.246.562.24.54911781464",
+          "nimi": "Heidi Lammi-Mihaljov"
+        },
+        "oid": "1.2.246.562.13.00000000000000000400",
+        "kielivalinta": [
+          "fi",
+          "sv"
+        ],
+        "timestamp": 1625722600737,
+        "julkinen": false,
+        "organisaatiot": [
+          "1.2.246.562.10.401318955310",
+          "1.2.246.562.10.63885487908"
+        ],
+        "organisaatio": {
+          "paikkakunta": {
+            "koodiUri": "kunta_491",
+            "nimi": {
+              "fi": "Mikkeli",
+              "sv": "St Michel"
+            }
+          },
+          "nimi": {
+            "fi": "Etelä-Savon Koulutus Oy"
+          },
+          "oid": "1.2.246.562.10.401318955310"
+        },
+        "metadata": {
+          "tyyppi": "tuva",
+          "kuvaus": {
+            "fi": "<p>Tämä on kuvaus fi.</p>",
+			      "sv": "<p>Tämä on kuvaus sv.</p>"
+		      },
+		      "lisatiedot": [],
+		      "linkkiEPerusteisiin": {
+            "fi": "https://www.oph.fi",
+            "sv": "https://www.oph.fi/sv"
+          },
+		      "opintojenLaajuus": {
+			      "koodiUri": "opintojenlaajuus_38#1",
+			      "nimi": {
+				      "fi": "38 viikkoa"
 			      }
 		      },
 		      "tutkintonimike": [],
