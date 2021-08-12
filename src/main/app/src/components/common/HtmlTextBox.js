@@ -2,21 +2,18 @@ import React, { useState } from 'react';
 
 import { makeStyles, Typography, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import HTMLEllipsis from 'react-lines-ellipsis/lib/html';
+import TruncateMarkup from 'react-truncate-markup';
 
 import { educationTypeColorCode } from '#/src/colors';
 import { ColoredPaperContent } from '#/src/components/common/ColoredPaperContent';
 import Spacer from '#/src/components/common/Spacer';
+import { sanitizedHTMLParser } from '#/src/tools/utils';
 
 const useStyles = makeStyles((theme) => ({
   textArea: {
     margin: '60px auto',
     width: '63%',
     ...theme.typography.body1,
-  },
-  showLink: {
-    margin: '0 auto',
-    textAlign: 'center',
   },
   linkButton: {
     backgroundColor: 'transparent',
@@ -33,24 +30,36 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const LinkButton = ({ children, onClick }) => {
+  const classes = useStyles();
+  return (
+    <button className={classes.linkButton} onClick={onClick}>
+      {children}
+    </button>
+  );
+};
+
+const Ellipsis = ({ onShowMore }) => {
+  const { t } = useTranslation();
+  return (
+    <>
+      <span>...</span>
+      <TruncateMarkup.Atom>
+        <Box textAlign="center">
+          <LinkButton onClick={onShowMore}>{t('haku.näytä_lisää')}</LinkButton>
+        </Box>
+      </TruncateMarkup.Atom>
+    </>
+  );
+};
+
 const HtmlTextBox = (props) => {
   const { heading, className, html, additionalContent } = props;
 
-  const { t } = useTranslation();
-  const [isTruncated, setIsTruncated] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const toggleLines = (event) => {
-    event.preventDefault();
-    setIsExpanded(!isExpanded);
-  };
-  const reflow = (rleState) => {
-    const { clamped } = rleState;
-    if (isTruncated !== clamped) {
-      setIsTruncated(clamped);
-    }
-  };
   const classes = useStyles();
+  const { t } = useTranslation();
 
   return (
     <Box
@@ -63,20 +72,20 @@ const HtmlTextBox = (props) => {
       <Typography variant="h2">{heading}</Typography>
       <Spacer />
       <ColoredPaperContent backgroundColor={educationTypeColorCode.ammatillinenGreenBg}>
-        <Box className={classes.textArea}>
-          <HTMLEllipsis
-            unsafeHTML={html}
-            maxLine={isExpanded ? 1000 : 8}
-            onReflow={reflow}
-          />
-          {isTruncated || isExpanded ? (
-            <div className={classes.showLink}>
-              <button className={classes.linkButton} onClick={toggleLines}>
-                {isExpanded ? t('haku.näytä_vähemmän') : t('haku.näytä_lisää')}
-              </button>
+        <Box display="flex" flexDirection="column" className={classes.textArea}>
+          <TruncateMarkup
+            lines={isExpanded ? Infinity : 12}
+            ellipsis={<Ellipsis onShowMore={() => setIsExpanded(true)} />}>
+            <div>
+              {sanitizedHTMLParser(html)}
+              <TruncateMarkup.Atom>{additionalContent}</TruncateMarkup.Atom>
             </div>
-          ) : null}
-          {additionalContent}
+          </TruncateMarkup>
+          {isExpanded && (
+            <LinkButton onClick={() => setIsExpanded(false)}>
+              {t('haku.näytä_vähemmän')}
+            </LinkButton>
+          )}
         </Box>
       </ColoredPaperContent>
     </Box>
