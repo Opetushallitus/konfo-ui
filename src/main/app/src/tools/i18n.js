@@ -2,6 +2,8 @@ import i18n from 'i18next';
 import Backend from 'i18next-http-backend';
 import { initReactI18next } from 'react-i18next';
 
+import { isCypress } from './utils';
+
 export const supportedLanguages = ['fi', 'sv', 'en'];
 export const defaultLanguage = 'fi';
 
@@ -22,7 +24,7 @@ export const configureI18n = () =>
       },
       backend: {
         loadPath:
-          process.env.NODE_ENV === 'development'
+          process.env.NODE_ENV === 'development' || isCypress
             ? '/konfo/locales/{{lng}}/{{ns}}.json'
             : '/konfo-backend/translation/{{lng}}',
         customHeaders: {

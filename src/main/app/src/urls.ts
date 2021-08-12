@@ -1,5 +1,7 @@
 import { urls } from 'oph-urls-js';
 
+import { isCypress } from './tools/utils';
+
 const CALLER_ID = '1.2.246.562.10.00000000001.konfoui';
 
 const development = {
@@ -36,7 +38,7 @@ const development = {
 export const configureUrls = async () => {
   const { NODE_ENV } = process.env;
   urls.addCallerId(CALLER_ID);
-  if (['development', 'test'].includes(NODE_ENV)) {
+  if (['development', 'test'].includes(NODE_ENV) || isCypress) {
     urls.addProperties(development);
   } else {
     await urls.load('/konfo/rest/config/frontProperties');

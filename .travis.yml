@@ -12,13 +12,13 @@ matrix:
     - stage: test
       language: node_js
       node_js:
-        - "12"
+        - 14
       addons:
         chrome: stable
       cache:
         directories:
           - $HOME/.m2
-          - ~/.cache
+          - $HOME/.cache
         npm: true
 
       before_install:
@@ -29,6 +29,7 @@ matrix:
 
       install:
         - npm ci --no-audit --prefer-offline
+        - npm run build:test
 
       script:
         - npm run test:ci
