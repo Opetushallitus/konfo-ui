@@ -4,7 +4,7 @@ import { Link, LinkBaseProps, makeStyles } from '@material-ui/core';
 import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 
 export const useStyles = makeStyles({
-  externalLinkIcon: { verticalAlign: 'middle', marginLeft: '5px' },
+  externalLinkIcon: { verticalAlign: 'middle', marginLeft: '5px', marginBottom: '1px' },
 });
 
 export const ExternalLink = ({ children, ...props }: LinkBaseProps) => {

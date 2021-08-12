@@ -10,6 +10,7 @@ import { useParams } from 'react-router-dom';
 
 import { AccordionWithTitle } from '#/src/components/common/AccordionWithTitle';
 import ContentWrapper from '#/src/components/common/ContentWrapper';
+import { ExternalLink } from '#/src/components/common/ExternalLink';
 import HtmlTextBox from '#/src/components/common/HtmlTextBox';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import Murupolku from '#/src/components/common/Murupolku';
@@ -43,22 +44,8 @@ const useStyles = makeStyles((theme) => ({
   tutkintoHeader: {
     textAlign: 'center',
   },
-  linkOnTheLeft: {
-    margin: '0 auto',
-    textAlign: 'left',
-  },
   linkButton: {
-    backgroundColor: 'transparent',
-    border: 'none',
-    cursor: 'pointer',
-    display: 'inline',
-    padding: 0,
-    margin: '35px 0 0',
-    fontSize: '1rem',
     fontWeight: 600,
-    lineHeight: '1.375rem',
-    color: '#378703',
-    fontFamily: 'Open Sans',
   },
 }));
 
@@ -171,17 +158,14 @@ export const KoulutusPage = () => {
             className={classes.root}
             additionalContent={
               !_.isEmpty(koulutus?.linkkiEPerusteisiin) && (
-                <Box className={classes.linkOnTheLeft}>
-                  <MuiLink
-                    target="_blank"
-                    rel="noopener"
-                    href={localize(koulutus?.linkkiEPerusteisiin)}
-                    className={classes.linkButton}
-                    data-cy="eperuste-linkki">
-                    {t('koulutus.eperuste-linkki')}
-                    <OpenInNewIcon />
-                  </MuiLink>
-                </Box>
+                <ExternalLink
+                  target="_blank"
+                  rel="noopener"
+                  href={localize(koulutus?.linkkiEPerusteisiin)}
+                  className={classes.linkButton}
+                  data-cy="eperuste-linkki">
+                  {t('koulutus.eperuste-linkki')}
+                </ExternalLink>
               )
             }
           />
