@@ -187,7 +187,10 @@ export const fetchKoulutusJarjestajat = (oid, requestParams) => async (dispatch)
     dispatch(fetchJarjestajatStart());
 
     // TODO: This does not use paging but backend presumes so? Does this only show first 20 toteutukses?
-    const jarjestajatData = await getKoulutusJarjestajat(oid, requestParams);
+    const jarjestajatData = await getKoulutusJarjestajat(oid, {
+      ...requestParams,
+      size: 100,
+    });
     dispatch(fetchJarjestajatSuccess({ jarjestajatData }));
   } catch (err) {
     dispatch(fetchJarjestajatError(err.toString()));
@@ -199,7 +202,10 @@ export const fetchTulevatJarjestajat = (oid) => async (dispatch) => {
     dispatch(fetchTulevatJarjestajatStart());
 
     // TODO: This does not use paging but backend presumes so? Does this only show first 20 toteutukses?
-    const tulevatJarjestajat = await getKoulutusJarjestajat(oid, { tuleva: true });
+    const tulevatJarjestajat = await getKoulutusJarjestajat(oid, {
+      tuleva: true,
+      size: 100,
+    });
     dispatch(
       fetchTulevatJarjestajatSuccess({
         oid,
