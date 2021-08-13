@@ -10,6 +10,7 @@ import { useParams } from 'react-router-dom';
 
 import { AccordionWithTitle } from '#/src/components/common/AccordionWithTitle';
 import ContentWrapper from '#/src/components/common/ContentWrapper';
+import { ExternalLink } from '#/src/components/common/ExternalLink';
 import HtmlTextBox from '#/src/components/common/HtmlTextBox';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import Murupolku from '#/src/components/common/Murupolku';
@@ -42,6 +43,9 @@ const useStyles = makeStyles((theme) => ({
   },
   tutkintoHeader: {
     textAlign: 'center',
+  },
+  linkButton: {
+    fontWeight: 600,
   },
 }));
 
@@ -152,6 +156,18 @@ export const KoulutusPage = () => {
             heading={t('koulutus.kuvaus')}
             html={createKoulutusHtml()}
             className={classes.root}
+            additionalContent={
+              !_.isEmpty(koulutus?.linkkiEPerusteisiin) && (
+                <ExternalLink
+                  target="_blank"
+                  rel="noopener"
+                  href={localize(koulutus?.linkkiEPerusteisiin)}
+                  className={classes.linkButton}
+                  data-cy="eperuste-linkki">
+                  {t('koulutus.eperuste-linkki')}
+                </ExternalLink>
+              )
+            }
           />
         )}
         {koulutus?.tutkinnonOsat ? (

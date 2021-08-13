@@ -47,6 +47,7 @@ export const KOULUTUS_TYYPPI = {
   AMM: 'amm',
   AMM_TUTKINNON_OSA: 'amm-tutkinnon-osa',
   AMM_OSAAMISALA: 'amm-osaamisala',
+  TUVA: 'tuva',
 } as const;
 
 export const KOULUTUS_TYYPPI_MUU = {
