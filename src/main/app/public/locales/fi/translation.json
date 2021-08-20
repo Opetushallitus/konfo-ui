@@ -485,6 +485,8 @@
     "B2Kielet": "B2-kielet",
     "B3Kielet": "B3-kielet",
     "aidinkielet": "Valinnainen oman äidinkielen opetus",
-    "muutKielet": "Muut kielet"
+    "muutKielet": "Muut kielet",
+    "erityisopetus-otsikko": "Erityisopetuksena järjestettävä koulutus",
+    "erityisopetus-teksti": "Tämä ammatillinen perustutkinto järjestetään vaativana erityisenä tukena."
   }
 }
