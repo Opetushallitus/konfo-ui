@@ -1,15 +1,15 @@
 import React, { useEffect, useMemo, useState } from 'react';
 
-import { Avatar, Box, Grid, makeStyles, Typography } from '@material-ui/core';
-import DirectionsOutlinedIcon from '@material-ui/icons/DirectionsOutlined';
+import { Box, Grid, makeStyles, Typography } from '@material-ui/core';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 
-import { colors, educationTypeColorCode } from '#/src/colors';
+import { colors } from '#/src/colors';
 import { AccordionWithTitle } from '#/src/components/common/AccordionWithTitle';
+import { ContentWithTopIcon } from '#/src/components/common/ContentWithTopIcon';
 import ContentWrapper from '#/src/components/common/ContentWrapper';
 import { ExternalLink } from '#/src/components/common/ExternalLink';
 import HtmlTextBox from '#/src/components/common/HtmlTextBox';
@@ -45,41 +45,6 @@ import { ToteutusHakuEiSahkoista } from './ToteutusHakuEiSahkoista';
 import { ToteutusHakukohteet } from './ToteutusHakukohteet';
 import { ToteutusHakuMuu } from './ToteutusHakuMuu';
 import { ToteutusInfoGrid } from './ToteutusInfoGrid';
-
-const useBadgeStyles = makeStyles({
-  container: {
-    marginTop: '51px',
-  },
-  box: {
-    textAlign: 'center',
-    paddingTop: '46px',
-    paddingLeft: '98px',
-    paddingRight: '98px',
-    paddingBottom: '41px',
-    backgroundColor: educationTypeColorCode.ammatillinenGreenBg,
-  },
-  avatar: {
-    position: 'absolute',
-    left: '50%',
-    width: '62px',
-    height: '62px',
-    marginLeft: '-31px',
-    marginTop: '-31px',
-    backgroundColor: colors.brandGreen,
-  },
-});
-
-const BigPaperBadge: React.FC = ({ children }) => {
-  const classes = useBadgeStyles();
-  return (
-    <Box className={classes.container}>
-      <Avatar className={classes.avatar}>
-        <DirectionsOutlinedIcon />
-      </Avatar>
-      <Box className={classes.box}>{children}</Box>
-    </Box>
-  );
-};
 
 const useStyles = makeStyles({
   root: { marginTop: '100px' },
@@ -170,14 +135,14 @@ export const ToteutusPage = () => {
           {localize(toteutus?.nimi)}
         </Typography>
         {ammatillinenPerustutkintoErityisopetuksena && (
-          <BigPaperBadge>
+          <ContentWithTopIcon>
             <Box mb={1}>
               <Typography component="div" variant="h5">
                 {t('toteutus.erityisopetus-otsikko')}
               </Typography>
             </Box>
             <Typography>{t('toteutus.erityisopetus-teksti')}</Typography>
-          </BigPaperBadge>
+          </ContentWithTopIcon>
         )}
         {!_.isEmpty(asiasanat) && (
           <Box mt={4}>
