@@ -1,16 +1,16 @@
 import React from 'react';
 
-import {Box, Divider, Grid, Typography} from '@material-ui/core';
+import { Box, Divider, Grid, Typography } from '@material-ui/core';
 import _ from 'lodash';
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
-import {LocalizedHTML} from '#/src/components/common/LocalizedHTML';
-import {localize} from '#/src/tools/localization';
-import {toId} from '#/src/tools/utils';
-import {Translateable} from '#/src/types/common';
+import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
+import { localize } from '#/src/tools/localization';
+import { toId } from '#/src/tools/utils';
+import { Translateable } from '#/src/types/common';
 
-import {SisaltoComponent} from './Sisalto';
-import {Valintatapa} from './ValintaperusteTypes';
+import { SisaltoComponent } from './Sisalto';
+import { Valintatapa } from './ValintaperusteTypes';
 
 type Props = { hakukohteenKynnysehto: Translateable; valintatavat: Array<Valintatapa> };
 
