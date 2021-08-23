@@ -145,4 +145,5 @@ export type Jarjestaja = {
   toteutusNimi: string;
   tutkintonimikkeet: TODOType;
   hakukaynnissa: boolean;
+  ammatillinenPerustutkintoErityisopetuksena: boolean;
 };

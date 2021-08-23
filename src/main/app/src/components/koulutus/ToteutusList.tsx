@@ -255,6 +255,7 @@ export const ToteutusList = ({ oid }: Props) => {
                 }
                 preHeader={localize(toteutus)}
                 header={localize(toteutus.toteutusNimi)}
+                erityisopetusHeader={toteutus.ammatillinenPerustutkintoErityisopetuksena}
                 kuvaus={localize(toteutus.kuvaus)}
                 wrapDirection="column-reverse"
                 iconTexts={[
