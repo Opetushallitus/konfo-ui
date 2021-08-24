@@ -72,6 +72,7 @@ export const ToteutusPage = () => {
     diplomit,
     kielivalikoima,
     ammatillinenPerustutkintoErityisopetuksena,
+    tuvaErityisopetuksena,
   } = toteutus?.metadata ?? {};
   const koulutus = useSelector(selectKoulutus(koulutusOid), shallowEqual);
   const haut = useSelector(selectHakukohteet(oid), shallowEqual);
@@ -110,6 +111,14 @@ export const ToteutusPage = () => {
     [koulutus?.lisatiedot, opetus?.lisatiedot]
   );
 
+  const erityisopetusHeading = t('toteutus.erityisopetus-otsikko');
+  let erityisopetusText = '';
+  if (ammatillinenPerustutkintoErityisopetuksena) {
+    erityisopetusText = t('toteutus.amm-erityisopetus-teksti');
+  } else if (tuvaErityisopetuksena) {
+    erityisopetusText = t('toteutus.tuva-erityisopetus-teksti');
+  }
+
   return loading ? (
     <LoadingCircle />
   ) : (
@@ -134,14 +143,14 @@ export const ToteutusPage = () => {
         <Typography style={{ marginTop: '20px' }} variant="h1">
           {localize(toteutus?.nimi)}
         </Typography>
-        {ammatillinenPerustutkintoErityisopetuksena && (
+        {erityisopetusHeading && erityisopetusText && (
           <ContentWithTopIcon>
             <Box mb={1}>
               <Typography component="div" variant="h5">
-                {t('toteutus.erityisopetus-otsikko')}
+                {erityisopetusHeading}
               </Typography>
             </Box>
-            <Typography>{t('toteutus.erityisopetus-teksti')}</Typography>
+            <Typography>{erityisopetusText}</Typography>
           </ContentWithTopIcon>
         )}
         {!_.isEmpty(asiasanat) && (
