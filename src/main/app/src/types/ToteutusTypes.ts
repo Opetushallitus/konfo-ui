@@ -146,4 +146,5 @@ export type Jarjestaja = {
   tutkintonimikkeet: TODOType;
   hakukaynnissa: boolean;
   ammatillinenPerustutkintoErityisopetuksena: boolean;
+  tuvaErityisopetuksena: boolean;
 };

@@ -17,6 +17,7 @@ import { Link as RouterLink } from 'react-router-dom';
 
 import { colors, educationTypeColorCode } from '#/src/colors';
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
+import { KOULUTUS_TYYPPI } from '#/src/constants';
 import { sanitizedHTMLParser } from '#/src/tools/utils';
 
 const useStyles = makeStyles((theme) => ({
@@ -82,6 +83,13 @@ export const EntiteettiKortti = ({
 
   const kuvaus = _.truncate(kuvausProp, { length: 255 }) || t('haku.ei_kuvausta');
 
+  let erityisopetusHeaderText = '';
+  if (erityisopetusHeader && koulutustyyppi === KOULUTUS_TYYPPI.AMM) {
+    erityisopetusHeaderText = t('haku.ammatillinenPerustutkintoErityisopetuksena');
+  } else if (erityisopetusHeader && koulutustyyppi === KOULUTUS_TYYPPI.TUVA) {
+    erityisopetusHeaderText = t('haku.toteutusJarjestetaanErityisopetuksena');
+  }
+
   return (
     <LocalizedLink underline="none" component={RouterLink} to={to}>
       <Paper
@@ -133,7 +141,7 @@ export const EntiteettiKortti = ({
                   variant="body1"
                   component="div">
                   <DirectionsOutlinedIcon className={classes.icon} />
-                  {t('haku.ammatillinenPerustutkintoErityisopetuksena')}
+                  {erityisopetusHeaderText}
                 </Typography>
               </Grid>
             )}
