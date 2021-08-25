@@ -18,7 +18,7 @@ export const Valintatavat = ({ hakukohteenKynnysehto, valintatavat = [] }: Props
   const { t } = useTranslation();
 
   return (
-    <Grid item container direction="column" xs={12}>
+    <Grid item xs={12}>
       <Box py={4}>
         <Divider />
       </Box>
@@ -32,31 +32,26 @@ export const Valintatavat = ({ hakukohteenKynnysehto, valintatavat = [] }: Props
               <Typography variant="h3">{localize(nimi)}</Typography>
             </Box>
             {vahimmaispisteet && (
-              <Grid
-                container
-                item
-                direction="row"
-                xs={8}
-                style={{ paddingBottom: '8px' }}>
-                <Grid item container direction="column" xs={12} sm={6}>
+              <Box display="flex" paddingBottom={1}>
+                <Box marginRight={4} flexBasis="33%">
                   <Typography variant="h5">
                     {t('valintaperuste.vahimmaispisteet')}
                   </Typography>
                   <Typography variant="body1" component="div">
                     {vahimmaispisteet}
                   </Typography>
-                </Grid>
+                </Box>
                 {enimmaispisteet && (
-                  <Grid item container direction="column" xs={12} sm={6}>
+                  <Box flexBasis="67%">
                     <Typography variant="h5">
                       {t('valintaperuste.enimmaispisteet')}
                     </Typography>
                     <Typography variant="body1" component="div">
                       {enimmaispisteet}
                     </Typography>
-                  </Grid>
+                  </Box>
                 )}
-              </Grid>
+              </Box>
             )}
             {!_.isEmpty(kynnysehto) && (
               <Box py={1}>
