@@ -65,7 +65,8 @@ const ValintaperusteContent = ({
   const { hakukelpoisuus, kuvaus, lisatiedot, sisalto } = valintaperuste?.metadata || {};
   const hakukelpoisuusVisible = !_fp.isEmpty(hakukelpoisuus);
   const kuvausVisible = !_fp.isEmpty(kuvaus) || sisalto?.length > 0;
-  const valintatavatVisible = valintatavat?.length > 0 || hakukohde?.metadata?.kynnysehto;
+  const valintatavatVisible =
+    valintatavat?.length > 0 || !_fp.isEmpty(hakukohde?.metadata?.kynnysehto);
   const valintakokeetVisible = valintakokeet?.length > 0;
   const lisatiedotVisible = !_fp.isEmpty(lisatiedot);
   const liitteetVisible = hakukohde?.liitteet.length > 0;
