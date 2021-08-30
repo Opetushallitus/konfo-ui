@@ -85,9 +85,9 @@ export const EntiteettiKortti = ({
 
   let erityisopetusHeaderText = '';
   if (erityisopetusHeader && koulutustyyppi === KOULUTUS_TYYPPI.AMM) {
-    erityisopetusHeaderText = t('haku.ammatillinenPerustutkintoErityisopetuksena');
+    erityisopetusHeaderText = t('haku.ammatillinen-perustutkinto-erityisopetuksena');
   } else if (erityisopetusHeader && koulutustyyppi === KOULUTUS_TYYPPI.TUVA) {
-    erityisopetusHeaderText = t('haku.toteutusJarjestetaanErityisopetuksena');
+    erityisopetusHeaderText = t('haku.toteutus-jarjestetaan-erityisopetuksena');
   }
 
   return (
