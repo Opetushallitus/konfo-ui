@@ -35,6 +35,7 @@ export const FILTER_TYPES_ARR_FOR_KONFO_BACKEND = [
 ] as const;
 
 export const DRAWER_WIDTH = 330;
+export const KEEP_VALIKKO_OPEN_WIDTH = 1280;
 
 export const LANG_NAME_BY_CODE = {
   fi: 'suomi',
