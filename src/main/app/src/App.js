@@ -28,7 +28,7 @@ import {
   ValintaperustePage,
   ValintaperustePreviewPage,
 } from './components/valintaperusteet/ValintaperustePage';
-import { DRAWER_WIDTH } from './constants';
+import { DRAWER_WIDTH, KEEP_VALIKKO_OPEN_WIDTH } from './constants';
 import { getHeaderHeight, theme } from './theme';
 
 const useStyles = makeStyles((theme) => ({
@@ -147,7 +147,8 @@ const App = () => {
   const [betaBanner, setBetaBanner] = useState(true);
   const classes = useStyles({ betaBannerVisible: betaBanner, isSmall });
 
-  const [menuVisible, setMenuVisible] = useState(false);
+  const keepMenuVisible = !(window.innerWidth < KEEP_VALIKKO_OPEN_WIDTH);
+  const [menuVisible, setMenuVisible] = useState(keepMenuVisible ? true : false);
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
   };
@@ -171,6 +172,7 @@ const App = () => {
           menuVisible={menuVisible}
           closeMenu={closeMenu}
           betaBannerVisible={betaBanner}
+          keepMenuVisible={keepMenuVisible}
         />
         <main
           id="app-main-content"

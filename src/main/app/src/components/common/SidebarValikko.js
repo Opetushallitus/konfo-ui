@@ -124,10 +124,10 @@ const SidebarValikko = (props) => {
   const history = useHistory();
   const { i18n } = useTranslation();
   const { forwardTo } = useContentful();
-  const { parent, select, deselect, closeMenu, name, id, links } = props;
+  const { parent, select, deselect, closeMenu, name, id, links, keepMenuVisible } = props;
   const forwardToPage = (id) => {
     history.push(`/${i18n.language}${forwardTo(id)}`);
-    closeMenu();
+    !keepMenuVisible && closeMenu();
   };
 
   return (
