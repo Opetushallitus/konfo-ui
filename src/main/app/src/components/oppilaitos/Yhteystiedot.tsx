@@ -97,7 +97,7 @@ export const Yhteystiedot = ({
   const classes = useStyles();
   const { t } = useTranslation();
   const theme = useTheme();
-  const isSm = useMediaQuery(theme.breakpoints.down('sm'));
+  const isSm = useMediaQuery(theme.breakpoints.down('lg'));
 
   const localizedYhteystiedot = useMemo(
     () =>

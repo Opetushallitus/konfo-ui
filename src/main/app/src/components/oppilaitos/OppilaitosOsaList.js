@@ -10,7 +10,7 @@ import Spacer from '../common/Spacer';
 const OppilaitosOsaList = (props) => {
   const { oppilaitosOsat, title } = props;
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
   const cardInfos = oppilaitosOsat.map((osa) => ({
     text: osa.nimi,
     image: osa?.oppilaitoksenOsa?.teemakuva || DefaultHeroImage,

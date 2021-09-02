@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     width: '80%',
     backgroundColor: ({ backgroundColor }) =>
       backgroundColor ?? educationTypeColorCode.ammatillinenGreenBg,
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('lg')]: {
       width: '95%',
     },
   },

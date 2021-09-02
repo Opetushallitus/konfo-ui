@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-evenly',
     width: '80%',
     backgroundColor: educationTypeColorCode.ammatillinenGreenBg, // TODO: Not sure if this should come from koulutus type theme
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('lg')]: {
       width: '95%',
     },
   },
@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
   },
   grid: {
     padding: theme.spacing(8),
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('lg')]: {
       padding: theme.spacing(2),
     },
   },

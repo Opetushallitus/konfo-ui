@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 
 const useCollapsingPath = (path) => {
   const theme = useTheme();
-  const isNarrow = useMediaQuery(theme.breakpoints.down('sm'));
+  const isNarrow = useMediaQuery(theme.breakpoints.down('lg'));
 
   if (isNarrow && path.length > 2) {
     return [_.head(path), { name: '...', isCollapsedPart: true }, _.last(path)];

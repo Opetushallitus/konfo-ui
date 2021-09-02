@@ -10,7 +10,7 @@ import { LocalizedLink } from './LocalizedLink';
 const OppilaitosOsaGrid = (props) => {
   const { cards, cardIsLink } = props;
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
   return (
     <Grid justify="center" container spacing={isMobile ? 1 : 3}>
       {cards.map((card, i) => {

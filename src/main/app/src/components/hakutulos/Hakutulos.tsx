@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('xl')]: {
       padding: theme.spacing(1, 11),
     },
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('lg')]: {
       padding: theme.spacing(1, 1),
     },
   },
@@ -86,10 +86,10 @@ const useStyles = makeStyles((theme) => ({
   },
   murupolkuContainer: {
     margin: theme.spacing(5, 0, 7, 0),
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('lg')]: {
       margin: theme.spacing(2, 0),
     },
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('lg')]: {
       margin: theme.spacing(0),
     },
   },

@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   root: { marginTop: '100px' },
   accordion: {
     width: '50%',
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('lg')]: {
       width: '100%',
     },
   },

@@ -143,7 +143,7 @@ const TranslatedRoutes = ({ match, location }) => {
 };
 
 const App = () => {
-  const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
+  const isSmall = useMediaQuery(theme.breakpoints.down('lg'));
   const [betaBanner, setBetaBanner] = useState(true);
   const classes = useStyles({ betaBannerVisible: betaBanner, isSmall });
 

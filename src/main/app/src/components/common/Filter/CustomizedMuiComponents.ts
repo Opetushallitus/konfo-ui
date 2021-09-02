@@ -30,7 +30,7 @@ export const SuodatinAccordion = withStyles((theme) => ({
   },
   // Mobiilirajainlistoissa ei haluta käyttää default marginia
   expanded: {
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('lg')]: {
       margin: '0 0 16px 0 !important',
     },
   },
@@ -39,7 +39,7 @@ export const SuodatinAccordion = withStyles((theme) => ({
 export const SuodatinAccordionSummary = withStyles((theme) => ({
   root: {
     minHeight: '32px !important',
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('lg')]: {
       padding: '0 !important',
     },
   },
@@ -53,7 +53,7 @@ export const SuodatinAccordionDetails = withStyles((theme) => ({
     [theme.breakpoints.up('md')]: {
       padding: '0 24px 16px 24px',
     },
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('lg')]: {
       padding: '0 !important',
     },
   },

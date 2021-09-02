@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     height: '300px',
     width: '300px',
     objectFit: 'cover',
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('lg')]: {
       height: '150px',
       width: '100%',
     },
