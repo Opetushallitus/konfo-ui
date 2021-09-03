@@ -17,6 +17,16 @@ export type Liite = {
   tyyppi: Koodi;
 };
 
+export type KoodiUrit = {
+  oppiaine: { koodiUri: string; nimi: Translateable };
+  kieli: { koodiUri: string; nimi: Translateable };
+};
+
+export type PainotettuArvosana = {
+  koodit: KoodiUrit;
+  painokerroin: number;
+};
+
 export type Hakukohde = {
   aloituspaikat: {
     lukumaara?: number;
@@ -29,6 +39,7 @@ export type Hakukohde = {
     alinHyvaksyttyKeskiarvo: number;
     linja?: Koodi;
     lisatietoa: Translateable;
+    painotetutArvosanat: Array<PainotettuArvosana>;
   };
   hakulomakeAtaruId: string;
   hakulomakeKuvaus: Translateable;

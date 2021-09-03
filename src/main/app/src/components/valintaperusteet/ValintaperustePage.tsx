@@ -22,6 +22,7 @@ import {
 import { Kuvaus } from './Kuvaus';
 import { Liitteet } from './Liitteet';
 import { Lisatiedot } from './Lisatiedot';
+import { PainotetutArvosanat } from './PainotetutArvosanat';
 import { Paluu } from './Paluu';
 import { Sisallysluettelo } from './Sisallysluettelo';
 import { Valintakokeet } from './Valintakokeet';
@@ -70,6 +71,8 @@ const ValintaperusteContent = ({
   const valintakokeetVisible = valintakokeet?.length > 0;
   const lisatiedotVisible = !_fp.isEmpty(lisatiedot);
   const liitteetVisible = hakukohde?.liitteet.length > 0;
+  const painotetutArvosanatVisible =
+    hakukohde?.metadata?.hakukohteenLinja?.painotetutArvosanat.length > 0;
 
   return (
     <>
@@ -88,6 +91,11 @@ const ValintaperusteContent = ({
       <Grid item container xs={12} md={6} spacing={2}>
         {hakukelpoisuusVisible && <Hakukelpoisuus hakukelpoisuus={hakukelpoisuus} />}
         {kuvausVisible && <Kuvaus kuvaus={kuvaus} sisalto={sisalto} />}
+        {painotetutArvosanatVisible && (
+          <PainotetutArvosanat
+            arvosanat={hakukohde?.metadata?.hakukohteenLinja?.painotetutArvosanat}
+          />
+        )}
         {valintatavatVisible && (
           <Valintatavat
             valintatavat={valintatavat}
