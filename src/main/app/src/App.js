@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
     }),
     marginLeft: 0,
   },
-  smContent: {
+  smContent: ({ menuVisible }) => ({
     marginTop: getHeaderHeight(theme),
     minWidth: 0,
     flexGrow: 1,
@@ -59,8 +59,12 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    marginLeft: '-100%',
-  },
+    position: 'absolute',
+    marginLeft: 0,
+    overflow: 'hidden',
+    top: menuVisible ? 0 : 'auto',
+    bottom: menuVisible ? 0 : 'auto',
+  }),
   smContentShift: {
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.easeOut,
