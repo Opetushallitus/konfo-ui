@@ -50,8 +50,8 @@ const useStyles = makeStyles((theme) => ({
     }),
     marginLeft: 0,
   },
-  smContent: ({ menuVisible }) => ({
-    marginTop: getHeaderHeight(theme),
+  smContent: (props) => ({
+    marginTop: getHeaderHeight(theme)(props),
     minWidth: 0,
     flexGrow: 1,
     padding: 0,
@@ -63,16 +63,9 @@ const useStyles = makeStyles((theme) => ({
     left: 0,
     right: 0,
     overflow: 'hidden',
-    top: menuVisible ? 0 : 'auto',
-    bottom: menuVisible ? 0 : 'auto',
+    top: props?.menuVisible ? 0 : 'auto',
+    bottom: props?.menuVisible ? 0 : 'auto',
   }),
-  smContentShift: {
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginLeft: 0,
-  },
 }));
 
 const KoulutusHakuBar = () => (
@@ -180,7 +173,7 @@ const App = () => {
         <main
           id="app-main-content"
           className={clsx(isSmall ? classes.smContent : classes.content, {
-            [isSmall ? classes.smContentShift : classes.contentShift]: menuVisible,
+            [classes.contentShift]: menuVisible,
           })}>
           <Route path="/:lng?" component={TranslatedRoutes} />
           <Palvelut />
