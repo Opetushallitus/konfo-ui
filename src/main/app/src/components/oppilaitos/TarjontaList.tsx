@@ -13,9 +13,9 @@ import {
   OverlayLoadingCircle,
 } from '#/src/components/common/LoadingCircle';
 import Spacer from '#/src/components/common/Spacer';
+import { TarjontaPagination } from '#/src/components/common/TarjontaPagination';
 
 import { usePaginatedTarjonta } from './hooks';
-import { TarjontaPagination } from './TarjontaPagination';
 
 const useStyles = makeStyles({
   container: {
@@ -37,7 +37,7 @@ type Props = {
 export const TarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
   const classes = useStyles();
   const { t } = useTranslation();
-  const { queryResult } = usePaginatedTarjonta({
+  const { queryResult, pagination, setPagination } = usePaginatedTarjonta({
     oid,
     isOppilaitosOsa,
     isTuleva: false,
@@ -85,7 +85,11 @@ export const TarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
               ))}
             </Grid>
           </div>
-          <TarjontaPagination total={total} oid={oid} isOppilaitosOsa={isOppilaitosOsa} />
+          <TarjontaPagination
+            total={total}
+            pagination={pagination}
+            setPagination={setPagination}
+          />
         </Container>
       ) : null;
     default:

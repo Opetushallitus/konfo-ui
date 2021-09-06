@@ -16,12 +16,11 @@ import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import Murupolku from '#/src/components/common/Murupolku';
 import TeemakuvaImage from '#/src/components/common/TeemakuvaImage';
 import { getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
-import { selectTulevatJarjestajat } from '#/src/store/reducers/koulutusSlice';
 import { getLanguage, localize } from '#/src/tools/localization';
 import { getLocalizedOpintojenLaajuus, sanitizedHTMLParser } from '#/src/tools/utils';
 
 import { useUrlParams } from '../hakutulos/UseUrlParams';
-import { useKoulutus } from './hooks';
+import { useKoulutus, useKoulutusJarjestajat } from './hooks';
 import { KoulutusInfoGrid } from './KoulutusInfoGrid';
 import SuositusKoulutusList from './SuositusKoulutusList';
 import { ToteutusList } from './ToteutusList';
@@ -63,7 +62,12 @@ export const KoulutusPage = () => {
   // TODO: There is absolutely no error handling atm.
   const { data: koulutus, isLoading: koulutusLoading } = useKoulutus({ oid, isDraft });
   const suositellutKoulutukset = {};
-  const tulevatJarjestajat = useSelector((state) => selectTulevatJarjestajat(state, oid));
+
+  const { data: tulevatJarjestajat } = useKoulutusJarjestajat({
+    oid,
+    isDraft,
+    isTuleva: true,
+  });
 
   const isLoading = koulutusLoading;
 

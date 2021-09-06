@@ -29,11 +29,9 @@ export const getKoulutusKuvaus = (ePerusteId) =>
 export const getEperusteKuvaus = (ePerusteId) =>
   get(urls.url('konfo-backend.eperuste.kuvaus', ePerusteId));
 
-export const getKoulutusJarjestajat = (oid, requestParams) =>
+export const getKoulutusJarjestajat = ({ oid, requestParams }) =>
   get(urls.url('konfo-backend.koulutus.jarjestajat', oid), {
-    params: C.cleanRequestParams({
-      ...requestParams,
-    }),
+    params: C.cleanRequestParams(requestParams),
   });
 
 export const getSuositellutKoulutukset = (requestParams) =>
