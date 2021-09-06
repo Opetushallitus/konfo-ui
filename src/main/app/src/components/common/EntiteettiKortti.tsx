@@ -10,12 +10,14 @@ import {
   useTheme,
   GridDirection,
 } from '@material-ui/core';
+import DirectionsOutlinedIcon from '@material-ui/icons/DirectionsOutlined';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
 
 import { colors, educationTypeColorCode } from '#/src/colors';
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
+import { KOULUTUS_TYYPPI } from '#/src/constants';
 import { sanitizedHTMLParser } from '#/src/tools/utils';
 
 const useStyles = makeStyles((theme) => ({
@@ -38,6 +40,14 @@ const useStyles = makeStyles((theme) => ({
       marginTop: 0,
     },
   },
+  erityisopetusHeader: {
+    color: colors.brandGreen,
+    fontWeight: 600,
+  },
+  icon: {
+    verticalAlign: 'text-bottom',
+    marginRight: '10px',
+  },
 }));
 
 // TODO: Jostain syystä TS:n labeled tuples ei toiminut, e.g. IconComponent: (...props: any) => JSX.Element
@@ -48,6 +58,7 @@ type Props = {
   to: string;
   preHeader?: string;
   header: string;
+  erityisopetusHeader?: boolean;
   kuvaus: string;
   iconTexts: Array<IconText>;
   logoElement?: React.ReactNode;
@@ -58,6 +69,7 @@ export const EntiteettiKortti = ({
   koulutustyyppi = 'amm', // Käytetään vihreää entiteeteille joilla ei ole tyyppiä (e.g. oppilaitos)
   preHeader,
   header,
+  erityisopetusHeader,
   kuvaus: kuvausProp,
   iconTexts,
   to,
@@ -70,6 +82,13 @@ export const EntiteettiKortti = ({
   const isSmallOrBigger = useMediaQuery(theme.breakpoints.up('sm'));
 
   const kuvaus = _.truncate(kuvausProp, { length: 255 }) || t('haku.ei_kuvausta');
+
+  let erityisopetusHeaderText = '';
+  if (erityisopetusHeader && koulutustyyppi === KOULUTUS_TYYPPI.AMM) {
+    erityisopetusHeaderText = t('haku.ammatillinen-perustutkinto-erityisopetuksena');
+  } else if (erityisopetusHeader && koulutustyyppi === KOULUTUS_TYYPPI.TUVA) {
+    erityisopetusHeaderText = t('haku.toteutus-jarjestetaan-erityisopetuksena');
+  }
 
   return (
     <LocalizedLink underline="none" component={RouterLink} to={to}>
@@ -114,6 +133,18 @@ export const EntiteettiKortti = ({
                 </Typography>
               </Grid>
             </Grid>
+
+            {erityisopetusHeader && (
+              <Grid item>
+                <Typography
+                  className={classes.erityisopetusHeader}
+                  variant="body1"
+                  component="div">
+                  <DirectionsOutlinedIcon className={classes.icon} />
+                  {erityisopetusHeaderText}
+                </Typography>
+              </Grid>
+            )}
 
             <Hidden xsDown>
               <Grid item>

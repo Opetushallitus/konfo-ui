@@ -14,6 +14,7 @@ import TutkintoNimikeIcon from '#/src/assets/images/tutkintonimike.svg';
 import TutkintoonHakeminenIcon from '#/src/assets/images/tutkintoon_hakeminen.svg';
 import { colors, educationTypeColorCode } from '#/src/colors';
 import { LabelTooltip } from '#/src/components/common/LabelTooltip';
+import { toId } from '#/src/tools/utils';
 
 import Spacer from './Spacer';
 
@@ -111,8 +112,8 @@ export const InfoGrid = (props: Props) => {
                     <Typography
                       className={clsx(classes.title, classes.text)}
                       variant="body1"
-                      noWrap
-                      component="h3">
+                      id={toId(e.title)}
+                      noWrap>
                       {e.title}
                     </Typography>
                   </Grid>
@@ -129,7 +130,8 @@ export const InfoGrid = (props: Props) => {
                       component="div"
                       variant="body1"
                       key={i}
-                      data-cy={e['testid']}>
+                      data-cy={e['testid']}
+                      aria-labelledby={toId(e.title)}>
                       {line}
                     </Typography>
                   ))}

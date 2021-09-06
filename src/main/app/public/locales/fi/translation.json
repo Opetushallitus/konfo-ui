@@ -124,6 +124,7 @@
     "amm-osaamisala": "Osaamisala",
     "amm-tutkinnon-osa": "Tutkinnon osa",
     "ammatillinen": "Ammatilliset tutkinnot",
+    "ammatillinen-perustutkinto-erityisopetuksena": "Ammatillinen perustutkinto erityisopetuksena",
     "ei_kuvausta": "Ei kuvausta",
     "ei_koulutusohjelmia": "Ei koulutusohjelmia",
     "ei-hakutuloksia": "Ei hakutuloksia",
@@ -210,6 +211,7 @@
     "tapahtui-tekninen-virhe": "Tapahtui tekninen virhe",
     "teemakuva": "teemakuva",
     "tohtori": "Tohtoritutkinto",
+    "toteutus-jarjestetaan-erityisopetuksena": "Toteutus järjestetään erityisopetuksena",
     "tulokset-per-sivu": "Tulokset per sivu:",
     "tuloksia-per-sivu": "Tuloksia per sivu",
     "tutkintoon-johtavat": "Tutkintoon johtavat",
@@ -485,6 +487,9 @@
     "B2Kielet": "B2-kielet",
     "B3Kielet": "B3-kielet",
     "aidinkielet": "Valinnainen oman äidinkielen opetus",
-    "muutKielet": "Muut kielet"
+    "muutKielet": "Muut kielet",
+    "erityisopetus-otsikko": "Erityisopetuksena järjestettävä koulutus",
+    "amm-erityisopetus-teksti": "Tämä ammatillinen perustutkinto järjestetään vaativana erityisenä tukena.",
+    "tuva-erityisopetus-teksti": "Tämä tutkintokoulutukseen valmentava koulutus järjestetään vaativana erityisenä tukena."
   }
 }
