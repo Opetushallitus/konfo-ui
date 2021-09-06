@@ -12,14 +12,15 @@ import {
   getKoulutusKuvaus,
 } from '#/src/api/konfoApi';
 import { KOULUTUS_TYYPPI } from '#/src/constants';
+import { usePreviousNonEmpty } from '#/src/hooks';
 import {
-  resetJarjestajatQuery,
+  resetJarjestajatPaging,
   setJarjestajatFilters,
   setTulevatJarjestajatFilters,
-  resetTulevatJarjestajatQuery,
   selectJarjestajatQuery,
   setJarjestajatPaging,
   setTulevatJarjestajatPaging,
+  resetTulevatJarjestajatPaging,
 } from '#/src/store/reducers/koulutusSlice';
 
 export const fetchKoulutus = async (oid?: string, isDraft: boolean = false) => {
@@ -127,14 +128,16 @@ export const useKoulutusJarjestajat = ({
 }: UseKoulutusJarjestajatProps) => {
   const dispatch = useDispatch();
 
-  // Reset query options when oid changes (which means that another koulutus-page was opened)
-  /*useEffect(() => {
-    dispatch(resetJarjestajatQuery());
-    dispatch(resetTulevatJarjestajatQuery());
-  }, [dispatch, oid]);*/
-
   const requestProps = useSelector(selectJarjestajatQuery(isTuleva));
   const { pagination = {}, filters = {} } = requestProps;
+  const previousFilters = usePreviousNonEmpty(filters);
+
+  // Jos filtterit muuttuu, resetoi sivutus
+  useEffect(() => {
+    if (filters !== previousFilters) {
+      dispatch(isTuleva ? resetTulevatJarjestajatPaging() : resetJarjestajatPaging());
+    }
+  }, [dispatch, filters, previousFilters, isTuleva]);
 
   const fetchProps = {
     oid,
