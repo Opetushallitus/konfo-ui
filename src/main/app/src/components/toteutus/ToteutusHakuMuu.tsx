@@ -3,13 +3,11 @@ import React from 'react';
 import { Box, Button, Grid, makeStyles, Paper, Typography } from '@material-ui/core';
 import PublicIcon from '@material-ui/icons/Public';
 import { useTranslation } from 'react-i18next';
-import { shallowEqual, useSelector } from 'react-redux';
 
 import { colors } from '#/src/colors';
 import { AccordionText } from '#/src/components/common/AccordionText';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import Spacer from '#/src/components/common/Spacer';
-import { selectMuuHaku } from '#/src/store/reducers/toteutusSlice';
 import { localize } from '#/src/tools/localization';
 import { useOsoitteet } from '#/src/tools/useOppilaitosOsoite';
 import { formatDateRange, formatDateString } from '#/src/tools/utils';
@@ -37,12 +35,11 @@ const getTarjoajaYhteystiedot = (
     return `${localize(tarjoajaNimi)} · ${osoite.yhteystiedot}`;
   });
 
-type Props = { oid: string };
+type Props = { data: any };
 
-export const ToteutusHakuMuu = ({ oid }: Props) => {
+export const ToteutusHakuMuu = ({ data: muuHaku }: Props) => {
   const classes = useStyles();
   const { t } = useTranslation();
-  const muuHaku = useSelector(selectMuuHaku(oid), shallowEqual);
 
   const oppilaitosOids = muuHaku.tarjoajat.map(
     (tarjoaja: { oid: string }) => tarjoaja.oid
