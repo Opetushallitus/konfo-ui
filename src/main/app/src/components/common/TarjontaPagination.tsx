@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 
-import { CssBaseline, makeStyles } from '@material-ui/core';
+import { Box, CssBaseline, makeStyles } from '@material-ui/core';
 import { ChevronLeftOutlined, ChevronRightOutlined } from '@material-ui/icons';
 import MuiFlatPagination from 'material-ui-flat-pagination';
 
@@ -52,7 +52,7 @@ export const TarjontaPagination = ({ total, pagination, setPagination }: Props) 
   );
 
   return total > size ? (
-    <div style={{ textAlign: 'center', marginTop: 30 }}>
+    <Box textAlign="center" marginY={3}>
       <CssBaseline />
       <MuiFlatPagination
         limit={size}
@@ -66,6 +66,6 @@ export const TarjontaPagination = ({ total, pagination, setPagination }: Props) 
         previousPageLabel={<ChevronLeftOutlined />}
         nextPageLabel={<ChevronRightOutlined />}
       />
-    </div>
+    </Box>
   ) : null;
 };
