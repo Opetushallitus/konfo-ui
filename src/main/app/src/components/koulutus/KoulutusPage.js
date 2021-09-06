@@ -1,11 +1,11 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 
 import { Box, Link as MuiLink, makeStyles, Typography } from '@material-ui/core';
 import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 import _ from 'lodash';
 import { urls } from 'oph-urls-js';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import { AccordionWithTitle } from '#/src/components/common/AccordionWithTitle';
@@ -16,10 +16,7 @@ import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import Murupolku from '#/src/components/common/Murupolku';
 import TeemakuvaImage from '#/src/components/common/TeemakuvaImage';
 import { getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
-import {
-  fetchKoulutusWithRelatedData,
-  selectTulevatJarjestajat,
-} from '#/src/store/reducers/koulutusSlice';
+import { selectTulevatJarjestajat } from '#/src/store/reducers/koulutusSlice';
 import { getLanguage, localize } from '#/src/tools/localization';
 import { getLocalizedOpintojenLaajuus, sanitizedHTMLParser } from '#/src/tools/utils';
 
@@ -58,7 +55,6 @@ const getKuvausHtmlSection = (t) => (captionKey, localizableText) =>
 
 export const KoulutusPage = () => {
   const { isDraft } = useUrlParams();
-  const dispatch = useDispatch();
   const classes = useStyles();
   const { oid } = useParams();
   const { t } = useTranslation();
@@ -72,12 +68,6 @@ export const KoulutusPage = () => {
   const isLoading = koulutusLoading;
 
   const hakuUrl = useSelector(getHakuUrl);
-
-  useEffect(() => {
-    if (!koulutus) {
-      dispatch(fetchKoulutusWithRelatedData(oid, isDraft));
-    }
-  }, [dispatch, koulutus, oid, isDraft]);
 
   // NOTE: This uses HtmlTextBox which needs pure html
   const createKoulutusHtml = () =>
