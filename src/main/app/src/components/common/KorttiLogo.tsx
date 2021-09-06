@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => {
     },
     koulutusKorttiLogo: {
       [theme.breakpoints.up('xs')]: {
-        maxWidth: undefined,
+        maxWidth: '100%',
         maxHeight: '150px',
       },
       ...common,
