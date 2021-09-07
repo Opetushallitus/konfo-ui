@@ -48,7 +48,7 @@ export const PainotetutArvosanat = ({ arvosanat }: Props) => {
           return (
             <Grid key={index} item container xs={12} md={6}>
               <Box width={'30%'}>{getOppiaineName(arvosana.koodit)}</Box>
-              <Box>{arvosana.painokerroin}</Box>
+              <Box>{arvosana.painokerroin.toString().replace('.', ',')}</Box>
             </Grid>
           );
         })}
