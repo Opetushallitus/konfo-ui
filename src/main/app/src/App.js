@@ -2,6 +2,7 @@ import React, { useState, useEffect, useLayoutEffect } from 'react';
 
 import { makeStyles, useMediaQuery, Box } from '@material-ui/core';
 import clsx from 'clsx';
+import Cookies from 'js-cookie';
 import { useTranslation } from 'react-i18next';
 import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 
@@ -86,13 +87,18 @@ const TranslatedRoutes = ({ match, location }) => {
   useEffect(() => {
     if (supportedLanguages.includes(selectedLanguage)) {
       i18n.changeLanguage(selectedLanguage);
+      Cookies.set('lang', selectedLanguage, {
+        expires: 1800,
+        path: '/',
+      });
     }
   }, [i18n, selectedLanguage]);
 
   if (!supportedLanguages.includes(selectedLanguage)) {
+    let langCookie = Cookies.get('lang');
     const newLocation = {
       ...location,
-      pathname: '/fi' + location.pathname,
+      pathname: '/' + (langCookie ? langCookie : 'fi') + location.pathname,
     };
     return <Redirect to={newLocation} />;
   }

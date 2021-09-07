@@ -10,6 +10,7 @@ import {
 } from '@material-ui/core';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import LanguageIcon from '@material-ui/icons/Language';
+import Cookies from 'js-cookie';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
@@ -35,7 +36,12 @@ const LanguageDropDown = () => {
   const { t } = useTranslation();
   const [language, setLanguage] = useLanguageState();
   const handleChange = (event) => {
-    setLanguage(event.target.value);
+    let selectedLanguage = event.target.value;
+    Cookies.set('lang', selectedLanguage, {
+      expires: 1800,
+      path: '/',
+    });
+    setLanguage(selectedLanguage);
   };
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
