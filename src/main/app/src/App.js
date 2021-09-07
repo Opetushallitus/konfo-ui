@@ -143,9 +143,10 @@ const TranslatedRoutes = ({ match, location }) => {
 const App = () => {
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
   const [betaBanner, setBetaBanner] = useState(true);
-  const classes = useStyles({ betaBannerVisible: betaBanner, isSmall });
 
   const [menuVisible, setMenuVisible] = useState(false);
+  const classes = useStyles({ betaBannerVisible: betaBanner, isSmall, menuVisible });
+
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
   };
