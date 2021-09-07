@@ -12,12 +12,14 @@ type Props = {
 };
 
 const getOppiaineName = (koodiUrit: KoodiUrit) => {
-  const oppiaineenNimi = localize(koodiUrit.oppiaine.nimi);
-  if (!koodiUrit.kieli) {
-    return oppiaineenNimi;
-  } else {
-    const kieliPrefix = oppiaineenNimi.match(/^[A-Z]\d/g);
-    return `${kieliPrefix} ${localize(koodiUrit.kieli.nimi)}`;
+  if (koodiUrit) {
+    const oppiaineenNimi = localize(koodiUrit.oppiaine.nimi);
+    if (!koodiUrit.kieli) {
+      return oppiaineenNimi;
+    } else {
+      const kieliPrefix = oppiaineenNimi.match(/^[A-Z]\d/g);
+      return `${kieliPrefix} ${localize(koodiUrit.kieli.nimi)}`;
+    }
   }
 };
 
