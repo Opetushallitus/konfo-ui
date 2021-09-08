@@ -33,12 +33,12 @@ export const PainotetutArvosanat = ({ arvosanat }: Props) => {
           {t('valintaperuste.painotettavat-oppiaineet')}
         </Typography>
         <Grid item container xs={12} md={6}>
-          <Box width={'30%'}>
+          <Box width={'35%'}>
             <Typography id={toId(t('valintaperuste.oppiaine'))} variant="h5">
               {t('valintaperuste.oppiaine')}
             </Typography>
           </Box>
-          <Box width={'30%'}>
+          <Box width={'35%'}>
             <Typography id={toId(t('valintaperuste.painokerroin'))} variant="h5">
               {t('valintaperuste.painokerroin')}
             </Typography>
@@ -47,7 +47,7 @@ export const PainotetutArvosanat = ({ arvosanat }: Props) => {
         {arvosanat.map((arvosana, index) => {
           return (
             <Grid key={index} item container xs={12} md={6}>
-              <Box width={'30%'}>{getOppiaineName(arvosana.koodit)}</Box>
+              <Box width={'35%'}>{getOppiaineName(arvosana.koodit)}</Box>
               <Box>{arvosana.painokerroin.toString().replace('.', ',')}</Box>
             </Grid>
           );
