@@ -29,8 +29,8 @@ export const PainotetutArvosanat = ({ arvosanat }: Props) => {
   return (
     <Grid item container direction="column" xs={12}>
       <Grid item xs={12}>
-        <Typography id={toId(t('valintaperuste.painotetutArvosanat'))} variant="h2">
-          {t('valintaperuste.painotetutArvosanat')}
+        <Typography id={toId(t('valintaperuste.painotettavat-oppiaineet'))} variant="h2">
+          {t('valintaperuste.painotettavat-oppiaineet')}
         </Typography>
         <Grid item container xs={12} md={6}>
           <Box width={'30%'}>
