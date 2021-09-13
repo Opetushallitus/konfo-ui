@@ -20,8 +20,8 @@ export const Kuvaus = ({ kuvaus, sisalto = [] }: Props) => {
   const { t } = useTranslation();
 
   return (
-    <Grid item container direction="column" xs={12}>
-      <Box py={4}>
+    <Grid item container xs={12}>
+      <Box py={4} width="100%">
         <Divider />
       </Box>
       {!_fp.isEmpty(kuvaus) && (
