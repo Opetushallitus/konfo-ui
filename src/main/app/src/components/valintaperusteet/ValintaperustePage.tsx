@@ -85,6 +85,7 @@ const ValintaperusteContent = ({
             valintakokeetVisible,
             lisatiedotVisible,
             liitteetVisible,
+            painotetutArvosanatVisible,
           }}
         />
       </Grid>
