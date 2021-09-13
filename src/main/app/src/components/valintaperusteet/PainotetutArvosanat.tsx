@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box, Grid, Typography } from '@material-ui/core';
+import { Box, Divider, Grid, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 import { localize } from '#/src/tools/localization';
@@ -27,7 +27,10 @@ export const PainotetutArvosanat = ({ arvosanat }: Props) => {
   const { t } = useTranslation();
 
   return (
-    <Grid item container direction="column" xs={12}>
+    <Grid item container xs={12}>
+      <Box py={4} width="100%">
+        <Divider />
+      </Box>
       <Grid item xs={12}>
         <Typography id={toId(t('valintaperuste.painotettavat-oppiaineet'))} variant="h2">
           {t('valintaperuste.painotettavat-oppiaineet')}
