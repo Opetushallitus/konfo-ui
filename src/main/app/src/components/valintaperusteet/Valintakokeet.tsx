@@ -149,7 +149,6 @@ export const Valintakokeet = ({
         </Box>
       )}
       {valintakokeet.map(({ nimi, tyyppi, tilaisuudet, metadata = {} }, index) => {
-        const localizedTyyppi = localize(tyyppi?.nimi);
         const {
           ohjeetErityisjarjestelyihin,
           ohjeetEnnakkovalmistautumiseen,
@@ -168,7 +167,6 @@ export const Valintakokeet = ({
                 marginBottom: '20px',
               }}>
               <CardContent>
-                <Typography variant="body1">{localizedTyyppi}</Typography>
                 <Typography className={classes.valintakoeHeader} variant="h4">
                   {localize(nimi)}
                 </Typography>
