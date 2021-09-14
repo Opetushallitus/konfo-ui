@@ -32,11 +32,7 @@ export const Kuvaus = ({ kuvaus, sisalto = [] }: Props) => {
           <LocalizedHTML data={kuvaus} transform={tagHeaders} />
         </Box>
       )}
-      {sisalto?.length > 0 && (
-        <Box>
-          {sisalto.map(SisaltoComponent)}
-        </Box>
-      )}
+      {sisalto?.length > 0 && <Box>{sisalto.map(SisaltoComponent)}</Box>}
     </Grid>
   );
 };
