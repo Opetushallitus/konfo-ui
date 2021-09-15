@@ -16,6 +16,7 @@ import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
+import { Heading, HeadingBoundary } from '#/src/components/Heading';
 import { localize, localizeOsoite } from '#/src/tools/localization';
 import { useOsoitteet } from '#/src/tools/useOppilaitosOsoite';
 import { formatDateString, toId } from '#/src/tools/utils';
@@ -52,48 +53,50 @@ const LiiteCard = ({ liitteet, osoite, toimitusaika }: LiiteCardProps) => {
 
   return (
     <Box py={2}>
-      <Card elevation={2}>
-        <CardContent>
-          <Grid container>
-            {liitteet.map(({ nimi, kuvaus }, i) => (
-              <React.Fragment key={`liite-${nimi}-${i}`}>
-                <Grid container>
-                  <Grid item container xs={2} justify="flex-end">
-                    <FileIcon />
+      <HeadingBoundary>
+        <Card elevation={2}>
+          <CardContent>
+            <Grid container>
+              {liitteet.map(({ nimi, kuvaus }, i) => (
+                <React.Fragment key={`liite-${nimi}-${i}`}>
+                  <Grid container>
+                    <Grid item container xs={2} justify="flex-end">
+                      <FileIcon />
+                    </Grid>
+                    <Grid item xs={10}>
+                      <Box m={1}>
+                        <Heading variant="h5">{localize(nimi)}</Heading>
+                        <LocalizedHTML data={kuvaus} />
+                      </Box>
+                    </Grid>
                   </Grid>
-                  <Grid item xs={10}>
-                    <Box m={1}>
-                      <Typography variant="h5">{localize(nimi)}</Typography>
-                      <LocalizedHTML data={kuvaus} />
-                    </Box>
-                  </Grid>
-                </Grid>
-              </React.Fragment>
-            ))}
-            <Grid item xs={12}>
-              <Box m={1}>
-                <Divider />
-              </Box>
+                </React.Fragment>
+              ))}
+              <Grid item xs={12}>
+                <Box m={1}>
+                  <Divider />
+                </Box>
+              </Grid>
+              <Grid item xs={2}></Grid>
+              <Grid item xs={10}>
+                <Box m={1}>
+                  <Heading variant="h5">{t('valintaperuste.toimituspaikka')}</Heading>
+                  <Heading variant="body1">{osoite}</Heading>
+                </Box>
+              </Grid>
+              <Grid item xs={2}></Grid>
+              <Grid item xs={10}>
+                <Box m={1}>
+                  <Heading variant="h5">
+                    {t('valintaperuste.toimitettava-viimeistään')}
+                  </Heading>
+                  <Heading variant="body1">{formatDateString(toimitusaika)}</Heading>
+                </Box>
+              </Grid>
             </Grid>
-            <Grid item xs={2}></Grid>
-            <Grid item xs={10}>
-              <Box m={1}>
-                <Typography variant="h5">{t('valintaperuste.toimituspaikka')}</Typography>
-                <Typography variant="body1">{osoite}</Typography>
-              </Box>
-            </Grid>
-            <Grid item xs={2}></Grid>
-            <Grid item xs={10}>
-              <Box m={1}>
-                <Typography variant="h5">
-                  {t('valintaperuste.toimitettava-viimeistään')}
-                </Typography>
-                <Typography variant="body1">{formatDateString(toimitusaika)}</Typography>
-              </Box>
-            </Grid>
-          </Grid>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      </HeadingBoundary>
     </Box>
   );
 };
@@ -156,44 +159,48 @@ export const Liitteet = ({ liitteet, hakukohde, organisaatioOid }: Props) => {
       <Box py={4}>
         <Divider />
       </Box>
-      <Typography id={toId(t('valintaperuste.liitteet'))} variant="h2">
-        {t('valintaperuste.liitteet')}
-      </Typography>
-      {_.map(liitteetTyypeittain, (values, tyyppi) => (
-        <div key={`liitteet-${tyyppi}`}>
-          <Box py={2}>
-            <Typography id={toId(tyyppi)} variant="h4">
-              {tyyppi}
-            </Typography>
-          </Box>
-          {/* Jos liitteillä on yhteinen osoite JA aika, rendataan ne lyhyempinä listoina
+      <HeadingBoundary>
+        <Heading id={toId(t('valintaperuste.liitteet'))} variant="h2">
+          {t('valintaperuste.liitteet')}
+        </Heading>
+        {_.map(liitteetTyypeittain, (values, tyyppi) => (
+          <div key={`liitteet-${tyyppi}`}>
+            <HeadingBoundary>
+              <Box py={2}>
+                <Heading id={toId(tyyppi)} variant="h4">
+                  {tyyppi}
+                </Heading>
+              </Box>
+              {/* Jos liitteillä on yhteinen osoite JA aika, rendataan ne lyhyempinä listoina
               Muuten jokainen liite rendataan omana korttinaan */}
-          {yhteinenToimitusaika && yhteinenToimitusosoite ? (
-            <LiiteCard
-              liitteet={values}
-              osoite={yhteinenToimitusosoite!}
-              toimitusaika={yhteinenToimitusaika!}
-            />
-          ) : (
-            values.map((liite, index) => (
-              <LiiteCard
-                key={`liite-${index}`}
-                liitteet={[liite]}
-                osoite={
-                  yhteinenToimitusosoite ||
-                  getToimitusosoite(
-                    liite.toimitustapa,
-                    liite.toimitusosoite,
-                    hakijapalveluidenYhteystiedot,
-                    t
-                  )!
-                }
-                toimitusaika={yhteinenToimitusaika || liite.toimitusaika}
-              />
-            ))
-          )}
-        </div>
-      ))}
+              {yhteinenToimitusaika && yhteinenToimitusosoite ? (
+                <LiiteCard
+                  liitteet={values}
+                  osoite={yhteinenToimitusosoite!}
+                  toimitusaika={yhteinenToimitusaika!}
+                />
+              ) : (
+                values.map((liite, index) => (
+                  <LiiteCard
+                    key={`liite-${index}`}
+                    liitteet={[liite]}
+                    osoite={
+                      yhteinenToimitusosoite ||
+                      getToimitusosoite(
+                        liite.toimitustapa,
+                        liite.toimitusosoite,
+                        hakijapalveluidenYhteystiedot,
+                        t
+                      )!
+                    }
+                    toimitusaika={yhteinenToimitusaika || liite.toimitusaika}
+                  />
+                ))
+              )}
+            </HeadingBoundary>
+          </div>
+        ))}
+      </HeadingBoundary>
     </Grid>
   );
 };
