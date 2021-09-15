@@ -35,8 +35,10 @@ export const educationTypeColorCode: Record<string, string> = {
   lkBg: '#F2FBFF', // Highlight BG color
 
   // tuva
-  tuva: '#FF5000', // TODO Tarkistaa pitikö olla oranssi
-  tuvaBg: '#FFEDE5',
+  // KTO-1144: "Konfo-UI:n teemaväriä ei ole vielä hyväksytty, joten väri voi olla sama kuin ammatillisella koulutuksella (vihreä)"
+  tuva: colors.brandGreen,
+  // tuva: '#FF5000', // TODO Tarkistaa pitikö olla oranssi
+  // tuvaBg: '#FFEDE5',
 
   // TODO: What should these be?
   ako: '#1976D2', // Water Blue

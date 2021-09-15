@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import {
   AppBar,
@@ -86,6 +86,12 @@ export const MobileFiltersOnTopMenu = ({ isFrontPage = false }) => {
   const toggleShowFilters = useCallback(() => setShowFilters(!showFilters), [
     showFilters,
   ]);
+
+  useEffect(() => {
+    if (isFrontPage) {
+      dispatch(newSearchAll());
+    }
+  }, [isFrontPage, dispatch]);
 
   const handleFiltersShowToggle = () => {
     if (isFrontPage) {

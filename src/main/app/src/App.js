@@ -51,8 +51,8 @@ const useStyles = makeStyles((theme) => ({
     }),
     marginLeft: 0,
   },
-  smContent: {
-    marginTop: getHeaderHeight(theme),
+  smContent: (props) => ({
+    marginTop: getHeaderHeight(theme)(props),
     minWidth: 0,
     flexGrow: 1,
     padding: 0,
@@ -60,15 +60,13 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    marginLeft: '-100%',
-  },
-  smContentShift: {
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginLeft: 0,
-  },
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    overflow: 'hidden',
+    top: props?.menuVisible ? 0 : 'auto',
+    bottom: props?.menuVisible ? 0 : 'auto',
+  }),
 }));
 
 const KoulutusHakuBar = () => (
@@ -146,9 +144,10 @@ const TranslatedRoutes = ({ match, location }) => {
 const App = () => {
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
   const [betaBanner, setBetaBanner] = useState(true);
-  const classes = useStyles({ betaBannerVisible: betaBanner, isSmall });
 
   const [menuVisible, setMenuVisible] = useState(false);
+  const classes = useStyles({ betaBannerVisible: betaBanner, isSmall, menuVisible });
+
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
   };
@@ -176,7 +175,7 @@ const App = () => {
         <main
           id="app-main-content"
           className={clsx(isSmall ? classes.smContent : classes.content, {
-            [isSmall ? classes.smContentShift : classes.contentShift]: menuVisible,
+            [classes.contentShift]: menuVisible,
           })}>
           <HeadingBoundary>
             <Route path="/:lng?" component={TranslatedRoutes} />

@@ -84,6 +84,8 @@ export type ToteutusMetadata = {
   erityisetKoulutustehtavat: Array<{ koodi: Koodi; kuvaus: Translateable }>;
   diplomit: Array<Lukiodiplomi>;
   kielivalikoima: Kielivalikoima;
+  ammatillinenPerustutkintoErityisopetuksena: boolean;
+  tuvaErityisopetuksena: boolean;
 };
 
 export type Organisaatio = {
@@ -144,4 +146,6 @@ export type Jarjestaja = {
   toteutusNimi: string;
   tutkintonimikkeet: TODOType;
   hakukaynnissa: boolean;
+  ammatillinenPerustutkintoErityisopetuksena: boolean;
+  tuvaErityisopetuksena: boolean;
 };

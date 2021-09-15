@@ -12,9 +12,8 @@ describe('Kuvaus tooltip KOMOTO', () => {
 
     // Wait for everything to load
     cy.findByRole('progressbar').should('not.exist');
-    cy.get('h3').contains('Suunniteltu kesto');
     cy.findByRole('tooltip').should('not.exist');
-    cy.findByRole('heading', { name: /suunniteltu kesto/i })
+    cy.findByLabelText('Suunniteltu kesto')
       .parent()
       .parent()
       .within((s) => {
