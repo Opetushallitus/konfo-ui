@@ -52,7 +52,10 @@
     "kynnysehto": "Kynnysehto",
     "hakukohteenKynnysehto": "Hakukohteen kynnysehto",
     "liite-toimitustapa-lomake": "Toimitetaan lomakkeen lähettämisen yhteydessä",
-    "hakijapalveluiden-yhteystiedot-puuttuvat": "Oppilaitoksen hakijapalvelut (tiedot puuttuvat)"
+    "hakijapalveluiden-yhteystiedot-puuttuvat": "Oppilaitoksen hakijapalvelut (tiedot puuttuvat)",
+    "painotettavat-oppiaineet": "Painotettavat oppiaineet",
+    "oppiaine": "Oppiaine",
+    "painokerroin": "Painokerroin"
   },
   "palvelut": {
     "otsikko-muut-palvelut": "Muut palvelut",

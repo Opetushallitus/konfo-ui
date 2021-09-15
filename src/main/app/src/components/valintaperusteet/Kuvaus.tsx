@@ -20,23 +20,19 @@ export const Kuvaus = ({ kuvaus, sisalto = [] }: Props) => {
   const { t } = useTranslation();
 
   return (
-    <Grid item container direction="column" xs={12}>
+    <Grid item xs={12}>
       <Box py={4}>
         <Divider />
       </Box>
       {!_fp.isEmpty(kuvaus) && (
-        <Grid item xs={12}>
+        <Box>
           <Typography id={toId(t('valintaperuste.kuvaus'))} variant="h2">
             {t('valintaperuste.kuvaus')}
           </Typography>
           <LocalizedHTML data={kuvaus} transform={tagHeaders} />
-        </Grid>
+        </Box>
       )}
-      {sisalto?.length > 0 && (
-        <Grid item xs={12}>
-          {sisalto.map(SisaltoComponent)}
-        </Grid>
-      )}
+      {sisalto?.length > 0 && <Box>{sisalto.map(SisaltoComponent)}</Box>}
     </Grid>
   );
 };
