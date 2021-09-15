@@ -156,7 +156,6 @@ export const Valintakokeet = ({
             </Box>
           )}
           {valintakokeet.map(({ nimi, tyyppi, tilaisuudet, metadata = {} }, index) => {
-            const localizedTyyppi = localize(tyyppi?.nimi);
             const {
               ohjeetErityisjarjestelyihin,
               ohjeetEnnakkovalmistautumiseen,
@@ -175,13 +174,7 @@ export const Valintakokeet = ({
                     marginBottom: '20px',
                   }}>
                   <CardContent>
-                    <Heading variant="body1">
-                      {localizedTyyppi}
-                      <hr style={{ borderStyle: 'none', margin: 0 }} />
-                      <Box style={{ fontSize: '20px', fontWeight: 'bold' }}>
-                        {localize(nimi)}
-                      </Box>
-                    </Heading>
+                    <Heading variant="h4">{localize(nimi)}</Heading>
                     {!_.isEmpty(tietoja) && <LocalizedHTML data={tietoja!} />}
                     <HeadingBoundary>
                       {vahimmaispisteet && (
