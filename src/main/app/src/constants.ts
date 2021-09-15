@@ -43,12 +43,14 @@ export const LANG_NAME_BY_CODE = {
 } as const;
 
 // TODO: loput tyypit
-export const KOULUTUS_TYYPPI = {
-  AMM: 'amm',
-  AMM_TUTKINNON_OSA: 'amm-tutkinnon-osa',
-  AMM_OSAAMISALA: 'amm-osaamisala',
-  TUVA: 'tuva',
-} as const;
+export enum KOULUTUS_TYYPPI {
+  AMM = 'amm',
+  AMM_TUTKINNON_OSA = 'amm-tutkinnon-osa',
+  AMM_OSAAMISALA = 'amm-osaamisala',
+  TUVA = 'tuva',
+  VAPAA_SIVISTYSTYO_OPISTOVUOSI = 'vapaa-sivistystyo-opistovuosi',
+  VAPAA_SIVISTYSTYO_MUU = 'vapaa-sivistystyo-muu',
+}
 
 export const KOULUTUS_TYYPPI_MUU = {
   AMM_MUU: 'amm-muu',
@@ -57,6 +59,8 @@ export const KOULUTUS_TYYPPI_MUU = {
 } as const;
 
 export const KOULUTUS_TYYPPI_MUU_ARR = Object.values(KOULUTUS_TYYPPI_MUU);
+
+export type Koulutustyyppi = typeof KOULUTUS_TYYPPI[keyof typeof KOULUTUS_TYYPPI];
 
 export const HAKULOMAKE_TYYPPI = {
   EI_SAHKOISTA: 'ei sähköistä',

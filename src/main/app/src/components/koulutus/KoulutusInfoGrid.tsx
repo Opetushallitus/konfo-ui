@@ -6,11 +6,10 @@ import SchoolOutlinedIcon from '@material-ui/icons/SchoolOutlined';
 import TimelapseIcon from '@material-ui/icons/Timelapse';
 import { useTranslation } from 'react-i18next';
 
-import { KOULUTUS_TYYPPI } from '#/src/constants';
+import { InfoGrid } from '#/src/components/common/InfoGrid';
+import { Koulutustyyppi, KOULUTUS_TYYPPI } from '#/src/constants';
 import { localize } from '#/src/tools/localization';
 import { Translateable } from '#/src/types/common';
-
-import { InfoGrid } from '../common/InfoGrid';
 
 const useStyles = makeStyles((theme) => ({
   koulutusInfoGridIcon: {
@@ -18,14 +17,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const hasNimike = (tyyppi?: string) =>
-  tyyppi !== KOULUTUS_TYYPPI.AMM_TUTKINNON_OSA &&
-  tyyppi !== KOULUTUS_TYYPPI.AMM_OSAAMISALA &&
-  tyyppi !== KOULUTUS_TYYPPI.TUVA;
+const hasNimike = (tyyppi?: Koulutustyyppi) =>
+  ![
+    KOULUTUS_TYYPPI.AMM_TUTKINNON_OSA,
+    KOULUTUS_TYYPPI.AMM_OSAAMISALA,
+    KOULUTUS_TYYPPI.TUVA,
+    KOULUTUS_TYYPPI.VAPAA_SIVISTYSTYO_OPISTOVUOSI,
+    KOULUTUS_TYYPPI.VAPAA_SIVISTYSTYO_MUU,
+  ].includes(tyyppi as Koulutustyyppi);
 
 type Props = {
   nimikkeet: Array<Translateable>;
-  koulutustyyppi?: string;
+  koulutustyyppi?: Koulutustyyppi;
   laajuus: string;
   className?: string;
 };
