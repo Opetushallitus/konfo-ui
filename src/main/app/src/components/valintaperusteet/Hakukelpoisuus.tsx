@@ -1,9 +1,10 @@
 import React from 'react';
 
-import { Box, Divider, Grid, Typography } from '@material-ui/core';
+import { Box, Divider, Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
+import { Heading, HeadingBoundary } from '#/src/components/Heading';
 import { toId } from '#/src/tools/utils';
 import { Translateable } from '#/src/types/common';
 
@@ -20,10 +21,12 @@ export const Hakukelpoisuus = ({ hakukelpoisuus }: Props) => {
         <Divider />
       </Box>
 
-      <Typography id={toId(t('valintaperuste.hakukelpoisuus'))} variant="h2">
-        {t('valintaperuste.hakukelpoisuus')}
-      </Typography>
-      <LocalizedHTML data={hakukelpoisuus} />
+      <HeadingBoundary>
+        <Heading id={toId(t('valintaperuste.hakukelpoisuus'))} variant="h2">
+          {t('valintaperuste.hakukelpoisuus')}
+        </Heading>
+        <LocalizedHTML data={hakukelpoisuus} />
+      </HeadingBoundary>
     </Grid>
   );
 };
