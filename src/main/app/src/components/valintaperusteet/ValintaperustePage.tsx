@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 
-import { Box, Grid, makeStyles, Typography } from '@material-ui/core';
+import { Grid, makeStyles } from '@material-ui/core';
 import _fp from 'lodash/fp';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom';
 
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import Murupolku from '#/src/components/common/Murupolku';
+import { Heading } from '#/src/components/Heading';
 import { NotFound } from '#/src/NotFound';
 import { getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
 import { localize } from '#/src/tools/localization';
@@ -152,11 +153,7 @@ export const ValintaperustePreviewPage = () => {
       className={classes.container}>
       <Grid item xs={12} md={3} />
       <Grid item xs={12} md={6}>
-        <Box pb={2}>
-          <Typography variant="h1" component="h1">
-            {t('lomake.valintaperusteet')}
-          </Typography>
-        </Box>
+        <Heading>{t('lomake.valintaperusteet')}</Heading>
       </Grid>
       <Grid item xs={12} md={3} />
       <ValintaperusteContent
@@ -233,11 +230,7 @@ export const ValintaperustePage = () => {
         <Grid item xs={12} md={3} />
         <Grid item xs={12} md={6}>
           <Paluu paluuLinkki={toteutusLink} />
-          <Box pb={2}>
-            <Typography variant="h1" component="h1">
-              {t('lomake.valintaperusteet')}
-            </Typography>
-          </Box>
+          <Heading>{t('lomake.valintaperusteet')}</Heading>
         </Grid>
         <Grid item xs={12} md={3} />
         <ValintaperusteContent
