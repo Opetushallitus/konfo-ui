@@ -1,14 +1,6 @@
 import React from 'react';
 
-import {
-  Box,
-  Card,
-  CardContent,
-  Divider,
-  Grid,
-  Typography,
-  withStyles,
-} from '@material-ui/core';
+import { Box, Card, CardContent, Divider, Grid, withStyles } from '@material-ui/core';
 import InsertDriveFileOutlinedIcon from '@material-ui/icons/InsertDriveFileOutlined';
 import { TFunction } from 'i18next';
 import _ from 'lodash';
