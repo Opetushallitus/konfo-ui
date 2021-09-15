@@ -45,26 +45,33 @@ const TilaisuusComponent = ({
     aika: { alkaa, paattyy },
   },
 }: TilaisuusProps) => {
+  const classes = useStyles();
   const { t } = useTranslation();
   return (
     <Grid style={{ padding: '10px 20px' }} container key={`koetilaisuus-${index}`}>
       <HeadingBoundary>
         <Grid item xs={6}>
           <Box py={1}>
-            <Heading variant="h5">{t('valintaperuste.alkaa')}</Heading>
+            <Heading className={classes.valintakoeSubHeader} variant="h5">
+              {t('valintaperuste.alkaa')}
+            </Heading>
             <Typography variant="body1">{formatDateString(alkaa)}</Typography>
           </Box>
         </Grid>
         <Grid item xs={6}>
           <Box py={1}>
-            <Heading variant="h5">{t('valintaperuste.paattyy')}</Heading>
+            <Heading className={classes.valintakoeSubHeader} variant="h5">
+              {t('valintaperuste.paattyy')}
+            </Heading>
             <Typography variant="body1">{formatDateString(paattyy)}</Typography>
           </Box>
         </Grid>
         {postinumero ? (
           <Grid item xs={12}>
             <Box py={1}>
-              <Heading variant="h5">{t('valintaperuste.jarjestyspaikka')}</Heading>
+              <Heading className={classes.valintakoeSubHeader} variant="h5">
+                {t('valintaperuste.jarjestyspaikka')}
+              </Heading>
               <Typography variant="body1">{localize(jarjestamispaikka)}</Typography>
               <Typography variant="body1">
                 {localizeOsoite(osoite, postinumero)}
@@ -75,7 +82,9 @@ const TilaisuusComponent = ({
         {!_.isEmpty(lisatietoja) && (
           <Grid item xs={12}>
             <Box py={1}>
-              <Heading variant="h5">{t('valintaperuste.lisatietoja')}</Heading>
+              <Heading className={classes.valintakoeSubHeader} variant="h5">
+                {t('valintaperuste.lisatietoja')}
+              </Heading>
               <LocalizedHTML data={lisatietoja!} defaultValue="-" />
             </Box>
           </Grid>
