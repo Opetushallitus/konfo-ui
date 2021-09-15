@@ -1,8 +1,9 @@
 import React from 'react';
 
-import { Box, Divider, Grid, makeStyles, Typography } from '@material-ui/core';
+import { Box, Divider, Grid, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
+import { Heading, HeadingBoundary } from '#/src/components/Heading';
 import { localize } from '#/src/tools/localization';
 import { toId } from '#/src/tools/utils';
 import { PainotettuArvosana, KoodiUrit } from '#/src/types/HakukohdeTypes';
@@ -46,30 +47,32 @@ export const PainotetutArvosanat = ({ arvosanat }: Props) => {
         <Divider />
       </Box>
       <Box>
-        <Typography
-          id={toId(t('valintaperuste.painotettavat-oppiaineet'))}
-          variant="h2"
-          style={{ marginBottom: '8px' }}>
-          {t('valintaperuste.painotettavat-oppiaineet')}
-        </Typography>
-        <Box>
-          <table className={classes.table}>
-            <tbody>
-              <tr>
-                <th className={classes.cell}>{t('valintaperuste.oppiaine')}</th>
-                <th className={classes.cell}>{t('valintaperuste.painokerroin')}</th>
-              </tr>
-              {arvosanat.map((arvosana, index) => (
-                <tr key={index}>
-                  <td className={classes.cell}>{getOppiaineName(arvosana.koodit)}</td>
-                  <td className={classes.cell}>
-                    {arvosana.painokerroin.toString().replace('.', ',')}
-                  </td>
+        <HeadingBoundary>
+          <Heading
+            id={toId(t('valintaperuste.painotettavat-oppiaineet'))}
+            variant="h2"
+            style={{ marginBottom: '8px' }}>
+            {t('valintaperuste.painotettavat-oppiaineet')}
+          </Heading>
+          <Box>
+            <table className={classes.table}>
+              <tbody>
+                <tr>
+                  <th className={classes.cell}>{t('valintaperuste.oppiaine')}</th>
+                  <th className={classes.cell}>{t('valintaperuste.painokerroin')}</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </Box>
+                {arvosanat.map((arvosana, index) => (
+                  <tr key={index}>
+                    <td className={classes.cell}>{getOppiaineName(arvosana.koodit)}</td>
+                    <td className={classes.cell}>
+                      {arvosana.painokerroin.toString().replace('.', ',')}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </Box>
+        </HeadingBoundary>
       </Box>
     </Grid>
   );
