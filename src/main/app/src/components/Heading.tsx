@@ -16,6 +16,9 @@ export const HeadingBoundary: React.FC = ({ children }) => {
 
 export const Heading = ({ children, variant, ...props }: TypographyProps) => {
   const level = useContext(HeadingLevelContext);
+  if (level === 0) {
+    throw Error('Heading used outside HeadingBoundary!');
+  }
 
   const component = `h${Math.min(6, level)}`;
 
