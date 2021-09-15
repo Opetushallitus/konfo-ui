@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { CookieModal } from '#/src/components/common/CookieModal';
+import { HeadingBoundary } from '#/src/components/Heading';
 import { NotFound } from '#/src/NotFound';
 import { supportedLanguages } from '#/src/tools/i18n';
 
@@ -177,9 +178,11 @@ const App = () => {
           className={clsx(isSmall ? classes.smContent : classes.content, {
             [isSmall ? classes.smContentShift : classes.contentShift]: menuVisible,
           })}>
-          <Route path="/:lng?" component={TranslatedRoutes} />
-          <Palvelut />
-          <Footer />
+          <HeadingBoundary>
+            <Route path="/:lng?" component={TranslatedRoutes} />
+            <Palvelut />
+            <Footer />
+          </HeadingBoundary>
         </main>
       </Box>
       <PalautePopup />
