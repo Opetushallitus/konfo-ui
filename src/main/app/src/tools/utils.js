@@ -1,10 +1,10 @@
 import { format } from 'date-fns';
+import { formatToTimeZone } from 'date-fns-timezone';
 import _fp from 'lodash/fp';
 import ReactHtmlParser from 'react-html-parser';
 import stripTags from 'striptags';
 
-import i18n from './i18n';
-import { getTranslationForKey, localize } from './localization';
+import { getLanguage, getTranslationForKey, localize } from './localization';
 
 export const Common = {
   // Filters all untruthy values, we do not want false or 0 values sent
@@ -59,13 +59,20 @@ export function formatDateString(dateString, dateFormat = 'd.M.y HH:mm') {
     return '';
   }
 
-  const klo = i18n.t('lomake.klo');
+  const date = new Date(dateString);
 
-  if (klo !== '') {
-    dateFormat = "d.M.y 'klo' HH:mm";
+  switch (getLanguage()) {
+    case 'fi':
+      return format(date, "d.M.y 'klo' HH:mm");
+    case 'en':
+      return formatToTimeZone(date, 'd MMMM YYYY h:mm A z', {
+        timeZone: 'Europe/Helsinki',
+      });
+    case 'sv':
+      return format(date, "d.M.y 'kl.' HH:mm");
+    default:
+      return format(date, "d.M.y 'klo' HH:mm");
   }
-
-  return format(new Date(dateString), dateFormat);
 }
 
 export const formatDateRange = (start, end, dateFormat) =>
