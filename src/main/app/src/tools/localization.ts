@@ -64,3 +64,6 @@ export const getLocalizedMaksullisuus = (
       }${maksuAmount} € 
       `
     : getTranslationForKey('toteutus.maksuton');
+
+export const localizeLukiolinja = (koodi: Koodi) =>
+  localize(koodi)?.match(/^(.+)(\s\(.+\))$/)?.[1];

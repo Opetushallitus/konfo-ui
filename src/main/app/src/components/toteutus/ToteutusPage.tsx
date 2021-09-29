@@ -32,7 +32,7 @@ import {
   selectLoading as selectToteutusLoading,
   selectToteutus,
 } from '#/src/store/reducers/toteutusSlice';
-import { getLanguage, localize } from '#/src/tools/localization';
+import { getLanguage, localize, localizeLukiolinja } from '#/src/tools/localization';
 import { getLocalizedOpintojenLaajuus, sanitizedHTMLParser } from '#/src/tools/utils';
 import { Toteutus } from '#/src/types/ToteutusTypes';
 
@@ -215,7 +215,7 @@ export const ToteutusPage = () => {
           <AccordionWithTitle
             titleTranslationKey="toteutus.painotukset"
             data={painotukset.map((painotus: any) => ({
-              title: localize(painotus.koodi),
+              title: localizeLukiolinja(painotus.koodi),
               content: <LocalizedHTML data={painotus?.kuvaus} />,
             }))}
           />
@@ -224,7 +224,7 @@ export const ToteutusPage = () => {
           <AccordionWithTitle
             titleTranslationKey="toteutus.erityiset-koulutustehtavat"
             data={erityisetKoulutustehtavat.map((koulutustehtava: any) => ({
-              title: localize(koulutustehtava?.koodi),
+              title: localizeLukiolinja(koulutustehtava?.koodi),
               content: <LocalizedHTML data={koulutustehtava?.kuvaus} />,
             }))}
           />
