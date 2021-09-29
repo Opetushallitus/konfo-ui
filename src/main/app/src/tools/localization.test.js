@@ -15,7 +15,11 @@ describe('localization', () => {
   });
 
   test.each([
-    [{ nimi: { fi: 'Lukion kuvataidelinja (lukio painotus)' } }, 'Lukion kuvataidelinja'],
+    [{ nimi: { fi: 'Lukion kuvataidelinja' } }, 'Lukion kuvataidelinja'],
+    [
+      { nimi: { fi: 'Lukion kuvataidelinja (erityinen koulutustehtävä)' } },
+      'Lukion kuvataidelinja',
+    ],
     [{}, undefined],
   ])('localizeLukiolinja', (koodi, lukiolinjaTitle) => {
     expect(localizeLukiolinja(koodi)).toEqual(lukiolinjaTitle);
