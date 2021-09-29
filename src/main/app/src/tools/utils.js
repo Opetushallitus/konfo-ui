@@ -54,13 +54,12 @@ export const getSearchAddress = (postitoimipaikka = '', osoite = '') => {
   };
 };
 
-export function formatDateString(dateString, dateFormat = 'd.M.y HH:mm') {
+export function formatDateString(dateString) {
   if (!dateString) {
     return '';
   }
 
   const date = new Date(dateString);
-
   switch (getLanguage()) {
     case 'fi':
       return format(date, "d.M.y 'klo' HH:mm");
@@ -75,10 +74,8 @@ export function formatDateString(dateString, dateFormat = 'd.M.y HH:mm') {
   }
 }
 
-export const formatDateRange = (start, end, dateFormat) =>
-  `${formatDateString(start, dateFormat)} \u2013 ${
-    end ? formatDateString(end, dateFormat) : ''
-  }`;
+export const formatDateRange = (start, end) =>
+  `${formatDateString(start)} \u2013 ${end ? formatDateString(end) : ''}`;
 
 const ALLOWED_HTML_TAGS = [
   'a',

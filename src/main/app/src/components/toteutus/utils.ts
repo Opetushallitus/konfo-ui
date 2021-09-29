@@ -1,8 +1,8 @@
-import { format } from 'date-fns';
 import { TFunction } from 'i18next';
 
 import { Alkamiskausityyppi } from '#/src/constants';
 import { localize } from '#/src/tools/localization';
+import { formatDateString } from '#/src/tools/utils';
 import { Alkamiskausi } from '#/src/types/common';
 
 export const formatAloitus = (
@@ -24,9 +24,9 @@ export const formatAloitus = (
       };
     case Alkamiskausityyppi.TARKKA_ALKAMISAJANKOHTA:
       return {
-        alkaaText: format(new Date(koulutuksenAlkamispaivamaara), 'd.M.y'),
+        alkaaText: formatDateString(new Date(koulutuksenAlkamispaivamaara)),
         paattyyText: koulutuksenPaattymispaivamaara
-          ? format(new Date(koulutuksenPaattymispaivamaara), 'd.M.y')
+          ? formatDateString(new Date(koulutuksenPaattymispaivamaara))
           : null,
       };
     case Alkamiskausityyppi.ALKAMISKAUSI_JA_VUOSI:

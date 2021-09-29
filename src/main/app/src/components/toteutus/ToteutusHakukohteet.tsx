@@ -13,7 +13,6 @@ import {
 import AutorenewIcon from '@material-ui/icons/Autorenew';
 import CalendarTodayOutlinedIcon from '@material-ui/icons/CalendarTodayOutlined';
 import PinDrop from '@material-ui/icons/PinDrop';
-import { format } from 'date-fns';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
@@ -26,7 +25,7 @@ import Spacer from '#/src/components/common/Spacer';
 import { HAKULOMAKE_TYYPPI } from '#/src/constants';
 import { localize } from '#/src/tools/localization';
 import { useOsoitteet } from '#/src/tools/useOppilaitosOsoite';
-import { formatDouble } from '#/src/tools/utils';
+import { formatDateString, formatDouble } from '#/src/tools/utils';
 import { Translateable } from '#/src/types/common';
 import { Hakukohde } from '#/src/types/HakukohdeTypes';
 
@@ -150,7 +149,7 @@ const HakuCardGrid = ({ tyyppiOtsikko, haut, icon }: GridProps) => {
                               size: anyHakuaikaPaattyy ? 6 : 12,
                               heading: t('toteutus.haku-alkaa:'),
                               content: haku.hakuajat.map((hakuaika) =>
-                                format(new Date(hakuaika.alkaa), 'd.M.y H:mm')
+                                formatDateString(new Date(hakuaika.alkaa))
                               ),
                             },
                             anyHakuaikaPaattyy && {
@@ -159,7 +158,7 @@ const HakuCardGrid = ({ tyyppiOtsikko, haut, icon }: GridProps) => {
                               content: haku.hakuajat.map(
                                 (hakuaika) =>
                                   hakuaika.paattyy
-                                    ? format(new Date(hakuaika.paattyy), 'd.M.y H:mm')
+                                    ? formatDateString(new Date(hakuaika.paattyy))
                                     : '-' // This is needed for the alkuu & paattyy to be rendered on the same row
                               ),
                             },
