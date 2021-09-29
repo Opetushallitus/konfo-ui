@@ -174,7 +174,7 @@ const HakuCardGrid = ({ tyyppiOtsikko, haut, icon }: GridProps) => {
                               heading: t('toteutus.koulutus-paattyy:'),
                               content: [paattyyText],
                             },
-                            haku.hakukohteenLinja && {
+                            haku.hakukohteenLinja?.alinHyvaksyttyKeskiarvo && {
                               size: 12,
                               heading: t('toteutus.alin-hyvaksytty-keskiarvo'),
                               content: [
