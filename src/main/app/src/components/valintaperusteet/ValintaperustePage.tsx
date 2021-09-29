@@ -70,6 +70,7 @@ const ValintaperusteContent = ({
   const valintatavatVisible =
     valintatavat?.length > 0 || !_fp.isEmpty(hakukohde?.metadata?.kynnysehto);
   const valintakokeetVisible = valintakokeet?.length > 0;
+  const yleiskuvauksetVisible = !_fp.isEmpty(yleiskuvaukset);
   const lisatiedotVisible = !_fp.isEmpty(lisatiedot);
   const liitteetVisible = hakukohde?.liitteet.length > 0;
   const painotetutArvosanatVisible =
@@ -104,7 +105,7 @@ const ValintaperusteContent = ({
             hakukohteenKynnysehto={hakukohde?.metadata?.kynnysehto}
           />
         )}
-        {valintakokeetVisible && (
+        {(valintakokeetVisible || yleiskuvauksetVisible) && (
           <Valintakokeet yleiskuvaukset={yleiskuvaukset} valintakokeet={valintakokeet} />
         )}
         {lisatiedotVisible && <Lisatiedot lisatiedot={lisatiedot} />}
