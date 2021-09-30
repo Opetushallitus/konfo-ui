@@ -61,14 +61,13 @@ export function formatDateString(dateString) {
 
   const date = new Date(dateString);
   switch (getLanguage()) {
-    case 'fi':
-      return format(date, "d.M.y 'klo' HH:mm");
     case 'en':
       return formatToTimeZone(date, 'd MMMM YYYY h:mm A z', {
         timeZone: 'Europe/Helsinki',
       });
     case 'sv':
       return format(date, "d.M.y 'kl.' HH:mm");
+    case 'fi':
     default:
       return format(date, "d.M.y 'klo' HH:mm");
   }
