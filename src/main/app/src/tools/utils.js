@@ -1,5 +1,4 @@
-import { format } from 'date-fns';
-import { formatToTimeZone } from 'date-fns-timezone';
+import { format } from 'date-fns-tz';
 import _fp from 'lodash/fp';
 import ReactHtmlParser from 'react-html-parser';
 import stripTags from 'striptags';
@@ -62,7 +61,7 @@ export function formatDateString(dateString) {
   const date = new Date(dateString);
   switch (getLanguage()) {
     case 'en':
-      return formatToTimeZone(date, 'd MMMM YYYY h:mm A z', {
+      return format(date, 'd MMMM yyyy h:mm a z', {
         timeZone: 'Europe/Helsinki',
       });
     case 'sv':
