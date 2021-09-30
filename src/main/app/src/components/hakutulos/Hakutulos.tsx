@@ -48,13 +48,24 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 1600,
     margin: 'auto',
   },
+  rajaaTuloksia: {
+    [theme.breakpoints.up('sm')]: {
+      'min-width': 300
+    }
+  },
   paperRoot: {
     width: '100%',
     boxShadow: 'none',
-    [theme.breakpoints.down('xl')]: {
+    [theme.breakpoints.up(1921)]: {
       padding: theme.spacing(1, 11),
     },
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.between(1601, 1921)]: {
+      padding: theme.spacing(1, 11),
+    },
+    [theme.breakpoints.between(900, 1601)]: {
+      padding: theme.spacing(1, 2),
+    },
+    [theme.breakpoints.down(900)]: {
       padding: theme.spacing(1, 1),
     },
   },
@@ -234,7 +245,7 @@ export const Hakutulos = () => {
           </Grid>
         </Grid>
         <Grid item container spacing={2}>
-          <Grid item lg={3} md={4} sm={12} xs={12}>
+          <Grid item lg={3} md={4} sm={12} xs={12} className={classes.rajaaTuloksia}>
             <Hidden mdUp>
               <MobileFiltersOnTopMenu />
             </Hidden>
