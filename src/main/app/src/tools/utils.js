@@ -1,10 +1,10 @@
 import { format } from 'date-fns';
+import { formatToTimeZone } from 'date-fns-timezone';
 import _fp from 'lodash/fp';
 import ReactHtmlParser from 'react-html-parser';
 import stripTags from 'striptags';
 
-import i18n from './i18n';
-import { getTranslationForKey, localize } from './localization';
+import { getLanguage, getTranslationForKey, localize } from './localization';
 
 export const Common = {
   // Filters all untruthy values, we do not want false or 0 values sent
@@ -54,24 +54,27 @@ export const getSearchAddress = (postitoimipaikka = '', osoite = '') => {
   };
 };
 
-export function formatDateString(dateString, dateFormat = 'd.M.y HH:mm') {
+export function formatDateString(dateString) {
   if (!dateString) {
     return '';
   }
 
-  const klo = i18n.t('lomake.klo');
-
-  if (klo !== '') {
-    dateFormat = "d.M.y 'klo' HH:mm";
+  const date = new Date(dateString);
+  switch (getLanguage()) {
+    case 'en':
+      return formatToTimeZone(date, 'd MMMM YYYY h:mm A z', {
+        timeZone: 'Europe/Helsinki',
+      });
+    case 'sv':
+      return format(date, "d.M.y 'kl.' HH:mm");
+    case 'fi':
+    default:
+      return format(date, "d.M.y 'klo' HH:mm");
   }
-
-  return format(new Date(dateString), dateFormat);
 }
 
-export const formatDateRange = (start, end, dateFormat) =>
-  `${formatDateString(start, dateFormat)} \u2013 ${
-    end ? formatDateString(end, dateFormat) : ''
-  }`;
+export const formatDateRange = (start, end) =>
+  `${formatDateString(start)} \u2013 ${end ? formatDateString(end) : ''}`;
 
 const ALLOWED_HTML_TAGS = [
   'a',
