@@ -1,4 +1,4 @@
-import { localizeOsoite } from './localization';
+import { localizeLukiolinja, localizeOsoite } from './localization';
 
 describe('localization', () => {
   test.each([
@@ -12,5 +12,16 @@ describe('localization', () => {
     [undefined, { koodiUri: 'posti_00000#1', nimi: { fi: 'Helsinki' } }, ''],
   ])('localizeOsoite', (osoite, postinumero, fullAddress) => {
     expect(localizeOsoite(osoite, postinumero)).toEqual(fullAddress);
+  });
+
+  test.each([
+    [{ nimi: { fi: 'Lukion kuvataidelinja' } }, 'Lukion kuvataidelinja'],
+    [
+      { nimi: { fi: 'Lukion kuvataidelinja (erityinen koulutustehtävä)' } },
+      'Lukion kuvataidelinja',
+    ],
+    [{}, undefined],
+  ])('localizeLukiolinja', (koodi, lukiolinjaTitle) => {
+    expect(localizeLukiolinja(koodi)).toEqual(lukiolinjaTitle);
   });
 });
