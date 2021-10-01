@@ -186,7 +186,7 @@ const HakuCardGrid = ({ tyyppiOtsikko, haut, icon }: GridProps) => {
                             },
                             !_.isEmpty(haku.hakukohteenLinja?.lisatietoa) && {
                               size: 12,
-                              heading: t('Lisätietoa'),
+                              heading: t('toteutus.lisätietoa'),
                               content: [],
                               modalText: haku.hakukohteenLinja?.lisatietoa,
                             },
