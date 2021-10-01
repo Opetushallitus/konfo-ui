@@ -173,7 +173,7 @@ const HakuCardGrid = ({ tyyppiOtsikko, haut, icon }: GridProps) => {
                               heading: t('toteutus.koulutus-paattyy:'),
                               content: [paattyyText],
                             },
-                            haku.hakukohteenLinja && {
+                            haku.hakukohteenLinja?.alinHyvaksyttyKeskiarvo && {
                               size: 12,
                               heading: t('toteutus.alin-hyvaksytty-keskiarvo'),
                               content: [
@@ -182,7 +182,12 @@ const HakuCardGrid = ({ tyyppiOtsikko, haut, icon }: GridProps) => {
                                   1
                                 ),
                               ],
-                              modalText: haku.hakukohteenLinja.lisatietoa,
+                            },
+                            !_.isEmpty(haku.hakukohteenLinja?.lisatietoa) && {
+                              size: 12,
+                              heading: t('toteutus.lisätietoa'),
+                              content: [],
+                              modalText: haku.hakukohteenLinja?.lisatietoa,
                             },
                             {
                               size: 6,
