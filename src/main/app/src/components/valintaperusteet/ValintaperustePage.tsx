@@ -70,7 +70,9 @@ const ValintaperusteContent = ({
   const valintatavatVisible =
     valintatavat?.length > 0 || !_fp.isEmpty(hakukohde?.metadata?.kynnysehto);
   const valintakokeetVisible = valintakokeet?.length > 0;
-  const yleiskuvauksetVisible = !_fp.isEmpty(yleiskuvaukset);
+  const yleiskuvauksetVisible =
+    !_fp.isEmpty(yleiskuvaukset?.hakukohde) ||
+    !_fp.isEmpty(yleiskuvaukset?.valintaperuste);
   const lisatiedotVisible = !_fp.isEmpty(lisatiedot);
   const liitteetVisible = hakukohde?.liitteet.length > 0;
   const painotetutArvosanatVisible =
