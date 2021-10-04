@@ -50,8 +50,8 @@ const useStyles = makeStyles((theme) => ({
   },
   rajaaTuloksia: {
     [theme.breakpoints.up('sm')]: {
-      'min-width': 300
-    }
+      'min-width': 300,
+    },
   },
   paperRoot: {
     width: '100%',
