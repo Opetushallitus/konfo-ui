@@ -8,7 +8,7 @@ import { colors } from '../colors';
 import { Hakupalkki } from './haku/Hakupalkki';
 import { ReactiveBorder } from './ReactiveBorder';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   callToAction: {
     backgroundImage: `url(${Image})`,
     backgroundRepeat: 'no-repeat',
@@ -19,6 +19,15 @@ const useStyles = makeStyles(() => ({
   jumpotron: {
     backgroundColor: colors.brandGreen,
     marginTop: '85px',
+    [theme.breakpoints.down('lg')]: {
+      'min-width': 600,
+    },
+    [theme.breakpoints.down('md')]: {
+      'min-width': 200,
+    },
+    [theme.breakpoints.up('lg')]: {
+      'min-width': 800,
+    },
   },
   title: {
     color: colors.white,
