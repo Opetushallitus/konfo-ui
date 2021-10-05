@@ -72,7 +72,7 @@ export const ToteutusPage = () => {
     diplomit,
     kielivalikoima,
     ammatillinenPerustutkintoErityisopetuksena,
-    tuvaErityisopetuksena,
+    jarjestetaanErityisopetuksena,
   } = toteutus?.metadata ?? {};
   const koulutus = useSelector(selectKoulutus(koulutusOid), shallowEqual);
   const haut = useSelector(selectHakukohteet(oid), shallowEqual);
@@ -115,7 +115,7 @@ export const ToteutusPage = () => {
   let erityisopetusText = '';
   if (ammatillinenPerustutkintoErityisopetuksena) {
     erityisopetusText = t('toteutus.amm-erityisopetus-teksti');
-  } else if (tuvaErityisopetuksena) {
+  } else if (jarjestetaanErityisopetuksena) {
     erityisopetusText = t('toteutus.tuva-erityisopetus-teksti');
   }
 
