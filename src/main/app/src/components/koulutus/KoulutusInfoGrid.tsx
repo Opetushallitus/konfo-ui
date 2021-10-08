@@ -24,6 +24,7 @@ const hasNimike = (tyyppi?: Koulutustyyppi) =>
     KOULUTUS_TYYPPI.TUVA,
     KOULUTUS_TYYPPI.VAPAA_SIVISTYSTYO_OPISTOVUOSI,
     KOULUTUS_TYYPPI.VAPAA_SIVISTYSTYO_MUU,
+    KOULUTUS_TYYPPI.TELMA,
   ].includes(tyyppi as Koulutustyyppi);
 
 type Props = {

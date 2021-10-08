@@ -257,7 +257,7 @@ export const ToteutusList = ({ oid }: Props) => {
                 header={localize(toteutus.toteutusNimi)}
                 erityisopetusHeader={
                   toteutus.ammatillinenPerustutkintoErityisopetuksena ||
-                  toteutus.tuvaErityisopetuksena
+                  toteutus.jarjestetaanErityisopetuksena
                 }
                 kuvaus={localize(toteutus.kuvaus)}
                 wrapDirection="column-reverse"

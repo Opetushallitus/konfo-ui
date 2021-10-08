@@ -50,6 +50,7 @@ export enum KOULUTUS_TYYPPI {
   TUVA = 'tuva',
   VAPAA_SIVISTYSTYO_OPISTOVUOSI = 'vapaa-sivistystyo-opistovuosi',
   VAPAA_SIVISTYSTYO_MUU = 'vapaa-sivistystyo-muu',
+  TELMA = 'telma',
 }
 
 export const KOULUTUS_TYYPPI_MUU = {
