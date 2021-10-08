@@ -34,6 +34,8 @@ const development = {
   'eperusteet-service.eperuste.kuvaus':
     'https://eperusteet.opintopolku.fi/#/$1/esitys/$2/reformi/tutkinnonosat/$3',
   'oma-opintopolku': 'https://testiopintopolku.fi/oma-opintopolku',
+  'hakija.base-url': '/',
+  'hakija.lomake': '/hakemus/api/hakukohde/$1?role=hakija',
 };
 
 export const configureUrls = async () => {

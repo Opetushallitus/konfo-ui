@@ -154,3 +154,7 @@ export const getContentfulData = (manifest, lang) => {
     return { contentfulData, slugsToIds };
   });
 };
+
+export const getHakuLomake = async (hakuOid) => {
+  await get(urls.url('hakija.lomake', hakuOid));
+};
