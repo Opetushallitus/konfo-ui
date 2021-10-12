@@ -24,6 +24,7 @@ const development = {
   'konfo-backend.oppilaitosOsa.tarjonta':
     '/konfo-backend/search/oppilaitoksen-osa/$1/tarjonta',
   'konfo-backend.hakukohde': '/konfo-backend/hakukohde/$1',
+  'konfo-backend.hakukohde.demo': '/konfo-backend/hakukohde/$1/demo',
   'konfo-backend.haku': '/konfo-backend/haku/$1',
   'konfo-backend.koulutus.kuvaus': '/konfo-backend/kuvaus/$1',
   'konfo-backend.eperuste.kuvaus': '/konfo-backend/eperuste/$1',
@@ -35,7 +36,6 @@ const development = {
     'https://eperusteet.opintopolku.fi/#/$1/esitys/$2/reformi/tutkinnonosat/$3',
   'oma-opintopolku': 'https://testiopintopolku.fi/oma-opintopolku',
   'hakija.base-url': '/',
-  'hakija.lomake': '/hakemus/api/hakukohde/$1?role=hakija',
 };
 
 export const configureUrls = async () => {

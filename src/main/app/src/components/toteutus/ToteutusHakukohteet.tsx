@@ -17,7 +17,7 @@ import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
 
-import { getHakuLomake } from '#/src/api/konfoApi';
+import { getHakukohdeDemo } from '#/src/api/konfoApi';
 import { colors } from '#/src/colors';
 import { LabelTooltip } from '#/src/components/common/LabelTooltip';
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
@@ -61,14 +61,11 @@ const getJarjestyspaikkaYhteystiedot = (
 ) =>
   osoitteet.find((osoite) => osoite.oppilaitosOid === jarjestyspaikka.oid)?.yhteystiedot;
 
+type HakukohdeOid = string;
+
 type DemoLink = {
   link: Translateable;
-  hakukohdeOid: string;
-};
-
-type LomakeDemo = {
-  key: string;
-  'demo-allowed': boolean;
+  hakukohdeOid: HakukohdeOid;
 };
 
 type GridProps = {
@@ -97,7 +94,9 @@ const HakuCardGrid = ({ tyyppiOtsikko, haut, icon }: GridProps) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
-  const [demoLinks, setDemoLinks] = useState<Array<DemoLink>>([]);
+  const [demoLinks, setDemoLinks] = useState<Map<string, undefined | DemoLink>>(
+    new Map()
+  );
 
   const oppilaitosOids = useMemo(() => haut.map((haku) => haku.jarjestyspaikka?.oid), [
     haut,
@@ -106,29 +105,26 @@ const HakuCardGrid = ({ tyyppiOtsikko, haut, icon }: GridProps) => {
   useEffect(() => {
     const formDemoLinks = async () => {
       const closedHakukohteet = haut.filter((hakukohde) => !hakukohde.isHakuAuki);
-      let fetchedLomakes: Array<LomakeDemo> = [];
+      const demoLinksPerLomakeId: Map<string, undefined | DemoLink> = new Map();
+
       for (const hakukohde of closedHakukohteet) {
-        if (
-          !fetchedLomakes
-            .map((lomake) => lomake.key)
-            .includes(hakukohde.hakulomakeAtaruId)
-        ) {
-          const result: any = (await getHakuLomake(hakukohde.hakukohdeOid)) as any;
-          const lomake: LomakeDemo = JSON.parse(result);
-          fetchedLomakes.push(lomake);
+        const lomakeId = hakukohde.hakulomakeAtaruId;
+        if (!demoLinksPerLomakeId.has(lomakeId)) {
+          const hakukohdeOid = hakukohde.hakukohdeOid;
+          const hakukohdeDemo = await getHakukohdeDemo(hakukohdeOid);
+          if (hakukohdeDemo.demoAllowed) {
+            const demoLink = {
+              link: formDemoLink(hakukohde.hakulomakeLinkki),
+              hakukohdeOid: hakukohdeOid,
+            };
+            demoLinksPerLomakeId.set(lomakeId, demoLink);
+          } else {
+            demoLinksPerLomakeId.set(lomakeId, undefined);
+          }
         }
       }
-      const linksToDemo = closedHakukohteet
-        .filter((hakukohde) =>
-          fetchedLomakes.map((lomake) => lomake.key).includes(hakukohde.hakulomakeAtaruId)
-        )
-        .map((hakukohde) => {
-          return {
-            link: formDemoLink(hakukohde.hakulomakeLinkki),
-            hakukohdeOid: hakukohde.hakukohdeOid,
-          };
-        });
-      setDemoLinks(linksToDemo);
+
+      setDemoLinks(demoLinksPerLomakeId);
     };
     formDemoLinks();
   }, [haut]);
@@ -315,22 +311,17 @@ const HakuCardGrid = ({ tyyppiOtsikko, haut, icon }: GridProps) => {
                               </Typography>
                             </Button>
                           )}
-                          {demoLinks
-                            .map((demoLink) => demoLink.hakukohdeOid)
-                            .includes(haku.hakukohdeOid) && (
+                          {demoLinks.get(haku.hakulomakeAtaruId) && (
                             <Button
                               variant="contained"
                               size="large"
                               color="primary"
                               target="_blank"
                               href={localize(
-                                demoLinks.find(
-                                  (demoLink) =>
-                                    demoLink.hakukohdeOid === haku.hakukohdeOid
-                                )?.link
+                                demoLinks.get(haku.hakulomakeAtaruId)?.link
                               )}>
                               <Typography style={{ color: colors.white }} variant="body1">
-                                {t('toteutus.tayta-lomake')}
+                                {t('toteutus.tayta-demo-lomake')}
                               </Typography>
                             </Button>
                           )}

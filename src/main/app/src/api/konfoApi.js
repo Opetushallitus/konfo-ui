@@ -79,6 +79,8 @@ export const getToteutusOsaamisalaKuvaus = ({ ePerusteId, requestParams }) => {
 
 export const getHakukohde = createEntityGetter('hakukohde');
 
+export const getHakukohdeDemo = createEntityGetter('hakukohde.demo');
+
 export const getValintaperuste = createEntityGetter('valintaperusteet');
 
 export const searchAPI = {
@@ -153,8 +155,4 @@ export const getContentfulData = (manifest, lang) => {
     );
     return { contentfulData, slugsToIds };
   });
-};
-
-export const getHakuLomake = async (hakuOid) => {
-  await get(urls.url('hakija.lomake', hakuOid));
 };
