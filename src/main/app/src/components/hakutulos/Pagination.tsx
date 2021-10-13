@@ -70,6 +70,7 @@ export const Pagination = ({ size }: { size: number }) => {
         page,
       })
     );
+    document.getElementById("hakutulos-content")?.scrollIntoView();
   };
 
   return total > size ? (
