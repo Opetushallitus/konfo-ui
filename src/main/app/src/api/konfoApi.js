@@ -79,9 +79,9 @@ export const getToteutusOsaamisalaKuvaus = ({ ePerusteId, requestParams }) => {
 
 export const getHakukohde = createEntityGetter('hakukohde');
 
-export const getHakukohdeDemo = (hakukohdeOid) => {
+export const getHakukohdeDemo = async (hakukohdeOid) => {
   try {
-    return get(urls.url('konfo-backend.hakukohde-demo', hakukohdeOid));
+    return await get(urls.url('konfo-backend.hakukohde.demo', hakukohdeOid));
   } catch (ignored) {
     return { demoAllowed: false };
   }
