@@ -298,7 +298,8 @@ const HakuCardGrid = ({ tyyppiOtsikko, haut, icon }: GridProps) => {
                           className={classes.lomakeButtonGroup}
                           orientation="horizontal"
                           color="primary">
-                          {haku.hakulomaketyyppi !== HAKULOMAKE_TYYPPI.EI_SAHKOISTA && (
+                          {haku.hakulomaketyyppi !== HAKULOMAKE_TYYPPI.EI_SAHKOISTA 
+                            && !(!haku.isHakuAuki && demoLinks.get(haku.hakulomakeAtaruId)) && (
                             <Button
                               variant="contained"
                               size="large"
