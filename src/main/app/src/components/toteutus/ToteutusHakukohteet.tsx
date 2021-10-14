@@ -17,7 +17,6 @@ import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
 
-import { getHakukohdeDemo } from '#/src/api/konfoApi';
 import { colors } from '#/src/colors';
 import { LabelTooltip } from '#/src/components/common/LabelTooltip';
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
@@ -28,9 +27,9 @@ import { localize } from '#/src/tools/localization';
 import { useOsoitteet } from '#/src/tools/useOppilaitosOsoite';
 import { formatDateString, formatDouble } from '#/src/tools/utils';
 import { Translateable } from '#/src/types/common';
-import { Hakukohde } from '#/src/types/HakukohdeTypes';
+import { DemoLink, Hakukohde } from '#/src/types/HakukohdeTypes';
 
-import { formatAloitus } from './utils';
+import { demoLinksPerLomakeId, formatAloitus } from './utils';
 
 const useStyles = makeStyles((theme) => ({
   gridHeading: {
@@ -61,33 +60,10 @@ const getJarjestyspaikkaYhteystiedot = (
 ) =>
   osoitteet.find((osoite) => osoite.oppilaitosOid === jarjestyspaikka.oid)?.yhteystiedot;
 
-type HakukohdeOid = string;
-
-type DemoLink = {
-  link: Translateable;
-  hakukohdeOid: HakukohdeOid;
-};
-
 type GridProps = {
   tyyppiOtsikko: string;
   haut: Array<Hakukohde>;
   icon: JSX.Element;
-};
-
-const formDemoLink = (link: Translateable): Translateable => {
-  const transform = (langLink: string | undefined) => {
-    if (!!langLink && !_.isEmpty(langLink)) {
-      return langLink.includes('?')
-        ? langLink.concat('&demo=true')
-        : langLink.concat('?demo=true');
-    }
-    return langLink;
-  };
-  return {
-    fi: transform(link.fi),
-    en: transform(link.en),
-    sv: transform(link.sv),
-  };
 };
 
 const HakuCardGrid = ({ tyyppiOtsikko, haut, icon }: GridProps) => {
@@ -104,27 +80,8 @@ const HakuCardGrid = ({ tyyppiOtsikko, haut, icon }: GridProps) => {
 
   useEffect(() => {
     const formDemoLinks = async () => {
-      const closedHakukohteet = haut.filter((hakukohde) => !hakukohde.isHakuAuki);
-      const demoLinksPerLomakeId: Map<string, undefined | DemoLink> = new Map();
-
-      for (const hakukohde of closedHakukohteet) {
-        const lomakeId = hakukohde.hakulomakeAtaruId;
-        if (!demoLinksPerLomakeId.has(lomakeId)) {
-          const hakukohdeOid = hakukohde.hakukohdeOid;
-          const hakukohdeDemo = await getHakukohdeDemo(hakukohdeOid);
-          if (hakukohdeDemo.demoAllowed) {
-            const demoLink = {
-              link: formDemoLink(hakukohde.hakulomakeLinkki),
-              hakukohdeOid: hakukohdeOid,
-            };
-            demoLinksPerLomakeId.set(lomakeId, demoLink);
-          } else {
-            demoLinksPerLomakeId.set(lomakeId, undefined);
-          }
-        }
-      }
-
-      setDemoLinks(demoLinksPerLomakeId);
+      const demoLinks = await demoLinksPerLomakeId(haut);
+      setDemoLinks(demoLinks);
     };
     formDemoLinks();
   }, [haut]);
@@ -298,20 +255,24 @@ const HakuCardGrid = ({ tyyppiOtsikko, haut, icon }: GridProps) => {
                           className={classes.lomakeButtonGroup}
                           orientation="horizontal"
                           color="primary">
-                          {haku.hakulomaketyyppi !== HAKULOMAKE_TYYPPI.EI_SAHKOISTA 
-                            && !(!haku.isHakuAuki && demoLinks.get(haku.hakulomakeAtaruId)) && (
-                            <Button
-                              variant="contained"
-                              size="large"
-                              color="primary"
-                              target="_blank"
-                              href={localize(haku.hakulomakeLinkki)}
-                              disabled={!haku.isHakuAuki}>
-                              <Typography style={{ color: colors.white }} variant="body1">
-                                {t('toteutus.tayta-lomake')}
-                              </Typography>
-                            </Button>
-                          )}
+                          {haku.hakulomaketyyppi !== HAKULOMAKE_TYYPPI.EI_SAHKOISTA &&
+                            !(
+                              !haku.isHakuAuki && demoLinks.get(haku.hakulomakeAtaruId)
+                            ) && (
+                              <Button
+                                variant="contained"
+                                size="large"
+                                color="primary"
+                                target="_blank"
+                                href={localize(haku.hakulomakeLinkki)}
+                                disabled={!haku.isHakuAuki}>
+                                <Typography
+                                  style={{ color: colors.white }}
+                                  variant="body1">
+                                  {t('toteutus.tayta-lomake')}
+                                </Typography>
+                              </Button>
+                            )}
                           {demoLinks.get(haku.hakulomakeAtaruId) && (
                             <Button
                               variant="contained"
