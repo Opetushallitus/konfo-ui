@@ -76,7 +76,7 @@ const HakuCardGrid = ({ tyyppiOtsikko, haut, icon }: GridProps) => {
   const osoitteet = useOsoitteet(oppilaitosOids, true);
 
   return (
-    <Grid item>
+    <Grid item xs={12} sm={12} md={12} lg={12}>
       <Box ml={2} display="flex" justifyContent="center">
         {icon}
         <Box ml={2}>
@@ -113,12 +113,7 @@ const HakuCardGrid = ({ tyyppiOtsikko, haut, icon }: GridProps) => {
               : '';
 
             return (
-              <Grid
-                key={haku.hakukohdeOid}
-                item
-                xs={12}
-                lg={6}
-                style={{ maxWidth: '624px', height: '100%' }}>
+              <Grid key={haku.hakukohdeOid} item xs={12} lg={8}>
                 <Paper className={classes.paper}>
                   <Box m={4}>
                     <Grid container direction="column" spacing={3}>
@@ -190,7 +185,7 @@ const HakuCardGrid = ({ tyyppiOtsikko, haut, icon }: GridProps) => {
                               modalText: haku.hakukohteenLinja?.lisatietoa,
                             },
                             {
-                              size: 6,
+                              size: 12,
                               heading: t('toteutus.pohjakoulutus:'),
                               content: haku.pohjakoulutusvaatimus.map((vaatimus) =>
                                 localize(vaatimus)
@@ -198,7 +193,7 @@ const HakuCardGrid = ({ tyyppiOtsikko, haut, icon }: GridProps) => {
                               modalText: haku.pohjakoulutusvaatimusTarkenne,
                             },
                             aloituspaikatText && {
-                              size: 6,
+                              size: 12,
                               heading: t('toteutus.opiskelupaikkoja:'),
                               content: [aloituspaikatText],
                               modalText: haku.aloituspaikat?.kuvaus,
@@ -308,28 +303,24 @@ export const ToteutusHakukohteet = ({ haut }: Props) => {
   const { t } = useTranslation();
 
   return (
-    <Box
-      pt={12}
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      id="haut"
-      style={{ width: '100%' }}>
-      <Typography variant="h2">{t('toteutus.koulutuksen-hakukohteet')}</Typography>
-      <Spacer />
-      <Grid container direction="column" spacing={6}>
-        {_.map(haut, (haku, key) => {
-          const IconComponent = getHakutyyppiIcon(key as keyof typeof typeToIconMap);
-          return (
-            <HakuCardGrid
-              tyyppiOtsikko={localize(haku)}
-              haut={haku.hakukohteet}
-              icon={<IconComponent />}
-              key={key}
-            />
-          );
-        })}
-      </Grid>
-    </Box>
+    <Grid item xs={12} sm={12} md={10} lg={8}>
+      <Box pt={12} display="flex" flexDirection="column" alignItems="center" id="haut">
+        <Typography variant="h2">{t('toteutus.koulutuksen-hakukohteet')}</Typography>
+        <Spacer />
+        <Grid container direction="column" spacing={6}>
+          {_.map(haut, (haku, key) => {
+            const IconComponent = getHakutyyppiIcon(key as keyof typeof typeToIconMap);
+            return (
+              <HakuCardGrid
+                tyyppiOtsikko={localize(haku)}
+                haut={haku.hakukohteet}
+                icon={<IconComponent />}
+                key={key}
+              />
+            );
+          })}
+        </Grid>
+      </Box>
+    </Grid>
   );
 };
