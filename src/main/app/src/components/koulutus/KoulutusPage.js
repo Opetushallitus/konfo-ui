@@ -5,7 +5,7 @@ import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 import _ from 'lodash';
 import { urls } from 'oph-urls-js';
 import { useTranslation } from 'react-i18next';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import { AccordionWithTitle } from '#/src/components/common/AccordionWithTitle';
@@ -18,15 +18,13 @@ import TeemakuvaImage from '#/src/components/common/TeemakuvaImage';
 import { getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
 import {
   fetchKoulutusWithRelatedData,
-  selectKoulutus,
-  selectLoading,
-  selectSuositellutKoulutukset,
   selectTulevatJarjestajat,
 } from '#/src/store/reducers/koulutusSlice';
 import { getLanguage, localize } from '#/src/tools/localization';
 import { getLocalizedOpintojenLaajuus, sanitizedHTMLParser } from '#/src/tools/utils';
 
 import { useUrlParams } from '../hakutulos/UseUrlParams';
+import { useKoulutus } from './hooks';
 import { KoulutusInfoGrid } from './KoulutusInfoGrid';
 import SuositusKoulutusList from './SuositusKoulutusList';
 import { ToteutusList } from './ToteutusList';
@@ -67,13 +65,11 @@ export const KoulutusPage = () => {
   const getHtmlSection = useMemo(() => getKuvausHtmlSection(t), [t]);
 
   // TODO: There is absolutely no error handling atm.
-  const koulutus = useSelector(selectKoulutus(oid), shallowEqual);
-  const suositellutKoulutukset = useSelector(
-    (state) => selectSuositellutKoulutukset(state),
-    shallowEqual
-  );
+  const { data: koulutus, isLoading: koulutusLoading } = useKoulutus({ oid, isDraft });
+  const suositellutKoulutukset = {};
   const tulevatJarjestajat = useSelector((state) => selectTulevatJarjestajat(state, oid));
-  const loading = useSelector((state) => selectLoading(state));
+
+  const isLoading = koulutusLoading;
 
   const hakuUrl = useSelector(getHakuUrl);
 
@@ -112,7 +108,7 @@ export const KoulutusPage = () => {
 
   const soraKuvaus = koulutus?.sorakuvaus;
 
-  return loading ? (
+  return isLoading ? (
     <LoadingCircle />
   ) : (
     <ContentWrapper>
