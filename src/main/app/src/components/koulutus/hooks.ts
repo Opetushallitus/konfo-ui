@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 import { getEperusteKuvaus, getKoulutus, getKoulutusKuvaus } from '#/src/api/konfoApi';
 import { KOULUTUS_TYYPPI } from '#/src/constants';
 
-export const fetchKoulutus = async (oid: string, isDraft: boolean = false) => {
+export const fetchKoulutus = async (oid?: string, isDraft: boolean = false) => {
   const koulutusData = await getKoulutus(oid, isDraft);
   if (
     (koulutusData?.koulutustyyppi === KOULUTUS_TYYPPI.AMM && koulutusData.ePerusteId) ||
@@ -71,7 +71,7 @@ const selectKoulutus = (koulutusData: any) => {
 };
 
 type UseKoulutusProps = {
-  oid: string;
+  oid?: string;
   isDraft?: boolean;
 };
 
@@ -81,6 +81,7 @@ export const useKoulutus = ({ oid, isDraft }: UseKoulutusProps) => {
     () => fetchKoulutus(oid, isDraft),
     {
       select: selectKoulutus,
+      enabled: Boolean(oid),
     }
   );
 };
