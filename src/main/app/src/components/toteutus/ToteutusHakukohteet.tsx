@@ -76,7 +76,7 @@ const HakuCardGrid = ({ tyyppiOtsikko, haut, icon }: GridProps) => {
   const osoitteet = useOsoitteet(oppilaitosOids, true);
 
   return (
-    <Grid item xs={12} sm={12} md={12} lg={12}>
+    <Grid item xs={12}>
       <Box ml={2} display="flex" justifyContent="center">
         {icon}
         <Box ml={2}>
