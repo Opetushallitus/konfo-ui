@@ -10,6 +10,7 @@ import {
   ListItemIcon,
   ListItemSecondaryAction,
   makeStyles,
+  Typography,
 } from '@material-ui/core';
 import {
   ExpandLess,
@@ -132,7 +133,9 @@ const FilterCheckbox = ({
         id={labelId}
         primary={
           // Kaikille suodattimille ei tule backendista käännöksiä
-          <Grid item>{localize(nimi) || t(`haku.${id}`)}</Grid>
+          <Typography style={{ wordWrap: 'break-word' }} variant="body2">
+            {localize(nimi) || t(`haku.${id}`)}
+          </Typography>
         }
       />
       {expandButton && <ListItemIcon>{expandButton}</ListItemIcon>}
