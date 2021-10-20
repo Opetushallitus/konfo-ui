@@ -64,7 +64,7 @@ const initialContentfulData = {
   cookieModalText: {},
 };
 
-function usePreviousNonEmpty(value) {
+export function usePreviousNonEmpty(value) {
   const ref = useRef();
 
   useEffect(() => {

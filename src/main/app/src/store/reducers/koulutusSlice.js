@@ -1,21 +1,23 @@
 import { createSlice } from '@reduxjs/toolkit';
 import _ from 'lodash';
 
+const initialPaging = {
+  page: 1,
+  size: 5,
+  offset: 0,
+};
+
 export const initialState = {
   tulevatJarjestajat: {
     filters: {},
     pagination: {
-      page: 1,
-      size: 5,
-      offset: 0,
+      ...initialPaging,
     },
   },
   jarjestajat: {
     filters: {},
     pagination: {
-      page: 1,
-      size: 5,
-      offset: 0,
+      ...initialPaging,
     },
   },
 };
@@ -44,11 +46,14 @@ const koulutusSlice = createSlice({
         Object.assign(state.tulevatJarjestajat.filters, action.payload);
       }
     },
-    resetJarjestajatQuery(state) {
-      Object.assign(state.jarjestajat, initialState.jarjestajat);
+    resetJarjestajatPaging(state) {
+      Object.assign(state.jarjestajat.pagination, initialState.jarjestajat.pagination);
     },
-    resetTulevatJarjestajatQuery(state) {
-      Object.assign(state.tulevatJarjestajat, initialState.tulevatJarjestajat);
+    resetTulevatJarjestajatPaging(state) {
+      Object.assign(
+        state.tulevatJarjestajat.pagination,
+        initialState.tulevatJarjestajat.pagination
+      );
     },
   },
 });
@@ -56,11 +61,13 @@ const koulutusSlice = createSlice({
 export const {
   setJarjestajatFilters,
   setJarjestajatPaging,
+  resetJarjestajatPaging,
   setTulevatJarjestajatFilters,
   setTulevatJarjestajatPaging,
   resetJarjestajatQuery,
   resetTulevatJarjestajatQuery,
   selectTulevatJarjestajatQuery,
+  resetTulevatJarjestajatPaging,
 } = koulutusSlice.actions;
 export default koulutusSlice.reducer;
 
