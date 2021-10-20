@@ -17,6 +17,7 @@ import ScrollToTop from '#/src/ScrollToTop';
 import { getKonfoStore } from '#/src/store';
 import { theme } from '#/src/theme';
 import { configureI18n } from '#/src/tools/i18n';
+import { isCypress } from '#/src/tools/utils';
 import { configureUrls } from '#/src/urls';
 
 const queryClient = new QueryClient({
@@ -48,24 +49,26 @@ if ('serviceWorker' in navigator) {
 }
 
 window.onerror = (errorMsg, url, line, col, errorObj) => {
-  const send = (trace) => {
-    postClientError({
-      'error-message': errorMsg,
-      url: window.location.href,
-      line: line,
-      col: col,
-      'user-agent': window.navigator.userAgent,
-      stack: trace,
-    });
-  };
-  StackTrace.fromError(errorObj)
-    .then((err) => {
-      console.log(err);
-      send(JSON.stringify(err));
-    })
-    .catch((err) => {
-      send(JSON.stringify(errorObj));
-    });
+  if (process.env.NODE_ENV === 'production' && !isCypress) {
+    const send = (trace) => {
+      postClientError({
+        'error-message': errorMsg,
+        url: window.location.href,
+        line: line,
+        col: col,
+        'user-agent': window.navigator.userAgent,
+        stack: trace,
+      });
+    };
+    StackTrace.fromError(errorObj)
+      .then((err) => {
+        console.log(err);
+        send(JSON.stringify(err));
+      })
+      .catch((err) => {
+        send(JSON.stringify(errorObj));
+      });
+  }
 };
 
 const InitGate = ({ children }) => {
