@@ -4,8 +4,6 @@ import { CssBaseline, makeStyles } from '@material-ui/core';
 import { ChevronLeftOutlined, ChevronRightOutlined } from '@material-ui/icons';
 import MuiFlatPagination from 'material-ui-flat-pagination';
 
-import { usePaginatedTarjonta } from './hooks';
-
 const useStyles = makeStyles(() => ({
   sizeSmall: {
     padding: '1px 6px',
@@ -29,32 +27,28 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+type PaginationType = { page: number; size: number; offset: number };
+
 type Props = {
   total: number;
-  oid: string;
-  isOppilaitosOsa: boolean;
+  pagination: PaginationType;
+  setPagination: (p: PaginationType) => void;
 };
 
-export const TarjontaPagination = ({ total, oid, isOppilaitosOsa }: Props) => {
+export const TarjontaPagination = ({ total, pagination, setPagination }: Props) => {
   const classes = useStyles();
 
-  const {
-    pagination: { size, offset },
-    setPagination,
-  } = usePaginatedTarjonta({
-    oid,
-    isOppilaitosOsa,
-    isTuleva: false,
-  });
+  const { size, offset } = pagination;
 
   const handleClick = useCallback(
     (e, offset, page) => {
       setPagination({
         page,
         offset,
+        size,
       });
     },
-    [setPagination]
+    [setPagination, size]
   );
 
   return total > size ? (

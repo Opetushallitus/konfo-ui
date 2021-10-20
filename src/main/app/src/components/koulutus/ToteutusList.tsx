@@ -6,19 +6,16 @@ import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
 import PublicIcon from '@material-ui/icons/Public';
 import _fp from 'lodash/fp';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { EntiteettiKortti } from '#/src/components/common/EntiteettiKortti';
 import { OppilaitosKorttiLogo } from '#/src/components/common/KorttiLogo';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import Spacer from '#/src/components/common/Spacer';
+import { TarjontaPagination } from '#/src/components/common/TarjontaPagination';
 import { TextWithBackground } from '#/src/components/common/TextWithBackground';
 import { FILTER_TYPES } from '#/src/constants';
 import { getInitialCheckedToteutusFilters } from '#/src/store/reducers/hakutulosSliceSelector';
-import {
-  fetchKoulutusJarjestajat,
-  selectJarjestajat,
-} from '#/src/store/reducers/koulutusSlice';
 import {
   getFilterStateChanges,
   getFilterWithChecked,
@@ -33,6 +30,7 @@ import { mapValues } from '#/src/tools/lodashFpUncapped';
 import { FilterValue } from '#/src/types/SuodatinTypes';
 import { Jarjestaja } from '#/src/types/ToteutusTypes';
 
+import { useKoulutusJarjestajat } from './hooks';
 import { HakutapaSuodatin } from './toteutusSuodattimet/HakutapaSuodatin';
 import { MobileFiltersOnTopMenu } from './toteutusSuodattimet/MobileFiltersOnTopMenu';
 import { OpetuskieliSuodatin } from './toteutusSuodattimet/OpetusKieliSuodatin';
@@ -64,6 +62,7 @@ type Props = {
 };
 
 type JarjestajaData = {
+  total: number;
   jarjestajat: Array<Jarjestaja>;
   loading: boolean;
   sortedFilters: Record<string, Record<string, FilterValue>>;
@@ -91,21 +90,25 @@ const getQueryStr = (values: Record<string, Array<string> | boolean>) => {
 export const ToteutusList = ({ oid }: Props) => {
   const { t } = useTranslation();
   const classes = useStyles();
-  const dispatch = useDispatch();
 
   // NOTE: Tämä haetaan vain kerran alkuarvoja varten + Haetaan järjestäjätulokset hakusivulta periytyneillä rajaimilla
   const initialCheckedFilters = useSelector<any, Record<string, Array<string>>>(
     getInitialCheckedToteutusFilters
   );
+
+  const { queryResult, setFilters, setPagination, pagination } = useKoulutusJarjestajat({
+    oid,
+  });
+
+  const { data = {}, isLoading } = queryResult;
+
+  const { sortedFilters, jarjestajat, total } = data as JarjestajaData;
   const [initialValues] = useState(initialCheckedFilters);
   useEffect(() => {
     const queryStrings = getQueryStr(initialValues);
-    dispatch(fetchKoulutusJarjestajat(oid, queryStrings));
-  }, [dispatch, oid, initialValues]);
+    setFilters(queryStrings);
+  }, [setFilters, initialValues]);
 
-  const { jarjestajat, loading, sortedFilters }: JarjestajaData = useSelector(
-    selectJarjestajat
-  ) as any; // JS tiedostosta päättely ei oikein toimi
   const [checkedValues, setCheckedValues] = useState<
     Record<string, Array<string> | boolean>
   >(initialValues);
@@ -138,7 +141,7 @@ export const ToteutusList = ({ oid }: Props) => {
 
     setCheckedValues(newCheckedValues);
     const queryStrings = getQueryStr(newCheckedValues);
-    dispatch(fetchKoulutusJarjestajat(oid, queryStrings));
+    setFilters(queryStrings);
   };
 
   const handleFiltersClear = useCallback(() => {
@@ -148,10 +151,10 @@ export const ToteutusList = ({ oid }: Props) => {
     );
     setCheckedValues(usedFilters);
     const queryStrings = getQueryStr(usedFilters);
-    dispatch(fetchKoulutusJarjestajat(oid, queryStrings));
-  }, [dispatch, oid, checkedValues]);
+    setFilters(queryStrings);
+  }, [checkedValues, setFilters]);
 
-  const someValuesToShow = loading || jarjestajat?.length > 0;
+  const someValuesToShow = isLoading || jarjestajat?.length > 0;
 
   return (
     <Container maxWidth="lg" className={classes.container}>
@@ -178,7 +181,7 @@ export const ToteutusList = ({ oid }: Props) => {
               <Grid item className={classes.filter} sm={4}>
                 <SijaintiSuodatin
                   elevation={2}
-                  loading={loading}
+                  loading={isLoading}
                   handleFilterChange={handleFilterChange}
                   maakuntaValues={usedValues.maakunta}
                   kuntaValues={usedValues.kunta}
@@ -221,7 +224,7 @@ export const ToteutusList = ({ oid }: Props) => {
           <Hidden mdUp>
             <MobileFiltersOnTopMenu
               values={usedValues}
-              loading={loading}
+              loading={isLoading}
               hitCount={jarjestajat?.length}
               handleFilterChange={handleFilterChange}
               clearChosenFilters={handleFiltersClear}
@@ -230,7 +233,7 @@ export const ToteutusList = ({ oid }: Props) => {
         </>
       )}
 
-      {loading ? (
+      {isLoading ? (
         <LoadingCircle />
       ) : someValuesToShow ? (
         <Grid
@@ -299,6 +302,11 @@ export const ToteutusList = ({ oid }: Props) => {
           )}
         </Typography>
       )}
+      <TarjontaPagination
+        total={total}
+        pagination={pagination}
+        setPagination={setPagination}
+      />
     </Container>
   );
 };

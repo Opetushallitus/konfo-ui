@@ -1,8 +1,26 @@
-import _ from 'lodash';
-import { useQuery } from 'react-query';
+import { useEffect, useMemo } from 'react';
 
-import { getEperusteKuvaus, getKoulutus, getKoulutusKuvaus } from '#/src/api/konfoApi';
+import _ from 'lodash';
+import _fp from 'lodash/fp';
+import { useQuery } from 'react-query';
+import { useDispatch, useSelector } from 'react-redux';
+
+import {
+  getEperusteKuvaus,
+  getKoulutus,
+  getKoulutusJarjestajat,
+  getKoulutusKuvaus,
+} from '#/src/api/konfoApi';
 import { KOULUTUS_TYYPPI } from '#/src/constants';
+import {
+  resetJarjestajatQuery,
+  setJarjestajatFilters,
+  setTulevatJarjestajatFilters,
+  resetTulevatJarjestajatQuery,
+  selectJarjestajatQuery,
+  setJarjestajatPaging,
+  setTulevatJarjestajatPaging,
+} from '#/src/store/reducers/koulutusSlice';
 
 export const fetchKoulutus = async (oid?: string, isDraft: boolean = false) => {
   const koulutusData = await getKoulutus(oid, isDraft);
@@ -86,76 +104,79 @@ export const useKoulutus = ({ oid, isDraft }: UseKoulutusProps) => {
   );
 };
 
-/*
+const selectJarjestajat = (data: any) => {
+  return {
+    total: data?.total,
+    jarjestajat: data?.hits,
+    // Ei näytetä järjestäjälistassa sellaisia suodattimia joiden lukumäärä on 0 (niitä on paljon)
+    sortedFilters: _fp.mapValues(
+      _fp.pickBy((v?: { count: number }) => !_fp.isObject(v) || v.count > 0),
+      data?.filters || {}
+    ),
+  };
+};
+
 type UseKoulutusJarjestajatProps = {
   oid: string;
   isTuleva?: boolean;
-  isDraft?: boolean;
-};
-
-const selectJarjestajat = (response: any) => {
-  const koulutus = response?.data;
-  // Ei näytetä järjestäjälistassa sellaisia suodattimia joiden lukumäärä on 0 (niitä on paljon)
-  const sortedFilters = _fp.mapValues(
-    _fp.pickBy((v?: { count: number }) => !_fp.isObject(v) || v.count > 0),
-    koulutus.jarjestajatFilters || {}
-  );
-
-  return {
-    jarjestajat: koulutus.jarjestajat,
-    sortedFilters,
-  };
 };
 
 export const useKoulutusJarjestajat = ({
   oid,
   isTuleva = false,
-  isDraft = false,
 }: UseKoulutusJarjestajatProps) => {
   const dispatch = useDispatch();
 
-  // Reset pagination when oid changes (which means that another oppilaitos-page was opened)
-  useEffect(() => {
-    dispatch(resetPagination());
-  }, [dispatch, oid]);
+  // Reset query options when oid changes (which means that another koulutus-page was opened)
+  /*useEffect(() => {
+    dispatch(resetJarjestajatQuery());
+    dispatch(resetTulevatJarjestajatQuery());
+  }, [dispatch, oid]);*/
 
-  const paginationProps = useSelector((state) =>
-    isTuleva ? getTulevatJarjestajatPaginationProps(state) : getJarjestajatPaginationProps(state)
-  );
+  const requestProps = useSelector(selectJarjestajatQuery(isTuleva));
+  const { pagination = {}, filters = {} } = requestProps;
 
   const fetchProps = {
     oid,
     requestParams: {
       tuleva: isTuleva,
-      ...paginationProps,
+      ...pagination,
+      ...filters,
     },
   };
 
   const result = useQuery(
-    ['getPaginatedJarjestajat', fetchProps],
-    () => getKoulutusJarjestajat(fetchProps)
+    ['getKoulutusJarjestajat', fetchProps],
+    () => getKoulutusJarjestajat(fetchProps),
     {
       enabled: Boolean(oid),
       keepPreviousData: true,
       staleTime: 60 * 1000,
-      select: (tarjontaData: any) =>
-        isTuleva ? selectTulevaTarjonta(tarjontaData) : selectTarjonta(tarjontaData),
+      select: selectJarjestajat,
     }
   );
 
   return useMemo(
     () => ({
       queryResult: result,
-      pagination: paginationProps,
-      setPagination: (newPagination: any) => {
+      queryOptions: requestProps,
+      filters,
+      pagination,
+      setPagination: (newPaging: any) => {
         dispatch(
           isTuleva
-            ? setTulevaTarjontaPagination({ ...paginationProps, ...newPagination })
-            : setTarjontaPagination({ ...paginationProps, ...newPagination })
+            ? setTulevatJarjestajatPaging(newPaging)
+            : setJarjestajatPaging(newPaging)
+        );
+      },
+      setFilters: (newFilters: any) => {
+        dispatch(
+          isTuleva
+            ? setTulevatJarjestajatFilters(newFilters)
+            : setJarjestajatFilters(newFilters)
         );
       },
     }),
-    [result, paginationProps, isTuleva, dispatch]
+    [filters, result, requestProps, isTuleva, dispatch, pagination]
   );
 };
-*/
