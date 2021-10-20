@@ -48,7 +48,21 @@ type Props = {
   noColors?: boolean;
 };
 
-export const Accordion = ({ items, noColors, ContentWrapper = Typography }: Props) => {
+type ContentWrapperProps = {
+  children?: React.ReactNode;
+};
+
+const DefaultContentWrapper = ({ children, ...props }: ContentWrapperProps) => (
+  <Typography {...props} component="div">
+    {children}
+  </Typography>
+);
+
+export const Accordion = ({
+  items,
+  noColors,
+  ContentWrapper = DefaultContentWrapper,
+}: Props) => {
   const classes = useStyles({ noColors });
   return (
     <div className={classes.root}>
