@@ -36,6 +36,11 @@ const useStyles = makeStyles((theme) => {
       ...common,
       [theme.breakpoints.up('lg')]: {
         float: 'right',
+        maxWidth: '100%',
+        maxHeight: '150px',
+      },
+      [theme.breakpoints.up('xl')]: {
+        float: 'right',
         maxWidth: '250px',
         maxHeight: '150px',
       },

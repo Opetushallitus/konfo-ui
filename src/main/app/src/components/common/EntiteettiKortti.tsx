@@ -39,6 +39,12 @@ const useStyles = makeStyles((theme) => ({
     '& *': {
       marginTop: 0,
     },
+    [theme.breakpoints.down('xl')]: {
+      maxWidth: 600,
+    },
+    [theme.breakpoints.up('xl')]: {
+      maxWidth: 800,
+    },
   },
   erityisopetusHeader: {
     color: colors.brandGreen,
