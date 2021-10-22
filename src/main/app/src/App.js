@@ -145,10 +145,11 @@ const App = () => {
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
   const [betaBanner, setBetaBanner] = useState(true);
 
+  const keepMenuVisible = !(window.innerWidth < KEEP_VALIKKO_OPEN_WIDTH);
+  const [menuVisible, setMenuVisible] = useState(keepMenuVisible);
+
   const classes = useStyles({ betaBannerVisible: betaBanner, isSmall, menuVisible });
 
-  const keepMenuVisible = !(window.innerWidth < KEEP_VALIKKO_OPEN_WIDTH);
-  const [menuVisible, setMenuVisible] = useState(keepMenuVisible ? true : false);
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
   };
