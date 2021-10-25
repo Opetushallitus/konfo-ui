@@ -172,9 +172,13 @@ export const ToteutusList = ({ oid }: Props) => {
 
   const someValuesToShow = isLoading || jarjestajat?.length > 0;
 
+  const scrollTargetId = 'toteutus-list';
+
   return (
     <Container maxWidth="lg" className={classes.container}>
-      <Typography variant="h2">{t('koulutus.tarjonta')}</Typography>
+      <Typography variant="h2" id={scrollTargetId}>
+        {t('koulutus.tarjonta')}
+      </Typography>
       <Spacer />
       <>
         <Hidden smDown>
@@ -330,6 +334,7 @@ export const ToteutusList = ({ oid }: Props) => {
         total={total}
         pagination={pagination}
         setPagination={setPagination}
+        scrollTargetId={scrollTargetId}
       />
     </Container>
   );

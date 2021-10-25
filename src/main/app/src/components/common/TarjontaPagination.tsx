@@ -33,22 +33,31 @@ type Props = {
   total: number;
   pagination: PaginationType;
   setPagination: (p: PaginationType) => void;
+  scrollTargetId?: string;
 };
 
-export const TarjontaPagination = ({ total, pagination, setPagination }: Props) => {
+export const TarjontaPagination = ({
+  total,
+  pagination,
+  setPagination,
+  scrollTargetId,
+}: Props) => {
   const classes = useStyles();
 
   const { size, offset } = pagination;
 
   const handleClick = useCallback(
     (e, offset, page) => {
+      if (scrollTargetId) {
+        document.getElementById(scrollTargetId)?.scrollIntoView();
+      }
       setPagination({
         page,
         offset,
         size,
       });
     },
-    [setPagination, size]
+    [setPagination, size, scrollTargetId]
   );
 
   return total > size ? (
