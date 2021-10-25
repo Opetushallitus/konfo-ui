@@ -44,6 +44,9 @@ import { MobileFiltersOnTopMenu } from './MobileFiltersOnTopMenu';
 import { Pagination } from './Pagination';
 
 const useStyles = makeStyles((theme) => ({
+  toggleWrapper: {
+    'min-width': 400,
+  },
   hakutulosSisalto: {
     maxWidth: 1600,
     margin: 'auto',
@@ -180,7 +183,7 @@ export const Hakutulos = () => {
             </Grid>
           </Hidden>
           <Grid item container lg={9} md={8} sm={12} justify="space-between">
-            <Grid item lg={6} md={7} xs={12}>
+            <Grid item lg={6} md={7} xs={12} className={classes.toggleWrapper}>
               <HakutulosToggle />
             </Grid>
             <Hidden smDown>
