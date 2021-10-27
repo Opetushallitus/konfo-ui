@@ -151,3 +151,7 @@ export const useContentful = () => {
     [forwardTo, murupolku, slugsToIds, contentfulData, isLoadingContent]
   );
 };
+
+export const useSideMenu = () => {
+  return useSelector((state) => state.sideMenu.open);
+};

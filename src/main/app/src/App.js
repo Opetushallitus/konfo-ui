@@ -3,11 +3,14 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles, useMediaQuery, Box } from '@material-ui/core';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { CookieModal } from '#/src/components/common/CookieModal';
 import { HeadingBoundary } from '#/src/components/Heading';
+import { useSideMenu } from '#/src/hooks';
 import { NotFound } from '#/src/NotFound';
+import { setMenuState } from '#/src/store/reducers/sideMenuSlice';
 import { supportedLanguages } from '#/src/tools/i18n';
 
 import { Draft } from './components/common/Draft';
@@ -29,7 +32,7 @@ import {
   ValintaperustePage,
   ValintaperustePreviewPage,
 } from './components/valintaperusteet/ValintaperustePage';
-import { DRAWER_WIDTH, KEEP_VALIKKO_OPEN_WIDTH } from './constants';
+import { DRAWER_WIDTH } from './constants';
 import { getHeaderHeight, theme } from './theme';
 
 const useStyles = makeStyles((theme) => ({
@@ -145,16 +148,16 @@ const App = () => {
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
   const [betaBanner, setBetaBanner] = useState(true);
 
-  const keepMenuVisible = !(window.innerWidth < KEEP_VALIKKO_OPEN_WIDTH);
-  const [menuVisible, setMenuVisible] = useState(keepMenuVisible);
+  const dispatch = useDispatch();
+  const menuVisible = useSideMenu();
 
   const classes = useStyles({ betaBannerVisible: betaBanner, isSmall, menuVisible });
 
   const toggleMenu = () => {
-    setMenuVisible(!menuVisible);
+    dispatch(setMenuState(!menuVisible));
   };
   const closeMenu = () => {
-    setMenuVisible(false);
+    dispatch(setMenuState(false));
   };
 
   return (
@@ -173,7 +176,7 @@ const App = () => {
           menuVisible={menuVisible}
           closeMenu={closeMenu}
           betaBannerVisible={betaBanner}
-          keepMenuVisible={keepMenuVisible}
+          keepMenuVisible={menuVisible}
         />
         <main
           id="app-main-content"

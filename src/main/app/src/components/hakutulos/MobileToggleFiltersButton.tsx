@@ -6,6 +6,8 @@ import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 
+import { useSideMenu } from '../../hooks';
+
 // TODO: This is mostly copypaste styles from various files
 const useStyles = makeStyles(() => ({
   frontPageButton: {
@@ -29,6 +31,14 @@ const useStyles = makeStyles(() => ({
     zIndex: 1,
     bottom: 30,
     left: '50%',
+    transform: 'translateX(-50%)',
+    backgroundColor: colors.brandGreen,
+  },
+  fixedMenuOpen: {
+    position: 'fixed',
+    zIndex: 1,
+    bottom: 30,
+    left: '65%',
     transform: 'translateX(-50%)',
     backgroundColor: colors.brandGreen,
   },
@@ -62,10 +72,11 @@ export const MobileToggleFiltersButton = ({
     t,
     hitCount,
   ]);
-
+  const menuOpen = useSideMenu();
+  const fixedStyle = menuOpen ? classes.fixedMenuOpen : classes.fixed;
   // TODO: Spinner when loading would be nice
   return (
-    <ButtonGroup classes={{ root: type === 'fixed' ? classes.fixed : classes.button }}>
+    <ButtonGroup classes={{ root: type === 'fixed' ? fixedStyle : classes.button }}>
       {showFilters ? (
         <Button
           classes={{
