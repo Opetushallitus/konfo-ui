@@ -129,6 +129,9 @@ export type Toteutus = {
   hakuAukiType: 'ilmoittautuminen' | 'hakukohde' | null;
   hasMuuHaku: boolean;
   hasEiSahkoistaHaku: boolean;
+  eiSahkoistaHakuData: any;
+  hakukohteet: any;
+  muuHakuData: any;
 };
 
 export type Jarjestaja = {

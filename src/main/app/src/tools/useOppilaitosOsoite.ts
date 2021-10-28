@@ -54,6 +54,8 @@ export const useOsoitteet = (
   const [osoitteet, setOsoitteet] = useState<Array<OppilaitosOsoite>>([]);
   const [dataFetched, setDataFetched] = useState(false);
 
+  // Tämä ilmeisesti aiheuttaa virheilmoituksen "Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application. To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function."
+  // TODO: Käytä react-querya tässä
   useEffect(() => {
     if (!dataFetched) {
       (async () => {

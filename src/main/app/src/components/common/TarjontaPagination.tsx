@@ -1,10 +1,8 @@
 import React, { useCallback } from 'react';
 
-import { CssBaseline, makeStyles } from '@material-ui/core';
+import { Box, CssBaseline, makeStyles } from '@material-ui/core';
 import { ChevronLeftOutlined, ChevronRightOutlined } from '@material-ui/icons';
 import MuiFlatPagination from 'material-ui-flat-pagination';
-
-import { usePaginatedTarjonta } from './hooks';
 
 const useStyles = makeStyles(() => ({
   sizeSmall: {
@@ -29,36 +27,41 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+type PaginationType = { page: number; size: number; offset: number };
+
 type Props = {
   total: number;
-  oid: string;
-  isOppilaitosOsa: boolean;
+  pagination: PaginationType;
+  setPagination: (p: PaginationType) => void;
+  scrollTargetId?: string;
 };
 
-export const TarjontaPagination = ({ total, oid, isOppilaitosOsa }: Props) => {
+export const TarjontaPagination = ({
+  total,
+  pagination,
+  setPagination,
+  scrollTargetId,
+}: Props) => {
   const classes = useStyles();
 
-  const {
-    pagination: { size, offset },
-    setPagination,
-  } = usePaginatedTarjonta({
-    oid,
-    isOppilaitosOsa,
-    isTuleva: false,
-  });
+  const { size, offset } = pagination;
 
   const handleClick = useCallback(
     (e, offset, page) => {
+      if (scrollTargetId) {
+        document.getElementById(scrollTargetId)?.scrollIntoView();
+      }
       setPagination({
         page,
         offset,
+        size,
       });
     },
-    [setPagination]
+    [setPagination, size, scrollTargetId]
   );
 
   return total > size ? (
-    <div style={{ textAlign: 'center', marginTop: 30 }}>
+    <Box textAlign="center" marginY={3}>
       <CssBaseline />
       <MuiFlatPagination
         limit={size}
@@ -72,6 +75,6 @@ export const TarjontaPagination = ({ total, oid, isOppilaitosOsa }: Props) => {
         previousPageLabel={<ChevronLeftOutlined />}
         nextPageLabel={<ChevronRightOutlined />}
       />
-    </div>
+    </Box>
   ) : null;
 };

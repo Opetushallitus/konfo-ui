@@ -6,19 +6,17 @@ import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
 import PublicIcon from '@material-ui/icons/Public';
 import _fp from 'lodash/fp';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { EntiteettiKortti } from '#/src/components/common/EntiteettiKortti';
 import { OppilaitosKorttiLogo } from '#/src/components/common/KorttiLogo';
-import { LoadingCircle } from '#/src/components/common/LoadingCircle';
+import { QueryResultWrapper } from '#/src/components/common/QueryResultWrapper';
 import Spacer from '#/src/components/common/Spacer';
+import { TarjontaPagination } from '#/src/components/common/TarjontaPagination';
 import { TextWithBackground } from '#/src/components/common/TextWithBackground';
 import { FILTER_TYPES } from '#/src/constants';
+import { usePreviousNonEmpty } from '#/src/hooks';
 import { getInitialCheckedToteutusFilters } from '#/src/store/reducers/hakutulosSliceSelector';
-import {
-  fetchKoulutusJarjestajat,
-  selectJarjestajat,
-} from '#/src/store/reducers/koulutusSlice';
 import {
   getFilterStateChanges,
   getFilterWithChecked,
@@ -33,6 +31,7 @@ import { mapValues } from '#/src/tools/lodashFpUncapped';
 import { FilterValue } from '#/src/types/SuodatinTypes';
 import { Jarjestaja } from '#/src/types/ToteutusTypes';
 
+import { useKoulutusJarjestajat } from './hooks';
 import { HakutapaSuodatin } from './toteutusSuodattimet/HakutapaSuodatin';
 import { MobileFiltersOnTopMenu } from './toteutusSuodattimet/MobileFiltersOnTopMenu';
 import { OpetuskieliSuodatin } from './toteutusSuodattimet/OpetusKieliSuodatin';
@@ -64,6 +63,7 @@ type Props = {
 };
 
 type JarjestajaData = {
+  total: number;
   jarjestajat: Array<Jarjestaja>;
   loading: boolean;
   sortedFilters: Record<string, Record<string, FilterValue>>;
@@ -88,24 +88,43 @@ const getQueryStr = (values: Record<string, Array<string> | boolean>) => {
   );
 };
 
+const SuodatinGridItem: React.FC = ({ children }) => {
+  const classes = useStyles();
+
+  return (
+    <Grid item className={classes.filter} xs={6} lg={4}>
+      {children}
+    </Grid>
+  );
+};
+
 export const ToteutusList = ({ oid }: Props) => {
   const { t } = useTranslation();
   const classes = useStyles();
-  const dispatch = useDispatch();
 
   // NOTE: Tämä haetaan vain kerran alkuarvoja varten + Haetaan järjestäjätulokset hakusivulta periytyneillä rajaimilla
   const initialCheckedFilters = useSelector<any, Record<string, Array<string>>>(
     getInitialCheckedToteutusFilters
   );
-  const [initialValues] = useState(initialCheckedFilters);
-  useEffect(() => {
-    const queryStrings = getQueryStr(initialValues);
-    dispatch(fetchKoulutusJarjestajat(oid, queryStrings));
-  }, [dispatch, oid, initialValues]);
 
-  const { jarjestajat, loading, sortedFilters }: JarjestajaData = useSelector(
-    selectJarjestajat
-  ) as any; // JS tiedostosta päättely ei oikein toimi
+  const { queryResult, setFilters, setPagination, pagination } = useKoulutusJarjestajat({
+    oid,
+  });
+
+  const { data = {}, isLoading } = queryResult;
+
+  const { sortedFilters, jarjestajat, total } = data as JarjestajaData;
+  const [initialValues] = useState(initialCheckedFilters);
+
+  const previousOid = usePreviousNonEmpty(oid);
+  // Jos oid vaihtuu, initialisoi filtterit hakutulosten filttereistä
+  useEffect(() => {
+    if (oid !== previousOid) {
+      const queryStrings = getQueryStr(initialValues);
+      setFilters(queryStrings);
+    }
+  }, [oid, setFilters, initialValues, previousOid]);
+
   const [checkedValues, setCheckedValues] = useState<
     Record<string, Array<string> | boolean>
   >(initialValues);
@@ -138,7 +157,7 @@ export const ToteutusList = ({ oid }: Props) => {
 
     setCheckedValues(newCheckedValues);
     const queryStrings = getQueryStr(newCheckedValues);
-    dispatch(fetchKoulutusJarjestajat(oid, queryStrings));
+    setFilters(queryStrings);
   };
 
   const handleFiltersClear = useCallback(() => {
@@ -148,157 +167,175 @@ export const ToteutusList = ({ oid }: Props) => {
     );
     setCheckedValues(usedFilters);
     const queryStrings = getQueryStr(usedFilters);
-    dispatch(fetchKoulutusJarjestajat(oid, queryStrings));
-  }, [dispatch, oid, checkedValues]);
+    setFilters(queryStrings);
+  }, [checkedValues, setFilters]);
 
-  const someValuesToShow = loading || jarjestajat?.length > 0;
+  const someValuesToShow = isLoading || jarjestajat?.length > 0;
+
+  const scrollTargetId = 'toteutus-list';
 
   return (
     <Container maxWidth="lg" className={classes.container}>
-      <Typography variant="h2">{t('koulutus.tarjonta')}</Typography>
+      <Typography variant="h2" id={scrollTargetId}>
+        {t('koulutus.tarjonta')}
+      </Typography>
       <Spacer />
-      {someValuesToShow && (
+      <>
+        <Hidden smDown>
+          <Grid
+            container
+            item
+            direction="row"
+            justify="center"
+            spacing={2}
+            className={classes.filtersContainer}
+            sm={10}>
+            <SuodatinGridItem>
+              <OpetuskieliSuodatin
+                elevation={2}
+                handleFilterChange={handleFilterChange}
+                values={usedValues.opetuskieli}
+              />
+            </SuodatinGridItem>
+            <SuodatinGridItem>
+              <SijaintiSuodatin
+                elevation={2}
+                loading={isLoading}
+                handleFilterChange={handleFilterChange}
+                maakuntaValues={usedValues.maakunta}
+                kuntaValues={usedValues.kunta}
+              />
+            </SuodatinGridItem>
+            <SuodatinGridItem>
+              <PohjakoulutusvaatimusSuodatin
+                elevation={2}
+                handleFilterChange={handleFilterChange}
+                values={usedValues.pohjakoulutusvaatimus}
+              />
+            </SuodatinGridItem>
+            <SuodatinGridItem>
+              <HakutapaSuodatin
+                elevation={2}
+                handleFilterChange={handleFilterChange}
+                values={
+                  usedValues.hakukaynnissa && usedValues.hakutapa
+                    ? [...usedValues.hakukaynnissa, ...usedValues.hakutapa]
+                    : []
+                }
+              />
+            </SuodatinGridItem>
+            <SuodatinGridItem>
+              <ValintatapaSuodatin
+                elevation={2}
+                handleFilterChange={handleFilterChange}
+                values={usedValues.valintatapa}
+              />
+            </SuodatinGridItem>
+            <SuodatinGridItem>
+              <OpetustapaSuodatin
+                elevation={2}
+                handleFilterChange={handleFilterChange}
+                values={usedValues.opetustapa}
+              />
+            </SuodatinGridItem>
+          </Grid>
+        </Hidden>
+        <Hidden mdUp>
+          <MobileFiltersOnTopMenu
+            values={usedValues}
+            loading={isLoading}
+            hitCount={total}
+            handleFilterChange={handleFilterChange}
+            clearChosenFilters={handleFiltersClear}
+          />
+        </Hidden>
+      </>
+      <TarjontaPagination
+        total={total}
+        pagination={pagination}
+        setPagination={setPagination}
+      />
+      <QueryResultWrapper queryResult={queryResult}>
         <>
-          <Hidden smDown>
+          {someValuesToShow ? (
             <Grid
               container
-              item
-              direction="row"
+              direction="column"
               justify="center"
-              spacing={2}
-              className={classes.filtersContainer}
-              sm={10}>
-              <Grid item className={classes.filter} sm={4}>
-                <OpetuskieliSuodatin
-                  elevation={2}
-                  handleFilterChange={handleFilterChange}
-                  values={usedValues.opetuskieli}
-                />
-              </Grid>
-              <Grid item className={classes.filter} sm={4}>
-                <SijaintiSuodatin
-                  elevation={2}
-                  loading={loading}
-                  handleFilterChange={handleFilterChange}
-                  maakuntaValues={usedValues.maakunta}
-                  kuntaValues={usedValues.kunta}
-                />
-              </Grid>
-              <Grid item className={classes.filter} sm={4}>
-                <PohjakoulutusvaatimusSuodatin
-                  elevation={2}
-                  handleFilterChange={handleFilterChange}
-                  values={usedValues.pohjakoulutusvaatimus}
-                />
-              </Grid>
-              <Grid item className={classes.filter} sm={4}>
-                <HakutapaSuodatin
-                  elevation={2}
-                  handleFilterChange={handleFilterChange}
-                  values={
-                    usedValues.hakukaynnissa && usedValues.hakutapa
-                      ? [...usedValues.hakukaynnissa, ...usedValues.hakutapa]
-                      : []
-                  }
-                />
-              </Grid>
-              <Grid item className={classes.filter} sm={4}>
-                <ValintatapaSuodatin
-                  elevation={2}
-                  handleFilterChange={handleFilterChange}
-                  values={usedValues.valintatapa}
-                />
-              </Grid>
-              <Grid item className={classes.filter} sm={4}>
-                <OpetustapaSuodatin
-                  elevation={2}
-                  handleFilterChange={handleFilterChange}
-                  values={usedValues.opetustapa}
-                />
-              </Grid>
-            </Grid>
-          </Hidden>
-          <Hidden mdUp>
-            <MobileFiltersOnTopMenu
-              values={usedValues}
-              loading={loading}
-              hitCount={jarjestajat?.length}
-              handleFilterChange={handleFilterChange}
-              clearChosenFilters={handleFiltersClear}
-            />
-          </Hidden>
-        </>
-      )}
-
-      {loading ? (
-        <LoadingCircle />
-      ) : someValuesToShow ? (
-        <Grid
-          container
-          direction="column"
-          justify="center"
-          className={classes.grid}
-          alignItems="stretch"
-          spacing={1}>
-          {jarjestajat.map((toteutus, i) => (
-            <Grid item key={i}>
-              <EntiteettiKortti
-                koulutustyyppi={toteutus.koulutustyyppi}
-                to={`/toteutus/${toteutus.toteutusOid}`}
-                logoElement={
-                  <OppilaitosKorttiLogo
-                    image={toteutus.kuva}
-                    alt={`${localize(toteutus.toteutusNimi)} ${t(
-                      'koulutus.koulutuksen-teemakuva'
-                    )}`}
+              className={classes.grid}
+              alignItems="stretch"
+              spacing={1}>
+              {jarjestajat?.map((toteutus, i) => (
+                <Grid item key={i}>
+                  <EntiteettiKortti
+                    koulutustyyppi={toteutus.koulutustyyppi}
+                    to={`/toteutus/${toteutus.toteutusOid}`}
+                    logoElement={
+                      <OppilaitosKorttiLogo
+                        image={toteutus.kuva}
+                        alt={`${localize(toteutus.toteutusNimi)} ${t(
+                          'koulutus.koulutuksen-teemakuva'
+                        )}`}
+                      />
+                    }
+                    preHeader={localize(toteutus)}
+                    header={localize(toteutus.toteutusNimi)}
+                    erityisopetusHeader={
+                      toteutus.ammatillinenPerustutkintoErityisopetuksena ||
+                      toteutus.jarjestetaanErityisopetuksena
+                    }
+                    kuvaus={localize(toteutus.kuvaus)}
+                    wrapDirection="column-reverse"
+                    iconTexts={[
+                      [
+                        localizeArrayToCommaSeparated(toteutus.kunnat, { sorted: true }),
+                        PublicIcon,
+                      ],
+                      [
+                        localizeArrayToCommaSeparated(toteutus.opetusajat, {
+                          sorted: true,
+                        }),
+                        HourglassEmptyIcon,
+                      ],
+                      [
+                        getLocalizedMaksullisuus(
+                          toteutus.maksullisuustyyppi,
+                          toteutus.maksunMaara
+                        ),
+                        EuroSymbolIcon,
+                      ],
+                      [
+                        toteutus.hakukaynnissa ? (
+                          <TextWithBackground>
+                            {t('haku.hakukaynnissa')}
+                          </TextWithBackground>
+                        ) : (
+                          <></>
+                        ),
+                        undefined,
+                      ],
+                    ]}
                   />
-                }
-                preHeader={localize(toteutus)}
-                header={localize(toteutus.toteutusNimi)}
-                erityisopetusHeader={
-                  toteutus.ammatillinenPerustutkintoErityisopetuksena ||
-                  toteutus.jarjestetaanErityisopetuksena
-                }
-                kuvaus={localize(toteutus.kuvaus)}
-                wrapDirection="column-reverse"
-                iconTexts={[
-                  [
-                    localizeArrayToCommaSeparated(toteutus.kunnat, { sorted: true }),
-                    PublicIcon,
-                  ],
-                  [
-                    localizeArrayToCommaSeparated(toteutus.opetusajat, { sorted: true }),
-                    HourglassEmptyIcon,
-                  ],
-                  [
-                    getLocalizedMaksullisuus(
-                      toteutus.maksullisuustyyppi,
-                      toteutus.maksunMaara
-                    ),
-                    EuroSymbolIcon,
-                  ],
-                  [
-                    toteutus.hakukaynnissa ? (
-                      <TextWithBackground>{t('haku.hakukaynnissa')}</TextWithBackground>
-                    ) : (
-                      <></>
-                    ),
-                    undefined,
-                  ],
-                ]}
-              />
+                </Grid>
+              ))}
             </Grid>
-          ))}
-        </Grid>
-      ) : (
-        <Typography variant="body1" paragraph>
-          {t(
-            someSelected
-              ? 'koulutus.ei-rajaimia-vastaavia-toteutuksia'
-              : 'koulutus.ei-toteutuksia'
+          ) : (
+            <Typography variant="body1" paragraph>
+              {t(
+                someSelected
+                  ? 'koulutus.ei-rajaimia-vastaavia-toteutuksia'
+                  : 'koulutus.ei-toteutuksia'
+              )}
+            </Typography>
           )}
-        </Typography>
-      )}
+        </>
+      </QueryResultWrapper>
+      <TarjontaPagination
+        total={total}
+        pagination={pagination}
+        setPagination={setPagination}
+        scrollTargetId={scrollTargetId}
+      />
     </Container>
   );
 };

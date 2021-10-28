@@ -3,12 +3,10 @@ import React from 'react';
 import { Box, Grid, makeStyles, Paper, Typography } from '@material-ui/core';
 import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined';
 import { useTranslation } from 'react-i18next';
-import { shallowEqual, useSelector } from 'react-redux';
 
 import { colors } from '#/src/colors';
 import { IconBackground } from '#/src/components/common/IconBackground';
 import Spacer from '#/src/components/common/Spacer';
-import { selectEiSahkoistaHaku } from '#/src/store/reducers/toteutusSlice';
 import { localize } from '#/src/tools/localization';
 import { sanitizedHTMLParser } from '#/src/tools/utils';
 
@@ -21,13 +19,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 type Props = {
-  oid: string;
+  data: any;
 };
 
-export const ToteutusHakuEiSahkoista = ({ oid }: Props) => {
+export const ToteutusHakuEiSahkoista = ({ data: eiSahkoistaData }: Props) => {
   const classes = useStyles();
   const { t } = useTranslation();
-  const eiSahkoistaData = useSelector(selectEiSahkoistaHaku(oid), shallowEqual);
 
   return (
     <Box

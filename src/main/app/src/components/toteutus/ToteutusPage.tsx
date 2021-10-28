@@ -1,9 +1,9 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 
 import { Box, Grid, makeStyles, Typography } from '@material-ui/core';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 
@@ -21,23 +21,13 @@ import TeemakuvaImage from '#/src/components/common/TeemakuvaImage';
 import { TextWithBackground } from '#/src/components/common/TextWithBackground';
 import { useUrlParams } from '#/src/components/hakutulos/UseUrlParams';
 import { getHakuParams, getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
-import {
-  fetchKoulutusWithRelatedData,
-  selectKoulutus,
-  selectLoading as selectKoulutusLoading,
-} from '#/src/store/reducers/koulutusSlice';
-import {
-  fetchToteutus,
-  selectHakukohteet,
-  selectLoading as selectToteutusLoading,
-  selectToteutus,
-} from '#/src/store/reducers/toteutusSlice';
 import { getLanguage, localize, localizeLukiolinja } from '#/src/tools/localization';
 import { getLocalizedOpintojenLaajuus, sanitizedHTMLParser } from '#/src/tools/utils';
-import { Toteutus } from '#/src/types/ToteutusTypes';
 
+import { useKoulutus } from '../koulutus/hooks';
 import { Diplomit } from './Diplomit';
 import { HakuKaynnissaCard } from './HakuKaynnissaCard';
+import { useToteutus } from './hooks';
 import { KielivalikoimaBox } from './KielivalikoimaBox';
 import { Osaamisalat } from './Osaamisalat';
 import { ToteutuksenYhteystiedot } from './ToteutuksenYhteystiedot';
@@ -53,34 +43,36 @@ const useStyles = makeStyles({
 export const ToteutusPage = () => {
   const classes = useStyles();
   const { oid } = useParams<{ oid: string }>();
-  const dispatch = useDispatch();
   const { t } = useTranslation();
   const currentLanguage = getLanguage();
   const { isDraft } = useUrlParams();
 
   // TODO: There is absolutely no error handling atm.
-  const toteutus: Toteutus = useSelector(selectToteutus(oid), shallowEqual);
+  const { data: toteutus, isLoading: toteutusLoading } = useToteutus({
+    oid,
+    isDraft,
+  });
 
   const koulutusOid = toteutus?.koulutusOid;
   const {
     kuvaus,
-    painotukset,
-    erityisetKoulutustehtavat,
-    opetus,
+    painotukset = [],
+    erityisetKoulutustehtavat = [],
+    opetus = {},
     ammattinimikkeet,
-    yhteyshenkilot,
-    diplomit,
+    yhteyshenkilot = [],
+    diplomit = [],
     kielivalikoima,
     ammatillinenPerustutkintoErityisopetuksena,
     jarjestetaanErityisopetuksena,
   } = toteutus?.metadata ?? {};
-  const koulutus = useSelector(selectKoulutus(koulutusOid), shallowEqual);
-  const haut = useSelector(selectHakukohteet(oid), shallowEqual);
 
-  const toteutusLoading = useSelector(selectToteutusLoading);
-  const [koulutusNotFetched, setKoulutusNotFetched] = useState(!koulutus);
-  const koulutusLoading =
-    useSelector(selectKoulutusLoading) || (!koulutus && koulutusNotFetched);
+  const { data: koulutus, isLoading: koulutusLoading } = useKoulutus({
+    oid: koulutusOid,
+    isDraft,
+  });
+
+  const haut = toteutus?.hakukohteet;
 
   // NOTE: These ammattinimikkeet should be the freely written virkailija asiasana-ammattinimikkeet,
   // not the formal tutkintonimikkeet
@@ -90,17 +82,6 @@ export const ToteutusPage = () => {
     .map((asiasana: any) => asiasana.arvo);
 
   const loading = koulutusLoading || toteutusLoading;
-
-  useEffect(() => {
-    if (!toteutus) {
-      dispatch(fetchToteutus(oid, isDraft));
-    }
-    // TODO: Get rid of koulutus call here when opintolaajuus AND tutkintonimikkeet comes from toteutus -backend
-    if (!koulutus && koulutusOid && koulutusNotFetched) {
-      dispatch(fetchKoulutusWithRelatedData(toteutus.koulutusOid, isDraft));
-      setKoulutusNotFetched(false);
-    }
-  }, [isDraft, toteutus, dispatch, oid, koulutus, koulutusOid, koulutusNotFetched]);
 
   const hasAnyHaku = _.some(haut, (v: any) => v.hakukohteet.length > 0);
   const hakuUrl = useSelector(getHakuUrl);
@@ -173,7 +154,7 @@ export const ToteutusPage = () => {
         <Box mt={4}>
           <ToteutusInfoGrid
             laajuus={getLocalizedOpintojenLaajuus(koulutus)}
-            opetus={opetus}
+            opetus={opetus!}
             hasHaku={hasAnyHaku}
           />
         </Box>
@@ -231,10 +212,12 @@ export const ToteutusPage = () => {
         )}
         <KielivalikoimaBox kielivalikoima={kielivalikoima} />
         <Diplomit diplomit={diplomit} />
-        <Osaamisalat toteutus={toteutus} koulutus={koulutus} />
+        <Osaamisalat toteutus={toteutus!} koulutus={koulutus} />
         {hasAnyHaku && <ToteutusHakukohteet haut={haut} />}
-        {toteutus?.hasMuuHaku && <ToteutusHakuMuu oid={toteutus?.oid} />}
-        {toteutus?.hasEiSahkoistaHaku && <ToteutusHakuEiSahkoista oid={toteutus?.oid} />}
+        {toteutus?.hasMuuHaku && <ToteutusHakuMuu data={toteutus?.muuHakuData} />}
+        {toteutus?.hasEiSahkoistaHaku && (
+          <ToteutusHakuEiSahkoista data={toteutus?.eiSahkoistaHakuData} />
+        )}
         {combinedLisatiedot.length > 0 && (
           <AccordionWithTitle
             titleTranslationKey="koulutus.lisätietoa"
@@ -298,8 +281,8 @@ export const ToteutusPage = () => {
             </Box>
           </Box>
         )}
-        {toteutus.oppilaitokset?.length > 0 && (
-          <ToteutuksenYhteystiedot oids={toteutus.oppilaitokset} />
+        {!_.isEmpty(toteutus?.oppilaitokset) && (
+          <ToteutuksenYhteystiedot oids={toteutus!.oppilaitokset} />
         )}
       </Box>
     </ContentWrapper>
