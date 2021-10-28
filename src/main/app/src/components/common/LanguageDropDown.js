@@ -36,6 +36,13 @@ const iconComponent = (props) => {
 const LanguageDropDown = () => {
   const { t } = useTranslation();
   const [language, setLanguage] = useLanguageState();
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
   const handleChange = (event) => {
     let selectedLanguage = event.target.value;
     Cookies.set('lang', selectedLanguage, {
@@ -46,7 +53,10 @@ const LanguageDropDown = () => {
   };
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
-      <LanguageIcon />
+      <LanguageIcon
+        onClick={!open ? handleOpen : handleClose}
+        style={{ cursor: 'pointer' }}
+      />
       <FormControl size="small" color="primary">
         <Select
           MenuProps={{
@@ -57,6 +67,9 @@ const LanguageDropDown = () => {
             getContentAnchorEl: null,
           }}
           value={language}
+          open={open}
+          onClose={handleClose}
+          onOpen={handleOpen}
           onChange={handleChange}
           variant="standard"
           renderValue={(value) => value.toUpperCase()}

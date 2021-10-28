@@ -73,7 +73,6 @@ const getAsiasanatForLanguage = (asiasanat: Array<any>, language: string) => {
   }
 };
 
-
 export const ToteutusPage = () => {
   const classes = useStyles();
   const { oid } = useParams<{ oid: string }>();
