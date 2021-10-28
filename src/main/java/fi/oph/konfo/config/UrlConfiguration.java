@@ -75,5 +75,6 @@ public class UrlConfiguration extends OphProperties {
     this.frontProperties.setProperty("kartta.publish-url", this.require("kartta.publish-url"));
     this.frontProperties.setProperty(
         "eperusteet-service.eperuste.kuvaus", this.require("eperusteet-service.eperuste.kuvaus"));
+    this.frontProperties.setProperty("oma-opintopolku", this.require("oma-opintopolku"));
   }
 }
