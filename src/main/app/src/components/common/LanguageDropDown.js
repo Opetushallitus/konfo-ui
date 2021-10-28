@@ -21,7 +21,7 @@ import { supportedLanguages } from '#/src/tools/i18n';
 const CustomInput = withStyles((theme) => ({
   input: {
     position: 'relative',
-    fontSize: 12,
+    fontSize: 'small',
     color: colors.white,
     padding: '5px 5px 5px 5px',
   },
