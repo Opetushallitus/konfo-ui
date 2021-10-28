@@ -23,6 +23,7 @@ const CustomInput = withStyles((theme) => ({
     position: 'relative',
     fontSize: 12,
     color: colors.white,
+    padding: '5px 5px 5px 5px',
   },
 }))(InputBase);
 
@@ -45,7 +46,7 @@ const LanguageDropDown = () => {
   };
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
-      <LanguageIcon style={{ fontSize: '20px' }} />
+      <LanguageIcon />
       <FormControl size="small" color="primary">
         <Select
           MenuProps={{
@@ -62,7 +63,15 @@ const LanguageDropDown = () => {
           input={<CustomInput />}
           IconComponent={iconComponent}>
           {supportedLanguages.map((langCode) => (
-            <MenuItem key={langCode} value={langCode}>
+            <MenuItem
+              key={langCode}
+              value={langCode}
+              style={{
+                fontSize: 'small',
+                color: colors.black,
+                backgroundColor: colors.white,
+                margin: '10px 10px 10px 10px',
+              }}>
               {t(`kielivalinta.${LANG_NAME_BY_CODE[langCode]}`)}
             </MenuItem>
           ))}
