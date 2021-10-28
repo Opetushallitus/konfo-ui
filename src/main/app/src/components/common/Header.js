@@ -3,7 +3,6 @@ import React from 'react';
 import {
   AppBar,
   Box,
-  Chip,
   CssBaseline,
   Hidden,
   Icon,
