@@ -72,7 +72,7 @@ export const MobileToggleFiltersButton = ({
     t,
     hitCount,
   ]);
-  const menuOpen = useSideMenu();
+  const menuOpen = useSideMenu().state;
   const fixedStyle = menuOpen ? classes.fixedMenuOpen : classes.fixed;
   // TODO: Spinner when loading would be nice
   return (

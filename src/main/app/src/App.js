@@ -3,14 +3,12 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles, useMediaQuery, Box } from '@material-ui/core';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { CookieModal } from '#/src/components/common/CookieModal';
 import { HeadingBoundary } from '#/src/components/Heading';
 import { useSideMenu } from '#/src/hooks';
 import { NotFound } from '#/src/NotFound';
-import { setMenuState } from '#/src/store/reducers/sideMenuSlice';
 import { supportedLanguages } from '#/src/tools/i18n';
 
 import { Draft } from './components/common/Draft';
@@ -148,17 +146,12 @@ const App = () => {
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
   const [betaBanner, setBetaBanner] = useState(true);
 
-  const dispatch = useDispatch();
-  const menuVisible = useSideMenu();
+  const menuProps = useSideMenu();
+  const menuVisible = menuProps.state;
+  const toggleMenu = menuProps.toggleMenu;
+  const closeMenu = menuProps.closeMenu;
 
   const classes = useStyles({ betaBannerVisible: betaBanner, isSmall, menuVisible });
-
-  const toggleMenu = () => {
-    dispatch(setMenuState(!menuVisible));
-  };
-  const closeMenu = () => {
-    dispatch(setMenuState(false));
-  };
 
   return (
     <React.Fragment>
