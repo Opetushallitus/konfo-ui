@@ -1,3 +1,4 @@
+debug: true
 server:
   servlet:
     context-path: /konfo
@@ -8,3 +9,6 @@ host:
 kartta:
   host: https://hkp.maanmittauslaitos.fi
   pid: 277da693-ae10-4508-bc5a-d6ced2056fd0
+prerender:
+  enable: "false"
+  timeout: "15000"
