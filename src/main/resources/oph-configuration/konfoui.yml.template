@@ -14,4 +14,4 @@ kartta:
   pid: {{konfo_ui_kartta_pid}}
  prerender:
   enable: {{konfo_prerender_enable | default("false")}}
-  timeour: {{konfo_prerender_socket_timeout_millis | default("15000")}}
+  timeout: {{konfo_prerender_socket_timeout_millis | default("15000")}}
