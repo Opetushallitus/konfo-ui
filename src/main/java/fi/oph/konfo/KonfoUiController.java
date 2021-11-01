@@ -8,22 +8,25 @@ import org.springframework.web.bind.annotation.*;
 public class KonfoUiController implements ErrorController {
   private static final String PATH = "/error";
 
-  @GetMapping(value = {
-    "/haku",
-    "/sivu/*",
-    "/sisaltohaku/*",
-    "/omapolku/*",
-    "/haku/*",
-    "/koulutus",
-    "/koulutus/*",
-    "/toteutus",
-    "/toteutus/*",
-    "/oppilaitos",
-    "/oppilaitos/*",
-    "/",})
+  @GetMapping(
+      value = {
+        "/haku",
+        "/sivu/*",
+        "/sisaltohaku/*",
+        "/omapolku/*",
+        "/haku/*",
+        "/koulutus",
+        "/koulutus/*",
+        "/toteutus",
+        "/toteutus/*",
+        "/oppilaitos",
+        "/oppilaitos/*",
+        "/",
+      })
   public String frontProperties() {
     return "/index.html";
   }
+
   @GetMapping(value = PATH)
   public String notFound() {
     return "/index.html";

@@ -8,15 +8,15 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class FilterConfiguration {
 
-    @Bean
-    public FilterRegistrationBean<OphPrerenderFilter> ophPrerenderFilter(@Value("${prerender.enable}") boolean enablePrerender,
-                                                                         @Value("${prerender.timeout}") int socketTimeoutMillis){
-        FilterRegistrationBean<OphPrerenderFilter> registrationBean
-                = new FilterRegistrationBean<>();
+  @Bean
+  public FilterRegistrationBean<OphPrerenderFilter> ophPrerenderFilter(
+      @Value("${prerender.enable}") boolean enablePrerender,
+      @Value("${prerender.timeout}") int socketTimeoutMillis) {
+    FilterRegistrationBean<OphPrerenderFilter> registrationBean = new FilterRegistrationBean<>();
 
-        registrationBean.setFilter(new OphPrerenderFilter(enablePrerender, socketTimeoutMillis));
-        registrationBean.addUrlPatterns("/*");
+    registrationBean.setFilter(new OphPrerenderFilter(enablePrerender, socketTimeoutMillis));
+    registrationBean.addUrlPatterns("/*");
 
-        return registrationBean;
-    }
+    return registrationBean;
+  }
 }
