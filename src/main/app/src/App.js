@@ -146,10 +146,7 @@ const App = () => {
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
   const [betaBanner, setBetaBanner] = useState(true);
 
-  const menuProps = useSideMenu();
-  const menuVisible = menuProps.state;
-  const toggleMenu = menuProps.toggleMenu;
-  const closeMenu = menuProps.closeMenu;
+  const { state: menuVisible, toggleMenu, closeMenu } = useSideMenu();
 
   const classes = useStyles({ betaBannerVisible: betaBanner, isSmall, menuVisible });
 

@@ -5,8 +5,7 @@ import { FilterList } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
-
-import { useSideMenu } from '../../hooks';
+import { useSideMenu } from '#/src/hooks';
 
 // TODO: This is mostly copypaste styles from various files
 const useStyles = makeStyles(() => ({

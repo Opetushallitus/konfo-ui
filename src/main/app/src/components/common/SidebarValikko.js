@@ -10,7 +10,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 
-import { useContentful } from '#/src/hooks';
+import { useContentful, useSideMenu } from '#/src/hooks';
 
 import { colors } from '../../colors';
 
@@ -124,10 +124,13 @@ const SidebarValikko = (props) => {
   const history = useHistory();
   const { i18n } = useTranslation();
   const { forwardTo } = useContentful();
-  const { parent, select, deselect, closeMenu, name, id, links, keepMenuVisible } = props;
+  const { parent, select, deselect, closeMenu, name, id, links } = props;
+  const { state: keepMenuVisible } = useSideMenu();
   const forwardToPage = (id) => {
     history.push(`/${i18n.language}${forwardTo(id)}`);
-    !keepMenuVisible && closeMenu();
+    if (!keepMenuVisible) {
+      closeMenu();
+    }
   };
 
   return (
