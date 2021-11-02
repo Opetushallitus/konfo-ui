@@ -34,7 +34,7 @@ public class OphPrerenderFilter extends PreRenderSEOFilter {
   public void init(FilterConfig filterConfig) {
     LOG.info(String.format("enablePrerender = %s", enablePrerender));
     LOG.info(String.format("socketTimeoutMillis = %d", socketTimeoutMillis));
-    LOG.info(String.format("prerenderToken = %d", token));
+    LOG.info(String.format("prerenderToken = %s", token));
     if (enablePrerender) {
       Map<String, String> configAsMap = toMap(filterConfig);
       LOG.info(
