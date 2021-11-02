@@ -1,4 +1,3 @@
-import { format } from 'date-fns-tz';
 import _fp from 'lodash/fp';
 import ReactHtmlParser from 'react-html-parser';
 import stripTags from 'striptags';

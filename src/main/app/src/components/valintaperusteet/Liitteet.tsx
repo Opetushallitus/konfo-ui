@@ -207,7 +207,8 @@ export const Liitteet = ({ liitteet, hakukohde, organisaatioOid }: Props) => {
   const { hakijapalveluidenYhteystiedot } = useOsoitteet([organisaatioOid])?.[0] || {};
 
   const yhteinenToimitusaika =
-    hakukohde?.liitteetOnkoSamaToimitusaika && hakukohde?.formatoituLiitteidentoimitusaika;
+    hakukohde?.liitteetOnkoSamaToimitusaika &&
+    hakukohde?.formatoituLiitteidentoimitusaika;
   const yhteinenToimitusosoite =
     hakukohde.liitteetOnkoSamaToimitusosoite && hakukohde.liitteidenToimitusosoite;
 
