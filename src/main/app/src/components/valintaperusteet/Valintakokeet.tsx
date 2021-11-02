@@ -19,7 +19,7 @@ import { Heading, HeadingBoundary } from '#/src/components/Heading';
 import { localize, localizeOsoite } from '#/src/tools/localization';
 import { formatDateString, toId } from '#/src/tools/utils';
 import { Koodi, Translateable } from '#/src/types/common';
-import {FormatoituAikaleima} from "#/src/types/HakukohdeTypes";
+import { FormatoituAikaleima } from '#/src/types/HakukohdeTypes';
 
 const useStyles = makeStyles(() => ({
   valintakoeHeader: {
@@ -99,7 +99,12 @@ type Tilaisuus = {
   lisatietoja: Translateable;
   jarjestamispaikka: Translateable;
   osoite: { osoite: Translateable; postinumero: Koodi };
-  aika: { alkaa: string; paattyy: string, formatoituAlkaa: FormatoituAikaleima; formatoituPaattyy: FormatoituAikaleima };
+  aika: {
+    alkaa: string;
+    paattyy: string;
+    formatoituAlkaa: FormatoituAikaleima;
+    formatoituPaattyy: FormatoituAikaleima;
+  };
 };
 
 type Props = {

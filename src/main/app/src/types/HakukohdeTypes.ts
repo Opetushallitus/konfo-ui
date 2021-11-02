@@ -1,10 +1,10 @@
 import { Alkamiskausi, Koodi, Osoite, Translateable } from './common';
 
 export type FormatoituAikaleima = {
-  fi: string,
-  sv: String,
-  en: String
-}
+  fi: string;
+  sv: string;
+  en: string;
+};
 
 // Ei ole sama asia kuin oppilaitoksen, koska oppilaitoksella on erikseen posti- ja käyntiosoite
 type LiitteenYhteystiedot = {
@@ -40,7 +40,12 @@ export type Hakukohde = {
     ensikertalaisille?: number;
     kuvaus?: Translateable;
   };
-  hakuajat: Array<{ alkaa: string; paattyy: string, formatoituAlkaa: FormatoituAikaleima, formatoituPaattyy: FormatoituAikaleima }>;
+  hakuajat: Array<{
+    alkaa: string;
+    paattyy: string;
+    formatoituAlkaa: FormatoituAikaleima;
+    formatoituPaattyy: FormatoituAikaleima;
+  }>;
   hakukohdeOid: string;
   hakukohteenLinja?: {
     alinHyvaksyttyKeskiarvo: number;
