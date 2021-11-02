@@ -59,16 +59,16 @@ const useStyles = makeStyles((theme) => ({
   paperRoot: {
     width: '100%',
     boxShadow: 'none',
-    [theme.breakpoints.up(1921)]: {
+    [theme.breakpoints.up(1920)]: {
       padding: theme.spacing(1, 11),
     },
-    [theme.breakpoints.between(1601, 1921)]: {
+    [theme.breakpoints.between('xl', 'xxl')]: {
       padding: theme.spacing(1, 11),
     },
-    [theme.breakpoints.between(900, 1601)]: {
+    [theme.breakpoints.down('xl')]: {
       padding: theme.spacing(1, 2),
     },
-    [theme.breakpoints.down(900)]: {
+    [theme.breakpoints.down('md')]: {
       padding: theme.spacing(1, 1),
     },
   },
