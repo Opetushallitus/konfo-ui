@@ -16,3 +16,5 @@ prerender:
   enable: {{konfo_prerender_enable | default("false")}}
   timeout: {{konfo_prerender_socket_timeout_millis | default("15000")}}
   token: {{konfo_prerender_token | default("DUMMY")}}
+konfo-ui:
+  uses-ssl-proxy: true
