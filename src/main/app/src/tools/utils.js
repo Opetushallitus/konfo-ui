@@ -58,7 +58,7 @@ export function formatDateString(d) {
     return '';
   }
 
-  return d[getLanguage()];
+  return d[getLanguage()] || '';
 }
 
 export const formatDateRange = (start, end) =>
