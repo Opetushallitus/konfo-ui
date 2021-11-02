@@ -22,16 +22,19 @@ public class OphPrerenderFilter extends PreRenderSEOFilter {
 
   private final boolean enablePrerender;
   private final int socketTimeoutMillis;
+  private final String token;
 
-  public OphPrerenderFilter(boolean enablePrerender, int socketTimeoutMillis) {
+  public OphPrerenderFilter(boolean enablePrerender, int socketTimeoutMillis, String token) {
     this.enablePrerender = enablePrerender;
     this.socketTimeoutMillis = socketTimeoutMillis;
+    this.token = token;
   }
 
   @Override
   public void init(FilterConfig filterConfig) {
     LOG.info(String.format("enablePrerender = %s", enablePrerender));
     LOG.info(String.format("socketTimeoutMillis = %d", socketTimeoutMillis));
+    LOG.info(String.format("prerenderToken = %d", token));
     if (enablePrerender) {
       Map<String, String> configAsMap = toMap(filterConfig);
       LOG.info(
@@ -80,6 +83,8 @@ public class OphPrerenderFilter extends PreRenderSEOFilter {
     config.put(
         "socketTimeout",
         Integer.toString(socketTimeoutMillis)); // See PrerenderConfig.getSocketTimeout()
+    config.put("prerenderToken", token);
+
     return config;
   }
 }

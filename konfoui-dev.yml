@@ -12,3 +12,4 @@ kartta:
 prerender:
   enable: "false"
   timeout: "15000"
+  token: "DUMMY"
