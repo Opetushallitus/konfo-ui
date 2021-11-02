@@ -87,12 +87,12 @@ export const ToteutusHakuMuu = ({ data: muuHaku }: Props) => {
                 </Grid>
                 <Grid item xs>
                   <Typography variant="body1" className={classes.valueText}>
-                    {muuHaku.hakuaika?.paattyy
+                    {muuHaku.hakuaika?.formatoituPaattyy
                       ? formatDateRange(
-                          muuHaku.hakuaika?.alkaa,
-                          muuHaku.hakuaika?.paattyy
+                          muuHaku.hakuaika?.formatoituAlkaa,
+                          muuHaku.hakuaika?.formatoituPaattyy
                         )
-                      : formatDateString(muuHaku.hakuaika?.alkaa)}
+                      : formatDateString(muuHaku.hakuaika?.formatoituAlkaa)}
                   </Typography>
                 </Grid>
               </Grid>

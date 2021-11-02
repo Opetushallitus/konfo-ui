@@ -53,23 +53,12 @@ export const getSearchAddress = (postitoimipaikka = '', osoite = '') => {
   };
 };
 
-export function formatDateString(dateString) {
-  if (!dateString) {
+export function formatDateString(d) {
+  if (!d) {
     return '';
   }
 
-  const date = new Date(dateString);
-  switch (getLanguage()) {
-    case 'en':
-      return format(date, 'd MMMM yyyy h:mm a z', {
-        timeZone: 'Europe/Helsinki',
-      });
-    case 'sv':
-      return format(date, "d.M.y 'kl.' HH:mm");
-    case 'fi':
-    default:
-      return format(date, "d.M.y 'klo' HH:mm");
-  }
+  return d[getLanguage()];
 }
 
 export const formatDateRange = (start, end) =>
