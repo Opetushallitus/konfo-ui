@@ -1,12 +1,10 @@
-package fi.oph.konfo;
+package fi.oph.konfo.controller;
 
-import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-public class KonfoUiController implements ErrorController {
-  private static final String PATH = "/error";
+public class KonfoUiController {
 
   @GetMapping(
       value = {
@@ -25,15 +23,5 @@ public class KonfoUiController implements ErrorController {
       })
   public String frontProperties() {
     return "/index.html";
-  }
-
-  @GetMapping(value = PATH)
-  public String notFound() {
-    return "/index.html";
-  }
-
-  @Override
-  public String getErrorPath() {
-    return PATH;
   }
 }

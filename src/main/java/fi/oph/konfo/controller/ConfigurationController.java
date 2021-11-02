@@ -1,5 +1,6 @@
-package fi.oph.konfo;
+package fi.oph.konfo.controller;
 
+import fi.oph.konfo.config.UrlConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,4 +1,4 @@
-package fi.oph.konfo;
+package fi.oph.konfo.config;
 
 import fi.vm.sade.properties.OphProperties;
 import org.springframework.beans.factory.annotation.Autowired;
