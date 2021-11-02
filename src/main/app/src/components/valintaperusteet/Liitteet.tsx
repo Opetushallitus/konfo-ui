@@ -12,7 +12,7 @@ import { Heading, HeadingBoundary } from '#/src/components/Heading';
 import { localize, localizeOsoite } from '#/src/tools/localization';
 import { useOsoitteet } from '#/src/tools/useOppilaitosOsoite';
 import { formatDateString, toId } from '#/src/tools/utils';
-import { Hakukohde, Liite } from '#/src/types/HakukohdeTypes';
+import { Hakukohde, Liite, FormatoituAikaleima } from '#/src/types/HakukohdeTypes';
 
 const LIITTEEN_TOIMITUSTAPA = {
   TOIMITETAAN_LAHETTAMISEN_YHTEYDESSA: 'lomake',
@@ -37,7 +37,7 @@ const FileIcon = withStyles(() => ({
 type LiiteCardProps = {
   liitteet: Array<Liite>;
   osoite: string;
-  toimitusaika: string;
+  toimitusaika: FormatoituAikaleima;
 };
 
 const LiiteCard = ({ liitteet, osoite, toimitusaika }: LiiteCardProps) => {
@@ -135,7 +135,7 @@ export const Liitteet = ({ liitteet, hakukohde, organisaatioOid }: Props) => {
   const { hakijapalveluidenYhteystiedot } = useOsoitteet([organisaatioOid])?.[0] || {};
 
   const yhteinenToimitusaika = hakukohde?.liitteetOnkoSamaToimitusaika
-    ? hakukohde?.liitteidenToimitusaika
+    ? hakukohde?.formatoituLiitteidentoimitusaika
     : null;
   const yhteinenToimitusosoite = hakukohde.liitteetOnkoSamaToimitusosoite
     ? getToimitusosoite(
@@ -185,7 +185,7 @@ export const Liitteet = ({ liitteet, hakukohde, organisaatioOid }: Props) => {
                         t
                       )!
                     }
-                    toimitusaika={yhteinenToimitusaika || liite.toimitusaika}
+                    toimitusaika={yhteinenToimitusaika || liite.formatoituToimitusaika}
                   />
                 ))
               )}

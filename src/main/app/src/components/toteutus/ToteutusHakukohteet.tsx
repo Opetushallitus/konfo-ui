@@ -144,7 +144,7 @@ const HakuCardGrid = ({ tyyppiOtsikko, haut, icon }: GridProps) => {
                               size: anyHakuaikaPaattyy ? 6 : 12,
                               heading: t('toteutus.haku-alkaa:'),
                               content: haku.hakuajat.map((hakuaika) =>
-                                formatDateString(new Date(hakuaika.alkaa))
+                                formatDateString(hakuaika.formatoituAlkaa)
                               ),
                             },
                             anyHakuaikaPaattyy && {
@@ -153,7 +153,7 @@ const HakuCardGrid = ({ tyyppiOtsikko, haut, icon }: GridProps) => {
                               content: haku.hakuajat.map(
                                 (hakuaika) =>
                                   hakuaika.paattyy
-                                    ? formatDateString(new Date(hakuaika.paattyy))
+                                    ? formatDateString(hakuaika.formatoituPaattyy)
                                     : '-' // This is needed for the alkuu & paattyy to be rendered on the same row
                               ),
                             },
