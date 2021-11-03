@@ -166,7 +166,6 @@ const App = () => {
           menuVisible={menuVisible}
           closeMenu={closeMenu}
           betaBannerVisible={betaBanner}
-          keepMenuVisible={menuVisible}
         />
         <main
           id="app-main-content"

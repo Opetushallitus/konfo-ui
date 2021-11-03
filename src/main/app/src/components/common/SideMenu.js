@@ -76,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const SideMenu = (props) => {
-  const { menuVisible, closeMenu, keepMenuVisible } = props;
+  const { menuVisible, closeMenu } = props;
   const { t, i18n } = useTranslation();
   const history = useHistory();
   const classes = useStyles(props);
@@ -161,7 +161,6 @@ export const SideMenu = (props) => {
               select={selectValikko}
               links={links}
               closeMenu={closeMenu}
-              keepMenuVisible={keepMenuVisible}
             />
           );
         })
