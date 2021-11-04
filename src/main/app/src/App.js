@@ -7,6 +7,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { CookieModal } from '#/src/components/common/CookieModal';
 import { HeadingBoundary } from '#/src/components/Heading';
+import { useSideMenu } from '#/src/hooks';
 import { NotFound } from '#/src/NotFound';
 import { supportedLanguages } from '#/src/tools/i18n';
 
@@ -145,15 +146,9 @@ const App = () => {
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
   const [betaBanner, setBetaBanner] = useState(true);
 
-  const [menuVisible, setMenuVisible] = useState(false);
-  const classes = useStyles({ betaBannerVisible: betaBanner, isSmall, menuVisible });
+  const { state: menuVisible, toggleMenu, closeMenu } = useSideMenu();
 
-  const toggleMenu = () => {
-    setMenuVisible(!menuVisible);
-  };
-  const closeMenu = () => {
-    setMenuVisible(false);
-  };
+  const classes = useStyles({ betaBannerVisible: betaBanner, isSmall, menuVisible });
 
   return (
     <React.Fragment>

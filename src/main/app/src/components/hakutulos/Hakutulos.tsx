@@ -44,15 +44,29 @@ import { MobileFiltersOnTopMenu } from './MobileFiltersOnTopMenu';
 import { Pagination } from './Pagination';
 
 const useStyles = makeStyles((theme) => ({
+  toggleWrapper: {
+    'min-width': 400,
+  },
   hakutulosSisalto: {
     maxWidth: 1600,
     margin: 'auto',
   },
+  rajaaTuloksia: {
+    [theme.breakpoints.up('sm')]: {
+      'min-width': 300,
+    },
+  },
   paperRoot: {
     width: '100%',
     boxShadow: 'none',
-    [theme.breakpoints.down('xl')]: {
+    [theme.breakpoints.up(1920)]: {
       padding: theme.spacing(1, 11),
+    },
+    [theme.breakpoints.between('xl', 'xxl')]: {
+      padding: theme.spacing(1, 11),
+    },
+    [theme.breakpoints.down('xl')]: {
+      padding: theme.spacing(1, 2),
     },
     [theme.breakpoints.down('md')]: {
       padding: theme.spacing(1, 1),
@@ -169,7 +183,7 @@ export const Hakutulos = () => {
             </Grid>
           </Hidden>
           <Grid item container lg={9} md={8} sm={12} justify="space-between">
-            <Grid item lg={6} md={7} xs={12}>
+            <Grid item lg={6} md={7} xs={12} className={classes.toggleWrapper}>
               <HakutulosToggle />
             </Grid>
             <Hidden smDown>
@@ -234,7 +248,7 @@ export const Hakutulos = () => {
           </Grid>
         </Grid>
         <Grid item container spacing={2}>
-          <Grid item lg={3} md={4} sm={12} xs={12}>
+          <Grid item lg={3} md={4} sm={12} xs={12} className={classes.rajaaTuloksia}>
             <Hidden mdUp>
               <MobileFiltersOnTopMenu />
             </Hidden>

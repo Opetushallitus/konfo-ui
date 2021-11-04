@@ -4,11 +4,12 @@ import _ from 'lodash';
 import { urls } from 'oph-urls-js';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import { getContentfulData, getContentfulManifest } from '#/src/api/konfoApi';
 import { getAPIRequestParams } from '#/src/store/reducers/hakutulosSliceSelector';
+import { setMenuState } from '#/src/store/reducers/sideMenuSlice';
 
 export const useLanguageState = () => {
   const location = useLocation();
@@ -150,4 +151,24 @@ export const useContentful = () => {
     }),
     [forwardTo, murupolku, slugsToIds, contentfulData, isLoadingContent]
   );
+};
+
+export const useSideMenu = (callback, deps) => {
+  const dispatch = useDispatch();
+
+  const menuOpen = useSelector((state) => state.sideMenu.open);
+
+  const toggle = useCallback(() => {
+    dispatch(setMenuState(!menuOpen));
+  }, [menuOpen, dispatch]);
+
+  const close = useCallback(() => {
+    dispatch(setMenuState(false));
+  }, [dispatch]);
+
+  return {
+    state: menuOpen,
+    toggleMenu: toggle,
+    closeMenu: close,
+  };
 };

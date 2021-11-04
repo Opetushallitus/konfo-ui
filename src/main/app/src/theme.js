@@ -12,6 +12,20 @@ const breakpoints = {
   get down() {
     return (key) => `@media (max-width:${this.values[key] - 0.5}px)`;
   },
+  get between() {
+    return (keyA, keyB) =>
+      `@media (min-width:${this.values[keyA]}px) and (max-width:${
+        this.values[keyB] - 0.5
+      }px)`;
+  },
+  values: {
+    xs: 0,
+    sm: 600,
+    md: 900,
+    lg: 1200,
+    xl: 1600,
+    xxl: 1920,
+  },
 };
 
 export const getHeaderHeight = (theme) => ({ betaBannerVisible, isSmall = false }) =>
