@@ -11,6 +11,7 @@ import {
 } from '@material-ui/core';
 import { TFunction } from 'i18next';
 import _ from 'lodash';
+import _fp from 'lodash/fp';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
@@ -19,6 +20,7 @@ import Spacer from '#/src/components/common/Spacer';
 import { localize } from '#/src/tools/localization';
 import { koodiUriToPostinumero } from '#/src/tools/utils';
 import { Osoite, Yhteystiedot as YhteystiedotType } from '#/src/types/common';
+import { Yhteyshenkilo } from '#/src/types/ToteutusTypes';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -82,6 +84,7 @@ type Props = {
   heading?: string;
   yhteystiedot?: Array<YhteystiedotType>;
   hakijapalveluidenYhteystiedot?: YhteystiedotType;
+  toteutuksenYhteyshenkilot?: Array<Yhteyshenkilo>;
 };
 
 export const hasYhteystiedot = (props: Props = {} as any) =>
@@ -93,19 +96,23 @@ export const Yhteystiedot = ({
   heading,
   yhteystiedot,
   hakijapalveluidenYhteystiedot,
+  toteutuksenYhteyshenkilot,
 }: Props) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const theme = useTheme();
   const isSm = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const localizedYhteystiedot = useMemo(
+  const localizedYhteystiedot: Array<any> = useMemo(
     () =>
-      (yhteystiedot || [])
-        .concat(hakijapalveluidenYhteystiedot as any) // TODO: undefined cannot be concated :I
-        .filter(Boolean)
-        .map(parseYhteystieto(t)),
-    [t, hakijapalveluidenYhteystiedot, yhteystiedot]
+      _fp.flow(
+        toteutuksenYhteyshenkilot !== undefined && toteutuksenYhteyshenkilot?.length > 0
+          ? _fp.concat(toteutuksenYhteyshenkilot)
+          : _fp.concat(hakijapalveluidenYhteystiedot),
+        _fp.filter(Boolean),
+        _fp.map(parseYhteystieto(t))
+      )(yhteystiedot),
+    [t, hakijapalveluidenYhteystiedot, toteutuksenYhteyshenkilot, yhteystiedot]
   );
 
   return (

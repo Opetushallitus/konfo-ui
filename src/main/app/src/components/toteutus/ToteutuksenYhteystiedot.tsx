@@ -11,9 +11,16 @@ import Spacer from '#/src/components/common/Spacer';
 import { useOppilaitokset } from '#/src/components/oppilaitos/hooks';
 import { hasYhteystiedot, Yhteystiedot } from '#/src/components/oppilaitos/Yhteystiedot';
 import { localize } from '#/src/tools/localization';
+import { Yhteyshenkilo } from '#/src/types/ToteutusTypes';
 
 // NOTE: In most cases there is only one oppilaitos per KOMOTO but there is no limit in data model
-export const ToteutuksenYhteystiedot = ({ oids }: { oids: Array<string> }) => {
+export const ToteutuksenYhteystiedot = ({
+  oids,
+  toteutuksenYhteyshenkilot,
+}: {
+  oids: Array<string>;
+  toteutuksenYhteyshenkilot: Array<Yhteyshenkilo>;
+}) => {
   const { t } = useTranslation();
   const oppilaitokset = useOppilaitokset({
     isOppilaitosOsa: false,
@@ -82,7 +89,11 @@ export const ToteutuksenYhteystiedot = ({ oids }: { oids: Array<string> }) => {
                   <OpenInNewIcon fontSize="small" />
                 </Button>
               )}
-              <Yhteystiedot id={localize(oppilaitos)} {...oppilaitos.metadata} />
+              <Yhteystiedot
+                id={localize(oppilaitos)}
+                {...oppilaitos.metadata}
+                toteutuksenYhteyshenkilot={toteutuksenYhteyshenkilot}
+              />
             </React.Fragment>
           ))}
         </Box>

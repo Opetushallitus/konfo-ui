@@ -347,7 +347,10 @@ export const ToteutusPage = () => {
           </Box>
         )}
         {!_.isEmpty(toteutus?.oppilaitokset) && (
-          <ToteutuksenYhteystiedot oids={toteutus!.oppilaitokset} />
+          <ToteutuksenYhteystiedot
+            oids={toteutus!.oppilaitokset}
+            toteutuksenYhteyshenkilot={yhteyshenkilot}
+          />
         )}
       </Box>
     </ContentWrapper>
