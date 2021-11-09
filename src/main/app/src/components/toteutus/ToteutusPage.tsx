@@ -74,12 +74,45 @@ export const ToteutusPage = () => {
 
   const haut = toteutus?.hakukohteet;
 
+  const getAsiasanatForLanguage = (asiasanat: Array<any>, language: string) => {
+    const getFirstNotEmpty = (
+      asiasanat1: Array<any>,
+      asiasanat2: Array<any>,
+      asiasanat3: Array<any>
+    ) => {
+      const returnNotEmpty = (arr: Array<any>) => {
+        if (arr?.length > 0) return arr;
+      };
+      return (
+        returnNotEmpty(asiasanat1) ||
+        returnNotEmpty(asiasanat2) ||
+        returnNotEmpty(asiasanat3)
+      );
+    };
+    const filterAsiasanatForLang = (arr: Array<any>, language: string) => {
+      return arr?.filter((asiasana: any) => asiasana.kieli === language);
+    };
+
+    const fiAsiasanat = filterAsiasanatForLang(asiasanat, 'fi');
+    const svAsiasanat = filterAsiasanatForLang(asiasanat, 'sv');
+    const enAsiasanat = filterAsiasanatForLang(asiasanat, 'en');
+
+    if ('en' === language) {
+      return getFirstNotEmpty(enAsiasanat, fiAsiasanat, svAsiasanat);
+    } else if ('sv' === language) {
+      return getFirstNotEmpty(svAsiasanat, fiAsiasanat, enAsiasanat);
+    } else {
+      return getFirstNotEmpty(fiAsiasanat, svAsiasanat, enAsiasanat);
+    }
+  };
+
   // NOTE: These ammattinimikkeet should be the freely written virkailija asiasana-ammattinimikkeet,
   // not the formal tutkintonimikkeet
-  const asiasanat: Array<string> = (ammattinimikkeet || [])
-    .concat(toteutus?.metadata?.asiasanat || [])
-    .filter((asiasana: any) => asiasana.kieli === currentLanguage)
-    .map((asiasana: any) => asiasana.arvo);
+  // @ts-ignore
+  const asiasanat: Array<string> = getAsiasanatForLanguage(
+    (ammattinimikkeet || []).concat(toteutus?.metadata?.asiasanat || []),
+    currentLanguage
+  )?.map((asiasana: any) => asiasana.arvo);
 
   const loading = koulutusLoading || toteutusLoading;
 
