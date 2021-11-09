@@ -4,7 +4,6 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery/useMediaQuery';
 import clsx from 'clsx';
-import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
@@ -33,27 +32,25 @@ const useStyles = makeStyles({
   },
   rivi: {
     overflow: 'hidden',
-    paddingBottom: '24px',
+    paddingBottom: '24  px',
   },
 });
 
-type RiviProps = { otsikko: string; rivit: Array<Array<{ id: string }>> };
+type RiviProps = { otsikko: string; kortit: Array<{ id: string }> };
 
-const Rivi = ({ otsikko, rivit }: RiviProps) => {
+const Rivi = ({ otsikko, kortit }: RiviProps) => {
   const classes = useStyles();
 
   return (
     <>
-      {rivit?.length > 0 ? <h1 className={classes.header}>{otsikko}</h1> : ''}
-      {rivit.map((rivi) => (
-        <Grid container className={classes.rivi} key={rivi.map((u) => u.id).join()}>
-          <Grid container spacing={3}>
-            {rivi.map((p) => (
-              <Palvelu id={p.id} key={p.id} />
-            ))}
-          </Grid>
+      <Grid container className={classes.rivi}>
+        <h1 className={classes.header}>{otsikko}</h1>
+        <Grid container spacing={3}>
+          {kortit?.map((p) => (
+            <Palvelu id={p.id} key={p.id} />
+          ))}
         </Grid>
-      ))}
+      </Grid>
     </>
   );
 };
@@ -69,8 +66,8 @@ export const Palvelut = () => {
   const { data } = useContentful();
   const { ohjeetJaTuki, palvelut } = data || {};
 
-  const palvelurivit: Array<Array<any>> = _.chunk(first(palvelut).linkit, 3);
-  const ohjerivit: Array<Array<any>> = _.chunk(first(ohjeetJaTuki).linkit, 3);
+  const palveluKortit: Array<any> = first(palvelut).linkit;
+  const ohjeetJaTukiKortit: Array<any> = first(ohjeetJaTuki).linkit;
 
   return (
     <div
@@ -79,8 +76,11 @@ export const Palvelut = () => {
         matches ? classes.spaceOnBorders : classes.smSpaceOnBorders
       )}>
       <Grid container>
-        <Rivi otsikko={t('palvelut.otsikko-muut-palvelut')} rivit={palvelurivit} />
-        <Rivi otsikko={t('palvelut.otsikko-ohjeet-ja-tuki')} rivit={ohjerivit} />
+        <Rivi otsikko={t('palvelut.otsikko-muut-palvelut')} kortit={palveluKortit} />
+        <Rivi
+          otsikko={t('palvelut.otsikko-ohjeet-ja-tuki')}
+          kortit={ohjeetJaTukiKortit}
+        />
       </Grid>
     </div>
   );
