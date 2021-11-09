@@ -22,7 +22,7 @@ export const parseOsoiteData = (osoiteData) => {
   const yhteystiedot =
     osoite && postinumero && postitoimipaikka
       ? _fp.trim(`${osoite}, ${postinumero} ${postitoimipaikka}`, ', ')
-      : getTranslationForKey('oppilaitos.ei-yhteystietoja');
+      : '';
   const sahkoposti = osoiteData?.sahkoposti;
   const nimi = osoiteData?.nimi;
 
