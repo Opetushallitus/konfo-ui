@@ -33,6 +33,7 @@ const useStyles = makeStyles({
   },
   rivi: {
     overflow: 'hidden',
+    paddingBottom: '24px',
   },
 });
 
@@ -43,9 +44,9 @@ const Rivi = ({ otsikko, rivit }: RiviProps) => {
 
   return (
     <>
+      { (rivit?.length > 0) ? ( <h1 className={classes.header}>{otsikko}</h1> ) : ( '' ) }
       {rivit.map((rivi) => (
         <Grid container className={classes.rivi} key={rivi.map((u) => u.id).join()}>
-          <h1 className={classes.header}>{otsikko}</h1>
           <Grid container spacing={3}>
             {rivi.map((p) => (
               <Palvelu id={p.id} key={p.id} />
