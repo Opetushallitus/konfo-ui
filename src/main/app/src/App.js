@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 
 import { makeStyles, useMediaQuery, Box } from '@material-ui/core';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 
 import { CookieModal } from '#/src/components/common/CookieModal';
 import { HeadingBoundary } from '#/src/components/Heading';
 import { useSideMenu } from '#/src/hooks';
 import { NotFound } from '#/src/NotFound';
 import { supportedLanguages } from '#/src/tools/i18n';
+import { getLanguage } from '#/src/tools/localization';
 
 import { Draft } from './components/common/Draft';
 import Footer from './components/common/Footer';
@@ -142,14 +143,52 @@ const TranslatedRoutes = ({ match, location }) => {
   );
 };
 
+const defaultTitle = (lang) => {
+  switch (lang) {
+    case 'en':
+      return 'Studyinfo';
+    case 'sv':
+      return 'Studieinfo';
+    case 'fi':
+    default:
+      return 'Opintopolku';
+  }
+};
+
+const removeLastDot = (str) => {
+  if (str) {
+    const nStr = str.trim();
+    if (nStr.length === 0) {
+      return null;
+    } else {
+      if (nStr[nStr.length - 1] === '.') {
+        return nStr.slice(0, -1);
+      } else {
+        return nStr;
+      }
+    }
+  }
+};
+
 const App = () => {
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
   const [betaBanner, setBetaBanner] = useState(true);
-
+  const [title, setTitle] = useState(null);
+  const language = getLanguage();
+  const { pathname } = useLocation();
   const { state: menuVisible, toggleMenu, closeMenu } = useSideMenu();
 
   const classes = useStyles({ betaBannerVisible: betaBanner, isSmall, menuVisible });
-
+  useLayoutEffect(() => {
+    return () => {
+      const defaultHeader = defaultTitle(language);
+      const h1 = removeLastDot(document.querySelector('h1')?.textContent);
+      const newTitle = h1 ? h1 + ' - ' + defaultHeader : defaultHeader;
+      if (title !== newTitle) {
+        setTitle(newTitle);
+      }
+    };
+  }, [title, language, pathname]);
   return (
     <React.Fragment>
       <Draft />
