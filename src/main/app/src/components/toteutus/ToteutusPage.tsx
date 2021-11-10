@@ -80,29 +80,29 @@ export const ToteutusPage = () => {
       asiasanat2: Array<any>,
       asiasanat3: Array<any>
     ) => {
-      const returnNotEmpty = (arr: Array<any>) => {
+      const returnIfNotEmpty = (arr: Array<any>) => {
         if (arr?.length > 0) return arr;
       };
       return (
-        returnNotEmpty(asiasanat1) ||
-        returnNotEmpty(asiasanat2) ||
-        returnNotEmpty(asiasanat3)
+        returnIfNotEmpty(asiasanat1) ||
+        returnIfNotEmpty(asiasanat2) ||
+        returnIfNotEmpty(asiasanat3)
       );
     };
     const filterAsiasanatForLang = (arr: Array<any>, language: string) => {
       return arr?.filter((asiasana: any) => asiasana.kieli === language);
     };
 
-    const fiAsiasanat = filterAsiasanatForLang(asiasanat, 'fi');
-    const svAsiasanat = filterAsiasanatForLang(asiasanat, 'sv');
-    const enAsiasanat = filterAsiasanatForLang(asiasanat, 'en');
+    const fi = filterAsiasanatForLang(asiasanat, 'fi');
+    const sv = filterAsiasanatForLang(asiasanat, 'sv');
+    const en = filterAsiasanatForLang(asiasanat, 'en');
 
     if ('en' === language) {
-      return getFirstNotEmpty(enAsiasanat, fiAsiasanat, svAsiasanat);
+      return getFirstNotEmpty(en, fi, sv);
     } else if ('sv' === language) {
-      return getFirstNotEmpty(svAsiasanat, fiAsiasanat, enAsiasanat);
+      return getFirstNotEmpty(sv, fi, en);
     } else {
-      return getFirstNotEmpty(fiAsiasanat, svAsiasanat, enAsiasanat);
+      return getFirstNotEmpty(fi, sv, en);
     }
   };
 
