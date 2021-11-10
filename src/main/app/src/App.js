@@ -185,6 +185,7 @@ const App = () => {
       const h1 = removeLastDot(document.querySelector('h1')?.textContent);
       const newTitle = h1 ? h1 + ' - ' + defaultHeader : defaultHeader;
       if (title !== newTitle) {
+        document.title = newTitle;
         setTitle(newTitle);
       }
     };
