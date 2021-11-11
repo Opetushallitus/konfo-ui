@@ -86,7 +86,8 @@ export const ToteutusPage = () => {
       return (
         returnIfNotEmpty(asiasanat1) ||
         returnIfNotEmpty(asiasanat2) ||
-        returnIfNotEmpty(asiasanat3)
+        returnIfNotEmpty(asiasanat3) ||
+        []
       );
     };
     const filterAsiasanatForLang = (arr: Array<any>, language: string) => {
@@ -108,7 +109,6 @@ export const ToteutusPage = () => {
 
   // NOTE: These ammattinimikkeet should be the freely written virkailija asiasana-ammattinimikkeet,
   // not the formal tutkintonimikkeet
-  // @ts-ignore
   const asiasanat: Array<string> = getAsiasanatForLanguage(
     (ammattinimikkeet || []).concat(toteutus?.metadata?.asiasanat || []),
     currentLanguage
