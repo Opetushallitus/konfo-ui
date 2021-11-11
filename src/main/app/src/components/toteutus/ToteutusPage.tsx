@@ -40,6 +40,39 @@ const useStyles = makeStyles({
   root: { marginTop: '100px' },
 });
 
+const getAsiasanatForLanguage = (asiasanat: Array<any>, language: string) => {
+  const getFirstNotEmpty = (
+    asiasanat1: Array<any>,
+    asiasanat2: Array<any>,
+    asiasanat3: Array<any>
+  ) => {
+    const returnIfNotEmpty = (arr: Array<any>) => {
+      if (arr?.length > 0) return arr;
+    };
+    return (
+      returnIfNotEmpty(asiasanat1) ||
+      returnIfNotEmpty(asiasanat2) ||
+      returnIfNotEmpty(asiasanat3) ||
+      []
+    );
+  };
+  const filterAsiasanatForLang = (arr: Array<any>, language: string) => {
+    return arr?.filter((asiasana: any) => asiasana.kieli === language);
+  };
+
+  const fi = filterAsiasanatForLang(asiasanat, 'fi');
+  const sv = filterAsiasanatForLang(asiasanat, 'sv');
+  const en = filterAsiasanatForLang(asiasanat, 'en');
+
+  if ('en' === language) {
+    return getFirstNotEmpty(en, fi, sv);
+  } else if ('sv' === language) {
+    return getFirstNotEmpty(sv, fi, en);
+  } else {
+    return getFirstNotEmpty(fi, sv, en);
+  }
+};
+
 export const ToteutusPage = () => {
   const classes = useStyles();
   const { oid } = useParams<{ oid: string }>();
@@ -76,10 +109,10 @@ export const ToteutusPage = () => {
 
   // NOTE: These ammattinimikkeet should be the freely written virkailija asiasana-ammattinimikkeet,
   // not the formal tutkintonimikkeet
-  const asiasanat: Array<string> = (ammattinimikkeet || [])
-    .concat(toteutus?.metadata?.asiasanat || [])
-    .filter((asiasana: any) => asiasana.kieli === currentLanguage)
-    .map((asiasana: any) => asiasana.arvo);
+  const asiasanat: Array<string> = getAsiasanatForLanguage(
+    (ammattinimikkeet || []).concat(toteutus?.metadata?.asiasanat || []),
+    currentLanguage
+  )?.map((asiasana: any) => asiasana.arvo);
 
   const loading = koulutusLoading || toteutusLoading;
 
