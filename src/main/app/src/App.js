@@ -180,15 +180,13 @@ const App = () => {
 
   const classes = useStyles({ betaBannerVisible: betaBanner, isSmall, menuVisible });
   useLayoutEffect(() => {
-    return () => {
-      const defaultHeader = defaultTitle(language);
-      const h1 = removeLastDot(document.querySelector('h1')?.textContent);
-      const newTitle = h1 ? h1 + ' - ' + defaultHeader : defaultHeader;
-      if (title !== newTitle) {
-        document.title = newTitle;
-        setTitle(newTitle);
-      }
-    };
+    const defaultHeader = defaultTitle(language);
+    const h1 = removeLastDot(document.querySelector('h1')?.textContent);
+    const newTitle = h1 ? h1 + ' - ' + defaultHeader : defaultHeader;
+    if (title !== newTitle) {
+      document.title = newTitle;
+      setTitle(newTitle);
+    }
   }, [title, language, pathname]);
   return (
     <React.Fragment>
