@@ -20,7 +20,7 @@ import Spacer from '#/src/components/common/Spacer';
 import TeemakuvaImage from '#/src/components/common/TeemakuvaImage';
 import { TextWithBackground } from '#/src/components/common/TextWithBackground';
 import { useUrlParams } from '#/src/components/hakutulos/UseUrlParams';
-import { Heading, HeadingBoundary } from '#/src/components/Heading';
+import { Heading } from '#/src/components/Heading';
 import { useOppilaitokset } from '#/src/components/oppilaitos/hooks';
 import { getHakuParams, getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
 import { getLanguage, localize, localizeLukiolinja } from '#/src/tools/localization';
@@ -124,6 +124,10 @@ export const ToteutusPage = () => {
   });
 
   const hasOppilaitokset = oppilaitokset.length > 0;
+  const oppilaitoksenNimi = hasOppilaitokset
+    ? `${localize(oppilaitokset[0]?.data?.nimi)}`
+    : '';
+  const oppilaitoksenNimiMurupolku = oppilaitoksenNimi ? `${oppilaitoksenNimi}, ` : '';
 
   const haut = toteutus?.hakukohteet;
 
@@ -173,14 +177,14 @@ export const ToteutusPage = () => {
                 name: localize(koulutus?.tutkintoNimi),
                 link: `/koulutus/${toteutus?.koulutusOid}?${hakuParamsStr}`,
               },
-              { name: localize(toteutus?.nimi) },
+              { name: `${oppilaitoksenNimiMurupolku}${localize(toteutus?.nimi)}` },
             ]}
           />
         </Box>
 
         <Heading className={classes.toteutusHeading} variant="h1">
           <Box component="span" className={classes.oppilaitosHeadingSpan}>
-            {hasOppilaitokset && localize(oppilaitokset[0]?.data?.nimi)}
+            {oppilaitoksenNimi}
           </Box>
           {localize(toteutus?.nimi)}
         </Heading>
