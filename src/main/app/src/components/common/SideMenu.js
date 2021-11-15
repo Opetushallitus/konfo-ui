@@ -8,8 +8,12 @@ import {
   Button,
   Box,
   Hidden,
+  Typography,
 } from '@material-ui/core';
+import Link from '@material-ui/core/Link';
+import AppsOutlinedIcon from '@material-ui/icons/AppsOutlined';
 import SearchIcon from '@material-ui/icons/Search';
+import { urls } from 'oph-urls-js';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 
@@ -73,6 +77,20 @@ const useStyles = makeStyles((theme) => ({
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
   },
+  omaOpintopolkuLink: {
+    display: 'flex',
+    alignItems: 'left',
+    flexDirection: 'row',
+    margin: '20px 0px 0px 0px',
+  },
+  omaOpintopolkuIcon: {
+    color: colors.brandGreen,
+    marginRight: 10,
+  },
+  omaOpintopolkuText: {
+    color: colors.brandGreen,
+    fontSize: 'inherit',
+  },
 }));
 
 export const SideMenu = (props) => {
@@ -112,6 +130,15 @@ export const SideMenu = (props) => {
         <Hidden smUp>
           <Box mb={2}>
             <LanguageTab />
+            <Link
+              href={urls.url('oma-opintopolku')}
+              className={classes.omaOpintopolkuLink}
+              target="_blank">
+              <AppsOutlinedIcon className={classes.omaOpintopolkuIcon} />
+              <Typography className={classes.omaOpintopolkuText}>
+                {t('oma-opintopolku')}
+              </Typography>
+            </Link>
           </Box>
         </Hidden>
         <Paper
