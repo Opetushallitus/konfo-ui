@@ -11,16 +11,9 @@ import Spacer from '#/src/components/common/Spacer';
 import { useOppilaitokset } from '#/src/components/oppilaitos/hooks';
 import { hasYhteystiedot, Yhteystiedot } from '#/src/components/oppilaitos/Yhteystiedot';
 import { localize } from '#/src/tools/localization';
-import { Yhteyshenkilo } from '#/src/types/ToteutusTypes';
 
 // NOTE: In most cases there is only one oppilaitos per KOMOTO but there is no limit in data model
-export const ToteutuksenYhteystiedot = ({
-  oids,
-  toteutuksenYhteyshenkilot,
-}: {
-  oids: Array<string>;
-  toteutuksenYhteyshenkilot: Array<Yhteyshenkilo>;
-}) => {
+export const ToteutuksenYhteystiedot = ({ oids }: { oids: Array<string> }) => {
   const { t } = useTranslation();
   const oppilaitokset = useOppilaitokset({
     isOppilaitosOsa: false,
@@ -39,6 +32,25 @@ export const ToteutuksenYhteystiedot = ({
     [oppilaitokset]
   );
 
+  const filteredOrganisaatioYhteystiedot = useMemo(
+    () =>
+      oppilaitokset
+        .filter(
+          (v) =>
+               !_.isEmpty(v.data.oppilaitoksenOsa?.metadata.wwwSivu) ||
+                !_.isEmpty(v.data.oppilaitoksenOsa?.metadata.esittely) ||
+                hasYhteystiedot(v.data.oppilaitoksenOsa?.metadata)
+        )
+        .map((v) => v.data.oppilaitoksenOsa.metadata),
+    [oppilaitokset]
+  );
+
+  //  console.log("filtered")
+  //  console.log(filtered.length)
+  //  console.log(filtered)
+  console.log("filtered yhteystiedot")
+  console.log(filteredOrganisaatioYhteystiedot.length)
+  console.log(filteredOrganisaatioYhteystiedot)
   return (
     <>
       {filtered?.length > 0 && (
@@ -89,10 +101,11 @@ export const ToteutuksenYhteystiedot = ({
                   <OpenInNewIcon fontSize="small" />
                 </Button>
               )}
+              {console.log(...filteredOrganisaatioYhteystiedot)}
               <Yhteystiedot
                 id={localize(oppilaitos)}
                 {...oppilaitos.metadata}
-                toteutuksenYhteyshenkilot={toteutuksenYhteyshenkilot}
+                {...filteredOrganisaatioYhteystiedot}
               />
             </React.Fragment>
           ))}

@@ -152,6 +152,8 @@ export const ToteutusPage = () => {
     () => [...(koulutus?.lisatiedot || []), ...(opetus?.lisatiedot || [])],
     [koulutus?.lisatiedot, opetus?.lisatiedot]
   );
+  // console.log("toteutus")
+  // console.log(toteutus)
 
   const erityisopetusHeading = t('toteutus.erityisopetus-otsikko');
   let erityisopetusText = '';
@@ -348,8 +350,7 @@ export const ToteutusPage = () => {
         )}
         {!_.isEmpty(toteutus?.oppilaitokset) && (
           <ToteutuksenYhteystiedot
-            oids={toteutus!.oppilaitokset}
-            toteutuksenYhteyshenkilot={yhteyshenkilot}
+            oids={toteutus!.oppilaitokset.concat(toteutus!.organisaatiot)}
           />
         )}
       </Box>
