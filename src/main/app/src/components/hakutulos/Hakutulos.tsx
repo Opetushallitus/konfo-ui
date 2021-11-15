@@ -162,6 +162,7 @@ export const Hakutulos = () => {
   return (
     <Grid className={classes.hakutulosSisalto} container>
       <Paper classes={{ root: classes.paperRoot }} id="hakutulos-content">
+        <h1 style={{ visibility: 'hidden' }}>{t('haku.otsikko')}</h1>
         <Grid
           container
           item
