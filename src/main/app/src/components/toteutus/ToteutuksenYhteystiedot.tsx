@@ -35,22 +35,11 @@ export const ToteutuksenYhteystiedot = ({ oids }: { oids: Array<string> }) => {
   const filteredOrganisaatioYhteystiedot = useMemo(
     () =>
       oppilaitokset
-        .filter(
-          (v) =>
-               !_.isEmpty(v.data.oppilaitoksenOsa?.metadata.wwwSivu) ||
-                !_.isEmpty(v.data.oppilaitoksenOsa?.metadata.esittely) ||
-                hasYhteystiedot(v.data.oppilaitoksenOsa?.metadata)
-        )
-        .map((v) => v.data.oppilaitoksenOsa.metadata),
+        .filter((v) => hasYhteystiedot(v.data.oppilaitoksenOsa?.metadata))
+        .map((v) => v.data.oppilaitoksenOsa.metadata.yhteystiedot),
     [oppilaitokset]
   );
 
-  //  console.log("filtered")
-  //  console.log(filtered.length)
-  //  console.log(filtered)
-  console.log("filtered yhteystiedot")
-  console.log(filteredOrganisaatioYhteystiedot.length)
-  console.log(filteredOrganisaatioYhteystiedot)
   return (
     <>
       {filtered?.length > 0 && (
@@ -101,11 +90,10 @@ export const ToteutuksenYhteystiedot = ({ oids }: { oids: Array<string> }) => {
                   <OpenInNewIcon fontSize="small" />
                 </Button>
               )}
-              {console.log(...filteredOrganisaatioYhteystiedot)}
               <Yhteystiedot
                 id={localize(oppilaitos)}
                 {...oppilaitos.metadata}
-                {...filteredOrganisaatioYhteystiedot}
+                organisaatioidenYhteystiedot={filteredOrganisaatioYhteystiedot}
               />
             </React.Fragment>
           ))}

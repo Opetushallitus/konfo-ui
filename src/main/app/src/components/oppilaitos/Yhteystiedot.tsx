@@ -101,20 +101,19 @@ export const Yhteystiedot = ({
   const { t } = useTranslation();
   const theme = useTheme();
   const isSm = useMediaQuery(theme.breakpoints.down('sm'));
-
-  // console.log("hakijapalveluidenYhteystiedot")
-  // console.log(hakijapalveluidenYhteystiedot)
-  console.log("organisaatioidenYhteystiedot")
-  console.log(organisaatioidenYhteystiedot)
-
   const localizedYhteystiedot: Array<any> = useMemo(
     () =>
       _fp.flow(
-        organisaatioidenYhteystiedot !== undefined && organisaatioidenYhteystiedot?.length > 0
-          ? _fp.concat(organisaatioidenYhteystiedot)
+        organisaatioidenYhteystiedot !== undefined &&
+          organisaatioidenYhteystiedot?.length > 0
+          ? _fp.map((yhteystieto) => _fp.concat(yhteystieto))(
+              organisaatioidenYhteystiedot
+            )
           : _fp.concat(hakijapalveluidenYhteystiedot),
         _fp.filter(Boolean),
-        _fp.map(parseYhteystieto(t))
+        _fp.map(parseYhteystieto(t)),
+        _fp.orderBy(['nimi'], 'asc'),
+        _fp.orderBy(['kayntiosoite'], 'asc')
       )(yhteystiedot),
     [t, hakijapalveluidenYhteystiedot, organisaatioidenYhteystiedot, yhteystiedot]
   );
