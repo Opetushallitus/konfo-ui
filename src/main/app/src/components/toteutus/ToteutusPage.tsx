@@ -141,7 +141,7 @@ export const ToteutusPage = () => {
   const loading =
     koulutusLoading ||
     toteutusLoading ||
-    (hasOppilaitokset && oppilaitokset[0].isLoading);
+    (hasOppilaitokset && _.some(oppilaitokset, 'isLoading'));
 
   const hasAnyHaku = _.some(haut, (v: any) => v.hakukohteet.length > 0);
   const hakuUrl = useSelector(getHakuUrl);
