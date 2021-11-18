@@ -4,7 +4,10 @@ import { useQuery } from 'react-query';
 import { getToteutus } from '#/src/api/konfoApi';
 import { HAKULOMAKE_TYYPPI } from '#/src/constants';
 import { isHakuAuki, isHakuTimeRelevant } from '#/src/tools/hakuaikaUtils';
+import { DemoLink, Hakukohde } from '#/src/types/HakukohdeTypes';
 import { Toteutus } from '#/src/types/ToteutusTypes';
+
+import { demoLinksPerLomakeId } from './utils';
 
 const getHakuAukiType = (toteutus: any) => {
   if (toteutus?.metadata?.hakulomaketyyppi === HAKULOMAKE_TYYPPI.EI_SAHKOISTA) {
@@ -113,6 +116,17 @@ export const useToteutus = ({ oid, isDraft }: UseToteutusProps) => {
     {
       select: selectToteutus,
       enabled: Boolean(oid),
+    }
+  );
+};
+
+export const useDemoLinks = (hakukohteet: Array<Hakukohde>) => {
+  const hakukohdeOids = hakukohteet.map((hakukohde) => hakukohde.hakukohdeOid);
+  return useQuery<Map<string, undefined | DemoLink>>(
+    ['demoLinksPerLomakeId', { hakukohdeOids }],
+    () => demoLinksPerLomakeId(hakukohteet),
+    {
+      enabled: Boolean(hakukohteet),
     }
   );
 };

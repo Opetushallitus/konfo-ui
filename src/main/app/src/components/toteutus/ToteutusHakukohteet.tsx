@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect, useState } from 'react';
+import React, { useMemo } from 'react';
 
 import {
   Box,
@@ -22,14 +22,15 @@ import { LabelTooltip } from '#/src/components/common/LabelTooltip';
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
 import Spacer from '#/src/components/common/Spacer';
+import { useDemoLinks } from '#/src/components/toteutus/hooks';
 import { HAKULOMAKE_TYYPPI } from '#/src/constants';
 import { localize } from '#/src/tools/localization';
 import { useOsoitteet } from '#/src/tools/useOppilaitosOsoite';
 import { formatDateString, formatDouble } from '#/src/tools/utils';
 import { Translateable } from '#/src/types/common';
-import { DemoLink, Hakukohde } from '#/src/types/HakukohdeTypes';
+import { Hakukohde } from '#/src/types/HakukohdeTypes';
 
-import { demoLinksPerLomakeId, formatAloitus } from './utils';
+import { formatAloitus } from './utils';
 
 const useStyles = makeStyles((theme) => ({
   gridHeading: {
@@ -70,21 +71,11 @@ const HakuCardGrid = ({ tyyppiOtsikko, haut, icon }: GridProps) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
-  const [demoLinks, setDemoLinks] = useState<Map<string, undefined | DemoLink>>(
-    new Map()
-  );
+  const { data: demoLinks } = useDemoLinks(haut);
 
   const oppilaitosOids = useMemo(() => haut.map((haku) => haku.jarjestyspaikka?.oid), [
     haut,
   ]);
-
-  useEffect(() => {
-    const formDemoLinks = async () => {
-      const demoLinks = await demoLinksPerLomakeId(haut);
-      setDemoLinks(demoLinks);
-    };
-    formDemoLinks();
-  }, [haut]);
 
   const osoitteet = useOsoitteet(oppilaitosOids, true);
 
@@ -257,7 +248,9 @@ const HakuCardGrid = ({ tyyppiOtsikko, haut, icon }: GridProps) => {
                           color="primary">
                           {haku.hakulomaketyyppi !== HAKULOMAKE_TYYPPI.EI_SAHKOISTA &&
                             !(
-                              !haku.isHakuAuki && demoLinks.get(haku.hakulomakeAtaruId)
+                              !haku.isHakuAuki &&
+                              !!demoLinks &&
+                              demoLinks.get(haku.hakulomakeAtaruId)
                             ) && (
                               <Button
                                 variant="contained"
@@ -273,7 +266,7 @@ const HakuCardGrid = ({ tyyppiOtsikko, haut, icon }: GridProps) => {
                                 </Typography>
                               </Button>
                             )}
-                          {demoLinks.get(haku.hakulomakeAtaruId) && (
+                          {!!demoLinks && demoLinks.get(haku.hakulomakeAtaruId) && (
                             <Button
                               variant="contained"
                               size="large"
