@@ -4,7 +4,7 @@ server:
 bucket:
   url: https://{{konfo_content_s3_bucket}}/
 host:
-  host-oppija: https://{{host_beta}}
+  host-oppija: https://{{host_oppija}}
   old-oppija-base-url-fi: {{oppija_base_url_fi}}
   old-oppija-base-url-sv: {{oppija_base_url_sv}}
   old-oppija-base-url-en: {{oppija_base_url_en}}
@@ -12,3 +12,9 @@ host:
 kartta:
   host: {{konfo_ui_kartta_host}}
   pid: {{konfo_ui_kartta_pid}}
+prerender:
+  enable: {{konfo_prerender_enable | default("false")}}
+  timeout: {{konfo_prerender_socket_timeout_millis | default("15000")}}
+  token: {{konfo_prerender_token | default("DUMMY")}}
+konfo-ui:
+  uses-ssl-proxy: true

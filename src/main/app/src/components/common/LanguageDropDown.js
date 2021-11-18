@@ -10,6 +10,7 @@ import {
 } from '@material-ui/core';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import LanguageIcon from '@material-ui/icons/Language';
+import Cookies from 'js-cookie';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
@@ -20,8 +21,9 @@ import { supportedLanguages } from '#/src/tools/i18n';
 const CustomInput = withStyles((theme) => ({
   input: {
     position: 'relative',
-    fontSize: 12,
+    fontSize: 'small',
     color: colors.white,
+    padding: '5px 5px 5px 5px',
   },
 }))(InputBase);
 
@@ -34,12 +36,27 @@ const iconComponent = (props) => {
 const LanguageDropDown = () => {
   const { t } = useTranslation();
   const [language, setLanguage] = useLanguageState();
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
   const handleChange = (event) => {
-    setLanguage(event.target.value);
+    let selectedLanguage = event.target.value;
+    Cookies.set('lang', selectedLanguage, {
+      expires: 1800,
+      path: '/',
+    });
+    setLanguage(selectedLanguage);
   };
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
-      <LanguageIcon style={{ fontSize: '20px' }} />
+      <LanguageIcon
+        onClick={!open ? handleOpen : handleClose}
+        style={{ cursor: 'pointer' }}
+      />
       <FormControl size="small" color="primary">
         <Select
           MenuProps={{
@@ -50,13 +67,24 @@ const LanguageDropDown = () => {
             getContentAnchorEl: null,
           }}
           value={language}
+          open={open}
+          onClose={handleClose}
+          onOpen={handleOpen}
           onChange={handleChange}
           variant="standard"
           renderValue={(value) => value.toUpperCase()}
           input={<CustomInput />}
           IconComponent={iconComponent}>
           {supportedLanguages.map((langCode) => (
-            <MenuItem key={langCode} value={langCode}>
+            <MenuItem
+              key={langCode}
+              value={langCode}
+              style={{
+                fontSize: 'small',
+                color: colors.black,
+                backgroundColor: colors.white,
+                margin: '10px 10px 10px 10px',
+              }}>
               {t(`kielivalinta.${LANG_NAME_BY_CODE[langCode]}`)}
             </MenuItem>
           ))}

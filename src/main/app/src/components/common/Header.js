@@ -3,16 +3,19 @@ import React from 'react';
 import {
   AppBar,
   Box,
-  Chip,
   CssBaseline,
   Hidden,
   Icon,
   IconButton,
   makeStyles,
   Toolbar,
+  Typography,
 } from '@material-ui/core';
+import Link from '@material-ui/core/Link';
+import AppsIcon from '@material-ui/icons/Apps';
 import MenuIcon from '@material-ui/icons/Menu';
 import clsx from 'clsx';
+import { urls } from 'oph-urls-js';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -64,6 +67,20 @@ const useStyles = makeStyles((theme) => ({
   },
   languageSelector: {
     marginLeft: 'auto',
+    float: 'left',
+  },
+  omaOpintopolkuLink: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+    margin: '0px 40px 0px 0px',
+  },
+  omaOpintopolkuIcon: {
+    color: colors.white,
+  },
+  omaOpintopolkuText: {
+    color: colors.white,
+    fontSize: 'inherit',
   },
 }));
 
@@ -104,14 +121,17 @@ export const Header = (props) => {
               <img alt={t('opintopolku.brand')} src={OpintopolkuHeaderLogo()} />
             </Icon>
           </LocalizedLink>
-          <Chip
-            className={classes.beta}
-            size="small"
-            classes={{ label: classes.betaLabel }}
-            label={t('opintopolku.beta')}
-          />
           <Hidden xsDown>
-            <Box className={classes.languageSelector}>
+            <Box display="flex" className={classes.languageSelector}>
+              <Link
+                href={urls.url('oma-opintopolku')}
+                className={classes.omaOpintopolkuLink}
+                target="_blank">
+                <AppsIcon className={classes.omaOpintopolkuIcon} />
+                <Typography className={classes.omaOpintopolkuText}>
+                  {t('oma-opintopolku')}
+                </Typography>
+              </Link>
               <LanguageDropDown />
             </Box>
           </Hidden>
