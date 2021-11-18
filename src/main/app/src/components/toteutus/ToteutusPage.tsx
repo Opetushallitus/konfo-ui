@@ -124,10 +124,10 @@ export const ToteutusPage = () => {
   });
 
   const hasOppilaitokset = oppilaitokset.length > 0;
-  const oppilaitoksenNimi = hasOppilaitokset
-    ? `${localize(oppilaitokset[0]?.data?.nimi)}`
+  const oppilaitostenNimet = hasOppilaitokset
+    ? oppilaitokset.map((oppilaitos) => `${localize(oppilaitos?.data?.nimi)}`).join(', ')
     : '';
-  const oppilaitoksenNimiMurupolku = oppilaitoksenNimi ? `${oppilaitoksenNimi}, ` : '';
+  const oppilaitoksenNimiMurupolku = oppilaitostenNimet ? `${oppilaitostenNimet}, ` : '';
 
   const haut = toteutus?.hakukohteet;
 
@@ -184,7 +184,7 @@ export const ToteutusPage = () => {
 
         <Heading className={classes.toteutusHeading} variant="h1">
           <Box component="span" className={classes.oppilaitosHeadingSpan}>
-            {oppilaitoksenNimi}
+            {oppilaitostenNimet}
           </Box>
           {localize(toteutus?.nimi)}
         </Heading>
