@@ -2,6 +2,8 @@ import { urls } from 'oph-urls-js';
 
 import { isCypress } from './tools/utils';
 
+// Muista lisätä myös spring-boot-sovellukseen uudet urlit
+
 const CALLER_ID = '1.2.246.562.10.00000000001.konfoui';
 
 const development = {
