@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 
 import { Grid, makeStyles } from '@material-ui/core';
 import _fp from 'lodash/fp';
@@ -12,6 +12,7 @@ import { Heading } from '#/src/components/Heading';
 import { NotFound } from '#/src/NotFound';
 import { getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
 import { localize } from '#/src/tools/localization';
+import { scrollIntoView } from '#/src/tools/utils';
 
 import { Hakukelpoisuus } from './Hakukelpoisuus';
 import {
@@ -77,6 +78,15 @@ const ValintaperusteContent = ({
   const liitteetVisible = hakukohde?.liitteet.length > 0;
   const painotetutArvosanatVisible =
     hakukohde?.metadata?.hakukohteenLinja?.painotetutArvosanat.length > 0;
+
+  useEffect(() => {
+    const el = window.location.hash
+      ? document.getElementById(window.location.hash.substring(1))
+      : null;
+    if (el) {
+      scrollIntoView(el);
+    }
+  });
 
   return (
     <>
