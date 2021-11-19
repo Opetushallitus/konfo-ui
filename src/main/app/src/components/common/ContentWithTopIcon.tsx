@@ -11,6 +11,8 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       marginTop: theme.spacing(4),
     },
+    display: 'flex',
+    justifyContent: 'center',
   },
   box: {
     textAlign: 'center',
@@ -22,10 +24,8 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     position: 'absolute',
-    left: '50%',
     width: theme.spacing(8),
     height: theme.spacing(8),
-    marginLeft: -theme.spacing(8) / 2,
     marginTop: -theme.spacing(8) / 2,
     backgroundColor: colors.brandGreen,
     [theme.breakpoints.down('sm')]: {

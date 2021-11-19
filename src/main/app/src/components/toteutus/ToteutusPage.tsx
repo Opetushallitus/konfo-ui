@@ -20,6 +20,8 @@ import Spacer from '#/src/components/common/Spacer';
 import TeemakuvaImage from '#/src/components/common/TeemakuvaImage';
 import { TextWithBackground } from '#/src/components/common/TextWithBackground';
 import { useUrlParams } from '#/src/components/hakutulos/UseUrlParams';
+import { Heading } from '#/src/components/Heading';
+import { useOppilaitokset } from '#/src/components/oppilaitos/hooks';
 import { getHakuParams, getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
 import { getLanguage, localize, localizeLukiolinja } from '#/src/tools/localization';
 import { getLocalizedOpintojenLaajuus, sanitizedHTMLParser } from '#/src/tools/utils';
@@ -36,9 +38,20 @@ import { ToteutusHakukohteet } from './ToteutusHakukohteet';
 import { ToteutusHakuMuu } from './ToteutusHakuMuu';
 import { ToteutusInfoGrid } from './ToteutusInfoGrid';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: { marginTop: '100px' },
-});
+  oppilaitosHeadingSpan: {
+    ...theme.typography.body1,
+    fontSize: '1.25rem',
+    textAlign: 'center',
+  },
+  toteutusHeading: {
+    marginTop: '20px',
+    display: 'flex',
+    flexDirection: 'column',
+    textAlign: 'center',
+  },
+}));
 
 const getAsiasanatForLanguage = (asiasanat: Array<any>, language: string) => {
   const getFirstNotEmpty = (
@@ -105,6 +118,17 @@ export const ToteutusPage = () => {
     isDraft,
   });
 
+  const oppilaitokset = useOppilaitokset({
+    isOppilaitosOsa: false,
+    oids: toteutus?.oppilaitokset || [],
+  });
+
+  const hasOppilaitokset = oppilaitokset.length > 0;
+  const oppilaitostenNimet = hasOppilaitokset
+    ? oppilaitokset.map((oppilaitos) => `${localize(oppilaitos?.data?.nimi)}`).join(', ')
+    : '';
+  const oppilaitoksenNimiMurupolku = oppilaitostenNimet ? `${oppilaitostenNimet}, ` : '';
+
   const haut = toteutus?.hakukohteet;
 
   // NOTE: These ammattinimikkeet should be the freely written virkailija asiasana-ammattinimikkeet,
@@ -114,7 +138,10 @@ export const ToteutusPage = () => {
     currentLanguage
   )?.map((asiasana: any) => asiasana.arvo);
 
-  const loading = koulutusLoading || toteutusLoading;
+  const loading =
+    koulutusLoading ||
+    toteutusLoading ||
+    (hasOppilaitokset && _.some(oppilaitokset, 'isLoading'));
 
   const hasAnyHaku = _.some(haut, (v: any) => v.hakukohteet.length > 0);
   const hakuUrl = useSelector(getHakuUrl);
@@ -150,13 +177,17 @@ export const ToteutusPage = () => {
                 name: localize(koulutus?.tutkintoNimi),
                 link: `/koulutus/${toteutus?.koulutusOid}?${hakuParamsStr}`,
               },
-              { name: localize(toteutus?.nimi) },
+              { name: `${oppilaitoksenNimiMurupolku}${localize(toteutus?.nimi)}` },
             ]}
           />
         </Box>
-        <Typography style={{ marginTop: '20px' }} variant="h1">
+
+        <Heading className={classes.toteutusHeading} variant="h1">
+          <Box component="span" className={classes.oppilaitosHeadingSpan}>
+            {oppilaitostenNimet}
+          </Box>
           {localize(toteutus?.nimi)}
-        </Typography>
+        </Heading>
         {erityisopetusHeading && erityisopetusText && (
           <ContentWithTopIcon>
             <Box mb={1}>
