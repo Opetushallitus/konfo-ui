@@ -13,6 +13,7 @@ import { NotFound } from '#/src/NotFound';
 import { getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
 import { localize } from '#/src/tools/localization';
 
+import { AlinHyvaksyttyKeskiarvo } from './AlinHyvaksyttyKeskiarvo';
 import { Hakukelpoisuus } from './Hakukelpoisuus';
 import {
   PageData,
@@ -77,6 +78,9 @@ const ValintaperusteContent = ({
   const liitteetVisible = hakukohde?.liitteet.length > 0;
   const painotetutArvosanatVisible =
     hakukohde?.metadata?.hakukohteenLinja?.painotetutArvosanat.length > 0;
+  const alinHyvaksyttyKeskiarvo =
+    hakukohde?.metadata?.hakukohteenLinja?.alinHyvaksyttyKeskiarvo;
+  const alinHyvaksyttyKeskiarvoVisible = _fp.isNumber(alinHyvaksyttyKeskiarvo);
 
   return (
     <>
@@ -85,17 +89,21 @@ const ValintaperusteContent = ({
           {...{
             hakukelpoisuusVisible,
             kuvausVisible,
+            alinHyvaksyttyKeskiarvoVisible,
+            painotetutArvosanatVisible,
             valintatavatVisible,
             valintakokeetVisible,
             lisatiedotVisible,
             liitteetVisible,
-            painotetutArvosanatVisible,
           }}
         />
       </Grid>
       <Grid item container xs={12} md={6} spacing={2}>
         {hakukelpoisuusVisible && <Hakukelpoisuus hakukelpoisuus={hakukelpoisuus} />}
         {kuvausVisible && <Kuvaus kuvaus={kuvaus} sisalto={sisalto} />}
+        {alinHyvaksyttyKeskiarvoVisible && (
+          <AlinHyvaksyttyKeskiarvo alinHyvaksyttyKeskiarvo={alinHyvaksyttyKeskiarvo} />
+        )}
         {painotetutArvosanatVisible && (
           <PainotetutArvosanat
             arvosanat={hakukohde?.metadata?.hakukohteenLinja?.painotetutArvosanat}

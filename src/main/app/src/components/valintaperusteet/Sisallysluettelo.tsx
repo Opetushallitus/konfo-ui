@@ -43,11 +43,12 @@ const useStyles = makeStyles({
 type Props = {
   hakukelpoisuusVisible: boolean;
   kuvausVisible: boolean;
+  alinHyvaksyttyKeskiarvoVisible: boolean;
+  painotetutArvosanatVisible: boolean;
   valintatavatVisible: boolean;
   valintakokeetVisible: boolean;
   lisatiedotVisible: boolean;
   liitteetVisible: boolean;
-  painotetutArvosanatVisible: boolean;
 };
 
 export const Sisallysluettelo = (props: Props) => {
@@ -56,11 +57,12 @@ export const Sisallysluettelo = (props: Props) => {
   const visibleIds = [
     props.hakukelpoisuusVisible && t('valintaperuste.hakukelpoisuus'),
     props.kuvausVisible && t('valintaperuste.kuvaus'),
+    props.alinHyvaksyttyKeskiarvoVisible && t('toteutus.alin-hyvaksytty-keskiarvo'),
+    props.painotetutArvosanatVisible && t('valintaperuste.painotettavat-oppiaineet'),
     props.valintatavatVisible && t('valintaperuste.valintatavat'),
     props.valintakokeetVisible && t('valintaperuste.valintakokeet'),
     props.lisatiedotVisible && t('valintaperuste.lisatiedot'),
     props.liitteetVisible && t('valintaperuste.liitteet'),
-    props.painotetutArvosanatVisible && t('valintaperuste.painotettavat-oppiaineet'),
   ].filter(Boolean) as Array<string>;
 
   return (
