@@ -1,12 +1,21 @@
 import React from 'react';
 
-import { Box, Card, CardContent, Divider, Grid, withStyles } from '@material-ui/core';
+import {
+  Box,
+  Card,
+  CardContent,
+  Divider,
+  Grid,
+  Typography,
+  withStyles,
+} from '@material-ui/core';
 import InsertDriveFileOutlinedIcon from '@material-ui/icons/InsertDriveFileOutlined';
 import { TFunction } from 'i18next';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
+import { ExternalLink } from '#/src/components/common/ExternalLink';
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
 import { Heading, HeadingBoundary } from '#/src/components/Heading';
 import { localize, localizeOsoite } from '#/src/tools/localization';
@@ -38,9 +47,10 @@ type LiiteCardProps = {
   liitteet: Array<Liite>;
   osoite: string;
   toimitusaika: string;
+  verkkosivu?: string;
 };
 
-const LiiteCard = ({ liitteet, osoite, toimitusaika }: LiiteCardProps) => {
+const LiiteCard = ({ liitteet, osoite, toimitusaika, verkkosivu }: LiiteCardProps) => {
   const { t } = useTranslation();
 
   return (
@@ -73,7 +83,12 @@ const LiiteCard = ({ liitteet, osoite, toimitusaika }: LiiteCardProps) => {
               <Grid item xs={10}>
                 <Box m={1}>
                   <Heading variant="h5">{t('valintaperuste.toimituspaikka')}</Heading>
-                  <Heading variant="body1">{osoite}</Heading>
+                  <Typography variant="body1">{osoite}</Typography>
+                  {verkkosivu && (
+                    <ExternalLink href={verkkosivu}>
+                      {t('valintaperuste.toimitusosoiteVerkkosivu')}
+                    </ExternalLink>
+                  )}
                 </Box>
               </Grid>
               <Grid item xs={2}></Grid>
@@ -82,7 +97,9 @@ const LiiteCard = ({ liitteet, osoite, toimitusaika }: LiiteCardProps) => {
                   <Heading variant="h5">
                     {t('valintaperuste.toimitettava-viimeistään')}
                   </Heading>
-                  <Heading variant="body1">{formatDateString(toimitusaika)}</Heading>
+                  <Typography variant="body1">
+                    {formatDateString(toimitusaika)}
+                  </Typography>
                 </Box>
               </Grid>
             </Grid>
@@ -102,24 +119,21 @@ const getToimitusosoite = (
   hakijapalveluidenYhteystiedot: any = {},
   t: TFunction
 ) => {
-  if (toimitustapa === LIITTEEN_TOIMITUSTAPA.JARJESTAJAN_OSOITE) {
-    const usedYhteystiedot = [
-      localize(hakijapalveluidenYhteystiedot.sahkoposti),
-      hakijapalveluidenYhteystiedot.yhteystiedot,
-    ]
-      .filter(Boolean)
-      .join(' · ');
-    return (
-      usedYhteystiedot || t('valintaperuste.hakijapalveluiden-yhteystiedot-puuttuvat')
-    );
-  }
-
-  if (toimitustapa === LIITTEEN_TOIMITUSTAPA.TOIMITETAAN_LAHETTAMISEN_YHTEYDESSA) {
-    return t('valintaperuste.liite-toimitustapa-lomake');
-  }
-
-  if (toimitustapa === LIITTEEN_TOIMITUSTAPA.MUU_OSOITE) {
-    return yhteystiedotAsString(toimitusOsoite);
+  switch (toimitustapa) {
+    case LIITTEEN_TOIMITUSTAPA.JARJESTAJAN_OSOITE:
+      const usedYhteystiedot = [
+        localize(hakijapalveluidenYhteystiedot.sahkoposti),
+        hakijapalveluidenYhteystiedot.yhteystiedot,
+      ]
+        .filter(Boolean)
+        .join(' · ');
+      return (
+        usedYhteystiedot || t('valintaperuste.hakijapalveluiden-yhteystiedot-puuttuvat')
+      );
+    case LIITTEEN_TOIMITUSTAPA.TOIMITETAAN_LAHETTAMISEN_YHTEYDESSA:
+      return t('valintaperuste.liite-toimitustapa-lomake');
+    case LIITTEEN_TOIMITUSTAPA.MUU_OSOITE:
+      return yhteystiedotAsString(toimitusOsoite);
   }
 };
 
@@ -170,6 +184,7 @@ export const Liitteet = ({ liitteet, hakukohde, organisaatioOid }: Props) => {
                   liitteet={values}
                   osoite={yhteinenToimitusosoite!}
                   toimitusaika={yhteinenToimitusaika!}
+                  verkkosivu={hakukohde?.liitteidenToimitusosoite?.verkkosivu}
                 />
               ) : (
                 values.map((liite, index) => (
@@ -186,6 +201,7 @@ export const Liitteet = ({ liitteet, hakukohde, organisaatioOid }: Props) => {
                       )!
                     }
                     toimitusaika={yhteinenToimitusaika || liite.toimitusaika}
+                    verkkosivu={liite?.toimitusosoite?.verkkosivu}
                   />
                 ))
               )}
