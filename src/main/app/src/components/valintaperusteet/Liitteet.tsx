@@ -72,7 +72,7 @@ const Toimituspaikka = ({
       {verkkosivu && (
         <Box marginTop={1}>
           <ExternalLink href={verkkosivu}>
-            {t('valintaperuste.toimitusosoiteVerkkosivu')}
+            {t('valintaperuste.liitteenToimitusosoiteVerkkosivu')}
           </ExternalLink>
         </Box>
       )}
