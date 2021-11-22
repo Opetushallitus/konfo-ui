@@ -10,7 +10,6 @@ import {
   withStyles,
 } from '@material-ui/core';
 import InsertDriveFileOutlinedIcon from '@material-ui/icons/InsertDriveFileOutlined';
-import { TFunction } from 'i18next';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
@@ -21,6 +20,7 @@ import { Heading, HeadingBoundary } from '#/src/components/Heading';
 import { localize, localizeOsoite } from '#/src/tools/localization';
 import { useOsoitteet } from '#/src/tools/useOppilaitosOsoite';
 import { formatDateString, toId } from '#/src/tools/utils';
+import { Yhteystiedot } from '#/src/types/common';
 import { Hakukohde, Liite } from '#/src/types/HakukohdeTypes';
 
 const LIITTEEN_TOIMITUSTAPA = {
@@ -29,13 +29,6 @@ const LIITTEEN_TOIMITUSTAPA = {
   MUU_OSOITE: 'osoite',
 };
 
-const yhteystiedotAsString = (
-  {
-    sahkoposti,
-    osoite: { osoite, postinumero } = {} as any,
-  }: Liite['toimitusosoite'] = {} as any
-) => [sahkoposti, localizeOsoite(osoite, postinumero)].filter(Boolean).join(' · ');
-
 const FileIcon = withStyles(() => ({
   root: {
     color: colors.brandGreen,
@@ -43,16 +36,112 @@ const FileIcon = withStyles(() => ({
   },
 }))(InsertDriveFileOutlinedIcon);
 
-type LiiteCardProps = {
-  liitteet: Array<Liite>;
-  osoite: string;
-  toimitusaika: string;
+type ToimituspaikkaProps = {
+  postiosoite?: string;
+  sahkoposti?: string;
   verkkosivu?: string;
+  missingMsgKey?: string;
 };
 
-const LiiteCard = ({ liitteet, osoite, toimitusaika, verkkosivu }: LiiteCardProps) => {
+const Toimituspaikka = ({
+  postiosoite,
+  sahkoposti,
+  verkkosivu,
+  missingMsgKey,
+}: ToimituspaikkaProps) => {
+  const { t } = useTranslation();
+  const missing =
+    _.isEmpty(postiosoite) && _.isEmpty(sahkoposti) && _.isEmpty(verkkosivu);
+  return missing ? (
+    missingMsgKey ? (
+      <Typography>{t(missingMsgKey)}</Typography>
+    ) : null
+  ) : (
+    <Box m={1}>
+      <Heading variant="h5">{t('valintaperuste.toimituspaikka')}</Heading>
+      {postiosoite && (
+        <Typography variant="body1" style={{ whiteSpace: 'pre-wrap' }}>
+          {postiosoite}
+        </Typography>
+      )}
+      {sahkoposti && (
+        <Box marginTop={1}>
+          <Typography variant="body1">{sahkoposti}</Typography>
+        </Box>
+      )}
+      {verkkosivu && (
+        <Box marginTop={1}>
+          <ExternalLink href={verkkosivu}>
+            {t('valintaperuste.toimitusosoiteVerkkosivu')}
+          </ExternalLink>
+        </Box>
+      )}
+    </Box>
+  );
+};
+
+type ToimituspaikkaByToimitustapaProps = {
+  toimitustapa: string;
+  toimitusosoite: Liite['toimitusosoite'];
+  hakijapalveluidenYhteystiedot?: Yhteystiedot;
+};
+const ToimituspaikkaByToimitustapa = ({
+  toimitustapa,
+  toimitusosoite,
+  hakijapalveluidenYhteystiedot,
+}: ToimituspaikkaByToimitustapaProps) => {
   const { t } = useTranslation();
 
+  switch (toimitustapa) {
+    case LIITTEEN_TOIMITUSTAPA.JARJESTAJAN_OSOITE:
+      const postiosoiteObject = hakijapalveluidenYhteystiedot?.postiosoite;
+      return (
+        <Toimituspaikka
+          postiosoite={localizeOsoite(
+            postiosoiteObject?.osoite,
+            postiosoiteObject?.postinumero,
+            '\n'
+          )}
+          sahkoposti={localize(hakijapalveluidenYhteystiedot?.sahkoposti)}
+          missingMsgKey="valintaperuste.hakijapalveluiden-yhteystiedot-puuttuvat"
+        />
+      );
+    case LIITTEEN_TOIMITUSTAPA.TOIMITETAAN_LAHETTAMISEN_YHTEYDESSA:
+      return <Typography>{t('valintaperuste.liite-toimitustapa-lomake')}</Typography>;
+    case LIITTEEN_TOIMITUSTAPA.MUU_OSOITE:
+      return (
+        <Toimituspaikka
+          postiosoite={localizeOsoite(
+            toimitusosoite?.osoite?.osoite,
+            toimitusosoite?.osoite?.postinumero,
+            '\n'
+          )}
+          sahkoposti={toimitusosoite?.sahkoposti}
+          verkkosivu={toimitusosoite?.verkkosivu}
+        />
+      );
+    default:
+      return null;
+  }
+};
+
+type LiiteCardProps = {
+  liitteet: Array<Liite>;
+  toimitustapa: string;
+  toimitusosoite: Liite['toimitusosoite'];
+  toimitusaika: string;
+  hakijapalveluidenYhteystiedot?: Yhteystiedot;
+};
+
+const LiiteCard = ({
+  liitteet,
+  toimitustapa,
+  toimitusosoite,
+  toimitusaika,
+  hakijapalveluidenYhteystiedot,
+}: LiiteCardProps) => {
+  const { t } = useTranslation();
+  console.log({ toimitustapa });
   return (
     <Box py={2}>
       <HeadingBoundary>
@@ -60,19 +149,17 @@ const LiiteCard = ({ liitteet, osoite, toimitusaika, verkkosivu }: LiiteCardProp
           <CardContent>
             <Grid container>
               {liitteet.map(({ nimi, kuvaus }, i) => (
-                <React.Fragment key={`liite-${nimi}-${i}`}>
-                  <Grid container>
-                    <Grid item container xs={2} justify="flex-end">
-                      <FileIcon />
-                    </Grid>
-                    <Grid item xs={10}>
-                      <Box m={1}>
-                        <Heading variant="h5">{localize(nimi)}</Heading>
-                        <LocalizedHTML data={kuvaus} />
-                      </Box>
-                    </Grid>
+                <Grid container key={`liite-${nimi}-${i}`}>
+                  <Grid item container xs={2} justify="flex-end">
+                    <FileIcon />
                   </Grid>
-                </React.Fragment>
+                  <Grid item xs={10}>
+                    <Box m={1}>
+                      <Heading variant="h5">{localize(nimi)}</Heading>
+                      <LocalizedHTML data={kuvaus} />
+                    </Box>
+                  </Grid>
+                </Grid>
               ))}
               <Grid item xs={12}>
                 <Box m={1}>
@@ -81,15 +168,11 @@ const LiiteCard = ({ liitteet, osoite, toimitusaika, verkkosivu }: LiiteCardProp
               </Grid>
               <Grid item xs={2}></Grid>
               <Grid item xs={10}>
-                <Box m={1}>
-                  <Heading variant="h5">{t('valintaperuste.toimituspaikka')}</Heading>
-                  <Typography variant="body1">{osoite}</Typography>
-                  {verkkosivu && (
-                    <ExternalLink href={verkkosivu}>
-                      {t('valintaperuste.toimitusosoiteVerkkosivu')}
-                    </ExternalLink>
-                  )}
-                </Box>
+                <ToimituspaikkaByToimitustapa
+                  toimitustapa={toimitustapa}
+                  toimitusosoite={toimitusosoite}
+                  hakijapalveluidenYhteystiedot={hakijapalveluidenYhteystiedot}
+                />
               </Grid>
               <Grid item xs={2}></Grid>
               <Grid item xs={10}>
@@ -113,30 +196,6 @@ const LiiteCard = ({ liitteet, osoite, toimitusaika, verkkosivu }: LiiteCardProp
 const tyypeittain = (liitteet: Array<Liite>) =>
   _.groupBy(liitteet || [], (liite) => localize(liite?.tyyppi));
 
-const getToimitusosoite = (
-  toimitustapa: string,
-  toimitusOsoite: Liite['toimitusosoite'],
-  hakijapalveluidenYhteystiedot: any = {},
-  t: TFunction
-) => {
-  switch (toimitustapa) {
-    case LIITTEEN_TOIMITUSTAPA.JARJESTAJAN_OSOITE:
-      const usedYhteystiedot = [
-        localize(hakijapalveluidenYhteystiedot.sahkoposti),
-        hakijapalveluidenYhteystiedot.yhteystiedot,
-      ]
-        .filter(Boolean)
-        .join(' · ');
-      return (
-        usedYhteystiedot || t('valintaperuste.hakijapalveluiden-yhteystiedot-puuttuvat')
-      );
-    case LIITTEEN_TOIMITUSTAPA.TOIMITETAAN_LAHETTAMISEN_YHTEYDESSA:
-      return t('valintaperuste.liite-toimitustapa-lomake');
-    case LIITTEEN_TOIMITUSTAPA.MUU_OSOITE:
-      return yhteystiedotAsString(toimitusOsoite);
-  }
-};
-
 type Props = {
   liitteet: Array<Liite>;
   hakukohde: Hakukohde;
@@ -148,17 +207,10 @@ export const Liitteet = ({ liitteet, hakukohde, organisaatioOid }: Props) => {
   const liitteetTyypeittain = tyypeittain(liitteet);
   const { hakijapalveluidenYhteystiedot } = useOsoitteet([organisaatioOid])?.[0] || {};
 
-  const yhteinenToimitusaika = hakukohde?.liitteetOnkoSamaToimitusaika
-    ? hakukohde?.liitteidenToimitusaika
-    : null;
-  const yhteinenToimitusosoite = hakukohde.liitteetOnkoSamaToimitusosoite
-    ? getToimitusosoite(
-        hakukohde.liitteidenToimitustapa,
-        hakukohde.liitteidenToimitusosoite,
-        hakijapalveluidenYhteystiedot,
-        t
-      )
-    : null;
+  const yhteinenToimitusaika =
+    hakukohde?.liitteetOnkoSamaToimitusaika && hakukohde?.liitteidenToimitusaika;
+  const yhteinenToimitusosoite =
+    hakukohde.liitteetOnkoSamaToimitusosoite && hakukohde.liitteidenToimitusosoite;
 
   return (
     <Grid item container direction="column" xs={12}>
@@ -182,26 +234,19 @@ export const Liitteet = ({ liitteet, hakukohde, organisaatioOid }: Props) => {
               {yhteinenToimitusaika && yhteinenToimitusosoite ? (
                 <LiiteCard
                   liitteet={values}
-                  osoite={yhteinenToimitusosoite!}
-                  toimitusaika={yhteinenToimitusaika!}
-                  verkkosivu={hakukohde?.liitteidenToimitusosoite?.verkkosivu}
+                  toimitustapa={hakukohde.liitteidenToimitustapa}
+                  toimitusaika={yhteinenToimitusaika}
+                  toimitusosoite={yhteinenToimitusosoite}
+                  hakijapalveluidenYhteystiedot={hakijapalveluidenYhteystiedot}
                 />
               ) : (
                 values.map((liite, index) => (
                   <LiiteCard
                     key={`liite-${index}`}
                     liitteet={[liite]}
-                    osoite={
-                      yhteinenToimitusosoite ||
-                      getToimitusosoite(
-                        liite.toimitustapa,
-                        liite.toimitusosoite,
-                        hakijapalveluidenYhteystiedot,
-                        t
-                      )!
-                    }
+                    toimitustapa={hakukohde.liitteidenToimitustapa || liite.toimitustapa}
                     toimitusaika={yhteinenToimitusaika || liite.toimitusaika}
-                    verkkosivu={liite?.toimitusosoite?.verkkosivu}
+                    toimitusosoite={yhteinenToimitusosoite || liite.toimitusosoite}
                   />
                 ))
               )}
