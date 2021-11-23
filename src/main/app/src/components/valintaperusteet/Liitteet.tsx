@@ -141,7 +141,6 @@ const LiiteCard = ({
   hakijapalveluidenYhteystiedot,
 }: LiiteCardProps) => {
   const { t } = useTranslation();
-  console.log({ toimitustapa });
   return (
     <Box py={2}>
       <HeadingBoundary>
