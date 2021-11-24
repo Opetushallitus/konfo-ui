@@ -2,11 +2,12 @@ import { useEffect, useState } from 'react';
 
 import { getOppilaitos, getOppilaitosOsa } from '#/src/api/konfoApi';
 import { parseOsoiteData } from '#/src/tools/utils';
+import { Yhteystiedot } from '#/src/types/common';
 
 export interface OppilaitosOsoite {
   oppilaitosOid: string;
   yhteystiedot: string;
-  hakijapalveluidenYhteystiedot?: string;
+  hakijapalveluidenYhteystiedot?: Yhteystiedot;
 }
 
 const fetchOppilaitosOsoitteet = async (oppilaitosOids: Array<string>) => {

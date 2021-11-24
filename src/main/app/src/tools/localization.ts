@@ -42,11 +42,15 @@ export const localizeArrayToCommaSeparated = (
 
 export const getTranslationForKey = (key = '') => i18n.t(key);
 
-export const localizeOsoite = (katuosoite: unknown, postinumeroKoodi: Koodi) => {
+export const localizeOsoite = (
+  katuosoite: unknown,
+  postinumeroKoodi?: Koodi,
+  erotin: string = ', '
+) => {
   if (!katuosoite || !postinumeroKoodi) {
     return '';
   }
-  const postitoimialue = `, ${koodiUriToPostinumero(
+  const postitoimialue = `${erotin}${koodiUriToPostinumero(
     postinumeroKoodi?.koodiUri
   )} ${localize(postinumeroKoodi?.nimi)}`;
   return `${localize(katuosoite)}${postitoimialue}`;

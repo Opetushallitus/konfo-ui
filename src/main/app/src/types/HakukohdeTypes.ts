@@ -5,6 +5,7 @@ type LiitteenYhteystiedot = {
   osoite: Osoite;
   sahkoposti: string;
   puhelinnumero: string;
+  verkkosivu: string;
 };
 
 export type Liite = {
