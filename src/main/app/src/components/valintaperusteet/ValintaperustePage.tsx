@@ -4,7 +4,7 @@ import { Grid, makeStyles } from '@material-ui/core';
 import _fp from 'lodash/fp';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import Murupolku from '#/src/components/common/Murupolku';
@@ -79,14 +79,14 @@ const ValintaperusteContent = ({
   const painotetutArvosanatVisible =
     hakukohde?.metadata?.hakukohteenLinja?.painotetutArvosanat.length > 0;
 
+  const { hash } = useLocation();
+
   useEffect(() => {
-    const el = window.location.hash
-      ? document.getElementById(window.location.hash.substring(1))
-      : null;
+    const el = hash ? document.getElementById(hash.substring(1)) : null;
     if (el) {
       scrollIntoView(el);
     }
-  });
+  }, [hash]);
 
   return (
     <>
