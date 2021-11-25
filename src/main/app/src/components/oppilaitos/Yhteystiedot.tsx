@@ -101,15 +101,26 @@ export const Yhteystiedot = ({
   const { t } = useTranslation();
   const theme = useTheme();
   const isSm = useMediaQuery(theme.breakpoints.down('sm'));
+
   const localizedYhteystiedot: Array<any> = useMemo(
     () =>
       _fp.flow(
-        organisaatioidenYhteystiedot !== undefined &&
-          organisaatioidenYhteystiedot?.length > 0
-          ? _fp.map((yhteystieto) => _fp.concat(yhteystieto))(
-              organisaatioidenYhteystiedot
-            )
-          : _fp.concat(hakijapalveluidenYhteystiedot),
+        (tiedot) => {
+          let tiedotWithOrganisaatioidenYhteystiedot;
+          if (
+            organisaatioidenYhteystiedot !== undefined &&
+            organisaatioidenYhteystiedot?.length > 0
+          ) {
+            _fp.map(
+              (yhteystieto) =>
+                (tiedotWithOrganisaatioidenYhteystiedot = _fp.concat(tiedot, yhteystieto))
+            )(organisaatioidenYhteystiedot);
+          } else {
+            return tiedot;
+          }
+          return tiedotWithOrganisaatioidenYhteystiedot;
+        },
+        _fp.concat(hakijapalveluidenYhteystiedot),
         _fp.filter(Boolean),
         _fp.map(parseYhteystieto(t)),
         _fp.orderBy(['nimi'], 'asc'),
