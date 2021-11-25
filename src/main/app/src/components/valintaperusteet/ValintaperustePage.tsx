@@ -1,10 +1,10 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 
 import { Grid, makeStyles } from '@material-ui/core';
 import _fp from 'lodash/fp';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import Murupolku from '#/src/components/common/Murupolku';
@@ -12,6 +12,7 @@ import { Heading } from '#/src/components/Heading';
 import { NotFound } from '#/src/NotFound';
 import { getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
 import { localize } from '#/src/tools/localization';
+import { scrollIntoView } from '#/src/tools/utils';
 
 import { AlinHyvaksyttyKeskiarvo } from './AlinHyvaksyttyKeskiarvo';
 import { Hakukelpoisuus } from './Hakukelpoisuus';
@@ -81,6 +82,15 @@ const ValintaperusteContent = ({
   const alinHyvaksyttyKeskiarvo =
     hakukohde?.metadata?.hakukohteenLinja?.alinHyvaksyttyKeskiarvo;
   const alinHyvaksyttyKeskiarvoVisible = _fp.isNumber(alinHyvaksyttyKeskiarvo);
+
+  const { hash } = useLocation();
+
+  useEffect(() => {
+    const el = hash ? document.getElementById(hash.substring(1)) : null;
+    if (el) {
+      scrollIntoView(el);
+    }
+  }, [hash]);
 
   return (
     <>
