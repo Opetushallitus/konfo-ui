@@ -21,7 +21,7 @@ import {
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { Link as RouterLink } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
