@@ -33,6 +33,7 @@ import {
   searchAndMoveToHaku,
 } from '#/src/store/reducers/hakutulosSlice';
 import { getHakupalkkiProps } from '#/src/store/reducers/hakutulosSliceSelector';
+import { useOnEtusivu } from '#/src/tools/useOnEtusivu';
 
 import { MobileFiltersOnTopMenu } from '../hakutulos/MobileFiltersOnTopMenu';
 import { useUrlParams } from '../hakutulos/UseUrlParams';
@@ -146,13 +147,11 @@ const useStyles = makeStyles((theme) => ({
 export const Hakupalkki = () => {
   const history = useHistory();
   const { search } = useUrlParams();
-  const location = useLocation();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const classes = useStyles();
   const dispatch = useDispatch();
   const { koulutusFilters } = useSelector(getHakupalkkiProps);
-  const etusivuPath = `/${i18n.language}/`;
-  const isAtEtusivu = location.pathname === etusivuPath;
+  const { isAtEtusivu } = useOnEtusivu();
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [writtenKeyword, setWrittenKeyword] = useState(search?.keyword);

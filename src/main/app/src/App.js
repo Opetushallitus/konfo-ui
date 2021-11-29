@@ -12,6 +12,7 @@ import { useSideMenu } from '#/src/hooks';
 import { NotFound } from '#/src/NotFound';
 import { supportedLanguages } from '#/src/tools/i18n';
 import { getLanguage } from '#/src/tools/localization';
+import { useOnEtusivu } from '#/src/tools/useOnEtusivu';
 
 import { Draft } from './components/common/Draft';
 import Footer from './components/common/Footer';
@@ -183,17 +184,18 @@ const App = () => {
   const language = getLanguage();
   const { pathname } = useLocation();
   const { state: menuVisible, toggleMenu, closeMenu } = useSideMenu();
+  const { isAtEtusivu } = useOnEtusivu();
 
   const classes = useStyles({ betaBannerVisible: betaBanner, isSmall, menuVisible });
   useLayoutEffect(() => {
     const defaultHeader = defaultTitle(language);
     const h1 = removeLastDot(document.querySelector('h1')?.textContent);
-    const newTitle = h1 ? h1 + ' - ' + defaultHeader : defaultHeader;
+    const newTitle = !isAtEtusivu && h1 ? h1 + ' - ' + defaultHeader : defaultHeader;
     if (title !== newTitle) {
       document.title = newTitle;
       setTitle(newTitle);
     }
-  }, [title, language, pathname]);
+  }, [isAtEtusivu, title, language, pathname]);
   return (
     <React.Fragment>
       <Draft />
