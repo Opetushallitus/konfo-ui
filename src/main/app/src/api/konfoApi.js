@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import _ from 'lodash';
 import { urls } from 'oph-urls-js';
 import qs from 'query-string';
@@ -7,7 +8,20 @@ import { getLanguage } from '#/src/tools/localization';
 import { Common as C } from '#/src/tools/utils';
 
 const client = axios.create({
-  headers: { 'Caller-Id': '1.2.246.562.10.00000000001.konfoui' },
+  headers: {
+    'Caller-Id': '1.2.246.562.10.00000000001.konfoui',
+  },
+});
+
+client.interceptors.request.use((request) => {
+  const { method } = request;
+  if (['post', 'put', 'patch', 'delete'].includes(method)) {
+    const csrfCookie = Cookies.get('CSRF');
+    if (csrfCookie) {
+      request.headers.CSRF = csrfCookie;
+    }
+  }
+  return request;
 });
 
 const get = async (url, config = {}) => {
