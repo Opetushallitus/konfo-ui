@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "homepage": "/konfo",
   "private": true,
-  "proxy": "https://beta.testiopintopolku.fi",
+  "proxy": "https://testiopintopolku.fi",
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
