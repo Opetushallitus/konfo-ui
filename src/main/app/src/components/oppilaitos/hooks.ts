@@ -52,7 +52,10 @@ const handleOppilaitosData = (
         : undefined,
       esittelyHtml: localize(entity?.metadata?.esittely) ?? '',
       tietoaOpiskelusta: entity?.metadata?.tietoaOpiskelusta ?? [],
-      kotipaikat: data?.osat?.map(_fp.prop('kotipaikka')) ?? [data?.kotipaikka],
+      kotipaikat:
+        data?.osat?.length > 0
+          ? data?.osat?.map(_fp.prop('kotipaikka'))
+          : [data?.kotipaikka],
     },
     ...rest,
   };
