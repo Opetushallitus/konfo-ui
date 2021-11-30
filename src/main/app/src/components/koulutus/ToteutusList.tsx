@@ -33,6 +33,7 @@ import { Jarjestaja } from '#/src/types/ToteutusTypes';
 
 import { useKoulutusJarjestajat } from './hooks';
 import { HakutapaSuodatin } from './toteutusSuodattimet/HakutapaSuodatin';
+import { LukiolinjatSuodatin } from './toteutusSuodattimet/LukiolinjatSuodatin';
 import { MobileFiltersOnTopMenu } from './toteutusSuodattimet/MobileFiltersOnTopMenu';
 import { OpetuskieliSuodatin } from './toteutusSuodattimet/OpetusKieliSuodatin';
 import { OpetustapaSuodatin } from './toteutusSuodattimet/OpetustapaSuodatin';
@@ -236,6 +237,22 @@ export const ToteutusList = ({ oid }: Props) => {
                 elevation={2}
                 handleFilterChange={handleFilterChange}
                 values={usedValues.opetustapa}
+              />
+            </SuodatinGridItem>
+            <SuodatinGridItem>
+              <LukiolinjatSuodatin
+                name="lukiopainotukset"
+                elevation={2}
+                handleFilterChange={handleFilterChange}
+                values={usedValues.lukiopainotukset}
+              />
+            </SuodatinGridItem>
+            <SuodatinGridItem>
+              <LukiolinjatSuodatin
+                name="lukiolinjat_er"
+                elevation={2}
+                handleFilterChange={handleFilterChange}
+                values={usedValues.lukiolinjaterityinenkoulutustehtava}
               />
             </SuodatinGridItem>
           </Grid>
