@@ -134,7 +134,9 @@ export const EntiteettiKortti = ({
                     {preHeader}
                   </Typography>
                 )}
-                <Typography variant="h4" style={{ fontWeight: 'bold' }}>
+                <Typography
+                  variant="h4"
+                  style={{ fontWeight: 'bold', whiteSpace: 'pre-wrap' }}>
                   {header}
                 </Typography>
               </Grid>

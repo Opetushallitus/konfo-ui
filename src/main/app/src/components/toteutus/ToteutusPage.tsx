@@ -50,6 +50,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     textAlign: 'center',
+    whiteSpace: 'pre-wrap',
   },
 }));
 
