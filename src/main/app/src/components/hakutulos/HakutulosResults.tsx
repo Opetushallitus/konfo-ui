@@ -3,6 +3,7 @@ import React from 'react';
 import { Grid, Typography, useTheme } from '@material-ui/core';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
+import { Link as RouterLink } from 'react-router-dom';
 
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
 
@@ -58,7 +59,7 @@ export const HakutulosResults = ({
         <Typography paragraph>{t('haku.summary', { keyword: keyword })}</Typography>
       </Grid>
       <Grid item>
-        <LocalizedLink underline="always" to="/konfo" variant="body1">
+        <LocalizedLink underline="always" variant="body1" component={RouterLink} to={`/`}>
           {t('haku.siirry-opintopolun-etusivulle')}
         </LocalizedLink>
       </Grid>
