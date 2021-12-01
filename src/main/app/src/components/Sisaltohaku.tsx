@@ -220,7 +220,7 @@ export const Sisaltohaku = () => {
                 <span>{t('sisaltohaku.summary', { hakusana: hakusana || '' })}</span>
               </Grid>
               <Grid item xs={12}>
-                <LocalizedLink underline="always" component={RouterLink} to={`/`}>
+                <LocalizedLink underline="always" component={RouterLink} to="/">
                   {t('sisaltohaku.takaisin')}
                 </LocalizedLink>
               </Grid>

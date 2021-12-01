@@ -59,7 +59,7 @@ export const HakutulosResults = ({
         <Typography paragraph>{t('haku.summary', { keyword: keyword })}</Typography>
       </Grid>
       <Grid item>
-        <LocalizedLink underline="always" variant="body1" component={RouterLink} to={`/`}>
+        <LocalizedLink underline="always" variant="body1" component={RouterLink} to="/">
           {t('haku.siirry-opintopolun-etusivulle')}
         </LocalizedLink>
       </Grid>
