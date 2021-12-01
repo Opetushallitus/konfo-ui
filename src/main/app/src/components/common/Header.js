@@ -123,7 +123,7 @@ export const Header = (props) => {
             onClick={toggleMenu}
             edge="start"
             className={classes.menuButton}>
-            <Box display="flex" className={classes.menuBox}>
+            <Box className={classes.menuBox}>
               {isOpen ? <Icon>close</Icon> : <MenuIcon />}
               <Typography className={classes.menuText}>{t('valikko')}</Typography>
             </Box>
