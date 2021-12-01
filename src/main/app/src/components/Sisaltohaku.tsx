@@ -220,7 +220,9 @@ export const Sisaltohaku = () => {
                 <span>{t('sisaltohaku.summary', { hakusana: hakusana || '' })}</span>
               </Grid>
               <Grid item xs={12}>
-                <LocalizedLink to={'/'}>{t('sisaltohaku.takaisin')}</LocalizedLink>
+                <LocalizedLink underline="always" component={RouterLink} to="/">
+                  {t('sisaltohaku.takaisin')}
+                </LocalizedLink>
               </Grid>
             </React.Fragment>
           )
