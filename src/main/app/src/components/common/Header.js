@@ -61,9 +61,18 @@ const useStyles = makeStyles((theme) => ({
   iconButton: {
     padding: 10,
   },
-
   menuButton: {
     marginRight: theme.spacing(2),
+  },
+  menuBox: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+    padding: 'none',
+  },
+  menuText: {
+    fontSize: 'small',
+    color: colors.white,
   },
   languageSelector: {
     marginLeft: 'auto',
@@ -80,7 +89,7 @@ const useStyles = makeStyles((theme) => ({
   },
   omaOpintopolkuText: {
     color: colors.white,
-    fontSize: 'inherit',
+    fontSize: 'small',
   },
 }));
 
@@ -114,7 +123,10 @@ export const Header = (props) => {
             onClick={toggleMenu}
             edge="start"
             className={classes.menuButton}>
-            {isOpen ? <Icon>close</Icon> : <MenuIcon />}
+            <Box display="flex" className={classes.menuBox}>
+              {isOpen ? <Icon>close</Icon> : <MenuIcon />}
+              <Typography className={classes.menuText}>{t('valikko')}</Typography>
+            </Box>
           </IconButton>
           <LocalizedLink component={RouterLink} to={`/`}>
             <Icon className={classes.icon}>
