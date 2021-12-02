@@ -15,6 +15,7 @@ import Spacer from '#/src/components/common/Spacer';
 import { TarjontaPagination } from '#/src/components/common/TarjontaPagination';
 import { TextWithBackground } from '#/src/components/common/TextWithBackground';
 import { FILTER_TYPES } from '#/src/constants';
+import { KOULUTUS_TYYPPI, KORKEAKOULU_KOULUTUSTYYPIT } from '#/src/constants';
 import { usePreviousNonEmpty } from '#/src/hooks';
 import { getInitialCheckedToteutusFilters } from '#/src/store/reducers/hakutulosSliceSelector';
 import {
@@ -62,6 +63,7 @@ const useStyles = makeStyles({
 
 type Props = {
   oid: string;
+  koulutustyyppi: string;
 };
 
 type JarjestajaData = {
@@ -100,7 +102,7 @@ const SuodatinGridItem: React.FC = ({ children }) => {
   );
 };
 
-export const ToteutusList = ({ oid }: Props) => {
+export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
   const { t } = useTranslation();
   const classes = useStyles();
 
@@ -226,41 +228,56 @@ export const ToteutusList = ({ oid }: Props) => {
                 }
               />
             </SuodatinGridItem>
-            <SuodatinGridItem>
-              <ValintatapaSuodatin
-                elevation={2}
-                handleFilterChange={handleFilterChange}
-                values={usedValues.valintatapa}
-              />
-            </SuodatinGridItem>
+            {KORKEAKOULU_KOULUTUSTYYPIT.includes(koulutustyyppi as KOULUTUS_TYYPPI) && (
+              <SuodatinGridItem>
+                <ValintatapaSuodatin
+                  elevation={2}
+                  handleFilterChange={handleFilterChange}
+                  values={usedValues.valintatapa}
+                />
+              </SuodatinGridItem>
+            )}
+            {koulutustyyppi === KOULUTUS_TYYPPI.LUKIOKOULUTUS && (
+              <Grid
+                item
+                container
+                direction="row"
+                justify="center"
+                spacing={2}
+                className={classes.filtersContainer}
+                sm={10}>
+                <SuodatinGridItem>
+                  <LukiolinjatSuodatin
+                    name="lukiopainotukset"
+                    elevation={2}
+                    handleFilterChange={handleFilterChange}
+                    values={usedValues.lukiopainotukset}
+                  />
+                </SuodatinGridItem>
+                <SuodatinGridItem>
+                  <LukiolinjatSuodatin
+                    name="lukiolinjat_er"
+                    elevation={2}
+                    handleFilterChange={handleFilterChange}
+                    values={usedValues.lukiolinjaterityinenkoulutustehtava}
+                  />
+                </SuodatinGridItem>
+              </Grid>
+            )}
+            {koulutustyyppi === KOULUTUS_TYYPPI.AMM && (
+              <SuodatinGridItem>
+                <AmmOsaamisalatSuodatin
+                  elevation={2}
+                  handleFilterChange={handleFilterChange}
+                  values={usedValues.ammosaamisalat}
+                />
+              </SuodatinGridItem>
+            )}
             <SuodatinGridItem>
               <OpetustapaSuodatin
                 elevation={2}
                 handleFilterChange={handleFilterChange}
                 values={usedValues.opetustapa}
-              />
-            </SuodatinGridItem>
-            <SuodatinGridItem>
-              <LukiolinjatSuodatin
-                name="lukiopainotukset"
-                elevation={2}
-                handleFilterChange={handleFilterChange}
-                values={usedValues.lukiopainotukset}
-              />
-            </SuodatinGridItem>
-            <SuodatinGridItem>
-              <LukiolinjatSuodatin
-                name="lukiolinjat_er"
-                elevation={2}
-                handleFilterChange={handleFilterChange}
-                values={usedValues.lukiolinjaterityinenkoulutustehtava}
-              />
-            </SuodatinGridItem>
-            <SuodatinGridItem>
-              <AmmOsaamisalatSuodatin
-                elevation={2}
-                handleFilterChange={handleFilterChange}
-                values={usedValues.ammosaamisalat}
               />
             </SuodatinGridItem>
           </Grid>
