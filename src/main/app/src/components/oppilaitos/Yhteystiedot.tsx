@@ -11,7 +11,6 @@ import {
 } from '@material-ui/core';
 import { TFunction } from 'i18next';
 import _ from 'lodash';
-import _fp from 'lodash/fp';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
@@ -102,30 +101,14 @@ export const Yhteystiedot = ({
   const theme = useTheme();
   const isSm = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const localizedYhteystiedot: Array<any> = useMemo(
+  const localizedYhteystiedot = useMemo(
     () =>
-      _fp.flow(
-        (tiedot) => {
-          let tiedotWithOrganisaatioidenYhteystiedot;
-          if (
-            organisaatioidenYhteystiedot !== undefined &&
-            organisaatioidenYhteystiedot?.length > 0
-          ) {
-            _fp.map(
-              (yhteystieto) =>
-                (tiedotWithOrganisaatioidenYhteystiedot = _fp.concat(tiedot, yhteystieto))
-            )(organisaatioidenYhteystiedot);
-          } else {
-            return tiedot;
-          }
-          return tiedotWithOrganisaatioidenYhteystiedot;
-        },
-        _fp.concat(hakijapalveluidenYhteystiedot),
-        _fp.filter(Boolean),
-        _fp.map(parseYhteystieto(t)),
-        _fp.orderBy(['nimi'], 'asc'),
-        _fp.orderBy(['kayntiosoite'], 'asc')
-      )(yhteystiedot),
+      (yhteystiedot || [])
+        .concat(hakijapalveluidenYhteystiedot as any) // TODO: undefined cannot be concated :I
+        .concat(organisaatioidenYhteystiedot as any)
+        .filter(Boolean)
+        .map(parseYhteystieto(t))
+        .sort((a, b) => a.nimi.localeCompare(b.nimi, 'fi')),
     [t, hakijapalveluidenYhteystiedot, organisaatioidenYhteystiedot, yhteystiedot]
   );
 
