@@ -32,6 +32,7 @@ import { FilterValue } from '#/src/types/SuodatinTypes';
 import { Jarjestaja } from '#/src/types/ToteutusTypes';
 
 import { useKoulutusJarjestajat } from './hooks';
+import { AmmOsaamisalatSuodatin } from './toteutusSuodattimet/AmmOsaamisalatSuodatin';
 import { HakutapaSuodatin } from './toteutusSuodattimet/HakutapaSuodatin';
 import { LukiolinjatSuodatin } from './toteutusSuodattimet/LukiolinjatSuodatin';
 import { MobileFiltersOnTopMenu } from './toteutusSuodattimet/MobileFiltersOnTopMenu';
@@ -253,6 +254,13 @@ export const ToteutusList = ({ oid }: Props) => {
                 elevation={2}
                 handleFilterChange={handleFilterChange}
                 values={usedValues.lukiolinjaterityinenkoulutustehtava}
+              />
+            </SuodatinGridItem>
+            <SuodatinGridItem>
+              <AmmOsaamisalatSuodatin
+                elevation={2}
+                handleFilterChange={handleFilterChange}
+                values={usedValues.ammosaamisalat}
               />
             </SuodatinGridItem>
           </Grid>
