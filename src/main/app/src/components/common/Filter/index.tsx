@@ -271,6 +271,8 @@ export const Filter = ({
                 placeholder={selectPlaceholder || t('haku.etsi')}
                 onChange={handleCheck}
                 onFocus={onFocus}
+                onMenuClose={onHide}
+                onMenuOpen={onFocus}
                 blurInputOnSelect
                 onBlur={onHide}
                 theme={(theme) => ({
