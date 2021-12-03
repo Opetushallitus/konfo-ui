@@ -17,7 +17,7 @@ import { colors } from '#/src/colors';
 import { OskariKartta } from '#/src/components/common/OskariKartta';
 import Spacer from '#/src/components/common/Spacer';
 import { localize } from '#/src/tools/localization';
-import { koodiUriToPostinumero } from '#/src/tools/utils';
+import { byLocaleCompare, koodiUriToPostinumero } from '#/src/tools/utils';
 import { Osoite, Yhteystiedot as YhteystiedotType } from '#/src/types/common';
 
 const useStyles = makeStyles((theme) => ({
@@ -82,6 +82,7 @@ type Props = {
   heading?: string;
   yhteystiedot?: Array<YhteystiedotType>;
   hakijapalveluidenYhteystiedot?: YhteystiedotType;
+  organisaatioidenYhteystiedot?: Array<YhteystiedotType>;
 };
 
 export const hasYhteystiedot = (props: Props = {} as any) =>
@@ -93,6 +94,7 @@ export const Yhteystiedot = ({
   heading,
   yhteystiedot,
   hakijapalveluidenYhteystiedot,
+  organisaatioidenYhteystiedot,
 }: Props) => {
   const classes = useStyles();
   const { t } = useTranslation();
@@ -103,9 +105,11 @@ export const Yhteystiedot = ({
     () =>
       (yhteystiedot || [])
         .concat(hakijapalveluidenYhteystiedot as any) // TODO: undefined cannot be concated :I
+        .concat(organisaatioidenYhteystiedot as any)
         .filter(Boolean)
-        .map(parseYhteystieto(t)),
-    [t, hakijapalveluidenYhteystiedot, yhteystiedot]
+        .map(parseYhteystieto(t))
+        .sort(byLocaleCompare('nimi')),
+    [t, hakijapalveluidenYhteystiedot, organisaatioidenYhteystiedot, yhteystiedot]
   );
 
   return (

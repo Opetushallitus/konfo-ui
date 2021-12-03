@@ -32,6 +32,14 @@ export const ToteutuksenYhteystiedot = ({ oids }: { oids: Array<string> }) => {
     [oppilaitokset]
   );
 
+  const filteredOrganisaatioYhteystiedot = useMemo(
+    () =>
+      oppilaitokset
+        .filter((v) => hasYhteystiedot(v.data.oppilaitoksenOsa?.metadata))
+        .flatMap((v) => v.data.oppilaitoksenOsa.metadata.yhteystiedot),
+    [oppilaitokset]
+  );
+
   return (
     <>
       {filtered?.length > 0 && (
@@ -82,7 +90,11 @@ export const ToteutuksenYhteystiedot = ({ oids }: { oids: Array<string> }) => {
                   <OpenInNewIcon fontSize="small" />
                 </Button>
               )}
-              <Yhteystiedot id={localize(oppilaitos)} {...oppilaitos.metadata} />
+              <Yhteystiedot
+                id={localize(oppilaitos)}
+                {...oppilaitos.metadata}
+                organisaatioidenYhteystiedot={filteredOrganisaatioYhteystiedot}
+              />
             </React.Fragment>
           ))}
         </Box>

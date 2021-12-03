@@ -156,6 +156,12 @@ export function getLocalizedOpintojenLaajuus(koulutus) {
   return opintojenLaajuus || getTranslationForKey('koulutus.ei-laajuutta');
 }
 
+export function byLocaleCompare(prop) {
+  return function (a, b) {
+    return a[prop].toString().localeCompare(b[prop], getLanguage());
+  };
+}
+
 export const condArray = (cond, item) => (cond ? [item] : []);
 
 export const formatDouble = (number, fixed) =>

@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 
 import { Box, Grid, makeStyles, Typography } from '@material-ui/core';
 import _ from 'lodash';
+import _fp from 'lodash/fp';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -347,7 +348,9 @@ export const ToteutusPage = () => {
           </Box>
         )}
         {!_.isEmpty(toteutus?.oppilaitokset) && (
-          <ToteutuksenYhteystiedot oids={toteutus!.oppilaitokset} />
+          <ToteutuksenYhteystiedot
+            oids={_fp.uniq(toteutus!.oppilaitokset.concat(toteutus!.organisaatiot))}
+          />
         )}
       </Box>
     </ContentWrapper>
