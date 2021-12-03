@@ -17,7 +17,7 @@ import { colors } from '#/src/colors';
 import { OskariKartta } from '#/src/components/common/OskariKartta';
 import Spacer from '#/src/components/common/Spacer';
 import { localize } from '#/src/tools/localization';
-import { koodiUriToPostinumero } from '#/src/tools/utils';
+import { byLocaleCompare, koodiUriToPostinumero } from '#/src/tools/utils';
 import { Osoite, Yhteystiedot as YhteystiedotType } from '#/src/types/common';
 
 const useStyles = makeStyles((theme) => ({
@@ -108,7 +108,7 @@ export const Yhteystiedot = ({
         .concat(organisaatioidenYhteystiedot as any)
         .filter(Boolean)
         .map(parseYhteystieto(t))
-        .sort((a, b) => a.nimi.localeCompare(b.nimi, 'fi')),
+        .sort(byLocaleCompare('nimi')),
     [t, hakijapalveluidenYhteystiedot, organisaatioidenYhteystiedot, yhteystiedot]
   );
 

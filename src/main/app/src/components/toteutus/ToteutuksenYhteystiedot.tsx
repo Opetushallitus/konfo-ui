@@ -36,8 +36,7 @@ export const ToteutuksenYhteystiedot = ({ oids }: { oids: Array<string> }) => {
     () =>
       oppilaitokset
         .filter((v) => hasYhteystiedot(v.data.oppilaitoksenOsa?.metadata))
-        .map((v) => v.data.oppilaitoksenOsa.metadata.yhteystiedot)
-        .flat(),
+        .flatMap((v) => v.data.oppilaitoksenOsa.metadata.yhteystiedot),
     [oppilaitokset]
   );
 
