@@ -178,206 +178,235 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
 
   const scrollTargetId = 'toteutus-list';
 
+  const [preventClicks, setPreventClicks] = useState(false);
+
   return (
-    <Container maxWidth="lg" className={classes.container}>
-      <Typography variant="h2" id={scrollTargetId}>
-        {t('koulutus.tarjonta')}
-      </Typography>
-      <Spacer />
-      <>
-        <Hidden smDown>
-          <Grid
-            container
-            item
-            direction="row"
-            justify="center"
-            spacing={2}
-            className={classes.filtersContainer}
-            sm={10}>
-            <SuodatinGridItem>
-              <OpetuskieliSuodatin
-                elevation={2}
-                handleFilterChange={handleFilterChange}
-                values={usedValues.opetuskieli}
-              />
-            </SuodatinGridItem>
-            <SuodatinGridItem>
-              <SijaintiSuodatin
-                elevation={2}
-                loading={isLoading}
-                handleFilterChange={handleFilterChange}
-                maakuntaValues={usedValues.maakunta}
-                kuntaValues={usedValues.kunta}
-              />
-            </SuodatinGridItem>
-            <SuodatinGridItem>
-              <PohjakoulutusvaatimusSuodatin
-                elevation={2}
-                handleFilterChange={handleFilterChange}
-                values={usedValues.pohjakoulutusvaatimus}
-              />
-            </SuodatinGridItem>
-            <SuodatinGridItem>
-              <HakutapaSuodatin
-                elevation={2}
-                handleFilterChange={handleFilterChange}
-                values={
-                  usedValues.hakukaynnissa && usedValues.hakutapa
-                    ? [...usedValues.hakukaynnissa, ...usedValues.hakutapa]
-                    : []
-                }
-              />
-            </SuodatinGridItem>
-            {KORKEAKOULU_KOULUTUSTYYPIT.includes(koulutustyyppi as KOULUTUS_TYYPPI) && (
-              <SuodatinGridItem>
-                <ValintatapaSuodatin
-                  elevation={2}
-                  handleFilterChange={handleFilterChange}
-                  values={usedValues.valintatapa}
-                />
-              </SuodatinGridItem>
-            )}
-            {koulutustyyppi === KOULUTUS_TYYPPI.LUKIOKOULUTUS && (
-              <Grid
-                item
-                container
-                direction="row"
-                justify="center"
-                spacing={2}
-                className={classes.filtersContainer}
-                sm={10}>
-                <SuodatinGridItem>
-                  <LukiolinjatSuodatin
-                    name="lukiopainotukset"
-                    elevation={2}
-                    handleFilterChange={handleFilterChange}
-                    values={usedValues.lukiopainotukset}
-                  />
-                </SuodatinGridItem>
-                <SuodatinGridItem>
-                  <LukiolinjatSuodatin
-                    name="lukiolinjat_er"
-                    elevation={2}
-                    handleFilterChange={handleFilterChange}
-                    values={usedValues.lukiolinjaterityinenkoulutustehtava}
-                  />
-                </SuodatinGridItem>
-              </Grid>
-            )}
-            {koulutustyyppi === KOULUTUS_TYYPPI.AMM && (
-              <SuodatinGridItem>
-                <AmmOsaamisalatSuodatin
-                  elevation={2}
-                  handleFilterChange={handleFilterChange}
-                  values={usedValues.ammosaamisalat}
-                />
-              </SuodatinGridItem>
-            )}
-            <SuodatinGridItem>
-              <OpetustapaSuodatin
-                elevation={2}
-                handleFilterChange={handleFilterChange}
-                values={usedValues.opetustapa}
-              />
-            </SuodatinGridItem>
-          </Grid>
-        </Hidden>
-        <Hidden mdUp>
-          <MobileFiltersOnTopMenu
-            values={usedValues}
-            loading={isLoading}
-            hitCount={total}
-            handleFilterChange={handleFilterChange}
-            clearChosenFilters={handleFiltersClear}
-          />
-        </Hidden>
-      </>
-      <TarjontaPagination
-        total={total}
-        pagination={pagination}
-        setPagination={setPagination}
-      />
-      <QueryResultWrapper queryResult={queryResult}>
+    <div>
+      <Container maxWidth="lg" className={classes.container}>
+        <Typography variant="h2" id={scrollTargetId}>
+          {t('koulutus.tarjonta')}
+        </Typography>
+        <Spacer />
         <>
-          {someValuesToShow ? (
+          <Hidden smDown>
             <Grid
               container
-              direction="column"
+              item
+              direction="row"
               justify="center"
-              className={classes.grid}
-              alignItems="stretch"
-              spacing={1}>
-              {jarjestajat?.map((toteutus, i) => (
-                <Grid item key={i}>
-                  <EntiteettiKortti
-                    koulutustyyppi={toteutus.koulutustyyppi}
-                    to={`/toteutus/${toteutus.toteutusOid}`}
-                    logoElement={
-                      <OppilaitosKorttiLogo
-                        image={toteutus.kuva}
-                        alt={`${localize(toteutus.toteutusNimi)} ${t(
-                          'koulutus.koulutuksen-teemakuva'
-                        )}`}
-                      />
-                    }
-                    preHeader={localize(toteutus)}
-                    header={localize(toteutus.toteutusNimi)}
-                    erityisopetusHeader={
-                      toteutus.ammatillinenPerustutkintoErityisopetuksena ||
-                      toteutus.jarjestetaanErityisopetuksena
-                    }
-                    kuvaus={localize(toteutus.kuvaus)}
-                    wrapDirection="column-reverse"
-                    iconTexts={[
-                      [
-                        localizeArrayToCommaSeparated(toteutus.kunnat, { sorted: true }),
-                        PublicIcon,
-                      ],
-                      [
-                        localizeArrayToCommaSeparated(toteutus.opetusajat, {
-                          sorted: true,
-                        }),
-                        HourglassEmptyIcon,
-                      ],
-                      [
-                        getLocalizedMaksullisuus(
-                          toteutus.maksullisuustyyppi,
-                          toteutus.maksunMaara
-                        ),
-                        EuroSymbolIcon,
-                      ],
-                      [
-                        toteutus.hakukaynnissa ? (
-                          <TextWithBackground>
-                            {t('haku.hakukaynnissa')}
-                          </TextWithBackground>
-                        ) : (
-                          <></>
-                        ),
-                        undefined,
-                      ],
-                    ]}
+              spacing={2}
+              className={classes.filtersContainer}
+              sm={10}>
+              <SuodatinGridItem>
+                <OpetuskieliSuodatin
+                  elevation={2}
+                  handleFilterChange={handleFilterChange}
+                  values={usedValues.opetuskieli}
+                />
+              </SuodatinGridItem>
+              <SuodatinGridItem>
+                <SijaintiSuodatin
+                  elevation={2}
+                  loading={isLoading}
+                  handleFilterChange={handleFilterChange}
+                  maakuntaValues={usedValues.maakunta}
+                  kuntaValues={usedValues.kunta}
+                  onFocus={() => {
+                    setPreventClicks(true);
+                  }}
+                  onHide={() => {
+                    setPreventClicks(false);
+                  }}
+                />
+              </SuodatinGridItem>
+              <SuodatinGridItem>
+                <PohjakoulutusvaatimusSuodatin
+                  elevation={2}
+                  handleFilterChange={handleFilterChange}
+                  values={usedValues.pohjakoulutusvaatimus}
+                />
+              </SuodatinGridItem>
+              <SuodatinGridItem>
+                <HakutapaSuodatin
+                  elevation={2}
+                  handleFilterChange={handleFilterChange}
+                  values={
+                    usedValues.hakukaynnissa && usedValues.hakutapa
+                      ? [...usedValues.hakukaynnissa, ...usedValues.hakutapa]
+                      : []
+                  }
+                />
+              </SuodatinGridItem>
+              {KORKEAKOULU_KOULUTUSTYYPIT.includes(koulutustyyppi as KOULUTUS_TYYPPI) && (
+                <SuodatinGridItem>
+                  <ValintatapaSuodatin
+                    elevation={2}
+                    handleFilterChange={handleFilterChange}
+                    values={usedValues.valintatapa}
                   />
-                </Grid>
-              ))}
-            </Grid>
-          ) : (
-            <Typography variant="body1" paragraph>
-              {t(
-                someSelected
-                  ? 'koulutus.ei-rajaimia-vastaavia-toteutuksia'
-                  : 'koulutus.ei-toteutuksia'
+                </SuodatinGridItem>
               )}
-            </Typography>
-          )}
+              {koulutustyyppi === KOULUTUS_TYYPPI.LUKIOKOULUTUS && (
+                <Grid
+                  item
+                  container
+                  direction="row"
+                  justify="center"
+                  spacing={2}
+                  className={classes.filtersContainer}
+                  sm={10}>
+                  <SuodatinGridItem>
+                    <LukiolinjatSuodatin
+                      name="lukiopainotukset"
+                      elevation={2}
+                      handleFilterChange={handleFilterChange}
+                      values={usedValues.lukiopainotukset}
+                    />
+                  </SuodatinGridItem>
+                  <SuodatinGridItem>
+                    <LukiolinjatSuodatin
+                      name="lukiolinjat_er"
+                      elevation={2}
+                      handleFilterChange={handleFilterChange}
+                      values={usedValues.lukiolinjaterityinenkoulutustehtava}
+                    />
+                  </SuodatinGridItem>
+                </Grid>
+              )}
+              {koulutustyyppi === KOULUTUS_TYYPPI.AMM && (
+                <SuodatinGridItem>
+                  <AmmOsaamisalatSuodatin
+                    elevation={2}
+                    handleFilterChange={handleFilterChange}
+                    values={usedValues.ammosaamisalat}
+                  />
+                </SuodatinGridItem>
+              )}
+              <SuodatinGridItem>
+                <OpetustapaSuodatin
+                  elevation={2}
+                  handleFilterChange={handleFilterChange}
+                  values={usedValues.opetustapa}
+                />
+              </SuodatinGridItem>
+            </Grid>
+          </Hidden>
+          <Hidden mdUp>
+            <MobileFiltersOnTopMenu
+              values={usedValues}
+              loading={isLoading}
+              hitCount={total}
+              handleFilterChange={handleFilterChange}
+              clearChosenFilters={handleFiltersClear}
+            />
+          </Hidden>
         </>
-      </QueryResultWrapper>
-      <TarjontaPagination
-        total={total}
-        pagination={pagination}
-        setPagination={setPagination}
-        scrollTargetId={scrollTargetId}
-      />
-    </Container>
+        <TarjontaPagination
+          total={total}
+          pagination={pagination}
+          setPagination={setPagination}
+        />
+        <QueryResultWrapper queryResult={queryResult}>
+          <>
+            {someValuesToShow ? (
+              <Grid
+                container
+                direction="column"
+                justify="center"
+                className={classes.grid}
+                alignItems="stretch"
+                spacing={1}>
+                {jarjestajat?.map((toteutus, i) => (
+                  <Grid item key={i}>
+                    <EntiteettiKortti
+                      koulutustyyppi={toteutus.koulutustyyppi}
+                      to={`/toteutus/${toteutus.toteutusOid}`}
+                      logoElement={
+                        <OppilaitosKorttiLogo
+                          image={toteutus.kuva}
+                          alt={`${localize(toteutus.toteutusNimi)} ${t(
+                            'koulutus.koulutuksen-teemakuva'
+                          )}`}
+                        />
+                      }
+                      preHeader={localize(toteutus)}
+                      header={localize(toteutus.toteutusNimi)}
+                      erityisopetusHeader={
+                        toteutus.ammatillinenPerustutkintoErityisopetuksena ||
+                        toteutus.jarjestetaanErityisopetuksena
+                      }
+                      kuvaus={localize(toteutus.kuvaus)}
+                      wrapDirection="column-reverse"
+                      iconTexts={[
+                        [
+                          localizeArrayToCommaSeparated(toteutus.kunnat, {
+                            sorted: true,
+                          }),
+                          PublicIcon,
+                        ],
+                        [
+                          localizeArrayToCommaSeparated(toteutus.opetusajat, {
+                            sorted: true,
+                          }),
+                          HourglassEmptyIcon,
+                        ],
+                        [
+                          getLocalizedMaksullisuus(
+                            toteutus.maksullisuustyyppi,
+                            toteutus.maksunMaara
+                          ),
+                          EuroSymbolIcon,
+                        ],
+                        [
+                          toteutus.hakukaynnissa ? (
+                            <TextWithBackground>
+                              {t('haku.hakukaynnissa')}
+                            </TextWithBackground>
+                          ) : (
+                            <></>
+                          ),
+                          undefined,
+                        ],
+                      ]}
+                    />
+                  </Grid>
+                ))}
+              </Grid>
+            ) : (
+              <Typography variant="body1" paragraph>
+                {t(
+                  someSelected
+                    ? 'koulutus.ei-rajaimia-vastaavia-toteutuksia'
+                    : 'koulutus.ei-toteutuksia'
+                )}
+              </Typography>
+            )}
+          </>
+        </QueryResultWrapper>
+        <TarjontaPagination
+          total={total}
+          pagination={pagination}
+          setPagination={setPagination}
+          scrollTargetId={scrollTargetId}
+        />
+      </Container>
+      <div
+        id="prevent-clicks"
+        style={{
+          position: 'fixed',
+          left: 0,
+          top: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'white',
+          opacity: 0.5,
+          zIndex: 1,
+          display: preventClicks ? 'block' : 'none',
+        }}
+        onClick={(e) => {
+          setPreventClicks(false);
+          e.stopPropagation();
+        }}></div>
+    </div>
   );
 };
