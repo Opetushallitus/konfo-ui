@@ -293,6 +293,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
           </Hidden>
           <Hidden mdUp>
             <MobileFiltersOnTopMenu
+              koulutustyyppi={koulutustyyppi}
               values={usedValues}
               loading={isLoading}
               hitCount={total}
