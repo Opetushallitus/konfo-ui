@@ -3,6 +3,7 @@ import React from 'react';
 import {
   AppBar,
   Box,
+  Chip,
   CssBaseline,
   Hidden,
   Icon,
@@ -36,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     width: 400,
   },
-  betaLabel: {
+  testiLabel: {
     fontSize: 12,
     fontWeight: 'bold',
     textTransform: 'uppercase',
@@ -46,12 +47,12 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     cursor: 'pointer',
   },
-  beta: {
-    color: colors.brandGreen,
+  testi: {
+    color: colors.white,
     borderRadius: 2,
     marginLeft: 20,
     padding: '0px 5px',
-    background: 'white',
+    background: colors.red,
   },
   appBar: {
     position: 'fixed',
@@ -98,6 +99,15 @@ export const Header = (props) => {
   const classes = useStyles();
   const { toggleMenu, isOpen, betaBanner, setBetaBanner } = props;
 
+  const hostname = window.location.hostname;
+  const testiLabels = {
+    'untuvaopintopolku.fi': 'untuva',
+    'hahtuvaopintopolku.fi': 'hahtuva',
+    'testiopintopolku.fi': 'testi',
+  };
+  const testiLabel = testiLabels[hostname];
+  const showTestiLabel = testiLabel != null;
+
   const OpintopolkuHeaderLogo = () => {
     switch (getLanguage()) {
       case 'fi':
@@ -133,6 +143,14 @@ export const Header = (props) => {
               <img alt={t('opintopolku.brand')} src={OpintopolkuHeaderLogo()} />
             </Icon>
           </LocalizedLink>
+          {showTestiLabel ? (
+            <Chip
+              className={classes.testi}
+              size="small"
+              classes={{ label: classes.testiLabel }}
+              label={testiLabel}
+            />
+          ) : null}
           <Hidden xsDown>
             <Box display="flex" className={classes.languageSelector}>
               <Link
