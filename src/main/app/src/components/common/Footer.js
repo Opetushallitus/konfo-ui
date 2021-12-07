@@ -9,6 +9,7 @@ import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
 
 import OPOLogoFooterFI from '#/src/assets/images/OpetushallitusIcon.svg';
+import OPHIconEN from '#/src/assets/images/OPH Logo EN.png';
 import OPHIcon from '#/src/assets/images/OPH logo.png';
 import OPOLogoFooterEN from '#/src/assets/images/OPO_Logo_Footer_englanti.svg';
 import OPOLogoFooterSV from '#/src/assets/images/OPO_Logo_Footer_ruotsi.svg';
@@ -97,6 +98,15 @@ const Footer = () => {
     }
   };
 
+  const OPHFooterLogo = () => {
+    switch (getLanguage()) {
+      case 'en':
+        return OPHIconEN;
+      default:
+        return OPHIcon;
+    }
+  };
+
   return (
     <footer>
       <div
@@ -140,7 +150,11 @@ const Footer = () => {
         <Grid container>
           <Grid item xs={12}>
             <div className={classes.hr}>
-              <img alt={t('opintopolku.brand')} className={classes.icon} src={OPHIcon} />
+              <img
+                alt={t('opintopolku.brand')}
+                className={classes.icon}
+                src={OPHFooterLogo()}
+              />
             </div>
           </Grid>
         </Grid>
