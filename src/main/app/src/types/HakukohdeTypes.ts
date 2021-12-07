@@ -61,3 +61,10 @@ export type Hakukohde = {
   liitteidenToimitustapa: string;
   liitteidenToimitusosoite: LiitteenYhteystiedot;
 };
+
+export type HakukohdeOid = string;
+
+export type DemoLink = {
+  link: Translateable;
+  hakukohdeOid: HakukohdeOid;
+};

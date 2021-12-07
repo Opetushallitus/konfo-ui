@@ -22,6 +22,7 @@ import { LabelTooltip } from '#/src/components/common/LabelTooltip';
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
 import Spacer from '#/src/components/common/Spacer';
+import { useDemoLinks } from '#/src/components/toteutus/hooks';
 import { HAKULOMAKE_TYYPPI } from '#/src/constants';
 import { localize } from '#/src/tools/localization';
 import { useOsoitteet } from '#/src/tools/useOppilaitosOsoite';
@@ -70,9 +71,12 @@ const HakuCardGrid = ({ tyyppiOtsikko, haut, icon }: GridProps) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
+  const { data: demoLinks } = useDemoLinks(haut);
+
   const oppilaitosOids = useMemo(() => haut.map((haku) => haku.jarjestyspaikka?.oid), [
     haut,
   ]);
+
   const osoitteet = useOsoitteet(oppilaitosOids, true);
 
   return (
@@ -242,16 +246,37 @@ const HakuCardGrid = ({ tyyppiOtsikko, haut, icon }: GridProps) => {
                           className={classes.lomakeButtonGroup}
                           orientation="horizontal"
                           color="primary">
-                          {haku.hakulomaketyyppi !== HAKULOMAKE_TYYPPI.EI_SAHKOISTA && (
+                          {haku.hakulomaketyyppi !== HAKULOMAKE_TYYPPI.EI_SAHKOISTA &&
+                            !(
+                              !haku.isHakuAuki &&
+                              !!demoLinks &&
+                              demoLinks.get(haku.hakulomakeAtaruId)
+                            ) && (
+                              <Button
+                                variant="contained"
+                                size="large"
+                                color="primary"
+                                target="_blank"
+                                href={localize(haku.hakulomakeLinkki)}
+                                disabled={!haku.isHakuAuki}>
+                                <Typography
+                                  style={{ color: colors.white }}
+                                  variant="body1">
+                                  {t('toteutus.tayta-lomake')}
+                                </Typography>
+                              </Button>
+                            )}
+                          {!!demoLinks && demoLinks.get(haku.hakulomakeAtaruId) && (
                             <Button
                               variant="contained"
                               size="large"
                               color="primary"
                               target="_blank"
-                              href={localize(haku.hakulomakeLinkki)}
-                              disabled={!haku.isHakuAuki}>
+                              href={localize(
+                                demoLinks.get(haku.hakulomakeAtaruId)?.link
+                              )}>
                               <Typography style={{ color: colors.white }} variant="body1">
-                                {t('toteutus.tayta-lomake')}
+                                {t('toteutus.tayta-demo-lomake')}
                               </Typography>
                             </Button>
                           )}

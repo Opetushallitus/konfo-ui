@@ -2,6 +2,8 @@ import { urls } from 'oph-urls-js';
 
 import { isCypress } from './tools/utils';
 
+// Muista lisätä myös spring-boot-sovellukseen uudet urlit
+
 const CALLER_ID = '1.2.246.562.10.00000000001.konfoui';
 
 const development = {
@@ -24,6 +26,7 @@ const development = {
   'konfo-backend.oppilaitosOsa.tarjonta':
     '/konfo-backend/search/oppilaitoksen-osa/$1/tarjonta',
   'konfo-backend.hakukohde': '/konfo-backend/hakukohde/$1',
+  'konfo-backend.hakukohde.demo': '/konfo-backend/hakukohde/$1/demo',
   'konfo-backend.haku': '/konfo-backend/haku/$1',
   'konfo-backend.koulutus.kuvaus': '/konfo-backend/kuvaus/$1',
   'konfo-backend.eperuste.kuvaus': '/konfo-backend/eperuste/$1',
