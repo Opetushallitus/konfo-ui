@@ -21,7 +21,7 @@ import { localize, localizeOsoite } from '#/src/tools/localization';
 import { useOsoitteet } from '#/src/tools/useOppilaitosOsoite';
 import { formatDateString, toId } from '#/src/tools/utils';
 import { Yhteystiedot } from '#/src/types/common';
-import { Hakukohde, Liite } from '#/src/types/HakukohdeTypes';
+import { Hakukohde, Liite, FormatoituAikaleima } from '#/src/types/HakukohdeTypes';
 
 const LIITTEEN_TOIMITUSTAPA = {
   TOIMITETAAN_LAHETTAMISEN_YHTEYDESSA: 'lomake',
@@ -129,7 +129,7 @@ type LiiteCardProps = {
   liitteet: Array<Liite>;
   toimitustapa: string;
   toimitusosoite: Liite['toimitusosoite'];
-  toimitusaika: string;
+  toimitusaika: FormatoituAikaleima;
   hakijapalveluidenYhteystiedot?: Yhteystiedot;
 };
 
@@ -207,7 +207,8 @@ export const Liitteet = ({ liitteet, hakukohde, organisaatioOid }: Props) => {
   const { hakijapalveluidenYhteystiedot } = useOsoitteet([organisaatioOid])?.[0] || {};
 
   const yhteinenToimitusaika =
-    hakukohde?.liitteetOnkoSamaToimitusaika && hakukohde?.liitteidenToimitusaika;
+    hakukohde?.liitteetOnkoSamaToimitusaika &&
+    hakukohde?.formatoituLiitteidentoimitusaika;
   const yhteinenToimitusosoite =
     hakukohde.liitteetOnkoSamaToimitusosoite && hakukohde.liitteidenToimitusosoite;
 
@@ -244,7 +245,7 @@ export const Liitteet = ({ liitteet, hakukohde, organisaatioOid }: Props) => {
                     key={`liite-${index}`}
                     liitteet={[liite]}
                     toimitustapa={hakukohde.liitteidenToimitustapa || liite.toimitustapa}
-                    toimitusaika={yhteinenToimitusaika || liite.toimitusaika}
+                    toimitusaika={yhteinenToimitusaika || liite.formatoituToimitusaika}
                     toimitusosoite={yhteinenToimitusosoite || liite.toimitusosoite}
                   />
                 ))

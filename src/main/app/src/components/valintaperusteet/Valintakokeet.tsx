@@ -19,6 +19,7 @@ import { Heading, HeadingBoundary } from '#/src/components/Heading';
 import { localize, localizeOsoite } from '#/src/tools/localization';
 import { formatDateString, toId } from '#/src/tools/utils';
 import { Koodi, Translateable } from '#/src/types/common';
+import { FormatoituAikaleima } from '#/src/types/HakukohdeTypes';
 
 const useStyles = makeStyles(() => ({
   valintakoeHeader: {
@@ -42,7 +43,7 @@ const TilaisuusComponent = ({
     lisatietoja,
     jarjestamispaikka,
     osoite: { osoite, postinumero },
-    aika: { alkaa, paattyy },
+    aika: { formatoituAlkaa, formatoituPaattyy },
   },
 }: TilaisuusProps) => {
   const classes = useStyles();
@@ -55,7 +56,7 @@ const TilaisuusComponent = ({
             <Heading className={classes.valintakoeSubHeader} variant="h5">
               {t('valintaperuste.alkaa')}
             </Heading>
-            <Typography variant="body1">{formatDateString(alkaa)}</Typography>
+            <Typography variant="body1">{formatDateString(formatoituAlkaa)}</Typography>
           </Box>
         </Grid>
         <Grid item xs={6}>
@@ -63,7 +64,7 @@ const TilaisuusComponent = ({
             <Heading className={classes.valintakoeSubHeader} variant="h5">
               {t('valintaperuste.paattyy')}
             </Heading>
-            <Typography variant="body1">{formatDateString(paattyy)}</Typography>
+            <Typography variant="body1">{formatDateString(formatoituPaattyy)}</Typography>
           </Box>
         </Grid>
         {postinumero ? (
@@ -98,7 +99,12 @@ type Tilaisuus = {
   lisatietoja: Translateable;
   jarjestamispaikka: Translateable;
   osoite: { osoite: Translateable; postinumero: Koodi };
-  aika: { alkaa: string; paattyy: string };
+  aika: {
+    alkaa: string;
+    paattyy: string;
+    formatoituAlkaa: FormatoituAikaleima;
+    formatoituPaattyy: FormatoituAikaleima;
+  };
 };
 
 type Props = {

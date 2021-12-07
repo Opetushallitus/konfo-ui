@@ -66,7 +66,7 @@ export const Uutinen = ({ id }) => {
   const forwardToPage = (id) => {
     history.push(`/${i18n.language}${forwardTo(id)}`);
   };
-  const timestamp = uutinen.updated || uutinen.created;
+  const timestamp = uutinen.formatoituUpdated || uutinen.formatoituCreated;
 
   return (
     <Grid item xs={12} sm={6} md={4} onClick={() => link && forwardToPage(link)}>
