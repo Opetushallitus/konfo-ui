@@ -237,6 +237,13 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                   }
                 />
               </SuodatinGridItem>
+              <SuodatinGridItem>
+                <OpetustapaSuodatin
+                  elevation={2}
+                  handleFilterChange={handleFilterChange}
+                  values={usedValues.opetustapa}
+                />
+              </SuodatinGridItem>
               {KORKEAKOULU_KOULUTUSTYYPIT.includes(koulutustyyppi as KOULUTUS_TYYPPI) && (
                 <SuodatinGridItem>
                   <ValintatapaSuodatin
@@ -282,13 +289,6 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                   />
                 </SuodatinGridItem>
               )}
-              <SuodatinGridItem>
-                <OpetustapaSuodatin
-                  elevation={2}
-                  handleFilterChange={handleFilterChange}
-                  values={usedValues.opetustapa}
-                />
-              </SuodatinGridItem>
             </Grid>
           </Hidden>
           <Hidden mdUp>
