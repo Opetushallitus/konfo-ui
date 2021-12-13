@@ -10,7 +10,7 @@ export const useStyles = makeStyles({
 export const ExternalLink = ({ children, ...props }: LinkBaseProps) => {
   const classes = useStyles();
   return (
-    <Link variant="body1" {...props}>
+    <Link target="_blank" variant="body1" {...props}>
       {children}
       <OpenInNewIcon className={classes.externalLinkIcon} />
     </Link>
