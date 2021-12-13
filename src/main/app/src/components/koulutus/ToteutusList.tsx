@@ -285,7 +285,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                   <AmmOsaamisalatSuodatin
                     elevation={2}
                     handleFilterChange={handleFilterChange}
-                    values={usedValues.ammosaamisalat}
+                    values={usedValues.osaamisala}
                   />
                 </SuodatinGridItem>
               )}

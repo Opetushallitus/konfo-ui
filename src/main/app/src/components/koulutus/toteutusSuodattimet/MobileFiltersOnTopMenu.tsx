@@ -191,7 +191,7 @@ export const MobileFiltersOnTopMenu = ({
               <AmmOsaamisalatSuodatin
                 handleFilterChange={handleFilterChange}
                 expanded={false}
-                values={values.ammosaamisalat}
+                values={values.osaamisala}
               />
               <Divider className={classes.divider} />
             </>
