@@ -261,7 +261,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                   justify="center"
                   spacing={2}
                   className={classes.filtersContainer}
-                  sm={10}>
+                  sm={12}>
                   <SuodatinGridItem>
                     <LukiolinjatSuodatin
                       name="lukiopainotukset"
