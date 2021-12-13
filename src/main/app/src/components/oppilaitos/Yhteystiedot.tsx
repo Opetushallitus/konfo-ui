@@ -139,7 +139,7 @@ export const Yhteystiedot = ({
           i
         ) => (
           <Grid
-            key={nimi}
+            key={`${nimi}_${i}`}
             className={classes.container}
             container
             spacing={5}
