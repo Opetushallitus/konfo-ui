@@ -1,9 +1,14 @@
 package fi.oph.konfo.config;
 
-import org.apache.catalina.connector.Connector;
+import ch.qos.logback.access.jetty.RequestLogImpl;
+import org.eclipse.jetty.server.RequestLog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.web.embedded.jetty.JettyServerCustomizer;
+import org.springframework.boot.web.embedded.jetty.JettyServletWebServerFactory;
 import org.springframework.boot.web.embedded.tomcat.TomcatConnectorCustomizer;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.WebServerFactory;
@@ -29,19 +34,31 @@ public class ServletContainerConfiguration {
    *     servlet containerin konfigurointiin
    */
   @Bean
-  @ConditionalOnProperty("konfo-ui.uses-ssl-proxy")
-  public WebServerFactoryCustomizer sslProxyCustomizer() {
-    LOG.info("Enabling HTTPS Proxu configuration");
-    return (WebServerFactory container) -> {
-      if (container instanceof ConfigurableServletWebServerFactory) {
-        TomcatServletWebServerFactory tomcat = (TomcatServletWebServerFactory) container;
-        tomcat.addConnectorCustomizers(
-            (TomcatConnectorCustomizer)
-                (Connector connector) -> {
-                  connector.setScheme("https");
-                  connector.setSecure(true);
-                });
+  public ConfigurableServletWebServerFactory webServerFactory(
+          @Value("${konfo-ui.uses-ssl-proxy}") boolean sslProxy,
+          @Autowired UrlConfiguration configuration)
+  {
+    JettyServletWebServerFactory factory = new JettyServletWebServerFactory();
+    factory.addServerCustomizers(new JettyServerCustomizer() {
+      @Override
+      public void customize(org.eclipse.jetty.server.Server server) {
+        server.setRequestLog(requestLog());
       }
-    };
+
+      private RequestLog requestLog() {
+        RequestLogImpl requestLog = new RequestLogImpl();
+
+        String logbackAccess = configuration.getOrElse("logback.access", null);
+        if (logbackAccess != null) {
+          requestLog.setFileName(logbackAccess);
+        } else {
+          System.out.println("JettyLauncher: Jetty access log is printed to console, use -Dlogback.access to set configuration file");
+          requestLog.setResource("/logback-access.xml");
+        }
+        requestLog.start();
+        return requestLog;
+      }
+    });
+    return factory;
   }
 }
