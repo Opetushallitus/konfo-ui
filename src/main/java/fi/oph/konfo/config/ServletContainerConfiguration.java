@@ -1,7 +1,10 @@
 package fi.oph.konfo.config;
 
 import ch.qos.logback.access.jetty.RequestLogImpl;
+import org.eclipse.jetty.server.HttpConfiguration;
+import org.eclipse.jetty.server.HttpConnectionFactory;
 import org.eclipse.jetty.server.RequestLog;
+import org.eclipse.jetty.server.ServerConnector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +40,17 @@ public class ServletContainerConfiguration {
         new JettyServerCustomizer() {
           @Override
           public void customize(org.eclipse.jetty.server.Server server) {
+            if(sslProxy) {
+                HttpConfiguration http = new HttpConfiguration();
+                http.setSecurePort(8443);
+                http.setSecureScheme("https");
+
+                ServerConnector connector = new ServerConnector(server);
+                connector.addConnectionFactory(new HttpConnectionFactory(http));
+                connector.setPort(8080);
+
+                server.addConnector(connector);
+            }
             server.setRequestLog(requestLog());
           }
 
