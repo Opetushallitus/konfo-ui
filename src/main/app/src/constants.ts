@@ -13,6 +13,9 @@ export const FILTER_TYPES = {
   HAKUTAPA: 'hakutapa',
   YHTEISHAKU: 'yhteishaku',
   POHJAKOULUTUSVAATIMUS: 'pohjakoulutusvaatimus',
+  LUKIOPAINOTUKSET: 'lukiopainotukset',
+  LUKIOLINJATERITYINENKOULUTUSTEHTAVA: 'lukiolinjaterityinenkoulutustehtava',
+  OSAAMISALA: 'osaamisala',
 
   SIJAINTI: 'sijainti', // TODO: Poista tämä kun konfo-backend ei enää käytä sijaintirajainta vaan kunta + maakunta
 } as const;
@@ -32,6 +35,9 @@ export const FILTER_TYPES_ARR_FOR_KONFO_BACKEND = [
   'hakutapa',
   'yhteishaku',
   'pohjakoulutusvaatimus',
+  'lukiopainotukset',
+  'lukiolinjaterityinenkoulutustehtava',
+  'osaamisala',
 ] as const;
 
 export const DRAWER_WIDTH = 330;
