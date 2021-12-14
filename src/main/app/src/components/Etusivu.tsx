@@ -23,7 +23,6 @@ const useStyles = makeStyles({
     backgroundColor: colors.grey,
     borderRadius: 2,
     padding: '25px 20px',
-    cursor: 'pointer',
   },
   header: {
     fontSize: '28px',
@@ -56,6 +55,7 @@ export const Etusivu = () => {
   const forwardToPage = (id: string) => {
     history.push(`/${i18n.language}${forwardTo(id)}`);
   };
+
   const infos = Object.values(info || {});
 
   const uutislinkit = uutiset?.['etusivun-uutiset']?.linkit ?? [];
@@ -76,18 +76,27 @@ export const Etusivu = () => {
         <>
           <ReactiveBorder>
             <Grid container>
-              {infos.map((info) => (
-                <Grid item xs={12} key={info.id}>
-                  <Paper
-                    className={classes.info}
-                    elevation={0}
-                    onClick={() => forwardToPage(info.linkki.id)}>
-                    <span className="notification-content">
-                      <Markdown>{info.content}</Markdown>
-                    </span>
-                  </Paper>
-                </Grid>
-              ))}
+              {infos.map((info) => {
+                const linkId = info?.linkki?.id;
+
+                return (
+                  <Grid item xs={12} key={info.id}>
+                    <Paper
+                      className={classes.info}
+                      style={linkId ? { cursor: 'pointer' } : {}}
+                      elevation={0}
+                      onClick={() => {
+                        if (linkId) {
+                          forwardToPage(linkId);
+                        }
+                      }}>
+                      <span className="notification-content">
+                        <Markdown>{info.content}</Markdown>
+                      </span>
+                    </Paper>
+                  </Grid>
+                );
+              })}
             </Grid>
 
             <Grid container>

@@ -17,7 +17,7 @@ export type Info = Record<
   string,
   {
     id: string;
-    linkki: { id: string };
+    linkki?: { id: string };
     content: string;
   }
 >;
