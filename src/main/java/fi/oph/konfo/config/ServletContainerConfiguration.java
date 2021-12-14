@@ -40,16 +40,16 @@ public class ServletContainerConfiguration {
         new JettyServerCustomizer() {
           @Override
           public void customize(org.eclipse.jetty.server.Server server) {
-            if(sslProxy) {
-                HttpConfiguration http = new HttpConfiguration();
-                http.setSecurePort(8443);
-                http.setSecureScheme("https");
+            if (sslProxy) {
+              HttpConfiguration http = new HttpConfiguration();
+              http.setSecurePort(8443);
+              http.setSecureScheme("https");
 
-                ServerConnector connector = new ServerConnector(server);
-                connector.addConnectionFactory(new HttpConnectionFactory(http));
-                connector.setPort(8080);
+              ServerConnector connector = new ServerConnector(server);
+              connector.addConnectionFactory(new HttpConnectionFactory(http));
+              connector.setPort(8080);
 
-                server.addConnector(connector);
+              server.addConnector(connector);
             }
             server.setRequestLog(requestLog());
           }
