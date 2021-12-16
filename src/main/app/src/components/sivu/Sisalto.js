@@ -1,72 +1,22 @@
 import React from 'react';
 
-import { makeStyles, Typography, Grid, Card, CardMedia } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import Markdown from 'markdown-to-jsx';
 import { Link as RouterLink } from 'react-router-dom';
 
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
+import {
+  ImageComponent,
+  FullWidthImageComponent,
+} from '#/src/components/sivu/ImageComponent';
 import { useContentful } from '#/src/hooks';
 
-import { colors } from '../../colors';
 import { Accordion, Summary } from './Accordion';
 import { LinkOrYoutube } from './LinkOrYoutube';
 
-const useStyles = makeStyles({
-  notFound: {
-    textAlign: 'center',
-  },
-  header1: {
-    fontSize: '40px',
-    lineHeight: '48px',
-    marginTop: '15px',
-    marginBottom: '30px',
-    fontWeight: '700',
-    color: colors.black,
-  },
-  icon: {
-    fontSize: '16px',
-  },
-  image: {
-    display: 'block',
-    marginBottom: '15px',
-  },
-
-  media: {
-    height: 0,
-    paddingTop: '56.25%',
-  },
-  card: {},
-  imageContainer: {},
-});
-
 const Sisalto = ({ content, alwaysFullWidth, excludeMedia }) => {
-  const classes = useStyles();
-  const { data, forwardTo, assetUrl } = useContentful();
-  const { sivu, asset } = data;
-  const ImageComponent = ({ src, alt }) => {
-    const url = src.replace('//images.ctfassets.net/', '');
-    const a = asset[url];
-    return (
-      <Grid
-        container
-        direction="row"
-        justifyContent="flex-start"
-        alignItems="flex-start"
-        className={classes.imageContainer}>
-        <Grid item xs={12} sm={alwaysFullWidth ? 12 : 12} md={alwaysFullWidth ? 12 : 12}>
-          <Card className={classes.card} elevation={0}>
-            <CardMedia
-              className={classes.media}
-              image={assetUrl(url)}
-              role="img"
-              title={a ? a.name : alt}
-              aria-label={a ? a.description : alt}
-            />
-          </Card>
-        </Grid>
-      </Grid>
-    );
-  };
+  const { data, forwardTo } = useContentful();
+  const { sivu } = data;
   const isBlank = (str) => {
     return !str || /^\s*$/.test(str);
   };
@@ -83,7 +33,11 @@ const Sisalto = ({ content, alwaysFullWidth, excludeMedia }) => {
       options={{
         overrides: {
           img: {
-            component: excludeMedia ? () => null : ImageComponent,
+            component: excludeMedia
+              ? () => null
+              : alwaysFullWidth
+              ? FullWidthImageComponent
+              : ImageComponent,
           },
           h1: {
             component: Typography,
