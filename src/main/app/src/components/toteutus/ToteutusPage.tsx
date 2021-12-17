@@ -229,11 +229,15 @@ export const ToteutusPage = () => {
             title={
               toteutus.hakuAukiType === 'hakukohde'
                 ? t('toteutus.haku-kaynnissa')
+                : toteutus?.metadata.hakutermi === 'hakeutuminen'
+                ? t('toteutus.haku-kaynnissa')
                 : t('toteutus.ilmoittautuminen-kaynnissa')
             }
             text={
               toteutus.hakuAukiType === 'hakukohde'
                 ? t('toteutus.katso-hakukohteet')
+                : toteutus?.metadata.hakutermi === 'hakeutuminen'
+                ? t('toteutus.katso-hakeutumisen-ohjeet')
                 : t('toteutus.katso-ilmoittautumisen-ohjeet')
             }
             link={

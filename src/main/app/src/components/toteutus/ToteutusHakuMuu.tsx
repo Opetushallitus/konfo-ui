@@ -55,7 +55,11 @@ export const ToteutusHakuMuu = ({ data: muuHaku }: Props) => {
       display="flex"
       flexDirection="column"
       alignItems="center">
-      <Typography variant="h2">{t('toteutus.ilmoittaudu-koulutukseen')}</Typography>
+      <Typography variant="h2">
+        {muuHaku.hakutermi === 'hakeutuminen'
+          ? t('toteutus.hakeudu-koulutukseen')
+          : t('toteutus.ilmoittaudu-koulutukseen')}
+      </Typography>
       <Spacer />
       <Grid
         container
@@ -119,7 +123,11 @@ export const ToteutusHakuMuu = ({ data: muuHaku }: Props) => {
               {muuHaku.lisatietoaHakeutumisesta && (
                 <Grid item>
                   <AccordionText
-                    title={t('toteutus.lisatietoa-ilmoittautumisesta')}
+                    title={
+                      muuHaku.hakutermi === 'hakeutuminen'
+                        ? t('toteutus.lisatietoa-hakeutumisesta')
+                        : t('toteutus.lisatietoa-ilmoittautumisesta')
+                    }
                     text={localize(muuHaku.lisatietoaHakeutumisesta)}
                   />
                 </Grid>
@@ -149,7 +157,9 @@ export const ToteutusHakuMuu = ({ data: muuHaku }: Props) => {
                   href={localize(muuHaku.hakulomakeLinkki)}
                   disabled={!muuHaku.isHakuAuki}>
                   <Typography style={{ color: colors.white }} variant="body1">
-                    {t('toteutus.ilmoittaudu-koulutukseen')}
+                    {muuHaku.hakutermi === 'hakeutuminen'
+                      ? t('toteutus.hakeudu-koulutukseen')
+                      : t('toteutus.ilmoittaudu-koulutukseen')}
                   </Typography>
                 </Button>
               </Grid>
