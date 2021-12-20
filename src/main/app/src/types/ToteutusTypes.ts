@@ -86,6 +86,7 @@ export type ToteutusMetadata = {
   kielivalikoima: Kielivalikoima;
   ammatillinenPerustutkintoErityisopetuksena: boolean;
   jarjestetaanErityisopetuksena: boolean;
+  hakutermi: string;
 };
 
 export type Organisaatio = {
