@@ -332,5 +332,8 @@ export const getInitialCheckedToteutusFilters = createSelector(
       'yhteishaku',
       'pohjakoulutusvaatimus',
       'valintatapa',
+      'lukiopainotukset',
+      'lukiolinjaterityinenkoulutustehtava',
+      'osaamisala',
     ])
 );

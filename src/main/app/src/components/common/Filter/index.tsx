@@ -197,6 +197,8 @@ type Props = {
   expandValues?: boolean;
   defaultExpandAlakoodit?: boolean;
   shadow?: boolean;
+  onFocus?: () => void;
+  onHide?: () => void;
 
   values: Array<FilterValue>;
   handleCheck: (value: FilterValue) => void;
@@ -228,6 +230,8 @@ export const Filter = ({
   additionalContent,
   expandValues = false,
   defaultExpandAlakoodit = false,
+  onFocus,
+  onHide,
 }: Props) => {
   const { t } = useTranslation();
   const classes = withStyles();
@@ -254,7 +258,7 @@ export const Filter = ({
         <Grid container direction="column" wrap="nowrap">
           {additionalContent}
           {options && (
-            <Grid item style={{ padding: '20px 0' }}>
+            <Grid item style={{ padding: '20px 0', zIndex: 2 }}>
               <Select
                 components={{ DropdownIndicator, LoadingIndicator, Option }}
                 styles={customStyles}
@@ -266,6 +270,11 @@ export const Filter = ({
                 classNamePrefix="select"
                 placeholder={selectPlaceholder || t('haku.etsi')}
                 onChange={handleCheck}
+                onFocus={onFocus}
+                onMenuClose={onHide}
+                onMenuOpen={onFocus}
+                blurInputOnSelect
+                onBlur={onHide}
                 theme={(theme) => ({
                   ...theme,
                   colors: {

@@ -38,7 +38,7 @@ export const SuodatinAccordion = withStyles((theme) => ({
 
 export const SuodatinAccordionSummary = withStyles((theme) => ({
   root: {
-    minHeight: '32px !important',
+    minHeight: '56px !important',
     [theme.breakpoints.down('md')]: {
       padding: '0 !important',
     },

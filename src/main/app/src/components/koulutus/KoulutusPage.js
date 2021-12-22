@@ -205,7 +205,7 @@ export const KoulutusPage = () => {
           />
         ) : null}
         <Box width="95%" id="tarjonta">
-          <ToteutusList oid={oid} />
+          <ToteutusList oid={oid} koulutustyyppi={koulutus?.koulutusTyyppi} />
         </Box>
         {suositellutKoulutukset?.total > 0 && (
           <Box id="suositukset">

@@ -50,6 +50,9 @@ export const initialState = {
   maakunta: [],
   opetustapa: [],
   pohjakoulutusvaatimus: [],
+  lukiopainotukset: [],
+  lukiolinjaterityinenkoulutustehtava: [],
+  osaamisala: [],
 
   size: 20,
   selectedTab: KOULUTUS,
@@ -89,6 +92,9 @@ const hakutulosSlice = createSlice({
       state.maakunta = [];
       state.opetustapa = [];
       state.pohjakoulutusvaatimus = [];
+      state.lukiopainotukset = [];
+      state.lukiolinjaterityinenkoulutustehtava = [];
+      state.osaamisala = [];
     },
     setSize: (state, { payload }) => {
       state.size = payload.newSize;
