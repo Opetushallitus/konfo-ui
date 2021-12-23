@@ -135,7 +135,7 @@ export const OppilaitosPage = (props) => {
                 tietoaOpiskelusta={tietoaOpiskelusta}
               />
             )}
-            {isOppilaitosOsa ? null : (
+            {isOppilaitosOsa || _.isEmpty(oppilaitosOsat) ? null : (
               <OppilaitosOsaList
                 oppilaitosOsat={oppilaitosOsat}
                 title={t('oppilaitos.tutustu-toimipisteisiin')}
