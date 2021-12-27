@@ -9,6 +9,7 @@ import {
   Paper,
   Select,
   Typography,
+  useMediaQuery,
   useTheme,
 } from '@material-ui/core';
 import { ExpandMore } from '@material-ui/icons';
@@ -46,6 +47,7 @@ import { Pagination } from './Pagination';
 const useStyles = makeStyles((theme) => ({
   toggleWrapper: {
     'min-width': 400,
+    flex: '1 0 auto',
   },
   hakutulosSisalto: {
     maxWidth: 1600,
@@ -159,10 +161,12 @@ export const Hakutulos = () => {
     dispatch(searchAll({ ...apiRequestParams, size: newSize }));
   };
 
+  const mdUp = useMediaQuery(theme.breakpoints.up('md'));
+
   return (
     <Grid className={classes.hakutulosSisalto} container>
       <Paper classes={{ root: classes.paperRoot }} id="hakutulos-content">
-        <h1 style={{ visibility: 'hidden' }}>{t('haku.otsikko')}</h1>
+        <h1 style={{ display: 'none' }}>{t('haku.otsikko')}</h1>
         <Grid
           container
           item
@@ -183,21 +187,19 @@ export const Hakutulos = () => {
               </Typography>
             </Grid>
           </Hidden>
-          <Grid item container lg={9} md={8} sm={12} justify="space-between">
+          <Grid
+            item
+            container
+            lg={9}
+            md={8}
+            sm={12}
+            justify="space-between"
+            alignItems="baseline">
             <Grid item lg={6} md={7} xs={12} className={classes.toggleWrapper}>
               <HakutulosToggle />
             </Grid>
             <Hidden smDown>
-              <Grid
-                item
-                container
-                lg={6}
-                md={5}
-                sm
-                xs
-                justify="flex-end"
-                style={{ paddingTop: 6 }}
-                alignItems="baseline">
+              <Grid item style={{ paddingTop: 6 }}>
                 {/* NOTE Jostain syystä classes ei ole tyypitetty propsiksi mutta on kuitenkin oikeasti propsi */}
                 <Box component="span" {...{ classes: { root: classes.boxRoot } }}>
                   {t('haku.tulokset-per-sivu')}
@@ -248,12 +250,9 @@ export const Hakutulos = () => {
             </Hidden>
           </Grid>
         </Grid>
-        <Grid item container spacing={2}>
-          <Grid item lg={3} md={4} sm={12} xs={12} className={classes.rajaaTuloksia}>
-            <Hidden mdUp>
-              <MobileFiltersOnTopMenu />
-            </Hidden>
-            <Hidden smDown>
+        <Grid item container spacing={2} wrap="nowrap">
+          {mdUp ? (
+            <Grid item lg={3} md={4} className={classes.rajaaTuloksia}>
               <KoulutustyyppiSuodatin expanded elevation={2} />
               <OpetuskieliSuodatin expanded elevation={2} />
               <SijaintiSuodatin expanded elevation={2} />
@@ -262,8 +261,10 @@ export const Hakutulos = () => {
               <ValintatapaSuodatin expanded elevation={2} />
               <KoulutusalaSuodatin expanded elevation={2} />
               <OpetustapaSuodatin expanded={false} elevation={2} />
-            </Hidden>
-          </Grid>
+            </Grid>
+          ) : (
+            <MobileFiltersOnTopMenu />
+          )}
           <Grid item container direction="column" xs>
             <Grid item>
               <Hidden smDown>
