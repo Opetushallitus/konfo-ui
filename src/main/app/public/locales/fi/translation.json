@@ -237,7 +237,8 @@
     "valitse": "Valitse",
     "vertaile": "Vertaile",
     "yo": "Yliopisto (korkeakoulutus)",
-    "koulutuksen-tarjoajaa": "koulutuksen tarjoajaa"
+    "koulutuksen-tarjoajaa": "koulutuksen tarjoajaa",
+    "ei-koulutuksen-tarjoajia": "Koulutuksella ei ole tarjoajia"
   },
   "navigaatio": {
     "edellinen": "Edellinen",

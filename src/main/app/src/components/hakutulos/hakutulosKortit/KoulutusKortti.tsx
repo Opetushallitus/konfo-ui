@@ -35,9 +35,14 @@ const useToteutustenTarjoajat = (toteutustenTarjoajat?: ToteutustenTarjoajat) =>
   const { t } = useTranslation();
 
   if (toteutustenTarjoajat) {
-    return toteutustenTarjoajat?.count === 1
-      ? localize(toteutustenTarjoajat?.nimi)
-      : `${toteutustenTarjoajat?.count} ${t('haku.koulutuksen-tarjoajaa')}`;
+    switch (toteutustenTarjoajat?.count) {
+      case 0:
+        return t('haku.ei-koulutuksen-tarjoajia');
+      case 1:
+        return localize(toteutustenTarjoajat?.nimi);
+      default:
+        return `${toteutustenTarjoajat?.count} ${t('haku.koulutuksen-tarjoajaa')}`;
+    }
   }
 };
 
