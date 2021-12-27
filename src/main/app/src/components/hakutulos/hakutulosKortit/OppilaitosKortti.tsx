@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { SchoolOutlined, PublicOutlined } from '@material-ui/icons';
-import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { EntiteettiKortti } from '#/src/components/common/EntiteettiKortti';
@@ -26,6 +25,8 @@ export const OppilaitosKortti = ({ oppilaitos }: Props) => {
   const paikkakunnatStr = localizeArrayToCommaSeparated(oppilaitos?.paikkakunnat);
 
   const kuvaus =
+    localize(oppilaitos?.kuvaus).replace(/<[^>]*>/gm, '') || t('haku.ei_kuvausta');
+
   const koulutusohjelmaCount = oppilaitos?.koulutusohjelmia || 0;
 
   const koulutusOhjelmatStr =

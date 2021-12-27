@@ -50,13 +50,10 @@ export const KoulutusKortti = ({ koulutus }: Props) => {
   const { t } = useTranslation();
 
   const kuvaus =
-    _.truncate(
-      localize(koulutus?.kuvaus)
-        .replace(/<\/li>/gm, ',</li>')
-        .replace(/\.,<\/li>/gm, '.</li>')
-        .replace(/<[^>]*>/gm, ''),
-      { length: 255 }
-    ) || t('haku.ei_kuvausta');
+    localize(koulutus?.kuvaus)
+      .replace(/<\/li>/gm, ',</li>')
+      .replace(/\.,<\/li>/gm, '.</li>')
+      .replace(/<[^>]*>/gm, '') || t('haku.ei_kuvausta');
   const isOsaamisalaOrTutkinnonOsa = _.includes(
     ['amm-osaamisala', 'amm-tutkinnon-osa'],
     koulutus?.koulutustyyppi

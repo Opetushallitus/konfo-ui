@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
   // Joillain kuvauksilla on otsikko - estetään turha margin
   kuvaus: {
+    marginBottom: '16px',
     '& *': {
       marginTop: 0,
     },
@@ -48,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
   erityisopetusHeader: {
     color: colors.brandGreen,
     fontWeight: 600,
+    paddingBottom: '8px',
   },
   icon: {
     verticalAlign: 'text-bottom',
