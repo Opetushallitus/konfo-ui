@@ -1,6 +1,11 @@
 import React from 'react';
 
-import { SchoolOutlined, ExtensionOutlined, TimelapseOutlined } from '@material-ui/icons';
+import {
+  SchoolOutlined,
+  ExtensionOutlined,
+  TimelapseOutlined,
+  HomeWorkOutlined,
+} from '@material-ui/icons';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
@@ -10,6 +15,11 @@ import { localize } from '#/src/tools/localization';
 import { getLocalizedOpintojenLaajuus } from '#/src/tools/utils';
 import { Translateable } from '#/src/types/common';
 
+type ToteutustenTarjoajat = {
+  count: number;
+  nimi?: Translateable | null;
+};
+
 type Props = {
   koulutus: {
     oid: string;
@@ -17,7 +27,18 @@ type Props = {
     koulutustyyppi: string;
     tutkintonimikkeet: Array<Translateable>;
     teemakuva?: string;
+    toteutustenTarjoajat: ToteutustenTarjoajat;
   };
+};
+
+const useToteutustenTarjoajat = (toteutustenTarjoajat?: ToteutustenTarjoajat) => {
+  const { t } = useTranslation();
+
+  if (toteutustenTarjoajat) {
+    return toteutustenTarjoajat?.count === 1
+      ? localize(toteutustenTarjoajat?.nimi)
+      : `${toteutustenTarjoajat?.count} ${t('haku.koulutuksen-tarjoajaa')}`;
+  }
 };
 
 export const KoulutusKortti = ({ koulutus }: Props) => {
@@ -41,6 +62,10 @@ export const KoulutusKortti = ({ koulutus }: Props) => {
       t('haku.ei-tutkintonimiketta');
   const logoAltText = `${localize(koulutus)} ${t('koulutus.koulutuksen-teemakuva')}`;
 
+  const toteutustenTarjoajatText = useToteutustenTarjoajat(
+    koulutus?.toteutustenTarjoajat
+  );
+
   return (
     <EntiteettiKortti
       koulutustyyppi={koulutus?.koulutustyyppi}
@@ -54,7 +79,8 @@ export const KoulutusKortti = ({ koulutus }: Props) => {
           isOsaamisalaOrTutkinnonOsa ? ExtensionOutlined : SchoolOutlined,
         ],
         [getLocalizedOpintojenLaajuus(koulutus), TimelapseOutlined],
-      ]}
+        toteutustenTarjoajatText && [toteutustenTarjoajatText, HomeWorkOutlined],
+      ].filter(Boolean)}
     />
   );
 };
