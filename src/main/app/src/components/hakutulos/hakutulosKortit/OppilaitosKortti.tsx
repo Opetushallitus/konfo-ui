@@ -26,13 +26,14 @@ export const OppilaitosKortti = ({ oppilaitos }: Props) => {
   const paikkakunnatStr = localizeArrayToCommaSeparated(oppilaitos?.paikkakunnat);
 
   const kuvaus =
-    _.truncate(localize(oppilaitos?.kuvaus).replace(/<[^>]*>/gm, ''), {
-      length: 255,
-    }) || t('haku.ei_kuvausta');
+  const koulutusohjelmaCount = oppilaitos?.koulutusohjelmia || 0;
 
-  const koulutusOhjelmatStr = `${oppilaitos?.koulutusohjelmia || 0} ${t(
-    'haku.tutkintoon-johtavaa-koulutusta'
-  )}`;
+  const koulutusOhjelmatStr =
+    koulutusohjelmaCount === 0
+      ? t('haku.ei-tutkintoon-johtavia-koulutuksia')
+      : t('haku.tutkintoon-johtava-koulutus-maara', {
+          count: koulutusohjelmaCount,
+        });
   const logoAltText = `${localize(oppilaitos)} ${t('haku.oppilaitoksen-logo')}`;
 
   return (
