@@ -29,13 +29,18 @@ const useStyles = makeStyles((theme) => ({
       padding: theme.spacing(2),
     },
   },
+  header: {
+    marginBottom: ({ isSmall }: any) => theme.spacing(isSmall ? 2 : 3),
+    fontWeight: 'bold',
+    whiteSpace: 'pre-wrap',
+  },
   preHeader: {
     color: colors.darkGrey,
     fontWeight: 600,
   },
   // Joillain kuvauksilla on otsikko - estetään turha margin
   kuvaus: {
-    marginBottom: '16px',
+    display: 'inline',
     '& *': {
       marginTop: 0,
     },
@@ -50,6 +55,12 @@ const useStyles = makeStyles((theme) => ({
     color: colors.brandGreen,
     fontWeight: 600,
     paddingBottom: '8px',
+  },
+  iconTexts: {
+    display: 'flex',
+    marginTop: ({ isSmall }: any) => theme.spacing(isSmall ? 2 : 3),
+    flexDirection: ({ isSmall }: any) => (isSmall ? 'column' : 'row'),
+    flexWrap: ({ wrapIconTexts }: any) => (wrapIconTexts ? 'wrap' : 'nowrap'),
   },
   icon: {
     verticalAlign: 'text-bottom',
@@ -79,6 +90,7 @@ type Props = {
   logoElement?: React.ReactNode;
   teemakuvaElement?: React.ReactNode;
   isSmall?: boolean;
+  wrapIconTexts?: boolean;
 };
 
 export const EntiteettiKortti = ({
@@ -92,10 +104,13 @@ export const EntiteettiKortti = ({
   logoElement,
   teemakuvaElement,
   isSmall: isSmallProp,
+  wrapIconTexts = false,
 }: Props) => {
-  const { t } = useTranslation();
-  const classes = useStyles();
   const theme = useTheme();
+  const smDown = useMediaQuery(theme.breakpoints.down('sm'));
+  const isSmall = _.isNil(isSmallProp) ? smDown : isSmallProp;
+  const classes = useStyles({ isSmall, wrapIconTexts });
+  const { t } = useTranslation();
 
   const kuvaus = _.truncate(kuvausProp, { length: 255 }) || t('haku.ei_kuvausta');
 
@@ -105,10 +120,6 @@ export const EntiteettiKortti = ({
   } else if (erityisopetusHeader && koulutustyyppi === KOULUTUS_TYYPPI.TUVA) {
     erityisopetusHeaderText = t('haku.toteutus-jarjestetaan-erityisopetuksena');
   }
-
-  const smDown = useMediaQuery(theme.breakpoints.down('sm'));
-
-  const isSmall = _.isNil(isSmallProp) ? smDown : isSmallProp;
 
   return (
     <LocalizedLink underline="none" component={RouterLink} to={to}>
@@ -142,13 +153,7 @@ export const EntiteettiKortti = ({
                 {preHeader}
               </Typography>
             )}
-            <Typography
-              variant="h4"
-              style={{
-                marginBottom: '16px',
-                fontWeight: 'bold',
-                whiteSpace: 'pre-wrap',
-              }}>
+            <Typography variant="h4" className={classes.header}>
               {_.trim(header)}
             </Typography>
           </Box>
@@ -161,19 +166,19 @@ export const EntiteettiKortti = ({
           )}
 
           <Hidden xsDown>
-            <Typography className={classes.kuvaus} variant="body1">
+            <Typography component="div" className={classes.kuvaus} variant="body1">
               {sanitizedHTMLParser(kuvaus)}
             </Typography>
           </Hidden>
 
-          <Box display="flex" {...(isSmall ? { flexDirection: 'column' } : {})}>
+          <Box className={classes.iconTexts}>
             {iconTexts.filter(Boolean).map((iconText, i) => {
               const [content, IconComponent] = iconText as IconText;
               return (
                 <Box
                   key={`header-icon-text-${i}`}
                   flexBasis="33.33%"
-                  flexShrink={2}
+                  flexShrink={1}
                   marginBottom={1}>
                   <Typography
                     style={{
