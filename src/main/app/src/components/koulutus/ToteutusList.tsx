@@ -337,7 +337,6 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                         toteutus.jarjestetaanErityisopetuksena
                       }
                       kuvaus={localize(toteutus.kuvaus)}
-                      wrapDirection="column-reverse"
                       iconTexts={[
                         [
                           localizeArrayToCommaSeparated(toteutus.kunnat, {

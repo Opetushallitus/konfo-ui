@@ -65,7 +65,7 @@ export const KoulutusKortti = ({ koulutus }: Props) => {
     ? t(`haku.${koulutus?.koulutustyyppi}`)
     : (koulutus?.tutkintonimikkeet || []).map(localize).join(', ').replace(/,\s*$/, '') ||
       t('haku.ei-tutkintonimiketta');
-  const logoAltText = `${localize(koulutus)} ${t('koulutus.koulutuksen-teemakuva')}`;
+  const teemakuvaAltText = `${localize(koulutus)} ${t('koulutus.koulutuksen-teemakuva')}`;
 
   const toteutustenTarjoajatText = useToteutustenTarjoajat(
     koulutus?.toteutustenTarjoajat
@@ -75,7 +75,9 @@ export const KoulutusKortti = ({ koulutus }: Props) => {
     <EntiteettiKortti
       koulutustyyppi={koulutus?.koulutustyyppi}
       to={`/koulutus/${koulutus?.oid}`}
-      logoElement={<KoulutusKorttiLogo image={koulutus?.teemakuva} alt={logoAltText} />}
+      teemakuvaElement={
+        <KoulutusKorttiLogo image={koulutus?.teemakuva} alt={teemakuvaAltText} />
+      }
       header={localize(koulutus)}
       kuvaus={kuvaus}
       iconTexts={[
@@ -85,7 +87,7 @@ export const KoulutusKortti = ({ koulutus }: Props) => {
         ],
         [getLocalizedOpintojenLaajuus(koulutus), TimelapseOutlined],
         toteutustenTarjoajatText && [toteutustenTarjoajatText, HomeWorkOutlined],
-      ].filter(Boolean)}
+      ]}
     />
   );
 };

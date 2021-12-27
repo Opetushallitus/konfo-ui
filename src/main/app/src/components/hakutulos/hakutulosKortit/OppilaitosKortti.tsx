@@ -42,7 +42,6 @@ export const OppilaitosKortti = ({ oppilaitos }: Props) => {
       logoElement={<OppilaitosKorttiLogo image={oppilaitos?.logo} alt={logoAltText} />}
       header={localize(oppilaitos)}
       kuvaus={kuvaus}
-      wrapDirection="column-reverse"
       iconTexts={[
         [koulutusOhjelmatStr, SchoolOutlined],
         [paikkakunnatStr, PublicOutlined],
