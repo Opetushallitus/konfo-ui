@@ -146,7 +146,7 @@ export const EntiteettiKortti = ({
                 fontWeight: 'bold',
                 whiteSpace: 'pre-wrap',
               }}>
-              {header}
+              {_.trim(header)}
             </Typography>
           </Box>
 
