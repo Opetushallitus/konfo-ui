@@ -31,18 +31,11 @@ import { getHakutulosProps } from '#/src/store/reducers/hakutulosSliceSelector';
 
 import { BackendErrorMessage } from './BackendErrorMessage';
 import { HakutulosResults } from './HakutulosResults';
-import { HakutapaSuodatin } from './hakutulosSuodattimet/HakutapaSuodatin';
-import { KoulutusalaSuodatin } from './hakutulosSuodattimet/KoulutusalaSuodatin';
-import { KoulutustyyppiSuodatin } from './hakutulosSuodattimet/KoulutustyyppiSuodatin';
-import { OpetuskieliSuodatin } from './hakutulosSuodattimet/OpetusKieliSuodatin';
-import { OpetustapaSuodatin } from './hakutulosSuodattimet/OpetustapaSuodatin';
-import { PohjakoulutusvaatimusSuodatin } from './hakutulosSuodattimet/PohjakoulutusvaatimusSuodatin';
-import { SijaintiSuodatin } from './hakutulosSuodattimet/SijaintiSuodatin';
 import { SuodatinValinnat } from './hakutulosSuodattimet/SuodatinValinnat';
-import { ValintatapaSuodatin } from './hakutulosSuodattimet/ValintatapaSuodatin';
 import { HakutulosToggle } from './HakutulosToggle';
 import { MobileFiltersOnTopMenu } from './MobileFiltersOnTopMenu';
 import { Pagination } from './Pagination';
+import { Suodatinpalkki } from './Suodatinpalkki';
 
 const useStyles = makeStyles((theme) => ({
   toggleWrapper: {
@@ -52,11 +45,6 @@ const useStyles = makeStyles((theme) => ({
   hakutulosSisalto: {
     maxWidth: 1600,
     margin: 'auto',
-  },
-  rajaaTuloksia: {
-    [theme.breakpoints.up('sm')]: {
-      'min-width': 300,
-    },
   },
   paperRoot: {
     width: '100%',
@@ -251,20 +239,7 @@ export const Hakutulos = () => {
           </Grid>
         </Grid>
         <Grid item container spacing={2} wrap="nowrap">
-          {mdUp ? (
-            <Grid item lg={3} md={4} className={classes.rajaaTuloksia}>
-              <KoulutustyyppiSuodatin expanded elevation={2} />
-              <OpetuskieliSuodatin expanded elevation={2} />
-              <SijaintiSuodatin expanded elevation={2} />
-              <PohjakoulutusvaatimusSuodatin expanded elevation={2} />
-              <HakutapaSuodatin expanded elevation={2} />
-              <ValintatapaSuodatin expanded elevation={2} />
-              <KoulutusalaSuodatin expanded elevation={2} />
-              <OpetustapaSuodatin expanded={false} elevation={2} />
-            </Grid>
-          ) : (
-            <MobileFiltersOnTopMenu />
-          )}
+          {mdUp ? <Suodatinpalkki /> : <MobileFiltersOnTopMenu />}
           <Grid item container direction="column" xs>
             <Grid item>
               <Hidden smDown>

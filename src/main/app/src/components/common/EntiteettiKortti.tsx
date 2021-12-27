@@ -78,6 +78,7 @@ type Props = {
   iconTexts: Array<IconText | undefined | false>;
   logoElement?: React.ReactNode;
   teemakuvaElement?: React.ReactNode;
+  isSmall?: boolean;
 };
 
 export const EntiteettiKortti = ({
@@ -90,11 +91,11 @@ export const EntiteettiKortti = ({
   to,
   logoElement,
   teemakuvaElement,
+  isSmall: isSmallProp,
 }: Props) => {
   const { t } = useTranslation();
   const classes = useStyles();
   const theme = useTheme();
-  const isSmallOrBigger = useMediaQuery(theme.breakpoints.up('sm'));
 
   const kuvaus = _.truncate(kuvausProp, { length: 255 }) || t('haku.ei_kuvausta');
 
@@ -105,7 +106,9 @@ export const EntiteettiKortti = ({
     erityisopetusHeaderText = t('haku.toteutus-jarjestetaan-erityisopetuksena');
   }
 
-  const xlDown = useMediaQuery(theme.breakpoints.down('xl'));
+  const smDown = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const isSmall = _.isNil(isSmallProp) ? smDown : isSmallProp;
 
   return (
     <LocalizedLink underline="none" component={RouterLink} to={to}>
@@ -114,7 +117,7 @@ export const EntiteettiKortti = ({
         classes={{ root: classes.paperRoot }}
         style={{
           borderTop: `5px solid ${educationTypeColorCode[koulutustyyppi]}`,
-          padding: isSmallOrBigger ? '20px' : '8px',
+          padding: isSmall ? '16px' : '32px',
         }}>
         <Box display="inline-block" width="100%">
           {logoElement && (
@@ -163,11 +166,15 @@ export const EntiteettiKortti = ({
             </Typography>
           </Hidden>
 
-          <Box display="flex" {...(xlDown ? { flexWrap: 'wrap' } : {})}>
+          <Box display="flex" {...(isSmall ? { flexDirection: 'column' } : {})}>
             {iconTexts.filter(Boolean).map((iconText, i) => {
               const [content, IconComponent] = iconText as IconText;
               return (
-                <Box key={`header-icon-text-${i}`}>
+                <Box
+                  key={`header-icon-text-${i}`}
+                  flexBasis="33.33%"
+                  flexShrink={2}
+                  marginBottom={1}>
                   <Typography
                     style={{
                       display: 'flex',

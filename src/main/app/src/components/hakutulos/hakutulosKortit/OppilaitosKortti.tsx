@@ -17,9 +17,10 @@ type Props = {
     nimi: Translateable;
     paikkakunnat: Array<Koodi>;
   };
+  isSmall: boolean;
 };
 
-export const OppilaitosKortti = ({ oppilaitos }: Props) => {
+export const OppilaitosKortti = ({ oppilaitos, isSmall }: Props) => {
   const { t } = useTranslation();
 
   const paikkakunnatStr = localizeArrayToCommaSeparated(oppilaitos?.paikkakunnat);
@@ -47,6 +48,7 @@ export const OppilaitosKortti = ({ oppilaitos }: Props) => {
         [koulutusOhjelmatStr, SchoolOutlined],
         [paikkakunnatStr, PublicOutlined],
       ]}
+      isSmall={isSmall}
     />
   );
 };

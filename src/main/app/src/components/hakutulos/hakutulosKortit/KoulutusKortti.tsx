@@ -29,6 +29,7 @@ type Props = {
     teemakuva?: string;
     toteutustenTarjoajat: ToteutustenTarjoajat;
   };
+  isSmall?: boolean;
 };
 
 const useToteutustenTarjoajat = (toteutustenTarjoajat?: ToteutustenTarjoajat) => {
@@ -46,7 +47,7 @@ const useToteutustenTarjoajat = (toteutustenTarjoajat?: ToteutustenTarjoajat) =>
   }
 };
 
-export const KoulutusKortti = ({ koulutus }: Props) => {
+export const KoulutusKortti = ({ koulutus, isSmall }: Props) => {
   const { t } = useTranslation();
 
   const kuvaus =
@@ -85,6 +86,7 @@ export const KoulutusKortti = ({ koulutus }: Props) => {
         [getLocalizedOpintojenLaajuus(koulutus), TimelapseOutlined],
         toteutustenTarjoajatText && [toteutustenTarjoajatText, HomeWorkOutlined],
       ]}
+      isSmall={isSmall}
     />
   );
 };
