@@ -232,11 +232,15 @@
     "tutkintoon-johtavat": "Tutkintoon johtavat",
     "valintatapa": "Valintatapa",
     "telma": "Työhön ja itsenäiseen elämään valmentava koulutus (TELMA)",
-    "tutkintoon-johtavaa-koulutusta": "tutkintoon johtavaa koulutusta",
+    "ei-tutkintoon-johtavia-koulutuksia": "Ei tutkintoon johtavia koulutuksia",
+    "tutkintoon-johtava-koulutus-maara": "1 tutkintoon johtava koulutus",
+    "tutkintoon-johtava-koulutus-maara_plural": "{{count}} tutkintoon johtavaa koulutusta",
     "tuva": "Tutkintokoulutukseen valmentava koulutus (TUVA)",
     "valitse": "Valitse",
     "vertaile": "Vertaile",
-    "yo": "Yliopisto (korkeakoulutus)"
+    "yo": "Yliopisto (korkeakoulutus)",
+    "koulutuksen-tarjoajaa": "koulutuksen tarjoajaa",
+    "ei-koulutuksen-tarjoajia": "Koulutuksella ei ole tarjoajia"
   },
   "navigaatio": {
     "edellinen": "Edellinen",

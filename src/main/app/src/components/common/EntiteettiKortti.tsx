@@ -2,13 +2,12 @@ import React from 'react';
 
 import {
   Hidden,
-  Grid,
   makeStyles,
   Paper,
   Typography,
   useMediaQuery,
   useTheme,
-  GridDirection,
+  Box,
 } from '@material-ui/core';
 import DirectionsOutlinedIcon from '@material-ui/icons/DirectionsOutlined';
 import _ from 'lodash';
@@ -30,12 +29,18 @@ const useStyles = makeStyles((theme) => ({
       padding: theme.spacing(2),
     },
   },
+  header: {
+    marginBottom: ({ isSmall }: any) => theme.spacing(isSmall ? 2 : 3),
+    fontWeight: 'bold',
+    whiteSpace: 'pre-wrap',
+  },
   preHeader: {
     color: colors.darkGrey,
     fontWeight: 600,
   },
   // Joillain kuvauksilla on otsikko - estetään turha margin
   kuvaus: {
+    display: 'inline',
     '& *': {
       marginTop: 0,
     },
@@ -49,10 +54,25 @@ const useStyles = makeStyles((theme) => ({
   erityisopetusHeader: {
     color: colors.brandGreen,
     fontWeight: 600,
+    paddingBottom: '8px',
+  },
+  iconTexts: {
+    display: 'flex',
+    marginTop: ({ isSmall }: any) => theme.spacing(isSmall ? 2 : 3),
+    flexDirection: ({ isSmall }: any) => (isSmall ? 'column' : 'row'),
+    flexWrap: ({ wrapIconTexts }: any) => (wrapIconTexts ? 'wrap' : 'nowrap'),
   },
   icon: {
     verticalAlign: 'text-bottom',
     marginRight: '10px',
+  },
+  logo: {
+    display: 'inline-block',
+    position: 'relative',
+    float: 'right',
+  },
+  heading: {
+    display: 'inline-flex',
   },
 }));
 
@@ -66,9 +86,11 @@ type Props = {
   header: string;
   erityisopetusHeader?: boolean;
   kuvaus: string;
-  iconTexts: Array<IconText>;
+  iconTexts: Array<IconText | undefined | false>;
   logoElement?: React.ReactNode;
-  wrapDirection?: GridDirection;
+  teemakuvaElement?: React.ReactNode;
+  isSmall?: boolean;
+  wrapIconTexts?: boolean;
 };
 
 export const EntiteettiKortti = ({
@@ -80,12 +102,15 @@ export const EntiteettiKortti = ({
   iconTexts,
   to,
   logoElement,
-  wrapDirection = 'column',
+  teemakuvaElement,
+  isSmall: isSmallProp,
+  wrapIconTexts = false,
 }: Props) => {
-  const { t } = useTranslation();
-  const classes = useStyles();
   const theme = useTheme();
-  const isSmallOrBigger = useMediaQuery(theme.breakpoints.up('sm'));
+  const smDown = useMediaQuery(theme.breakpoints.down('sm'));
+  const isSmall = _.isNil(isSmallProp) ? smDown : isSmallProp;
+  const classes = useStyles({ isSmall, wrapIconTexts });
+  const { t } = useTranslation();
 
   const kuvaus = _.truncate(kuvausProp, { length: 255 }) || t('haku.ei_kuvausta');
 
@@ -103,86 +128,86 @@ export const EntiteettiKortti = ({
         classes={{ root: classes.paperRoot }}
         style={{
           borderTop: `5px solid ${educationTypeColorCode[koulutustyyppi]}`,
-          padding: isSmallOrBigger ? '20px' : '8px',
+          padding: isSmall ? '16px' : '32px',
         }}>
-        <Grid
-          container
-          direction={isSmallOrBigger ? 'row' : wrapDirection}
-          alignItems="center"
-          spacing={3}
-          style={{ minHeight: '180px', padding: isSmallOrBigger ? '20px' : '8px' }}>
-          <Grid
-            container
-            item
-            spacing={isSmallOrBigger ? 3 : 0}
-            direction="column"
-            xs={12}
-            sm>
-            <Grid
-              item
-              container
-              direction={isSmallOrBigger ? 'row' : 'column-reverse'}
-              justify="space-between"
-              spacing={2}>
-              <Grid item sm={12}>
-                {preHeader && (
-                  <Typography
-                    className={classes.preHeader}
-                    variant="body1"
-                    gutterBottom
-                    component="div">
-                    {preHeader}
-                  </Typography>
-                )}
-                <Typography
-                  variant="h4"
-                  style={{ fontWeight: 'bold', whiteSpace: 'pre-wrap' }}>
-                  {header}
-                </Typography>
-              </Grid>
-            </Grid>
-
-            {erityisopetusHeader && (
-              <Grid item>
-                <Typography
-                  className={classes.erityisopetusHeader}
-                  variant="body1"
-                  component="div">
-                  <DirectionsOutlinedIcon className={classes.icon} />
-                  {erityisopetusHeaderText}
-                </Typography>
-              </Grid>
-            )}
-
+        <Box display="inline-block" width="100%">
+          {logoElement && (
+            <Box paddingLeft={2} paddingBottom={2} className={classes.logo}>
+              {logoElement}
+            </Box>
+          )}
+          {teemakuvaElement && (
             <Hidden xsDown>
-              <Grid item>
-                <Typography className={classes.kuvaus} variant="body1" component="div">
-                  {sanitizedHTMLParser(kuvaus)}
-                </Typography>
-              </Grid>
+              <Box
+                paddingLeft={2}
+                paddingBottom={2}
+                className={classes.logo}
+                style={{ maxWidth: '50%' }}>
+                {teemakuvaElement}
+              </Box>
             </Hidden>
+          )}
+          <Box display="inline">
+            {preHeader && (
+              <Typography className={classes.preHeader} variant="body1" gutterBottom>
+                {preHeader}
+              </Typography>
+            )}
+            <Typography variant="h4" className={classes.header}>
+              {_.trim(header)}
+            </Typography>
+          </Box>
 
-            <Grid item container direction="row" style={{ marginTop: 12 }}>
-              {iconTexts.map(([content, IconComponent], i) => (
-                <Grid item container sm xs={12} key={`header-icon-text-${i}`}>
-                  <Typography style={{ display: 'flex', marginRight: '8px' }}>
+          {erityisopetusHeaderText && (
+            <Typography className={classes.erityisopetusHeader} variant="body1">
+              <DirectionsOutlinedIcon className={classes.icon} />
+              {erityisopetusHeaderText}
+            </Typography>
+          )}
+
+          <Hidden xsDown>
+            <Typography component="div" className={classes.kuvaus} variant="body1">
+              {sanitizedHTMLParser(kuvaus)}
+            </Typography>
+          </Hidden>
+
+          <Box className={classes.iconTexts}>
+            {iconTexts.filter(Boolean).map((iconText, i) => {
+              const [content, IconComponent] = iconText as IconText;
+              return (
+                <Box
+                  key={`header-icon-text-${i}`}
+                  flexBasis="33.33%"
+                  flexShrink={1}
+                  marginBottom={1}>
+                  <Typography
+                    style={{
+                      display: 'flex',
+                      marginRight: '8px',
+                    }}>
                     {IconComponent && <IconComponent style={{ marginRight: '8px' }} />}
                     {content}
                   </Typography>
-                </Grid>
-              ))}
-            </Grid>
-          </Grid>
-
-          <Grid
-            item
-            container
-            xs={12}
-            sm={3}
-            justify={isSmallOrBigger ? 'flex-end' : 'flex-start'}>
-            {logoElement}
-          </Grid>
-        </Grid>
+                </Box>
+              );
+            })}
+          </Box>
+          {teemakuvaElement && (
+            <Hidden smUp>
+              <Box
+                paddingTop={2}
+                className={classes.logo}
+                style={{
+                  display: 'block',
+                  position: 'relative',
+                  clear: 'both',
+                  float: 'left',
+                }}>
+                {teemakuvaElement}
+              </Box>
+            </Hidden>
+          )}
+        </Box>
       </Paper>
     </LocalizedLink>
   );

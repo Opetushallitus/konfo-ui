@@ -81,7 +81,6 @@ export const TarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
                     }
                     header={toteutus?.toteutusName}
                     kuvaus={toteutus?.description}
-                    wrapDirection="column-reverse"
                     iconTexts={[
                       [toteutus?.locations, PublicIcon],
                       [toteutus?.opetustapa, HourglassEmptyIcon],

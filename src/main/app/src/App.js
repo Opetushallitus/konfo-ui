@@ -33,7 +33,7 @@ import {
   ValintaperustePage,
   ValintaperustePreviewPage,
 } from './components/valintaperusteet/ValintaperustePage';
-import { DRAWER_WIDTH } from './constants';
+import { SIDEMENU_WIDTH } from './constants';
 import { getHeaderHeight, theme } from './theme';
 
 const useStyles = makeStyles((theme) => ({
@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    marginLeft: -DRAWER_WIDTH,
+    marginLeft: -SIDEMENU_WIDTH,
   },
   contentShift: {
     transition: theme.transitions.create('margin', {
