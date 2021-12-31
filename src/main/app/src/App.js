@@ -4,6 +4,7 @@ import { makeStyles, useMediaQuery, Box } from '@material-ui/core';
 import clsx from 'clsx';
 import Cookies from 'js-cookie';
 import { useTranslation } from 'react-i18next';
+import { useIsFetching } from 'react-query';
 import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 
 import { CookieModal } from '#/src/components/common/CookieModal';
@@ -185,17 +186,19 @@ const App = () => {
   const { pathname } = useLocation();
   const { state: menuVisible, toggleMenu, closeMenu } = useSideMenu();
   const { isAtEtusivu } = useOnEtusivu();
+  const isFetching = useIsFetching();
 
   const classes = useStyles({ betaBannerVisible: betaBanner, isSmall, menuVisible });
   useLayoutEffect(() => {
     const defaultHeader = defaultTitle(language);
     const h1 = removeLastDot(document.querySelector('h1')?.textContent);
-    const newTitle = !isAtEtusivu && h1 ? h1 + ' - ' + defaultHeader : defaultHeader;
+    const useDefaultHeader = isAtEtusivu || isFetching;
+    const newTitle = !useDefaultHeader && h1 ? h1 + ' - ' + defaultHeader : defaultHeader;
     if (title !== newTitle) {
       document.title = newTitle;
       setTitle(newTitle);
     }
-  }, [isAtEtusivu, title, language, pathname]);
+  }, [isFetching, isAtEtusivu, title, language, pathname]);
   return (
     <React.Fragment>
       <Draft />
