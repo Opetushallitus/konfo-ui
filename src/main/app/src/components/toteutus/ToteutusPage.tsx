@@ -43,11 +43,11 @@ const useStyles = makeStyles((theme) => ({
   root: { marginTop: '100px' },
   oppilaitosHeadingSpan: {
     ...theme.typography.body1,
+    marginTop: '20px',
     fontSize: '1.25rem',
     textAlign: 'center',
   },
   toteutusHeading: {
-    marginTop: '20px',
     display: 'flex',
     flexDirection: 'column',
     textAlign: 'center',
@@ -183,11 +183,10 @@ export const ToteutusPage = () => {
             ]}
           />
         </Box>
-
-        <Heading className={classes.toteutusHeading} variant="h2">
-          <Box component="span" className={classes.oppilaitosHeadingSpan}>
-            {oppilaitostenNimet}
-          </Box>
+        <Typography className={classes.oppilaitosHeadingSpan} variant="h2" component="h2">
+          {oppilaitostenNimet}
+        </Typography>
+        <Heading className={classes.toteutusHeading} variant="h1">
           {localize(toteutus?.nimi)}
         </Heading>
         {erityisopetusHeading && erityisopetusText && (

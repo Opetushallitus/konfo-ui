@@ -181,7 +181,7 @@ const removeLastDot = (str) => {
 const App = () => {
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
   const [betaBanner, setBetaBanner] = useState(true);
-  const [title, setTitle] = useState(null);
+  const [titleObj, setTitleObj] = useState(null);
   const language = getLanguage();
   const { pathname } = useLocation();
   const { state: menuVisible, toggleMenu, closeMenu } = useSideMenu();
@@ -194,11 +194,20 @@ const App = () => {
     const h1 = removeLastDot(document.querySelector('h1')?.textContent);
     const useDefaultHeader = isAtEtusivu || isFetching;
     const newTitle = !useDefaultHeader && h1 ? h1 + ' - ' + defaultHeader : defaultHeader;
+    const { isDefaultTitle, title, path } = titleObj || {};
     if (title !== newTitle) {
-      document.title = newTitle;
-      setTitle(newTitle);
+      const lockTitleOnThisPath = isDefaultTitle || pathname !== path;
+      if (lockTitleOnThisPath) {
+        document.title = newTitle;
+        const titleState = {
+          title: newTitle,
+          path: pathname,
+          isDefaultTitle: !h1,
+        };
+        setTitleObj(titleState);
+      }
     }
-  }, [isFetching, isAtEtusivu, title, language, pathname]);
+  }, [isFetching, isAtEtusivu, titleObj, language, pathname]);
   return (
     <React.Fragment>
       <Draft />
