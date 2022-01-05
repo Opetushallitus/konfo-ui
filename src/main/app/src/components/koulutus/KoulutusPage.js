@@ -117,7 +117,7 @@ export const KoulutusPage = () => {
         </Box>
         <Box mt={4}>
           {koulutusAlat && (
-            <Typography className={classes.alatText} variant="h3" component="h1">
+            <Typography className={classes.alatText} variant="h3" component="h3">
               {koulutusAlat}
             </Typography>
           )}

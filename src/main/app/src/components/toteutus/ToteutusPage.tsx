@@ -184,7 +184,7 @@ export const ToteutusPage = () => {
           />
         </Box>
 
-        <Heading className={classes.toteutusHeading} variant="h1">
+        <Heading className={classes.toteutusHeading} variant="h2">
           <Box component="span" className={classes.oppilaitosHeadingSpan}>
             {oppilaitostenNimet}
           </Box>
