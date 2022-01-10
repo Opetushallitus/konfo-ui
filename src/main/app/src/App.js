@@ -192,9 +192,9 @@ const App = () => {
   useLayoutEffect(() => {
     const defaultHeader = defaultTitle(language);
     const h1 = removeLastDot(document.querySelector('h1')?.textContent);
-    const useDefaultHeader = isAtEtusivu || isFetching;
-    const newTitle = !useDefaultHeader && h1 ? h1 + ' - ' + defaultHeader : defaultHeader;
-    const { isDefaultTitle, title, path } = titleObj || {};
+    const dontUseDefaultHeader = !(isAtEtusivu || isFetching) && h1;
+    const newTitle = dontUseDefaultHeader ? h1 + ' - ' + defaultHeader : defaultHeader;
+    const { isDefaultTitle, title, path } = titleObj || { isDefaultTitle: true };
     if (title !== newTitle) {
       const lockTitleOnThisPath = isDefaultTitle || pathname !== path;
       if (lockTitleOnThisPath) {
@@ -202,7 +202,7 @@ const App = () => {
         const titleState = {
           title: newTitle,
           path: pathname,
-          isDefaultTitle: !h1,
+          isDefaultTitle: !dontUseDefaultHeader,
         };
         setTitleObj(titleState);
       }
