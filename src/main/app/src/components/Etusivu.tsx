@@ -46,11 +46,8 @@ export const Etusivu = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { data, isLoading, forwardTo } = useContentful();
-  const {
-    info,
-    uutiset,
-    kortit,
-  }: { info: Info; uutiset: UutisetType; kortit: Kortit } = data;
+  const { info, uutiset, kortit }: { info: Info; uutiset: UutisetType; kortit: Kortit } =
+    data;
 
   const forwardToPage = (id: string) => {
     history.push(`/${i18n.language}${forwardTo(id)}`);

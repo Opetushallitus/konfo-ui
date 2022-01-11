@@ -197,7 +197,11 @@ export const ValintaperustePage = () => {
   const { t } = useTranslation();
   const hakuUrl = useSelector(getHakuUrl);
 
-  const { data = {} as PageData, isFetching, error } = useValintaperustePageData({
+  const {
+    data = {} as PageData,
+    isFetching,
+    error,
+  } = useValintaperustePageData({
     hakukohdeOid,
   });
   const { valintaperuste, koulutus, toteutus, hakukohde } = data;

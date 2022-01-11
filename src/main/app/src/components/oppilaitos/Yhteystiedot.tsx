@@ -43,26 +43,28 @@ const toShownOsoite = (osoite?: Osoite) => {
     : _.trim(`${lahiosoite}, ${postinumero} ${postitoimipaikka}`, ', ');
 };
 
-const parseYhteystieto = (t: TFunction) => ({
-  nimi,
-  postiosoite: postiosoiteProp,
-  kayntiosoite: kayntiosoiteProp,
-  sahkoposti,
-  puhelinnumero,
-}: YhteystiedotType) => {
-  const postiosoite = toShownOsoite(postiosoiteProp);
-  const kayntiosoite = toShownOsoite(kayntiosoiteProp);
+const parseYhteystieto =
+  (t: TFunction) =>
+  ({
+    nimi,
+    postiosoite: postiosoiteProp,
+    kayntiosoite: kayntiosoiteProp,
+    sahkoposti,
+    puhelinnumero,
+  }: YhteystiedotType) => {
+    const postiosoite = toShownOsoite(postiosoiteProp);
+    const kayntiosoite = toShownOsoite(kayntiosoiteProp);
 
-  return {
-    nimi: localize(nimi),
-    postiosoite,
-    kayntiosoite,
-    sahkoposti: localize(sahkoposti),
-    puhelinnumero: localize(puhelinnumero),
-    oskariOsoite: localize(kayntiosoiteProp?.osoite),
-    oskariPostitoimipaikka: localize(kayntiosoiteProp?.postinumero),
+    return {
+      nimi: localize(nimi),
+      postiosoite,
+      kayntiosoite,
+      sahkoposti: localize(sahkoposti),
+      puhelinnumero: localize(puhelinnumero),
+      oskariOsoite: localize(kayntiosoiteProp?.osoite),
+      oskariPostitoimipaikka: localize(kayntiosoiteProp?.postinumero),
+    };
   };
-};
 
 const YhteystietoRow = ({ title, text }: { title: string; text: string }) => (
   <Grid container spacing={1} alignItems="flex-start">

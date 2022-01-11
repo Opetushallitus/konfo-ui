@@ -38,12 +38,8 @@ const MobileToggleOrderByButtonMenu = () => {
   const mobileToggleOrderByButtonMenuProps = useSelector(
     getMobileToggleOrderByButtonMenuProps
   );
-  const {
-    isNameSort,
-    isNameSortDesc,
-    isScoreSort,
-    order,
-  } = mobileToggleOrderByButtonMenuProps;
+  const { isNameSort, isNameSortDesc, isScoreSort, order } =
+    mobileToggleOrderByButtonMenuProps;
 
   const updateSortAndOrder = (newSort, newOrder) => {
     dispatch(setSort({ newSort }));

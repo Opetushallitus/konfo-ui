@@ -83,9 +83,10 @@ export const MobileFiltersOnTopMenu = ({ isFrontPage = false }) => {
   const { count } = useSelector(getAllSelectedFilters);
 
   const [showFilters, setShowFilters] = useState(false);
-  const toggleShowFilters = useCallback(() => setShowFilters(!showFilters), [
-    showFilters,
-  ]);
+  const toggleShowFilters = useCallback(
+    () => setShowFilters(!showFilters),
+    [showFilters]
+  );
 
   useEffect(() => {
     if (isFrontPage) {

@@ -244,90 +244,92 @@ export const newSearchAll = () => async (dispatch, getState) => {
   }
 };
 
-export const searchAll = (
-  requestParams,
-  isNewKeyword = false,
-  isReload = false
-) => async (dispatch) => {
-  try {
-    dispatch(searchAPICallStart());
-    const koulutusData = await searchAPI.getKoulutukset(requestParams);
-    const oppilaitosData = await searchAPI.getOppilaitokset(requestParams);
-    const filters = _.pick(requestParams, FILTER_TYPES_ARR_FOR_KONFO_BACKEND);
-    const literals = _.pick(requestParams, ['size', 'order', 'sort']);
-    dispatch(
-      searchAllSuccess({
-        koulutusData,
-        oppilaitosData,
-        isNewKeyword,
-        isReload,
-        filters,
-        literals,
-      })
-    );
-  } catch (err) {
-    dispatch(searchAPICallError(err.toString()));
-  }
-};
+export const searchAll =
+  (requestParams, isNewKeyword = false, isReload = false) =>
+  async (dispatch) => {
+    try {
+      dispatch(searchAPICallStart());
+      const koulutusData = await searchAPI.getKoulutukset(requestParams);
+      const oppilaitosData = await searchAPI.getOppilaitokset(requestParams);
+      const filters = _.pick(requestParams, FILTER_TYPES_ARR_FOR_KONFO_BACKEND);
+      const literals = _.pick(requestParams, ['size', 'order', 'sort']);
+      dispatch(
+        searchAllSuccess({
+          koulutusData,
+          oppilaitosData,
+          isNewKeyword,
+          isReload,
+          filters,
+          literals,
+        })
+      );
+    } catch (err) {
+      dispatch(searchAPICallError(err.toString()));
+    }
+  };
 
 // TODO: yhdistä tämä osaksi newSearchAll
-export const searchKoulutukset = ({ requestParams, offset, page }) => async (
-  dispatch
-) => {
-  try {
-    dispatch(searchAPICallStart());
-    const koulutusData = await searchAPI.getKoulutukset(requestParams);
-    dispatch(searchKoulutuksetSuccess({ koulutusData, offset, page }));
-  } catch (err) {
-    dispatch(searchAPICallError(err.toString()));
-  }
-};
+export const searchKoulutukset =
+  ({ requestParams, offset, page }) =>
+  async (dispatch) => {
+    try {
+      dispatch(searchAPICallStart());
+      const koulutusData = await searchAPI.getKoulutukset(requestParams);
+      dispatch(searchKoulutuksetSuccess({ koulutusData, offset, page }));
+    } catch (err) {
+      dispatch(searchAPICallError(err.toString()));
+    }
+  };
 
 // TODO: yhdistä tämä osaksi newSearchAll
-export const searchOppilaitokset = ({ requestParams, offset, page }) => async (
-  dispatch
-) => {
-  try {
-    dispatch(searchAPICallStart());
-    const oppilaitosData = await searchAPI.getOppilaitokset(requestParams);
-    dispatch(searchOppilaitoksetSuccess({ oppilaitosData, offset, page }));
-  } catch (err) {
-    dispatch(searchAPICallError(err.toString()));
-  }
-};
+export const searchOppilaitokset =
+  ({ requestParams, offset, page }) =>
+  async (dispatch) => {
+    try {
+      dispatch(searchAPICallStart());
+      const oppilaitosData = await searchAPI.getOppilaitokset(requestParams);
+      dispatch(searchOppilaitoksetSuccess({ oppilaitosData, offset, page }));
+    } catch (err) {
+      dispatch(searchAPICallError(err.toString()));
+    }
+  };
 
-export const searchAllOnPageReload = ({ search, keyword }) => (dispatch, getState) => {
-  const state = getState();
-  const apiRequestParams = getAPIRequestParams(state);
-  const cleanedUrlSearch = getCleanUrlSearch(search, apiRequestParams);
-  const { hakutulos } = state;
+export const searchAllOnPageReload =
+  ({ search, keyword }) =>
+  (dispatch, getState) => {
+    const state = getState();
+    const apiRequestParams = getAPIRequestParams(state);
+    const cleanedUrlSearch = getCleanUrlSearch(search, apiRequestParams);
+    const { hakutulos } = state;
 
-  if (!_.isMatch(apiRequestParams, { ...cleanedUrlSearch, keyword })) {
-    dispatch(setKeyword({ keyword }));
-    dispatch(
-      searchAll(
-        C.cleanRequestParams({ ...apiRequestParams, keyword, ...cleanedUrlSearch }),
-        hakutulos.keyword !== keyword,
-        true
-      )
-    );
-  }
-};
+    if (!_.isMatch(apiRequestParams, { ...cleanedUrlSearch, keyword })) {
+      dispatch(setKeyword({ keyword }));
+      dispatch(
+        searchAll(
+          C.cleanRequestParams({ ...apiRequestParams, keyword, ...cleanedUrlSearch }),
+          hakutulos.keyword !== keyword,
+          true
+        )
+      );
+    }
+  };
 
-export const searchAndMoveToHaku = ({ history }) => (dispatch, getState) => {
-  const { hakutulos } = getState();
-  const apiRequestParams = getAPIRequestParams({ hakutulos });
-  const lng = getLanguage();
-  const restParams = new URLSearchParams(
-    _.pick(C.cleanRequestParams(apiRequestParams), [
-      'order',
-      'size',
-      ...FILTER_TYPES_ARR_FOR_KONFO_BACKEND,
-    ])
-  ).toString();
-  history.push(`/${lng}/haku/${hakutulos.keyword}?${restParams}`);
-  dispatch(searchAll(apiRequestParams, true));
-};
+export const searchAndMoveToHaku =
+  ({ history }) =>
+  (dispatch, getState) => {
+    const { hakutulos } = getState();
+    const apiRequestParams = getAPIRequestParams({ hakutulos });
+    const lng = getLanguage();
+    const restParams = new URLSearchParams(
+      _.pick(C.cleanRequestParams(apiRequestParams), [
+        'order',
+        'size',
+        ...FILTER_TYPES_ARR_FOR_KONFO_BACKEND,
+      ])
+    ).toString();
+    history.push(`/${lng}/haku/${hakutulos.keyword}?${restParams}`);
+    dispatch(searchAll(apiRequestParams, true));
+  };
 
 // Helpers
 function getCleanUrlSearch(search, apiRequestParams) {

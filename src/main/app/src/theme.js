@@ -28,9 +28,11 @@ const breakpoints = {
   },
 };
 
-export const getHeaderHeight = (theme) => ({ betaBannerVisible, isSmall = false }) =>
-  (isSmall ? theme.smHeaderHeight : theme.headerHeight) +
-  (betaBannerVisible ? theme.betaBannerHeight : 0);
+export const getHeaderHeight =
+  (theme) =>
+  ({ betaBannerVisible, isSmall = false }) =>
+    (isSmall ? theme.smHeaderHeight : theme.headerHeight) +
+    (betaBannerVisible ? theme.betaBannerHeight : 0);
 
 export const theme = createMuiTheme({
   betaBannerHeight: 40,

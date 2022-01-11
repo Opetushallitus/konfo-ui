@@ -72,9 +72,10 @@ export const MobileFiltersOnTopMenu = ({
   const { t } = useTranslation();
 
   const [showFilters, setShowFilters] = useState(false);
-  const toggleShowFilters = useCallback(() => setShowFilters(!showFilters), [
-    showFilters,
-  ]);
+  const toggleShowFilters = useCallback(
+    () => setShowFilters(!showFilters),
+    [showFilters]
+  );
 
   const chosenFilterCount = useMemo(
     () =>

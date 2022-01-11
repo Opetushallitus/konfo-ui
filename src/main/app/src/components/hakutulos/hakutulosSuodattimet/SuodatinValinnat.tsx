@@ -95,9 +95,8 @@ const ChipList = ({
 
 export const SuodatinValinnat = () => {
   const dispatch = useDispatch();
-  const { selectedFiltersFlatList, selectedFiltersWithAlakoodit } = useSelector(
-    getAllSelectedFilters
-  );
+  const { selectedFiltersFlatList, selectedFiltersWithAlakoodit } =
+    useSelector(getAllSelectedFilters);
 
   const getHandleDelete = (item: FilterValue) => () => {
     const changes = getFilterStateChanges(selectedFiltersWithAlakoodit)(item);
