@@ -50,7 +50,7 @@ const LinkCard = (props) => {
         className={classes.grid}
         spacing={3}
         container
-        justify="space-between"
+        justifyContent="space-between"
         alignItems="center">
         <Grid item xs={2}>
           {url ? (

@@ -35,7 +35,7 @@ export const SummaryContent = ({ values, filterName, displaySelected }: Props) =
     .join(', ');
 
   return (
-    <Grid container justify="space-between" alignItems="center" wrap="nowrap">
+    <Grid container justifyContent="space-between" alignItems="center" wrap="nowrap">
       <Grid item style={{ paddingRight: '8px' }}>
         <Typography variant="subtitle1">{filterName}</Typography>
       </Grid>

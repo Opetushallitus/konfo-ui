@@ -124,7 +124,11 @@ export const MobileFiltersOnTopMenu = ({ isFrontPage = false }) => {
         open={showFilters}>
         <AppBar classes={{ root: classes.appBarRoot }}>
           <Toolbar variant="dense" disableGutters>
-            <Grid container justify="space-between" alignItems="center" wrap="nowrap">
+            <Grid
+              container
+              justifyContent="space-between"
+              alignItems="center"
+              wrap="nowrap">
               <Grid item>
                 <IconButton color="inherit" onClick={toggleShowFilters}>
                   <Close />

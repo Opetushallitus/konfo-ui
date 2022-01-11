@@ -146,8 +146,8 @@ export const Yhteystiedot = ({
             container
             spacing={5}
             alignItems="center"
-            justify="center">
-            <Grid item container justify="center" sm={12} md={6}>
+            justifyContent="center">
+            <Grid item container justifyContent="center" sm={12} md={6}>
               <Paper style={{ padding: '40px', width: '100%', maxWidth: 600 }}>
                 <Typography gutterBottom variant="h4">
                   {nimi || id}

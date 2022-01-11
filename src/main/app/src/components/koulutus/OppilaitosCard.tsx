@@ -60,7 +60,7 @@ export const OppilaitosCard = ({
         <Paper className={classes.paper}>
           <Grid
             container
-            justify="center"
+            justifyContent="center"
             alignItems="center"
             direction="column"
             spacing={3}
@@ -79,7 +79,7 @@ export const OppilaitosCard = ({
               container
               direction="row"
               spacing={1}
-              justify="center"
+              justifyContent="center"
               wrap="nowrap">
               <Grid item className={classes.iconContainer}>
                 <PublicIcon className={classes.icon} />

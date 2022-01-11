@@ -39,7 +39,7 @@ export const ToteutusHakuEiSahkoista = ({ data: eiSahkoistaData }: Props) => {
         container
         item
         alignContent="center"
-        justify="center"
+        justifyContent="center"
         alignItems="center"
         xs={12}
         style={{ maxWidth: '800px' }}>
@@ -49,7 +49,7 @@ export const ToteutusHakuEiSahkoista = ({ data: eiSahkoistaData }: Props) => {
             direction="column"
             spacing={2}
             alignContent="center"
-            justify="center"
+            justifyContent="center"
             alignItems="center">
             <IconBackground>
               <DescriptionOutlinedIcon style={{ fontSize: 40, color: colors.white }} />

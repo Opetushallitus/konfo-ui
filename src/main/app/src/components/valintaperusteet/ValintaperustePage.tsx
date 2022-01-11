@@ -41,7 +41,7 @@ const useStyles = makeStyles(() => ({
 const Row: React.FC = ({ children }) => {
   const classes = useStyles();
   return (
-    <Grid container direction="row" justify="center" className={classes.container}>
+    <Grid container direction="row" justifyContent="center" className={classes.container}>
       <Grid item xs={12} sm={12} md={10}>
         {children}
       </Grid>
@@ -170,7 +170,7 @@ export const ValintaperustePreviewPage = () => {
       container
       direction="row"
       spacing={0}
-      justify="flex-start"
+      justifyContent="flex-start"
       className={classes.container}>
       <Grid item xs={12} md={3} />
       <Grid item xs={12} md={6}>
@@ -250,7 +250,7 @@ export const ValintaperustePage = () => {
         container
         direction="row"
         spacing={0}
-        justify="flex-start"
+        justifyContent="flex-start"
         className={classes.container}>
         <Grid item xs={12} md={3} />
         <Grid item xs={12} md={6}>

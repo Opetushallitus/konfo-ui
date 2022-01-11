@@ -130,7 +130,7 @@ export const OskariKartta = ({ id, osoite, postitoimipaikka }: Props) => {
     <Grid
       item
       container
-      justify="center"
+      justifyContent="center"
       md={6}
       sm={12}
       // Ei poisteta domista vaan piilotetaan koska channel eventit räjähtää mikäli dom-elementti puuttuu

@@ -115,7 +115,7 @@ export const Etusivu = () => {
                 <Uutiset uutiset={showMore ? _.take(uutislinkit, 3) : uutislinkit} />
               </Grid>
 
-              <Grid container direction="row" justify="center" alignItems="center">
+              <Grid container direction="row" justifyContent="center" alignItems="center">
                 {showMore && (
                   <Button
                     className={classes.showMore}

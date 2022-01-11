@@ -192,7 +192,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
               container
               item
               direction="row"
-              justify="center"
+              justifyContent="center"
               spacing={2}
               className={classes.filtersContainer}
               sm={10}>
@@ -257,7 +257,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                   item
                   container
                   direction="row"
-                  justify="center"
+                  justifyContent="center"
                   spacing={2}
                   className={classes.filtersContainer}
                   sm={12}>
@@ -312,7 +312,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
               <Grid
                 container
                 direction="column"
-                justify="center"
+                justifyContent="center"
                 className={classes.grid}
                 alignItems="stretch"
                 spacing={1}>

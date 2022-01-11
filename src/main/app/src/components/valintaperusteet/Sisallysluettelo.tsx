@@ -69,7 +69,7 @@ export const Sisallysluettelo = (props: Props) => {
     <Grid
       container
       direction="row"
-      justify="center"
+      justifyContent="center"
       alignItems="center"
       className={classes.toc}>
       <Grid item xs={10}>

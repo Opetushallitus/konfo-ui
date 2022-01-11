@@ -89,7 +89,7 @@ const HakuCardGrid = ({ tyyppiOtsikko, haut, icon }: GridProps) => {
         </Box>
       </Box>
       <Box mt={4}>
-        <Grid container spacing={2} justify="center">
+        <Grid container spacing={2} justifyContent="center">
           {haut.map((haku) => {
             const anyHakuaikaPaattyy = haku.hakuajat?.some(
               (hakuaika) => hakuaika.paattyy

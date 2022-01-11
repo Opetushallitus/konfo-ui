@@ -78,7 +78,11 @@ export const Uutinen = ({ id }) => {
           title={uutinen.name}
         />
         <CardContent>
-          <Grid container direction="row" justify="space-between" alignItems="center">
+          <Grid
+            container
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center">
             <Grid item xs={6} className={classes.kategoria}>
               {t('uutinen.kategoria')}
             </Grid>
