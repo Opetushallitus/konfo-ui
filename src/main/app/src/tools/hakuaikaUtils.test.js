@@ -31,6 +31,8 @@ describe('toteutus slice', () => {
       }
     });
 
-    expect(isHakuAuki([{ alkaa, paattyy }])).toEqual(expected);
+    expect(
+      isHakuAuki([{ alkaa: alkaa, paattyy: paattyy, 'haku-auki': expected }])
+    ).toEqual(expected);
   });
 });
