@@ -1,8 +1,10 @@
 package fi.oph.konfo.config;
 
+import ch.qos.logback.access.tomcat.LogbackValve;
 import org.apache.catalina.connector.Connector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.web.embedded.tomcat.TomcatConnectorCustomizer;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
@@ -30,11 +32,17 @@ public class ServletContainerConfiguration {
    */
   @Bean
   @ConditionalOnProperty("konfo-ui.uses-ssl-proxy")
-  public WebServerFactoryCustomizer sslProxyCustomizer() {
+  public WebServerFactoryCustomizer sslProxyCustomizer(@Autowired UrlConfiguration configuration) {
     LOG.info("Enabling HTTPS Proxu configuration");
     return (WebServerFactory container) -> {
       if (container instanceof ConfigurableServletWebServerFactory) {
         TomcatServletWebServerFactory tomcat = (TomcatServletWebServerFactory) container;
+        LogbackValve requestLog = new LogbackValve();
+        String logbackAccess = configuration.getOrElse("logback.access", null);
+        if (logbackAccess != null) {
+          requestLog.setFilename(logbackAccess);
+        }
+        tomcat.addContextValves(requestLog);
         tomcat.addConnectorCustomizers(
             (TomcatConnectorCustomizer)
                 (Connector connector) -> {

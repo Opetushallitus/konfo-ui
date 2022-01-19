@@ -117,7 +117,7 @@ export const KoulutusPage = () => {
         </Box>
         <Box mt={4}>
           {koulutusAlat && (
-            <Typography className={classes.alatText} variant="h3" component="h1">
+            <Typography className={classes.alatText} variant="h3" component="h3">
               {koulutusAlat}
             </Typography>
           )}
@@ -205,7 +205,7 @@ export const KoulutusPage = () => {
           />
         ) : null}
         <Box width="95%" id="tarjonta">
-          <ToteutusList oid={oid} />
+          <ToteutusList oid={oid} koulutustyyppi={koulutus?.koulutusTyyppi} />
         </Box>
         {suositellutKoulutukset?.total > 0 && (
           <Box id="suositukset">

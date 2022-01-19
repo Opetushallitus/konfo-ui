@@ -4,6 +4,7 @@ import { makeStyles, useMediaQuery, Box } from '@material-ui/core';
 import clsx from 'clsx';
 import Cookies from 'js-cookie';
 import { useTranslation } from 'react-i18next';
+import { useIsFetching } from 'react-query';
 import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 
 import { CookieModal } from '#/src/components/common/CookieModal';
@@ -33,7 +34,7 @@ import {
   ValintaperustePage,
   ValintaperustePreviewPage,
 } from './components/valintaperusteet/ValintaperustePage';
-import { DRAWER_WIDTH } from './constants';
+import { SIDEMENU_WIDTH } from './constants';
 import { getHeaderHeight, theme } from './theme';
 
 const useStyles = makeStyles((theme) => ({
@@ -46,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    marginLeft: -DRAWER_WIDTH,
+    marginLeft: -SIDEMENU_WIDTH,
   },
   contentShift: {
     transition: theme.transitions.create('margin', {
@@ -180,22 +181,33 @@ const removeLastDot = (str) => {
 const App = () => {
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
   const [betaBanner, setBetaBanner] = useState(true);
-  const [title, setTitle] = useState(null);
+  const [titleObj, setTitleObj] = useState(null);
   const language = getLanguage();
   const { pathname } = useLocation();
   const { state: menuVisible, toggleMenu, closeMenu } = useSideMenu();
   const { isAtEtusivu } = useOnEtusivu();
+  const isFetching = useIsFetching();
 
   const classes = useStyles({ betaBannerVisible: betaBanner, isSmall, menuVisible });
   useLayoutEffect(() => {
     const defaultHeader = defaultTitle(language);
     const h1 = removeLastDot(document.querySelector('h1')?.textContent);
-    const newTitle = !isAtEtusivu && h1 ? h1 + ' - ' + defaultHeader : defaultHeader;
+    const dontUseDefaultHeader = !(isAtEtusivu || isFetching) && h1;
+    const newTitle = dontUseDefaultHeader ? h1 + ' - ' + defaultHeader : defaultHeader;
+    const { isDefaultTitle, title, path } = titleObj || { isDefaultTitle: true };
     if (title !== newTitle) {
-      document.title = newTitle;
-      setTitle(newTitle);
+      const lockTitleOnThisPath = isDefaultTitle || pathname !== path;
+      if (lockTitleOnThisPath) {
+        document.title = newTitle;
+        const titleState = {
+          title: newTitle,
+          path: pathname,
+          isDefaultTitle: !dontUseDefaultHeader,
+        };
+        setTitleObj(titleState);
+      }
     }
-  }, [isAtEtusivu, title, language, pathname]);
+  }, [isFetching, isAtEtusivu, titleObj, language, pathname]);
   return (
     <React.Fragment>
       <Draft />

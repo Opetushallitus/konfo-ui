@@ -14,7 +14,6 @@ public class KonfoUiErrorController implements ErrorController {
     return "/index.html";
   }
 
-  @Override
   public String getErrorPath() {
     return PATH;
   }

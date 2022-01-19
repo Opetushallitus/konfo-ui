@@ -22,19 +22,19 @@ import LanguageTab from '#/src/components/common/LanguageTab';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import Murupolku from '#/src/components/common/Murupolku';
 import SidebarValikko from '#/src/components/common/SidebarValikko';
-import { DRAWER_WIDTH } from '#/src/constants';
+import { SIDEMENU_WIDTH } from '#/src/constants';
 import { useContentful } from '#/src/hooks';
 import { getHeaderHeight } from '#/src/theme';
 
 const useStyles = makeStyles((theme) => ({
   drawer: ({ isSmall }) => ({
-    width: isSmall ? '100%' : DRAWER_WIDTH,
+    width: isSmall ? '100%' : SIDEMENU_WIDTH,
     flexShrink: 0,
   }),
   drawerPaper: ({ betaBannerVisible, isSmall }) => ({
     marginTop: getHeaderHeight(theme)({ betaBannerVisible, isSmall }),
     height: `calc(100% - ${getHeaderHeight(theme)({ betaBannerVisible, isSmall })}px)`,
-    width: isSmall ? '100%' : DRAWER_WIDTH,
+    width: isSmall ? '100%' : SIDEMENU_WIDTH,
   }),
   inputBackground: {
     backgroundColor: colors.white,

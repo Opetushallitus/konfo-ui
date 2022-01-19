@@ -17,9 +17,12 @@ import _fp from 'lodash/fp';
 import { useTranslation } from 'react-i18next';
 
 import { MobileToggleFiltersButton } from '#/src/components/hakutulos/MobileToggleFiltersButton';
+import { KOULUTUS_TYYPPI, KORKEAKOULU_KOULUTUSTYYPIT } from '#/src/constants';
 import { FilterValue } from '#/src/types/SuodatinTypes';
 
+import { AmmOsaamisalatSuodatin } from './AmmOsaamisalatSuodatin';
 import { HakutapaSuodatin } from './HakutapaSuodatin';
+import { LukiolinjatSuodatin } from './LukiolinjatSuodatin';
 import { OpetuskieliSuodatin } from './OpetusKieliSuodatin';
 import { OpetustapaSuodatin } from './OpetustapaSuodatin';
 import { PohjakoulutusvaatimusSuodatin } from './PohjakoulutusvaatimusSuodatin';
@@ -49,6 +52,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 type Props = {
+  koulutustyyppi: string;
   values: Record<string, Array<FilterValue>>;
   hitCount: number;
   loading: boolean;
@@ -57,6 +61,7 @@ type Props = {
 };
 
 export const MobileFiltersOnTopMenu = ({
+  koulutustyyppi,
   values,
   hitCount,
   loading,
@@ -153,12 +158,44 @@ export const MobileFiltersOnTopMenu = ({
             />
           )}
           <Divider className={classes.divider} />
-          <ValintatapaSuodatin
-            handleFilterChange={handleFilterChange}
-            expanded={false}
-            values={values.valintatapa}
-          />
-          <Divider className={classes.divider} />
+          {KORKEAKOULU_KOULUTUSTYYPIT.includes(koulutustyyppi as KOULUTUS_TYYPPI) && (
+            <>
+              <ValintatapaSuodatin
+                handleFilterChange={handleFilterChange}
+                expanded={false}
+                values={values.valintatapa}
+              />
+              <Divider className={classes.divider} />
+            </>
+          )}
+          {koulutustyyppi === KOULUTUS_TYYPPI.LUKIOKOULUTUS && (
+            <>
+              <LukiolinjatSuodatin
+                name="lukiopainotukset"
+                handleFilterChange={handleFilterChange}
+                expanded={false}
+                values={values.lukiopainotukset}
+              />
+              <Divider className={classes.divider} />
+              <LukiolinjatSuodatin
+                name="lukiolinjat_er"
+                handleFilterChange={handleFilterChange}
+                expanded={false}
+                values={values.lukiolinjaterityinenkoulutustehtava}
+              />
+              <Divider className={classes.divider} />
+            </>
+          )}
+          {koulutustyyppi === KOULUTUS_TYYPPI.AMM && (
+            <>
+              <AmmOsaamisalatSuodatin
+                handleFilterChange={handleFilterChange}
+                expanded={false}
+                values={values.osaamisala}
+              />
+              <Divider className={classes.divider} />
+            </>
+          )}
           <OpetustapaSuodatin
             handleFilterChange={handleFilterChange}
             expanded={false}

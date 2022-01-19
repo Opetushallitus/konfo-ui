@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { SchoolOutlined, PublicOutlined } from '@material-ui/icons';
-import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { EntiteettiKortti } from '#/src/components/common/EntiteettiKortti';
@@ -18,21 +17,25 @@ type Props = {
     nimi: Translateable;
     paikkakunnat: Array<Koodi>;
   };
+  isSmall: boolean;
 };
 
-export const OppilaitosKortti = ({ oppilaitos }: Props) => {
+export const OppilaitosKortti = ({ oppilaitos, isSmall }: Props) => {
   const { t } = useTranslation();
 
   const paikkakunnatStr = localizeArrayToCommaSeparated(oppilaitos?.paikkakunnat);
 
   const kuvaus =
-    _.truncate(localize(oppilaitos?.kuvaus).replace(/<[^>]*>/gm, ''), {
-      length: 255,
-    }) || t('haku.ei_kuvausta');
+    localize(oppilaitos?.kuvaus).replace(/<[^>]*>/gm, '') || t('haku.ei_kuvausta');
 
-  const koulutusOhjelmatStr = `${oppilaitos?.koulutusohjelmia || 0} ${t(
-    'haku.tutkintoon-johtavaa-koulutusta'
-  )}`;
+  const koulutusohjelmaCount = oppilaitos?.koulutusohjelmia || 0;
+
+  const koulutusOhjelmatStr =
+    koulutusohjelmaCount === 0
+      ? t('haku.ei-tutkintoon-johtavia-koulutuksia')
+      : t('haku.tutkintoon-johtava-koulutus-maara', {
+          count: koulutusohjelmaCount,
+        });
   const logoAltText = `${localize(oppilaitos)} ${t('haku.oppilaitoksen-logo')}`;
 
   return (
@@ -41,11 +44,11 @@ export const OppilaitosKortti = ({ oppilaitos }: Props) => {
       logoElement={<OppilaitosKorttiLogo image={oppilaitos?.logo} alt={logoAltText} />}
       header={localize(oppilaitos)}
       kuvaus={kuvaus}
-      wrapDirection="column-reverse"
       iconTexts={[
         [koulutusOhjelmatStr, SchoolOutlined],
         [paikkakunnatStr, PublicOutlined],
       ]}
+      isSmall={isSmall}
     />
   );
 };

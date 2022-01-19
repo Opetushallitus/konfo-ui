@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery/useMediaQuery';
@@ -44,7 +45,9 @@ const Rivi = ({ otsikko, kortit }: RiviProps) => {
   return (
     <>
       <Grid container className={classes.rivi}>
-        <h1 className={classes.header}>{otsikko}</h1>
+        <Typography className={classes.header} variant="h1" component="h2">
+          {otsikko}
+        </Typography>
         <Grid container spacing={3}>
           {kortit?.map((p) => (
             <Palvelu id={p.id} key={p.id} />

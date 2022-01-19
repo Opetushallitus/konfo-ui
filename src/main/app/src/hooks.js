@@ -11,6 +11,8 @@ import { getContentfulData, getContentfulManifest } from '#/src/api/konfoApi';
 import { getAPIRequestParams } from '#/src/store/reducers/hakutulosSliceSelector';
 import { setMenuState } from '#/src/store/reducers/sideMenuSlice';
 
+import { SIDEMENU_WIDTH } from './constants';
+
 export const useLanguageState = () => {
   const location = useLocation();
   const history = useHistory();
@@ -170,5 +172,6 @@ export const useSideMenu = (callback, deps) => {
     state: menuOpen,
     toggleMenu: toggle,
     closeMenu: close,
+    width: menuOpen ? SIDEMENU_WIDTH : 0,
   };
 };

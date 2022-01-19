@@ -7,7 +7,7 @@ import ImageCardWithText from '#/src/components/common/ImageCardWithText';
 
 import { LocalizedLink } from './LocalizedLink';
 
-const OppilaitosOsaGrid = (props) => {
+export const ImageCardGrid = (props) => {
   const { cards, cardIsLink } = props;
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -31,5 +31,3 @@ const OppilaitosOsaGrid = (props) => {
     </Grid>
   );
 };
-
-export default OppilaitosOsaGrid;

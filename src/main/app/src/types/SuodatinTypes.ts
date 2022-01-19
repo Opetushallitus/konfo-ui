@@ -7,6 +7,8 @@ export type SuodatinComponentProps = {
   summaryHidden?: boolean;
   defaultExpandAlakoodit?: boolean;
   shadow?: boolean;
+  onFocus?: () => void;
+  onHide?: () => void;
 };
 
 export type FilterValue = {
