@@ -12,7 +12,7 @@ import {
 import { getFilterProps } from '#/src/store/reducers/hakutulosSliceSelector';
 import { getFilterStateChanges } from '#/src/tools/filters';
 import {
-  FilterProps,
+  FilterValues,
   FilterValue,
   SuodatinComponentProps,
 } from '#/src/types/SuodatinTypes';
@@ -25,8 +25,8 @@ export const HakutapaSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
-  const hakukaynnissaValues = useSelector<any, FilterProps>(hakukaynnissaSelector);
-  const hakutapaValues = useSelector<any, FilterProps>(hakutapaFilterSelector);
+  const hakukaynnissaValues = useSelector<any, FilterValues>(hakukaynnissaSelector);
+  const hakutapaValues = useSelector<any, FilterValues>(hakutapaFilterSelector);
 
   const filterValues = useMemo(() => {
     if (hakutapaValues?.length === 0) {

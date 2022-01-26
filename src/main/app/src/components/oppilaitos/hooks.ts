@@ -72,11 +72,10 @@ export const useOppilaitos = ({ oid, isOppilaitosOsa, isDraft }: UseOppilaitosPr
     ['getOppilaitos', { oid, isOppilaitosOsa, isDraft }],
     () => (isOppilaitosOsa ? getOppilaitosOsa(oid, isDraft) : getOppilaitos(oid, isDraft))
   );
-  return useMemo(() => handleOppilaitosData(isOppilaitosOsa, data, rest), [
-    isOppilaitosOsa,
-    data,
-    rest,
-  ]);
+  return useMemo(
+    () => handleOppilaitosData(isOppilaitosOsa, data, rest),
+    [isOppilaitosOsa, data, rest]
+  );
 };
 
 type UseOppilaitoksetProps = {

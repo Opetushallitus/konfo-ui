@@ -59,7 +59,7 @@ const ChipList = ({
     <Grid
       container
       wrap="nowrap"
-      justify="space-between"
+      justifyContent="space-between"
       style={{ paddingBottom: '5px' }}>
       <Grid item style={{ paddingTop: '5px' }}>
         {filters.map((entry) => (
@@ -95,9 +95,8 @@ const ChipList = ({
 
 export const SuodatinValinnat = () => {
   const dispatch = useDispatch();
-  const { selectedFiltersFlatList, selectedFiltersWithAlakoodit } = useSelector(
-    getAllSelectedFilters
-  );
+  const { selectedFiltersFlatList, selectedFiltersWithAlakoodit } =
+    useSelector(getAllSelectedFilters);
 
   const getHandleDelete = (item: FilterValue) => () => {
     const changes = getFilterStateChanges(selectedFiltersWithAlakoodit)(item);

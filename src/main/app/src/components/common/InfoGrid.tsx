@@ -80,7 +80,11 @@ export const InfoGrid = (props: Props) => {
       <Typography variant="h2">{heading}</Typography>
       <Spacer />
       <Paper className={classes.paper}>
-        <Grid className={classes.grid} container justify="space-evenly" spacing={5}>
+        <Grid
+          className={classes.grid}
+          container
+          justifyContent="space-evenly"
+          spacing={5}>
           {gridData.map((e, index) => (
             <Grid
               item

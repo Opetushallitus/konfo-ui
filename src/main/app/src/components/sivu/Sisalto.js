@@ -50,7 +50,7 @@ const Sisalto = ({ content, alwaysFullWidth, excludeMedia }) => {
       <Grid
         container
         direction="row"
-        justify="flex-start"
+        justifyContent="flex-start"
         alignItems="flex-start"
         className={classes.imageContainer}>
         <Grid item xs={12} sm={alwaysFullWidth ? 12 : 12} md={alwaysFullWidth ? 12 : 12}>

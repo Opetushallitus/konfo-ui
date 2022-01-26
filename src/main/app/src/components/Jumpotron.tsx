@@ -55,7 +55,7 @@ export const Jumpotron = () => {
 
   return (
     <div className={classes.callToAction}>
-      <Grid container direction="row" justify="flex-start" alignItems="center">
+      <Grid container direction="row" justifyContent="flex-start" alignItems="center">
         <Grid item xs={12} sm={12} md={10} lg={8}>
           <ReactiveBorder>
             <Card className={classes.jumpotron}>

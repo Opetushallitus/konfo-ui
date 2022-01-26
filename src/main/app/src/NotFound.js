@@ -17,7 +17,12 @@ export const NotFound = () => {
   const classes = useStyles();
   return (
     <div className={classes.component}>
-      <Grid container direction="column" justify="center" alignItems="center" spacing={5}>
+      <Grid
+        container
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+        spacing={5}>
         <Grid item>
           <Typography variant="h1" component="h1" color="secondary">
             {t('ei-loydy.404')}
@@ -35,7 +40,7 @@ export const NotFound = () => {
           <Grid
             container
             direction="row"
-            justify="center"
+            justifyContent="center"
             alignItems="center"
             spacing={2}>
             <Grid item>

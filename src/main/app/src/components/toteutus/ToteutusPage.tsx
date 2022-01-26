@@ -201,7 +201,7 @@ export const ToteutusPage = () => {
         )}
         {!_.isEmpty(asiasanat) && (
           <Box mt={4}>
-            <Grid alignItems="center" justify="center" container spacing={1}>
+            <Grid alignItems="center" justifyContent="center" container spacing={1}>
               {asiasanat.map((asiasana, i) => (
                 <Grid item key={i}>
                   <TextWithBackground>{asiasana}</TextWithBackground>

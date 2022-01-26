@@ -155,9 +155,10 @@ export const Hakupalkki = () => {
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [writtenKeyword, setWrittenKeyword] = useState(search?.keyword);
-  const isKeywordValid = useMemo(() => !_.inRange(_.size(writtenKeyword), 1, 3), [
-    writtenKeyword,
-  ]);
+  const isKeywordValid = useMemo(
+    () => !_.inRange(_.size(writtenKeyword), 1, 3),
+    [writtenKeyword]
+  );
 
   useEffect(() => {
     if (isAtEtusivu) {

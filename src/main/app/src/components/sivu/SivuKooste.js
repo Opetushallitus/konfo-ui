@@ -25,8 +25,7 @@ const uutisHelper = (data, noPics, greenTitle) => {
       image: noPics
         ? undefined
         : {
-            url:
-              'http://images.ctfassets.net/4h0h2z8iv5uv/3p31bFzEUEkxtE2fAT7NQY/f2ebe5602b3890d45afd22a4b0fadc17/Screenshot_2019-10-01_at_10.09.36.png',
+            url: 'http://images.ctfassets.net/4h0h2z8iv5uv/3p31bFzEUEkxtE2fAT7NQY/f2ebe5602b3890d45afd22a4b0fadc17/Screenshot_2019-10-01_at_10.09.36.png',
             title: e.name,
           },
     }));

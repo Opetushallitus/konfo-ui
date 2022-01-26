@@ -23,7 +23,7 @@ const InfoCardGrid = (props) => {
       <Grid item>
         <Spacer />
       </Grid>
-      <Grid item container spacing={3} align="center" justify="center">
+      <Grid item container spacing={3} align="center" justifyContent="center">
         {cards.map((cardData, index) => (
           <Grid item xs={12} md={6} lg={4} key={`info-card-grid-${index}`}>
             <InfoCard {...cardData} />

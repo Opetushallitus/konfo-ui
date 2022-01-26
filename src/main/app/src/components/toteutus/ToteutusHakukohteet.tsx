@@ -73,9 +73,10 @@ const HakuCardGrid = ({ tyyppiOtsikko, haut, icon }: GridProps) => {
 
   const { data: demoLinks } = useDemoLinks(haut);
 
-  const oppilaitosOids = useMemo(() => haut.map((haku) => haku.jarjestyspaikka?.oid), [
-    haut,
-  ]);
+  const oppilaitosOids = useMemo(
+    () => haut.map((haku) => haku.jarjestyspaikka?.oid),
+    [haut]
+  );
 
   const osoitteet = useOsoitteet(oppilaitosOids, true);
 
@@ -88,7 +89,7 @@ const HakuCardGrid = ({ tyyppiOtsikko, haut, icon }: GridProps) => {
         </Box>
       </Box>
       <Box mt={4}>
-        <Grid container spacing={2} justify="center">
+        <Grid container spacing={2} justifyContent="center">
           {haut.map((haku) => {
             const anyHakuaikaPaattyy = haku.hakuajat?.some(
               (hakuaika) => hakuaika.paattyy

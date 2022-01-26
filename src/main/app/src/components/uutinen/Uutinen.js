@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { makeStyles } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
@@ -44,6 +44,13 @@ const useStyles = makeStyles({
   },
 });
 
+const useImageUrl = (uutinen, asset, assetUrl) =>
+  useMemo(() => {
+    const image = uutinen?.image;
+    const a = image && asset[image?.id];
+    return a && assetUrl(a.url);
+  }, [uutinen, asset, assetUrl]);
+
 export const Uutinen = ({ id }) => {
   const { t, i18n } = useTranslation();
   const classes = useStyles();
@@ -54,31 +61,31 @@ export const Uutinen = ({ id }) => {
   const link = (uutinen.sivu || {}).id;
 
   const { asset } = data;
-  const imgUrl = (uutinen) => {
-    const assetForEntry = (entry) => {
-      const image = entry.image || {};
-      return image ? asset[image.id] : null;
-    };
-    const a = assetForEntry(uutinen);
-    return a ? assetUrl(a.url) : null;
-  };
+  const imgUrl = useImageUrl(uutinen, asset, assetUrl);
 
   const forwardToPage = (id) => {
     history.push(`/${i18n.language}${forwardTo(id)}`);
   };
+
   const timestamp = uutinen.formatoituUpdated || uutinen.formatoituCreated;
 
   return (
     <Grid item xs={12} sm={6} md={4} onClick={() => link && forwardToPage(link)}>
       <Card className={classes.card} elevation={6}>
-        <CardMedia
-          className={classes.media}
-          image={imgUrl(uutinen)}
-          role="img"
-          title={uutinen.name}
-        />
+        {imgUrl && (
+          <CardMedia
+            className={classes.media}
+            image={imgUrl}
+            role="img"
+            title={uutinen.name}
+          />
+        )}
         <CardContent>
-          <Grid container direction="row" justify="space-between" alignItems="center">
+          <Grid
+            container
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center">
             <Grid item xs={6} className={classes.kategoria}>
               {t('uutinen.kategoria')}
             </Grid>

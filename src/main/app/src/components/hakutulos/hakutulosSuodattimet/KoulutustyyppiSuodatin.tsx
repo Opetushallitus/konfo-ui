@@ -14,7 +14,7 @@ import {
 import { getFilterProps } from '#/src/store/reducers/hakutulosSliceSelector';
 import { getFilterStateChanges } from '#/src/tools/filters';
 import {
-  FilterProps,
+  FilterValues,
   FilterValue,
   SuodatinComponentProps,
 } from '#/src/types/SuodatinTypes';
@@ -55,8 +55,8 @@ export const KoulutustyyppiSuodatin = (props: SuodatinComponentProps) => {
   const dispatch = useDispatch();
 
   const [isMuuSelected, setIsMuuSelected] = useState(false);
-  const values = useSelector<any, FilterProps>(koulutusSelector);
-  const muuValues = useSelector<any, FilterProps>(koulutusMuuSelector);
+  const values = useSelector<any, FilterValues>(koulutusSelector);
+  const muuValues = useSelector<any, FilterValues>(koulutusMuuSelector);
 
   const filterValues = useMemo(
     () => [

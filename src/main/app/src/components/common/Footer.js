@@ -128,7 +128,7 @@ const Footer = () => {
         <Grid
           container
           direction="row"
-          justify="space-evenly"
+          justifyContent="space-evenly"
           alignItems="flex-start"
           className={classes.content}>
           <Grid item xs={12} sm={4} md={3}>
@@ -158,7 +158,7 @@ const Footer = () => {
             </div>
           </Grid>
         </Grid>
-        <Grid container justify="center" className={classes.content}>
+        <Grid container justifyContent="center" className={classes.content}>
           <Grid item xs={12} sm={12} md={8}>
             <Markdown options={overrides}>{lopputekstit || ''}</Markdown>
           </Grid>

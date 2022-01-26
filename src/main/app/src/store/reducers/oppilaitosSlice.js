@@ -34,10 +34,7 @@ const oppilaitosSlice = createSlice({
   },
 });
 
-export const {
-  setTarjontaPagination,
-  setTulevaTarjontaPagination,
-  resetPagination,
-} = oppilaitosSlice.actions;
+export const { setTarjontaPagination, setTulevaTarjontaPagination, resetPagination } =
+  oppilaitosSlice.actions;
 
 export default oppilaitosSlice.reducer;
