@@ -322,6 +322,7 @@ export const searchAndMoveToHaku =
     const lng = getLanguage();
     const restParams = new URLSearchParams(
       _.pick(C.cleanRequestParams(apiRequestParams), [
+        'keyword',
         'order',
         'size',
         ...FILTER_TYPES_ARR_FOR_KONFO_BACKEND,
