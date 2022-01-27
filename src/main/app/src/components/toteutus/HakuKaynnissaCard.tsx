@@ -29,7 +29,7 @@ export const HakuKaynnissaCard = ({ title, text, link, buttonText }: Props) => {
   return (
     <Card className={classes.card} elevation={2}>
       <CardContent className={classes.gridWrapper}>
-        <Grid container alignItems="center" justify="space-between">
+        <Grid container alignItems="center" justifyContent="space-between">
           <Grid item>
             <Typography variant="h4" gutterBottom>
               {title}

@@ -177,7 +177,7 @@ export const Sisaltohaku = () => {
       <Grid
         container
         direction="row"
-        justify="center"
+        justifyContent="center"
         spacing={2}
         className={classes.sisaltohaku}
         alignItems="center">

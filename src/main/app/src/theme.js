@@ -1,4 +1,4 @@
-import { createMuiTheme } from '@material-ui/core/styles';
+import { createTheme } from '@material-ui/core/styles';
 import createBreakpoints from '@material-ui/core/styles/createBreakpoints';
 
 import { colors } from './colors';
@@ -28,11 +28,13 @@ const breakpoints = {
   },
 };
 
-export const getHeaderHeight = (theme) => ({ betaBannerVisible, isSmall = false }) =>
-  (isSmall ? theme.smHeaderHeight : theme.headerHeight) +
-  (betaBannerVisible ? theme.betaBannerHeight : 0);
+export const getHeaderHeight =
+  (theme) =>
+  ({ betaBannerVisible, isSmall = false }) =>
+    (isSmall ? theme.smHeaderHeight : theme.headerHeight) +
+    (betaBannerVisible ? theme.betaBannerHeight : 0);
 
-export const theme = createMuiTheme({
+export const theme = createTheme({
   betaBannerHeight: 40,
   headerHeight: 64,
   smHeaderHeight: 54,

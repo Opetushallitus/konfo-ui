@@ -57,7 +57,7 @@ export const TulevaKoulutusCard = ({
       <Grid
         className={classes.grid}
         container
-        justify="space-between"
+        justifyContent="space-between"
         alignItems="center"
         direction="column"
         spacing={3}

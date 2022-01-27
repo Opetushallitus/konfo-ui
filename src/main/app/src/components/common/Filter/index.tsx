@@ -20,11 +20,17 @@ import {
 } from '@material-ui/icons';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
-import Select, { components } from 'react-select';
+import Select, {
+  components,
+  GroupBase,
+  StylesConfig,
+  OptionProps as RSOptionProps,
+  DropdownIndicatorProps as RSDropdownIndicatorProps,
+} from 'react-select';
 
 import { colors } from '#/src/colors';
 import { localize, localizeIfNimiObject } from '#/src/tools/localization';
-import { FilterValue } from '#/src/types/SuodatinTypes';
+import { FilterValue, FilterValues } from '#/src/types/SuodatinTypes';
 
 import { KonfoCheckbox } from '../Checkbox';
 import {
@@ -37,7 +43,11 @@ import { SummaryContent } from './SummaryContent';
 
 const HIDE_NOT_EXPANDED_AMOUNT = 5;
 
-type Styles = React.ComponentProps<typeof Select>['styles'];
+type OptionType = { label: string; checked?: boolean };
+
+type OptionsType = Array<OptionType>;
+
+type Styles = StylesConfig<OptionType, false, GroupBase<OptionType>>;
 const customStyles: Styles = {
   control: (provided) => ({
     ...provided,
@@ -55,34 +65,36 @@ const customStyles: Styles = {
   }),
 };
 
-// Overridden react-select components
-
 const LoadingIndicator = () => <CircularProgress size={25} color="inherit" />;
 
-type RSDropdownIndicatorProps = React.ComponentProps<typeof components.DropdownIndicator>;
-const DropdownIndicator = (props: RSDropdownIndicatorProps) => (
+type DropdownIndicatorProps = RSDropdownIndicatorProps<
+  OptionType,
+  false,
+  GroupBase<OptionType>
+>;
+const DropdownIndicator = (props: DropdownIndicatorProps) => (
   <components.DropdownIndicator {...props}>
     <SearchOutlined />
   </components.DropdownIndicator>
 );
 
-type RSOptionProps = React.ComponentProps<typeof components.Option>;
-type OptionProps = {
-  data?: { label: string; checked: boolean };
-  innerProps: RSOptionProps['innerProps'];
-  isFocused: boolean;
-};
-const Option = ({ data, innerProps, isFocused }: OptionProps) => (
-  // innerProps contain interaction functions e.g. onClick
-  <ListItem dense button {...innerProps} selected={isFocused}>
-    <KonfoCheckbox
-      checked={data?.checked}
-      disableRipple
-      role="presentation"
-      style={{ pointerEvents: 'none' }}
-    />
-    {data?.label}
-  </ListItem>
+type OptionProps = RSOptionProps<OptionType, false, GroupBase<OptionType>>;
+
+const Option = React.forwardRef(
+  ({ data, innerProps, isFocused }: OptionProps, ref: any) => {
+    // innerProps contain interaction functions e.g. onClick
+    return (
+      <ListItem ref={ref} dense button {...innerProps} selected={isFocused}>
+        <KonfoCheckbox
+          checked={data?.checked}
+          disableRipple
+          role="presentation"
+          style={{ pointerEvents: 'none' }}
+        />
+        {data?.label}
+      </ListItem>
+    );
+  }
 );
 
 const withStyles = makeStyles((theme) => ({
@@ -157,7 +169,7 @@ const FilterCheckboxGroup = ({
 }) => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(defaultExpandAlakoodit);
-  const handleToggle = (e: any) => {
+  const handleToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     setIsOpen(!isOpen);
   };
@@ -199,10 +211,9 @@ type Props = {
   shadow?: boolean;
   onFocus?: () => void;
   onHide?: () => void;
-
-  values: Array<FilterValue>;
-  handleCheck: (value: FilterValue) => void;
-  options?: any;
+  values: FilterValues;
+  handleCheck: (value: any) => void;
+  options?: OptionsType;
   optionsLoading?: boolean;
   selectPlaceholder?: string;
   additionalContent?: JSX.Element;
@@ -262,7 +273,7 @@ export const Filter = ({
               <Select
                 components={{ DropdownIndicator, LoadingIndicator, Option }}
                 styles={customStyles}
-                value=""
+                value={[]}
                 isLoading={optionsLoading}
                 name="district-search"
                 options={options}

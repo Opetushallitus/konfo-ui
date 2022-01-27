@@ -69,7 +69,7 @@ export const TulevaTarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
             <Grid
               container
               direction="row"
-              justify="center"
+              justifyContent="center"
               alignItems="stretch"
               spacing={1}>
               {values.map((kts) => (

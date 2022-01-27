@@ -32,7 +32,7 @@ export const TulevaJarjestajaList = ({ jarjestajat }: Props) => {
         {t('koulutus.muut-koulutusta-jarjestavat-oppilaitokset')}
       </Typography>
       <Spacer />
-      <Grid container direction="row" justify="center" spacing={2}>
+      <Grid container direction="row" justifyContent="center" spacing={2}>
         {jarjestajat.map((jarjestaja) => (
           <OppilaitosCard
             key={jarjestaja.oppilaitosOid}

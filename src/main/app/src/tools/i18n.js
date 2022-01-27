@@ -34,6 +34,7 @@ export const configureI18n = () =>
       react: {
         useSuspense: false,
       },
+      compatibilityJSON: 'v3',
     });
 
 export default i18n;

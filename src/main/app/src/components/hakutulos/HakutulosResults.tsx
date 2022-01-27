@@ -38,7 +38,7 @@ export const HakutulosResults = ({
   const { t } = useTranslation();
 
   const hakutulosWidth = useHakutulosWidth();
-  const isSmall = hakutulosWidth < theme.breakpoints.width('sm');
+  const isSmall = hakutulosWidth < theme.breakpoints.values['sm'];
 
   if (selectedTab === 'koulutus' && _.size(koulutusHits) > 0) {
     return (

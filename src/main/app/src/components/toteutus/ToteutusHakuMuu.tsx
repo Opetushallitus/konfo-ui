@@ -65,7 +65,7 @@ export const ToteutusHakuMuu = ({ data: muuHaku }: Props) => {
         container
         item
         alignContent="center"
-        justify="center"
+        justifyContent="center"
         alignItems="center"
         xs={12}
         style={{ maxWidth: '800px' }}>

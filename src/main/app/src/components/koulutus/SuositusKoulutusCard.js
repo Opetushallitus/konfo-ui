@@ -102,7 +102,7 @@ const SuositusKoulutusCard = (props) => {
         <Grid
           container
           className={classes.iconContainer}
-          justify="space-between"
+          justifyContent="space-between"
           alignItems="center">
           <Grid item>
             {hakuKaynnissa && (

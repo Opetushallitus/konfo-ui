@@ -38,12 +38,8 @@ const MobileToggleOrderByButtonMenu = () => {
   const mobileToggleOrderByButtonMenuProps = useSelector(
     getMobileToggleOrderByButtonMenuProps
   );
-  const {
-    isNameSort,
-    isNameSortDesc,
-    isScoreSort,
-    order,
-  } = mobileToggleOrderByButtonMenuProps;
+  const { isNameSort, isNameSortDesc, isScoreSort, order } =
+    mobileToggleOrderByButtonMenuProps;
 
   const updateSortAndOrder = (newSort, newOrder) => {
     dispatch(setSort({ newSort }));
@@ -66,7 +62,7 @@ const MobileToggleOrderByButtonMenu = () => {
     <Grid
       container
       direction="row"
-      justify="space-between"
+      justifyContent="space-between"
       alignItems="flex-start"
       style={{ padding: '12px 24px' }}>
       <Grid item xs={12} sm={4}>

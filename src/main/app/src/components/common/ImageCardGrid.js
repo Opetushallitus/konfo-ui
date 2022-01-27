@@ -12,7 +12,7 @@ export const ImageCardGrid = (props) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
-    <Grid justify="center" container spacing={isMobile ? 1 : 3}>
+    <Grid justifyContent="center" container spacing={isMobile ? 1 : 3}>
       {cards.map((card, i) => {
         const cardElement = <ImageCardWithText image={card.image} cardText={card.text} />;
 

@@ -12,7 +12,7 @@ import {
 import { getFilterProps } from '#/src/store/reducers/hakutulosSliceSelector';
 import { getFilterStateChanges } from '#/src/tools/filters';
 import {
-  FilterProps,
+  FilterValues,
   FilterValue,
   SuodatinComponentProps,
 } from '#/src/types/SuodatinTypes';
@@ -23,7 +23,7 @@ export const KoulutusalaSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
-  const values = useSelector<any, FilterProps>(koulutusalaSelector);
+  const values = useSelector<any, FilterValues>(koulutusalaSelector);
 
   const getChanges = getFilterStateChanges(values);
   const handleCheck = (item: FilterValue) => {

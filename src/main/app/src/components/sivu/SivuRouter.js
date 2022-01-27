@@ -46,7 +46,7 @@ const NotFound = ({ loading }) => {
     <Grid
       container
       direction="row"
-      justify="center"
+      justifyContent="center"
       alignItems="center"
       className={classes.component}>
       {loading ? null : (

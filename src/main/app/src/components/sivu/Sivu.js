@@ -59,14 +59,19 @@ export const Sivu = ({ id }) => {
 
   return (
     <div className={classes.component}>
-      <Grid container direction="row" justify="center" spacing={2} alignItems="center">
+      <Grid
+        container
+        direction="row"
+        justifyContent="center"
+        spacing={2}
+        alignItems="center">
         <Grid item xs={12} sm={12} md={tableOfContents ? 10 : 6}>
           <Murupolku path={murupolku(pageId)} />
           <h1 className={classes.header1}>{name}</h1>
           <p>{description}</p>
         </Grid>
       </Grid>
-      <Grid container direction="row" spacing={2} justify="center">
+      <Grid container direction="row" spacing={2} justifyContent="center">
         {tableOfContents ? (
           <Grid item xs={12} sm={12} md={3}>
             <TableOfContents content={content} />

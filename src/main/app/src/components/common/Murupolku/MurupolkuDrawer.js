@@ -54,7 +54,11 @@ export const MurupolkuDrawer = ({ path, onClose, isOpen }) => {
       open={isOpen}>
       <Box display="flex" flexDirection="column">
         <Toolbar variant="dense" disableGutters className={classes.drawerToolbar}>
-          <Grid container justify="space-between" alignItems="center" wrap="nowrap">
+          <Grid
+            container
+            justifyContent="space-between"
+            alignItems="center"
+            wrap="nowrap">
             <Grid item>
               <IconButton color="inherit" onClick={onClose}>
                 <Close />

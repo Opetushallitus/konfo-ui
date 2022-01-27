@@ -46,11 +46,8 @@ export const Etusivu = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { data, isLoading, forwardTo } = useContentful();
-  const {
-    info,
-    uutiset,
-    kortit,
-  }: { info: Info; uutiset: UutisetType; kortit: Kortit } = data;
+  const { info, uutiset, kortit }: { info: Info; uutiset: UutisetType; kortit: Kortit } =
+    data;
 
   const forwardToPage = (id: string) => {
     history.push(`/${i18n.language}${forwardTo(id)}`);
@@ -118,7 +115,7 @@ export const Etusivu = () => {
                 <Uutiset uutiset={showMore ? _.take(uutislinkit, 3) : uutislinkit} />
               </Grid>
 
-              <Grid container direction="row" justify="center" alignItems="center">
+              <Grid container direction="row" justifyContent="center" alignItems="center">
                 {showMore && (
                   <Button
                     className={classes.showMore}

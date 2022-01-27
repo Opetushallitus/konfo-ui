@@ -42,15 +42,13 @@ export const Osaamisalat = ({
 
   const osaamisalat = toteutus?.metadata?.osaamisalat;
 
-  const {
-    data: osaamisalaKuvaukset = [] as Array<any>,
-    isLoading,
-  } = useOsaamisalaKuvaukset({
-    ePerusteId: koulutus?.ePerusteId,
-    requestParams: {
-      'koodi-urit': osaamisalat?.map((oa: any) => oa?.koodi?.koodiUri)?.join(','),
-    },
-  });
+  const { data: osaamisalaKuvaukset = [] as Array<any>, isLoading } =
+    useOsaamisalaKuvaukset({
+      ePerusteId: koulutus?.ePerusteId,
+      requestParams: {
+        'koodi-urit': osaamisalat?.map((oa: any) => oa?.koodi?.koodiUri)?.join(','),
+      },
+    });
   // NOTE: This must *not* handle alemmanKorkeakoulututkinnonOsaamisalat or ylemmanKorkeakoulututkinnonOsaamisalat
   const osaamisalatCombined = osaamisalat?.map((toa: any) => {
     const extendedData =

@@ -14,7 +14,7 @@ import { getFilterProps, getIsReady } from '#/src/store/reducers/hakutulosSliceS
 import { getFilterStateChanges } from '#/src/tools/filters';
 import { localize } from '#/src/tools/localization';
 import {
-  FilterProps,
+  FilterValues,
   FilterValue,
   SuodatinComponentProps,
 } from '#/src/types/SuodatinTypes';
@@ -34,8 +34,8 @@ export const SijaintiSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
-  const kuntaValues = useSelector<any, FilterProps>(kuntaSelector);
-  const maakuntaValues = useSelector<any, FilterProps>(maakuntaSelector);
+  const kuntaValues = useSelector<any, FilterValues>(kuntaSelector);
+  const maakuntaValues = useSelector<any, FilterValues>(maakuntaSelector);
 
   const handleCheck = (item: FilterValue) => {
     const changes = getFilterStateChanges(kuntaValues.concat(maakuntaValues))(item);

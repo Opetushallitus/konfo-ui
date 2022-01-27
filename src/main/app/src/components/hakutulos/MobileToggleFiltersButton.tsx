@@ -67,10 +67,10 @@ export const MobileToggleFiltersButton = ({
 }: Props) => {
   const classes = useStyles();
   const { t } = useTranslation();
-  const buttonText = useMemo(() => t('haku.nayta-hakutulos', { count: hitCount }), [
-    t,
-    hitCount,
-  ]);
+  const buttonText = useMemo(
+    () => t('haku.nayta-hakutulos', { count: hitCount }),
+    [t, hitCount]
+  );
   const menuOpen = useSideMenu().state;
   const fixedStyle = menuOpen ? classes.fixedMenuOpen : classes.fixed;
   // TODO: Spinner when loading would be nice

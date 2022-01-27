@@ -83,9 +83,10 @@ export const MobileFiltersOnTopMenu = ({ isFrontPage = false }) => {
   const { count } = useSelector(getAllSelectedFilters);
 
   const [showFilters, setShowFilters] = useState(false);
-  const toggleShowFilters = useCallback(() => setShowFilters(!showFilters), [
-    showFilters,
-  ]);
+  const toggleShowFilters = useCallback(
+    () => setShowFilters(!showFilters),
+    [showFilters]
+  );
 
   useEffect(() => {
     if (isFrontPage) {
@@ -123,7 +124,11 @@ export const MobileFiltersOnTopMenu = ({ isFrontPage = false }) => {
         open={showFilters}>
         <AppBar classes={{ root: classes.appBarRoot }}>
           <Toolbar variant="dense" disableGutters>
-            <Grid container justify="space-between" alignItems="center" wrap="nowrap">
+            <Grid
+              container
+              justifyContent="space-between"
+              alignItems="center"
+              wrap="nowrap">
               <Grid item>
                 <IconButton color="inherit" onClick={toggleShowFilters}>
                   <Close />

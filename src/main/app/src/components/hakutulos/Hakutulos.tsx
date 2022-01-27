@@ -181,7 +181,7 @@ export const Hakutulos = () => {
             lg={9}
             md={8}
             sm={12}
-            justify="space-between"
+            justifyContent="space-between"
             alignItems="baseline">
             <Grid item lg={6} md={7} xs={12} className={classes.toggleWrapper}>
               <HakutulosToggle />
