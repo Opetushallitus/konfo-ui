@@ -33,23 +33,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const parseYhteystieto = (t: TFunction) => ({
-  nimi,
-  postiosoite: postiosoiteProp,
-  kayntiosoite: kayntiosoiteProp,
-  postiosoiteStr,
-  kayntiosoiteStr,
-  sahkoposti,
-  puhelinnumero,
-}: YhteystiedotType) => {
-  return {
-    nimi: localize(nimi),
-    postiosoite: localize(postiosoiteStr),
-    kayntiosoite: localize(kayntiosoiteStr),
-    sahkoposti: localize(sahkoposti),
-    puhelinnumero: localize(puhelinnumero),
-    oskariOsoite: localize(kayntiosoiteProp?.osoite),
-    oskariPostitoimipaikka: localize(kayntiosoiteProp?.postinumero),
+const parseYhteystieto =
+  (t: TFunction) =>
+  ({
+    nimi,
+    postiosoite: postiosoiteProp,
+    kayntiosoite: kayntiosoiteProp,
+    postiosoiteStr,
+    kayntiosoiteStr,
+    sahkoposti,
+    puhelinnumero,
+  }: YhteystiedotType) => {
+    return {
+      nimi: localize(nimi),
+      postiosoite: localize(postiosoiteStr),
+      kayntiosoite: localize(kayntiosoiteStr),
+      sahkoposti: localize(sahkoposti),
+      puhelinnumero: localize(puhelinnumero),
+      oskariOsoite: localize(kayntiosoiteProp?.osoite),
+      oskariPostitoimipaikka: localize(kayntiosoiteProp?.postinumero),
+    };
   };
 
 const YhteystietoRow = ({ title, text }: { title: string; text: string }) => (
