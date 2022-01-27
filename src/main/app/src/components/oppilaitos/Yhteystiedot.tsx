@@ -17,8 +17,8 @@ import { colors } from '#/src/colors';
 import { OskariKartta } from '#/src/components/common/OskariKartta';
 import Spacer from '#/src/components/common/Spacer';
 import { localize } from '#/src/tools/localization';
-import { byLocaleCompare, koodiUriToPostinumero, toId } from '#/src/tools/utils';
-import { Osoite, Yhteystiedot as YhteystiedotType } from '#/src/types/common';
+import { byLocaleCompare, toId } from '#/src/tools/utils';
+import { Yhteystiedot as YhteystiedotType } from '#/src/types/common';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -33,32 +33,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const toShownOsoite = (osoite?: Osoite) => {
-  const lahiosoite = localize(osoite?.osoite);
-  const postinumero = koodiUriToPostinumero(osoite?.postinumero?.koodiUri);
-  const postitoimipaikka = _.capitalize(localize(osoite?.postinumero));
-
-  return !lahiosoite && !postinumero && !postitoimipaikka
-    ? null
-    : _.trim(`${lahiosoite}, ${postinumero} ${postitoimipaikka}`, ', ');
-};
-
 const parseYhteystieto =
   (t: TFunction) =>
   ({
     nimi,
     postiosoite: postiosoiteProp,
     kayntiosoite: kayntiosoiteProp,
+    postiosoiteStr,
+    kayntiosoiteStr,
     sahkoposti,
     puhelinnumero,
   }: YhteystiedotType) => {
-    const postiosoite = toShownOsoite(postiosoiteProp);
-    const kayntiosoite = toShownOsoite(kayntiosoiteProp);
-
     return {
       nimi: localize(nimi),
-      postiosoite,
-      kayntiosoite,
+      postiosoite: localize(postiosoiteStr),
+      kayntiosoite: localize(kayntiosoiteStr),
       sahkoposti: localize(sahkoposti),
       puhelinnumero: localize(puhelinnumero),
       oskariOsoite: localize(kayntiosoiteProp?.osoite),

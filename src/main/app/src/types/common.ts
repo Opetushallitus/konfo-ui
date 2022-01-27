@@ -12,6 +12,8 @@ export type Yhteystiedot = {
   nimi: Translateable;
   postiosoite?: Osoite;
   kayntiosoite?: Osoite;
+  postiosoiteStr?: Translateable;
+  kayntiosoiteStr?: Translateable;
   sahkoposti?: Translateable;
   puhelinnumero?: Translateable;
 };
