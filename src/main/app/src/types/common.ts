@@ -1,4 +1,5 @@
 import { Alkamiskausityyppi } from '#/src/constants';
+import { FormatoituAikaleima } from '#/src/types/HakukohdeTypes';
 
 export type Translateable = { fi?: string; sv?: string; en?: string };
 export type Koodi = { koodiUri: string; nimi: Translateable };
@@ -21,7 +22,7 @@ export type Alkamiskausi = {
   henkilokohtaisenSuunnitelmanLisatiedot: Translateable;
   koulutuksenAlkamiskausi: Koodi;
   koulutuksenAlkamisvuosi: string;
-  koulutuksenAlkamispaivamaara: string;
+  formatoituKoulutuksenalkamispaivamaara: FormatoituAikaleima;
   koulutuksenPaattymispaivamaara: string;
 };
 
