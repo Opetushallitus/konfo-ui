@@ -23,7 +23,7 @@ export type Alkamiskausi = {
   koulutuksenAlkamiskausi: Koodi;
   koulutuksenAlkamisvuosi: string;
   formatoituKoulutuksenalkamispaivamaara: FormatoituAikaleima;
-  koulutuksenPaattymispaivamaara: string;
+  formatoituKoulutuksenpaattymispaivamaara: FormatoituAikaleima;
 };
 
 // Utils
