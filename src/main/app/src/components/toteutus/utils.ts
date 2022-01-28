@@ -14,8 +14,8 @@ export const formatAloitus = (
     henkilokohtaisenSuunnitelmanLisatiedot,
     koulutuksenAlkamiskausi,
     koulutuksenAlkamisvuosi,
-    koulutuksenAlkamispaivamaara,
-    koulutuksenPaattymispaivamaara,
+    formatoituKoulutuksenalkamispaivamaara,
+    formatoituKoulutuksenpaattymispaivamaara,
   }: Alkamiskausi = {} as Alkamiskausi,
   t: TFunction
 ) => {
@@ -27,10 +27,8 @@ export const formatAloitus = (
       };
     case Alkamiskausityyppi.TARKKA_ALKAMISAJANKOHTA:
       return {
-        alkaaText: formatDateString(new Date(koulutuksenAlkamispaivamaara)),
-        paattyyText: koulutuksenPaattymispaivamaara
-          ? formatDateString(new Date(koulutuksenPaattymispaivamaara))
-          : null,
+        alkaaText: formatDateString(formatoituKoulutuksenalkamispaivamaara),
+        paattyyText: formatDateString(formatoituKoulutuksenpaattymispaivamaara),
       };
     case Alkamiskausityyppi.ALKAMISKAUSI_JA_VUOSI:
       return {
