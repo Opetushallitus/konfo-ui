@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 
 import { getToteutus } from '#/src/api/konfoApi';
 import { HAKULOMAKE_TYYPPI } from '#/src/constants';
-import { isHakuAuki, isHakuTimeRelevant } from '#/src/tools/hakuaikaUtils';
+import { isHakuAuki } from '#/src/tools/hakuaikaUtils';
 import { Translateable } from '#/src/types/common';
 import { Hakukohde } from '#/src/types/HakukohdeTypes';
 import { Toteutus } from '#/src/types/ToteutusTypes';
@@ -43,7 +43,6 @@ const getHakukohteetWithTypes = (toteutus: any) => {
         hakukohteet: toteutus.hakutiedot
           .filter((hakutieto: any) => hakutieto.hakutapa.koodiUri === hakutapa.koodiUri)
           .flatMap((hakutieto: any) => hakutieto.hakukohteet)
-          .filter((hakukohde: any) => isHakuTimeRelevant(hakukohde.hakuajat))
           .map((hakukohde: any) => ({
             ...hakukohde,
             isHakuAuki: isHakuAuki(hakukohde?.hakuajat),
