@@ -301,50 +301,44 @@ export const ToteutusPage = () => {
             <Typography variant="h2">{t('toteutus.yhteyshenkilot')}</Typography>
             <Spacer />
             <Box mt={5}>
-              <Grid container alignItems="center">
+              <Grid
+                container
+                direction="row"
+                spacing={4}
+                justifyContent="flex-start"
+                alignItems="flex-start">
                 {yhteyshenkilot?.map((yhteyshenkilo: any, i: number, a: any) => (
-                  <React.Fragment key={i}>
-                    <Grid item>
-                      <Grid container direction="column">
-                        <Grid item>
-                          <Typography variant="h5">
-                            {localize(yhteyshenkilo.nimi)}
-                          </Typography>
-                        </Grid>
-                        <Grid item>
-                          <Typography variant="body1">
-                            {localize(yhteyshenkilo.titteli)}
-                          </Typography>
-                        </Grid>
-                        <Grid item>
-                          <Typography variant="body1">
-                            {localize(yhteyshenkilo.sahkoposti)}
-                          </Typography>
-                        </Grid>
-                        <Grid item>
-                          <Typography variant="body1">
-                            {localize(yhteyshenkilo.puhelinnumero)}
-                          </Typography>
-                        </Grid>
-                        {!_.isEmpty(yhteyshenkilo.wwwSivu) && (
-                          <Grid item>
-                            <ExternalLink href={localize(yhteyshenkilo.wwwSivu)}>
-                              {localize(yhteyshenkilo.wwwSivu)}
-                            </ExternalLink>
-                          </Grid>
-                        )}
-                      </Grid>
-                    </Grid>
-                    {i + 1 !== a.length && (
+                  <Grid item key={i} xs={12} sm={6} md={4} lg={3}>
+                    <Grid container direction="column">
                       <Grid item>
-                        <Box
-                          mx={9}
-                          style={{ height: '104px' }}
-                          borderRight={`1px solid ${colors.lightGrey}`}
-                        />
+                        <Typography variant="h5">
+                          {localize(yhteyshenkilo.nimi)}
+                        </Typography>
                       </Grid>
-                    )}
-                  </React.Fragment>
+                      <Grid item>
+                        <Typography variant="body1">
+                          {localize(yhteyshenkilo.titteli)}
+                        </Typography>
+                      </Grid>
+                      <Grid item>
+                        <Typography variant="body1">
+                          {localize(yhteyshenkilo.sahkoposti)}
+                        </Typography>
+                      </Grid>
+                      <Grid item>
+                        <Typography variant="body1">
+                          {localize(yhteyshenkilo.puhelinnumero)}
+                        </Typography>
+                      </Grid>
+                      {!_.isEmpty(yhteyshenkilo.wwwSivu) && (
+                        <Grid item>
+                          <ExternalLink href={localize(yhteyshenkilo.wwwSivu)}>
+                            {localize(yhteyshenkilo.wwwSivu)}
+                          </ExternalLink>
+                        </Grid>
+                      )}
+                    </Grid>
+                  </Grid>
                 ))}
               </Grid>
             </Box>
