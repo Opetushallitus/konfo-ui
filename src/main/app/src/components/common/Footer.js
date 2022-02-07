@@ -14,6 +14,7 @@ import OPHIcon from '#/src/assets/images/OPH logo.png';
 import OPOLogoFooterEN from '#/src/assets/images/OPO_Logo_Footer_englanti.svg';
 import OPOLogoFooterSV from '#/src/assets/images/OPO_Logo_Footer_ruotsi.svg';
 import { colors } from '#/src/colors';
+import { ImageComponent } from '#/src/components/sivu/ImageComponent';
 import { useContentful } from '#/src/hooks';
 import { getLanguage } from '#/src/tools/localization';
 
@@ -76,6 +77,9 @@ const Footer = () => {
   const { content, contentRight, contentCenter, lopputekstit } = single(data.footer);
   const overrides = {
     overrides: {
+      img: {
+        component: ImageComponent,
+      },
       a: {
         component: Link,
         props: {
