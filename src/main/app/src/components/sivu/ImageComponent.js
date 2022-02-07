@@ -33,7 +33,7 @@ const useStyles = makeStyles({
   imageContainer: {},
 });
 
-const ImageComponentImpl = ({ url, alwaysFullWidth, title, label }) => {
+const ImageComponentImpl = ({ url, title, label }) => {
   const classes = useStyles();
   return (
     <Grid
@@ -42,7 +42,7 @@ const ImageComponentImpl = ({ url, alwaysFullWidth, title, label }) => {
       justifyContent="flex-start"
       alignItems="flex-start"
       className={classes.imageContainer}>
-      <Grid item xs={12} sm={alwaysFullWidth ? 12 : 12} md={alwaysFullWidth ? 12 : 12}>
+      <Grid item xs={12} sm={12} md={12}>
         <Card className={classes.card} elevation={0}>
           <CardMedia
             className={classes.media}
