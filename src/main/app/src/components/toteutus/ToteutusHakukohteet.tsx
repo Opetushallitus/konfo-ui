@@ -251,7 +251,7 @@ const HakuCardGrid = ({ tyyppiOtsikko, haut, icon }: GridProps) => {
                             !(
                               !haku.isHakuAuki &&
                               !!demoLinks &&
-                              demoLinks.get(haku.hakulomakeAtaruId)
+                              !!demoLinks.get(haku.hakulomakeAtaruId)
                             ) && (
                               <Button
                                 variant="contained"
@@ -274,7 +274,9 @@ const HakuCardGrid = ({ tyyppiOtsikko, haut, icon }: GridProps) => {
                               color="primary"
                               target="_blank"
                               href={localize(
-                                demoLinks.get(haku.hakulomakeAtaruId)?.link
+                                demoLinks
+                                  .get(haku.hakulomakeAtaruId)
+                                  ?.get(haku.hakukohdeOid)
                               )}>
                               <Typography style={{ color: colors.white }} variant="body1">
                                 {t('toteutus.tayta-demo-lomake')}

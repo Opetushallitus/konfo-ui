@@ -4,7 +4,8 @@ import { useQuery } from 'react-query';
 import { getToteutus } from '#/src/api/konfoApi';
 import { HAKULOMAKE_TYYPPI } from '#/src/constants';
 import { isHakuAuki, isHakuTimeRelevant } from '#/src/tools/hakuaikaUtils';
-import { DemoLink, Hakukohde } from '#/src/types/HakukohdeTypes';
+import { Translateable } from '#/src/types/common';
+import { Hakukohde } from '#/src/types/HakukohdeTypes';
 import { Toteutus } from '#/src/types/ToteutusTypes';
 
 import { demoLinksPerLomakeId } from './utils';
@@ -122,7 +123,7 @@ export const useToteutus = ({ oid, isDraft }: UseToteutusProps) => {
 
 export const useDemoLinks = (hakukohteet: Array<Hakukohde>) => {
   const hakukohdeOids = hakukohteet.map((hakukohde) => hakukohde.hakukohdeOid);
-  return useQuery<Map<string, undefined | DemoLink>>(
+  return useQuery<Map<string, undefined | Map<string, Translateable>>>(
     ['demoLinksPerLomakeId', { hakukohdeOids }],
     () => demoLinksPerLomakeId(hakukohteet),
     {

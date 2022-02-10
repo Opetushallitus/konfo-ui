@@ -6,7 +6,7 @@ import { Alkamiskausityyppi } from '#/src/constants';
 import { localize } from '#/src/tools/localization';
 import { formatDateString } from '#/src/tools/utils';
 import { Alkamiskausi, Translateable } from '#/src/types/common';
-import { DemoLink, Hakukohde } from '#/src/types/HakukohdeTypes';
+import { Hakukohde } from '#/src/types/HakukohdeTypes';
 
 export const formatAloitus = (
   {
@@ -57,24 +57,24 @@ const formDemoLink = (link: Translateable): Translateable => {
 
 export const demoLinksPerLomakeId = async (
   hakukohteet: Array<Hakukohde>
-): Promise<Map<string, undefined | DemoLink>> => {
+): Promise<Map<string, undefined | Map<string, Translateable>>> => {
   const closedHakukohteet = hakukohteet.filter((hakukohde) => !hakukohde.isHakuAuki);
-  const result: Map<string, undefined | DemoLink> = new Map();
+  const result: Map<string, undefined | Map<string, Translateable>> = new Map();
 
   for (const hakukohde of closedHakukohteet) {
     const lomakeId = hakukohde.hakulomakeAtaruId;
+    const hakukohdeOid = hakukohde.hakukohdeOid;
     if (!result.has(lomakeId)) {
-      const hakukohdeOid = hakukohde.hakukohdeOid;
       const hakukohdeDemo = await getHakukohdeDemo(hakukohdeOid);
       if (hakukohdeDemo.demoAllowed) {
-        const demoLink = {
-          link: formDemoLink(hakukohde.hakulomakeLinkki),
-          hakukohdeOid: hakukohdeOid,
-        };
-        result.set(lomakeId, demoLink);
+        const linkMap: Map<string, Translateable> = new Map();
+        linkMap.set(hakukohdeOid, formDemoLink(hakukohde.hakulomakeLinkki));
+        result.set(lomakeId, linkMap);
       } else {
         result.set(lomakeId, undefined);
       }
+    } else if (!!result.get(lomakeId)) {
+      result.get(lomakeId)?.set(hakukohdeOid, formDemoLink(hakukohde.hakulomakeLinkki));
     }
   }
 

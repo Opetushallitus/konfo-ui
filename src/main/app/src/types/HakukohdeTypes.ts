@@ -76,8 +76,3 @@ export type Hakukohde = {
 };
 
 export type HakukohdeOid = string;
-
-export type DemoLink = {
-  link: Translateable;
-  hakukohdeOid: HakukohdeOid;
-};

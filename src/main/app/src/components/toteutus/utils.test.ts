@@ -23,7 +23,8 @@ describe('toteutus utils', () => {
 jest.mock('#/src/api/konfoApi', () => ({
   getHakukohdeDemo: (hakukohdeOid: HakukohdeOid) => {
     switch (hakukohdeOid) {
-      case 'demo-allowed':
+      case 'demo-allowed-1':
+      case 'demo-allowed-2':
         return { demoAllowed: true };
       case 'demo-not-allowed':
         return { demoAllowed: false };
@@ -32,6 +33,33 @@ jest.mock('#/src/api/konfoApi', () => ({
 }));
 
 describe('demoLinksPerLomakeId', () => {
+  const hakukohdeDemoNotAllowed = {
+    isHakuAuki: false,
+    hakukohdeOid: 'demo-not-allowed',
+    hakulomakeAtaruId: 'hakulomake-id-2',
+    hakulomakeLinkki: {
+      fi: 'linkki-suomeksi',
+    },
+  } as Hakukohde;
+
+  const hakukohde1 = {
+    isHakuAuki: false,
+    hakukohdeOid: 'demo-allowed-1',
+    hakulomakeAtaruId: 'hakulomake-id-1',
+    hakulomakeLinkki: {
+      fi: 'linkki-suomeksi-1',
+    },
+  } as Hakukohde;
+
+  const hakukohde2 = {
+    isHakuAuki: false,
+    hakukohdeOid: 'demo-allowed-2',
+    hakulomakeAtaruId: 'hakulomake-id-1',
+    hakulomakeLinkki: {
+      fi: 'linkki-suomeksi-2',
+    },
+  } as Hakukohde;
+
   it('no demo link is generated if haku is open', async () => {
     const hakukohde = {
       isHakuAuki: true,
@@ -42,37 +70,49 @@ describe('demoLinksPerLomakeId', () => {
   });
 
   it('no demo link is generated if haku is closed and demo is not allowed', async () => {
-    const hakukohde = {
-      isHakuAuki: false,
-      hakukohdeOid: 'demo-not-allowed',
-      hakulomakeAtaruId: 'hakulomake-id',
-      hakulomakeLinkki: {
-        fi: 'linkki-suomeksi',
-      },
-    } as Hakukohde;
-    const hakukohteet = [hakukohde];
+    const hakukohteet = [hakukohdeDemoNotAllowed];
     const demoLinks = await demoLinksPerLomakeId(hakukohteet);
-    expect(demoLinks.get('hakulomake-id')).toBe(undefined);
+    expect(demoLinks.get('hakulomake-id-2')).toBe(undefined);
   });
 
   it('demo link is generated if haku is closed and demo is allowed', async () => {
-    const hakukohde = {
-      isHakuAuki: false,
-      hakukohdeOid: 'demo-allowed',
-      hakulomakeAtaruId: 'hakulomake-id',
-      hakulomakeLinkki: {
-        fi: 'linkki-suomeksi',
-      },
-    } as Hakukohde;
-    const hakukohteet = [hakukohde];
+    const hakukohteet = [hakukohde1];
     const demoLinks = await demoLinksPerLomakeId(hakukohteet);
-    expect(demoLinks.get('hakulomake-id')).toEqual({
-      hakukohdeOid: 'demo-allowed',
-      link: {
-        fi: 'linkki-suomeksi?demo=true',
-        sv: undefined,
-        en: undefined,
-      },
+    expect(demoLinks.get('hakulomake-id-1')?.get('demo-allowed-1')).toEqual({
+      fi: 'linkki-suomeksi-1?demo=true',
+      sv: undefined,
+      en: undefined,
     });
+  });
+
+  it('demo link is generated for all hakukohdes', async () => {
+    const hakukohteet = [hakukohde1, hakukohde2];
+    const demoLinks = await demoLinksPerLomakeId(hakukohteet);
+    expect(demoLinks.get('hakulomake-id-1')?.get('demo-allowed-1')).toEqual({
+      fi: 'linkki-suomeksi-1?demo=true',
+      sv: undefined,
+      en: undefined,
+    });
+    expect(demoLinks.get('hakulomake-id-1')?.get('demo-allowed-2')).toEqual({
+      fi: 'linkki-suomeksi-2?demo=true',
+      sv: undefined,
+      en: undefined,
+    });
+  });
+
+  it('demo link is allowed to some hakukohdes', async () => {
+    const hakukohteet = [hakukohde1, hakukohde2, hakukohdeDemoNotAllowed];
+    const demoLinks = await demoLinksPerLomakeId(hakukohteet);
+    expect(demoLinks.get('hakulomake-id-1')?.get('demo-allowed-1')).toEqual({
+      fi: 'linkki-suomeksi-1?demo=true',
+      sv: undefined,
+      en: undefined,
+    });
+    expect(demoLinks.get('hakulomake-id-1')?.get('demo-allowed-2')).toEqual({
+      fi: 'linkki-suomeksi-2?demo=true',
+      sv: undefined,
+      en: undefined,
+    });
+    expect(demoLinks.get('hakulomake-id-2')).toBe(undefined);
   });
 });
