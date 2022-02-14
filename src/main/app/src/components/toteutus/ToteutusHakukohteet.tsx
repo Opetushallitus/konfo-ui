@@ -179,7 +179,7 @@ const HakuCardGrid = ({ tyyppiOtsikko, haut, icon }: GridProps) => {
                               content: [
                                 formatDouble(
                                   haku.hakukohteenLinja.alinHyvaksyttyKeskiarvo,
-                                  1
+                                  2
                                 ),
                               ],
                             },
