@@ -308,7 +308,7 @@ export const ToteutusPage = () => {
                 justifyContent="flex-start"
                 alignItems="flex-start">
                 {yhteyshenkilot?.map((yhteyshenkilo: any, i: number, a: any) => (
-                  <Grid item key={i} xs={12} sm={6} md={4} lg={3}>
+                  <Grid item key={i} xs={12} sm={6} md={6} lg={6}>
                     <Grid container direction="column">
                       <Grid item>
                         <Typography variant="h5">
