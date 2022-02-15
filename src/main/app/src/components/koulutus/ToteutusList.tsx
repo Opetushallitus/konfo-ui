@@ -16,8 +16,11 @@ import { TarjontaPagination } from '#/src/components/common/TarjontaPagination';
 import { TextWithBackground } from '#/src/components/common/TextWithBackground';
 import { FILTER_TYPES } from '#/src/constants';
 import { KOULUTUS_TYYPPI, KORKEAKOULU_KOULUTUSTYYPIT } from '#/src/constants';
-import { usePreviousNonEmpty } from '#/src/hooks';
-import { getInitialCheckedToteutusFilters } from '#/src/store/reducers/hakutulosSliceSelector';
+import {usePreviousNonEmpty, usePreviousPage} from '#/src/hooks';
+import {
+  getPreviousPageParams,
+  getInitialCheckedToteutusFilters,
+} from '#/src/store/reducers/hakutulosSliceSelector';
 import {
   getFilterStateChanges,
   getFilterWithChecked,
@@ -121,13 +124,19 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
   const [initialValues] = useState(initialCheckedFilters);
 
   const previousOid = usePreviousNonEmpty(oid);
-  // Jos oid vaihtuu, initialisoi filtterit hakutulosten filttereistä
+
+  const previousPage = usePreviousPage();
+  const isComingFromHakuPage = _fp.isEmpty(previousPage.previousPage)
+    ? false
+    : !!previousPage.previousPage.pathname.includes('haku');
+
+  // Jos oid vaihtuu ja tullaan hakusivulta, initialisoi filtterit hakutulosten filttereistä
   useEffect(() => {
-    if (oid !== previousOid) {
+    if (oid !== previousOid && isComingFromHakuPage) {
       const queryStrings = getQueryStr(initialValues);
       setFilters(queryStrings);
     }
-  }, [oid, setFilters, initialValues, previousOid]);
+  }, [oid, setFilters, initialValues, previousOid, isComingFromHakuPage]);
 
   const [checkedValues, setCheckedValues] =
     useState<Record<string, Array<string> | boolean>>(initialValues);
