@@ -53,6 +53,14 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     whiteSpace: 'pre-wrap',
   },
+  yhteystiedotLink: {
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    maxWidth: '300px',
+    width: '300px',
+    display: 'inline-block',
+  },
 }));
 
 const getAsiasanatForLanguage = (asiasanat: Array<any>, language: string) => {
@@ -304,7 +312,7 @@ export const ToteutusPage = () => {
               <Grid
                 container
                 direction="row"
-                spacing={4}
+                spacing={8}
                 justifyContent="flex-start"
                 alignItems="flex-start">
                 {yhteyshenkilot?.map((yhteyshenkilo: any, i: number, a: any) => (
@@ -332,7 +340,9 @@ export const ToteutusPage = () => {
                       </Grid>
                       {!_.isEmpty(yhteyshenkilo.wwwSivu) && (
                         <Grid item>
-                          <ExternalLink href={localize(yhteyshenkilo.wwwSivu)}>
+                          <ExternalLink
+                            className={classes.yhteystiedotLink}
+                            href={localize(yhteyshenkilo.wwwSivu)}>
                             {localize(yhteyshenkilo.wwwSivu)}
                           </ExternalLink>
                         </Grid>
