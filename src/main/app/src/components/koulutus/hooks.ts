@@ -134,7 +134,7 @@ export const useKoulutusJarjestajat = ({
 
   // Jos filtterit muuttuu, resetoi sivutus
   useEffect(() => {
-    if (filters !== previousFilters) {
+    if (filters !== previousFilters && previousFilters !== undefined) {
       dispatch(isTuleva ? resetTulevatJarjestajatPaging() : resetJarjestajatPaging());
     }
   }, [dispatch, filters, previousFilters, isTuleva]);

@@ -16,11 +16,8 @@ import { TarjontaPagination } from '#/src/components/common/TarjontaPagination';
 import { TextWithBackground } from '#/src/components/common/TextWithBackground';
 import { FILTER_TYPES } from '#/src/constants';
 import { KOULUTUS_TYYPPI, KORKEAKOULU_KOULUTUSTYYPIT } from '#/src/constants';
-import {usePreviousNonEmpty, usePreviousPage} from '#/src/hooks';
-import {
-  getPreviousPageParams,
-  getInitialCheckedToteutusFilters,
-} from '#/src/store/reducers/hakutulosSliceSelector';
+import { usePreviousNonEmpty, usePreviousPage } from '#/src/hooks';
+import { getInitialCheckedToteutusFilters } from '#/src/store/reducers/hakutulosSliceSelector';
 import {
   getFilterStateChanges,
   getFilterWithChecked,
@@ -82,10 +79,6 @@ const getQueryStr = (values: Record<string, Array<string> | boolean>) => {
     ['kunta', 'maakunta', 'koulutusala', 'koulutustyyppi', 'koulutustyyppi-muu'],
     {
       ...values,
-      sijainti: [
-        ...(values.maakunta as Array<string>),
-        ...(values.kunta as Array<string>),
-      ],
     }
   );
 
@@ -114,9 +107,10 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
     getInitialCheckedToteutusFilters
   );
 
-  const { queryResult, setFilters, setPagination, pagination } = useKoulutusJarjestajat({
-    oid,
-  });
+  const { queryResult, setFilters, setPagination, pagination, filters } =
+    useKoulutusJarjestajat({
+      oid,
+    });
 
   const { data = {}, isLoading } = queryResult;
 
@@ -138,49 +132,41 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
     }
   }, [oid, setFilters, initialValues, previousOid, isComingFromHakuPage]);
 
-  const [checkedValues, setCheckedValues] =
-    useState<Record<string, Array<string> | boolean>>(initialValues);
-
   const usedValues = useMemo(
     () =>
       mapValues((ignored: any, key: string) =>
-        sortValues(getFilterWithChecked(sortedFilters, checkedValues, key))
+        sortValues(getFilterWithChecked(sortedFilters, filters, key))
       )(sortedFilters),
-    [sortedFilters, checkedValues]
+    [sortedFilters, filters]
   );
 
-  const someSelected = _fp.some(
-    (v) => (_fp.isArray(v) ? v.length > 0 : v),
-    checkedValues
+  const someSelected = _fp.some((v) => (_fp.isArray(v) ? v.length > 0 : v), filters);
+
+  const handleFilterChange = useCallback(
+    (value: FilterValue) => {
+      const { filterId } = value;
+      let newFilters: typeof filters;
+
+      // Käsitellään boolean-filter erikseen
+      if (filterId === FILTER_TYPES.HAKUKAYNNISSA) {
+        const filter = filters[filterId] as boolean;
+        newFilters = { ...filters, [filterId]: !filter };
+      } else {
+        const newFilter = getFilterStateChanges(usedValues[filterId])(value);
+        newFilters = { ...filters, ...newFilter };
+      }
+
+      setFilters(newFilters);
+    },
+    [filters, setFilters, usedValues]
   );
-
-  const handleFilterChange = (value: FilterValue) => {
-    const { filterId } = value;
-    let newCheckedValues: typeof checkedValues;
-
-    // Käsitellään boolean-filter erikseen
-    if (filterId === FILTER_TYPES.HAKUKAYNNISSA) {
-      const filter = checkedValues[filterId] as boolean;
-      newCheckedValues = { ...checkedValues, [filterId]: !filter };
-    } else {
-      const newFilter = getFilterStateChanges(usedValues[filterId])(value);
-      newCheckedValues = { ...checkedValues, ...newFilter };
-    }
-
-    setCheckedValues(newCheckedValues);
-    const queryStrings = getQueryStr(newCheckedValues);
-    setFilters(queryStrings);
-  };
 
   const handleFiltersClear = useCallback(() => {
-    const usedFilters = _fp.mapValues(
-      (v) => (_fp.isArray(v) ? [] : false),
-      checkedValues
-    );
-    setCheckedValues(usedFilters);
+    const usedFilters = _fp.mapValues((v) => (_fp.isArray(v) ? [] : false), filters);
+
     const queryStrings = getQueryStr(usedFilters);
     setFilters(queryStrings);
-  }, [checkedValues, setFilters]);
+  }, [filters, setFilters]);
 
   const someValuesToShow = isLoading || jarjestajat?.length > 0;
 

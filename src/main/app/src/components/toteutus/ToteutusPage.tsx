@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 
 import { Box, Grid, makeStyles, Typography } from '@material-ui/core';
 import _ from 'lodash';
@@ -8,7 +8,6 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 
-import { colors } from '#/src/colors';
 import { AccordionWithTitle } from '#/src/components/common/AccordionWithTitle';
 import { ContentWithTopIcon } from '#/src/components/common/ContentWithTopIcon';
 import ContentWrapper from '#/src/components/common/ContentWrapper';
