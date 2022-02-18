@@ -76,7 +76,7 @@ type JarjestajaData = {
 const getQueryStr = (values: Record<string, Array<string> | boolean>) => {
   // TODO: konfo-backend haluaa maakunta ja kunta -rajainten sijaan "sijainti" -rajaimen, pitäisi refaktoroida sinne maakunta + kunta käyttöön
   const valuesWithSijainti = _fp.omit(
-    ['kunta', 'maakunta', 'koulutusala', 'koulutustyyppi', 'koulutustyyppi-muu'],
+    ['sijainti', 'koulutusala', 'koulutustyyppi', 'koulutustyyppi-muu'],
     {
       ...values,
     }
