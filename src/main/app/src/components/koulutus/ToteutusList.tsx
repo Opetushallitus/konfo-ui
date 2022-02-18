@@ -16,7 +16,8 @@ import { TarjontaPagination } from '#/src/components/common/TarjontaPagination';
 import { TextWithBackground } from '#/src/components/common/TextWithBackground';
 import { FILTER_TYPES } from '#/src/constants';
 import { KOULUTUS_TYYPPI, KORKEAKOULU_KOULUTUSTYYPIT } from '#/src/constants';
-import { usePreviousNonEmpty, usePreviousPage } from '#/src/hooks';
+import { usePreviousNonEmpty } from '#/src/hooks';
+import { usePreviousPage } from '#/src/store/reducers/appSlice';
 import { getInitialCheckedToteutusFilters } from '#/src/store/reducers/hakutulosSliceSelector';
 import {
   getFilterStateChanges,
@@ -73,21 +74,6 @@ type JarjestajaData = {
   sortedFilters: Record<string, Record<string, FilterValue>>;
 };
 
-const getQueryStr = (values: Record<string, Array<string> | boolean>) => {
-  // TODO: konfo-backend haluaa maakunta ja kunta -rajainten sijaan "sijainti" -rajaimen, pitäisi refaktoroida sinne maakunta + kunta käyttöön
-  const valuesWithSijainti = _fp.omit(
-    ['sijainti', 'koulutusala', 'koulutustyyppi', 'koulutustyyppi-muu'],
-    {
-      ...values,
-    }
-  );
-
-  return _fp.mapValues(
-    (v: Array<string> | string) => (_fp.isArray(v) ? v!.join(',') : v!.toString()),
-    valuesWithSijainti
-  );
-};
-
 const SuodatinGridItem: React.FC = ({ children }) => {
   const classes = useStyles();
 
@@ -120,15 +106,15 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
   const previousOid = usePreviousNonEmpty(oid);
 
   const previousPage = usePreviousPage();
-  const isComingFromHakuPage = _fp.isEmpty(previousPage.previousPage)
+
+  const isComingFromHakuPage = _fp.isEmpty(previousPage)
     ? false
-    : !!previousPage.previousPage.pathname.includes('haku');
+    : !!previousPage.pathname.includes('haku');
 
   // Jos oid vaihtuu ja tullaan hakusivulta, initialisoi filtterit hakutulosten filttereistä
   useEffect(() => {
     if (oid !== previousOid && isComingFromHakuPage) {
-      const queryStrings = getQueryStr(initialValues);
-      setFilters(queryStrings);
+      setFilters(initialValues);
     }
   }, [oid, setFilters, initialValues, previousOid, isComingFromHakuPage]);
 
@@ -164,8 +150,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
   const handleFiltersClear = useCallback(() => {
     const usedFilters = _fp.mapValues((v) => (_fp.isArray(v) ? [] : false), filters);
 
-    const queryStrings = getQueryStr(usedFilters);
-    setFilters(queryStrings);
+    setFilters(usedFilters);
   }, [filters, setFilters]);
 
   const someValuesToShow = isLoading || jarjestajat?.length > 0;

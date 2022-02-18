@@ -58,8 +58,6 @@ export const initialState = {
   selectedTab: KOULUTUS,
   order: 'desc',
   sort: 'score',
-  currentPage: {},
-  previousPage: {},
 };
 
 const hakutulosSlice = createSlice({
@@ -106,10 +104,6 @@ const hakutulosSlice = createSlice({
     },
     setSort: (state, { payload }) => {
       state.sort = payload.newSort;
-    },
-    setCurrentPage: (state, { payload }) => {
-      state.previousPage = state.currentPage;
-      state.currentPage = payload.currentPage;
     },
     searchAPICallStart(state) {
       if (state.status === INITIAL || state.status === IDLE_STATUS) {
@@ -216,7 +210,6 @@ export const {
   clearSelectedFilters,
   setOrder,
   setSort,
-  setCurrentPage,
   setSize,
   searchAllSuccess,
   searchKoulutuksetSuccess,

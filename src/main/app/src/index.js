@@ -15,7 +15,7 @@ import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { useQueryOnce } from '#/src/hooks';
 import ScrollToTop from '#/src/ScrollToTop';
 import { getKonfoStore } from '#/src/store';
-import { setCurrentPage } from '#/src/store/reducers/hakutulosSlice';
+import { setCurrentPage } from '#/src/store/reducers/appSlice';
 import { theme } from '#/src/theme';
 import { configureI18n } from '#/src/tools/i18n';
 import { isCypress } from '#/src/tools/utils';
@@ -78,7 +78,6 @@ const InitGate = ({ children }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  // Tallennetaan ladattava sivu Redux:iin
   useEffect(() => {
     return history.listen((currentPage) => {
       dispatch(setCurrentPage({ currentPage }));

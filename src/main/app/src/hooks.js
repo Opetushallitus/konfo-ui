@@ -8,11 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import { getContentfulData, getContentfulManifest } from '#/src/api/konfoApi';
-import {
-  getAPIRequestParams,
-  getPreviousPageParams,
-} from '#/src/store/reducers/hakutulosSliceSelector';
-import { setMenuState } from '#/src/store/reducers/sideMenuSlice';
+import { setMenuState } from '#/src/store/reducers/appSlice';
+import { getAPIRequestParams } from '#/src/store/reducers/hakutulosSliceSelector';
 
 import { SIDEMENU_WIDTH } from './constants';
 
@@ -161,7 +158,7 @@ export const useContentful = () => {
 export const useSideMenu = (callback, deps) => {
   const dispatch = useDispatch();
 
-  const menuOpen = useSelector((state) => state.sideMenu.open);
+  const menuOpen = useSelector((state) => state.app.sideMenuOpen);
 
   const toggle = useCallback(() => {
     dispatch(setMenuState(!menuOpen));
@@ -177,8 +174,4 @@ export const useSideMenu = (callback, deps) => {
     closeMenu: close,
     width: menuOpen ? SIDEMENU_WIDTH : 0,
   };
-};
-
-export const usePreviousPage = () => {
-  return useSelector(getPreviousPageParams);
 };

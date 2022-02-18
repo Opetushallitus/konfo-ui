@@ -86,9 +86,6 @@ function getOrder(state) {
 function getSort(state) {
   return state.hakutulos.sort;
 }
-function getPreviousPage(state) {
-  return state.hakutulos.previousPage;
-}
 
 //Selectors
 export const getHakupalkkiProps = createSelector(
@@ -339,11 +336,4 @@ export const getInitialCheckedToteutusFilters = createSelector(
       'lukiolinjaterityinenkoulutustehtava',
       'osaamisala',
     ])
-);
-
-export const getPreviousPageParams = createSelector(
-  [getPreviousPage],
-  (previousPage) => ({
-    previousPage,
-  })
 );
