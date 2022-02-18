@@ -55,11 +55,11 @@ export const KoulutusKortti = ({ koulutus, isSmall }: Props) => {
       .replace(/<\/li>/gm, ',</li>')
       .replace(/\.,<\/li>/gm, '.</li>')
       .replace(/<[^>]*>/gm, '') || t('haku.ei_kuvausta');
-  const isOsaamisalaOrTutkinnonOsa = _.includes(
-    ['amm-osaamisala', 'amm-tutkinnon-osa'],
+  const isOsaamisalaOrTutkinnonOsaOrAmmuu = _.includes(
+    ['amm-osaamisala', 'amm-tutkinnon-osa', 'amm-muu'],
     koulutus?.koulutustyyppi
   );
-  const tutkintoNimikkeet = isOsaamisalaOrTutkinnonOsa
+  const tutkintoNimikkeet = isOsaamisalaOrTutkinnonOsaOrAmmuu
     ? t(`haku.${koulutus?.koulutustyyppi}`)
     : (koulutus?.tutkintonimikkeet || []).map(localize).join(', ').replace(/,\s*$/, '') ||
       t('haku.ei-tutkintonimiketta');
@@ -81,7 +81,7 @@ export const KoulutusKortti = ({ koulutus, isSmall }: Props) => {
       iconTexts={[
         [
           tutkintoNimikkeet,
-          isOsaamisalaOrTutkinnonOsa ? ExtensionOutlined : SchoolOutlined,
+          isOsaamisalaOrTutkinnonOsaOrAmmuu ? ExtensionOutlined : SchoolOutlined,
         ],
         [getLocalizedOpintojenLaajuus(koulutus), TimelapseOutlined],
         toteutustenTarjoajatText && [toteutustenTarjoajatText, HomeWorkOutlined],

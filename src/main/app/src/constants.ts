@@ -54,6 +54,7 @@ export enum KOULUTUS_TYYPPI {
   AMM = 'amm',
   AMM_TUTKINNON_OSA = 'amm-tutkinnon-osa',
   AMM_OSAAMISALA = 'amm-osaamisala',
+  MUU_AMMATILLINEN_KOULUTUS = 'amm-muu',
   TUVA = 'tuva',
   VAPAA_SIVISTYSTYO_OPISTOVUOSI = 'vapaa-sivistystyo-opistovuosi',
   VAPAA_SIVISTYSTYO_MUU = 'vapaa-sivistystyo-muu',
@@ -69,12 +70,12 @@ export enum KOULUTUS_TYYPPI {
   AMMATILLINEN_OPETTAJAKOULUTUS = 'ammatillinen_opettajakoulutus',
   AMMATILLINEN_OPINTO_OHJAAJA_KOULUTUS = 'ammatillinen_opinto_ohjaaja_koulutus',
   AMMATILLINEN_ERITYISOPETTAJA_KOULUTUS = 'ammatillinen_erityisopettaja_koulutus',
+  AIKUISTEN_PERUSOPETUS = 'aikuisten-perusopetus',
   MUUT_KOULUTUKSET = 'muut_koulutukset',
-  PERUSOPETUKSEN_LISAOPETUS = 'perusopetuksen_lisaopetus',
 }
 
 export const KOULUTUS_TYYPPI_MUU = {
-  AMM_MUU: 'amm-muu',
+  MUU_AMMATILLINEN_KOULUTUS: 'amm-muu',
   AMM_OSAAMISALA: 'amm-osaamisala',
   AMM_TUTKINNON_OSA: 'amm-tutkinnon-osa',
 } as const;
