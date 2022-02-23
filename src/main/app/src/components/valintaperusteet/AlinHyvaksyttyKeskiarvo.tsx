@@ -4,7 +4,7 @@ import { Box, Divider, Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 import { Heading, HeadingBoundary } from '#/src/components/Heading';
-import {formatDouble, toId} from '#/src/tools/utils';
+import { formatDouble, toId } from '#/src/tools/utils';
 
 type Props = {
   alinHyvaksyttyKeskiarvo: number;
@@ -13,10 +13,7 @@ type Props = {
 export const AlinHyvaksyttyKeskiarvo = ({ alinHyvaksyttyKeskiarvo }: Props) => {
   const { t } = useTranslation();
 
-  const alinHyvaksyttyKeskiarvoFormatted = formatDouble(
-      alinHyvaksyttyKeskiarvo,
-      2
-  )
+  const alinHyvaksyttyKeskiarvoFormatted = formatDouble(alinHyvaksyttyKeskiarvo, 2);
 
   return (
     <Grid item xs={12}>
