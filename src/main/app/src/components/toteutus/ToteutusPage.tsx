@@ -23,6 +23,7 @@ import { TextWithBackground } from '#/src/components/common/TextWithBackground';
 import { useUrlParams } from '#/src/components/hakutulos/UseUrlParams';
 import { Heading } from '#/src/components/Heading';
 import { useOppilaitokset } from '#/src/components/oppilaitos/hooks';
+import { useSideMenu } from '#/src/hooks';
 import { getHakuParams, getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
 import { getLanguage, localize, localizeLukiolinja } from '#/src/tools/localization';
 import { getLocalizedOpintojenLaajuus, sanitizedHTMLParser } from '#/src/tools/utils';
@@ -102,6 +103,8 @@ export const ToteutusPage = () => {
   const { t } = useTranslation();
   const currentLanguage = getLanguage();
   const { isDraft } = useUrlParams();
+
+  const { state: menuVisible } = useSideMenu();
 
   // TODO: There is absolutely no error handling atm.
   const { data: toteutus, isLoading: toteutusLoading } = useToteutus({
@@ -315,8 +318,14 @@ export const ToteutusPage = () => {
                 spacing={8}
                 justifyContent="flex-start"
                 alignItems="flex-start">
-                {yhteyshenkilot?.map((yhteyshenkilo: any, i: number, a: any) => (
-                  <Grid item key={i} xs={12} sm={6} md={6} lg={6}>
+                {yhteyshenkilot?.map((yhteyshenkilo: any, i: number) => (
+                  <Grid
+                    item
+                    key={i}
+                    xs={12}
+                    sm={menuVisible ? 12 : 6}
+                    md={menuVisible ? 12 : 6}
+                    lg={6}>
                     <Grid container direction="column">
                       <Grid item>
                         <Typography variant="h5">
