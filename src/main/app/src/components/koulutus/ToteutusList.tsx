@@ -105,11 +105,9 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
 
   const previousOid = usePreviousNonEmpty(oid);
 
-  const previousPage = usePreviousPage();
+  const previousPage: string = usePreviousPage();
 
-  const isComingFromHakuPage = _fp.isEmpty(previousPage)
-    ? false
-    : !!previousPage.pathname.includes('haku');
+  const isComingFromHakuPage = previousPage === 'haku';
 
   // Jos oid vaihtuu ja tullaan hakusivulta, initialisoi filtterit hakutulosten filttereistä
   useEffect(() => {

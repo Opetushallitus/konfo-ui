@@ -15,7 +15,7 @@ import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { useQueryOnce } from '#/src/hooks';
 import ScrollToTop from '#/src/ScrollToTop';
 import { getKonfoStore } from '#/src/store';
-import { setCurrentPage } from '#/src/store/reducers/appSlice';
+import { setCurrentLocation } from '#/src/store/reducers/appSlice';
 import { theme } from '#/src/theme';
 import { configureI18n } from '#/src/tools/i18n';
 import { isCypress } from '#/src/tools/utils';
@@ -79,8 +79,8 @@ const InitGate = ({ children }) => {
   const history = useHistory();
 
   useEffect(() => {
-    return history.listen((currentPage) => {
-      dispatch(setCurrentPage({ currentPage }));
+    return history.listen((currentLocation) => {
+      dispatch(setCurrentLocation({ currentLocation }));
     });
   }, [dispatch, history]);
 

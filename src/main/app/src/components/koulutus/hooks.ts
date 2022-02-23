@@ -132,14 +132,7 @@ export const useKoulutusJarjestajat = ({
   const { pagination = {}, filters = {} } = requestProps;
   const previousFilters = usePreviousNonEmpty(filters);
 
-  // Jos filtterit muuttuu, resetoi sivutus
-  useEffect(() => {
-    if (filters !== previousFilters && previousFilters !== undefined) {
-      dispatch(isTuleva ? resetTulevatJarjestajatPaging() : resetJarjestajatPaging());
-    }
-  }, [dispatch, filters, previousFilters, isTuleva]);
-
-  const getQueryStr = (values: Record<string, Array<string> | boolean>) => {
+  const createQueryParams = (values: Record<string, Array<string> | boolean>) => {
     // TODO: konfo-backend haluaa maakunta ja kunta -rajainten sijaan "sijainti" -rajaimen, pitäisi refaktoroida sinne maakunta + kunta käyttöön
     const valuesWithSijainti = _fp.omit(
       ['maakunta', 'kunta', 'koulutusala', 'koulutustyyppi', 'koulutustyyppi-muu'],
@@ -158,14 +151,19 @@ export const useKoulutusJarjestajat = ({
     );
   };
 
-  const queryFilters = getQueryStr(filters);
+  // Jos filtterit muuttuu, resetoi sivutus
+  useEffect(() => {
+    if (filters !== previousFilters && previousFilters !== undefined) {
+      dispatch(isTuleva ? resetTulevatJarjestajatPaging() : resetJarjestajatPaging());
+    }
+  }, [dispatch, filters, previousFilters, isTuleva]);
 
   const fetchProps = {
     oid,
     requestParams: {
       tuleva: isTuleva,
       ...pagination,
-      ...queryFilters,
+      ...createQueryParams(filters),
     },
   };
 
