@@ -95,6 +95,8 @@ export const useOppilaitokset = ({
       queryFn: isOppilaitosOsa
         ? () => getOppilaitosOsa(oid, isDraft)
         : () => getOppilaitos(oid, isDraft),
+      refetchOnMount: false,
+      retryOnMount: false,
     }))
   );
 
