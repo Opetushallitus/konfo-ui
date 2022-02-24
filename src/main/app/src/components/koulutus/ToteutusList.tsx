@@ -336,7 +336,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                           EuroSymbolIcon,
                         ],
                         [
-                          toteutus.hakukaynnissa ? (
+                          toteutus.hakuAuki ? (
                             <TextWithBackground>
                               {t('haku.hakukaynnissa')}
                             </TextWithBackground>

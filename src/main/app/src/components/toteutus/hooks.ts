@@ -15,9 +15,8 @@ const getHakuAukiType = (toteutus: any) => {
     return null;
   }
   if (toteutus?.metadata?.hakulomaketyyppi === HAKULOMAKE_TYYPPI.MUU) {
-    return isHakuAuki([toteutus.metadata.hakuaika]) ? 'ilmoittautuminen' : null;
+    return toteutus?.hakuAuki ? 'ilmoittautuminen' : null;
   }
-
   const hakuKohdeAuki = toteutus.hakutiedot
     ?.map((hakutieto: any) => hakutieto.hakukohteet)
     .flat()
@@ -47,7 +46,7 @@ const getHakukohteetWithTypes = (toteutus: any) => {
           .filter((hakukohde: any) => isHakuTimeRelevant(hakukohde.hakuajat))
           .map((hakukohde: any) => ({
             ...hakukohde,
-            isHakuAuki: isHakuAuki(hakukohde.hakuajat),
+            isHakuAuki: isHakuAuki(hakukohde?.hakuajat),
           })),
       },
     }),
@@ -56,9 +55,6 @@ const getHakukohteetWithTypes = (toteutus: any) => {
 };
 
 export const selectMuuHaku = (toteutus: any) => {
-  const hakuaika = toteutus?.metadata?.hakuaika;
-  const hakuAuki = isHakuAuki(hakuaika ? [hakuaika] : undefined);
-
   // TODO: SORA-kuvaus - atm. we only get an Id from the API but we cannot do anything with it
   return {
     ..._fp.pick(
@@ -72,7 +68,7 @@ export const selectMuuHaku = (toteutus: any) => {
       ],
       toteutus.metadata
     ),
-    isHakuAuki: hakuAuki,
+    isHakuAuki: Boolean(toteutus?.hakuAuki),
     nimi: toteutus.nimi,
     // TODO: we do not get osoite from the API atm. so just use all the tarjoajat to fetch oppilaitoksenOsat
     // This should be replaced with just the osoite when we have it in the API
