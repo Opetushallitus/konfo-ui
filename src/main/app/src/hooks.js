@@ -8,8 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import { getContentfulData, getContentfulManifest } from '#/src/api/konfoApi';
+import { setMenuState, useMenuOpen } from '#/src/store/reducers/appSlice';
 import { getAPIRequestParams } from '#/src/store/reducers/hakutulosSliceSelector';
-import { setMenuState } from '#/src/store/reducers/sideMenuSlice';
 
 import { SIDEMENU_WIDTH } from './constants';
 
@@ -158,7 +158,7 @@ export const useContentful = () => {
 export const useSideMenu = (callback, deps) => {
   const dispatch = useDispatch();
 
-  const menuOpen = useSelector((state) => state.sideMenu.open);
+  const menuOpen = useMenuOpen();
 
   const toggle = useCallback(() => {
     dispatch(setMenuState(!menuOpen));

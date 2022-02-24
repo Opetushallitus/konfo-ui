@@ -1,11 +1,11 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
 
 import { ThemeProvider } from '@material-ui/core';
 import ReactDOM from 'react-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+import { Provider, useDispatch } from 'react-redux';
+import { BrowserRouter, useHistory } from 'react-router-dom';
 import 'typeface-open-sans';
 import StackTrace from 'stacktrace-js';
 
@@ -15,6 +15,7 @@ import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { useQueryOnce } from '#/src/hooks';
 import ScrollToTop from '#/src/ScrollToTop';
 import { getKonfoStore } from '#/src/store';
+import { setCurrentLocation } from '#/src/store/reducers/appSlice';
 import { theme } from '#/src/theme';
 import { configureI18n } from '#/src/tools/i18n';
 import { isCypress } from '#/src/tools/utils';
@@ -74,6 +75,15 @@ window.onerror = (errorMsg, url, line, col, errorObj) => {
 const InitGate = ({ children }) => {
   const { status: urlStatus } = useQueryOnce('urls', configureUrls);
   const { status: i18nStatus } = useQueryOnce('i18n', configureI18n);
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  useEffect(() => {
+    return history.listen((currentLocation) => {
+      dispatch(setCurrentLocation({ currentLocation }));
+    });
+  }, [dispatch, history]);
+
   if ([urlStatus, i18nStatus].includes('loading')) {
     return <LoadingCircle />;
   } else if ([urlStatus, i18nStatus].includes('error')) {

@@ -17,6 +17,7 @@ import { TextWithBackground } from '#/src/components/common/TextWithBackground';
 import { FILTER_TYPES } from '#/src/constants';
 import { KOULUTUS_TYYPPI, KORKEAKOULU_KOULUTUSTYYPIT } from '#/src/constants';
 import { usePreviousNonEmpty } from '#/src/hooks';
+import { usePreviousPage } from '#/src/store/reducers/appSlice';
 import { getInitialCheckedToteutusFilters } from '#/src/store/reducers/hakutulosSliceSelector';
 import {
   getFilterStateChanges,
@@ -73,25 +74,6 @@ type JarjestajaData = {
   sortedFilters: Record<string, Record<string, FilterValue>>;
 };
 
-const getQueryStr = (values: Record<string, Array<string> | boolean>) => {
-  // TODO: konfo-backend haluaa maakunta ja kunta -rajainten sijaan "sijainti" -rajaimen, pitäisi refaktoroida sinne maakunta + kunta käyttöön
-  const valuesWithSijainti = _fp.omit(
-    ['kunta', 'maakunta', 'koulutusala', 'koulutustyyppi', 'koulutustyyppi-muu'],
-    {
-      ...values,
-      sijainti: [
-        ...(values.maakunta as Array<string>),
-        ...(values.kunta as Array<string>),
-      ],
-    }
-  );
-
-  return _fp.mapValues(
-    (v: Array<string> | string) => (_fp.isArray(v) ? v!.join(',') : v!.toString()),
-    valuesWithSijainti
-  );
-};
-
 const SuodatinGridItem: React.FC = ({ children }) => {
   const classes = useStyles();
 
@@ -111,9 +93,10 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
     getInitialCheckedToteutusFilters
   );
 
-  const { queryResult, setFilters, setPagination, pagination } = useKoulutusJarjestajat({
-    oid,
-  });
+  const { queryResult, setFilters, setPagination, pagination, filters } =
+    useKoulutusJarjestajat({
+      oid,
+    });
 
   const { data = {}, isLoading } = queryResult;
 
@@ -121,57 +104,52 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
   const [initialValues] = useState(initialCheckedFilters);
 
   const previousOid = usePreviousNonEmpty(oid);
-  // Jos oid vaihtuu, initialisoi filtterit hakutulosten filttereistä
-  useEffect(() => {
-    if (oid !== previousOid) {
-      const queryStrings = getQueryStr(initialValues);
-      setFilters(queryStrings);
-    }
-  }, [oid, setFilters, initialValues, previousOid]);
 
-  const [checkedValues, setCheckedValues] =
-    useState<Record<string, Array<string> | boolean>>(initialValues);
+  const previousPage: string = usePreviousPage();
+
+  const isComingFromHakuPage = previousPage === 'haku';
+
+  // Jos oid vaihtuu ja tullaan hakusivulta, initialisoi filtterit hakutulosten filttereistä
+  useEffect(() => {
+    if (oid !== previousOid && isComingFromHakuPage) {
+      setFilters(initialValues);
+    }
+  }, [oid, setFilters, initialValues, previousOid, isComingFromHakuPage]);
 
   const usedValues = useMemo(
     () =>
       mapValues((ignored: any, key: string) =>
-        sortValues(getFilterWithChecked(sortedFilters, checkedValues, key))
+        sortValues(getFilterWithChecked(sortedFilters, filters, key))
       )(sortedFilters),
-    [sortedFilters, checkedValues]
+    [sortedFilters, filters]
   );
 
-  const someSelected = _fp.some(
-    (v) => (_fp.isArray(v) ? v.length > 0 : v),
-    checkedValues
+  const someSelected = _fp.some((v) => (_fp.isArray(v) ? v.length > 0 : v), filters);
+
+  const handleFilterChange = useCallback(
+    (value: FilterValue) => {
+      const { filterId } = value;
+      let newFilters: typeof filters;
+
+      // Käsitellään boolean-filter erikseen
+      if (filterId === FILTER_TYPES.HAKUKAYNNISSA) {
+        const filter = filters[filterId] as boolean;
+        newFilters = { ...filters, [filterId]: !filter };
+      } else {
+        const newFilter = getFilterStateChanges(usedValues[filterId])(value);
+        newFilters = { ...filters, ...newFilter };
+      }
+
+      setFilters(newFilters);
+    },
+    [filters, setFilters, usedValues]
   );
-
-  const handleFilterChange = (value: FilterValue) => {
-    const { filterId } = value;
-    let newCheckedValues: typeof checkedValues;
-
-    // Käsitellään boolean-filter erikseen
-    if (filterId === FILTER_TYPES.HAKUKAYNNISSA) {
-      const filter = checkedValues[filterId] as boolean;
-      newCheckedValues = { ...checkedValues, [filterId]: !filter };
-    } else {
-      const newFilter = getFilterStateChanges(usedValues[filterId])(value);
-      newCheckedValues = { ...checkedValues, ...newFilter };
-    }
-
-    setCheckedValues(newCheckedValues);
-    const queryStrings = getQueryStr(newCheckedValues);
-    setFilters(queryStrings);
-  };
 
   const handleFiltersClear = useCallback(() => {
-    const usedFilters = _fp.mapValues(
-      (v) => (_fp.isArray(v) ? [] : false),
-      checkedValues
-    );
-    setCheckedValues(usedFilters);
-    const queryStrings = getQueryStr(usedFilters);
-    setFilters(queryStrings);
-  }, [checkedValues, setFilters]);
+    const usedFilters = _fp.mapValues((v) => (_fp.isArray(v) ? [] : false), filters);
+
+    setFilters(usedFilters);
+  }, [filters, setFilters]);
 
   const someValuesToShow = isLoading || jarjestajat?.length > 0;
 

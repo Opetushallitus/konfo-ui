@@ -132,9 +132,28 @@ export const useKoulutusJarjestajat = ({
   const { pagination = {}, filters = {} } = requestProps;
   const previousFilters = usePreviousNonEmpty(filters);
 
+  const createQueryParams = (values: Record<string, Array<string> | boolean>) => {
+    // TODO: konfo-backend haluaa maakunta ja kunta -rajainten sijaan "sijainti" -rajaimen, pitäisi refaktoroida sinne maakunta + kunta käyttöön
+    const valuesWithSijainti = _fp.omit(
+      ['maakunta', 'kunta', 'koulutusala', 'koulutustyyppi', 'koulutustyyppi-muu'],
+      {
+        ...values,
+        sijainti: [
+          ...((values.maakunta as Array<string>) ?? []),
+          ...((values.kunta as Array<string>) ?? []),
+        ],
+      }
+    );
+
+    return _fp.mapValues(
+      (v: Array<string> | string) => (_fp.isArray(v) ? v!.join(',') : v!.toString()),
+      valuesWithSijainti
+    );
+  };
+
   // Jos filtterit muuttuu, resetoi sivutus
   useEffect(() => {
-    if (filters !== previousFilters) {
+    if (filters !== previousFilters && previousFilters !== undefined) {
       dispatch(isTuleva ? resetTulevatJarjestajatPaging() : resetJarjestajatPaging());
     }
   }, [dispatch, filters, previousFilters, isTuleva]);
@@ -144,7 +163,7 @@ export const useKoulutusJarjestajat = ({
     requestParams: {
       tuleva: isTuleva,
       ...pagination,
-      ...filters,
+      ...createQueryParams(filters),
     },
   };
 
