@@ -1,7 +1,7 @@
 import { isBefore, subMonths } from 'date-fns';
 
 export const isHakuAuki = (hakuajat = []) =>
-  hakuajat.some((hakuaika) => hakuaika['haku-auki']);
+  hakuajat.some((hakuaika) => hakuaika?.hakuAuki);
 
 // 3 kk sitten päättyneet tai uudemmat ovat relevantteja oppijalle
 export const isHakuTimeRelevant = (hakuajat) => {
