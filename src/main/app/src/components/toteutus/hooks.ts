@@ -15,9 +15,8 @@ const getHakuAukiType = (toteutus: any) => {
     return null;
   }
   if (toteutus?.metadata?.hakulomaketyyppi === HAKULOMAKE_TYYPPI.MUU) {
-    return isHakuAuki([toteutus.metadata.hakuaika]) ? 'ilmoittautuminen' : null;
+    return toteutus?.hakuAuki ? 'ilmoittautuminen' : null;
   }
-
   const hakuKohdeAuki = toteutus.hakutiedot
     ?.map((hakutieto: any) => hakutieto.hakukohteet)
     .flat()
