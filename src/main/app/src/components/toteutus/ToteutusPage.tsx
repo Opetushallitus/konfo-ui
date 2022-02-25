@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, {useMemo, useState} from 'react';
 
 import { Box, Grid, makeStyles, Typography } from '@material-ui/core';
 import _ from 'lodash';
@@ -60,6 +60,19 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: '300px',
     width: '300px',
     display: 'inline-block',
+  },
+  linkButton: {
+    backgroundColor: 'transparent',
+    border: 'none',
+    cursor: 'pointer',
+    display: 'inline',
+    padding: 0,
+    margin: '15px 0px 0px 0px',
+    fontSize: '0.8rem',
+    fontWeight: 700,
+    lineHeight: '1rem',
+    color: '#378703',
+    fontFamily: 'Open Sans',
   },
 }));
 
@@ -172,6 +185,16 @@ export const ToteutusPage = () => {
     erityisopetusText = t('toteutus.tuva-erityisopetus-teksti');
   }
 
+  const [isAsiasanatExpanded, setIsAsiasanatExpanded] = useState(false);
+  const getAsiasanatVisibleCount = (asiasanat: Array<string>, maxCount: number) => {
+    if(isAsiasanatExpanded) return asiasanat.length;
+    else if(asiasanat.length > maxCount) return maxCount;
+    else {
+      setIsAsiasanatExpanded(true);
+      return asiasanat.length;
+    };
+  }
+
   return loading ? (
     <LoadingCircle />
   ) : (
@@ -212,12 +235,19 @@ export const ToteutusPage = () => {
         {!_.isEmpty(asiasanat) && (
           <Box mt={4}>
             <Grid alignItems="center" justifyContent="center" container spacing={1}>
-              {asiasanat.map((asiasana, i) => (
+              {asiasanat.slice(0, getAsiasanatVisibleCount(asiasanat, 10)).map((asiasana, i) => (
                 <Grid item key={i}>
                   <TextWithBackground>{asiasana}</TextWithBackground>
                 </Grid>
               ))}
             </Grid>
+            <Box display="flex" alignItems="center" justifyContent="center" height="1rem">
+              {!isAsiasanatExpanded && (
+                    <button className={classes.linkButton} onClick={() => setIsAsiasanatExpanded(true)}>
+                      {t('toteutus.nayta-enemman')}
+                    </button>
+              )}
+            </Box>
           </Box>
         )}
         <Box mt={6}>
