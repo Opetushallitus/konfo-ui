@@ -33,7 +33,7 @@ export const Valintatavat = ({ hakukohteenKynnysehto, valintatavat = [] }: Props
               <React.Fragment key={`valintatapa-${index}`}>
                 <Heading variant="h3">{localize(nimi)}</Heading>
                 {!_.isUndefined(vahimmaispisteet) && (
-                  <Box display="flex" paddingBottom={1}>
+                  <Box display="flex" flexWrap={"wrap"} paddingBottom={1}>
                     <Box marginRight={4} flexBasis="33%">
                       <Heading variant="h5">
                         {t('valintaperuste.vahimmaispisteet')}
@@ -41,7 +41,7 @@ export const Valintatavat = ({ hakukohteenKynnysehto, valintatavat = [] }: Props
                       <Typography variant="body1">{vahimmaispisteet}</Typography>
                     </Box>
                     {!_.isUndefined(enimmaispisteet) && (
-                      <Box flexBasis="67%">
+                      <Box>
                         <Heading variant="h5">
                           {t('valintaperuste.enimmaispisteet')}
                         </Heading>
