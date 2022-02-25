@@ -62,6 +62,7 @@ export const theme = createTheme({
       fontWeight: 700,
       color: colors.black,
       lineHeight: '3rem',
+      marginBottom: '1.5rem',
       [breakpoints.down('sm')]: {
         fontSize: '2rem',
         letterSpacing: '-0.075rem',
@@ -73,6 +74,7 @@ export const theme = createTheme({
       fontWeight: 700,
       color: colors.black,
       lineHeight: '2.25rem',
+      marginBottom: '1rem',
       [breakpoints.down('sm')]: {
         fontSize: '1.75rem',
         lineHeight: '2rem',
@@ -82,6 +84,7 @@ export const theme = createTheme({
       fontSize: '1.75rem',
       fontWeight: 700,
       lineHeight: '2rem',
+      marginBottom: '0.5rem',
       color: colors.black,
       [breakpoints.down('sm')]: {
         fontSize: '1.5rem',
@@ -93,6 +96,7 @@ export const theme = createTheme({
       fontSize: '1.5rem',
       fontWeight: '700',
       lineHeight: '1.75rem',
+      marginBottom: '0.5rem',
       [breakpoints.down('sm')]: {
         fontSize: '1.25rem',
         lineHeight: '1.5rem',
@@ -103,6 +107,7 @@ export const theme = createTheme({
       fontSize: '1.0rem',
       fontWeight: '700',
       lineHeight: '1.75rem',
+      marginBottom: '0.25rem',
       [breakpoints.down('sm')]: {
         lineHeight: '1.5rem',
       },
