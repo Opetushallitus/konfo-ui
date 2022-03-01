@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 
+import { useMediaQuery } from '@material-ui/core';
 import _ from 'lodash';
 import { urls } from 'oph-urls-js';
 import { useTranslation } from 'react-i18next';
@@ -12,6 +13,7 @@ import { setMenuState, useMenuOpen } from '#/src/store/reducers/appSlice';
 import { getAPIRequestParams } from '#/src/store/reducers/hakutulosSliceSelector';
 
 import { SIDEMENU_WIDTH } from './constants';
+import { theme } from './theme';
 
 export const useLanguageState = () => {
   const location = useLocation();
@@ -168,7 +170,10 @@ export const useSideMenu = (callback, deps) => {
     dispatch(setMenuState(false));
   }, [dispatch]);
 
+  const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
+
   return {
+    keepMenuVisible: !isSmall && menuOpen,
     state: menuOpen,
     toggleMenu: toggle,
     closeMenu: close,
