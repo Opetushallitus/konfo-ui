@@ -2,7 +2,7 @@
 
 Konfo-UI on luotu create-react-app:lla (`src/main/app`). Juuressa oleva Spring Boot 2.0 -sovellus hoitaa lähinnä sovelluksen jakamisen ympäristöihin deplattaessa.
 
-[![Build status](https://travis-ci.org/Opetushallitus/konfo-ui.svg?branch=master)](https://travis-ci.org/Opetushallitus/konfo-ui)
+[![Konfo-ui](https://github.com/Opetushallitus/konfo-ui/actions/workflows/build.yml/badge.svg)](https://github.com/Opetushallitus/konfo-ui/actions/workflows/build.yml)
 
 ## Käyttöliittymän kehittäminen
 
