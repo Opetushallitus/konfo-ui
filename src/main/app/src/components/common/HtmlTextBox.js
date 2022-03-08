@@ -7,6 +7,7 @@ import TruncateMarkup from 'react-truncate-markup';
 import { educationTypeColorCode } from '#/src/colors';
 import { ColoredPaperContent } from '#/src/components/common/ColoredPaperContent';
 import Spacer from '#/src/components/common/Spacer';
+import { TextButton } from '#/src/components/common/TextButton';
 import { sanitizedHTMLParser } from '#/src/tools/utils';
 
 const useStyles = makeStyles((theme) => ({
@@ -15,29 +16,7 @@ const useStyles = makeStyles((theme) => ({
     width: '63%',
     ...theme.typography.body1,
   },
-  linkButton: {
-    backgroundColor: 'transparent',
-    border: 'none',
-    cursor: 'pointer',
-    display: 'inline',
-    padding: 0,
-    margin: '35px 0 0',
-    fontSize: '1rem',
-    fontWeight: 600,
-    lineHeight: '1.375rem',
-    color: '#378703',
-    fontFamily: 'Open Sans',
-  },
 }));
-
-const LinkButton = ({ children, onClick }) => {
-  const classes = useStyles();
-  return (
-    <button className={classes.linkButton} onClick={onClick}>
-      {children}
-    </button>
-  );
-};
 
 const Ellipsis = ({ onShowMore }) => {
   const { t } = useTranslation();
@@ -46,7 +25,7 @@ const Ellipsis = ({ onShowMore }) => {
       <span>...</span>
       <TruncateMarkup.Atom>
         <Box textAlign="center">
-          <LinkButton onClick={onShowMore}>{t('haku.näytä_lisää')}</LinkButton>
+          <TextButton onClick={onShowMore}>{t('haku.näytä_lisää')}</TextButton>
         </Box>
       </TruncateMarkup.Atom>
     </>
@@ -82,9 +61,9 @@ const HtmlTextBox = (props) => {
             </div>
           </TruncateMarkup>
           {isExpanded && (
-            <LinkButton onClick={() => setIsExpanded(false)}>
+            <TextButton onClick={() => setIsExpanded(false)}>
               {t('haku.näytä_vähemmän')}
-            </LinkButton>
+            </TextButton>
           )}
         </Box>
       </ColoredPaperContent>

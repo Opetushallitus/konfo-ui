@@ -18,16 +18,16 @@ import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
 import Murupolku from '#/src/components/common/Murupolku';
 import Spacer from '#/src/components/common/Spacer';
 import TeemakuvaImage from '#/src/components/common/TeemakuvaImage';
-import { TextWithBackground } from '#/src/components/common/TextWithBackground';
 import { useUrlParams } from '#/src/components/hakutulos/UseUrlParams';
 import { Heading } from '#/src/components/Heading';
 import { useOppilaitokset } from '#/src/components/oppilaitos/hooks';
 import { useSideMenu } from '#/src/hooks';
 import { getHakuParams, getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
-import { getLanguage, localize, localizeLukiolinja } from '#/src/tools/localization';
+import { localize, localizeLukiolinja } from '#/src/tools/localization';
 import { getLocalizedOpintojenLaajuus, sanitizedHTMLParser } from '#/src/tools/utils';
 
 import { useKoulutus } from '../koulutus/hooks';
+import { Asiasanat } from './Asiasanat';
 import { Diplomit } from './Diplomit';
 import { HakuKaynnissaCard } from './HakuKaynnissaCard';
 import { useToteutus } from './hooks';
@@ -63,44 +63,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const getAsiasanatForLanguage = (asiasanat: Array<any>, language: string) => {
-  const getFirstNotEmpty = (
-    asiasanat1: Array<any>,
-    asiasanat2: Array<any>,
-    asiasanat3: Array<any>
-  ) => {
-    const returnIfNotEmpty = (arr: Array<any>) => {
-      if (arr?.length > 0) return arr;
-    };
-    return (
-      returnIfNotEmpty(asiasanat1) ||
-      returnIfNotEmpty(asiasanat2) ||
-      returnIfNotEmpty(asiasanat3) ||
-      []
-    );
-  };
-  const filterAsiasanatForLang = (arr: Array<any>, language: string) => {
-    return arr?.filter((asiasana: any) => asiasana.kieli === language);
-  };
-
-  const fi = filterAsiasanatForLang(asiasanat, 'fi');
-  const sv = filterAsiasanatForLang(asiasanat, 'sv');
-  const en = filterAsiasanatForLang(asiasanat, 'en');
-
-  if ('en' === language) {
-    return getFirstNotEmpty(en, fi, sv);
-  } else if ('sv' === language) {
-    return getFirstNotEmpty(sv, fi, en);
-  } else {
-    return getFirstNotEmpty(fi, sv, en);
-  }
-};
-
 export const ToteutusPage = () => {
   const classes = useStyles();
   const { oid } = useParams<{ oid: string }>();
   const { t } = useTranslation();
-  const currentLanguage = getLanguage();
   const { isDraft } = useUrlParams();
 
   const { state: menuVisible } = useSideMenu();
@@ -117,7 +83,6 @@ export const ToteutusPage = () => {
     painotukset = [],
     erityisetKoulutustehtavat = [],
     opetus = {},
-    ammattinimikkeet,
     yhteyshenkilot = [],
     diplomit = [],
     kielivalikoima,
@@ -142,13 +107,6 @@ export const ToteutusPage = () => {
   const oppilaitoksenNimiMurupolku = oppilaitostenNimet ? `${oppilaitostenNimet}, ` : '';
 
   const haut = toteutus?.hakukohteet;
-
-  // NOTE: These ammattinimikkeet should be the freely written virkailija asiasana-ammattinimikkeet,
-  // not the formal tutkintonimikkeet
-  const asiasanat: Array<string> = getAsiasanatForLanguage(
-    (ammattinimikkeet || []).concat(toteutus?.metadata?.asiasanat || []),
-    currentLanguage
-  )?.map((asiasana: any) => asiasana.arvo);
 
   const loading =
     koulutusLoading ||
@@ -209,17 +167,7 @@ export const ToteutusPage = () => {
             <Typography>{erityisopetusText}</Typography>
           </ContentWithTopIcon>
         )}
-        {!_.isEmpty(asiasanat) && (
-          <Box mt={4}>
-            <Grid alignItems="center" justifyContent="center" container spacing={1}>
-              {asiasanat.map((asiasana, i) => (
-                <Grid item key={i}>
-                  <TextWithBackground>{asiasana}</TextWithBackground>
-                </Grid>
-              ))}
-            </Grid>
-          </Box>
-        )}
+        <Asiasanat toteutus={toteutus} />
         <Box mt={6}>
           <TeemakuvaImage
             imgUrl={toteutus?.teemakuva}
