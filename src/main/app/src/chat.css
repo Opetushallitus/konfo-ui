@@ -27,3 +27,7 @@ div#ocChat-widget-container div#oc-chat-status {
   div#ocChat-widget-container textarea#oc-chat-text-area:focus {
     outline: none;
   }
+
+  div#ocChat-widget-container span.text-blue {
+    color: #3A7A10 !important;
+  }
