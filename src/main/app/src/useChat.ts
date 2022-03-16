@@ -1,7 +1,28 @@
-import { useLayoutEffect } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import './chat.css';
 
 const CHAT_SCRIPT_ID = 'oc-start-up';
+
+const useDomQuery = (selector: string) => {
+  const [el, setEl] = useState<Element | null>();
+  useEffect(() => {
+    const newEl = document.querySelector(selector);
+    setEl(newEl);
+    const observer = new MutationObserver(() => {
+      const newEl = document.querySelector(selector);
+      setEl(newEl);
+    });
+    observer.observe(document.body, {
+      childList: true,
+      attributes: true,
+      subtree: true,
+    });
+
+    return () => observer.disconnect();
+  }, [selector, setEl]);
+
+  return el;
+};
 
 export const useChat = () => {
   useLayoutEffect(() => {
@@ -29,4 +50,9 @@ export const useChat = () => {
 
     document.head.appendChild(script);
   }, []);
+
+  const chatStatusEl = useDomQuery('#oc-chat-status.hidden');
+  const chatWindowEl = useDomQuery('#oc-chat-window.hidden');
+
+  return !(chatStatusEl && chatWindowEl);
 };

@@ -1,14 +1,9 @@
 div#ocChat-widget-container div#oc-chat-status {
     background-color: #3A7A10 !important;
-    right: 110px !important;
   }
 
   div#ocChat-widget-container div#oc-chat-window-title {
     background-color: #3A7A10 !important;
-  }
-
-  div#ocChat-widget-container div#oc-chat-window {
-    right: 110px !important;
   }
 
   div#ocChat-widget-container button#oc-chat-send-button {

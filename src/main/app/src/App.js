@@ -191,7 +191,7 @@ const App = () => {
 
   const classes = useStyles({ betaBannerVisible: betaBanner, isSmall, menuVisible });
 
-  useChat();
+  const chatIsVisible = useChat();
 
   useLayoutEffect(() => {
     const defaultHeader = defaultTitle(language);
@@ -241,7 +241,7 @@ const App = () => {
           </HeadingBoundary>
         </main>
       </Box>
-      <PalautePopup />
+      {!chatIsVisible && <PalautePopup />}
     </React.Fragment>
   );
 };
