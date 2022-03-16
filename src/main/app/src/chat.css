@@ -1,21 +1,21 @@
 div#ocChat-widget-container div#oc-chat-status {
-    background-color: #3A7A10 !important;
+    background-color: var(--primary-main-color, green) !important;
   }
 
   div#ocChat-widget-container div#oc-chat-window-title {
-    background-color: #3A7A10 !important;
+    background-color: var(--primary-main-color, green) !important;
   }
 
   div#ocChat-widget-container button#oc-chat-send-button {
-    border-color: #3A7A10 !important;
+    border-color: var(--primary-main-color, green) !important;
   }
 
   div#ocChat-widget-container button#oc-chat-send-button:hover {
-    background-color: #3A7A10 !important;
+    background-color: var(--primary-main-color, green) !important;
   }
 
   div#ocChat-widget-container textarea#oc-chat-text-area {
-    border-color: #3A7A10 !important;
+    border-color: var(--primary-main-color, green) !important;
     box-shadow: none !important;
   }
 
@@ -24,5 +24,5 @@ div#ocChat-widget-container div#oc-chat-status {
   }
 
   div#ocChat-widget-container span.text-blue {
-    color: #3A7A10 !important;
+    color: var(--primary-main-color, green) !important;
   }

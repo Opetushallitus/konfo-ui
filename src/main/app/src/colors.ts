@@ -50,3 +50,7 @@ export const educationTypeColorCode: Record<string, string> = {
   kymppiLuokkaCyan: '#007373',
   kymppiLuokkaCyanBg: '#E5F2F2', // Highlight BG color
 };
+
+const root = document.documentElement;
+
+root.style.setProperty('--primary-main-color', colors.brandGreen);
