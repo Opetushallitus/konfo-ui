@@ -1,0 +1,28 @@
+div#ocChat-widget-container div#oc-chat-status {
+    background-color: var(--primary-main-color, green) !important;
+  }
+
+  div#ocChat-widget-container div#oc-chat-window-title {
+    background-color: var(--primary-main-color, green) !important;
+  }
+
+  div#ocChat-widget-container button#oc-chat-send-button {
+    border-color: var(--primary-main-color, green) !important;
+  }
+
+  div#ocChat-widget-container button#oc-chat-send-button:hover {
+    background-color: var(--primary-main-color, green) !important;
+  }
+
+  div#ocChat-widget-container textarea#oc-chat-text-area {
+    border-color: var(--primary-main-color, green) !important;
+    box-shadow: none !important;
+  }
+
+  div#ocChat-widget-container textarea#oc-chat-text-area:focus {
+    outline: none;
+  }
+
+  div#ocChat-widget-container span.text-blue {
+    color: var(--primary-main-color, green) !important;
+  }

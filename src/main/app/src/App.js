@@ -36,6 +36,7 @@ import {
 } from './components/valintaperusteet/ValintaperustePage';
 import { SIDEMENU_WIDTH } from './constants';
 import { getHeaderHeight, theme } from './theme';
+import { useChat } from './useChat';
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -189,6 +190,9 @@ const App = () => {
   const isFetching = useIsFetching();
 
   const classes = useStyles({ betaBannerVisible: betaBanner, isSmall, menuVisible });
+
+  const chatIsVisible = useChat();
+
   useLayoutEffect(() => {
     const defaultHeader = defaultTitle(language);
     const h1 = removeLastDot(document.querySelector('h1')?.textContent);
@@ -237,7 +241,7 @@ const App = () => {
           </HeadingBoundary>
         </main>
       </Box>
-      <PalautePopup />
+      {!chatIsVisible && <PalautePopup />}
     </React.Fragment>
   );
 };

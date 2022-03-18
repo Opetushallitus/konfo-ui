@@ -98,7 +98,7 @@ ReactDOM.render(
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
       <Provider store={getKonfoStore()}>
-        <BrowserRouter basename={'/konfo'}>
+        <BrowserRouter basename="/konfo">
           <ThemeProvider theme={theme}>
             <InitGate>
               <ScrollToTop />
