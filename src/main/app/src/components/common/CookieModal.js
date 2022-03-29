@@ -203,7 +203,7 @@ export const CookieModal = () => {
 
   return (
     <Modal
-      id="cookie-modal-backdrop"
+      id="oph-cookie-modal-backdrop"
       className={classes.modalBackdrop}
       open={!(isLoading || cookiesAccepted)}>
       <div id="cookie-modal-content" className={classes.modalContent}>
