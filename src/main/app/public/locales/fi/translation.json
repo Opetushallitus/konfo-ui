@@ -129,10 +129,12 @@
   },
   "haku": {
     "amk": "AMK (korkeakoulutus)",
+    "amk-muu": "AMK (tutkintoon johtamaton)",
     "amk-alempi": "AMK - tutkinto",
     "amk-ylempi": "Ylempi AMK",
     "amm": "Ammatillinen koulutus",
     "amm-muu": "Ammatillinen koulutus",
+    "amm-ope-erityisope-ja-opo": "Ammatillinen opettaja-, erityisopettaja- ja opinto-ohjaajakoulutus",
     "amm-osaamisala": "Osaamisala",
     "amm-osaamisalat": "Osaamisalat",
     "amm-tutkinnon-osa": "Tutkinnon osa",
