@@ -70,9 +70,11 @@ jobs:
         with:
           timezoneLinux: "Europe/Helsinki"
 
-      - uses: dcodeIO/setup-node-nvm@master
+      - uses: actions/setup-node@v3
         with:
-          node-version: lts/*
+          node-version: 'lts/*'
+          cache: 'npm'
+          cache-dependency-path: src/main/app/package-lock.json
 
       - name: Run tests
         run: |
