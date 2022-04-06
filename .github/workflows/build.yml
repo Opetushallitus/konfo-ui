@@ -72,9 +72,7 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: 'lts/*'
-          cache: 'npm'
-          cache-dependency-path: src/main/app/package-lock.json
+          node-version: lts/*
 
       - name: Run tests
         run: |
