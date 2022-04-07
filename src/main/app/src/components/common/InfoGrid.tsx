@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box, Grid, Icon, makeStyles, Paper, Typography } from '@material-ui/core';
+import { Grid, Icon, makeStyles, Paper, Typography } from '@material-ui/core';
 import clsx from 'clsx';
 import _ from 'lodash';
 
@@ -15,8 +15,6 @@ import TutkintoonHakeminenIcon from '#/src/assets/images/tutkintoon_hakeminen.sv
 import { colors, educationTypeColorCode } from '#/src/colors';
 import { LabelTooltip } from '#/src/components/common/LabelTooltip';
 import { toId } from '#/src/tools/utils';
-
-import Spacer from './Spacer';
 
 const iconLookupTable: Record<string, string> = {
   KoulutusAsteIcon: KoulutusAsteIcon,
@@ -54,7 +52,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 type Props = {
-  heading: string;
   gridData: Array<{
     id?: string;
     icon: string | JSX.Element;
@@ -63,88 +60,74 @@ type Props = {
     text: string;
     testid?: string;
   }>;
-  className?: string;
 };
 
 export const InfoGrid = (props: Props) => {
-  const { heading, gridData, className } = props;
+  const { gridData } = props;
   const classes = useStyles();
 
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      width="100%"
-      className={className}>
-      <Typography variant="h2">{heading}</Typography>
-      <Spacer />
-      <Paper className={classes.paper}>
-        <Grid
-          className={classes.grid}
-          container
-          justifyContent="space-evenly"
-          spacing={5}>
-          {gridData.map((e, index) => (
+    <Paper className={classes.paper}>
+      <Grid className={classes.grid} container justifyContent="space-evenly" spacing={5}>
+        {gridData.map((e, index) => (
+          <Grid
+            item
+            container
+            spacing={1}
+            xs={12}
+            md={6}
+            lg={4}
+            key={`info-grid-${e.id}-${index}`}>
+            <Grid item>
+              {_.isString(e.icon) ? (
+                <Icon>
+                  <img src={iconLookupTable[e.icon]} alt="" />
+                </Icon>
+              ) : (
+                e.icon
+              )}
+            </Grid>
             <Grid
               item
-              container
+              xs={10}
               spacing={1}
-              xs={12}
-              md={6}
-              lg={4}
-              key={`info-grid-${e.id}-${index}`}>
-              <Grid item>
-                {_.isString(e.icon) ? (
-                  <Icon>
-                    <img src={iconLookupTable[e.icon]} alt="" />
-                  </Icon>
-                ) : (
-                  e.icon
+              alignContent="flex-start"
+              container
+              direction="column"
+              wrap="nowrap">
+              <Grid item container spacing={1} wrap="nowrap" alignItems="flex-start">
+                <Grid item>
+                  <Typography
+                    className={clsx(classes.title, classes.text)}
+                    variant="body1"
+                    id={toId(e.title)}
+                    noWrap>
+                    {e.title}
+                  </Typography>
+                </Grid>
+                {e?.modalText && (
+                  <Grid item>
+                    <LabelTooltip title={e?.modalText} />
+                  </Grid>
                 )}
               </Grid>
-              <Grid
-                item
-                xs={10}
-                spacing={1}
-                alignContent="flex-start"
-                container
-                direction="column"
-                wrap="nowrap">
-                <Grid item container spacing={1} wrap="nowrap" alignItems="flex-start">
-                  <Grid item>
-                    <Typography
-                      className={clsx(classes.title, classes.text)}
-                      variant="body1"
-                      id={toId(e.title)}
-                      noWrap>
-                      {e.title}
-                    </Typography>
-                  </Grid>
-                  {e?.modalText && (
-                    <Grid item>
-                      <LabelTooltip title={e?.modalText} />
-                    </Grid>
-                  )}
-                </Grid>
-                <Grid item>
-                  {e.text.split('\n').map((line, i) => (
-                    <Typography
-                      className={classes.text}
-                      component="div"
-                      variant="body1"
-                      key={i}
-                      data-cy={e['testid']}
-                      aria-labelledby={toId(e.title)}>
-                      {line}
-                    </Typography>
-                  ))}
-                </Grid>
+              <Grid item>
+                {e.text.split('\n').map((line, i) => (
+                  <Typography
+                    className={classes.text}
+                    component="div"
+                    variant="body1"
+                    key={i}
+                    data-cy={e['testid']}
+                    aria-labelledby={toId(e.title)}>
+                    {line}
+                  </Typography>
+                ))}
               </Grid>
             </Grid>
-          ))}
-        </Grid>
-      </Paper>
-    </Box>
+          </Grid>
+        ))}
+      </Grid>
+    </Paper>
   );
 };

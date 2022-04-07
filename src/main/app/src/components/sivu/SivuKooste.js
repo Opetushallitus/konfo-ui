@@ -37,7 +37,7 @@ const Module = ({ module }) => {
   if (module.type === 'infoGrid') {
     const { data: infoGridData, id } = data.infoGrid[module.id];
     const gridData = infoGridData ? JSON.parse(infoGridData) : [];
-    return <InfoGrid heading="Perustiedot" id={id} gridData={gridData} />;
+    return <InfoGrid id={id} gridData={gridData} />;
   } else if (module.type === 'uutiset') {
     const { name, id, showImage, greenText } = data.uutiset[module.id];
 
@@ -84,7 +84,6 @@ export const SivuKooste = ({ id }) => {
     <main id="main-content" className="center-content" style={pads}>
       <Box display="flex" flexDirection="column" alignItems="center">
         <Typography variant="h1">{kooste.name}</Typography>
-
         {(kooste.modules || []).map((module, index) => (
           <Module module={module} key={`module-${index}`} />
         ))}

@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 
-import { makeStyles, Typography, Box } from '@material-ui/core';
+import { makeStyles, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import TruncateMarkup from 'react-truncate-markup';
 
 import { educationTypeColorCode } from '#/src/colors';
 import { ColoredPaperContent } from '#/src/components/common/ColoredPaperContent';
-import Spacer from '#/src/components/common/Spacer';
 import { TextButton } from '#/src/components/common/TextButton';
 import { sanitizedHTMLParser } from '#/src/tools/utils';
+
+import { PageSection } from './PageSection';
 
 const useStyles = makeStyles((theme) => ({
   textArea: {
@@ -33,7 +34,7 @@ const Ellipsis = ({ onShowMore }) => {
 };
 
 const HtmlTextBox = (props) => {
-  const { heading, className, html, additionalContent } = props;
+  const { heading, html, additionalContent } = props;
 
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -41,15 +42,7 @@ const HtmlTextBox = (props) => {
   const { t } = useTranslation();
 
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      width="100%"
-      className={className}
-      data-cy="kuvaus">
-      <Typography variant="h2">{heading}</Typography>
-      <Spacer />
+    <PageSection heading={heading}>
       <ColoredPaperContent backgroundColor={educationTypeColorCode.ammatillinenGreenBg}>
         <Box display="flex" flexDirection="column" className={classes.textArea}>
           <TruncateMarkup
@@ -67,7 +60,7 @@ const HtmlTextBox = (props) => {
           )}
         </Box>
       </ColoredPaperContent>
-    </Box>
+    </PageSection>
   );
 };
 

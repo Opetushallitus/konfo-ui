@@ -1,16 +1,17 @@
 import React from 'react';
 
-import { Box, Button, Container, makeStyles, Typography } from '@material-ui/core';
+import { Box, Button, makeStyles, Typography } from '@material-ui/core';
 import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import { colors } from '#/src/colors';
+import ContentWrapper from '#/src/components/common/ContentWrapper';
 import HtmlTextBox from '#/src/components/common/HtmlTextBox';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import Murupolku from '#/src/components/common/Murupolku';
+import { PageSection } from '#/src/components/common/PageSection';
 import TeemakuvaImage from '#/src/components/common/TeemakuvaImage';
 import { NotFound } from '#/src/NotFound';
 import { getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
@@ -27,11 +28,6 @@ import { TulevaTarjontaList } from './TulevaTarjontaList';
 import { hasYhteystiedot, Yhteystiedot } from './Yhteystiedot';
 
 const useStyles = makeStyles((theme) => ({
-  root: { marginTop: '100px' },
-  container: {
-    backgroundColor: colors.white,
-    maxWidth: '1600px',
-  },
   title: { marginTop: 40 },
   alatText: {
     ...theme.typography.body1,
@@ -67,7 +63,7 @@ export const OppilaitosPage = (props) => {
       return <NotFound />;
     case 'success':
       return (
-        <Container className={classes.container}>
+        <ContentWrapper>
           <Box display="flex" flexDirection="column" alignItems="center">
             <Box width="100%" alignSelf="start">
               <Murupolku
@@ -94,16 +90,17 @@ export const OppilaitosPage = (props) => {
                 altText={t('oppilaitos.oppilaitoksen-teemakuva')}
               />
             </Box>
-            <OppilaitosinfoGrid
-              className={classes.root}
-              opiskelijoita={entity?.metadata?.opiskelijoita ?? ''}
-              toimipisteita={
-                isOppilaitosOsa ? undefined : entity?.metadata?.toimipisteita
-              }
-              kotipaikat={entity?.kotipaikat}
-              opetuskieli={entity?.opetuskieli ?? []}
-              koulutusohjelmia={entity?.koulutusohjelmia ?? ''}
-            />
+            <PageSection heading={t('oppilaitos.perustiedot')}>
+              <OppilaitosinfoGrid
+                opiskelijoita={entity?.metadata?.opiskelijoita ?? ''}
+                toimipisteita={
+                  isOppilaitosOsa ? undefined : entity?.metadata?.toimipisteita
+                }
+                kotipaikat={entity?.kotipaikat}
+                opetuskieli={entity?.opetuskieli ?? []}
+                koulutusohjelmia={entity?.koulutusohjelmia ?? ''}
+              />
+            </PageSection>
             {entity?.metadata?.wwwSivu && (
               <Button
                 className={classes.button}
@@ -119,18 +116,13 @@ export const OppilaitosPage = (props) => {
               </Button>
             )}
             {esittelyHtml && (
-              <HtmlTextBox
-                heading={t('oppilaitos.esittely')}
-                html={esittelyHtml}
-                className={classes.root}
-              />
+              <HtmlTextBox heading={t('oppilaitos.esittely')} html={esittelyHtml} />
             )}
             <TarjontaList oid={oid} isOppilaitosOsa={isOppilaitosOsa} />
             <TulevaTarjontaList oid={oid} isOppilaitosOsa={isOppilaitosOsa} />
 
             {_.size(tietoaOpiskelusta) > 0 && (
               <TietoaOpiskelusta
-                className={classes.root}
                 heading={t('oppilaitos.tietoa-opiskelusta')}
                 tietoaOpiskelusta={tietoaOpiskelusta}
               />
@@ -149,7 +141,7 @@ export const OppilaitosPage = (props) => {
               />
             )}
           </Box>
-        </Container>
+        </ContentWrapper>
       );
     default:
       return null;

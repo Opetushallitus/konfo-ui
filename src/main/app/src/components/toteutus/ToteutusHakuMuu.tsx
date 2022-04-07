@@ -1,13 +1,13 @@
 import React, { useMemo } from 'react';
 
-import { Box, Button, Grid, makeStyles, Paper, Typography } from '@material-ui/core';
+import { Button, Grid, makeStyles, Paper, Typography } from '@material-ui/core';
 import PublicIcon from '@material-ui/icons/Public';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 import { AccordionText } from '#/src/components/common/AccordionText';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
-import Spacer from '#/src/components/common/Spacer';
+import { PageSection } from '#/src/components/common/PageSection';
 import { localize } from '#/src/tools/localization';
 import { useOsoitteet } from '#/src/tools/useOppilaitosOsoite';
 import { formatDateRange, formatDateString } from '#/src/tools/utils';
@@ -58,17 +58,7 @@ export const ToteutusHakuMuu = ({ toteutus }: Props) => {
       : t('toteutus.ilmoittaudu-koulutukseen');
 
   return (
-    <Box
-      id="haut"
-      mt={7}
-      width="100%"
-      display="flex"
-      flexDirection="column"
-      justifyContent="center"
-      alignItems="center"
-      maxWidth="800px">
-      <Typography variant="h2">{hakeuduTaiIlmoittauduTrans}</Typography>
-      <Spacer />
+    <PageSection heading={hakeuduTaiIlmoittauduTrans}>
       {isLoading ? (
         <LoadingCircle />
       ) : (
@@ -164,6 +154,6 @@ export const ToteutusHakuMuu = ({ toteutus }: Props) => {
           </Grid>
         </Paper>
       )}
-    </Box>
+    </PageSection>
   );
 };

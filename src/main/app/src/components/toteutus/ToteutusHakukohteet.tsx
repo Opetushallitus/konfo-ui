@@ -21,7 +21,6 @@ import { colors } from '#/src/colors';
 import { LabelTooltip } from '#/src/components/common/LabelTooltip';
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
-import Spacer from '#/src/components/common/Spacer';
 import { useDemoLinks } from '#/src/components/toteutus/hooks';
 import { Hakulomaketyyppi } from '#/src/constants';
 import { localize } from '#/src/tools/localization';
@@ -30,6 +29,7 @@ import { formatDateString, formatDouble } from '#/src/tools/utils';
 import { Hakukohde } from '#/src/types/HakukohdeTypes';
 import { Toteutus } from '#/src/types/ToteutusTypes';
 
+import { PageSection } from '../common/PageSection';
 import { formatAloitus } from './utils';
 
 const useStyles = makeStyles((theme) => ({
@@ -337,9 +337,7 @@ export const ToteutusHakukohteet = ({ toteutus }: Props) => {
 
   return (
     <Grid item xs={12} sm={12} md={10} lg={8}>
-      <Box pt={12} display="flex" flexDirection="column" alignItems="center" id="haut">
-        <Typography variant="h2">{t('toteutus.koulutuksen-hakukohteet')}</Typography>
-        <Spacer />
+      <PageSection heading={t('toteutus.koulutuksen-hakukohteet')}>
         <Grid container direction="column" spacing={6}>
           {_.map(hakukohteetByHakutapa, (h, hakutapaKoodiUri) => {
             const IconComponent = getHakutyyppiIcon(
@@ -356,7 +354,7 @@ export const ToteutusHakukohteet = ({ toteutus }: Props) => {
             );
           })}
         </Grid>
-      </Box>
+      </PageSection>
     </Grid>
   );
 };

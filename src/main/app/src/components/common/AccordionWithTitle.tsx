@@ -1,14 +1,13 @@
 import React from 'react';
 
-import { Box, makeStyles, Typography } from '@material-ui/core';
-import clsx from 'clsx';
+import { makeStyles, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 import { Accordion } from '#/src/components/common/Accordion';
-import Spacer from '#/src/components/common/Spacer';
+
+import { PageSection } from './PageSection';
 
 const useStyles = makeStyles((theme) => ({
-  root: { marginTop: '100px' },
   accordion: {
     width: '50%',
     [theme.breakpoints.down('sm')]: {
@@ -30,14 +29,8 @@ export const AccordionWithTitle = ({ titleTranslationKey, data }: AccordionProps
   const classes = useStyles();
   const { t } = useTranslation();
   return (
-    <Box
-      className={clsx([classes.accordion, classes.root])}
-      display="flex"
-      flexDirection="column"
-      alignItems="center">
-      <Typography variant="h2">{t(titleTranslationKey)}</Typography>
-      <Spacer />
+    <PageSection heading={t(titleTranslationKey)} className={classes.accordion}>
       <Accordion items={data} ContentWrapper={ContentWrapper} />
-    </Box>
+    </PageSection>
   );
 };

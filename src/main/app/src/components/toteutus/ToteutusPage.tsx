@@ -16,7 +16,7 @@ import HtmlTextBox from '#/src/components/common/HtmlTextBox';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
 import Murupolku from '#/src/components/common/Murupolku';
-import Spacer from '#/src/components/common/Spacer';
+import { PageSection } from '#/src/components/common/PageSection';
 import TeemakuvaImage from '#/src/components/common/TeemakuvaImage';
 import { useUrlParams } from '#/src/components/hakutulos/UseUrlParams';
 import { Heading } from '#/src/components/Heading';
@@ -39,7 +39,6 @@ import { ToteutusHakutiedot } from './ToteutusHakutiedot';
 import { ToteutusInfoGrid } from './ToteutusInfoGrid';
 
 const useStyles = makeStyles((theme) => ({
-  root: { marginTop: '100px' },
   oppilaitosHeadingSpan: {
     ...theme.typography.body1,
     marginTop: '20px',
@@ -173,13 +172,13 @@ export const ToteutusPage = () => {
             altText={t('toteutus.toteutuksen-teemakuva')}
           />
         </Box>
-        <Box mt={4}>
+        <PageSection heading={t('koulutus.tiedot')}>
           <ToteutusInfoGrid
             laajuus={getLocalizedOpintojenLaajuus(koulutus)}
             opetus={opetus!}
             hasHaku={hasAnyHakukohde}
           />
-        </Box>
+        </PageSection>
         {toteutus?.hakuAukiType && (
           <HakuKaynnissaCard
             title={
@@ -211,13 +210,7 @@ export const ToteutusPage = () => {
             }
           />
         )}
-        {kuvaus && (
-          <HtmlTextBox
-            heading={t('koulutus.kuvaus')}
-            html={localize(kuvaus)}
-            className={classes.root}
-          />
-        )}
+        {kuvaus && <HtmlTextBox heading={t('koulutus.kuvaus')} html={localize(kuvaus)} />}
         {!_.isEmpty(painotukset) && (
           <AccordionWithTitle
             titleTranslationKey="toteutus.painotukset"
@@ -250,9 +243,7 @@ export const ToteutusPage = () => {
           />
         )}
         {yhteyshenkilot?.length > 0 && (
-          <Box mt={12} display="flex" flexDirection="column" alignItems="center">
-            <Typography variant="h2">{t('toteutus.yhteyshenkilot')}</Typography>
-            <Spacer />
+          <PageSection heading={t('toteutus.yhteyshenkilot')}>
             <Box mt={5}>
               <Grid
                 container
@@ -303,7 +294,7 @@ export const ToteutusPage = () => {
                 ))}
               </Grid>
             </Box>
-          </Box>
+          </PageSection>
         )}
         {!_.isEmpty(toteutus?.oppilaitokset) && (
           <ToteutuksenYhteystiedot

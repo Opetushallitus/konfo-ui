@@ -1,14 +1,15 @@
 import React from 'react';
 
-import { Box, Grid, makeStyles, Paper, Typography } from '@material-ui/core';
+import { Grid, makeStyles, Paper, Typography } from '@material-ui/core';
 import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 import { IconBackground } from '#/src/components/common/IconBackground';
-import Spacer from '#/src/components/common/Spacer';
 import { localize } from '#/src/tools/localization';
 import { sanitizedHTMLParser } from '#/src/tools/utils';
+
+import { PageSection } from '../common/PageSection';
 
 const useStyles = makeStyles((theme) => ({
   hakuName: {
@@ -27,14 +28,7 @@ export const ToteutusHakuEiSahkoista = ({ data: eiSahkoistaData }: Props) => {
   const { t } = useTranslation();
 
   return (
-    <Box
-      mt={7}
-      style={{ width: '100%' }}
-      display="flex"
-      flexDirection="column"
-      alignItems="center">
-      <Typography variant="h2">{t('toteutus.ilmoittaudu-koulutukseen')}</Typography>
-      <Spacer />
+    <PageSection heading={t('toteutus.ilmoittaudu-koulutukseen')}>
       <Grid
         container
         item
@@ -67,6 +61,6 @@ export const ToteutusHakuEiSahkoista = ({ data: eiSahkoistaData }: Props) => {
           </Grid>
         </Paper>
       </Grid>
-    </Box>
+    </PageSection>
   );
 };

@@ -14,6 +14,7 @@ import { ExternalLink } from '#/src/components/common/ExternalLink';
 import HtmlTextBox from '#/src/components/common/HtmlTextBox';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import Murupolku from '#/src/components/common/Murupolku';
+import { PageSection } from '#/src/components/common/PageSection';
 import TeemakuvaImage from '#/src/components/common/TeemakuvaImage';
 import { getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
 import { getLanguage, localize } from '#/src/tools/localization';
@@ -26,7 +27,6 @@ import { ToteutusList } from './ToteutusList';
 import { TulevaJarjestajaList } from './TulevaJarjestajaList';
 
 const useStyles = makeStyles((theme) => ({
-  root: { marginTop: '100px' },
   lisatietoa: { width: '50%' },
   alatText: {
     ...theme.typography.body1,
@@ -131,12 +131,13 @@ export const KoulutusPage = () => {
             altText={t('koulutus.koulutuksen-teemakuva')}
           />
         </Box>
-        <KoulutusInfoGrid
-          className={classes.root}
-          nimikkeet={koulutus?.tutkintoNimikkeet}
-          koulutustyyppi={koulutus?.koulutusTyyppi}
-          laajuus={getLocalizedOpintojenLaajuus(koulutus)}
-        />
+        <PageSection heading={t('koulutus.tiedot')}>
+          <KoulutusInfoGrid
+            nimikkeet={koulutus?.tutkintoNimikkeet}
+            koulutustyyppi={koulutus?.koulutusTyyppi}
+            laajuus={getLocalizedOpintojenLaajuus(koulutus)}
+          />
+        </PageSection>
         {(!_.isEmpty(koulutus?.kuvaus) ||
           koulutus?.suorittaneenOsaaminen ||
           koulutus?.tyotehtavatJoissaVoiToimia) && (
