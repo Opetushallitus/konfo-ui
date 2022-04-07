@@ -38,6 +38,9 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   expanded: {},
+  wrapper: {
+    overflowWrap: 'anywhere',
+  },
 }));
 
 type Props = {
@@ -50,11 +53,14 @@ type ContentWrapperProps = {
   children?: React.ReactNode;
 };
 
-const DefaultContentWrapper = ({ children, ...props }: ContentWrapperProps) => (
-  <Typography {...props} component="div">
-    {children}
-  </Typography>
-);
+const DefaultContentWrapper = ({ children, ...props }: ContentWrapperProps) => {
+  const classes = useStyles();
+  return (
+    <Typography {...props} component="div" className={classes.wrapper}>
+      {children}
+    </Typography>
+  );
+};
 
 export const Accordion = ({
   items,
