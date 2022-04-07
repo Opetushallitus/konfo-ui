@@ -18,7 +18,6 @@ import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
-import { LabelTooltip } from '#/src/components/common/LabelTooltip';
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
 import { PageSection } from '#/src/components/common/PageSection';
@@ -30,13 +29,10 @@ import { formatDateString, formatDouble } from '#/src/tools/utils';
 import { Hakukohde } from '#/src/types/HakukohdeTypes';
 import { Toteutus } from '#/src/types/ToteutusTypes';
 
+import { HakutietoTable } from './HakutietoTable';
 import { formatAloitus } from './utils';
 
-const useStyles = makeStyles((theme) => ({
-  gridHeading: {
-    ...theme.typography.body1,
-    fontWeight: 700,
-  },
+export const useStyles = makeStyles((theme) => ({
   hakuName: {
     ...theme.typography.h5,
     fontWeight: 700,
@@ -50,6 +46,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     width: '100%',
+    maxWidth: '800px',
     height: '100%',
     borderTop: `5px solid ${colors.brandGreen}`,
   },
@@ -60,42 +57,6 @@ const getJarjestyspaikkaYhteystiedot = (
   osoitteet: Array<{ oppilaitosOid: string; yhteystiedot: string }>
 ) =>
   osoitteet.find((osoite) => osoite.oppilaitosOid === jarjestyspaikka.oid)?.yhteystiedot;
-
-const HakukohdeTiedot = ({ items }: { items: Array<any> }) => {
-  const classes = useStyles();
-
-  return (
-    <Grid container direction="row" spacing={3}>
-      {items
-        .filter(Boolean)
-        // TODO: filter(Boolean) does not clean the types here :(
-        .map(({ size, heading, content, modalText }: any) => (
-          <Grid key={heading} item xs={size}>
-            <Grid item container spacing={1} wrap="nowrap" alignItems="flex-start">
-              <Grid item>
-                <Typography className={classes.gridHeading} noWrap>
-                  {heading}
-                </Typography>
-              </Grid>
-              {!_.isEmpty(modalText) && (
-                <Grid item>
-                  <LabelTooltip title={<LocalizedHTML noMargin data={modalText} />} />
-                </Grid>
-              )}
-            </Grid>
-            <Grid item>
-              {content.map((v: string, i: number) => (
-                <Typography key={`${heading}-text-${i}`} variant="body1">
-                  {v}
-                </Typography>
-              ))}
-            </Grid>
-          </Grid>
-        ))}
-    </Grid>
-  );
-};
-
 type GridProps = {
   tyyppiOtsikko: string;
   icon: JSX.Element;
@@ -119,7 +80,7 @@ const HakuCardGrid = ({ tyyppiOtsikko, icon, toteutus, hakukohteet }: GridProps)
   const { osoitteet } = useOsoitteet(oppilaitosOids, true);
 
   return (
-    <Grid item xs={12}>
+    <Box marginY={3}>
       <Box ml={2} display="flex" justifyContent="center">
         {icon}
         <Box ml={2}>
@@ -156,7 +117,7 @@ const HakuCardGrid = ({ tyyppiOtsikko, icon, toteutus, hakukohteet }: GridProps)
               : '';
 
             return (
-              <Grid key={hakukohde.hakukohdeOid} item xs={12} lg={8}>
+              <Grid key={hakukohde.hakukohdeOid} item xs={12}>
                 <Paper className={classes.paper}>
                   <Box m={4}>
                     <Grid container direction="column" spacing={3}>
@@ -181,7 +142,7 @@ const HakuCardGrid = ({ tyyppiOtsikko, icon, toteutus, hakukohteet }: GridProps)
                         <Divider />
                       </Grid>
                       <Grid item>
-                        <HakukohdeTiedot
+                        <HakutietoTable
                           items={[
                             {
                               size: anyHakuaikaPaattyy ? 6 : 12,
@@ -310,7 +271,7 @@ const HakuCardGrid = ({ tyyppiOtsikko, icon, toteutus, hakukohteet }: GridProps)
           })}
         </Grid>
       </Box>
-    </Grid>
+    </Box>
   );
 };
 

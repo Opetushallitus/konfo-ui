@@ -10,11 +10,14 @@ import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { PageSection } from '#/src/components/common/PageSection';
 import { localize } from '#/src/tools/localization';
 import { useOsoitteet } from '#/src/tools/useOppilaitosOsoite';
-import { formatDateRange, formatDateString } from '#/src/tools/utils';
+import { formatDateString } from '#/src/tools/utils';
 import { Translateable } from '#/src/types/common';
+import { Hakuaika } from '#/src/types/HakukohdeTypes';
 import { Toteutus } from '#/src/types/ToteutusTypes';
 
+import { HakutietoTable } from './HakutietoTable';
 import { selectMuuHaku } from './hooks';
+import { formatAloitus } from './utils';
 
 const useStyles = makeStyles((theme) => ({
   hakuName: {
@@ -24,6 +27,11 @@ const useStyles = makeStyles((theme) => ({
   },
   valueText: {
     fontWeight: 'bold',
+  },
+  paper: {
+    width: '100%',
+    maxWidth: '800px',
+    padding: '30px',
   },
 }));
 
@@ -39,6 +47,51 @@ const getTarjoajaYhteystiedot = (
   });
 
 type Props = { toteutus?: Toteutus };
+
+const AlkamiskausiRivi = ({ alkamiskausi }: any) => {
+  const { t } = useTranslation();
+
+  const { alkaaText, alkaaModalText, paattyyText } = formatAloitus(alkamiskausi || {}, t);
+  return (
+    <HakutietoTable
+      items={[
+        alkaaText && {
+          size: paattyyText ? 6 : 12,
+          heading: t('toteutus.koulutus-alkaa:'),
+          content: [alkaaText],
+          modalText: alkaaModalText,
+        },
+        paattyyText && {
+          size: 6,
+          heading: t('toteutus.koulutus-paattyy:'),
+          content: [paattyyText],
+        },
+      ]}
+    />
+  );
+};
+
+const HakuaikaRivi = ({ hakuaika }: { hakuaika: Hakuaika }) => {
+  const { t } = useTranslation();
+  return (
+    <HakutietoTable
+      items={[
+        {
+          size: hakuaika?.formatoituPaattyy ? 6 : 12,
+          heading: t('toteutus.haku-alkaa:'),
+          content: [formatDateString(hakuaika.formatoituAlkaa)],
+        },
+        hakuaika?.formatoituPaattyy && {
+          size: 6,
+          heading: t('toteutus.haku-paattyy:'),
+          content: [
+            hakuaika.paattyy ? formatDateString(hakuaika.formatoituPaattyy) : '-', // This is needed for the alkuu & paattyy to be rendered on the same row
+          ],
+        },
+      ]}
+    />
+  );
+};
 
 export const ToteutusHakuMuu = ({ toteutus }: Props) => {
   const classes = useStyles();
@@ -57,38 +110,25 @@ export const ToteutusHakuMuu = ({ toteutus }: Props) => {
       ? t('toteutus.hakeudu-koulutukseen')
       : t('toteutus.ilmoittaudu-koulutukseen');
 
+  const alkamiskausi = muuHaku?.opetus?.koulutuksenAlkamiskausi;
+
   return (
     <PageSection heading={hakeuduTaiIlmoittauduTrans}>
       {isLoading ? (
         <LoadingCircle />
       ) : (
-        <Paper style={{ padding: '30px', width: '100%' }}>
+        <Paper className={classes.paper}>
           <Grid container direction="column" spacing={2}>
             <Grid item>
               <Typography className={classes.hakuName}>
                 {localize(muuHaku.nimi)}
               </Typography>
             </Grid>
-            <Grid item container direction="row">
-              <Grid item xs md={4}>
-                <Typography noWrap variant="body1">
-                  {t(
-                    muuHaku.hakuaika?.paattyy
-                      ? 'koulutus.hakuaika:'
-                      : 'toteutus.haku-alkaa:'
-                  )}
-                </Typography>
-              </Grid>
-              <Grid item xs>
-                <Typography variant="body1" className={classes.valueText}>
-                  {muuHaku.hakuaika?.formatoituPaattyy
-                    ? formatDateRange(
-                        muuHaku.hakuaika?.formatoituAlkaa,
-                        muuHaku.hakuaika?.formatoituPaattyy
-                      )
-                    : formatDateString(muuHaku.hakuaika?.formatoituAlkaa)}
-                </Typography>
-              </Grid>
+            <Grid item>
+              <HakuaikaRivi hakuaika={muuHaku?.hakuaika} />
+            </Grid>
+            <Grid item>
+              <AlkamiskausiRivi alkamiskausi={alkamiskausi} />
             </Grid>
             {muuHaku.aloituspaikat && (
               <Grid item container direction="row">
@@ -105,7 +145,7 @@ export const ToteutusHakuMuu = ({ toteutus }: Props) => {
               </Grid>
             )}
             {yhteystiedot?.map((osoite, index) => (
-              <Grid key={index} container item direction="row">
+              <Grid key={index} container item direction="row" wrap="nowrap">
                 <PublicIcon style={{ marginRight: '10px' }} />
                 <Typography variant="body1">{osoite}</Typography>
               </Grid>
