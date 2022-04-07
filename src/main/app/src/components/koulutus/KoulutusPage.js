@@ -22,7 +22,6 @@ import { getLocalizedOpintojenLaajuus, sanitizedHTMLParser } from '#/src/tools/u
 import { useUrlParams } from '../hakutulos/UseUrlParams';
 import { useKoulutus, useKoulutusJarjestajat } from './hooks';
 import { KoulutusInfoGrid } from './KoulutusInfoGrid';
-import SuositusKoulutusList from './SuositusKoulutusList';
 import { ToteutusList } from './ToteutusList';
 import { TulevaJarjestajaList } from './TulevaJarjestajaList';
 
@@ -61,7 +60,6 @@ export const KoulutusPage = () => {
 
   // TODO: There is absolutely no error handling atm.
   const { data: koulutus, isLoading: koulutusLoading } = useKoulutus({ oid, isDraft });
-  const suositellutKoulutukset = {};
 
   const { data: tulevatJarjestajat } = useKoulutusJarjestajat({
     oid,
@@ -207,11 +205,7 @@ export const KoulutusPage = () => {
         <Box width="95%" id="tarjonta">
           <ToteutusList oid={oid} koulutustyyppi={koulutus?.koulutusTyyppi} />
         </Box>
-        {suositellutKoulutukset?.total > 0 && (
-          <Box id="suositukset">
-            <SuositusKoulutusList koulutukset={suositellutKoulutukset} oid={oid} />
-          </Box>
-        )}
+        )
         {tulevatJarjestajat?.length > 0 && (
           <Box width="95%" id="tulevatJarjestajat">
             <TulevaJarjestajaList jarjestajat={tulevatJarjestajat} />

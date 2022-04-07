@@ -48,11 +48,6 @@ export const getKoulutusJarjestajat = ({ oid, requestParams }) =>
     params: C.cleanRequestParams(requestParams),
   });
 
-export const getSuositellutKoulutukset = (requestParams) =>
-  get(urls.url('konfo-backend.suosittelu'), {
-    params: C.cleanRequestParams(requestParams),
-  });
-
 export const getOppilaitos = createEntityGetter('oppilaitos');
 
 export const getOppilaitosOsa = createEntityGetter('oppilaitosOsa');
