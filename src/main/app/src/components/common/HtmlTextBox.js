@@ -34,7 +34,7 @@ const Ellipsis = ({ onShowMore }) => {
 };
 
 const HtmlTextBox = (props) => {
-  const { heading, html, additionalContent } = props;
+  const { heading, html, additionalContent, ...rest } = props;
 
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -42,7 +42,7 @@ const HtmlTextBox = (props) => {
   const { t } = useTranslation();
 
   return (
-    <PageSection heading={heading}>
+    <PageSection heading={heading} {...rest}>
       <ColoredPaperContent backgroundColor={educationTypeColorCode.ammatillinenGreenBg}>
         <Box display="flex" flexDirection="column" className={classes.textArea}>
           <TruncateMarkup

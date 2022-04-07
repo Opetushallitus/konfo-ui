@@ -141,6 +141,7 @@ export const KoulutusPage = () => {
         koulutus?.suorittaneenOsaaminen ||
         koulutus?.tyotehtavatJoissaVoiToimia) && (
         <HtmlTextBox
+          data-cy="kuvaus"
           heading={t('koulutus.kuvaus')}
           html={createKoulutusHtml()}
           className={classes.root}
@@ -206,7 +207,6 @@ export const KoulutusPage = () => {
       <Box width="95%" id="tarjonta">
         <ToteutusList oid={oid} koulutustyyppi={koulutus?.koulutusTyyppi} />
       </Box>
-      )
       {tulevatJarjestajat?.length > 0 && (
         <Box width="95%" id="tulevatJarjestajat">
           <TulevaJarjestajaList jarjestajat={tulevatJarjestajat} />
