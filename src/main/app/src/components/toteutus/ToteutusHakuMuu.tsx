@@ -44,7 +44,7 @@ export const ToteutusHakuMuu = ({ data: muuHaku }: Props) => {
   const oppilaitosOids = muuHaku.tarjoajat.map(
     (tarjoaja: { oid: string }) => tarjoaja.oid
   );
-  const osoitteet = useOsoitteet(oppilaitosOids, true);
+  const { osoitteet } = useOsoitteet(oppilaitosOids, true);
   const yhteystiedot = getTarjoajaYhteystiedot(osoitteet, muuHaku.tarjoajat);
 
   return (
