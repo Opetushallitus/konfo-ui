@@ -298,7 +298,7 @@ export const ToteutusHakukohteet = ({ toteutus }: Props) => {
   return (
     <Grid item xs={12} sm={12} md={10} lg={8}>
       <PageSection heading={t('toteutus.koulutuksen-hakukohteet')}>
-        <Grid container direction="column" spacing={6}>
+        <Grid direction="column" spacing={6}>
           {_.map(hakukohteetByHakutapa, (h, hakutapaKoodiUri) => {
             const IconComponent = getHakutyyppiIcon(
               hakutapaKoodiUri as keyof typeof typeToIconMap

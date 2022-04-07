@@ -204,11 +204,11 @@ export const KoulutusPage = () => {
           />
         </PageSection>
       ) : null}
-      <Box width="95%" id="tarjonta">
+      <Box id="tarjonta">
         <ToteutusList oid={oid} koulutustyyppi={koulutus?.koulutusTyyppi} />
       </Box>
       {tulevatJarjestajat?.length > 0 && (
-        <Box width="95%" id="tulevatJarjestajat">
+        <Box id="tulevatJarjestajat">
           <TulevaJarjestajaList jarjestajat={tulevatJarjestajat} />
         </Box>
       )}

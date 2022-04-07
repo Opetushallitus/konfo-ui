@@ -7,6 +7,7 @@ import { selectToteutusHakulomaketyyppi } from './hooks';
 import { ToteutusHakuEiSahkoista } from './ToteutusHakuEiSahkoista';
 import { ToteutusHakukohteet } from './ToteutusHakukohteet';
 import { ToteutusHakuMuu } from './ToteutusHakuMuu';
+
 type Props = { toteutus?: Toteutus };
 
 export const ToteutusHakutiedot = ({ toteutus }: Props) => {

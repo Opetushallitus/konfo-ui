@@ -3,11 +3,11 @@ import React from 'react';
 import { Typography, Grid } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 
+import InfoCardGrid from '#/src/components/common/InfoCardGrid';
+import { InfoGrid } from '#/src/components/common/InfoGrid';
+import Tree from '#/src/components/common/Tree';
 import { useContentful } from '#/src/hooks';
 
-import InfoCardGrid from '../common/InfoCardGrid';
-import { InfoGrid } from '../common/InfoGrid';
-import Tree from '../common/Tree';
 import Sisalto from './Sisalto';
 
 // TODO: Mikä tämä komponentti on? Kovakoodattuja käännöksiä, testitekstillä

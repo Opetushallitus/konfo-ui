@@ -3,9 +3,9 @@ import React, { useEffect } from 'react';
 import { Grid, makeStyles } from '@material-ui/core';
 
 import { colors } from '#/src/colors';
+import Murupolku from '#/src/components/common/Murupolku';
 import { useContentful } from '#/src/hooks';
 
-import Murupolku from '../common/Murupolku';
 import Sisalto from './Sisalto';
 import TableOfContents from './TableOfContents';
 

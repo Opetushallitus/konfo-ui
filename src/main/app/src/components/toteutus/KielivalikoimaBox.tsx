@@ -5,10 +5,9 @@ import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { ColoredPaperContent } from '#/src/components/common/ColoredPaperContent';
+import { PageSection } from '#/src/components/common/PageSection';
 import { localizeArrayToCommaSeparated } from '#/src/tools/localization';
 import { Kielivalikoima } from '#/src/types/ToteutusTypes';
-
-import { PageSection } from '../common/PageSection';
 
 export const useStyles = makeStyles({
   table: {

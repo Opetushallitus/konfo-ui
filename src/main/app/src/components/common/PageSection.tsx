@@ -1,13 +1,14 @@
 import React from 'react';
 
 import { Box, Typography, BoxProps, useMediaQuery } from '@material-ui/core';
+import _fp from 'lodash/fp';
 
 import { theme } from '#/src/theme';
 
 import Spacer from './Spacer';
 
 type Props = {
-  heading: string;
+  heading: string | JSX.Element;
   children: React.ReactNode;
 } & BoxProps;
 
@@ -21,7 +22,7 @@ export const PageSection = ({ heading, children, ...props }: Props) => {
       width="100%"
       mt={isSmall ? 4 : 8}
       {...props}>
-      <Typography variant="h2">{heading}</Typography>
+      {_fp.isString(heading) ? <Typography variant="h2">{heading}</Typography> : heading}
       <Spacer />
       {children}
     </Box>
