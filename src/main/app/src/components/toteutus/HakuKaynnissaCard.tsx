@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core';
 
 const useStyles = makeStyles({
-  card: { margin: '40px', padding: '20px', display: 'flex', flexWrap: 'wrap' },
+  card: { marginTop: '40px', padding: '20px', display: 'flex', flexWrap: 'wrap' },
   gridWrapper: {},
   buttonText: { color: '#FFFFFF' },
 });
