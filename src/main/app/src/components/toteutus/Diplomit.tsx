@@ -4,8 +4,9 @@ import { makeStyles, Typography } from '@material-ui/core';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
-import { AccordionWithTitle } from '#/src/components/common/AccordionWithTitle';
+import { Accordion } from '#/src/components/common/Accordion';
 import { ExternalLink } from '#/src/components/common/ExternalLink';
+import { PageSection } from '#/src/components/common/PageSection';
 import { localize } from '#/src/tools/localization';
 import { Translateable } from '#/src/types/common';
 import { Lukiodiplomi } from '#/src/types/ToteutusTypes';
@@ -54,13 +55,17 @@ const DiplomiContent = ({ diplomi }: { diplomi: Lukiodiplomi }) => {
   );
 };
 
-export const Diplomit = ({ diplomit }: { diplomit: Array<Lukiodiplomi> }) =>
-  diplomit?.length > 0 ? (
-    <AccordionWithTitle
-      titleTranslationKey="toteutus.lukiodiplomit"
-      data={diplomit.map((diplomi: any) => ({
-        title: localize(diplomi?.koodi),
-        content: <DiplomiContent diplomi={diplomi} />,
-      }))}
-    />
+export const Diplomit = ({ diplomit }: { diplomit: Array<Lukiodiplomi> }) => {
+  const { t } = useTranslation();
+
+  return diplomit?.length > 0 ? (
+    <PageSection heading={t('toteutus.lukiodiplomit')}>
+      <Accordion
+        items={diplomit.map((diplomi: any) => ({
+          title: localize(diplomi?.koodi),
+          content: <DiplomiContent diplomi={diplomi} />,
+        }))}
+      />
+    </PageSection>
   ) : null;
+};

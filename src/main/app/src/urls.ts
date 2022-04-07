@@ -14,7 +14,6 @@ const development = {
   'konfo-backend.search.koulutukset': '/konfo-backend/search/koulutukset',
   'konfo-backend.search.oppilaitokset': '/konfo-backend/search/oppilaitokset',
   'konfo-backend.koulutus': '/konfo-backend/koulutus/$1',
-  'konfo-backend.suosittelu': '/konfo-backend/suosittelu',
   'konfo-backend.toteutus': '/konfo-backend/toteutus/$1',
   'konfo-backend.valintaperusteet': '/konfo-backend/valintaperuste/$1',
   'konfo-backend.oppilaitos': '/konfo-backend/oppilaitos/$1',

@@ -104,10 +104,11 @@ export const KORKEAKOULU_KOULUTUSTYYPIT = [
   ...TUTKINTOON_JOHTAMATTOMAT_KORKEAKOULU_KOULUTUSTYYPIT,
 ];
 
-export const HAKULOMAKE_TYYPPI = {
-  EI_SAHKOISTA: 'ei sähköistä',
-  MUU: 'muu',
-} as const;
+export enum Hakulomaketyyppi {
+  ATARU = 'ataru',
+  EI_SAHKOISTA = 'ei sähköistä',
+  MUU = 'muu',
+}
 
 // Search related
 export const pageSizeArray = [5, 10, 20, 30, 50];

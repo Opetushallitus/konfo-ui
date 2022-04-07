@@ -1,16 +1,15 @@
 import React from 'react';
 
-import { Box, makeStyles, Typography } from '@material-ui/core';
+import { Box, makeStyles } from '@material-ui/core';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { ColoredPaperContent } from '#/src/components/common/ColoredPaperContent';
-import Spacer from '#/src/components/common/Spacer';
+import { PageSection } from '#/src/components/common/PageSection';
 import { localizeArrayToCommaSeparated } from '#/src/tools/localization';
 import { Kielivalikoima } from '#/src/types/ToteutusTypes';
 
 export const useStyles = makeStyles({
-  root: { marginTop: '100px' },
   table: {
     borderSpacing: 0,
     borderCollapse: 'separate',
@@ -47,14 +46,7 @@ export const KielivalikoimaBox = ({
   const classes = useStyles();
 
   return hasKielivalikoima ? (
-    <Box
-      className={classes.root}
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      width="100%">
-      <Typography variant="h2">{t('toteutus.kielivalikoima')}</Typography>
-      <Spacer />
+    <PageSection heading={t('toteutus.kielivalikoima')}>
       <ColoredPaperContent>
         <Box margin={4}>
           <table className={classes.table}>
@@ -75,6 +67,6 @@ export const KielivalikoimaBox = ({
           </table>
         </Box>
       </ColoredPaperContent>
-    </Box>
+    </PageSection>
   ) : null;
 };

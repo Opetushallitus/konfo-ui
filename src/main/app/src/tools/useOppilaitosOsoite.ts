@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 
 import { getOppilaitos, getOppilaitosOsa } from '#/src/api/konfoApi';
 import { parseOsoiteData } from '#/src/tools/utils';
@@ -49,28 +49,17 @@ export const useOsoitteet = (
   oppilaitosOids: Array<string>,
   isOppilaitosOsa?: boolean
 ) => {
-  const fetchFn = isOppilaitosOsa
-    ? fetchOppilaitosOsaOsoitteet
-    : fetchOppilaitosOsoitteet;
-  const [osoitteet, setOsoitteet] = useState<Array<OppilaitosOsoite>>([]);
-  const [dataFetched, setDataFetched] = useState(false);
-
-  // Tämä ilmeisesti aiheuttaa virheilmoituksen "Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application. To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function."
-  // TODO: Käytä react-querya tässä
-  useEffect(() => {
-    if (!dataFetched) {
-      (async () => {
-        try {
-          const data = await fetchFn(oppilaitosOids);
-          setDataFetched(true);
-          setOsoitteet(data);
-        } catch (e) {
-          setDataFetched(true);
-          console.error(e);
-        }
-      })();
+  const { data: osoitteet = [], ...rest } = useQuery(
+    ['getOppilaitosOsoitteet', oppilaitosOids],
+    () =>
+      isOppilaitosOsa
+        ? fetchOppilaitosOsaOsoitteet(oppilaitosOids)
+        : fetchOppilaitosOsoitteet(oppilaitosOids),
+    {
+      refetchOnWindowFocus: false,
+      retryOnMount: false,
     }
-  }, [fetchFn, oppilaitosOids, dataFetched, osoitteet]);
+  );
 
-  return osoitteet;
+  return { osoitteet, ...rest } as any;
 };

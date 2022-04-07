@@ -7,8 +7,9 @@ import CloseIcon from '@material-ui/icons/Close';
 import SentimentSatisfied from '@material-ui/icons/SentimentSatisfied';
 import { useTranslation } from 'react-i18next';
 
+import Palaute from '#/src/components/common/Palaute';
+
 import { colors } from '../../colors';
-import Palaute from '../common/Palaute';
 
 const useStyles = makeStyles((theme) => ({
   closeButton: {

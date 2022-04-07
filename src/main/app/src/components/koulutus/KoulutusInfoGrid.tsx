@@ -31,15 +31,9 @@ type Props = {
   nimikkeet: Array<Translateable>;
   koulutustyyppi?: Koulutustyyppi;
   laajuus: string;
-  className?: string;
 };
 
-export const KoulutusInfoGrid = ({
-  className,
-  nimikkeet,
-  koulutustyyppi,
-  laajuus,
-}: Props) => {
+export const KoulutusInfoGrid = ({ nimikkeet, koulutustyyppi, laajuus }: Props) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -72,11 +66,5 @@ export const KoulutusInfoGrid = ({
     testid: 'opintojenLaajuus',
   });
 
-  return (
-    <InfoGrid
-      heading={t('koulutus.tiedot')}
-      gridData={perustiedotData}
-      className={className}
-    />
-  );
+  return <InfoGrid gridData={perustiedotData} />;
 };

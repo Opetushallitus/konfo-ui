@@ -182,5 +182,5 @@ export const ToteutusInfoGrid = ({ laajuus, opetus = {}, hasHaku }: Props) => {
     }
   );
 
-  return <InfoGrid heading={t('koulutus.tiedot')} gridData={perustiedotData} />;
+  return <InfoGrid gridData={perustiedotData} />;
 };

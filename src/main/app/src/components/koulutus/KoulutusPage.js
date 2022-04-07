@@ -8,12 +8,13 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import { AccordionWithTitle } from '#/src/components/common/AccordionWithTitle';
+import { Accordion } from '#/src/components/common/Accordion';
 import ContentWrapper from '#/src/components/common/ContentWrapper';
 import { ExternalLink } from '#/src/components/common/ExternalLink';
 import HtmlTextBox from '#/src/components/common/HtmlTextBox';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import Murupolku from '#/src/components/common/Murupolku';
+import { PageSection } from '#/src/components/common/PageSection';
 import TeemakuvaImage from '#/src/components/common/TeemakuvaImage';
 import { getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
 import { getLanguage, localize } from '#/src/tools/localization';
@@ -22,12 +23,10 @@ import { getLocalizedOpintojenLaajuus, sanitizedHTMLParser } from '#/src/tools/u
 import { useUrlParams } from '../hakutulos/UseUrlParams';
 import { useKoulutus, useKoulutusJarjestajat } from './hooks';
 import { KoulutusInfoGrid } from './KoulutusInfoGrid';
-import SuositusKoulutusList from './SuositusKoulutusList';
 import { ToteutusList } from './ToteutusList';
 import { TulevaJarjestajaList } from './TulevaJarjestajaList';
 
 const useStyles = makeStyles((theme) => ({
-  root: { marginTop: '100px' },
   lisatietoa: { width: '50%' },
   alatText: {
     ...theme.typography.body1,
@@ -61,7 +60,6 @@ export const KoulutusPage = () => {
 
   // TODO: There is absolutely no error handling atm.
   const { data: koulutus, isLoading: koulutusLoading } = useKoulutus({ oid, isDraft });
-  const suositellutKoulutukset = {};
 
   const { data: tulevatJarjestajat } = useKoulutusJarjestajat({
     oid,
@@ -106,64 +104,65 @@ export const KoulutusPage = () => {
     <LoadingCircle />
   ) : (
     <ContentWrapper>
-      <Box display="flex" flexDirection="column" alignItems="center">
-        <Box width="100%" alignSelf="start">
-          <Murupolku
-            path={[
-              { name: t('haku.otsikko'), link: hakuUrl.url },
-              { name: localize(koulutus?.tutkintoNimi) },
-            ]}
-          />
-        </Box>
-        <Box mt={4}>
-          {koulutusAlat && (
-            <Typography className={classes.alatText} variant="h3" component="h3">
-              {koulutusAlat}
-            </Typography>
-          )}
-        </Box>
-        <Box mt={1}>
-          <Typography className={classes.tutkintoHeader} variant="h1" component="h1">
-            {localize(koulutus?.tutkintoNimi)}
+      <Box width="100%" alignSelf="start">
+        <Murupolku
+          path={[
+            { name: t('haku.otsikko'), link: hakuUrl.url },
+            { name: localize(koulutus?.tutkintoNimi) },
+          ]}
+        />
+      </Box>
+      <Box mt={4}>
+        {koulutusAlat && (
+          <Typography className={classes.alatText} variant="h3" component="h3">
+            {koulutusAlat}
           </Typography>
-        </Box>
-        <Box mt={7.5}>
-          <TeemakuvaImage
-            imgUrl={koulutus?.teemakuva}
-            altText={t('koulutus.koulutuksen-teemakuva')}
-          />
-        </Box>
+        )}
+      </Box>
+      <Box mt={1}>
+        <Typography className={classes.tutkintoHeader} variant="h1" component="h1">
+          {localize(koulutus?.tutkintoNimi)}
+        </Typography>
+      </Box>
+      <Box mt={7.5}>
+        <TeemakuvaImage
+          imgUrl={koulutus?.teemakuva}
+          altText={t('koulutus.koulutuksen-teemakuva')}
+        />
+      </Box>
+      <PageSection heading={t('koulutus.tiedot')}>
         <KoulutusInfoGrid
-          className={classes.root}
           nimikkeet={koulutus?.tutkintoNimikkeet}
           koulutustyyppi={koulutus?.koulutusTyyppi}
           laajuus={getLocalizedOpintojenLaajuus(koulutus)}
         />
-        {(!_.isEmpty(koulutus?.kuvaus) ||
-          koulutus?.suorittaneenOsaaminen ||
-          koulutus?.tyotehtavatJoissaVoiToimia) && (
-          <HtmlTextBox
-            heading={t('koulutus.kuvaus')}
-            html={createKoulutusHtml()}
-            className={classes.root}
-            additionalContent={
-              !_.isEmpty(koulutus?.linkkiEPerusteisiin) && (
-                <ExternalLink
-                  target="_blank"
-                  rel="noopener"
-                  href={localize(koulutus?.linkkiEPerusteisiin)}
-                  className={classes.linkButton}
-                  data-cy="eperuste-linkki">
-                  {t('koulutus.eperuste-linkki')}
-                </ExternalLink>
-              )
-            }
-          />
-        )}
-        {koulutus?.tutkinnonOsat ? (
-          <AccordionWithTitle
-            titleTranslation="koulutus.kuvaus"
-            data={koulutus?.tutkinnonOsat.map((tutkinnonOsa) => {
+      </PageSection>
+      {(!_.isEmpty(koulutus?.kuvaus) ||
+        koulutus?.suorittaneenOsaaminen ||
+        koulutus?.tyotehtavatJoissaVoiToimia) && (
+        <HtmlTextBox
+          data-cy="kuvaus"
+          heading={t('koulutus.kuvaus')}
+          html={createKoulutusHtml()}
+          className={classes.root}
+          additionalContent={
+            !_.isEmpty(koulutus?.linkkiEPerusteisiin) && (
+              <ExternalLink
+                target="_blank"
+                rel="noopener"
+                href={localize(koulutus?.linkkiEPerusteisiin)}
+                className={classes.linkButton}
+                data-cy="eperuste-linkki">
+                {t('koulutus.eperuste-linkki')}
+              </ExternalLink>
+            )
+          }
+        />
+      )}
+      {koulutus?.tutkinnonOsat ? (
+        <PageSection heading={t('koulutus.kuvaus')}>
+          <Accordion
+            items={koulutus?.tutkinnonOsat.map((tutkinnonOsa) => {
               const {
                 tutkinnonosaId,
                 tutkinnonosaViite,
@@ -203,28 +202,23 @@ export const KoulutusPage = () => {
               };
             })}
           />
-        ) : null}
-        <Box width="95%" id="tarjonta">
-          <ToteutusList oid={oid} koulutustyyppi={koulutus?.koulutusTyyppi} />
-        </Box>
-        {suositellutKoulutukset?.total > 0 && (
-          <Box id="suositukset">
-            <SuositusKoulutusList koulutukset={suositellutKoulutukset} oid={oid} />
-          </Box>
-        )}
-        {tulevatJarjestajat?.length > 0 && (
-          <Box width="95%" id="tulevatJarjestajat">
-            <TulevaJarjestajaList jarjestajat={tulevatJarjestajat} />
-          </Box>
-        )}
-        {soraKuvaus && (
-          <HtmlTextBox
-            heading={t('koulutus.hakijan-terveydentila-ja-toimintakyky')}
-            html={localize(soraKuvaus?.metadata?.kuvaus)}
-            className={classes.root}
-          />
-        )}
+        </PageSection>
+      ) : null}
+      <Box id="tarjonta">
+        <ToteutusList oid={oid} koulutustyyppi={koulutus?.koulutusTyyppi} />
       </Box>
+      {tulevatJarjestajat?.length > 0 && (
+        <Box id="tulevatJarjestajat">
+          <TulevaJarjestajaList jarjestajat={tulevatJarjestajat} />
+        </Box>
+      )}
+      {soraKuvaus && (
+        <HtmlTextBox
+          heading={t('koulutus.hakijan-terveydentila-ja-toimintakyky')}
+          html={localize(soraKuvaus?.metadata?.kuvaus)}
+          className={classes.root}
+        />
+      )}
     </ContentWrapper>
   );
 };
