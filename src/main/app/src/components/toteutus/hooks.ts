@@ -26,11 +26,11 @@ const getHakuAukiType = (toteutus: any) => {
 
 const getWithoutVersion = (koodi: any) => koodi.slice(0, koodi.lastIndexOf('#'));
 
-export const selectHakulomaketyyppi = (toteutus?: Toteutus) =>
+export const selectToteutusHakulomaketyyppi = (toteutus?: Toteutus) =>
   toteutus?.metadata?.hakulomaketyyppi;
 
 const selectHakukohteetByHakutapa = (toteutus: any) => {
-  const hakulomaketyyppi = selectHakulomaketyyppi(toteutus);
+  const hakulomaketyyppi = selectToteutusHakulomaketyyppi(toteutus);
   if (
     !toteutus ||
     [Hakulomaketyyppi.MUU, Hakulomaketyyppi.EI_SAHKOISTA].includes(hakulomaketyyppi!)
