@@ -205,7 +205,9 @@ export const ToteutusPage = () => {
           }
         />
       )}
-      {kuvaus && <HtmlTextBox heading={t('koulutus.kuvaus')} html={localize(kuvaus)} />}
+      {!_.isEmpty(kuvaus) && (
+        <HtmlTextBox heading={t('koulutus.kuvaus')} html={localize(kuvaus)} />
+      )}
       {!_.isEmpty(painotukset) && (
         <PageSection heading={t('toteutus.painotukset')}>
           <Accordion
