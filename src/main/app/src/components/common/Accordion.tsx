@@ -6,15 +6,13 @@ import {
   AccordionDetails,
   Typography,
   makeStyles,
+  Box,
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import { colors } from '#/src/colors';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-  },
   summary: {
     minHeight: '70px',
   },
@@ -65,7 +63,7 @@ export const Accordion = ({
 }: Props) => {
   const classes = useStyles({ noColors });
   return (
-    <div className={classes.root}>
+    <Box maxWidth="800px">
       {items.map((item, i) => (
         <MuiAccordion className={classes.panel} elevation={0} key={i}>
           <AccordionSummary
@@ -84,6 +82,6 @@ export const Accordion = ({
           </AccordionDetails>
         </MuiAccordion>
       ))}
-    </div>
+    </Box>
   );
 };

@@ -64,83 +64,81 @@ export const OppilaitosPage = (props) => {
     case 'success':
       return (
         <ContentWrapper>
-          <Box display="flex" flexDirection="column" alignItems="center">
-            <Box width="100%" alignSelf="start">
-              <Murupolku
-                path={[
-                  { name: t('haku.otsikko'), link: hakuUrl.url },
-                  ...condArray(isOppilaitosOsa, {
-                    name: localize(entity?.oppilaitos),
-                    link: `/oppilaitos/${entity?.oppilaitos?.oid}`,
-                  }),
-                  {
-                    name: localize(entity),
-                  },
-                ]}
-              />
-            </Box>
-            <Box className={classes.title}>
-              <Typography variant="h1" component="h2">
-                {localize(entity)}
-              </Typography>
-            </Box>
-            <Box mt={7.5}>
-              <TeemakuvaImage
-                imgUrl={entity?.teemakuva}
-                altText={t('oppilaitos.oppilaitoksen-teemakuva')}
-              />
-            </Box>
-            <PageSection heading={t('oppilaitos.perustiedot')}>
-              <OppilaitosinfoGrid
-                opiskelijoita={entity?.metadata?.opiskelijoita ?? ''}
-                toimipisteita={
-                  isOppilaitosOsa ? undefined : entity?.metadata?.toimipisteita
-                }
-                kotipaikat={entity?.kotipaikat}
-                opetuskieli={entity?.opetuskieli ?? []}
-                koulutusohjelmia={entity?.koulutusohjelmia ?? ''}
-              />
-            </PageSection>
-            {entity?.metadata?.wwwSivu && (
-              <Button
-                className={classes.button}
-                target="_blank"
-                href={localize(entity.metadata.wwwSivu?.url)}
-                variant="contained"
-                size="medium"
-                color="primary">
-                {!_.isEmpty(entity.metadata.wwwSivu.nimi)
-                  ? localize(entity.metadata.wwwSivu)
-                  : t('oppilaitos.oppilaitoksen-www-sivut')}
-                <OpenInNewIcon fontSize="small" />
-              </Button>
-            )}
-            {esittelyHtml && (
-              <HtmlTextBox heading={t('oppilaitos.esittely')} html={esittelyHtml} />
-            )}
-            <TarjontaList oid={oid} isOppilaitosOsa={isOppilaitosOsa} />
-            <TulevaTarjontaList oid={oid} isOppilaitosOsa={isOppilaitosOsa} />
-
-            {_.size(tietoaOpiskelusta) > 0 && (
-              <TietoaOpiskelusta
-                heading={t('oppilaitos.tietoa-opiskelusta')}
-                tietoaOpiskelusta={tietoaOpiskelusta}
-              />
-            )}
-            {isOppilaitosOsa || _.isEmpty(oppilaitosOsat) ? null : (
-              <OppilaitosOsaList
-                oppilaitosOsat={oppilaitosOsat}
-                title={t('oppilaitos.tutustu-toimipisteisiin')}
-              />
-            )}
-            {hasYhteystiedot(entity?.metadata) && (
-              <Yhteystiedot
-                id={localize(entity)}
-                heading={t('oppilaitos.yhteystiedot')}
-                {...entity.metadata}
-              />
-            )}
+          <Box width="100%" alignSelf="start">
+            <Murupolku
+              path={[
+                { name: t('haku.otsikko'), link: hakuUrl.url },
+                ...condArray(isOppilaitosOsa, {
+                  name: localize(entity?.oppilaitos),
+                  link: `/oppilaitos/${entity?.oppilaitos?.oid}`,
+                }),
+                {
+                  name: localize(entity),
+                },
+              ]}
+            />
           </Box>
+          <Box className={classes.title}>
+            <Typography variant="h1" component="h2">
+              {localize(entity)}
+            </Typography>
+          </Box>
+          <Box mt={7.5}>
+            <TeemakuvaImage
+              imgUrl={entity?.teemakuva}
+              altText={t('oppilaitos.oppilaitoksen-teemakuva')}
+            />
+          </Box>
+          <PageSection heading={t('oppilaitos.perustiedot')}>
+            <OppilaitosinfoGrid
+              opiskelijoita={entity?.metadata?.opiskelijoita ?? ''}
+              toimipisteita={
+                isOppilaitosOsa ? undefined : entity?.metadata?.toimipisteita
+              }
+              kotipaikat={entity?.kotipaikat}
+              opetuskieli={entity?.opetuskieli ?? []}
+              koulutusohjelmia={entity?.koulutusohjelmia ?? ''}
+            />
+          </PageSection>
+          {entity?.metadata?.wwwSivu && (
+            <Button
+              className={classes.button}
+              target="_blank"
+              href={localize(entity.metadata.wwwSivu?.url)}
+              variant="contained"
+              size="medium"
+              color="primary">
+              {!_.isEmpty(entity.metadata.wwwSivu.nimi)
+                ? localize(entity.metadata.wwwSivu)
+                : t('oppilaitos.oppilaitoksen-www-sivut')}
+              <OpenInNewIcon fontSize="small" />
+            </Button>
+          )}
+          {esittelyHtml && (
+            <HtmlTextBox heading={t('oppilaitos.esittely')} html={esittelyHtml} />
+          )}
+          <TarjontaList oid={oid} isOppilaitosOsa={isOppilaitosOsa} />
+          <TulevaTarjontaList oid={oid} isOppilaitosOsa={isOppilaitosOsa} />
+
+          {_.size(tietoaOpiskelusta) > 0 && (
+            <TietoaOpiskelusta
+              heading={t('oppilaitos.tietoa-opiskelusta')}
+              tietoaOpiskelusta={tietoaOpiskelusta}
+            />
+          )}
+          {isOppilaitosOsa || _.isEmpty(oppilaitosOsat) ? null : (
+            <OppilaitosOsaList
+              oppilaitosOsat={oppilaitosOsat}
+              title={t('oppilaitos.tutustu-toimipisteisiin')}
+            />
+          )}
+          {hasYhteystiedot(entity?.metadata) && (
+            <Yhteystiedot
+              id={localize(entity)}
+              heading={t('oppilaitos.yhteystiedot')}
+              {...entity.metadata}
+            />
+          )}
         </ContentWrapper>
       );
     default:
