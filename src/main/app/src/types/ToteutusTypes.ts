@@ -88,6 +88,7 @@ export type ToteutusMetadata = {
   jarjestetaanErityisopetuksena: boolean;
   hakutermi: 'hakeutuminen' | 'ilmoittautuminen';
   hakulomaketyyppi: Hakulomaketyyppi;
+  lisatietoaHakeutumisesta?: Translateable;
 };
 
 export type Organisaatio = {
@@ -100,12 +101,7 @@ export type Hakutieto = {
   hakuOid: string;
   hakukohteet: Array<Hakukohde>;
   hakutapa: Koodi;
-  koulutuksenAlkamiskausi: {
-    alkamiskausityyppi: string;
-    henkilokohtaisenSuunnitelmanLisatiedot: Translateable;
-    koulutuksenAlkamispaivamaara: string;
-    koulutuksenPaattymispaivamaara: string;
-  };
+  koulutuksenAlkamiskausi: Alkamiskausi;
   nimi: Translateable;
 };
 
@@ -129,8 +125,6 @@ export type Toteutus = {
 
   // NOTE: These are given at selector
   hakuAukiType: 'ilmoittautuminen' | 'hakukohde' | null;
-  hasEiSahkoistaHaku: boolean;
-  eiSahkoistaHakuData: any;
   hakukohteetByHakutapa?: Record<
     string,
     { nimi: Translateable; hakukohteet: Array<Hakukohde & { isHakuAuki: boolean }> }

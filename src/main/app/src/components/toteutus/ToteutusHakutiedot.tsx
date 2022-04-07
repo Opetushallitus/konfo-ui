@@ -17,7 +17,7 @@ export const ToteutusHakutiedot = ({ toteutus }: Props) => {
     case Hakulomaketyyppi.MUU:
       return <ToteutusHakuMuu toteutus={toteutus} />;
     case Hakulomaketyyppi.EI_SAHKOISTA:
-      return <ToteutusHakuEiSahkoista data={toteutus?.eiSahkoistaHakuData} />;
+      return <ToteutusHakuEiSahkoista toteutus={toteutus} />;
     default:
       return null;
   }

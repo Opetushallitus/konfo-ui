@@ -74,6 +74,7 @@ export const selectMuuHaku = (toteutus: any) => {
         'hakutermi',
         'lisatietoaHakeutumisesta',
         'lisatietoaValintaperusteista',
+        'opetus',
       ],
       toteutus.metadata
     ),
@@ -89,12 +90,7 @@ export const selectToteutus = (toteutus: any) => {
   return (
     toteutus && {
       ...toteutus,
-      hasEiSahkoistaHaku:
-        toteutus?.metadata?.hakulomaketyyppi === Hakulomaketyyppi.EI_SAHKOISTA,
       hakuAukiType: getHakuAukiType(toteutus),
-      eiSahkoistaHakuData: {
-        ..._fp.pick(['lisatietoaHakeutumisesta'], toteutus.metadata),
-      },
       hakukohteetByHakutapa: selectHakukohteetByHakutapa(toteutus),
     }
   );
