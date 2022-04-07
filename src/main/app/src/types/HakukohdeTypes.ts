@@ -35,18 +35,20 @@ export type PainotettuArvosana = {
   painokerroin: number;
 };
 
+export type Hakuaika = {
+  alkaa: string;
+  paattyy: string;
+  formatoituAlkaa: FormatoituAikaleima;
+  formatoituPaattyy: FormatoituAikaleima;
+};
+
 export type Hakukohde = {
   aloituspaikat: {
     lukumaara?: number;
     ensikertalaisille?: number;
     kuvaus?: Translateable;
   };
-  hakuajat: Array<{
-    alkaa: string;
-    paattyy: string;
-    formatoituAlkaa: FormatoituAikaleima;
-    formatoituPaattyy: FormatoituAikaleima;
-  }>;
+  hakuajat: Array<Hakuaika>;
   hakukohdeOid: string;
   hakukohteenLinja?: {
     alinHyvaksyttyKeskiarvo: number;
