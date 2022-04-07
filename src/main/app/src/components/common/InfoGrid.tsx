@@ -31,11 +31,8 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     display: 'flex',
     justifyContent: 'space-evenly',
-    width: '80%',
+    width: '100%',
     backgroundColor: educationTypeColorCode.ammatillinenGreenBg, // TODO: Not sure if this should come from koulutus type theme
-    [theme.breakpoints.down('sm')]: {
-      width: '95%',
-    },
   },
   text: {
     color: colors.black,
