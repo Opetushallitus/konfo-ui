@@ -21,6 +21,7 @@ import { colors } from '#/src/colors';
 import { LabelTooltip } from '#/src/components/common/LabelTooltip';
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
+import { PageSection } from '#/src/components/common/PageSection';
 import { useDemoLinks } from '#/src/components/toteutus/hooks';
 import { Hakulomaketyyppi } from '#/src/constants';
 import { localize } from '#/src/tools/localization';
@@ -29,7 +30,6 @@ import { formatDateString, formatDouble } from '#/src/tools/utils';
 import { Hakukohde } from '#/src/types/HakukohdeTypes';
 import { Toteutus } from '#/src/types/ToteutusTypes';
 
-import { PageSection } from '../common/PageSection';
 import { formatAloitus } from './utils';
 
 const useStyles = makeStyles((theme) => ({
@@ -60,6 +60,41 @@ const getJarjestyspaikkaYhteystiedot = (
   osoitteet: Array<{ oppilaitosOid: string; yhteystiedot: string }>
 ) =>
   osoitteet.find((osoite) => osoite.oppilaitosOid === jarjestyspaikka.oid)?.yhteystiedot;
+
+const HakukohdeTiedot = ({ items }: { items: Array<any> }) => {
+  const classes = useStyles();
+
+  return (
+    <Grid container direction="row" spacing={3}>
+      {items
+        .filter(Boolean)
+        // TODO: filter(Boolean) does not clean the types here :(
+        .map(({ size, heading, content, modalText }: any) => (
+          <Grid key={heading} item xs={size}>
+            <Grid item container spacing={1} wrap="nowrap" alignItems="flex-start">
+              <Grid item>
+                <Typography className={classes.gridHeading} noWrap>
+                  {heading}
+                </Typography>
+              </Grid>
+              {!_.isEmpty(modalText) && (
+                <Grid item>
+                  <LabelTooltip title={<LocalizedHTML noMargin data={modalText} />} />
+                </Grid>
+              )}
+            </Grid>
+            <Grid item>
+              {content.map((v: string, i: number) => (
+                <Typography key={`${heading}-text-${i}`} variant="body1">
+                  {v}
+                </Typography>
+              ))}
+            </Grid>
+          </Grid>
+        ))}
+    </Grid>
+  );
+};
 
 type GridProps = {
   tyyppiOtsikko: string;
@@ -146,8 +181,8 @@ const HakuCardGrid = ({ tyyppiOtsikko, icon, toteutus, hakukohteet }: GridProps)
                         <Divider />
                       </Grid>
                       <Grid item>
-                        <Grid container direction="row" spacing={3}>
-                          {[
+                        <HakukohdeTiedot
+                          items={[
                             {
                               size: anyHakuaikaPaattyy ? 6 : 12,
                               heading: t('toteutus.haku-alkaa:'),
@@ -206,44 +241,8 @@ const HakuCardGrid = ({ tyyppiOtsikko, icon, toteutus, hakukohteet }: GridProps)
                               content: [aloituspaikatText],
                               modalText: hakukohde.aloituspaikat?.kuvaus,
                             },
-                          ]
-                            .filter(Boolean)
-                            // TODO: filter(Boolean) does not clean the types here :(
-                            .map(({ size, heading, content, modalText }: any) => (
-                              <Grid key={heading} item xs={size}>
-                                <Grid
-                                  item
-                                  container
-                                  spacing={1}
-                                  wrap="nowrap"
-                                  alignItems="flex-start">
-                                  <Grid item>
-                                    <Typography className={classes.gridHeading} noWrap>
-                                      {heading}
-                                    </Typography>
-                                  </Grid>
-                                  {!_.isEmpty(modalText) && (
-                                    <Grid item>
-                                      <LabelTooltip
-                                        title={
-                                          <LocalizedHTML noMargin data={modalText} />
-                                        }
-                                      />
-                                    </Grid>
-                                  )}
-                                </Grid>
-                                <Grid item>
-                                  {content.map((v: string, i: number) => (
-                                    <Typography
-                                      key={`${heading}-text-${i}`}
-                                      variant="body1">
-                                      {v}
-                                    </Typography>
-                                  ))}
-                                </Grid>
-                              </Grid>
-                            ))}
-                        </Grid>
+                          ]}
+                        />
                       </Grid>
                       <Grid item>
                         <ButtonGroup
