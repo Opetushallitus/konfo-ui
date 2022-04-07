@@ -19,6 +19,8 @@ const ContentWrapper = (props) => {
     <Container className={classes.wrapper} disableGutters={isMobile}>
       <Box
         margin="auto"
+        paddingLeft={1}
+        paddingRight={1}
         maxWidth="1200px"
         display="flex"
         flexDirection="column"
