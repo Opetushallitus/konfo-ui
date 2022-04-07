@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { Box, Button, Grid, makeStyles, Paper, Typography } from '@material-ui/core';
 import PublicIcon from '@material-ui/icons/Public';
@@ -12,6 +12,9 @@ import { localize } from '#/src/tools/localization';
 import { useOsoitteet } from '#/src/tools/useOppilaitosOsoite';
 import { formatDateRange, formatDateString } from '#/src/tools/utils';
 import { Translateable } from '#/src/types/common';
+import { Toteutus } from '#/src/types/ToteutusTypes';
+
+import { selectMuuHaku } from './hooks';
 
 const useStyles = makeStyles((theme) => ({
   hakuName: {
@@ -35,112 +38,109 @@ const getTarjoajaYhteystiedot = (
     return `${localize(tarjoajaNimi)} · ${osoite.yhteystiedot}`;
   });
 
-type Props = { data: any };
+type Props = { toteutus?: Toteutus };
 
-export const ToteutusHakuMuu = ({ data: muuHaku }: Props) => {
+export const ToteutusHakuMuu = ({ toteutus }: Props) => {
   const classes = useStyles();
   const { t } = useTranslation();
+
+  const muuHaku = useMemo(() => selectMuuHaku(toteutus), [toteutus]);
 
   const oppilaitosOids = muuHaku.tarjoajat.map(
     (tarjoaja: { oid: string }) => tarjoaja.oid
   );
-  const { osoitteet } = useOsoitteet(oppilaitosOids, true);
+  const { osoitteet, isLoading } = useOsoitteet(oppilaitosOids, true);
   const yhteystiedot = getTarjoajaYhteystiedot(osoitteet, muuHaku.tarjoajat);
+
+  const hakeuduTaiIlmoittauduTrans =
+    muuHaku.hakutermi === 'hakeutuminen'
+      ? t('toteutus.hakeudu-koulutukseen')
+      : t('toteutus.ilmoittaudu-koulutukseen');
 
   return (
     <Box
       id="haut"
       mt={7}
-      style={{ width: '100%' }}
+      width="100%"
       display="flex"
       flexDirection="column"
-      alignItems="center">
-      <Typography variant="h2">
-        {muuHaku.hakutermi === 'hakeutuminen'
-          ? t('toteutus.hakeudu-koulutukseen')
-          : t('toteutus.ilmoittaudu-koulutukseen')}
-      </Typography>
+      justifyContent="center"
+      alignItems="center"
+      maxWidth="800px">
+      <Typography variant="h2">{hakeuduTaiIlmoittauduTrans}</Typography>
       <Spacer />
-      <Grid
-        container
-        item
-        alignContent="center"
-        justifyContent="center"
-        alignItems="center"
-        xs={12}
-        style={{ maxWidth: '800px' }}>
-        {!yhteystiedot ? (
-          <LoadingCircle />
-        ) : (
-          <Paper style={{ padding: '30px', width: '100%' }}>
-            <Grid container direction="column" spacing={2}>
-              <Grid item>
-                <Typography className={classes.hakuName}>
-                  {localize(muuHaku.nimi)}
+      {isLoading ? (
+        <LoadingCircle />
+      ) : (
+        <Paper style={{ padding: '30px', width: '100%' }}>
+          <Grid container direction="column" spacing={2}>
+            <Grid item>
+              <Typography className={classes.hakuName}>
+                {localize(muuHaku.nimi)}
+              </Typography>
+            </Grid>
+            <Grid item container direction="row">
+              <Grid item xs md={4}>
+                <Typography noWrap variant="body1">
+                  {t(
+                    muuHaku.hakuaika?.paattyy
+                      ? 'koulutus.hakuaika:'
+                      : 'toteutus.haku-alkaa:'
+                  )}
                 </Typography>
               </Grid>
+              <Grid item xs>
+                <Typography variant="body1" className={classes.valueText}>
+                  {muuHaku.hakuaika?.formatoituPaattyy
+                    ? formatDateRange(
+                        muuHaku.hakuaika?.formatoituAlkaa,
+                        muuHaku.hakuaika?.formatoituPaattyy
+                      )
+                    : formatDateString(muuHaku.hakuaika?.formatoituAlkaa)}
+                </Typography>
+              </Grid>
+            </Grid>
+            {muuHaku.aloituspaikat && (
               <Grid item container direction="row">
                 <Grid item xs md={4}>
                   <Typography noWrap variant="body1">
-                    {t(
-                      muuHaku.hakuaika?.paattyy
-                        ? 'koulutus.hakuaika:'
-                        : 'toteutus.haku-alkaa:'
-                    )}
+                    {t('toteutus.opiskelupaikkoja:')}
                   </Typography>
                 </Grid>
                 <Grid item xs>
-                  <Typography variant="body1" className={classes.valueText}>
-                    {muuHaku.hakuaika?.formatoituPaattyy
-                      ? formatDateRange(
-                          muuHaku.hakuaika?.formatoituAlkaa,
-                          muuHaku.hakuaika?.formatoituPaattyy
-                        )
-                      : formatDateString(muuHaku.hakuaika?.formatoituAlkaa)}
+                  <Typography variant="body1" noWrap className={classes.valueText}>
+                    {muuHaku.aloituspaikat}
                   </Typography>
                 </Grid>
               </Grid>
-              {muuHaku.aloituspaikat && (
-                <Grid item container direction="row">
-                  <Grid item xs md={4}>
-                    <Typography noWrap variant="body1">
-                      {t('toteutus.opiskelupaikkoja:')}
-                    </Typography>
-                  </Grid>
-                  <Grid item xs>
-                    <Typography variant="body1" noWrap className={classes.valueText}>
-                      {muuHaku.aloituspaikat}
-                    </Typography>
-                  </Grid>
-                </Grid>
-              )}
-              {yhteystiedot?.map((osoite, index) => (
-                <Grid key={index} container item direction="row">
-                  <PublicIcon style={{ marginRight: '10px' }} />
-                  <Typography variant="body1">{osoite}</Typography>
-                </Grid>
-              ))}
-              {muuHaku.lisatietoaHakeutumisesta && (
-                <Grid item>
-                  <AccordionText
-                    title={
-                      muuHaku.hakutermi === 'hakeutuminen'
-                        ? t('toteutus.lisatietoa-hakeutumisesta')
-                        : t('toteutus.lisatietoa-ilmoittautumisesta')
-                    }
-                    text={localize(muuHaku.lisatietoaHakeutumisesta)}
-                  />
-                </Grid>
-              )}
-              {muuHaku.lisatietoaValintaperusteista && (
-                <Grid item>
-                  <AccordionText
-                    title={t('toteutus.lisatietoa-valintaperusteista')}
-                    text={localize(muuHaku.lisatietoaValintaperusteista)}
-                  />
-                </Grid>
-              )}
-              {/* TODO: insert SORA-kuvaus here when it can be fetched from backend
+            )}
+            {yhteystiedot?.map((osoite, index) => (
+              <Grid key={index} container item direction="row">
+                <PublicIcon style={{ marginRight: '10px' }} />
+                <Typography variant="body1">{osoite}</Typography>
+              </Grid>
+            ))}
+            {muuHaku.lisatietoaHakeutumisesta && (
+              <Grid item>
+                <AccordionText
+                  title={
+                    muuHaku.hakutermi === 'hakeutuminen'
+                      ? t('toteutus.lisatietoa-hakeutumisesta')
+                      : t('toteutus.lisatietoa-ilmoittautumisesta')
+                  }
+                  text={localize(muuHaku.lisatietoaHakeutumisesta)}
+                />
+              </Grid>
+            )}
+            {muuHaku.lisatietoaValintaperusteista && (
+              <Grid item>
+                <AccordionText
+                  title={t('toteutus.lisatietoa-valintaperusteista')}
+                  text={localize(muuHaku.lisatietoaValintaperusteista)}
+                />
+              </Grid>
+            )}
+            {/* TODO: insert SORA-kuvaus here when it can be fetched from backend
                 <Grid item>
                 <AccordionText
                 title={'toteutus.hakijan-terveydentila-ja-toimintakyky'}
@@ -148,25 +148,22 @@ export const ToteutusHakuMuu = ({ data: muuHaku }: Props) => {
                 />
                 </Grid>
               )} */}
-              <Grid item>
-                <Button
-                  variant="contained"
-                  size="large"
-                  color="primary"
-                  target="_blank"
-                  href={localize(muuHaku.hakulomakeLinkki)}
-                  disabled={!muuHaku.isHakuAuki}>
-                  <Typography style={{ color: colors.white }} variant="body1">
-                    {muuHaku.hakutermi === 'hakeutuminen'
-                      ? t('toteutus.hakeudu-koulutukseen')
-                      : t('toteutus.ilmoittaudu-koulutukseen')}
-                  </Typography>
-                </Button>
-              </Grid>
+            <Grid item>
+              <Button
+                variant="contained"
+                size="large"
+                color="primary"
+                target="_blank"
+                href={localize(muuHaku.hakulomakeLinkki)}
+                disabled={!muuHaku.isHakuAuki}>
+                <Typography style={{ color: colors.white }} variant="body1">
+                  {hakeuduTaiIlmoittauduTrans}
+                </Typography>
+              </Button>
             </Grid>
-          </Paper>
-        )}
-      </Grid>
+          </Grid>
+        </Paper>
+      )}
     </Box>
   );
 };

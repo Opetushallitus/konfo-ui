@@ -2,7 +2,7 @@ import _fp from 'lodash/fp';
 import { useQuery } from 'react-query';
 
 import { getToteutus } from '#/src/api/konfoApi';
-import { HAKULOMAKE_TYYPPI } from '#/src/constants';
+import { Hakulomaketyyppi } from '#/src/constants';
 import { isHakuAuki } from '#/src/tools/hakuaikaUtils';
 import { Translateable } from '#/src/types/common';
 import { Hakukohde } from '#/src/types/HakukohdeTypes';
@@ -11,15 +11,14 @@ import { Toteutus } from '#/src/types/ToteutusTypes';
 import { demoLinksPerLomakeId } from './utils';
 
 const getHakuAukiType = (toteutus: any) => {
-  if (toteutus?.metadata?.hakulomaketyyppi === HAKULOMAKE_TYYPPI.EI_SAHKOISTA) {
+  if (toteutus?.metadata?.hakulomaketyyppi === Hakulomaketyyppi.EI_SAHKOISTA) {
     return null;
   }
-  if (toteutus?.metadata?.hakulomaketyyppi === HAKULOMAKE_TYYPPI.MUU) {
+  if (toteutus?.metadata?.hakulomaketyyppi === Hakulomaketyyppi.MUU) {
     return toteutus?.hakuAuki ? 'ilmoittautuminen' : null;
   }
   const hakuKohdeAuki = toteutus.hakutiedot
-    ?.map((hakutieto: any) => hakutieto.hakukohteet)
-    .flat()
+    ?.flatMap((hakutieto: any) => hakutieto.hakukohteet)
     .some((hakukohde: any) => isHakuAuki(hakukohde.hakuajat));
 
   return hakuKohdeAuki ? 'hakukohde' : null;
@@ -27,7 +26,18 @@ const getHakuAukiType = (toteutus: any) => {
 
 const getWithoutVersion = (koodi: any) => koodi.slice(0, koodi.lastIndexOf('#'));
 
-const getHakukohteetWithTypes = (toteutus: any) => {
+export const selectHakulomaketyyppi = (toteutus?: Toteutus) =>
+  toteutus?.metadata?.hakulomaketyyppi;
+
+const selectHakukohteetByHakutapa = (toteutus: any) => {
+  const hakulomaketyyppi = selectHakulomaketyyppi(toteutus);
+  if (
+    !toteutus ||
+    [Hakulomaketyyppi.MUU, Hakulomaketyyppi.EI_SAHKOISTA].includes(hakulomaketyyppi!)
+  ) {
+    return {};
+  }
+
   const hakutavat = _fp.flow(
     _fp.map(_fp.prop('hakutapa')),
     _fp.sortBy('koodiUri'),
@@ -75,27 +85,17 @@ export const selectMuuHaku = (toteutus: any) => {
   };
 };
 
-export const selectHakukohteet = (toteutus: any) => {
-  if (!toteutus || toteutus.hasMuuHaku || toteutus.hasEiSahkoistaHaku) {
-    return {};
-  }
-
-  return getHakukohteetWithTypes(toteutus);
-};
-
 export const selectToteutus = (toteutus: any) => {
   return (
     toteutus && {
       ...toteutus,
-      hasMuuHaku: toteutus?.metadata?.hakulomaketyyppi === HAKULOMAKE_TYYPPI.MUU,
       hasEiSahkoistaHaku:
-        toteutus?.metadata?.hakulomaketyyppi === HAKULOMAKE_TYYPPI.EI_SAHKOISTA,
+        toteutus?.metadata?.hakulomaketyyppi === Hakulomaketyyppi.EI_SAHKOISTA,
       hakuAukiType: getHakuAukiType(toteutus),
       eiSahkoistaHakuData: {
         ..._fp.pick(['lisatietoaHakeutumisesta'], toteutus.metadata),
       },
-      hakukohteet: selectHakukohteet(toteutus),
-      muuHakuData: selectMuuHaku(toteutus),
+      hakukohteetByHakutapa: selectHakukohteetByHakutapa(toteutus),
     }
   );
 };

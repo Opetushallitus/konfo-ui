@@ -1,4 +1,4 @@
-import { KOULUTUS_TYYPPI } from '#/src/constants';
+import { Hakulomaketyyppi, KOULUTUS_TYYPPI } from '#/src/constants';
 
 import { Koodi, Translateable, TODOType, ValueOf, Alkamiskausi } from './common';
 import { Hakukohde } from './HakukohdeTypes';
@@ -86,7 +86,8 @@ export type ToteutusMetadata = {
   kielivalikoima: Kielivalikoima;
   ammatillinenPerustutkintoErityisopetuksena: boolean;
   jarjestetaanErityisopetuksena: boolean;
-  hakutermi: string;
+  hakutermi: 'hakeutuminen' | 'ilmoittautuminen';
+  hakulomaketyyppi: Hakulomaketyyppi;
 };
 
 export type Organisaatio = {
@@ -128,11 +129,12 @@ export type Toteutus = {
 
   // NOTE: These are given at selector
   hakuAukiType: 'ilmoittautuminen' | 'hakukohde' | null;
-  hasMuuHaku: boolean;
   hasEiSahkoistaHaku: boolean;
   eiSahkoistaHakuData: any;
-  hakukohteet: any;
-  muuHakuData: any;
+  hakukohteetByHakutapa?: Record<
+    string,
+    { nimi: Translateable; hakukohteet: Array<Hakukohde & { isHakuAuki: boolean }> }
+  >;
 };
 
 export type Jarjestaja = {

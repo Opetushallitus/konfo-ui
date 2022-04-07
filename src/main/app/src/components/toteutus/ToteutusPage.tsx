@@ -25,6 +25,7 @@ import { useSideMenu } from '#/src/hooks';
 import { getHakuParams, getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
 import { localize, localizeLukiolinja } from '#/src/tools/localization';
 import { getLocalizedOpintojenLaajuus, sanitizedHTMLParser } from '#/src/tools/utils';
+import { Hakutieto } from '#/src/types/ToteutusTypes';
 
 import { useKoulutus } from '../koulutus/hooks';
 import { Asiasanat } from './Asiasanat';
@@ -34,9 +35,7 @@ import { useToteutus } from './hooks';
 import { KielivalikoimaBox } from './KielivalikoimaBox';
 import { Osaamisalat } from './Osaamisalat';
 import { ToteutuksenYhteystiedot } from './ToteutuksenYhteystiedot';
-import { ToteutusHakuEiSahkoista } from './ToteutusHakuEiSahkoista';
-import { ToteutusHakukohteet } from './ToteutusHakukohteet';
-import { ToteutusHakuMuu } from './ToteutusHakuMuu';
+import { ToteutusHakutiedot } from './ToteutusHakutiedot';
 import { ToteutusInfoGrid } from './ToteutusInfoGrid';
 
 const useStyles = makeStyles((theme) => ({
@@ -106,14 +105,14 @@ export const ToteutusPage = () => {
     : '';
   const oppilaitoksenNimiMurupolku = oppilaitostenNimet ? `${oppilaitostenNimet}, ` : '';
 
-  const haut = toteutus?.hakukohteet;
+  const hakutiedot = toteutus?.hakutiedot;
 
   const loading =
     koulutusLoading ||
     toteutusLoading ||
     (hasOppilaitokset && _.some(oppilaitokset, 'isLoading'));
 
-  const hasAnyHaku = _.some(haut, (v: any) => v.hakukohteet.length > 0);
+  const hasAnyHakukohde = _.some(hakutiedot, (v: Hakutieto) => v.hakukohteet.length > 0);
   const hakuUrl = useSelector(getHakuUrl);
   const { hakuParamsStr } = useSelector(getHakuParams);
 
@@ -178,7 +177,7 @@ export const ToteutusPage = () => {
           <ToteutusInfoGrid
             laajuus={getLocalizedOpintojenLaajuus(koulutus)}
             opetus={opetus!}
-            hasHaku={hasAnyHaku}
+            hasHaku={hasAnyHakukohde}
           />
         </Box>
         {toteutus?.hakuAukiType && (
@@ -240,11 +239,7 @@ export const ToteutusPage = () => {
         <KielivalikoimaBox kielivalikoima={kielivalikoima} />
         <Diplomit diplomit={diplomit} />
         <Osaamisalat toteutus={toteutus!} koulutus={koulutus} />
-        {hasAnyHaku && <ToteutusHakukohteet haut={haut} />}
-        {toteutus?.hasMuuHaku && <ToteutusHakuMuu data={toteutus?.muuHakuData} />}
-        {toteutus?.hasEiSahkoistaHaku && (
-          <ToteutusHakuEiSahkoista data={toteutus?.eiSahkoistaHakuData} />
-        )}
+        <ToteutusHakutiedot toteutus={toteutus} />
         {combinedLisatiedot.length > 0 && (
           <AccordionWithTitle
             titleTranslationKey="koulutus.lisätietoa"
