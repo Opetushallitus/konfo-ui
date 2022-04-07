@@ -64,7 +64,7 @@ const Module = ({ module }) => {
     const { content } = data.content[module.id];
     return (
       <Grid item xs={12} sm={10} md={8} lg={6}>
-        <Sisalto content={content} alwaysFullWidth={true} />
+        <Sisalto content={content} />
       </Grid>
     );
   } else {
