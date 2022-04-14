@@ -76,7 +76,7 @@ describe('Murupolku', () => {
 
     assertBreadcrumb({
       length: 5,
-      lastTextContains: 'Valintaperusteen kuvaus 7.11.2020',
+      lastTextContains: 'valintaperuste',
       lastHrefContains: url,
       hasHakutuloksetLink: true,
     });
