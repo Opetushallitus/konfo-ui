@@ -57,7 +57,8 @@
     "oppiaine": "Oppiaine",
     "painokerroin": "Painokerroin",
     "keskiarvo": "Keskiarvo",
-    "liitteenToimitusosoiteVerkkosivu": "Verkkosivu"
+    "liitteenToimitusosoiteVerkkosivu": "Verkkosivu",
+    "valintaperuste": "valintaperuste"
   },
   "palvelut": {
     "otsikko-muut-palvelut": "Muut palvelut",
