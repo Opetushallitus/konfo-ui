@@ -1,3 +1,4 @@
+import { Box } from '@material-ui/core';
 import _fp from 'lodash';
 
 import { Hakulomaketyyppi } from '#/src/constants';
@@ -13,14 +14,20 @@ type Props = { toteutus?: Toteutus };
 export const ToteutusHakutiedot = ({ toteutus }: Props) => {
   const hakulomaketyyppi = selectToteutusHakulomaketyyppi(toteutus);
 
+  let hakutiedot;
   switch (true) {
     case hakulomaketyyppi === Hakulomaketyyppi.MUU:
-      return <ToteutusHakuMuu toteutus={toteutus} />;
+      hakutiedot = <ToteutusHakuMuu toteutus={toteutus} />;
+      break;
     case hakulomaketyyppi === Hakulomaketyyppi.EI_SAHKOISTA:
-      return <ToteutusHakuEiSahkoista toteutus={toteutus} />;
+      hakutiedot = <ToteutusHakuEiSahkoista toteutus={toteutus} />;
+      break;
     case !_fp.isEmpty(toteutus?.hakutiedot):
-      return <ToteutusHakukohteet toteutus={toteutus} />;
+      hakutiedot = <ToteutusHakukohteet toteutus={toteutus} />;
+      break;
     default:
-      return null;
+      hakutiedot = null;
   }
+
+  return <Box id="haut">{hakutiedot}</Box>;
 };
