@@ -242,7 +242,7 @@ export const ValintaperustePage = () => {
             { name: t('haku.otsikko'), link: hakuUrl.url },
             { name: localize(koulutus?.nimi), link: `/koulutus/${koulutus?.oid}` },
             { name: localize(toteutus?.nimi), link: toteutusLink },
-            { name: localize(valintaperuste?.nimi) },
+            { name: t('valintaperuste.valintaperuste') },
           ]}
         />
       </Row>
