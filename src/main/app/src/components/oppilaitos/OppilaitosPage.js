@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Box, Button, makeStyles, Typography } from '@material-ui/core';
 import OpenInNewIcon from '@material-ui/icons/OpenInNew';
+import SportsSoccer from '@material-ui/icons/SportsSoccer';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -9,6 +10,7 @@ import { useParams } from 'react-router-dom';
 
 import ContentWrapper from '#/src/components/common/ContentWrapper';
 import HtmlTextBox from '#/src/components/common/HtmlTextBox';
+import { InfoBanner } from '#/src/components/common/InfoBanner';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import Murupolku from '#/src/components/common/Murupolku';
 import { PageSection } from '#/src/components/common/PageSection';
@@ -52,7 +54,12 @@ export const OppilaitosPage = (props) => {
     isDraft,
   });
 
-  const { esittelyHtml, oppilaitosOsat, tietoaOpiskelusta } = entity;
+  const {
+    esittelyHtml,
+    oppilaitosOsat,
+    tietoaOpiskelusta,
+    jarjestaaUrheilijanAmmKoulutusta,
+  } = entity;
 
   const hakuUrl = useSelector(getHakuUrl);
 
@@ -83,6 +90,14 @@ export const OppilaitosPage = (props) => {
               {localize(entity)}
             </Typography>
           </Box>
+          {jarjestaaUrheilijanAmmKoulutusta && (
+            <InfoBanner
+              heading={t('oppilaitos.jarjestaa-urheilijan-amm-koulutusta-otsikko')}
+              bodytext={t('oppilaitos.jarjestaa-urheilijan-amm-koulutusta-teksti')}
+              icon={<SportsSoccer />}
+            />
+          )}
+
           <Box mt={7.5}>
             <TeemakuvaImage
               imgUrl={entity?.teemakuva}

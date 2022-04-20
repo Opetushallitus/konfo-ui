@@ -275,7 +275,9 @@
     "tulevat-koulutukset": "Tulevat koulutukset",
     "tutustu-toimipisteisiin": "Tutustu toimipisteisiin",
     "oppilaitoksen-teemakuva": "Oppilaitoksen teemakuva",
-    "oppilaitoksen-logo": "Oppilaitoksen logo"
+    "oppilaitoksen-logo": "Oppilaitoksen logo",
+    "jarjestaa-urheilijan-amm-koulutusta-otsikko": "Oppilaitos järjestää urheilijan ammatillista koulutusta",
+    "jarjestaa-urheilijan-amm-koulutusta-teksti": "Katso urheilijoille sopivat koulutukset alta koulutustarjonnasta."
   },
   "koulutus": {
     "yleiskuvaus": "Yleiskuvaus",
