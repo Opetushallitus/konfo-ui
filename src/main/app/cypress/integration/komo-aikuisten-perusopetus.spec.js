@@ -13,8 +13,8 @@ describe('Aikuisten perusopetus KOMO', () => {
 
   it('renders perustiedot with koulutustyyppi and opintojenlaajuus', () => {
     cy.findByRole('heading', {name: 'Aikuisten perusopetus'}).should('exist');
-    cy.findByTestId('koulutustyyppi').contains('Aikuisten perusopetus');
-    cy.findByTestId('opintojenLaajuus').contains('18 viikkoa');
+    cy.findByLabelText('Koulutustyyppi').should('have.text', 'Aikuisten perusopetus');
+    cy.findByLabelText('Koulutuksen laajuus').should('have.text', '18 viikkoa');
   });
 
   it('renders kuvaus without a link to ePerusteet', () => {
