@@ -31,7 +31,7 @@ describe('Aikuisten perusopetus KOMO', () => {
     // Wait for everything to load
     cy.findByRole('progressbar').should('not.exist');
     cy.findByTestId('kuvaus').within(() => {
-      cy.findByTestId('eperuste-linkki').should('exist');
+      cy.findByRole('link', {name: 'Lue lisää ePerusteet palvelussa'}).should('exist');
     });
   });
 });
