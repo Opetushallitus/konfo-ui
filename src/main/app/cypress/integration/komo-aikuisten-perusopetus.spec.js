@@ -12,7 +12,7 @@ describe('Aikuisten perusopetus KOMO', () => {
   });
 
   it('renders perustiedot with koulutustyyppi and opintojenlaajuus', () => {
-    cy.get('h1').contains('Aikuisten perusopetus');
+    cy.findByRole('heading', {name: 'Aikuisten perusopetus'}).should('exist');
     cy.findByTestId('koulutustyyppi').contains('Aikuisten perusopetus');
     cy.findByTestId('opintojenLaajuus').contains('18 viikkoa');
   });
