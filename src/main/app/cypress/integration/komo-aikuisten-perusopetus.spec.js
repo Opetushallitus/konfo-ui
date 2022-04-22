@@ -21,7 +21,7 @@ describe('Aikuisten perusopetus KOMO', () => {
     cy.findByTestId('kuvaus').within(() => {
       cy.get('h2').contains('Koulutuksen kuvaus');
       cy.findByText('Ihan vaan peruskoulutus');
-      cy.findByTestId('eperuste-linkki').should('not.exist');
+      cy.findByRole('link', {name: 'Lue lisää ePerusteet palvelussa'}).should('not.exist');
     });
   });
 
