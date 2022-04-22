@@ -6,11 +6,12 @@ import {
   TimelapseOutlined,
   HomeWorkOutlined,
 } from '@material-ui/icons';
-import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { EntiteettiKortti } from '#/src/components/common/EntiteettiKortti';
 import { KoulutusKorttiLogo } from '#/src/components/common/KorttiLogo';
+import { Koulutustyyppi } from '#/src/constants';
+import { hasTutkintonimike } from '#/src/tools/hasTutkintonimike';
 import { localize } from '#/src/tools/localization';
 import { getLocalizedOpintojenLaajuus } from '#/src/tools/utils';
 import { Translateable } from '#/src/types/common';
@@ -55,14 +56,14 @@ export const KoulutusKortti = ({ koulutus, isSmall }: Props) => {
       .replace(/<\/li>/gm, ',</li>')
       .replace(/\.,<\/li>/gm, '.</li>')
       .replace(/<[^>]*>/gm, '') || t('haku.ei_kuvausta');
-  const isOsaamisalaOrTutkinnonOsaOrAmmuu = _.includes(
-    ['amm-osaamisala', 'amm-tutkinnon-osa', 'amm-muu'],
-    koulutus?.koulutustyyppi
+  const koulutusHasTutkintonimike = hasTutkintonimike(
+    koulutus?.koulutustyyppi as Koulutustyyppi
   );
-  const tutkintoNimikkeet = isOsaamisalaOrTutkinnonOsaOrAmmuu
-    ? t(`haku.${koulutus?.koulutustyyppi}`)
-    : (koulutus?.tutkintonimikkeet || []).map(localize).join(', ').replace(/,\s*$/, '') ||
-      t('haku.ei-tutkintonimiketta');
+
+  const tutkintoNimikkeet = koulutusHasTutkintonimike
+    ? (koulutus?.tutkintonimikkeet || []).map(localize).join(', ').replace(/,\s*$/, '') ||
+      t('haku.ei-tutkintonimiketta')
+    : t(`haku.${koulutus?.koulutustyyppi}`);
   const teemakuvaAltText = `${localize(koulutus)} ${t('koulutus.koulutuksen-teemakuva')}`;
 
   const toteutustenTarjoajatText = useToteutustenTarjoajat(
@@ -81,7 +82,7 @@ export const KoulutusKortti = ({ koulutus, isSmall }: Props) => {
       iconTexts={[
         [
           tutkintoNimikkeet,
-          isOsaamisalaOrTutkinnonOsaOrAmmuu ? ExtensionOutlined : SchoolOutlined,
+          koulutusHasTutkintonimike ? SchoolOutlined : ExtensionOutlined,
         ],
         [getLocalizedOpintojenLaajuus(koulutus), TimelapseOutlined],
         toteutustenTarjoajatText && [toteutustenTarjoajatText, HomeWorkOutlined],
