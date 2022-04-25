@@ -10,6 +10,7 @@ import {
   Box,
 } from '@material-ui/core';
 import DirectionsOutlinedIcon from '@material-ui/icons/DirectionsOutlined';
+import SportsSoccer from '@material-ui/icons/SportsSoccer';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
@@ -91,6 +92,7 @@ type Props = {
   teemakuvaElement?: React.ReactNode;
   isSmall?: boolean;
   wrapIconTexts?: boolean;
+  jarjestaaUrheilijanAmmKoulutusta?: boolean;
 };
 
 export const EntiteettiKortti = ({
@@ -105,6 +107,7 @@ export const EntiteettiKortti = ({
   teemakuvaElement,
   isSmall: isSmallProp,
   wrapIconTexts = false,
+  jarjestaaUrheilijanAmmKoulutusta = false,
 }: Props) => {
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -112,6 +115,7 @@ export const EntiteettiKortti = ({
   const classes = useStyles({ isSmall, wrapIconTexts });
   const { t } = useTranslation();
 
+  console.log({jarjestaaUrheilijanAmmKoulutusta})
   const kuvaus = _.truncate(kuvausProp, { length: 255 }) || t('haku.ei_kuvausta');
 
   let erityisopetusHeaderText = '';
@@ -162,6 +166,13 @@ export const EntiteettiKortti = ({
             <Typography className={classes.erityisopetusHeader} variant="body1">
               <DirectionsOutlinedIcon className={classes.icon} />
               {erityisopetusHeaderText}
+            </Typography>
+          )}
+
+          {jarjestaaUrheilijanAmmKoulutusta && (
+            <Typography className={classes.erityisopetusHeader} variant="body1">
+              <SportsSoccer className={classes.icon} />
+              {t('haku.urheilijan-amm-koulutus')}
             </Typography>
           )}
 

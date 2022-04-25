@@ -127,6 +127,7 @@ const selectTarjonta = (tarjonta: any) => {
         tyyppi: t.koulutustyyppi,
         kuva: t.kuva,
         toteutusOid: t.toteutusOid,
+        jarjestaaUrheilijanAmmKoulutusta: t.jarjestaaUrheilijanAmmKoulutusta,
       }),
       tarjonta?.hits
     ),

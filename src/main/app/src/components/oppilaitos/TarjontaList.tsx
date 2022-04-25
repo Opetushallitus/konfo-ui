@@ -82,6 +82,9 @@ export const TarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
                     }
                     header={toteutus?.toteutusName}
                     kuvaus={toteutus?.description}
+                    jarjestaaUrheilijanAmmKoulutusta={
+                      toteutus?.jarjestaaUrheilijanAmmKoulutusta
+                    }
                     iconTexts={[
                       [toteutus?.locations, PublicIcon],
                       [toteutus?.opetustapa, HourglassEmptyIcon],
