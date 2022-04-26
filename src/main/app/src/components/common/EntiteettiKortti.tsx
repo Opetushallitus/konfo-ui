@@ -115,7 +115,6 @@ export const EntiteettiKortti = ({
   const classes = useStyles({ isSmall, wrapIconTexts });
   const { t } = useTranslation();
 
-  console.log({jarjestaaUrheilijanAmmKoulutusta})
   const kuvaus = _.truncate(kuvausProp, { length: 255 }) || t('haku.ei_kuvausta');
 
   let erityisopetusHeaderText = '';

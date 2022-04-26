@@ -61,7 +61,12 @@ export type Hakukohde = {
   hakulomakeLinkki: Translateable;
   hakulomaketyyppi: string;
   isHakuAuki: boolean;
-  jarjestyspaikka: { nimi: Translateable; oid: string; paikkakunta: Koodi };
+  jarjestyspaikka: {
+    nimi: Translateable;
+    oid: string;
+    paikkakunta: Koodi;
+    jarjestaaUrheilijanAmmKoulutusta: boolean;
+  };
   koulutuksenAlkamiskausi: Alkamiskausi;
   nimi: Translateable;
   pohjakoulutusvaatimus: Array<Koodi>;
