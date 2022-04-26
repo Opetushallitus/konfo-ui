@@ -144,7 +144,7 @@ const HakuCardGrid = ({ tyyppiOtsikko, icon, toteutus, hakukohteet }: GridProps)
                           {jarjestaaUrheilijanAmmKoulutusta && (
                             <AdditionalInfoWithIcon
                               translationKey="haku.urheilijan-amm-koulutus"
-                              icon={SportsSoccer}
+                              icon={<SportsSoccer />}
                             />
                           )}
                         </Grid>

@@ -16,6 +16,7 @@ import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
 
 import { colors, educationTypeColorCode } from '#/src/colors';
+import { AdditionalInfoWithIcon } from '#/src/components/common/AdditionalInfoWithIcon';
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
 import { KOULUTUS_TYYPPI } from '#/src/constants';
 import { sanitizedHTMLParser } from '#/src/tools/utils';
@@ -162,17 +163,17 @@ export const EntiteettiKortti = ({
           </Box>
 
           {erityisopetusHeaderText && (
-            <Typography className={classes.erityisopetusHeader} variant="body1">
-              <DirectionsOutlinedIcon className={classes.icon} />
-              {erityisopetusHeaderText}
-            </Typography>
+            <AdditionalInfoWithIcon
+              translationKey={erityisopetusHeaderText}
+              icon={<DirectionsOutlinedIcon />}
+            />
           )}
 
           {jarjestaaUrheilijanAmmKoulutusta && (
-            <Typography className={classes.erityisopetusHeader} variant="body1">
-              <SportsSoccer className={classes.icon} />
-              {t('haku.urheilijan-amm-koulutus')}
-            </Typography>
+            <AdditionalInfoWithIcon
+              translationKey="haku.urheilijan-amm-koulutus"
+              icon={<SportsSoccer />}
+            />
           )}
 
           <Hidden xsDown>

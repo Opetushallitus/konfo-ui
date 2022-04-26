@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { makeStyles, Typography } from '@material-ui/core';
-import SportsSoccer from '@material-ui/icons/SportsSoccer';
+import { makeStyles, Typography, Icon } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
@@ -23,13 +22,13 @@ type Props = {
   icon: React.ReactNode;
 };
 
-export const AdditionalInfoWithIcon = ({ translationKey }: Props) => {
+export const AdditionalInfoWithIcon = ({ translationKey, icon }: Props) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
   return (
     <Typography className={classes.text} variant="body1">
-      <SportsSoccer className={classes.icon} />
+      <Icon className={classes.icon}>{icon}</Icon>
       {t(translationKey)}
     </Typography>
   );
