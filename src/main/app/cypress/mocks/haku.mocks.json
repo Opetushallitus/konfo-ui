@@ -5137,13 +5137,19 @@
             }
           },
           "koulutustyyppi-muu": {
-            "amm-muu": {
+            "muut-ammatilliset": {
               "count": 1,
               "alakoodit": {
                 "amm-tutkinnon-osa": {
                   "count": 1
                 },
                 "amm-osaamisala": {
+                  "count": 0
+                },
+                "amm-muu": {
+                  "count": 0
+                },
+                "telma": {
                   "count": 0
                 }
               }
@@ -10426,13 +10432,19 @@
             }
           },
           "koulutustyyppi-muu": {
-            "amm-muu": {
-              "count": 6,
+            "muut-ammatilliset": {
+              "count": 12,
               "alakoodit": {
                 "amm-tutkinnon-osa": {
                   "count": 3
                 },
                 "amm-osaamisala": {
+                  "count": 3
+                },
+                "amm-muu": {
+                  "count": 3
+                },
+                "telma": {
                   "count": 3
                 }
               }
@@ -15938,13 +15950,19 @@
             }
           },
           "koulutustyyppi-muu": {
-            "amm-muu": {
+            "muut-ammatilliset": {
               "count": 0,
               "alakoodit": {
                 "amm-tutkinnon-osa": {
                   "count": 0
                 },
                 "amm-osaamisala": {
+                  "count": 0
+                },
+                "amm-muu": {
+                  "count": 0
+                },
+                "telma": {
                   "count": 0
                 }
               }
@@ -21104,14 +21122,20 @@
             }
           },
           "koulutustyyppi-muu": {
-            "amm-muu": {
+            "muut-ammatilliset": {
               "count": 1,
               "alakoodit": {
                 "amm-tutkinnon-osa": {
                   "count": 0
                 },
+                "amm-muu": {
+                  "count": 0
+                },
                 "amm-osaamisala": {
                   "count": 1
+                },
+                "telma": {
+                  "count": 0
                 }
               }
             }
@@ -26269,13 +26293,19 @@
             }
           },
           "koulutustyyppi-muu": {
-            "amm-muu": {
-              "count": 2,
+            "muut-ammatilliset": {
+              "count": 4,
               "alakoodit": {
                 "amm-tutkinnon-osa": {
                   "count": 1
                 },
                 "amm-osaamisala": {
+                  "count": 1
+                },
+                "amm-muu": {
+                  "count": 1
+                },
+                "telma": {
                   "count": 1
                 }
               }
@@ -31554,13 +31584,19 @@
             }
           },
           "koulutustyyppi-muu": {
-            "amm-muu": {
+            "muut-ammatilliset": {
               "count": 2,
               "alakoodit": {
                 "amm-tutkinnon-osa": {
                   "count": 2
                 },
                 "amm-osaamisala": {
+                  "count": 0
+                },
+                "amm-muu": {
+                  "count": 0
+                },
+                "telma": {
                   "count": 0
                 }
               }
@@ -36746,13 +36782,19 @@
             }
           },
           "koulutustyyppi-muu": {
-            "amm-muu": {
-              "count": 4,
+            "muut-ammatilliset": {
+              "count": 8,
               "alakoodit": {
                 "amm-tutkinnon-osa": {
                   "count": 2
                 },
                 "amm-osaamisala": {
+                  "count": 2
+                },
+                "amm-muu": {
+                  "count": 2
+                },
+                "telma": {
                   "count": 2
                 }
               }

@@ -22,6 +22,7 @@ export const educationTypeColorCode: Record<string, string> = {
   amm: colors.brandGreen,
   'amm-osaamisala': colors.brandGreen,
   'amm-tutkinnon-osa': colors.brandGreen,
+  'amm-muu': colors.brandGreen,
   ammatillinenGreenBg: '#F4FFF4', // Highlight BG color
 
   // korkeakouluPurple
@@ -39,7 +40,11 @@ export const educationTypeColorCode: Record<string, string> = {
   tuva: colors.brandGreen,
   // tuva: '#FF5000', // TODO Tarkistaa pitikö olla oranssi
   // tuvaBg: '#FFEDE5',
-
+  'vapaa-sivistystyo-opistovuosi': '#007373',
+  'vapaa-sivistystyo-muu': '#007373',
+  'aikuisten-perusopetus': '#007373',
+  vapaaSivistystyoBg: '#E5F2F2',
+  aikuistenPerusopetusBg: '#E5F2F2',
   // TODO: What should these be?
   ako: '#1976D2', // Water Blue
   muu: '#DE9A06', // yellow Ochre
