@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { Container, Grid, Hidden, makeStyles, Typography } from '@material-ui/core';
+import { Grid, Hidden, makeStyles, Typography } from '@material-ui/core';
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
 import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
 import PublicIcon from '@material-ui/icons/Public';
@@ -10,8 +10,8 @@ import { useSelector } from 'react-redux';
 
 import { EntiteettiKortti } from '#/src/components/common/EntiteettiKortti';
 import { OppilaitosKorttiLogo } from '#/src/components/common/KorttiLogo';
+import { PageSection } from '#/src/components/common/PageSection';
 import { QueryResultWrapper } from '#/src/components/common/QueryResultWrapper';
-import Spacer from '#/src/components/common/Spacer';
 import { TarjontaPagination } from '#/src/components/common/TarjontaPagination';
 import { TextWithBackground } from '#/src/components/common/TextWithBackground';
 import { FILTER_TYPES } from '#/src/constants';
@@ -45,12 +45,6 @@ import { SijaintiSuodatin } from './toteutusSuodattimet/SijaintiSuodatin';
 import { ValintatapaSuodatin } from './toteutusSuodattimet/ValintatapaSuodatin';
 
 const useStyles = makeStyles({
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    marginTop: '100px',
-  },
   grid: {
     maxWidth: '900px',
   },
@@ -159,11 +153,12 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
 
   return (
     <div>
-      <Container maxWidth="lg" className={classes.container}>
-        <Typography variant="h2" id={scrollTargetId}>
-          {t('koulutus.tarjonta')}
-        </Typography>
-        <Spacer />
+      <PageSection
+        heading={
+          <Typography variant="h2" id={scrollTargetId}>
+            {t('koulutus.tarjonta')}
+          </Typography>
+        }>
         <>
           <Hidden smDown>
             <Grid
@@ -367,7 +362,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
           setPagination={setPagination}
           scrollTargetId={scrollTargetId}
         />
-      </Container>
+      </PageSection>
       <div
         id="prevent-clicks"
         style={{

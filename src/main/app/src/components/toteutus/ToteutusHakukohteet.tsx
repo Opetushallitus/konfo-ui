@@ -18,25 +18,21 @@ import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
-import { LabelTooltip } from '#/src/components/common/LabelTooltip';
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
-import Spacer from '#/src/components/common/Spacer';
+import { PageSection } from '#/src/components/common/PageSection';
 import { useDemoLinks } from '#/src/components/toteutus/hooks';
-import { HAKULOMAKE_TYYPPI } from '#/src/constants';
+import { Hakulomaketyyppi } from '#/src/constants';
 import { localize } from '#/src/tools/localization';
 import { useOsoitteet } from '#/src/tools/useOppilaitosOsoite';
 import { formatDateString, formatDouble } from '#/src/tools/utils';
-import { Translateable } from '#/src/types/common';
 import { Hakukohde } from '#/src/types/HakukohdeTypes';
+import { Toteutus } from '#/src/types/ToteutusTypes';
 
+import { HakutietoTable } from './HakutietoTable';
 import { formatAloitus } from './utils';
 
-const useStyles = makeStyles((theme) => ({
-  gridHeading: {
-    ...theme.typography.body1,
-    fontWeight: 700,
-  },
+export const useStyles = makeStyles((theme) => ({
   hakuName: {
     ...theme.typography.h5,
     fontWeight: 700,
@@ -50,6 +46,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     width: '100%',
+    maxWidth: '800px',
     height: '100%',
     borderTop: `5px solid ${colors.brandGreen}`,
   },
@@ -60,65 +57,67 @@ const getJarjestyspaikkaYhteystiedot = (
   osoitteet: Array<{ oppilaitosOid: string; yhteystiedot: string }>
 ) =>
   osoitteet.find((osoite) => osoite.oppilaitosOid === jarjestyspaikka.oid)?.yhteystiedot;
-
 type GridProps = {
   tyyppiOtsikko: string;
-  haut: Array<Hakukohde>;
   icon: JSX.Element;
+  toteutus: any;
+  hakukohteet: Array<Hakukohde>;
 };
 
-const HakuCardGrid = ({ tyyppiOtsikko, haut, icon }: GridProps) => {
+const HakuCardGrid = ({ tyyppiOtsikko, icon, toteutus, hakukohteet }: GridProps) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
-  const { data: demoLinks } = useDemoLinks(haut);
+  const { data: demoLinks } = useDemoLinks(hakukohteet);
 
   const oppilaitosOids = useMemo(
-    () => haut.map((haku) => haku.jarjestyspaikka?.oid),
-    [haut]
+    () => hakukohteet.map((haku) => haku.jarjestyspaikka?.oid),
+    [hakukohteet]
   );
 
-  const osoitteet = useOsoitteet(oppilaitosOids, true);
+  const toteutuksenAlkamiskausi = toteutus?.metadata?.opetus?.koulutuksenAlkamiskausi;
+
+  const { osoitteet } = useOsoitteet(oppilaitosOids, true);
 
   return (
-    <Grid item xs={12}>
+    <Box marginY={3}>
       <Box ml={2} display="flex" justifyContent="center">
         {icon}
         <Box ml={2}>
-          <Typography variant="h4">{`${tyyppiOtsikko} ( ${haut.length} )`}</Typography>
+          <Typography variant="h4">{`${tyyppiOtsikko} ( ${hakukohteet.length} )`}</Typography>
         </Box>
       </Box>
       <Box mt={4}>
         <Grid container spacing={2} justifyContent="center">
-          {haut.map((haku) => {
-            const anyHakuaikaPaattyy = haku.hakuajat?.some(
+          {hakukohteet.map((hakukohde) => {
+            const anyHakuaikaPaattyy = hakukohde.hakuajat?.some(
               (hakuaika) => hakuaika.paattyy
             );
             const { alkaaText, alkaaModalText, paattyyText } = formatAloitus(
-              haku.koulutuksenAlkamiskausi || {},
+              hakukohde.koulutuksenAlkamiskausi || toteutuksenAlkamiskausi || {},
               t
             );
             const jarjestyspaikka =
-              haku.jarjestyspaikka &&
+              hakukohde.jarjestyspaikka &&
               [
-                localize(haku.jarjestyspaikka.nimi),
-                getJarjestyspaikkaYhteystiedot(haku.jarjestyspaikka, osoitteet),
+                localize(hakukohde.jarjestyspaikka.nimi),
+                getJarjestyspaikkaYhteystiedot(hakukohde.jarjestyspaikka, osoitteet),
               ]
                 .filter(Boolean)
                 .join(' · ');
 
-            const ensikertalaisilleText = haku.aloituspaikat?.ensikertalaisille
+            const ensikertalaisilleText = hakukohde.aloituspaikat?.ensikertalaisille
               ? `, ${t('toteutus.ensikertalaisille', {
-                  ensikertalaisille: haku.aloituspaikat?.ensikertalaisille,
+                  ensikertalaisille: hakukohde.aloituspaikat?.ensikertalaisille,
                 })}`
               : '';
 
-            const aloituspaikatText = haku.aloituspaikat?.lukumaara
-              ? haku.aloituspaikat?.lukumaara + ensikertalaisilleText
+            const aloituspaikatText = hakukohde.aloituspaikat?.lukumaara
+              ? hakukohde.aloituspaikat?.lukumaara + ensikertalaisilleText
               : '';
 
             return (
-              <Grid key={haku.hakukohdeOid} item xs={12} lg={8}>
+              <Grid key={hakukohde.hakukohdeOid} item xs={12}>
                 <Paper className={classes.paper}>
                   <Box m={4}>
                     <Grid container direction="column" spacing={3}>
@@ -126,11 +125,11 @@ const HakuCardGrid = ({ tyyppiOtsikko, haut, icon }: GridProps) => {
                         <Grid container direction="column" spacing={1}>
                           <Grid item>
                             <Typography className={classes.hakuName}>
-                              {localize(haku.nimi)}
+                              {localize(hakukohde.nimi)}
                             </Typography>
                           </Grid>
                           <Grid item>
-                            <LocalizedHTML data={haku.hakulomakeKuvaus} noMargin />
+                            <LocalizedHTML data={hakukohde.hakulomakeKuvaus} noMargin />
                           </Grid>
                           {jarjestyspaikka && (
                             <Grid item>
@@ -143,19 +142,19 @@ const HakuCardGrid = ({ tyyppiOtsikko, haut, icon }: GridProps) => {
                         <Divider />
                       </Grid>
                       <Grid item>
-                        <Grid container direction="row" spacing={3}>
-                          {[
+                        <HakutietoTable
+                          items={[
                             {
                               size: anyHakuaikaPaattyy ? 6 : 12,
                               heading: t('toteutus.haku-alkaa:'),
-                              content: haku.hakuajat.map((hakuaika) =>
+                              content: hakukohde.hakuajat.map((hakuaika) =>
                                 formatDateString(hakuaika.formatoituAlkaa)
                               ),
                             },
                             anyHakuaikaPaattyy && {
                               size: 6,
                               heading: t('toteutus.haku-paattyy:'),
-                              content: haku.hakuajat.map(
+                              content: hakukohde.hakuajat.map(
                                 (hakuaika) =>
                                   hakuaika.paattyy
                                     ? formatDateString(hakuaika.formatoituPaattyy)
@@ -173,93 +172,57 @@ const HakuCardGrid = ({ tyyppiOtsikko, haut, icon }: GridProps) => {
                               heading: t('toteutus.koulutus-paattyy:'),
                               content: [paattyyText],
                             },
-                            haku.hakukohteenLinja?.alinHyvaksyttyKeskiarvo && {
+                            hakukohde.hakukohteenLinja?.alinHyvaksyttyKeskiarvo && {
                               size: 12,
                               heading: t('toteutus.alin-hyvaksytty-keskiarvo'),
                               content: [
                                 formatDouble(
-                                  haku.hakukohteenLinja.alinHyvaksyttyKeskiarvo,
+                                  hakukohde.hakukohteenLinja.alinHyvaksyttyKeskiarvo,
                                   2
                                 ),
                               ],
                             },
-                            !_.isEmpty(haku.hakukohteenLinja?.lisatietoa) && {
+                            !_.isEmpty(hakukohde.hakukohteenLinja?.lisatietoa) && {
                               size: 12,
                               heading: t('toteutus.lisätietoa'),
                               content: [],
-                              modalText: haku.hakukohteenLinja?.lisatietoa,
+                              modalText: hakukohde.hakukohteenLinja?.lisatietoa,
                             },
                             {
                               size: 12,
                               heading: t('toteutus.pohjakoulutus:'),
-                              content: haku.pohjakoulutusvaatimus.map((vaatimus) =>
+                              content: hakukohde.pohjakoulutusvaatimus.map((vaatimus) =>
                                 localize(vaatimus)
                               ),
-                              modalText: haku.pohjakoulutusvaatimusTarkenne,
+                              modalText: hakukohde.pohjakoulutusvaatimusTarkenne,
                             },
                             aloituspaikatText && {
                               size: 12,
                               heading: t('toteutus.opiskelupaikkoja:'),
                               content: [aloituspaikatText],
-                              modalText: haku.aloituspaikat?.kuvaus,
+                              modalText: hakukohde.aloituspaikat?.kuvaus,
                             },
-                          ]
-                            .filter(Boolean)
-                            // TODO: filter(Boolean) does not clean the types here :(
-                            .map(({ size, heading, content, modalText }: any) => (
-                              <Grid key={heading} item xs={size}>
-                                <Grid
-                                  item
-                                  container
-                                  spacing={1}
-                                  wrap="nowrap"
-                                  alignItems="flex-start">
-                                  <Grid item>
-                                    <Typography className={classes.gridHeading} noWrap>
-                                      {heading}
-                                    </Typography>
-                                  </Grid>
-                                  {!_.isEmpty(modalText) && (
-                                    <Grid item>
-                                      <LabelTooltip
-                                        title={
-                                          <LocalizedHTML noMargin data={modalText} />
-                                        }
-                                      />
-                                    </Grid>
-                                  )}
-                                </Grid>
-                                <Grid item>
-                                  {content.map((v: string, i: number) => (
-                                    <Typography
-                                      key={`${heading}-text-${i}`}
-                                      variant="body1">
-                                      {v}
-                                    </Typography>
-                                  ))}
-                                </Grid>
-                              </Grid>
-                            ))}
-                        </Grid>
+                          ]}
+                        />
                       </Grid>
                       <Grid item>
                         <ButtonGroup
                           className={classes.lomakeButtonGroup}
                           orientation="horizontal"
                           color="primary">
-                          {haku.hakulomaketyyppi !== HAKULOMAKE_TYYPPI.EI_SAHKOISTA &&
+                          {hakukohde.hakulomaketyyppi !== Hakulomaketyyppi.EI_SAHKOISTA &&
                             !(
-                              !haku.isHakuAuki &&
+                              !hakukohde.isHakuAuki &&
                               !!demoLinks &&
-                              !!demoLinks.get(haku.hakulomakeAtaruId)
+                              !!demoLinks.get(hakukohde.hakulomakeAtaruId)
                             ) && (
                               <Button
                                 variant="contained"
                                 size="large"
                                 color="primary"
                                 target="_blank"
-                                href={localize(haku.hakulomakeLinkki)}
-                                disabled={!haku.isHakuAuki}>
+                                href={localize(hakukohde.hakulomakeLinkki)}
+                                disabled={!hakukohde.isHakuAuki}>
                                 <Typography
                                   style={{ color: colors.white }}
                                   variant="body1">
@@ -267,7 +230,7 @@ const HakuCardGrid = ({ tyyppiOtsikko, haut, icon }: GridProps) => {
                                 </Typography>
                               </Button>
                             )}
-                          {!!demoLinks && demoLinks.get(haku.hakulomakeAtaruId) && (
+                          {!!demoLinks && demoLinks.get(hakukohde.hakulomakeAtaruId) && (
                             <Button
                               variant="contained"
                               size="large"
@@ -275,21 +238,21 @@ const HakuCardGrid = ({ tyyppiOtsikko, haut, icon }: GridProps) => {
                               target="_blank"
                               href={localize(
                                 demoLinks
-                                  .get(haku.hakulomakeAtaruId)
-                                  ?.get(haku.hakukohdeOid)
+                                  .get(hakukohde.hakulomakeAtaruId)
+                                  ?.get(hakukohde.hakukohdeOid)
                               )}>
                               <Typography style={{ color: colors.white }} variant="body1">
                                 {t('toteutus.tayta-demo-lomake')}
                               </Typography>
                             </Button>
                           )}
-                          {haku.valintaperusteId && (
+                          {hakukohde.valintaperusteId && (
                             <Button variant="outlined" size="large" color="primary">
                               <LocalizedLink
                                 tabIndex={-1}
                                 underline="none"
                                 component={RouterLink}
-                                to={`/hakukohde/${haku.hakukohdeOid}/valintaperuste`}>
+                                to={`/hakukohde/${hakukohde.hakukohdeOid}/valintaperuste`}>
                                 <Typography
                                   style={{ color: colors.brandGreen }}
                                   variant="body1">
@@ -308,7 +271,7 @@ const HakuCardGrid = ({ tyyppiOtsikko, haut, icon }: GridProps) => {
           })}
         </Grid>
       </Box>
-    </Grid>
+    </Box>
   );
 };
 
@@ -324,31 +287,34 @@ const getHakutyyppiIcon = (koodiUri: keyof typeof typeToIconMap) =>
   typeToIconMap[koodiUri] || CalendarTodayOutlinedIcon;
 
 type Props = {
-  haut: Record<string, { nimi: Translateable; hakukohteet: Array<Hakukohde> }>;
+  toteutus?: Toteutus;
 };
 
-export const ToteutusHakukohteet = ({ haut }: Props) => {
+export const ToteutusHakukohteet = ({ toteutus }: Props) => {
   const { t } = useTranslation();
+
+  const hakukohteetByHakutapa = toteutus?.hakukohteetByHakutapa;
 
   return (
     <Grid item xs={12} sm={12} md={10} lg={8}>
-      <Box pt={12} display="flex" flexDirection="column" alignItems="center" id="haut">
-        <Typography variant="h2">{t('toteutus.koulutuksen-hakukohteet')}</Typography>
-        <Spacer />
-        <Grid container direction="column" spacing={6}>
-          {_.map(haut, (haku, key) => {
-            const IconComponent = getHakutyyppiIcon(key as keyof typeof typeToIconMap);
+      <PageSection heading={t('toteutus.koulutuksen-hakukohteet')}>
+        <Grid direction="column" spacing={6}>
+          {_.map(hakukohteetByHakutapa, (h, hakutapaKoodiUri) => {
+            const IconComponent = getHakutyyppiIcon(
+              hakutapaKoodiUri as keyof typeof typeToIconMap
+            );
             return (
               <HakuCardGrid
-                tyyppiOtsikko={localize(haku)}
-                haut={haku.hakukohteet}
+                tyyppiOtsikko={localize(h)}
+                toteutus={toteutus}
+                hakukohteet={h.hakukohteet}
                 icon={<IconComponent />}
-                key={key}
+                key={hakutapaKoodiUri}
               />
             );
           })}
         </Grid>
-      </Box>
+      </PageSection>
     </Grid>
   );
 };

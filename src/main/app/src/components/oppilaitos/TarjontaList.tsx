@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Typography, Grid, Container, makeStyles, Box } from '@material-ui/core';
+import { Typography, Grid, makeStyles, Box } from '@material-ui/core';
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
 import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
 import PublicIcon from '@material-ui/icons/Public';
@@ -12,7 +12,7 @@ import {
   LoadingCircle,
   OverlayLoadingCircle,
 } from '#/src/components/common/LoadingCircle';
-import Spacer from '#/src/components/common/Spacer';
+import { PageSection } from '#/src/components/common/PageSection';
 import { TarjontaPagination } from '#/src/components/common/TarjontaPagination';
 
 import { usePaginatedTarjonta } from './hooks';
@@ -53,11 +53,12 @@ export const TarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
       return <LoadingCircle />;
     case 'success':
       return tarjonta.hasHits ? (
-        <Container maxWidth="lg" className={classes.container}>
-          <Typography variant="h2" id={scrolltargetId}>
-            {t('oppilaitos.oppilaitoksessa-jarjestettavat-koulutukset')}
-          </Typography>
-          <Spacer />
+        <PageSection
+          heading={
+            <Typography variant="h2" id={scrolltargetId}>
+              {t('oppilaitos.oppilaitoksessa-jarjestettavat-koulutukset')}
+            </Typography>
+          }>
           <TarjontaPagination
             total={total}
             pagination={pagination}
@@ -97,7 +98,7 @@ export const TarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
             setPagination={setPagination}
             scrollTargetId={scrolltargetId}
           />
-        </Container>
+        </PageSection>
       ) : null;
     default:
       return null;

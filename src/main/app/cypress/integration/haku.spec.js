@@ -49,13 +49,16 @@ describe('Haku', () => {
       cy.findByRole('button', { name: /Tutkintoon johtavat/i });
     const muutBtn = () => cy.findByRole('button', { name: /Muut/i });
     const ammatillinenKoulutusChk = () =>
-      cy.findByRole('checkbox', { name: /Ammatillinen koulutus/i });
+      cy.findByRole('checkbox', { name: /Ammatillinen koulutus/ });
     const ammatillinenPerustutkintoChk = () =>
       cy.findByRole('checkbox', { name: /Ammatillinen perustutkinto/i });
     const erikoisammattitutkintoChk = () =>
       cy.findByRole('checkbox', { name: /Erikoisammattitutkinto/i });
     const tutkinnonOsaChk = () => cy.findByRole('checkbox', { name: /Tutkinnon osa/i });
     const osaamisalaChk = () => cy.findByRole('checkbox', { name: /Osaamisala/i });
+    const ammMuuChk = () =>
+      cy.findByRole('checkbox', { name: /Muu ammatillinen koulutus/i });
+    const telmaChk = () => cy.findByRole('checkbox', { name: /TELMA/ });
 
     cy.findByTestId('koulutustyyppi-filter').within(() => {
       ammatillinenKoulutusChk().should('exist');
@@ -69,18 +72,36 @@ describe('Haku', () => {
       tutkintoonJohtavatBtn().should('have.attr', 'aria-selected', 'false');
       tutkinnonOsaChk().should('exist');
       osaamisalaChk().should('exist');
+      ammMuuChk().should('exist');
+      telmaChk().should('exist');
       ammatillinenPerustutkintoChk().should('not.exist');
       erikoisammattitutkintoChk().should('not.exist');
 
       tutkinnonOsaChk().check().should('be.checked');
       ammatillinenKoulutusChk().should('have.attr', 'data-indeterminate', 'true');
       osaamisalaChk().should('not.be.checked');
+      ammMuuChk().should('not.be.checked');
+      telmaChk().should('not.be.checked');
 
       osaamisalaChk().check().should('be.checked');
+      ammatillinenKoulutusChk().should('have.attr', 'data-indeterminate', 'true');
+      tutkinnonOsaChk().check().should('be.checked');
+      ammMuuChk().should('not.be.checked');
+      telmaChk().should('not.be.checked');
+
+      ammMuuChk().check().should('be.checked');
+      ammatillinenKoulutusChk().should('have.attr', 'data-indeterminate', 'true');
       tutkinnonOsaChk().should('be.checked');
+      osaamisalaChk().should('be.checked');
+      telmaChk().should('not.be.checked');
+
+      telmaChk().check().should('be.checked');
       ammatillinenKoulutusChk()
         .should('be.checked')
         .should('have.attr', 'data-indeterminate', 'false');
+      tutkinnonOsaChk().should('be.checked');
+      osaamisalaChk().should('be.checked');
+      ammMuuChk().should('be.checked');
     });
   });
   it('Koulutusala checkboxes should work hierarchically', () => {

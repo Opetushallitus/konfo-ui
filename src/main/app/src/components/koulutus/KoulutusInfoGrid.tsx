@@ -7,7 +7,8 @@ import TimelapseIcon from '@material-ui/icons/Timelapse';
 import { useTranslation } from 'react-i18next';
 
 import { InfoGrid } from '#/src/components/common/InfoGrid';
-import { Koulutustyyppi, KOULUTUS_TYYPPI } from '#/src/constants';
+import { Koulutustyyppi } from '#/src/constants';
+import { hasTutkintonimike } from '#/src/tools/hasTutkintonimike';
 import { localize } from '#/src/tools/localization';
 import { Translateable } from '#/src/types/common';
 
@@ -17,34 +18,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const hasNimike = (tyyppi?: Koulutustyyppi) =>
-  ![
-    KOULUTUS_TYYPPI.AMM_TUTKINNON_OSA,
-    KOULUTUS_TYYPPI.AMM_OSAAMISALA,
-    KOULUTUS_TYYPPI.TUVA,
-    KOULUTUS_TYYPPI.VAPAA_SIVISTYSTYO_OPISTOVUOSI,
-    KOULUTUS_TYYPPI.VAPAA_SIVISTYSTYO_MUU,
-    KOULUTUS_TYYPPI.TELMA,
-  ].includes(tyyppi as Koulutustyyppi);
-
 type Props = {
   nimikkeet: Array<Translateable>;
   koulutustyyppi?: Koulutustyyppi;
   laajuus: string;
-  className?: string;
 };
 
-export const KoulutusInfoGrid = ({
-  className,
-  nimikkeet,
-  koulutustyyppi,
-  laajuus,
-}: Props) => {
+export const KoulutusInfoGrid = ({ nimikkeet, koulutustyyppi, laajuus }: Props) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
   const perustiedotData = [];
-  if (hasNimike(koulutustyyppi)) {
+  if (hasTutkintonimike(koulutustyyppi)) {
     const nimikeString = nimikkeet
       ? nimikkeet.map((nimikeObj) => localize(nimikeObj)).join('\n')
       : t('koulutus.ei-tutkintonimiketta');
@@ -72,11 +57,5 @@ export const KoulutusInfoGrid = ({
     testid: 'opintojenLaajuus',
   });
 
-  return (
-    <InfoGrid
-      heading={t('koulutus.tiedot')}
-      gridData={perustiedotData}
-      className={className}
-    />
-  );
+  return <InfoGrid gridData={perustiedotData} />;
 };

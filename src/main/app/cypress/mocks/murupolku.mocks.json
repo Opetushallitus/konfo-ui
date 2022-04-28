@@ -21226,13 +21226,19 @@
             }
           },
           "koulutustyyppi-muu": {
-            "amm-muu": {
+            "muut-ammatilliset": {
               "count": 0,
               "alakoodit": {
                 "amm-tutkinnon-osa": {
                   "count": 0
                 },
                 "amm-osaamisala": {
+                  "count": 0
+                },
+                "amm-muu": {
+                  "count": 0
+                },
+                "telma": {
                   "count": 0
                 }
               }
@@ -26323,13 +26329,19 @@
             }
           },
           "koulutustyyppi-muu": {
-            "amm-muu": {
+            "muut-ammatilliset": {
               "count": 0,
               "alakoodit": {
                 "amm-tutkinnon-osa": {
                   "count": 0
                 },
                 "amm-osaamisala": {
+                  "count": 0
+                },
+                "amm-muu": {
+                  "count": 0
+                },
+                "telma": {
                   "count": 0
                 }
               }
@@ -27283,22 +27295,6 @@
         "koulutustyyppi": "amm"
       },
       "status": 200
-    }
-  },
-  {
-    "method": "GET",
-    "url": "https://beta.testiopintopolku.fi/konfo-backend/suosittelu?koulutukset=1.2.246.562.13.00000000000000000156",
-    "response": {
-      "body": "",
-      "status": 500
-    }
-  },
-  {
-    "method": "GET",
-    "url": "https://beta.testiopintopolku.fi/konfo-backend/suosittelu?koulutukset=1.2.246.562.13.00000000000000000570",
-    "response": {
-      "body": "",
-      "status": 500
     }
   }
 ]

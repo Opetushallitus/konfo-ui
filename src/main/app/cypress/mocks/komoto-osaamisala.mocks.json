@@ -5341,13 +5341,5 @@
       "body": [],
       "status": 200
     }
-  },
-  {
-    "method": "GET",
-    "url": "http://locahost:3005/konfo-backend/suosittelu?koulutukset=1.2.246.562.13.00000000000000000623",
-    "response": {
-      "body": "",
-      "status": 500
-    }
   }
 ]

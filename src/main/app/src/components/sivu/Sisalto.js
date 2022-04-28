@@ -5,16 +5,13 @@ import Markdown from 'markdown-to-jsx';
 import { Link as RouterLink } from 'react-router-dom';
 
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
-import {
-  ImageComponent,
-  FullWidthImageComponent,
-} from '#/src/components/sivu/ImageComponent';
+import { ImageComponent } from '#/src/components/sivu/ImageComponent';
 import { useContentful } from '#/src/hooks';
 
 import { Accordion, Summary } from './Accordion';
 import { LinkOrYoutube } from './LinkOrYoutube';
 
-const Sisalto = ({ content, alwaysFullWidth, excludeMedia }) => {
+const Sisalto = ({ content, excludeMedia }) => {
   const { data, forwardTo } = useContentful();
   const { sivu } = data;
   const isBlank = (str) => {
@@ -33,11 +30,7 @@ const Sisalto = ({ content, alwaysFullWidth, excludeMedia }) => {
       options={{
         overrides: {
           img: {
-            component: excludeMedia
-              ? () => null
-              : alwaysFullWidth
-              ? FullWidthImageComponent
-              : ImageComponent,
+            component: excludeMedia ? () => null : ImageComponent,
           },
           h1: {
             component: Typography,

@@ -4,8 +4,7 @@ import { Box, Typography, useTheme, useMediaQuery } from '@material-ui/core';
 
 import DefaultHeroImage from '#/src/assets/images/herokuva_default.png';
 import { ImageCardGrid } from '#/src/components/common/ImageCardGrid';
-
-import Spacer from '../common/Spacer';
+import Spacer from '#/src/components/common/Spacer';
 
 const OppilaitosOsaList = (props) => {
   const { oppilaitosOsat, title } = props;

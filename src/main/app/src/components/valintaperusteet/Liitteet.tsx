@@ -204,7 +204,9 @@ type Props = {
 export const Liitteet = ({ liitteet, hakukohde, organisaatioOid }: Props) => {
   const { t } = useTranslation();
   const liitteetTyypeittain = tyypeittain(liitteet);
-  const { hakijapalveluidenYhteystiedot } = useOsoitteet([organisaatioOid])?.[0] || {};
+  const { osoitteet } = useOsoitteet([organisaatioOid])?.[0] || {};
+
+  const hakijapalveluidenYhteystiedot = osoitteet?.hakijapalveluidenYhteystiedot;
 
   const yhteinenToimitusaika =
     hakukohde?.liitteetOnkoSamaToimitusaika &&

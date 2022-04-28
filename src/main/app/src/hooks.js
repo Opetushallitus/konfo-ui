@@ -26,6 +26,7 @@ export const useLanguageState = () => {
       if (lng && newLang !== lng) {
         const newPath = location.pathname.replace(new RegExp(`^/${lng}`), `/${newLang}`);
         history.push({
+          ...location,
           pathname: newPath,
         });
       }

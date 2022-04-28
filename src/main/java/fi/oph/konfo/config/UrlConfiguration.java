@@ -40,8 +40,6 @@ public class UrlConfiguration extends OphProperties {
     this.frontProperties.setProperty(
         "konfo-backend.koulutus", this.require("konfo-backend.koulutus"));
     this.frontProperties.setProperty(
-        "konfo-backend.suosittelu", this.require("konfo-backend.suosittelu"));
-    this.frontProperties.setProperty(
         "konfo-backend.toteutus", this.require("konfo-backend.toteutus"));
     this.frontProperties.setProperty(
         "konfo-backend.valintaperusteet", this.require("konfo-backend.valintaperusteet"));

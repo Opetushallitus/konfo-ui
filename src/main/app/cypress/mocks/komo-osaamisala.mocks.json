@@ -9608,13 +9608,5 @@
       },
       "status": 200
     }
-  },
-  {
-    "method": "GET",
-    "url": "https://beta.testiopintopolku.fi/konfo-backend/suosittelu?koulutukset=1.2.246.562.13.00000000000000000623",
-    "response": {
-      "body": "",
-      "status": 500
-    }
   }
 ]

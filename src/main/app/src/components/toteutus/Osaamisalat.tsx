@@ -7,8 +7,9 @@ import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
 
 import { getToteutusOsaamisalaKuvaus } from '#/src/api/konfoApi';
-import { AccordionWithTitle } from '#/src/components/common/AccordionWithTitle';
+import { Accordion } from '#/src/components/common/Accordion';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
+import { PageSection } from '#/src/components/common/PageSection';
 import { localize } from '#/src/tools/localization';
 import { sanitizedHTMLParser } from '#/src/tools/utils';
 import { TODOType } from '#/src/types/common';
@@ -68,26 +69,27 @@ export const Osaamisalat = ({
       return null;
     default:
       return (
-        <AccordionWithTitle
-          titleTranslationKey="koulutus.osaamisalat"
-          data={osaamisalatCombined?.map((osaamisala: any) => ({
-            title: localize(osaamisala?.koodi),
-            content: (
-              <>
-                {sanitizedHTMLParser(osaamisala?.kuvaus)}
-                {!_.isEmpty(osaamisala?.linkki) && !_.isEmpty(osaamisala?.otsikko) && (
-                  <Link
-                    target="_blank"
-                    rel="noopener"
-                    href={localize(osaamisala?.linkki)}>
-                    {localize(osaamisala?.otsikko)}
-                    <OpenInNewIcon fontSize="small" />
-                  </Link>
-                )}
-              </>
-            ),
-          }))}
-        />
+        <PageSection heading={t('koulutus.osaamisalat')}>
+          <Accordion
+            items={osaamisalatCombined?.map((osaamisala: any) => ({
+              title: localize(osaamisala?.koodi),
+              content: (
+                <>
+                  {sanitizedHTMLParser(osaamisala?.kuvaus)}
+                  {!_.isEmpty(osaamisala?.linkki) && !_.isEmpty(osaamisala?.otsikko) && (
+                    <Link
+                      target="_blank"
+                      rel="noopener"
+                      href={localize(osaamisala?.linkki)}>
+                      {localize(osaamisala?.otsikko)}
+                      <OpenInNewIcon fontSize="small" />
+                    </Link>
+                  )}
+                </>
+              ),
+            }))}
+          />
+        </PageSection>
       );
   }
 };

@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 type Props = {
-  className?: string;
   opiskelijoita: number;
   kotipaikat: Array<Koodi>;
   opetuskieli: Array<Koodi>;
@@ -30,7 +29,6 @@ type Props = {
 };
 
 export const OppilaitosinfoGrid = ({
-  className,
   opiskelijoita,
   kotipaikat,
   opetuskieli,
@@ -75,11 +73,5 @@ export const OppilaitosinfoGrid = ({
     },
   ];
 
-  return (
-    <InfoGrid
-      heading={t('oppilaitos.perustiedot')}
-      gridData={perustiedotData}
-      className={className}
-    />
-  );
+  return <InfoGrid gridData={perustiedotData} />;
 };

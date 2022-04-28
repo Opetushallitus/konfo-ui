@@ -1,17 +1,15 @@
 import React from 'react';
 
-import { Box, Container, Typography } from '@material-ui/core';
+import { Container, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-import Spacer from '#/src/components/common/Spacer';
+import { Accordion } from '#/src/components/common/Accordion';
+import { PageSection } from '#/src/components/common/PageSection';
 import { localize } from '#/src/tools/localization';
 import { sanitizedHTMLParser } from '#/src/tools/utils';
 import { Translateable } from '#/src/types/common';
 
-import { Accordion } from '../common/Accordion';
-
 type Props = {
-  className: string;
   heading: string;
   tietoaOpiskelusta: Array<{
     otsikko: Translateable;
@@ -19,22 +17,11 @@ type Props = {
   }>;
 };
 
-export const TietoaOpiskelusta = ({
-  className,
-  heading,
-  tietoaOpiskelusta = [],
-}: Props) => {
+export const TietoaOpiskelusta = ({ heading, tietoaOpiskelusta = [] }: Props) => {
   const { t } = useTranslation();
 
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      width="100%"
-      className={className}>
-      <Typography variant="h2">{heading}</Typography>
-      <Spacer />
+    <PageSection heading={heading}>
       {tietoaOpiskelusta.length > 0 ? (
         <Container maxWidth="md">
           <Accordion
@@ -47,6 +34,6 @@ export const TietoaOpiskelusta = ({
       ) : (
         <Typography variant="h6">{t('oppilaitos.ei-tietoa-opiskelusta')}</Typography>
       )}
-    </Box>
+    </PageSection>
   );
 };

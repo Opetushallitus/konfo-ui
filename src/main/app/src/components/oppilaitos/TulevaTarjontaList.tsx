@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Container, Grid, makeStyles, Typography } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
@@ -11,20 +11,11 @@ import {
   OverlayLoadingCircle,
 } from '#/src/components/common/LoadingCircle';
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
-import Spacer from '#/src/components/common/Spacer';
+import { PageSection } from '#/src/components/common/PageSection';
 
 import { usePaginatedTarjonta } from './hooks';
 import { TulevaKoulutusCard } from './TulevaKoulutusCard';
 import { TulevaTarjontaPagination } from './TulevaTarjontaPagination';
-
-const useStyles = makeStyles({
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    marginTop: '100px',
-  },
-});
 
 type Tarjonta = {
   koulutusName: string;
@@ -41,7 +32,6 @@ type Props = {
 };
 
 export const TulevaTarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
-  const classes = useStyles();
   const { t } = useTranslation();
 
   const { queryResult } = usePaginatedTarjonta({
@@ -61,9 +51,7 @@ export const TulevaTarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
       return <LoadingCircle />;
     case 'success':
       return _.isEmpty(values) ? null : (
-        <Container maxWidth="lg" className={classes.container}>
-          <Typography variant="h2">{t('oppilaitos.tulevat-koulutukset')}</Typography>
-          <Spacer />
+        <PageSection heading={t('oppilaitos.tulevat-koulutukset')}>
           <div style={{ position: 'relative' }}>
             <OverlayLoadingCircle isLoading={isFetching} />
             <Grid
@@ -95,7 +83,7 @@ export const TulevaTarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
             oid={oid}
             isOppilaitosOsa={isOppilaitosOsa}
           />
-        </Container>
+        </PageSection>
       );
     default:
       return null;

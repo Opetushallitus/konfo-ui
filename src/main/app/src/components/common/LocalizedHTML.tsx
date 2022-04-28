@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core';
 
 import { localize } from '#/src/tools/localization';
 import { sanitizedHTMLParser } from '#/src/tools/utils';
+import { Translateable } from '#/src/types/common';
 
 type StylesProps = Pick<Props, 'noMargin'>;
 
@@ -22,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 type Props = {
-  data: object;
+  data?: Translateable | { nimi: Translateable };
   transform?: (node: React.ReactNode) => any;
   defaultValue?: string;
   noWrapper?: boolean;
