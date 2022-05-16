@@ -31,7 +31,9 @@ const getValintaperustePageData = async (
   const hakukohde = await getHakukohde(hakukohdeOid, isDraft);
   const { toteutus: hakukohdeToteutus, valintaperuste: hakukohdeValintaperuste } =
     hakukohde ?? {};
-  const valintaperuste = hakukohdeValintaperuste && hakukohdeValintaperuste.id && await getValintaperuste(hakukohdeValintaperuste.id, isDraft);
+  const valintaperuste =
+    hakukohdeValintaperuste?.id &&
+    (await getValintaperuste(hakukohdeValintaperuste.id, isDraft));
   const toteutus = await getToteutus(hakukohdeToteutus?.oid, isDraft);
   const koulutus = await getKoulutus(toteutus?.koulutusOid, isDraft);
 
