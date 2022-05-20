@@ -75,6 +75,7 @@ export type Hakukohde = {
   formatoituLiitteidentoimitusaika: FormatoituAikaleima;
   liitteidenToimitustapa: string;
   liitteidenToimitusosoite: LiitteenYhteystiedot;
+  hasValintaperustekuvausData: boolean;
 };
 
 export type HakukohdeOid = string;

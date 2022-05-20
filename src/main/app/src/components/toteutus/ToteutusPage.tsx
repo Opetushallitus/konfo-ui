@@ -231,7 +231,7 @@ export const ToteutusPage = () => {
       <KielivalikoimaBox kielivalikoima={kielivalikoima} />
       <Diplomit diplomit={diplomit} />
       <Osaamisalat toteutus={toteutus!} koulutus={koulutus} />
-      <Box id="haut">
+      <Box id="haut" display="flex" justifyContent="center">
         <ToteutusHakutiedot toteutus={toteutus} />
       </Box>
       {combinedLisatiedot.length > 0 && (

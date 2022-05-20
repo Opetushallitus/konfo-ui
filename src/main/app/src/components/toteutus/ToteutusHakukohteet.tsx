@@ -71,7 +71,7 @@ const HakuCardGrid = ({ tyyppiOtsikko, icon, toteutus, hakukohteet }: GridProps)
   const { data: demoLinks } = useDemoLinks(hakukohteet);
 
   const oppilaitosOids = useMemo(
-    () => hakukohteet.map((haku) => haku.jarjestyspaikka?.oid),
+    () => hakukohteet.map((hakukohde) => hakukohde.jarjestyspaikka?.oid),
     [hakukohteet]
   );
 
@@ -246,21 +246,22 @@ const HakuCardGrid = ({ tyyppiOtsikko, icon, toteutus, hakukohteet }: GridProps)
                               </Typography>
                             </Button>
                           )}
-                          {hakukohde.valintaperusteId && (
-                            <Button variant="outlined" size="large" color="primary">
-                              <LocalizedLink
-                                tabIndex={-1}
-                                underline="none"
-                                component={RouterLink}
-                                to={`/hakukohde/${hakukohde.hakukohdeOid}/valintaperuste`}>
-                                <Typography
-                                  style={{ color: colors.brandGreen }}
-                                  variant="body1">
-                                  {t('toteutus.lue-valintaperusteet')}
-                                </Typography>
-                              </LocalizedLink>
-                            </Button>
-                          )}
+                          {hakukohde.valintaperusteId ||
+                            (hakukohde.hasValintaperustekuvausData && (
+                              <Button variant="outlined" size="large" color="primary">
+                                <LocalizedLink
+                                  tabIndex={-1}
+                                  underline="none"
+                                  component={RouterLink}
+                                  to={`/hakukohde/${hakukohde.hakukohdeOid}/valintaperuste`}>
+                                  <Typography
+                                    style={{ color: colors.brandGreen }}
+                                    variant="body1">
+                                    {t('toteutus.lue-valintaperusteet')}
+                                  </Typography>
+                                </LocalizedLink>
+                              </Button>
+                            ))}
                         </ButtonGroup>
                       </Grid>
                     </Grid>
