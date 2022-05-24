@@ -303,19 +303,10 @@ export const searchAllOnPageReload =
 export const searchAndMoveToHaku =
   ({ history }) =>
   (dispatch, getState) => {
-    const { hakutulos } = getState();
-    const apiRequestParams = getAPIRequestParams({ hakutulos });
-    const lng = getLanguage();
-    const restParams = new URLSearchParams(
-      _.pick(cleanRequestParams(apiRequestParams), [
-        'keyword',
-        'order',
-        'size',
-        ...FILTER_TYPES_ARR_FOR_KONFO_BACKEND,
-      ])
-    ).toString();
-    history.push(`/${lng}/haku/${hakutulos.keyword}?${restParams}`);
-    dispatch(searchAll(apiRequestParams, true));
+    const state = getState();
+    const { url } = getHakuUrl(state);
+    dispatch(newSearchAll());
+    history.push(url);
   };
 
 // Helpers
