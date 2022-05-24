@@ -113,29 +113,13 @@ const hakutulosSlice = createSlice({
     },
     searchAllSuccess(state, { payload }) {
       if (state.status === LOADING_STATUS) {
-        const {
-          koulutusData,
-          oppilaitosData,
-          isNewKeyword,
-          isReload,
-          filters,
-          literals,
-        } = payload;
+        const { koulutusData, oppilaitosData, filters, literals } = payload;
         state.koulutusHits = koulutusData.hits;
         state.koulutusFilters = koulutusData.filters;
         state.koulutusTotal = koulutusData.total;
         state.oppilaitosHits = oppilaitosData.hits;
         state.oppilaitosFilters = oppilaitosData.filters;
         state.oppilaitosTotal = oppilaitosData.total;
-        if (
-          _.size(koulutusData.hits) === 0 &&
-          _.size(oppilaitosData.hits) > 0 &&
-          isNewKeyword
-        ) {
-          state.selectedTab = OPPILAITOS;
-        } else if (_.size(koulutusData.hits) > 0 && isNewKeyword) {
-          state.selectedTab = KOULUTUS;
-        }
 
         // NOTE: Tämä asettaa ja kääntää initial arvot stateen
         if (!state.initialized) {
