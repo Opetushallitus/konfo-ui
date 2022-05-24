@@ -17,6 +17,7 @@ import { useTranslation } from 'react-i18next';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
+import { useCurrentPage } from '#/src/store/reducers/appSlice';
 import {
   searchAndMoveToHaku,
   clearSelectedFilters,
@@ -61,11 +62,16 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export const MobileFiltersOnTopMenu = ({ isFrontPage = false }) => {
+const useIsAtEtusivu = () => useCurrentPage() === '';
+
+export const MobileFiltersOnTopMenu = () => {
   const classes = useStyles();
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const isAtEtusivu = useIsAtEtusivu();
+
   const { koulutusTotal, oppilaitosTotal, selectedTab } = useSelector(
     (state: any) => ({
       koulutusTotal: state.hakutulos.koulutusTotal,
@@ -89,13 +95,13 @@ export const MobileFiltersOnTopMenu = ({ isFrontPage = false }) => {
   );
 
   useEffect(() => {
-    if (isFrontPage) {
+    if (isAtEtusivu) {
       dispatch(newSearchAll());
     }
-  }, [isFrontPage, dispatch]);
+  }, [isAtEtusivu, dispatch]);
 
   const handleFiltersShowToggle = () => {
-    if (isFrontPage) {
+    if (isAtEtusivu) {
       dispatch(searchAndMoveToHaku({ history }));
     }
     toggleShowFilters();
@@ -110,7 +116,7 @@ export const MobileFiltersOnTopMenu = ({ isFrontPage = false }) => {
     <>
       {!showFilters && (
         <MobileToggleFiltersButton
-          type={isFrontPage ? 'frontpage' : 'fixed'}
+          type={isAtEtusivu ? 'frontpage' : 'fixed'}
           chosenFilterCount={count}
           showFilters={showFilters}
           handleFiltersShowToggle={toggleShowFilters}
@@ -153,8 +159,8 @@ export const MobileFiltersOnTopMenu = ({ isFrontPage = false }) => {
           </Toolbar>
         </AppBar>
         <Container classes={{ root: classes.containerRoot }}>
-          {isFrontPage && <MobileToggleKoulutusOppilaitos />}
-          {isFrontPage && <Divider className={classes.divider} />}
+          {isAtEtusivu && <MobileToggleKoulutusOppilaitos />}
+          {isAtEtusivu && <Divider className={classes.divider} />}
           <KoulutustyyppiSuodatin expanded={false} displaySelected />
           <Divider className={classes.divider} />
           <OpetuskieliSuodatin expanded={false} displaySelected />
@@ -171,8 +177,8 @@ export const MobileFiltersOnTopMenu = ({ isFrontPage = false }) => {
           <Divider className={classes.divider} />
           <OpetustapaSuodatin expanded={false} displaySelected />
           <Divider className={classes.divider} />
-          {!isFrontPage && <MobileToggleOrderByButtonMenu />}
-          {!isFrontPage && <MobileResultsPerPageExpansionMenu />}
+          {!isAtEtusivu && <MobileToggleOrderByButtonMenu />}
+          {!isAtEtusivu && <MobileResultsPerPageExpansionMenu />}
         </Container>
         <MobileToggleFiltersButton
           type="fixed"

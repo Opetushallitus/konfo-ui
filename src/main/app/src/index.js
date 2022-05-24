@@ -5,8 +5,9 @@ import ReactDOM from 'react-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { Provider, useDispatch } from 'react-redux';
-import { BrowserRouter, useHistory } from 'react-router-dom';
+import { BrowserRouter, useHistory, useLocation } from 'react-router-dom';
 import 'typeface-open-sans';
+import { useEffectOnce } from 'react-use';
 import StackTrace from 'stacktrace-js';
 
 import { postClientError } from '#/src/api/konfoApi';
@@ -77,6 +78,11 @@ const InitGate = ({ children }) => {
   const { status: i18nStatus } = useQueryOnce('i18n', configureI18n);
   const dispatch = useDispatch();
   const history = useHistory();
+  const location = useLocation();
+
+  useEffectOnce(() => {
+    dispatch(setCurrentLocation({ currentLocation: location }));
+  });
 
   useEffect(() => {
     return history.listen((currentLocation) => {

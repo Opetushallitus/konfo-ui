@@ -22,17 +22,18 @@ export const appSlice = createSlice({
   },
 });
 
-export const usePreviousLocation = () => {
-  return useSelector((state) => state.app.previousLocation);
-};
+export const usePreviousLocation = () =>
+  useSelector((state) => state.app.previousLocation);
 
-export const usePreviousPage = () => {
-  return _.split(usePreviousLocation().pathname, '/')?.[2];
-};
+const getLocationPage = (location) => _.split(location?.pathname, '/')?.[2];
 
-export const useMenuOpen = () => {
-  return useSelector((state) => state.app.sideMenuOpen);
-};
+export const usePreviousPage = () => getLocationPage(usePreviousLocation());
+
+export const useCurrentLocation = () => useSelector((state) => state.app.currentLocation);
+
+export const useCurrentPage = () => getLocationPage(useCurrentLocation());
+
+export const useMenuOpen = () => useSelector((state) => state.app.sideMenuOpen);
 
 export const { setMenuState, setCurrentLocation } = appSlice.actions;
 

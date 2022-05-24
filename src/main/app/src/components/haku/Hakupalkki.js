@@ -297,11 +297,11 @@ export const Hakupalkki = () => {
           flexDirection="row-reverse"
           width="100%"
           justifyContent="space-between">
-          <LocalizedLink component={RouterLink} to={`/haku/`} className={classes.link}>
+          <LocalizedLink component={RouterLink} to="/haku/" className={classes.link}>
             {t('jumpotron.naytakaikki')}
           </LocalizedLink>
           <Hidden mdUp>
-            <MobileFiltersOnTopMenu isFrontPage />
+            <MobileFiltersOnTopMenu />
           </Hidden>
         </Box>
       )}
