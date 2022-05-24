@@ -50,7 +50,6 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(3),
     flex: 1,
     color: colors.darkGrey,
-    fontFamily: 'Open Sans',
     fontSize: '16px',
     fontWeight: '600',
     lineHeight: '27px',
@@ -60,7 +59,6 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '2px',
     height: '40px',
     width: '114px',
-    fontFamily: 'Open Sans',
     fontSize: '16px',
     fontWeight: '600',
     lineHeight: '16px',
@@ -79,7 +77,6 @@ const useStyles = makeStyles((theme) => ({
   },
   expandButton: {
     height: '40px',
-    fontFamily: 'Open Sans',
     fontSize: '16px',
     fontWeight: '600',
     lineHeight: '16px',

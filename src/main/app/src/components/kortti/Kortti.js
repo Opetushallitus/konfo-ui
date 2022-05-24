@@ -8,10 +8,9 @@ import Icon from '@material-ui/core/Icon';
 import clsx from 'clsx';
 import { Link as RouterLink } from 'react-router-dom';
 
+import { colors } from '#/src/colors';
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
 import { useContentful } from '#/src/hooks';
-
-import { colors } from '../../colors';
 
 const useStyles = makeStyles({
   card: {
@@ -34,7 +33,6 @@ const useStyles = makeStyles({
   },
   otsikko: {
     color: colors.white,
-    fontFamily: 'Open Sans',
     fontSize: '24px',
     fontWeight: 'bold',
     lineHeight: '28px',

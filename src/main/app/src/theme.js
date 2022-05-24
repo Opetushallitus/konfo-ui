@@ -55,7 +55,7 @@ export const theme = createTheme({
     button: {
       textTransform: 'none',
     },
-    fontFamily: ['Open Sans', 'Arial', 'Roboto'],
+    fontFamily: ['Open Sans', 'Arial', 'Roboto', 'sans-serif'],
     h1: {
       fontSize: '2.5rem',
       letterSpacing: '-0.09375rem',

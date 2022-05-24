@@ -31,7 +31,6 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     color: colors.white,
-    fontFamily: 'Open Sans',
     fontSize: '40px',
     fontWeight: 'bold',
     letterSpacing: '-1.5px',
@@ -39,7 +38,6 @@ const useStyles = makeStyles((theme) => ({
   },
   subheader: {
     color: colors.white,
-    fontFamily: 'Open Sans',
     fontSize: '16px',
     lineHeight: '27px',
   },

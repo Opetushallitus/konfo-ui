@@ -14,7 +14,6 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '1rem',
     lineHeight: '1.375rem',
     color: theme.palette.primary.main,
-    fontFamily: 'Open Sans',
   },
 }));
 

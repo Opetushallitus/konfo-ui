@@ -23,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
   },
   expandButton: {
     height: '40px',
-    fontFamily: 'Open Sans',
     fontSize: '16px',
     fontWeight: 600,
     lineHeight: '16px',
