@@ -102,14 +102,17 @@ const hakutulosSlice = createSlice({
       state.order = order;
     },
     urlParamsChanged(state, { payload }) {
-      const { search } = payload;
+      const { keyword, search } = payload;
+      const params = { keyword, ...search };
       const apiRequestParams = getAPIRequestParams({ hakutulos: state });
-      const cleanedUrlSearch = getCleanUrlSearch(search, apiRequestParams);
+      const cleanedParams = getCleanUrlSearch(params, apiRequestParams);
 
-      if (!_.isMatch(apiRequestParams, cleanedUrlSearch)) {
-        const requestParams = { ...apiRequestParams, ...cleanedUrlSearch };
+      if (!_.isMatch(apiRequestParams, cleanedParams)) {
+        const requestParams = { ...apiRequestParams, ...cleanedParams };
         const filters = _.pick(requestParams, FILTER_TYPES_ARR_FOR_KONFO_BACKEND);
         const literals = _.pick(requestParams, ['size', 'order', 'sort']);
+
+        state.keyword = keyword;
         _.forEach(literals, (val, key) => {
           state[key] = val;
         });

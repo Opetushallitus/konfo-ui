@@ -5,7 +5,7 @@ import hakuMocks from '#/cypress/mocks/haku.mocks.json';
 describe('Haku', () => {
   beforeEach(() => {
     playMocks(hakuMocks);
-    cy.visit('/fi/haku?keyword=auto');
+    cy.visit('/fi/haku/auto');
     cy.findAllByRole('progressbar').should('not.exist');
   });
 

@@ -28,7 +28,6 @@ import { useIsAtEtusivu } from '#/src/store/reducers/appSlice';
 
 import { useSearch } from '../hakutulos/hakutulosHooks';
 import { MobileFiltersOnTopMenu } from '../hakutulos/MobileFiltersOnTopMenu';
-import { useUrlParams } from '../hakutulos/useUrlParams';
 import { HakupalkkiFilters } from './HakupalkkiFilters';
 
 const useStyles = makeStyles((theme) => ({
@@ -136,18 +135,16 @@ const useStyles = makeStyles((theme) => ({
 const checkIsKeywordValid = (word) => _.size(word) === 0 || _.size(word) > 2;
 
 export const Hakupalkki = () => {
-  const { search } = useUrlParams();
   const { t } = useTranslation();
   const classes = useStyles();
 
-  const { koulutusData, isFetching, goToSearchPage, setKeyword } = useSearch();
+  const { keyword, koulutusData, isFetching, goToSearchPage, setKeyword } = useSearch();
 
   const koulutusFilters = koulutusData?.filters;
   const isAtEtusivu = useIsAtEtusivu();
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [isKeywordValid, setIsKeywordValid] = useState(true);
-  const keyword = search?.keyword;
 
   const handleDesktopBtnClick = (e) => {
     window.scrollTo({

@@ -166,14 +166,20 @@ export const getAPIRequestParams = createSelector(
 );
 
 export const getHakuParams = createSelector([getAPIRequestParams], (apiRequestParams) => {
-  const hakuParams = cleanRequestParams(apiRequestParams);
+  const hakuParams = cleanRequestParams(
+    _.pick(apiRequestParams, ['order', 'sort', 'size', ...FILTER_TYPES_ARR])
+  );
+
   const hakuParamsStr = qs.stringify(hakuParams, { arrayFormat: 'comma' });
   return { hakuParams, hakuParamsStr };
 });
 
-export const getHakuUrl = createSelector([getHakuParams], ({ hakuParamsStr }) => {
-  return `/haku?${hakuParamsStr}`;
-});
+export const getHakuUrl = createSelector(
+  [getKeyword, getHakuParams],
+  (keyword, { hakuParamsStr }) => {
+    return `/haku${keyword ? `/${keyword}` : ''}?${hakuParamsStr}`;
+  }
+);
 
 export const getInitialCheckedToteutusFilters = createSelector(
   [getFilters],
