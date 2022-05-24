@@ -9,7 +9,7 @@ import { FILTER_TYPES } from '#/src/constants';
 import { getFilterStateChanges } from '#/src/tools/filters';
 import { FilterValue, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 
-import { useFilterProps, useSearch } from '../hakutulosHooks';
+import { useFilterProps, useSearch } from '../../hakutulosHooks';
 
 const withStyles = makeStyles(() => ({
   noBoxShadow: {

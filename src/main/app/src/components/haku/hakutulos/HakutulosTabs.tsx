@@ -4,7 +4,7 @@ import { Tabs, Tab, makeStyles, useMediaQuery, useTheme } from '@material-ui/cor
 import { SchoolOutlined, HomeWorkOutlined } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 
-import { useSearch } from './hakutulosHooks';
+import { useSearch } from '../hakutulosHooks';
 
 const useStyles = makeStyles((theme) => ({
   tabIconMargin: {
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const HakutulosToggle = () => {
+export const HakutulosTabs = () => {
   const { t } = useTranslation();
   const { selectedTab, setSelectedTab, koulutusData, oppilaitosData } = useSearch();
 

@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 
-import { useSearchSortOrder } from './hakutulosHooks';
+import { useSearchSortOrder } from '../hakutulosHooks';
 
 const useStyles = makeStyles(() => ({
   buttonActive: {

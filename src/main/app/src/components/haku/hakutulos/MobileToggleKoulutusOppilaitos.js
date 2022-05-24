@@ -11,7 +11,7 @@ import {
   SuodatinAccordionSummary,
 } from '#/src/components/common/Filter/CustomizedMuiComponents';
 
-import { useSearch } from './hakutulosHooks';
+import { useSearch } from '../hakutulosHooks';
 
 const useStyles = makeStyles((theme) => ({
   buttonActive: {

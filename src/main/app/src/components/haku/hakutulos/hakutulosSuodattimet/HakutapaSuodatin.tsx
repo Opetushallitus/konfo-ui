@@ -7,7 +7,7 @@ import { FILTER_TYPES } from '#/src/constants';
 import { getFilterStateChanges } from '#/src/tools/filters';
 import { FilterValue, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 
-import { useFilterProps, useSearch } from '../hakutulosHooks';
+import { useFilterProps, useSearch } from '../../hakutulosHooks';
 
 // NOTE: Hakutapa sisältää hakukaynnissa ja yhteishaku suodattimet -> tämä komponentti hoitaa yhdistelylogiikan
 export const HakutapaSuodatin = (props: SuodatinComponentProps) => {

@@ -11,7 +11,7 @@ import { getFilterStateChanges } from '#/src/tools/filters';
 import { localize } from '#/src/tools/localization';
 import { FilterValue } from '#/src/types/SuodatinTypes';
 
-import { useAllSelectedFilters, useSearch } from '../hakutulosHooks';
+import { useAllSelectedFilters, useSearch } from '../../hakutulosHooks';
 
 const useStyles = makeStyles(() => ({
   chipRoot: {

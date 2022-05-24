@@ -7,23 +7,25 @@ import { FILTER_TYPES } from '#/src/constants';
 import { getFilterStateChanges } from '#/src/tools/filters';
 import { FilterValue, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 
-import { useFilterProps, useSearch } from '../hakutulosHooks';
+import { useFilterProps, useSearch } from '../../hakutulosHooks';
 
-export const OpetuskieliSuodatin = (props: SuodatinComponentProps) => {
+export const KoulutusalaSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
   const { setFilters } = useSearch();
 
-  const values = useFilterProps(FILTER_TYPES.OPETUSKIELI);
+  const values = useFilterProps(FILTER_TYPES.KOULUTUSALA);
 
+  const getChanges = getFilterStateChanges(values);
   const handleCheck = (item: FilterValue) => {
-    const changes = getFilterStateChanges(values)(item);
+    const changes = getChanges(item);
     setFilters(changes);
   };
 
   return (
     <Filter
       {...props}
-      name={t('haku.opetuskieli')}
+      testId="koulutusalat-filter"
+      name={t('haku.koulutusalat')}
       values={values}
       handleCheck={handleCheck}
     />

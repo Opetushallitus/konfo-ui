@@ -17,7 +17,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useIsAtEtusivu } from '#/src/store/reducers/appSlice';
 
-import { useAllSelectedFilters, useSearch } from './hakutulosHooks';
+import { useAllSelectedFilters, useSearch } from '../hakutulosHooks';
 import { HakutapaSuodatin } from './hakutulosSuodattimet/HakutapaSuodatin';
 import { KoulutusalaSuodatin } from './hakutulosSuodattimet/KoulutusalaSuodatin';
 import { KoulutustyyppiSuodatin } from './hakutulosSuodattimet/KoulutustyyppiSuodatin';

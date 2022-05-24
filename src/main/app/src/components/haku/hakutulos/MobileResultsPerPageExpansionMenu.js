@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { SuodatinMobileSlider } from '#/src/components/common/Filter/CustomizedMuiComponents';
 import { pageSizeArray } from '#/src/constants';
 
-import { useSearch } from './hakutulosHooks';
+import { useSearch } from '../hakutulosHooks';
 
 export const MobileResultsPerPageExpansionMenu = () => {
   const { t } = useTranslation();

@@ -12,7 +12,7 @@ import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { useContentful } from '#/src/hooks';
 import { Info, Uutiset as UutisetType, Kortit } from '#/src/types/ContentfulTypes';
 
-import { useSearch } from './hakutulos/hakutulosHooks';
+import { useSearch } from './haku/hakutulosHooks';
 import { Jumpotron } from './Jumpotron';
 import Kortti from './kortti/Kortti';
 import { ReactiveBorder } from './ReactiveBorder';

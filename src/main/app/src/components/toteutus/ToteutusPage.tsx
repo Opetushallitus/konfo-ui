@@ -18,12 +18,12 @@ import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
 import Murupolku from '#/src/components/common/Murupolku';
 import { PageSection } from '#/src/components/common/PageSection';
 import TeemakuvaImage from '#/src/components/common/TeemakuvaImage';
-import { useUrlParams } from '#/src/components/hakutulos/useUrlParams';
 import { Heading } from '#/src/components/Heading';
 import { useOppilaitokset } from '#/src/components/oppilaitos/hooks';
 import { useSideMenu } from '#/src/hooks';
 import { getHakuParams, getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
 import { localize, localizeLukiolinja } from '#/src/tools/localization';
+import { useUrlParams } from '#/src/tools/useUrlParams';
 import { getLocalizedOpintojenLaajuus, sanitizedHTMLParser } from '#/src/tools/utils';
 import { Hakutieto } from '#/src/types/ToteutusTypes';
 

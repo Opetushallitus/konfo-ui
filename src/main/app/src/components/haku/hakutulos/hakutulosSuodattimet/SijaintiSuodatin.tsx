@@ -9,7 +9,7 @@ import { getFilterStateChanges } from '#/src/tools/filters';
 import { localize } from '#/src/tools/localization';
 import { FilterValue, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 
-import { useFilterProps, useSearch } from '../hakutulosHooks';
+import { useFilterProps, useSearch } from '../../hakutulosHooks';
 
 const getSelectOption = (value: FilterValue, isMaakunta: boolean) => ({
   ...value,

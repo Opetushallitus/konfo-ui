@@ -19,13 +19,13 @@ import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { Link as RouterLink } from 'react-router-dom';
 
+import { colors } from '#/src/colors';
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
+import Murupolku from '#/src/components/common/Murupolku';
 import { useContentful } from '#/src/hooks';
+import { useUrlParams } from '#/src/tools/useUrlParams';
 
 import koulutusPlaceholderImg from '../assets/images/Opolkuhts.png';
-import { colors } from '../colors';
-import Murupolku from './common/Murupolku';
-import { useUrlParams } from './hakutulos/useUrlParams';
 import { Preview } from './Preview';
 import { ReactiveBorder } from './ReactiveBorder';
 

@@ -71,10 +71,10 @@ export const HakutulosResults = ({
       style={{ padding: theme.spacing(9) }}
       direction="column">
       <Grid item>
-        <Typography variant="h1">{t('haku.ei-hakutuloksia', keyword)}</Typography>
+        <Typography variant="h1">{t('haku.ei-hakutuloksia')}</Typography>
       </Grid>
       <Grid item>
-        <Typography paragraph>{t('haku.summary', { keyword: keyword })}</Typography>
+        <Typography paragraph>{t('haku.summary', { keyword })}</Typography>
       </Grid>
       <Grid item>
         <LocalizedLink underline="always" variant="body1" component={RouterLink} to="/">

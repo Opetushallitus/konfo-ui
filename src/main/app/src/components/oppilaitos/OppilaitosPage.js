@@ -16,9 +16,9 @@ import TeemakuvaImage from '#/src/components/common/TeemakuvaImage';
 import { NotFound } from '#/src/NotFound';
 import { getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
 import { localize } from '#/src/tools/localization';
+import { useUrlParams } from '#/src/tools/useUrlParams';
 import { condArray } from '#/src/tools/utils';
 
-import { useUrlParams } from '../hakutulos/useUrlParams';
 import { useOppilaitos } from './hooks';
 import { OppilaitosinfoGrid } from './OppilaitosinfoGrid';
 import OppilaitosOsaList from './OppilaitosOsaList';
