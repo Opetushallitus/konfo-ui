@@ -48,13 +48,10 @@ const koulutusSlice = createSlice({
       }
     },
     resetJarjestajatPaging(state) {
-      Object.assign(state.jarjestajat.pagination, initialState.jarjestajat.pagination);
+      state.jarjestajat.pagination.offset = 0;
     },
     resetTulevatJarjestajatPaging(state) {
-      Object.assign(
-        state.tulevatJarjestajat.pagination,
-        initialState.tulevatJarjestajat.pagination
-      );
+      state.tulevatJarjestajat.pagination.offset = 0;
     },
   },
 });
