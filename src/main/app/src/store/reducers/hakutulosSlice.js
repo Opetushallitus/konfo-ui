@@ -205,30 +205,36 @@ export const {
 export default hakutulosSlice.reducer;
 
 // TODO: Remove Searchall when all filters use this
-export const newSearchAll = () => async (dispatch, getState) => {
-  const state = getState();
-  const requestParams = getAPIRequestParams(state);
-  dispatch(clearPaging());
+export const newSearchAll =
+  (options = { clearPaging: true }) =>
+  async (dispatch, getState) => {
+    const state = getState();
+    const requestParams = getAPIRequestParams(state);
+    if (options?.clearPaging) {
+      dispatch(clearPaging());
+    }
 
-  try {
-    dispatch(searchAPICallStart());
-    const koulutusData = await searchAPI.getKoulutukset(requestParams);
-    const oppilaitosData = await searchAPI.getOppilaitokset(requestParams);
+    try {
+      dispatch(searchAPICallStart());
+      const [koulutusData, oppilaitosData] = await Promise.all([
+        searchAPI.getKoulutukset(requestParams),
+        searchAPI.getOppilaitokset(requestParams),
+      ]);
 
-    const filters = _.pick(requestParams, FILTER_TYPES_ARR_FOR_KONFO_BACKEND);
-    const literals = _.pick(requestParams, ['size', 'order', 'sort']);
-    dispatch(
-      searchAllSuccess({
-        koulutusData,
-        oppilaitosData,
-        filters,
-        literals,
-      })
-    );
-  } catch (err) {
-    dispatch(searchAPICallError(err.toString()));
-  }
-};
+      const filters = _.pick(requestParams, FILTER_TYPES_ARR_FOR_KONFO_BACKEND);
+      const literals = _.pick(requestParams, ['size', 'order', 'sort']);
+      dispatch(
+        searchAllSuccess({
+          koulutusData,
+          oppilaitosData,
+          filters,
+          literals,
+        })
+      );
+    } catch (err) {
+      dispatch(searchAPICallError(err.toString()));
+    }
+  };
 
 export const searchAll =
   (requestParams, isNewKeyword = false, isReload = false) =>
@@ -243,8 +249,6 @@ export const searchAll =
         searchAllSuccess({
           koulutusData,
           oppilaitosData,
-          isNewKeyword,
-          isReload,
           filters,
           literals,
         })
