@@ -5,6 +5,30 @@ import hakuMocks from '#/cypress/mocks/haku.mocks.json';
 describe('Haku', () => {
   beforeEach(() => {
     playMocks(hakuMocks);
+    cy.intercept(
+      {
+        url: 'konfo-backend/search/oppilaitokset*',
+        query: {
+          keyword: 'auto',
+          koulutustyyppi: '',
+        },
+      },
+      {
+        fixture: 'search-oppilaitokset-auto.json',
+      }
+    );
+    cy.intercept(
+      {
+        url: 'konfo-backend/search/koulutukset*',
+        query: {
+          keyword: 'auto',
+          koulutustyyppi: '',
+        },
+      },
+      {
+        fixture: 'search-koulutukset-auto.json',
+      }
+    );
     cy.visit('/fi/haku/auto');
     cy.findAllByRole('progressbar').should('not.exist');
   });
