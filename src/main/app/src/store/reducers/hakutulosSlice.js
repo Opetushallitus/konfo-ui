@@ -58,6 +58,7 @@ export const initialState = {
   selectedTab: KOULUTUS,
   order: 'desc',
   sort: 'score',
+  initialized: false,
 };
 
 const hakutulosSlice = createSlice({
@@ -137,7 +138,7 @@ const hakutulosSlice = createSlice({
         }
 
         // NOTE: Tämä asettaa ja kääntää initial arvot stateen
-        if (isReload) {
+        if (!state.initialized) {
           _.forEach(literals, (val, key) => {
             state[key] = val;
           });
@@ -165,6 +166,7 @@ const hakutulosSlice = createSlice({
                 break;
             }
           });
+          state.initialized = true;
         }
 
         state.error = null;
