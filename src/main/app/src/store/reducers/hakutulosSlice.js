@@ -126,12 +126,12 @@ const hakutulosSlice = createSlice({
         state.oppilaitosTotal = oppilaitosData.total;
 
         // NOTE: Tämä asettaa ja kääntää initial arvot stateen
-        if (!state.initialized) {
+        if (!state.initialized && !state.error) {
           _.forEach(literals, (val, key) => {
             state[key] = val;
           });
           _.forEach(filters, (filterValues, key) => {
-            const values = filterValues.split(',');
+            const values = _.split(filterValues, ',');
             switch (key) {
               // TODO: Olisi parempi jos backend lähettäisi ja vastaanottaisi nämä yhtenäisesti,
               // Nyt on lähtiessä koulutustyyppi vs. paluupostina tulee koulutustyyppi JA koulutustyyppi-muu
