@@ -5,9 +5,8 @@ import ReactDOM from 'react-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { Provider, useDispatch } from 'react-redux';
-import { BrowserRouter, useHistory, useLocation } from 'react-router-dom';
+import { BrowserRouter, useLocation } from 'react-router-dom';
 import 'typeface-open-sans';
-import { useEffectOnce } from 'react-use';
 import StackTrace from 'stacktrace-js';
 
 import { postClientError } from '#/src/api/konfoApi';
@@ -16,7 +15,7 @@ import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { useQueryOnce } from '#/src/hooks';
 import ScrollToTop from '#/src/ScrollToTop';
 import { getKonfoStore } from '#/src/store';
-import { setCurrentLocation } from '#/src/store/reducers/appSlice';
+import { locationChanged } from '#/src/store/reducers/appSlice';
 import { theme } from '#/src/theme';
 import { configureI18n } from '#/src/tools/i18n';
 import { isCypress } from '#/src/tools/utils';
@@ -73,22 +72,20 @@ window.onerror = (errorMsg, url, line, col, errorObj) => {
   }
 };
 
+const useSyncAppPage = () => {
+  const dispatch = useDispatch();
+  const location = useLocation();
+
+  useEffect(() => {
+    dispatch(locationChanged(location));
+  }, [dispatch, location]);
+};
+
 const InitGate = ({ children }) => {
   const { status: urlStatus } = useQueryOnce('urls', configureUrls);
   const { status: i18nStatus } = useQueryOnce('i18n', configureI18n);
-  const dispatch = useDispatch();
-  const history = useHistory();
-  const location = useLocation();
 
-  useEffectOnce(() => {
-    dispatch(setCurrentLocation({ currentLocation: location }));
-  });
-
-  useEffect(() => {
-    return history.listen((currentLocation) => {
-      dispatch(setCurrentLocation({ currentLocation }));
-    });
-  }, [dispatch, history]);
+  useSyncAppPage();
 
   if ([urlStatus, i18nStatus].includes('loading')) {
     return <LoadingCircle />;
