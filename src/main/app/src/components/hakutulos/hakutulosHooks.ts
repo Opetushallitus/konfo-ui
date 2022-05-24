@@ -4,21 +4,28 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import {
   newSearchAll,
+  setKoulutusOffset,
+  setOppilaitosOffset,
   setOrder,
   setSize,
   setSort,
 } from '#/src/store/reducers/hakutulosSlice';
-import { getHakutulosProps } from '#/src/store/reducers/hakutulosSliceSelector';
+import {
+  getHakutulosPagination,
+  getHakutulosProps,
+} from '#/src/store/reducers/hakutulosSliceSelector';
 
 export const useSearch = () => {
   const error = useSelector((state: any) => state.hakutulos.error);
   const status = useSelector((state: any) => state.hakutulos.status);
+  const paginationProps = useSelector(getHakutulosPagination);
+  const hakutulosProps = useSelector(getHakutulosProps);
+
+  const pageSize = hakutulosProps.size;
+
   const dispatch = useDispatch();
 
-  const [pageSize, setPageSize] = useState(20);
   const [pageSort, setPageSort] = useState('score_desc');
-
-  const hakutulosProps = useSelector(getHakutulosProps);
 
   const changePageSort = useCallback(
     (e) => {
@@ -37,11 +44,49 @@ export const useSearch = () => {
   const changePageSize = useCallback(
     (e) => {
       const newSize = e.target.value;
-      setPageSize(newSize);
       dispatch(setSize({ newSize }));
       dispatch(newSearchAll());
     },
-    [dispatch, setPageSize]
+    [dispatch]
+  );
+
+  const doSearch = useCallback(() => dispatch(newSearchAll()), [dispatch]);
+
+  const pagination = useMemo(() => {
+    switch (hakutulosProps.selectedTab) {
+      case 'koulutus':
+        return {
+          size: pageSize,
+          total: paginationProps.koulutusTotal,
+          offset: paginationProps.koulutusOffset,
+        };
+      case 'oppilaitos':
+        return {
+          size: pageSize,
+          total: paginationProps.oppilaitosTotal,
+          offset: paginationProps.oppilaitosOffset,
+        };
+      default:
+        return {
+          size: pageSize,
+          total: 0,
+          offset: 0,
+        };
+    }
+  }, [hakutulosProps, paginationProps, pageSize]);
+
+  const setPagination = useCallback(
+    (pagination) => {
+      const { size, offset } = pagination ?? {};
+      dispatch(setSize({ newSize: size }));
+      if (hakutulosProps.selectedTab === 'koulutus') {
+        dispatch(setKoulutusOffset({ offset }));
+      } else if (hakutulosProps.selectedTab === 'oppilaitos') {
+        dispatch(setOppilaitosOffset({ offset }));
+      }
+      dispatch(newSearchAll({ clearPaging: false }));
+    },
+    [dispatch, hakutulosProps]
   );
 
   return useMemo(
@@ -51,9 +96,25 @@ export const useSearch = () => {
       error,
       status,
       hakutulosProps,
+      paginationProps,
       changePageSort,
       changePageSize,
+      doSearch,
+      pagination,
+      setPagination,
     }),
-    [pageSize, pageSort, changePageSort, changePageSize, hakutulosProps, error, status]
+    [
+      pageSize,
+      pageSort,
+      changePageSort,
+      changePageSize,
+      hakutulosProps,
+      paginationProps,
+      error,
+      status,
+      doSearch,
+      pagination,
+      setPagination,
+    ]
   );
 };

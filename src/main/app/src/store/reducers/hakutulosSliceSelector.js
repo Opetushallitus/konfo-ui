@@ -76,10 +76,20 @@ function getSize(state) {
   return state.hakutulos.size;
 }
 function getKoulutusPage(state) {
-  return state.hakutulos.koulutusPage;
+  return (
+    1 +
+    (state.hakutulos.size
+      ? Math.round(state.hakutulos.koulutusOffset / (state.hakutulos.size || 1))
+      : 0)
+  );
 }
 function getOppilaitosPage(state) {
-  return state.hakutulos.oppilaitosPage;
+  return (
+    1 +
+    (state.hakutulos.size
+      ? Math.round(state.hakutulos.oppilaitosOffset / state.hakutulos.size)
+      : 0)
+  );
 }
 function getOrder(state) {
   return state.hakutulos.order;

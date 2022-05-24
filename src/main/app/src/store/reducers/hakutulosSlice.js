@@ -7,16 +7,14 @@ import {
   FILTER_TYPES_ARR_FOR_KONFO_BACKEND,
   KOULUTUS_TYYPPI_MUU_ARR,
 } from '#/src/constants';
-import { getLanguage } from '#/src/tools/localization';
 import { cleanRequestParams } from '#/src/tools/utils';
 
-import { getAPIRequestParams } from './hakutulosSliceSelector';
+import { getAPIRequestParams, getHakuUrl } from './hakutulosSliceSelector';
 
 const INITIAL = 'initial';
 const IDLE_STATUS = 'idle';
 const LOADING_STATUS = 'loading';
 const KOULUTUS = 'koulutus';
-const OPPILAITOS = 'oppilaitos';
 
 export const initialState = {
   status: INITIAL,
@@ -99,6 +97,12 @@ const hakutulosSlice = createSlice({
     },
     setSize: (state, { payload }) => {
       state.size = payload.newSize;
+    },
+    setKoulutusOffset: (state, { payload }) => {
+      state.koulutusOffset = payload.offset;
+    },
+    setOppilaitosOffset: (state, { payload }) => {
+      state.oppilaitosOffset = payload.offset;
     },
     setOrder: (state, { payload }) => {
       state.order = payload.newOrder;
@@ -200,6 +204,8 @@ export const {
   searchAllSuccess,
   searchKoulutuksetSuccess,
   searchOppilaitoksetSuccess,
+  setKoulutusOffset,
+  setOppilaitosOffset,
 } = hakutulosSlice.actions;
 
 export default hakutulosSlice.reducer;

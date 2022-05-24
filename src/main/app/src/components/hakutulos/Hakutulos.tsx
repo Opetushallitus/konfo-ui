@@ -17,6 +17,7 @@ import { useTranslation } from 'react-i18next';
 
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import Murupolku from '#/src/components/common/Murupolku';
+import { Pagination } from '#/src/components/common/Pagination';
 import { pageSizeArray, pageSortArray } from '#/src/constants';
 
 import { BackendErrorMessage } from './BackendErrorMessage';
@@ -25,7 +26,6 @@ import { HakutulosResults } from './HakutulosResults';
 import { SuodatinValinnat } from './hakutulosSuodattimet/SuodatinValinnat';
 import { HakutulosToggle } from './HakutulosToggle';
 import { MobileFiltersOnTopMenu } from './MobileFiltersOnTopMenu';
-import { Pagination } from './Pagination';
 import { Suodatinpalkki } from './Suodatinpalkki';
 
 const useStyles = makeStyles((theme) => ({
@@ -116,13 +116,17 @@ export const Hakutulos = () => {
     hakutulosProps,
     changePageSort,
     changePageSize,
+    pagination,
+    setPagination,
   } = useSearch();
 
   const mdUp = useMediaQuery(theme.breakpoints.up('md'));
 
+  const scrollTargetId = 'hakutulos-content';
+
   return (
     <Grid className={classes.hakutulosSisalto} container>
-      <Paper classes={{ root: classes.paperRoot }} id="hakutulos-content">
+      <Paper classes={{ root: classes.paperRoot }} id={scrollTargetId}>
         <h1 style={{ display: 'none' }}>{t('haku.otsikko')}</h1>
         <Grid
           container
@@ -219,7 +223,12 @@ export const Hakutulos = () => {
               {status === 'idle' && !error && <HakutulosResults {...hakutulosProps} />}
             </Grid>
             <Grid item>
-              <Pagination size={hakutulosProps.size} />
+              <Pagination
+                total={pagination.total}
+                pagination={pagination}
+                setPagination={setPagination}
+                scrollTargetId={scrollTargetId}
+              />
             </Grid>
           </Grid>
         </Grid>
