@@ -242,53 +242,25 @@ export const newSearchAll =
     }
   };
 
-export const searchAll =
-  (requestParams, isNewKeyword = false, isReload = false) =>
-  async (dispatch) => {
-    try {
-      dispatch(searchAPICallStart());
-      const koulutusData = await searchAPI.getKoulutukset(requestParams);
-      const oppilaitosData = await searchAPI.getOppilaitokset(requestParams);
-      const filters = _.pick(requestParams, FILTER_TYPES_ARR_FOR_KONFO_BACKEND);
-      const literals = _.pick(requestParams, ['size', 'order', 'sort']);
-      dispatch(
-        searchAllSuccess({
-          koulutusData,
-          oppilaitosData,
-          filters,
-          literals,
-        })
-      );
-    } catch (err) {
-      dispatch(searchAPICallError(err.toString()));
-    }
-  };
-
-// TODO: yhdistä tämä osaksi newSearchAll
-export const searchKoulutukset =
-  ({ requestParams, offset, page }) =>
-  async (dispatch) => {
-    try {
-      dispatch(searchAPICallStart());
-      const koulutusData = await searchAPI.getKoulutukset(requestParams);
-      dispatch(searchKoulutuksetSuccess({ koulutusData, offset, page }));
-    } catch (err) {
-      dispatch(searchAPICallError(err.toString()));
-    }
-  };
-
-// TODO: yhdistä tämä osaksi newSearchAll
-export const searchOppilaitokset =
-  ({ requestParams, offset, page }) =>
-  async (dispatch) => {
-    try {
-      dispatch(searchAPICallStart());
-      const oppilaitosData = await searchAPI.getOppilaitokset(requestParams);
-      dispatch(searchOppilaitoksetSuccess({ oppilaitosData, offset, page }));
-    } catch (err) {
-      dispatch(searchAPICallError(err.toString()));
-    }
-  };
+export const searchAll = (requestParams) => async (dispatch) => {
+  try {
+    dispatch(searchAPICallStart());
+    const koulutusData = await searchAPI.getKoulutukset(requestParams);
+    const oppilaitosData = await searchAPI.getOppilaitokset(requestParams);
+    const filters = _.pick(requestParams, FILTER_TYPES_ARR_FOR_KONFO_BACKEND);
+    const literals = _.pick(requestParams, ['size', 'order', 'sort']);
+    dispatch(
+      searchAllSuccess({
+        koulutusData,
+        oppilaitosData,
+        filters,
+        literals,
+      })
+    );
+  } catch (err) {
+    dispatch(searchAPICallError(err.toString()));
+  }
+};
 
 export const searchAllOnPageReload =
   ({ search, keyword }) =>
