@@ -6,7 +6,7 @@ import qs from 'query-string';
 import { FILTER_TYPES_ARR } from '#/src/constants';
 import { getFilterWithChecked, sortValues } from '#/src/tools/filters';
 import { getLanguage } from '#/src/tools/localization';
-import { Common as C } from '#/src/tools/utils';
+import { cleanRequestParams } from '#/src/tools/utils';
 
 // State data getters
 export const getIsReady = (state) => state.hakutulos.status === 'idle';
@@ -263,7 +263,7 @@ export const getHakuParams = createSelector(
   [getAPIRequestParams, getSelectedTab, getKoulutusPage, getOppilaitosPage],
   (apiRequestParams, selectedTab, koulutusPage, oppilaitosPage) => {
     const hakuParams = {
-      ...C.cleanRequestParams(_.omit(apiRequestParams, 'keyword')),
+      ...cleanRequestParams(_.omit(apiRequestParams, 'keyword')),
       kpage: koulutusPage,
       opage: oppilaitosPage,
       selectedTab,

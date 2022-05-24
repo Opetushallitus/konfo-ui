@@ -8,7 +8,7 @@ import {
   KOULUTUS_TYYPPI_MUU_ARR,
 } from '#/src/constants';
 import { getLanguage } from '#/src/tools/localization';
-import { Common as C } from '#/src/tools/utils';
+import { cleanRequestParams } from '#/src/tools/utils';
 
 import { getAPIRequestParams } from './hakutulosSliceSelector';
 
@@ -306,7 +306,7 @@ export const searchAllOnPageReload =
       dispatch(setKeyword({ keyword }));
       dispatch(
         searchAll(
-          C.cleanRequestParams({ ...apiRequestParams, keyword, ...cleanedUrlSearch }),
+          cleanRequestParams({ ...apiRequestParams, keyword, ...cleanedUrlSearch }),
           hakutulos.keyword !== keyword,
           true
         )
@@ -321,7 +321,7 @@ export const searchAndMoveToHaku =
     const apiRequestParams = getAPIRequestParams({ hakutulos });
     const lng = getLanguage();
     const restParams = new URLSearchParams(
-      _.pick(C.cleanRequestParams(apiRequestParams), [
+      _.pick(cleanRequestParams(apiRequestParams), [
         'keyword',
         'order',
         'size',

@@ -14,10 +14,8 @@ DOMPurify.addHook('afterSanitizeAttributes', function (node) {
 
 export const sanitizeHTML = (html) => DOMPurify.sanitize(html);
 
-export const Common = {
-  // Filters all untruthy values, we do not want false or 0 values sent
-  cleanRequestParams: _fp.pickBy(_fp.identity),
-};
+// Filters all untruthy values, we do not want false or 0 values sent
+export const cleanRequestParams = _fp.pickBy(_fp.identity);
 
 export const koodiUriToPostinumero = (str = '') => {
   return str.match(/^posti_(\d+)/)?.[1] ?? '';
