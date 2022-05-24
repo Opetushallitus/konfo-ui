@@ -11,7 +11,7 @@ import {
 import { useEffectOnce } from '#/src/tools/hooks';
 
 import { Hakutulos } from '../hakutulos/Hakutulos';
-import { useUrlParams } from '../hakutulos/UseUrlParams';
+import { useUrlParams } from '../hakutulos/useUrlParams';
 
 export const Haku = () => {
   const { search, updateUrlSearchParams } = useUrlParams();

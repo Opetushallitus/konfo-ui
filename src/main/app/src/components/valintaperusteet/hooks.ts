@@ -6,7 +6,7 @@ import {
   getToteutus,
   getValintaperuste,
 } from '#/src/api/konfoApi';
-import { useUrlParams } from '#/src/components/hakutulos/UseUrlParams';
+import { useUrlParams } from '#/src/components/hakutulos/useUrlParams';
 
 type PageDataProps = {
   hakukohdeOid: string;

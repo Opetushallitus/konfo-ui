@@ -3,7 +3,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-import { useUrlParams } from '../hakutulos/UseUrlParams';
+import { useUrlParams } from '../hakutulos/useUrlParams';
 
 const useStyles = makeStyles({
   draft: {

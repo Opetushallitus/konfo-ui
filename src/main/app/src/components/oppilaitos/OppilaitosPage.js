@@ -18,7 +18,7 @@ import { getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
 import { localize } from '#/src/tools/localization';
 import { condArray } from '#/src/tools/utils';
 
-import { useUrlParams } from '../hakutulos/UseUrlParams';
+import { useUrlParams } from '../hakutulos/useUrlParams';
 import { useOppilaitos } from './hooks';
 import { OppilaitosinfoGrid } from './OppilaitosinfoGrid';
 import OppilaitosOsaList from './OppilaitosOsaList';

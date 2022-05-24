@@ -36,7 +36,7 @@ import { getHakupalkkiProps } from '#/src/store/reducers/hakutulosSliceSelector'
 import { useOnEtusivu } from '#/src/tools/useOnEtusivu';
 
 import { MobileFiltersOnTopMenu } from '../hakutulos/MobileFiltersOnTopMenu';
-import { useUrlParams } from '../hakutulos/UseUrlParams';
+import { useUrlParams } from '../hakutulos/useUrlParams';
 import { HakupalkkiFilters } from './HakupalkkiFilters';
 
 const useStyles = makeStyles((theme) => ({

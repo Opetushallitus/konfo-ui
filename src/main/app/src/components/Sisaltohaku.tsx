@@ -25,7 +25,7 @@ import { useContentful } from '#/src/hooks';
 import koulutusPlaceholderImg from '../assets/images/Opolkuhts.png';
 import { colors } from '../colors';
 import Murupolku from './common/Murupolku';
-import { useUrlParams } from './hakutulos/UseUrlParams';
+import { useUrlParams } from './hakutulos/useUrlParams';
 import { Preview } from './Preview';
 import { ReactiveBorder } from './ReactiveBorder';
 
