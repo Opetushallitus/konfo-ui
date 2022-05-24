@@ -7,9 +7,25 @@ describe('Etusivu', () => {
   });
 
   it('Should pass koulutustyyppi filter selection to haku page', () => {
+    cy.intercept(
+      {
+        url: 'konfo-backend/search/oppilaitokset*',
+      },
+      {
+        fixture: 'search-oppilaitokset-all.json',
+      }
+    );
+    cy.intercept(
+      {
+        url: 'konfo-backend/search/koulutukset*',
+      },
+      {
+        fixture: 'search-koulutukset-all.json',
+      }
+    );
     cy.visit('/');
     cy.findByRole('searchbox').type('auto');
-    cy.findByRole('button', { name: 'Rajaa' }).should('not.be.disabled').click();
+    cy.findByRole('button', { name: /^Rajaa/ }).click();
     cy.findByTestId('valitse_koulutustyyppi').click();
     cy.findByLabelText('Lukiokoulutus').check();
     cy.get('body').type('{esc}');
