@@ -12,7 +12,7 @@ import {
 } from '#/src/components/common/LoadingCircle';
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
 import { PageSection } from '#/src/components/common/PageSection';
-import { TarjontaPagination } from '#/src/components/common/TarjontaPagination';
+import { Pagination } from '#/src/components/common/Pagination';
 
 import { usePaginatedTarjonta } from './hooks';
 import { TulevaKoulutusCard } from './TulevaKoulutusCard';
@@ -85,7 +85,7 @@ export const TulevaTarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
               ))}
             </Grid>
           </div>
-          <TarjontaPagination
+          <Pagination
             total={total}
             pagination={pagination}
             setPagination={setPagination}

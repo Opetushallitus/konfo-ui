@@ -27,7 +27,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-type PaginationType = { page: number; size: number; offset: number };
+type PaginationType = { size: number; offset: number };
 
 type Props = {
   total: number;
@@ -36,7 +36,7 @@ type Props = {
   scrollTargetId?: string;
 };
 
-export const TarjontaPagination = ({
+export const Pagination = ({
   total,
   pagination,
   setPagination,
@@ -47,12 +47,11 @@ export const TarjontaPagination = ({
   const { size, offset } = pagination;
 
   const handleClick = useCallback(
-    (e, offset, page) => {
+    (e, offset) => {
       if (scrollTargetId) {
         document.getElementById(scrollTargetId)?.scrollIntoView();
       }
       setPagination({
-        page,
         offset,
         size,
       });

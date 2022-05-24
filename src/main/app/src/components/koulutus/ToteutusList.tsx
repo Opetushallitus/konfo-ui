@@ -11,8 +11,8 @@ import { useSelector } from 'react-redux';
 import { EntiteettiKortti } from '#/src/components/common/EntiteettiKortti';
 import { OppilaitosKorttiLogo } from '#/src/components/common/KorttiLogo';
 import { PageSection } from '#/src/components/common/PageSection';
+import { Pagination } from '#/src/components/common/Pagination';
 import { QueryResultWrapper } from '#/src/components/common/QueryResultWrapper';
-import { TarjontaPagination } from '#/src/components/common/TarjontaPagination';
 import { TextWithBackground } from '#/src/components/common/TextWithBackground';
 import { FILTER_TYPES } from '#/src/constants';
 import { KOULUTUS_TYYPPI, KORKEAKOULU_KOULUTUSTYYPIT } from '#/src/constants';
@@ -274,11 +274,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
             />
           </Hidden>
         </>
-        <TarjontaPagination
-          total={total}
-          pagination={pagination}
-          setPagination={setPagination}
-        />
+        <Pagination total={total} pagination={pagination} setPagination={setPagination} />
         <QueryResultWrapper queryResult={queryResult}>
           <>
             {someValuesToShow ? (
@@ -356,7 +352,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
             )}
           </>
         </QueryResultWrapper>
-        <TarjontaPagination
+        <Pagination
           total={total}
           pagination={pagination}
           setPagination={setPagination}
