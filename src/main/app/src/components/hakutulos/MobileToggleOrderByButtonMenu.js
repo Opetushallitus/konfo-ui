@@ -6,8 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { colors } from '#/src/colors';
-import { useQueryParams } from '#/src/hooks';
-import { setSort, setOrder, searchAll } from '#/src/store/reducers/hakutulosSlice';
+import { setSort, setOrder, newSearchAll } from '#/src/store/reducers/hakutulosSlice';
 import { getMobileToggleOrderByButtonMenuProps } from '#/src/store/reducers/hakutulosSliceSelector';
 
 const useStyles = makeStyles(() => ({
@@ -34,7 +33,6 @@ const MobileToggleOrderByButtonMenu = () => {
   const classes = useStyles();
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const apiRequstParams = useQueryParams();
   const mobileToggleOrderByButtonMenuProps = useSelector(
     getMobileToggleOrderByButtonMenuProps
   );
@@ -44,7 +42,7 @@ const MobileToggleOrderByButtonMenu = () => {
   const updateSortAndOrder = (newSort, newOrder) => {
     dispatch(setSort({ newSort }));
     dispatch(setOrder({ newOrder }));
-    dispatch(searchAll({ ...apiRequstParams, order: newOrder, sort: newSort }));
+    dispatch(newSearchAll());
   };
 
   const toggleToScoreSort = () => {
