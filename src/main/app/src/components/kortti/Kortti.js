@@ -4,7 +4,7 @@ import { Grid, makeStyles } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Icon from '@material-ui/core/Icon';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import clsx from 'clsx';
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -78,7 +78,7 @@ const Kortti = ({ id }) => {
             .filter(Boolean)
             .map((page) => (
               <div className={classes.link} key={page.id}>
-                <Icon>chevron_right</Icon>
+                <ChevronRightIcon />
                 <LocalizedLink
                   component={RouterLink}
                   className={classes.linkElement}

@@ -14,6 +14,7 @@ import {
 } from '@material-ui/core';
 import Link from '@material-ui/core/Link';
 import AppsIcon from '@material-ui/icons/Apps';
+import CloseIcon from '@material-ui/icons/Close';
 import MenuIcon from '@material-ui/icons/Menu';
 import clsx from 'clsx';
 import { urls } from 'oph-urls-js';
@@ -134,7 +135,7 @@ export const Header = (props) => {
             edge="start"
             className={classes.menuButton}>
             <Box className={classes.menuBox}>
-              {isOpen ? <Icon>close</Icon> : <MenuIcon />}
+              {isOpen ? <CloseIcon /> : <MenuIcon />}
               <Typography className={classes.menuText}>{t('valikko')}</Typography>
             </Box>
           </IconButton>
