@@ -5,4 +5,19 @@ describe('Etusivu', () => {
     cy.get('a[href*="/sivu/ammatillinen-koulutus"]').click();
     cy.get('h1').contains('Ammatillinen koulutus');
   });
+
+  it('Should pass koulutustyyppi filter selection to haku page', () => {
+    cy.visit('/');
+    cy.findByRole('searchbox').type('auto');
+    cy.findByRole('button', { name: 'Rajaa' }).should('not.be.disabled').click();
+    cy.findByTestId('valitse_koulutustyyppi').click();
+    cy.findByLabelText('Lukiokoulutus').check();
+    cy.get('body').type('{esc}');
+    cy.get('body').type('{esc}');
+    cy.findByRole('button', { name: 'Etsi' }).click();
+    cy.location().should((loc) => {
+      expect(loc.pathname).to.eq('/konfo/fi/haku/auto');
+      expect(loc.search).to.eq('?koulutustyyppi=lk&order=desc&size=20&sort=score');
+    });
+  });
 });

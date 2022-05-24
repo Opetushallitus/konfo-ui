@@ -32,49 +32,49 @@ export const HakupalkkiFilters = () => {
       className={classes.container}>
       <Suodatin
         SuodatinComponent={KoulutustyyppiSuodatin}
-        id="koulutustyyppi-popover"
+        id="koulutustyyppi"
         header={t('haku.koulutustyyppi')}
       />
       <Divider orientation="vertical" flexItem />
       <Suodatin
         SuodatinComponent={OpetuskieliSuodatin}
-        id="opetuskieli-popover"
+        id="opetuskieli"
         header={t('haku.opetuskieli')}
       />
       <Divider orientation="vertical" flexItem />
       <Suodatin
         SuodatinComponent={SijaintiSuodatin}
-        id="sijainti-popover"
+        id="sijainti"
         header={t('haku.sijainti')}
       />
       <Divider orientation="vertical" flexItem />
       <Suodatin
         SuodatinComponent={PohjakoulutusvaatimusSuodatin}
-        id="sijainti-popover"
+        id="pohjakoulutusvaatimus"
         header={t('haku.pohjakoulutusvaatimus')}
       />
       <Divider orientation="vertical" flexItem />
       <Suodatin
         SuodatinComponent={HakutapaSuodatin}
-        id="sijainti-popover"
+        id="hakutapa"
         header={t('haku.hakutapa')}
       />
       <Divider orientation="vertical" flexItem />
       <Suodatin
         SuodatinComponent={ValintatapaSuodatin}
-        id="sijainti-popover"
+        id="valintatapa"
         header={t('haku.valintatapa')}
       />
       <Divider orientation="vertical" flexItem />
       <Suodatin
         SuodatinComponent={KoulutusalaSuodatin}
-        id="koulutusala-popover"
+        id="koulutusala"
         header={t('haku.koulutusalat')}
       />
       <Divider orientation="vertical" flexItem />
       <Suodatin
         SuodatinComponent={OpetustapaSuodatin}
-        id="sijainti-popover"
+        id="opetustapa"
         header={t('haku.opetustapa')}
       />
     </Box>
