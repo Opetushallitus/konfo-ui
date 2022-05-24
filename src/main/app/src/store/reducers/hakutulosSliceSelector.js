@@ -5,6 +5,7 @@ import qs from 'query-string';
 
 import { FILTER_TYPES_ARR } from '#/src/constants';
 import { getFilterWithChecked, sortValues } from '#/src/tools/filters';
+import { getLanguage } from '#/src/tools/localization';
 import { Common as C } from '#/src/tools/utils';
 
 // State data getters
@@ -254,6 +255,7 @@ export const getAPIRequestParams = createSelector(
     hakukaynnissa,
     yhteishaku: getCheckedFiltersIdsStr(yhteishaku),
     pohjakoulutusvaatimus: getCheckedFiltersIdsStr(pohjakoulutusvaatimus),
+    lng: getLanguage(),
   })
 );
 
@@ -326,7 +328,6 @@ export const getInitialCheckedToteutusFilters = createSelector(
       'maakunta',
       'kunta',
       'opetustapa',
-
       'hakukaynnissa',
       'hakutapa',
       'yhteishaku',

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import {
   Box,
@@ -14,22 +14,13 @@ import {
 } from '@material-ui/core';
 import { ExpandMore } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
 
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import Murupolku from '#/src/components/common/Murupolku';
 import { pageSizeArray, pageSortArray } from '#/src/constants';
-import { useQueryParams } from '#/src/hooks';
-import {
-  clearPaging,
-  searchAll,
-  setSize,
-  setOrder,
-  setSort,
-} from '#/src/store/reducers/hakutulosSlice';
-import { getHakutulosProps } from '#/src/store/reducers/hakutulosSliceSelector';
 
 import { BackendErrorMessage } from './BackendErrorMessage';
+import { useSearch } from './hakutulosHooks';
 import { HakutulosResults } from './HakutulosResults';
 import { SuodatinValinnat } from './hakutulosSuodattimet/SuodatinValinnat';
 import { HakutulosToggle } from './HakutulosToggle';
@@ -117,37 +108,15 @@ export const Hakutulos = () => {
   const theme = useTheme();
   const { t } = useTranslation();
 
-  const hakutulosProps = useSelector(getHakutulosProps);
-  const apiRequestParams = useQueryParams();
-  const error = useSelector((state: any) => state.hakutulos.error);
-  const status = useSelector((state: any) => state.hakutulos.status);
-  const dispatch = useDispatch();
-
-  const [pageSize, setPageSize] = useState(0);
-  const [pageSort, setPageSort] = useState('score_desc');
-
-  useEffect(() => {
-    setPageSize(hakutulosProps.size);
-  }, [hakutulosProps.size]);
-
-  const handlePageSortChange = (e: any) => {
-    const newPageSort = e.target.value;
-    const newOrder = newPageSort === 'name_asc' ? 'asc' : 'desc';
-    const newSort = newPageSort === 'score_desc' ? 'score' : 'name';
-
-    setPageSort(newPageSort);
-    dispatch(setSort({ newSort }));
-    dispatch(setOrder({ newOrder }));
-    dispatch(searchAll({ ...apiRequestParams, order: newOrder, sort: newSort }));
-  };
-  const handlePageSizeChange = (e: any) => {
-    const newSize = e.target.value;
-
-    setPageSize(newSize);
-    dispatch(clearPaging());
-    dispatch(setSize({ newSize }));
-    dispatch(searchAll({ ...apiRequestParams, size: newSize }));
-  };
+  const {
+    pageSize,
+    pageSort,
+    error,
+    status,
+    hakutulosProps,
+    changePageSort,
+    changePageSize,
+  } = useSearch();
 
   const mdUp = useMediaQuery(theme.breakpoints.up('md'));
 
@@ -201,7 +170,7 @@ export const Hakutulos = () => {
                     selectMenu: classes.selectMenu,
                   }}
                   value={pageSize}
-                  onChange={handlePageSizeChange}>
+                  onChange={changePageSize}>
                   {pageSizeArray.map((size) => (
                     <MenuItem
                       key={size}
@@ -224,7 +193,7 @@ export const Hakutulos = () => {
                     selectMenu: classes.selectMenu,
                   }}
                   value={pageSort}
-                  onChange={handlePageSortChange}>
+                  onChange={changePageSort}>
                   {pageSortArray.map((sort) => (
                     <MenuItem
                       key={sort}
