@@ -2,13 +2,13 @@ import React, { useEffect } from 'react';
 
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { useEffectOnce } from 'react-use';
 
 import { searchAllOnPageReload } from '#/src/store/reducers/hakutulosSlice';
 import {
   getAPIRequestParams,
   getIsReady,
 } from '#/src/store/reducers/hakutulosSliceSelector';
-import { useEffectOnce } from '#/src/tools/hooks';
 
 import { Hakutulos } from '../hakutulos/Hakutulos';
 import { useUrlParams } from '../hakutulos/useUrlParams';
@@ -22,7 +22,9 @@ export const Haku = () => {
   const isReady = useSelector(getIsReady);
   const dispatch = useDispatch();
 
-  useEffectOnce(() => dispatch(searchAllOnPageReload({ search, keyword })));
+  useEffectOnce(() => {
+    dispatch(searchAllOnPageReload({ search, keyword }));
+  });
 
   // Update queryparameters when any haku api -request related parameters change
   useEffect(() => {
