@@ -3,10 +3,8 @@ import React from 'react';
 import { Tabs, Tab, makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
 import { SchoolOutlined, HomeWorkOutlined } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
 
-import { setSelectedTab } from '#/src/store/reducers/hakutulosSlice';
-import { getHakutulosToggleProps } from '#/src/store/reducers/hakutulosSliceSelector';
+import { useSearch } from './hakutulosHooks';
 
 const useStyles = makeStyles((theme) => ({
   tabIconMargin: {
@@ -38,17 +36,14 @@ const useStyles = makeStyles((theme) => ({
 
 export const HakutulosToggle = () => {
   const { t } = useTranslation();
-  const { selectedTab, koulutusTotal, oppilaitosTotal } = useSelector(
-    getHakutulosToggleProps
-  );
-  const dispatch = useDispatch();
+  const { selectedTab, setSelectedTab, koulutusData, oppilaitosData } = useSearch();
+
+  const koulutusTotal = koulutusData?.total;
+  const oppilaitosTotal = oppilaitosData?.total;
+
   const classes = useStyles();
   const theme = useTheme();
   const muiScreenSizeMinMd = useMediaQuery(theme.breakpoints.up('md'));
-
-  const handleSelectedTab = (ignored: any, newSelectedTab: string) => {
-    dispatch(setSelectedTab({ newSelectedTab }));
-  };
 
   return (
     <Tabs
@@ -56,7 +51,9 @@ export const HakutulosToggle = () => {
       value={selectedTab}
       indicatorColor="primary"
       textColor="primary"
-      onChange={handleSelectedTab}>
+      onChange={(ignored: any, newSelectedTab: string) => {
+        setSelectedTab(newSelectedTab);
+      }}>
       <Tab
         value="koulutus"
         icon={<SchoolOutlined className={classes.tabIconMargin} />}

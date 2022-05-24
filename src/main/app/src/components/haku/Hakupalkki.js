@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import {
   Box,
@@ -20,21 +20,20 @@ import {
 } from '@material-ui/icons';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Link as RouterLink } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
 import {
-  newSearchAll,
   setKeyword,
   clearPaging,
-  searchAndMoveToHaku,
+  navigateToHaku,
 } from '#/src/store/reducers/hakutulosSlice';
-import { getHakupalkkiProps } from '#/src/store/reducers/hakutulosSliceSelector';
 import { useOnEtusivu } from '#/src/tools/useOnEtusivu';
 
+import { useSearch } from '../hakutulos/hakutulosHooks';
 import { MobileFiltersOnTopMenu } from '../hakutulos/MobileFiltersOnTopMenu';
 import { useUrlParams } from '../hakutulos/useUrlParams';
 import { HakupalkkiFilters } from './HakupalkkiFilters';
@@ -141,21 +140,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const checkIsKeywordValid = (word) => _.size(word) === 0 || _.size(word) > 2;
+
 export const Hakupalkki = () => {
   const history = useHistory();
   const { search } = useUrlParams();
   const { t } = useTranslation();
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { koulutusFilters } = useSelector(getHakupalkkiProps);
+
+  const { koulutusData, isFetching } = useSearch();
+
+  const koulutusFilters = koulutusData?.filters;
   const { isAtEtusivu } = useOnEtusivu();
 
   const [anchorEl, setAnchorEl] = useState(null);
-  const [writtenKeyword, setWrittenKeyword] = useState(search?.keyword);
-  const isKeywordValid = useMemo(
-    () => !_.inRange(_.size(writtenKeyword), 1, 3),
-    [writtenKeyword]
-  );
+  const [isKeywordValid, setIsKeywordValid] = useState(true);
+  const keyword = search?.keyword;
 
   useEffect(() => {
     if (isAtEtusivu) {
@@ -165,7 +166,6 @@ export const Hakupalkki = () => {
   }, [isAtEtusivu, dispatch]);
 
   const handleDesktopBtnClick = (e) => {
-    dispatch(newSearchAll());
     window.scrollTo({
       top: 250,
       left: 0,
@@ -183,17 +183,17 @@ export const Hakupalkki = () => {
     isPopoverOpen ? <ExpandLessOutlined /> : <ExpandMoreOutlined />;
   const id = isPopoverOpen ? 'filters-popover' : undefined;
 
-  const doSearch = (event) => {
-    event.preventDefault();
-    dispatch(setKeyword({ keyword: writtenKeyword || '' }));
-    dispatch(searchAndMoveToHaku({ history }));
-  };
-
   return (
     <Box display="flex" flexDirection="column" alignItems="flex-end" flexGrow={1}>
       <Paper
         component="form"
-        onSubmit={doSearch}
+        onSubmit={(e) => {
+          e.preventDefault();
+          const formData = new FormData(e.target);
+          const keywordValue = formData.get('keyword');
+          dispatch(setKeyword({ keyword: keywordValue || '' }));
+          dispatch(navigateToHaku({ history }));
+        }}
         className={classes.inputRoot}
         elevation={4}>
         <Tooltip
@@ -201,20 +201,19 @@ export const Hakupalkki = () => {
           open={!isKeywordValid}
           title={t('haku.syota-ainakin-kolme-merkkia')}>
           <InputBase
-            defaultValue={isAtEtusivu ? '' : writtenKeyword}
+            key={keyword}
             className={classes.input}
-            onKeyPress={(event) => {
-              if (event.key === 'Enter' && isKeywordValid) {
-                doSearch(event);
-              }
-            }}
-            onChange={(event) => {
-              setWrittenKeyword(event.target.value);
+            name="keyword"
+            defaultValue={keyword}
+            onChange={(e) => {
+              const inputKeyword = e.target.value;
+              setIsKeywordValid(checkIsKeywordValid(inputKeyword));
             }}
             type="search"
             placeholder={t('haku.kehoite')}
             inputProps={{
               'aria-label': t('haku.kehoite'),
+              autoComplete: 'off',
             }}
           />
         </Tooltip>
@@ -242,7 +241,7 @@ export const Hakupalkki = () => {
         <Hidden smDown>
           <Button
             startIcon={<SearchOutlined />}
-            disabled={!isKeywordValid}
+            disabled={!isKeywordValid || isFetching}
             type="submit"
             variant="contained"
             color="secondary"
@@ -294,7 +293,7 @@ export const Hakupalkki = () => {
           flexDirection="row-reverse"
           width="100%"
           justifyContent="space-between">
-          <LocalizedLink component={RouterLink} to="/haku/" className={classes.link}>
+          <LocalizedLink component={RouterLink} to="/haku" className={classes.link}>
             {t('jumpotron.naytakaikki')}
           </LocalizedLink>
           <Hidden mdUp>

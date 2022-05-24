@@ -1,37 +1,47 @@
 import React, { useEffect } from 'react';
 
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useEffectOnce } from 'react-use';
 
-import { searchAllOnPageReload } from '#/src/store/reducers/hakutulosSlice';
+import { urlParamsChanged } from '#/src/store/reducers/hakutulosSlice';
 import {
   getAPIRequestParams,
-  getIsReady,
+  getHakuUrl,
 } from '#/src/store/reducers/hakutulosSliceSelector';
 
 import { Hakutulos } from '../hakutulos/Hakutulos';
 import { useUrlParams } from '../hakutulos/useUrlParams';
 
-export const HakuPage = () => {
+const useSyncedHakuParams = () => {
   const { search, updateUrlSearchParams } = useUrlParams();
 
-  // TODO: keyword should probably be refactored into url params since hakupalkki is found in other pages too
-  const { keyword } = useParams<{ keyword: string }>();
-  const queryParams = useSelector(getAPIRequestParams, shallowEqual);
-  const isReady = useSelector(getIsReady);
   const dispatch = useDispatch();
 
+  // Kun URL muuttuu, muutetaan filtterit yms. reduxiin
+  // Eikö pitäisi synkata aina, eikä vain kerran?
   useEffectOnce(() => {
-    dispatch(searchAllOnPageReload({ search, keyword }));
+    // Lähetetään muuttunut URL reduxille
+    dispatch(urlParamsChanged({ search }));
   });
 
-  // Update queryparameters when any haku api -request related parameters change
+  const queryParams = useSelector(getAPIRequestParams, shallowEqual);
+  const { url: hakuUrl } = useSelector(getHakuUrl);
+
+  const location = useLocation();
+
+  const url = '/haku' + location.search;
+
+  // Kun redux muuttuu, päivitetään url
   useEffect(() => {
-    if (isReady) {
+    if (url !== hakuUrl) {
       updateUrlSearchParams(queryParams);
     }
-  }, [isReady, queryParams, updateUrlSearchParams]);
+  }, [url, hakuUrl, queryParams, updateUrlSearchParams]);
+};
+
+export const HakuPage = () => {
+  useSyncedHakuParams();
 
   return <Hakutulos />;
 };

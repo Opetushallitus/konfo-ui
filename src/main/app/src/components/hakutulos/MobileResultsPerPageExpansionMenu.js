@@ -7,7 +7,7 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 import { SuodatinMobileSlider } from '#/src/components/common/Filter/CustomizedMuiComponents';
 import { pageSizeArray } from '#/src/constants';
-import { clearPaging, newSearchAll, setSize } from '#/src/store/reducers/hakutulosSlice';
+import { clearPaging, setSize } from '#/src/store/reducers/hakutulosSlice';
 
 export const MobileResultsPerPageExpansionMenu = () => {
   const { t } = useTranslation();
@@ -28,7 +28,6 @@ export const MobileResultsPerPageExpansionMenu = () => {
   const handleSliderValueChange = (e, newSize) => {
     dispatch(clearPaging());
     dispatch(setSize({ newSize }));
-    dispatch(newSearchAll());
   };
 
   return (

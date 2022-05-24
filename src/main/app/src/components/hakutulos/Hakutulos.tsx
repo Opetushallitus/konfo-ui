@@ -109,15 +109,19 @@ export const Hakutulos = () => {
   const { t } = useTranslation();
 
   const {
+    selectedTab,
     pageSize,
-    pageSort,
-    error,
-    status,
-    hakutulosProps,
-    changePageSort,
     changePageSize,
+    pageSort,
+    changePageSort,
+    status,
+    keyword,
+    isAnyFilterSelected,
     pagination,
     setPagination,
+    koulutusData,
+    oppilaitosData,
+    isFetching,
   } = useSearch();
 
   const mdUp = useMediaQuery(theme.breakpoints.up('md'));
@@ -215,12 +219,17 @@ export const Hakutulos = () => {
           {mdUp ? <Suodatinpalkki /> : <MobileFiltersOnTopMenu />}
           <Grid item container direction="column" xs>
             <Grid item>
-              <Hidden smDown>
-                {hakutulosProps.isAnyFilterSelected && <SuodatinValinnat />}
-              </Hidden>
-              {status === 'loading' && <LoadingCircle />}
-              {status === 'idle' && error && <BackendErrorMessage />}
-              {status === 'idle' && !error && <HakutulosResults {...hakutulosProps} />}
+              <Hidden smDown>{isAnyFilterSelected && <SuodatinValinnat />}</Hidden>
+              {isFetching && <LoadingCircle />}
+              {!isFetching && status === 'error' && <BackendErrorMessage />}
+              {!isFetching && status === 'success' && (
+                <HakutulosResults
+                  keyword={keyword}
+                  selectedTab={selectedTab}
+                  koulutusHits={koulutusData?.hits}
+                  oppilaitosHits={oppilaitosData?.hits}
+                />
+              )}
             </Grid>
             <Grid item>
               <Pagination

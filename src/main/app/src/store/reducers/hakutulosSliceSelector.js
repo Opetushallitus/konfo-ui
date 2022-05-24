@@ -1,32 +1,16 @@
 import { createSelector } from '@reduxjs/toolkit';
 import _ from 'lodash';
-import _fp from 'lodash/fp';
 import qs from 'query-string';
 
 import { FILTER_TYPES_ARR } from '#/src/constants';
-import { getFilterWithChecked, sortValues } from '#/src/tools/filters';
-import { getLanguage } from '#/src/tools/localization';
 import { cleanRequestParams, getPaginationPage } from '#/src/tools/utils';
 
 // State data getters
-export const getIsReady = (state) => state.hakutulos.status === 'idle';
+export const getKeyword = (state) => state.hakutulos.keyword;
 
-const getKeyword = (state) => state.hakutulos.keyword;
+export const getKoulutusOffset = (state) => state.hakutulos.koulutusOffset;
 
-const getKoulutusHits = (state) => state.hakutulos.koulutusHits;
-
-const getKoulutusFilters = (state) => state.hakutulos.koulutusFilters;
-const getKoulutusTotal = (state) => state.hakutulos.koulutusTotal;
-
-const getKoulutusOffset = (state) => state.hakutulos.koulutusOffset;
-
-const getOppilaitosHits = (state) => state.hakutulos.oppilaitosHits;
-
-const getOppilaitosFilters = (state) => state.hakutulos.oppilaitosFilters;
-
-const getOppilaitosOffset = (state) => state.hakutulos.oppilaitosOffset;
-
-const getOppilaitosTotal = (state) => state.hakutulos.oppilaitosTotal;
+export const getOppilaitosOffset = (state) => state.hakutulos.oppilaitosOffset;
 
 const getOpetuskieli = (state) => state.hakutulos.opetuskieli;
 
@@ -48,19 +32,19 @@ const getHakutapa = (state) => state.hakutulos.hakutapa;
 const getYhteishaku = (state) => state.hakutulos.yhteishaku;
 const getPohjakoulutusvaatimus = (state) => state.hakutulos.pohjakoulutusvaatimus;
 
-const getFilters = (state) => _.pick(state.hakutulos, FILTER_TYPES_ARR);
+export const getFilters = (state) => _.pick(state.hakutulos, FILTER_TYPES_ARR);
 
-const getSelectedTab = (state) => state.hakutulos.selectedTab;
+export const getSelectedTab = (state) => state.hakutulos.selectedTab;
 
-const getSize = (state) => state.hakutulos.size;
+export const getSize = (state) => state.hakutulos.size;
 
-const getKoulutusPage = (state) =>
+export const getKoulutusPage = (state) =>
   getPaginationPage({
     offset: state.hakutulos.koulutusOffset,
     size: state.hakutulos.size,
   });
 
-const getOppilaitosPage = (state) =>
+export const getOppilaitosPage = (state) =>
   getPaginationPage({
     offset: state.hakutulos.oppilaitosOffset,
     size: state.hakutulos.size,
@@ -70,21 +54,11 @@ const getOrder = (state) => state.hakutulos.order;
 
 const getSort = (state) => state.hakutulos.sort;
 
-//Selectors
-export const getHakupalkkiProps = createSelector(
-  [getKoulutusFilters],
-  (koulutusFilters) => ({
-    koulutusFilters,
-  })
-);
+export const getSortOrder = (state) => state.hakutulos.sort + '_' + state.hakutulos.order;
 
-export const getHakutulosProps = createSelector(
+//Selectors
+export const getIsAnyFilterSelected = createSelector(
   [
-    getKeyword,
-    getKoulutusHits,
-    getOppilaitosHits,
-    getSelectedTab,
-    getSize,
     getOpetuskieli,
     getKoulutustyyppi,
     getKoulutustyyppiMuu,
@@ -99,11 +73,6 @@ export const getHakutulosProps = createSelector(
     getPohjakoulutusvaatimus,
   ],
   (
-    keyword,
-    koulutusHits,
-    oppilaitosHits,
-    selectedTab,
-    size,
     opetuskieli,
     koulutustyyppi,
     koulutustyyppiMuu,
@@ -117,41 +86,26 @@ export const getHakutulosProps = createSelector(
     yhteishaku,
     pohjakoulutusvaatimus
   ) => {
-    return {
-      keyword,
-      koulutusHits,
-      oppilaitosHits,
-      selectedTab,
-      size,
-      isAnyFilterSelected:
-        hakukaynnissa ||
-        _.some(
-          [
-            opetuskieli,
-            koulutustyyppi,
-            koulutustyyppiMuu,
-            koulutusala,
-            kunta,
-            maakunta,
-            opetustapa,
-            valintatapa,
-            hakutapa,
-            yhteishaku,
-            pohjakoulutusvaatimus,
-          ],
-          (filterArr) => _.size(filterArr) > 0
-        ),
-    };
+    return (
+      hakukaynnissa ||
+      _.some(
+        [
+          opetuskieli,
+          koulutustyyppi,
+          koulutustyyppiMuu,
+          koulutusala,
+          kunta,
+          maakunta,
+          opetustapa,
+          valintatapa,
+          hakutapa,
+          yhteishaku,
+          pohjakoulutusvaatimus,
+        ],
+        (filterArr) => _.size(filterArr) > 0
+      )
+    );
   }
-);
-
-export const getHakutulosToggleProps = createSelector(
-  [getSelectedTab, getKoulutusTotal, getOppilaitosTotal],
-  (selectedTab, koulutusTotal, oppilaitosTotal) => ({
-    selectedTab,
-    koulutusTotal,
-    oppilaitosTotal,
-  })
 );
 
 export const getMobileToggleOrderByButtonMenuProps = createSelector(
@@ -163,23 +117,6 @@ export const getMobileToggleOrderByButtonMenuProps = createSelector(
     isNameSort: sort === 'name',
     isNameSortAsc: sort === 'name' && order === 'asc',
     isNameSortDesc: sort === 'name' && order !== 'asc',
-  })
-);
-
-export const getHakutulosPagination = createSelector(
-  [
-    getKoulutusOffset,
-    getKoulutusTotal,
-    getOppilaitosOffset,
-    getOppilaitosTotal,
-    getSelectedTab,
-  ],
-  (koulutusOffset, koulutusTotal, oppilaitosOffset, oppilaitosTotal, selectedTab) => ({
-    koulutusOffset,
-    koulutusTotal,
-    oppilaitosOffset,
-    oppilaitosTotal,
-    selectedTab,
   })
 );
 
@@ -237,19 +174,13 @@ export const getAPIRequestParams = createSelector(
     hakukaynnissa,
     yhteishaku: getCheckedFiltersIdsStr(yhteishaku),
     pohjakoulutusvaatimus: getCheckedFiltersIdsStr(pohjakoulutusvaatimus),
-    lng: getLanguage(),
   })
 );
 
 export const getHakuParams = createSelector(
   [getAPIRequestParams, getSelectedTab, getKoulutusPage, getOppilaitosPage],
   (apiRequestParams, selectedTab, koulutusPage, oppilaitosPage) => {
-    const hakuParams = {
-      ...cleanRequestParams(_.omit(apiRequestParams, 'keyword')),
-      kpage: koulutusPage,
-      opage: oppilaitosPage,
-      selectedTab,
-    };
+    const hakuParams = cleanRequestParams(apiRequestParams);
     const hakuParamsStr = qs.stringify(hakuParams, { arrayFormat: 'comma' });
     return { hakuParams, hakuParamsStr };
   }
@@ -258,47 +189,8 @@ export const getHakuParams = createSelector(
 export const getHakuUrl = createSelector(
   [getAPIRequestParams, getHakuParams],
   (apiRequestParams, { hakuParamsStr }) => {
-    const { keyword } = apiRequestParams;
-    const urlStart = _.size(keyword) > 2 ? `/haku/${keyword}?` : `/haku?`;
-    const url = urlStart + hakuParamsStr;
+    const url = `/haku?${hakuParamsStr}`;
     return { url };
-  }
-);
-
-export const getFilterProps = (id) =>
-  createSelector(
-    [getKoulutusFilters, getOppilaitosFilters, getSelectedTab, getFilters],
-    (koulutusFilters, oppilaitosFilters, selectedTab, allCheckedValues) => {
-      const usedFilters =
-        selectedTab === 'koulutus' ? koulutusFilters : oppilaitosFilters;
-
-      return sortValues(getFilterWithChecked(usedFilters, allCheckedValues, id));
-    }
-  );
-
-export const getAllSelectedFilters = createSelector(
-  [getKoulutusFilters, getFilters],
-  (koulutusFilters, allCheckedValues) => {
-    const selectedFiltersWithAlakoodit = _fp.flow(
-      _fp.pickBy((v) => (_.isArray(v) ? v.length > 0 : v)),
-      _fp.keys,
-      _fp.map((filterId) =>
-        _fp.values(getFilterWithChecked(koulutusFilters, allCheckedValues, filterId))
-      ),
-      _fp.flatten,
-      _fp.uniqBy('id')
-    )(allCheckedValues);
-
-    const selectedFiltersFlatList = selectedFiltersWithAlakoodit
-      .map((v) => [v, ...(v.alakoodit || [])])
-      .flat()
-      .filter((v) => v.checked); // Alakoodilistoissa voi olla valitsemattomia koodeja
-
-    return {
-      count: selectedFiltersFlatList.length,
-      selectedFiltersFlatList,
-      selectedFiltersWithAlakoodit,
-    };
   }
 );
 

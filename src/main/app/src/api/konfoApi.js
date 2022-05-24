@@ -148,7 +148,7 @@ export const getContentfulData = (manifest, lang) => {
   ).then((all) => {
     const contentfulData = Object.assign({}, ...all);
     const slugsToIds = Object.fromEntries(
-      Object.values(contentfulData?.sivu).map((sivu) => [
+      _.values(contentfulData?.sivu).map((sivu) => [
         sivu.slug,
         { language: lang, id: sivu.id },
       ])

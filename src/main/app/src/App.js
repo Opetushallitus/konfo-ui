@@ -213,6 +213,7 @@ const App = () => {
       }
     }
   }, [isFetching, isAtEtusivu, titleObj, language, pathname]);
+
   return (
     <React.Fragment>
       <Draft />

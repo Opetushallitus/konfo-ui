@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 
 import {
   AppBar,
@@ -14,17 +14,16 @@ import {
 } from '@material-ui/core';
 import { Close } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import { useCurrentPage } from '#/src/store/reducers/appSlice';
 import {
-  searchAndMoveToHaku,
+  navigateToHaku,
   clearSelectedFilters,
-  newSearchAll,
 } from '#/src/store/reducers/hakutulosSlice';
-import { getAllSelectedFilters } from '#/src/store/reducers/hakutulosSliceSelector';
 
+import { useAllSelectedFilters, useSearch } from './hakutulosHooks';
 import { HakutapaSuodatin } from './hakutulosSuodattimet/HakutapaSuodatin';
 import { KoulutusalaSuodatin } from './hakutulosSuodattimet/KoulutusalaSuodatin';
 import { KoulutustyyppiSuodatin } from './hakutulosSuodattimet/KoulutustyyppiSuodatin';
@@ -72,21 +71,17 @@ export const MobileFiltersOnTopMenu = () => {
 
   const isAtEtusivu = useIsAtEtusivu();
 
-  const { koulutusTotal, oppilaitosTotal, selectedTab } = useSelector(
-    (state: any) => ({
-      koulutusTotal: state.hakutulos.koulutusTotal,
-      oppilaitosTotal: state.hakutulos.oppilaitosTotal,
-      selectedTab: state.hakutulos.selectedTab,
-    }),
-    shallowEqual
-  );
+  const { koulutusData, oppilaitosData, selectedTab } = useSearch();
+
+  const koulutusTotal = koulutusData?.total;
+  const oppilaitosTotal = oppilaitosData?.total;
 
   const hitCount = useMemo(
     () => (selectedTab === 'koulutus' ? koulutusTotal : oppilaitosTotal),
     [selectedTab, koulutusTotal, oppilaitosTotal]
   );
 
-  const { count } = useSelector(getAllSelectedFilters);
+  const { count } = useAllSelectedFilters();
 
   const [showFilters, setShowFilters] = useState(false);
   const toggleShowFilters = useCallback(
@@ -94,22 +89,15 @@ export const MobileFiltersOnTopMenu = () => {
     [showFilters]
   );
 
-  useEffect(() => {
-    if (isAtEtusivu) {
-      dispatch(newSearchAll());
-    }
-  }, [isAtEtusivu, dispatch]);
-
   const handleFiltersShowToggle = () => {
     if (isAtEtusivu) {
-      dispatch(searchAndMoveToHaku({ history }));
+      dispatch(navigateToHaku({ history }));
     }
     toggleShowFilters();
   };
 
   const handleClearFilters = () => {
     dispatch(clearSelectedFilters());
-    dispatch(newSearchAll());
   };
 
   return (
