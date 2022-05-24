@@ -108,35 +108,33 @@ const hakutulosSlice = createSlice({
       const cleanedParams = getCleanUrlSearch(params, apiRequestParams);
 
       if (!_.isMatch(apiRequestParams, cleanedParams)) {
-        const requestParams = { ...apiRequestParams, ...cleanedParams };
-        const filters = _.pick(requestParams, FILTER_TYPES_ARR_FOR_KONFO_BACKEND);
-        const literals = _.pick(requestParams, ['size', 'order', 'sort']);
-
-        state.keyword = keyword;
-        _.forEach(literals, (val, key) => {
-          state[key] = val;
-        });
-        _.forEach(filters, (filterValues, key) => {
-          const values = _.split(filterValues, ',');
+        _.forEach(cleanedParams, (value, key) => {
+          const valueList = _.split(value, ',');
           switch (key) {
+            case 'keyword':
+            case 'size':
+            case 'order':
+            case 'sort':
+              state[key] = value;
+              break;
             // TODO: Olisi parempi jos backend lähettäisi ja vastaanottaisi nämä yhtenäisesti,
             // Nyt on lähtiessä koulutustyyppi vs. paluupostina tulee koulutustyyppi JA koulutustyyppi-muu
             case FILTER_TYPES.KOULUTUSTYYPPI:
-              state.koulutustyyppi = _.without(values, ...KOULUTUS_TYYPPI_MUU_ARR);
+              state.koulutustyyppi = _.without(valueList, ...KOULUTUS_TYYPPI_MUU_ARR);
               state['koulutustyyppi-muu'] = _.intersection(
-                values,
+                valueList,
                 KOULUTUS_TYYPPI_MUU_ARR
               );
               break;
             case FILTER_TYPES.SIJAINTI:
-              state.maakunta = values.filter((v) => v.startsWith('maakunta'));
-              state.kunta = values.filter((v) => v.startsWith('kunta'));
+              state.maakunta = valueList.filter((v) => v.startsWith('maakunta'));
+              state.kunta = valueList.filter((v) => v.startsWith('kunta'));
               break;
             case FILTER_TYPES.HAKUKAYNNISSA:
-              state.hakukaynnissa = filterValues === 'true';
+              state.hakukaynnissa = value === 'true';
               break;
             default:
-              state[key] = values;
+              state[key] = valueList;
               break;
           }
         });
@@ -170,10 +168,9 @@ export const navigateToHaku =
     history.push('/' + getLanguage() + url);
   };
 
-function getCleanUrlSearch(search, apiRequestParams) {
-  return _.mapValues(_.pick(search, _.keys(apiRequestParams)), (value, key) =>
+const getCleanUrlSearch = (search, apiRequestParams) =>
+  _.mapValues(_.pick(search, _.keys(apiRequestParams)), (value, key) =>
     _.includes(FILTER_TYPES_ARR_FOR_KONFO_BACKEND, key)
       ? _.join(_.sortBy(_.split(value, ',')), ',')
       : value
   );
-}

@@ -49,7 +49,7 @@ if ('serviceWorker' in navigator) {
   }
 }
 
-window.onerror = (errorMsg, url, line, col, errorObj) => {
+window.onerror = (errorMsg, _url, line, col, errorObj) => {
   if (process.env.NODE_ENV === 'production' && !isCypress) {
     const send = (trace) => {
       postClientError({
