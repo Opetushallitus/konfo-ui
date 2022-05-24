@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Grid } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
@@ -12,10 +12,10 @@ import {
 } from '#/src/components/common/LoadingCircle';
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
 import { PageSection } from '#/src/components/common/PageSection';
+import { TarjontaPagination } from '#/src/components/common/TarjontaPagination';
 
 import { usePaginatedTarjonta } from './hooks';
 import { TulevaKoulutusCard } from './TulevaKoulutusCard';
-import { TulevaTarjontaPagination } from './TulevaTarjontaPagination';
 
 type Tarjonta = {
   koulutusName: string;
@@ -34,7 +34,7 @@ type Props = {
 export const TulevaTarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
   const { t } = useTranslation();
 
-  const { queryResult } = usePaginatedTarjonta({
+  const { queryResult, pagination, setPagination } = usePaginatedTarjonta({
     oid,
     isOppilaitosOsa,
     isTuleva: true,
@@ -46,12 +46,19 @@ export const TulevaTarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
     total: number;
   };
 
+  const scrollTargetId = 'tuleva-tarjonta-list';
+
   switch (status) {
     case 'loading':
       return <LoadingCircle />;
     case 'success':
       return _.isEmpty(values) ? null : (
-        <PageSection heading={t('oppilaitos.tulevat-koulutukset')}>
+        <PageSection
+          heading={
+            <Typography variant="h2" id={scrollTargetId}>
+              {t('oppilaitos.tulevat-koulutukset')}
+            </Typography>
+          }>
           <div style={{ position: 'relative' }}>
             <OverlayLoadingCircle isLoading={isFetching} />
             <Grid
@@ -78,10 +85,11 @@ export const TulevaTarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
               ))}
             </Grid>
           </div>
-          <TulevaTarjontaPagination
+          <TarjontaPagination
             total={total}
-            oid={oid}
-            isOppilaitosOsa={isOppilaitosOsa}
+            pagination={pagination}
+            setPagination={setPagination}
+            scrollTargetId={scrollTargetId}
           />
         </PageSection>
       );
