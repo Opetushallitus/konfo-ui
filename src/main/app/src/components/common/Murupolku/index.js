@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { MurupolkuDrawer } from './MurupolkuDrawer';
 import { MurupolkuFragment } from './MurupolkuFragment';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   breadcrumb: {
     display: 'flex',
     paddingTop: 0,

@@ -128,8 +128,8 @@ export const useSearch = () => {
   );
 
   const setPagination = useCallback(
-    (pagination) => {
-      const { size, offset } = pagination ?? {};
+    (newPagination) => {
+      const { size, offset } = newPagination ?? {};
       dispatch(setSize({ newSize: size }));
       if (offset != null) {
         if (selectedTab === 'koulutus') {
@@ -171,7 +171,7 @@ export const useSearch = () => {
   const resetPaginationCb = useCallback(() => dispatch(resetPagination), [dispatch]);
 
   const setKeywordCb = useCallback(
-    (keyword) => dispatch(setKeyword({ keyword })),
+    (k) => dispatch(setKeyword({ keyword: k })),
     [dispatch]
   );
 

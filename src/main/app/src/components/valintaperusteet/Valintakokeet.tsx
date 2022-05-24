@@ -161,7 +161,7 @@ export const Valintakokeet = ({
               <LocalizedHTML data={hakukohdeYk} />
             </Box>
           )}
-          {valintakokeet.map(({ nimi, tyyppi, tilaisuudet, metadata = {} }, index) => {
+          {valintakokeet.map(({ nimi, tilaisuudet, metadata = {} }, index) => {
             const {
               ohjeetErityisjarjestelyihin,
               ohjeetEnnakkovalmistautumiseen,
@@ -212,10 +212,15 @@ export const Valintakokeet = ({
                           <Accordion
                             noColors
                             ContentWrapper={'div' as any}
-                            items={tilaisuudet.map((tilaisuus, index) => ({
-                              title: `${t('valintaperuste.tilaisuus')} ${index + 1}`,
+                            items={tilaisuudet.map((tilaisuus, tilaisuusIndex) => ({
+                              title: `${t('valintaperuste.tilaisuus')} ${
+                                tilaisuusIndex + 1
+                              }`,
                               content: (
-                                <TilaisuusComponent index={index} tilaisuus={tilaisuus} />
+                                <TilaisuusComponent
+                                  index={tilaisuusIndex}
+                                  tilaisuus={tilaisuus}
+                                />
                               ),
                             }))}
                           />

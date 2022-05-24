@@ -13,7 +13,7 @@ import {
 
 import { useSearch } from '../hakutulosHooks';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   buttonActive: {
     backgroundColor: colors.brandGreen,
     color: colors.white,

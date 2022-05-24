@@ -3,7 +3,7 @@ import React from 'react';
 import { QueryObserverResult } from 'react-query';
 
 import { ErrorMessage } from './ErrorMessage';
-import { LoadingWrapper } from './LoadingCircle';
+import { LoadingCircleWrapper } from './LoadingCircle';
 
 export const getCombinedQueryStatus = (responses: Array<QueryObserverResult> = []) => {
   switch (true) {
@@ -39,9 +39,9 @@ export const createQueryResultWrapper =
     let status, isFetching, errors, refetch;
     if (Array.isArray(queryResult)) {
       status = getCombinedQueryStatus(queryResult);
-      isFetching = queryResult.some(({ isFetching }) => isFetching);
+      isFetching = queryResult.some((result) => result.isFetching);
       errors = queryResult?.map(({ error }) => error).filter(Boolean);
-      refetch = () => queryResult.forEach(({ refetch }) => refetch());
+      refetch = () => queryResult.forEach((result) => result.refetch());
     } else {
       status = queryResult?.status;
       isFetching = queryResult?.isFetching;
@@ -70,5 +70,5 @@ export const createQueryResultWrapper =
 
 export const QueryResultWrapper = createQueryResultWrapper({
   ErrorComponent: ErrorMessage,
-  LoadingWrapper: LoadingWrapper,
+  LoadingWrapper: LoadingCircleWrapper,
 });

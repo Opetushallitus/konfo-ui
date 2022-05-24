@@ -113,7 +113,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
 
   const usedValues = useMemo(
     () =>
-      mapValues((ignored: any, key: string) =>
+      mapValues((_value: any, key: string) =>
         sortValues(getFilterWithChecked(sortedFilters, filters, key))
       )(sortedFilters),
     [sortedFilters, filters]

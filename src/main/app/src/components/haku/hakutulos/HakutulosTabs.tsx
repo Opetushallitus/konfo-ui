@@ -51,7 +51,7 @@ export const HakutulosTabs = () => {
       value={selectedTab}
       indicatorColor="primary"
       textColor="primary"
-      onChange={(ignored: any, newSelectedTab: string) => {
+      onChange={(_e, newSelectedTab: string) => {
         setSelectedTab(newSelectedTab);
       }}>
       <Tab

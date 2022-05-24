@@ -6,6 +6,10 @@ import { useTranslation } from 'react-i18next';
 import { TextButton } from '#/src/components/common/TextButton';
 import { TextWithBackground } from '#/src/components/common/TextWithBackground';
 
+const filterAsiasanatForLang = (arr: Array<any>, language: string) => {
+  return arr?.filter((asiasana: any) => asiasana.kieli === language);
+};
+
 const getAsiasanatForLanguage = (asiasanat: Array<any>, language: string) => {
   const getFirstNotEmpty = (
     asiasanat1: Array<any>,
@@ -22,10 +26,6 @@ const getAsiasanatForLanguage = (asiasanat: Array<any>, language: string) => {
       []
     );
   };
-  const filterAsiasanatForLang = (arr: Array<any>, language: string) => {
-    return arr?.filter((asiasana: any) => asiasana.kieli === language);
-  };
-
   const fi = filterAsiasanatForLang(asiasanat, 'fi');
   const sv = filterAsiasanatForLang(asiasanat, 'sv');
   const en = filterAsiasanatForLang(asiasanat, 'en');

@@ -38,7 +38,7 @@ import { useIsAtEtusivu } from './store/reducers/appSlice';
 import { getHeaderHeight, theme } from './theme';
 import { useChat } from './useChat';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   content: {
     marginTop: getHeaderHeight(theme),
     minWidth: 0,

@@ -19,13 +19,13 @@ import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { Link as RouterLink } from 'react-router-dom';
 
+import koulutusPlaceholderImg from '#/src/assets/images/Opolkuhts.png';
 import { colors } from '#/src/colors';
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
 import Murupolku from '#/src/components/common/Murupolku';
 import { useContentful } from '#/src/hooks';
 import { useUrlParams } from '#/src/tools/useUrlParams';
 
-import koulutusPlaceholderImg from '../assets/images/Opolkuhts.png';
 import { Preview } from './Preview';
 import { ReactiveBorder } from './ReactiveBorder';
 
@@ -133,7 +133,7 @@ export const Sisaltohaku = () => {
   const { sivu, uutinen } = data;
   const index = Object.entries(sivu)
     .filter(([key, { id }]: any) => key === id)
-    .map(([ignored, { id, sideContent, content }]: any) => {
+    .map(([_key, { id, sideContent, content }]: any) => {
       return {
         id: id,
         content: (content + (sideContent || '')).toLowerCase(),

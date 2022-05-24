@@ -148,7 +148,7 @@ export const useContentful = () => {
   );
 };
 
-export const useSideMenu = (callback, deps) => {
+export const useSideMenu = () => {
   const dispatch = useDispatch();
 
   const menuOpen = useMenuOpen();

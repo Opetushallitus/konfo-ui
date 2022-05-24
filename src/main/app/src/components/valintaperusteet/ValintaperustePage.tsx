@@ -220,7 +220,9 @@ export const ValintaperustePage = () => {
   const valintakokeet = useMemo(() => {
     const usedValintaperusteenKokeet = (valintaperusteenValintakokeet || []).map(
       (v: any) => {
-        const added = lisatilaisuudet?.find((t: any) => t.id === v.id)?.tilaisuudet;
+        const added = lisatilaisuudet?.find(
+          (tilaisuus: any) => tilaisuus.id === v.id
+        )?.tilaisuudet;
         return added ? _fp.set('tilaisuudet', _fp.concat(v.tilaisuudet, added), v) : v;
       }
     );

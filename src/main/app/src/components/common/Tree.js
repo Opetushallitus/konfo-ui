@@ -2,7 +2,8 @@ import React from 'react';
 
 import { Grid, Typography, makeStyles } from '@material-ui/core';
 
-import TreeImage from '../../assets/images/ammatillinen_koulutus_puu.svg'; //TODO: This should probably be a prop
+import TreeImage from '#/src/assets/images/ammatillinen_koulutus_puu.svg'; //TODO: This should probably be a prop
+
 import LinkCardGrid from './LinkCardGrid';
 import Spacer from './Spacer';
 

@@ -47,14 +47,17 @@ export const Etusivu = () => {
 
   const { clearFilters, setKeyword } = useSearch();
   const { data, isLoading, forwardTo } = useContentful();
-  const { info, uutiset, kortit }: { info: Info; uutiset: UutisetType; kortit: Kortit } =
-    data;
+  const {
+    info: infoData,
+    uutiset,
+    kortit,
+  }: { info: Info; uutiset: UutisetType; kortit: Kortit } = data;
 
   const forwardToPage = (id: string) => {
     history.push(`/${i18n.language}${forwardTo(id)}`);
   };
 
-  const infos = Object.values(info || {});
+  const infos = Object.values(infoData || {});
 
   const uutislinkit = uutiset?.['etusivun-uutiset']?.linkit ?? [];
 

@@ -164,7 +164,7 @@ export default hakutulosSlice.reducer;
 
 export const navigateToHaku =
   ({ history }) =>
-  (dispatch, getState) => {
+  (_dispatch, getState) => {
     const state = getState();
     const url = getHakuUrl(state);
     history.push('/' + getLanguage() + url);

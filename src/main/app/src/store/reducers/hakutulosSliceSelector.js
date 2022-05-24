@@ -177,7 +177,7 @@ export const getHakuParams = createSelector([getAPIRequestParams], (apiRequestPa
 export const getHakuUrl = createSelector(
   [getKeyword, getHakuParams],
   (keyword, { hakuParamsStr }) => {
-    return `/haku${keyword ? `/${keyword}` : ''}?${hakuParamsStr}`;
+    return `/haku${keyword ? '/' + keyword : ''}?${hakuParamsStr}`;
   }
 );
 

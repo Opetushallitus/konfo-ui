@@ -3,8 +3,9 @@ import React from 'react';
 import { Grid, Card, CardHeader, CardContent, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-import Image from '../assets/images/o-EDUCATION-facebook.jpg';
-import { colors } from '../colors';
+import Image from '#/src/assets/images/o-EDUCATION-facebook.jpg';
+import { colors } from '#/src/colors';
+
 import { Hakupalkki } from './haku/Hakupalkki';
 import { ReactiveBorder } from './ReactiveBorder';
 

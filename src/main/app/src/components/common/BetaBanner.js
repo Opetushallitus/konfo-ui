@@ -8,7 +8,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import { urls } from 'oph-urls-js';
 import { useTranslation } from 'react-i18next';
 
-import { colors } from '../../colors';
+import { colors } from '#/src/colors';
 
 const useStyles = makeStyles({
   banner: {

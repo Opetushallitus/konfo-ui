@@ -66,7 +66,7 @@ window.onerror = (errorMsg, url, line, col, errorObj) => {
         console.log(err);
         send(JSON.stringify(err));
       })
-      .catch((err) => {
+      .catch(() => {
         send(JSON.stringify(errorObj));
       });
   }

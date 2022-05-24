@@ -77,7 +77,7 @@ export const getHakukohde = createEntityGetter('hakukohde');
 export const getHakukohdeDemo = async (hakukohdeOid) => {
   try {
     return await get(urls.url('konfo-backend.hakukohde.demo', hakukohdeOid));
-  } catch (ignored) {
+  } catch {
     return { demoAllowed: false };
   }
 };
