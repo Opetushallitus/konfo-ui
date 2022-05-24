@@ -99,7 +99,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
 
   const previousOid = usePreviousNonEmpty(oid);
 
-  const previousPage: string = usePreviousPage();
+  const previousPage = usePreviousPage();
 
   const isComingFromHakuPage = previousPage === 'haku';
 
@@ -107,8 +107,9 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
   useEffect(() => {
     if (oid !== previousOid && isComingFromHakuPage) {
       setFilters(initialValues);
+      setPagination({ offset: 0 });
     }
-  }, [oid, setFilters, initialValues, previousOid, isComingFromHakuPage]);
+  }, [oid, setFilters, initialValues, previousOid, isComingFromHakuPage, setPagination]);
 
   const usedValues = useMemo(
     () =>
