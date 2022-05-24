@@ -84,17 +84,16 @@ export const getHakukohdeDemo = async (hakukohdeOid) => {
 
 export const getValintaperuste = createEntityGetter('valintaperusteet');
 
-export const searchAPI = {
-  getKoulutukset(requestParams) {
-    return get(urls.url('konfo-backend.search.koulutukset'), {
-      params: { lng: getLanguage(), ...cleanRequestParams(requestParams) },
-    });
-  },
-  getOppilaitokset(requestParams) {
-    return get(urls.url('konfo-backend.search.oppilaitokset'), {
-      params: { lng: getLanguage(), ...cleanRequestParams(requestParams) },
-    });
-  },
+export const searchKoulutukset = (requestParams) => {
+  return get(urls.url('konfo-backend.search.koulutukset'), {
+    params: { lng: getLanguage(), ...cleanRequestParams(requestParams) },
+  });
+};
+
+export const searchOppilaitokset = (requestParams) => {
+  return get(urls.url('konfo-backend.search.oppilaitokset'), {
+    params: { lng: getLanguage(), ...cleanRequestParams(requestParams) },
+  });
 };
 
 export const postClientError = (errorData) =>

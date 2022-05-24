@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import _ from 'lodash';
 
-import { searchAPI } from '#/src/api/konfoApi';
+import { searchKoulutukset, searchOppilaitokset } from '#/src/api/konfoApi';
 import {
   FILTER_TYPES,
   FILTER_TYPES_ARR_FOR_KONFO_BACKEND,
@@ -223,8 +223,8 @@ export const newSearchAll =
     try {
       dispatch(searchAPICallStart());
       const [koulutusData, oppilaitosData] = await Promise.all([
-        searchAPI.getKoulutukset(requestParams),
-        searchAPI.getOppilaitokset(requestParams),
+        searchKoulutukset(requestParams),
+        searchOppilaitokset(requestParams),
       ]);
 
       const filters = _.pick(requestParams, FILTER_TYPES_ARR_FOR_KONFO_BACKEND);
@@ -245,8 +245,8 @@ export const newSearchAll =
 export const searchAll = (requestParams) => async (dispatch) => {
   try {
     dispatch(searchAPICallStart());
-    const koulutusData = await searchAPI.getKoulutukset(requestParams);
-    const oppilaitosData = await searchAPI.getOppilaitokset(requestParams);
+    const koulutusData = await searchKoulutukset(requestParams);
+    const oppilaitosData = await searchOppilaitokset(requestParams);
     const filters = _.pick(requestParams, FILTER_TYPES_ARR_FOR_KONFO_BACKEND);
     const literals = _.pick(requestParams, ['size', 'order', 'sort']);
     dispatch(
@@ -268,15 +268,12 @@ export const searchAllOnPageReload =
     const state = getState();
     const apiRequestParams = getAPIRequestParams(state);
     const cleanedUrlSearch = getCleanUrlSearch(search, apiRequestParams);
-    const { hakutulos } = state;
 
     if (!_.isMatch(apiRequestParams, { ...cleanedUrlSearch, keyword })) {
       dispatch(setKeyword({ keyword }));
       dispatch(
         searchAll(
-          cleanRequestParams({ ...apiRequestParams, keyword, ...cleanedUrlSearch }),
-          hakutulos.keyword !== keyword,
-          true
+          cleanRequestParams({ ...apiRequestParams, keyword, ...cleanedUrlSearch })
         )
       );
     }
