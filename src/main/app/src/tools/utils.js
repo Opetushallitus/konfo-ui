@@ -135,3 +135,6 @@ export const formatDouble = (number, fixed) =>
   (fixed !== undefined ? number?.toFixed(fixed) : number)?.toString().replace('.', ',');
 
 export const isCypress = process.env.REACT_APP_CYPRESS;
+
+export const getPaginationPage = ({ offset, size }) =>
+  1 + (size ? Math.round(offset / size) : 0);

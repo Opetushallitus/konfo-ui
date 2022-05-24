@@ -6,62 +6,43 @@ import qs from 'query-string';
 import { FILTER_TYPES_ARR } from '#/src/constants';
 import { getFilterWithChecked, sortValues } from '#/src/tools/filters';
 import { getLanguage } from '#/src/tools/localization';
-import { cleanRequestParams } from '#/src/tools/utils';
+import { cleanRequestParams, getPaginationPage } from '#/src/tools/utils';
 
 // State data getters
 export const getIsReady = (state) => state.hakutulos.status === 'idle';
 
-function getKeyword(state) {
-  return state.hakutulos.keyword;
-}
-function getKoulutusHits(state) {
-  return state.hakutulos.koulutusHits;
-}
-function getKoulutusFilters(state) {
-  return state.hakutulos.koulutusFilters;
-}
-function getKoulutusTotal(state) {
-  return state.hakutulos.koulutusTotal;
-}
-function getKoulutusOffset(state) {
-  return state.hakutulos.koulutusOffset;
-}
-function getOppilaitosHits(state) {
-  return state.hakutulos.oppilaitosHits;
-}
-function getOppilaitosFilters(state) {
-  return state.hakutulos.oppilaitosFilters;
-}
-function getOppilaitosOffset(state) {
-  return state.hakutulos.oppilaitosOffset;
-}
-function getOppilaitosTotal(state) {
-  return state.hakutulos.oppilaitosTotal;
-}
-function getOpetuskieli(state) {
-  return state.hakutulos.opetuskieli;
-}
-function getKoulutustyyppi(state) {
-  return state.hakutulos.koulutustyyppi;
-}
-function getKoulutustyyppiMuu(state) {
-  return state.hakutulos['koulutustyyppi-muu'];
-}
-function getKoulutusala(state) {
-  return state.hakutulos.koulutusala;
-}
-function getKunta(state) {
-  return state.hakutulos.kunta;
-}
-function getMaakunta(state) {
-  return state.hakutulos.maakunta;
-}
-function getOpetustapa(state) {
-  return state.hakutulos.opetustapa;
-}
-function getValintatapa(state) {
-  return state.hakutulos.valintatapa;
-}
+const getKeyword = (state) => state.hakutulos.keyword;
+
+const getKoulutusHits = (state) => state.hakutulos.koulutusHits;
+
+const getKoulutusFilters = (state) => state.hakutulos.koulutusFilters;
+const getKoulutusTotal = (state) => state.hakutulos.koulutusTotal;
+
+const getKoulutusOffset = (state) => state.hakutulos.koulutusOffset;
+
+const getOppilaitosHits = (state) => state.hakutulos.oppilaitosHits;
+
+const getOppilaitosFilters = (state) => state.hakutulos.oppilaitosFilters;
+
+const getOppilaitosOffset = (state) => state.hakutulos.oppilaitosOffset;
+
+const getOppilaitosTotal = (state) => state.hakutulos.oppilaitosTotal;
+
+const getOpetuskieli = (state) => state.hakutulos.opetuskieli;
+
+const getKoulutustyyppi = (state) => state.hakutulos.koulutustyyppi;
+
+const getKoulutustyyppiMuu = (state) => state.hakutulos['koulutustyyppi-muu'];
+
+const getKoulutusala = (state) => state.hakutulos.koulutusala;
+
+const getKunta = (state) => state.hakutulos.kunta;
+
+const getMaakunta = (state) => state.hakutulos.maakunta;
+
+const getOpetustapa = (state) => state.hakutulos.opetustapa;
+
+const getValintatapa = (state) => state.hakutulos.valintatapa;
 const getHakukaynnissa = (state) => state.hakutulos.hakukaynnissa;
 const getHakutapa = (state) => state.hakutulos.hakutapa;
 const getYhteishaku = (state) => state.hakutulos.yhteishaku;
@@ -69,34 +50,25 @@ const getPohjakoulutusvaatimus = (state) => state.hakutulos.pohjakoulutusvaatimu
 
 const getFilters = (state) => _.pick(state.hakutulos, FILTER_TYPES_ARR);
 
-function getSelectedTab(state) {
-  return state.hakutulos.selectedTab;
-}
-function getSize(state) {
-  return state.hakutulos.size;
-}
-function getKoulutusPage(state) {
-  return (
-    1 +
-    (state.hakutulos.size
-      ? Math.round(state.hakutulos.koulutusOffset / (state.hakutulos.size || 1))
-      : 0)
-  );
-}
-function getOppilaitosPage(state) {
-  return (
-    1 +
-    (state.hakutulos.size
-      ? Math.round(state.hakutulos.oppilaitosOffset / state.hakutulos.size)
-      : 0)
-  );
-}
-function getOrder(state) {
-  return state.hakutulos.order;
-}
-function getSort(state) {
-  return state.hakutulos.sort;
-}
+const getSelectedTab = (state) => state.hakutulos.selectedTab;
+
+const getSize = (state) => state.hakutulos.size;
+
+const getKoulutusPage = (state) =>
+  getPaginationPage({
+    offset: state.hakutulos.koulutusOffset,
+    size: state.hakutulos.size,
+  });
+
+const getOppilaitosPage = (state) =>
+  getPaginationPage({
+    offset: state.hakutulos.oppilaitosOffset,
+    size: state.hakutulos.size,
+  });
+
+const getOrder = (state) => state.hakutulos.order;
+
+const getSort = (state) => state.hakutulos.sort;
 
 //Selectors
 export const getHakupalkkiProps = createSelector(
