@@ -67,7 +67,7 @@ export const OppilaitosPage = (props) => {
           <Box width="100%" alignSelf="start">
             <Murupolku
               path={[
-                { name: t('haku.otsikko'), link: hakuUrl.url },
+                { name: t('haku.otsikko'), link: hakuUrl },
                 ...condArray(isOppilaitosOsa, {
                   name: localize(entity?.oppilaitos),
                   link: `/oppilaitos/${entity?.oppilaitos?.oid}`,

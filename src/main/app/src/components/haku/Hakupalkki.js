@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import {
   Box,
@@ -20,18 +20,11 @@ import {
 } from '@material-ui/icons';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import { Link as RouterLink } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
-import {
-  setKeyword,
-  clearPaging,
-  navigateToHaku,
-} from '#/src/store/reducers/hakutulosSlice';
-import { useOnEtusivu } from '#/src/tools/useOnEtusivu';
+import { useIsAtEtusivu } from '#/src/store/reducers/appSlice';
 
 import { useSearch } from '../hakutulos/hakutulosHooks';
 import { MobileFiltersOnTopMenu } from '../hakutulos/MobileFiltersOnTopMenu';
@@ -143,27 +136,18 @@ const useStyles = makeStyles((theme) => ({
 const checkIsKeywordValid = (word) => _.size(word) === 0 || _.size(word) > 2;
 
 export const Hakupalkki = () => {
-  const history = useHistory();
   const { search } = useUrlParams();
   const { t } = useTranslation();
   const classes = useStyles();
-  const dispatch = useDispatch();
 
-  const { koulutusData, isFetching } = useSearch();
+  const { koulutusData, isFetching, goToSearchPage, setKeyword } = useSearch();
 
   const koulutusFilters = koulutusData?.filters;
-  const { isAtEtusivu } = useOnEtusivu();
+  const isAtEtusivu = useIsAtEtusivu();
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [isKeywordValid, setIsKeywordValid] = useState(true);
   const keyword = search?.keyword;
-
-  useEffect(() => {
-    if (isAtEtusivu) {
-      dispatch(setKeyword({ keyword: '' }));
-      dispatch(clearPaging());
-    }
-  }, [isAtEtusivu, dispatch]);
 
   const handleDesktopBtnClick = (e) => {
     window.scrollTo({
@@ -191,8 +175,8 @@ export const Hakupalkki = () => {
           e.preventDefault();
           const formData = new FormData(e.target);
           const keywordValue = formData.get('keyword');
-          dispatch(setKeyword({ keyword: keywordValue || '' }));
-          dispatch(navigateToHaku({ history }));
+          setKeyword(keywordValue ?? '');
+          goToSearchPage();
         }}
         className={classes.inputRoot}
         elevation={4}>

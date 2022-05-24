@@ -1,20 +1,18 @@
 import React, { useMemo } from 'react';
 
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
 
 import { Filter } from '#/src/components/common/Filter';
 import { FILTER_TYPES } from '#/src/constants';
-import { setFilterSelectedValues } from '#/src/store/reducers/hakutulosSlice';
 import { getFilterStateChanges } from '#/src/tools/filters';
 import { FilterValue, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 
-import { useFilterProps } from '../hakutulosHooks';
+import { useFilterProps, useSearch } from '../hakutulosHooks';
 
 // NOTE: Hakutapa sisältää hakukaynnissa ja yhteishaku suodattimet -> tämä komponentti hoitaa yhdistelylogiikan
 export const HakutapaSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const { setFilters } = useSearch();
 
   const hakukaynnissaValues = useFilterProps(FILTER_TYPES.HAKUKAYNNISSA);
   const hakutapaValues = useFilterProps(FILTER_TYPES.HAKUTAPA);
@@ -29,10 +27,10 @@ export const HakutapaSuodatin = (props: SuodatinComponentProps) => {
 
   const handleCheck = (item: FilterValue) => {
     if (item.filterId === FILTER_TYPES.HAKUKAYNNISSA) {
-      dispatch(setFilterSelectedValues({ hakukaynnissa: !item.checked }));
+      setFilters({ hakukaynnissa: !item.checked });
     } else {
       const changes = getFilterStateChanges(hakutapaValues)(item);
-      dispatch(setFilterSelectedValues(changes));
+      setFilters(changes);
     }
   };
 

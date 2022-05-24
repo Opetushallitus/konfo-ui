@@ -13,7 +13,6 @@ import { useSideMenu } from '#/src/hooks';
 import { NotFound } from '#/src/NotFound';
 import { supportedLanguages } from '#/src/tools/i18n';
 import { getLanguage } from '#/src/tools/localization';
-import { useOnEtusivu } from '#/src/tools/useOnEtusivu';
 
 import { Draft } from './components/common/Draft';
 import Footer from './components/common/Footer';
@@ -35,6 +34,7 @@ import {
   ValintaperustePreviewPage,
 } from './components/valintaperusteet/ValintaperustePage';
 import { SIDEMENU_WIDTH } from './constants';
+import { useIsAtEtusivu } from './store/reducers/appSlice';
 import { getHeaderHeight, theme } from './theme';
 import { useChat } from './useChat';
 
@@ -187,7 +187,7 @@ const App = () => {
   const language = getLanguage();
   const { pathname } = useLocation();
   const { state: menuVisible, toggleMenu, closeMenu } = useSideMenu();
-  const { isAtEtusivu } = useOnEtusivu();
+  const isAtEtusivu = useIsAtEtusivu();
   const isFetching = useIsFetching();
 
   const classes = useStyles({ betaBannerVisible: betaBanner, isSmall, menuVisible });

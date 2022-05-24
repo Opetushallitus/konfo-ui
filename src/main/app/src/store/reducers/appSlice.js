@@ -35,6 +35,8 @@ export const useCurrentPage = () => getLocationPage(useCurrentLocation());
 
 export const useMenuOpen = () => useSelector((state) => state.app.sideMenuOpen);
 
+export const useIsAtEtusivu = () => useCurrentPage() === '';
+
 export const { setMenuState, setCurrentLocation } = appSlice.actions;
 
 export default appSlice.reducer;

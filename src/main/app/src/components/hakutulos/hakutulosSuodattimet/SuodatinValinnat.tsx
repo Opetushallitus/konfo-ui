@@ -4,19 +4,14 @@ import { Button, Chip, Grid, makeStyles } from '@material-ui/core';
 import { Clear } from '@material-ui/icons';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
 
 import { colors } from '#/src/colors';
 import { FILTER_TYPES } from '#/src/constants';
-import {
-  clearSelectedFilters,
-  setFilterSelectedValues,
-} from '#/src/store/reducers/hakutulosSlice';
 import { getFilterStateChanges } from '#/src/tools/filters';
 import { localize } from '#/src/tools/localization';
 import { FilterValue } from '#/src/types/SuodatinTypes';
 
-import { useAllSelectedFilters } from '../hakutulosHooks';
+import { useAllSelectedFilters, useSearch } from '../hakutulosHooks';
 
 const useStyles = makeStyles(() => ({
   chipRoot: {
@@ -94,29 +89,26 @@ const ChipList = ({
 };
 
 export const SuodatinValinnat = () => {
-  const dispatch = useDispatch();
   const { selectedFiltersFlatList, selectedFiltersWithAlakoodit } =
     useAllSelectedFilters();
+
+  const { setFilters, clearFilters } = useSearch();
 
   const getHandleDelete = (item: FilterValue) => () => {
     const changes = getFilterStateChanges(selectedFiltersWithAlakoodit)(item);
 
     if (item.filterId === FILTER_TYPES.HAKUKAYNNISSA) {
-      dispatch(setFilterSelectedValues({ hakukaynnissa: !item.checked }));
+      setFilters({ hakukaynnissa: !item.checked });
     } else {
-      dispatch(setFilterSelectedValues(_.omit(changes, 'hakukaynnissa')));
+      setFilters(_.omit(changes, 'hakukaynnissa'));
     }
-  };
-
-  const handleClearFilters = () => {
-    dispatch(clearSelectedFilters());
   };
 
   return (
     <ChipList
       filters={selectedFiltersFlatList}
       getHandleDelete={getHandleDelete}
-      handleClearFilters={handleClearFilters}
+      handleClearFilters={clearFilters}
     />
   );
 };

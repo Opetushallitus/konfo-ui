@@ -239,7 +239,7 @@ export const ValintaperustePage = () => {
       <Row>
         <Murupolku
           path={[
-            { name: t('haku.otsikko'), link: hakuUrl.url },
+            { name: t('haku.otsikko'), link: hakuUrl },
             { name: localize(koulutus?.nimi), link: `/koulutus/${koulutus?.oid}` },
             { name: localize(toteutus?.nimi), link: toteutusLink },
             { name: t('valintaperuste.valintaperuste') },

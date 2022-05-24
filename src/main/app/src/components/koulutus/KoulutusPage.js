@@ -186,7 +186,7 @@ export const KoulutusPage = () => {
       <Box width="100%" alignSelf="start">
         <Murupolku
           path={[
-            { name: t('haku.otsikko'), link: hakuUrl.url },
+            { name: t('haku.otsikko'), link: hakuUrl },
             { name: localize(koulutus?.tutkintoNimi) },
           ]}
         />

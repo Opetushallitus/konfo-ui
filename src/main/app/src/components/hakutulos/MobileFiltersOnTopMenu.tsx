@@ -14,14 +14,8 @@ import {
 } from '@material-ui/core';
 import { Close } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 
-import { useCurrentPage } from '#/src/store/reducers/appSlice';
-import {
-  navigateToHaku,
-  clearSelectedFilters,
-} from '#/src/store/reducers/hakutulosSlice';
+import { useIsAtEtusivu } from '#/src/store/reducers/appSlice';
 
 import { useAllSelectedFilters, useSearch } from './hakutulosHooks';
 import { HakutapaSuodatin } from './hakutulosSuodattimet/HakutapaSuodatin';
@@ -61,24 +55,18 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const useIsAtEtusivu = () => useCurrentPage() === '';
-
 export const MobileFiltersOnTopMenu = () => {
   const classes = useStyles();
   const { t } = useTranslation();
-  const dispatch = useDispatch();
-  const history = useHistory();
 
   const isAtEtusivu = useIsAtEtusivu();
 
-  const { koulutusData, oppilaitosData, selectedTab } = useSearch();
-
-  const koulutusTotal = koulutusData?.total;
-  const oppilaitosTotal = oppilaitosData?.total;
+  const { koulutusData, oppilaitosData, selectedTab, clearFilters, goToSearchPage } =
+    useSearch();
 
   const hitCount = useMemo(
-    () => (selectedTab === 'koulutus' ? koulutusTotal : oppilaitosTotal),
-    [selectedTab, koulutusTotal, oppilaitosTotal]
+    () => (selectedTab === 'koulutus' ? koulutusData?.total : oppilaitosData?.total),
+    [selectedTab, koulutusData, oppilaitosData]
   );
 
   const { count } = useAllSelectedFilters();
@@ -91,13 +79,9 @@ export const MobileFiltersOnTopMenu = () => {
 
   const handleFiltersShowToggle = () => {
     if (isAtEtusivu) {
-      dispatch(navigateToHaku({ history }));
+      goToSearchPage();
     }
     toggleShowFilters();
-  };
-
-  const handleClearFilters = () => {
-    dispatch(clearSelectedFilters());
   };
 
   return (
@@ -138,7 +122,7 @@ export const MobileFiltersOnTopMenu = () => {
                   <Button
                     color="inherit"
                     classes={{ label: classes.buttonLabel }}
-                    onClick={handleClearFilters}>
+                    onClick={clearFilters}>
                     {t('haku.poista-valitut')}
                   </Button>
                 )}

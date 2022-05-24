@@ -21,7 +21,7 @@ import { Pagination } from '#/src/components/common/Pagination';
 import { pageSizeArray, pageSortArray } from '#/src/constants';
 
 import { BackendErrorMessage } from './BackendErrorMessage';
-import { useSearch } from './hakutulosHooks';
+import { useSearch, useSearchSortOrder } from './hakutulosHooks';
 import { HakutulosResults } from './HakutulosResults';
 import { SuodatinValinnat } from './hakutulosSuodattimet/SuodatinValinnat';
 import { HakutulosToggle } from './HakutulosToggle';
@@ -110,10 +110,6 @@ export const Hakutulos = () => {
 
   const {
     selectedTab,
-    pageSize,
-    changePageSize,
-    pageSort,
-    changePageSort,
     status,
     keyword,
     isAnyFilterSelected,
@@ -123,6 +119,8 @@ export const Hakutulos = () => {
     oppilaitosData,
     isFetching,
   } = useSearch();
+
+  const { sortOrder, setSortOrder } = useSearchSortOrder();
 
   const mdUp = useMediaQuery(theme.breakpoints.up('md'));
 
@@ -177,8 +175,8 @@ export const Hakutulos = () => {
                     icon: classes.selectIcon,
                     selectMenu: classes.selectMenu,
                   }}
-                  value={pageSize}
-                  onChange={changePageSize}>
+                  value={pagination.size}
+                  onChange={(e) => setPagination({ size: e.target.value })}>
                   {pageSizeArray.map((size) => (
                     <MenuItem
                       key={size}
@@ -200,8 +198,8 @@ export const Hakutulos = () => {
                     icon: classes.selectIcon,
                     selectMenu: classes.selectMenu,
                   }}
-                  value={pageSort}
-                  onChange={changePageSort}>
+                  value={sortOrder}
+                  onChange={(e) => setSortOrder(e.target.value)}>
                   {pageSortArray.map((sort) => (
                     <MenuItem
                       key={sort}

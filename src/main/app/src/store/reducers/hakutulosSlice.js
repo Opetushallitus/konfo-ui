@@ -6,20 +6,25 @@ import {
   FILTER_TYPES_ARR_FOR_KONFO_BACKEND,
   KOULUTUS_TYYPPI_MUU_ARR,
 } from '#/src/constants';
+import { getLanguage } from '#/src/tools/localization';
 
 import { getAPIRequestParams, getHakuUrl } from './hakutulosSliceSelector';
 
 const KOULUTUS = 'koulutus';
 
 export const initialState = {
-  // Koulutukset, sisältää lukumäärät ja käännökset mitä backend vastaa
-  koulutusOffset: 0,
+  selectedTab: KOULUTUS,
+  size: 20,
+  order: 'desc',
+  sort: 'score',
 
-  // Oppilaitokset, sisältää lukumäärät ja käännökset mitä backend vastaa
+  // offset = ensimmäisen näytettävän entiteetin järjestysnumero
+  // Sivunumero päätellään offsetin ja size:n perusteella
+  koulutusOffset: 0,
   oppilaitosOffset: 0,
 
-  keyword: '',
   // Persistoidut suodatinvalinnat, listoja valituista koodiarvoista (+ yksi boolean rajain)
+  keyword: '',
   koulutustyyppi: [],
   'koulutustyyppi-muu': [],
   koulutusala: [],
@@ -35,10 +40,6 @@ export const initialState = {
   lukiopainotukset: [],
   lukiolinjaterityinenkoulutustehtava: [],
   osaamisala: [],
-  size: 20,
-  selectedTab: KOULUTUS,
-  order: 'desc',
-  sort: 'score',
 };
 
 const hakutulosSlice = createSlice({
@@ -46,19 +47,16 @@ const hakutulosSlice = createSlice({
   initialState,
   reducers: {
     setKeyword: (state, { payload }) => {
-      // TODO: Kun keyword asetetaan, myös URL pitäisi asettaa
       state.keyword = payload.keyword;
     },
     setSelectedTab: (state, { payload }) => {
       state.selectedTab = payload.newSelectedTab;
     },
     setFilterSelectedValues: (state, { payload: newValues = [] }) => {
-      // TODO: Kun filttereitä muutetaan, täytyy myös URL asettaa
-      // 1. Muunnetaan redux-filtterit URL:ksi
-      // 2. Jos reduxista muodostettu URL muuttui, asetetaan myös se
       _.forEach(newValues, (values, filterId) => (state[filterId] = values));
+      resetPagination(state);
     },
-    clearPaging: (state) => {
+    resetPagination: (state) => {
       state.koulutusOffset = 0;
       state.oppilaitosOffset = 0;
     },
@@ -78,11 +76,13 @@ const hakutulosSlice = createSlice({
       state.lukiopainotukset = [];
       state.lukiolinjaterityinenkoulutustehtava = [];
       state.osaamisala = [];
+
+      resetPagination(state);
     },
     setSize: (state, { payload }) => {
       state.size = payload.newSize;
-      state.koulutusOffset = 0;
-      state.oppilaitosOffset = 0;
+      // Asetetaan sivutus alkuun, koska sivuja voi olla vähemmän kuin aiemmin
+      resetPagination(state);
     },
     setKoulutusOffset: (state, { payload }) => {
       state.koulutusOffset = payload.offset;
@@ -91,10 +91,10 @@ const hakutulosSlice = createSlice({
       state.oppilaitosOffset = payload.offset;
     },
     setOrder: (state, { payload }) => {
-      state.order = payload.newOrder;
+      state.order = payload;
     },
     setSort: (state, { payload }) => {
-      state.sort = payload.newSort;
+      state.sort = payload;
     },
     setSortOrder: (state, { payload }) => {
       const [sort, order] = payload.split('_');
@@ -146,7 +146,7 @@ export const {
   setKeyword,
   setSelectedTab,
   setFilterSelectedValues,
-  clearPaging,
+  resetPagination,
   clearSelectedFilters,
   setOrder,
   setSort,
@@ -163,11 +163,10 @@ export const navigateToHaku =
   ({ history }) =>
   (dispatch, getState) => {
     const state = getState();
-    const { url } = getHakuUrl(state);
-    history.push(url);
+    const url = getHakuUrl(state);
+    history.push('/' + getLanguage() + url);
   };
 
-// Helpers
 function getCleanUrlSearch(search, apiRequestParams) {
   return _.mapValues(_.pick(search, _.keys(apiRequestParams)), (value, key) =>
     _.includes(FILTER_TYPES_ARR_FOR_KONFO_BACKEND, key)

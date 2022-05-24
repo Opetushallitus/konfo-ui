@@ -135,7 +135,7 @@ export const ToteutusPage = () => {
       <Box width="100%" alignSelf="start">
         <Murupolku
           path={[
-            { name: t('haku.otsikko'), link: hakuUrl.url },
+            { name: t('haku.otsikko'), link: hakuUrl },
             {
               name: localize(koulutus?.tutkintoNimi),
               link: `/koulutus/${toteutus?.koulutusOid}?${hakuParamsStr}`,

@@ -3,6 +3,7 @@ import { useCallback, useMemo } from 'react';
 import _fp from 'lodash/fp';
 import { useQuery } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import { searchKoulutukset, searchOppilaitokset } from '#/src/api/konfoApi';
 import {
@@ -10,12 +11,20 @@ import {
   getCombinedQueryStatus,
 } from '#/src/components/common/QueryResultWrapper';
 import { FILTER_TYPES } from '#/src/constants';
+import { useCurrentPage } from '#/src/store/reducers/appSlice';
 import {
   setKoulutusOffset,
   setOppilaitosOffset,
   setSize,
   setSortOrder,
   setSelectedTab,
+  setFilterSelectedValues,
+  navigateToHaku,
+  resetPagination,
+  setSort,
+  setOrder,
+  clearSelectedFilters,
+  setKeyword,
 } from '#/src/store/reducers/hakutulosSlice';
 import {
   getAPIRequestParams,
@@ -26,25 +35,27 @@ import {
   getKoulutusPage,
   getOppilaitosOffset,
   getOppilaitosPage,
+  getOrder,
   getSelectedTab,
   getSize,
+  getSort,
   getSortOrder,
 } from '#/src/store/reducers/hakutulosSliceSelector';
 import { getFilterWithChecked, sortValues } from '#/src/tools/filters';
 import { ValueOf } from '#/src/types/common';
 
-const useKoulutusSearch = (requestParams: any) =>
-  useQuery(['searchKoulutukset', requestParams], () => searchKoulutukset(requestParams), {
-    keepPreviousData: true,
-  });
-const useOppilaitosSearch = (requestParams: any) =>
-  useQuery(
-    ['searchOppilaitokset', requestParams],
-    () => searchOppilaitokset(requestParams),
-    {
+const createSearchQueryHook =
+  (key: string, fn: (x: any) => any) => (requestParams: any) =>
+    useQuery([key, requestParams], () => fn(requestParams), {
       keepPreviousData: true,
-    }
-  );
+    });
+
+const useKoulutusSearch = createSearchQueryHook('searchKoulutukset', searchKoulutukset);
+
+const useOppilaitosSearch = createSearchQueryHook(
+  'searchOppilaitokset',
+  searchOppilaitokset
+);
 
 export const useSearch = () => {
   const keyword = useSelector(getKeyword);
@@ -76,39 +87,20 @@ export const useSearch = () => {
     oppilaitosQueryResult,
   ]);
 
-  const pageSort = useSelector(getSortOrder);
-
   const dispatch = useDispatch();
-
-  const changePageSort = useCallback(
-    (e) => {
-      const newPageSort = e.target.value;
-
-      dispatch(setSortOrder(newPageSort));
-    },
-    [dispatch]
-  );
-
-  const changePageSize = useCallback(
-    (e) => {
-      const newSize = e.target.value;
-      dispatch(setSize({ newSize }));
-    },
-    [dispatch]
-  );
 
   const pagination = useMemo(() => {
     switch (selectedTab) {
       case 'koulutus':
         return {
           size: pageSize,
-          total: koulutusData.total,
+          total: koulutusData?.total ?? 0,
           offset: koulutusOffset,
         };
       case 'oppilaitos':
         return {
           size: pageSize,
-          total: oppilaitosData.total,
+          total: oppilaitosData?.total ?? 0,
           offset: oppilaitosOffset,
         };
       default:
@@ -127,60 +119,96 @@ export const useSearch = () => {
     pageSize,
   ]);
 
+  const history = useHistory();
+  const currentPage = useCurrentPage();
+
+  const goToSearchPage = useCallback(
+    () => dispatch(navigateToHaku({ history })),
+    [dispatch, history]
+  );
+
   const setPagination = useCallback(
     (pagination) => {
       const { size, offset } = pagination ?? {};
       dispatch(setSize({ newSize: size }));
-      if (selectedTab === 'koulutus') {
-        dispatch(setKoulutusOffset({ offset }));
-      } else if (selectedTab === 'oppilaitos') {
-        dispatch(setOppilaitosOffset({ offset }));
+      if (offset != null) {
+        if (selectedTab === 'koulutus') {
+          dispatch(setKoulutusOffset({ offset }));
+        } else if (selectedTab === 'oppilaitos') {
+          dispatch(setOppilaitosOffset({ offset }));
+        }
+      }
+      if (currentPage === 'haku') {
+        goToSearchPage();
       }
     },
-    [dispatch, selectedTab]
+    [dispatch, selectedTab, currentPage, goToSearchPage]
   );
 
-  const setFilters = useCallback(({ changes }) => {}, []);
+  const setFilters = useCallback(
+    (changes) => {
+      dispatch(setFilterSelectedValues(changes));
+      if (currentPage === 'haku') {
+        goToSearchPage();
+      }
+    },
+    [dispatch, currentPage, goToSearchPage]
+  );
+
+  const clearFilters = useCallback(() => {
+    dispatch(clearSelectedFilters());
+    dispatch(resetPagination());
+    if (currentPage === 'haku') {
+      goToSearchPage();
+    }
+  }, [dispatch, currentPage, goToSearchPage]);
 
   const setSelectedTabCb = useCallback(
     (tab) => dispatch(setSelectedTab({ newSelectedTab: tab })),
     [dispatch]
   );
 
+  const resetPaginationCb = useCallback(() => dispatch(resetPagination), [dispatch]);
+
+  const setKeywordCb = useCallback(
+    (keyword) => dispatch(setKeyword({ keyword })),
+    [dispatch]
+  );
+
   return useMemo(
     () => ({
       keyword,
+      setKeyword: setKeywordCb,
       isFetching,
       isAnyFilterSelected,
-      pageSize,
-      pageSort,
       status,
       koulutusData,
       oppilaitosData,
-      changePageSort,
-      changePageSize,
       pagination,
       setPagination,
+      resetPagination: resetPaginationCb,
       setFilters,
+      clearFilters,
       selectedTab,
       setSelectedTab: setSelectedTabCb,
+      goToSearchPage,
     }),
     [
       keyword,
+      setKeywordCb,
       isFetching,
       isAnyFilterSelected,
-      pageSize,
-      pageSort,
-      changePageSort,
-      changePageSize,
       status,
       pagination,
       setPagination,
+      resetPaginationCb,
       oppilaitosData,
       koulutusData,
       setFilters,
+      clearFilters,
       selectedTab,
       setSelectedTabCb,
+      goToSearchPage,
     ]
   );
 };
@@ -202,28 +230,70 @@ export const useFilterProps = (id: ValueOf<typeof FILTER_TYPES>) => {
 
 export const useAllSelectedFilters = () => {
   const { koulutusData } = useSearch();
-  const koulutusFilters = koulutusData?.filters;
+  const koulutusFilters = koulutusData.filters;
 
   const allCheckedValues = useSelector(getFilters);
 
-  const selectedFiltersWithAlakoodit = _fp.flow(
-    _fp.pickBy((v) => (_fp.isArray(v) ? v.length > 0 : v)),
-    _fp.keys,
-    _fp.map((filterId) =>
-      _fp.values(getFilterWithChecked(koulutusFilters, allCheckedValues, filterId))
-    ),
-    _fp.flatten,
-    _fp.uniqBy('id')
-  )(allCheckedValues);
+  const selectedFiltersWithAlakoodit = useMemo(
+    () =>
+      _fp.flow(
+        _fp.pickBy((v) => (_fp.isArray(v) ? v.length > 0 : v)),
+        _fp.keys,
+        _fp.map((filterId) =>
+          _fp.values(getFilterWithChecked(koulutusFilters, allCheckedValues, filterId))
+        ),
+        _fp.flatten,
+        _fp.uniqBy('id')
+      )(allCheckedValues),
+    [koulutusFilters, allCheckedValues]
+  );
 
-  const selectedFiltersFlatList = selectedFiltersWithAlakoodit
-    .map((v: any) => [v, ...(v.alakoodit || [])])
-    .flat()
-    .filter((v: any) => v.checked); // Alakoodilistoissa voi olla valitsemattomia koodeja
+  const selectedFiltersFlatList = useMemo(
+    () =>
+      selectedFiltersWithAlakoodit
+        .map((v: any) => [v, ...(v.alakoodit || [])])
+        .flat()
+        .filter((v: any) => v.checked),
+    [selectedFiltersWithAlakoodit]
+  ); // Alakoodilistoissa voi olla valitsemattomia koodeja
 
   return {
     count: selectedFiltersFlatList.length,
     selectedFiltersFlatList,
     selectedFiltersWithAlakoodit,
+  };
+};
+
+const useDispatchCb = (fn: (x: any) => any, options: { syncUrl?: boolean } = {}) => {
+  const dispatch = useDispatch();
+  const currentPage = useCurrentPage();
+  const history = useHistory();
+  return useCallback(
+    (props) => {
+      dispatch(fn(props));
+      if (options?.syncUrl && currentPage === 'haku') {
+        dispatch(navigateToHaku({ history }));
+      }
+    },
+    [dispatch, fn, currentPage, options, history]
+  );
+};
+
+export const useSearchSortOrder = () => {
+  const sort = useSelector(getSort);
+  const order = useSelector(getOrder);
+  const sortOrder = useSelector(getSortOrder);
+
+  const setSortCb = useDispatchCb(setSort, { syncUrl: true });
+  const setOrderCb = useDispatchCb(setOrder, { syncUrl: true });
+  const setSortOrderCb = useDispatchCb(setSortOrder, { syncUrl: true });
+
+  return {
+    sort,
+    order,
+    sortOrder,
+    setSort: setSortCb,
+    setOrder: setOrderCb,
+    setSortOrder: setSortOrderCb,
   };
 };

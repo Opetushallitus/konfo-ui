@@ -2,11 +2,9 @@ import React, { useMemo } from 'react';
 
 import _fp from 'lodash/fp';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
 
 import { Filter } from '#/src/components/common/Filter';
 import { FILTER_TYPES } from '#/src/constants';
-import { setFilterSelectedValues } from '#/src/store/reducers/hakutulosSlice';
 import { getFilterStateChanges } from '#/src/tools/filters';
 import { localize } from '#/src/tools/localization';
 import { FilterValue, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
@@ -23,14 +21,14 @@ const getSelectOption = (value: FilterValue, isMaakunta: boolean) => ({
 
 export const SijaintiSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const { setFilters } = useSearch();
 
   const kuntaValues = useFilterProps(FILTER_TYPES.KUNTA);
   const maakuntaValues = useFilterProps(FILTER_TYPES.MAAKUNTA);
 
   const handleCheck = (item: FilterValue) => {
     const changes = getFilterStateChanges(kuntaValues.concat(maakuntaValues))(item);
-    dispatch(setFilterSelectedValues(changes));
+    setFilters(changes);
   };
 
   const { isFetching } = useSearch();

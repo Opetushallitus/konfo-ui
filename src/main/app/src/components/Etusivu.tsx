@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { Button, Grid, makeStyles, Paper } from '@material-ui/core';
 import _ from 'lodash';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { useEffectOnce } from 'react-use';
 
 import { colors } from '#/src/colors';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { useContentful } from '#/src/hooks';
-import { clearSelectedFilters } from '#/src/store/reducers/hakutulosSlice';
 import { Info, Uutiset as UutisetType, Kortit } from '#/src/types/ContentfulTypes';
 
+import { useSearch } from './hakutulos/hakutulosHooks';
 import { Jumpotron } from './Jumpotron';
 import Kortti from './kortti/Kortti';
 import { ReactiveBorder } from './ReactiveBorder';
@@ -44,7 +44,8 @@ export const Etusivu = () => {
   const classes = useStyles();
   const { i18n } = useTranslation();
   const history = useHistory();
-  const dispatch = useDispatch();
+
+  const { clearFilters, setKeyword } = useSearch();
   const { data, isLoading, forwardTo } = useContentful();
   const { info, uutiset, kortit }: { info: Info; uutiset: UutisetType; kortit: Kortit } =
     data;
@@ -59,10 +60,11 @@ export const Etusivu = () => {
 
   const [showMore, setShowMore] = useState(!(uutislinkit.length > 3));
 
-  useEffect(() => {
+  useEffectOnce(() => {
     // NOTE: Tyhjätään aina kaikki hakutulosvalinnat kun saavutaan etusivulle
-    dispatch(clearSelectedFilters());
-  }, [dispatch]);
+    setKeyword('');
+    clearFilters();
+  });
 
   return (
     <React.Fragment>

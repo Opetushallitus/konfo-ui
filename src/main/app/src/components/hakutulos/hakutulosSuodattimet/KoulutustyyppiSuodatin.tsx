@@ -2,16 +2,14 @@ import React, { useMemo, useState } from 'react';
 
 import { Button, ButtonGroup, Grid, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
 
 import { colors } from '#/src/colors';
 import { Filter } from '#/src/components/common/Filter';
 import { FILTER_TYPES } from '#/src/constants';
-import { setFilterSelectedValues } from '#/src/store/reducers/hakutulosSlice';
 import { getFilterStateChanges } from '#/src/tools/filters';
 import { FilterValue, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 
-import { useFilterProps } from '../hakutulosHooks';
+import { useFilterProps, useSearch } from '../hakutulosHooks';
 
 const withStyles = makeStyles(() => ({
   noBoxShadow: {
@@ -43,7 +41,7 @@ const withStyles = makeStyles(() => ({
 export const KoulutustyyppiSuodatin = (props: SuodatinComponentProps) => {
   const classes = withStyles();
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const { setFilters } = useSearch();
 
   const [isMuuSelected, setIsMuuSelected] = useState(false);
   const values = useFilterProps(FILTER_TYPES.KOULUTUSTYYPPI);
@@ -60,7 +58,7 @@ export const KoulutustyyppiSuodatin = (props: SuodatinComponentProps) => {
   const getChanges = getFilterStateChanges(isMuuSelected ? muuValues : values);
   const handleCheck = (item: FilterValue) => {
     const changes = getChanges(item);
-    dispatch(setFilterSelectedValues(changes));
+    setFilters(changes);
   };
 
   return (

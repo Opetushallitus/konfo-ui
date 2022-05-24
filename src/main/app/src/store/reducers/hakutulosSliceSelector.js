@@ -50,9 +50,9 @@ export const getOppilaitosPage = (state) =>
     size: state.hakutulos.size,
   });
 
-const getOrder = (state) => state.hakutulos.order;
+export const getOrder = (state) => state.hakutulos.order;
 
-const getSort = (state) => state.hakutulos.sort;
+export const getSort = (state) => state.hakutulos.sort;
 
 export const getSortOrder = (state) => state.hakutulos.sort + '_' + state.hakutulos.order;
 
@@ -106,18 +106,6 @@ export const getIsAnyFilterSelected = createSelector(
       )
     );
   }
-);
-
-export const getMobileToggleOrderByButtonMenuProps = createSelector(
-  [getOrder, getSort],
-  (order, sort) => ({
-    order,
-    sort,
-    isScoreSort: sort !== 'name',
-    isNameSort: sort === 'name',
-    isNameSortAsc: sort === 'name' && order === 'asc',
-    isNameSortDesc: sort === 'name' && order !== 'asc',
-  })
 );
 
 const getCheckedFiltersIdsStr = (checkedfiltersArr) =>
@@ -177,22 +165,15 @@ export const getAPIRequestParams = createSelector(
   })
 );
 
-export const getHakuParams = createSelector(
-  [getAPIRequestParams, getSelectedTab, getKoulutusPage, getOppilaitosPage],
-  (apiRequestParams, selectedTab, koulutusPage, oppilaitosPage) => {
-    const hakuParams = cleanRequestParams(apiRequestParams);
-    const hakuParamsStr = qs.stringify(hakuParams, { arrayFormat: 'comma' });
-    return { hakuParams, hakuParamsStr };
-  }
-);
+export const getHakuParams = createSelector([getAPIRequestParams], (apiRequestParams) => {
+  const hakuParams = cleanRequestParams(apiRequestParams);
+  const hakuParamsStr = qs.stringify(hakuParams, { arrayFormat: 'comma' });
+  return { hakuParams, hakuParamsStr };
+});
 
-export const getHakuUrl = createSelector(
-  [getAPIRequestParams, getHakuParams],
-  (apiRequestParams, { hakuParamsStr }) => {
-    const url = `/haku?${hakuParamsStr}`;
-    return { url };
-  }
-);
+export const getHakuUrl = createSelector([getHakuParams], ({ hakuParamsStr }) => {
+  return `/haku?${hakuParamsStr}`;
+});
 
 export const getInitialCheckedToteutusFilters = createSelector(
   [getFilters],

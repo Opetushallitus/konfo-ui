@@ -3,11 +3,10 @@ import React from 'react';
 import { Grid, Typography, ButtonGroup, Button, makeStyles } from '@material-ui/core';
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
-import { useSelector, useDispatch } from 'react-redux';
 
 import { colors } from '#/src/colors';
-import { setSort, setOrder } from '#/src/store/reducers/hakutulosSlice';
-import { getMobileToggleOrderByButtonMenuProps } from '#/src/store/reducers/hakutulosSliceSelector';
+
+import { useSearchSortOrder } from './hakutulosHooks';
 
 const useStyles = makeStyles(() => ({
   buttonActive: {
@@ -29,25 +28,25 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const MobileToggleOrderByButtonMenu = () => {
+const SortOrderButton = ({ isActive, onClick, endIcon, children }) => {
   const classes = useStyles();
-  const { t } = useTranslation();
-  const dispatch = useDispatch();
-  const mobileToggleOrderByButtonMenuProps = useSelector(
-    getMobileToggleOrderByButtonMenuProps
+  return (
+    <Button
+      className={isActive ? classes.buttonActive : classes.buttonInactive}
+      onClick={onClick}
+      endIcon={endIcon}>
+      {children}
+    </Button>
   );
-  const { isNameSort, isNameSortDesc, isScoreSort, order } =
-    mobileToggleOrderByButtonMenuProps;
+};
+
+const MobileToggleOrderByButtonMenu = () => {
+  const { t } = useTranslation();
+
+  const { sort, order, sortOrder, setSortOrder } = useSearchSortOrder();
 
   const updateSortAndOrder = (newSort, newOrder) => {
-    dispatch(setSort({ newSort }));
-    dispatch(setOrder({ newOrder }));
-  };
-
-  const toggleToScoreSort = () => {
-    if (!isScoreSort) {
-      updateSortAndOrder('score', 'desc');
-    }
+    setSortOrder(`${newSort}_${newOrder}`);
   };
 
   const toggleToNameSort = () => updateSortAndOrder('name', 'asc');
@@ -69,19 +68,19 @@ const MobileToggleOrderByButtonMenu = () => {
       </Grid>
       <Grid item xs={12} sm style={{ padding: '20px 0' }}>
         <ButtonGroup fullWidth>
-          <Button
-            className={isScoreSort ? classes.buttonActive : classes.buttonInactive}
-            onClick={toggleToScoreSort}>
+          <SortOrderButton
+            isActive={sort === 'score'}
+            onClick={() => updateSortAndOrder('score', 'asc')}>
             {t('haku.jarjesta_mobiili_osuvin')}
-          </Button>
-          <Button
-            className={isNameSort ? classes.buttonActive : classes.buttonInactive}
-            onClick={isNameSort ? toggleNameSortOrder : toggleToNameSort}
-            endIcon={isNameSortDesc ? <ExpandLess /> : <ExpandMore />}>
-            {isNameSortDesc
+          </SortOrderButton>
+          <SortOrderButton
+            isActive={sort === 'name'}
+            onClick={sort === 'name' ? toggleNameSortOrder : toggleToNameSort}
+            endIcon={sortOrder === 'name_desc' ? <ExpandLess /> : <ExpandMore />}>
+            {sortOrder === 'name_desc'
               ? t('haku.jarjesta_mobiili_aakkoset_o_a')
               : t('haku.jarjesta_mobiili_aakkoset_a_o')}
-          </Button>
+          </SortOrderButton>
         </ButtonGroup>
       </Grid>
     </Grid>
