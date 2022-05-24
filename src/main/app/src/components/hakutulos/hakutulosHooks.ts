@@ -15,7 +15,7 @@ export const useSearch = () => {
   const status = useSelector((state: any) => state.hakutulos.status);
   const dispatch = useDispatch();
 
-  const [pageSize, setPageSize] = useState(0);
+  const [pageSize, setPageSize] = useState(20);
   const [pageSort, setPageSort] = useState('score_desc');
 
   const hakutulosProps = useSelector(getHakutulosProps);
