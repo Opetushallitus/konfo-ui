@@ -20,7 +20,7 @@ import Footer from './components/common/Footer';
 import { Header } from './components/common/Header';
 import { SideMenu } from './components/common/SideMenu';
 import { Etusivu } from './components/Etusivu';
-import { Haku } from './components/haku/Haku';
+import { HakuPage } from './components/haku/HakuPage';
 import { Hakupalkki } from './components/haku/Hakupalkki';
 import { KoulutusPage } from './components/koulutus/KoulutusPage';
 import { OppilaitosPage } from './components/oppilaitos/OppilaitosPage';
@@ -105,6 +105,7 @@ const TranslatedRoutes = ({ match, location }) => {
     };
     return <Redirect to={newLocation} />;
   }
+
   return supportedLanguages.includes(selectedLanguage) ? (
     <Switch>
       <Route exact path="/:lng">
@@ -115,7 +116,7 @@ const TranslatedRoutes = ({ match, location }) => {
       </Route>
       <Route exact path="/:lng/haku/:keyword?">
         <KoulutusHakuBar />
-        <Haku />
+        <HakuPage />
       </Route>
       <Route exact path="/:lng/koulutus/:oid">
         <KoulutusHakuBar />

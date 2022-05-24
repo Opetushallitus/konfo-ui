@@ -13,7 +13,7 @@ import {
 import { Hakutulos } from '../hakutulos/Hakutulos';
 import { useUrlParams } from '../hakutulos/useUrlParams';
 
-export const Haku = () => {
+export const HakuPage = () => {
   const { search, updateUrlSearchParams } = useUrlParams();
 
   // TODO: keyword should probably be refactored into url params since hakupalkki is found in other pages too
