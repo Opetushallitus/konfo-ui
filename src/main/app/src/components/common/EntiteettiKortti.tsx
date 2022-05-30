@@ -10,7 +10,7 @@ import {
   Box,
 } from '@material-ui/core';
 import DirectionsOutlinedIcon from '@material-ui/icons/DirectionsOutlined';
-import SportsSoccer from '@material-ui/icons/SportsSoccer';
+import SportsSoccerIcon from '@material-ui/icons/SportsSoccer';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
@@ -172,7 +172,7 @@ export const EntiteettiKortti = ({
           {jarjestaaUrheilijanAmmKoulutusta && (
             <AdditionalInfoWithIcon
               translationKey="haku.urheilijan-amm-koulutus"
-              icon={<SportsSoccer />}
+              icon={<SportsSoccerIcon />}
             />
           )}
 

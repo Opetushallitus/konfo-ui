@@ -13,7 +13,7 @@ import {
 import AutorenewIcon from '@material-ui/icons/Autorenew';
 import CalendarTodayOutlinedIcon from '@material-ui/icons/CalendarTodayOutlined';
 import PinDrop from '@material-ui/icons/PinDrop';
-import SportsSoccer from '@material-ui/icons/SportsSoccer';
+import SportsSoccerIcon from '@material-ui/icons/SportsSoccer';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
@@ -144,7 +144,7 @@ const HakuCardGrid = ({ tyyppiOtsikko, icon, toteutus, hakukohteet }: GridProps)
                           {jarjestaaUrheilijanAmmKoulutusta && (
                             <AdditionalInfoWithIcon
                               translationKey="haku.urheilijan-amm-koulutus"
-                              icon={<SportsSoccer />}
+                              icon={<SportsSoccerIcon />}
                             />
                           )}
                         </Grid>

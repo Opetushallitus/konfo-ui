@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Box, Button, makeStyles, Typography } from '@material-ui/core';
 import OpenInNewIcon from '@material-ui/icons/OpenInNew';
-import SportsSoccer from '@material-ui/icons/SportsSoccer';
+import SportsSoccerIcon from '@material-ui/icons/SportsSoccer';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -94,7 +94,7 @@ export const OppilaitosPage = (props) => {
             <InfoBanner
               heading={t('oppilaitos.jarjestaa-urheilijan-amm-koulutusta-otsikko')}
               bodytext={t('oppilaitos.jarjestaa-urheilijan-amm-koulutusta-teksti')}
-              icon={<SportsSoccer />}
+              icon={<SportsSoccerIcon />}
             />
           )}
 
