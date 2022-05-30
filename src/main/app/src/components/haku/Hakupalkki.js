@@ -138,7 +138,7 @@ export const Hakupalkki = () => {
   const { t } = useTranslation();
   const classes = useStyles();
 
-  const { keyword, koulutusData, isFetching, goToSearchPage, setKeyword } = useSearch();
+  const { keyword, koulutusData, goToSearchPage, setKeyword } = useSearch();
 
   const koulutusFilters = koulutusData?.filters;
   const isAtEtusivu = useIsAtEtusivu();
@@ -222,7 +222,7 @@ export const Hakupalkki = () => {
         <Hidden smDown>
           <Button
             startIcon={<SearchOutlined />}
-            disabled={!isKeywordValid || isFetching}
+            disabled={!isKeywordValid}
             type="submit"
             variant="contained"
             color="secondary"
