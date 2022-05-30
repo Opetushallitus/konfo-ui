@@ -45,8 +45,8 @@ import { getFilterWithChecked, sortValues } from '#/src/tools/filters';
 import { ValueOf } from '#/src/types/common';
 
 const createSearchQueryHook =
-  (key: string, fn: (x: any) => any) => (requestParams: any) =>
-    useQuery([key, requestParams], () => fn(requestParams), {
+  (key: string, fn: (x: any, signal: any) => any) => (requestParams: any) =>
+    useQuery([key, requestParams], ({ signal }) => fn(requestParams, signal), {
       keepPreviousData: true,
     });
 
