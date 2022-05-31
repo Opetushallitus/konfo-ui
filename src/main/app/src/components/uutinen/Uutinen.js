@@ -63,8 +63,8 @@ export const Uutinen = ({ id }) => {
   const { asset } = data;
   const imgUrl = useImageUrl(uutinen, asset, assetUrl);
 
-  const forwardToPage = (id) => {
-    history.push(`/${i18n.language}${forwardTo(id)}`);
+  const forwardToPage = (pageId) => {
+    history.push(`/${i18n.language}${forwardTo(pageId)}`);
   };
 
   const timestamp = uutinen.formatoituUpdated || uutinen.formatoituCreated;

@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { Provider, useDispatch } from 'react-redux';
-import { BrowserRouter, useHistory } from 'react-router-dom';
+import { BrowserRouter, useLocation } from 'react-router-dom';
 import 'typeface-open-sans';
 import StackTrace from 'stacktrace-js';
 
@@ -15,7 +15,7 @@ import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { useQueryOnce } from '#/src/hooks';
 import ScrollToTop from '#/src/ScrollToTop';
 import { getKonfoStore } from '#/src/store';
-import { setCurrentLocation } from '#/src/store/reducers/appSlice';
+import { locationChanged } from '#/src/store/reducers/appSlice';
 import { theme } from '#/src/theme';
 import { configureI18n } from '#/src/tools/i18n';
 import { isCypress } from '#/src/tools/utils';
@@ -49,7 +49,7 @@ if ('serviceWorker' in navigator) {
   }
 }
 
-window.onerror = (errorMsg, url, line, col, errorObj) => {
+window.onerror = (errorMsg, _url, line, col, errorObj) => {
   if (process.env.NODE_ENV === 'production' && !isCypress) {
     const send = (trace) => {
       postClientError({
@@ -66,23 +66,26 @@ window.onerror = (errorMsg, url, line, col, errorObj) => {
         console.log(err);
         send(JSON.stringify(err));
       })
-      .catch((err) => {
+      .catch(() => {
         send(JSON.stringify(errorObj));
       });
   }
 };
 
+const useSyncAppPage = () => {
+  const dispatch = useDispatch();
+  const location = useLocation();
+
+  useEffect(() => {
+    dispatch(locationChanged(location));
+  }, [dispatch, location]);
+};
+
 const InitGate = ({ children }) => {
   const { status: urlStatus } = useQueryOnce('urls', configureUrls);
   const { status: i18nStatus } = useQueryOnce('i18n', configureI18n);
-  const dispatch = useDispatch();
-  const history = useHistory();
 
-  useEffect(() => {
-    return history.listen((currentLocation) => {
-      dispatch(setCurrentLocation({ currentLocation }));
-    });
-  }, [dispatch, history]);
+  useSyncAppPage();
 
   if ([urlStatus, i18nStatus].includes('loading')) {
     return <LoadingCircle />;

@@ -16,7 +16,7 @@ import { Close } from '@material-ui/icons';
 import _fp from 'lodash/fp';
 import { useTranslation } from 'react-i18next';
 
-import { MobileToggleFiltersButton } from '#/src/components/hakutulos/MobileToggleFiltersButton';
+import { MobileToggleFiltersButton } from '#/src/components/haku/hakutulos/MobileToggleFiltersButton';
 import { KOULUTUS_TYYPPI, KORKEAKOULU_KOULUTUSTYYPIT } from '#/src/constants';
 import { FilterValue } from '#/src/types/SuodatinTypes';
 

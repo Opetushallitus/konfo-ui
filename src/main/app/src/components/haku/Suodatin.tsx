@@ -23,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
   },
   expandButton: {
     height: '40px',
-    fontFamily: 'Open Sans',
     fontSize: '16px',
     fontWeight: 600,
     lineHeight: '16px',
@@ -37,13 +36,12 @@ type Props = {
   header: string;
 };
 
-export const Suodatin = ({ id: propsId, SuodatinComponent, header }: Props) => {
+export const Suodatin = ({ id, SuodatinComponent, header }: Props) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
   const anchorRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
-  const id = isOpen ? propsId : undefined;
 
   const ExpandIcon = () => (isOpen ? <ExpandLessOutlined /> : <ExpandMoreOutlined />);
 
@@ -53,18 +51,17 @@ export const Suodatin = ({ id: propsId, SuodatinComponent, header }: Props) => {
         {header}
       </Typography>
       <Button
-        aria-describedby={id}
         endIcon={<ExpandIcon />}
         onClick={() => setIsOpen(true)}
         ref={anchorRef}
-        className={classes.expandButton}
-        aria-label={t('haku.valitse')}>
+        aria-label={t('haku.valitse')}
+        data-cy={`valitse_${id}`}
+        className={classes.expandButton}>
         {t('haku.valitse')}
       </Button>
       <PopoverWithArrow
         anchorEl={anchorRef.current}
         content={<SuodatinComponent expanded summaryHidden />}
-        id={id}
         marginTop={7}
         onClose={() => setIsOpen(false)}
         open={isOpen}

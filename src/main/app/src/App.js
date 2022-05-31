@@ -13,14 +13,13 @@ import { useSideMenu } from '#/src/hooks';
 import { NotFound } from '#/src/NotFound';
 import { supportedLanguages } from '#/src/tools/i18n';
 import { getLanguage } from '#/src/tools/localization';
-import { useOnEtusivu } from '#/src/tools/useOnEtusivu';
 
 import { Draft } from './components/common/Draft';
 import Footer from './components/common/Footer';
 import { Header } from './components/common/Header';
 import { SideMenu } from './components/common/SideMenu';
 import { Etusivu } from './components/Etusivu';
-import { Haku } from './components/haku/Haku';
+import { HakuPage } from './components/haku/HakuPage';
 import { Hakupalkki } from './components/haku/Hakupalkki';
 import { KoulutusPage } from './components/koulutus/KoulutusPage';
 import { OppilaitosPage } from './components/oppilaitos/OppilaitosPage';
@@ -35,10 +34,11 @@ import {
   ValintaperustePreviewPage,
 } from './components/valintaperusteet/ValintaperustePage';
 import { SIDEMENU_WIDTH } from './constants';
+import { useIsAtEtusivu } from './store/reducers/appSlice';
 import { getHeaderHeight, theme } from './theme';
 import { useChat } from './useChat';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   content: {
     marginTop: getHeaderHeight(theme),
     minWidth: 0,
@@ -105,6 +105,7 @@ const TranslatedRoutes = ({ match, location }) => {
     };
     return <Redirect to={newLocation} />;
   }
+
   return supportedLanguages.includes(selectedLanguage) ? (
     <Switch>
       <Route exact path="/:lng">
@@ -115,7 +116,7 @@ const TranslatedRoutes = ({ match, location }) => {
       </Route>
       <Route exact path="/:lng/haku/:keyword?">
         <KoulutusHakuBar />
-        <Haku />
+        <HakuPage />
       </Route>
       <Route exact path="/:lng/koulutus/:oid">
         <KoulutusHakuBar />
@@ -186,7 +187,7 @@ const App = () => {
   const language = getLanguage();
   const { pathname } = useLocation();
   const { state: menuVisible, toggleMenu, closeMenu } = useSideMenu();
-  const { isAtEtusivu } = useOnEtusivu();
+  const isAtEtusivu = useIsAtEtusivu();
   const isFetching = useIsFetching();
 
   const classes = useStyles({ betaBannerVisible: betaBanner, isSmall, menuVisible });
@@ -212,6 +213,7 @@ const App = () => {
       }
     }
   }, [isFetching, isAtEtusivu, titleObj, language, pathname]);
+
   return (
     <React.Fragment>
       <Draft />

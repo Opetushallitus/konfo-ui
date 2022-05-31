@@ -18,9 +18,9 @@ import { PageSection } from '#/src/components/common/PageSection';
 import TeemakuvaImage from '#/src/components/common/TeemakuvaImage';
 import { getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
 import { getLanguage, localize } from '#/src/tools/localization';
+import { useUrlParams } from '#/src/tools/useUrlParams';
 import { getLocalizedOpintojenLaajuus, sanitizedHTMLParser } from '#/src/tools/utils';
 
-import { useUrlParams } from '../hakutulos/UseUrlParams';
 import { useKoulutus, useKoulutusJarjestajat } from './hooks';
 import { KoulutusInfoGrid } from './KoulutusInfoGrid';
 import { ToteutusList } from './ToteutusList';
@@ -186,7 +186,7 @@ export const KoulutusPage = () => {
       <Box width="100%" alignSelf="start">
         <Murupolku
           path={[
-            { name: t('haku.otsikko'), link: hakuUrl.url },
+            { name: t('haku.otsikko'), link: hakuUrl },
             { name: localize(koulutus?.tutkintoNimi) },
           ]}
         />

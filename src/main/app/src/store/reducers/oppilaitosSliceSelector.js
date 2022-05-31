@@ -1,29 +1,30 @@
 import { createSelector } from '@reduxjs/toolkit';
 
 import { getLanguage } from '#/src/tools/localization';
+import { getPaginationPage } from '#/src/tools/utils';
 
 // State data getters
-function getPage(state) {
-  return state.oppilaitos.page;
-}
-function getSize(state) {
-  return state.oppilaitos.size;
-}
-function getOffset(state) {
-  return state.oppilaitos.offset;
-}
-function getOrder(state) {
-  return state.oppilaitos.order;
-}
-function getTulevaPage(state) {
-  return state.oppilaitos.tulevaPage;
-}
-function getTulevaSize(state) {
-  return state.oppilaitos.tulevaSize;
-}
-function getTulevaOffset(state) {
-  return state.oppilaitos.tulevaOffset;
-}
+const getPage = (state) =>
+  getPaginationPage({
+    offset: state.oppilaitos.offset,
+    size: state.oppilaitos.size,
+  });
+
+const getSize = (state) => state.oppilaitos.size;
+
+const getOffset = (state) => state.oppilaitos.offset;
+
+const getOrder = (state) => state.oppilaitos.order;
+
+const getTulevaPage = (state) =>
+  getPaginationPage({
+    offset: state.oppilaitos.tulevaOffset,
+    size: state.oppilaitos.tulevaSize,
+  });
+
+const getTulevaSize = (state) => state.oppilaitos.tulevaSize;
+
+const getTulevaOffset = (state) => state.oppilaitos.tulevaOffset;
 
 export const getTarjontaPaginationProps = createSelector(
   [getPage, getSize, getOrder, getOffset],

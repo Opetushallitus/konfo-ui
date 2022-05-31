@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 
 import {
   AppBar,
@@ -14,16 +14,10 @@ import {
 } from '@material-ui/core';
 import { Close } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 
-import {
-  searchAndMoveToHaku,
-  clearSelectedFilters,
-  newSearchAll,
-} from '#/src/store/reducers/hakutulosSlice';
-import { getAllSelectedFilters } from '#/src/store/reducers/hakutulosSliceSelector';
+import { useIsAtEtusivu } from '#/src/store/reducers/appSlice';
 
+import { useAllSelectedFilters, useSearch } from '../hakutulosHooks';
 import { HakutapaSuodatin } from './hakutulosSuodattimet/HakutapaSuodatin';
 import { KoulutusalaSuodatin } from './hakutulosSuodattimet/KoulutusalaSuodatin';
 import { KoulutustyyppiSuodatin } from './hakutulosSuodattimet/KoulutustyyppiSuodatin';
@@ -61,26 +55,21 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export const MobileFiltersOnTopMenu = ({ isFrontPage = false }) => {
+export const MobileFiltersOnTopMenu = () => {
   const classes = useStyles();
   const { t } = useTranslation();
-  const dispatch = useDispatch();
-  const history = useHistory();
-  const { koulutusTotal, oppilaitosTotal, selectedTab } = useSelector(
-    (state: any) => ({
-      koulutusTotal: state.hakutulos.koulutusTotal,
-      oppilaitosTotal: state.hakutulos.oppilaitosTotal,
-      selectedTab: state.hakutulos.selectedTab,
-    }),
-    shallowEqual
-  );
+
+  const isAtEtusivu = useIsAtEtusivu();
+
+  const { koulutusData, oppilaitosData, selectedTab, clearFilters, goToSearchPage } =
+    useSearch();
 
   const hitCount = useMemo(
-    () => (selectedTab === 'koulutus' ? koulutusTotal : oppilaitosTotal),
-    [selectedTab, koulutusTotal, oppilaitosTotal]
+    () => (selectedTab === 'koulutus' ? koulutusData?.total : oppilaitosData?.total),
+    [selectedTab, koulutusData, oppilaitosData]
   );
 
-  const { count } = useSelector(getAllSelectedFilters);
+  const { count } = useAllSelectedFilters();
 
   const [showFilters, setShowFilters] = useState(false);
   const toggleShowFilters = useCallback(
@@ -88,29 +77,18 @@ export const MobileFiltersOnTopMenu = ({ isFrontPage = false }) => {
     [showFilters]
   );
 
-  useEffect(() => {
-    if (isFrontPage) {
-      dispatch(newSearchAll());
-    }
-  }, [isFrontPage, dispatch]);
-
   const handleFiltersShowToggle = () => {
-    if (isFrontPage) {
-      dispatch(searchAndMoveToHaku({ history }));
+    if (isAtEtusivu) {
+      goToSearchPage();
     }
     toggleShowFilters();
-  };
-
-  const handleClearFilters = () => {
-    dispatch(clearSelectedFilters());
-    dispatch(newSearchAll());
   };
 
   return (
     <>
       {!showFilters && (
         <MobileToggleFiltersButton
-          type={isFrontPage ? 'frontpage' : 'fixed'}
+          type={isAtEtusivu ? 'frontpage' : 'fixed'}
           chosenFilterCount={count}
           showFilters={showFilters}
           handleFiltersShowToggle={toggleShowFilters}
@@ -144,7 +122,7 @@ export const MobileFiltersOnTopMenu = ({ isFrontPage = false }) => {
                   <Button
                     color="inherit"
                     classes={{ label: classes.buttonLabel }}
-                    onClick={handleClearFilters}>
+                    onClick={clearFilters}>
                     {t('haku.poista-valitut')}
                   </Button>
                 )}
@@ -153,8 +131,8 @@ export const MobileFiltersOnTopMenu = ({ isFrontPage = false }) => {
           </Toolbar>
         </AppBar>
         <Container classes={{ root: classes.containerRoot }}>
-          {isFrontPage && <MobileToggleKoulutusOppilaitos />}
-          {isFrontPage && <Divider className={classes.divider} />}
+          {isAtEtusivu && <MobileToggleKoulutusOppilaitos />}
+          {isAtEtusivu && <Divider className={classes.divider} />}
           <KoulutustyyppiSuodatin expanded={false} displaySelected />
           <Divider className={classes.divider} />
           <OpetuskieliSuodatin expanded={false} displaySelected />
@@ -171,8 +149,8 @@ export const MobileFiltersOnTopMenu = ({ isFrontPage = false }) => {
           <Divider className={classes.divider} />
           <OpetustapaSuodatin expanded={false} displaySelected />
           <Divider className={classes.divider} />
-          {!isFrontPage && <MobileToggleOrderByButtonMenu />}
-          {!isFrontPage && <MobileResultsPerPageExpansionMenu />}
+          {!isAtEtusivu && <MobileToggleOrderByButtonMenu />}
+          {!isAtEtusivu && <MobileResultsPerPageExpansionMenu />}
         </Container>
         <MobileToggleFiltersButton
           type="fixed"

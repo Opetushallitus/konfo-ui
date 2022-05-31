@@ -9,7 +9,6 @@ import {
   useMediaQuery,
   useTheme,
 } from '@material-ui/core';
-import { TFunction } from 'i18next';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
@@ -20,7 +19,7 @@ import { localize } from '#/src/tools/localization';
 import { byLocaleCompare, toId } from '#/src/tools/utils';
 import { Yhteystiedot as YhteystiedotType } from '#/src/types/common';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   container: {
     marginTop: 20,
   },
@@ -34,10 +33,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const parseYhteystieto =
-  (t: TFunction) =>
+  () =>
   ({
     nimi,
-    postiosoite: postiosoiteProp,
     kayntiosoite: kayntiosoiteProp,
     postiosoiteStr,
     kayntiosoiteStr,
@@ -98,9 +96,9 @@ export const Yhteystiedot = ({
         .concat(hakijapalveluidenYhteystiedot as any) // TODO: undefined cannot be concated :I
         .concat(organisaatioidenYhteystiedot as any)
         .filter(Boolean)
-        .map(parseYhteystieto(t))
+        .map(parseYhteystieto())
         .sort(byLocaleCompare('nimi')),
-    [t, hakijapalveluidenYhteystiedot, organisaatioidenYhteystiedot, yhteystiedot]
+    [hakijapalveluidenYhteystiedot, organisaatioidenYhteystiedot, yhteystiedot]
   );
 
   return (

@@ -12,8 +12,7 @@ const useDomQuery = (selector: string) => {
     const newEl = document.querySelector(selector);
     setEl(newEl);
     const observer = new MutationObserver(() => {
-      const newEl = document.querySelector(selector);
-      setEl(newEl);
+      setEl(document.querySelector(selector));
     });
     observer.observe(document.body, {
       childList: true,

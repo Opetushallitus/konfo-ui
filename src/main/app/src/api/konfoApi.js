@@ -5,7 +5,7 @@ import { urls } from 'oph-urls-js';
 import qs from 'query-string';
 
 import { getLanguage } from '#/src/tools/localization';
-import { Common as C } from '#/src/tools/utils';
+import { cleanRequestParams } from '#/src/tools/utils';
 
 const client = axios.create({
   headers: {
@@ -45,7 +45,7 @@ export const getEperusteKuvaus = (ePerusteId) =>
 
 export const getKoulutusJarjestajat = ({ oid, requestParams }) =>
   get(urls.url('konfo-backend.koulutus.jarjestajat', oid), {
-    params: C.cleanRequestParams(requestParams),
+    params: cleanRequestParams(requestParams),
   });
 
 export const getOppilaitos = createEntityGetter('oppilaitos');
@@ -54,12 +54,12 @@ export const getOppilaitosOsa = createEntityGetter('oppilaitosOsa');
 
 export const getOppilaitosTarjonta = ({ oid, requestParams }) =>
   get(urls.url('konfo-backend.oppilaitos.tarjonta', oid), {
-    params: C.cleanRequestParams(requestParams),
+    params: cleanRequestParams(requestParams),
   });
 
 export const getOppilaitosOsaTarjonta = ({ oid, requestParams }) =>
   get(urls.url('konfo-backend.oppilaitosOsa.tarjonta', oid), {
-    params: C.cleanRequestParams(requestParams),
+    params: cleanRequestParams(requestParams),
   });
 
 export const getToteutus = createEntityGetter('toteutus');
@@ -67,7 +67,7 @@ export const getToteutus = createEntityGetter('toteutus');
 export const getToteutusOsaamisalaKuvaus = ({ ePerusteId, requestParams }) => {
   return client
     .get(urls.url('konfo-backend.kuvaus.osaamisalat', ePerusteId), {
-      params: C.cleanRequestParams(requestParams),
+      params: cleanRequestParams(requestParams),
     })
     .then((response) => response.data);
 };
@@ -77,25 +77,24 @@ export const getHakukohde = createEntityGetter('hakukohde');
 export const getHakukohdeDemo = async (hakukohdeOid) => {
   try {
     return await get(urls.url('konfo-backend.hakukohde.demo', hakukohdeOid));
-  } catch (ignored) {
+  } catch {
     return { demoAllowed: false };
   }
 };
 
 export const getValintaperuste = createEntityGetter('valintaperusteet');
 
-export const searchAPI = {
-  getKoulutukset(requestParams) {
-    return get(urls.url('konfo-backend.search.koulutukset'), {
-      params: { lng: getLanguage(), ...C.cleanRequestParams(requestParams) },
-    });
-  },
-  getOppilaitokset(requestParams) {
-    return get(urls.url('konfo-backend.search.oppilaitokset'), {
-      params: { lng: getLanguage(), ...C.cleanRequestParams(requestParams) },
-    });
-  },
-};
+export const searchKoulutukset = (requestParams, signal) =>
+  get(urls.url('konfo-backend.search.koulutukset'), {
+    params: { lng: getLanguage(), ...cleanRequestParams(requestParams) },
+    signal,
+  });
+
+export const searchOppilaitokset = (requestParams, signal) =>
+  get(urls.url('konfo-backend.search.oppilaitokset'), {
+    params: { lng: getLanguage(), ...cleanRequestParams(requestParams) },
+    signal,
+  });
 
 export const postClientError = (errorData) =>
   client.post('/konfo-backend/client-error', errorData);
@@ -149,7 +148,7 @@ export const getContentfulData = (manifest, lang) => {
   ).then((all) => {
     const contentfulData = Object.assign({}, ...all);
     const slugsToIds = Object.fromEntries(
-      Object.values(contentfulData?.sivu).map((sivu) => [
+      _.values(contentfulData?.sivu).map((sivu) => [
         sivu.slug,
         { language: lang, id: sivu.id },
       ])

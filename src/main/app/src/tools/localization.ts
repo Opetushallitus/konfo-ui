@@ -6,8 +6,8 @@ import { Maksullisuustyyppi } from '#/src/types/ToteutusTypes';
 import i18n from './i18n';
 import { koodiUriToPostinumero } from './utils';
 
-const lng = (nimi: any, lng: 'fi' | 'en' | 'sv') =>
-  nimi?.['kieli_' + lng] || nimi?.[lng] || false;
+const lng = (nimi: any, lang: 'fi' | 'en' | 'sv') =>
+  nimi?.['kieli_' + lang] || nimi?.[lang] || false;
 
 export const getLanguage = () => i18n.language;
 

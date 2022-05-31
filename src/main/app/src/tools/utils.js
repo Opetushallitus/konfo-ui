@@ -14,10 +14,8 @@ DOMPurify.addHook('afterSanitizeAttributes', function (node) {
 
 export const sanitizeHTML = (html) => DOMPurify.sanitize(html);
 
-export const Common = {
-  // Filters all untruthy values, we do not want false or 0 values sent
-  cleanRequestParams: _fp.pickBy(_fp.identity),
-};
+// Filters all untruthy values, we do not want false or 0 values sent
+export const cleanRequestParams = _fp.pickBy(_fp.identity);
 
 export const koodiUriToPostinumero = (str = '') => {
   return str.match(/^posti_(\d+)/)?.[1] ?? '';
@@ -137,3 +135,6 @@ export const formatDouble = (number, fixed) =>
   (fixed !== undefined ? number?.toFixed(fixed) : number)?.toString().replace('.', ',');
 
 export const isCypress = process.env.REACT_APP_CYPRESS;
+
+export const getPaginationPage = ({ offset, size }) =>
+  1 + (size ? Math.round(offset / size) : 0);

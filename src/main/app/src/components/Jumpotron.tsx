@@ -3,8 +3,9 @@ import React from 'react';
 import { Grid, Card, CardHeader, CardContent, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-import Image from '../assets/images/o-EDUCATION-facebook.jpg';
-import { colors } from '../colors';
+import Image from '#/src/assets/images/o-EDUCATION-facebook.jpg';
+import { colors } from '#/src/colors';
+
 import { Hakupalkki } from './haku/Hakupalkki';
 import { ReactiveBorder } from './ReactiveBorder';
 
@@ -31,7 +32,6 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     color: colors.white,
-    fontFamily: 'Open Sans',
     fontSize: '40px',
     fontWeight: 'bold',
     letterSpacing: '-1.5px',
@@ -39,7 +39,6 @@ const useStyles = makeStyles((theme) => ({
   },
   subheader: {
     color: colors.white,
-    fontFamily: 'Open Sans',
     fontSize: '16px',
     lineHeight: '27px',
   },

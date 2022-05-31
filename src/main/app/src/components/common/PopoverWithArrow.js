@@ -4,8 +4,8 @@ import { Box, makeStyles, Popover } from '@material-ui/core';
 
 import { colors } from '#/src/colors';
 
-const PopoverWithArrow = ({ anchorEl, content, id, marginTop, onClose, open }) => {
-  const useStyles = makeStyles((theme) => ({
+const PopoverWithArrow = ({ anchorEl, content, marginTop, onClose, open }) => {
+  const useStyles = makeStyles(() => ({
     popoverRoot: {
       border: '10px solid black',
       background: 'rgba(0,0,0,0.5)',
@@ -53,7 +53,6 @@ const PopoverWithArrow = ({ anchorEl, content, id, marginTop, onClose, open }) =
   return (
     <Popover
       classes={{ paper: classes.popoverPaper, root: classes.popoverRoot }}
-      id={id}
       open={open}
       anchorEl={anchorEl}
       onClose={onClose}

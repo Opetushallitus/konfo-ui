@@ -3,14 +3,12 @@ import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useMediaQuery } from '@material-ui/core';
 import _ from 'lodash';
 import { urls } from 'oph-urls-js';
-import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import { getContentfulData, getContentfulManifest } from '#/src/api/konfoApi';
 import { setMenuState, useMenuOpen } from '#/src/store/reducers/appSlice';
-import { getAPIRequestParams } from '#/src/store/reducers/hakutulosSliceSelector';
 
 import { SIDEMENU_WIDTH } from './constants';
 import { theme } from './theme';
@@ -45,14 +43,6 @@ export const useQueryOnce = (key, fn, options = {}) => {
     retry: 1,
     ...options,
   });
-};
-
-export const useQueryParams = () => {
-  const apiRequestParams = useSelector(getAPIRequestParams);
-  const { i18n } = useTranslation();
-  const lng = useMemo(() => i18n.language, [i18n.language]);
-
-  return { ...apiRequestParams, lng };
 };
 
 const initialContentfulData = {
@@ -158,7 +148,7 @@ export const useContentful = () => {
   );
 };
 
-export const useSideMenu = (callback, deps) => {
+export const useSideMenu = () => {
   const dispatch = useDispatch();
 
   const menuOpen = useMenuOpen();

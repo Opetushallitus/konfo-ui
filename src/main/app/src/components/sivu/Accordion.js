@@ -26,7 +26,7 @@ const StyledAccordion = withStyles({
   expanded: {},
 })(MuiAccordion);
 
-const Summary = ({ children, ...props }) => {
+const Summary = ({ children }) => {
   return (
     <AccordionSummary
       elevation={0}
@@ -36,7 +36,7 @@ const Summary = ({ children, ...props }) => {
     </AccordionSummary>
   );
 };
-const Accordion = ({ children, ...props }) => {
+const Accordion = ({ children }) => {
   return <StyledAccordion elevation={0}>{children}</StyledAccordion>;
 };
 

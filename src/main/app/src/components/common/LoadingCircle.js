@@ -31,7 +31,7 @@ export const OverlayLoadingCircle = ({ isLoading = false, noContent = false }) =
   );
 };
 
-export const LoadingWrapper = ({ children }) => {
+export const LoadingCircleWrapper = ({ children }) => {
   const ref = useRef(null);
 
   const noContent = ref.current?.clientHeight <= CIRCLE_MIN_HEIGHT;

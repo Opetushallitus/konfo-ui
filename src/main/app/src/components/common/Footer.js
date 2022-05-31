@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Link, makeStyles, useTheme } from '@material-ui/core';
+import { Link, makeStyles, Typography, useTheme } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import useMediaQuery from '@material-ui/core/useMediaQuery/useMediaQuery';
@@ -84,6 +84,14 @@ const Footer = () => {
         component: Link,
         props: {
           className: classes.link,
+        },
+      },
+      p: {
+        component: Typography,
+        props: {
+          variant: 'body1',
+          component: 'div',
+          paragraph: true,
         },
       },
     },

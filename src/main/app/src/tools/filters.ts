@@ -1,20 +1,17 @@
 import _ from 'lodash';
 
+import { FILTER_TYPES, YHTEISHAKU_KOODI_URI } from '#/src/constants';
 import { FilterValue } from '#/src/types/SuodatinTypes';
 
-import { FILTER_TYPES, YHTEISHAKU_KOODI_URI } from '../constants';
-import { getLanguage } from './localization';
-
 export const sortValues = <T>(filterObj: Record<string, T>) =>
-  _.orderBy(
+  _.sortBy(
     _.toPairs(filterObj).map(([id, values]) => ({ id, ...values })),
-    ['count', `nimi.[${getLanguage()}]`],
-    ['desc', 'asc']
+    'id'
   );
 
 // NOTE: Tämä funktio hoitaa kovakoodatut rakenteet erikoisemmille suodattimille e.g. hakukaynnissa / hakutapa + yhteishaku
 export const getFilterWithChecked = (
-  filters: Record<string, any>,
+  filters: Record<string, any> | undefined,
   allCheckedValues: Record<string, any>,
   originalFilterId: string
 ) => {
@@ -23,7 +20,7 @@ export const getFilterWithChecked = (
     originalFilterId === FILTER_TYPES.YHTEISHAKU
       ? FILTER_TYPES.HAKUTAPA
       : originalFilterId;
-  const filter = filters[filterId];
+  const filter = filters?.[filterId];
 
   if (!filter) {
     return {};

@@ -3,32 +3,24 @@ import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 import { SuodatinMobileSlider } from '#/src/components/common/Filter/CustomizedMuiComponents';
 import { pageSizeArray } from '#/src/constants';
-import { clearPaging, newSearchAll, setSize } from '#/src/store/reducers/hakutulosSlice';
+
+import { useSearch } from '../hakutulosHooks';
 
 export const MobileResultsPerPageExpansionMenu = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
-  const { size } = useSelector(
-    (state) => ({
-      size: state.hakutulos.size,
-    }),
-    shallowEqual
-  );
+  const { pagination, setPagination, resetPagination } = useSearch();
+  const size = pagination.size;
   const marks = pageSizeArray.map((_size) => ({
     value: _size,
     label: _.toString(_size),
   }));
 
-  const valueText = (value) => value;
-
   const handleSliderValueChange = (e, newSize) => {
-    dispatch(clearPaging());
-    dispatch(setSize({ newSize }));
-    dispatch(newSearchAll());
+    resetPagination();
+    setPagination({ size: newSize });
   };
 
   return (
@@ -45,13 +37,13 @@ export const MobileResultsPerPageExpansionMenu = () => {
       </Grid>
       <Grid item xs={12} sm>
         <SuodatinMobileSlider
-          defaultValue={size}
+          value={size}
           track={false}
           min={_.min(pageSizeArray)}
           max={_.max(pageSizeArray)}
           marks={marks}
           step={null}
-          getAriaValueText={valueText}
+          getAriaValueText={(value) => value}
           aria-label={t('haku.tuloksia-per-sivu')}
           onChange={handleSliderValueChange}
         />

@@ -56,8 +56,8 @@ const Module = ({ module }) => {
       <Tree
         id={id}
         title={name}
-        cardsLeft={left.map(({ id }) => lehti[id])}
-        cardsRight={right.map(({ id }) => lehti[id])}
+        cardsLeft={left.map(({ id: leftId }) => lehti[leftId])}
+        cardsRight={right.map(({ id: rightId }) => lehti[rightId])}
       />
     );
   } else if (module.type === 'content') {

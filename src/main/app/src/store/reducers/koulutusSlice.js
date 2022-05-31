@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import _ from 'lodash';
 
-const initialPaging = {
-  page: 1,
+import { getPaginationPage } from '#/src/tools/utils';
+
+const initialPagination = {
   size: 5,
   offset: 0,
 };
@@ -11,13 +12,13 @@ export const initialState = {
   tulevatJarjestajat: {
     filters: {},
     pagination: {
-      ...initialPaging,
+      ...initialPagination,
     },
   },
   jarjestajat: {
     filters: {},
     pagination: {
-      ...initialPaging,
+      ...initialPagination,
     },
   },
 };
@@ -47,13 +48,10 @@ const koulutusSlice = createSlice({
       }
     },
     resetJarjestajatPaging(state) {
-      Object.assign(state.jarjestajat.pagination, initialState.jarjestajat.pagination);
+      state.jarjestajat.pagination.offset = 0;
     },
     resetTulevatJarjestajatPaging(state) {
-      Object.assign(
-        state.tulevatJarjestajat.pagination,
-        initialState.tulevatJarjestajat.pagination
-      );
+      state.tulevatJarjestajat.pagination.offset = 0;
     },
   },
 });
@@ -71,5 +69,20 @@ export const {
 } = koulutusSlice.actions;
 export default koulutusSlice.reducer;
 
-export const selectJarjestajatQuery = (isTuleva) => (state) =>
-  isTuleva ? state?.koulutus?.tulevatJarjestajat : state?.koulutus?.jarjestajat;
+const withPage = (pagination) => ({
+  ...pagination,
+  page: getPaginationPage({
+    offset: pagination.offset,
+    size: pagination.size,
+  }),
+});
+
+export const selectJarjestajatQuery = (isTuleva) => (state) => {
+  const jarjestajat = isTuleva
+    ? state?.koulutus?.tulevatJarjestajat
+    : state?.koulutus?.jarjestajat;
+  return {
+    ...jarjestajat,
+    pagination: withPage(jarjestajat.pagination),
+  };
+};

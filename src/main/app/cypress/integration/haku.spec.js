@@ -5,11 +5,35 @@ import hakuMocks from '#/cypress/mocks/haku.mocks.json';
 describe('Haku', () => {
   beforeEach(() => {
     playMocks(hakuMocks);
+    cy.intercept(
+      {
+        url: 'konfo-backend/search/oppilaitokset*',
+        query: {
+          keyword: 'auto',
+          koulutustyyppi: '',
+        },
+      },
+      {
+        fixture: 'search-oppilaitokset-auto.json',
+      }
+    );
+    cy.intercept(
+      {
+        url: 'konfo-backend/search/koulutukset*',
+        query: {
+          keyword: 'auto',
+          koulutustyyppi: '',
+        },
+      },
+      {
+        fixture: 'search-koulutukset-auto.json',
+      }
+    );
+    cy.visit('/fi/haku/auto');
+    cy.findAllByRole('progressbar').should('not.exist');
   });
 
   it('Koulutustyyppi checkboxes should work hierarchically', () => {
-    cy.visit('/fi/haku/auto');
-
     cy.findByTestId('koulutustyyppi-filter').within(() => {
       cy.findByRole('checkbox', { name: /Ammatillinen koulutus/ }).as(
         'AmmatillinenKoulutus'
@@ -42,9 +66,6 @@ describe('Haku', () => {
     });
   });
   it("Koulutustyyppi switching between 'Tutkintoon johtavat' and 'Muut'", () => {
-    cy.visit('/fi/haku/auto');
-
-    cy.findAllByRole('progressbar').should('not.exist');
     const tutkintoonJohtavatBtn = () =>
       cy.findByRole('button', { name: /Tutkintoon johtavat/i });
     const muutBtn = () => cy.findByRole('button', { name: /Muut/i });
@@ -105,8 +126,6 @@ describe('Haku', () => {
     });
   });
   it('Koulutusala checkboxes should work hierarchically', () => {
-    cy.visit('/fi/haku/auto');
-    cy.findAllByRole('progressbar').should('not.exist');
     cy.findByText('Koulutusalat').should('exist');
 
     const tekniikanAlatChk = () => cy.findByRole('checkbox', { name: /Tekniikan alat/i });
@@ -153,7 +172,6 @@ describe('Haku', () => {
       });
   });
   it('Opetustapa filter checkboxes and mobile summary view', () => {
-    cy.visit('/fi/haku/auto');
     const etaopetusChk = () => cy.findByRole('checkbox', { name: /Etäopetus/i });
     const verkkoOpiskeluChk = () =>
       cy.findByRole('checkbox', { name: /Verkko-opiskelu/i });
@@ -178,7 +196,6 @@ describe('Haku', () => {
   });
 
   it('Valintatapa filter checkboxes', () => {
-    cy.visit('/fi/haku/auto');
     const koepisteetChk = () => cy.findByRole('checkbox', { name: /Koepisteet/i });
     const yhteispisteetChk = () => cy.findByRole('checkbox', { name: /Yhteispisteet/i });
     cy.findByText('Valintatapa').should('exist');
@@ -202,7 +219,6 @@ describe('Haku', () => {
   });
 
   it('Hakutapa filter checkboxes', () => {
-    cy.visit('/fi/haku/auto');
     const yhteishakuChk = () => cy.findByRole('checkbox', { name: /Yhteishaku/i });
     const jatkuvaHakuChk = () => cy.findByRole('checkbox', { name: /Jatkuva haku/i });
     cy.findByText('Hakutapa').should('exist');
@@ -226,7 +242,6 @@ describe('Haku', () => {
   });
 
   it('Pohjakoulutusvaatimus filter checkboxes', () => {
-    cy.visit('/fi/haku/auto');
     const ammatillinnePerustutkintoChk = () =>
       cy.findByRole('checkbox', { name: /Ammatillinen perustutkinto/i });
     const lukioChk = () => cy.findByRole('checkbox', { name: /Lukio/i });
@@ -250,13 +265,11 @@ describe('Haku', () => {
       });
   });
   it("Koulutuskortti data should be presented correctly for 'Tutkinnon osa'", () => {
-    cy.visit('/fi/haku/auto');
-
     const searchBox = () =>
       cy.findByRole('searchbox', { name: /etsi koulutuksia tai oppilaitoksia/i });
     const searchButton = () => cy.findByRole('button', { name: /etsi/i });
 
-    searchBox().type('Hevosten hyvinvoinnista huolehtiminen');
+    searchBox().type('{selectall}').type('Hevosten hyvinvoinnista huolehtiminen');
     searchButton().click();
     cy.findByTestId('Hevosten hyvinvoinnista huolehtiminen').within(() => {
       cy.findByText('Tutkinnon osa').should('exist');
@@ -264,13 +277,11 @@ describe('Haku', () => {
     });
   });
   it("Koulutuskortti data should be presented correctly for 'Osaamisala'", () => {
-    cy.visit('/fi/haku/auto');
-
     const searchBox = () =>
       cy.findByRole('searchbox', { name: /etsi koulutuksia tai oppilaitoksia/i });
     const searchButton = () => cy.findByRole('button', { name: /etsi/i });
 
-    searchBox().type('Jalkojenhoidon osaamisala');
+    searchBox().type('{selectall}').type('Jalkojenhoidon osaamisala');
     searchButton().click();
     cy.findByTestId('Jalkojenhoidon osaamisala').within(() => {
       cy.findByText('Osaamisala').should('exist');

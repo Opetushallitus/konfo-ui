@@ -18,7 +18,7 @@ import { LANG_NAME_BY_CODE } from '#/src/constants';
 import { useLanguageState } from '#/src/hooks';
 import { supportedLanguages } from '#/src/tools/i18n';
 
-const CustomInput = withStyles((theme) => ({
+const CustomInput = withStyles(() => ({
   input: {
     position: 'relative',
     fontSize: 'small',

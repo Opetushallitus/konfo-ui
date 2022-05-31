@@ -5,7 +5,7 @@ import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
 import { HashLink as Link } from 'react-router-hash-link';
 
-import { colors } from '../../colors';
+import { colors } from '#/src/colors';
 const useStyles = makeStyles({
   link: {
     overflow: 'hidden',
@@ -26,9 +26,9 @@ const TableOfContents = (props) => {
   const classes = useStyles();
   const { content } = props;
   const { t } = useTranslation();
-  const HeadingLevelToComponent = (props) => {
-    const value = props.children;
-    const anchor = props.id;
+  const HeadingLevelToComponent = ({ children, id }) => {
+    const value = children;
+    const anchor = id;
     return (
       <Link
         className={classes.link}
@@ -39,7 +39,7 @@ const TableOfContents = (props) => {
       </Link>
     );
   };
-  const Null = (props) => null;
+  const Null = () => null;
   return (
     <Markdown
       options={{

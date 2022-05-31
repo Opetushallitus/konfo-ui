@@ -3,7 +3,6 @@ import React from 'react';
 import { ButtonGroup, Button, makeStyles, Typography } from '@material-ui/core';
 import { ExpandMore } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
-import { useSelector, useDispatch } from 'react-redux';
 
 import { colors } from '#/src/colors';
 import {
@@ -11,10 +10,10 @@ import {
   SuodatinAccordionDetails,
   SuodatinAccordionSummary,
 } from '#/src/components/common/Filter/CustomizedMuiComponents';
-import { setSelectedTab } from '#/src/store/reducers/hakutulosSlice';
-import { getHakutulosToggleProps } from '#/src/store/reducers/hakutulosSliceSelector';
 
-const useStyles = makeStyles((theme) => ({
+import { useSearch } from '../hakutulosHooks';
+
+const useStyles = makeStyles(() => ({
   buttonActive: {
     backgroundColor: colors.brandGreen,
     color: colors.white,
@@ -37,12 +36,11 @@ const useStyles = makeStyles((theme) => ({
 const MobileToggleKoulutusOppilaitos = () => {
   const classes = useStyles();
   const { t } = useTranslation();
-  const dispatch = useDispatch();
-  const { selectedTab } = useSelector(getHakutulosToggleProps);
+  const { selectedTab, setSelectedTab } = useSearch();
 
   function updateSelectedTab(e) {
     const newSelectedTab = e.currentTarget.dataset.tab;
-    dispatch(setSelectedTab({ newSelectedTab }));
+    setSelectedTab(newSelectedTab);
   }
 
   return (

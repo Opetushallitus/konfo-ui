@@ -46,11 +46,11 @@ const SubHeaderCell = withStyles(() => ({
 
 const headers = ['h1', 'h2', 'h3', 'h4', 'h5'];
 
-const isHeader = (tag: string) => headers.includes(tag);
+const checkIsHeader = (tag: string) => headers.includes(tag);
 
 // TODO: What is node here?
 export const tagHeaders = (node: any) => {
-  if (isHeader(node.name) && node.children[0]?.data) {
+  if (checkIsHeader(node.name) && node.children[0]?.data) {
     const text = node.children[0].data;
     const id = toId(text);
     const isH1 = 'h1' === node.name;

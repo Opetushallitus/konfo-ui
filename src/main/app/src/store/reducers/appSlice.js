@@ -1,39 +1,44 @@
 import { createSlice } from '@reduxjs/toolkit';
 import _ from 'lodash';
 import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 
 import { KEEP_VALIKKO_OPEN_WIDTH } from '#/src/constants';
+
+const getLocationPage = (location) => _.split(location?.pathname, '/')?.[2];
 
 export const appSlice = createSlice({
   name: 'app',
   initialState: {
     sideMenuOpen: !(window.innerWidth < KEEP_VALIKKO_OPEN_WIDTH),
-    currentLocation: {},
-    previousLocation: {},
+    // currentPage tallennettu vain, jotta voidaan päätellä previousPage
+    currentPage: undefined,
+    previousPage: undefined,
   },
   reducers: {
     setMenuState: (state, action) => {
       state.sideMenuOpen = action.payload;
     },
-    setCurrentLocation: (state, { payload }) => {
-      state.previousLocation = state.currentLocation;
-      state.currentLocation = payload.currentLocation;
+    locationChanged: (state, { payload }) => {
+      const newPage = getLocationPage(payload);
+      if (newPage !== state.currentPage) {
+        state.previousPage = state.currentPage;
+        state.currentPage = newPage;
+      }
     },
   },
 });
 
-export const usePreviousLocation = () => {
-  return useSelector((state) => state.app.previousLocation);
-};
+export const useMenuOpen = () => useSelector((state) => state.app.sideMenuOpen);
 
-export const usePreviousPage = () => {
-  return _.split(usePreviousLocation().pathname, '/')?.[2];
-};
+export const usePreviousPage = () => useSelector((state) => state.app.previousPage);
 
-export const useMenuOpen = () => {
-  return useSelector((state) => state.app.sideMenuOpen);
-};
+// Käytetty useLocation():a tässä, koska Reduxiin tallennetun currentPagen käyttäminen
+// aiheutti ongelmia reitityksessä
+export const useCurrentPage = () => getLocationPage(useLocation());
 
-export const { setMenuState, setCurrentLocation } = appSlice.actions;
+export const useIsAtEtusivu = () => useCurrentPage() === '';
+
+export const { setMenuState, locationChanged } = appSlice.actions;
 
 export default appSlice.reducer;

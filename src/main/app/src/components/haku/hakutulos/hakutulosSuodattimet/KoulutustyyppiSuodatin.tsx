@@ -2,22 +2,14 @@ import React, { useMemo, useState } from 'react';
 
 import { Button, ButtonGroup, Grid, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
 
 import { colors } from '#/src/colors';
 import { Filter } from '#/src/components/common/Filter';
 import { FILTER_TYPES } from '#/src/constants';
-import {
-  setFilterSelectedValues,
-  newSearchAll,
-} from '#/src/store/reducers/hakutulosSlice';
-import { getFilterProps } from '#/src/store/reducers/hakutulosSliceSelector';
 import { getFilterStateChanges } from '#/src/tools/filters';
-import {
-  FilterValues,
-  FilterValue,
-  SuodatinComponentProps,
-} from '#/src/types/SuodatinTypes';
+import { FilterValue, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
+
+import { useFilterProps, useSearch } from '../../hakutulosHooks';
 
 const withStyles = makeStyles(() => ({
   noBoxShadow: {
@@ -46,17 +38,14 @@ const withStyles = makeStyles(() => ({
   },
 }));
 
-const koulutusSelector = getFilterProps(FILTER_TYPES.KOULUTUSTYYPPI);
-const koulutusMuuSelector = getFilterProps(FILTER_TYPES.KOULUTUSTYYPPI_MUU);
-
 export const KoulutustyyppiSuodatin = (props: SuodatinComponentProps) => {
   const classes = withStyles();
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const { setFilters } = useSearch();
 
   const [isMuuSelected, setIsMuuSelected] = useState(false);
-  const values = useSelector<any, FilterValues>(koulutusSelector);
-  const muuValues = useSelector<any, FilterValues>(koulutusMuuSelector);
+  const values = useFilterProps(FILTER_TYPES.KOULUTUSTYYPPI);
+  const muuValues = useFilterProps(FILTER_TYPES.KOULUTUSTYYPPI_MUU);
 
   const filterValues = useMemo(
     () => [
@@ -69,8 +58,7 @@ export const KoulutustyyppiSuodatin = (props: SuodatinComponentProps) => {
   const getChanges = getFilterStateChanges(isMuuSelected ? muuValues : values);
   const handleCheck = (item: FilterValue) => {
     const changes = getChanges(item);
-    dispatch(setFilterSelectedValues(changes));
-    dispatch(newSearchAll());
+    setFilters(changes);
   };
 
   return (

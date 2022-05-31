@@ -102,8 +102,8 @@ export const SideMenu = (props) => {
   const [selected, setSelected] = useState([]);
   const [search, setSearch] = useState('');
 
-  const { valikot, valikko, loading } = data;
-  const selectValikko = (valikko) => setSelected([...selected, valikko]);
+  const { valikot, valikko, isLoading } = data;
+  const selectValikko = (newValikko) => setSelected([...selected, newValikko]);
   const popSelected = () => setSelected(selected.slice(0, -1));
   const last = (a) => (a ? a[a.length - 1] : null);
   const single = (entry) => Object.values(entry || {})[0] || {};
@@ -171,19 +171,19 @@ export const SideMenu = (props) => {
           <Murupolku path={[]} />
         </div>
       )}
-      {loading ? (
+      {isLoading ? (
         <LoadingCircle />
       ) : (
-        linkit.map((valikko) => {
-          const id = valikko.id;
-          const links = valikko.linkki || [];
+        linkit.map((linkkiValikko) => {
+          const id = linkkiValikko.id;
+          const links = linkkiValikko.linkki || [];
 
           return (
             <SidebarValikko
               key={id}
               id={id}
               parent={selectedValikko}
-              name={valikko.name}
+              name={linkkiValikko.name}
               deselect={popSelected}
               select={selectValikko}
               links={links}

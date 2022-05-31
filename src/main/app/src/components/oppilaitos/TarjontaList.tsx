@@ -13,7 +13,7 @@ import {
   OverlayLoadingCircle,
 } from '#/src/components/common/LoadingCircle';
 import { PageSection } from '#/src/components/common/PageSection';
-import { TarjontaPagination } from '#/src/components/common/TarjontaPagination';
+import { Pagination } from '#/src/components/common/Pagination';
 
 import { usePaginatedTarjonta } from './hooks';
 
@@ -59,7 +59,7 @@ export const TarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
               {t('oppilaitos.oppilaitoksessa-jarjestettavat-koulutukset')}
             </Typography>
           }>
-          <TarjontaPagination
+          <Pagination
             total={total}
             pagination={pagination}
             setPagination={setPagination}
@@ -92,7 +92,7 @@ export const TarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
               ))}
             </Grid>
           </Box>
-          <TarjontaPagination
+          <Pagination
             total={total}
             pagination={pagination}
             setPagination={setPagination}

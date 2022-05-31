@@ -4,7 +4,7 @@ import { makeStyles, Card, CardMedia } from '@material-ui/core';
 
 import DefaultHeroImage from '#/src/assets/images/herokuva_default.png';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   card: {
     maxWidth: 1200,
   },

@@ -2,25 +2,14 @@ import React, { useMemo } from 'react';
 
 import _fp from 'lodash/fp';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
 
 import { Filter } from '#/src/components/common/Filter';
 import { FILTER_TYPES } from '#/src/constants';
-import {
-  setFilterSelectedValues,
-  newSearchAll,
-} from '#/src/store/reducers/hakutulosSlice';
-import { getFilterProps, getIsReady } from '#/src/store/reducers/hakutulosSliceSelector';
 import { getFilterStateChanges } from '#/src/tools/filters';
 import { localize } from '#/src/tools/localization';
-import {
-  FilterValues,
-  FilterValue,
-  SuodatinComponentProps,
-} from '#/src/types/SuodatinTypes';
+import { FilterValue, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 
-const maakuntaSelector = getFilterProps(FILTER_TYPES.MAAKUNTA);
-const kuntaSelector = getFilterProps(FILTER_TYPES.KUNTA);
+import { useFilterProps, useSearch } from '../../hakutulosHooks';
 
 const getSelectOption = (value: FilterValue, isMaakunta: boolean) => ({
   ...value,
@@ -32,18 +21,20 @@ const getSelectOption = (value: FilterValue, isMaakunta: boolean) => ({
 
 export const SijaintiSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const { setFilters } = useSearch();
 
-  const kuntaValues = useSelector<any, FilterValues>(kuntaSelector);
-  const maakuntaValues = useSelector<any, FilterValues>(maakuntaSelector);
+  const kuntaValues = useFilterProps(FILTER_TYPES.KUNTA);
+  const maakuntaValues = useFilterProps(FILTER_TYPES.MAAKUNTA);
 
   const handleCheck = (item: FilterValue) => {
     const changes = getFilterStateChanges(kuntaValues.concat(maakuntaValues))(item);
-    dispatch(setFilterSelectedValues(changes));
-    dispatch(newSearchAll());
+    setFilters(changes);
   };
 
-  const optionsLoading = !useSelector(getIsReady);
+  const { isFetching } = useSearch();
+
+  const optionsLoading = isFetching;
+
   const groupedSijainnit = useMemo(
     () => [
       {

@@ -5,9 +5,8 @@ import { ErrorOutline } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
 
+import { colors } from '#/src/colors';
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
-
-import { colors } from '../../colors';
 
 const useStyles = makeStyles((theme) => ({
   gridOuterContainerRoot: {

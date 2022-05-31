@@ -16,7 +16,6 @@ export const FILTER_TYPES = {
   LUKIOPAINOTUKSET: 'lukiopainotukset',
   LUKIOLINJATERITYINENKOULUTUSTEHTAVA: 'lukiolinjaterityinenkoulutustehtava',
   OSAAMISALA: 'osaamisala',
-
   SIJAINTI: 'sijainti', // TODO: Poista tämä kun konfo-backend ei enää käytä sijaintirajainta vaan kunta + maakunta
 } as const;
 

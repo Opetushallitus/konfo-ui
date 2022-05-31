@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import {
   Box,
@@ -14,28 +14,35 @@ import {
 } from '@material-ui/core';
 import { ExpandMore } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import Murupolku from '#/src/components/common/Murupolku';
+import { Pagination } from '#/src/components/common/Pagination';
 import { pageSizeArray, pageSortArray } from '#/src/constants';
-import { useQueryParams } from '#/src/hooks';
-import {
-  clearPaging,
-  searchAll,
-  setSize,
-  setOrder,
-  setSort,
-} from '#/src/store/reducers/hakutulosSlice';
-import { getHakutulosProps } from '#/src/store/reducers/hakutulosSliceSelector';
+import { urlParamsChanged } from '#/src/store/reducers/hakutulosSlice';
+import { useUrlParams } from '#/src/tools/useUrlParams';
 
-import { BackendErrorMessage } from './BackendErrorMessage';
-import { HakutulosResults } from './HakutulosResults';
-import { SuodatinValinnat } from './hakutulosSuodattimet/SuodatinValinnat';
-import { HakutulosToggle } from './HakutulosToggle';
-import { MobileFiltersOnTopMenu } from './MobileFiltersOnTopMenu';
-import { Pagination } from './Pagination';
-import { Suodatinpalkki } from './Suodatinpalkki';
+import { BackendErrorMessage } from './hakutulos/BackendErrorMessage';
+import { HakutulosResults } from './hakutulos/HakutulosResults';
+import { SuodatinValinnat } from './hakutulos/hakutulosSuodattimet/SuodatinValinnat';
+import { HakutulosTabs } from './hakutulos/HakutulosTabs';
+import { MobileFiltersOnTopMenu } from './hakutulos/MobileFiltersOnTopMenu';
+import { Suodatinpalkki } from './hakutulos/Suodatinpalkki';
+import { useSearch, useSearchSortOrder } from './hakutulosHooks';
+
+const useSyncedHakuParams = () => {
+  const { search } = useUrlParams();
+  const { keyword } = useParams<any>();
+
+  const dispatch = useDispatch();
+
+  // Kun URL:n search-parametrit muuttuu, synkataan muutokset reduxiin
+  useEffect(() => {
+    dispatch(urlParamsChanged({ keyword, search }));
+  }, [dispatch, search, keyword]);
+};
 
 const useStyles = makeStyles((theme) => ({
   toggleWrapper: {
@@ -112,48 +119,34 @@ const getPageSortTranslationKey = (sort: string) => {
   }
 };
 
-export const Hakutulos = () => {
+export const HakuPage = () => {
   const classes = useStyles();
   const theme = useTheme();
   const { t } = useTranslation();
 
-  const hakutulosProps = useSelector(getHakutulosProps);
-  const apiRequestParams = useQueryParams();
-  const error = useSelector((state: any) => state.hakutulos.error);
-  const status = useSelector((state: any) => state.hakutulos.status);
-  const dispatch = useDispatch();
+  useSyncedHakuParams();
 
-  const [pageSize, setPageSize] = useState(0);
-  const [pageSort, setPageSort] = useState('score_desc');
+  const {
+    selectedTab,
+    status,
+    keyword,
+    isAnyFilterSelected,
+    pagination,
+    setPagination,
+    koulutusData,
+    oppilaitosData,
+    isFetching,
+  } = useSearch();
 
-  useEffect(() => {
-    setPageSize(hakutulosProps.size);
-  }, [hakutulosProps.size]);
-
-  const handlePageSortChange = (e: any) => {
-    const newPageSort = e.target.value;
-    const newOrder = newPageSort === 'name_asc' ? 'asc' : 'desc';
-    const newSort = newPageSort === 'score_desc' ? 'score' : 'name';
-
-    setPageSort(newPageSort);
-    dispatch(setSort({ newSort }));
-    dispatch(setOrder({ newOrder }));
-    dispatch(searchAll({ ...apiRequestParams, order: newOrder, sort: newSort }));
-  };
-  const handlePageSizeChange = (e: any) => {
-    const newSize = e.target.value;
-
-    setPageSize(newSize);
-    dispatch(clearPaging());
-    dispatch(setSize({ newSize }));
-    dispatch(searchAll({ ...apiRequestParams, size: newSize }));
-  };
+  const { sortOrder, setSortOrder } = useSearchSortOrder();
 
   const mdUp = useMediaQuery(theme.breakpoints.up('md'));
 
+  const scrollTargetId = 'hakutulos-content';
+
   return (
     <Grid className={classes.hakutulosSisalto} container>
-      <Paper classes={{ root: classes.paperRoot }} id="hakutulos-content">
+      <Paper classes={{ root: classes.paperRoot }} id={scrollTargetId}>
         <h1 style={{ display: 'none' }}>{t('haku.otsikko')}</h1>
         <Grid
           container
@@ -184,7 +177,7 @@ export const Hakutulos = () => {
             justifyContent="space-between"
             alignItems="baseline">
             <Grid item lg={6} md={7} xs={12} className={classes.toggleWrapper}>
-              <HakutulosToggle />
+              <HakutulosTabs />
             </Grid>
             <Hidden smDown>
               <Grid item style={{ paddingTop: 6 }}>
@@ -200,8 +193,8 @@ export const Hakutulos = () => {
                     icon: classes.selectIcon,
                     selectMenu: classes.selectMenu,
                   }}
-                  value={pageSize}
-                  onChange={handlePageSizeChange}>
+                  value={pagination.size}
+                  onChange={(e) => setPagination({ size: e.target.value })}>
                   {pageSizeArray.map((size) => (
                     <MenuItem
                       key={size}
@@ -223,8 +216,8 @@ export const Hakutulos = () => {
                     icon: classes.selectIcon,
                     selectMenu: classes.selectMenu,
                   }}
-                  value={pageSort}
-                  onChange={handlePageSortChange}>
+                  value={sortOrder}
+                  onChange={(e) => setSortOrder(e.target.value)}>
                   {pageSortArray.map((sort) => (
                     <MenuItem
                       key={sort}
@@ -242,15 +235,25 @@ export const Hakutulos = () => {
           {mdUp ? <Suodatinpalkki /> : <MobileFiltersOnTopMenu />}
           <Grid item container direction="column" xs>
             <Grid item>
-              <Hidden smDown>
-                {hakutulosProps.isAnyFilterSelected && <SuodatinValinnat />}
-              </Hidden>
-              {status === 'loading' && <LoadingCircle />}
-              {status === 'idle' && error && <BackendErrorMessage />}
-              {status === 'idle' && !error && <HakutulosResults {...hakutulosProps} />}
+              <Hidden smDown>{isAnyFilterSelected && <SuodatinValinnat />}</Hidden>
+              {isFetching && <LoadingCircle />}
+              {!isFetching && status === 'error' && <BackendErrorMessage />}
+              {!isFetching && status === 'success' && (
+                <HakutulosResults
+                  keyword={keyword}
+                  selectedTab={selectedTab}
+                  koulutusHits={koulutusData?.hits}
+                  oppilaitosHits={oppilaitosData?.hits}
+                />
+              )}
             </Grid>
             <Grid item>
-              <Pagination size={hakutulosProps.size} />
+              <Pagination
+                total={pagination.total}
+                pagination={pagination}
+                setPagination={setPagination}
+                scrollTargetId={scrollTargetId}
+              />
             </Grid>
           </Grid>
         </Grid>
