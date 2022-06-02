@@ -63,7 +63,7 @@ export const KoulutusKortti = ({ koulutus, isSmall }: Props) => {
   const tutkintoNimikkeet = koulutusHasTutkintonimike
     ? (koulutus?.tutkintonimikkeet || []).map(localize).join(', ').replace(/,\s*$/, '') ||
       t('haku.ei-tutkintonimiketta')
-    : t(`haku.${koulutus?.koulutustyyppi}`);
+    : t(`koulutus.tyyppi-${koulutus?.koulutustyyppi}`);
   const teemakuvaAltText = `${localize(koulutus)} ${t('koulutus.koulutuksen-teemakuva')}`;
 
   const toteutustenTarjoajatText = useToteutustenTarjoajat(
