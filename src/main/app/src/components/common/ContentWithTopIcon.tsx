@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { Avatar, Box, makeStyles } from '@material-ui/core';
-import DirectionsOutlinedIcon from '@material-ui/icons/DirectionsOutlined';
 
 import { colors, educationTypeColorCode } from '#/src/colors';
 
@@ -37,13 +36,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const ContentWithTopIcon: React.FC = ({ children }) => {
+type Props = {
+  children: React.ReactNode;
+  icon: React.ReactNode;
+};
+
+export const ContentWithTopIcon = ({ children, icon }: Props) => {
   const classes = useStyles();
   return (
     <Box className={classes.container}>
-      <Avatar className={classes.avatar}>
-        <DirectionsOutlinedIcon />
-      </Avatar>
+      <Avatar className={classes.avatar}>{icon}</Avatar>
       <Box className={classes.box}>{children}</Box>
     </Box>
   );

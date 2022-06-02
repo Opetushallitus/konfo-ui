@@ -13,11 +13,13 @@ import {
 import AutorenewIcon from '@material-ui/icons/Autorenew';
 import CalendarTodayOutlinedIcon from '@material-ui/icons/CalendarTodayOutlined';
 import PinDrop from '@material-ui/icons/PinDrop';
+import SportsSoccerIcon from '@material-ui/icons/SportsSoccer';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
+import { AdditionalInfoWithIcon } from '#/src/components/common/AdditionalInfoWithIcon';
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
 import { PageSection } from '#/src/components/common/PageSection';
@@ -106,6 +108,9 @@ const HakuCardGrid = ({ tyyppiOtsikko, icon, toteutus, hakukohteet }: GridProps)
                 .filter(Boolean)
                 .join(' · ');
 
+            const jarjestaaUrheilijanAmmKoulutusta =
+              hakukohde.jarjestyspaikka?.jarjestaaUrheilijanAmmKoulutusta;
+
             const ensikertalaisilleText = hakukohde.aloituspaikat?.ensikertalaisille
               ? `, ${t('toteutus.ensikertalaisille', {
                   ensikertalaisille: hakukohde.aloituspaikat?.ensikertalaisille,
@@ -135,6 +140,12 @@ const HakuCardGrid = ({ tyyppiOtsikko, icon, toteutus, hakukohteet }: GridProps)
                             <Grid item>
                               <Typography variant="body1">{jarjestyspaikka}</Typography>
                             </Grid>
+                          )}
+                          {jarjestaaUrheilijanAmmKoulutusta && (
+                            <AdditionalInfoWithIcon
+                              translationKey="haku.urheilijan-amm-koulutus"
+                              icon={<SportsSoccerIcon />}
+                            />
                           )}
                         </Grid>
                       </Grid>

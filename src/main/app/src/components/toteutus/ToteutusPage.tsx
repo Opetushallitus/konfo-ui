@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 
 import { Box, Grid, makeStyles, Typography } from '@material-ui/core';
+import DirectionsOutlinedIcon from '@material-ui/icons/DirectionsOutlined';
 import _ from 'lodash';
 import _fp from 'lodash/fp';
 import { useTranslation } from 'react-i18next';
@@ -13,6 +14,7 @@ import { ContentWithTopIcon } from '#/src/components/common/ContentWithTopIcon';
 import ContentWrapper from '#/src/components/common/ContentWrapper';
 import { ExternalLink } from '#/src/components/common/ExternalLink';
 import HtmlTextBox from '#/src/components/common/HtmlTextBox';
+import { InfoBanner } from '#/src/components/common/InfoBanner';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
 import Murupolku from '#/src/components/common/Murupolku';
@@ -151,14 +153,11 @@ export const ToteutusPage = () => {
         {localize(toteutus?.nimi)}
       </Heading>
       {erityisopetusHeading && erityisopetusText && (
-        <ContentWithTopIcon>
-          <Box mb={1}>
-            <Typography component="div" variant="h5">
-              {erityisopetusHeading}
-            </Typography>
-          </Box>
-          <Typography>{erityisopetusText}</Typography>
-        </ContentWithTopIcon>
+        <InfoBanner
+          heading={erityisopetusHeading}
+          bodytext={erityisopetusText}
+          icon={<DirectionsOutlinedIcon />}
+        />
       )}
       <Asiasanat toteutus={toteutus} />
       <Box mt={6}>
