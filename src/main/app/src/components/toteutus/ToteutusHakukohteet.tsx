@@ -307,11 +307,19 @@ export const ToteutusHakukohteet = ({ toteutus }: Props) => {
 
   const hakukohteetByHakutapa = toteutus?.hakukohteetByHakutapa;
 
+  const sortedByHakutapaAndHakuaika = _.sortBy(_.toPairs(hakukohteetByHakutapa), ([hakutapa]) => {
+    return Number(_.get(hakutapa?.split("_"), 1));
+  }, ([, haku]) => {
+    const isAuki = _.some(haku.hakukohteet, ["isHakuAuki"]);
+    const isMennyt = _.every(haku.hakukohteet, ["isHakuMennyt"]);
+    return isAuki ? 0 : (isMennyt ? 2 : 1);
+  });
+
   return (
     <Grid item xs={12} sm={12} md={10} lg={8}>
       <PageSection heading={t('toteutus.koulutuksen-hakukohteet')}>
         <Grid direction="column" spacing={6}>
-          {_.map(hakukohteetByHakutapa, (h, hakutapaKoodiUri) => {
+          {_.map(sortedByHakutapaAndHakuaika, ([hakutapaKoodiUri, h]) => {
             const IconComponent = getHakutyyppiIcon(
               hakutapaKoodiUri as keyof typeof typeToIconMap
             );

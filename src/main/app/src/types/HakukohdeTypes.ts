@@ -61,6 +61,7 @@ export type Hakukohde = {
   hakulomakeLinkki: Translateable;
   hakulomaketyyppi: string;
   isHakuAuki: boolean;
+  isHakuMennyt?: boolean;
   jarjestyspaikka: {
     nimi: Translateable;
     oid: string;
