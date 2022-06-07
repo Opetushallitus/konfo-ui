@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 
 import { getToteutus } from '#/src/api/konfoApi';
 import { Hakulomaketyyppi } from '#/src/constants';
-import { isHakuAuki } from '#/src/tools/hakuaikaUtils';
+import { isHakuAuki, isHakuMennyt } from '#/src/tools/hakuaikaUtils';
 import { Translateable } from '#/src/types/common';
 import { Hakukohde } from '#/src/types/HakukohdeTypes';
 import { Toteutus } from '#/src/types/ToteutusTypes';
@@ -55,6 +55,7 @@ const selectHakukohteetByHakutapa = (toteutus: any) => {
           .flatMap((hakutieto: any) => hakutieto.hakukohteet)
           .map((hakukohde: any) => ({
             ...hakukohde,
+            isHakuMennyt: isHakuMennyt(hakukohde?.hakuajat),
             isHakuAuki: isHakuAuki(hakukohde?.hakuajat),
           })),
       },
