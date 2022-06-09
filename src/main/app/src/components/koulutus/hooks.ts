@@ -109,11 +109,7 @@ const selectJarjestajat = (data: any) => {
   return {
     total: data?.total,
     jarjestajat: data?.hits,
-    // Ei näytetä järjestäjälistassa sellaisia suodattimia joiden lukumäärä on 0 (niitä on paljon)
-    sortedFilters: _fp.mapValues(
-      _fp.pickBy((v?: { count: number }) => !_fp.isObject(v) || v.count > 0),
-      data?.filters || {}
-    ),
+    sortedFilters: data?.filters || {},
   };
 };
 
