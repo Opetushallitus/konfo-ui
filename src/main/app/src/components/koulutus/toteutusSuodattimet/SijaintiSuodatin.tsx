@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { Filter } from '#/src/components/common/Filter';
 import { FilterValue, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 
-import { getSelectOption } from './utils';
+import { getSelectOption } from '../../common/utils';
 
 type Props = {
   handleFilterChange: (value: FilterValue) => void;
@@ -29,9 +29,7 @@ export const SijaintiSuodatin = (props: Props) => {
     () => [
       {
         label: t('haku.maakunnat'),
-        options: _fp.sortBy('label')(
-          maakuntaValues.map((v) => getSelectOption(v, false))
-        ),
+        options: _fp.sortBy('label')(maakuntaValues.map((v) => getSelectOption(v, true))),
       },
       {
         label: t('haku.kaupungit-tai-kunnat'),

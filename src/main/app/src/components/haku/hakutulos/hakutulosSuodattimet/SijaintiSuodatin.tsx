@@ -4,20 +4,12 @@ import _fp from 'lodash/fp';
 import { useTranslation } from 'react-i18next';
 
 import { Filter } from '#/src/components/common/Filter';
+import { getSelectOption } from '#/src/components/common/utils';
 import { FILTER_TYPES } from '#/src/constants';
 import { getFilterStateChanges } from '#/src/tools/filters';
-import { localize } from '#/src/tools/localization';
 import { FilterValue, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 
 import { useFilterProps, useSearch } from '../../hakutulosHooks';
-
-const getSelectOption = (value: FilterValue, isMaakunta: boolean) => ({
-  ...value,
-  label: `${localize(value)} (${value.count})`,
-  value: localize(value),
-  isMaakunta,
-  name: value.nimi, // TODO: tarviiko tätä?
-});
 
 export const SijaintiSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
