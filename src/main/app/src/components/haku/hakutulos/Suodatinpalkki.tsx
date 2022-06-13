@@ -5,12 +5,12 @@ import { createGlobalState, useMeasure } from 'react-use';
 
 import { HakutapaSuodatin } from '../../suodattimet/HakutapaSuodatin';
 import { OpetuskieliSuodatin } from '../../suodattimet/OpetusKieliSuodatin';
+import { ValintatapaSuodatin } from '../../suodattimet/ValintatapaSuodatin';
 import { KoulutusalaSuodatin } from './hakutulosSuodattimet/KoulutusalaSuodatin';
 import { KoulutustyyppiSuodatin } from './hakutulosSuodattimet/KoulutustyyppiSuodatin';
 import { OpetustapaSuodatin } from './hakutulosSuodattimet/OpetustapaSuodatin';
 import { PohjakoulutusvaatimusSuodatin } from './hakutulosSuodattimet/PohjakoulutusvaatimusSuodatin';
 import { SijaintiSuodatin } from './hakutulosSuodattimet/SijaintiSuodatin';
-import { ValintatapaSuodatin } from './hakutulosSuodattimet/ValintatapaSuodatin';
 
 const useSuodatinpalkkiWidthState = createGlobalState(0);
 
@@ -44,7 +44,7 @@ export const Suodatinpalkki = () => {
       <SijaintiSuodatin expanded elevation={2} />
       <PohjakoulutusvaatimusSuodatin expanded elevation={2} />
       <HakutapaSuodatin expanded elevation={2} isHaku={true} />
-      <ValintatapaSuodatin expanded elevation={2} />
+      <ValintatapaSuodatin expanded elevation={2} isHaku={true} />
       <KoulutusalaSuodatin expanded elevation={2} />
       <OpetustapaSuodatin expanded={false} elevation={2} />
     </Grid>

@@ -19,13 +19,13 @@ import { useIsAtEtusivu } from '#/src/store/reducers/appSlice';
 
 import { HakutapaSuodatin } from '../../suodattimet/HakutapaSuodatin';
 import { OpetuskieliSuodatin } from '../../suodattimet/OpetusKieliSuodatin';
+import { ValintatapaSuodatin } from '../../suodattimet/ValintatapaSuodatin';
 import { useAllSelectedFilters, useSearch } from '../hakutulosHooks';
 import { KoulutusalaSuodatin } from './hakutulosSuodattimet/KoulutusalaSuodatin';
 import { KoulutustyyppiSuodatin } from './hakutulosSuodattimet/KoulutustyyppiSuodatin';
 import { OpetustapaSuodatin } from './hakutulosSuodattimet/OpetustapaSuodatin';
 import { PohjakoulutusvaatimusSuodatin } from './hakutulosSuodattimet/PohjakoulutusvaatimusSuodatin';
 import { SijaintiSuodatin } from './hakutulosSuodattimet/SijaintiSuodatin';
-import { ValintatapaSuodatin } from './hakutulosSuodattimet/ValintatapaSuodatin';
 import { MobileResultsPerPageExpansionMenu } from './MobileResultsPerPageExpansionMenu';
 import { MobileToggleFiltersButton } from './MobileToggleFiltersButton';
 import MobileToggleKoulutusOppilaitos from './MobileToggleKoulutusOppilaitos';
@@ -143,7 +143,7 @@ export const MobileFiltersOnTopMenu = () => {
           <Divider className={classes.divider} />
           <HakutapaSuodatin expanded={false} isHaku={true} displaySelected />
           <Divider className={classes.divider} />
-          <ValintatapaSuodatin expanded={false} displaySelected />
+          <ValintatapaSuodatin expanded={false} isHaku={true} displaySelected />
           <Divider className={classes.divider} />
           <KoulutusalaSuodatin expanded={false} displaySelected />
           <Divider className={classes.divider} />

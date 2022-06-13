@@ -8,9 +8,9 @@ import { KoulutustyyppiSuodatin } from '#/src/components/haku/hakutulos/hakutulo
 import { OpetustapaSuodatin } from '#/src/components/haku/hakutulos/hakutulosSuodattimet/OpetustapaSuodatin';
 import { PohjakoulutusvaatimusSuodatin } from '#/src/components/haku/hakutulos/hakutulosSuodattimet/PohjakoulutusvaatimusSuodatin';
 import { SijaintiSuodatin } from '#/src/components/haku/hakutulos/hakutulosSuodattimet/SijaintiSuodatin';
-import { ValintatapaSuodatin } from '#/src/components/haku/hakutulos/hakutulosSuodattimet/ValintatapaSuodatin';
 import { HakutapaSuodatin } from '#/src/components/suodattimet/HakutapaSuodatin';
 import { OpetuskieliSuodatin } from '#/src/components/suodattimet/OpetusKieliSuodatin';
+import { ValintatapaSuodatin } from '#/src/components/suodattimet/ValintatapaSuodatin';
 
 import { Suodatin } from './Suodatin';
 

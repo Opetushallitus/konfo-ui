@@ -7,13 +7,14 @@ import { FILTER_TYPES } from '#/src/constants';
 import { getFilterStateChanges } from '#/src/tools/filters';
 import { FilterValue, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 
-import { useFilterProps, useSearch } from '../../hakutulosHooks';
+import { useFilterProps, useSearch } from '../haku/hakutulosHooks';
 
 // TODO: Do not use this component until backend supports filtering no-haku-kaynnissa for valintatavat
 export const ValintatapaSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
   const { setFilters } = useSearch();
   const values = useFilterProps(FILTER_TYPES.VALINTATAPA);
+  const propsValues = props.values !== undefined ? props.values : [];
 
   const handleCheck = (item: FilterValue) => {
     const changes = getFilterStateChanges(values)(item);
@@ -25,8 +26,9 @@ export const ValintatapaSuodatin = (props: SuodatinComponentProps) => {
       {...props}
       testId="valintatapa-filter"
       name={t('haku.valintatapa')}
-      values={values}
-      handleCheck={handleCheck}
+      values={props.isHaku ? values : propsValues}
+      handleCheck={props.isHaku ? handleCheck : props.handleFilterChange!}
+      displaySelected
     />
   );
 };

@@ -42,7 +42,7 @@ import { MobileFiltersOnTopMenu } from './toteutusSuodattimet/MobileFiltersOnTop
 import { OpetustapaSuodatin } from './toteutusSuodattimet/OpetustapaSuodatin';
 import { PohjakoulutusvaatimusSuodatin } from './toteutusSuodattimet/PohjakoulutusvaatimusSuodatin';
 import { SijaintiSuodatin } from './toteutusSuodattimet/SijaintiSuodatin';
-import { ValintatapaSuodatin } from './toteutusSuodattimet/ValintatapaSuodatin';
+import {ValintatapaSuodatin} from "#/src/components/suodattimet/ValintatapaSuodatin";
 
 const useStyles = makeStyles({
   grid: {
@@ -225,6 +225,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                     elevation={2}
                     handleFilterChange={handleFilterChange}
                     values={usedValues.valintatapa}
+                    isHaku={false}
                   />
                 </SuodatinGridItem>
               )}
