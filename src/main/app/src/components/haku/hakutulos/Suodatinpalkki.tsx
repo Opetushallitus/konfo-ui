@@ -9,7 +9,7 @@ import { ValintatapaSuodatin } from '../../suodattimet/ValintatapaSuodatin';
 import { KoulutusalaSuodatin } from './hakutulosSuodattimet/KoulutusalaSuodatin';
 import { KoulutustyyppiSuodatin } from './hakutulosSuodattimet/KoulutustyyppiSuodatin';
 import { OpetustapaSuodatin } from '../../suodattimet/OpetustapaSuodatin';
-import { PohjakoulutusvaatimusSuodatin } from './hakutulosSuodattimet/PohjakoulutusvaatimusSuodatin';
+import { PohjakoulutusvaatimusSuodatin } from '../../suodattimet/PohjakoulutusvaatimusSuodatin';
 import { SijaintiSuodatin } from './hakutulosSuodattimet/SijaintiSuodatin';
 
 const useSuodatinpalkkiWidthState = createGlobalState(0);
@@ -42,7 +42,7 @@ export const Suodatinpalkki = () => {
       <KoulutustyyppiSuodatin expanded elevation={2} />
       <OpetuskieliSuodatin expanded elevation={2} isHaku={true} />
       <SijaintiSuodatin expanded elevation={2} />
-      <PohjakoulutusvaatimusSuodatin expanded elevation={2} />
+      <PohjakoulutusvaatimusSuodatin expanded elevation={2} isHaku={true} />
       <HakutapaSuodatin expanded elevation={2} isHaku={true} />
       <ValintatapaSuodatin expanded elevation={2} isHaku={true} />
       <KoulutusalaSuodatin expanded elevation={2} />

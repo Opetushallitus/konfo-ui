@@ -20,13 +20,13 @@ import { MobileToggleFiltersButton } from '#/src/components/haku/hakutulos/Mobil
 import { HakutapaSuodatin } from '#/src/components/suodattimet/HakutapaSuodatin';
 import { OpetuskieliSuodatin } from '#/src/components/suodattimet/OpetusKieliSuodatin';
 import { OpetustapaSuodatin } from '#/src/components/suodattimet/OpetustapaSuodatin';
+import { PohjakoulutusvaatimusSuodatin } from '#/src/components/suodattimet/PohjakoulutusvaatimusSuodatin';
 import { ValintatapaSuodatin } from '#/src/components/suodattimet/ValintatapaSuodatin';
 import { KOULUTUS_TYYPPI, KORKEAKOULU_KOULUTUSTYYPIT } from '#/src/constants';
 import { FilterValue } from '#/src/types/SuodatinTypes';
 
 import { AmmOsaamisalatSuodatin } from './AmmOsaamisalatSuodatin';
 import { LukiolinjatSuodatin } from './LukiolinjatSuodatin';
-import { PohjakoulutusvaatimusSuodatin } from './PohjakoulutusvaatimusSuodatin';
 import { SijaintiSuodatin } from './SijaintiSuodatin';
 
 const useStyles = makeStyles(() => ({
@@ -154,6 +154,7 @@ export const MobileFiltersOnTopMenu = ({
             handleFilterChange={handleFilterChange}
             expanded={false}
             values={values.pohjakoulutusvaatimus}
+            isHaku={false}
           />
           <Divider className={classes.divider} />
           {values.hakukaynnissa && values.hakutapa && (
