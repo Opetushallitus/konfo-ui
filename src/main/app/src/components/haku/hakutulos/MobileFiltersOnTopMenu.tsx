@@ -18,7 +18,7 @@ import { useTranslation } from 'react-i18next';
 import { useIsAtEtusivu } from '#/src/store/reducers/appSlice';
 
 import { useAllSelectedFilters, useSearch } from '../hakutulosHooks';
-import { HakutapaSuodatin } from './hakutulosSuodattimet/HakutapaSuodatin';
+import { HakutapaSuodatin } from '../../suodattimet/HakutapaSuodatin';
 import { KoulutusalaSuodatin } from './hakutulosSuodattimet/KoulutusalaSuodatin';
 import { KoulutustyyppiSuodatin } from './hakutulosSuodattimet/KoulutustyyppiSuodatin';
 import { OpetuskieliSuodatin } from './hakutulosSuodattimet/OpetusKieliSuodatin';
@@ -141,7 +141,7 @@ export const MobileFiltersOnTopMenu = () => {
           <Divider className={classes.divider} />
           <PohjakoulutusvaatimusSuodatin expanded={false} displaySelected />
           <Divider className={classes.divider} />
-          <HakutapaSuodatin expanded={false} displaySelected />
+          <HakutapaSuodatin expanded={false} isHaku={true} displaySelected />
           <Divider className={classes.divider} />
           <ValintatapaSuodatin expanded={false} displaySelected />
           <Divider className={classes.divider} />

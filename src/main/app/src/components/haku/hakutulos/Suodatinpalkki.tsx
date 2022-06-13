@@ -3,7 +3,7 @@ import React, { useLayoutEffect } from 'react';
 import { Grid, makeStyles } from '@material-ui/core';
 import { createGlobalState, useMeasure } from 'react-use';
 
-import { HakutapaSuodatin } from './hakutulosSuodattimet/HakutapaSuodatin';
+import { HakutapaSuodatin } from '../../suodattimet/HakutapaSuodatin';
 import { KoulutusalaSuodatin } from './hakutulosSuodattimet/KoulutusalaSuodatin';
 import { KoulutustyyppiSuodatin } from './hakutulosSuodattimet/KoulutustyyppiSuodatin';
 import { OpetuskieliSuodatin } from './hakutulosSuodattimet/OpetusKieliSuodatin';
@@ -43,7 +43,7 @@ export const Suodatinpalkki = () => {
       <OpetuskieliSuodatin expanded elevation={2} />
       <SijaintiSuodatin expanded elevation={2} />
       <PohjakoulutusvaatimusSuodatin expanded elevation={2} />
-      <HakutapaSuodatin expanded elevation={2} />
+      <HakutapaSuodatin expanded elevation={2} isHaku={true}/>
       <ValintatapaSuodatin expanded elevation={2} />
       <KoulutusalaSuodatin expanded elevation={2} />
       <OpetustapaSuodatin expanded={false} elevation={2} />

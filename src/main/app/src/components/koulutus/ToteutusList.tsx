@@ -35,7 +35,7 @@ import { Jarjestaja } from '#/src/types/ToteutusTypes';
 
 import { useKoulutusJarjestajat } from './hooks';
 import { AmmOsaamisalatSuodatin } from './toteutusSuodattimet/AmmOsaamisalatSuodatin';
-import { HakutapaSuodatin } from './toteutusSuodattimet/HakutapaSuodatin';
+import { HakutapaSuodatin } from '#/src/components/suodattimet/HakutapaSuodatin';
 import { LukiolinjatSuodatin } from './toteutusSuodattimet/LukiolinjatSuodatin';
 import { MobileFiltersOnTopMenu } from './toteutusSuodattimet/MobileFiltersOnTopMenu';
 import { OpetuskieliSuodatin } from './toteutusSuodattimet/OpetusKieliSuodatin';
@@ -208,6 +208,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                       ? [...usedValues.hakukaynnissa, ...usedValues.hakutapa]
                       : []
                   }
+                  isHaku={false}
                 />
               </SuodatinGridItem>
               <SuodatinGridItem>

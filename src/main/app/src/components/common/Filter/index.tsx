@@ -217,6 +217,8 @@ type Props = {
   optionsLoading?: boolean;
   selectPlaceholder?: string;
   additionalContent?: JSX.Element;
+  isHaku?: boolean;
+  handleFilterChange?: (value: any) => void;
 };
 
 export const isIndeterminate = (v: FilterValue) =>

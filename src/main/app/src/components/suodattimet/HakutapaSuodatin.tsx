@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+  import React, { useMemo } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
@@ -7,7 +7,7 @@ import { FILTER_TYPES } from '#/src/constants';
 import { getFilterStateChanges } from '#/src/tools/filters';
 import { FilterValue, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 
-import { useFilterProps, useSearch } from '../../hakutulosHooks';
+import { useFilterProps, useSearch } from '../haku/hakutulosHooks';
 
 // NOTE: Hakutapa sisältää hakukaynnissa ja yhteishaku suodattimet -> tämä komponentti hoitaa yhdistelylogiikan
 export const HakutapaSuodatin = (props: SuodatinComponentProps) => {
@@ -39,8 +39,9 @@ export const HakutapaSuodatin = (props: SuodatinComponentProps) => {
       {...props}
       testId="hakutapa-filter"
       name={t('haku.hakutapa')}
-      values={filterValues}
-      handleCheck={handleCheck}
+      values={props.isHaku ? filterValues : props.values!}
+      handleCheck={props.isHaku ? handleCheck : props.handleFilterChange!}
+      displaySelected
     />
   );
 };

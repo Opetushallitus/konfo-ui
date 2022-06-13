@@ -9,6 +9,9 @@ export type SuodatinComponentProps = {
   shadow?: boolean;
   onFocus?: () => void;
   onHide?: () => void;
+  isHaku?: boolean;
+  handleFilterChange?: (value: any) => void;
+  values?: Array<FilterValue>;
 };
 
 export type FilterValue = {

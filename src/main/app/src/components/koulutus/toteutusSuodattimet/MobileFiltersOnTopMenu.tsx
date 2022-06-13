@@ -21,7 +21,7 @@ import { KOULUTUS_TYYPPI, KORKEAKOULU_KOULUTUSTYYPIT } from '#/src/constants';
 import { FilterValue } from '#/src/types/SuodatinTypes';
 
 import { AmmOsaamisalatSuodatin } from './AmmOsaamisalatSuodatin';
-import { HakutapaSuodatin } from './HakutapaSuodatin';
+import { HakutapaSuodatin } from '#/src/components/suodattimet/HakutapaSuodatin';
 import { LukiolinjatSuodatin } from './LukiolinjatSuodatin';
 import { OpetuskieliSuodatin } from './OpetusKieliSuodatin';
 import { OpetustapaSuodatin } from './OpetustapaSuodatin';
@@ -160,6 +160,7 @@ export const MobileFiltersOnTopMenu = ({
               handleFilterChange={handleFilterChange}
               expanded={false}
               values={[...values.hakukaynnissa, ...values.hakutapa]}
+              isHaku={false}
             />
           )}
           <Divider className={classes.divider} />
