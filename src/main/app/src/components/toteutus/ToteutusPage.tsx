@@ -10,7 +10,6 @@ import { useParams } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 
 import { Accordion } from '#/src/components/common/Accordion';
-import { ContentWithTopIcon } from '#/src/components/common/ContentWithTopIcon';
 import ContentWrapper from '#/src/components/common/ContentWrapper';
 import { ExternalLink } from '#/src/components/common/ExternalLink';
 import HtmlTextBox from '#/src/components/common/HtmlTextBox';
@@ -173,17 +172,15 @@ export const ToteutusPage = () => {
           hasHaku={hasAnyHakukohde}
         />
       </PageSection>
-      {toteutus?.hakuAukiType && (
+      {toteutus?.hakuAuki && (
         <HakuKaynnissaCard
           title={
-            toteutus.hakuAukiType === 'hakukohde'
-              ? t('toteutus.haku-kaynnissa')
-              : toteutus?.metadata.hakutermi === 'hakeutuminen'
-              ? t('toteutus.haku-kaynnissa')
-              : t('toteutus.ilmoittautuminen-kaynnissa')
+            toteutus?.metadata.hakutermi === 'ilmoittautuminen'
+              ? t('toteutus.ilmoittautuminen-kaynnissa')
+              : t('toteutus.haku-kaynnissa')
           }
           text={
-            toteutus.hakuAukiType === 'hakukohde'
+            hasAnyHakukohde
               ? t('toteutus.katso-hakukohteet')
               : toteutus?.metadata.hakutermi === 'hakeutuminen'
               ? t('toteutus.katso-hakeutumisen-ohjeet')
@@ -198,9 +195,7 @@ export const ToteutusPage = () => {
             />
           }
           buttonText={
-            toteutus.hakuAukiType === 'hakukohde'
-              ? t('toteutus.nayta-hakukohteet')
-              : t('toteutus.nayta-ohjeet')
+            hasAnyHakukohde ? t('toteutus.nayta-hakukohteet') : t('toteutus.nayta-ohjeet')
           }
         />
       )}

@@ -124,7 +124,7 @@ export type Toteutus = {
   oppilaitokset: Array<string>;
 
   // NOTE: These are given at selector
-  hakuAukiType: 'ilmoittautuminen' | 'hakukohde' | null;
+  hakuAuki: boolean;
   hakukohteetByHakutapa?: Record<
     string,
     { nimi: Translateable; hakukohteet: Array<Hakukohde & { isHakuAuki: boolean }> }

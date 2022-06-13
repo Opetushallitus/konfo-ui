@@ -10,20 +10,6 @@ import { Toteutus } from '#/src/types/ToteutusTypes';
 
 import { demoLinksPerLomakeId } from './utils';
 
-const getHakuAukiType = (toteutus: any) => {
-  if (toteutus?.metadata?.hakulomaketyyppi === Hakulomaketyyppi.EI_SAHKOISTA) {
-    return null;
-  }
-  if (toteutus?.metadata?.hakulomaketyyppi === Hakulomaketyyppi.MUU) {
-    return toteutus?.hakuAuki ? 'ilmoittautuminen' : null;
-  }
-  const hakuKohdeAuki = toteutus.hakutiedot
-    ?.flatMap((hakutieto: any) => hakutieto.hakukohteet)
-    .some((hakukohde: any) => isHakuAuki(hakukohde.hakuajat));
-
-  return hakuKohdeAuki ? 'hakukohde' : null;
-};
-
 const getWithoutVersion = (koodi: any) => koodi.slice(0, koodi.lastIndexOf('#'));
 
 export const selectToteutusHakulomaketyyppi = (toteutus?: Toteutus) =>
@@ -90,7 +76,6 @@ export const selectToteutus = (toteutus: any) => {
   return (
     toteutus && {
       ...toteutus,
-      hakuAukiType: getHakuAukiType(toteutus),
       hakukohteetByHakutapa: selectHakukohteetByHakutapa(toteutus),
     }
   );
