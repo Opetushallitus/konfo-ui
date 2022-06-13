@@ -4,9 +4,9 @@ import { Grid, makeStyles } from '@material-ui/core';
 import { createGlobalState, useMeasure } from 'react-use';
 
 import { HakutapaSuodatin } from '../../suodattimet/HakutapaSuodatin';
+import { OpetuskieliSuodatin } from '../../suodattimet/OpetusKieliSuodatin';
 import { KoulutusalaSuodatin } from './hakutulosSuodattimet/KoulutusalaSuodatin';
 import { KoulutustyyppiSuodatin } from './hakutulosSuodattimet/KoulutustyyppiSuodatin';
-import { OpetuskieliSuodatin } from './hakutulosSuodattimet/OpetusKieliSuodatin';
 import { OpetustapaSuodatin } from './hakutulosSuodattimet/OpetustapaSuodatin';
 import { PohjakoulutusvaatimusSuodatin } from './hakutulosSuodattimet/PohjakoulutusvaatimusSuodatin';
 import { SijaintiSuodatin } from './hakutulosSuodattimet/SijaintiSuodatin';
@@ -40,10 +40,10 @@ export const Suodatinpalkki = () => {
   return (
     <Grid ref={ref as any} item lg={3} md={4} className={classes.rajaaTuloksia}>
       <KoulutustyyppiSuodatin expanded elevation={2} />
-      <OpetuskieliSuodatin expanded elevation={2} />
+      <OpetuskieliSuodatin expanded elevation={2} isHaku={true} />
       <SijaintiSuodatin expanded elevation={2} />
       <PohjakoulutusvaatimusSuodatin expanded elevation={2} />
-      <HakutapaSuodatin expanded elevation={2} isHaku={true}/>
+      <HakutapaSuodatin expanded elevation={2} isHaku={true} />
       <ValintatapaSuodatin expanded elevation={2} />
       <KoulutusalaSuodatin expanded elevation={2} />
       <OpetustapaSuodatin expanded={false} elevation={2} />

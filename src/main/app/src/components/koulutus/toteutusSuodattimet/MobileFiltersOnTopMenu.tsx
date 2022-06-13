@@ -17,13 +17,13 @@ import _fp from 'lodash/fp';
 import { useTranslation } from 'react-i18next';
 
 import { MobileToggleFiltersButton } from '#/src/components/haku/hakutulos/MobileToggleFiltersButton';
+import { HakutapaSuodatin } from '#/src/components/suodattimet/HakutapaSuodatin';
+import { OpetuskieliSuodatin } from '#/src/components/suodattimet/OpetusKieliSuodatin';
 import { KOULUTUS_TYYPPI, KORKEAKOULU_KOULUTUSTYYPIT } from '#/src/constants';
 import { FilterValue } from '#/src/types/SuodatinTypes';
 
 import { AmmOsaamisalatSuodatin } from './AmmOsaamisalatSuodatin';
-import { HakutapaSuodatin } from '#/src/components/suodattimet/HakutapaSuodatin';
 import { LukiolinjatSuodatin } from './LukiolinjatSuodatin';
-import { OpetuskieliSuodatin } from './OpetusKieliSuodatin';
 import { OpetustapaSuodatin } from './OpetustapaSuodatin';
 import { PohjakoulutusvaatimusSuodatin } from './PohjakoulutusvaatimusSuodatin';
 import { SijaintiSuodatin } from './SijaintiSuodatin';
@@ -139,6 +139,7 @@ export const MobileFiltersOnTopMenu = ({
             handleFilterChange={handleFilterChange}
             expanded={false}
             values={values.opetuskieli}
+            isHaku={false}
           />
           <Divider className={classes.divider} />
           <SijaintiSuodatin

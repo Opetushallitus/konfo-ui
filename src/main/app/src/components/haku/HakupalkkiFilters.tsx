@@ -3,14 +3,14 @@ import React from 'react';
 import { Box, Divider, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-import { HakutapaSuodatin } from '#/src/components/suodattimet/HakutapaSuodatin';
 import { KoulutusalaSuodatin } from '#/src/components/haku/hakutulos/hakutulosSuodattimet/KoulutusalaSuodatin';
 import { KoulutustyyppiSuodatin } from '#/src/components/haku/hakutulos/hakutulosSuodattimet/KoulutustyyppiSuodatin';
-import { OpetuskieliSuodatin } from '#/src/components/haku/hakutulos/hakutulosSuodattimet/OpetusKieliSuodatin';
 import { OpetustapaSuodatin } from '#/src/components/haku/hakutulos/hakutulosSuodattimet/OpetustapaSuodatin';
 import { PohjakoulutusvaatimusSuodatin } from '#/src/components/haku/hakutulos/hakutulosSuodattimet/PohjakoulutusvaatimusSuodatin';
 import { SijaintiSuodatin } from '#/src/components/haku/hakutulos/hakutulosSuodattimet/SijaintiSuodatin';
 import { ValintatapaSuodatin } from '#/src/components/haku/hakutulos/hakutulosSuodattimet/ValintatapaSuodatin';
+import { HakutapaSuodatin } from '#/src/components/suodattimet/HakutapaSuodatin';
+import { OpetuskieliSuodatin } from '#/src/components/suodattimet/OpetusKieliSuodatin';
 
 import { Suodatin } from './Suodatin';
 

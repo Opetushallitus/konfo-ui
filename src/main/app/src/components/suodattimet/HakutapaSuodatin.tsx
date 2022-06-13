@@ -1,4 +1,4 @@
-  import React, { useMemo } from 'react';
+import React, { useMemo } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
@@ -25,6 +25,8 @@ export const HakutapaSuodatin = (props: SuodatinComponentProps) => {
     return [...hakukaynnissaValues, ...hakutapaValues];
   }, [hakukaynnissaValues, hakutapaValues]);
 
+  const propsValues = props.values === undefined ? [] : props.values;
+
   const handleCheck = (item: FilterValue) => {
     if (item.filterId === FILTER_TYPES.HAKUKAYNNISSA) {
       setFilters({ hakukaynnissa: !item.checked });
@@ -39,7 +41,7 @@ export const HakutapaSuodatin = (props: SuodatinComponentProps) => {
       {...props}
       testId="hakutapa-filter"
       name={t('haku.hakutapa')}
-      values={props.isHaku ? filterValues : props.values!}
+      values={props.isHaku ? filterValues : propsValues}
       handleCheck={props.isHaku ? handleCheck : props.handleFilterChange!}
       displaySelected
     />

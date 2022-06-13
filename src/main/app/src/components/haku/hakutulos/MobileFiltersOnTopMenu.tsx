@@ -17,11 +17,11 @@ import { useTranslation } from 'react-i18next';
 
 import { useIsAtEtusivu } from '#/src/store/reducers/appSlice';
 
-import { useAllSelectedFilters, useSearch } from '../hakutulosHooks';
 import { HakutapaSuodatin } from '../../suodattimet/HakutapaSuodatin';
+import { OpetuskieliSuodatin } from '../../suodattimet/OpetusKieliSuodatin';
+import { useAllSelectedFilters, useSearch } from '../hakutulosHooks';
 import { KoulutusalaSuodatin } from './hakutulosSuodattimet/KoulutusalaSuodatin';
 import { KoulutustyyppiSuodatin } from './hakutulosSuodattimet/KoulutustyyppiSuodatin';
-import { OpetuskieliSuodatin } from './hakutulosSuodattimet/OpetusKieliSuodatin';
 import { OpetustapaSuodatin } from './hakutulosSuodattimet/OpetustapaSuodatin';
 import { PohjakoulutusvaatimusSuodatin } from './hakutulosSuodattimet/PohjakoulutusvaatimusSuodatin';
 import { SijaintiSuodatin } from './hakutulosSuodattimet/SijaintiSuodatin';
@@ -135,7 +135,7 @@ export const MobileFiltersOnTopMenu = () => {
           {isAtEtusivu && <Divider className={classes.divider} />}
           <KoulutustyyppiSuodatin expanded={false} displaySelected />
           <Divider className={classes.divider} />
-          <OpetuskieliSuodatin expanded={false} displaySelected />
+          <OpetuskieliSuodatin expanded={false} isHaku={true} displaySelected />
           <Divider className={classes.divider} />
           <SijaintiSuodatin expanded={false} displaySelected />
           <Divider className={classes.divider} />

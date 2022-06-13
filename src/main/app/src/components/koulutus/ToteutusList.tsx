@@ -14,6 +14,8 @@ import { PageSection } from '#/src/components/common/PageSection';
 import { Pagination } from '#/src/components/common/Pagination';
 import { QueryResultWrapper } from '#/src/components/common/QueryResultWrapper';
 import { TextWithBackground } from '#/src/components/common/TextWithBackground';
+import { HakutapaSuodatin } from '#/src/components/suodattimet/HakutapaSuodatin';
+import { OpetuskieliSuodatin } from '#/src/components/suodattimet/OpetusKieliSuodatin';
 import { FILTER_TYPES } from '#/src/constants';
 import { KOULUTUS_TYYPPI, KORKEAKOULU_KOULUTUSTYYPIT } from '#/src/constants';
 import { usePreviousNonEmpty } from '#/src/hooks';
@@ -35,10 +37,8 @@ import { Jarjestaja } from '#/src/types/ToteutusTypes';
 
 import { useKoulutusJarjestajat } from './hooks';
 import { AmmOsaamisalatSuodatin } from './toteutusSuodattimet/AmmOsaamisalatSuodatin';
-import { HakutapaSuodatin } from '#/src/components/suodattimet/HakutapaSuodatin';
 import { LukiolinjatSuodatin } from './toteutusSuodattimet/LukiolinjatSuodatin';
 import { MobileFiltersOnTopMenu } from './toteutusSuodattimet/MobileFiltersOnTopMenu';
-import { OpetuskieliSuodatin } from './toteutusSuodattimet/OpetusKieliSuodatin';
 import { OpetustapaSuodatin } from './toteutusSuodattimet/OpetustapaSuodatin';
 import { PohjakoulutusvaatimusSuodatin } from './toteutusSuodattimet/PohjakoulutusvaatimusSuodatin';
 import { SijaintiSuodatin } from './toteutusSuodattimet/SijaintiSuodatin';
@@ -175,6 +175,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                   elevation={2}
                   handleFilterChange={handleFilterChange}
                   values={usedValues.opetuskieli}
+                  isHaku={false}
                 />
               </SuodatinGridItem>
               <SuodatinGridItem>
