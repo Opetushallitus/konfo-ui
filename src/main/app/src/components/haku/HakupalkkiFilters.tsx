@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import { KoulutusalaSuodatin } from '#/src/components/haku/hakutulos/hakutulosSuodattimet/KoulutusalaSuodatin';
 import { KoulutustyyppiSuodatin } from '#/src/components/haku/hakutulos/hakutulosSuodattimet/KoulutustyyppiSuodatin';
-import { OpetustapaSuodatin } from '#/src/components/haku/hakutulos/hakutulosSuodattimet/OpetustapaSuodatin';
+import { OpetustapaSuodatin } from '#/src/components/suodattimet/OpetustapaSuodatin';
 import { PohjakoulutusvaatimusSuodatin } from '#/src/components/haku/hakutulos/hakutulosSuodattimet/PohjakoulutusvaatimusSuodatin';
 import { SijaintiSuodatin } from '#/src/components/haku/hakutulos/hakutulosSuodattimet/SijaintiSuodatin';
 import { HakutapaSuodatin } from '#/src/components/suodattimet/HakutapaSuodatin';

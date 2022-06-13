@@ -16,6 +16,7 @@ import { QueryResultWrapper } from '#/src/components/common/QueryResultWrapper';
 import { TextWithBackground } from '#/src/components/common/TextWithBackground';
 import { HakutapaSuodatin } from '#/src/components/suodattimet/HakutapaSuodatin';
 import { OpetuskieliSuodatin } from '#/src/components/suodattimet/OpetusKieliSuodatin';
+import { ValintatapaSuodatin } from '#/src/components/suodattimet/ValintatapaSuodatin';
 import { FILTER_TYPES } from '#/src/constants';
 import { KOULUTUS_TYYPPI, KORKEAKOULU_KOULUTUSTYYPIT } from '#/src/constants';
 import { usePreviousNonEmpty } from '#/src/hooks';
@@ -39,10 +40,10 @@ import { useKoulutusJarjestajat } from './hooks';
 import { AmmOsaamisalatSuodatin } from './toteutusSuodattimet/AmmOsaamisalatSuodatin';
 import { LukiolinjatSuodatin } from './toteutusSuodattimet/LukiolinjatSuodatin';
 import { MobileFiltersOnTopMenu } from './toteutusSuodattimet/MobileFiltersOnTopMenu';
-import { OpetustapaSuodatin } from './toteutusSuodattimet/OpetustapaSuodatin';
 import { PohjakoulutusvaatimusSuodatin } from './toteutusSuodattimet/PohjakoulutusvaatimusSuodatin';
 import { SijaintiSuodatin } from './toteutusSuodattimet/SijaintiSuodatin';
-import {ValintatapaSuodatin} from "#/src/components/suodattimet/ValintatapaSuodatin";
+import {OpetustapaSuodatin} from "#/src/components/suodattimet/OpetustapaSuodatin";
+
 
 const useStyles = makeStyles({
   grid: {
@@ -217,6 +218,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                   elevation={2}
                   handleFilterChange={handleFilterChange}
                   values={usedValues.opetustapa}
+                  isHaku={false}
                 />
               </SuodatinGridItem>
               {KORKEAKOULU_KOULUTUSTYYPIT.includes(koulutustyyppi as KOULUTUS_TYYPPI) && (

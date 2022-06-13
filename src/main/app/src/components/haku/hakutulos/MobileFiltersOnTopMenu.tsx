@@ -23,7 +23,7 @@ import { ValintatapaSuodatin } from '../../suodattimet/ValintatapaSuodatin';
 import { useAllSelectedFilters, useSearch } from '../hakutulosHooks';
 import { KoulutusalaSuodatin } from './hakutulosSuodattimet/KoulutusalaSuodatin';
 import { KoulutustyyppiSuodatin } from './hakutulosSuodattimet/KoulutustyyppiSuodatin';
-import { OpetustapaSuodatin } from './hakutulosSuodattimet/OpetustapaSuodatin';
+import { OpetustapaSuodatin } from '../../suodattimet/OpetustapaSuodatin';
 import { PohjakoulutusvaatimusSuodatin } from './hakutulosSuodattimet/PohjakoulutusvaatimusSuodatin';
 import { SijaintiSuodatin } from './hakutulosSuodattimet/SijaintiSuodatin';
 import { MobileResultsPerPageExpansionMenu } from './MobileResultsPerPageExpansionMenu';
@@ -147,7 +147,7 @@ export const MobileFiltersOnTopMenu = () => {
           <Divider className={classes.divider} />
           <KoulutusalaSuodatin expanded={false} displaySelected />
           <Divider className={classes.divider} />
-          <OpetustapaSuodatin expanded={false} displaySelected />
+          <OpetustapaSuodatin expanded={false} isHaku={true} displaySelected />
           <Divider className={classes.divider} />
           {!isAtEtusivu && <MobileToggleOrderByButtonMenu />}
           {!isAtEtusivu && <MobileResultsPerPageExpansionMenu />}

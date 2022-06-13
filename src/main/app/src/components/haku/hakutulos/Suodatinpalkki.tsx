@@ -8,7 +8,7 @@ import { OpetuskieliSuodatin } from '../../suodattimet/OpetusKieliSuodatin';
 import { ValintatapaSuodatin } from '../../suodattimet/ValintatapaSuodatin';
 import { KoulutusalaSuodatin } from './hakutulosSuodattimet/KoulutusalaSuodatin';
 import { KoulutustyyppiSuodatin } from './hakutulosSuodattimet/KoulutustyyppiSuodatin';
-import { OpetustapaSuodatin } from './hakutulosSuodattimet/OpetustapaSuodatin';
+import { OpetustapaSuodatin } from '../../suodattimet/OpetustapaSuodatin';
 import { PohjakoulutusvaatimusSuodatin } from './hakutulosSuodattimet/PohjakoulutusvaatimusSuodatin';
 import { SijaintiSuodatin } from './hakutulosSuodattimet/SijaintiSuodatin';
 
@@ -46,7 +46,7 @@ export const Suodatinpalkki = () => {
       <HakutapaSuodatin expanded elevation={2} isHaku={true} />
       <ValintatapaSuodatin expanded elevation={2} isHaku={true} />
       <KoulutusalaSuodatin expanded elevation={2} />
-      <OpetustapaSuodatin expanded={false} elevation={2} />
+      <OpetustapaSuodatin expanded={false} elevation={2} isHaku={true} />
     </Grid>
   );
 };
