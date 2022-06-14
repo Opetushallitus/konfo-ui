@@ -71,19 +71,31 @@ const AlkamiskausiRivi = ({ alkamiskausi }: any) => {
   );
 };
 
-const HakuaikaRivi = ({ hakuaika }: { hakuaika: Hakuaika }) => {
+const HakuaikaRivi = ({
+  hakuaika,
+  hakutermi,
+}: {
+  hakuaika: Hakuaika;
+  hakutermi: string;
+}) => {
   const { t } = useTranslation();
   return (
     <HakutietoTable
       items={[
         {
           size: hakuaika?.formatoituPaattyy ? 6 : 12,
-          heading: t('toteutus.haku-alkaa:'),
+          heading:
+            hakutermi === 'hakeutuminen'
+              ? t('toteutus.haku-alkaa:')
+              : t('toteutus.ilmoittautuminen-alkaa:'),
           content: [formatDateString(hakuaika.formatoituAlkaa)],
         },
         hakuaika?.formatoituPaattyy && {
           size: 6,
-          heading: t('toteutus.haku-paattyy:'),
+          heading:
+            hakutermi === 'hakeutuminen'
+              ? t('toteutus.haku-paattyy:')
+              : t('toteutus.ilmoittautuminen-paattyy:'),
           content: [
             hakuaika.paattyy ? formatDateString(hakuaika.formatoituPaattyy) : '-', // This is needed for the alkuu & paattyy to be rendered on the same row
           ],
@@ -125,7 +137,7 @@ export const ToteutusHakuMuu = ({ toteutus }: Props) => {
               </Typography>
             </Grid>
             <Grid item>
-              <HakuaikaRivi hakuaika={muuHaku?.hakuaika} />
+              <HakuaikaRivi hakuaika={muuHaku?.hakuaika} hakutermi={muuHaku.hakutermi} />
             </Grid>
             <Grid item>
               <AlkamiskausiRivi alkamiskausi={alkamiskausi} />

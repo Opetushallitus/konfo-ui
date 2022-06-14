@@ -62,7 +62,7 @@ const getJarjestyspaikkaYhteystiedot = (
 type GridProps = {
   tyyppiOtsikko: string;
   icon: JSX.Element;
-  toteutus: any;
+  toteutus?: Toteutus;
   hakukohteet: Array<Hakukohde>;
 };
 
@@ -78,6 +78,8 @@ const HakuCardGrid = ({ tyyppiOtsikko, icon, toteutus, hakukohteet }: GridProps)
   );
 
   const toteutuksenAlkamiskausi = toteutus?.metadata?.opetus?.koulutuksenAlkamiskausi;
+
+  const hakutermi = toteutus?.metadata?.hakutermi;
 
   const { osoitteet } = useOsoitteet(oppilaitosOids, true);
 
@@ -157,14 +159,20 @@ const HakuCardGrid = ({ tyyppiOtsikko, icon, toteutus, hakukohteet }: GridProps)
                           items={[
                             {
                               size: anyHakuaikaPaattyy ? 6 : 12,
-                              heading: t('toteutus.haku-alkaa:'),
+                              heading:
+                                hakutermi === 'hakeutuminen'
+                                  ? t('toteutus.haku-alkaa:')
+                                  : t('toteutus.ilmoittautuminen-alkaa:'),
                               content: hakukohde.hakuajat.map((hakuaika) =>
                                 formatDateString(hakuaika.formatoituAlkaa)
                               ),
                             },
                             anyHakuaikaPaattyy && {
                               size: 6,
-                              heading: t('toteutus.haku-paattyy:'),
+                              heading:
+                                hakutermi === 'hakeutuminen'
+                                  ? t('toteutus.haku-paattyy:')
+                                  : t('toteutus.ilmoittautuminen-paattyy:'),
                               content: hakukohde.hakuajat.map(
                                 (hakuaika) =>
                                   hakuaika.paattyy
