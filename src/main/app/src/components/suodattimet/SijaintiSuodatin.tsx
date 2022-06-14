@@ -9,14 +9,24 @@ import { FILTER_TYPES } from '#/src/constants';
 import { getFilterStateChanges } from '#/src/tools/filters';
 import { FilterValue, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 
-import { useFilterProps, useSearch } from '../../hakutulosHooks';
+import { useFilterProps, useSearch } from '../haku/hakutulosHooks';
 
 export const SijaintiSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
   const { setFilters } = useSearch();
 
-  const kuntaValues = useFilterProps(FILTER_TYPES.KUNTA);
-  const maakuntaValues = useFilterProps(FILTER_TYPES.MAAKUNTA);
+  const filterKuntavalues = useFilterProps(FILTER_TYPES.KUNTA);
+  const filterMaaKuntavalues = useFilterProps(FILTER_TYPES.MAAKUNTA);
+  const kuntaValues = props.isHaku
+    ? filterKuntavalues
+    : props.kuntaValues !== undefined
+    ? props.kuntaValues
+    : [];
+  const maakuntaValues = props.isHaku
+    ? filterMaaKuntavalues
+    : props.maakuntaValues !== undefined
+    ? props.maakuntaValues
+    : [];
 
   const handleCheck = (item: FilterValue) => {
     const changes = getFilterStateChanges(kuntaValues.concat(maakuntaValues))(item);
@@ -32,17 +42,23 @@ export const SijaintiSuodatin = (props: SuodatinComponentProps) => {
       {
         label: t('haku.kaupungit-tai-kunnat'),
         options: _fp.sortBy('label')(
-          kuntaValues.filter((v) => v.count > 0).map((v) => getSelectOption(v, false))
+          props.isHaku
+            ? kuntaValues.filter((v) => v.count > 0).map((v) => getSelectOption(v, false))
+            : kuntaValues.map((v) => getSelectOption(v, false))
         ),
       },
       {
         label: t('haku.maakunnat'),
         options: _fp.sortBy('label')(
-          maakuntaValues.filter((v) => v.count > 0).map((v) => getSelectOption(v, true))
+          props.isHaku
+            ? maakuntaValues
+                .filter((v) => v.count > 0)
+                .map((v) => getSelectOption(v, true))
+            : maakuntaValues.map((v) => getSelectOption(v, true))
         ),
       },
     ],
-    [kuntaValues, maakuntaValues, t]
+    [kuntaValues, maakuntaValues, props.isHaku, t]
   );
 
   const usedValues = useMemo(
@@ -54,12 +70,13 @@ export const SijaintiSuodatin = (props: SuodatinComponentProps) => {
     <Filter
       {...props}
       options={groupedSijainnit}
-      optionsLoading={optionsLoading}
+      optionsLoading={props.isHaku ? optionsLoading : props.loading}
       selectPlaceholder={t('haku.etsi-paikkakunta-tai-alue')}
       name={t('haku.sijainti')}
       values={usedValues}
-      handleCheck={handleCheck}
+      handleCheck={props.isHaku ? handleCheck : props.handleFilterChange!}
       expandValues
+      displaySelected
     />
   );
 };

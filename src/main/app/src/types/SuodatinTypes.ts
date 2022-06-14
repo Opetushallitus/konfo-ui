@@ -12,6 +12,9 @@ export type SuodatinComponentProps = {
   isHaku?: boolean;
   handleFilterChange?: (value: any) => void;
   values?: Array<FilterValue>;
+  maakuntaValues?: Array<FilterValue>;
+  kuntaValues?: Array<FilterValue>;
+  loading?: boolean;
 };
 
 export type FilterValue = {

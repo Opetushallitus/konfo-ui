@@ -14,9 +14,12 @@ import { PageSection } from '#/src/components/common/PageSection';
 import { Pagination } from '#/src/components/common/Pagination';
 import { QueryResultWrapper } from '#/src/components/common/QueryResultWrapper';
 import { TextWithBackground } from '#/src/components/common/TextWithBackground';
+import { AmmOsaamisalatSuodatin } from '#/src/components/koulutus/toteutusSuodattimet/AmmOsaamisalatSuodatin';
 import { HakutapaSuodatin } from '#/src/components/suodattimet/HakutapaSuodatin';
 import { OpetuskieliSuodatin } from '#/src/components/suodattimet/OpetusKieliSuodatin';
 import { OpetustapaSuodatin } from '#/src/components/suodattimet/OpetustapaSuodatin';
+import { PohjakoulutusvaatimusSuodatin } from '#/src/components/suodattimet/PohjakoulutusvaatimusSuodatin';
+import { SijaintiSuodatin } from '#/src/components/suodattimet/SijaintiSuodatin';
 import { ValintatapaSuodatin } from '#/src/components/suodattimet/ValintatapaSuodatin';
 import { FILTER_TYPES } from '#/src/constants';
 import { KOULUTUS_TYYPPI, KORKEAKOULU_KOULUTUSTYYPIT } from '#/src/constants';
@@ -38,11 +41,8 @@ import { FilterValue } from '#/src/types/SuodatinTypes';
 import { Jarjestaja } from '#/src/types/ToteutusTypes';
 
 import { useKoulutusJarjestajat } from './hooks';
-import { AmmOsaamisalatSuodatin } from './toteutusSuodattimet/AmmOsaamisalatSuodatin';
 import { LukiolinjatSuodatin } from './toteutusSuodattimet/LukiolinjatSuodatin';
 import { MobileFiltersOnTopMenu } from './toteutusSuodattimet/MobileFiltersOnTopMenu';
-import { SijaintiSuodatin } from './toteutusSuodattimet/SijaintiSuodatin';
-import {PohjakoulutusvaatimusSuodatin} from "#/src/components/suodattimet/PohjakoulutusvaatimusSuodatin";
 
 const useStyles = makeStyles({
   grid: {
@@ -191,6 +191,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                   onHide={() => {
                     setPreventClicks(false);
                   }}
+                  isHaku={false}
                 />
               </SuodatinGridItem>
               <SuodatinGridItem>

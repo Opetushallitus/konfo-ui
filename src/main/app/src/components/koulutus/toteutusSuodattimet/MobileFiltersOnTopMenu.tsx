@@ -21,13 +21,13 @@ import { HakutapaSuodatin } from '#/src/components/suodattimet/HakutapaSuodatin'
 import { OpetuskieliSuodatin } from '#/src/components/suodattimet/OpetusKieliSuodatin';
 import { OpetustapaSuodatin } from '#/src/components/suodattimet/OpetustapaSuodatin';
 import { PohjakoulutusvaatimusSuodatin } from '#/src/components/suodattimet/PohjakoulutusvaatimusSuodatin';
+import { SijaintiSuodatin } from '#/src/components/suodattimet/SijaintiSuodatin';
 import { ValintatapaSuodatin } from '#/src/components/suodattimet/ValintatapaSuodatin';
 import { KOULUTUS_TYYPPI, KORKEAKOULU_KOULUTUSTYYPIT } from '#/src/constants';
 import { FilterValue } from '#/src/types/SuodatinTypes';
 
 import { AmmOsaamisalatSuodatin } from './AmmOsaamisalatSuodatin';
 import { LukiolinjatSuodatin } from './LukiolinjatSuodatin';
-import { SijaintiSuodatin } from './SijaintiSuodatin';
 
 const useStyles = makeStyles(() => ({
   paperAnchorBottom: {
@@ -148,6 +148,7 @@ export const MobileFiltersOnTopMenu = ({
             maakuntaValues={values.maakunta}
             kuntaValues={values.kunta}
             loading={loading}
+            isHaku={false}
           />
           <Divider className={classes.divider} />
           <PohjakoulutusvaatimusSuodatin
