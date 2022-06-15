@@ -14,13 +14,13 @@ import { PageSection } from '#/src/components/common/PageSection';
 import { Pagination } from '#/src/components/common/Pagination';
 import { QueryResultWrapper } from '#/src/components/common/QueryResultWrapper';
 import { TextWithBackground } from '#/src/components/common/TextWithBackground';
-import { AmmOsaamisalatSuodatin } from '#/src/components/koulutus/toteutusSuodattimet/AmmOsaamisalatSuodatin';
-import { HakutapaSuodatin } from '#/src/components/suodattimet/HakutapaSuodatin';
-import { OpetuskieliSuodatin } from '#/src/components/suodattimet/OpetusKieliSuodatin';
-import { OpetustapaSuodatin } from '#/src/components/suodattimet/OpetustapaSuodatin';
-import { PohjakoulutusvaatimusSuodatin } from '#/src/components/suodattimet/PohjakoulutusvaatimusSuodatin';
-import { SijaintiSuodatin } from '#/src/components/suodattimet/SijaintiSuodatin';
-import { ValintatapaSuodatin } from '#/src/components/suodattimet/ValintatapaSuodatin';
+import { HakutapaSuodatin } from '#/src/components/suodattimet/common/HakutapaSuodatin';
+import { OpetuskieliSuodatin } from '#/src/components/suodattimet/common/OpetusKieliSuodatin';
+import { OpetustapaSuodatin } from '#/src/components/suodattimet/common/OpetustapaSuodatin';
+import { PohjakoulutusvaatimusSuodatin } from '#/src/components/suodattimet/common/PohjakoulutusvaatimusSuodatin';
+import { SijaintiSuodatin } from '#/src/components/suodattimet/common/SijaintiSuodatin';
+import { ValintatapaSuodatin } from '#/src/components/suodattimet/common/ValintatapaSuodatin';
+import { AmmOsaamisalatSuodatin } from '#/src/components/suodattimet/toteutusSuodattimet/AmmOsaamisalatSuodatin';
 import { FILTER_TYPES } from '#/src/constants';
 import { KOULUTUS_TYYPPI, KORKEAKOULU_KOULUTUSTYYPIT } from '#/src/constants';
 import { usePreviousNonEmpty } from '#/src/hooks';
@@ -40,9 +40,9 @@ import { mapValues } from '#/src/tools/lodashFpUncapped';
 import { FilterValue } from '#/src/types/SuodatinTypes';
 import { Jarjestaja } from '#/src/types/ToteutusTypes';
 
+import { LukiolinjatSuodatin } from '../suodattimet/toteutusSuodattimet/LukiolinjatSuodatin';
+import { MobileFiltersOnTopMenu } from '../suodattimet/toteutusSuodattimet/MobileFiltersOnTopMenu';
 import { useKoulutusJarjestajat } from './hooks';
-import { LukiolinjatSuodatin } from './toteutusSuodattimet/LukiolinjatSuodatin';
-import { MobileFiltersOnTopMenu } from './toteutusSuodattimet/MobileFiltersOnTopMenu';
 
 const useStyles = makeStyles({
   grid: {
@@ -173,9 +173,9 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
               <SuodatinGridItem>
                 <OpetuskieliSuodatin
                   elevation={2}
-                  handleFilterChange={handleFilterChange}
                   values={usedValues.opetuskieli}
                   isHaku={false}
+                  setFilters={setFilters}
                 />
               </SuodatinGridItem>
               <SuodatinGridItem>
@@ -192,6 +192,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                     setPreventClicks(false);
                   }}
                   isHaku={false}
+                  setFilters={setFilters}
                 />
               </SuodatinGridItem>
               <SuodatinGridItem>
@@ -200,6 +201,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                   handleFilterChange={handleFilterChange}
                   values={usedValues.pohjakoulutusvaatimus}
                   isHaku={false}
+                  setFilters={setFilters}
                 />
               </SuodatinGridItem>
               <SuodatinGridItem>
@@ -212,6 +214,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                       : []
                   }
                   isHaku={false}
+                  setFilters={setFilters}
                 />
               </SuodatinGridItem>
               <SuodatinGridItem>
@@ -220,6 +223,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                   handleFilterChange={handleFilterChange}
                   values={usedValues.opetustapa}
                   isHaku={false}
+                  setFilters={setFilters}
                 />
               </SuodatinGridItem>
               {KORKEAKOULU_KOULUTUSTYYPIT.includes(koulutustyyppi as KOULUTUS_TYYPPI) && (
@@ -229,6 +233,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                     handleFilterChange={handleFilterChange}
                     values={usedValues.valintatapa}
                     isHaku={false}
+                    setFilters={setFilters}
                   />
                 </SuodatinGridItem>
               )}
@@ -247,6 +252,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                       elevation={2}
                       handleFilterChange={handleFilterChange}
                       values={usedValues.lukiopainotukset}
+                      setFilters={setFilters}
                     />
                   </SuodatinGridItem>
                   <SuodatinGridItem>
@@ -255,6 +261,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                       elevation={2}
                       handleFilterChange={handleFilterChange}
                       values={usedValues.lukiolinjaterityinenkoulutustehtava}
+                      setFilters={setFilters}
                     />
                   </SuodatinGridItem>
                 </Grid>
@@ -265,6 +272,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                     elevation={2}
                     handleFilterChange={handleFilterChange}
                     values={usedValues.osaamisala}
+                    setFilters={setFilters}
                   />
                 </SuodatinGridItem>
               )}
@@ -278,6 +286,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
               hitCount={total}
               handleFilterChange={handleFilterChange}
               clearChosenFilters={handleFiltersClear}
+              setFilters={setFilters}
             />
           </Hidden>
         </>

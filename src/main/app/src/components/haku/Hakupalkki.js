@@ -27,7 +27,7 @@ import { LocalizedLink } from '#/src/components/common/LocalizedLink';
 import { useIsAtEtusivu } from '#/src/store/reducers/appSlice';
 
 import { HakupalkkiFilters } from './HakupalkkiFilters';
-import { MobileFiltersOnTopMenu } from './hakutulos/MobileFiltersOnTopMenu';
+import { MobileFiltersOnTopMenu } from '../suodattimet/hakutulosSuodattimet/MobileFiltersOnTopMenu';
 import { useSearch } from './hakutulosHooks';
 
 const useStyles = makeStyles((theme) => ({

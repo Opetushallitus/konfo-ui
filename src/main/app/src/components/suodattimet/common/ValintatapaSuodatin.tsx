@@ -7,26 +7,26 @@ import { FILTER_TYPES } from '#/src/constants';
 import { getFilterStateChanges } from '#/src/tools/filters';
 import { FilterValue, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 
-import { useFilterProps, useSearch } from '../haku/hakutulosHooks';
+import { useFilterProps, useSearch } from '../../haku/hakutulosHooks';
 
-export const PohjakoulutusvaatimusSuodatin = (props: SuodatinComponentProps) => {
+// TODO: Do not use this component until backend supports filtering no-haku-kaynnissa for valintatavat
+export const ValintatapaSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
-  const { setFilters } = useSearch();
-  const values = useFilterProps(FILTER_TYPES.POHJAKOULUTUSVAATIMUS);
+  const values = useFilterProps(FILTER_TYPES.VALINTATAPA);
   const propsValues = props.values !== undefined ? props.values : [];
 
   const handleCheck = (item: FilterValue) => {
     const changes = getFilterStateChanges(values)(item);
-    setFilters(changes);
+    props.setFilters(changes);
   };
 
   return (
     <Filter
       {...props}
-      testId="pohjakoulutusvaatimus-filter"
-      name={t('haku.pohjakoulutusvaatimus')}
+      testId="valintatapa-filter"
+      name={t('haku.valintatapa')}
       values={props.isHaku ? values : propsValues}
-      handleCheck={props.isHaku ? handleCheck : props.handleFilterChange!}
+      handleCheck={handleCheck}
       displaySelected
     />
   );

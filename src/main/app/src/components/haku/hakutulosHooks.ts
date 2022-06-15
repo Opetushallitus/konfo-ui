@@ -145,16 +145,6 @@ export const useSearch = () => {
     [dispatch, selectedTab, currentPage, goToSearchPage]
   );
 
-  const setFilters = useCallback(
-    (changes) => {
-      dispatch(setFilterSelectedValues(changes));
-      if (currentPage === 'haku') {
-        goToSearchPage();
-      }
-    },
-    [dispatch, currentPage, goToSearchPage]
-  );
-
   const clearFilters = useCallback(() => {
     dispatch(clearSelectedFilters());
     dispatch(resetPagination());
@@ -187,7 +177,12 @@ export const useSearch = () => {
       pagination,
       setPagination,
       resetPagination: resetPaginationCb,
-      setFilters,
+      setFilters: (changes: any) => {
+        dispatch(setFilterSelectedValues(changes));
+        if (currentPage === 'haku') {
+          goToSearchPage();
+        }
+      },
       clearFilters,
       selectedTab,
       setSelectedTab: setSelectedTabCb,
@@ -204,11 +199,12 @@ export const useSearch = () => {
       resetPaginationCb,
       oppilaitosData,
       koulutusData,
-      setFilters,
       clearFilters,
       selectedTab,
       setSelectedTabCb,
       goToSearchPage,
+      dispatch,
+      currentPage,
     ]
   );
 };

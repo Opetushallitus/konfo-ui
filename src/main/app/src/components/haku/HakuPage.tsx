@@ -26,9 +26,9 @@ import { useUrlParams } from '#/src/tools/useUrlParams';
 
 import { BackendErrorMessage } from './hakutulos/BackendErrorMessage';
 import { HakutulosResults } from './hakutulos/HakutulosResults';
-import { SuodatinValinnat } from './hakutulos/hakutulosSuodattimet/SuodatinValinnat';
+import { SuodatinValinnat } from '../suodattimet/hakutulosSuodattimet/SuodatinValinnat';
 import { HakutulosTabs } from './hakutulos/HakutulosTabs';
-import { MobileFiltersOnTopMenu } from './hakutulos/MobileFiltersOnTopMenu';
+import { MobileFiltersOnTopMenu } from '../suodattimet/hakutulosSuodattimet/MobileFiltersOnTopMenu';
 import { Suodatinpalkki } from './hakutulos/Suodatinpalkki';
 import { useSearch, useSearchSortOrder } from './hakutulosHooks';
 

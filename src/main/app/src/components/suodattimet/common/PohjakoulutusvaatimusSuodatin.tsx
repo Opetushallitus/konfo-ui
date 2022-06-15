@@ -7,27 +7,25 @@ import { FILTER_TYPES } from '#/src/constants';
 import { getFilterStateChanges } from '#/src/tools/filters';
 import { FilterValue, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 
-import { useFilterProps, useSearch } from '../haku/hakutulosHooks';
+import { useFilterProps } from '../../haku/hakutulosHooks';
 
-export const OpetustapaSuodatin = (props: SuodatinComponentProps) => {
+export const PohjakoulutusvaatimusSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
-  const { setFilters } = useSearch();
-
-  const values = useFilterProps(FILTER_TYPES.OPETUSTAPA);
+  const values = useFilterProps(FILTER_TYPES.POHJAKOULUTUSVAATIMUS);
   const propsValues = props.values !== undefined ? props.values : [];
 
   const handleCheck = (item: FilterValue) => {
     const changes = getFilterStateChanges(values)(item);
-    setFilters(changes);
+    props.setFilters(changes);
   };
 
   return (
     <Filter
       {...props}
-      testId="opetustapa-filter"
-      name={t('haku.opetustapa')}
+      testId="pohjakoulutusvaatimus-filter"
+      name={t('haku.pohjakoulutusvaatimus')}
       values={props.isHaku ? values : propsValues}
-      handleCheck={props.isHaku ? handleCheck : props.handleFilterChange!}
+      handleCheck={handleCheck}
       displaySelected
     />
   );

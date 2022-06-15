@@ -9,7 +9,7 @@ import { FILTER_TYPES } from '#/src/constants';
 import { getFilterStateChanges } from '#/src/tools/filters';
 import { FilterValue, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 
-import { useFilterProps, useSearch } from '../../hakutulosHooks';
+import { useFilterProps, useSearch } from '../../haku/hakutulosHooks';
 
 const withStyles = makeStyles(() => ({
   noBoxShadow: {
@@ -41,7 +41,6 @@ const withStyles = makeStyles(() => ({
 export const KoulutustyyppiSuodatin = (props: SuodatinComponentProps) => {
   const classes = withStyles();
   const { t } = useTranslation();
-  const { setFilters } = useSearch();
 
   const [isMuuSelected, setIsMuuSelected] = useState(false);
   const values = useFilterProps(FILTER_TYPES.KOULUTUSTYYPPI);
@@ -58,7 +57,7 @@ export const KoulutustyyppiSuodatin = (props: SuodatinComponentProps) => {
   const getChanges = getFilterStateChanges(isMuuSelected ? muuValues : values);
   const handleCheck = (item: FilterValue) => {
     const changes = getChanges(item);
-    setFilters(changes);
+    props.setFilters(changes);
   };
 
   return (

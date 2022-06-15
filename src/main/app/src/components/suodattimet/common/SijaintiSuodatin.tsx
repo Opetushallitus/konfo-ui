@@ -9,11 +9,10 @@ import { FILTER_TYPES } from '#/src/constants';
 import { getFilterStateChanges } from '#/src/tools/filters';
 import { FilterValue, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 
-import { useFilterProps, useSearch } from '../haku/hakutulosHooks';
+import { useFilterProps, useSearch } from '../../haku/hakutulosHooks';
 
 export const SijaintiSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
-  const { setFilters } = useSearch();
 
   const filterKuntavalues = useFilterProps(FILTER_TYPES.KUNTA);
   const filterMaaKuntavalues = useFilterProps(FILTER_TYPES.MAAKUNTA);
@@ -30,7 +29,7 @@ export const SijaintiSuodatin = (props: SuodatinComponentProps) => {
 
   const handleCheck = (item: FilterValue) => {
     const changes = getFilterStateChanges(kuntaValues.concat(maakuntaValues))(item);
-    setFilters(changes);
+    props.setFilters(changes);
   };
 
   const { isFetching } = useSearch();
@@ -74,7 +73,7 @@ export const SijaintiSuodatin = (props: SuodatinComponentProps) => {
       selectPlaceholder={t('haku.etsi-paikkakunta-tai-alue')}
       name={t('haku.sijainti')}
       values={usedValues}
-      handleCheck={props.isHaku ? handleCheck : props.handleFilterChange!}
+      handleCheck={handleCheck}
       expandValues
       displaySelected
     />

@@ -15,6 +15,7 @@ export type SuodatinComponentProps = {
   maakuntaValues?: Array<FilterValue>;
   kuntaValues?: Array<FilterValue>;
   loading?: boolean;
+  setFilters: (value: any) => void;
 };
 
 export type FilterValue = {

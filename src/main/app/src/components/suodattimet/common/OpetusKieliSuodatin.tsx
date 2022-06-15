@@ -7,25 +7,26 @@ import { FILTER_TYPES } from '#/src/constants';
 import { getFilterStateChanges } from '#/src/tools/filters';
 import { FilterValue, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 
-import { useFilterProps, useSearch } from '../haku/hakutulosHooks';
+import { useFilterProps } from '../../haku/hakutulosHooks';
 
 export const OpetuskieliSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
-  const { setFilters } = useSearch();
 
   const filterValues = useFilterProps(FILTER_TYPES.OPETUSKIELI);
   const propsValues = props.values === undefined ? [] : props.values;
 
   const handleCheck = (item: FilterValue) => {
-    const changes = getFilterStateChanges(filterValues)(item);
-    setFilters(changes);
+    const changes = getFilterStateChanges(propsValues)(item);
+    console.log(item);
+    console.log(changes);
+    props.setFilters(changes);
   };
   return (
     <Filter
       {...props}
       name={t('haku.opetuskieli')}
       values={props.isHaku ? filterValues : propsValues}
-      handleCheck={props.isHaku ? handleCheck : props.handleFilterChange!}
+      handleCheck={handleCheck}
       displaySelected
     />
   );
