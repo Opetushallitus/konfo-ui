@@ -9,11 +9,12 @@ export type SuodatinComponentProps = {
   shadow?: boolean;
   onFocus?: () => void;
   onHide?: () => void;
-  isHaku?: boolean;
   handleFilterChange?: (value: any) => void;
   values?: Array<FilterValue>;
   maakuntaValues?: Array<FilterValue>;
   kuntaValues?: Array<FilterValue>;
+  hakukaynnissaValues?: Array<FilterValue>;
+  hakutapaValues?: Array<FilterValue>;
   loading?: boolean;
   setFilters: (value: any) => void;
 };

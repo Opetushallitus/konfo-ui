@@ -7,14 +7,12 @@ import { FILTER_TYPES } from '#/src/constants';
 import { getFilterStateChanges } from '#/src/tools/filters';
 import { FilterValue, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 
-import { useFilterProps } from '../../haku/hakutulosHooks';
-
 // NOTE: Hakutapa sisältää hakukaynnissa ja yhteishaku suodattimet -> tämä komponentti hoitaa yhdistelylogiikan
 export const HakutapaSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
 
-  const hakukaynnissaValues = useFilterProps(FILTER_TYPES.HAKUKAYNNISSA);
-  const hakutapaValues = useFilterProps(FILTER_TYPES.HAKUTAPA);
+  const hakukaynnissaValues = props.hakukaynnissaValues!;
+  const hakutapaValues = props.hakutapaValues!;
 
   const filterValues = useMemo(() => {
     if (hakutapaValues?.length === 0) {
@@ -23,8 +21,6 @@ export const HakutapaSuodatin = (props: SuodatinComponentProps) => {
 
     return [...hakukaynnissaValues, ...hakutapaValues];
   }, [hakukaynnissaValues, hakutapaValues]);
-
-  const propsValues = props.values === undefined ? [] : props.values;
 
   const handleCheck = (item: FilterValue) => {
     if (item.filterId === FILTER_TYPES.HAKUKAYNNISSA) {
@@ -40,7 +36,7 @@ export const HakutapaSuodatin = (props: SuodatinComponentProps) => {
       {...props}
       testId="hakutapa-filter"
       name={t('haku.hakutapa')}
-      values={props.isHaku ? filterValues : propsValues}
+      values={filterValues}
       handleCheck={handleCheck}
       displaySelected
     />

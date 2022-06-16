@@ -7,11 +7,10 @@ import { FILTER_TYPES } from '#/src/constants';
 import { getFilterStateChanges } from '#/src/tools/filters';
 import { FilterValue, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 
-import { useFilterProps, useSearch } from '../../haku/hakutulosHooks';
+import { useFilterProps } from '../../haku/hakutulosHooks';
 
 export const KoulutusalaSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
-  const { setFilters } = useSearch();
 
   const values = useFilterProps(FILTER_TYPES.KOULUTUSALA);
 

@@ -174,7 +174,6 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                 <OpetuskieliSuodatin
                   elevation={2}
                   values={usedValues.opetuskieli}
-                  isHaku={false}
                   setFilters={setFilters}
                 />
               </SuodatinGridItem>
@@ -182,7 +181,6 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                 <SijaintiSuodatin
                   elevation={2}
                   loading={isLoading}
-                  handleFilterChange={handleFilterChange}
                   maakuntaValues={usedValues.maakunta}
                   kuntaValues={usedValues.kunta}
                   onFocus={() => {
@@ -191,7 +189,6 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                   onHide={() => {
                     setPreventClicks(false);
                   }}
-                  isHaku={false}
                   setFilters={setFilters}
                 />
               </SuodatinGridItem>
@@ -200,7 +197,6 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                   elevation={2}
                   handleFilterChange={handleFilterChange}
                   values={usedValues.pohjakoulutusvaatimus}
-                  isHaku={false}
                   setFilters={setFilters}
                 />
               </SuodatinGridItem>
@@ -213,7 +209,6 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                       ? [...usedValues.hakukaynnissa, ...usedValues.hakutapa]
                       : []
                   }
-                  isHaku={false}
                   setFilters={setFilters}
                 />
               </SuodatinGridItem>
@@ -222,7 +217,6 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                   elevation={2}
                   handleFilterChange={handleFilterChange}
                   values={usedValues.opetustapa}
-                  isHaku={false}
                   setFilters={setFilters}
                 />
               </SuodatinGridItem>
@@ -232,7 +226,6 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                     elevation={2}
                     handleFilterChange={handleFilterChange}
                     values={usedValues.valintatapa}
-                    isHaku={false}
                     setFilters={setFilters}
                   />
                 </SuodatinGridItem>

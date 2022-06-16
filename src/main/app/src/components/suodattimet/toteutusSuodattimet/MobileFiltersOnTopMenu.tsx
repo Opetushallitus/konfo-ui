@@ -140,7 +140,6 @@ export const MobileFiltersOnTopMenu = ({
           <OpetuskieliSuodatin
             expanded={false}
             values={values.opetuskieli}
-            isHaku={false}
             setFilters={setFilters}
           />
           <Divider className={classes.divider} />
@@ -150,7 +149,6 @@ export const MobileFiltersOnTopMenu = ({
             maakuntaValues={values.maakunta}
             kuntaValues={values.kunta}
             loading={loading}
-            isHaku={false}
             setFilters={setFilters}
           />
           <Divider className={classes.divider} />
@@ -158,16 +156,13 @@ export const MobileFiltersOnTopMenu = ({
             handleFilterChange={handleFilterChange}
             expanded={false}
             values={values.pohjakoulutusvaatimus}
-            isHaku={false}
             setFilters={setFilters}
           />
           <Divider className={classes.divider} />
           {values.hakukaynnissa && values.hakutapa && (
             <HakutapaSuodatin
-              handleFilterChange={handleFilterChange}
               expanded={false}
               values={[...values.hakukaynnissa, ...values.hakutapa]}
-              isHaku={false}
               setFilters={setFilters}
             />
           )}
@@ -178,7 +173,6 @@ export const MobileFiltersOnTopMenu = ({
                 handleFilterChange={handleFilterChange}
                 expanded={false}
                 values={values.valintatapa}
-                isHaku={false}
                 setFilters={setFilters}
               />
               <Divider className={classes.divider} />
@@ -219,10 +213,8 @@ export const MobileFiltersOnTopMenu = ({
             </>
           )}
           <OpetustapaSuodatin
-            handleFilterChange={handleFilterChange}
             expanded={false}
             values={values.opetustapa}
-            isHaku={false}
             setFilters={setFilters}
           />
           <Divider className={classes.divider} />

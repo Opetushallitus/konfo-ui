@@ -15,21 +15,26 @@ import {
 import { Close } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 
+import { FILTER_TYPES } from '#/src/constants';
 import { useIsAtEtusivu } from '#/src/store/reducers/appSlice';
 
+import { MobileResultsPerPageExpansionMenu } from '../../haku/hakutulos/MobileResultsPerPageExpansionMenu';
+import { MobileToggleFiltersButton } from '../../haku/hakutulos/MobileToggleFiltersButton';
+import MobileToggleKoulutusOppilaitos from '../../haku/hakutulos/MobileToggleKoulutusOppilaitos';
+import MobileToggleOrderByButtonMenu from '../../haku/hakutulos/MobileToggleOrderByButtonMenu';
+import {
+  useAllSelectedFilters,
+  useFilterProps,
+  useSearch,
+} from '../../haku/hakutulosHooks';
 import { HakutapaSuodatin } from '../common/HakutapaSuodatin';
 import { OpetuskieliSuodatin } from '../common/OpetusKieliSuodatin';
 import { OpetustapaSuodatin } from '../common/OpetustapaSuodatin';
 import { PohjakoulutusvaatimusSuodatin } from '../common/PohjakoulutusvaatimusSuodatin';
 import { SijaintiSuodatin } from '../common/SijaintiSuodatin';
 import { ValintatapaSuodatin } from '../common/ValintatapaSuodatin';
-import { useAllSelectedFilters, useSearch } from '../../haku/hakutulosHooks';
 import { KoulutusalaSuodatin } from './KoulutusalaSuodatin';
 import { KoulutustyyppiSuodatin } from './KoulutustyyppiSuodatin';
-import { MobileResultsPerPageExpansionMenu } from '../../haku/hakutulos/MobileResultsPerPageExpansionMenu';
-import { MobileToggleFiltersButton } from '../../haku/hakutulos/MobileToggleFiltersButton';
-import MobileToggleKoulutusOppilaitos from '../../haku/hakutulos/MobileToggleKoulutusOppilaitos';
-import MobileToggleOrderByButtonMenu from '../../haku/hakutulos/MobileToggleOrderByButtonMenu';
 
 const useStyles = makeStyles(() => ({
   paperAnchorBottom: {
@@ -148,35 +153,37 @@ export const MobileFiltersOnTopMenu = () => {
           <OpetuskieliSuodatin
             expanded={false}
             displaySelected
-            isHaku={true}
+            values={useFilterProps(FILTER_TYPES.OPETUSKIELI)}
             setFilters={setFilters}
           />
           <Divider className={classes.divider} />
           <SijaintiSuodatin
             expanded={false}
             displaySelected
-            isHaku={true}
+            kuntaValues={useFilterProps(FILTER_TYPES.KUNTA)}
+            maakuntaValues={useFilterProps(FILTER_TYPES.MAAKUNTA)}
             setFilters={setFilters}
           />
           <Divider className={classes.divider} />
           <PohjakoulutusvaatimusSuodatin
             expanded={false}
             displaySelected
-            isHaku={true}
+            values={useFilterProps(FILTER_TYPES.POHJAKOULUTUSVAATIMUS)}
             setFilters={setFilters}
           />
           <Divider className={classes.divider} />
           <HakutapaSuodatin
             expanded={false}
             displaySelected
-            isHaku={true}
+            hakukaynnissaValues={useFilterProps(FILTER_TYPES.HAKUKAYNNISSA)}
+            hakutapaValues={useFilterProps(FILTER_TYPES.HAKUTAPA)}
             setFilters={setFilters}
           />
           <Divider className={classes.divider} />
           <ValintatapaSuodatin
             expanded={false}
             displaySelected
-            isHaku={true}
+            values={useFilterProps(FILTER_TYPES.VALINTATAPA)}
             setFilters={setFilters}
           />
           <Divider className={classes.divider} />
@@ -185,7 +192,7 @@ export const MobileFiltersOnTopMenu = () => {
           <OpetustapaSuodatin
             expanded={false}
             displaySelected
-            isHaku={true}
+            values={useFilterProps(FILTER_TYPES.OPETUSTAPA)}
             setFilters={setFilters}
           />
           <Divider className={classes.divider} />
