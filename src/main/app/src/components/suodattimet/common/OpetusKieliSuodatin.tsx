@@ -8,12 +8,11 @@ import { FilterValue, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 
 export const OpetuskieliSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
-
-  const values = props.values!;
+  const { values = [], setFilters } = props;
 
   const handleCheck = (item: FilterValue) => {
     const changes = getFilterStateChanges(values)(item);
-    props.setFilters(changes);
+    setFilters(changes);
   };
   return (
     <Filter

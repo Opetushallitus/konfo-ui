@@ -43,9 +43,26 @@ export const Suodatinpalkki = () => {
 
   return (
     <Grid ref={ref as any} item lg={3} md={4} className={classes.rajaaTuloksia}>
-      <KoulutustyyppiSuodatin expanded elevation={2} setFilters={setFilters} />
-      <OpetuskieliSuodatin expanded elevation={2} values={useFilterProps(FILTER_TYPES.OPETUSKIELI)} setFilters={setFilters} />
-      <SijaintiSuodatin expanded elevation={2} kuntaValues={useFilterProps(FILTER_TYPES.KUNTA)} maakuntaValues={useFilterProps(FILTER_TYPES.MAAKUNTA)} setFilters={setFilters} />
+      <KoulutustyyppiSuodatin
+        expanded
+        elevation={2}
+        values={useFilterProps(FILTER_TYPES.KOULUTUSTYYPPI)}
+        muuValues={useFilterProps(FILTER_TYPES.KOULUTUSTYYPPI_MUU)}
+        setFilters={setFilters}
+      />
+      <OpetuskieliSuodatin
+        expanded
+        elevation={2}
+        values={useFilterProps(FILTER_TYPES.OPETUSKIELI)}
+        setFilters={setFilters}
+      />
+      <SijaintiSuodatin
+        expanded
+        elevation={2}
+        kuntaValues={useFilterProps(FILTER_TYPES.KUNTA)}
+        maakuntaValues={useFilterProps(FILTER_TYPES.MAAKUNTA)}
+        setFilters={setFilters}
+      />
       <PohjakoulutusvaatimusSuodatin
         expanded
         elevation={2}
@@ -59,8 +76,18 @@ export const Suodatinpalkki = () => {
         hakutapaValues={useFilterProps(FILTER_TYPES.HAKUTAPA)}
         setFilters={setFilters}
       />
-      <ValintatapaSuodatin expanded elevation={2} values={useFilterProps(FILTER_TYPES.VALINTATAPA)} setFilters={setFilters} />
-      <KoulutusalaSuodatin expanded elevation={2} setFilters={setFilters} />
+      <ValintatapaSuodatin
+        expanded
+        elevation={2}
+        values={useFilterProps(FILTER_TYPES.VALINTATAPA)}
+        setFilters={setFilters}
+      />
+      <KoulutusalaSuodatin
+        expanded
+        elevation={2}
+        values={useFilterProps(FILTER_TYPES.KOULUTUSALA)}
+        setFilters={setFilters}
+      />
       <OpetustapaSuodatin
         expanded={false}
         elevation={2}

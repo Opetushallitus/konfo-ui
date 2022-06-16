@@ -12,13 +12,11 @@ import { useSearch } from '../../haku/hakutulosHooks';
 
 export const SijaintiSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
-
-  const kuntaValues = props.kuntaValues!;
-  const maakuntaValues = props.maakuntaValues!;
+  const { kuntaValues = [], maakuntaValues = [], setFilters, loading } = props;
 
   const handleCheck = (item: FilterValue) => {
     const changes = getFilterStateChanges(kuntaValues.concat(maakuntaValues))(item);
-    props.setFilters(changes);
+    setFilters(changes);
   };
 
   const { isFetching } = useSearch();
@@ -56,7 +54,7 @@ export const SijaintiSuodatin = (props: SuodatinComponentProps) => {
     <Filter
       {...props}
       options={groupedSijainnit}
-      optionsLoading={optionsLoading || props.loading}
+      optionsLoading={optionsLoading || loading}
       selectPlaceholder={t('haku.etsi-paikkakunta-tai-alue')}
       name={t('haku.sijainti')}
       values={usedValues}

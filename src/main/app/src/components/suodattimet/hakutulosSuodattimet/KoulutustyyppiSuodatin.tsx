@@ -5,11 +5,8 @@ import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 import { Filter } from '#/src/components/common/Filter';
-import { FILTER_TYPES } from '#/src/constants';
 import { getFilterStateChanges } from '#/src/tools/filters';
 import { FilterValue, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
-
-import { useFilterProps } from '../../haku/hakutulosHooks';
 
 const withStyles = makeStyles(() => ({
   noBoxShadow: {
@@ -43,8 +40,7 @@ export const KoulutustyyppiSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
 
   const [isMuuSelected, setIsMuuSelected] = useState(false);
-  const values = useFilterProps(FILTER_TYPES.KOULUTUSTYYPPI);
-  const muuValues = useFilterProps(FILTER_TYPES.KOULUTUSTYYPPI_MUU);
+  const { values = [], muuValues = [], setFilters } = props;
 
   const filterValues = useMemo(
     () => [
@@ -57,7 +53,7 @@ export const KoulutustyyppiSuodatin = (props: SuodatinComponentProps) => {
   const getChanges = getFilterStateChanges(isMuuSelected ? muuValues : values);
   const handleCheck = (item: FilterValue) => {
     const changes = getChanges(item);
-    props.setFilters(changes);
+    setFilters(changes);
   };
 
   return (

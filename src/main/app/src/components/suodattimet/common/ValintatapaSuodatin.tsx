@@ -9,11 +9,11 @@ import { FilterValue, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 // TODO: Do not use this component until backend supports filtering no-haku-kaynnissa for valintatavat
 export const ValintatapaSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
-  const values = props.values!;
+  const { values = [], setFilters } = props;
 
   const handleCheck = (item: FilterValue) => {
     const changes = getFilterStateChanges(values)(item);
-    props.setFilters(changes);
+    setFilters(changes);
   };
 
   return (

@@ -187,7 +187,12 @@ export const MobileFiltersOnTopMenu = () => {
             setFilters={setFilters}
           />
           <Divider className={classes.divider} />
-          <KoulutusalaSuodatin expanded={false} displaySelected setFilters={setFilters} />
+          <KoulutusalaSuodatin
+            expanded={false}
+            displaySelected
+            values={useFilterProps(FILTER_TYPES.KOULUTUSALA)}
+            setFilters={setFilters}
+          />
           <Divider className={classes.divider} />
           <OpetustapaSuodatin
             expanded={false}

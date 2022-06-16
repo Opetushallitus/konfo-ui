@@ -11,8 +11,7 @@ import { FilterValue, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 export const HakutapaSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
 
-  const hakukaynnissaValues = props.hakukaynnissaValues!;
-  const hakutapaValues = props.hakutapaValues!;
+  const { hakukaynnissaValues = [], hakutapaValues = [], setFilters } = props;
 
   const filterValues = useMemo(() => {
     if (hakutapaValues?.length === 0) {
@@ -24,10 +23,10 @@ export const HakutapaSuodatin = (props: SuodatinComponentProps) => {
 
   const handleCheck = (item: FilterValue) => {
     if (item.filterId === FILTER_TYPES.HAKUKAYNNISSA) {
-      props.setFilters({ hakukaynnissa: !item.checked });
+      setFilters({ hakukaynnissa: !item.checked });
     } else {
       const changes = getFilterStateChanges(hakutapaValues)(item);
-      props.setFilters(changes);
+      setFilters(changes);
     }
   };
 

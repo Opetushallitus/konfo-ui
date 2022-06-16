@@ -56,7 +56,6 @@ type Props = {
   values: Record<string, Array<FilterValue>>;
   hitCount: number;
   loading: boolean;
-  handleFilterChange: (value: FilterValue) => void;
   clearChosenFilters: VoidFunction;
   setFilters: (value: any) => void;
 };
@@ -66,7 +65,6 @@ export const MobileFiltersOnTopMenu = ({
   values,
   hitCount,
   loading,
-  handleFilterChange,
   clearChosenFilters,
   setFilters,
 }: Props) => {
@@ -144,7 +142,6 @@ export const MobileFiltersOnTopMenu = ({
           />
           <Divider className={classes.divider} />
           <SijaintiSuodatin
-            handleFilterChange={handleFilterChange}
             expanded={false}
             maakuntaValues={values.maakunta}
             kuntaValues={values.kunta}
@@ -153,7 +150,6 @@ export const MobileFiltersOnTopMenu = ({
           />
           <Divider className={classes.divider} />
           <PohjakoulutusvaatimusSuodatin
-            handleFilterChange={handleFilterChange}
             expanded={false}
             values={values.pohjakoulutusvaatimus}
             setFilters={setFilters}
@@ -170,7 +166,6 @@ export const MobileFiltersOnTopMenu = ({
           {KORKEAKOULU_KOULUTUSTYYPIT.includes(koulutustyyppi as KOULUTUS_TYYPPI) && (
             <>
               <ValintatapaSuodatin
-                handleFilterChange={handleFilterChange}
                 expanded={false}
                 values={values.valintatapa}
                 setFilters={setFilters}
@@ -180,19 +175,15 @@ export const MobileFiltersOnTopMenu = ({
           )}
           {koulutustyyppi === KOULUTUS_TYYPPI.LUKIOKOULUTUS && (
             <>
-              {/*TODO*/}
               <LukiolinjatSuodatin
                 name="lukiopainotukset"
-                handleFilterChange={handleFilterChange}
                 expanded={false}
                 values={values.lukiopainotukset}
                 setFilters={setFilters}
               />
               <Divider className={classes.divider} />
-              {/*TODO*/}
               <LukiolinjatSuodatin
                 name="lukiolinjat_er"
-                handleFilterChange={handleFilterChange}
                 expanded={false}
                 values={values.lukiolinjaterityinenkoulutustehtava}
                 setFilters={setFilters}
@@ -202,9 +193,7 @@ export const MobileFiltersOnTopMenu = ({
           )}
           {koulutustyyppi === KOULUTUS_TYYPPI.AMM && (
             <>
-              {/*TODO*/}
               <AmmOsaamisalatSuodatin
-                handleFilterChange={handleFilterChange}
                 expanded={false}
                 values={values.osaamisala}
                 setFilters={setFilters}

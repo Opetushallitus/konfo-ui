@@ -26,8 +26,8 @@ import { colors } from '#/src/colors';
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
 import { useIsAtEtusivu } from '#/src/store/reducers/appSlice';
 
-import { HakupalkkiFilters } from './HakupalkkiFilters';
 import { MobileFiltersOnTopMenu } from '../suodattimet/hakutulosSuodattimet/MobileFiltersOnTopMenu';
+import { HakupalkkiFilters } from './HakupalkkiFilters';
 import { useSearch } from './hakutulosHooks';
 
 const useStyles = makeStyles((theme) => ({
