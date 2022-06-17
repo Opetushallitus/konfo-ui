@@ -147,6 +147,7 @@ export const MobileFiltersOnTopMenu = () => {
           <KoulutustyyppiSuodatin
             expanded={false}
             displaySelected
+            values={useFilterProps(FILTER_TYPES.KOULUTUSTYYPPI)}
             setFilters={setFilters}
           />
           <Divider className={classes.divider} />
