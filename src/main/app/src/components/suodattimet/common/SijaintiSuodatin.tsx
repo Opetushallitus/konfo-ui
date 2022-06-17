@@ -4,11 +4,11 @@ import _fp from 'lodash/fp';
 import { useTranslation } from 'react-i18next';
 
 import { Filter } from '#/src/components/common/Filter';
-import { getSelectOption } from '#/src/components/common/utils';
 import { getFilterStateChanges } from '#/src/tools/filters';
 import { FilterValue, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 
 import { useSearch } from '../../haku/hakutulosHooks';
+import {localize} from "#/src/tools/localization";
 
 export const SijaintiSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
@@ -22,6 +22,14 @@ export const SijaintiSuodatin = (props: SuodatinComponentProps) => {
   const { isFetching } = useSearch();
 
   const optionsLoading = isFetching;
+
+  const getSelectOption = (value: FilterValue, isMaakunta: boolean) => ({
+    ...value,
+    label: `${localize(value)} (${value.count})`,
+    value: localize(value),
+    isMaakunta,
+    name: value.nimi,
+  });
 
   const groupedSijainnit = useMemo(
     () => [
