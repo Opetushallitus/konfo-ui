@@ -1,18 +1,18 @@
-import React, {useMemo} from 'react';
+import React, { useMemo } from 'react';
 
+import _fp from 'lodash/fp';
 import { useTranslation } from 'react-i18next';
 
 import { Filter } from '#/src/components/common/Filter';
 import { getFilterStateChanges } from '#/src/tools/filters';
+import { localize } from '#/src/tools/localization';
 import { FilterValue, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
-import _fp from "lodash/fp";
-import {localize} from "#/src/tools/localization";
 
 export const LukiolinjatSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
   const { name, values = [], ...rest } = props;
 
-  const filteredValues = values.filter(v => v?.count > 0)
+  const filteredValues = values.filter((v) => v?.count > 0);
 
   const handleCheck = (item: FilterValue) => {
     const changes = getFilterStateChanges(filteredValues)(item);
@@ -30,14 +30,11 @@ export const LukiolinjatSuodatin = (props: SuodatinComponentProps) => {
     () => [
       {
         label: t(`haku.${name}`),
-        options: _fp.sortBy('label')(
-          filteredValues.map((v) => getSelectOption(v))
-        ),
+        options: _fp.sortBy('label')(filteredValues.map((v) => getSelectOption(v))),
       },
     ],
     [filteredValues, t]
   );
-
 
   return (
     <Filter
