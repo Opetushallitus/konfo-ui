@@ -12,7 +12,7 @@ describe('Osaamisala KOMO', () => {
     // Wait for everything to load
     cy.findByRole('progressbar').should('not.exist');
     cy.get('h1').contains('Hevosten kengittämisen osaamisala');
-    cy.findByText('Muu Ammatillinen koulutus');
+    cy.findByText('Osaamisala').should('exist');
     cy.findByText('100 osaamispistettä');
     cy.get('h3').contains('Tutkinnon suorittaneen osaaminen');
   });
