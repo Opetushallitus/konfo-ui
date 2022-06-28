@@ -5,10 +5,10 @@ import { useTranslation } from 'react-i18next';
 
 import { Filter } from '#/src/components/common/Filter';
 import { getFilterStateChanges } from '#/src/tools/filters';
+import { localize } from '#/src/tools/localization';
 import { FilterValue, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 
 import { useSearch } from '../../haku/hakutulosHooks';
-import {localize} from "#/src/tools/localization";
 
 export const SijaintiSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
@@ -35,26 +35,21 @@ export const SijaintiSuodatin = (props: SuodatinComponentProps) => {
     () => [
       {
         label: t('haku.kaupungit-tai-kunnat'),
-        options: _fp.sortBy('label')(
-          // ? kuntaValues.filter((v) => v.count > 0).map((v) => getSelectOption(v, false))
-          kuntaValues.map((v) => getSelectOption(v, false))
-        ),
+        options: _fp.sortBy('label')(kuntaValues.map((v) => getSelectOption(v, false))),
       },
       {
         label: t('haku.maakunnat'),
-        options: _fp.sortBy('label')(
-          // ? maakuntaValues
-          //     .filter((v) => v.count > 0)
-          //     .map((v) => getSelectOption(v, true))
-          maakuntaValues.map((v) => getSelectOption(v, true))
-        ),
+        options: _fp.sortBy('label')(maakuntaValues.map((v) => getSelectOption(v, true))),
       },
     ],
     [kuntaValues, maakuntaValues, t]
   );
 
   const usedValues = useMemo(
-    () => maakuntaValues.concat(kuntaValues.map((v) => ({ ...v, hidden: true }))),
+    () =>
+      maakuntaValues
+        .concat(kuntaValues.map((v) => ({ ...v, hidden: false })))
+        .sort((a, b) => Number(b.checked) - Number(a.checked)),
     [maakuntaValues, kuntaValues]
   );
 
