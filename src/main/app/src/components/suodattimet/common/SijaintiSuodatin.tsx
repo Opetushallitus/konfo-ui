@@ -48,7 +48,9 @@ export const SijaintiSuodatin = (props: SuodatinComponentProps) => {
   const usedValues = useMemo(
     () =>
       maakuntaValues
-        .concat(kuntaValues.map((v) => ({ ...v, hidden: false })))
+        .concat(
+          kuntaValues.filter((k) => k.checked).map((v) => ({ ...v, hidden: false }))
+        )
         .sort((a, b) => Number(b.checked) - Number(a.checked)),
     [maakuntaValues, kuntaValues]
   );
