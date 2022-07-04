@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, {ReactNode, useRef, useState} from 'react';
 
 import { makeStyles, Typography, Box, Button } from '@material-ui/core';
 import { ExpandLessOutlined, ExpandMoreOutlined } from '@material-ui/icons';
@@ -32,11 +32,11 @@ const useStyles = makeStyles((theme) => ({
 
 type Props = {
   id: string;
-  SuodatinComponent: (...props: any) => JSX.Element;
+  children: ReactNode;
   header: string;
 };
 
-export const Suodatin = ({ id, SuodatinComponent, header }: Props) => {
+export const Suodatin = ({ id, children, header }: Props) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -61,7 +61,7 @@ export const Suodatin = ({ id, SuodatinComponent, header }: Props) => {
       </Button>
       <PopoverWithArrow
         anchorEl={anchorRef.current}
-        content={<SuodatinComponent expanded summaryHidden />}
+        content={children}
         marginTop={7}
         onClose={() => setIsOpen(false)}
         open={isOpen}

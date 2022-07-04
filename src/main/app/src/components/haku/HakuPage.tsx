@@ -24,11 +24,11 @@ import { pageSizeArray, pageSortArray } from '#/src/constants';
 import { urlParamsChanged } from '#/src/store/reducers/hakutulosSlice';
 import { useUrlParams } from '#/src/tools/useUrlParams';
 
+import { MobileFiltersOnTopMenu } from '../suodattimet/hakutulosSuodattimet/MobileFiltersOnTopMenu';
+import { SuodatinValinnat } from '../suodattimet/hakutulosSuodattimet/SuodatinValinnat';
 import { BackendErrorMessage } from './hakutulos/BackendErrorMessage';
 import { HakutulosResults } from './hakutulos/HakutulosResults';
-import { SuodatinValinnat } from './hakutulos/hakutulosSuodattimet/SuodatinValinnat';
 import { HakutulosTabs } from './hakutulos/HakutulosTabs';
-import { MobileFiltersOnTopMenu } from './hakutulos/MobileFiltersOnTopMenu';
 import { Suodatinpalkki } from './hakutulos/Suodatinpalkki';
 import { useSearch, useSearchSortOrder } from './hakutulosHooks';
 

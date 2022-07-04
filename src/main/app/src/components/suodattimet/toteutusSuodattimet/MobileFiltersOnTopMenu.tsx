@@ -17,17 +17,17 @@ import _fp from 'lodash/fp';
 import { useTranslation } from 'react-i18next';
 
 import { MobileToggleFiltersButton } from '#/src/components/haku/hakutulos/MobileToggleFiltersButton';
+import { HakutapaSuodatin } from '#/src/components/suodattimet/common/HakutapaSuodatin';
+import { OpetuskieliSuodatin } from '#/src/components/suodattimet/common/OpetusKieliSuodatin';
+import { OpetustapaSuodatin } from '#/src/components/suodattimet/common/OpetustapaSuodatin';
+import { PohjakoulutusvaatimusSuodatin } from '#/src/components/suodattimet/common/PohjakoulutusvaatimusSuodatin';
+import { SijaintiSuodatin } from '#/src/components/suodattimet/common/SijaintiSuodatin';
+import { ValintatapaSuodatin } from '#/src/components/suodattimet/common/ValintatapaSuodatin';
 import { KOULUTUS_TYYPPI, KORKEAKOULU_KOULUTUSTYYPIT } from '#/src/constants';
 import { FilterValue } from '#/src/types/SuodatinTypes';
 
 import { AmmOsaamisalatSuodatin } from './AmmOsaamisalatSuodatin';
-import { HakutapaSuodatin } from './HakutapaSuodatin';
 import { LukiolinjatSuodatin } from './LukiolinjatSuodatin';
-import { OpetuskieliSuodatin } from './OpetusKieliSuodatin';
-import { OpetustapaSuodatin } from './OpetustapaSuodatin';
-import { PohjakoulutusvaatimusSuodatin } from './PohjakoulutusvaatimusSuodatin';
-import { SijaintiSuodatin } from './SijaintiSuodatin';
-import { ValintatapaSuodatin } from './ValintatapaSuodatin';
 
 const useStyles = makeStyles(() => ({
   paperAnchorBottom: {
@@ -56,8 +56,8 @@ type Props = {
   values: Record<string, Array<FilterValue>>;
   hitCount: number;
   loading: boolean;
-  handleFilterChange: (value: FilterValue) => void;
   clearChosenFilters: VoidFunction;
+  setFilters: (value: any) => void;
 };
 
 export const MobileFiltersOnTopMenu = ({
@@ -65,8 +65,8 @@ export const MobileFiltersOnTopMenu = ({
   values,
   hitCount,
   loading,
-  handleFilterChange,
   clearChosenFilters,
+  setFilters,
 }: Props) => {
   const classes = useStyles();
   const { t } = useTranslation();
@@ -136,39 +136,39 @@ export const MobileFiltersOnTopMenu = ({
         </AppBar>
         <Container classes={{ root: classes.containerRoot }}>
           <OpetuskieliSuodatin
-            handleFilterChange={handleFilterChange}
             expanded={false}
             values={values.opetuskieli}
+            setFilters={setFilters}
           />
           <Divider className={classes.divider} />
           <SijaintiSuodatin
-            handleFilterChange={handleFilterChange}
             expanded={false}
             maakuntaValues={values.maakunta}
             kuntaValues={values.kunta}
             loading={loading}
+            setFilters={setFilters}
           />
           <Divider className={classes.divider} />
           <PohjakoulutusvaatimusSuodatin
-            handleFilterChange={handleFilterChange}
             expanded={false}
             values={values.pohjakoulutusvaatimus}
+            setFilters={setFilters}
           />
           <Divider className={classes.divider} />
           {values.hakukaynnissa && values.hakutapa && (
             <HakutapaSuodatin
-              handleFilterChange={handleFilterChange}
               expanded={false}
               values={[...values.hakukaynnissa, ...values.hakutapa]}
+              setFilters={setFilters}
             />
           )}
           <Divider className={classes.divider} />
           {KORKEAKOULU_KOULUTUSTYYPIT.includes(koulutustyyppi as KOULUTUS_TYYPPI) && (
             <>
               <ValintatapaSuodatin
-                handleFilterChange={handleFilterChange}
                 expanded={false}
                 values={values.valintatapa}
+                setFilters={setFilters}
               />
               <Divider className={classes.divider} />
             </>
@@ -177,16 +177,16 @@ export const MobileFiltersOnTopMenu = ({
             <>
               <LukiolinjatSuodatin
                 name="lukiopainotukset"
-                handleFilterChange={handleFilterChange}
                 expanded={false}
                 values={values.lukiopainotukset}
+                setFilters={setFilters}
               />
               <Divider className={classes.divider} />
               <LukiolinjatSuodatin
                 name="lukiolinjat_er"
-                handleFilterChange={handleFilterChange}
                 expanded={false}
                 values={values.lukiolinjaterityinenkoulutustehtava}
+                setFilters={setFilters}
               />
               <Divider className={classes.divider} />
             </>
@@ -194,17 +194,17 @@ export const MobileFiltersOnTopMenu = ({
           {koulutustyyppi === KOULUTUS_TYYPPI.AMM && (
             <>
               <AmmOsaamisalatSuodatin
-                handleFilterChange={handleFilterChange}
                 expanded={false}
                 values={values.osaamisala}
+                setFilters={setFilters}
               />
               <Divider className={classes.divider} />
             </>
           )}
           <OpetustapaSuodatin
-            handleFilterChange={handleFilterChange}
             expanded={false}
             values={values.opetustapa}
+            setFilters={setFilters}
           />
           <Divider className={classes.divider} />
         </Container>

@@ -15,21 +15,26 @@ import {
 import { Close } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 
+import { FILTER_TYPES } from '#/src/constants';
 import { useIsAtEtusivu } from '#/src/store/reducers/appSlice';
 
-import { useAllSelectedFilters, useSearch } from '../hakutulosHooks';
-import { HakutapaSuodatin } from './hakutulosSuodattimet/HakutapaSuodatin';
-import { KoulutusalaSuodatin } from './hakutulosSuodattimet/KoulutusalaSuodatin';
-import { KoulutustyyppiSuodatin } from './hakutulosSuodattimet/KoulutustyyppiSuodatin';
-import { OpetuskieliSuodatin } from './hakutulosSuodattimet/OpetusKieliSuodatin';
-import { OpetustapaSuodatin } from './hakutulosSuodattimet/OpetustapaSuodatin';
-import { PohjakoulutusvaatimusSuodatin } from './hakutulosSuodattimet/PohjakoulutusvaatimusSuodatin';
-import { SijaintiSuodatin } from './hakutulosSuodattimet/SijaintiSuodatin';
-import { ValintatapaSuodatin } from './hakutulosSuodattimet/ValintatapaSuodatin';
-import { MobileResultsPerPageExpansionMenu } from './MobileResultsPerPageExpansionMenu';
-import { MobileToggleFiltersButton } from './MobileToggleFiltersButton';
-import MobileToggleKoulutusOppilaitos from './MobileToggleKoulutusOppilaitos';
-import MobileToggleOrderByButtonMenu from './MobileToggleOrderByButtonMenu';
+import { MobileResultsPerPageExpansionMenu } from '../../haku/hakutulos/MobileResultsPerPageExpansionMenu';
+import { MobileToggleFiltersButton } from '../../haku/hakutulos/MobileToggleFiltersButton';
+import MobileToggleKoulutusOppilaitos from '../../haku/hakutulos/MobileToggleKoulutusOppilaitos';
+import MobileToggleOrderByButtonMenu from '../../haku/hakutulos/MobileToggleOrderByButtonMenu';
+import {
+  useAllSelectedFilters,
+  useFilterProps,
+  useSearch,
+} from '../../haku/hakutulosHooks';
+import { HakutapaSuodatin } from '../common/HakutapaSuodatin';
+import { OpetuskieliSuodatin } from '../common/OpetusKieliSuodatin';
+import { OpetustapaSuodatin } from '../common/OpetustapaSuodatin';
+import { PohjakoulutusvaatimusSuodatin } from '../common/PohjakoulutusvaatimusSuodatin';
+import { SijaintiSuodatin } from '../common/SijaintiSuodatin';
+import { ValintatapaSuodatin } from '../common/ValintatapaSuodatin';
+import { KoulutusalaSuodatin } from './KoulutusalaSuodatin';
+import { KoulutustyyppiSuodatin } from './KoulutustyyppiSuodatin';
 
 const useStyles = makeStyles(() => ({
   paperAnchorBottom: {
@@ -61,8 +66,14 @@ export const MobileFiltersOnTopMenu = () => {
 
   const isAtEtusivu = useIsAtEtusivu();
 
-  const { koulutusData, oppilaitosData, selectedTab, clearFilters, goToSearchPage } =
-    useSearch();
+  const {
+    koulutusData,
+    oppilaitosData,
+    selectedTab,
+    clearFilters,
+    goToSearchPage,
+    setFilters,
+  } = useSearch();
 
   const hitCount = useMemo(
     () => (selectedTab === 'koulutus' ? koulutusData?.total : oppilaitosData?.total),
@@ -133,21 +144,63 @@ export const MobileFiltersOnTopMenu = () => {
         <Container classes={{ root: classes.containerRoot }}>
           {isAtEtusivu && <MobileToggleKoulutusOppilaitos />}
           {isAtEtusivu && <Divider className={classes.divider} />}
-          <KoulutustyyppiSuodatin expanded={false} displaySelected />
+          <KoulutustyyppiSuodatin
+            expanded={false}
+            displaySelected
+            values={useFilterProps(FILTER_TYPES.KOULUTUSTYYPPI)}
+            setFilters={setFilters}
+          />
           <Divider className={classes.divider} />
-          <OpetuskieliSuodatin expanded={false} displaySelected />
+          <OpetuskieliSuodatin
+            expanded={false}
+            displaySelected
+            values={useFilterProps(FILTER_TYPES.OPETUSKIELI)}
+            setFilters={setFilters}
+          />
           <Divider className={classes.divider} />
-          <SijaintiSuodatin expanded={false} displaySelected />
+          <SijaintiSuodatin
+            expanded={false}
+            displaySelected
+            kuntaValues={useFilterProps(FILTER_TYPES.KUNTA)}
+            maakuntaValues={useFilterProps(FILTER_TYPES.MAAKUNTA)}
+            setFilters={setFilters}
+          />
           <Divider className={classes.divider} />
-          <PohjakoulutusvaatimusSuodatin expanded={false} displaySelected />
+          <PohjakoulutusvaatimusSuodatin
+            expanded={false}
+            displaySelected
+            values={useFilterProps(FILTER_TYPES.POHJAKOULUTUSVAATIMUS)}
+            setFilters={setFilters}
+          />
           <Divider className={classes.divider} />
-          <HakutapaSuodatin expanded={false} displaySelected />
+          <HakutapaSuodatin
+            expanded={false}
+            displaySelected
+            hakukaynnissaValues={useFilterProps(FILTER_TYPES.HAKUKAYNNISSA)}
+            hakutapaValues={useFilterProps(FILTER_TYPES.HAKUTAPA)}
+            setFilters={setFilters}
+          />
           <Divider className={classes.divider} />
-          <ValintatapaSuodatin expanded={false} displaySelected />
+          <ValintatapaSuodatin
+            expanded={false}
+            displaySelected
+            values={useFilterProps(FILTER_TYPES.VALINTATAPA)}
+            setFilters={setFilters}
+          />
           <Divider className={classes.divider} />
-          <KoulutusalaSuodatin expanded={false} displaySelected />
+          <KoulutusalaSuodatin
+            expanded={false}
+            displaySelected
+            values={useFilterProps(FILTER_TYPES.KOULUTUSALA)}
+            setFilters={setFilters}
+          />
           <Divider className={classes.divider} />
-          <OpetustapaSuodatin expanded={false} displaySelected />
+          <OpetustapaSuodatin
+            expanded={false}
+            displaySelected
+            values={useFilterProps(FILTER_TYPES.OPETUSTAPA)}
+            setFilters={setFilters}
+          />
           <Divider className={classes.divider} />
           {!isAtEtusivu && <MobileToggleOrderByButtonMenu />}
           {!isAtEtusivu && <MobileResultsPerPageExpansionMenu />}

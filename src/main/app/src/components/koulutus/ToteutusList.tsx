@@ -14,16 +14,18 @@ import { PageSection } from '#/src/components/common/PageSection';
 import { Pagination } from '#/src/components/common/Pagination';
 import { QueryResultWrapper } from '#/src/components/common/QueryResultWrapper';
 import { TextWithBackground } from '#/src/components/common/TextWithBackground';
-import { FILTER_TYPES } from '#/src/constants';
+import { HakutapaSuodatin } from '#/src/components/suodattimet/common/HakutapaSuodatin';
+import { OpetuskieliSuodatin } from '#/src/components/suodattimet/common/OpetusKieliSuodatin';
+import { OpetustapaSuodatin } from '#/src/components/suodattimet/common/OpetustapaSuodatin';
+import { PohjakoulutusvaatimusSuodatin } from '#/src/components/suodattimet/common/PohjakoulutusvaatimusSuodatin';
+import { SijaintiSuodatin } from '#/src/components/suodattimet/common/SijaintiSuodatin';
+import { ValintatapaSuodatin } from '#/src/components/suodattimet/common/ValintatapaSuodatin';
+import { AmmOsaamisalatSuodatin } from '#/src/components/suodattimet/toteutusSuodattimet/AmmOsaamisalatSuodatin';
 import { KOULUTUS_TYYPPI, KORKEAKOULU_KOULUTUSTYYPIT } from '#/src/constants';
 import { usePreviousNonEmpty } from '#/src/hooks';
 import { usePreviousPage } from '#/src/store/reducers/appSlice';
 import { getInitialCheckedToteutusFilters } from '#/src/store/reducers/hakutulosSliceSelector';
-import {
-  getFilterStateChanges,
-  getFilterWithChecked,
-  sortValues,
-} from '#/src/tools/filters';
+import { getFilterWithChecked, sortValues } from '#/src/tools/filters';
 import {
   localize,
   getLocalizedMaksullisuus,
@@ -33,16 +35,9 @@ import { mapValues } from '#/src/tools/lodashFpUncapped';
 import { FilterValue } from '#/src/types/SuodatinTypes';
 import { Jarjestaja } from '#/src/types/ToteutusTypes';
 
+import { LukiolinjatSuodatin } from '../suodattimet/toteutusSuodattimet/LukiolinjatSuodatin';
+import { MobileFiltersOnTopMenu } from '../suodattimet/toteutusSuodattimet/MobileFiltersOnTopMenu';
 import { useKoulutusJarjestajat } from './hooks';
-import { AmmOsaamisalatSuodatin } from './toteutusSuodattimet/AmmOsaamisalatSuodatin';
-import { HakutapaSuodatin } from './toteutusSuodattimet/HakutapaSuodatin';
-import { LukiolinjatSuodatin } from './toteutusSuodattimet/LukiolinjatSuodatin';
-import { MobileFiltersOnTopMenu } from './toteutusSuodattimet/MobileFiltersOnTopMenu';
-import { OpetuskieliSuodatin } from './toteutusSuodattimet/OpetusKieliSuodatin';
-import { OpetustapaSuodatin } from './toteutusSuodattimet/OpetustapaSuodatin';
-import { PohjakoulutusvaatimusSuodatin } from './toteutusSuodattimet/PohjakoulutusvaatimusSuodatin';
-import { SijaintiSuodatin } from './toteutusSuodattimet/SijaintiSuodatin';
-import { ValintatapaSuodatin } from './toteutusSuodattimet/ValintatapaSuodatin';
 
 const useStyles = makeStyles({
   grid: {
@@ -121,25 +116,6 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
 
   const someSelected = _fp.some((v) => (_fp.isArray(v) ? v.length > 0 : v), filters);
 
-  const handleFilterChange = useCallback(
-    (value: FilterValue) => {
-      const { filterId } = value;
-      let newFilters: typeof filters;
-
-      // Käsitellään boolean-filter erikseen
-      if (filterId === FILTER_TYPES.HAKUKAYNNISSA) {
-        const filter = filters[filterId] as boolean;
-        newFilters = { ...filters, [filterId]: !filter };
-      } else {
-        const newFilter = getFilterStateChanges(usedValues[filterId])(value);
-        newFilters = { ...filters, ...newFilter };
-      }
-
-      setFilters(newFilters);
-    },
-    [filters, setFilters, usedValues]
-  );
-
   const handleFiltersClear = useCallback(() => {
     const usedFilters = _fp.mapValues((v) => (_fp.isArray(v) ? [] : false), filters);
 
@@ -173,15 +149,14 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
               <SuodatinGridItem>
                 <OpetuskieliSuodatin
                   elevation={2}
-                  handleFilterChange={handleFilterChange}
                   values={usedValues.opetuskieli}
+                  setFilters={setFilters}
                 />
               </SuodatinGridItem>
               <SuodatinGridItem>
                 <SijaintiSuodatin
                   elevation={2}
                   loading={isLoading}
-                  handleFilterChange={handleFilterChange}
                   maakuntaValues={usedValues.maakunta}
                   kuntaValues={usedValues.kunta}
                   onFocus={() => {
@@ -190,39 +165,37 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                   onHide={() => {
                     setPreventClicks(false);
                   }}
+                  setFilters={setFilters}
                 />
               </SuodatinGridItem>
               <SuodatinGridItem>
                 <PohjakoulutusvaatimusSuodatin
                   elevation={2}
-                  handleFilterChange={handleFilterChange}
                   values={usedValues.pohjakoulutusvaatimus}
+                  setFilters={setFilters}
                 />
               </SuodatinGridItem>
               <SuodatinGridItem>
                 <HakutapaSuodatin
                   elevation={2}
-                  handleFilterChange={handleFilterChange}
-                  values={
-                    usedValues.hakukaynnissa && usedValues.hakutapa
-                      ? [...usedValues.hakukaynnissa, ...usedValues.hakutapa]
-                      : []
-                  }
+                  hakukaynnissaValues={usedValues.hakukaynnissa}
+                  hakutapaValues={usedValues.hakutapa}
+                  setFilters={setFilters}
                 />
               </SuodatinGridItem>
               <SuodatinGridItem>
                 <OpetustapaSuodatin
                   elevation={2}
-                  handleFilterChange={handleFilterChange}
                   values={usedValues.opetustapa}
+                  setFilters={setFilters}
                 />
               </SuodatinGridItem>
               {KORKEAKOULU_KOULUTUSTYYPIT.includes(koulutustyyppi as KOULUTUS_TYYPPI) && (
                 <SuodatinGridItem>
                   <ValintatapaSuodatin
                     elevation={2}
-                    handleFilterChange={handleFilterChange}
                     values={usedValues.valintatapa}
+                    setFilters={setFilters}
                   />
                 </SuodatinGridItem>
               )}
@@ -239,16 +212,16 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                     <LukiolinjatSuodatin
                       name="lukiopainotukset"
                       elevation={2}
-                      handleFilterChange={handleFilterChange}
                       values={usedValues.lukiopainotukset}
+                      setFilters={setFilters}
                     />
                   </SuodatinGridItem>
                   <SuodatinGridItem>
                     <LukiolinjatSuodatin
                       name="lukiolinjat_er"
                       elevation={2}
-                      handleFilterChange={handleFilterChange}
                       values={usedValues.lukiolinjaterityinenkoulutustehtava}
+                      setFilters={setFilters}
                     />
                   </SuodatinGridItem>
                 </Grid>
@@ -257,8 +230,8 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                 <SuodatinGridItem>
                   <AmmOsaamisalatSuodatin
                     elevation={2}
-                    handleFilterChange={handleFilterChange}
                     values={usedValues.osaamisala}
+                    setFilters={setFilters}
                   />
                 </SuodatinGridItem>
               )}
@@ -270,8 +243,8 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
               values={usedValues}
               loading={isLoading}
               hitCount={total}
-              handleFilterChange={handleFilterChange}
               clearChosenFilters={handleFiltersClear}
+              setFilters={setFilters}
             />
           </Hidden>
         </>
