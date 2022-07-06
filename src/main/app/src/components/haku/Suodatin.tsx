@@ -1,4 +1,4 @@
-import React, {ReactNode, useRef, useState} from 'react';
+import React, { ReactNode, useRef, useState } from 'react';
 
 import { makeStyles, Typography, Box, Button } from '@material-ui/core';
 import { ExpandLessOutlined, ExpandMoreOutlined } from '@material-ui/icons';

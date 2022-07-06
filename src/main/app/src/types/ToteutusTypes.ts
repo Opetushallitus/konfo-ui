@@ -127,8 +127,10 @@ export type Toteutus = {
   hakuAuki: boolean;
   hakukohteetByHakutapa?: Record<
     string,
-    { nimi: Translateable;
-      hakukohteet: Array<Hakukohde & { isHakuAuki: boolean, isHakuMennyt: boolean }> }
+    {
+      nimi: Translateable;
+      hakukohteet: Array<Hakukohde & { isHakuAuki: boolean; isHakuMennyt: boolean }>;
+    }
   >;
 };
 
