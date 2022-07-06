@@ -115,7 +115,7 @@ export const MurupolkuFragment = (props) => {
 
   const normalizedName = name ? name.trim() : '';
   const shortenedName =
-    isSmall || isMedium || isLarge ? shortenName(normalizedName) : normalizedName;
+    isSmall || isMedium || (isLarge && !isLast) ? shortenName(normalizedName) : normalizedName;
 
   return (
     <span>
