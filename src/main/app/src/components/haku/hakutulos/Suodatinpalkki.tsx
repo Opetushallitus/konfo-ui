@@ -6,6 +6,7 @@ import { createGlobalState, useMeasure } from 'react-use';
 import { useFilterProps, useSearch } from '#/src/components/haku/hakutulosHooks';
 import { FILTER_TYPES } from '#/src/constants';
 
+import { HakuKaynnissaSuodatin } from '../../suodattimet/common/HakuKaynnissaSuodatin';
 import { HakutapaSuodatin } from '../../suodattimet/common/HakutapaSuodatin';
 import { OpetuskieliSuodatin } from '../../suodattimet/common/OpetusKieliSuodatin';
 import { OpetustapaSuodatin } from '../../suodattimet/common/OpetustapaSuodatin';
@@ -69,11 +70,16 @@ export const Suodatinpalkki = () => {
         values={useFilterProps(FILTER_TYPES.POHJAKOULUTUSVAATIMUS)}
         setFilters={setFilters}
       />
+      <HakuKaynnissaSuodatin
+        expanded
+        elevation={2}
+        values={useFilterProps(FILTER_TYPES.HAKUKAYNNISSA)}
+        setFilters={setFilters}
+      />
       <HakutapaSuodatin
         expanded
         elevation={2}
-        hakukaynnissaValues={useFilterProps(FILTER_TYPES.HAKUKAYNNISSA)}
-        hakutapaValues={useFilterProps(FILTER_TYPES.HAKUTAPA)}
+        values={useFilterProps(FILTER_TYPES.HAKUTAPA)}
         setFilters={setFilters}
       />
       <ValintatapaSuodatin

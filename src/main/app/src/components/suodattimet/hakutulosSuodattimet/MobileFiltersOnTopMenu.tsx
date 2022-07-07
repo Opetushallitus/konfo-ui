@@ -27,6 +27,7 @@ import {
   useFilterProps,
   useSearch,
 } from '../../haku/hakutulosHooks';
+import { HakuKaynnissaSuodatin } from '../common/HakuKaynnissaSuodatin';
 import { HakutapaSuodatin } from '../common/HakutapaSuodatin';
 import { OpetuskieliSuodatin } from '../common/OpetusKieliSuodatin';
 import { OpetustapaSuodatin } from '../common/OpetustapaSuodatin';
@@ -173,11 +174,17 @@ export const MobileFiltersOnTopMenu = () => {
             setFilters={setFilters}
           />
           <Divider className={classes.divider} />
+          <HakuKaynnissaSuodatin
+            expanded={false}
+            displaySelected
+            values={useFilterProps(FILTER_TYPES.HAKUKAYNNISSA)}
+            setFilters={setFilters}
+          />
+          <Divider className={classes.divider} />
           <HakutapaSuodatin
             expanded={false}
             displaySelected
-            hakukaynnissaValues={useFilterProps(FILTER_TYPES.HAKUKAYNNISSA)}
-            hakutapaValues={useFilterProps(FILTER_TYPES.HAKUTAPA)}
+            values={useFilterProps(FILTER_TYPES.HAKUTAPA)}
             setFilters={setFilters}
           />
           <Divider className={classes.divider} />

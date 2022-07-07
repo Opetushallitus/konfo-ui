@@ -17,6 +17,7 @@ import _fp from 'lodash/fp';
 import { useTranslation } from 'react-i18next';
 
 import { MobileToggleFiltersButton } from '#/src/components/haku/hakutulos/MobileToggleFiltersButton';
+import { HakuKaynnissaSuodatin } from '#/src/components/suodattimet/common/HakuKaynnissaSuodatin';
 import { HakutapaSuodatin } from '#/src/components/suodattimet/common/HakutapaSuodatin';
 import { OpetuskieliSuodatin } from '#/src/components/suodattimet/common/OpetusKieliSuodatin';
 import { OpetustapaSuodatin } from '#/src/components/suodattimet/common/OpetustapaSuodatin';
@@ -155,10 +156,18 @@ export const MobileFiltersOnTopMenu = ({
             setFilters={setFilters}
           />
           <Divider className={classes.divider} />
-          {values.hakukaynnissa && values.hakutapa && (
+          {values.hakukaynnissa && (
+            <HakuKaynnissaSuodatin
+              expanded={false}
+              values={values.hakukaynnissa}
+              setFilters={setFilters}
+            />
+          )}
+          <Divider className={classes.divider} />
+          {values.hakutapa && (
             <HakutapaSuodatin
               expanded={false}
-              values={[...values.hakukaynnissa, ...values.hakutapa]}
+              values={values.hakutapa}
               setFilters={setFilters}
             />
           )}

@@ -35,6 +35,7 @@ import { mapValues } from '#/src/tools/lodashFpUncapped';
 import { FilterValue } from '#/src/types/SuodatinTypes';
 import { Jarjestaja } from '#/src/types/ToteutusTypes';
 
+import { HakuKaynnissaSuodatin } from '#/src/components/suodattimet/common/HakuKaynnissaSuodatin';
 import { LukiolinjatSuodatin } from '../suodattimet/toteutusSuodattimet/LukiolinjatSuodatin';
 import { MobileFiltersOnTopMenu } from '../suodattimet/toteutusSuodattimet/MobileFiltersOnTopMenu';
 import { useKoulutusJarjestajat } from './hooks';
@@ -176,10 +177,16 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                 />
               </SuodatinGridItem>
               <SuodatinGridItem>
+                <HakuKaynnissaSuodatin
+                  elevation={2}
+                  values={usedValues.hakukaynnissa}
+                  setFilters={setFilters}
+                />
+              </SuodatinGridItem>
+              <SuodatinGridItem>
                 <HakutapaSuodatin
                   elevation={2}
-                  hakukaynnissaValues={usedValues.hakukaynnissa}
-                  hakutapaValues={usedValues.hakutapa}
+                  values={usedValues.hakutapa}
                   setFilters={setFilters}
                 />
               </SuodatinGridItem>
