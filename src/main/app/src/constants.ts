@@ -70,6 +70,7 @@ export enum KOULUTUS_TYYPPI {
   AIKUISTEN_PERUSOPETUS = 'aikuisten-perusopetus',
   MUUT_KOULUTUKSET = 'muut_koulutukset',
   KK_OPINTOJAKSO = 'kk-opintojakso',
+  ERIKOISLAAKARI = 'erikoislaakari',
 }
 
 export const KOULUTUS_TYYPPI_MUU = {
