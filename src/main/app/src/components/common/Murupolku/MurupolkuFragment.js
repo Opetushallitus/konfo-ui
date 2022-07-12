@@ -8,6 +8,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { colors } from '#/src/colors';
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
 import { theme } from '#/src/theme';
+import {useSideMenu} from "#/src/hooks";
 
 const BREADCRUMB_ICON_SPACING = '14px';
 
@@ -112,10 +113,12 @@ export const MurupolkuFragment = (props) => {
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
   const isMedium = useMediaQuery(theme.breakpoints.down('md'));
   const isLarge = useMediaQuery(theme.breakpoints.down('lg'));
+  const isXLarge = useMediaQuery(theme.breakpoints.down('xl'));
+  const { state: menuVisible } = useSideMenu();
 
   const normalizedName = name ? name.trim() : '';
   const shortenedName =
-    isSmall || isMedium || (isLarge && !isLast) ? shortenName(normalizedName) : normalizedName;
+    isSmall || isMedium || (isLarge && (!isLast || menuVisible)) || (isXLarge && menuVisible && !isLast) ? shortenName(normalizedName) : normalizedName;
 
   return (
     <span>
