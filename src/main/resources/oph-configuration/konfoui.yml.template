@@ -18,3 +18,4 @@ prerender:
   token: {{konfo_prerender_token | default("DUMMY")}}
 konfo-ui:
   uses-ssl-proxy: true
+  nayta-filtterien-hakutulos-luvut: {{ konfo_nayta_filtterien_hakutulos_luvut | default("false") }}

@@ -6,10 +6,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
 @Configuration
-public class UrlConfiguration extends OphProperties {
+public class KonfoUiConfiguration extends OphProperties {
+
+  private PublicConfiguration publicConfiguration = new PublicConfiguration();
 
   @Autowired
-  public UrlConfiguration(Environment environment) {
+  public KonfoUiConfiguration(Environment environment) {
     addFiles("/konfo-ui-oph.properties");
     this.addOverride("host-oppija", environment.getRequiredProperty("host.host-oppija"));
     this.addOverride(
@@ -76,5 +78,11 @@ public class UrlConfiguration extends OphProperties {
     this.frontProperties.setProperty("oma-opintopolku", this.require("oma-opintopolku"));
     this.frontProperties.setProperty(
         "konfo-backend.hakukohde.demo", this.require("konfo-backend.hakukohde.demo"));
+
+    publicConfiguration.naytaFiltterienHakutulosLuvut = Boolean.parseBoolean(environment.getRequiredProperty("konfo-ui.nayta-filtterien-hakutulos-luvut"));
+  }
+
+  public PublicConfiguration getPublicConfiguration() {
+    return publicConfiguration;
   }
 }

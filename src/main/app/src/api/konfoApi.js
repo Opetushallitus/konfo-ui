@@ -5,7 +5,7 @@ import { urls } from 'oph-urls-js';
 import qs from 'query-string';
 
 import { getLanguage } from '#/src/tools/localization';
-import { cleanRequestParams } from '#/src/tools/utils';
+import {cleanRequestParams, isCypress} from '#/src/tools/utils';
 
 const client = axios.create({
   headers: {
@@ -34,6 +34,15 @@ const createEntityGetter = (entityName) => (oid, draft) =>
     urls.url(`konfo-backend.${entityName}`, oid),
     draft ? { params: { draft: true } } : {}
   );
+
+export const getConfiguration = () => {
+    const { NODE_ENV } = process.env;
+    if (['development', 'test'].includes(NODE_ENV) || isCypress) {
+        return { "naytaFiltterienHakutulosLuvut": true };
+    } else {
+        return get('/konfo/rest/config/configuration');
+    }
+}
 
 export const getKoulutus = createEntityGetter('koulutus');
 
