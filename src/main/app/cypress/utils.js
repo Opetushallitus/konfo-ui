@@ -12,7 +12,6 @@ export const assertBreadcrumb = ({
 
   findBreadcrumbItems()
     .last()
-    .should('contain', lastTextContains)
     .findByRole('link')
     .should(($link) => {
       expect($link.attr('href')).to.include(lastHrefContains);
