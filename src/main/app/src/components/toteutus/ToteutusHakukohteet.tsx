@@ -160,9 +160,9 @@ const HakuCardGrid = ({ tyyppiOtsikko, icon, toteutus, hakukohteet }: GridProps)
                             {
                               size: anyHakuaikaPaattyy ? 6 : 12,
                               heading:
-                                hakutermi === 'hakeutuminen'
-                                  ? t('toteutus.haku-alkaa:')
-                                  : t('toteutus.ilmoittautuminen-alkaa:'),
+                                hakutermi === 'ilmoittautuminen'
+                                  ? t('toteutus.ilmoittautuminen-alkaa:')
+                                  : t('toteutus.haku-alkaa:'),
                               content: hakukohde.hakuajat.map((hakuaika) =>
                                 formatDateString(hakuaika.formatoituAlkaa)
                               ),
@@ -170,9 +170,9 @@ const HakuCardGrid = ({ tyyppiOtsikko, icon, toteutus, hakukohteet }: GridProps)
                             anyHakuaikaPaattyy && {
                               size: 6,
                               heading:
-                                hakutermi === 'hakeutuminen'
-                                  ? t('toteutus.haku-paattyy:')
-                                  : t('toteutus.ilmoittautuminen-paattyy:'),
+                                  hakutermi === 'ilmoittautuminen'
+                                  ? t('toteutus.ilmoittautuminen-paattyy:')
+                                  : t('toteutus.haku-paattyy:'),
                               content: hakukohde.hakuajat.map(
                                 (hakuaika) =>
                                   hakuaika.paattyy
