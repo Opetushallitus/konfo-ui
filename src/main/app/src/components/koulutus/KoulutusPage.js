@@ -206,7 +206,7 @@ export const KoulutusPage = () => {
       <Box mt={7.5}>
         <TeemakuvaImage
           imgUrl={koulutus?.teemakuva}
-          altText={t('koulutus.koulutuksen-teemakuva')}
+          altText=''
         />
       </Box>
       <PageSection heading={t('koulutus.tiedot')}>

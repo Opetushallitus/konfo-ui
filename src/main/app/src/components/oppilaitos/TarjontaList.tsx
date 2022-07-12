@@ -75,9 +75,7 @@ export const TarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
                     logoElement={
                       <OppilaitosKorttiLogo
                         image={toteutus?.kuva}
-                        alt={`${toteutus?.toteutusName} ${t(
-                          'koulutus.koulutuksen-teemakuva'
-                        )}`}
+                        alt=''
                       />
                     }
                     header={toteutus?.toteutusName}

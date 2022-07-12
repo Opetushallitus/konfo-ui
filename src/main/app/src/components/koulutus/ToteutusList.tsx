@@ -267,9 +267,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                       logoElement={
                         <OppilaitosKorttiLogo
                           image={toteutus.kuva}
-                          alt={`${localize(toteutus.toteutusNimi)} ${t(
-                            'koulutus.koulutuksen-teemakuva'
-                          )}`}
+                          alt=''
                         />
                       }
                       preHeader={localize(toteutus)}

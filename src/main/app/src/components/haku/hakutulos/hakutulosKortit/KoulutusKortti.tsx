@@ -64,7 +64,6 @@ export const KoulutusKortti = ({ koulutus, isSmall }: Props) => {
     ? (koulutus?.tutkintonimikkeet || []).map(localize).join(', ').replace(/,\s*$/, '') ||
       t('haku.ei-tutkintonimiketta')
     : t(`koulutus.tyyppi-${koulutus?.koulutustyyppi}`);
-  const teemakuvaAltText = `${localize(koulutus)} ${t('koulutus.koulutuksen-teemakuva')}`;
 
   const toteutustenTarjoajatText = useToteutustenTarjoajat(
     koulutus?.toteutustenTarjoajat
@@ -75,7 +74,7 @@ export const KoulutusKortti = ({ koulutus, isSmall }: Props) => {
       koulutustyyppi={koulutus?.koulutustyyppi}
       to={`/koulutus/${koulutus?.oid}`}
       teemakuvaElement={
-        <KoulutusKorttiLogo image={koulutus?.teemakuva} alt={teemakuvaAltText} />
+        <KoulutusKorttiLogo image={koulutus?.teemakuva} alt='' />
       }
       header={localize(koulutus)}
       kuvaus={kuvaus}
