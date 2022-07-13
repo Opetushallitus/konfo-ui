@@ -168,13 +168,16 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
         }>
         <>
           <Hidden smDown>
-            <div>
-              <ChipList
-                filters={selectedFiltersFlatList}
-                getHandleDelete={handleCheck}
-                handleClearFilters={handleFiltersClear}
-              />
-            </div>
+            {selectedFiltersFlatList.length > 0 &&
+              <div>
+                <ChipList
+                  filters={selectedFiltersFlatList}
+                  getHandleDelete={handleCheck}
+                  handleClearFilters={handleFiltersClear}
+                />
+              </div>
+            }
+
             <Grid
               container
               item
