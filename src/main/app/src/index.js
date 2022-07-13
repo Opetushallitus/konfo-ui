@@ -9,7 +9,7 @@ import { BrowserRouter, useLocation } from 'react-router-dom';
 import 'typeface-open-sans';
 import StackTrace from 'stacktrace-js';
 
-import { postClientError } from '#/src/api/konfoApi';
+import {getConfiguration, postClientError} from '#/src/api/konfoApi';
 import App from '#/src/App';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { useQueryOnce } from '#/src/hooks';
@@ -84,12 +84,13 @@ const useSyncAppPage = () => {
 const InitGate = ({ children }) => {
   const { status: urlStatus } = useQueryOnce('urls', configureUrls);
   const { status: i18nStatus } = useQueryOnce('i18n', configureI18n);
+  const { status: configurationStatus } = useQueryOnce('configuration', getConfiguration);
 
   useSyncAppPage();
 
-  if ([urlStatus, i18nStatus].includes('loading')) {
+  if ([urlStatus, i18nStatus, configurationStatus].includes('loading')) {
     return <LoadingCircle />;
-  } else if ([urlStatus, i18nStatus].includes('error')) {
+  } else if ([urlStatus, i18nStatus, configurationStatus].includes('error')) {
     return <div>Sovelluksen lataaminen epäonnistui!</div>;
   } else {
     return children;

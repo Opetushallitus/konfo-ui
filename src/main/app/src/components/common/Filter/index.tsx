@@ -29,6 +29,7 @@ import Select, {
 } from 'react-select';
 
 import { colors } from '#/src/colors';
+import { useConfig } from '#/src/config'
 import { localize, localizeIfNimiObject } from '#/src/tools/localization';
 import { FilterValue, FilterValues } from '#/src/types/SuodatinTypes';
 
@@ -123,6 +124,8 @@ const FilterCheckbox = ({
   const { count, id, nimi, checked } = value;
   const labelId = `filter-list-label-${id}`;
   const classes = withStyles();
+  const config = useConfig();
+  const naytaFiltterienHakutulosLuvut = config.naytaFiltterienHakutulosLuvut;
   return (
     <ListItem
       key={id}
@@ -151,9 +154,11 @@ const FilterCheckbox = ({
         }
       />
       {expandButton && <ListItemIcon>{expandButton}</ListItemIcon>}
-      <ListItemSecondaryAction style={{ right: '4px' }}>
-        {`(${count})`}
-      </ListItemSecondaryAction>
+      {naytaFiltterienHakutulosLuvut &&
+          <ListItemSecondaryAction style={{right: '4px'}}>
+            {`(${count})`}
+          </ListItemSecondaryAction>
+      }
     </ListItem>
   );
 };

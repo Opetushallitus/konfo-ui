@@ -32,7 +32,7 @@ public class ServletContainerConfiguration {
    */
   @Bean
   @ConditionalOnProperty("konfo-ui.uses-ssl-proxy")
-  public WebServerFactoryCustomizer sslProxyCustomizer(@Autowired UrlConfiguration configuration) {
+  public WebServerFactoryCustomizer sslProxyCustomizer(@Autowired KonfoUiConfiguration configuration) {
     LOG.info("Enabling HTTPS Proxu configuration");
     return (WebServerFactory container) -> {
       if (container instanceof ConfigurableServletWebServerFactory) {

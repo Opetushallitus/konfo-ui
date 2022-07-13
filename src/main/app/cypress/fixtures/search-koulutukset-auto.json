@@ -5572,6 +5572,9 @@
         "valintatapajono_kp": { "nimi": { "fi": "Koepisteet" }, "count": 2 },
         "valintatapajono_m": { "nimi": { "fi": "Muu" }, "count": 0 }
       },
+      "hakukaynnissa": {
+        "count": 673
+      },
       "hakutapa": {
         "hakutapa_01": {
           "nimi": { "fi": "Yhteishaku", "sv": "Gemensam ansökan" },

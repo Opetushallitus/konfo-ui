@@ -218,6 +218,16 @@ describe('Haku', () => {
       });
   });
 
+  it('Haku käynnissä filter checkbox', () => {
+    const hakuKaynnissaChk = () => cy.findByRole('checkbox', { name: /Haku käynnissä/i });
+    cy.findByTestId('hakukaynnissa-filter')
+      .should('exist')
+      .within(() => {
+        hakuKaynnissaChk().click().should('be.checked');
+        hakuKaynnissaChk().click().should('not.be.checked');
+      });
+  });
+
   it('Hakutapa filter checkboxes', () => {
     const yhteishakuChk = () => cy.findByRole('checkbox', { name: /Yhteishaku/i });
     const jatkuvaHakuChk = () => cy.findByRole('checkbox', { name: /Jatkuva haku/i });

@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useFilterProps, useSearch } from '#/src/components/haku/hakutulosHooks';
 import { HakutapaSuodatin } from '#/src/components/suodattimet/common/HakutapaSuodatin';
+import { HakuKaynnissaSuodatin } from '#/src/components/suodattimet/common/HakuKaynnissaSuodatin';
 import { OpetuskieliSuodatin } from '#/src/components/suodattimet/common/OpetusKieliSuodatin';
 import { OpetustapaSuodatin } from '#/src/components/suodattimet/common/OpetustapaSuodatin';
 import { PohjakoulutusvaatimusSuodatin } from '#/src/components/suodattimet/common/PohjakoulutusvaatimusSuodatin';
@@ -89,9 +90,21 @@ export const HakupalkkiFilters = () => {
       <Divider orientation="vertical" flexItem />
       <Suodatin
         children={
+          <HakuKaynnissaSuodatin
+            values={useFilterProps(FILTER_TYPES.HAKUKAYNNISSA)}
+            setFilters={setFilters}
+            expanded={true}
+            summaryHidden={true}
+          />
+        }
+        id="hakukaynnissa"
+        header={t('haku.hakukaynnissa-otsikko')}
+      />
+      <Divider orientation="vertical" flexItem />
+      <Suodatin
+        children={
           <HakutapaSuodatin
-            hakukaynnissaValues={useFilterProps(FILTER_TYPES.HAKUKAYNNISSA)}
-            hakutapaValues={useFilterProps(FILTER_TYPES.HAKUTAPA)}
+            values={useFilterProps(FILTER_TYPES.HAKUTAPA)}
             setFilters={setFilters}
             expanded={true}
             summaryHidden={true}
