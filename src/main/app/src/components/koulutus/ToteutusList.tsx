@@ -25,7 +25,7 @@ import { KOULUTUS_TYYPPI, KORKEAKOULU_KOULUTUSTYYPIT } from '#/src/constants';
 import { usePreviousNonEmpty } from '#/src/hooks';
 import { usePreviousPage } from '#/src/store/reducers/appSlice';
 import { getInitialCheckedToteutusFilters } from '#/src/store/reducers/hakutulosSliceSelector';
-import { getFilterWithChecked, sortValues } from '#/src/tools/filters';
+import { getFilterWithChecked, sortValues, getFilterStateChanges } from '#/src/tools/filters';
 import {
   localize,
   getLocalizedMaksullisuus,
@@ -39,6 +39,7 @@ import { HakuKaynnissaSuodatin } from '#/src/components/suodattimet/common/HakuK
 import { LukiolinjatSuodatin } from '../suodattimet/toteutusSuodattimet/LukiolinjatSuodatin';
 import { MobileFiltersOnTopMenu } from '../suodattimet/toteutusSuodattimet/MobileFiltersOnTopMenu';
 import { useKoulutusJarjestajat } from './hooks';
+import { ChipList } from '../suodattimet/hakutulosSuodattimet/SuodatinValinnat';
 
 const useStyles = makeStyles({
   grid: {
@@ -115,6 +116,34 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
     [sortedFilters, filters]
   );
 
+  const selectedFiltersFlatList = useMemo(
+    () => {
+      console.log('FILTERS')
+      console.log(filters)
+      const s = Object.keys(filters)
+        .map((k: any) => {
+          return filters[k]
+            .map((v: any) => [v, ...(v.alakoodit || [])])
+            .flat()
+            .map((v: any) => {
+              return {checked: true, id: v, count: 0, filterId: k}
+            })
+        })
+        .flat()
+      console.log(s);
+      return s;  
+    },
+    [usedValues]
+  );
+
+  const handleCheck = (item: FilterValue) => () => {
+    const values = usedValues[item.filterId];
+    console.log('Haa')
+    console.log(values)
+    const changes = getFilterStateChanges(values)(item);
+    setFilters(changes);
+  };
+
   const someSelected = _fp.some((v) => (_fp.isArray(v) ? v.length > 0 : v), filters);
 
   const handleFiltersClear = useCallback(() => {
@@ -139,6 +168,13 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
         }>
         <>
           <Hidden smDown>
+            <div>
+              <ChipList
+                filters={selectedFiltersFlatList}
+                getHandleDelete={handleCheck}
+                handleClearFilters={handleFiltersClear}
+              />
+            </div>
             <Grid
               container
               item

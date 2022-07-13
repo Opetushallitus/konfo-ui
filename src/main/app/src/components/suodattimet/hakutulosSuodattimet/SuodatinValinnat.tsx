@@ -42,7 +42,7 @@ type ChosenFiltersProps = {
   handleClearFilters: VoidFunction;
 };
 
-const ChipList = ({
+export const ChipList = ({
   getHandleDelete,
   handleClearFilters,
   filters,
@@ -105,10 +105,12 @@ export const SuodatinValinnat = () => {
   };
 
   return (
-    <ChipList
-      filters={selectedFiltersFlatList}
-      getHandleDelete={getHandleDelete}
-      handleClearFilters={clearFilters}
-    />
+    <div>
+      <ChipList
+        filters={selectedFiltersFlatList}
+        getHandleDelete={getHandleDelete}
+        handleClearFilters={clearFilters}
+      />
+    </div>
   );
 };
