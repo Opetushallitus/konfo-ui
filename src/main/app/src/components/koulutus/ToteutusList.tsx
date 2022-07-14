@@ -118,33 +118,30 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
 
   const selectedFiltersFlatList = useMemo(
     () => {
-      const s = Object.keys(filters)
-        .map((k: any) => {
-          return filters[k]
-            .map((v: any) => [v, ...(v.alakoodit || [])])
+      const idsMatch = (id: string) => (val: FilterValue) => val.id === id;
+      return Object.keys(filters)
+        .map((k: string) =>
+          filters[k]
+            .map((v: FilterValue) => [v, ...(v.alakoodit || [])])
             .flat()
-            .map((v: any) => {
-              const val = usedValues[k].find((val: any) => val.id === v)
-                || usedValues[k].map((val: any) => val.alakoodit).flat()
-                    .find((val: any) => val.id === v);
+            .map((v: string) => {
+              const matchingFilter = usedValues[k].find(idsMatch(v))
+                || usedValues[k].map((val: FilterValue) => val.alakoodit).flat()
+                    .find(idsMatch(v));
               return {
                 checked: true, 
                 id: v, 
-                count: val ? val.count : 0, 
+                count: matchingFilter ? matchingFilter.count : 0, 
                 filterId: k, 
-                nimi: val?.nimi};
-            })
-        })
-        .flat()
-      return s;  
+                nimi: matchingFilter?.nimi};
+            }))
+        .flat();
     },
     [usedValues]
   );
 
   const handleCheck = (item: FilterValue) => () => {
     const values = usedValues[item.filterId];
-    console.log('Haa')
-    console.log(values)
     const changes = getFilterStateChanges(values)(item);
     setFilters(changes);
   };
