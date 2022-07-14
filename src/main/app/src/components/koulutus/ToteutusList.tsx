@@ -120,8 +120,11 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
     () => {
       const idsMatch = (id: string) => (val: FilterValue) => val.id === id;
       return Object.keys(filters)
-        .map((k: string) =>
-          filters[k]
+        .map((k: string) => {
+          if (!filters[k].map) {
+            return [];
+          }
+          return filters[k]
             .map((v: FilterValue) => [v, ...(v.alakoodit || [])])
             .flat()
             .map((v: string) => {
@@ -134,7 +137,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                 count: matchingFilter ? matchingFilter.count : 0, 
                 filterId: k, 
                 nimi: matchingFilter?.nimi};
-            }))
+            })})
         .flat();
     },
     [usedValues]
