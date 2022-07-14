@@ -118,6 +118,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
 
   const selectedFiltersFlatList = useMemo(
     () => {
+      console.log(usedValues)
       console.log('FILTERS')
       console.log(filters)
       const s = Object.keys(filters)
@@ -126,7 +127,13 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
             .map((v: any) => [v, ...(v.alakoodit || [])])
             .flat()
             .map((v: any) => {
-              return {checked: true, id: v, count: 0, filterId: k}
+              const val = usedValues[k].find((val: any) => val.id === v);
+              return {
+                checked: true, 
+                id: v, 
+                count: val ? val.count : 0, 
+                filterId: k, 
+                nimi: val?.nimi};
             })
         })
         .flat()
