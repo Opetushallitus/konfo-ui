@@ -12,7 +12,7 @@ export const LukiolinjatSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
   const { name, values = [], ...rest } = props;
 
-  const filteredValues = values.filter((v) => v?.count > 0);
+  const filteredValues = values.filter((v) => v?.count > 0 || v.checked);
 
   const handleCheck = (item: FilterValue) => {
     const changes = getFilterStateChanges(filteredValues)(item);
