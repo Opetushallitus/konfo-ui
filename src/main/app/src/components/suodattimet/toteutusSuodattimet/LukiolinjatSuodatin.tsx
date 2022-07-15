@@ -36,10 +36,16 @@ export const LukiolinjatSuodatin = (props: SuodatinComponentProps) => {
     [filteredValues, t]
   );
 
+  const usedValues = useMemo(
+    () =>
+    filteredValues.sort((a, b) => Number(b.checked) - Number(a.checked)),
+    [filteredValues]
+  );
+
   return (
     <Filter
       name={t(`haku.${name}`)}
-      values={filteredValues}
+      values={usedValues}
       options={options}
       handleCheck={handleCheck}
       expandValues
