@@ -193,7 +193,7 @@ export const useKoulutusJarjestajat = ({
             ? setTulevatJarjestajatFilters(newFilters)
             : setJarjestajatFilters(newFilters)
         );
-      },
+      }
     }),
     [filters, result, requestProps, isTuleva, dispatch, pagination]
   );

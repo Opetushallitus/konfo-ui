@@ -12,7 +12,7 @@ export const LukiolinjatSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
   const { name, values = [], ...rest } = props;
 
-  const filteredValues = values.filter((v) => v?.count > 0);
+  const filteredValues = values.filter((v) => v?.count > 0 || v.checked);
 
   const handleCheck = (item: FilterValue) => {
     const changes = getFilterStateChanges(filteredValues)(item);
@@ -36,10 +36,16 @@ export const LukiolinjatSuodatin = (props: SuodatinComponentProps) => {
     [filteredValues, t]
   );
 
+  const usedValues = useMemo(
+    () =>
+    filteredValues.sort((a, b) => Number(b.checked) - Number(a.checked)),
+    [filteredValues]
+  );
+
   return (
     <Filter
       name={t(`haku.${name}`)}
-      values={filteredValues}
+      values={usedValues}
       options={options}
       handleCheck={handleCheck}
       expandValues

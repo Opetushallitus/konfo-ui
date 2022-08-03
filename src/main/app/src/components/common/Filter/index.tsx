@@ -275,7 +275,7 @@ export const Filter = ({
       <SuodatinAccordionDetails {...(summaryHidden && { style: { padding: 0 } })}>
         <Grid container direction="column" wrap="nowrap">
           {additionalContent}
-          {options && (
+          {options && values.length > HIDE_NOT_EXPANDED_AMOUNT && (
             <Grid item style={{ padding: '20px 0', zIndex: 2 }}>
               <Select
                 components={{ DropdownIndicator, LoadingIndicator, Option }}
@@ -330,7 +330,7 @@ export const Filter = ({
                 })}
             </List>
           </Grid>
-          {expandValues && (
+          {expandValues && values.length > HIDE_NOT_EXPANDED_AMOUNT && (
             <Button
               color="secondary"
               size="small"
