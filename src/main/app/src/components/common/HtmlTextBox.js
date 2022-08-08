@@ -4,7 +4,7 @@ import { makeStyles, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import TruncateMarkup from 'react-truncate-markup';
 
-import { educationTypeColorCode } from '#/src/colors';
+import { educationTypeColorCode, colors } from '#/src/colors';
 import { ColoredPaperContent } from '#/src/components/common/ColoredPaperContent';
 import { TextButton } from '#/src/components/common/TextButton';
 import { sanitizedHTMLParser } from '#/src/tools/utils';
@@ -15,6 +15,10 @@ const useStyles = makeStyles((theme) => ({
   textArea: {
     margin: '60px auto',
     width: '63%',
+    '& a': {
+      color: colors.brandGreen,
+      textDecoration: 'underline',
+    },
     ...theme.typography.body1,
   },
 }));
