@@ -33,7 +33,7 @@ const useStyles = makeStyles({
     },
     fontSize: '16px',
     lineHeight: '27px',
-    color: colors.darkGrey,
+    color: colors.black,
   },
 });
 
