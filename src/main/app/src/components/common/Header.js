@@ -130,7 +130,7 @@ export const Header = (props) => {
         <Toolbar>
           <IconButton
             color="inherit"
-            aria-label="open drawer"
+            aria-label={t('avaa-sulje-valikko')}
             onClick={toggleMenu}
             edge="start"
             className={classes.menuButton}>
