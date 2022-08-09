@@ -102,7 +102,7 @@ export const Etusivu = () => {
             </Grid>
 
             <Grid container>
-              <h1 className={classes.header}>{t('oikopolut')}</h1>
+              <h2 className={classes.header}>{t('oikopolut')}</h2>
               <Grid container spacing={3}>
                 {/* TODO: Miksi tässä halutaan kaivaa vain ensimmäinen korttisetti? Vai tuleeko niitä koskaan enempää */}
                 {getFirst(kortit).kortit?.map(({ id }) => (
@@ -114,7 +114,7 @@ export const Etusivu = () => {
           <ReactiveBorder>
             <Grid container>
               <Grid item xs={12}>
-                <h1 className={classes.header}>{t('ajankohtaista-ja-uutisia')}</h1>
+                <h2 className={classes.header}>{t('ajankohtaista-ja-uutisia')}</h2>
               </Grid>
               <Grid container spacing={3}>
                 <Uutiset uutiset={showMore ? _.take(uutislinkit, 3) : uutislinkit} />
