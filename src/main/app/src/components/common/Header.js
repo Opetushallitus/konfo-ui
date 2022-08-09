@@ -139,9 +139,9 @@ export const Header = (props) => {
               <Typography className={classes.menuText}>{t('valikko')}</Typography>
             </Box>
           </IconButton>
-          <LocalizedLink component={RouterLink} to={`/`}>
+          <LocalizedLink component={RouterLink} to={`/`} title={t('header.siirry-etusivulle')}>
             <Icon className={classes.icon}>
-              <img alt={t('opintopolku.brand')} src={OpintopolkuHeaderLogo()} />
+              <img alt={t('header.siirry-etusivulle')} src={OpintopolkuHeaderLogo()} />
             </Icon>
           </LocalizedLink>
           {showTestiLabel ? (

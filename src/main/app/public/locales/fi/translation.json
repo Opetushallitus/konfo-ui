@@ -543,5 +543,8 @@
     "amm-erityisopetus-teksti": "Tämä ammatillinen perustutkinto järjestetään vaativana erityisenä tukena.",
     "tuva-erityisopetus-teksti": "Tämä tutkintokoulutukseen valmentava koulutus järjestetään vaativana erityisenä tukena.",
     "nayta-enemman": "Näytä enemmän"
+  },
+  "header": {
+    "siirry-etusivulle": "Siirry Opintopolun etusivulle"
   }
 }
