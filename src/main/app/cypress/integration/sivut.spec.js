@@ -30,7 +30,7 @@ describe('Sivut', () => {
     });
 
     cy.viewport('samsung-s10');
-    cy.findByRole('button', { name: /open drawer/i }).click();
+    cy.findByRole('button', { name: /Avaa tai sulje valikko/i }).click();
     cy.findByRole('tab', { name: /på svenska/i }).click({ force: true });
 
     cy.findAllByRole('progressbar').should('not.exist');
