@@ -4,8 +4,8 @@ export const colors = {
   darkGreen: '#254905', // Hover states
   lightGreen: '#9CFF5A', // Focus states
   lightGreenBg: '#CCFFCC', // Label BG
-  black: '#1D1D1D', // Headings
-  darkGrey: '#4C4C4C', // paragraphs + input field text
+  black: '#1D1D1D', // Headings, paragraphs
+  darkGrey: '#4C4C4C', // input field text
   lightGrey: '#B2B2B2', // Disabled states
   greyBg: '#F5F7F9', // Desktop BG
   white: '#FFFFFF', // Content area bg, text on dark bg

@@ -47,8 +47,8 @@ export const theme = createTheme({
       main: colors.brandGreen,
     },
     text: {
-      primary: colors.darkGrey,
-      secondary: colors.darkGrey,
+      primary: colors.black,
+      secondary: colors.black,
     },
   },
   typography: {
@@ -121,7 +121,7 @@ export const theme = createTheme({
       fontSize: '1rem',
       fontWeight: 400,
       lineHeight: '1.6875rem',
-      color: colors.darkGrey,
+      color: colors.black,
       [breakpoints.down('sm')]: {
         lineHeight: '1.6875rem',
       },

@@ -35,7 +35,7 @@ export const LinkOrYoutube = ({ children, className, href, ...props }) => {
         <div className={classes.container}>
           <iframe
             className={classes.media}
-            title={props.url}
+            title={props.title || props.url || href}
             width="560"
             height="315"
             src={`https://www.youtube.com/embed${
@@ -50,7 +50,7 @@ export const LinkOrYoutube = ({ children, className, href, ...props }) => {
     );
   } else {
     return (
-      <Link target="_blank" rel="noopener" {...props} href={href}>
+      <Link target="_blank" rel="noopener" {...props} href={href} underline="always">
         {children}
         <OpenInNewIcon className={classes.icon} />
       </Link>

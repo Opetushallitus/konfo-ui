@@ -74,8 +74,14 @@
       var matomoSiteUrl;
       switch (siteDomain) {
         case "opintopolku.fi":
+          matomoSiteUrl = "https://analytiikka.ahtp.fi/";
+          break;
         case "studieinfo.fi":
+          document.documentElement.setAttribute('lang', 'sv');
+          matomoSiteUrl = "https://analytiikka.ahtp.fi/";
+          break;
         case "studyinfo.fi":
+          document.documentElement.setAttribute('lang', 'en');
           matomoSiteUrl = "https://analytiikka.ahtp.fi/";
           break;
         default:

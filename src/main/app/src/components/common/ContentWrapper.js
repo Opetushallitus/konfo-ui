@@ -8,6 +8,10 @@ const useStyles = makeStyles(() => ({
   wrapper: {
     backgroundColor: colors.white,
     maxWidth: '1600px',
+    '& a': {
+      color: colors.brandGreen,
+      textDecoration: 'underline',
+    },
   },
 }));
 

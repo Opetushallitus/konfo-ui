@@ -98,7 +98,7 @@ const useStyles = makeStyles((theme) => ({
 export const Header = (props) => {
   const { t } = useTranslation();
   const classes = useStyles();
-  const { toggleMenu, isOpen, betaBanner, setBetaBanner } = props;
+  const { toggleMenu, isOpen, betaBanner, setBetaBanner, refreshSideMenu } = props;
 
   const hostname = window.location.hostname;
   const testiLabels = {
@@ -139,7 +139,7 @@ export const Header = (props) => {
               <Typography className={classes.menuText}>{t('valikko')}</Typography>
             </Box>
           </IconButton>
-          <LocalizedLink component={RouterLink} to={`/`} title={t('header.siirry-etusivulle')}>
+          <LocalizedLink component={RouterLink} to={`/`} title={t('header.siirry-etusivulle')} onClick={refreshSideMenu}>
             <Icon className={classes.icon}>
               <img alt={t('header.siirry-etusivulle')} src={OpintopolkuHeaderLogo()} />
             </Icon>

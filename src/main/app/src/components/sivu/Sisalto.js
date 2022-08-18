@@ -19,7 +19,7 @@ const Sisalto = ({ content, excludeMedia }) => {
   };
   const SivuLink = ({ slug, children }) => {
     return sivu[slug] ? (
-      <LocalizedLink component={RouterLink} to={forwardTo(slug)}>
+      <LocalizedLink component={RouterLink} to={forwardTo(slug)} underline="always">
         {isBlank(children ? children[0] : null) ? sivu[slug].name : children}
       </LocalizedLink>
     ) : null;
