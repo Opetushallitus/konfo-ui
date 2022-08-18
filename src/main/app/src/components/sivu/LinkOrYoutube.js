@@ -50,7 +50,7 @@ export const LinkOrYoutube = ({ children, className, href, ...props }) => {
     );
   } else {
     return (
-      <Link target="_blank" rel="noopener" {...props} href={href} underline={"always"}>
+      <Link target="_blank" rel="noopener" {...props} href={href} underline="always">
         {children}
         <OpenInNewIcon className={classes.icon} />
       </Link>

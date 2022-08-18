@@ -189,7 +189,7 @@ const App = () => {
   const { state: menuVisible, toggleMenu, closeMenu } = useSideMenu();
   const isAtEtusivu = useIsAtEtusivu();
   const isFetching = useIsFetching();
-  const [sideMenuKey, setSideMenuKey] = useState('sidemenu-key')
+  const [sideMenuKey, setSideMenuKey] = useState(1)
 
   const classes = useStyles({ betaBannerVisible: betaBanner, isSmall, menuVisible });
 
@@ -225,14 +225,14 @@ const App = () => {
           isOpen={menuVisible}
           betaBanner={betaBanner}
           setBetaBanner={setBetaBanner}
-          refreshSideMenu={() => setSideMenuKey(sideMenuKey + '1')}
+          refreshSideMenu={() => setSideMenuKey(sideMenuKey + 1)}
         />
         <SideMenu
           isSmall={isSmall}
           menuVisible={menuVisible}
           closeMenu={closeMenu}
           betaBannerVisible={betaBanner}
-          key={sideMenuKey}
+          key={`sidemenu-key-${sideMenuKey}`}
         />
         <main
           id="app-main-content"
