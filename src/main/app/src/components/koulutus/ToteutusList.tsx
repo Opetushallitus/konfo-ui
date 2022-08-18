@@ -128,8 +128,8 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
             .map((v: FilterValue) => [v, ...(v.alakoodit || [])])
             .flat()
             .map((v: string) => {
-              const matchingFilter = usedValues[k].find(idsMatch(v))
-                || usedValues[k].map((val: FilterValue) => val.alakoodit).flat()
+              const matchingFilter = usedValues[k]?.find(idsMatch(v))
+                || usedValues[k]?.map((val: FilterValue) => val.alakoodit).flat()
                     .find(idsMatch(v));
               return {
                 checked: true, 
