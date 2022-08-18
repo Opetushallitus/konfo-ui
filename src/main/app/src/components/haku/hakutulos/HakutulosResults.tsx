@@ -74,7 +74,7 @@ export const HakutulosResults = ({
         <Typography variant="h1">{t('haku.ei-hakutuloksia')}</Typography>
       </Grid>
       <Grid item>
-        <Typography paragraph>{t('haku.summary', { keyword })}</Typography>
+        <Typography paragraph>{t('haku.summary', { keyword: keyword || '' })}</Typography>
       </Grid>
       <Grid item>
         <LocalizedLink underline="always" variant="body1" component={RouterLink} to="/">
