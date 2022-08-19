@@ -102,6 +102,12 @@ export const SuodatinValinnat = () => {
     } else {
       setFilters(_.omit(changes, 'hakukaynnissa'));
     }
+
+    if (item.filterId === FILTER_TYPES.JOTPA) {
+      setFilters({ jotpa: !item.checked });
+    } else {
+      setFilters(_.omit(changes, 'jotpa'));
+    }
   };
 
   return (
