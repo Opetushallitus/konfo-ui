@@ -75,10 +75,24 @@ export enum KOULUTUS_TYYPPI {
   ERIKOISLAAKARI = 'erikoislaakari',
 }
 
+// Jotta hakurajainvalinta näkyy Muut koulutustyypit -valikossa ja toimii oikein,
+// koulutustyyppi tulee lisätä tähän objektiin.
 export const KOULUTUS_TYYPPI_MUU = {
-  MUU_AMMATILLINEN_KOULUTUS: 'amm-muu',
+  AMMATILLINEN_OPETTAJA_ERITYISOPETTAJA_JA_OPOKOULUTUS: 'amm-ope-erityisope-ja-opo',
+  AMK_MUU: 'amk-muu',
   AMM_OSAAMISALA: 'amm-osaamisala',
   AMM_TUTKINNON_OSA: 'amm-tutkinnon-osa',
+  ERIKOISLAAKARI: 'erikoislaakari',
+  KK_OPINTOJAKSO: 'kk-opintojakso',
+  MUU_AMMATILLINEN_KOULUTUS: 'amm-muu',
+  MUUT_AMMATILLISET: 'muut-ammatilliset',
+  TELMA: 'telma',
+  TUVA: 'tuva',
+  TUVA_NORMAL: 'tuva-normal',
+  TUVA_ERITYISOPETUS: 'tuva-erityisopetus',
+  VAPAA_SIVISTYSTYO: 'vapaa-sivistystyo',
+  VAPAA_SIVISTYSTYO_OPISTOVUOSI: 'vapaa-sivistystyo-opistovuosi',
+  VAPAA_SIVISTYSTYO_MUU: 'vapaa-sivistystyo-muu',
 } as const;
 
 export const KOULUTUS_TYYPPI_MUU_ARR = Object.values(KOULUTUS_TYYPPI_MUU);
