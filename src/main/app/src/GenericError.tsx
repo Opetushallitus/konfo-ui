@@ -1,4 +1,4 @@
-
+import './error.css';
 interface Translation {
   fi: string,
   sv: string,
