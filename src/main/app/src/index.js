@@ -49,17 +49,27 @@ if ('serviceWorker' in navigator) {
   }
 }
 
+const reportedErrors = {}
+
+console.log('updating onError')
 window.onerror = (errorMsg, _url, line, col, errorObj) => {
   if (process.env.NODE_ENV === 'production' && !isCypress) {
     const send = (trace) => {
-      postClientError({
-        'error-message': errorMsg,
-        url: window.location.href,
-        line: line,
-        col: col,
-        'user-agent': window.navigator.userAgent,
-        stack: trace,
-      });
+      const isNewError  = !reportedErrors[errorMsg]
+      if (isNewError) {
+        postClientError({
+          'error-message': errorMsg,
+          url: window.location.href,
+          line: line,
+          col: col,
+          'user-agent': window.navigator.userAgent,
+          stack: trace,
+        });
+        reportedErrors[errorMsg] = true
+        console.log('Error reported, added to reportedErrors: ', reportedErrors)
+      } else {
+        console.log('Error has been reported already, not sending to backend: ' + errorMsg)
+      }
     };
     StackTrace.fromError(errorObj)
       .then((err) => {
