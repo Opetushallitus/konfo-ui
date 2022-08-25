@@ -51,7 +51,6 @@ if ('serviceWorker' in navigator) {
 
 const reportedErrors = {}
 
-console.log('updating onError')
 window.onerror = (errorMsg, _url, line, col, errorObj) => {
   if (process.env.NODE_ENV === 'production' && !isCypress) {
     const send = (trace) => {
@@ -63,12 +62,9 @@ window.onerror = (errorMsg, _url, line, col, errorObj) => {
           line: line,
           col: col,
           'user-agent': window.navigator.userAgent,
-          stack: trace,
+          stack: trace ? trace : "No stacktrace available",
         });
         reportedErrors[errorMsg] = true
-        console.log('Error reported, added to reportedErrors: ', reportedErrors)
-      } else {
-        console.log('Error has been reported already, not sending to backend: ' + errorMsg)
       }
     };
     StackTrace.fromError(errorObj)
