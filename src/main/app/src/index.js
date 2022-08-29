@@ -50,14 +50,15 @@ if ('serviceWorker' in navigator) {
 }
 
 const uninterestingErrors = {
-  "ResizeObserver loop limit exceeded": true,
-  "Script Error.": true
+  "ResizeObserver loop limit exceeded0": true,
+  "Script Error.0": true
 }
 
 window.onerror = (errorMsg, _url, line, col, errorObj) => {
   if (process.env.NODE_ENV === 'production' && !isCypress) {
+    const errorKey = errorMsg + line
     const send = (trace) => {
-      if (!uninterestingErrors[errorMsg]) {
+      if (!uninterestingErrors[errorKey]) {
         postClientError({
           'error-message': errorMsg,
           url: window.location.href,
@@ -66,7 +67,7 @@ window.onerror = (errorMsg, _url, line, col, errorObj) => {
           'user-agent': window.navigator.userAgent,
           stack: trace ? trace : "No stacktrace available",
         });
-        uninterestingErrors[errorMsg] = true
+        uninterestingErrors[errorKey] = true
       }
     };
     StackTrace.fromError(errorObj)
