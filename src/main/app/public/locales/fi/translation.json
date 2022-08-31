@@ -299,11 +299,18 @@
     "laajuus": "Laajuus",
     "koulutustyyppi": "Koulutustyyppi",
     "koulutuksen-laajuus": "Koulutuksen laajuus",
-    "koulutuksen-tasot": "Koulutuksen tasot",
-    "koulutuksen-tasot-linkki": {
-      "url": "https://www.oph.fi/fi/koulutus-ja-tutkinnot/tutkintojen-viitekehykset",
-      "teksti": "Lisätietoa koulutuksen tasoista"
-     },
+    "koulutuksen-tasot": {
+      "otsikko": "Koulutuksen tasot",
+      "eqf": "EQF",
+      "nqf": "NQF",
+      "tooltip": {
+        "teksti": "Selostusta siitä mitä EQF ja NQF ovat.",
+        "linkki": {
+          "url": "https://www.oph.fi/fi/koulutus-ja-tutkinnot/tutkintojen-viitekehykset",
+          "teksti": "Lisätietoa"
+        }
+      }
+    },
     "kesto": "Kesto",
     "suunniteltu-kesto": "Suunniteltu kesto",
     "koulutusaste": "Koulutusaste",
