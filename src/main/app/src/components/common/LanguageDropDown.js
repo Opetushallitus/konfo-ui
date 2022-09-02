@@ -54,7 +54,7 @@ const LanguageDropDown = () => {
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
       <LanguageIcon
-        onClick={!open ? handleOpen : handleClose}
+        onClick={open ? handleClose : handleOpen}
         style={{ cursor: 'pointer' }}
       />
       <FormControl size="small" color="primary">

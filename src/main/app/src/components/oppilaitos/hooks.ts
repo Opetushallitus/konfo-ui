@@ -40,16 +40,16 @@ const handleOppilaitosData = (
     data: {
       ...data,
       ...entity,
-      oppilaitosOsat: !isOppilaitosOsa
-        ? _fp.flow(
+      oppilaitosOsat: isOppilaitosOsa
+        ? undefined
+        : _fp.flow(
             _fp.prop('osat'),
             _fp.filter({ status: ACTIVE }),
             _fp.map((osa: any) => ({
               ...osa,
               nimi: removeOppilaitosName(localize(osa.nimi), localize(data.nimi)),
             }))
-          )(data)
-        : undefined,
+          )(data),
       esittelyHtml: localize(entity?.metadata?.esittely) ?? '',
       tietoaOpiskelusta: entity?.metadata?.tietoaOpiskelusta ?? [],
       kotipaikat:

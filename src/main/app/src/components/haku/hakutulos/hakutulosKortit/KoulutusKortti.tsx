@@ -73,9 +73,7 @@ export const KoulutusKortti = ({ koulutus, isSmall }: Props) => {
     <EntiteettiKortti
       koulutustyyppi={koulutus?.koulutustyyppi}
       to={`/koulutus/${koulutus?.oid}`}
-      teemakuvaElement={
-        <KoulutusKorttiLogo image={koulutus?.teemakuva} alt='' />
-      }
+      teemakuvaElement={<KoulutusKorttiLogo image={koulutus?.teemakuva} alt="" />}
       header={localize(koulutus)}
       kuvaus={kuvaus}
       iconTexts={[

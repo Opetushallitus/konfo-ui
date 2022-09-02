@@ -33,12 +33,11 @@ export const LukiolinjatSuodatin = (props: SuodatinComponentProps) => {
         options: _fp.sortBy('label')(filteredValues.map((v) => getSelectOption(v))),
       },
     ],
-    [filteredValues, t]
+    [filteredValues, t, name]
   );
 
   const usedValues = useMemo(
-    () =>
-    filteredValues.sort((a, b) => Number(b.checked) - Number(a.checked)),
+    () => filteredValues.sort((a, b) => Number(b.checked) - Number(a.checked)),
     [filteredValues]
   );
 

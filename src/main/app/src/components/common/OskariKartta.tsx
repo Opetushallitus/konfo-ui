@@ -84,30 +84,30 @@ export const OskariKartta = ({ id, osoite, postitoimipaikka }: Props) => {
           size: 4,
         };
         channel.postRequest('MapModulePlugin.AddMarkerRequest', [requestData, MARKER_ID]);
-      } else if (!noHouseNumberSearchDone) {
+      } else if (noHouseNumberSearchDone) {
+        console.warn('Address not found:', osoite, postitoimipaikka);
+        setError(true);
+      } else {
         // Jos osoitetta ei löydy, etsitään vielä ilman katunumeroa
         const { addressNoNumbers } = getSearchAddress(postitoimipaikka, osoite);
         channel.postRequest('SearchRequest', [addressNoNumbers]);
         noHouseNumberSearchDone = true;
-      } else {
-        console.warn('Address not found:', osoite, postitoimipaikka);
-        setError(true);
       }
     });
 
     channel.onReady((info: { clientSupported: boolean; version: string }) => {
-      if (!info.clientSupported) {
-        channel.log(
-          `Oskari reported client version (${OskariRPC.VERSION}) is not supported. 
-          The client might work, but some features are not compatible.`
-        );
-      } else {
+      if (info.clientSupported) {
         if (info.version !== expectedOskariVersion) {
           channel.log(
             `Oskari-instance is not the one we expect (${expectedOskariVersion})`
           );
           channel.log('Current Oskari-instance reports version as: ', info);
         }
+      } else {
+        channel.log(
+          `Oskari reported client version (${OskariRPC.VERSION}) is not supported. 
+          The client might work, but some features are not compatible.`
+        );
       }
 
       if (channel) {

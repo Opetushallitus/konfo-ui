@@ -4,8 +4,8 @@ import { Box, Divider, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 import { useFilterProps, useSearch } from '#/src/components/haku/hakutulosHooks';
-import { HakutapaSuodatin } from '#/src/components/suodattimet/common/HakutapaSuodatin';
 import { HakuKaynnissaSuodatin } from '#/src/components/suodattimet/common/HakuKaynnissaSuodatin';
+import { HakutapaSuodatin } from '#/src/components/suodattimet/common/HakutapaSuodatin';
 import { OpetuskieliSuodatin } from '#/src/components/suodattimet/common/OpetusKieliSuodatin';
 import { OpetustapaSuodatin } from '#/src/components/suodattimet/common/OpetustapaSuodatin';
 import { PohjakoulutusvaatimusSuodatin } from '#/src/components/suodattimet/common/PohjakoulutusvaatimusSuodatin';

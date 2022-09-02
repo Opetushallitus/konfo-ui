@@ -163,32 +163,35 @@ export const ValintaperustePreviewPage = () => {
     valintaperuste: valintakokeidenYleiskuvaus,
   };
 
-  return isFetching ? (
-    <LoadingCircle />
-  ) : !error ? (
-    <Grid
-      container
-      direction="row"
-      spacing={0}
-      justifyContent="flex-start"
-      className={classes.container}>
-      <Grid item xs={12} md={3} />
-      <Grid item xs={12} md={6}>
-        <Heading>{t('lomake.valintaperusteet')}</Heading>
-      </Grid>
-      <Grid item xs={12} md={3} />
-      <ValintaperusteContent
-        {...{
-          valintaperuste,
-          valintakokeet,
-          valintatavat,
-          yleiskuvaukset,
-        }}
-      />
-    </Grid>
-  ) : (
-    <NotFound />
-  );
+  switch (true) {
+    case isFetching:
+      return <LoadingCircle />;
+    case Boolean(error):
+      return <NotFound />;
+    default:
+      return (
+        <Grid
+          container
+          direction="row"
+          spacing={0}
+          justifyContent="flex-start"
+          className={classes.container}>
+          <Grid item xs={12} md={3} />
+          <Grid item xs={12} md={6}>
+            <Heading>{t('lomake.valintaperusteet')}</Heading>
+          </Grid>
+          <Grid item xs={12} md={3} />
+          <ValintaperusteContent
+            {...{
+              valintaperuste,
+              valintakokeet,
+              valintatavat,
+              yleiskuvaukset,
+            }}
+          />
+        </Grid>
+      );
+  }
 };
 
 export const ValintaperustePage = () => {
@@ -234,45 +237,48 @@ export const ValintaperustePage = () => {
     valintaperuste: valintakokeidenYleiskuvaus,
   };
 
-  return isFetching ? (
-    <LoadingCircle />
-  ) : !error ? (
-    <>
-      <Row>
-        <Murupolku
-          path={[
-            { name: t('haku.otsikko'), link: hakuUrl },
-            { name: localize(koulutus?.nimi), link: `/koulutus/${koulutus?.oid}` },
-            { name: localize(toteutus?.nimi), link: toteutusLink },
-            { name: t('valintaperuste.valintaperuste') },
-          ]}
-        />
-      </Row>
-      <Grid
-        container
-        direction="row"
-        spacing={0}
-        justifyContent="flex-start"
-        className={classes.container}>
-        <Grid item xs={12} md={3} />
-        <Grid item xs={12} md={6}>
-          <Paluu paluuLinkki={toteutusLink} />
-          <Heading>{t('lomake.valintaperusteet')}</Heading>
-        </Grid>
-        <Grid item xs={12} md={3} />
-        <ValintaperusteContent
-          {...{
-            hakukohde,
-            toteutus,
-            valintaperuste,
-            valintakokeet,
-            valintatavat,
-            yleiskuvaukset,
-          }}
-        />
-      </Grid>
-    </>
-  ) : (
-    <NotFound />
-  );
+  switch (true) {
+    case isFetching:
+      return <LoadingCircle />;
+    case Boolean(error):
+      return <NotFound />;
+    default:
+      return (
+        <>
+          <Row>
+            <Murupolku
+              path={[
+                { name: t('haku.otsikko'), link: hakuUrl },
+                { name: localize(koulutus?.nimi), link: `/koulutus/${koulutus?.oid}` },
+                { name: localize(toteutus?.nimi), link: toteutusLink },
+                { name: t('valintaperuste.valintaperuste') },
+              ]}
+            />
+          </Row>
+          <Grid
+            container
+            direction="row"
+            spacing={0}
+            justifyContent="flex-start"
+            className={classes.container}>
+            <Grid item xs={12} md={3} />
+            <Grid item xs={12} md={6}>
+              <Paluu paluuLinkki={toteutusLink} />
+              <Heading>{t('lomake.valintaperusteet')}</Heading>
+            </Grid>
+            <Grid item xs={12} md={3} />
+            <ValintaperusteContent
+              {...{
+                hakukohde,
+                toteutus,
+                valintaperuste,
+                valintakokeet,
+                valintatavat,
+                yleiskuvaukset,
+              }}
+            />
+          </Grid>
+        </>
+      );
+  }
 };

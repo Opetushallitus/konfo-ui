@@ -170,7 +170,7 @@ const HakuCardGrid = ({ tyyppiOtsikko, icon, toteutus, hakukohteet }: GridProps)
                             anyHakuaikaPaattyy && {
                               size: 6,
                               heading:
-                                  hakutermi === 'ilmoittautuminen'
+                                hakutermi === 'ilmoittautuminen'
                                   ? t('toteutus.ilmoittautuminen-paattyy:')
                                   : t('toteutus.haku-paattyy:'),
                               content: hakukohde.hakuajat.map(
@@ -232,8 +232,7 @@ const HakuCardGrid = ({ tyyppiOtsikko, icon, toteutus, hakukohteet }: GridProps)
                           {hakukohde.hakulomaketyyppi !== Hakulomaketyyppi.EI_SAHKOISTA &&
                             !(
                               !hakukohde.isHakuAuki &&
-                              !!demoLinks &&
-                              !!demoLinks.get(hakukohde.hakulomakeAtaruId)
+                              demoLinks?.get(hakukohde.hakulomakeAtaruId)
                             ) && (
                               <Button
                                 variant="contained"
@@ -249,7 +248,7 @@ const HakuCardGrid = ({ tyyppiOtsikko, icon, toteutus, hakukohteet }: GridProps)
                                 </Typography>
                               </Button>
                             )}
-                          {!!demoLinks && demoLinks.get(hakukohde.hakulomakeAtaruId) && (
+                          {demoLinks && demoLinks.get(hakukohde.hakulomakeAtaruId) && (
                             <Button
                               variant="contained"
                               size="large"

@@ -70,7 +70,7 @@ export const KoulutustyyppiSuodatin = (props: SuodatinComponentProps) => {
           <ButtonGroup fullWidth>
             <Button
               style={{ minWidth: '155px' }}
-              className={!isMuuSelected ? classes.buttonActive : classes.buttonInactive}
+              className={isMuuSelected ? classes.buttonInactive : classes.buttonActive}
               classes={{ root: classes.buttonRoot, label: classes.buttonLabelTruncated }}
               aria-selected={!isMuuSelected}
               onClick={() => setIsMuuSelected(false)}>

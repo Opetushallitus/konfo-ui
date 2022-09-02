@@ -19,7 +19,7 @@ export const useUrlParams = () => {
     [history]
   );
 
-  const isDraft = useMemo(() => !!search?.draft, [search]);
+  const isDraft = useMemo(() => Boolean(search?.draft), [search]);
 
   return {
     isDraft,

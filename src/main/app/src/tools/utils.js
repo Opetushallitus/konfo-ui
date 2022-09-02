@@ -132,7 +132,7 @@ export function byLocaleCompare(prop) {
 export const condArray = (cond, item) => (cond ? [item] : []);
 
 export const formatDouble = (number, fixed) =>
-  (fixed !== undefined ? number?.toFixed(fixed) : number)?.toString().replace('.', ',');
+  (fixed === undefined ? number : number?.toFixed(fixed))?.toString().replace('.', ',');
 
 export const isCypress = process.env.REACT_APP_CYPRESS;
 

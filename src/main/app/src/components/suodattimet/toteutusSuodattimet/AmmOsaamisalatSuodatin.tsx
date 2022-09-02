@@ -1,12 +1,12 @@
 import React, { useMemo } from 'react';
 
+import _fp from 'lodash/fp';
 import { useTranslation } from 'react-i18next';
 
-import _fp from 'lodash/fp';
 import { Filter } from '#/src/components/common/Filter';
 import { getFilterStateChanges } from '#/src/tools/filters';
-import { FilterValue, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 import { localize } from '#/src/tools/localization';
+import { FilterValue, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 
 export const AmmOsaamisalatSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
@@ -37,8 +37,7 @@ export const AmmOsaamisalatSuodatin = (props: SuodatinComponentProps) => {
   );
 
   const usedValues = useMemo(
-    () =>
-    filteredValues.sort((a, b) => Number(b.checked) - Number(a.checked)),
+    () => filteredValues.sort((a, b) => Number(b.checked) - Number(a.checked)),
     [filteredValues]
   );
 

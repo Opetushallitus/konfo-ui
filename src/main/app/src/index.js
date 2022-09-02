@@ -9,7 +9,7 @@ import { BrowserRouter, useLocation } from 'react-router-dom';
 import 'typeface-open-sans';
 import StackTrace from 'stacktrace-js';
 
-import {getConfiguration, postClientError} from '#/src/api/konfoApi';
+import { getConfiguration, postClientError } from '#/src/api/konfoApi';
 import App from '#/src/App';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { useQueryOnce } from '#/src/hooks';
@@ -32,7 +32,9 @@ const queryClient = new QueryClient({
 });
 
 if ('serviceWorker' in navigator) {
-  if (!window.Cypress) {
+  if (window.Cypress) {
+    console.log('Not registering service worker');
+  } else {
     console.log('Registering service worker');
     navigator.serviceWorker
       .register('/konfo/service-worker-custom.js', { scope: '/konfo/' })
@@ -44,19 +46,17 @@ if ('serviceWorker' in navigator) {
           console.log('Service worker registration failed:', error);
         }
       );
-  } else {
-    console.log('Not registering service worker');
   }
 }
 
 const uninterestingErrors = {
-  "ResizeObserver loop limit exceeded0": true,
-  "Script Error.0": true
-}
+  'ResizeObserver loop limit exceeded0': true,
+  'Script Error.0': true,
+};
 
 window.onerror = (errorMsg, _url, line, col, errorObj) => {
   if (process.env.NODE_ENV === 'production' && !isCypress) {
-    const errorKey = errorMsg + line
+    const errorKey = errorMsg + line;
     const send = (trace) => {
       if (!uninterestingErrors[errorKey]) {
         postClientError({
@@ -65,9 +65,9 @@ window.onerror = (errorMsg, _url, line, col, errorObj) => {
           line: line,
           col: col,
           'user-agent': window.navigator.userAgent,
-          stack: trace ? trace : "No stacktrace available",
+          stack: trace ? trace : 'No stacktrace available',
         });
-        uninterestingErrors[errorKey] = true
+        uninterestingErrors[errorKey] = true;
       }
     };
     StackTrace.fromError(errorObj)
