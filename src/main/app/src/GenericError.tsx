@@ -6,21 +6,21 @@ interface Translation {
 }
 
 const errorTitle: Translation = {
-  fi: 'Virhe',
-  sv: 'Errore',
+  fi: 'Tapahtui virhe',
+  sv: 'Ett fel uppstod',
   en: 'Error'
 }
 
 const errorText: Translation = {
-  fi: 'Tapahtui virhe',
-  sv: 'Ö',
-  en: 'Error occurred'
+  fi: 'Oho, jotain meni pieleen. Yritä myöhemmin uudelleen.',
+  sv: 'Oj då, någonting gick fel. Prova på nytt om en stund.',
+  en: 'Oops, something went wrong. Please try again later.'
 }
 
 const buttonText: Translation = {
-  'fi': 'Takaisin pääsivulle',
-  'sv': 'Öööö',
-  'en': 'Back to main'
+  'fi': 'Palaa takaisin etusivulle',
+  'sv': 'Gå tillbaka till startsidan',
+  'en': 'Return to home page'
 }
 
 const GenericError = () => {
@@ -35,8 +35,6 @@ const GenericError = () => {
   }
 
   const lang: string = getLang();
-
-  console.log(lang)
 
   const toMain = () => window.location.pathname = `/konfo/${lang}/`;
 
