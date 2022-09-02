@@ -214,6 +214,8 @@ export const KoulutusPage = () => {
           nimikkeet={koulutus?.tutkintoNimikkeet}
           koulutustyyppi={koulutus?.koulutusTyyppi}
           laajuus={getLocalizedOpintojenLaajuus(koulutus)}
+          eqf={koulutus?.eqf}
+          nqf={koulutus?.nqf}
         />
       </PageSection>
       <Kuvaus koulutus={koulutus} />
