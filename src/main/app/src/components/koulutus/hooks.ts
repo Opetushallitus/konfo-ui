@@ -78,6 +78,8 @@ const selectKoulutus = (koulutusData: any) => {
       tutkintoNimikkeet: koulutusData.metadata?.tutkintonimike,
       opintojenLaajuus: koulutusData.metadata?.opintojenLaajuus,
       opintojenLaajuusNumero: koulutusData.metadata?.opintojenLaajuusNumero,
+      opintojenLaajuusNumeroMin: koulutusData.metadata?.opintojenLaajuusNumeroMin,
+      opintojenLaajuusNumeroMax: koulutusData.metadata?.opintojenLaajuusNumeroMax,
       opintojenLaajuusyksikko: koulutusData.metadata?.opintojenLaajuusyksikko,
       koulutusTyyppi: koulutusData.metadata?.tyyppi,
       lisatiedot: koulutusData.metadata?.lisatiedot,

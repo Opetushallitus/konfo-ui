@@ -131,4 +131,4 @@ export enum Alkamiskausityyppi {
   HENKILOKOHTAINEN_SUUNNITELMA = 'henkilokohtainen suunnitelma',
 }
 
-export const NDASH = '\u2013'
+export const NDASH = '\u2013';

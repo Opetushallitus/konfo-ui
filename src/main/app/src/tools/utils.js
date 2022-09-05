@@ -1,6 +1,7 @@
 import DOMPurify from 'dompurify';
 import _fp from 'lodash/fp';
 import ReactHtmlParser from 'react-html-parser';
+
 import { NDASH } from '#/src/constants';
 
 import { getLanguage, getTranslationForKey, localize } from './localization';
@@ -97,7 +98,7 @@ function getLocalizedKoulutusOpintojenLaajuus(koulutus) {
 
   let opintojenLaajuusNumero =
     (koulutus?.opintojenLaajuus && localize(koulutus?.opintojenLaajuus)) ||
-    koulutus?.opintojenLaajuusNumero ||
+    formatDouble(koulutus?.opintojenLaajuusNumero) ||
     (tutkinnonOsat && tutkinnonOsat.map((k) => k?.opintojenLaajuusNumero).join(' + '));
 
   if (_fp.isString(opintojenLaajuusNumero)) {
@@ -110,6 +111,13 @@ function getLocalizedKoulutusOpintojenLaajuus(koulutus) {
         _fp.find('opintojenLaajuusyksikko', tutkinnonOsat)?.opintojenLaajuusyksikko
     ) || '';
 
+  const opintojenLaajuusMin = formatDouble(koulutus?.opintojenLaajuusNumeroMin);
+  const opintojenLaajuusMax = formatDouble(koulutus?.opintojenLaajuusNumeroMax);
+
+  if (!_fp.isEmpty(opintojenLaajuusMin) && opintojenLaajuusMin === opintojenLaajuusMax) {
+    opintojenLaajuusNumero = opintojenLaajuusMin;
+  }
+
   let opintojenLaajuus;
   if (opintojenLaajuusNumero) {
     const includesYksikko = /\D+$/.test(opintojenLaajuusNumero);
@@ -118,6 +126,19 @@ function getLocalizedKoulutusOpintojenLaajuus(koulutus) {
       opintojenLaajuus = opintojenLaajuusNumero;
     } else if (opintojenLaajuusYksikko) {
       opintojenLaajuus = `${opintojenLaajuusNumero} ${opintojenLaajuusYksikko}`.trim();
+    }
+  } else if (opintojenLaajuusMin) {
+    if (opintojenLaajuusMin && opintojenLaajuusMax) {
+      opintojenLaajuus =
+        `${opintojenLaajuusMin}${NDASH}${opintojenLaajuusMax} ${opintojenLaajuusYksikko}`.trim();
+    } else if (opintojenLaajuusMin) {
+      opintojenLaajuus = `${getTranslationForKey(
+        'vähintään'
+      )} ${opintojenLaajuusMin} ${opintojenLaajuusYksikko}`.trim();
+    } else if (opintojenLaajuusMax) {
+      opintojenLaajuus = `${getTranslationForKey(
+        'enintään'
+      )} ${opintojenLaajuusMax} ${opintojenLaajuusYksikko}`.trim();
     }
   }
 
