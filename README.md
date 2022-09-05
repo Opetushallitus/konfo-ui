@@ -20,9 +20,11 @@ http://localhost:3005/
 
 `src/main/app/package.json` -tiedoston rivi `proxy: <ympäristö>` määrittää minkä ympäristön dataa lokaalisti käynnistyvä konfo-ui käyttää (proxyttämällä). Riviä muokkaamalla pystyy helposti käynnistämään lokaalin konfo-ui:n jonkun tietyn ympäristön datalla e.g. lokaali konfo-backend.
 
-## Koodin tyyli ja tarkistus
+## Koodin tyyli ja tarkistus (ESLint & Prettier)
 
 Käytössä on ESlint ja Prettier koodin tyylin yhdenmukaistamiseksi ja staattiseen tarkistamiseen. Prettier ajetaan eslint-sääntönä, joten prettierin ajaminen JS/TS-tiedostoille erikseen ei ole tarpeen. Lisäksi eslint ajetaan Huskyn ja Lint-staged:n avulla Git precommit-hookissa, jolloin korjataan ne virheet/varoitukset, jotka pystytään. Jos ei kaikkea pystytty korjaamaan, commit epäonnistuu ja käyttäjän täytyy korjata jäljellä olevat ongelmat käsin.
+
+ESLintin voi ajaa käsin komennolla `npm run lint`, tai automaattisen fiksauksen kanssa `npm run lint:fix`.
 
 ## Testit
 
@@ -40,10 +42,6 @@ KTO-projektissa on toteutettu omat työkalut API-kutsujen mockauksen helpottamis
 `npm test`
 
 Yksikkötestit nimetään päätteellä `.test.js` ja ne luodaan niihin kansioihin missä niiden testaama koodi sijaitsee. Yksikkötestit kannattaa kirjoittaa lähinnä monimutkaisille apufunktioille ja suurin osa testausta pitäisi tehdä cypress-testeinä.
-
-### Lint
-
-Lintin voi ajaa komennolla `npm run lint`, tai automaattisen fiksauksen kanssa `npm run lint:fix`. Lint ajetaan myös huskyn pre-commit hookkina.
 
 ## Spring boot (erikoistapaukset)
 
