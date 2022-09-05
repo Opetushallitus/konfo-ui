@@ -91,7 +91,7 @@ export const consoleWarning = (...props) => {
   }
 };
 
-export function getLocalizedOpintojenLaajuus(koulutus) {
+function getLocalizedKoulutusOpintojenLaajuus(koulutus) {
   const tutkinnonOsat = koulutus?.tutkinnonOsat || [];
 
   let opintojenLaajuusNumero =
@@ -120,7 +120,27 @@ export function getLocalizedOpintojenLaajuus(koulutus) {
     }
   }
 
-  return opintojenLaajuus || getTranslationForKey('koulutus.ei-laajuutta');
+  return opintojenLaajuus;
+}
+
+export function getLocalizedKoulutusLaajuus(koulutus) {
+  return (
+    getLocalizedKoulutusOpintojenLaajuus(koulutus) ||
+    getTranslationForKey('koulutus.ei-laajuutta')
+  );
+}
+
+export function getLocalizedToteutusLaajuus(toteutus, koulutus) {
+  const toteutusLaajuusNumero = toteutus?.metadata?.opintojenLaajuusNumero;
+  const toteutusLaajuusyksikko = localize(toteutus?.metadata?.opintojenLaajuusyksikko);
+  if (toteutusLaajuusNumero && toteutusLaajuusyksikko) {
+    return `${toteutusLaajuusNumero} ${toteutusLaajuusyksikko}`;
+  } else {
+    return (
+      getLocalizedKoulutusOpintojenLaajuus(koulutus) ||
+      getTranslationForKey('koulutus.ei-laajuutta')
+    );
+  }
 }
 
 export function byLocaleCompare(prop) {

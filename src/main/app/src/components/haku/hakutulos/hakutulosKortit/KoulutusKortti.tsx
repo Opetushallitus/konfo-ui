@@ -13,7 +13,7 @@ import { KoulutusKorttiLogo } from '#/src/components/common/KorttiLogo';
 import { Koulutustyyppi } from '#/src/constants';
 import { hasTutkintonimike } from '#/src/tools/hasTutkintonimike';
 import { localize } from '#/src/tools/localization';
-import { getLocalizedOpintojenLaajuus } from '#/src/tools/utils';
+import { getLocalizedKoulutusLaajuus } from '#/src/tools/utils';
 import { Translateable } from '#/src/types/common';
 
 type ToteutustenTarjoajat = {
@@ -81,7 +81,7 @@ export const KoulutusKortti = ({ koulutus, isSmall }: Props) => {
           tutkintoNimikkeet,
           koulutusHasTutkintonimike ? SchoolOutlined : ExtensionOutlined,
         ],
-        [getLocalizedOpintojenLaajuus(koulutus), TimelapseOutlined],
+        [getLocalizedKoulutusLaajuus(koulutus), TimelapseOutlined],
         toteutustenTarjoajatText && [toteutustenTarjoajatText, HomeWorkOutlined],
       ]}
       isSmall={isSmall}
