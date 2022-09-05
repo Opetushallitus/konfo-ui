@@ -204,10 +204,7 @@ export const KoulutusPage = () => {
         </Typography>
       </Box>
       <Box mt={7.5}>
-        <TeemakuvaImage
-          imgUrl={koulutus?.teemakuva}
-          altText=''
-        />
+        <TeemakuvaImage imgUrl={koulutus?.teemakuva} altText="" />
       </Box>
       <PageSection heading={t('koulutus.tiedot')}>
         <KoulutusInfoGrid

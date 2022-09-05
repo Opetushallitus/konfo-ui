@@ -56,9 +56,9 @@ export const Osaamisalat = ({
       osaamisalaKuvaukset?.find(
         (koa: any) => toa?.koodi?.koodiUri === koa?.osaamisalakoodiUri
       ) || {};
-    const kuvaus = !_.isEmpty(extendedData?.kuvaus)
-      ? localize(extendedData?.kuvaus)
-      : `<p>${t('toteutus.osaamisalalle-ei-loytynyt-kuvausta')}</p>`;
+    const kuvaus = _.isEmpty(extendedData?.kuvaus)
+      ? `<p>${t('toteutus.osaamisalalle-ei-loytynyt-kuvausta')}</p>`
+      : localize(extendedData?.kuvaus);
     return { ...toa, extendedData, kuvaus };
   });
 

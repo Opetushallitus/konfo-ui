@@ -41,7 +41,7 @@ export const formatAloitus = (
 
 const formDemoLink = (link: Translateable): Translateable => {
   const transform = (langLink: string | undefined) => {
-    if (!!langLink && !_.isEmpty(langLink)) {
+    if (langLink && !_.isEmpty(langLink)) {
       return langLink.includes('?')
         ? langLink.concat('&demo=true')
         : langLink.concat('?demo=true');
@@ -73,7 +73,7 @@ export const demoLinksPerLomakeId = async (
       } else {
         result.set(lomakeId, undefined);
       }
-    } else if (!!result.get(lomakeId)) {
+    } else if (Boolean(result.get(lomakeId))) {
       result.get(lomakeId)?.set(hakukohdeOid, formDemoLink(hakukohde.hakulomakeLinkki));
     }
   }

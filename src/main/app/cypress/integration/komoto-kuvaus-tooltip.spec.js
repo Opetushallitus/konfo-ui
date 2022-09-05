@@ -16,7 +16,7 @@ describe('Kuvaus tooltip KOMOTO', () => {
     cy.findByLabelText('Suunniteltu kesto')
       .parent()
       .parent()
-      .within((s) => {
+      .within(() => {
         cy.findByRole('button').click();
       });
     cy.findByRole('tooltip').within(() => {

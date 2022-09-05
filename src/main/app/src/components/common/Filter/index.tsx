@@ -29,7 +29,7 @@ import Select, {
 } from 'react-select';
 
 import { colors } from '#/src/colors';
-import { useConfig } from '#/src/config'
+import { useConfig } from '#/src/config';
 import { localize, localizeIfNimiObject } from '#/src/tools/localization';
 import { FilterValue, FilterValues } from '#/src/types/SuodatinTypes';
 
@@ -154,11 +154,11 @@ const FilterCheckbox = ({
         }
       />
       {expandButton && <ListItemIcon>{expandButton}</ListItemIcon>}
-      {naytaFiltterienHakutulosLuvut &&
-          <ListItemSecondaryAction style={{right: '4px'}}>
-            {`(${count})`}
-          </ListItemSecondaryAction>
-      }
+      {naytaFiltterienHakutulosLuvut && (
+        <ListItemSecondaryAction style={{ right: '4px' }}>
+          {`(${count})`}
+        </ListItemSecondaryAction>
+      )}
     </ListItem>
   );
 };
@@ -227,7 +227,7 @@ type Props = {
 };
 
 export const isIndeterminate = (v: FilterValue) =>
-  !v.checked && !!v.alakoodit?.some((alakoodi) => alakoodi.checked);
+  !v.checked && Boolean(v.alakoodit?.some((alakoodi) => alakoodi.checked));
 
 // NOTE: Do *not* put redux code here, this component is used both with and without
 export const Filter = ({

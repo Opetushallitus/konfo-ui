@@ -121,9 +121,9 @@ export const ToteutusInfoGrid = ({ laajuus, opetus = {}, hasHaku }: Props) => {
     }
   );
 
-  const { alkaaText, alkaaModalText, paattyyText } = !hasHaku
-    ? formatAloitus(opetus.koulutuksenAlkamiskausi, t)
-    : ({} as any);
+  const { alkaaText, alkaaModalText, paattyyText } = hasHaku
+    ? ({} as any)
+    : formatAloitus(opetus.koulutuksenAlkamiskausi, t);
 
   if (alkaaText) {
     perustiedotData.push({

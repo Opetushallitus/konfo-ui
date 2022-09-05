@@ -14,6 +14,7 @@ import { PageSection } from '#/src/components/common/PageSection';
 import { Pagination } from '#/src/components/common/Pagination';
 import { QueryResultWrapper } from '#/src/components/common/QueryResultWrapper';
 import { TextWithBackground } from '#/src/components/common/TextWithBackground';
+import { HakuKaynnissaSuodatin } from '#/src/components/suodattimet/common/HakuKaynnissaSuodatin';
 import { HakutapaSuodatin } from '#/src/components/suodattimet/common/HakutapaSuodatin';
 import { OpetuskieliSuodatin } from '#/src/components/suodattimet/common/OpetusKieliSuodatin';
 import { OpetustapaSuodatin } from '#/src/components/suodattimet/common/OpetustapaSuodatin';
@@ -25,7 +26,11 @@ import { KOULUTUS_TYYPPI, KORKEAKOULU_KOULUTUSTYYPIT } from '#/src/constants';
 import { usePreviousNonEmpty } from '#/src/hooks';
 import { usePreviousPage } from '#/src/store/reducers/appSlice';
 import { getInitialCheckedToteutusFilters } from '#/src/store/reducers/hakutulosSliceSelector';
-import { getFilterWithChecked, sortValues, getFilterStateChanges } from '#/src/tools/filters';
+import {
+  getFilterWithChecked,
+  sortValues,
+  getFilterStateChanges,
+} from '#/src/tools/filters';
 import {
   localize,
   getLocalizedMaksullisuus,
@@ -35,11 +40,10 @@ import { mapValues } from '#/src/tools/lodashFpUncapped';
 import { FilterValue } from '#/src/types/SuodatinTypes';
 import { Jarjestaja } from '#/src/types/ToteutusTypes';
 
-import { HakuKaynnissaSuodatin } from '#/src/components/suodattimet/common/HakuKaynnissaSuodatin';
+import { ChipList } from '../suodattimet/hakutulosSuodattimet/SuodatinValinnat';
 import { LukiolinjatSuodatin } from '../suodattimet/toteutusSuodattimet/LukiolinjatSuodatin';
 import { MobileFiltersOnTopMenu } from '../suodattimet/toteutusSuodattimet/MobileFiltersOnTopMenu';
 import { useKoulutusJarjestajat } from './hooks';
-import { ChipList } from '../suodattimet/hakutulosSuodattimet/SuodatinValinnat';
 
 const useStyles = makeStyles({
   grid: {
@@ -116,32 +120,34 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
     [sortedFilters, filters]
   );
 
-  const selectedFiltersFlatList = useMemo(
-    () => {
-      const idsMatch = (id: string) => (val: FilterValue) => val.id === id;
-      return Object.keys(filters)
-        .map((k: string) => {
-          if (!filters[k].map) {
-            return [];
-          }
-          return filters[k]
-            .map((v: FilterValue) => [v, ...(v.alakoodit || [])])
-            .flat()
-            .map((v: string) => {
-              const matchingFilter = usedValues[k]?.find(idsMatch(v))
-                || usedValues[k]?.map((val: FilterValue) => val.alakoodit).flat()
-                    .find(idsMatch(v));
-              return {
-                checked: true, 
-                id: v, 
-                count: matchingFilter ? matchingFilter.count : 0, 
-                filterId: k, 
-                nimi: matchingFilter?.nimi};
-            })})
-        .flat();
-    },
-    [usedValues]
-  );
+  const selectedFiltersFlatList = useMemo(() => {
+    const idsMatch = (id: string) => (val: FilterValue) => val.id === id;
+    return Object.keys(filters)
+      .map((k: string) => {
+        if (!filters[k].map) {
+          return [];
+        }
+        return filters[k]
+          .map((v: FilterValue) => [v, ...(v.alakoodit || [])])
+          .flat()
+          .map((v: string) => {
+            const matchingFilter =
+              usedValues[k]?.find(idsMatch(v)) ||
+              usedValues[k]
+                ?.map((val: FilterValue) => val.alakoodit)
+                .flat()
+                .find(idsMatch(v));
+            return {
+              checked: true,
+              id: v,
+              count: matchingFilter ? matchingFilter.count : 0,
+              filterId: k,
+              nimi: matchingFilter?.nimi,
+            };
+          });
+      })
+      .flat();
+  }, [usedValues, filters]);
 
   const handleCheck = (item: FilterValue) => () => {
     const values = usedValues[item.filterId];
@@ -173,7 +179,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
         }>
         <>
           <Hidden smDown>
-            {selectedFiltersFlatList.length > 0 &&
+            {selectedFiltersFlatList.length > 0 && (
               <div>
                 <ChipList
                   filters={selectedFiltersFlatList}
@@ -181,7 +187,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                   handleClearFilters={handleFiltersClear}
                 />
               </div>
-            }
+            )}
 
             <Grid
               container
@@ -315,12 +321,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                     <EntiteettiKortti
                       koulutustyyppi={toteutus.koulutustyyppi}
                       to={`/toteutus/${toteutus.toteutusOid}`}
-                      logoElement={
-                        <OppilaitosKorttiLogo
-                          image={toteutus.kuva}
-                          alt=''
-                        />
-                      }
+                      logoElement={<OppilaitosKorttiLogo image={toteutus.kuva} alt="" />}
                       preHeader={localize(toteutus)}
                       header={localize(toteutus.toteutusNimi)}
                       erityisopetusHeader={

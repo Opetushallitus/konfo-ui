@@ -15,7 +15,7 @@ const wp = require('@cypress/webpack-preprocessor');
 
 const alias = require('../../webpack-alias');
 
-module.exports = (on, config) => {
+module.exports = (on, _config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
   on(

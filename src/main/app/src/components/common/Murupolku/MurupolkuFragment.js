@@ -7,12 +7,12 @@ import { Link as RouterLink } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
+import { useSideMenu } from '#/src/hooks';
 import { theme } from '#/src/theme';
-import {useSideMenu} from "#/src/hooks";
 
 const BREADCRUMB_ICON_SPACING = '14px';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   home: {
     display: 'inline',
     marginRight: BREADCRUMB_ICON_SPACING,
@@ -88,7 +88,7 @@ const shortenName = (name) => {
     }
   };
 
-  var m = '';
+  let m = '';
   const re = /\s/g;
   while ((m = re.exec(name)) !== null) {
     const currentIndex = re.lastIndex - m.length;
@@ -118,7 +118,9 @@ export const MurupolkuFragment = (props) => {
 
   const normalizedName = name ? name.trim() : '';
   const shortenedName =
-    isSmall || isMedium || isLarge || isXLarge || menuVisible ? shortenName(normalizedName) : normalizedName;
+    isSmall || isMedium || isLarge || isXLarge || menuVisible
+      ? shortenName(normalizedName)
+      : normalizedName;
 
   return (
     <span>

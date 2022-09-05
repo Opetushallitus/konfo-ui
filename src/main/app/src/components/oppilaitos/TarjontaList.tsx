@@ -72,12 +72,7 @@ export const TarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
                   <EntiteettiKortti
                     koulutustyyppi={toteutus?.tyyppi}
                     to={`/toteutus/${toteutus?.toteutusOid}`}
-                    logoElement={
-                      <OppilaitosKorttiLogo
-                        image={toteutus?.kuva}
-                        alt=''
-                      />
-                    }
+                    logoElement={<OppilaitosKorttiLogo image={toteutus?.kuva} alt="" />}
                     header={toteutus?.toteutusName}
                     kuvaus={toteutus?.description}
                     jarjestaaUrheilijanAmmKoulutusta={

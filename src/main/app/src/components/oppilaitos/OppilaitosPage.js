@@ -123,9 +123,9 @@ export const OppilaitosPage = (props) => {
               variant="contained"
               size="medium"
               color="primary">
-              {!_.isEmpty(entity.metadata.wwwSivu.nimi)
-                ? localize(entity.metadata.wwwSivu)
-                : t('oppilaitos.oppilaitoksen-www-sivut')}
+              {_.isEmpty(entity.metadata.wwwSivu.nimi)
+                ? t('oppilaitos.oppilaitoksen-www-sivut')
+                : localize(entity.metadata.wwwSivu)}
               <OpenInNewIcon fontSize="small" />
             </Button>
           )}

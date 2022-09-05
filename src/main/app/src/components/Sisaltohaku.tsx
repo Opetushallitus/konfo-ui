@@ -16,8 +16,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import _ from 'lodash';
 import MuiFlatPagination from 'material-ui-flat-pagination';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
-import { Link as RouterLink } from 'react-router-dom';
+import { useHistory, Link as RouterLink } from 'react-router-dom';
 
 import koulutusPlaceholderImg from '#/src/assets/images/Opolkuhts.png';
 import { colors } from '#/src/colors';
@@ -142,10 +141,10 @@ export const Sisaltohaku = () => {
   const fetchResults = useCallback(
     (input) => {
       const keywords = asKeywords(input);
-      if (!_.isEmpty(keywords)) {
-        return index.filter(({ content }) => keywords.find((kw) => content.includes(kw)));
-      } else {
+      if (_.isEmpty(keywords)) {
         return [];
+      } else {
+        return index.filter(({ content }) => keywords.find((kw) => content.includes(kw)));
       }
     },
     [index]
