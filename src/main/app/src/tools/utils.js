@@ -1,6 +1,7 @@
 import DOMPurify from 'dompurify';
 import _fp from 'lodash/fp';
 import ReactHtmlParser from 'react-html-parser';
+import { NDASH } from '#/src/constants';
 
 import { getLanguage, getTranslationForKey, localize } from './localization';
 
@@ -69,7 +70,7 @@ export function formatDateString(d) {
 }
 
 export const formatDateRange = (start, end) =>
-  `${formatDateString(start)} \u2013 ${end ? formatDateString(end) : ''}`;
+  `${formatDateString(start)} ${NDASH} ${end ? formatDateString(end) : ''}`;
 
 export const sanitizedHTMLParser = (html, ...rest) =>
   ReactHtmlParser(sanitizeHTML(html), ...rest);
