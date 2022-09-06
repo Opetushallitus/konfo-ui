@@ -89,6 +89,8 @@ export type ToteutusMetadata = {
   hakutermi: 'hakeutuminen' | 'ilmoittautuminen';
   hakulomaketyyppi: Hakulomaketyyppi;
   lisatietoaHakeutumisesta?: Translateable;
+  opintojenLaajuusNumero?: number;
+  opintojenLaajuusyksikko?: Koodi;
 };
 
 export type Organisaatio = {
