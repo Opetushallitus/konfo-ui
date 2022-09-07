@@ -92,7 +92,7 @@
     "kto-ui-common": "github:opetushallitus/kto-ui-common#9e49bd2d3c5b956c5cbcb64d8d133276248ff21f",
     "lint-staged": "^13.0.3",
     "prettier": "^2.5.1",
-    "react-scripts": "^4.0.1",
+    "react-scripts": "^5.0.1",
     "source-map-explorer": "^2.5.2",
     "start-server-and-test": "^1.14.0",
     "typescript": "^4.5.4"
