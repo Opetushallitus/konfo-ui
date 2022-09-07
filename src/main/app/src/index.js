@@ -20,6 +20,8 @@ import { theme } from '#/src/theme';
 import { configureI18n } from '#/src/tools/i18n';
 import { isCypress } from '#/src/tools/utils';
 import { configureUrls } from '#/src/urls';
+import { ErrorBoundary } from 'react-error-boundary';
+import GenericError from './GenericError';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -107,20 +109,22 @@ const InitGate = ({ children }) => {
 };
 
 ReactDOM.render(
-  <Suspense fallback={<LoadingCircle />}>
-    <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false} />
-      <Provider store={getKonfoStore()}>
-        <BrowserRouter basename="/konfo">
-          <ThemeProvider theme={theme}>
-            <InitGate>
-              <ScrollToTop />
-              <App />
-            </InitGate>
-          </ThemeProvider>
-        </BrowserRouter>
-      </Provider>
-    </QueryClientProvider>
-  </Suspense>,
+  <ErrorBoundary FallbackComponent={GenericError}>
+    <Suspense fallback={<LoadingCircle />}>
+      <QueryClientProvider client={queryClient}>
+        <ReactQueryDevtools initialIsOpen={false} />
+        <Provider store={getKonfoStore()}>
+          <BrowserRouter basename="/konfo">
+            <ThemeProvider theme={theme}>
+              <InitGate>
+                <ScrollToTop />
+                <App />
+              </InitGate>
+            </ThemeProvider>
+          </BrowserRouter>
+        </Provider>
+      </QueryClientProvider>
+    </Suspense>
+  </ErrorBoundary>,
   document.getElementById('wrapper')
 );
