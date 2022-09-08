@@ -1,0 +1,18 @@
+[
+  {
+    "method": "GET",
+    "url": "http://localhost:3005/konfo-backend/koulutus/1231231",
+    "response": {
+      "status": 404,
+      "body": {}
+    }
+  },
+  {
+    "method": "GET",
+    "url": "http://localhost:3005/konfo-backend/toteutus/1231231",
+    "response": {
+      "status": 404,
+      "body": {}
+    }
+  }
+]
