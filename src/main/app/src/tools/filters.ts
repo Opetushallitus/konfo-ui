@@ -32,7 +32,7 @@ export const getFilterWithChecked = (
         id: FILTER_TYPES.HAKUKAYNNISSA,
         filterId: FILTER_TYPES.HAKUKAYNNISSA,
         count: filter.count,
-        checked: !!allCheckedValues[FILTER_TYPES.HAKUKAYNNISSA],
+        checked: Boolean(allCheckedValues[FILTER_TYPES.HAKUKAYNNISSA]),
       },
     };
   }
@@ -121,7 +121,7 @@ export const getFilterStateChanges =
 
       // Jos alakoodivalinnan jälkeen kaikki alakoodit on valittu, myös yläkoodikin täytyy asettaa valituksi
       const allAlakooditWillBeSelected = ylakoodi.alakoodit!.every((v) =>
-        v.id !== item.id ? v.checked : !v.checked
+        v.id === item.id ? !v.checked : v.checked
       );
 
       const ylakoodiFn = allAlakooditWillBeSelected ? addIfNotExists : removeIfExists;

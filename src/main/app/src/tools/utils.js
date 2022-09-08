@@ -2,6 +2,8 @@ import DOMPurify from 'dompurify';
 import _fp from 'lodash/fp';
 import ReactHtmlParser from 'react-html-parser';
 
+import { NDASH } from '#/src/constants';
+
 import { getLanguage, getTranslationForKey, localize } from './localization';
 
 DOMPurify.addHook('afterSanitizeAttributes', function (node) {
@@ -69,7 +71,7 @@ export function formatDateString(d) {
 }
 
 export const formatDateRange = (start, end) =>
-  `${formatDateString(start)} \u2013 ${end ? formatDateString(end) : ''}`;
+  `${formatDateString(start)} ${NDASH} ${end ? formatDateString(end) : ''}`;
 
 export const sanitizedHTMLParser = (html, ...rest) =>
   ReactHtmlParser(sanitizeHTML(html), ...rest);
@@ -91,12 +93,12 @@ export const consoleWarning = (...props) => {
   }
 };
 
-export function getLocalizedOpintojenLaajuus(koulutus) {
+function getLocalizedKoulutusOpintojenLaajuus(koulutus) {
   const tutkinnonOsat = koulutus?.tutkinnonOsat || [];
 
   let opintojenLaajuusNumero =
     (koulutus?.opintojenLaajuus && localize(koulutus?.opintojenLaajuus)) ||
-    koulutus?.opintojenLaajuusNumero ||
+    formatDouble(koulutus?.opintojenLaajuusNumero) ||
     (tutkinnonOsat && tutkinnonOsat.map((k) => k?.opintojenLaajuusNumero).join(' + '));
 
   if (_fp.isString(opintojenLaajuusNumero)) {
@@ -109,6 +111,13 @@ export function getLocalizedOpintojenLaajuus(koulutus) {
         _fp.find('opintojenLaajuusyksikko', tutkinnonOsat)?.opintojenLaajuusyksikko
     ) || '';
 
+  const opintojenLaajuusMin = formatDouble(koulutus?.opintojenLaajuusNumeroMin);
+  const opintojenLaajuusMax = formatDouble(koulutus?.opintojenLaajuusNumeroMax);
+
+  if (!_fp.isEmpty(opintojenLaajuusMin) && opintojenLaajuusMin === opintojenLaajuusMax) {
+    opintojenLaajuusNumero = opintojenLaajuusMin;
+  }
+
   let opintojenLaajuus;
   if (opintojenLaajuusNumero) {
     const includesYksikko = /\D+$/.test(opintojenLaajuusNumero);
@@ -118,9 +127,42 @@ export function getLocalizedOpintojenLaajuus(koulutus) {
     } else if (opintojenLaajuusYksikko) {
       opintojenLaajuus = `${opintojenLaajuusNumero} ${opintojenLaajuusYksikko}`.trim();
     }
+  } else if (opintojenLaajuusMin) {
+    if (opintojenLaajuusMin && opintojenLaajuusMax) {
+      opintojenLaajuus =
+        `${opintojenLaajuusMin}${NDASH}${opintojenLaajuusMax} ${opintojenLaajuusYksikko}`.trim();
+    } else if (opintojenLaajuusMin) {
+      opintojenLaajuus = `${getTranslationForKey(
+        'vähintään'
+      )} ${opintojenLaajuusMin} ${opintojenLaajuusYksikko}`.trim();
+    } else if (opintojenLaajuusMax) {
+      opintojenLaajuus = `${getTranslationForKey(
+        'enintään'
+      )} ${opintojenLaajuusMax} ${opintojenLaajuusYksikko}`.trim();
+    }
   }
 
-  return opintojenLaajuus || getTranslationForKey('koulutus.ei-laajuutta');
+  return opintojenLaajuus;
+}
+
+export function getLocalizedKoulutusLaajuus(koulutus) {
+  return (
+    getLocalizedKoulutusOpintojenLaajuus(koulutus) ||
+    getTranslationForKey('koulutus.ei-laajuutta')
+  );
+}
+
+export function getLocalizedToteutusLaajuus(toteutus, koulutus) {
+  const toteutusLaajuusNumero = toteutus?.metadata?.opintojenLaajuusNumero;
+  const toteutusLaajuusyksikko = localize(toteutus?.metadata?.opintojenLaajuusyksikko);
+  if (toteutusLaajuusNumero && toteutusLaajuusyksikko) {
+    return `${toteutusLaajuusNumero} ${toteutusLaajuusyksikko}`;
+  } else {
+    return (
+      getLocalizedKoulutusOpintojenLaajuus(koulutus) ||
+      getTranslationForKey('koulutus.ei-laajuutta')
+    );
+  }
 }
 
 export function byLocaleCompare(prop) {
@@ -132,7 +174,7 @@ export function byLocaleCompare(prop) {
 export const condArray = (cond, item) => (cond ? [item] : []);
 
 export const formatDouble = (number, fixed) =>
-  (fixed !== undefined ? number?.toFixed(fixed) : number)?.toString().replace('.', ',');
+  (fixed === undefined ? number : number?.toFixed(fixed))?.toString().replace('.', ',');
 
 export const isCypress = process.env.REACT_APP_CYPRESS;
 

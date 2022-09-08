@@ -19,7 +19,7 @@ import TeemakuvaImage from '#/src/components/common/TeemakuvaImage';
 import { getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
 import { getLanguage, localize } from '#/src/tools/localization';
 import { useUrlParams } from '#/src/tools/useUrlParams';
-import { getLocalizedOpintojenLaajuus, sanitizedHTMLParser } from '#/src/tools/utils';
+import { getLocalizedKoulutusLaajuus, sanitizedHTMLParser } from '#/src/tools/utils';
 
 import { useKoulutus, useKoulutusJarjestajat } from './hooks';
 import { KoulutusInfoGrid } from './KoulutusInfoGrid';
@@ -204,16 +204,15 @@ export const KoulutusPage = () => {
         </Typography>
       </Box>
       <Box mt={7.5}>
-        <TeemakuvaImage
-          imgUrl={koulutus?.teemakuva}
-          altText=''
-        />
+        <TeemakuvaImage imgUrl={koulutus?.teemakuva} altText="" />
       </Box>
       <PageSection heading={t('koulutus.tiedot')}>
         <KoulutusInfoGrid
           nimikkeet={koulutus?.tutkintoNimikkeet}
           koulutustyyppi={koulutus?.koulutusTyyppi}
-          laajuus={getLocalizedOpintojenLaajuus(koulutus)}
+          laajuus={getLocalizedKoulutusLaajuus(koulutus)}
+          eqf={koulutus?.eqf}
+          nqf={koulutus?.nqf}
         />
       </PageSection>
       <Kuvaus koulutus={koulutus} />

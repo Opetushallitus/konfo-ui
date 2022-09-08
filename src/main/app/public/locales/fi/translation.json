@@ -64,6 +64,8 @@
     "otsikko-muut-palvelut": "Muut palvelut",
     "otsikko-ohjeet-ja-tuki": "Ohjeet ja tuki"
   },
+  "vähintään": "Vähintään",
+  "enintään": "Enintään",
   "nayta-lisatiedot": "Näytä lisätiedot",
   "sulje": "Sulje",
   "ei": "Ei",
@@ -138,6 +140,7 @@
     "amm-ope-erityisope-ja-opo": "Ammatillinen opettaja-, erityisopettaja- ja opinto-ohjaajakoulutus",
     "kk-muu": "Korkeakoulutus (tutkintoon johtamaton)",
     "kk-opintojakso": "Opintojakso",
+    "kk-opintokokonaisuus": "Opintokokonaisuus",
     "erikoislaakari": "Erikoislääkäri",
     "muut-ammatilliset": "Ammatillinen koulutus",
     "amm-muu": "Muu ammatillinen koulutus",
@@ -300,6 +303,18 @@
     "laajuus": "Laajuus",
     "koulutustyyppi": "Koulutustyyppi",
     "koulutuksen-laajuus": "Koulutuksen laajuus",
+    "koulutuksen-tasot": {
+      "otsikko": "Koulutuksen tasot",
+      "eqf": "EQF",
+      "nqf": "NQF",
+      "tooltip": {
+        "teksti": "Selostusta siitä mitä EQF ja NQF ovat.",
+        "linkki": {
+          "url": "https://www.oph.fi/fi/koulutus-ja-tutkinnot/tutkintojen-viitekehykset",
+          "teksti": "Lisätietoa"
+        }
+      }
+    },
     "kesto": "Kesto",
     "suunniteltu-kesto": "Suunniteltu kesto",
     "koulutusaste": "Koulutusaste",
@@ -351,6 +366,7 @@
     "tyyppi-amm-ope-erityisope-ja-opo": "Ammatillinen opettaja-, erityisopettaja- ja opinto-ohjaajakoulutus",
     "tyyppi-aikuisten-perusopetus": "Aikuisten perusopetus",
     "tyyppi-kk-opintojakso": "Opintojakso",
+    "tyyppi-kk-opintokokonaisuus": "Opintokokonaisuus",
     "tyyppi-erikoislaakari": "Erikoislaakari",
     "tarjonta": "Tutustu tarjontaan",
     "haku-kaynnissa": "Haku käynnissä",

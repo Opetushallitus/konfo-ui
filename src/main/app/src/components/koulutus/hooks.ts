@@ -78,11 +78,15 @@ const selectKoulutus = (koulutusData: any) => {
       tutkintoNimikkeet: koulutusData.metadata?.tutkintonimike,
       opintojenLaajuus: koulutusData.metadata?.opintojenLaajuus,
       opintojenLaajuusNumero: koulutusData.metadata?.opintojenLaajuusNumero,
+      opintojenLaajuusNumeroMin: koulutusData.metadata?.opintojenLaajuusNumeroMin,
+      opintojenLaajuusNumeroMax: koulutusData.metadata?.opintojenLaajuusNumeroMax,
       opintojenLaajuusyksikko: koulutusData.metadata?.opintojenLaajuusyksikko,
       koulutusTyyppi: koulutusData.metadata?.tyyppi,
       lisatiedot: koulutusData.metadata?.lisatiedot,
       teemakuva: koulutusData?.teemakuva,
       sorakuvaus: koulutusData?.sorakuvaus,
+      eqf: koulutusData?.eqf,
+      nqf: koulutusData?.nqf,
     };
   } else {
     return undefined;
@@ -193,7 +197,7 @@ export const useKoulutusJarjestajat = ({
             ? setTulevatJarjestajatFilters(newFilters)
             : setJarjestajatFilters(newFilters)
         );
-      }
+      },
     }),
     [filters, result, requestProps, isTuleva, dispatch, pagination]
   );

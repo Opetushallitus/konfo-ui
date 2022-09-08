@@ -19,6 +19,7 @@ import { Translateable } from '#/src/types/common';
 import { Opetus, Yksikko } from '#/src/types/ToteutusTypes';
 
 import { formatAloitus } from './utils';
+import { NDASH } from '#/src/constants';
 
 const getYksikkoSymbol = (yksikko?: Yksikko) => {
   switch (yksikko) {
@@ -37,7 +38,7 @@ const formatApuraha = (opetus: Opetus, t: TFunction) => {
     if (opetus?.apuraha?.min === opetus?.apuraha?.max) {
       return `${opetus?.apuraha?.min} ${yksikko}`;
     } else {
-      return `${opetus?.apuraha?.min} \u2013 ${opetus?.apuraha?.max} ${yksikko}`;
+      return `${opetus?.apuraha?.min} ${NDASH} ${opetus?.apuraha?.max} ${yksikko}`;
     }
   }
 
@@ -121,9 +122,9 @@ export const ToteutusInfoGrid = ({ laajuus, opetus = {}, hasHaku }: Props) => {
     }
   );
 
-  const { alkaaText, alkaaModalText, paattyyText } = !hasHaku
-    ? formatAloitus(opetus.koulutuksenAlkamiskausi, t)
-    : ({} as any);
+  const { alkaaText, alkaaModalText, paattyyText } = hasHaku
+    ? ({} as any)
+    : formatAloitus(opetus.koulutuksenAlkamiskausi, t);
 
   if (alkaaText) {
     perustiedotData.push({

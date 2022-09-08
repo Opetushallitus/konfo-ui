@@ -9,7 +9,7 @@ import { BrowserRouter, useLocation } from 'react-router-dom';
 import 'typeface-open-sans';
 import StackTrace from 'stacktrace-js';
 
-import {getConfiguration, postClientError} from '#/src/api/konfoApi';
+import { getConfiguration, postClientError } from '#/src/api/konfoApi';
 import App from '#/src/App';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { useQueryOnce } from '#/src/hooks';
@@ -20,6 +20,8 @@ import { theme } from '#/src/theme';
 import { configureI18n } from '#/src/tools/i18n';
 import { isCypress } from '#/src/tools/utils';
 import { configureUrls } from '#/src/urls';
+import { ErrorBoundary } from 'react-error-boundary';
+import GenericError from './GenericError';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -32,7 +34,9 @@ const queryClient = new QueryClient({
 });
 
 if ('serviceWorker' in navigator) {
-  if (!window.Cypress) {
+  if (window.Cypress) {
+    console.log('Not registering service worker');
+  } else {
     console.log('Registering service worker');
     navigator.serviceWorker
       .register('/konfo/service-worker-custom.js', { scope: '/konfo/' })
@@ -44,22 +48,29 @@ if ('serviceWorker' in navigator) {
           console.log('Service worker registration failed:', error);
         }
       );
-  } else {
-    console.log('Not registering service worker');
   }
 }
 
+const uninterestingErrors = {
+  'ResizeObserver loop limit exceeded0': true,
+  'Script Error.0': true,
+};
+
 window.onerror = (errorMsg, _url, line, col, errorObj) => {
   if (process.env.NODE_ENV === 'production' && !isCypress) {
+    const errorKey = errorMsg + line;
     const send = (trace) => {
-      postClientError({
-        'error-message': errorMsg,
-        url: window.location.href,
-        line: line,
-        col: col,
-        'user-agent': window.navigator.userAgent,
-        stack: trace,
-      });
+      if (!uninterestingErrors[errorKey]) {
+        postClientError({
+          'error-message': errorMsg,
+          url: window.location.href,
+          line: line,
+          col: col,
+          'user-agent': window.navigator.userAgent,
+          stack: trace ? trace : 'No stacktrace available',
+        });
+        uninterestingErrors[errorKey] = true;
+      }
     };
     StackTrace.fromError(errorObj)
       .then((err) => {
@@ -98,20 +109,22 @@ const InitGate = ({ children }) => {
 };
 
 ReactDOM.render(
-  <Suspense fallback={<LoadingCircle />}>
-    <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false} />
-      <Provider store={getKonfoStore()}>
-        <BrowserRouter basename="/konfo">
-          <ThemeProvider theme={theme}>
-            <InitGate>
-              <ScrollToTop />
-              <App />
-            </InitGate>
-          </ThemeProvider>
-        </BrowserRouter>
-      </Provider>
-    </QueryClientProvider>
-  </Suspense>,
+  <ErrorBoundary FallbackComponent={GenericError}>
+    <Suspense fallback={<LoadingCircle />}>
+      <QueryClientProvider client={queryClient}>
+        <ReactQueryDevtools initialIsOpen={false} />
+        <Provider store={getKonfoStore()}>
+          <BrowserRouter basename="/konfo">
+            <ThemeProvider theme={theme}>
+              <InitGate>
+                <ScrollToTop />
+                <App />
+              </InitGate>
+            </ThemeProvider>
+          </BrowserRouter>
+        </Provider>
+      </QueryClientProvider>
+    </Suspense>
+  </ErrorBoundary>,
   document.getElementById('wrapper')
 );

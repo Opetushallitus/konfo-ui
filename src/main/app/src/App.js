@@ -189,7 +189,7 @@ const App = () => {
   const { state: menuVisible, toggleMenu, closeMenu } = useSideMenu();
   const isAtEtusivu = useIsAtEtusivu();
   const isFetching = useIsFetching();
-  const [sideMenuKey, setSideMenuKey] = useState(1)
+  const [sideMenuKey, setSideMenuKey] = useState(1);
 
   const classes = useStyles({ betaBannerVisible: betaBanner, isSmall, menuVisible });
 

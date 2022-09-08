@@ -84,9 +84,9 @@ export const ToteutuksenYhteystiedot = ({ oids }: { oids: Array<string> }) => {
                   variant="contained"
                   size="medium"
                   color="primary">
-                  {!_.isEmpty(oppilaitos.metadata.wwwSivu.nimi)
-                    ? localize(oppilaitos.metadata.wwwSivu)
-                    : t('oppilaitos.oppilaitoksen-www-sivut')}
+                  {_.isEmpty(oppilaitos.metadata.wwwSivu.nimi)
+                    ? t('oppilaitos.oppilaitoksen-www-sivut')
+                    : localize(oppilaitos.metadata.wwwSivu)}
                   <OpenInNewIcon fontSize="small" />
                 </Button>
               )}

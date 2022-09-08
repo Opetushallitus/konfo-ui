@@ -2,12 +2,7 @@ const findBreadcrumbItems = () => {
   return cy.findByRole('navigation', { name: 'Murupolku' }).find('li');
 };
 
-export const assertBreadcrumb = ({
-  length,
-  lastTextContains,
-  lastHrefContains,
-  hasHakutuloksetLink,
-}) => {
+export const assertBreadcrumb = ({ length, lastHrefContains, hasHakutuloksetLink }) => {
   findBreadcrumbItems().should('have.length', length);
 
   findBreadcrumbItems()

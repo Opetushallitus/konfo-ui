@@ -28,11 +28,11 @@ type Props = {
 const getOppiaineName = (koodiUrit: KoodiUrit) => {
   if (koodiUrit) {
     const oppiaineenNimi = localize(koodiUrit.oppiaine.nimi);
-    if (!koodiUrit.kieli) {
-      return oppiaineenNimi;
-    } else {
+    if (koodiUrit.kieli) {
       const kieliPrefix = oppiaineenNimi.match(/^[A-Z]\d/g);
       return `${kieliPrefix} ${localize(koodiUrit.kieli.nimi)}`;
+    } else {
+      return oppiaineenNimi;
     }
   }
 };

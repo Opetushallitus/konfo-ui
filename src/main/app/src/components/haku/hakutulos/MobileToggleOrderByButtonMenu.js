@@ -52,7 +52,7 @@ const MobileToggleOrderByButtonMenu = () => {
   const toggleToNameSort = () => updateSortAndOrder('name', 'asc');
 
   const toggleNameSortOrder = () =>
-    updateSortAndOrder('name', order !== 'asc' ? 'asc' : 'desc');
+    updateSortAndOrder('name', order === 'asc' ? 'desc' : 'asc');
 
   return (
     <Grid
