@@ -97,8 +97,7 @@ export const InfoGrid = (props: Props) => {
                   <Typography
                     className={clsx(classes.title, classes.text)}
                     variant="body1"
-                    id={toId(e.title)}
-                    noWrap>
+                    id={toId(e.title)}>
                     {e.title}
                   </Typography>
                 </Grid>
