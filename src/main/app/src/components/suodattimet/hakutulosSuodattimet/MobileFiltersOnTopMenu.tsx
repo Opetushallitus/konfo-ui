@@ -15,6 +15,7 @@ import {
 import { Close } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 
+import { JotpaSuodatin } from '#/src/components/suodattimet/common/JotpaSuodatin';
 import { FILTER_TYPES } from '#/src/constants';
 import { useIsAtEtusivu } from '#/src/store/reducers/appSlice';
 
@@ -178,6 +179,13 @@ export const MobileFiltersOnTopMenu = () => {
             expanded={false}
             displaySelected
             values={useFilterProps(FILTER_TYPES.HAKUKAYNNISSA)}
+            setFilters={setFilters}
+          />
+          <Divider className={classes.divider} />
+          <JotpaSuodatin
+            expanded={false}
+            displaySelected
+            values={useFilterProps(FILTER_TYPES.JOTPA)}
             setFilters={setFilters}
           />
           <Divider className={classes.divider} />

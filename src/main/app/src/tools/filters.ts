@@ -37,6 +37,17 @@ export const getFilterWithChecked = (
     };
   }
 
+  if (filterId === FILTER_TYPES.JOTPA) {
+    return {
+      [FILTER_TYPES.JOTPA]: {
+        id: FILTER_TYPES.JOTPA,
+        filterId: FILTER_TYPES.JOTPA,
+        count: filter.count,
+        checked: !!allCheckedValues[FILTER_TYPES.JOTPA],
+      },
+    };
+  }
+
   return _.mapValues(filter, (v, id) => ({
     ...v,
     id,

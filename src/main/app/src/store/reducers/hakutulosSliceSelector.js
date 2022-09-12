@@ -31,6 +31,7 @@ const getHakukaynnissa = (state) => state.hakutulos.hakukaynnissa;
 const getHakutapa = (state) => state.hakutulos.hakutapa;
 const getYhteishaku = (state) => state.hakutulos.yhteishaku;
 const getPohjakoulutusvaatimus = (state) => state.hakutulos.pohjakoulutusvaatimus;
+const getJotpa = (state) => state.hakutulos.jotpa;
 
 export const getFilters = (state) => _.pick(state.hakutulos, FILTER_TYPES_ARR);
 
@@ -71,6 +72,7 @@ export const getIsAnyFilterSelected = createSelector(
     getHakutapa,
     getYhteishaku,
     getPohjakoulutusvaatimus,
+    getJotpa,
   ],
   (
     opetuskieli,
@@ -84,10 +86,12 @@ export const getIsAnyFilterSelected = createSelector(
     hakukaynnissa,
     hakutapa,
     yhteishaku,
-    pohjakoulutusvaatimus
+    pohjakoulutusvaatimus,
+    jotpa
   ) => {
     return (
       hakukaynnissa ||
+      jotpa ||
       _.some(
         [
           opetuskieli,
@@ -129,6 +133,7 @@ export const getAPIRequestParams = createSelector(
     getHakutapa,
     getYhteishaku,
     getPohjakoulutusvaatimus,
+    getJotpa,
   ],
   (
     keyword,
@@ -146,7 +151,8 @@ export const getAPIRequestParams = createSelector(
     hakukaynnissa,
     hakutapa,
     yhteishaku,
-    pohjakoulutusvaatimus
+    pohjakoulutusvaatimus,
+    jotpa
   ) => ({
     keyword,
     order,
@@ -160,6 +166,7 @@ export const getAPIRequestParams = createSelector(
     valintatapa: getCheckedFiltersIdsStr(valintatapa),
     hakutapa: getCheckedFiltersIdsStr(hakutapa),
     hakukaynnissa,
+    jotpa,
     yhteishaku: getCheckedFiltersIdsStr(yhteishaku),
     pohjakoulutusvaatimus: getCheckedFiltersIdsStr(pohjakoulutusvaatimus),
   })
@@ -190,6 +197,7 @@ export const getInitialCheckedToteutusFilters = createSelector(
       'kunta',
       'opetustapa',
       'hakukaynnissa',
+      'jotpa',
       'hakutapa',
       'yhteishaku',
       'pohjakoulutusvaatimus',

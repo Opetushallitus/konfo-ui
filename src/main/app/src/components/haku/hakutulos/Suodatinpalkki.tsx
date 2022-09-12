@@ -8,6 +8,7 @@ import { FILTER_TYPES } from '#/src/constants';
 
 import { HakuKaynnissaSuodatin } from '../../suodattimet/common/HakuKaynnissaSuodatin';
 import { HakutapaSuodatin } from '../../suodattimet/common/HakutapaSuodatin';
+import { JotpaSuodatin } from '../../suodattimet/common/JotpaSuodatin';
 import { OpetuskieliSuodatin } from '../../suodattimet/common/OpetusKieliSuodatin';
 import { OpetustapaSuodatin } from '../../suodattimet/common/OpetustapaSuodatin';
 import { PohjakoulutusvaatimusSuodatin } from '../../suodattimet/common/PohjakoulutusvaatimusSuodatin';
@@ -74,6 +75,12 @@ export const Suodatinpalkki = () => {
         expanded
         elevation={2}
         values={useFilterProps(FILTER_TYPES.HAKUKAYNNISSA)}
+        setFilters={setFilters}
+      />
+      <JotpaSuodatin
+        expanded
+        elevation={2}
+        values={useFilterProps(FILTER_TYPES.JOTPA)}
         setFilters={setFilters}
       />
       <HakutapaSuodatin

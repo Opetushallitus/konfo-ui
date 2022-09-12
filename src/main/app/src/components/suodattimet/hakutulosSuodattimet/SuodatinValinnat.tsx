@@ -97,11 +97,20 @@ export const SuodatinValinnat = () => {
   const getHandleDelete = (item: FilterValue) => () => {
     const changes = getFilterStateChanges(selectedFiltersWithAlakoodit)(item);
 
+    let changesWithBooleanValues;
     if (item.filterId === FILTER_TYPES.HAKUKAYNNISSA) {
-      setFilters({ hakukaynnissa: !item.checked });
+      changesWithBooleanValues = { ...changes, hakukaynnissa: !item.checked };
     } else {
-      setFilters(_.omit(changes, 'hakukaynnissa'));
+      changesWithBooleanValues = _.omit(changes, 'hakukaynnissa');
     }
+
+    if (item.filterId === FILTER_TYPES.JOTPA) {
+      changesWithBooleanValues = { ...changesWithBooleanValues, jotpa: !item.checked };
+    } else {
+      changesWithBooleanValues = _.omit(changesWithBooleanValues, 'jotpa');
+    }
+
+    setFilters(changesWithBooleanValues);
   };
 
   return (

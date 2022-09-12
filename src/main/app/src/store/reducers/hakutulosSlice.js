@@ -23,7 +23,7 @@ export const initialState = {
   koulutusOffset: 0,
   oppilaitosOffset: 0,
 
-  // Persistoidut suodatinvalinnat, listoja valituista koodiarvoista (+ yksi boolean rajain)
+  // Persistoidut suodatinvalinnat, listoja valituista koodiarvoista (+ kaksi boolean rajainta)
   keyword: '',
   koulutustyyppi: [],
   'koulutustyyppi-muu': [],
@@ -31,6 +31,7 @@ export const initialState = {
   opetuskieli: [],
   valintatapa: [],
   hakukaynnissa: false,
+  jotpa: false,
   hakutapa: [],
   yhteishaku: [], // NOTE: tämä suodatin ei käytä koodistoarvoja vaan hakuOideja
   kunta: [],
@@ -67,6 +68,7 @@ const hakutulosSlice = createSlice({
       state.opetuskieli = [];
       state.valintatapa = [];
       state.hakukaynnissa = false;
+      state.jotpa = false;
       state.hakutapa = [];
       state.yhteishaku = [];
       state.kunta = [];
@@ -132,6 +134,9 @@ const hakutulosSlice = createSlice({
               break;
             case FILTER_TYPES.HAKUKAYNNISSA:
               state.hakukaynnissa = value === 'true';
+              break;
+            case FILTER_TYPES.JOTPA:
+              state.jotpa = value === 'true';
               break;
             default:
               state[key] = valueList;
