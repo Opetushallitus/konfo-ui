@@ -32,6 +32,18 @@ export const ToteutuksenYhteystiedot = ({ oids }: { oids: Array<string> }) => {
     [oppilaitokset]
   );
 
+  //Näytetään toteutukselle vain yhdet hakijapalveluiden yhteystiedot. Ensisijaisesti oppilaitoksen osalta, sen jälkeen oppilaitokselta.
+  //Tämä sisältää oletuksen, että jos toteutukseen liittyvät oidit sisältävät oppilaitoksen osan, se sisältää osuvammat yhteystiedot.
+  const kaytettavatHakijapalveluidenYhteystiedot = useMemo(() => {
+    const oppilaitokselle = oppilaitokset
+      .map((o) => o.data.oppilaitos?.metadata.hakijapalveluidenYhteystiedot)
+      .find(Boolean);
+    const osalle = oppilaitokset
+      .map((o) => o.data.oppilaitoksenOsa?.metadata.hakijapalveluidenYhteystiedot)
+      .find(Boolean);
+    return osalle ? [osalle] : [oppilaitokselle];
+  }, [oppilaitokset]);
+
   const filteredOrganisaatioYhteystiedot = useMemo(
     () =>
       oppilaitokset
@@ -39,7 +51,6 @@ export const ToteutuksenYhteystiedot = ({ oids }: { oids: Array<string> }) => {
         .flatMap((v) => v.data.oppilaitoksenOsa.metadata.yhteystiedot),
     [oppilaitokset]
   );
-
   return (
     <>
       {filtered?.length > 0 && (
@@ -93,6 +104,7 @@ export const ToteutuksenYhteystiedot = ({ oids }: { oids: Array<string> }) => {
               <Yhteystiedot
                 id={localize(oppilaitos)}
                 {...oppilaitos.metadata}
+                hakijapalveluidenYhteystiedot={kaytettavatHakijapalveluidenYhteystiedot} //Huom. tämä päätelty kenttä yliajaa oppilaitoken metadatassa mahdollisesti olevat yhteystiedot.
                 organisaatioidenYhteystiedot={filteredOrganisaatioYhteystiedot}
               />
             </React.Fragment>
