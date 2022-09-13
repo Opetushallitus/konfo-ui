@@ -22,6 +22,7 @@ import TeemakuvaImage from '#/src/components/common/TeemakuvaImage';
 import { Heading } from '#/src/components/Heading';
 import { useOppilaitokset } from '#/src/components/oppilaitos/hooks';
 import { useSideMenu } from '#/src/hooks';
+import { NotFound } from '#/src/NotFound';
 import { getHakuParams, getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
 import { localize, localizeLukiolinja } from '#/src/tools/localization';
 import { useUrlParams } from '#/src/tools/useUrlParams';
@@ -70,8 +71,7 @@ export const ToteutusPage = () => {
 
   const { state: menuVisible } = useSideMenu();
 
-  // TODO: There is absolutely no error handling atm.
-  const { data: toteutus, isLoading: toteutusLoading } = useToteutus({
+  const { data: toteutus, status: toteutusStatus } = useToteutus({
     oid,
     isDraft,
   });
@@ -89,7 +89,7 @@ export const ToteutusPage = () => {
     jarjestetaanErityisopetuksena,
   } = toteutus?.metadata ?? {};
 
-  const { data: koulutus, isLoading: koulutusLoading } = useKoulutus({
+  const { data: koulutus, status: koulutusStatus } = useKoulutus({
     oid: koulutusOid,
     isDraft,
   });
@@ -107,10 +107,13 @@ export const ToteutusPage = () => {
 
   const hakutiedot = toteutus?.hakutiedot;
 
+  const notFound = koulutusStatus === 'error' || toteutusStatus === 'error';
+
   const loading =
-    koulutusLoading ||
-    toteutusLoading ||
-    (hasOppilaitokset && _.some(oppilaitokset, 'isLoading'));
+    !notFound &&
+    (koulutusStatus === 'loading' ||
+      toteutusStatus === 'loading' ||
+      (hasOppilaitokset && _.some(oppilaitokset, 'isLoading')));
 
   const hasAnyHakukohde = _.some(hakutiedot, (v: Hakutieto) => v.hakukohteet.length > 0);
   const hakuUrl = useSelector(getHakuUrl);
@@ -129,7 +132,9 @@ export const ToteutusPage = () => {
     erityisopetusText = t('toteutus.tuva-erityisopetus-teksti');
   }
 
-  return loading ? (
+  return notFound ? (
+    <NotFound />
+  ) : loading ? (
     <LoadingCircle />
   ) : (
     <ContentWrapper>

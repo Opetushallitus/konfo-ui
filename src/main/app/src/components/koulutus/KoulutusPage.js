@@ -16,6 +16,7 @@ import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import Murupolku from '#/src/components/common/Murupolku';
 import { PageSection } from '#/src/components/common/PageSection';
 import TeemakuvaImage from '#/src/components/common/TeemakuvaImage';
+import { NotFound } from '#/src/NotFound';
 import { getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
 import { getLanguage, localize } from '#/src/tools/localization';
 import { useUrlParams } from '#/src/tools/useUrlParams';
@@ -162,8 +163,7 @@ export const KoulutusPage = () => {
   const { oid } = useParams();
   const { t } = useTranslation();
 
-  // TODO: There is absolutely no error handling atm.
-  const { data: koulutus, isLoading: koulutusLoading } = useKoulutus({ oid, isDraft });
+  const { data: koulutus, status } = useKoulutus({ oid, isDraft });
 
   const { data: tulevatJarjestajat } = useKoulutusJarjestajat({
     oid,
@@ -171,67 +171,72 @@ export const KoulutusPage = () => {
     isTuleva: true,
   });
 
-  const isLoading = koulutusLoading;
-
   const hakuUrl = useSelector(getHakuUrl);
 
   const koulutusAlat = koulutus?.koulutusAla?.map((ala) => localize(ala))?.join(' + ');
 
   const soraKuvaus = koulutus?.sorakuvaus;
 
-  return isLoading ? (
-    <LoadingCircle />
-  ) : (
-    <ContentWrapper>
-      <Box width="100%" alignSelf="start">
-        <Murupolku
-          path={[
-            { name: t('haku.otsikko'), link: hakuUrl },
-            { name: localize(koulutus?.tutkintoNimi) },
-          ]}
-        />
-      </Box>
-      <Box mt={4}>
-        {koulutusAlat && (
-          <Typography className={classes.alatText} variant="h3" component="h3">
-            {koulutusAlat}
-          </Typography>
-        )}
-      </Box>
-      <Box mt={1}>
-        <Typography className={classes.tutkintoHeader} variant="h1" component="h1">
-          {localize(koulutus?.tutkintoNimi)}
-        </Typography>
-      </Box>
-      <Box mt={7.5}>
-        <TeemakuvaImage imgUrl={koulutus?.teemakuva} altText="" />
-      </Box>
-      <PageSection heading={t('koulutus.tiedot')}>
-        <KoulutusInfoGrid
-          nimikkeet={koulutus?.tutkintoNimikkeet}
-          koulutustyyppi={koulutus?.koulutusTyyppi}
-          laajuus={getLocalizedKoulutusLaajuus(koulutus)}
-          eqf={koulutus?.eqf}
-          nqf={koulutus?.nqf}
-        />
-      </PageSection>
-      <Kuvaus koulutus={koulutus} />
-      <TutkinnonOsat koulutus={koulutus} />
-      <Box id="tarjonta">
-        <ToteutusList oid={oid} koulutustyyppi={koulutus?.koulutusTyyppi} />
-      </Box>
-      {tulevatJarjestajat?.length > 0 && (
-        <Box id="tulevatJarjestajat">
-          <TulevaJarjestajaList jarjestajat={tulevatJarjestajat} />
-        </Box>
-      )}
-      {soraKuvaus && (
-        <HtmlTextBox
-          heading={t('koulutus.hakijan-terveydentila-ja-toimintakyky')}
-          html={localize(soraKuvaus?.metadata?.kuvaus)}
-          className={classes.root}
-        />
-      )}
-    </ContentWrapper>
-  );
+  switch (status) {
+    case 'loading':
+      return <LoadingCircle />;
+    case 'error':
+      return <NotFound />;
+    case 'success':
+      return (
+        <ContentWrapper>
+          <Box width="100%" alignSelf="start">
+            <Murupolku
+              path={[
+                { name: t('haku.otsikko'), link: hakuUrl },
+                { name: localize(koulutus?.tutkintoNimi) },
+              ]}
+            />
+          </Box>
+          <Box mt={4}>
+            {koulutusAlat && (
+              <Typography className={classes.alatText} variant="h3" component="h3">
+                {koulutusAlat}
+              </Typography>
+            )}
+          </Box>
+          <Box mt={1}>
+            <Typography className={classes.tutkintoHeader} variant="h1" component="h1">
+              {localize(koulutus?.tutkintoNimi)}
+            </Typography>
+          </Box>
+          <Box mt={7.5}>
+            <TeemakuvaImage imgUrl={koulutus?.teemakuva} altText="" />
+          </Box>
+          <PageSection heading={t('koulutus.tiedot')}>
+            <KoulutusInfoGrid
+              nimikkeet={koulutus?.tutkintoNimikkeet}
+              koulutustyyppi={koulutus?.koulutusTyyppi}
+              laajuus={getLocalizedKoulutusLaajuus(koulutus)}
+              eqf={koulutus?.eqf}
+              nqf={koulutus?.nqf}
+            />
+          </PageSection>
+          <Kuvaus koulutus={koulutus} />
+          <TutkinnonOsat koulutus={koulutus} />
+          <Box id="tarjonta">
+            <ToteutusList oid={oid} koulutustyyppi={koulutus?.koulutusTyyppi} />
+          </Box>
+          {tulevatJarjestajat?.length > 0 && (
+            <Box id="tulevatJarjestajat">
+              <TulevaJarjestajaList jarjestajat={tulevatJarjestajat} />
+            </Box>
+          )}
+          {soraKuvaus && (
+            <HtmlTextBox
+              heading={t('koulutus.hakijan-terveydentila-ja-toimintakyky')}
+              html={localize(soraKuvaus?.metadata?.kuvaus)}
+              className={classes.root}
+            />
+          )}
+        </ContentWrapper>
+      );
+    default:
+      return null;
+  }
 };
