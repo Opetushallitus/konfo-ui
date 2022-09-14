@@ -150,6 +150,7 @@ export const MobileFiltersOnTopMenu = () => {
             expanded={false}
             displaySelected
             values={useFilterProps(FILTER_TYPES.KOULUTUSTYYPPI)}
+            muuValues={useFilterProps(FILTER_TYPES.KOULUTUSTYYPPI_MUU)}
             setFilters={setFilters}
           />
           <Divider className={classes.divider} />
