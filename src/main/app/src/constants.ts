@@ -69,6 +69,7 @@ export enum KOULUTUS_TYYPPI {
   ERIKOISTUMISKOULUTUS = 'erikoistumiskoulutus',
   VALMENTAVA_KOULUTUS = 'valmentava_koulutus',
   AMMATILLINEN_OPETTAJA_ERITYISOPETTAJA_JA_OPOKOULUTUS = 'amm-ope-erityisope-ja-opo',
+  OPETTAJIEN_PEDAGOGISET_OPINNOT = 'ope-pedag-opinnot',
   AIKUISTEN_PERUSOPETUS = 'aikuisten-perusopetus',
   MUUT_KOULUTUKSET = 'muut_koulutukset',
   KK_OPINTOJAKSO = 'kk-opintojakso',
@@ -79,6 +80,7 @@ export enum KOULUTUS_TYYPPI {
 // koulutustyyppi tulee lisätä tähän objektiin.
 export const KOULUTUS_TYYPPI_MUU = {
   AMMATILLINEN_OPETTAJA_ERITYISOPETTAJA_JA_OPOKOULUTUS: 'amm-ope-erityisope-ja-opo',
+  OPETTAJIEN_PEDAGOGISET_OPINNOT: 'ope-pedag-opinnot',
   AMK_MUU: 'amk-muu',
   AMM_OSAAMISALA: 'amm-osaamisala',
   AMM_TUTKINNON_OSA: 'amm-tutkinnon-osa',
