@@ -38,12 +38,17 @@ const selectHakukohteetByHakutapa = (toteutus: any) => {
         nimi: hakutapa.nimi,
         hakukohteet: toteutus.hakutiedot
           .filter((hakutieto: any) => hakutieto.hakutapa.koodiUri === hakutapa.koodiUri)
-          .flatMap((hakutieto: any) => hakutieto.hakukohteet)
-          .map((hakukohde: any) => ({
-            ...hakukohde,
-            isHakuMennyt: isHakuMennyt(hakukohde?.hakuajat),
-            isHakuAuki: isHakuAuki(hakukohde?.hakuajat),
-          })),
+          .map((hakutieto: any) => {
+            const hakukohteet = hakutieto.hakukohteet.map((hakukohde: any) => ({
+              ...hakukohde,
+              hakuOid: hakutieto.hakuOid,
+              isHakuMennyt: isHakuMennyt(hakukohde?.hakuajat),
+              isHakuAuki: isHakuAuki(hakukohde?.hakuajat),
+            }));
+            hakutieto.hakukohteet = hakukohteet;
+            return hakutieto;
+          })
+          .flatMap((hakutieto: any) => hakutieto.hakukohteet),
       },
     }),
     {}
