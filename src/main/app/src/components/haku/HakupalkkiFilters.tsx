@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Box, Divider, makeStyles } from '@material-ui/core';
+import { Box, Divider } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
 import { useFilterProps, useSearch } from '#/src/components/haku/hakutulosHooks';
@@ -18,19 +19,22 @@ import { FILTER_TYPES } from '#/src/constants';
 
 import { Suodatin } from './Suodatin';
 
-const useStyles = makeStyles(() => ({
-  container: {
-    padding: '10px',
-  },
+const PREFIX = 'HakupalkkiFilters';
+
+const classes = {
+  container: `${PREFIX}-container`,
+};
+
+const StyledBox = styled(Box)(() => ({
+  padding: '10px',
 }));
 
 export const HakupalkkiFilters = () => {
-  const classes = useStyles();
   const { t } = useTranslation();
   const { setFilters } = useSearch();
 
   return (
-    <Box
+    <StyledBox
       display="flex"
       flexWrap="wrap"
       justifyContent="center"
@@ -166,6 +170,6 @@ export const HakupalkkiFilters = () => {
         id="opetustapa"
         header={t('haku.opetustapa')}
       />
-    </Box>
+    </StyledBox>
   );
 };

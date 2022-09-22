@@ -1,13 +1,13 @@
 import React from 'react';
 
-import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
-import EuroIcon from '@material-ui/icons/Euro';
-import FlagOutlinedIcon from '@material-ui/icons/FlagOutlined';
-import HourglassEmptyOutlinedIcon from '@material-ui/icons/HourglassEmptyOutlined';
-import MenuBookIcon from '@material-ui/icons/MenuBook';
-import ScheduleIcon from '@material-ui/icons/Schedule';
-import TimelapseIcon from '@material-ui/icons/Timelapse';
-import { makeStyles } from '@material-ui/styles';
+import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+import EuroIcon from '@mui/icons-material/Euro';
+import FlagOutlinedIcon from '@mui/icons-material/FlagOutlined';
+import HourglassEmptyOutlinedIcon from '@mui/icons-material/HourglassEmptyOutlined';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import ScheduleIcon from '@mui/icons-material/Schedule';
+import TimelapseIcon from '@mui/icons-material/Timelapse';
+import { styled } from '@mui/material/styles';
 import { TFunction } from 'i18next';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -20,6 +20,19 @@ import { Translateable } from '#/src/types/common';
 import { Opetus, Yksikko } from '#/src/types/ToteutusTypes';
 
 import { formatAloitus } from './utils';
+
+const PREFIX = 'ToteutusInfoGrid';
+
+const classes = {
+  koulutusInfoGridIcon: `${PREFIX}-koulutusInfoGridIcon`,
+};
+
+const Root = styled('div')(({ theme }) => ({
+  width: '100%',
+  [`& .${classes.koulutusInfoGridIcon}`]: {
+    color: theme.palette.primary.main,
+  },
+}));
 
 const getYksikkoSymbol = (yksikko?: Yksikko) => {
   switch (yksikko) {
@@ -53,12 +66,6 @@ const formatMaksullisuus = (opetus: Opetus, t: TFunction) => {
     : t('toteutus.ei-maksua');
 };
 
-const useStyles = makeStyles((theme: any) => ({
-  koulutusInfoGridIcon: {
-    color: theme.palette.primary.main,
-  },
-}));
-
 const suunniteltuKesto = (t: TFunction, vuosi?: number, kk?: number) => {
   if (!vuosi && !kk) {
     return t('koulutus.ei-kestoa');
@@ -81,7 +88,6 @@ type Props = {
 };
 
 export const ToteutusInfoGrid = ({ laajuus, opetus = {}, hasHaku }: Props) => {
-  const classes = useStyles();
   const { t } = useTranslation();
 
   const kieliString = opetus.opetuskieli?.map(localizeMap).join('\n') ?? '';
@@ -183,5 +189,9 @@ export const ToteutusInfoGrid = ({ laajuus, opetus = {}, hasHaku }: Props) => {
     }
   );
 
-  return <InfoGrid gridData={perustiedotData} />;
+  return (
+    <Root>
+      <InfoGrid gridData={perustiedotData} />
+    </Root>
+  );
 };

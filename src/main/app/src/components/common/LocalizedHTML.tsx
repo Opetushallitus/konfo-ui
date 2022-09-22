@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { makeStyles } from '@material-ui/core';
+import { styled } from '@mui/material/styles';
 
 import { localize } from '#/src/tools/localization';
 import { sanitizedHTMLParser } from '#/src/tools/utils';
@@ -8,8 +8,12 @@ import { Translateable } from '#/src/types/common';
 
 type StylesProps = Pick<Props, 'noMargin'>;
 
-const useStyles = makeStyles((theme) => ({
-  html: ({ noMargin }: StylesProps) => ({
+const classes = {
+  html: 'LocalizedHTML',
+};
+
+const Root = styled('div')<StylesProps>(({ theme, noMargin }) => ({
+  [`&.${classes.html}`]: () => ({
     ...theme.typography.body1,
     ...(noMargin
       ? {}
@@ -37,11 +41,16 @@ export const LocalizedHTML = ({
   noWrapper,
   noMargin,
 }: Props) => {
-  const classes = useStyles({ noMargin });
   const content =
     sanitizedHTMLParser(localize(data), {
       transform,
     }) || defaultValue;
 
-  return noWrapper ? <>{content}</> : <div className={classes.html}>{content}</div>;
+  return noWrapper ? (
+    <>{content}</>
+  ) : (
+    <Root className={classes.html} noMargin={noMargin}>
+      {content}
+    </Root>
+  );
 };

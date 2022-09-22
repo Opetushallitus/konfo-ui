@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 
+import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined';
+import SearchIcon from '@mui/icons-material/Search';
 import {
-  makeStyles,
   Drawer,
   Paper,
   InputBase,
@@ -9,10 +10,9 @@ import {
   Box,
   Hidden,
   Typography,
-} from '@material-ui/core';
-import Link from '@material-ui/core/Link';
-import AppsOutlinedIcon from '@material-ui/icons/AppsOutlined';
-import SearchIcon from '@material-ui/icons/Search';
+  Link,
+} from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { urls } from 'oph-urls-js';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
@@ -26,28 +26,49 @@ import { SIDEMENU_WIDTH } from '#/src/constants';
 import { useContentful } from '#/src/hooks';
 import { getHeaderHeight } from '#/src/theme';
 
-const useStyles = makeStyles((theme) => ({
-  drawer: ({ isSmall }) => ({
-    width: isSmall ? '100%' : SIDEMENU_WIDTH,
-    flexShrink: 0,
-  }),
-  drawerPaper: ({ betaBannerVisible, isSmall }) => ({
+const PREFIX = 'SideMenu';
+
+const classes = {
+  drawer: `${PREFIX}Drawer`,
+  drawerPaper: `${PREFIX}DrawerPaper`,
+  inputBackground: `${PREFIX}InputBackground`,
+  murupolku: `${PREFIX}Murupolku`,
+  inputRoot: `${PREFIX}InputRoot`,
+  input: `${PREFIX}Input`,
+  iconButton: `${PREFIX}IconButton`,
+  divider: `${PREFIX}Divider`,
+  drawerHeader: `${PREFIX}DrawerHeader`,
+  omaOpintopolkuLink: `${PREFIX}OmaOpintopolkuLink`,
+  omaOpintopolkuIcon: `${PREFIX}OmaOpintopolkuIcon`,
+  omaOpintopolkuText: `${PREFIX}OmaOpintopolkuText`,
+};
+
+const StyledDrawer = styled(Drawer, {
+  shouldForwardProp: (prop) => !['isSmall', 'betaBannerVisible'].includes(prop),
+})(({ theme, isSmall, betaBannerVisible }) => ({
+  width: isSmall ? '100%' : SIDEMENU_WIDTH,
+  flexShrink: 0,
+
+  [`& .${classes.drawerPaper}`]: {
     marginTop: getHeaderHeight(theme)({ betaBannerVisible, isSmall }),
     height: `calc(100% - ${getHeaderHeight(theme)({ betaBannerVisible, isSmall })}px)`,
     width: isSmall ? '100%' : SIDEMENU_WIDTH,
-  }),
-  inputBackground: {
+  },
+
+  [`& .${classes.inputBackground}`]: {
     backgroundColor: colors.white,
     paddingLeft: '20px',
     paddingTop: '20px',
     paddingBottom: '20px',
   },
-  murupolku: {
+
+  [`& .${classes.murupolku}`]: {
     paddingLeft: '20px',
     paddingTop: '20px',
     paddingBottom: '20px',
   },
-  inputRoot: {
+
+  [`& .${classes.inputRoot}`]: {
     height: '38px',
     display: 'flex',
     alignItems: 'center',
@@ -56,38 +77,45 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '2px',
     width: 290,
   },
-  input: {
+
+  [`& .${classes.input}`]: {
     borderRadius: 0,
     marginLeft: theme.spacing(1),
     flex: 1,
   },
-  iconButton: {
+
+  [`& .${classes.iconButton}`]: {
     minWidth: '40px',
     maxWidth: '40px',
     borderRadius: 0,
   },
-  divider: {
+
+  [`& .${classes.divider}`]: {
     height: 28,
     margin: 4,
   },
-  drawerHeader: {
+
+  [`& .${classes.drawerHeader}`]: {
     display: 'flex',
     alignItems: 'center',
     padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
   },
-  omaOpintopolkuLink: {
+
+  [`& .${classes.omaOpintopolkuLink}`]: {
     display: 'flex',
     alignItems: 'left',
     flexDirection: 'row',
     margin: '20px 0px 0px 0px',
   },
-  omaOpintopolkuIcon: {
+
+  [`& .${classes.omaOpintopolkuIcon}`]: {
     color: colors.brandGreen,
     marginRight: 10,
   },
-  omaOpintopolkuText: {
+
+  [`& .${classes.omaOpintopolkuText}`]: {
     color: colors.brandGreen,
     fontSize: 'inherit',
   },
@@ -97,7 +125,7 @@ export const SideMenu = (props) => {
   const { menuVisible, closeMenu } = props;
   const { t, i18n } = useTranslation();
   const history = useHistory();
-  const classes = useStyles(props);
+
   const { data } = useContentful();
   const [selected, setSelected] = useState([]);
   const [search, setSearch] = useState('');
@@ -118,14 +146,16 @@ export const SideMenu = (props) => {
   };
 
   return (
-    <Drawer
+    <StyledDrawer
       open={menuVisible}
       className={classes.drawer}
       variant="persistent"
       anchor="left"
       classes={{
         paper: classes.drawerPaper,
-      }}>
+      }}
+      isSmall={props.isSmall}
+      betaBannerVisible={props.betaBannerVisible}>
       <div className={classes.inputBackground}>
         <Hidden smUp>
           <Box mb={2}>
@@ -192,6 +222,6 @@ export const SideMenu = (props) => {
           );
         })
       )}
-    </Drawer>
+    </StyledDrawer>
   );
 };

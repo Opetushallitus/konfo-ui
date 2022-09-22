@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Tabs, Tab } from '@material-ui/core';
+import { Tabs, Tab } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { LANG_NAME_BY_CODE } from '#/src/constants';

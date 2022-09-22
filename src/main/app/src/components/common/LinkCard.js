@@ -1,27 +1,34 @@
 import React from 'react';
 
-import { Grid, makeStyles, Icon, Typography, Paper } from '@material-ui/core';
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { Grid, Icon, Typography, Paper } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
 import { useContentful } from '#/src/hooks';
 
-const useStyles = makeStyles({
-  grid: {
+const PREFIX = 'LinkCard';
+
+const classes = {
+  grid: `${PREFIX}-grid`,
+  paper: `${PREFIX}-paper`,
+  icon: `${PREFIX}-icon`,
+};
+
+const StyledPaper = styled(Paper)({
+  height: '110px',
+  borderLeft: '4px solid',
+  borderLeftColor: colors.brandGreen,
+  minWidth: '426px',
+  cursor: 'pointer',
+  [`& .${classes.grid}`]: {
     height: '100%',
     paddingLeft: '24px',
     paddingRight: '24px',
   },
-  paper: {
-    height: '110px',
-    borderLeft: '4px solid',
-    borderLeftColor: colors.brandGreen,
-    minWidth: '426px',
-    cursor: 'pointer',
-  },
-  icon: {
+  [`& .${classes.icon}`]: {
     height: '60px',
     width: '60px',
     backgroundColor: colors.brandGreen,
@@ -42,9 +49,8 @@ const LinkCard = (props) => {
     history.push(`/${i18n.language}${forwardTo(id)}`);
   };
 
-  const classes = useStyles();
   return (
-    <Paper className={classes.paper} onClick={() => sivu && forwardToPage(sivu.id)}>
+    <StyledPaper className={classes.paper} onClick={() => sivu && forwardToPage(sivu.id)}>
       <Grid
         className={classes.grid}
         spacing={3}
@@ -67,7 +73,7 @@ const LinkCard = (props) => {
           <ArrowForwardIosIcon />
         </Grid>
       </Grid>
-    </Paper>
+    </StyledPaper>
   );
 };
 export default LinkCard;

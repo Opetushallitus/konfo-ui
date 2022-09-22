@@ -1,14 +1,7 @@
 import React from 'react';
 
-import {
-  Box,
-  Card,
-  CardContent,
-  Divider,
-  Grid,
-  makeStyles,
-  Typography,
-} from '@material-ui/core';
+import { Box, Card, CardContent, Divider, Grid, Typography } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
@@ -21,12 +14,20 @@ import { formatDateString, toId } from '#/src/tools/utils';
 import { Koodi, Translateable } from '#/src/types/common';
 import { FormatoituAikaleima } from '#/src/types/HakukohdeTypes';
 
-const useStyles = makeStyles(() => ({
-  valintakoeHeader: {
+const PREFIX = 'Valintakokeet';
+
+const classes = {
+  valintakoeHeader: `${PREFIX}-valintakoeHeader`,
+  valintakoeSubHeader: `${PREFIX}-valintakoeSubHeader`,
+};
+
+const StyledGrid = styled(Grid)(() => ({
+  [`& .${classes.valintakoeHeader}`]: {
     fontSize: '20px',
     color: colors.darkGrey,
   },
-  valintakoeSubHeader: {
+
+  [`& .${classes.valintakoeSubHeader}`]: {
     fontWeight: 700,
     color: colors.darkGrey,
   },
@@ -46,10 +47,9 @@ const TilaisuusComponent = ({
     aika: { formatoituAlkaa, formatoituPaattyy },
   },
 }: TilaisuusProps) => {
-  const classes = useStyles();
   const { t } = useTranslation();
   return (
-    <Grid style={{ padding: '10px 20px' }} container key={`koetilaisuus-${index}`}>
+    <StyledGrid style={{ padding: '10px 20px' }} container key={`koetilaisuus-${index}`}>
       <HeadingBoundary>
         <Grid item xs={6}>
           <Box py={1}>
@@ -91,7 +91,7 @@ const TilaisuusComponent = ({
           </Grid>
         )}
       </HeadingBoundary>
-    </Grid>
+    </StyledGrid>
   );
 };
 
@@ -132,7 +132,6 @@ export const Valintakokeet = ({
   } = {} as Props['yleiskuvaukset'],
   valintakokeet = [],
 }: Props) => {
-  const classes = useStyles();
   const { t } = useTranslation();
 
   return (

@@ -1,24 +1,37 @@
 import React, { useState } from 'react';
 
-import { Backdrop, IconButton, makeStyles, Tooltip } from '@material-ui/core';
-import CloseIcon from '@material-ui/icons/Close';
-import InfoOutlined from '@material-ui/icons/InfoOutlined';
+import CloseIcon from '@mui/icons-material/Close';
+import InfoOutlined from '@mui/icons-material/InfoOutlined';
+import { Backdrop, IconButton, Tooltip } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 
-const useStyles = makeStyles(() => ({
-  backDrop: {
+const PREFIX = 'LabelTooltip';
+
+const classes = {
+  backDrop: `${PREFIX}-backDrop`,
+  closeIcon: `${PREFIX}-closeIcon`,
+  tooltip: `${PREFIX}-tooltip`,
+  arrow: `${PREFIX}-arrow`,
+};
+
+const Root = styled('div')(() => ({
+  [`& .${classes.backDrop}`]: {
     zIndex: 999,
   },
-  closeIcon: { position: 'absolute', top: '5px', right: '5px' },
-  tooltip: {
+
+  [`& .${classes.closeIcon}`]: { position: 'absolute', top: '5px', right: '5px' },
+
+  [`& .${classes.tooltip}`]: {
     backgroundColor: colors.white,
     color: colors.black,
     paddingLeft: '16px',
     paddingRight: '35px', // Bigger to make space for close button
   },
-  arrow: {
+
+  [`& .${classes.arrow}`]: {
     color: colors.white,
   },
 }));
@@ -26,7 +39,6 @@ const useStyles = makeStyles(() => ({
 type Props = { title: JSX.Element | string };
 
 export const LabelTooltip = ({ title }: Props) => {
-  const classes = useStyles();
   const { t } = useTranslation();
 
   const [open, setOpen] = useState(false);
@@ -38,7 +50,7 @@ export const LabelTooltip = ({ title }: Props) => {
   };
 
   return (
-    <>
+    <Root>
       <Backdrop className={classes.backDrop} open={open} onClick={handleClose} />
       <Tooltip
         open={open}
@@ -53,7 +65,6 @@ export const LabelTooltip = ({ title }: Props) => {
           tooltip: classes.tooltip,
           arrow: classes.arrow,
         }}
-        interactive
         arrow
         title={
           <>
@@ -74,6 +85,6 @@ export const LabelTooltip = ({ title }: Props) => {
           <InfoOutlined />
         </IconButton>
       </Tooltip>
-    </>
+    </Root>
   );
 };

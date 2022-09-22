@@ -1,40 +1,43 @@
 import React from 'react';
 
-import {
-  Box,
-  Drawer,
-  Grid,
-  IconButton,
-  makeStyles,
-  Toolbar,
-  Typography,
-} from '@material-ui/core';
-import { Close } from '@material-ui/icons';
+import { Close } from '@mui/icons-material';
+import { Box, Drawer, Grid, IconButton, Toolbar, Typography } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 
 import { MurupolkuFragment } from './MurupolkuFragment';
 
-const FRAGMENT_INDENT_STEP = 10;
+const PREFIX = 'MurupolkuDrawer';
 
-const useStyles = makeStyles((theme) => ({
-  drawerToolbar: {
+const classes = {
+  drawerToolbar: `${PREFIX}-drawerToolbar`,
+  drawer: `${PREFIX}-drawer`,
+  drawerContainer: `${PREFIX}-drawerContainer`,
+  drawerItemWrapper: `${PREFIX}-drawerItemWrapper`,
+};
+
+const StyledDrawer = styled(Drawer)(({ theme }) => ({
+  [`& .${classes.drawerToolbar}`]: {
     ...theme.mixins.toolbar,
     color: colors.white,
     backgroundColor: theme.palette.primary.main,
   },
-  drawer: {
+
+  [`& .${classes.drawer}`]: {
     height: '100%',
     width: '100%',
     minWidth: 0,
   },
-  drawerContainer: {
+
+  [`& .${classes.drawerContainer}`]: {
     overflowY: 'auto',
     padding: 0,
     minWidth: 0,
   },
-  drawerItemWrapper: {
+
+  [`& .${classes.drawerItemWrapper}`]: {
     padding: theme.spacing(2),
     borderBottom: `1px solid ${colors.lightGrey}`,
     textOverflow: 'ellipsis',
@@ -43,11 +46,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const FRAGMENT_INDENT_STEP = 10;
+
 export const MurupolkuDrawer = ({ path, onClose, isOpen }) => {
   const { t } = useTranslation();
-  const classes = useStyles();
+
   return (
-    <Drawer
+    <StyledDrawer
       classes={{ paperAnchorBottom: classes.drawer }}
       anchor="bottom"
       onClose={onClose}
@@ -89,6 +94,6 @@ export const MurupolkuDrawer = ({ path, onClose, isOpen }) => {
           ))}
         </Box>
       </Box>
-    </Drawer>
+    </StyledDrawer>
   );
 };

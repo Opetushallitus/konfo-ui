@@ -1,20 +1,25 @@
 import React from 'react';
 
-import { makeStyles } from '@material-ui/core';
-import ArrowBackIos from '@material-ui/icons/ArrowBackIos';
+import ArrowBackIos from '@mui/icons-material/ArrowBackIos';
+import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
 
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
 
-const useStyles = makeStyles({
-  arrow: {
+const PREFIX = 'Paluu';
+
+const classes = {
+  arrow: `${PREFIX}-arrow`,
+  link: `${PREFIX}-link`,
+};
+
+const Root = styled('div')({
+  paddingTop: '10px',
+  paddingBottom: '10px',
+  [`& .${classes.arrow}`]: {
     display: 'inline-flex',
     fontSize: '12px',
-  },
-  link: {
-    paddingTop: '10px',
-    paddingBottom: '10px',
   },
 });
 
@@ -23,10 +28,9 @@ type Props = {
 };
 
 export const Paluu = ({ paluuLinkki }: Props) => {
-  const classes = useStyles();
   const { t } = useTranslation();
   return (
-    <div className={classes.link}>
+    <Root className={classes.link}>
       <LocalizedLink
         component={RouterLink}
         color="secondary"
@@ -35,6 +39,6 @@ export const Paluu = ({ paluuLinkki }: Props) => {
         <ArrowBackIos className={classes.arrow} />
         {t('lomake.palaa-esittelyyn')}
       </LocalizedLink>
-    </div>
+    </Root>
   );
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Grid, Icon, makeStyles, Paper, Typography } from '@material-ui/core';
+import { Grid, Icon, Paper, Typography } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import clsx from 'clsx';
 import _ from 'lodash';
 
@@ -16,6 +17,37 @@ import { colors, educationTypeColorCode } from '#/src/colors';
 import { LabelTooltip } from '#/src/components/common/LabelTooltip';
 import { toId } from '#/src/tools/utils';
 
+const PREFIX = 'InfoGrid';
+
+const classes = {
+  paper: `${PREFIX}-paper`,
+  text: `${PREFIX}-text`,
+  title: `${PREFIX}-title`,
+  grid: `${PREFIX}-grid`,
+};
+
+const StyledPaper = styled(Paper)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'space-evenly',
+  width: '100%',
+  backgroundColor: educationTypeColorCode.ammatillinenGreenBg, // TODO: Not sure if this should come from koulutus type theme
+
+  [`& .${classes.text}`]: {
+    color: colors.black,
+  },
+
+  [`& .${classes.title}`]: {
+    fontWeight: 600,
+  },
+
+  [`& .${classes.grid}`]: {
+    padding: theme.spacing(8),
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(2),
+    },
+  },
+}));
+
 const iconLookupTable: Record<string, string> = {
   KoulutusAsteIcon: KoulutusAsteIcon,
   KoulutusTyypitIcon: KoulutusTyypitIcon,
@@ -26,27 +58,6 @@ const iconLookupTable: Record<string, string> = {
   OpetusKasvatusPsykologiaIcon: OpetusKasvatusPsykologiaIcon,
   ApurahaIcon: ApurahaIcon,
 };
-
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    display: 'flex',
-    justifyContent: 'space-evenly',
-    width: '100%',
-    backgroundColor: educationTypeColorCode.ammatillinenGreenBg, // TODO: Not sure if this should come from koulutus type theme
-  },
-  text: {
-    color: colors.black,
-  },
-  title: {
-    fontWeight: 600,
-  },
-  grid: {
-    padding: theme.spacing(8),
-    [theme.breakpoints.down('sm')]: {
-      padding: theme.spacing(2),
-    },
-  },
-}));
 
 type Props = {
   gridData: Array<{
@@ -61,10 +72,9 @@ type Props = {
 
 export const InfoGrid = (props: Props) => {
   const { gridData } = props;
-  const classes = useStyles();
 
   return (
-    <Paper className={classes.paper}>
+    <StyledPaper className={classes.paper}>
       <Grid className={classes.grid} container justifyContent="space-evenly" spacing={5}>
         {gridData.map((e, index) => (
           <Grid
@@ -124,6 +134,6 @@ export const InfoGrid = (props: Props) => {
           </Grid>
         ))}
       </Grid>
-    </Paper>
+    </StyledPaper>
   );
 };

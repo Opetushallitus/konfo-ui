@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Grid, useTheme, useMediaQuery } from '@material-ui/core';
+import { Grid, useTheme, useMediaQuery } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 
 import ImageCardWithText from '#/src/components/common/ImageCardWithText';

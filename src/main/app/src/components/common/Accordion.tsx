@@ -1,44 +1,62 @@
 import React from 'react';
 
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
   Accordion as MuiAccordion,
   AccordionSummary,
   AccordionDetails,
   Typography,
-  makeStyles,
   Box,
-} from '@material-ui/core';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+} from '@mui/material';
+import { styled } from '@mui/material/styles';
 
 import { colors } from '#/src/colors';
 
-const useStyles = makeStyles((theme) => ({
-  summary: {
+const PREFIX = 'Accordion';
+
+const classes = {
+  summary: `${PREFIX}-summary`,
+  panel: `${PREFIX}-panel`,
+  heading: `${PREFIX}-heading`,
+  greenSummaryRoot: `${PREFIX}-greenSummaryRoot`,
+  whiteSummaryRoot: `${PREFIX}-whiteSummaryRoot`,
+  expanded: `${PREFIX}-expanded`,
+  wrapper: `${PREFIX}-wrapper`,
+};
+
+const StyledBox = styled(Box)(({ theme }) => ({
+  [`& .${classes.summary}`]: {
     minHeight: '70px',
   },
-  panel: {
+
+  [`& .${classes.panel}`]: {
     width: '100%',
     backgroundColor: 'white',
   },
-  heading: {
+
+  [`& .${classes.heading}`]: {
     ...theme.typography.body1,
     fontWeight: 600,
   },
+
   // NOTE: For some reason '&$expanded' as a key did not work when returning values from function hence the two separate styles
-  greenSummaryRoot: {
-    '&$expanded': {
+  [`& .${classes.greenSummaryRoot}`]: {
+    [`&.${classes.expanded}`]: {
       borderBottom: `1px solid ${colors.grey}`,
       backgroundColor: colors.lightGreenBg,
       borderTop: `5px solid ${colors.brandGreen}`,
     },
   },
-  whiteSummaryRoot: {
-    '&$expanded': {
+
+  [`& .${classes.whiteSummaryRoot}`]: {
+    [`&.${classes.expanded}`]: {
       borderBottom: `1px solid ${colors.grey}`,
     },
   },
-  expanded: {},
-  wrapper: {
+
+  [`& .${classes.expanded}`]: {},
+
+  [`& .${classes.wrapper}`]: {
     overflowWrap: 'anywhere',
   },
 }));
@@ -54,7 +72,6 @@ type ContentWrapperProps = {
 };
 
 const DefaultContentWrapper = ({ children, ...props }: ContentWrapperProps) => {
-  const classes = useStyles();
   return (
     <Typography {...props} component="div" className={classes.wrapper}>
       {children}
@@ -67,9 +84,8 @@ export const Accordion = ({
   noColors,
   ContentWrapper = DefaultContentWrapper,
 }: Props) => {
-  const classes = useStyles({ noColors });
   return (
-    <Box maxWidth="800px">
+    <StyledBox maxWidth="800px">
       {items.map((item, i) => (
         <MuiAccordion className={classes.panel} elevation={0} key={i}>
           <AccordionSummary
@@ -88,6 +104,6 @@ export const Accordion = ({
           </AccordionDetails>
         </MuiAccordion>
       ))}
-    </Box>
+    </StyledBox>
   );
 };

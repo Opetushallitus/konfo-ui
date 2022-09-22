@@ -1,8 +1,9 @@
 import React from 'react';
 
-import { Button, makeStyles, useMediaQuery } from '@material-ui/core';
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import { Button, useMediaQuery } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { Link as RouterLink } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
@@ -10,29 +11,36 @@ import { LocalizedLink } from '#/src/components/common/LocalizedLink';
 import { useSideMenu } from '#/src/hooks';
 import { theme } from '#/src/theme';
 
-const BREADCRUMB_ICON_SPACING = '14px';
+const PREFIX = 'MurupolkuFragment';
 
-const useStyles = makeStyles(() => ({
-  home: {
+const classes = {
+  home: `${PREFIX}-home`,
+  arrow: `${PREFIX}-arrow`,
+  link: `${PREFIX}Link`,
+  collapsedPart: `${PREFIX}-collapsedPart`,
+};
+
+const Root = styled('span')(({ isLast, isHome, link }) => ({
+  [`& .${classes.home}`]: {
     display: 'inline',
     marginRight: BREADCRUMB_ICON_SPACING,
     verticalAlign: 'text-bottom',
     fontSize: '22px',
   },
-  arrow: {
+
+  [`& .${classes.arrow}`]: {
     display: 'inline',
     marginRight: BREADCRUMB_ICON_SPACING,
     color: colors.lightGrey,
     fontSize: '12px',
   },
-  link: ({ isLast, isHome, link }) => ({
+
+  [`& .${classes.link}`]: {
     ...theme.typography.body1,
     marginRight: BREADCRUMB_ICON_SPACING,
     display: 'inline',
     cursor: 'default',
-    '&:hover': {
-      textDecoration: 'none',
-    },
+    textDecoration: 'none',
     ...(link
       ? {
           cursor: 'pointer',
@@ -46,8 +54,9 @@ const useStyles = makeStyles(() => ({
           fontWeight: 600,
         }
       : {}),
-  }),
-  collapsedPart: {
+  },
+
+  [`& .${classes.collapsedPart}`]: {
     ...theme.typography.body1,
     marginRight: BREADCRUMB_ICON_SPACING,
     cursor: 'pointer',
@@ -60,6 +69,8 @@ const useStyles = makeStyles(() => ({
     },
   },
 }));
+
+const BREADCRUMB_ICON_SPACING = '14px';
 
 const SHORT_NAME_AT_LEAST = 20;
 const SHORT_NAME_AT_MOST = 40;
@@ -109,7 +120,7 @@ export const MurupolkuFragment = (props) => {
     isCollapsedPart,
     isHome,
   } = props;
-  const classes = useStyles(props);
+
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
   const isMedium = useMediaQuery(theme.breakpoints.down('md'));
   const isLarge = useMediaQuery(theme.breakpoints.down('lg'));
@@ -123,7 +134,7 @@ export const MurupolkuFragment = (props) => {
       : normalizedName;
 
   return (
-    <span>
+    <Root isLast={isLast} link={link} isHome={isHome}>
       {!isHome && <ArrowForwardIosIcon aria-hidden="true" className={classes.arrow} />}
       {isCollapsedPart ? (
         <Button className={classes.collapsedPart} onClick={openDrawer}>
@@ -147,6 +158,6 @@ export const MurupolkuFragment = (props) => {
           {shortenedName}
         </LocalizedLink>
       )}
-    </span>
+    </Root>
   );
 };

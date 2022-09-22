@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Grid, Typography, useTheme } from '@material-ui/core';
+import { Grid, Typography, useTheme } from '@mui/material';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';

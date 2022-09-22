@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 
-import { Box, Button, Grid, Typography } from '@material-ui/core';
-import OpenInNewIcon from '@material-ui/icons/OpenInNew';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import { Box, Button, Grid, Typography } from '@mui/material';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 

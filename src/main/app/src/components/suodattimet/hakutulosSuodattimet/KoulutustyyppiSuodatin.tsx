@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 
-import { Button, ButtonGroup, Grid, makeStyles } from '@material-ui/core';
+import { Button, ButtonGroup, Grid, styled } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
@@ -8,35 +8,39 @@ import { Filter } from '#/src/components/common/Filter';
 import { getFilterStateChanges } from '#/src/tools/filters';
 import { FilterValue, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 
-const withStyles = makeStyles(() => ({
-  noBoxShadow: {
-    boxShadow: 'none',
-  },
-  buttonRoot: {
+const classes = {
+  noBoxShadow: 'noBoxShadow',
+  buttonRoot: 'buttonRoot',
+  buttonLabelTruncated: 'buttonLabelTruncated',
+  buttonActive: 'buttonActive',
+  buttonInactive: 'buttonInactive',
+};
+
+const Root = styled('div')({
+  [`& .${classes.buttonRoot}`]: {
     fontSize: 14,
     fontWeight: 600,
     padding: '5px',
   },
-  buttonLabelTruncated: {
+  [`& .${classes.buttonLabelTruncated}`]: {
     overflow: 'hidden',
     display: 'block',
     textOverflow: 'ellipsis',
   },
-  buttonActive: {
+  [`& .${classes.buttonActive}`]: {
     backgroundColor: colors.brandGreen,
     color: colors.white,
     '&:hover': {
       backgroundColor: colors.brandGreen,
     },
   },
-  buttonInactive: {
+  [`& .${classes.buttonInactive}`]: {
     backgroundColor: colors.white,
     color: colors.brandGreen,
   },
-}));
+});
 
 export const KoulutustyyppiSuodatin = (props: SuodatinComponentProps) => {
-  const classes = withStyles();
   const { t } = useTranslation();
 
   const [isMuuSelected, setIsMuuSelected] = useState(false);
@@ -57,35 +61,39 @@ export const KoulutustyyppiSuodatin = (props: SuodatinComponentProps) => {
   };
 
   return (
-    <Filter
-      defaultExpandAlakoodit={true}
-      {...props}
-      testId="koulutustyyppi-filter"
-      name={t('haku.koulutustyyppi')}
-      values={filterValues}
-      handleCheck={handleCheck}
-      additionalContent={
-        <Grid item style={{ padding: '20px 0' }}>
-          {/* TODO erillinen common component tästä */}
-          <ButtonGroup fullWidth>
-            <Button
-              style={{ minWidth: '155px' }}
-              className={isMuuSelected ? classes.buttonInactive : classes.buttonActive}
-              classes={{ root: classes.buttonRoot, label: classes.buttonLabelTruncated }}
-              aria-selected={!isMuuSelected}
-              onClick={() => setIsMuuSelected(false)}>
-              {t('haku.tutkintoon-johtavat')}
-            </Button>
-            <Button
-              className={isMuuSelected ? classes.buttonActive : classes.buttonInactive}
-              classes={{ root: classes.buttonRoot, label: classes.buttonLabelTruncated }}
-              aria-selected={isMuuSelected}
-              onClick={() => setIsMuuSelected(true)}>
-              {t('haku.muut')}
-            </Button>
-          </ButtonGroup>
-        </Grid>
-      }
-    />
+    <Root>
+      <Filter
+        defaultExpandAlakoodit={true}
+        {...props}
+        testId="koulutustyyppi-filter"
+        name={t('haku.koulutustyyppi')}
+        values={filterValues}
+        handleCheck={handleCheck}
+        additionalContent={
+          <Grid item style={{ padding: '20px 0' }}>
+            {/* TODO erillinen common component tästä */}
+            <ButtonGroup fullWidth>
+              <Button
+                style={{ minWidth: '155px' }}
+                className={isMuuSelected ? classes.buttonInactive : classes.buttonActive}
+                classes={{ root: classes.buttonRoot, text: classes.buttonLabelTruncated }}
+                aria-selected={!isMuuSelected}
+                onClick={() => setIsMuuSelected(false)}
+                variant="outlined">
+                {t('haku.tutkintoon-johtavat')}
+              </Button>
+              <Button
+                className={isMuuSelected ? classes.buttonActive : classes.buttonInactive}
+                classes={{ root: classes.buttonRoot, text: classes.buttonLabelTruncated }}
+                aria-selected={isMuuSelected}
+                onClick={() => setIsMuuSelected(true)}
+                variant="outlined">
+                {t('haku.muut')}
+              </Button>
+            </ButtonGroup>
+          </Grid>
+        }
+      />
+    </Root>
   );
 };

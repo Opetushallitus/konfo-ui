@@ -1,26 +1,38 @@
 import React from 'react';
 
-import { Box, Container, useMediaQuery, useTheme, makeStyles } from '@material-ui/core';
+import { Box, Container, useMediaQuery, useTheme } from '@mui/material';
+import { styled } from '@mui/material/styles';
 
 import { colors } from '#/src/colors';
 
-const useStyles = makeStyles(() => ({
-  wrapper: {
-    backgroundColor: colors.white,
-    maxWidth: '1600px',
-    '& a': {
-      color: colors.brandGreen,
-      textDecoration: 'underline',
-    },
+const PREFIX = 'ContentWrapper';
+
+const classes = {
+  wrapper: `${PREFIX}-wrapper`,
+};
+
+const StyledContainer = styled(Container, {
+  shouldForwardProp: (prop) => prop !== 'additionalStylesFn',
+})(({ theme, additionalStylesFn = () => {} }) => ({
+  ...additionalStylesFn({ theme }),
+
+  backgroundColor: colors.white,
+  maxWidth: '1600px',
+  '& a': {
+    color: colors.brandGreen,
+    textDecoration: 'underline',
   },
 }));
 
 const ContentWrapper = (props) => {
   const theme = useTheme();
-  const classes = useStyles();
+
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
-    <Container className={classes.wrapper} disableGutters={isMobile}>
+    <StyledContainer
+      additionalStylesFn={props.additionalStylesFn}
+      className={classes.wrapper}
+      disableGutters={isMobile}>
       <Box
         margin="auto"
         paddingLeft={1}
@@ -31,7 +43,7 @@ const ContentWrapper = (props) => {
         alignItems="center">
         {props.children}
       </Box>
-    </Container>
+    </StyledContainer>
   );
 };
 

@@ -1,30 +1,37 @@
 import React from 'react';
 
 import {
-  makeStyles,
   Button,
   Card,
   CardMedia,
   Typography,
   CardContent,
   CardActions,
-} from '@material-ui/core';
+} from '@mui/material';
+import { styled } from '@mui/material/styles';
 
-const useStyles = makeStyles({
-  media: {
+const PREFIX = 'InfoCard';
+
+const classes = {
+  media: `${PREFIX}-media`,
+  card: `${PREFIX}-card`,
+  button: `${PREFIX}-button`,
+  content: `${PREFIX}-content`,
+};
+
+const StyledCard = styled(Card)({
+  display: 'flex',
+  flexDirection: 'column',
+  maxWidth: 460,
+  height: '100%',
+  [`& .${classes.media}`]: {
     height: 260,
   },
-  card: {
-    display: 'flex',
-    flexDirection: 'column',
-    maxWidth: 460,
-    height: '100%',
-  },
-  button: {
+  [`& .${classes.button}`]: {
     marginTop: 'auto',
     paddingBottom: '24px',
   },
-  content: {
+  [`& .${classes.content}`]: {
     display: 'flex',
     flexDirection: 'column',
   },
@@ -32,9 +39,9 @@ const useStyles = makeStyles({
 
 const InfoCard = (props) => {
   const { image, title, text, buttonText } = props;
-  const classes = useStyles();
+
   return (
-    <Card className={classes.card}>
+    <StyledCard className={classes.card}>
       {image ? (
         <CardMedia
           role="img"
@@ -58,7 +65,7 @@ const InfoCard = (props) => {
           {buttonText ? buttonText : 'Lue lisää'}
         </Button>
       </CardActions>
-    </Card>
+    </StyledCard>
   );
 };
 export default InfoCard;

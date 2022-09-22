@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Typography } from '@material-ui/core';
+import { Typography } from '@mui/material';
 import Markdown from 'markdown-to-jsx';
 import { Link as RouterLink } from 'react-router-dom';
 

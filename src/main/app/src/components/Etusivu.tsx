@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
-import { Button, Grid, makeStyles, Paper } from '@material-ui/core';
+import { Button, Grid, Paper } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import _ from 'lodash';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
@@ -18,19 +19,27 @@ import Kortti from './kortti/Kortti';
 import { ReactiveBorder } from './ReactiveBorder';
 import { Uutiset } from './uutinen/Uutiset';
 
-const useStyles = makeStyles({
-  info: {
+const PREFIX = 'Etusivu';
+
+const classes = {
+  info: `${PREFIX}-info`,
+  header: `${PREFIX}-header`,
+  showMore: `${PREFIX}-showMore`,
+};
+
+const Root = styled('div')({
+  [`& .${classes.info}`]: {
     backgroundColor: colors.grey,
     borderRadius: 2,
     padding: '25px 20px',
   },
-  header: {
+  [`& .${classes.header}`]: {
     fontSize: '28px',
     paddingTop: '60px',
     paddingBottom: '28px',
     fontWeight: 700,
   },
-  showMore: {
+  [`& .${classes.showMore}`]: {
     marginTop: '55px',
     fontWeight: 600,
     textTransform: 'none',
@@ -41,7 +50,7 @@ const getFirst = (entry: Kortit) => Object.values(entry || {})[0] || {};
 
 export const Etusivu = () => {
   const { t } = useTranslation();
-  const classes = useStyles();
+
   const { i18n } = useTranslation();
   const history = useHistory();
 
@@ -70,7 +79,7 @@ export const Etusivu = () => {
   });
 
   return (
-    <React.Fragment>
+    <Root>
       <Jumpotron />
       {isLoading ? (
         <LoadingCircle />
@@ -135,6 +144,6 @@ export const Etusivu = () => {
           </ReactiveBorder>
         </>
       )}
-    </React.Fragment>
+    </Root>
   );
 };

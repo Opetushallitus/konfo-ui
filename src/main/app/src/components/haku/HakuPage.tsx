@@ -1,18 +1,18 @@
 import React, { useEffect } from 'react';
 
+import { ExpandMore } from '@mui/icons-material';
 import {
   Box,
   Grid,
   Hidden,
-  makeStyles,
   MenuItem,
   Paper,
   Select,
   Typography,
   useMediaQuery,
   useTheme,
-} from '@material-ui/core';
-import { ExpandMore } from '@material-ui/icons';
+} from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -32,28 +32,31 @@ import { HakutulosTabs } from './hakutulos/HakutulosTabs';
 import { Suodatinpalkki } from './hakutulos/Suodatinpalkki';
 import { useSearch, useSearchSortOrder } from './hakutulosHooks';
 
-const useSyncedHakuParams = () => {
-  const { search } = useUrlParams();
-  const { keyword } = useParams<any>();
+const PREFIX = 'HakuPage';
 
-  const dispatch = useDispatch();
-
-  // Kun URL:n search-parametrit muuttuu, synkataan muutokset reduxiin
-  useEffect(() => {
-    dispatch(urlParamsChanged({ keyword, search }));
-  }, [dispatch, search, keyword]);
+const classes = {
+  toggleWrapper: `${PREFIX}-toggleWrapper`,
+  hakutulosSisalto: `${PREFIX}-hakutulosSisalto`,
+  paperRoot: `${PREFIX}-paperRoot`,
+  boxRoot: `${PREFIX}-boxRoot`,
+  select: `${PREFIX}-select`,
+  selectIcon: `${PREFIX}-selectIcon`,
+  selectMenu: `${PREFIX}-selectMenu`,
+  menuItemRoot: `${PREFIX}-menuItemRoot`,
+  buttonRoot: `${PREFIX}-buttonRoot`,
+  buttonLabel: `${PREFIX}-buttonLabel`,
+  murupolkuContainer: `${PREFIX}-murupolkuContainer`,
 };
 
-const useStyles = makeStyles((theme) => ({
-  toggleWrapper: {
-    'min-width': 400,
+const StyledGrid = styled(Grid)(({ theme }) => ({
+  maxWidth: 1600,
+  margin: 'auto',
+  [`& .${classes.toggleWrapper}`]: {
+    minWidth: 400,
     flex: '1 0 auto',
   },
-  hakutulosSisalto: {
-    maxWidth: 1600,
-    margin: 'auto',
-  },
-  paperRoot: {
+
+  [`& .${classes.paperRoot}`]: {
     width: '100%',
     boxShadow: 'none',
     [theme.breakpoints.up(1920)]: {
@@ -69,33 +72,41 @@ const useStyles = makeStyles((theme) => ({
       padding: theme.spacing(1, 1),
     },
   },
-  boxRoot: {
+
+  [`& .${classes.boxRoot}`]: {
     fontSize: 14,
     whiteSpace: 'nowrap',
     marginRight: theme.spacing(1),
   },
-  select: {
+
+  [`& .${classes.select}`]: {
     '&:before': {
       borderBottom: 'none',
     },
   },
-  selectIcon: {
+
+  [`& .${classes.selectIcon}`]: {
     fontSize: 20,
   },
-  selectMenu: {
-    overflow: 'inherit',
+
+  [`& .${classes.selectMenu}`]: {
+    overflow: 'inherit !important',
   },
-  menuItemRoot: {
+
+  [`& .${classes.menuItemRoot}`]: {
     paddingLeft: 12,
   },
-  buttonRoot: {
+
+  [`& .${classes.buttonRoot}`]: {
     marginLeft: theme.spacing(1),
   },
-  buttonLabel: {
+
+  [`& .${classes.buttonLabel}`]: {
     fontWeight: 600,
     whiteSpace: 'nowrap',
   },
-  murupolkuContainer: {
+
+  [`& .${classes.murupolkuContainer}`]: {
     margin: theme.spacing(5, 0, 7, 0),
     [theme.breakpoints.down('md')]: {
       margin: theme.spacing(2, 0),
@@ -105,6 +116,18 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
+
+const useSyncedHakuParams = () => {
+  const { search } = useUrlParams();
+  const { keyword } = useParams<any>();
+
+  const dispatch = useDispatch();
+
+  // Kun URL:n search-parametrit muuttuu, synkataan muutokset reduxiin
+  useEffect(() => {
+    dispatch(urlParamsChanged({ keyword, search }));
+  }, [dispatch, search, keyword]);
+};
 
 const getPageSortTranslationKey = (sort: string) => {
   switch (sort) {
@@ -120,7 +143,6 @@ const getPageSortTranslationKey = (sort: string) => {
 };
 
 export const HakuPage = () => {
-  const classes = useStyles();
   const theme = useTheme();
   const { t } = useTranslation();
 
@@ -145,7 +167,7 @@ export const HakuPage = () => {
   const scrollTargetId = 'hakutulos-content';
 
   return (
-    <Grid className={classes.hakutulosSisalto} container>
+    <StyledGrid className={classes.hakutulosSisalto} container>
       <Paper classes={{ root: classes.paperRoot }} id={scrollTargetId}>
         <h1 style={{ display: 'none' }}>{t('haku.otsikko')}</h1>
         <Grid
@@ -181,8 +203,7 @@ export const HakuPage = () => {
             </Grid>
             <Hidden smDown>
               <Grid item style={{ paddingTop: 6 }}>
-                {/* NOTE Jostain syystä classes ei ole tyypitetty propsiksi mutta on kuitenkin oikeasti propsi */}
-                <Box component="span" {...{ classes: { root: classes.boxRoot } }}>
+                <Box component="span" className={classes.boxRoot}>
                   {t('haku.tulokset-per-sivu')}
                 </Box>
                 <Select
@@ -191,8 +212,9 @@ export const HakuPage = () => {
                   style={{ marginRight: 4 }}
                   classes={{
                     icon: classes.selectIcon,
-                    selectMenu: classes.selectMenu,
+                    select: classes.selectMenu,
                   }}
+                  variant="standard"
                   value={pagination.size}
                   onChange={(e) => setPagination({ size: e.target.value })}>
                   {pageSizeArray.map((size) => (
@@ -204,8 +226,7 @@ export const HakuPage = () => {
                     </MenuItem>
                   ))}
                 </Select>
-                {/* NOTE Jostain syystä classes ei ole tyypitetty propsiksi mutta on kuitenkin oikeasti propsi */}
-                <Box component="span" {...{ classes: { root: classes.boxRoot } }}>
+                <Box component="span" className={classes.boxRoot}>
                   {t('haku.jarjesta')}
                 </Box>
                 <Select
@@ -214,8 +235,9 @@ export const HakuPage = () => {
                   style={{ marginRight: 4 }}
                   classes={{
                     icon: classes.selectIcon,
-                    selectMenu: classes.selectMenu,
+                    select: classes.selectMenu,
                   }}
+                  variant="standard"
                   value={sortOrder}
                   onChange={(e) => setSortOrder(e.target.value)}>
                   {pageSortArray.map((sort) => (
@@ -258,6 +280,6 @@ export const HakuPage = () => {
           </Grid>
         </Grid>
       </Paper>
-    </Grid>
+    </StyledGrid>
   );
 };

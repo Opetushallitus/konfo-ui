@@ -1,19 +1,22 @@
 import React from 'react';
 
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  Grid,
-  makeStyles,
-  Typography,
-} from '@material-ui/core';
+import { Button, Card, CardActions, CardContent, Grid, Typography } from '@mui/material';
+import { styled } from '@mui/material/styles';
 
-const useStyles = makeStyles({
-  card: { marginTop: '40px', padding: '20px', display: 'flex', flexWrap: 'wrap' },
-  gridWrapper: {},
-  buttonText: { color: '#FFFFFF' },
+const PREFIX = 'HakuKaynnissaCard';
+
+const classes = {
+  card: `${PREFIX}-card`,
+  gridWrapper: `${PREFIX}-gridWrapper`,
+  buttonText: `${PREFIX}-buttonText`,
+};
+
+const StyledCard = styled(Card)({
+  marginTop: '40px',
+  padding: '20px',
+  display: 'flex',
+  flexWrap: 'wrap',
+  [`& .${classes.buttonText}`]: { color: '#FFFFFF' },
 });
 
 type Props = {
@@ -24,10 +27,8 @@ type Props = {
 };
 
 export const HakuKaynnissaCard = ({ title, text, link, buttonText }: Props) => {
-  const classes = useStyles();
-
   return (
-    <Card className={classes.card} elevation={2}>
+    <StyledCard className={classes.card} elevation={2}>
       <CardContent className={classes.gridWrapper}>
         <Grid container alignItems="center" justifyContent="space-between">
           <Grid item>
@@ -49,6 +50,6 @@ export const HakuKaynnissaCard = ({ title, text, link, buttonText }: Props) => {
           ),
         })}
       </CardActions>
-    </Card>
+    </StyledCard>
   );
 };

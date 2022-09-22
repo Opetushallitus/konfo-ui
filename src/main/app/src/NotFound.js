@@ -1,22 +1,26 @@
 import React from 'react';
 
-import { Grid, Button, Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Grid, Button, Typography } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
-const useStyles = makeStyles({
-  component: {
-    textAlign: 'center',
-    paddingTop: '132px',
-    paddingBottom: '132px',
-  },
+const PREFIX = 'NotFound';
+
+const classes = {
+  component: `${PREFIX}-component`,
+};
+
+const Root = styled('div')({
+  textAlign: 'center',
+  paddingTop: '132px',
+  paddingBottom: '132px',
 });
 
 export const NotFound = () => {
   const { t } = useTranslation();
-  const classes = useStyles();
+
   return (
-    <div className={classes.component}>
+    <Root className={classes.component}>
       <Grid
         container
         direction="column"
@@ -64,6 +68,6 @@ export const NotFound = () => {
           </Grid>
         </Grid>
       </Grid>
-    </div>
+    </Root>
   );
 };

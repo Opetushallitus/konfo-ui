@@ -1,9 +1,7 @@
 import React from 'react';
 
-import { Typography } from '@material-ui/core';
-import Grid from '@material-ui/core/Grid';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery/useMediaQuery';
+import { Typography, Grid, useMediaQuery, useTheme } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
@@ -12,26 +10,36 @@ import { useContentful } from '#/src/hooks';
 
 import { Palvelu } from './Palvelu';
 
-const useStyles = makeStyles({
-  header: {
+const PREFIX = 'Palvelut';
+
+const classes = {
+  header: `${PREFIX}-header`,
+  spaceOnBorders: `${PREFIX}-spaceOnBorders`,
+  smSpaceOnBorders: `${PREFIX}-smSpaceOnBorders`,
+  palvelut: `${PREFIX}-palvelut`,
+  rivi: `${PREFIX}-rivi`,
+};
+
+const Root = styled('div')({
+  [`& .${classes.header}`]: {
     fontSize: '28px',
     paddingTop: '60px',
     paddingBottom: '28px',
     fontWeight: 700,
   },
-  spaceOnBorders: {
+  [`&.${classes.spaceOnBorders}`]: {
     paddingLeft: 90,
     paddingRight: 90,
   },
-  smSpaceOnBorders: {
+  [`& .${classes.smSpaceOnBorders}`]: {
     paddingLeft: 10,
     paddingRight: 10,
   },
-  palvelut: {
+  [`&.${classes.palvelut}`]: {
     backgroundColor: colors.white,
     paddingBottom: '100px',
   },
-  rivi: {
+  [`& .${classes.rivi}`]: {
     overflow: 'hidden',
     paddingBottom: '24  px',
   },
@@ -40,8 +48,6 @@ const useStyles = makeStyles({
 type RiviProps = { otsikko: string; kortit: Array<{ id: string }> };
 
 const Rivi = ({ otsikko, kortit }: RiviProps) => {
-  const classes = useStyles();
-
   return (
     <>
       <Grid container className={classes.rivi}>
@@ -62,7 +68,7 @@ const first = (entry: object) => Object.values(entry || [])[0] || {};
 
 export const Palvelut = () => {
   const { t } = useTranslation();
-  const classes = useStyles();
+
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('md'));
 
@@ -73,7 +79,7 @@ export const Palvelut = () => {
   const ohjeetJaTukiKortit: Array<any> = first(ohjeetJaTuki).linkit;
 
   return (
-    <div
+    <Root
       className={clsx(
         classes.palvelut,
         matches ? classes.spaceOnBorders : classes.smSpaceOnBorders
@@ -85,6 +91,6 @@ export const Palvelut = () => {
           kortit={ohjeetJaTukiKortit}
         />
       </Grid>
-    </div>
+    </Root>
   );
 };

@@ -1,31 +1,47 @@
 import React, { useMemo } from 'react';
 
-import { Badge, Button, ButtonGroup, makeStyles } from '@material-ui/core';
-import { FilterList } from '@material-ui/icons';
+import { FilterList } from '@mui/icons-material';
+import { Badge, Button, ButtonGroup } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 import { useSideMenu } from '#/src/hooks';
 
-// TODO: This is mostly copypaste styles from various files
-const useStyles = makeStyles(() => ({
-  frontPageButton: {
+const PREFIX = 'MobileToggleFiltersButton';
+
+const classes = {
+  frontPageButton: `${PREFIX}-frontPageButton`,
+  button: `${PREFIX}-button`,
+  buttonRoot: `${PREFIX}-buttonRoot`,
+  buttonLabel: `${PREFIX}-buttonLabel`,
+  fixed: `${PREFIX}-fixed`,
+  fixedMenuOpen: `${PREFIX}-fixedMenuOpen`,
+  fixedButtonLabel: `${PREFIX}-fixedButtonLabel`,
+};
+
+const StyledButtonGroup = styled(ButtonGroup)(() => ({
+  [`& .${classes.frontPageButton}`]: {
     color: colors.white,
     fontWeight: 600,
   },
-  button: {
+
+  [`& .${classes.button}`]: {
     marginBottom: '16px',
   },
-  buttonRoot: {
+
+  [`& .${classes.buttonRoot}`]: {
     border: 0,
   },
-  buttonLabel: {
+
+  [`& .${classes.buttonLabel}`]: {
     color: colors.brandGreen,
     fontSize: 16,
     fontWeight: 600,
     whiteSpace: 'nowrap',
   },
-  fixed: {
+
+  [`&.${classes.fixed}`]: {
     position: 'fixed',
     zIndex: 1,
     bottom: 30,
@@ -33,7 +49,8 @@ const useStyles = makeStyles(() => ({
     transform: 'translateX(-50%)',
     backgroundColor: colors.brandGreen,
   },
-  fixedMenuOpen: {
+
+  [`& .${classes.fixedMenuOpen}`]: {
     position: 'fixed',
     zIndex: 1,
     bottom: 30,
@@ -41,7 +58,8 @@ const useStyles = makeStyles(() => ({
     transform: 'translateX(-50%)',
     backgroundColor: colors.brandGreen,
   },
-  fixedButtonLabel: {
+
+  [`& .${classes.fixedButtonLabel}`]: {
     color: colors.white,
     fontSize: 16,
     fontWeight: 600,
@@ -65,7 +83,6 @@ export const MobileToggleFiltersButton = ({
   showFilters,
   handleFiltersShowToggle,
 }: Props) => {
-  const classes = useStyles();
   const { t } = useTranslation();
   const buttonText = useMemo(
     () => t('haku.nayta-hakutulos', { count: hitCount }),
@@ -75,13 +92,9 @@ export const MobileToggleFiltersButton = ({
   const fixedStyle = menuOpen ? classes.fixedMenuOpen : classes.fixed;
   // TODO: Spinner when loading would be nice
   return (
-    <ButtonGroup classes={{ root: type === 'fixed' ? fixedStyle : classes.button }}>
+    <StyledButtonGroup className={type === 'fixed' ? fixedStyle : classes.button}>
       {showFilters ? (
-        <Button
-          classes={{
-            label: classes.fixedButtonLabel,
-          }}
-          onClick={handleFiltersShowToggle}>
+        <Button className={classes.fixedButtonLabel} onClick={handleFiltersShowToggle}>
           {buttonText}
         </Button>
       ) : (
@@ -94,12 +107,12 @@ export const MobileToggleFiltersButton = ({
           }
           className={classes.frontPageButton}
           classes={{
-            label: type === 'KOMO' ? classes.buttonLabel : classes.fixedButtonLabel,
+            text: type === 'KOMO' ? classes.buttonLabel : classes.fixedButtonLabel,
           }}
           onClick={handleFiltersShowToggle}>
           {t('haku.rajaa-tuloksia')}
         </Button>
       )}
-    </ButtonGroup>
+    </StyledButtonGroup>
   );
 };

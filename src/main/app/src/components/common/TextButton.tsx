@@ -1,9 +1,14 @@
 import React from 'react';
 
-import { makeStyles } from '@material-ui/core';
+import { styled } from '@mui/material/styles';
+const PREFIX = 'TextButton';
 
-const useStyles = makeStyles((theme) => ({
-  textButton: {
+const classes = {
+  textButton: `${PREFIX}-textButton`,
+};
+
+const Root = styled('button')(({ theme }) => ({
+  [`&.${classes.textButton}`]: {
     backgroundColor: 'transparent',
     border: 'none',
     cursor: 'pointer',
@@ -18,6 +23,5 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const TextButton = (props: React.HTMLAttributes<HTMLButtonElement>) => {
-  const classes = useStyles();
-  return <button className={classes.textButton} {...props} />;
+  return <Root className={classes.textButton} {...props} />;
 };

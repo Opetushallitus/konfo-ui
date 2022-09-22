@@ -1,15 +1,23 @@
 import React from 'react';
 
-import { Grid, Typography, ButtonGroup, Button, makeStyles } from '@material-ui/core';
-import { ExpandLess, ExpandMore } from '@material-ui/icons';
+import { ExpandLess, ExpandMore } from '@mui/icons-material';
+import { Grid, Typography, ButtonGroup, Button } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 
 import { useSearchSortOrder } from '../hakutulosHooks';
 
-const useStyles = makeStyles(() => ({
-  buttonActive: {
+const PREFIX = 'MobileToggleOrderByButtonMenu';
+
+const classes = {
+  buttonActive: `${PREFIX}-buttonActive`,
+  buttonInactive: `${PREFIX}-buttonInactive`,
+};
+
+const StyledGrid = styled(Grid)(() => ({
+  [`& .${classes.buttonActive}`]: {
     backgroundColor: colors.brandGreen,
     color: colors.white,
     fontSize: 14,
@@ -19,7 +27,8 @@ const useStyles = makeStyles(() => ({
       backgroundColor: colors.brandGreen,
     },
   },
-  buttonInactive: {
+
+  [`& .${classes.buttonInactive}`]: {
     backgroundColor: colors.white,
     color: colors.brandGreen,
     fontSize: 14,
@@ -29,7 +38,6 @@ const useStyles = makeStyles(() => ({
 }));
 
 const SortOrderButton = ({ isActive, onClick, endIcon, children }) => {
-  const classes = useStyles();
   return (
     <Button
       className={isActive ? classes.buttonActive : classes.buttonInactive}
@@ -55,7 +63,7 @@ const MobileToggleOrderByButtonMenu = () => {
     updateSortAndOrder('name', order === 'asc' ? 'desc' : 'asc');
 
   return (
-    <Grid
+    <StyledGrid
       container
       direction="row"
       justifyContent="space-between"
@@ -83,7 +91,7 @@ const MobileToggleOrderByButtonMenu = () => {
           </SortOrderButton>
         </ButtonGroup>
       </Grid>
-    </Grid>
+    </StyledGrid>
   );
 };
 

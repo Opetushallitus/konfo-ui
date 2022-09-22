@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Box, Link as MuiLink, makeStyles, Typography } from '@material-ui/core';
-import OpenInNewIcon from '@material-ui/icons/OpenInNew';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import { Box, Link as MuiLink, Typography } from '@mui/material';
 import _ from 'lodash';
 import { urls } from 'oph-urls-js';
 import { useTranslation } from 'react-i18next';
@@ -27,21 +27,33 @@ import { KoulutusInfoGrid } from './KoulutusInfoGrid';
 import { ToteutusList } from './ToteutusList';
 import { TulevaJarjestajaList } from './TulevaJarjestajaList';
 
-const useStyles = makeStyles((theme) => ({
-  lisatietoa: { width: '50%' },
-  alatText: {
+const PREFIX = 'KoulutusPage';
+
+const classes = {
+  lisatietoa: `${PREFIX}lisatietoa`,
+  alatText: `${PREFIX}alatText`,
+  tutkintoHeader: `${PREFIX}tutkintoHeader`,
+  linkButton: `${PREFIX}linkButton`,
+};
+
+const AdditionalStylesFn = ({ theme }) => ({
+  [`& .${classes.lisatietoa}`]: { width: '50%' },
+
+  [`& .${classes.alatText}`]: {
     ...theme.typography.body1,
     fontSize: '1.25rem',
     margin: 'auto',
     textAlign: 'center',
   },
-  tutkintoHeader: {
+
+  [`& .${classes.tutkintoHeader}`]: {
     textAlign: 'center',
   },
-  linkButton: {
+
+  [`& .${classes.linkButton}`]: {
     fontWeight: 600,
   },
-}));
+});
 
 const findEperuste = (koulutus) => (id) =>
   _.head(koulutus.eperusteet.filter((e) => e.id === id));
@@ -117,7 +129,6 @@ const TutkinnonOsat = ({ koulutus }) => {
 
 const Kuvaus = ({ koulutus }) => {
   const { t } = useTranslation();
-  const classes = useStyles();
 
   // NOTE: This uses HtmlTextBox which needs pure html
   const createKoulutusHtml = () =>
@@ -159,7 +170,7 @@ const Kuvaus = ({ koulutus }) => {
 
 export const KoulutusPage = () => {
   const { isDraft } = useUrlParams();
-  const classes = useStyles();
+
   const { oid } = useParams();
   const { t } = useTranslation();
 
@@ -184,7 +195,7 @@ export const KoulutusPage = () => {
       return <NotFound />;
     case 'success':
       return (
-        <ContentWrapper>
+        <ContentWrapper additionalStylesFn={AdditionalStylesFn}>
           <Box width="100%" alignSelf="start">
             <Murupolku
               path={[

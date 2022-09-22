@@ -6,8 +6,8 @@ import {
   AccordionDetails,
   ListItemText,
   Slider,
-} from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
+} from '@mui/material';
+import { withStyles } from '@mui/styles';
 
 import { colors } from '#/src/colors';
 

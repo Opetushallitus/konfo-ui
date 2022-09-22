@@ -1,7 +1,8 @@
 import React, { useMemo } from 'react';
 
-import { Button, Grid, makeStyles, Paper, Typography } from '@material-ui/core';
-import PublicIcon from '@material-ui/icons/Public';
+import PublicIcon from '@mui/icons-material/Public';
+import { Button, Grid, Paper, Typography } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
@@ -19,16 +20,26 @@ import { HakutietoTable } from './HakutietoTable';
 import { selectMuuHaku } from './hooks';
 import { formatAloitus } from './utils';
 
-const useStyles = makeStyles((theme) => ({
-  hakuName: {
+const PREFIX = 'ToteutusHakuMuu';
+
+const classes = {
+  hakuName: `${PREFIX}-hakuName`,
+  valueText: `${PREFIX}-valueText`,
+  paper: `${PREFIX}-paper`,
+};
+
+const StyledPageSection = styled(PageSection)(({ theme }) => ({
+  [`& .${classes.hakuName}`]: {
     ...theme.typography.h5,
     fontWeight: 'bold',
     color: colors.black,
   },
-  valueText: {
+
+  [`& .${classes.valueText}`]: {
     fontWeight: 'bold',
   },
-  paper: {
+
+  [`& .${classes.paper}`]: {
     width: '100%',
     maxWidth: '800px',
     padding: '30px',
@@ -106,7 +117,6 @@ const HakuaikaRivi = ({
 };
 
 export const ToteutusHakuMuu = ({ toteutus }: Props) => {
-  const classes = useStyles();
   const { t } = useTranslation();
 
   const muuHaku = useMemo(() => selectMuuHaku(toteutus), [toteutus]);
@@ -125,7 +135,7 @@ export const ToteutusHakuMuu = ({ toteutus }: Props) => {
   const alkamiskausi = muuHaku?.opetus?.koulutuksenAlkamiskausi;
 
   return (
-    <PageSection heading={hakeuduTaiIlmoittauduTrans}>
+    <StyledPageSection heading={hakeuduTaiIlmoittauduTrans}>
       {isLoading ? (
         <LoadingCircle />
       ) : (
@@ -206,6 +216,6 @@ export const ToteutusHakuMuu = ({ toteutus }: Props) => {
           </Grid>
         </Paper>
       )}
-    </PageSection>
+    </StyledPageSection>
   );
 };

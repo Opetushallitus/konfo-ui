@@ -1,23 +1,11 @@
-import { createTheme } from '@material-ui/core/styles';
-import createBreakpoints from '@material-ui/core/styles/createBreakpoints';
+import { createTheme } from '@mui/material';
 
 import { colors } from './colors';
 
 // Material UI theme customization
-// Learn more: https://material-ui.com/customization/themes/
+// Learn more: https://mui.com/material-ui/customization/theming/
 
 const breakpoints = {
-  ...createBreakpoints({}),
-  // Tämä toimii oletuksena material-ui:ssa todella hämmentävästi: esim. down('sm') palauttaa 'md'-breakpointista alaspäin.
-  get down() {
-    return (key) => `@media (max-width:${this.values[key] - 0.5}px)`;
-  },
-  get between() {
-    return (keyA, keyB) =>
-      `@media (min-width:${this.values[keyA]}px) and (max-width:${
-        this.values[keyB] - 0.5
-      }px)`;
-  },
   values: {
     xs: 0,
     sm: 600,
@@ -55,7 +43,7 @@ export const theme = createTheme({
     button: {
       textTransform: 'none',
     },
-    fontFamily: ['Open Sans', 'Arial', 'Roboto', 'sans-serif'],
+    fontFamily: 'Open Sans, Arial, Roboto, sans-serif',
     h1: {
       fontSize: '2.5rem',
       letterSpacing: '-0.09375rem',
@@ -64,7 +52,7 @@ export const theme = createTheme({
       lineHeight: '3rem',
       marginBottom: '1.5rem',
       [breakpoints.down('sm')]: {
-        fontSize: '2rem',
+        fontSize: '1.8rem',
         letterSpacing: '-0.075rem',
         lineHeight: '2.375rem',
       },
@@ -128,76 +116,108 @@ export const theme = createTheme({
     },
   },
 
-  overrides: {
+  components: {
     MuiAppBar: {
-      root: {
-        height: 70,
-        marginBottom: 30,
-        justifyContent: 'center',
-        boxShadow:
-          '0px 1px 3px 0px rgba(0,0,0,0.1), 0px 1px 1px 0px rgba(0,0,0,0.1), 0px 2px 1px -1px rgba(0,0,0,0.1)',
+      styleOverrides: {
+        root: {
+          height: 70,
+          marginBottom: 30,
+          justifyContent: 'center',
+          boxShadow:
+            '0px 1px 3px 0px rgba(0,0,0,0.1), 0px 1px 1px 0px rgba(0,0,0,0.1), 0px 2px 1px -1px rgba(0,0,0,0.1)',
+        },
       },
     },
     MuiButton: {
-      containedPrimary: {
-        color: 'white !important',
+      styleOverrides: {
+        containedPrimary: {
+          color: 'white !important',
+        },
       },
     },
     MuiFormLabel: {
-      root: {
-        fontWeight: 'bold',
+      styleOverrides: {
+        root: {
+          fontWeight: 'bold',
+        },
       },
     },
     MuiOutlinedInput: {
-      input: {
-        padding: 12,
-      },
-      multiline: {
-        padding: 12,
-      },
-      adornedEnd: {
-        paddingRight: 0,
+      styleOverrides: {
+        input: {
+          padding: 12,
+        },
+        multiline: {
+          padding: 12,
+        },
+        adornedEnd: {
+          paddingRight: 0,
+        },
       },
     },
     MuiTooltip: {
-      tooltip: {
-        fontSize: 12,
+      styleOverrides: {
+        tooltip: {
+          fontSize: 12,
+        },
       },
     },
     MuiList: {
-      padding: {
-        paddingTop: 0,
-        paddingBottom: 0,
+      styleOverrides: {
+        padding: {
+          paddingTop: 0,
+          paddingBottom: 0,
+        },
       },
     },
     MuiListItem: {
-      dense: {
-        paddingTop: 0,
-        paddingBottom: 0,
-      },
-      gutters: {
-        paddingRight: '4px',
-        paddingLeft: 0,
+      styleOverrides: {
+        dense: {
+          paddingTop: 0,
+          paddingBottom: 0,
+        },
+        gutters: {
+          paddingRight: '4px',
+          paddingLeft: 0,
+        },
       },
     },
     MuiListItemIcon: {
-      root: {
-        minWidth: 32,
+      styleOverrides: {
+        root: {
+          minWidth: 32,
+        },
       },
     },
     MuiListItemText: {
-      primary: {
-        width: '100%',
+      styleOverrides: {
+        primary: {
+          width: '100%',
+        },
       },
     },
     MuiLink: {
-      root: {
-        cursor: 'pointer',
+      styleOverrides: {
+        root: {
+          cursor: 'pointer',
+        },
       },
     },
     MuiTypography: {
-      root: {
-        scrollMarginTop: '100px',
+      styleOverrides: {
+        root: {
+          scrollMarginTop: '100px',
+        },
+      },
+    },
+    MuiPopover: {
+      styleOverrides: {
+        root: {
+          border: '10px solid black',
+          background: 'rgba(0,0,0,0.5)',
+          opacity: 1,
+          transition: 'all 0.5s',
+        },
       },
     },
   },

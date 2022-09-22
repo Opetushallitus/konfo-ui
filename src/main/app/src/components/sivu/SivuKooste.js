@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { Typography, Grid } from '@material-ui/core';
-import Box from '@material-ui/core/Box';
+import { Typography, Grid, Box } from '@mui/material';
 
 import InfoCardGrid from '#/src/components/common/InfoCardGrid';
 import { InfoGrid } from '#/src/components/common/InfoGrid';

@@ -1,7 +1,9 @@
 import React from 'react';
 
-import { Button, Chip, Grid, makeStyles } from '@material-ui/core';
-import { Clear } from '@material-ui/icons';
+import { Clear } from '@mui/icons-material';
+import { Button, Chip, Grid } from '@mui/material';
+import { styled } from '@mui/material/styles';
+import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
@@ -11,25 +13,37 @@ import { FilterValue } from '#/src/types/SuodatinTypes';
 
 import { useAllSelectedFilters, useSearch } from '../../haku/hakutulosHooks';
 
-const useStyles = makeStyles(() => ({
-  chipRoot: {
+const PREFIX = 'ChipList';
+
+const classes = {
+  chipRoot: `${PREFIX}-chipRoot`,
+  chipLabel: `${PREFIX}-chipLabel`,
+  clearButtonLabel: `${PREFIX}-clearButtonLabel`,
+  clearButtonSizeSmall: `${PREFIX}-clearButtonSizeSmall`,
+};
+
+const Root = styled('div')(() => ({
+  [`& .${classes.chipRoot}`]: {
     marginBottom: 5,
     marginRight: 5,
     borderRadius: 5,
     backgroundColor: colors.lightGrey,
     border: 'none',
   },
-  chipLabel: {
+
+  [`& .${classes.chipLabel}`]: {
     fontSize: 12,
     fontWeight: 600,
   },
-  clearButtonLabel: {
+
+  [`& .${classes.clearButtonLabel}`]: {
     fontWeight: 600,
     fontSize: 14,
     textDecoration: 'underline',
     whiteSpace: 'nowrap',
   },
-  clearButtonSizeSmall: {
+
+  [`& .${classes.clearButtonSizeSmall}`]: {
     padding: '1px 5px',
   },
 }));
@@ -45,7 +59,6 @@ export const ChipList = ({
   handleClearFilters,
   filters,
 }: ChosenFiltersProps) => {
-  const classes = useStyles();
   const { t } = useTranslation();
 
   return (
@@ -75,7 +88,7 @@ export const ChipList = ({
           size="small"
           startIcon={<Clear />}
           classes={{
-            label: classes.clearButtonLabel,
+            text: classes.clearButtonLabel,
             sizeSmall: classes.clearButtonSizeSmall,
           }}
           onClick={handleClearFilters}>
@@ -98,12 +111,12 @@ export const SuodatinValinnat = () => {
   };
 
   return (
-    <div>
+    <Root>
       <ChipList
         filters={selectedFiltersFlatList}
         getHandleDelete={getHandleDelete}
         handleClearFilters={clearFilters}
       />
-    </div>
+    </Root>
   );
 };

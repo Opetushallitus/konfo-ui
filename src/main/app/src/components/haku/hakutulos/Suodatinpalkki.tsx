@@ -1,6 +1,7 @@
 import React, { useLayoutEffect } from 'react';
 
-import { Grid, makeStyles } from '@material-ui/core';
+import { Grid } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { createGlobalState, useMeasure } from 'react-use';
 
 import { useFilterProps, useSearch } from '#/src/components/haku/hakutulosHooks';
@@ -17,6 +18,18 @@ import { ValintatapaSuodatin } from '../../suodattimet/common/ValintatapaSuodati
 import { KoulutusalaSuodatin } from '../../suodattimet/hakutulosSuodattimet/KoulutusalaSuodatin';
 import { KoulutustyyppiSuodatin } from '../../suodattimet/hakutulosSuodattimet/KoulutustyyppiSuodatin';
 
+const PREFIX = 'Suodatinpalkki';
+
+const classes = {
+  rajaaTuloksia: `${PREFIX}-rajaaTuloksia`,
+};
+
+const StyledGrid = styled(Grid)(({ theme }) => ({
+  [theme.breakpoints.up('sm')]: {
+    minWidth: 300,
+  },
+}));
+
 const useSuodatinpalkkiWidthState = createGlobalState(0);
 
 export const useSuodatinpalkkiWidth = () => {
@@ -24,16 +37,7 @@ export const useSuodatinpalkkiWidth = () => {
   return width;
 };
 
-const useStyles = makeStyles((theme) => ({
-  rajaaTuloksia: {
-    [theme.breakpoints.up('sm')]: {
-      'min-width': 300,
-    },
-  },
-}));
-
 export const Suodatinpalkki = () => {
-  const classes = useStyles();
   const [, setWidth] = useSuodatinpalkkiWidthState();
   const [ref, { width: measuredWidth }] = useMeasure();
   const realWidth = Math.round(measuredWidth);
@@ -44,7 +48,7 @@ export const Suodatinpalkki = () => {
   }, [setWidth, realWidth]);
 
   return (
-    <Grid ref={ref as any} item lg={3} md={4} className={classes.rajaaTuloksia}>
+    <StyledGrid ref={ref as any} item lg={3} md={4} className={classes.rajaaTuloksia}>
       <KoulutustyyppiSuodatin
         expanded
         elevation={2}
@@ -107,6 +111,6 @@ export const Suodatinpalkki = () => {
         values={useFilterProps(FILTER_TYPES.OPETUSTAPA)}
         setFilters={setFilters}
       />
-    </Grid>
+    </StyledGrid>
   );
 };

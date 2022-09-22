@@ -1,14 +1,7 @@
 import React from 'react';
 
-import {
-  Avatar,
-  Box,
-  Card,
-  CardContent,
-  CardHeader,
-  Grid,
-  makeStyles,
-} from '@material-ui/core';
+import { Avatar, Box, Card, CardContent, CardHeader, Grid } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import clsx from 'clsx';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
@@ -17,19 +10,31 @@ import { useHistory } from 'react-router-dom';
 import { colors } from '#/src/colors';
 import { useContentful } from '#/src/hooks';
 
-const useStyles = makeStyles({
-  card: {
+const PREFIX = 'Palvelu';
+
+const classes = {
+  card: `${PREFIX}-card`,
+  avatar: `${PREFIX}-avatar`,
+  content: `${PREFIX}-content`,
+  header: `${PREFIX}-header`,
+  media: `${PREFIX}-media`,
+  sininen: `${PREFIX}-sininen`,
+  polku: `${PREFIX}-polku`,
+};
+
+const StyledGrid = styled(Grid)({
+  [`& .${classes.card}`]: {
     cursor: 'pointer',
     borderRadius: 1,
     padding: '20px 20px 0px 20px',
     height: '100%',
   },
-  avatar: {},
-  content: {
+  [`& .${classes.avatar}`]: {},
+  [`& .${classes.content}`]: {
     fontSize: '14px',
     color: colors.white,
   },
-  header: {
+  [`& .${classes.header}`]: {
     fontSize: '20px',
     fontWeight: 'bold',
     borderBottomStyle: 'solid',
@@ -37,14 +42,14 @@ const useStyles = makeStyles({
     borderColor: colors.white,
     color: colors.white,
   },
-  media: {
+  [`& .${classes.media}`]: {
     height: 0,
     paddingTop: '56.25%',
   },
-  sininen: {
+  [`& .${classes.sininen}`]: {
     background: colors.blue,
   },
-  polku: {
+  [`& .${classes.polku}`]: {
     background: colors.brandGreen,
   },
 });
@@ -56,7 +61,6 @@ const Paragraph = ({ children }: { children: React.ReactNode }) => (
 );
 
 export const Palvelu = ({ id }: { id: string }) => {
-  const classes = useStyles();
   const history = useHistory();
   const { data, forwardTo, assetUrl } = useContentful();
   const { i18n } = useTranslation();
@@ -72,7 +76,7 @@ export const Palvelu = ({ id }: { id: string }) => {
   };
 
   return (
-    <Grid item xs={12} sm={6} md={4}>
+    <StyledGrid item xs={12} sm={6} md={4}>
       <Card
         className={clsx(classes.card, classes[color])}
         key={palvelu.id}
@@ -112,6 +116,6 @@ export const Palvelu = ({ id }: { id: string }) => {
           </Markdown>
         </CardContent>
       </Card>
-    </Grid>
+    </StyledGrid>
   );
 };

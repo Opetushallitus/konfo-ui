@@ -1,11 +1,18 @@
 import React from 'react';
 
-import { makeStyles } from '@material-ui/core';
+import { styled } from '@mui/material/styles';
 
 import oppilaitos_img from '#/src/assets/images/logo-oppilaitos.png';
 import koulutus_img from '#/src/assets/images/Opolkuhts.png';
 
-const useStyles = makeStyles((theme) => {
+const PREFIX = 'KoulutusKorttiLogo';
+
+const classes = {
+  oppilaitosKorttiLogo: `${PREFIX}-oppilaitosKorttiLogo`,
+  koulutusKorttiLogo: `${PREFIX}-koulutusKorttiLogo`,
+};
+
+const Root = styled('img')(({ theme }) => {
   const common = {
     borderRadius: 0,
     [theme.breakpoints.up('sm')]: {
@@ -16,7 +23,7 @@ const useStyles = makeStyles((theme) => {
   };
 
   return {
-    oppilaitosKorttiLogo: {
+    [`&.${classes.oppilaitosKorttiLogo}`]: {
       [theme.breakpoints.up('xs')]: {
         maxWidth: theme.spacing(7),
         maxHeight: theme.spacing(7),
@@ -28,7 +35,7 @@ const useStyles = makeStyles((theme) => {
         maxHeight: '120px',
       },
     },
-    koulutusKorttiLogo: {
+    [`&.${classes.koulutusKorttiLogo}`]: {
       [theme.breakpoints.up('xs')]: {
         maxWidth: '100%',
         maxHeight: '150px',
@@ -54,16 +61,14 @@ type Props = {
 };
 
 export const KoulutusKorttiLogo = ({ alt, image }: Props) => {
-  const classes = useStyles();
   return (
-    <img className={classes.koulutusKorttiLogo} alt={alt} src={image || koulutus_img} />
+    <Root className={classes.koulutusKorttiLogo} alt={alt} src={image || koulutus_img} />
   );
 };
 
 export const OppilaitosKorttiLogo = ({ alt, image }: Props) => {
-  const classes = useStyles();
   return (
-    <img
+    <Root
       className={classes.oppilaitosKorttiLogo}
       alt={alt}
       src={image || oppilaitos_img}

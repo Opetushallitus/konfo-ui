@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 
 import {
+  ExpandLess,
+  ExpandMore,
+  IndeterminateCheckBoxOutlined,
+  SearchOutlined,
+} from '@mui/icons-material';
+import {
   Button,
   CircularProgress,
   Grid,
@@ -9,15 +15,9 @@ import {
   ListItem,
   ListItemIcon,
   ListItemSecondaryAction,
-  makeStyles,
   Typography,
-} from '@material-ui/core';
-import {
-  ExpandLess,
-  ExpandMore,
-  IndeterminateCheckBoxOutlined,
-  SearchOutlined,
-} from '@material-ui/icons';
+} from '@mui/material';
+import { styled } from '@mui/material/styles';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 import Select, {
@@ -98,11 +98,17 @@ const Option = React.forwardRef(
   }
 );
 
-const withStyles = makeStyles((theme) => ({
-  buttonLabel: {
+const classes = {
+  buttonLabel: 'buttonLabel',
+  indentedCheckbox: 'indentedCheckbox',
+};
+
+const StyledSuodatinAccordion = styled(SuodatinAccordion)(({ theme }) => ({
+  [`& .${classes.buttonLabel}`]: {
     fontSize: 14,
   },
-  indentedCheckbox: {
+
+  [`& .${classes.indentedCheckbox}`]: {
     paddingLeft: theme.spacing(2.2),
   },
 }));
@@ -123,7 +129,6 @@ const FilterCheckbox = ({
   const { t } = useTranslation();
   const { count, id, nimi, checked } = value;
   const labelId = `filter-list-label-${id}`;
-  const classes = withStyles();
   const config = useConfig();
   const naytaFiltterienHakutulosLuvut = config.naytaFiltterienHakutulosLuvut;
   return (
@@ -132,7 +137,8 @@ const FilterCheckbox = ({
       dense
       button
       onClick={() => handleCheck(value)}
-      className={indented ? classes.indentedCheckbox : ''}>
+      className={indented ? classes.indentedCheckbox : ''}
+      style={!indented && naytaFiltterienHakutulosLuvut ? { paddingRight: '48px' } : {}}>
       <ListItemIcon>
         <KonfoCheckbox
           edge="start"
@@ -252,12 +258,11 @@ export const Filter = ({
   onHide,
 }: Props) => {
   const { t } = useTranslation();
-  const classes = withStyles();
   const [hideRest, setHideRest] = useState(expandValues);
   const usedName = [name, values?.length === 0 && '(0)'].filter(Boolean).join(' ');
 
   return (
-    <SuodatinAccordion
+    <StyledSuodatinAccordion
       disabled={values?.length === 0}
       data-cy={testId}
       elevation={elevation}
@@ -334,7 +339,7 @@ export const Filter = ({
             <Button
               color="secondary"
               size="small"
-              classes={{ label: classes.buttonLabel }}
+              className={classes.buttonLabel}
               endIcon={hideRest ? <ExpandMore /> : <ExpandLess />}
               fullWidth
               onClick={() => setHideRest(!hideRest)}>
@@ -343,6 +348,6 @@ export const Filter = ({
           )}
         </Grid>
       </SuodatinAccordionDetails>
-    </SuodatinAccordion>
+    </StyledSuodatinAccordion>
   );
 };

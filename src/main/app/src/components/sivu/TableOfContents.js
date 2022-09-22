@@ -1,13 +1,19 @@
 import React from 'react';
 
-import { makeStyles } from '@material-ui/core';
+import { styled } from '@mui/material/styles';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
 import { HashLink as Link } from 'react-router-hash-link';
 
 import { colors } from '#/src/colors';
-const useStyles = makeStyles({
-  link: {
+const PREFIX = 'TableOfContents';
+
+const classes = {
+  link: `${PREFIX}-link`,
+};
+
+const StyledMarkdown = styled(Markdown)({
+  [`& .${classes.link}`]: {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     fontSize: '16px',
@@ -23,7 +29,6 @@ const useStyles = makeStyles({
 });
 
 const TableOfContents = (props) => {
-  const classes = useStyles();
   const { content } = props;
   const { t } = useTranslation();
   const HeadingLevelToComponent = ({ children, id }) => {
@@ -41,7 +46,7 @@ const TableOfContents = (props) => {
   };
   const Null = () => null;
   return (
-    <Markdown
+    <StyledMarkdown
       options={{
         overrides: {
           img: {
@@ -83,7 +88,7 @@ const TableOfContents = (props) => {
         },
       }}>
       {content}
-    </Markdown>
+    </StyledMarkdown>
   );
 };
 

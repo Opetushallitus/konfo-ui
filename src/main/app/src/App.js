@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
 
-import { makeStyles, useMediaQuery, Box } from '@material-ui/core';
+import { useMediaQuery, Box } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import clsx from 'clsx';
 import Cookies from 'js-cookie';
 import { useTranslation } from 'react-i18next';
@@ -38,9 +39,17 @@ import { useIsAtEtusivu } from './store/reducers/appSlice';
 import { getHeaderHeight, theme } from './theme';
 import { useChat } from './useChat';
 
-const useStyles = makeStyles(() => ({
-  content: {
-    marginTop: getHeaderHeight(theme),
+const PREFIX = 'App';
+
+const classes = {
+  content: `${PREFIX}content`,
+  contentShift: `${PREFIX}contentShift`,
+  smContent: `${PREFIX}smContent`,
+};
+
+const Root = styled('div')(({ betaBannerVisible, isSmall, menuVisible }) => ({
+  [`& .${classes.content}`]: {
+    marginTop: getHeaderHeight(theme)({ betaBannerVisible, isSmall }),
     minWidth: 0,
     flexGrow: 1,
     padding: 0,
@@ -50,15 +59,17 @@ const useStyles = makeStyles(() => ({
     }),
     marginLeft: -SIDEMENU_WIDTH,
   },
-  contentShift: {
+
+  [`& .${classes.contentShift}`]: {
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
     marginLeft: 0,
   },
-  smContent: (props) => ({
-    marginTop: getHeaderHeight(theme)(props),
+
+  [`& .${classes.smContent}`]: {
+    marginTop: getHeaderHeight(theme)({ betaBannerVisible, isSmall }),
     minWidth: 0,
     flexGrow: 1,
     padding: 0,
@@ -70,9 +81,9 @@ const useStyles = makeStyles(() => ({
     left: 0,
     right: 0,
     overflow: 'hidden',
-    top: props?.menuVisible ? 0 : 'auto',
-    bottom: props?.menuVisible ? 0 : 'auto',
-  }),
+    top: menuVisible ? 0 : 'auto',
+    bottom: menuVisible ? 0 : 'auto',
+  },
 }));
 
 const KoulutusHakuBar = () => (
@@ -191,8 +202,6 @@ const App = () => {
   const isFetching = useIsFetching();
   const [sideMenuKey, setSideMenuKey] = useState(1);
 
-  const classes = useStyles({ betaBannerVisible: betaBanner, isSmall, menuVisible });
-
   const chatIsVisible = useChat();
 
   useLayoutEffect(() => {
@@ -216,7 +225,7 @@ const App = () => {
   }, [isFetching, isAtEtusivu, titleObj, language, pathname]);
 
   return (
-    <React.Fragment>
+    <Root betaBannerVisible={betaBanner} isSmall={isSmall} menuVisible={menuVisible}>
       <Draft />
       <CookieModal />
       <Box display="flex">
@@ -247,7 +256,7 @@ const App = () => {
         </main>
       </Box>
       {!chatIsVisible && <PalautePopup />}
-    </React.Fragment>
+    </Root>
   );
 };
 

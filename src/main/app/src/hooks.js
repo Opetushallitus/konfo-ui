@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 
-import { useMediaQuery } from '@material-ui/core';
+import { useMediaQuery } from '@mui/material';
 import _ from 'lodash';
 import { urls } from 'oph-urls-js';
 import { useQuery } from 'react-query';

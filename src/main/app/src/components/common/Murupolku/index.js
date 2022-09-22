@@ -1,15 +1,22 @@
 import React, { useState } from 'react';
 
-import { makeStyles, useTheme } from '@material-ui/core';
-import useMediaQuery from '@material-ui/core/useMediaQuery/useMediaQuery';
+import { useTheme, useMediaQuery } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { MurupolkuDrawer } from './MurupolkuDrawer';
 import { MurupolkuFragment } from './MurupolkuFragment';
 
-const useStyles = makeStyles(() => ({
-  breadcrumb: {
+const PREFIX = 'Murupolku';
+
+const classes = {
+  breadcrumb: `${PREFIX}-breadcrumb`,
+  item: `${PREFIX}-item`,
+};
+
+const Root = styled('nav')(() => ({
+  [`& .${classes.breadcrumb}`]: {
     display: 'flex',
     paddingTop: 0,
     paddingLeft: 0,
@@ -18,7 +25,8 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'flex-start',
     listStyle: 'none',
   },
-  item: {
+
+  [`& .${classes.item}`]: {
     display: 'block',
     flex: '0 0 auto',
     textOverflow: 'ellipsis',
@@ -44,7 +52,7 @@ const useCollapsingPath = (path) => {
 
 const Murupolku = ({ path }) => {
   const { t } = useTranslation();
-  const classes = useStyles();
+
   const homePart = { name: t('etusivu'), link: '/', isHome: true };
   const pathWithHome = [homePart, ...path];
 
@@ -53,7 +61,7 @@ const Murupolku = ({ path }) => {
   const [drawerState, setDrawerState] = useState(false);
 
   return (
-    <nav aria-label={t('murupolku')}>
+    <Root aria-label={t('murupolku')}>
       <ol className={classes.breadcrumb}>
         {collapsingPath.map(({ name, link, isCollapsedPart, isHome }, index) => {
           return (
@@ -75,7 +83,7 @@ const Murupolku = ({ path }) => {
         isOpen={drawerState}
         onClose={() => setDrawerState(false)}
       />
-    </nav>
+    </Root>
   );
 };
 

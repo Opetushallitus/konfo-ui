@@ -13,7 +13,19 @@ module.exports = {
     mode: ESLINT_MODES.file,
   },
   babel: {
-    plugins: ['lodash', '@babel/plugin-proposal-optional-chaining'],
+    plugins: [
+      'lodash',
+      '@babel/plugin-proposal-optional-chaining',
+      [
+        'babel-plugin-import',
+        {
+          libraryName: '@mui/icons-material',
+          libraryDirectory: '',
+          camel2DashComponentName: false,
+        },
+        'icons',
+      ],
+    ],
   },
   webpack: {
     alias,

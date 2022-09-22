@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
+import AppsIcon from '@mui/icons-material/Apps';
+import CloseIcon from '@mui/icons-material/Close';
+import MenuIcon from '@mui/icons-material/Menu';
 import {
   AppBar,
   Box,
@@ -8,15 +11,11 @@ import {
   Hidden,
   Icon,
   IconButton,
-  makeStyles,
   Toolbar,
   Typography,
-} from '@material-ui/core';
-import Link from '@material-ui/core/Link';
-import AppsIcon from '@material-ui/icons/Apps';
-import CloseIcon from '@material-ui/icons/Close';
-import MenuIcon from '@material-ui/icons/Menu';
-import clsx from 'clsx';
+} from '@mui/material';
+import Link from '@mui/material/Link';
+import { styled } from '@mui/material/styles';
 import { urls } from 'oph-urls-js';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
@@ -31,65 +30,90 @@ import { getLanguage } from '#/src/tools/localization';
 
 import LanguageDropDown from './LanguageDropDown';
 
-const useStyles = makeStyles((theme) => ({
-  inputRoot: {
-    padding: '2px 4px',
-    display: 'flex',
-    alignItems: 'center',
-    width: 400,
-  },
-  testiLabel: {
+const PREFIX = 'Header';
+
+const classes = {
+  testiLabel: `${PREFIX}-testiLabel`,
+  icon: `${PREFIX}-icon`,
+  testi: `${PREFIX}-testi`,
+  appBar: `${PREFIX}-appBar`,
+  iconButton: `${PREFIX}-iconButton`,
+  menuButton: `${PREFIX}-menuButton`,
+  menuBox: `${PREFIX}-menuBox`,
+  menuText: `${PREFIX}-menuText`,
+  languageSelector: `${PREFIX}-languageSelector`,
+  omaOpintopolkuLink: `${PREFIX}-omaOpintopolkuLink`,
+  omaOpintopolkuIcon: `${PREFIX}-omaOpintopolkuIcon`,
+  omaOpintopolkuText: `${PREFIX}-omaOpintopolkuText`,
+  toolBar: `${PREFIX}-ToolBar`,
+};
+
+const StyledAppBar = styled(AppBar)(({ theme }) => ({
+  position: 'fixed',
+  height: 'auto',
+  zIndex: theme.zIndex.drawer + 1,
+
+  [`& .${classes.testiLabel}`]: {
     fontSize: 12,
     fontWeight: 'bold',
     textTransform: 'uppercase',
   },
-  icon: {
+
+  [`& .${classes.toolBar}`]: {
+    padding: '0.3rem 1.5rem',
+  },
+
+  [`& .${classes.icon}`]: {
     width: '160px',
     height: '100%',
     cursor: 'pointer',
   },
-  testi: {
+
+  [`& .${classes.testi}`]: {
     color: colors.white,
     borderRadius: 2,
     marginLeft: 20,
     padding: '0px 5px',
     background: colors.red,
   },
-  appBar: {
-    position: 'fixed',
-    height: 'auto',
-    zIndex: theme.zIndex.drawer + 1,
-  },
-  iconButton: {
+
+  [`& .${classes.iconButton}`]: {
     padding: 10,
   },
-  menuButton: {
+
+  [`& .${classes.menuButton}`]: {
     marginRight: theme.spacing(2),
   },
-  menuBox: {
+
+  [`& .${classes.menuBox}`]: {
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'column',
     padding: 'none',
   },
-  menuText: {
+
+  [`& .${classes.menuText}`]: {
     fontSize: 'small',
     color: colors.white,
   },
-  languageSelector: {
+
+  [`& .${classes.languageSelector}`]: {
     marginLeft: 'auto',
     float: 'left',
   },
-  omaOpintopolkuLink: {
+
+  [`& .${classes.omaOpintopolkuLink}`]: {
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'column',
     margin: '0px 40px 0px 0px',
   },
-  omaOpintopolkuIcon: {
+
+  [`& .${classes.omaOpintopolkuIcon}`]: {
     color: colors.white,
   },
-  omaOpintopolkuText: {
+
+  [`& .${classes.omaOpintopolkuText}`]: {
     color: colors.white,
     fontSize: 'small',
   },
@@ -97,7 +121,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const Header = (props) => {
   const { t } = useTranslation();
-  const classes = useStyles();
+
   const { toggleMenu, isOpen, betaBanner, setBetaBanner, refreshSideMenu } = props;
 
   const hostname = window.location.hostname;
@@ -123,11 +147,11 @@ export const Header = (props) => {
   };
 
   return (
-    <React.Fragment>
+    <Fragment>
       <CssBaseline />
-      <AppBar className={clsx([classes.appBar, betaBanner ? classes.betaBanner : null])}>
+      <StyledAppBar className={classes.appBar}>
         {betaBanner ? <BetaBanner onClose={() => setBetaBanner(false)} /> : null}
-        <Toolbar>
+        <Toolbar className={classes.toolBar}>
           <IconButton
             color="inherit"
             aria-label={t('avaa-sulje-valikko')}
@@ -156,7 +180,7 @@ export const Header = (props) => {
               label={testiLabel}
             />
           ) : null}
-          <Hidden xsDown>
+          <Hidden mdDown>
             <Box display="flex" className={classes.languageSelector}>
               <Link
                 href={urls.url('oma-opintopolku')}
@@ -171,7 +195,7 @@ export const Header = (props) => {
             </Box>
           </Hidden>
         </Toolbar>
-      </AppBar>
-    </React.Fragment>
+      </StyledAppBar>
+    </Fragment>
   );
 };

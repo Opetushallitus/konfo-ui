@@ -1,10 +1,8 @@
 import React from 'react';
 
-import { Grid, makeStyles } from '@material-ui/core';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { Grid, Card, CardContent, CardMedia } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import clsx from 'clsx';
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -12,26 +10,39 @@ import { colors } from '#/src/colors';
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
 import { useContentful } from '#/src/hooks';
 
-const useStyles = makeStyles({
-  card: {
+const PREFIX = 'Kortti';
+
+const classes = {
+  card: `${PREFIX}-card`,
+  media: `${PREFIX}-media`,
+  link: `${PREFIX}-link`,
+  linkElement: `${PREFIX}-linkElement`,
+  otsikko: `${PREFIX}-otsikko`,
+  haku: `${PREFIX}-haku`,
+  verkko: `${PREFIX}-verkko`,
+  polku: `${PREFIX}-polku`,
+};
+
+const StyledGrid = styled(Grid)({
+  [`& .${classes.card}`]: {
     height: '100%',
   },
-  media: {
+  [`& .${classes.media}`]: {
     height: 0,
     paddingTop: '56.25%', // 16:9
   },
-  link: {
+  [`& .${classes.link}`]: {
     color: colors.white,
     display: 'block',
     fontSize: '16px',
     lineHeight: '35px',
   },
-  linkElement: {
+  [`& .${classes.linkElement}`]: {
     color: colors.white,
     textDecoration: 'none',
     verticalAlign: 'super',
   },
-  otsikko: {
+  [`& .${classes.otsikko}`]: {
     color: colors.white,
     fontSize: '24px',
     fontWeight: 'bold',
@@ -39,19 +50,18 @@ const useStyles = makeStyles({
     paddingTop: '10px',
     paddingBottom: '15px',
   },
-  haku: {
+  [`& .${classes.haku}`]: {
     background: colors.blue,
   },
-  verkko: {
+  [`& .${classes.verkko}`]: {
     background: colors.red,
   },
-  polku: {
+  [`& .${classes.polku}`]: {
     background: colors.brandGreen,
   },
 });
 
 const Kortti = ({ id }) => {
-  const classes = useStyles();
   const { data, forwardTo, assetUrl } = useContentful();
   const { asset, sivu } = data;
   const kortti = data.kortti[id];
@@ -63,7 +73,7 @@ const Kortti = ({ id }) => {
   };
 
   return (
-    <Grid item xs={12} sm={6} md={4}>
+    <StyledGrid item xs={12} sm={6} md={4}>
       <Card className={clsx(classes.card, classes[kortti.color])}>
         <CardMedia
           className={classes.media}
@@ -89,7 +99,7 @@ const Kortti = ({ id }) => {
             ))}
         </CardContent>
       </Card>
-    </Grid>
+    </StyledGrid>
   );
 };
 

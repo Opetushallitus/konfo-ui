@@ -22,8 +22,11 @@
     "analyze": "source-map-explorer 'build/static/js/*.js'"
   },
   "dependencies": {
-    "@material-ui/core": "^4.12.3",
-    "@material-ui/icons": "^4.11.2",
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
+    "@mui/icons-material": "^5.10.6",
+    "@mui/material": "^5.10.6",
+    "@mui/styles": "^5.10.6",
     "@reduxjs/toolkit": "^1.7.1",
     "axios": "^0.24.0",
     "clsx": "^1.1.1",
@@ -34,7 +37,6 @@
     "js-cookie": "^3.0.1",
     "lodash": "^4.17.21",
     "markdown-to-jsx": "^7.1.5",
-    "material-ui-flat-pagination": "^4.1.2",
     "oph-urls-js": "github:Opetushallitus/oph-urls-js#9fc4edaa04c10fa974f124b5c228c41c2c6f0bc5",
     "oskari-rpc": "^2.1.0",
     "query-string": "^7.0.1",
@@ -77,6 +79,7 @@
     "@types/react-router-hash-link": "^2.4.4",
     "@types/testing-library__cypress": "^5.0.9",
     "@types/testing-library__jest-dom": "^5.14.2",
+    "babel-plugin-import": "^1.13.5",
     "babel-plugin-lodash": "^3.3.4",
     "cosmiconfig": "^7.0.1",
     "cross-env": "^7.0.3",
@@ -102,7 +105,7 @@
       "prettier --write"
     ],
     "*.{js,jsx,ts,tsx}": [
-      "eslint --fix --max-warnings 0"
+      "eslint --fix --max-warnings 0 --no-ignore"
     ]
   },
   "jest": {

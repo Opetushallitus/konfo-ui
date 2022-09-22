@@ -1,6 +1,6 @@
 import React, { Suspense, useEffect } from 'react';
 
-import { ThemeProvider } from '@material-ui/core';
+import { ThemeProvider } from '@mui/material/styles';
 import ReactDOM from 'react-dom';
 import { ErrorBoundary } from 'react-error-boundary';
 import { QueryClient, QueryClientProvider } from 'react-query';

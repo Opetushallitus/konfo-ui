@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 
-import { Grid, makeStyles } from '@material-ui/core';
+import { Grid } from '@mui/material';
+import { styled } from '@mui/material/styles';
 
 import { colors } from '#/src/colors';
 import Murupolku from '#/src/components/common/Murupolku';
@@ -9,11 +10,29 @@ import { useContentful } from '#/src/hooks';
 import Sisalto from './Sisalto';
 import TableOfContents from './TableOfContents';
 
-const useStyles = makeStyles({
-  notFound: {
+const PREFIX = 'Sivu';
+
+const classes = {
+  notFound: `${PREFIX}-notFound`,
+  header1: `${PREFIX}-header1`,
+  icon: `${PREFIX}-icon`,
+  component: `${PREFIX}-component`,
+};
+
+const Root = styled('div')({
+  paddingLeft: '10px',
+  paddingRight: '10px',
+  paddingTop: '32px',
+  '&:last-child': {
+    paddingBottom: '32px',
+  },
+  fontSize: '16px',
+  lineHeight: '27px',
+  color: colors.black,
+  [`& .${classes.notFound}`]: {
     textAlign: 'center',
   },
-  header1: {
+  [`& .${classes.header1}`]: {
     fontSize: '40px',
     lineHeight: '48px',
     marginTop: '15px',
@@ -21,24 +40,12 @@ const useStyles = makeStyles({
     fontWeight: '700',
     color: colors.black,
   },
-  icon: {
+  [`& .${classes.icon}`]: {
     fontSize: '16px',
-  },
-  component: {
-    paddingLeft: '10px',
-    paddingRight: '10px',
-    paddingTop: '32px',
-    '&:last-child': {
-      paddingBottom: '32px',
-    },
-    fontSize: '16px',
-    lineHeight: '27px',
-    color: colors.black,
   },
 });
 
 export const Sivu = ({ id }) => {
-  const classes = useStyles();
   const { data, murupolku } = useContentful();
 
   useEffect(() => {
@@ -58,7 +65,7 @@ export const Sivu = ({ id }) => {
   const tableOfContents = page.tableOfContents === 'true';
 
   return (
-    <div className={classes.component}>
+    <Root className={classes.component}>
       <Grid
         container
         direction="row"
@@ -85,6 +92,6 @@ export const Sivu = ({ id }) => {
           </Grid>
         </Grid>
       </Grid>
-    </div>
+    </Root>
   );
 };

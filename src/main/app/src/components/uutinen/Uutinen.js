@@ -1,10 +1,7 @@
 import React, { useMemo } from 'react';
 
-import { makeStyles } from '@material-ui/core';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Grid from '@material-ui/core/Grid';
+import { Card, CardContent, CardMedia, Grid } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
@@ -13,30 +10,40 @@ import { colors } from '#/src/colors';
 import { useContentful } from '#/src/hooks';
 import { formatDateString } from '#/src/tools/utils';
 
-const useStyles = makeStyles({
-  card: {
+const PREFIX = 'Uutinen';
+
+const classes = {
+  card: `${PREFIX}-card`,
+  content: `${PREFIX}-content`,
+  media: `${PREFIX}-media`,
+  kategoria: `${PREFIX}-kategoria`,
+  pvm: `${PREFIX}-pvm`,
+};
+
+const StyledGrid = styled(Grid)({
+  [`& .${classes.card}`]: {
     cursor: 'pointer',
     fontSize: '19px',
     lineHeight: '26px',
     color: colors.brandGreen,
     height: '100%',
   },
-  content: {
+  [`& .${classes.content}`]: {
     marginTop: '20px',
     marginBottom: '5px',
   },
-  media: {
+  [`& .${classes.media}`]: {
     height: 0,
     paddingTop: '56.25%',
   },
-  kategoria: {
+  [`& .${classes.kategoria}`]: {
     textTransform: 'uppercase',
     color: colors.darkGrey,
     fontSize: '14px',
     lineHeight: '19px',
     fontWeight: 'light',
   },
-  pvm: {
+  [`& .${classes.pvm}`]: {
     color: colors.darkGrey,
     fontSize: '14px',
     lineHeight: '19px',
@@ -53,7 +60,7 @@ const useImageUrl = (uutinen, asset, assetUrl) =>
 
 export const Uutinen = ({ id }) => {
   const { t, i18n } = useTranslation();
-  const classes = useStyles();
+
   const history = useHistory();
   const { data, forwardTo, assetUrl } = useContentful();
 
@@ -70,7 +77,7 @@ export const Uutinen = ({ id }) => {
   const timestamp = uutinen.formatoituUpdated || uutinen.formatoituCreated;
 
   return (
-    <Grid item xs={12} sm={6} md={4} onClick={() => link && forwardToPage(link)}>
+    <StyledGrid item xs={12} sm={6} md={4} onClick={() => link && forwardToPage(link)}>
       <Card className={classes.card} elevation={6}>
         {imgUrl && (
           <CardMedia
@@ -98,6 +105,6 @@ export const Uutinen = ({ id }) => {
           </div>
         </CardContent>
       </Card>
-    </Grid>
+    </StyledGrid>
   );
 };

@@ -1,26 +1,31 @@
 import React from 'react';
 
-import { IconButton, makeStyles, Typography } from '@material-ui/core';
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
-import CloseIcon from '@material-ui/icons/Close';
+import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
+import CloseIcon from '@mui/icons-material/Close';
+import { IconButton, Typography, Box, Button } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { urls } from 'oph-urls-js';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 
-const useStyles = makeStyles({
-  banner: {
-    height: '40px',
-  },
-  bannerText: {
+const PREFIX = 'BetaBanner';
+
+const classes = {
+  banner: `${PREFIX}-banner`,
+  bannerText: `${PREFIX}-bannerText`,
+  linkToOldButton: `${PREFIX}-linkToOldButton`,
+};
+
+const StyledBox = styled(Box)({
+  height: '40px',
+  [`& .${classes.bannerText}`]: {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     minWidth: 0,
     marginRight: '5px',
   },
-  linkToOldButton: {
+  [`& .${classes.linkToOldButton}`]: {
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -37,7 +42,6 @@ const Title = () => {
 };
 
 const LinkToOldOpintopolku = () => {
-  const classes = useStyles();
   const { t, i18n } = useTranslation();
 
   return (
@@ -69,9 +73,8 @@ const CloseBanner = ({ onClose }) => {
 };
 
 const BetaBanner = (props) => {
-  const classes = useStyles();
   return (
-    <Box
+    <StyledBox
       display="flex"
       flexDirection="row"
       alignItems="center"
@@ -87,7 +90,7 @@ const BetaBanner = (props) => {
       <Box flexShrink={1}>
         <CloseBanner {...props} />
       </Box>
-    </Box>
+    </StyledBox>
   );
 };
 
