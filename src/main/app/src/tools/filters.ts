@@ -43,7 +43,7 @@ export const getFilterWithChecked = (
         id: FILTER_TYPES.JOTPA,
         filterId: FILTER_TYPES.JOTPA,
         count: filter.count,
-        checked: !!allCheckedValues[FILTER_TYPES.JOTPA],
+        checked: Boolean(allCheckedValues[FILTER_TYPES.JOTPA]),
       },
     };
   }

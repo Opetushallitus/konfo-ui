@@ -2,6 +2,7 @@ import React, { Suspense, useEffect } from 'react';
 
 import { ThemeProvider } from '@material-ui/core';
 import ReactDOM from 'react-dom';
+import { ErrorBoundary } from 'react-error-boundary';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { Provider, useDispatch } from 'react-redux';
@@ -20,7 +21,7 @@ import { theme } from '#/src/theme';
 import { configureI18n } from '#/src/tools/i18n';
 import { isCypress } from '#/src/tools/utils';
 import { configureUrls } from '#/src/urls';
-import { ErrorBoundary } from 'react-error-boundary';
+
 import GenericError from './GenericError';
 
 const queryClient = new QueryClient({
@@ -29,7 +30,7 @@ const queryClient = new QueryClient({
       refetchOnWindowFocus: false,
       refetchOnReconnect: false,
       staleTime: 5000,
-      retry: 1
+      retry: 1,
     },
   },
 });
