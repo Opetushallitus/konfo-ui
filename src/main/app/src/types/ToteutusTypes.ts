@@ -107,6 +107,14 @@ export type Hakutieto = {
   nimi: Translateable;
 };
 
+export type Opintojakso = {
+  nimi: Translateable;
+  oid: string;
+  kuvaus: string;
+  opintojenLaajuusNumero: number;
+  opintojenLaajuusyksikko: { koodiUri: string; nimi: Translateable };
+};
+
 export type Toteutus = {
   esikatselu: boolean;
   hakutiedot: Array<Hakutieto>;
@@ -124,6 +132,7 @@ export type Toteutus = {
   tila: string;
   timestamp: number;
   oppilaitokset: Array<string>;
+  liitetytOpintojaksot: Array<Opintojakso>;
 
   // NOTE: These are given at selector
   hakuAuki: boolean;

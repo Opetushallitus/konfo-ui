@@ -21,6 +21,7 @@ import { PageSection } from '#/src/components/common/PageSection';
 import TeemakuvaImage from '#/src/components/common/TeemakuvaImage';
 import { Heading } from '#/src/components/Heading';
 import { useOppilaitokset } from '#/src/components/oppilaitos/hooks';
+import { KOULUTUS_TYYPPI } from '#/src/constants';
 import { useSideMenu } from '#/src/hooks';
 import { NotFound } from '#/src/NotFound';
 import { getHakuParams, getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
@@ -35,6 +36,7 @@ import { Diplomit } from './Diplomit';
 import { HakuKaynnissaCard } from './HakuKaynnissaCard';
 import { useToteutus } from './hooks';
 import { KielivalikoimaBox } from './KielivalikoimaBox';
+import { Opintojaksot } from './Opintojaksot';
 import { Osaamisalat } from './Osaamisalat';
 import { ToteutuksenYhteystiedot } from './ToteutuksenYhteystiedot';
 import { ToteutusHakutiedot } from './ToteutusHakutiedot';
@@ -87,12 +89,15 @@ export const ToteutusPage = () => {
     kielivalikoima,
     ammatillinenPerustutkintoErityisopetuksena,
     jarjestetaanErityisopetuksena,
+    tyyppi,
   } = toteutus?.metadata ?? {};
 
   const { data: koulutus, status: koulutusStatus } = useKoulutus({
     oid: koulutusOid,
     isDraft,
   });
+
+  const opintojaksot = toteutus?.liitetytOpintojaksot;
 
   const oppilaitokset = useOppilaitokset({
     isOppilaitosOsa: false,
@@ -233,6 +238,9 @@ export const ToteutusPage = () => {
       <Box id="haut" display="flex" justifyContent="center">
         <ToteutusHakutiedot toteutus={toteutus} />
       </Box>
+      {tyyppi === KOULUTUS_TYYPPI.KK_OPINTOKOKONAISUUS && !_.isEmpty(opintojaksot) && (
+        <Opintojaksot opintojaksot={opintojaksot || []} />
+      )}
       {combinedLisatiedot.length > 0 && (
         <PageSection heading={t('koulutus.lisätietoa')}>
           <Accordion
