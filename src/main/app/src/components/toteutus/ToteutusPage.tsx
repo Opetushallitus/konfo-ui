@@ -37,6 +37,7 @@ import { HakuKaynnissaCard } from './HakuKaynnissaCard';
 import { useToteutus } from './hooks';
 import { KielivalikoimaBox } from './KielivalikoimaBox';
 import { Opintojaksot } from './Opintojaksot';
+import { Opintokokonaisuudet } from './Opintokokonaisuudet';
 import { Osaamisalat } from './Osaamisalat';
 import { ToteutuksenYhteystiedot } from './ToteutuksenYhteystiedot';
 import { ToteutusHakutiedot } from './ToteutusHakutiedot';
@@ -98,6 +99,7 @@ export const ToteutusPage = () => {
   });
 
   const opintojaksot = toteutus?.liitetytOpintojaksot;
+  const kuuluuOpintokokonaisuuksiin = toteutus?.kuuluuOpintokokonaisuuksiin;
 
   const oppilaitokset = useOppilaitokset({
     isOppilaitosOsa: false,
@@ -241,6 +243,10 @@ export const ToteutusPage = () => {
       {tyyppi === KOULUTUS_TYYPPI.KK_OPINTOKOKONAISUUS && !_.isEmpty(opintojaksot) && (
         <Opintojaksot opintojaksot={opintojaksot || []} />
       )}
+      {tyyppi === KOULUTUS_TYYPPI.KK_OPINTOJAKSO &&
+        !_.isEmpty(kuuluuOpintokokonaisuuksiin) && (
+          <Opintokokonaisuudet opintokokonaisuudet={kuuluuOpintokokonaisuuksiin || []} />
+        )}
       {combinedLisatiedot.length > 0 && (
         <PageSection heading={t('koulutus.lisätietoa')}>
           <Accordion

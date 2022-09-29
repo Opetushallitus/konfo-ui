@@ -563,7 +563,8 @@
     "nayta-enemman": "Näytä enemmän",
     "opintojaksot": "Opintoihin sisältyvät opintojaksot",
     "opintojakson-kuvaus": "Opintojakson kuvaus",
-    "lue-lisaa-opintojaksosta": "Lue lisää opintojaksosta"
+    "lue-lisaa-opintojaksosta": "Lue lisää opintojaksosta",
+    "kuuluu-opintokokonaisuuksiin": "Opintojakso kuuluu seuraaviin opintokokonaisuuksiin:"
   },
   "header": {
     "siirry-etusivulle": "Siirry Opintopolun etusivulle"
