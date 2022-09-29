@@ -110,9 +110,11 @@ export type Hakutieto = {
 export type Opintojakso = {
   nimi: Translateable;
   oid: string;
-  kuvaus: string;
-  opintojenLaajuusNumero: number;
-  opintojenLaajuusyksikko: { koodiUri: string; nimi: Translateable };
+  metadata: {
+    kuvaus: string;
+    opintojenLaajuusNumero: number;
+    opintojenLaajuusyksikko: { koodiUri: string; nimi: Translateable };
+  };
 };
 
 export type Toteutus = {
