@@ -36,10 +36,10 @@ export const ToteutuksenYhteystiedot = ({ oids }: { oids: Array<string> }) => {
   //Tämä sisältää oletuksen, että jos toteutukseen liittyvät oidit sisältävät oppilaitoksen osan, se sisältää osuvammat yhteystiedot.
   const kaytettavatHakijapalveluidenYhteystiedot = useMemo(() => {
     const oppilaitokselle = oppilaitokset
-      .map((o) => o.data.oppilaitos?.metadata.hakijapalveluidenYhteystiedot)
+      .map((o) => o.data.oppilaitos?.metadata?.hakijapalveluidenYhteystiedot)
       .find(Boolean);
     const osalle = oppilaitokset
-      .map((o) => o.data.oppilaitoksenOsa?.metadata.hakijapalveluidenYhteystiedot)
+      .map((o) => o.data.oppilaitoksenOsa?.metadata?.hakijapalveluidenYhteystiedot)
       .find(Boolean);
     return osalle ? [osalle] : [oppilaitokselle];
   }, [oppilaitokset]);
