@@ -88,6 +88,11 @@ export const ChipList = ({
   );
 };
 
+const filtersWithBooleanValues: Array<string> = [
+  FILTER_TYPES.HAKUKAYNNISSA,
+  FILTER_TYPES.JOTPA,
+];
+
 export const SuodatinValinnat = () => {
   const { selectedFiltersFlatList, selectedFiltersWithAlakoodit } =
     useAllSelectedFilters();
@@ -97,18 +102,12 @@ export const SuodatinValinnat = () => {
   const getHandleDelete = (item: FilterValue) => () => {
     const changes = getFilterStateChanges(selectedFiltersWithAlakoodit)(item);
 
-    let changesWithBooleanValues;
-    if (item.filterId === FILTER_TYPES.HAKUKAYNNISSA) {
-      changesWithBooleanValues = { ...changes, hakukaynnissa: !item.checked };
-    } else {
-      changesWithBooleanValues = _.omit(changes, 'hakukaynnissa');
-    }
-
-    if (item.filterId === FILTER_TYPES.JOTPA) {
-      changesWithBooleanValues = { ...changesWithBooleanValues, jotpa: !item.checked };
-    } else {
-      changesWithBooleanValues = _.omit(changesWithBooleanValues, 'jotpa');
-    }
+    const changesWithBooleanValues = filtersWithBooleanValues.includes(item.filterId)
+      ? _.omit(
+          { ...changes, [item.filterId]: !item.checked },
+          ...filtersWithBooleanValues.filter((f) => f !== item.filterId)
+        )
+      : _.omit(changes, ...filtersWithBooleanValues);
 
     setFilters(changesWithBooleanValues);
   };

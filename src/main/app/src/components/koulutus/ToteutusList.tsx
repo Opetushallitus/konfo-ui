@@ -4,6 +4,7 @@ import { Grid, Hidden, makeStyles, Typography } from '@material-ui/core';
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
 import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
 import PublicIcon from '@material-ui/icons/Public';
+import _ from 'lodash';
 import _fp from 'lodash/fp';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -22,7 +23,11 @@ import { PohjakoulutusvaatimusSuodatin } from '#/src/components/suodattimet/comm
 import { SijaintiSuodatin } from '#/src/components/suodattimet/common/SijaintiSuodatin';
 import { ValintatapaSuodatin } from '#/src/components/suodattimet/common/ValintatapaSuodatin';
 import { AmmOsaamisalatSuodatin } from '#/src/components/suodattimet/toteutusSuodattimet/AmmOsaamisalatSuodatin';
-import { KOULUTUS_TYYPPI, KORKEAKOULU_KOULUTUSTYYPIT } from '#/src/constants';
+import {
+  KOULUTUS_TYYPPI,
+  KORKEAKOULU_KOULUTUSTYYPIT,
+  FILTER_TYPES,
+} from '#/src/constants';
 import { usePreviousNonEmpty } from '#/src/hooks';
 import { usePreviousPage } from '#/src/store/reducers/appSlice';
 import { getInitialCheckedToteutusFilters } from '#/src/store/reducers/hakutulosSliceSelector';
@@ -125,7 +130,17 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
     return Object.keys(filters)
       .map((k: string) => {
         if (!filters[k].map) {
-          return [];
+          const booleanValue = filters[k];
+          return booleanValue
+            ? [
+                {
+                  checked: true,
+                  id: k,
+                  count: 1,
+                  filterId: k,
+                },
+              ]
+            : [];
         }
         return filters[k]
           .map((v: FilterValue) => [v, ...(v.alakoodit || [])])
@@ -149,10 +164,20 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
       .flat();
   }, [usedValues, filters]);
 
+  const filtersWithBooleanValues: Array<string> = [FILTER_TYPES.HAKUKAYNNISSA];
+
   const handleCheck = (item: FilterValue) => () => {
     const values = usedValues[item.filterId];
     const changes = getFilterStateChanges(values)(item);
-    setFilters(changes);
+
+    const changesWithBooleanValues = filtersWithBooleanValues.includes(item.filterId)
+      ? _.omit(
+          { ...changes, [item.filterId]: !item.checked },
+          ...filtersWithBooleanValues.filter((f) => f !== item.filterId)
+        )
+      : _.omit(changes, ...filtersWithBooleanValues);
+
+    setFilters(changesWithBooleanValues);
   };
 
   const someSelected = _fp.some((v) => (_fp.isArray(v) ? v.length > 0 : v), filters);
