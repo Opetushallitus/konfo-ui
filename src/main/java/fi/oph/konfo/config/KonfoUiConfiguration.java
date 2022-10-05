@@ -77,7 +77,7 @@ public class KonfoUiConfiguration extends OphProperties {
         "eperusteet-service.eperuste.kuvaus", this.require("eperusteet-service.eperuste.kuvaus"));
     this.frontProperties.setProperty("oma-opintopolku", this.require("oma-opintopolku"));
     this.frontProperties.setProperty(
-        "konfo-backend.hakukohde.demo", this.require("konfo-backend.hakukohde.demo"));
+        "konfo-backend.haku.demo", this.require("konfo-backend.haku.demo"));
 
     publicConfiguration.naytaFiltterienHakutulosLuvut = Boolean.parseBoolean(environment.getRequiredProperty("konfo-ui.nayta-filtterien-hakutulos-luvut"));
   }

@@ -1,7 +1,7 @@
 import { TFunction } from 'i18next';
 import _ from 'lodash';
 
-import { getHakukohdeDemo } from '#/src/api/konfoApi';
+import { getHakuDemo } from '#/src/api/konfoApi';
 import { Alkamiskausityyppi } from '#/src/constants';
 import { localize } from '#/src/tools/localization';
 import { formatDateString } from '#/src/tools/utils';
@@ -64,8 +64,9 @@ export const demoLinksPerLomakeId = async (
   for (const hakukohde of closedHakukohteet) {
     const lomakeId = hakukohde.hakulomakeAtaruId;
     const hakukohdeOid = hakukohde.hakukohdeOid;
+    const hakuOid = hakukohde.hakuOid;
     if (!result.has(lomakeId)) {
-      const hakukohdeDemo = await getHakukohdeDemo(hakukohdeOid);
+      const hakukohdeDemo = await getHakuDemo(hakuOid);
       if (hakukohdeDemo.demoAllowed) {
         const linkMap: Map<string, Translateable> = new Map();
         linkMap.set(hakukohdeOid, formDemoLink(hakukohde.hakulomakeLinkki));

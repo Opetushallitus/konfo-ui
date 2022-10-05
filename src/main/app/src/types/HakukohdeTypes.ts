@@ -50,6 +50,7 @@ export type Hakukohde = {
   };
   hakuajat: Array<Hakuaika>;
   hakukohdeOid: string;
+  hakuOid: string;
   hakukohteenLinja?: {
     alinHyvaksyttyKeskiarvo: number;
     linja?: Koodi;

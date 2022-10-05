@@ -1,5 +1,5 @@
 import { Alkamiskausityyppi } from '#/src/constants';
-import { Hakukohde, HakukohdeOid } from '#/src/types/HakukohdeTypes';
+import { Hakukohde } from '#/src/types/HakukohdeTypes';
 
 import { demoLinksPerLomakeId, formatAloitus } from './utils';
 
@@ -21,12 +21,12 @@ describe('toteutus utils', () => {
 });
 
 jest.mock('#/src/api/konfoApi', () => ({
-  getHakukohdeDemo: (hakukohdeOid: HakukohdeOid) => {
-    switch (hakukohdeOid) {
-      case 'demo-allowed-1':
-      case 'demo-allowed-2':
+  getHakuDemo: (hakuOid: string) => {
+    switch (hakuOid) {
+      case 'haku-demo-allowed-1':
+      case 'haku-demo-allowed-2':
         return { demoAllowed: true };
-      case 'demo-not-allowed':
+      case 'haku-demo-not-allowed':
         return { demoAllowed: false };
     }
   },
@@ -36,6 +36,7 @@ describe('demoLinksPerLomakeId', () => {
   const hakukohdeDemoNotAllowed = {
     isHakuAuki: false,
     hakukohdeOid: 'demo-not-allowed',
+    hakuOid: 'haku-demo-not-allowed',
     hakulomakeAtaruId: 'hakulomake-id-2',
     hakulomakeLinkki: {
       fi: 'linkki-suomeksi',
@@ -45,6 +46,7 @@ describe('demoLinksPerLomakeId', () => {
   const hakukohde1 = {
     isHakuAuki: false,
     hakukohdeOid: 'demo-allowed-1',
+    hakuOid: 'haku-demo-allowed-1',
     hakulomakeAtaruId: 'hakulomake-id-1',
     hakulomakeLinkki: {
       fi: 'linkki-suomeksi-1',
@@ -54,6 +56,7 @@ describe('demoLinksPerLomakeId', () => {
   const hakukohde2 = {
     isHakuAuki: false,
     hakukohdeOid: 'demo-allowed-2',
+    hakuOid: 'haku-demo-allowed-2',
     hakulomakeAtaruId: 'hakulomake-id-1',
     hakulomakeLinkki: {
       fi: 'linkki-suomeksi-2',
