@@ -2,12 +2,10 @@ import React from 'react';
 
 import { Button, Chip, Grid, makeStyles } from '@material-ui/core';
 import { Clear } from '@material-ui/icons';
-import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
-import { FILTER_TYPES } from '#/src/constants';
-import { getFilterStateChanges } from '#/src/tools/filters';
+import { getFilterStateChangesForDelete } from '#/src/tools/filters';
 import { localize } from '#/src/tools/localization';
 import { FilterValue } from '#/src/types/SuodatinTypes';
 
@@ -95,22 +93,8 @@ export const SuodatinValinnat = () => {
   const { setFilters, clearFilters } = useSearch();
 
   const getHandleDelete = (item: FilterValue) => () => {
-    const changes = getFilterStateChanges(selectedFiltersWithAlakoodit)(item);
-
-    let changesWithBooleanValues;
-    if (item.filterId === FILTER_TYPES.HAKUKAYNNISSA) {
-      changesWithBooleanValues = { ...changes, hakukaynnissa: !item.checked };
-    } else {
-      changesWithBooleanValues = _.omit(changes, 'hakukaynnissa');
-    }
-
-    if (item.filterId === FILTER_TYPES.JOTPA) {
-      changesWithBooleanValues = { ...changesWithBooleanValues, jotpa: !item.checked };
-    } else {
-      changesWithBooleanValues = _.omit(changesWithBooleanValues, 'jotpa');
-    }
-
-    setFilters(changesWithBooleanValues);
+    const changes = getFilterStateChangesForDelete(selectedFiltersWithAlakoodit)(item);
+    setFilters(changes);
   };
 
   return (

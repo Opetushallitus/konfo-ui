@@ -43,7 +43,7 @@ export const getFilterWithChecked = (
         id: FILTER_TYPES.JOTPA,
         filterId: FILTER_TYPES.JOTPA,
         count: filter.count,
-        checked: !!allCheckedValues[FILTER_TYPES.JOTPA],
+        checked: Boolean(allCheckedValues[FILTER_TYPES.JOTPA]),
       },
     };
   }
@@ -129,4 +129,21 @@ export const getFilterStateChanges =
     }
 
     return retVal;
+  };
+
+const filtersWithBooleanValues: Array<string> = [
+  FILTER_TYPES.HAKUKAYNNISSA,
+  FILTER_TYPES.JOTPA,
+];
+export const getFilterStateChangesForDelete =
+  (values: Array<FilterValue>) => (item: FilterValue) => {
+    const retVal = getFilterStateChanges(values)(item);
+    const retValWithBooleanValues = filtersWithBooleanValues.includes(item.filterId)
+      ? _.omit(
+          { ...retVal, [item.filterId]: !item.checked },
+          _.without(filtersWithBooleanValues, item.filterId)
+        )
+      : _.omit(retVal, filtersWithBooleanValues);
+
+    return retValWithBooleanValues;
   };

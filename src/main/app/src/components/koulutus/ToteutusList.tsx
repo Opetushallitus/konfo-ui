@@ -29,7 +29,7 @@ import { getInitialCheckedToteutusFilters } from '#/src/store/reducers/hakutulos
 import {
   getFilterWithChecked,
   sortValues,
-  getFilterStateChanges,
+  getFilterStateChangesForDelete,
 } from '#/src/tools/filters';
 import {
   localize,
@@ -125,7 +125,17 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
     return Object.keys(filters)
       .map((k: string) => {
         if (!filters[k].map) {
-          return [];
+          const booleanValue = filters[k];
+          return booleanValue
+            ? [
+                {
+                  checked: true,
+                  id: k,
+                  count: 1,
+                  filterId: k,
+                },
+              ]
+            : [];
         }
         return filters[k]
           .map((v: FilterValue) => [v, ...(v.alakoodit || [])])
@@ -151,7 +161,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
 
   const handleCheck = (item: FilterValue) => () => {
     const values = usedValues[item.filterId];
-    const changes = getFilterStateChanges(values)(item);
+    const changes = getFilterStateChangesForDelete(values)(item);
     setFilters(changes);
   };
 
