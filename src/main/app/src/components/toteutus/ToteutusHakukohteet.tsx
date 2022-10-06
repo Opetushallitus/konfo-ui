@@ -27,6 +27,7 @@ import { useDemoLinks } from '#/src/components/toteutus/hooks';
 import { Hakulomaketyyppi } from '#/src/constants';
 import { localize } from '#/src/tools/localization';
 import { useOsoitteet } from '#/src/tools/useOppilaitosOsoite';
+import { useUrlParams } from '#/src/tools/useUrlParams';
 import { formatDateString, formatDouble } from '#/src/tools/utils';
 import { Hakukohde } from '#/src/types/HakukohdeTypes';
 import { Toteutus } from '#/src/types/ToteutusTypes';
@@ -82,6 +83,8 @@ const HakuCardGrid = ({ tyyppiOtsikko, icon, toteutus, hakukohteet }: GridProps)
   const hakutermi = toteutus?.metadata?.hakutermi;
 
   const { osoitteet } = useOsoitteet(oppilaitosOids, true);
+
+  const { isDraft } = useUrlParams();
 
   return (
     <Box marginY={3}>
@@ -271,7 +274,9 @@ const HakuCardGrid = ({ tyyppiOtsikko, icon, toteutus, hakukohteet }: GridProps)
                                 tabIndex={-1}
                                 underline="none"
                                 component={RouterLink}
-                                to={`/hakukohde/${hakukohde.hakukohdeOid}/valintaperuste`}>
+                                to={`/hakukohde/${hakukohde.hakukohdeOid}/valintaperuste`.concat(
+                                  isDraft ? '?draft=true' : ''
+                                )}>
                                 <Typography
                                   style={{ color: colors.brandGreen }}
                                   variant="body1">
