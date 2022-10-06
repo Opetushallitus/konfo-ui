@@ -2,12 +2,10 @@ import React from 'react';
 
 import { Button, Chip, Grid, makeStyles } from '@material-ui/core';
 import { Clear } from '@material-ui/icons';
-import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
-import { FILTER_TYPES } from '#/src/constants';
-import { getFilterStateChanges } from '#/src/tools/filters';
+import { getFilterStateChangesForDelete } from '#/src/tools/filters';
 import { localize } from '#/src/tools/localization';
 import { FilterValue } from '#/src/types/SuodatinTypes';
 
@@ -88,11 +86,6 @@ export const ChipList = ({
   );
 };
 
-const filtersWithBooleanValues: Array<string> = [
-  FILTER_TYPES.HAKUKAYNNISSA,
-  FILTER_TYPES.JOTPA,
-];
-
 export const SuodatinValinnat = () => {
   const { selectedFiltersFlatList, selectedFiltersWithAlakoodit } =
     useAllSelectedFilters();
@@ -100,16 +93,8 @@ export const SuodatinValinnat = () => {
   const { setFilters, clearFilters } = useSearch();
 
   const getHandleDelete = (item: FilterValue) => () => {
-    const changes = getFilterStateChanges(selectedFiltersWithAlakoodit)(item);
-
-    const changesWithBooleanValues = filtersWithBooleanValues.includes(item.filterId)
-      ? _.omit(
-          { ...changes, [item.filterId]: !item.checked },
-          ...filtersWithBooleanValues.filter((f) => f !== item.filterId)
-        )
-      : _.omit(changes, ...filtersWithBooleanValues);
-
-    setFilters(changesWithBooleanValues);
+    const changes = getFilterStateChangesForDelete(selectedFiltersWithAlakoodit)(item);
+    setFilters(changes);
   };
 
   return (
