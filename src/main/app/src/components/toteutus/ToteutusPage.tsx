@@ -237,9 +237,6 @@ export const ToteutusPage = () => {
       <KielivalikoimaBox kielivalikoima={kielivalikoima} />
       <Diplomit diplomit={diplomit} />
       <Osaamisalat toteutus={toteutus!} koulutus={koulutus} />
-      <Box id="haut" display="flex" justifyContent="center">
-        <ToteutusHakutiedot toteutus={toteutus} />
-      </Box>
       {tyyppi === KOULUTUS_TYYPPI.KK_OPINTOKOKONAISUUS && !_.isEmpty(opintojaksot) && (
         <Opintojaksot opintojaksot={opintojaksot || []} />
       )}
@@ -247,6 +244,9 @@ export const ToteutusPage = () => {
         !_.isEmpty(kuuluuOpintokokonaisuuksiin) && (
           <Opintokokonaisuudet opintokokonaisuudet={kuuluuOpintokokonaisuuksiin || []} />
         )}
+      <Box id="haut" display="flex" justifyContent="center">
+        <ToteutusHakutiedot toteutus={toteutus} />
+      </Box>
       {combinedLisatiedot.length > 0 && (
         <PageSection heading={t('koulutus.lisätietoa')}>
           <Accordion
