@@ -562,7 +562,11 @@
     "erityisopetus-otsikko": "Erityisopetuksena järjestettävä koulutus",
     "amm-erityisopetus-teksti": "Tämä ammatillinen perustutkinto järjestetään vaativana erityisenä tukena.",
     "tuva-erityisopetus-teksti": "Tämä tutkintokoulutukseen valmentava koulutus järjestetään vaativana erityisenä tukena.",
-    "nayta-enemman": "Näytä enemmän"
+    "nayta-enemman": "Näytä enemmän",
+    "opintojaksot": "Opintoihin sisältyvät opintojaksot",
+    "opintojakson-kuvaus": "Opintojakson kuvaus",
+    "lue-lisaa-opintojaksosta": "Lue lisää opintojaksosta",
+    "kuuluu-opintokokonaisuuksiin": "Opintojakso kuuluu seuraaviin opintokokonaisuuksiin:"
   },
   "header": {
     "siirry-etusivulle": "Siirry Opintopolun etusivulle"

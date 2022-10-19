@@ -14,12 +14,12 @@ import { useTranslation } from 'react-i18next';
 
 import { InfoGrid } from '#/src/components/common/InfoGrid';
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
+import { NDASH } from '#/src/constants';
 import { localize } from '#/src/tools/localization';
 import { Translateable } from '#/src/types/common';
 import { Opetus, Yksikko } from '#/src/types/ToteutusTypes';
 
 import { formatAloitus } from './utils';
-import { NDASH } from '#/src/constants';
 
 const getYksikkoSymbol = (yksikko?: Yksikko) => {
   switch (yksikko) {
