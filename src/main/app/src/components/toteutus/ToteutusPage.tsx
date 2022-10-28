@@ -32,6 +32,7 @@ import { getLocalizedToteutusLaajuus, sanitizedHTMLParser } from '#/src/tools/ut
 import { Hakutieto } from '#/src/types/ToteutusTypes';
 
 import { useKoulutus } from '../koulutus/hooks';
+import { PisteContainer } from '../laskuri/PisteContainer';
 import { Asiasanat } from './Asiasanat';
 import { Diplomit } from './Diplomit';
 import { HakuKaynnissaCard } from './HakuKaynnissaCard';
@@ -255,8 +256,11 @@ export const ToteutusPage = () => {
         )}
         {tyyppi === KOULUTUS_TYYPPI.KK_OPINTOJAKSO &&
           !_.isEmpty(kuuluuOpintokokonaisuuksiin) && (
-            <Opintokokonaisuudet opintokokonaisuudet={kuuluuOpintokokonaisuuksiin || []} />
+            <Opintokokonaisuudet
+              opintokokonaisuudet={kuuluuOpintokokonaisuuksiin || []}
+            />
           )}
+        <PisteContainer></PisteContainer>
         <Box id="haut" display="flex" justifyContent="center">
           <ToteutusHakutiedot toteutus={toteutus} />
         </Box>
