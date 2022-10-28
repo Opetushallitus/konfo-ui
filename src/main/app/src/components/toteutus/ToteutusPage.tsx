@@ -32,6 +32,7 @@ import { getLocalizedToteutusLaajuus, sanitizedHTMLParser } from '#/src/tools/ut
 import { Hakutieto } from '#/src/types/ToteutusTypes';
 
 import { useKoulutus } from '../koulutus/hooks';
+import { PisteContainer } from '../laskuri/PisteContainer';
 import { Asiasanat } from './Asiasanat';
 import { Diplomit } from './Diplomit';
 import { HakuKaynnissaCard } from './HakuKaynnissaCard';
@@ -261,6 +262,7 @@ export const ToteutusPage = () => {
               opintokokonaisuudet={kuuluuOpintokokonaisuuksiin || []}
             />
           )}
+        <PisteContainer></PisteContainer>
         <Box id="haut" display="flex" justifyContent="center">
           <ToteutusHakutiedot toteutus={toteutus} />
         </Box>
