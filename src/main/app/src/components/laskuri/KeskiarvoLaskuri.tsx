@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 
 import { Box, Typography, TextField } from '@mui/material';
 
-interface Keskiarvot {
-  lukuaineet: string;
-  taideTaitoAineet: string;
-  kaikki: string;
-}
+import { Keskiarvot } from './Keskiarvo';
 
-export const KeskiarvoLaskuri = () => {
+type Props = {
+  updateKeskiarvoToCalculate: (keskiarvo: Keskiarvot) => void;
+};
+
+export const KeskiarvoLaskuri = ({ updateKeskiarvoToCalculate }: Props) => {
   const [keskiarvot, setKeskiarvot] = useState<Keskiarvot>({
     lukuaineet: '',
     taideTaitoAineet: '',
@@ -19,18 +19,21 @@ export const KeskiarvoLaskuri = () => {
     let newKeskiArvo = { ...keskiarvot };
     newKeskiArvo.lukuaineet = event.target.value;
     setKeskiarvot(newKeskiArvo);
+    updateKeskiarvoToCalculate(newKeskiArvo);
   };
 
   const changeKeskiarvoTaide = (event: React.ChangeEvent<HTMLInputElement>) => {
     let newKeskiArvo = { ...keskiarvot };
     newKeskiArvo.taideTaitoAineet = event.target.value;
     setKeskiarvot(newKeskiArvo);
+    updateKeskiarvoToCalculate(newKeskiArvo);
   };
 
   const changeKeskiarvoKaikki = (event: React.ChangeEvent<HTMLInputElement>) => {
     let newKeskiArvo = { ...keskiarvot };
     newKeskiArvo.kaikki = event.target.value;
     setKeskiarvot(newKeskiArvo);
+    updateKeskiarvoToCalculate(newKeskiArvo);
   };
 
   return (
