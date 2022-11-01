@@ -1,4 +1,5 @@
 import { createTheme } from '@mui/material';
+import createBreakpoints from '@mui/system/createTheme/createBreakpoints';
 
 import { colors } from './colors';
 
@@ -6,6 +7,7 @@ import { colors } from './colors';
 // Learn more: https://mui.com/material-ui/customization/theming/
 
 const breakpoints = {
+  ...createBreakpoints({}),
   values: {
     xs: 0,
     sm: 600,

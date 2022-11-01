@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button, makeStyles, Typography } from '@material-ui/core';
+import { Button, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -11,16 +11,11 @@ import { localize } from '#/src/tools/localization';
 import { getLocalizedToteutusLaajuus, sanitizedHTMLParser } from '#/src/tools/utils';
 import { Opintojakso } from '#/src/types/ToteutusTypes';
 
-export const useStyles = makeStyles({
-  contentHeader: { marginTop: '16px', marginBottom: '16px' },
-});
-
 const OpintojaksoContent = ({ opintojakso }: { opintojakso: Opintojakso }) => {
   const { t } = useTranslation();
-  const classes = useStyles();
   return (
     <>
-      <Typography variant="h5" className={classes.contentHeader}>
+      <Typography variant="h5" sx={{ marginTop: '16px', marginBottom: '16px' }}>
         {t('toteutus.opintojakson-kuvaus')}
       </Typography>
       {sanitizedHTMLParser(localize(opintojakso?.metadata?.kuvaus))}
