@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Box, Divider, Grid, makeStyles } from '@material-ui/core';
+import { Box, Divider, Grid } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
 import { Heading, HeadingBoundary } from '#/src/components/Heading';
@@ -8,12 +9,19 @@ import { localize } from '#/src/tools/localization';
 import { toId } from '#/src/tools/utils';
 import { PainotettuArvosana, KoodiUrit } from '#/src/types/HakukohdeTypes';
 
-export const useStyles = makeStyles({
-  table: {
+const PREFIX = 'PainotetutArvosanat';
+
+const classes = {
+  table: `${PREFIX}-table`,
+  cell: `${PREFIX}-cell`,
+};
+
+const StyledGrid = styled(Grid)({
+  [`& .${classes.table}`]: {
     borderSpacing: 0,
     borderCollapse: 'separate',
   },
-  cell: {
+  [`& .${classes.cell}`]: {
     textAlign: 'left',
     maxWidth: '200px',
     padding: '8px',
@@ -39,10 +47,9 @@ const getOppiaineName = (koodiUrit: KoodiUrit) => {
 
 export const PainotetutArvosanat = ({ arvosanat }: Props) => {
   const { t } = useTranslation();
-  const classes = useStyles();
 
   return (
-    <Grid item xs={12}>
+    <StyledGrid item xs={12}>
       <Box py={4}>
         <Divider />
       </Box>
@@ -74,6 +81,6 @@ export const PainotetutArvosanat = ({ arvosanat }: Props) => {
           </Box>
         </HeadingBoundary>
       </Box>
-    </Grid>
+    </StyledGrid>
   );
 };

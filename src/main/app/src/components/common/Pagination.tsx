@@ -1,28 +1,43 @@
 import React, { useCallback } from 'react';
 
-import { Box, CssBaseline, makeStyles } from '@material-ui/core';
-import { ChevronLeftOutlined, ChevronRightOutlined } from '@material-ui/icons';
-import MuiFlatPagination from 'material-ui-flat-pagination';
+import { ChevronLeftOutlined, ChevronRightOutlined } from '@mui/icons-material';
+import { Box, CssBaseline } from '@mui/material';
+import { styled } from '@mui/material/styles';
 
-const useStyles = makeStyles(() => ({
-  sizeSmall: {
+import MuiFlatPagination from '#/src/components/pagination';
+
+const PREFIX = 'Pagination';
+
+const classes = {
+  sizeSmall: `${PREFIX}-sizeSmall`,
+  rootCurrent: `${PREFIX}-rootCurrent`,
+  textPrimary: `${PREFIX}-textPrimary`,
+  textSecondary: `${PREFIX}-textSecondary`,
+  text: `${PREFIX}-text`,
+};
+
+const StyledBox = styled(Box)(() => ({
+  [`& .${classes.sizeSmall}`]: {
     padding: '1px 6px',
     margin: '0 4px',
   },
 
-  rootCurrent: {
+  [`& .${classes.rootCurrent}`]: {
     backgroundColor: 'green',
     '&:hover': {
       backgroundColor: 'green',
     },
   },
-  textPrimary: {
+
+  [`& .${classes.textPrimary}`]: {
     color: 'white',
   },
-  textSecondary: {
+
+  [`& .${classes.textSecondary}`]: {
     color: 'black',
   },
-  text: {
+
+  [`& .${classes.text}`]: {
     fontWeight: 'bold',
   },
 }));
@@ -42,8 +57,6 @@ export const Pagination = ({
   setPagination,
   scrollTargetId,
 }: Props) => {
-  const classes = useStyles();
-
   const { size, offset } = pagination;
 
   const handleClick = useCallback(
@@ -60,7 +73,7 @@ export const Pagination = ({
   );
 
   return total > size ? (
-    <Box textAlign="center" marginY={3}>
+    <StyledBox textAlign="center" marginY={3}>
       <CssBaseline />
       <MuiFlatPagination
         limit={size}
@@ -74,6 +87,6 @@ export const Pagination = ({
         previousPageLabel={<ChevronLeftOutlined />}
         nextPageLabel={<ChevronRightOutlined />}
       />
-    </Box>
+    </StyledBox>
   ) : null;
 };

@@ -1,12 +1,8 @@
 import React from 'react';
 
-import {
-  Accordion as MuiAccordion,
-  AccordionSummary,
-  withStyles,
-} from '@material-ui/core';
-import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Accordion as MuiAccordion, AccordionSummary, Typography } from '@mui/material';
+import { withStyles } from '@mui/styles';
 
 const StyledAccordion = withStyles({
   root: {

@@ -1,18 +1,29 @@
 import React from 'react';
 
-import { Avatar, Button, Grid, makeStyles, Paper, Typography } from '@material-ui/core';
-import { ErrorOutline } from '@material-ui/icons';
+import { ErrorOutline } from '@mui/icons-material';
+import { Avatar, Button, Grid, Paper, Typography } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
 
-const useStyles = makeStyles((theme) => ({
-  gridOuterContainerRoot: {
+const PREFIX = 'BackendErrorMessage';
+
+const classes = {
+  gridOuterContainerRoot: `${PREFIX}-gridOuterContainerRoot`,
+  paperRoot: `${PREFIX}-paperRoot`,
+  avatarRoot: `${PREFIX}-avatarRoot`,
+  buttonRoot: `${PREFIX}-buttonRoot`,
+};
+
+const StyledGrid = styled(Grid)(({ theme }) => ({
+  [`& .${classes.gridOuterContainerRoot}`]: {
     paddingTop: theme.spacing(5),
   },
-  paperRoot: {
+
+  [`& .${classes.paperRoot}`]: {
     width: '80%',
     borderTop: `5px solid ${colors.red}`,
     boxShadow: '0 0 8px 0 rgba(0,0,0,0.2)',
@@ -23,12 +34,14 @@ const useStyles = makeStyles((theme) => ({
       width: '90%',
     },
   },
-  avatarRoot: {
+
+  [`& .${classes.avatarRoot}`]: {
     backgroundColor: colors.red,
     width: 60,
     height: 60,
   },
-  buttonRoot: {
+
+  [`& .${classes.buttonRoot}`]: {
     fontWeight: 600,
     fontSize: 16,
   },
@@ -40,10 +53,9 @@ const refreshPage = () => {
 
 export const BackendErrorMessage = () => {
   const { t } = useTranslation();
-  const classes = useStyles();
 
   return (
-    <Grid
+    <StyledGrid
       container
       classes={{ root: classes.gridOuterContainerRoot }}
       spacing={4}
@@ -85,6 +97,6 @@ export const BackendErrorMessage = () => {
           {t('haku.siirry-opintopolun-etusivulle')}
         </LocalizedLink>
       </Grid>
-    </Grid>
+    </StyledGrid>
   );
 };

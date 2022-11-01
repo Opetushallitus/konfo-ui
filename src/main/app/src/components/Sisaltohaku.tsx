@@ -1,20 +1,18 @@
 import React, { useState, useCallback } from 'react';
 
+import SearchIcon from '@mui/icons-material/Search';
 import {
   Button,
   Grid,
   Card,
   CardContent,
-  makeStyles,
   Paper,
   CardMedia,
   InputBase,
   Typography,
-  withStyles,
-} from '@material-ui/core';
-import SearchIcon from '@material-ui/icons/Search';
+} from '@mui/material';
+import { styled } from '@mui/material/styles';
 import _ from 'lodash';
-import MuiFlatPagination from 'material-ui-flat-pagination';
 import { useTranslation } from 'react-i18next';
 import { useHistory, Link as RouterLink } from 'react-router-dom';
 
@@ -22,17 +20,29 @@ import koulutusPlaceholderImg from '#/src/assets/images/Opolkuhts.png';
 import { colors } from '#/src/colors';
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
 import Murupolku from '#/src/components/common/Murupolku';
+import MuiFlatPagination from '#/src/components/pagination';
 import { useContentful } from '#/src/hooks';
 import { useUrlParams } from '#/src/tools/useUrlParams';
 
 import { Preview } from './Preview';
 import { ReactiveBorder } from './ReactiveBorder';
 
-const useStyles = makeStyles({
-  sisaltohaku: {
-    marginTop: '40px',
-  },
-  paper: {
+const PREFIX = 'Sisaltohaku';
+
+const classes = {
+  root: `${PREFIX}-root`,
+  root2: `${PREFIX}-root2`,
+  image: `${PREFIX}-image`,
+  content: `${PREFIX}-content`,
+  sisaltohaku: `${PREFIX}-sisaltohaku`,
+  paper: `${PREFIX}-paper`,
+  input: `${PREFIX}-input`,
+  iconButton: `${PREFIX}-iconButton`,
+};
+
+const StyledGrid = styled(Grid)({
+  marginTop: '40px',
+  [`& .${classes.paper}`]: {
     height: '60px',
     display: 'flex',
     alignItems: 'center',
@@ -42,28 +52,16 @@ const useStyles = makeStyles({
     paddingLeft: '20px',
     backgroundColor: colors.white,
   },
-  input: {
+  [`& .${classes.input}`]: {
     borderRadius: 0,
     flex: 1,
   },
-  iconButton: {
+  [`& .${classes.iconButton}`]: {
     minHeight: '60px',
     minWidth: '60px',
     borderRadius: 0,
   },
 });
-
-const TulosPanel = withStyles({
-  root: {
-    backgroundColor: colors.white,
-    marginBottom: '16px',
-    boxShadow: '0 2px 8px 0 rgba(0,0,0,0.2)',
-    borderRadius: '0 !important',
-    '&:before': {
-      backgroundColor: colors.white,
-    },
-  },
-})(Card);
 
 type ResultProps = {
   id: string;
@@ -74,30 +72,16 @@ type ResultProps = {
   classes: Record<string, string>;
 };
 
-const Result = withStyles({
-  root: {
-    padding: '15px',
-    display: 'flex',
-    alignItems: 'center',
-  },
-  image: {
-    flex: '0 0 auto',
-    marginLeft: 'auto',
-    width: 228,
-    minWidth: 228,
-    height: 131,
-  },
-  content: {
-    flex: '0 1 auto',
-    alignSelf: 'flex-start',
-  },
-})(({ id, url, image, sivu, classes, assetUrl }: ResultProps) => {
+const Result = ({ id, url, image, sivu, assetUrl }: ResultProps) => {
   const { t } = useTranslation();
 
   return (
     <Grid item xs={12} key={id}>
       <LocalizedLink underline="none" component={RouterLink} to={url}>
-        <TulosPanel className={classes.root}>
+        <Card
+          classes={{
+            root: classes.root,
+          }}>
           <CardContent className={classes.content}>
             <Typography component="h4" variant="h4">
               {sivu.name}
@@ -114,11 +98,11 @@ const Result = withStyles({
             aria-label={image.description || image.name || t('sisaltohaku.paikanpitäjä')}
             role="img"
           />
-        </TulosPanel>
+        </Card>
       </LocalizedLink>
     </Grid>
   );
-});
+};
 
 const PAGESIZE = 10;
 const asKeywords = (s: string) => s.toLowerCase().split(/[ ,]+/);
@@ -126,7 +110,7 @@ const asKeywords = (s: string) => s.toLowerCase().split(/[ ,]+/);
 export const Sisaltohaku = () => {
   const { data, forwardTo, assetUrl } = useContentful();
   const { t, i18n } = useTranslation();
-  const classes = useStyles();
+
   const history = useHistory();
 
   const { sivu, uutinen } = data;
@@ -173,7 +157,7 @@ export const Sisaltohaku = () => {
 
   return (
     <ReactiveBorder>
-      <Grid
+      <StyledGrid
         container
         direction="row"
         justifyContent="center"
@@ -239,6 +223,11 @@ export const Sisaltohaku = () => {
                   sivu={s}
                   assetUrl={assetUrl(image.url)}
                   image={image}
+                  classes={{
+                    root: classes.root2,
+                    image: classes.image,
+                    content: classes.content,
+                  }}
                 />
               );
             })}
@@ -252,7 +241,7 @@ export const Sisaltohaku = () => {
             )}
           </>
         )}
-      </Grid>
+      </StyledGrid>
     </ReactiveBorder>
   );
 };

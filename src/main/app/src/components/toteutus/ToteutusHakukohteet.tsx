@@ -1,19 +1,19 @@
 import React, { useMemo } from 'react';
 
+import AutorenewIcon from '@mui/icons-material/Autorenew';
+import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
+import PinDrop from '@mui/icons-material/PinDrop';
+import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
 import {
   Box,
   Button,
   ButtonGroup,
   Divider,
   Grid,
-  makeStyles,
   Paper,
   Typography,
-} from '@material-ui/core';
-import AutorenewIcon from '@material-ui/icons/Autorenew';
-import CalendarTodayOutlinedIcon from '@material-ui/icons/CalendarTodayOutlined';
-import PinDrop from '@material-ui/icons/PinDrop';
-import SportsSoccerIcon from '@material-ui/icons/SportsSoccer';
+} from '@mui/material';
+import { styled } from '@mui/material/styles';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
@@ -35,19 +35,29 @@ import { Toteutus } from '#/src/types/ToteutusTypes';
 import { HakutietoTable } from './HakutietoTable';
 import { formatAloitus } from './utils';
 
-export const useStyles = makeStyles((theme) => ({
-  hakuName: {
+const PREFIX = 'ToteutusHakukohteet';
+
+const classes = {
+  hakuName: `${PREFIX}-hakuName`,
+  lomakeButtonGroup: `${PREFIX}-lomakeButtonGroup`,
+  paper: `${PREFIX}-paper`,
+};
+
+const StyledGrid = styled(Grid)(({ theme }) => ({
+  [`& .${classes.hakuName}`]: {
     ...theme.typography.h5,
     fontWeight: 700,
     color: colors.black,
   },
-  lomakeButtonGroup: {
+
+  [`& .${classes.lomakeButtonGroup}`]: {
     display: 'flex',
     '& > *': {
       marginRight: theme.spacing(1),
     },
   },
-  paper: {
+
+  [`& .${classes.paper}`]: {
     width: '100%',
     maxWidth: '800px',
     height: '100%',
@@ -68,7 +78,6 @@ type GridProps = {
 };
 
 const HakuCardGrid = ({ tyyppiOtsikko, icon, toteutus, hakukohteet }: GridProps) => {
-  const classes = useStyles();
   const { t } = useTranslation();
 
   const { data: demoLinks } = useDemoLinks(hakukohteet);
@@ -95,7 +104,7 @@ const HakuCardGrid = ({ tyyppiOtsikko, icon, toteutus, hakukohteet }: GridProps)
         </Box>
       </Box>
       <Box mt={4}>
-        <Grid container spacing={2} justifyContent="center">
+        <StyledGrid container spacing={2} justifyContent="center">
           {hakukohteet.map((hakukohde) => {
             const anyHakuaikaPaattyy = hakukohde.hakuajat?.some(
               (hakuaika) => hakuaika.paattyy
@@ -293,7 +302,7 @@ const HakuCardGrid = ({ tyyppiOtsikko, icon, toteutus, hakukohteet }: GridProps)
               </Grid>
             );
           })}
-        </Grid>
+        </StyledGrid>
       </Box>
     </Box>
   );
@@ -334,7 +343,7 @@ export const ToteutusHakukohteet = ({ toteutus }: Props) => {
   return (
     <Grid item xs={12} sm={12} md={10} lg={8}>
       <PageSection heading={t('toteutus.koulutuksen-hakukohteet')}>
-        <Grid direction="column" spacing={6}>
+        <Grid container direction="column" spacing={2}>
           {_.map(sortedByHakutapaAndHakuaika, ([hakutapaKoodiUri, h]) => {
             const IconComponent = getHakutyyppiIcon(
               hakutapaKoodiUri as keyof typeof typeToIconMap

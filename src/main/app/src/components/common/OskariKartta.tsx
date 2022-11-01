@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { Grid } from '@material-ui/core';
+import { Grid } from '@mui/material';
 import { urls } from 'oph-urls-js';
 // @ts-ignore no types
 import OskariRPC from 'oskari-rpc';

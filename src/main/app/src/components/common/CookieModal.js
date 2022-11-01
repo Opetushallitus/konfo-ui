@@ -1,15 +1,9 @@
 import React, { useState } from 'react';
 
-import {
-  makeStyles,
-  Button,
-  Typography,
-  ButtonGroup,
-  Divider,
-  Modal,
-} from '@material-ui/core';
-import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
-import ArrowDropUp from '@material-ui/icons/ArrowDropUp';
+import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
+import ArrowDropUp from '@mui/icons-material/ArrowDropUp';
+import { Button, Typography, ButtonGroup, Divider, Modal } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import Cookies from 'js-cookie';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
@@ -18,38 +12,52 @@ import { colors } from '#/src/colors';
 import { KonfoCheckbox } from '#/src/components/common/Checkbox';
 import { useContentful } from '#/src/hooks';
 
-const useStyles = makeStyles((theme) => ({
-  modalBackdrop: {
-    'overflow-y': 'auto',
+const PREFIX = 'CookieModal';
+
+const classes = {
+  modalBackdrop: `${PREFIX}-modalBackdrop`,
+  modalHeader: `${PREFIX}-modalHeader`,
+  icon: `${PREFIX}-icon`,
+  modalText: `${PREFIX}-modalText`,
+  modalContent: `${PREFIX}-modalContent`,
+  settings: `${PREFIX}-settings`,
+  settingsCheckbox: `${PREFIX}-settingsCheckbox`,
+  textExpandLink: `${PREFIX}-textExpandLink`,
+  buttons: `${PREFIX}-buttons`,
+  divider: `${PREFIX}-divider`,
+  settingsHeader: `${PREFIX}-settingsHeader`,
+};
+
+const StyledModal = styled(Modal)(({ theme }) => ({
+  overflowY: 'auto',
+
+  [`& .${classes.modalHeader}`]: {
+    marginTop: '0px',
+    marginLeft: '3%',
+    marginRight: '3%',
   },
 
-  modalHeader: {
-    'margin-top': '0px',
-    'margin-left': '3%',
-    'margin-right': '3%',
-  },
-
-  icon: {
+  [`& .${classes.icon}`]: {
     position: 'absolute',
   },
 
-  modalText: {
-    'margin-top': '15px',
-    'margin-bottom': '15px',
-    'margin-left': '3%',
-    'margin-right': '3%',
-    'white-space': 'pre-wrap !important',
+  [`& .${classes.modalText}`]: {
+    marginTop: '15px',
+    marginBottom: '15px',
+    marginLeft: '3%',
+    marginRight: '3%',
+    whiteSpace: 'pre-wrap !important',
   },
 
-  modalContent: {
+  [`& .${classes.modalContent}`]: {
     position: 'absolute',
-    'z-index': '9999',
-    'background-color': colors.white,
+    zIndex: '9999',
+    backgroundColor: colors.white,
     border: '1px solid #ccc',
-    'box-shadow': '1px 1px 1px ' + colors.black,
+    boxShadow: '1px 1px 1px ' + colors.black,
     padding: '16px',
-    'box-sizing': 'border-box',
-    'border-radius': '10px',
+    boxSizing: 'border-box',
+    borderRadius: '10px',
     width: '60%',
     left: '20%',
     top: '5%',
@@ -59,39 +67,39 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 
-  settings: {
-    'margin-top': '15px',
-    'margin-left': '2%',
+  [`& .${classes.settings}`]: {
+    marginTop: '15px',
+    marginLeft: '2%',
   },
 
-  settingsCheckbox: {
-    'box-shadow': 'none',
-    'font-size': '2em',
+  [`& .${classes.settingsCheckbox}`]: {
+    boxShadow: 'none',
+    fontSize: '2em',
     padding: '5px 2px 5px 5px',
   },
 
-  textExpandLink: {
+  [`& .${classes.textExpandLink}`]: {
     color: colors.brandGreen,
-    'margin-top': '5px',
-    'margin-bottom': '15px',
-    'margin-left': '2%',
-    'font-weight': 'bold',
+    marginTop: '5px',
+    marginBottom: '15px',
+    marginLeft: '2%',
+    fontWeight: 'bold',
     display: 'inline',
   },
 
-  buttons: {
+  [`& .${classes.buttons}`]: {
     float: 'right',
-    'padding-right': '20px',
+    paddingRight: '20px',
   },
 
-  divider: {
-    'margin-bottom': '15px',
+  [`& .${classes.divider}`]: {
+    marginBottom: '15px',
   },
 
-  settingsHeader: {
+  [`& .${classes.settingsHeader}`]: {
     margin: '9px 8px 3px 8px',
-    'padding-bottom': '10px',
-    'font-size': '1.5em',
+    paddingBottom: '10px',
+    fontSize: '1.5em',
   },
 }));
 
@@ -101,8 +109,6 @@ const single = (entry) => Object.values(entry || [])[0] || {};
 
 export const CookieModal = () => {
   const { t } = useTranslation();
-
-  const classes = useStyles();
 
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [fullCookieInfoOpen, setFullCookieInfoOpen] = useState(false);
@@ -202,7 +208,7 @@ export const CookieModal = () => {
   );
 
   return (
-    <Modal
+    <StyledModal
       id="oph-cookie-modal-backdrop"
       className={classes.modalBackdrop}
       open={!(isLoading || cookiesAccepted)}>
@@ -247,6 +253,6 @@ export const CookieModal = () => {
           </Button>
         </ButtonGroup>
       </div>
-    </Modal>
+    </StyledModal>
   );
 };

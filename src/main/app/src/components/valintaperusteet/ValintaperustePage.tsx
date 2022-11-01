@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo } from 'react';
 
-import { Grid, makeStyles } from '@material-ui/core';
+import { Grid } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import _fp from 'lodash/fp';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -31,15 +32,20 @@ import { Sisallysluettelo } from './Sisallysluettelo';
 import { Valintakokeet } from './Valintakokeet';
 import { Valintatavat } from './Valintatavat';
 
-const useStyles = makeStyles(() => ({
-  container: {
+const PREFIX = 'ValintaperustePreviewPage';
+
+const classes = {
+  container: `${PREFIX}-container`,
+};
+
+const Root = styled('div')(() => ({
+  [`& .${classes.container}`]: {
     paddingLeft: '10px',
     paddingRight: '10px',
   },
 }));
 
 const Row: React.FC = ({ children }) => {
-  const classes = useStyles();
   return (
     <Grid container direction="row" justifyContent="center" className={classes.container}>
       <Grid item xs={12} sm={12} md={10}>
@@ -93,7 +99,7 @@ const ValintaperusteContent = ({
   }, [hash]);
 
   return (
-    <>
+    <React.Fragment>
       <Grid item xs={12} md={3}>
         <Sisallysluettelo
           {...{
@@ -137,12 +143,11 @@ const ValintaperusteContent = ({
           />
         )}
       </Grid>
-    </>
+    </React.Fragment>
   );
 };
 
 export const ValintaperustePreviewPage = () => {
-  const classes = useStyles();
   const { valintaperusteId } = useParams<{ valintaperusteId: string }>();
   const { t } = useTranslation();
 
@@ -195,7 +200,6 @@ export const ValintaperustePreviewPage = () => {
 };
 
 export const ValintaperustePage = () => {
-  const classes = useStyles();
   const { hakukohdeOid } = useParams<{ hakukohdeOid: string }>();
   const { t } = useTranslation();
   const hakuUrl = useSelector(getHakuUrl);
@@ -244,7 +248,7 @@ export const ValintaperustePage = () => {
       return <NotFound />;
     default:
       return (
-        <>
+        <Root>
           <Row>
             <Murupolku
               path={[
@@ -278,7 +282,7 @@ export const ValintaperustePage = () => {
               }}
             />
           </Grid>
-        </>
+        </Root>
       );
   }
 };

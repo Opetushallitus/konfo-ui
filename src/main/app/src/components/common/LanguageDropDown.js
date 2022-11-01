@@ -1,15 +1,9 @@
 import React from 'react';
 
-import {
-  FormControl,
-  Select,
-  MenuItem,
-  withStyles,
-  InputBase,
-  Box,
-} from '@material-ui/core';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import LanguageIcon from '@material-ui/icons/Language';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import LanguageIcon from '@mui/icons-material/Language';
+import { FormControl, Select, MenuItem, InputBase, Box } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import Cookies from 'js-cookie';
 import { useTranslation } from 'react-i18next';
 
@@ -18,14 +12,22 @@ import { LANG_NAME_BY_CODE } from '#/src/constants';
 import { useLanguageState } from '#/src/hooks';
 import { supportedLanguages } from '#/src/tools/i18n';
 
-const CustomInput = withStyles(() => ({
-  input: {
+const PREFIX = 'LanguageDropDown';
+
+const classes = {
+  input: `${PREFIX}-input`,
+};
+
+const StyledBox = styled(Box)(() => ({
+  [`& .${classes.input}`]: {
     position: 'relative',
     fontSize: 'small',
     color: colors.white,
     padding: '5px 5px 5px 5px',
   },
-}))(InputBase);
+}));
+
+const CustomInput = InputBase;
 
 const iconComponent = (props) => {
   return (
@@ -52,7 +54,7 @@ const LanguageDropDown = () => {
     setLanguage(selectedLanguage);
   };
   return (
-    <Box display="flex" flexDirection="column" alignItems="center">
+    <StyledBox display="flex" flexDirection="column" alignItems="center">
       <LanguageIcon
         onClick={open ? handleClose : handleOpen}
         style={{ cursor: 'pointer' }}
@@ -64,7 +66,6 @@ const LanguageDropDown = () => {
               vertical: 'bottom',
               horizontal: 'left',
             },
-            getContentAnchorEl: null,
           }}
           value={language}
           open={open}
@@ -73,7 +74,13 @@ const LanguageDropDown = () => {
           onChange={handleChange}
           variant="standard"
           renderValue={(value) => value.toUpperCase()}
-          input={<CustomInput />}
+          input={
+            <CustomInput
+              classes={{
+                input: classes.input,
+              }}
+            />
+          }
           IconComponent={iconComponent}>
           {supportedLanguages.map((langCode) => (
             <MenuItem
@@ -90,7 +97,7 @@ const LanguageDropDown = () => {
           ))}
         </Select>
       </FormControl>
-    </Box>
+    </StyledBox>
   );
 };
 

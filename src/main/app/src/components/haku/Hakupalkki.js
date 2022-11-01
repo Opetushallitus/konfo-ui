@@ -1,23 +1,23 @@
 import React, { useState } from 'react';
 
 import {
+  SearchOutlined,
+  ExpandMoreOutlined,
+  ExpandLessOutlined,
+} from '@mui/icons-material';
+import {
   Box,
   CircularProgress,
   Divider,
   Hidden,
-  makeStyles,
   Paper,
   Popover,
   Tooltip,
   IconButton,
-} from '@material-ui/core';
-import Button from '@material-ui/core/Button';
-import InputBase from '@material-ui/core/InputBase';
-import {
-  SearchOutlined,
-  ExpandMoreOutlined,
-  ExpandLessOutlined,
-} from '@material-ui/icons';
+  Button,
+  InputBase,
+} from '@mui/material';
+import { styled } from '@mui/material/styles';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
@@ -30,13 +30,27 @@ import { MobileFiltersOnTopMenu } from '../suodattimet/hakutulosSuodattimet/Mobi
 import { HakupalkkiFilters } from './HakupalkkiFilters';
 import { useSearch } from './hakutulosHooks';
 
-const useStyles = makeStyles((theme) => ({
-  box: {
+const PREFIX = 'Hakupalkki';
+
+const classes = {
+  box: `${PREFIX}-box`,
+  input: `${PREFIX}-input`,
+  searchButton: `${PREFIX}-searchButton`,
+  mobileFilterButton: `${PREFIX}-mobileFilterButton`,
+  mobileIconButton: `${PREFIX}-mobileIconButton`,
+  expandButton: `${PREFIX}-expandButton`,
+  inputRoot: `${PREFIX}-inputRoot`,
+  link: `${PREFIX}-link`,
+};
+
+const StyledBox = styled(Box)(({ theme }) => ({
+  [`& .${classes.box}`]: {
     borderLeft: `2px solid ${colors.lightGrey}`,
     paddingLeft: '10px',
     marginLeft: '10px',
   },
-  input: {
+
+  [`& .${classes.input}`]: {
     borderRadius: 0,
     marginLeft: theme.spacing(3),
     flex: 1,
@@ -45,7 +59,8 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: '600',
     lineHeight: '27px',
   },
-  searchButton: {
+
+  [`& .${classes.searchButton}`]: {
     color: colors.white,
     borderRadius: '2px',
     height: '40px',
@@ -57,61 +72,27 @@ const useStyles = makeStyles((theme) => ({
     marginRight: '20px',
     marginLeft: '20px',
   },
-  mobileFilterButton: {
+
+  [`& .${classes.mobileFilterButton}`]: {
     color: colors.white,
     paddingLeft: 0,
     marginTop: '3px',
     fontWeight: 600,
   },
-  mobileIconButton: {
+
+  [`& .${classes.mobileIconButton}`]: {
     marginRight: theme.spacing(1),
   },
-  expandButton: {
+
+  [`& .${classes.expandButton}`]: {
     height: '40px',
     fontSize: '16px',
     fontWeight: '600',
     lineHeight: '16px',
     textAlign: 'center',
   },
-  popoverRoot: {
-    border: '10px solid black',
-    background: 'rgba(0,0,0,0.5)',
-    opacity: 1,
-    transition: 'all 0.5s',
-  },
-  arrowBox: {
-    position: 'relative',
-    background: colors.white,
-    border: `4px solid ${colors.white}`,
-    borderRadius: '4px',
-    '&:after, &:before': {
-      bottom: '100%',
-      left: '50%',
-      border: 'solid transparent',
-      content: '" "',
-      height: 0,
-      width: 0,
-      position: 'absolute',
-      pointerEvents: 'none',
-    },
 
-    '&:after': {
-      borderColor: 'rgba(136, 183, 213, 0)',
-      borderBottomColor: colors.white,
-    },
-    '&:before': {
-      borderColor: 'rgba(194, 225, 245, 0)',
-      borderBottomColor: colors.white,
-      borderWidth: '25px',
-      marginLeft: '-25px',
-    },
-  },
-  popoverPaper: {
-    marginTop: '8px',
-    paddingTop: '25px',
-    background: 'transparent',
-  },
-  inputRoot: {
+  [`& .${classes.inputRoot}`]: {
     [theme.breakpoints.up('md')]: {
       height: '73px',
     },
@@ -125,10 +106,47 @@ const useStyles = makeStyles((theme) => ({
     border: '1px solid #B2B2B2',
     borderRadius: '2px',
   },
-  link: {
+
+  [`& .${classes.link}`]: {
     marginTop: '10px',
     textDecoration: 'underline',
     color: 'white !important',
+  },
+}));
+
+const ArrowBox = styled(Box)(() => ({
+  position: 'relative',
+  background: colors.white,
+  border: `4px solid ${colors.white}`,
+  borderRadius: '4px',
+  '&:after, &:before': {
+    bottom: '100%',
+    left: '50%',
+    border: 'solid transparent',
+    content: '" "',
+    height: 0,
+    width: 0,
+    position: 'absolute',
+    pointerEvents: 'none',
+  },
+
+  '&:after': {
+    borderColor: 'rgba(136, 183, 213, 0)',
+    borderBottomColor: colors.white,
+  },
+  '&:before': {
+    borderColor: 'rgba(194, 225, 245, 0)',
+    borderBottomColor: colors.white,
+    borderWidth: '25px',
+    marginLeft: '-25px',
+  },
+}));
+
+const StyledPopover = styled(Popover)(() => ({
+  '& .MuiPopover-paper': {
+    marginTop: '8px',
+    paddingTop: '25px',
+    background: 'transparent',
   },
 }));
 
@@ -136,7 +154,6 @@ const checkIsKeywordValid = (word) => _.size(word) === 0 || _.size(word) > 2;
 
 export const Hakupalkki = () => {
   const { t } = useTranslation();
-  const classes = useStyles();
 
   const { keyword, koulutusData, goToSearchPage, setKeyword } = useSearch();
 
@@ -165,7 +182,7 @@ export const Hakupalkki = () => {
   const id = isPopoverOpen ? 'filters-popover' : undefined;
 
   return (
-    <Box display="flex" flexDirection="column" alignItems="flex-end" flexGrow={1}>
+    <StyledBox display="flex" flexDirection="column" alignItems="flex-end" flexGrow={1}>
       <Paper
         component="form"
         onSubmit={(e) => {
@@ -242,31 +259,28 @@ export const Hakupalkki = () => {
         </Hidden>
       </Paper>
       {!_.isEmpty(koulutusFilters) && (
-        <>
-          <Hidden smDown>
-            <Popover
-              classes={{ paper: classes.popoverPaper, root: classes.popoverRoot }}
-              id={id}
-              open={isPopoverOpen}
-              anchorEl={anchorEl}
-              onClose={handleClose}
-              PaperProps={{
-                elevation: 0,
-              }}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'center',
-              }}
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'center',
-              }}>
-              <Box component="div" className={classes.arrowBox}>
-                <HakupalkkiFilters />
-              </Box>
-            </Popover>
-          </Hidden>
-        </>
+        <Hidden smDown>
+          <StyledPopover
+            id={id}
+            open={isPopoverOpen}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            PaperProps={{
+              elevation: 0,
+            }}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'center',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'center',
+            }}>
+            <ArrowBox component="div">
+              <HakupalkkiFilters />
+            </ArrowBox>
+          </StyledPopover>
+        </Hidden>
       )}
       {isAtEtusivu && (
         <Box
@@ -282,6 +296,6 @@ export const Hakupalkki = () => {
           </Hidden>
         </Box>
       )}
-    </Box>
+    </StyledBox>
   );
 };

@@ -1,14 +1,22 @@
 import React, { ReactNode, useRef, useState } from 'react';
 
-import { makeStyles, Typography, Box, Button } from '@material-ui/core';
-import { ExpandLessOutlined, ExpandMoreOutlined } from '@material-ui/icons';
+import { ExpandLessOutlined, ExpandMoreOutlined } from '@mui/icons-material';
+import { Typography, Box, Button } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
 import PopoverWithArrow from '#/src/components/common/PopoverWithArrow';
 
-// NOTE: Tämä koko komponentti saattaa jäädä turhaksi jos etusivun rajaimet refaktoroidaan ulkoasultaan
-const useStyles = makeStyles((theme) => ({
-  item: {
+const PREFIX = 'Suodatin';
+
+const classes = {
+  item: `${PREFIX}-item`,
+  header: `${PREFIX}-header`,
+  expandButton: `${PREFIX}-expandButton`,
+};
+
+const StyledBox = styled(Box)(({ theme }) => ({
+  [`&.${classes.item}`]: {
     padding: '10px 25px 5px 25px',
     // 22% ja 7% koska divider syö tilaa, muuten olisi 25% / 10%
     [theme.breakpoints.up('md')]: {
@@ -18,10 +26,12 @@ const useStyles = makeStyles((theme) => ({
       flexBasis: '7%',
     },
   },
-  header: {
+
+  [`& .${classes.header}`]: {
     paddingLeft: '8px',
   },
-  expandButton: {
+
+  [`& .${classes.expandButton}`]: {
     height: '40px',
     fontSize: '16px',
     fontWeight: 600,
@@ -37,7 +47,6 @@ type Props = {
 };
 
 export const Suodatin = ({ id, children, header }: Props) => {
-  const classes = useStyles();
   const { t } = useTranslation();
 
   const anchorRef = useRef(null);
@@ -46,7 +55,7 @@ export const Suodatin = ({ id, children, header }: Props) => {
   const ExpandIcon = () => (isOpen ? <ExpandLessOutlined /> : <ExpandMoreOutlined />);
 
   return (
-    <Box className={classes.item}>
+    <StyledBox className={classes.item}>
       <Typography className={classes.header} variant="h5">
         {header}
       </Typography>
@@ -66,6 +75,6 @@ export const Suodatin = ({ id, children, header }: Props) => {
         onClose={() => setIsOpen(false)}
         open={isOpen}
       />
-    </Box>
+    </StyledBox>
   );
 };

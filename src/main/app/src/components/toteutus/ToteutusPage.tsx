@@ -1,7 +1,8 @@
 import React, { useMemo } from 'react';
 
-import { Box, Grid, makeStyles, Typography } from '@material-ui/core';
-import DirectionsOutlinedIcon from '@material-ui/icons/DirectionsOutlined';
+import DirectionsOutlinedIcon from '@mui/icons-material/DirectionsOutlined';
+import { Box, Grid, Typography } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import _ from 'lodash';
 import _fp from 'lodash/fp';
 import { useTranslation } from 'react-i18next';
@@ -43,20 +44,30 @@ import { ToteutuksenYhteystiedot } from './ToteutuksenYhteystiedot';
 import { ToteutusHakutiedot } from './ToteutusHakutiedot';
 import { ToteutusInfoGrid } from './ToteutusInfoGrid';
 
-const useStyles = makeStyles((theme) => ({
-  oppilaitosHeadingSpan: {
+const PREFIX = 'ToteutusPage';
+
+const classes = {
+  oppilaitosHeadingSpan: `${PREFIX}-oppilaitosHeadingSpan`,
+  toteutusHeading: `${PREFIX}-toteutusHeading`,
+  yhteystiedotLink: `${PREFIX}-yhteystiedotLink`,
+};
+
+const InnerWrapper = styled('div')(({ theme }) => ({
+  [`& .${classes.oppilaitosHeadingSpan}`]: {
     ...theme.typography.body1,
     marginTop: '20px',
     fontSize: '1.25rem',
     textAlign: 'center',
   },
-  toteutusHeading: {
+
+  [`& .${classes.toteutusHeading}`]: {
     display: 'flex',
     flexDirection: 'column',
     textAlign: 'center',
     whiteSpace: 'pre-wrap',
   },
-  yhteystiedotLink: {
+
+  [`& .${classes.yhteystiedotLink}`]: {
     display: 'inline-block',
     overflow: 'hidden',
     whiteSpace: 'nowrap',
@@ -67,7 +78,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const ToteutusPage = () => {
-  const classes = useStyles();
   const { oid } = useParams<{ oid: string }>();
   const { t } = useTranslation();
   const { isDraft } = useUrlParams();
@@ -145,175 +155,181 @@ export const ToteutusPage = () => {
     <LoadingCircle />
   ) : (
     <ContentWrapper>
-      <Box width="100%" alignSelf="start">
-        <Murupolku
-          path={[
-            { name: t('haku.otsikko'), link: hakuUrl },
-            {
-              name: localize(koulutus?.tutkintoNimi),
-              link: `/koulutus/${toteutus?.koulutusOid}?${hakuParamsStr}`,
-            },
-            { name: `${oppilaitoksenNimiMurupolku}${localize(toteutus?.nimi)}` },
-          ]}
-        />
-      </Box>
-      <Typography className={classes.oppilaitosHeadingSpan} variant="h2" component="h2">
-        {oppilaitostenNimet}
-      </Typography>
-      <Heading className={classes.toteutusHeading} variant="h1">
-        {localize(toteutus?.nimi)}
-      </Heading>
-      {erityisopetusHeading && erityisopetusText && (
-        <InfoBanner
-          heading={erityisopetusHeading}
-          bodytext={erityisopetusText}
-          icon={<DirectionsOutlinedIcon />}
-        />
-      )}
-      <Asiasanat toteutus={toteutus} />
-      <Box mt={6}>
-        <TeemakuvaImage
-          imgUrl={toteutus?.teemakuva}
-          altText={t('toteutus.toteutuksen-teemakuva')}
-        />
-      </Box>
-      <PageSection heading={t('koulutus.tiedot')}>
-        <ToteutusInfoGrid
-          laajuus={getLocalizedToteutusLaajuus(toteutus, koulutus)}
-          opetus={opetus!}
-          hasHaku={hasAnyHakukohde}
-        />
-      </PageSection>
-      {toteutus?.hakuAuki && (
-        <HakuKaynnissaCard
-          title={
-            toteutus?.metadata.hakutermi === 'ilmoittautuminen'
-              ? t('toteutus.ilmoittautuminen-kaynnissa')
-              : t('toteutus.haku-kaynnissa')
-          }
-          text={
-            hasAnyHakukohde
-              ? t('toteutus.katso-hakukohteet')
-              : toteutus?.metadata.hakutermi === 'hakeutuminen'
-              ? t('toteutus.katso-hakeutumisen-ohjeet')
-              : t('toteutus.katso-ilmoittautumisen-ohjeet')
-          }
-          link={
-            <HashLink
-              to="#haut"
-              aria-label="anchor"
-              smooth
-              style={{ textDecoration: 'none' }}
-            />
-          }
-          buttonText={
-            hasAnyHakukohde ? t('toteutus.nayta-hakukohteet') : t('toteutus.nayta-ohjeet')
-          }
-        />
-      )}
-      {!_.isEmpty(kuvaus) && (
-        <HtmlTextBox heading={t('koulutus.kuvaus')} html={localize(kuvaus)} />
-      )}
-      {!_.isEmpty(painotukset) && (
-        <PageSection heading={t('toteutus.painotukset')}>
-          <Accordion
-            items={painotukset.map((painotus: any) => ({
-              title: localizeLukiolinja(painotus.koodi),
-              content: <LocalizedHTML data={painotus?.kuvaus} />,
-            }))}
+      <InnerWrapper>
+        <Box width="100%" alignSelf="start">
+          <Murupolku
+            path={[
+              { name: t('haku.otsikko'), link: hakuUrl },
+              {
+                name: localize(koulutus?.tutkintoNimi),
+                link: `/koulutus/${toteutus?.koulutusOid}?${hakuParamsStr}`,
+              },
+              { name: `${oppilaitoksenNimiMurupolku}${localize(toteutus?.nimi)}` },
+            ]}
           />
-        </PageSection>
-      )}
-      {!_.isEmpty(erityisetKoulutustehtavat) && (
-        <PageSection heading={t('toteutus.erityiset-koulutustehtavat')}>
-          <Accordion
-            items={erityisetKoulutustehtavat.map((koulutustehtava: any) => ({
-              title: localizeLukiolinja(koulutustehtava?.koodi),
-              content: <LocalizedHTML data={koulutustehtava?.kuvaus} />,
-            }))}
+        </Box>
+        <Typography className={classes.oppilaitosHeadingSpan} variant="h2" component="h2">
+          {oppilaitostenNimet}
+        </Typography>
+        <Heading className={classes.toteutusHeading} variant="h1">
+          {localize(toteutus?.nimi)}
+        </Heading>
+        {erityisopetusHeading && erityisopetusText && (
+          <InfoBanner
+            heading={erityisopetusHeading}
+            bodytext={erityisopetusText}
+            icon={<DirectionsOutlinedIcon />}
           />
-        </PageSection>
-      )}
-      <KielivalikoimaBox kielivalikoima={kielivalikoima} />
-      <Diplomit diplomit={diplomit} />
-      <Osaamisalat toteutus={toteutus!} koulutus={koulutus} />
-      {tyyppi === KOULUTUS_TYYPPI.KK_OPINTOKOKONAISUUS && !_.isEmpty(opintojaksot) && (
-        <Opintojaksot opintojaksot={opintojaksot || []} />
-      )}
-      {tyyppi === KOULUTUS_TYYPPI.KK_OPINTOJAKSO &&
-        !_.isEmpty(kuuluuOpintokokonaisuuksiin) && (
-          <Opintokokonaisuudet opintokokonaisuudet={kuuluuOpintokokonaisuuksiin || []} />
         )}
-      <Box id="haut" display="flex" justifyContent="center">
-        <ToteutusHakutiedot toteutus={toteutus} />
-      </Box>
-      {combinedLisatiedot.length > 0 && (
-        <PageSection heading={t('koulutus.lisätietoa')}>
-          <Accordion
-            items={combinedLisatiedot.map((lisatieto) => ({
-              title: localize(lisatieto.otsikko),
-              content: sanitizedHTMLParser(localize(lisatieto.teksti)),
-            }))}
+        <Asiasanat toteutus={toteutus} />
+        <Box mt={6}>
+          <TeemakuvaImage
+            imgUrl={toteutus?.teemakuva}
+            altText={t('toteutus.toteutuksen-teemakuva')}
+          />
+        </Box>
+        <PageSection heading={t('koulutus.tiedot')}>
+          <ToteutusInfoGrid
+            laajuus={getLocalizedToteutusLaajuus(toteutus, koulutus)}
+            opetus={opetus!}
+            hasHaku={hasAnyHakukohde}
           />
         </PageSection>
-      )}
-      {yhteyshenkilot?.length > 0 && (
-        <PageSection heading={t('toteutus.yhteyshenkilot')}>
-          <Box mt={5}>
-            <Grid
-              container
-              direction="row"
-              spacing={8}
-              justifyContent="flex-start"
-              alignItems="flex-start">
-              {yhteyshenkilot?.map((yhteyshenkilo: any, i: number) => (
-                <Grid
-                  item
-                  key={i}
-                  xs={12}
-                  sm={menuVisible ? 12 : 6}
-                  md={menuVisible ? 12 : 6}
-                  lg={6}>
-                  <Grid container direction="column">
-                    <Grid item>
-                      <Typography variant="h5">{localize(yhteyshenkilo.nimi)}</Typography>
-                    </Grid>
-                    <Grid item>
-                      <Typography variant="body1">
-                        {localize(yhteyshenkilo.titteli)}
-                      </Typography>
-                    </Grid>
-                    <Grid item>
-                      <Typography variant="body1">
-                        {localize(yhteyshenkilo.sahkoposti)}
-                      </Typography>
-                    </Grid>
-                    <Grid item>
-                      <Typography variant="body1">
-                        {localize(yhteyshenkilo.puhelinnumero)}
-                      </Typography>
-                    </Grid>
-                    {!_.isEmpty(yhteyshenkilo.wwwSivu) && (
+        {toteutus?.hakuAuki && (
+          <HakuKaynnissaCard
+            title={
+              toteutus?.metadata.hakutermi === 'ilmoittautuminen'
+                ? t('toteutus.ilmoittautuminen-kaynnissa')
+                : t('toteutus.haku-kaynnissa')
+            }
+            text={
+              hasAnyHakukohde
+                ? t('toteutus.katso-hakukohteet')
+                : toteutus?.metadata.hakutermi === 'hakeutuminen'
+                ? t('toteutus.katso-hakeutumisen-ohjeet')
+                : t('toteutus.katso-ilmoittautumisen-ohjeet')
+            }
+            link={
+              <HashLink
+                to="#haut"
+                aria-label="anchor"
+                smooth
+                style={{ textDecoration: 'none' }}
+              />
+            }
+            buttonText={
+              hasAnyHakukohde
+                ? t('toteutus.nayta-hakukohteet')
+                : t('toteutus.nayta-ohjeet')
+            }
+          />
+        )}
+        {!_.isEmpty(kuvaus) && (
+          <HtmlTextBox heading={t('koulutus.kuvaus')} html={localize(kuvaus)} />
+        )}
+        {!_.isEmpty(painotukset) && (
+          <PageSection heading={t('toteutus.painotukset')}>
+            <Accordion
+              items={painotukset.map((painotus: any) => ({
+                title: localizeLukiolinja(painotus.koodi),
+                content: <LocalizedHTML data={painotus?.kuvaus} />,
+              }))}
+            />
+          </PageSection>
+        )}
+        {!_.isEmpty(erityisetKoulutustehtavat) && (
+          <PageSection heading={t('toteutus.erityiset-koulutustehtavat')}>
+            <Accordion
+              items={erityisetKoulutustehtavat.map((koulutustehtava: any) => ({
+                title: localizeLukiolinja(koulutustehtava?.koodi),
+                content: <LocalizedHTML data={koulutustehtava?.kuvaus} />,
+              }))}
+            />
+          </PageSection>
+        )}
+        <KielivalikoimaBox kielivalikoima={kielivalikoima} />
+        <Diplomit diplomit={diplomit} />
+        <Osaamisalat toteutus={toteutus!} koulutus={koulutus} />
+        {tyyppi === KOULUTUS_TYYPPI.KK_OPINTOKOKONAISUUS && !_.isEmpty(opintojaksot) && (
+          <Opintojaksot opintojaksot={opintojaksot || []} />
+        )}
+        {tyyppi === KOULUTUS_TYYPPI.KK_OPINTOJAKSO &&
+          !_.isEmpty(kuuluuOpintokokonaisuuksiin) && (
+            <Opintokokonaisuudet opintokokonaisuudet={kuuluuOpintokokonaisuuksiin || []} />
+          )}
+        <Box id="haut" display="flex" justifyContent="center">
+          <ToteutusHakutiedot toteutus={toteutus} />
+        </Box>
+        {combinedLisatiedot.length > 0 && (
+          <PageSection heading={t('koulutus.lisätietoa')}>
+            <Accordion
+              items={combinedLisatiedot.map((lisatieto) => ({
+                title: localize(lisatieto.otsikko),
+                content: sanitizedHTMLParser(localize(lisatieto.teksti)),
+              }))}
+            />
+          </PageSection>
+        )}
+        {yhteyshenkilot?.length > 0 && (
+          <PageSection heading={t('toteutus.yhteyshenkilot')}>
+            <Box mt={5}>
+              <Grid
+                container
+                direction="row"
+                spacing={8}
+                justifyContent="flex-start"
+                alignItems="flex-start">
+                {yhteyshenkilot?.map((yhteyshenkilo: any, i: number) => (
+                  <Grid
+                    item
+                    key={i}
+                    xs={12}
+                    sm={menuVisible ? 12 : 6}
+                    md={menuVisible ? 12 : 6}
+                    lg={6}>
+                    <Grid container direction="column">
                       <Grid item>
-                        <ExternalLink
-                          className={classes.yhteystiedotLink}
-                          href={localize(yhteyshenkilo.wwwSivu)}>
-                          {localize(yhteyshenkilo.wwwSivu)}
-                        </ExternalLink>
+                        <Typography variant="h5">
+                          {localize(yhteyshenkilo.nimi)}
+                        </Typography>
                       </Grid>
-                    )}
+                      <Grid item>
+                        <Typography variant="body1">
+                          {localize(yhteyshenkilo.titteli)}
+                        </Typography>
+                      </Grid>
+                      <Grid item>
+                        <Typography variant="body1">
+                          {localize(yhteyshenkilo.sahkoposti)}
+                        </Typography>
+                      </Grid>
+                      <Grid item>
+                        <Typography variant="body1">
+                          {localize(yhteyshenkilo.puhelinnumero)}
+                        </Typography>
+                      </Grid>
+                      {!_.isEmpty(yhteyshenkilo.wwwSivu) && (
+                        <Grid item>
+                          <ExternalLink
+                            className={classes.yhteystiedotLink}
+                            href={localize(yhteyshenkilo.wwwSivu)}>
+                            {localize(yhteyshenkilo.wwwSivu)}
+                          </ExternalLink>
+                        </Grid>
+                      )}
+                    </Grid>
                   </Grid>
-                </Grid>
-              ))}
-            </Grid>
-          </Box>
-        </PageSection>
-      )}
-      {!_.isEmpty(toteutus?.oppilaitokset) && (
-        <ToteutuksenYhteystiedot
-          oids={_fp.uniq(toteutus!.oppilaitokset.concat(toteutus!.organisaatiot))}
-        />
-      )}
+                ))}
+              </Grid>
+            </Box>
+          </PageSection>
+        )}
+        {!_.isEmpty(toteutus?.oppilaitokset) && (
+          <ToteutuksenYhteystiedot
+            oids={_fp.uniq(toteutus!.oppilaitokset.concat(toteutus!.organisaatiot))}
+          />
+        )}
+      </InnerWrapper>
     </ContentWrapper>
   );
 };

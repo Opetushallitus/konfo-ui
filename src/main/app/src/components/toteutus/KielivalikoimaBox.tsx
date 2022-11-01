@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Box, makeStyles } from '@material-ui/core';
+import { Box } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
@@ -9,12 +10,19 @@ import { PageSection } from '#/src/components/common/PageSection';
 import { localizeArrayToCommaSeparated } from '#/src/tools/localization';
 import { Kielivalikoima } from '#/src/types/ToteutusTypes';
 
-export const useStyles = makeStyles({
-  table: {
+const PREFIX = 'KielivalikoimaBox';
+
+const classes = {
+  table: `${PREFIX}-table`,
+  cell: `${PREFIX}-cell`,
+};
+
+const StyledPageSection = styled(PageSection)({
+  [`& .${classes.table}`]: {
     borderSpacing: 0,
     borderCollapse: 'separate',
   },
-  cell: {
+  [`& .${classes.cell}`]: {
     textAlign: 'left',
     maxWidth: '150px',
     padding: '8px',
@@ -43,10 +51,8 @@ export const KielivalikoimaBox = ({
     _.isEmpty(kielivalikoima) || _.every(kielivalikoima, _.isEmpty)
   );
 
-  const classes = useStyles();
-
   return hasKielivalikoima ? (
-    <PageSection heading={t('toteutus.kielivalikoima')}>
+    <StyledPageSection heading={t('toteutus.kielivalikoima')}>
       <ColoredPaperContent>
         <Box margin={4}>
           <table className={classes.table}>
@@ -67,6 +73,6 @@ export const KielivalikoimaBox = ({
           </table>
         </Box>
       </ColoredPaperContent>
-    </PageSection>
+    </StyledPageSection>
   ) : null;
 };

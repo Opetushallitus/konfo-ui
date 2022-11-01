@@ -1,5 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react';
 
+import { Close } from '@mui/icons-material';
 import {
   AppBar,
   Button,
@@ -7,12 +8,11 @@ import {
   Divider,
   Grid,
   IconButton,
-  makeStyles,
   SwipeableDrawer,
   Toolbar,
   Typography,
-} from '@material-ui/core';
-import { Close } from '@material-ui/icons';
+} from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
 import { JotpaSuodatin } from '#/src/components/suodattimet/common/JotpaSuodatin';
@@ -38,32 +38,45 @@ import { ValintatapaSuodatin } from '../common/ValintatapaSuodatin';
 import { KoulutusalaSuodatin } from './KoulutusalaSuodatin';
 import { KoulutustyyppiSuodatin } from './KoulutustyyppiSuodatin';
 
-const useStyles = makeStyles(() => ({
-  paperAnchorBottom: {
+const PREFIX = 'MobileFiltersOnTopMenu';
+
+const classes = {
+  paperAnchorBottom: `${PREFIX}-paperAnchorBottom`,
+  appBarRoot: `${PREFIX}-appBarRoot`,
+  buttonLabel: `${PREFIX}-buttonLabel`,
+  containerRoot: `${PREFIX}-containerRoot`,
+  divider: `${PREFIX}-divider`,
+};
+
+const StyledSwipeableDrawer = styled(SwipeableDrawer)(() => ({
+  [`& .${classes.paperAnchorBottom}`]: {
     height: '100%',
   },
-  appBarRoot: {
+
+  [`& .${classes.appBarRoot}`]: {
     height: 50,
   },
-  buttonLabel: {
+
+  [`& .${classes.buttonLabel}`]: {
     fontSize: 16,
     fontWeight: 600,
     whiteSpace: 'nowrap',
   },
-  containerRoot: {
+
+  [`& .${classes.containerRoot}`]: {
     marginTop: 60,
     // Calculation: Viewport height - Appbar height(60) -
     // ToggleFilter button height(40), bottom margin(30) and top margin(20))
     maxHeight: 'calc(100vh - 60px - 30px - 40px - 20px)',
     overflowY: 'scroll',
   },
-  divider: {
+
+  [`& .${classes.divider}`]: {
     margin: '3px 0',
   },
 }));
 
 export const MobileFiltersOnTopMenu = () => {
-  const classes = useStyles();
   const { t } = useTranslation();
 
   const isAtEtusivu = useIsAtEtusivu();
@@ -98,7 +111,7 @@ export const MobileFiltersOnTopMenu = () => {
   };
 
   return (
-    <>
+    <React.Fragment>
       {!showFilters && (
         <MobileToggleFiltersButton
           type={isAtEtusivu ? 'frontpage' : 'fixed'}
@@ -107,12 +120,13 @@ export const MobileFiltersOnTopMenu = () => {
           handleFiltersShowToggle={toggleShowFilters}
         />
       )}
-      <SwipeableDrawer
+      <StyledSwipeableDrawer
         classes={{ paperAnchorBottom: classes.paperAnchorBottom }}
         anchor="bottom"
         onClose={toggleShowFilters}
         onOpen={toggleShowFilters}
-        open={showFilters}>
+        open={showFilters}
+        style={{ zIndex: 1222 }}>
         <AppBar classes={{ root: classes.appBarRoot }}>
           <Toolbar variant="dense" disableGutters>
             <Grid
@@ -134,7 +148,7 @@ export const MobileFiltersOnTopMenu = () => {
                 {count > 0 && (
                   <Button
                     color="inherit"
-                    classes={{ label: classes.buttonLabel }}
+                    classes={{ text: classes.buttonLabel }}
                     onClick={clearFilters}>
                     {t('haku.poista-valitut')}
                   </Button>
@@ -227,7 +241,7 @@ export const MobileFiltersOnTopMenu = () => {
           showFilters={showFilters}
           handleFiltersShowToggle={handleFiltersShowToggle}
         />
-      </SwipeableDrawer>
-    </>
+      </StyledSwipeableDrawer>
+    </React.Fragment>
   );
 };

@@ -1,9 +1,10 @@
 import React from 'react';
 
-import { Link, makeStyles, Typography, useTheme } from '@material-ui/core';
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import useMediaQuery from '@material-ui/core/useMediaQuery/useMediaQuery';
+import { Link, Typography, useTheme } from '@mui/material';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import { styled } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery/useMediaQuery';
 import clsx from 'clsx';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
@@ -18,21 +19,34 @@ import { ImageComponent } from '#/src/components/sivu/ImageComponent';
 import { useContentful } from '#/src/hooks';
 import { getLanguage } from '#/src/tools/localization';
 
-const useStyles = makeStyles({
-  footer: {
+const PREFIX = 'Footer';
+
+const classes = {
+  footer: `${PREFIX}-footer`,
+  link: `${PREFIX}-link`,
+  content: `${PREFIX}-content`,
+  hr: `${PREFIX}-hr`,
+  ophIcon: `${PREFIX}-ophIcon`,
+  icon: `${PREFIX}-icon`,
+  spaceOnBorders: `${PREFIX}-spaceOnBorders`,
+  smSpaceOnBorders: `${PREFIX}-smSpaceOnBorders`,
+};
+
+const Root = styled('footer')({
+  [`& .${classes.footer}`]: {
     backgroundColor: colors.white,
     lineHeight: '21px',
   },
-  link: {
+  [`& .${classes.link}`]: {
     display: 'block',
     fontSize: '14px',
     lineHeight: '26px',
   },
-  content: {
+  [`& .${classes.content}`]: {
     paddingTop: '36px',
     paddingBottom: '36px',
   },
-  hr: {
+  [`& .${classes.hr}`]: {
     backgroundColor: colors.white,
     width: '100%',
     overflow: 'visible',
@@ -43,25 +57,25 @@ const useStyles = makeStyles({
     borderTopColor: colors.lightGrey,
     textAlign: 'center',
   },
-  ophIcon: {
+  [`& .${classes.ophIcon}`]: {
     height: '30px',
     top: '-15px',
     position: 'relative',
     backgroundColor: colors.white,
     padding: '0 68px',
   },
-  icon: {
+  [`& .${classes.icon}`]: {
     height: '68px',
     top: '-24px',
     position: 'relative',
     backgroundColor: colors.white,
     padding: '0 40px 0 40px',
   },
-  spaceOnBorders: {
+  [`& .${classes.spaceOnBorders}`]: {
     paddingLeft: 90,
     paddingRight: 90,
   },
-  smSpaceOnBorders: {
+  [`& .${classes.smSpaceOnBorders}`]: {
     paddingLeft: 10,
     paddingRight: 10,
   },
@@ -72,7 +86,7 @@ const Footer = () => {
   const { data } = useContentful();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('md'));
-  const classes = useStyles();
+
   const single = (entry) => Object.values(entry || {})[0] || {};
   const { content, contentRight, contentCenter, lopputekstit } = single(data.footer);
   const overrides = {
@@ -120,7 +134,7 @@ const Footer = () => {
   };
 
   return (
-    <footer>
+    <Root>
       <div
         className={clsx(
           classes.footer,
@@ -176,7 +190,7 @@ const Footer = () => {
           </Grid>
         </Grid>
       </div>
-    </footer>
+    </Root>
   );
 };
 

@@ -1,24 +1,33 @@
 import React, { useState } from 'react';
 
-import { makeStyles } from '@material-ui/core';
-import Fab from '@material-ui/core/Fab';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
-import SentimentSatisfied from '@material-ui/icons/SentimentSatisfied';
+import CloseIcon from '@mui/icons-material/Close';
+import SentimentSatisfied from '@mui/icons-material/SentimentSatisfied';
+import { Fab, IconButton } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 import Palaute from '#/src/components/common/Palaute';
 
-const useStyles = makeStyles((theme) => ({
-  closeButton: {
+const PREFIX = 'PalautePopup';
+
+const classes = {
+  closeButton: `${PREFIX}-closeButton`,
+  container: `${PREFIX}-container`,
+  box: `${PREFIX}-box`,
+  popup: `${PREFIX}-popup`,
+};
+
+const Root = styled('div')(({ theme }) => ({
+  [`& .${classes.closeButton}`]: {
     padding: '0',
     position: 'absolute',
     right: '0',
     top: '0',
     color: theme.palette.grey[500],
   },
-  container: {
+
+  [`& .${classes.container}`]: {
     position: 'fixed',
     bottom: '15px',
     right: '20px',
@@ -26,7 +35,8 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'flex-end',
   },
-  box: {
+
+  [`& .${classes.box}`]: {
     cursor: 'pointer',
     lineHeight: '17px',
     width: '140px',
@@ -39,7 +49,8 @@ const useStyles = makeStyles((theme) => ({
     border: '1px solid #e0e1dd',
     marginBottom: '8px',
   },
-  popup: {
+
+  [`& .${classes.popup}`]: {
     width: '48px',
     height: '48px',
   },
@@ -47,14 +58,13 @@ const useStyles = makeStyles((theme) => ({
 
 export const PalautePopup = () => {
   const { t } = useTranslation();
-  const classes = useStyles();
 
   const [show, setShow] = useState(false);
   const [tooltip, setTooltip] = useState(true);
   const [hover, setHover] = useState(false);
 
   return (
-    <React.Fragment>
+    <Root>
       <div className={classes.container}>
         {tooltip || hover ? (
           <span onClick={() => setTooltip(false)} className={classes.box}>
@@ -80,6 +90,6 @@ export const PalautePopup = () => {
         </Fab>
       </div>
       {show ? <Palaute open={true} hide={() => setShow(false)} /> : null}
-    </React.Fragment>
+    </Root>
   );
 };

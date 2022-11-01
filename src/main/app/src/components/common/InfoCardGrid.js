@@ -1,22 +1,26 @@
 import React from 'react';
 
-import { Grid, Typography, makeStyles } from '@material-ui/core';
+import { Grid, Typography } from '@mui/material';
+import { styled } from '@mui/material/styles';
 
 import InfoCard from './InfoCard';
 import Spacer from './Spacer';
 
-const useStyles = makeStyles({
-  grid: {
-    width: '100%',
-  },
+const PREFIX = 'InfoCardGrid';
+
+const classes = {
+  grid: `${PREFIX}-grid`,
+};
+
+const StyledGrid = styled(Grid)({
+  width: '100%',
 });
 
 const InfoCardGrid = (props) => {
   const { cards, title } = props;
-  const classes = useStyles();
 
   return (
-    <Grid className={classes.grid} container direction="column" alignItems="center">
+    <StyledGrid className={classes.grid} container direction="column" alignItems="center">
       <Grid item>
         <Typography variant="h2">{title}</Typography>
       </Grid>
@@ -30,7 +34,7 @@ const InfoCardGrid = (props) => {
           </Grid>
         ))}
       </Grid>
-    </Grid>
+    </StyledGrid>
   );
 };
 

@@ -1,16 +1,21 @@
 import React from 'react';
 
-import { makeStyles } from '@material-ui/core';
-import Box from '@material-ui/core/Box';
+import Box from '@mui/material/Box';
+import { styled } from '@mui/material/styles';
 
 import { colors } from '#/src/colors';
 
-const useStyles = makeStyles({
-  textWithBackgroundBox: {
-    backgroundColor: colors.lightGreenBg,
-    height: 'fit-content',
-  },
-  textWithBackgroundText: {
+const PREFIX = 'TextWithBackground';
+
+const classes = {
+  textWithBackgroundBox: `${PREFIX}-textWithBackgroundBox`,
+  textWithBackgroundText: `${PREFIX}-textWithBackgroundText`,
+};
+
+const StyledBox = styled(Box)({
+  backgroundColor: colors.lightGreenBg,
+  height: 'fit-content',
+  [`& .${classes.textWithBackgroundText}`]: {
     textAlign: 'center',
     verticalAlign: 'center',
     fontSize: '0.75rem',
@@ -23,15 +28,14 @@ const useStyles = makeStyles({
 });
 
 export const TextWithBackground = (props: React.PropsWithChildren<object>) => {
-  const classes = useStyles();
   return (
-    <Box
+    <StyledBox
       className={classes.textWithBackgroundBox}
       display="flex"
       justifyContent="center"
       justifyItems="center"
       component="span">
       <span className={classes.textWithBackgroundText}>{props.children}</span>
-    </Box>
+    </StyledBox>
   );
 };

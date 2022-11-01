@@ -1,30 +1,38 @@
 import React, { useState } from 'react';
 
-import { Collapse, makeStyles, Typography } from '@material-ui/core';
-import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
-import ArrowDropUp from '@material-ui/icons/ArrowDropUp';
+import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
+import ArrowDropUp from '@mui/icons-material/ArrowDropUp';
+import { Collapse, Typography } from '@mui/material';
+import { styled } from '@mui/material/styles';
 
 import { colors } from '#/src/colors';
 import { sanitizedHTMLParser } from '#/src/tools/utils';
 
-const useStyles = makeStyles(() => ({
-  heading: {
+const PREFIX = 'AccordionText';
+
+const classes = {
+  heading: `${PREFIX}-heading`,
+  icon: `${PREFIX}-icon`,
+};
+
+const Root = styled('div')(() => ({
+  [`& .${classes.heading}`]: {
     fontWeight: 700,
     color: colors.brandGreen,
     cursor: 'pointer',
   },
-  icon: {
+
+  [`& .${classes.icon}`]: {
     position: 'absolute',
   },
 }));
 
 export const AccordionText = ({ text, title }) => {
-  const classes = useStyles();
   const [isOpen, setIsOpen] = useState(false);
   const handleChange = () => setIsOpen(!isOpen);
 
   return (
-    <>
+    <Root>
       <Typography
         className={classes.heading}
         onClick={handleChange}
@@ -42,6 +50,6 @@ export const AccordionText = ({ text, title }) => {
           {sanitizedHTMLParser(text)}
         </Typography>
       </Collapse>
-    </>
+    </Root>
   );
 };

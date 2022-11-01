@@ -1,21 +1,30 @@
 import React from 'react';
 
-import { Grid, Typography, Paper, makeStyles } from '@material-ui/core';
 import {
   SchoolOutlined,
   TimelapseOutlined,
   ExtensionOutlined,
-} from '@material-ui/icons/';
+} from '@mui/icons-material';
+import { Grid, Typography, Paper } from '@mui/material';
+import { styled } from '@mui/material/styles';
 
 import { educationTypeColorCode } from '#/src/colors';
 
-type StylesProps = Pick<Props, 'tyyppi'>;
+const PREFIX = 'TulevaKoulutusCard';
 
-const useStyles = makeStyles({
-  nimikkeet: {
+const classes = {
+  nimikkeet: `${PREFIX}-nimikkeet`,
+  paper: `${PREFIX}-paper`,
+  icon: `${PREFIX}-icon`,
+  iconContainer: `${PREFIX}-iconContainer`,
+  grid: `${PREFIX}-grid`,
+};
+
+const StyledPaper = styled(Paper)({
+  [`& .${classes.nimikkeet}`]: {
     fontWeight: 600,
   },
-  paper: ({ tyyppi }: StylesProps) => ({
+  [`&.${classes.paper}`]: ({ tyyppi }: StylesProps) => ({
     borderTop: `5px solid ${
       educationTypeColorCode[tyyppi] || educationTypeColorCode.muu
     }`,
@@ -23,17 +32,19 @@ const useStyles = makeStyles({
     height: '100%',
     minWidth: '350px',
   }),
-  icon: {
+  [`& .${classes.icon}`]: {
     fontSize: '1.1875rem',
   },
-  iconContainer: {
+  [`& .${classes.iconContainer}`]: {
     display: 'flex',
     alignItems: 'center',
   },
-  grid: {
+  [`& .${classes.grid}`]: {
     padding: '35px',
   },
 });
+
+type StylesProps = Pick<Props, 'tyyppi'>;
 
 type Props = {
   koulutusName: string;
@@ -48,12 +59,9 @@ export const TulevaKoulutusCard = ({
   tutkintonimikkeet,
   koulutustyypit,
   opintojenlaajuus,
-  tyyppi,
 }: Props) => {
-  const classes = useStyles({ tyyppi });
-
   return (
-    <Paper className={classes.paper}>
+    <StyledPaper className={classes.paper}>
       <Grid
         className={classes.grid}
         container
@@ -106,6 +114,6 @@ export const TulevaKoulutusCard = ({
           )}
         </Grid>
       </Grid>
-    </Paper>
+    </StyledPaper>
   );
 };

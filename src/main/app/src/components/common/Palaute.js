@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import CloseIcon from '@mui/icons-material/Close';
+import Star from '@mui/icons-material/Star';
 import {
   Box,
   Typography,
@@ -10,31 +12,45 @@ import {
   Button,
   TextareaAutosize,
   IconButton,
-  makeStyles,
-} from '@material-ui/core';
-import CloseIcon from '@material-ui/icons/Close';
-import Star from '@material-ui/icons/Star';
+} from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
 import { sendPalaute } from '#/src/api/konfoApi';
 
-const useStyles = makeStyles((theme) => ({
-  fullWidth: {
+const PREFIX = 'Palaute';
+
+const classes = {
+  fullWidth: `${PREFIX}-fullWidth`,
+  textarea: `${PREFIX}-textarea`,
+  button: `${PREFIX}-button`,
+  stars: `${PREFIX}-stars`,
+  star: `${PREFIX}-star`,
+  starSelected: `${PREFIX}-starSelected`,
+  closeButton: `${PREFIX}-closeButton`,
+  backDrop: `${PREFIX}-backDrop`,
+};
+
+const StyledDialog = styled(Dialog)(({ theme }) => ({
+  [`& .${classes.fullWidth}`]: {
     margin: '0',
   },
-  textarea: {
+
+  [`& .${classes.textarea}`]: {
     width: '100%',
     outline: 'none !important',
     border: '1px solid grey',
     fontSize: '16px',
   },
-  button: {
+
+  [`& .${classes.button}`]: {
     textTransform: 'none',
     borderRadius: 0,
     paddingLeft: '30px',
     paddingRight: '30px',
   },
-  stars: {
+
+  [`& .${classes.stars}`]: {
     display: 'flex',
     margin: 'auto',
     width: '100%',
@@ -43,25 +59,28 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     flexDirection: 'row',
   },
-  star: {
+
+  [`& .${classes.star}`]: {
     color: '#979797',
   },
-  starSelected: {
+
+  [`& .${classes.starSelected}`]: {
     color: '#ffcc33',
   },
-  closeButton: {
+
+  [`& .${classes.closeButton}`]: {
     position: 'absolute',
     right: theme.spacing(1),
     top: theme.spacing(1),
     color: theme.palette.grey[500],
   },
-  backDrop: {
+
+  [`& .${classes.backDrop}`]: {
     background: 'rgba(255,255,255,0.4)',
   },
 }));
 
 const Palaute = (props) => {
-  const classes = useStyles();
   const { t } = useTranslation();
   const [palauteAnnettu, setPalauteAnnettu] = useState(false);
   const { open, hide } = props;
@@ -183,7 +202,7 @@ const Palaute = (props) => {
   };
 
   return (
-    <Dialog
+    <StyledDialog
       classes={{ paper: classes.fullWidth }}
       BackdropProps={{
         classes: {
@@ -194,7 +213,7 @@ const Palaute = (props) => {
       onClose={hide}
       aria-labelledby={t('palaute.otsikko')}>
       {palauteAnnettu ? <KiitosPalautteesta /> : <AnnaPalaute />}
-    </Dialog>
+    </StyledDialog>
   );
 };
 export default Palaute;

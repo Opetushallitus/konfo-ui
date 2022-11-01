@@ -1,8 +1,10 @@
 import React from 'react';
 
-import { Box, Button, makeStyles, Typography } from '@material-ui/core';
-import OpenInNewIcon from '@material-ui/icons/OpenInNew';
-import SportsSoccerIcon from '@material-ui/icons/SportsSoccer';
+import {
+  OpenInNew as OpenInNewIcon,
+  SportsSoccer as SportsSoccerIcon,
+} from '@mui/icons-material';
+import { Box, Button, Typography } from '@mui/material';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -29,20 +31,29 @@ import { TietoaOpiskelusta } from './TietoaOpiskelusta';
 import { TulevaTarjontaList } from './TulevaTarjontaList';
 import { hasYhteystiedot, Yhteystiedot } from './Yhteystiedot';
 
-const useStyles = makeStyles((theme) => ({
-  title: { marginTop: 40 },
-  alatText: {
+const PREFIX = 'OppilaitosPage';
+
+const classes = {
+  title: `${PREFIX}-title`,
+  alatText: `${PREFIX}-alatText`,
+  button: `${PREFIX}-button`,
+};
+
+const AdditionalStylesFn = ({ theme }) => ({
+  [`& .${classes.title}`]: { marginTop: 40 },
+
+  [`& .${classes.alatText}`]: {
     ...theme.typography.body1,
     fontSize: '1.25rem',
   },
-  button: {
+
+  [`& .${classes.button}`]: {
     marginTop: 20,
     fontWeight: 600,
   },
-}));
+});
 
 export const OppilaitosPage = (props) => {
-  const classes = useStyles();
   const { oid } = useParams();
   const { t } = useTranslation();
   const isOppilaitosOsa = props.oppilaitosOsa;
@@ -70,7 +81,7 @@ export const OppilaitosPage = (props) => {
       return <NotFound />;
     case 'success':
       return (
-        <ContentWrapper>
+        <ContentWrapper additionalStylesFn={AdditionalStylesFn}>
           <Box width="100%" alignSelf="start">
             <Murupolku
               path={[

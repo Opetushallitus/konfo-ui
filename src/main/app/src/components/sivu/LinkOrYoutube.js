@@ -1,11 +1,20 @@
 import React from 'react';
 
-import { Link, makeStyles } from '@material-ui/core';
-import OpenInNewIcon from '@material-ui/icons/OpenInNew';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import { Link } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import parse from 'url-parse';
 
-const useStyles = makeStyles({
-  media: {
+const PREFIX = 'LinkOrYoutube';
+
+const classes = {
+  media: `${PREFIX}-media`,
+  container: `${PREFIX}-container`,
+  padding: `${PREFIX}-padding`,
+};
+
+const StyledLink = styled(Link)({
+  [`& .${classes.media}`]: {
     position: 'absolute',
     top: '0',
     left: '0',
@@ -14,13 +23,13 @@ const useStyles = makeStyles({
     display: 'block',
     margin: '10px 0px',
   },
-  container: {
+  [`& .${classes.container}`]: {
     position: 'relative',
     paddingBottom: '56.25%',
     height: '0',
     overflow: 'hidden',
   },
-  padding: {
+  [`& .${classes.padding}`]: {
     paddingTop: '0',
     paddingBottom: '20px',
   },
@@ -28,7 +37,7 @@ const useStyles = makeStyles({
 
 export const LinkOrYoutube = ({ children, className, href, ...props }) => {
   const url = parse(href, true);
-  const classes = useStyles();
+
   if (className === 'embedly-card') {
     return (
       <div className={classes.padding}>
@@ -50,10 +59,15 @@ export const LinkOrYoutube = ({ children, className, href, ...props }) => {
     );
   } else {
     return (
-      <Link target="_blank" rel="noopener" {...props} href={href} underline="always">
+      <StyledLink
+        target="_blank"
+        rel="noopener"
+        {...props}
+        href={href}
+        underline="always">
         {children}
         <OpenInNewIcon className={classes.icon} />
-      </Link>
+      </StyledLink>
     );
   }
 };

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Box, Grid } from '@material-ui/core';
+import { Box, Grid } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { TextButton } from '#/src/components/common/TextButton';

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box, Typography } from '@material-ui/core';
+import { Box, Typography } from '@mui/material';
 
 import { ContentWithTopIcon } from '#/src/components/common/ContentWithTopIcon';
 

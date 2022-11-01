@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { Grid, makeStyles, Paper, Typography } from '@material-ui/core';
-import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined';
+import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
+import { Grid, Paper, Typography } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
@@ -11,13 +12,21 @@ import { localize } from '#/src/tools/localization';
 import { sanitizedHTMLParser } from '#/src/tools/utils';
 import { Toteutus } from '#/src/types/ToteutusTypes';
 
-const useStyles = makeStyles((theme) => ({
-  hakuName: {
+const PREFIX = 'ToteutusHakuEiSahkoista';
+
+const classes = {
+  hakuName: `${PREFIX}-hakuName`,
+  paper: `${PREFIX}-paper`,
+};
+
+const StyledPageSection = styled(PageSection)(({ theme }) => ({
+  [`& .${classes.hakuName}`]: {
     ...theme.typography.h4,
     fontWeight: 'bold',
     color: colors.black,
   },
-  paper: { padding: '30px', width: '100%' },
+
+  [`& .${classes.paper}`]: { padding: '30px', width: '100%' },
 }));
 
 type Props = {
@@ -25,7 +34,6 @@ type Props = {
 };
 
 export const ToteutusHakuEiSahkoista = ({ toteutus }: Props) => {
-  const classes = useStyles();
   const { t } = useTranslation();
 
   const hakeuduTaiIlmoittauduHeading =
@@ -36,7 +44,7 @@ export const ToteutusHakuEiSahkoista = ({ toteutus }: Props) => {
   const toteutusMetadata = toteutus?.metadata;
 
   return (
-    <PageSection heading={hakeuduTaiIlmoittauduHeading} maxWidth="800px">
+    <StyledPageSection heading={hakeuduTaiIlmoittauduHeading} maxWidth="800px">
       <Paper className={classes.paper}>
         <Grid
           container
@@ -60,6 +68,6 @@ export const ToteutusHakuEiSahkoista = ({ toteutus }: Props) => {
           </Grid>
         </Grid>
       </Paper>
-    </PageSection>
+    </StyledPageSection>
   );
 };

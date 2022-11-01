@@ -1,30 +1,22 @@
 import React from 'react';
 
-import { Card, CardMedia, makeStyles } from '@material-ui/core';
+import { Card, CardMedia } from '@mui/material';
+import { styled } from '@mui/material/styles';
 
 import { useContentful } from '#/src/hooks';
 
-const useStyles = makeStyles({
-  media: {
+const PREFIX = 'ImageComponent';
+
+const classes = {
+  media: `${PREFIX}-media`,
+};
+
+const StyledImageComponent = styled(Card)({
+  [`& .${classes.media}`]: {
     height: 0,
     paddingTop: '56.25%', // 16:9 aspect ratio
   },
 });
-
-const ImageComponentImpl = ({ url, title, label }) => {
-  const classes = useStyles();
-  return (
-    <Card elevation={0}>
-      <CardMedia
-        className={classes.media}
-        image={url}
-        role="img"
-        title={title}
-        aria-label={label}
-      />
-    </Card>
-  );
-};
 
 export const ImageComponent = ({ src, alt }) => {
   const { data, assetUrl } = useContentful();
@@ -32,10 +24,14 @@ export const ImageComponent = ({ src, alt }) => {
   const url = src.replace('//images.ctfassets.net/', '');
   const a = asset[url];
   return (
-    <ImageComponentImpl
-      url={assetUrl(url)}
-      title={a ? a.name : alt}
-      label={a ? a.description : alt}
-    />
+    <StyledImageComponent elevation={0}>
+      <CardMedia
+        className={classes.media}
+        image={assetUrl(url)}
+        role="img"
+        title={a ? a.name : alt}
+        aria-label={a ? a.description : alt}
+      />
+    </StyledImageComponent>
   );
 };

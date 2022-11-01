@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { SchoolOutlined, PublicOutlined } from '@material-ui/icons';
+import { SchoolOutlined, PublicOutlined } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 
 import { EntiteettiKortti } from '#/src/components/common/EntiteettiKortti';

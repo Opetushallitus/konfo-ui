@@ -1,5 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react';
 
+import { Close } from '@mui/icons-material';
 import {
   AppBar,
   Button,
@@ -7,12 +8,11 @@ import {
   Divider,
   Grid,
   IconButton,
-  makeStyles,
   SwipeableDrawer,
   Toolbar,
   Typography,
-} from '@material-ui/core';
-import { Close } from '@material-ui/icons';
+} from '@mui/material';
+import { styled } from '@mui/material/styles';
 import _fp from 'lodash/fp';
 import { useTranslation } from 'react-i18next';
 
@@ -30,24 +30,39 @@ import { FilterValue } from '#/src/types/SuodatinTypes';
 import { AmmOsaamisalatSuodatin } from './AmmOsaamisalatSuodatin';
 import { LukiolinjatSuodatin } from './LukiolinjatSuodatin';
 
-const useStyles = makeStyles(() => ({
-  paperAnchorBottom: {
+const PREFIX = 'ToteutusMobileFiltersOnTopMenu';
+
+const classes = {
+  paperAnchorBottom: `${PREFIX}-paperAnchorBottom`,
+  appBarRoot: `${PREFIX}-appBarRoot`,
+  buttonLabel: `${PREFIX}-buttonLabel`,
+  containerRoot: `${PREFIX}-containerRoot`,
+  divider: `${PREFIX}-divider`,
+};
+
+const StyledSwipeableDrawer = styled(SwipeableDrawer)(() => ({
+  zIndex: 1222,
+  [`& .${classes.paperAnchorBottom}`]: {
     height: '100%',
   },
-  appBarRoot: {
+
+  [`& .${classes.appBarRoot}`]: {
     height: 50,
   },
-  buttonLabel: {
+
+  [`& .${classes.buttonLabel}`]: {
     fontSize: 16,
     fontWeight: 600,
     whiteSpace: 'nowrap',
   },
-  containerRoot: {
+
+  [`& .${classes.containerRoot}`]: {
     marginTop: 60,
     height: '100%',
     overflowY: 'scroll',
   },
-  divider: {
+
+  [`& .${classes.divider}`]: {
     margin: '3px 0',
   },
 }));
@@ -69,7 +84,6 @@ export const MobileFiltersOnTopMenu = ({
   clearChosenFilters,
   setFilters,
 }: Props) => {
-  const classes = useStyles();
   const { t } = useTranslation();
 
   const [showFilters, setShowFilters] = useState(false);
@@ -90,7 +104,7 @@ export const MobileFiltersOnTopMenu = ({
   );
 
   return (
-    <>
+    <React.Fragment>
       {!showFilters && (
         <MobileToggleFiltersButton
           type="KOMO"
@@ -99,7 +113,7 @@ export const MobileFiltersOnTopMenu = ({
           handleFiltersShowToggle={toggleShowFilters}
         />
       )}
-      <SwipeableDrawer
+      <StyledSwipeableDrawer
         classes={{ paperAnchorBottom: classes.paperAnchorBottom }}
         anchor="bottom"
         onClose={toggleShowFilters}
@@ -126,7 +140,7 @@ export const MobileFiltersOnTopMenu = ({
                 {chosenFilterCount > 0 && (
                   <Button
                     color="inherit"
-                    classes={{ label: classes.buttonLabel }}
+                    classes={{ text: classes.buttonLabel }}
                     onClick={clearChosenFilters}>
                     {t('haku.poista-valitut')}
                   </Button>
@@ -135,7 +149,7 @@ export const MobileFiltersOnTopMenu = ({
             </Grid>
           </Toolbar>
         </AppBar>
-        <Container classes={{ root: classes.containerRoot }}>
+        <Container className={classes.containerRoot}>
           <OpetuskieliSuodatin
             expanded={false}
             values={values.opetuskieli}
@@ -224,7 +238,7 @@ export const MobileFiltersOnTopMenu = ({
           showFilters={showFilters}
           handleFiltersShowToggle={toggleShowFilters}
         />
-      </SwipeableDrawer>
-    </>
+      </StyledSwipeableDrawer>
+    </React.Fragment>
   );
 };

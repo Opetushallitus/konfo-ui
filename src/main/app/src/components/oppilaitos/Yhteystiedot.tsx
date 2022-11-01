@@ -1,14 +1,7 @@
 import React, { useMemo } from 'react';
 
-import {
-  Box,
-  Grid,
-  makeStyles,
-  Paper,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from '@material-ui/core';
+import { Box, Grid, Paper, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
@@ -19,14 +12,24 @@ import { localize } from '#/src/tools/localization';
 import { byLocaleCompare, toId } from '#/src/tools/utils';
 import { Yhteystiedot as YhteystiedotType } from '#/src/types/common';
 
-const useStyles = makeStyles(() => ({
-  container: {
+const PREFIX = 'Yhteystiedot';
+
+const classes = {
+  container: `${PREFIX}-container`,
+  info: `${PREFIX}-info`,
+  text: `${PREFIX}-text`,
+};
+
+const StyledBox = styled(Box)(() => ({
+  [`& .${classes.container}`]: {
     marginTop: 20,
   },
-  info: {
+
+  [`& .${classes.info}`]: {
     width: 230,
   },
-  text: {
+
+  [`& .${classes.text}`]: {
     color: colors.black,
     fontWeight: 600,
   },
@@ -85,7 +88,6 @@ export const Yhteystiedot = ({
   hakijapalveluidenYhteystiedot,
   organisaatioidenYhteystiedot,
 }: Props) => {
-  const classes = useStyles();
   const { t } = useTranslation();
   const theme = useTheme();
   const isSm = useMediaQuery(theme.breakpoints.down('sm'));
@@ -102,7 +104,7 @@ export const Yhteystiedot = ({
   );
 
   return (
-    <Box
+    <StyledBox
       mt={isSm ? 6 : 12}
       display="flex"
       flexDirection="column"
@@ -172,6 +174,6 @@ export const Yhteystiedot = ({
           </Grid>
         )
       )}
-    </Box>
+    </StyledBox>
   );
 };

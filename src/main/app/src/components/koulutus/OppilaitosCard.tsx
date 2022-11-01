@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { Grid, makeStyles, Paper, Typography } from '@material-ui/core';
-import PublicIcon from '@material-ui/icons/Public';
+import PublicIcon from '@mui/icons-material/Public';
+import { Grid, Paper, Typography } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -9,29 +10,43 @@ import { educationTypeColorCode } from '#/src/colors';
 import { OppilaitosKorttiLogo } from '#/src/components/common/KorttiLogo';
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
 
-type StylesProps = Pick<Props, 'tyyppi'>;
+const PREFIX = 'OppilaitosCard';
 
-const useStyles = makeStyles(() => ({
-  content: {
+const classes = {
+  content: `${PREFIX}-content`,
+  paper: `${PREFIX}-paper`,
+  icon: `${PREFIX}-icon`,
+  iconContainer: `${PREFIX}-iconContainer`,
+  heading: `${PREFIX}-heading`,
+};
+
+const StyledGrid = styled(Grid)<StylesProps>(({ tyyppi }) => ({
+  [`& .${classes.content}`]: {
     width: 'unset',
     margin: '12px',
   },
-  paper: ({ tyyppi }: StylesProps) => ({
+
+  [`& .${classes.paper}`]: {
     borderTop: `5px solid
       ${educationTypeColorCode[tyyppi] || educationTypeColorCode.muu}`,
     maxWidth: '620px',
-  }),
-  icon: {
+  },
+
+  [`& .${classes.icon}`]: {
     fontSize: '1.1875rem',
   },
-  iconContainer: {
+
+  [`& .${classes.iconContainer}`]: {
     display: 'flex',
     alignItems: 'center',
   },
-  heading: {
+
+  [`& .${classes.heading}`]: {
     fontWeight: 600,
   },
 }));
+
+type StylesProps = Pick<Props, 'tyyppi'>;
 
 type Props = {
   heading: string;
@@ -48,11 +63,10 @@ export const OppilaitosCard = ({
   oppilaitosOid,
   tyyppi,
 }: Props) => {
-  const classes = useStyles({ tyyppi });
   const { t } = useTranslation();
 
   return (
-    <Grid item xs={12} sm={6} md={4}>
+    <StyledGrid item xs={12} sm={6} md={4} tyyppi={tyyppi}>
       <LocalizedLink
         underline="none"
         component={RouterLink}
@@ -93,6 +107,6 @@ export const OppilaitosCard = ({
           </Grid>
         </Paper>
       </LocalizedLink>
-    </Grid>
+    </StyledGrid>
   );
 };

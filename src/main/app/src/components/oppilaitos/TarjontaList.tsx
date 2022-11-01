@@ -1,9 +1,10 @@
 import React from 'react';
 
-import { Typography, Grid, makeStyles, Box } from '@material-ui/core';
-import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
-import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
-import PublicIcon from '@material-ui/icons/Public';
+import EuroSymbolIcon from '@mui/icons-material/EuroSymbol';
+import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
+import PublicIcon from '@mui/icons-material/Public';
+import { Typography, Grid, Box } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
 import { EntiteettiKortti } from '#/src/components/common/EntiteettiKortti';
@@ -17,14 +18,21 @@ import { Pagination } from '#/src/components/common/Pagination';
 
 import { usePaginatedTarjonta } from './hooks';
 
-const useStyles = makeStyles({
-  container: {
+const PREFIX = 'TarjontaList';
+
+const classes = {
+  container: `${PREFIX}-container`,
+  grid: `${PREFIX}-grid`,
+};
+
+const StyledPageSection = styled(PageSection)({
+  [`& .${classes.container}`]: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     marginTop: '100px',
   },
-  grid: {
+  [`& .${classes.grid}`]: {
     maxWidth: '900px',
   },
 });
@@ -35,7 +43,6 @@ type Props = {
 };
 
 export const TarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
-  const classes = useStyles();
   const { t } = useTranslation();
   const { queryResult, pagination, setPagination } = usePaginatedTarjonta({
     oid,
@@ -53,7 +60,7 @@ export const TarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
       return <LoadingCircle />;
     case 'success':
       return tarjonta.hasHits ? (
-        <PageSection
+        <StyledPageSection
           heading={
             <Typography variant="h2" id={scrolltargetId}>
               {t('oppilaitos.oppilaitoksessa-jarjestettavat-koulutukset')}
@@ -94,7 +101,7 @@ export const TarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
             setPagination={setPagination}
             scrollTargetId={scrolltargetId}
           />
-        </PageSection>
+        </StyledPageSection>
       ) : null;
     default:
       return null;

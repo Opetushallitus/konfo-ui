@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box, Typography, BoxProps, useMediaQuery } from '@material-ui/core';
+import { Box, Typography, BoxProps, useMediaQuery } from '@mui/material';
 import _fp from 'lodash/fp';
 
 import { theme } from '#/src/theme';

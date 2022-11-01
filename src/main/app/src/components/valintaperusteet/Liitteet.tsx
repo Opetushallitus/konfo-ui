@@ -1,15 +1,8 @@
 import React from 'react';
 
-import {
-  Box,
-  Card,
-  CardContent,
-  Divider,
-  Grid,
-  Typography,
-  withStyles,
-} from '@material-ui/core';
-import InsertDriveFileOutlinedIcon from '@material-ui/icons/InsertDriveFileOutlined';
+import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
+import { Box, Card, CardContent, Divider, Grid, Typography } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
@@ -23,18 +16,26 @@ import { formatDateString, toId } from '#/src/tools/utils';
 import { Yhteystiedot } from '#/src/types/common';
 import { Hakukohde, Liite, FormatoituAikaleima } from '#/src/types/HakukohdeTypes';
 
+const PREFIX = 'Liitteet';
+
+const classes = {
+  root: `${PREFIX}-root`,
+};
+
+const StyledGrid = styled(Grid)(() => ({
+  [`& .${classes.root}`]: {
+    color: colors.brandGreen,
+    marginTop: 12,
+  },
+}));
+
 const LIITTEEN_TOIMITUSTAPA = {
   TOIMITETAAN_LAHETTAMISEN_YHTEYDESSA: 'lomake',
   JARJESTAJAN_OSOITE: 'hakijapalvelu',
   MUU_OSOITE: 'osoite',
 };
 
-const FileIcon = withStyles(() => ({
-  root: {
-    color: colors.brandGreen,
-    marginTop: 12,
-  },
-}))(InsertDriveFileOutlinedIcon);
+const FileIcon = InsertDriveFileOutlinedIcon;
 
 type ToimituspaikkaProps = {
   postiosoite?: string;
@@ -146,11 +147,15 @@ const LiiteCard = ({
       <HeadingBoundary>
         <Card elevation={2}>
           <CardContent>
-            <Grid container>
+            <StyledGrid container>
               {liitteet.map(({ nimi, kuvaus }, i) => (
                 <Grid container key={`liite-${nimi}-${i}`}>
                   <Grid item container xs={2} justifyContent="flex-end">
-                    <FileIcon />
+                    <FileIcon
+                      classes={{
+                        root: classes.root,
+                      }}
+                    />
                   </Grid>
                   <Grid item xs={10}>
                     <Box m={1}>
@@ -184,7 +189,7 @@ const LiiteCard = ({
                   </Typography>
                 </Box>
               </Grid>
-            </Grid>
+            </StyledGrid>
           </CardContent>
         </Card>
       </HeadingBoundary>

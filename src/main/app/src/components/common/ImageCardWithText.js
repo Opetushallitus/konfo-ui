@@ -1,19 +1,30 @@
 import React from 'react';
 
-import { makeStyles, Typography, Box } from '@material-ui/core';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { Typography, Box } from '@mui/material';
+import { styled } from '@mui/material/styles';
 
 import { colors } from '#/src/colors';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    position: 'relative',
-  },
-  text: {
+const PREFIX = 'ImageCardWithText';
+
+const classes = {
+  root: `${PREFIX}-root`,
+  text: `${PREFIX}-text`,
+  img: `${PREFIX}-img`,
+  box: `${PREFIX}-box`,
+  icon: `${PREFIX}-icon`,
+};
+
+const Root = styled('div')(({ theme }) => ({
+  position: 'relative',
+
+  [`& .${classes.text}`]: {
     ...theme.typography.subtitle1,
     color: colors.white,
   },
-  img: {
+
+  [`& .${classes.img}`]: {
     height: '300px',
     width: '300px',
     objectFit: 'cover',
@@ -22,7 +33,8 @@ const useStyles = makeStyles((theme) => ({
       width: '100%',
     },
   },
-  box: {
+
+  [`& .${classes.box}`]: {
     position: 'absolute',
     right: '0%',
     top: '65%',
@@ -30,16 +42,16 @@ const useStyles = makeStyles((theme) => ({
     background: colors.brandGreen,
     padding: '14px',
   },
-  icon: {
+
+  [`& .${classes.icon}`]: {
     fontSize: '24px',
   },
 }));
 
 const ImageCardWithText = (props) => {
-  const classes = useStyles();
   const { image, cardText } = props;
   return (
-    <div className={classes.root}>
+    <Root className={classes.root}>
       <img src={image} alt={cardText} className={classes.img} />
       <Box display="flex" alignItems="center" component="span" className={classes.box}>
         <Typography variant="body1" className={classes.text}>
@@ -47,7 +59,7 @@ const ImageCardWithText = (props) => {
         </Typography>
         <ChevronRightIcon className={`${classes.text} ${classes.icon}`} />
       </Box>
-    </div>
+    </Root>
   );
 };
 

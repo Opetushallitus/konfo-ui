@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { makeStyles } from '@material-ui/core';
-import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
-import HomeWorkOutlinedIcon from '@material-ui/icons/HomeWorkOutlined';
-import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
-import PublicOutlinedIcon from '@material-ui/icons/PublicOutlined';
-import SchoolOutlinedIcon from '@material-ui/icons/SchoolOutlined';
+import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+import HomeWorkOutlinedIcon from '@mui/icons-material/HomeWorkOutlined';
+import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
+import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined';
+import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
+import { styled } from '@mui/material/styles';
 import _fp from 'lodash/fp';
 import { useTranslation } from 'react-i18next';
 
@@ -14,8 +14,14 @@ import { getLanguage, localizeArrayToCommaSeparated } from '#/src/tools/localiza
 import { condArray } from '#/src/tools/utils';
 import { Koodi } from '#/src/types/common';
 
-const useStyles = makeStyles((theme) => ({
-  koulutusInfoGridIcon: {
+const PREFIX = 'OppilaitosinfoGrid';
+
+const classes = {
+  koulutusInfoGridIcon: `${PREFIX}-koulutusInfoGridIcon`,
+};
+
+const StyledInfoGrid = styled(InfoGrid)(({ theme }) => ({
+  [`& .${classes.koulutusInfoGridIcon}`]: {
     color: theme.palette.primary.main,
   },
 }));
@@ -35,7 +41,6 @@ export const OppilaitosinfoGrid = ({
   koulutusohjelmia,
   toimipisteita,
 }: Props) => {
-  const classes = useStyles();
   const { t } = useTranslation();
 
   const paikkakunnat = localizeArrayToCommaSeparated(kotipaikat, { sorted: true });
@@ -73,5 +78,5 @@ export const OppilaitosinfoGrid = ({
     },
   ];
 
-  return <InfoGrid gridData={perustiedotData} />;
+  return <StyledInfoGrid gridData={perustiedotData} />;
 };

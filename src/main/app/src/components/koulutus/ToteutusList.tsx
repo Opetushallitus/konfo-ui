@@ -1,9 +1,10 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { Grid, Hidden, makeStyles, Typography } from '@material-ui/core';
-import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
-import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
-import PublicIcon from '@material-ui/icons/Public';
+import EuroSymbolIcon from '@mui/icons-material/EuroSymbol';
+import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
+import PublicIcon from '@mui/icons-material/Public';
+import { Grid, Hidden, Typography } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import _fp from 'lodash/fp';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -45,14 +46,22 @@ import { LukiolinjatSuodatin } from '../suodattimet/toteutusSuodattimet/Lukiolin
 import { MobileFiltersOnTopMenu } from '../suodattimet/toteutusSuodattimet/MobileFiltersOnTopMenu';
 import { useKoulutusJarjestajat } from './hooks';
 
-const useStyles = makeStyles({
-  grid: {
+const PREFIX = 'ToteutusList';
+
+const classes = {
+  grid: `${PREFIX}-grid`,
+  filtersContainer: `${PREFIX}-filtersContainer`,
+  filter: `${PREFIX}-filter`,
+};
+
+const Root = styled('div')({
+  [`& .${classes.grid}`]: {
     maxWidth: '900px',
   },
-  filtersContainer: {
+  [`& .${classes.filtersContainer}`]: {
     marginBottom: '16px',
   },
-  filter: {
+  [`& .${classes.filter}`]: {
     minWidth: '250px',
   },
 });
@@ -70,8 +79,6 @@ type JarjestajaData = {
 };
 
 const SuodatinGridItem: React.FC = ({ children }) => {
-  const classes = useStyles();
-
   return (
     <Grid item className={classes.filter} xs={6} lg={4}>
       {children}
@@ -81,7 +88,6 @@ const SuodatinGridItem: React.FC = ({ children }) => {
 
 export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
   const { t } = useTranslation();
-  const classes = useStyles();
 
   // NOTE: Tämä haetaan vain kerran alkuarvoja varten + Haetaan järjestäjätulokset hakusivulta periytyneillä rajaimilla
   const initialCheckedFilters = useSelector<any, Record<string, Array<string>>>(
@@ -180,7 +186,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
   const [preventClicks, setPreventClicks] = useState(false);
 
   return (
-    <div>
+    <Root>
       <PageSection
         heading={
           <Typography variant="h2" id={scrollTargetId}>
@@ -410,6 +416,6 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
           setPreventClicks(false);
           e.stopPropagation();
         }}></div>
-    </div>
+    </Root>
   );
 };

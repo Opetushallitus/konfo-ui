@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@mui/material';
 import { TFunction } from 'i18next';
 import _fp from 'lodash/fp';
 import { useTranslation } from 'react-i18next';

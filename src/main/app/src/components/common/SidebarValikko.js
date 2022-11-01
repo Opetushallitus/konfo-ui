@@ -1,24 +1,34 @@
 import React from 'react';
 
-import { makeStyles } from '@material-ui/core';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
 import { useContentful, useSideMenu } from '#/src/hooks';
 
-const useStyles = makeStyles({
-  root: {
-    color: colors.green,
-    marginLeft: '20px',
-  },
-  valikko: {
+const PREFIX = 'SidebarValikko';
+
+const classes = {
+  root: `${PREFIX}-root`,
+  valikko: `${PREFIX}-valikko`,
+  otsikko: `${PREFIX}-otsikko`,
+  parentOtsikko: `${PREFIX}-parentOtsikko`,
+  parentOtsikkoIconBase: `${PREFIX}-parentOtsikkoIconBase`,
+  parentOtsikkoIcon: `${PREFIX}-parentOtsikkoIcon`,
+  otsikkoText: `${PREFIX}-otsikkoText`,
+  valintaText: `${PREFIX}-valintaText`,
+  valintaIconBase: `${PREFIX}-valintaIconBase`,
+  valintaIcon: `${PREFIX}-valintaIcon`,
+};
+
+const StyledList = styled(List)({
+  color: colors.green,
+  marginLeft: '20px',
+  [`& .${classes.valikko}`]: {
     paddingTop: '0',
     paddingBottom: '0',
     borderTopStyle: 'solid',
@@ -30,39 +40,39 @@ const useStyles = makeStyles({
       marginBottom: '40px',
     },
   },
-  otsikko: {
+  [`& .${classes.otsikko}`]: {
     paddingTop: '0',
     paddingBottom: '0',
     color: colors.brandGreen,
   },
-  parentOtsikko: {
+  [`& .${classes.parentOtsikko}`]: {
     paddingTop: '0',
     paddingBottom: '0',
   },
-  parentOtsikkoIconBase: {
+  [`& .${classes.parentOtsikkoIconBase}`]: {
     backgroundColor: colors.brandGreen,
     padding: '13px',
     marginRight: '10px',
   },
-  parentOtsikkoIcon: {
+  [`& .${classes.parentOtsikkoIcon}`]: {
     color: colors.white,
   },
-  otsikkoText: {
+  [`& .${classes.otsikkoText}`]: {
     textTransform: 'uppercase',
     fontSize: '12px',
     color: colors.brandGreen,
   },
-  valintaText: {
+  [`& .${classes.valintaText}`]: {
     marginTop: '9px',
     marginBottom: '9px',
   },
-  valintaIconBase: {
+  [`& .${classes.valintaIconBase}`]: {
     borderLeftWidth: '1px',
     borderLeftStyle: 'solid',
     borderColor: colors.lightGrey,
     padding: '12px',
   },
-  valintaIcon: {
+  [`& .${classes.valintaIcon}`]: {
     color: colors.brandGreen,
   },
 });
@@ -71,7 +81,6 @@ const ListItemLink = (props) => {
   return <ListItem button component="a" {...props} />;
 };
 const SivuItem = (props) => {
-  const classes = useStyles();
   const { name, id, onClick } = props;
   return (
     <ListItemLink role="none" onClick={() => onClick(id)} className={classes.valikko}>
@@ -86,7 +95,6 @@ const SivuItem = (props) => {
   );
 };
 const OtsikkoItem = (props) => {
-  const classes = useStyles();
   const { name } = props;
   return (
     <h2
@@ -101,7 +109,6 @@ const OtsikkoItem = (props) => {
   );
 };
 const ValikkoItem = (props) => {
-  const classes = useStyles();
   const { name, id, select } = props;
   return (
     <ListItemLink role="none" className={classes.valikko} onClick={() => select(id)}>
@@ -119,7 +126,6 @@ const ValikkoItem = (props) => {
   );
 };
 const SidebarValikko = (props) => {
-  const classes = useStyles();
   const history = useHistory();
   const { i18n } = useTranslation();
   const { forwardTo } = useContentful();
@@ -134,7 +140,7 @@ const SidebarValikko = (props) => {
   };
 
   return (
-    <List className={classes.root} aria-label="contacts">
+    <StyledList className={classes.root} aria-label="contacts">
       {parent ? (
         <ListItemLink className={classes.parentOtsikko} role="none" onClick={deselect}>
           <ListItemIcon className={classes.parentOtsikkoIconBase}>
@@ -167,7 +173,7 @@ const SidebarValikko = (props) => {
           );
         }
       })}
-    </List>
+    </StyledList>
   );
 };
 

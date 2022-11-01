@@ -1,16 +1,9 @@
 import React from 'react';
 
-import {
-  Hidden,
-  makeStyles,
-  Paper,
-  Typography,
-  useMediaQuery,
-  useTheme,
-  Box,
-} from '@material-ui/core';
-import DirectionsOutlinedIcon from '@material-ui/icons/DirectionsOutlined';
-import SportsSoccerIcon from '@material-ui/icons/SportsSoccer';
+import DirectionsOutlinedIcon from '@mui/icons-material/DirectionsOutlined';
+import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
+import { Hidden, Paper, Typography, useMediaQuery, useTheme, Box } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
@@ -21,8 +14,24 @@ import { LocalizedLink } from '#/src/components/common/LocalizedLink';
 import { KOULUTUS_TYYPPI } from '#/src/constants';
 import { sanitizedHTMLParser } from '#/src/tools/utils';
 
-const useStyles = makeStyles((theme) => ({
-  paperRoot: {
+const PREFIX = 'EntiteettiKortti';
+
+const classes = {
+  paperRoot: `${PREFIX}-paperRoot`,
+  header: `${PREFIX}-header`,
+  preHeader: `${PREFIX}-preHeader`,
+  kuvaus: `${PREFIX}-kuvaus`,
+  erityisopetusHeader: `${PREFIX}-erityisopetusHeader`,
+  iconTexts: `${PREFIX}-iconTexts`,
+  icon: `${PREFIX}-icon`,
+  logo: `${PREFIX}-logo`,
+  heading: `${PREFIX}-heading`,
+};
+
+const StyledLocalizedLink = styled(LocalizedLink, {
+  shouldForwardProp: (prop: string) => !['isSmall', 'wrapIconTexts'].includes(prop),
+})<StyledLocalizedLinkProps>(({ theme, isSmall, wrapIconTexts }) => ({
+  [`& .${classes.paperRoot}`]: {
     width: '100%',
     marginBottom: theme.spacing(1.5),
     boxShadow: '0 0 8px 0 rgba(0,0,0,0.2)',
@@ -31,17 +40,20 @@ const useStyles = makeStyles((theme) => ({
       padding: theme.spacing(2),
     },
   },
-  header: {
-    marginBottom: ({ isSmall }: any) => theme.spacing(isSmall ? 2 : 3),
+
+  [`& .${classes.header}`]: {
+    marginBottom: theme.spacing(isSmall ? 2 : 3),
     fontWeight: 'bold',
     whiteSpace: 'pre-wrap',
   },
-  preHeader: {
+
+  [`& .${classes.preHeader}`]: {
     color: colors.darkGrey,
     fontWeight: 600,
   },
+
   // Joillain kuvauksilla on otsikko - estetään turha margin
-  kuvaus: {
+  [`& .${classes.kuvaus}`]: {
     display: 'inline',
     '& *': {
       marginTop: 0,
@@ -53,33 +65,43 @@ const useStyles = makeStyles((theme) => ({
       maxWidth: 800,
     },
   },
-  erityisopetusHeader: {
+
+  [`& .${classes.erityisopetusHeader}`]: {
     color: colors.brandGreen,
     fontWeight: 600,
     paddingBottom: '8px',
   },
-  iconTexts: {
+
+  [`& .${classes.iconTexts}`]: {
     display: 'flex',
-    marginTop: ({ isSmall }: any) => theme.spacing(isSmall ? 2 : 3),
-    flexDirection: ({ isSmall }: any) => (isSmall ? 'column' : 'row'),
-    flexWrap: ({ wrapIconTexts }: any) => (wrapIconTexts ? 'wrap' : 'nowrap'),
+    marginTop: theme.spacing(isSmall ? 2 : 3),
+    flexDirection: isSmall ? 'column' : 'row',
+    flexWrap: wrapIconTexts ? 'wrap' : 'nowrap',
   },
-  icon: {
+
+  [`& .${classes.icon}`]: {
     verticalAlign: 'text-bottom',
     marginRight: '10px',
   },
-  logo: {
+
+  [`& .${classes.logo}`]: {
     display: 'inline-block',
     position: 'relative',
     float: 'right',
   },
-  heading: {
+
+  [`& .${classes.heading}`]: {
     display: 'inline-flex',
   },
 }));
 
 // TODO: Jostain syystä TS:n labeled tuples ei toiminut, e.g. IconComponent: (...props: any) => JSX.Element
 type IconText = [JSX.Element | string, ((...props: any) => JSX.Element) | undefined];
+
+type StyledLocalizedLinkProps = {
+  isSmall?: boolean;
+  wrapIconTexts?: boolean;
+};
 
 type Props = {
   koulutustyyppi?: string;
@@ -113,7 +135,7 @@ export const EntiteettiKortti = ({
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
   const isSmall = _.isNil(isSmallProp) ? smDown : isSmallProp;
-  const classes = useStyles({ isSmall, wrapIconTexts });
+
   const { t } = useTranslation();
 
   const kuvaus = _.truncate(kuvausProp, { length: 255 }) || t('haku.ei_kuvausta');
@@ -126,7 +148,12 @@ export const EntiteettiKortti = ({
   }
 
   return (
-    <LocalizedLink underline="none" component={RouterLink} to={to}>
+    <StyledLocalizedLink
+      underline="none"
+      component={RouterLink}
+      to={to}
+      wrapIconTexts={wrapIconTexts}
+      isSmall={isSmall}>
       <Paper
         data-cy={header}
         classes={{ root: classes.paperRoot }}
@@ -220,6 +247,6 @@ export const EntiteettiKortti = ({
           )}
         </Box>
       </Paper>
-    </LocalizedLink>
+    </StyledLocalizedLink>
   );
 };

@@ -1,11 +1,25 @@
 import React from 'react';
 
-import { Grid, GridSize, Typography, makeStyles } from '@material-ui/core';
+import { Grid, GridSize, Typography } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import _ from 'lodash';
 
 import { LabelTooltip } from '#/src/components/common/LabelTooltip';
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
 import { Translateable } from '#/src/types/common';
+
+const PREFIX = 'HakutietoTable';
+
+const classes = {
+  gridHeading: `${PREFIX}-gridHeading`,
+};
+
+const StyledGrid = styled(Grid)(({ theme }) => ({
+  [`& .${classes.gridHeading}`]: {
+    ...theme.typography.body1,
+    fontWeight: 700,
+  },
+}));
 
 export type HakutietoCellSpec = {
   size?: GridSize;
@@ -14,22 +28,13 @@ export type HakutietoCellSpec = {
   modalText?: Translateable;
 };
 
-const useStyles = makeStyles((theme) => ({
-  gridHeading: {
-    ...theme.typography.body1,
-    fontWeight: 700,
-  },
-}));
-
 export const HakutietoTable = ({
   items,
 }: {
   items: Array<HakutietoCellSpec | undefined>;
 }) => {
-  const classes = useStyles();
-
   return (
-    <Grid container direction="row" spacing={3}>
+    <StyledGrid container direction="row" spacing={3}>
       {items
         .filter((x): x is HakutietoCellSpec => Boolean(x))
         .map(({ size, heading, content, modalText }) => (
@@ -55,6 +60,6 @@ export const HakutietoTable = ({
             </Grid>
           </Grid>
         ))}
-    </Grid>
+    </StyledGrid>
   );
 };

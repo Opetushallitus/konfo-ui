@@ -1,27 +1,42 @@
 import React from 'react';
 
-import { Tabs, Tab, makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
-import { SchoolOutlined, HomeWorkOutlined } from '@material-ui/icons';
+import { SchoolOutlined, HomeWorkOutlined } from '@mui/icons-material';
+import { Tabs, Tab, useMediaQuery, useTheme } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
 import { useSearch } from '../hakutulosHooks';
 
-const useStyles = makeStyles((theme) => ({
-  tabIconMargin: {
+const PREFIX = 'HakutulosTabs';
+
+const classes = {
+  tabIconMargin: `${PREFIX}-tabIconMargin`,
+  tabWrapper: `${PREFIX}-tabWrapper`,
+  tabLabelIcon: `${PREFIX}-tabLabelIcon`,
+  tabRoot: `${PREFIX}-tabRoot`,
+};
+
+const StyledTabs = styled(Tabs)(({ theme }) => ({
+  [`& .${classes.tabIconMargin}`]: {
     marginBottom: '0 !important',
     marginRight: theme.spacing(2),
+    verticalAlign: 'bottom',
   },
-  tabWrapper: {
+
+  [`& .${classes.tabWrapper}`]: {
     flexDirection: 'row',
     textTransform: 'capitalize',
     textAlign: 'left',
   },
-  tabLabelIcon: {
+
+  [`& .${classes.tabLabelIcon}`]: {
     minHeight: '50px',
     paddingLeft: 0,
     paddingRight: theme.spacing(3),
   },
-  tabRoot: {
+
+  [`& .${classes.tabRoot}`]: {
+    display: 'inline',
     [theme.breakpoints.up('sm')]: {
       fontSize: '1rem',
     },
@@ -41,12 +56,11 @@ export const HakutulosTabs = () => {
   const koulutusTotal = koulutusData?.total;
   const oppilaitosTotal = oppilaitosData?.total;
 
-  const classes = useStyles();
   const theme = useTheme();
   const muiScreenSizeMinMd = useMediaQuery(theme.breakpoints.up('md'));
 
   return (
-    <Tabs
+    <StyledTabs
       variant={muiScreenSizeMinMd ? 'standard' : 'fullWidth'}
       value={selectedTab}
       indicatorColor="primary"
@@ -58,7 +72,7 @@ export const HakutulosTabs = () => {
         value="koulutus"
         icon={<SchoolOutlined className={classes.tabIconMargin} />}
         classes={{
-          wrapper: classes.tabWrapper,
+          wrapped: classes.tabWrapper,
           labelIcon: classes.tabLabelIcon,
           root: classes.tabRoot,
         }}
@@ -67,11 +81,11 @@ export const HakutulosTabs = () => {
         value="oppilaitos"
         icon={<HomeWorkOutlined className={classes.tabIconMargin} />}
         classes={{
-          wrapper: classes.tabWrapper,
+          wrapped: classes.tabWrapper,
           labelIcon: classes.tabLabelIcon,
           root: classes.tabRoot,
         }}
         label={`${t('haku.oppilaitokset')} (${oppilaitosTotal ?? 0})`}></Tab>
-    </Tabs>
+    </StyledTabs>
   );
 };

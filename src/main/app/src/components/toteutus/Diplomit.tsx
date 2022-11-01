@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { makeStyles, Typography } from '@material-ui/core';
+import { Typography } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
@@ -11,9 +12,17 @@ import { localize } from '#/src/tools/localization';
 import { Translateable } from '#/src/types/common';
 import { Lukiodiplomi } from '#/src/types/ToteutusTypes';
 
-export const useStyles = makeStyles({
-  contentHeader: { marginTop: '16px', marginBottom: '16px' },
+const PREFIX = 'Diplomit';
+
+const classes = {
+  contentHeader: `${PREFIX}-contentHeader`,
+};
+
+const StyledPageSection = styled(PageSection)({
+  [`& .${classes.contentHeader}`]: { marginTop: '16px', marginBottom: '16px' },
 });
+
+export {};
 
 const ListContent = ({
   leadParagraph,
@@ -35,7 +44,7 @@ const ListContent = ({
 
 const DiplomiContent = ({ diplomi }: { diplomi: Lukiodiplomi }) => {
   const { t } = useTranslation();
-  const classes = useStyles();
+
   const linkki = localize(diplomi?.linkki);
   const altTeksti = localize(diplomi?.linkinAltTeksti);
   return (
@@ -59,13 +68,13 @@ export const Diplomit = ({ diplomit }: { diplomit: Array<Lukiodiplomi> }) => {
   const { t } = useTranslation();
 
   return diplomit?.length > 0 ? (
-    <PageSection heading={t('toteutus.lukiodiplomit')}>
+    <StyledPageSection heading={t('toteutus.lukiodiplomit')}>
       <Accordion
         items={diplomit.map((diplomi: any) => ({
           title: localize(diplomi?.koodi),
           content: <DiplomiContent diplomi={diplomi} />,
         }))}
       />
-    </PageSection>
+    </StyledPageSection>
   ) : null;
 };

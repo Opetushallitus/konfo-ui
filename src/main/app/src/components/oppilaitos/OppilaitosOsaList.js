@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box, Typography, useTheme, useMediaQuery } from '@material-ui/core';
+import { Box, Typography, useTheme, useMediaQuery } from '@mui/material';
 
 import DefaultHeroImage from '#/src/assets/images/herokuva_default.png';
 import { ImageCardGrid } from '#/src/components/common/ImageCardGrid';

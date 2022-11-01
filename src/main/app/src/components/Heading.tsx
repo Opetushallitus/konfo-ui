@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import { Typography, TypographyVariant, TypographyProps } from '@material-ui/core';
+import { Typography, TypographyVariant, TypographyProps } from '@mui/material';
 
 const HeadingLevelContext = React.createContext(0);
 

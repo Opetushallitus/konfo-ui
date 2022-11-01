@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box, Divider, Grid, Typography } from '@material-ui/core';
+import { Box, Divider, Grid, Typography } from '@mui/material';
 import _fp from 'lodash/fp';
 import { useTranslation } from 'react-i18next';
 

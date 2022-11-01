@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
-import { makeStyles, Box } from '@material-ui/core';
+import { Box } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 import TruncateMarkup from 'react-truncate-markup';
 
@@ -11,8 +12,14 @@ import { sanitizedHTMLParser } from '#/src/tools/utils';
 
 import { PageSection } from './PageSection';
 
-const useStyles = makeStyles((theme) => ({
-  textArea: {
+const PREFIX = 'HtmlTextBox';
+
+const classes = {
+  textArea: `${PREFIX}-textArea`,
+};
+
+const StyledPageSection = styled(PageSection)(({ theme }) => ({
+  [`& .${classes.textArea}`]: {
     margin: '60px auto',
     width: '63%',
     '& a': {
@@ -42,11 +49,10 @@ const HtmlTextBox = (props) => {
 
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const classes = useStyles();
   const { t } = useTranslation();
 
   return (
-    <PageSection heading={heading} {...rest}>
+    <StyledPageSection heading={heading} {...rest}>
       <ColoredPaperContent backgroundColor={educationTypeColorCode.ammatillinenGreenBg}>
         <Box display="flex" flexDirection="column" className={classes.textArea}>
           <TruncateMarkup
@@ -64,7 +70,7 @@ const HtmlTextBox = (props) => {
           )}
         </Box>
       </ColoredPaperContent>
-    </PageSection>
+    </StyledPageSection>
   );
 };
 

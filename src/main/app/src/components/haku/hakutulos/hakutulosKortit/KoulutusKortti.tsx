@@ -5,7 +5,7 @@ import {
   ExtensionOutlined,
   TimelapseOutlined,
   HomeWorkOutlined,
-} from '@material-ui/icons';
+} from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 
 import { EntiteettiKortti } from '#/src/components/common/EntiteettiKortti';

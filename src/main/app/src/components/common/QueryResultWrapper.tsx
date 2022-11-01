@@ -59,7 +59,6 @@ export const createQueryResultWrapper =
       case 'success':
         return children ? children : <div></div>;
       case 'error':
-        // TODO: Get Axios response error status codes here.
         console.error(errors);
         return <ErrorComponent onRetry={refetch} />;
       case 'loading':
