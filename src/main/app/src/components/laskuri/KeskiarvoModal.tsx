@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Box, Dialog, styled, Typography, Button } from '@mui/material';
 
@@ -7,6 +7,9 @@ import { colors } from '#/src/colors';
 import { Keskiarvot, HakupisteLaskelma, keskiArvotToHakupiste } from './Keskiarvo';
 import { KeskiarvoLaskuri } from './KeskiarvoLaskuri';
 import { KeskiarvoTulos } from './KeskiarvoTulos';
+import { LocalStorageUtil } from './LocalStorageUtil';
+
+const RESULT_STORE_KEY = 'keskiarvotulos';
 
 const PREFIX = 'KeskiarvoModal__';
 
@@ -48,6 +51,17 @@ export const KeskiArvoModal = ({ open = false, closeFn }: Props) => {
   );
   const [tulos, setTulos] = useState<HakupisteLaskelma | null>(null);
 
+  useEffect(() => {
+    if (tulos != null) {
+      LocalStorageUtil.save(RESULT_STORE_KEY, tulos);
+    }
+  }, [tulos]);
+
+  useEffect(() => {
+    const savedResult = LocalStorageUtil.load(RESULT_STORE_KEY);
+    setTulos(savedResult as HakupisteLaskelma | null);
+  }, []);
+
   const calcButtonDisabled =
     keskiarvoToCalculate == null ||
     keskiarvoToCalculate.lukuaineet === '' ||
@@ -60,6 +74,7 @@ export const KeskiArvoModal = ({ open = false, closeFn }: Props) => {
 
   const clearTulos = () => {
     setTulos(null);
+    LocalStorageUtil.remove(RESULT_STORE_KEY);
   };
 
   return (
