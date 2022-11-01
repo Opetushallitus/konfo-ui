@@ -19,6 +19,7 @@ import { HakuKaynnissaSuodatin } from '#/src/components/suodattimet/common/HakuK
 import { HakutapaSuodatin } from '#/src/components/suodattimet/common/HakutapaSuodatin';
 import { OpetuskieliSuodatin } from '#/src/components/suodattimet/common/OpetusKieliSuodatin';
 import { OpetustapaSuodatin } from '#/src/components/suodattimet/common/OpetustapaSuodatin';
+import { OppilaitosSuodatin } from '#/src/components/suodattimet/common/OppilaitosSuodatin';
 import { PohjakoulutusvaatimusSuodatin } from '#/src/components/suodattimet/common/PohjakoulutusvaatimusSuodatin';
 import { SijaintiSuodatin } from '#/src/components/suodattimet/common/SijaintiSuodatin';
 import { ValintatapaSuodatin } from '#/src/components/suodattimet/common/ValintatapaSuodatin';
@@ -260,6 +261,13 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                 <OpetustapaSuodatin
                   elevation={2}
                   values={usedValues.opetustapa}
+                  setFilters={setFilters}
+                />
+              </SuodatinGridItem>
+              <SuodatinGridItem>
+                <OppilaitosSuodatin
+                  elevation={2}
+                  values={usedValues.jarjestaja}
                   setFilters={setFilters}
                 />
               </SuodatinGridItem>

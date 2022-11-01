@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "homepage": "/konfo",
   "private": true,
-  "proxy": "https://testiopintopolku.fi",
+  "proxy": "https://untuvaopintopolku.fi",
   "scripts": {
     "prepare": "cd ../../../ && husky install",
     "start": "craco start",
