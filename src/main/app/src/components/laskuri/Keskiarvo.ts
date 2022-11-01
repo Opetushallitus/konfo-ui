@@ -1,14 +1,16 @@
+import { LocalStorable } from './LocalStorageUtil';
+
 const MAXIMUM_SCORE_KAIKKI = 16;
 const MAXIMUM_SCORE_TAITO = 8;
 const ARVOSANAN_MINIMI = 4;
 const ARVOSANA_PISTE_MAKSIMI = 6;
-export interface Keskiarvot {
+export interface Keskiarvot extends LocalStorable {
   lukuaineet: string;
   taideTaitoAineet: string;
   kaikki: string;
 }
 
-export interface HakupisteLaskelma {
+export interface HakupisteLaskelma extends LocalStorable {
   keskiarvo: number;
   pisteet: number;
 }
