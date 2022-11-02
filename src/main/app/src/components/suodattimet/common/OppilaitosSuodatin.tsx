@@ -37,7 +37,12 @@ export const OppilaitosSuodatin = (props: SuodatinComponentProps) => {
   );
 
   const usedValues = useMemo(
-    () => filteredValues.sort((a, b) => Number(b.checked) - Number(a.checked)),
+    () =>
+      filteredValues.sort(
+        (a, b) =>
+          Number(b.checked) - Number(a.checked) ||
+          localize(a.nimi).localeCompare(localize(b.nimi))
+      ),
     [filteredValues]
   );
 
