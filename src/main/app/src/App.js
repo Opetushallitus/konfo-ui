@@ -12,6 +12,7 @@ import { CookieModal } from '#/src/components/common/CookieModal';
 import { HeadingBoundary } from '#/src/components/Heading';
 import { useSideMenu } from '#/src/hooks';
 import { NotFound } from '#/src/NotFound';
+import { SdgAnalyticTags } from '#/src/sdg/Sdg';
 import { supportedLanguages } from '#/src/tools/i18n';
 import { getLanguage } from '#/src/tools/localization';
 
@@ -146,6 +147,7 @@ const TranslatedRoutes = ({ match, location }) => {
         <ToteutusPage />
       </Route>
       <Route exact path="/:lng/sivu/:id">
+        <SdgAnalyticTags />
         <KoulutusHakuBar />
         <SivuRouter />
       </Route>

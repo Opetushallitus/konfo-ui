@@ -7,6 +7,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=yes"
     />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta id="sdg-analytics-placeholder" />
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -96,9 +97,9 @@
         includedParams: ["idsite", "rec", "action_name", "url", "_id", "rand", "apiv"],
       };
       var hasInit = false;
-      var initMatomoTracker = function () {
+      var initMatomoTracker = function (reInitForSDG) {
         try {
-          if (hasInit) return;
+          if (hasInit && !reInitForSDG) return;
           hasInit = true;
           var tracker;
           if (typeof Matomo !== 'undefined') {

@@ -255,7 +255,9 @@ export const ToteutusPage = () => {
         )}
         {tyyppi === KOULUTUS_TYYPPI.KK_OPINTOJAKSO &&
           !_.isEmpty(kuuluuOpintokokonaisuuksiin) && (
-            <Opintokokonaisuudet opintokokonaisuudet={kuuluuOpintokokonaisuuksiin || []} />
+            <Opintokokonaisuudet
+              opintokokonaisuudet={kuuluuOpintokokonaisuuksiin || []}
+            />
           )}
         <Box id="haut" display="flex" justifyContent="center">
           <ToteutusHakutiedot toteutus={toteutus} />
