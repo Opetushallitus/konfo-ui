@@ -1,8 +1,12 @@
 import React from 'react';
 
-import { Box, Typography, styled, Paper } from '@mui/material';
+import { OpenInNew } from '@mui/icons-material';
+import { Box, Typography, styled, Paper, List, ListItem } from '@mui/material';
+import { useTranslation } from 'react-i18next';
+import { Link as RouterLink } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
+import { LocalizedLink } from '#/src/components/common/LocalizedLink';
 
 import { HakupisteLaskelma } from './Keskiarvo';
 
@@ -12,12 +16,15 @@ const classes = {
   column: `${PREFIX}column`,
   resultSphere: `${PREFIX}sphere`,
   spheresContainer: `${PREFIX}spheres`,
+  textContainer: `${PREFIX}textcontainer`,
   textBlock: `${PREFIX}textblock`,
+  linkIcon: `${PREFIX}linkicon`,
 };
 
 const TulosContainer = styled(Box)(() => ({
-  display: 'flex',
-  flexDirection: 'row',
+  display: 'grid',
+  gridTemplateColumns: '1fr 1fr',
+  columnGap: '20px',
   [`& .${classes.column}`]: {
     width: '50vw',
   },
@@ -39,9 +46,21 @@ const TulosContainer = styled(Box)(() => ({
     display: 'flex',
     flexDirection: 'row',
   },
-  [`& .${classes.textBlock}`]: {
+  [`& .${classes.textContainer}`]: {
     background: colors.greyBg,
     padding: '1rem',
+  },
+  [`& .${classes.textBlock}`]: {
+    whiteSpace: 'pre-line',
+    fontSize: '0.875rem',
+    '&--bottom-margin': {
+      marginBottom: '0.5rem',
+    },
+  },
+  [`& .${classes.linkIcon}`]: {
+    verticalAlign: 'middle',
+    marginRight: '5px',
+    marginBottom: '1px',
   },
 }));
 
@@ -53,7 +72,7 @@ type ResultSphereProps = {
 const ResultSphere = ({ result, text }: ResultSphereProps) => {
   return (
     <Box className={classes.resultSphere}>
-      <Typography sx={{ fontSize: '3rem' }}>{result}</Typography>
+      <Typography sx={{ fontSize: '3rem', fontWeight: 'bold' }}>{result}</Typography>
       <Typography sx={{ fontSize: '0.875rem' }} variant="body2">
         {text}
       </Typography>
@@ -61,44 +80,77 @@ const ResultSphere = ({ result, text }: ResultSphereProps) => {
   );
 };
 
+const LinkToValintaPerusteet = () => {
+  const { t } = useTranslation();
+  return (
+    <LocalizedLink
+      sx={{ fontSize: '0.875rem' }}
+      component={RouterLink}
+      to="sivu/perusopetuksen-jalkeisen-koulutuksen-yhteishaun-valintaperusteet"
+      title={t('pistelaskuri.valintaperusteet.linkki')}>
+      <OpenInNew className={classes.linkIcon} />
+      {t('pistelaskuri.valintaperusteet.linkki')}
+    </LocalizedLink>
+  );
+};
+
 type Props = {
   tulos: HakupisteLaskelma;
 };
 
-const lukioText = `Lukioon pääsyn ratkaisee peruskoulun päättötodistuksen lukuaineiden keskiarvo.
-          
-Joillain lukion linjoilla, joissa on tietty painotus (esim. lukion urheilulinja), voi lisäksi olla pääsykoe tai lisänäyttö, joista annetaan pisteitä. Joillain linjoilla voidaan painottaa keskiarvolaskennassa tiettyä oppiainetta. Tarkista valintaperusteet hakukohteen sivulta.`;
-
 export const KeskiarvoTulos = ({ tulos }: Props) => {
+  const { t } = useTranslation();
   return (
     <TulosContainer>
-      <Box className={classes.column}>
-        <Typography variant="h3">Lukuaineiden keskiarvo lukioon hakua varten</Typography>
+      <Typography variant="h3" sx={{ fontSize: '1.25rem' }}>
+        {t('pistelaskuri.lukio.header')}
+      </Typography>
+      <Typography variant="h3" sx={{ fontSize: '1.25rem' }}>
+        {t('pistelaskuri.ammatillinen.header')}
+      </Typography>
+      <ResultSphere
+        result={tulos.keskiarvo}
+        text={t('pistelaskuri.pisteet.lukio')}></ResultSphere>
+      <Box className={classes.spheresContainer}>
         <ResultSphere
-          result={tulos.keskiarvo}
-          text="lukuaineiden keskiarvo"></ResultSphere>
-        <Paper className={classes.textBlock} elevation={0}>
-          <Typography variant="body1" sx={{ whiteSpace: 'pre-line' }}>
-            {lukioText}
-          </Typography>
-        </Paper>
+          result={tulos.pisteet + 2}
+          text={t('pistelaskuri.pisteet.ammatillinen-first')}></ResultSphere>
+        <ResultSphere
+          result={tulos.pisteet}
+          text={t('pistelaskuri.pisteet.ammatillinen-rest')}></ResultSphere>
       </Box>
-      <Box className={classes.column}>
-        <Typography variant="h3">Ammatillisen koulutuksen hakupisteet</Typography>
-        <Box className={classes.spheresContainer}>
-          <ResultSphere
-            result={tulos.pisteet + 2}
-            text="Ensisijaisen hakukohteen pisteet"></ResultSphere>
-          <ResultSphere
-            result={tulos.pisteet}
-            text="2. - 7. hakukohteen pisteet"></ResultSphere>
-        </Box>
-        <Paper className={classes.textBlock} elevation={0}>
-          <Typography variant="body1" sx={{ whiteSpace: 'pre-line' }}>
-            {lukioText}
-          </Typography>
-        </Paper>
-      </Box>
+      <Paper className={classes.textContainer} elevation={0}>
+        <Typography
+          variant="body1"
+          className={classes.textBlock}
+          sx={{ marginBottom: '0.5rem' }}>
+          {t('pistelaskuri.lukio.body')}
+        </Typography>
+        <LinkToValintaPerusteet></LinkToValintaPerusteet>
+      </Paper>
+      <Paper className={classes.textContainer} elevation={0}>
+        <Typography variant="body1" className={classes.textBlock}>
+          {t('pistelaskuri.ammatillinen.huomioitu')}
+        </Typography>
+        <List sx={{ fontSize: '0.875rem', listStyleType: 'disc', pl: 2 }} dense={true}>
+          <ListItem sx={{ display: 'list-item' }}>
+            {t('pistelaskuri.ammatillinen.pisteytys-yleinen')}
+          </ListItem>
+          <ListItem sx={{ display: 'list-item' }}>
+            {t('pistelaskuri.ammatillinen.pisteytys-painotettava')}
+          </ListItem>
+          <ListItem sx={{ display: 'list-item' }}>
+            {t('pistelaskuri.ammatillinen.pisteytys-ensisijainen')}
+          </ListItem>
+        </List>
+        <Typography
+          variant="body1"
+          className={classes.textBlock}
+          sx={{ marginBottom: '0.5rem' }}>
+          {t('pistelaskuri.ammatillinen.oletus')}
+        </Typography>
+        <LinkToValintaPerusteet></LinkToValintaPerusteet>
+      </Paper>
     </TulosContainer>
   );
 };

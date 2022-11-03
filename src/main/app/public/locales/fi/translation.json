@@ -570,5 +570,27 @@
   },
   "header": {
     "siirry-etusivulle": "Siirry Opintopolun etusivulle"
+  },
+  "pistelaskuri": {
+    "lukio": {
+      "header": "Lukuaineiden keskiarvo lukioon hakua varten",
+      "body": "Lukioon pääsyn ratkaisee peruskoulun päättötodistuksen lukuaineiden keskiarvo.\n\nJoillain lukion linjoilla, joissa on tietty painotus (esim. lukion urheilulinja), voi lisäksi olla pääsykoe tai lisänäyttö, joista annetaan pisteitä. Joillain linjoilla voidaan painottaa keskiarvolaskennassa tiettyä oppiainetta. Tarkista valintaperusteet hakukohteen sivulta."
+    },
+    "ammatillinen": {
+      "header": "Ammatillisen koulutuksen hakupisteet",
+      "huomioitu": "Laskurissa huomioitu:",
+      "pisteytys-yleinen": "1-16 pistettä yleisestä koulumenestyksestä",
+      "pisteytys-painotettava": "1-8 pistettä painotettavista arvosanoista",
+      "pisteytys-ensisijainen": "2 pistettä ensimmäisestä hakutoiveesta",
+      "oletus": " Laskuri olettaa, että olet suorittanut peruskoulun tai peruskoulun jälkeisen valmentavan koulutuksen samana tai edellisenä vuonna kuin haet ammatilliseen koulutukseen. Jos et ole, vähennä tuloksesta 6 pistettä.\n\nLisäksi voit saada pääsy- ja soveltuvuuskokeista 0-10 pistettä, mikäli koulutukseen järjestetään pääsykoe. "
+    },
+    "pisteet": {
+      "lukio": "lukuaineiden keskiarvo",
+      "ammatillinen-first": "Ensisijaisen hakukohteen pisteet",
+      "ammatillinen-rest": "2. - 7. hakukohteen pisteet"
+    },
+    "valintaperusteet": {
+      "linkki": "Tutustu yleisiin valintaperusteisiin"
+    }
   }
 }
