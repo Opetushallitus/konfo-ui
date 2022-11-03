@@ -281,14 +281,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                 </SuodatinGridItem>
               )}
               {koulutustyyppi === KOULUTUS_TYYPPI.LUKIOKOULUTUS && (
-                <Grid
-                  item
-                  container
-                  direction="row"
-                  justifyContent="center"
-                  spacing={2}
-                  className={classes.filtersContainer}
-                  sm={12}>
+                <>
                   <SuodatinGridItem>
                     <LukiolinjatSuodatin
                       name="lukiopainotukset"
@@ -305,7 +298,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                       setFilters={setFilters}
                     />
                   </SuodatinGridItem>
-                </Grid>
+                </>
               )}
               {koulutustyyppi === KOULUTUS_TYYPPI.AMM && (
                 <SuodatinGridItem>
