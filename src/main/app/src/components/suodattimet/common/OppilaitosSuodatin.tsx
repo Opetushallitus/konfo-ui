@@ -4,6 +4,7 @@ import _fp from 'lodash/fp';
 import { useTranslation } from 'react-i18next';
 
 import { Filter } from '#/src/components/common/Filter';
+import { useConfig } from '#/src/config';
 import { getFilterStateChanges } from '#/src/tools/filters';
 import { localize } from '#/src/tools/localization';
 import { FilterValue, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
@@ -19,22 +20,26 @@ export const OppilaitosSuodatin = (props: SuodatinComponentProps) => {
     props.setFilters(changes);
   };
 
-  const getSelectOption = (value: FilterValue) => ({
-    ...value,
-    label: `${localize(value)} (${value.count})`,
-    value: localize(value),
-    name: value.nimi,
-  });
+  const config = useConfig();
+  const naytaFiltterienHakutulosLuvut = config.naytaFiltterienHakutulosLuvut;
 
-  const options = useMemo(
-    () => [
+  const options = useMemo(() => {
+    const getSelectOption = (value: FilterValue) => ({
+      ...value,
+      label: naytaFiltterienHakutulosLuvut
+        ? `${localize(value)} (${value.count})`
+        : localize(value),
+      value: localize(value),
+      name: value.nimi,
+    });
+
+    return [
       {
         label: t('haku.oppilaitos'),
         options: _fp.sortBy('label')(filteredValues.map((v) => getSelectOption(v))),
       },
-    ],
-    [filteredValues, t]
-  );
+    ];
+  }, [filteredValues, t, naytaFiltterienHakutulosLuvut]);
 
   const usedValues = useMemo(
     () =>
@@ -49,6 +54,7 @@ export const OppilaitosSuodatin = (props: SuodatinComponentProps) => {
   return (
     <Filter
       name={t('haku.oppilaitos')}
+      selectPlaceholder={t('haku.etsi-oppilaitos')}
       testId="oppilaitos-filter"
       values={usedValues}
       handleCheck={handleCheck}
