@@ -78,7 +78,7 @@ export const KeskiArvoModal = ({ open = false, closeFn }: Props) => {
   };
 
   return (
-    <StyledDialog open={open} onClose={closeFn}>
+    <StyledDialog open={open} onClose={closeFn} maxWidth="md">
       <Box className={classes.container}>
         <Typography variant="h2">Hakupistelaskuri</Typography>
         {tulos == null && (
