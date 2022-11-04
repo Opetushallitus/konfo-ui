@@ -572,6 +572,11 @@
     "siirry-etusivulle": "Siirry Opintopolun etusivulle"
   },
   "pistelaskuri": {
+    "heading": "Hakupistelaskuri",
+    "info": "Arvioi peruskoulun päättötodistuksen keskiarvosi tai syötä kaikkien oppiaineiden arvosanat. Laskuri laskee hakupisteesi yhteishakua varten uusimpien valintaperusteiden mukaan.",
+    "laske": "Laske hakupisteet",
+    "laske-uudestaan": "Laske uudestaan",
+    "vertaa": "Vertaa pisteitä ja sulje laskuri",
     "taide-info": "Taide- ja taitoaineita ovat liikunta, kuvataide, käsityö, kotitalous ja musiikki.",
     "lukio": {
       "header": "Lukuaineiden keskiarvo lukioon hakua varten",
@@ -595,6 +600,16 @@
     },
     "error": {
       "keskiarvo": "Syötä keskiarvo väliltä 4-10.\nKeskiarvo voi sisältää desimaaleja."
+    },
+    "keskiarvot-header": "Peruskoulun keskiarvot",
+    "ka-lukuaineet": "Lukuaineiden keskiarvo *",
+    "ka-taito": "Taide- ja taitoaineiden keskiarvo *",
+    "ka-kaikki": "Kaikkien aineiden keskiarvo *",
+    "graafi": {
+      "heading": "Aiemmat sisäänpääsyn pisteet yhteishaussa",
+      "laske-ja-vertaa": "Laske pistemääräsi ja vertaa",
+      "info": "Edellisvuosien alin hyväksytty pistemäärä, jolla oppilaitokseen on päässyt opiskelemaan. Tarkista hakukohteesta, järjestetäänkö koulutuksessa lisäksi pääsykoe, joka vaikuttaa lopulliseen pistemäärään. Musiikin, tanssin ja sirkuksen oppilasvalinta perustuu usein pelkkään pääsykokeeseen.",
+      "info-rohkaisu": "Koulutukseen kannattaa hakea, vaikka pistemääräsi ei olisikaan aiempien vuosien tasolla."
     }
   }
 }

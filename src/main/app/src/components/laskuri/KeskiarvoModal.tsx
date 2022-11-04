@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
-import { Box, Dialog, styled, Typography, Button } from '@mui/material';
+import { Close } from '@mui/icons-material';
+import { Box, Dialog, styled, Typography, Button, IconButton } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 
@@ -16,19 +18,23 @@ const PREFIX = 'KeskiarvoModal__';
 const classes = {
   container: `${PREFIX}container`,
   calcButton: `${PREFIX}calculatebutton`,
+  recalcButton: `${PREFIX}recalculatebutton`,
   buttonWrapper: `${PREFIX}buttoncontainer`,
+  closeIcon: `${PREFIX}close`,
 };
 
 const StyledDialog = styled(Dialog)(() => ({
   [`.${classes.container}`]: {
     backgroundColor: 'white',
     padding: '2rem 1rem',
+    position: 'relative',
   },
   [`.${classes.buttonWrapper}`]: {
     textAlign: 'right',
     marginTop: '0.5rem',
   },
   [`.${classes.calcButton}`]: {
+    border: `2px solid ${colors.brandGreen}`,
     backgroundColor: colors.brandGreen,
     color: colors.white,
     '&:hover': {
@@ -38,6 +44,16 @@ const StyledDialog = styled(Dialog)(() => ({
       backgroundColor: colors.lightGrey,
     },
   },
+  [`.${classes.recalcButton}`]: {
+    border: `2px solid ${colors.brandGreen}`,
+    color: colors.brandGreen,
+    marginLeft: '1.5rem',
+  },
+  [`.${classes.closeIcon}`]: {
+    position: 'absolute',
+    top: '10px',
+    right: '10px',
+  },
 }));
 
 type Props = {
@@ -46,6 +62,8 @@ type Props = {
 };
 
 export const KeskiArvoModal = ({ open = false, closeFn }: Props) => {
+  const { t } = useTranslation();
+
   const [keskiarvoToCalculate, setKeskiarvoToCalculate] = useState<Keskiarvot | null>(
     null
   );
@@ -80,14 +98,8 @@ export const KeskiArvoModal = ({ open = false, closeFn }: Props) => {
   return (
     <StyledDialog open={open} onClose={closeFn} maxWidth="lg" scroll="body">
       <Box className={classes.container}>
-        <Typography variant="h2">Hakupistelaskuri</Typography>
-        {tulos == null && (
-          <Typography>
-            Arvioi peruskoulun päättötodistuksen keskiarvosi tai syötä kaikkien
-            oppiaineiden arvosanat. Laskuri laskee hakupisteesi yhteishakua varten
-            uusimpien valintaperusteiden mukaan.
-          </Typography>
-        )}
+        <Typography variant="h2">{t('pistelaskuri.heading')}</Typography>
+        {tulos == null && <Typography>{t('pistelaskuri.info')}</Typography>}
         {tulos == null && (
           <KeskiarvoLaskuri
             updateKeskiarvoToCalculate={setKeskiarvoToCalculate}></KeskiarvoLaskuri>
@@ -99,11 +111,26 @@ export const KeskiArvoModal = ({ open = false, closeFn }: Props) => {
               disabled={calcButtonDisabled}
               className={classes.calcButton}
               onClick={calculate}>
-              Laske hakupisteet
+              {t('pistelaskuri.laske')}
             </Button>
           )}
-          {tulos && <Button onClick={clearTulos}>Laske uudestaan</Button>}
+          {tulos && (
+            <Button className={classes.calcButton} onClick={closeFn}>
+              {t('pistelaskuri.vertaa')}
+            </Button>
+          )}
+          {tulos && (
+            <Button className={classes.recalcButton} onClick={clearTulos}>
+              {t('pistelaskuri.laske-uudestaan')}
+            </Button>
+          )}
         </Box>
+        <IconButton
+          aria-label={t('sulje')}
+          className={classes.closeIcon}
+          onClick={closeFn}>
+          <Close />
+        </IconButton>
       </Box>
     </StyledDialog>
   );
