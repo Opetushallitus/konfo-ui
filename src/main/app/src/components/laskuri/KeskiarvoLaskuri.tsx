@@ -71,8 +71,13 @@ export const KeskiarvoLaskuri = ({ updateKeskiarvoToCalculate }: Props) => {
     }
   }, [updateKeskiarvoToCalculate]);
 
-  const isValidKeskiarvo = (ka: string) =>
-    '' === ka || (_.isNumber(Number(ka)) && Number(ka) >= 4 && Number(ka) <= 10); //TODO: comma
+  const isValidKeskiarvo = (ka: string) => {
+    const withDot = ka.replace(',', '.');
+    return (
+      '' === ka ||
+      (_.isNumber(Number(withDot)) && Number(withDot) >= 4 && Number(withDot) <= 10)
+    );
+  };
 
   const changeKeskiarvo = (event: React.ChangeEvent<HTMLInputElement>, avain: string) => {
     const uusiArvo = event.target.value;

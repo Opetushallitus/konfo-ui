@@ -70,9 +70,12 @@ type ResultSphereProps = {
 };
 
 const ResultSphere = ({ result, text }: ResultSphereProps) => {
+  const resultWithComma = String(result).replace('.', ',');
   return (
     <Box className={classes.resultSphere}>
-      <Typography sx={{ fontSize: '3rem', fontWeight: 'bold' }}>{result}</Typography>
+      <Typography sx={{ fontSize: '3rem', fontWeight: 'bold' }}>
+        {resultWithComma}
+      </Typography>
       <Typography sx={{ fontSize: '0.875rem' }} variant="body2">
         {text}
       </Typography>
