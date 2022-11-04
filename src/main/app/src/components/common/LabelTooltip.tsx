@@ -36,9 +36,12 @@ const Root = styled('div')(() => ({
   },
 }));
 
-type Props = { title: JSX.Element | string };
+type Props = {
+  title: JSX.Element | string;
+  sx?: Record<string, string>;
+};
 
-export const LabelTooltip = ({ title }: Props) => {
+export const LabelTooltip = ({ title, sx = {} }: Props) => {
   const { t } = useTranslation();
 
   const [open, setOpen] = useState(false);
@@ -53,6 +56,7 @@ export const LabelTooltip = ({ title }: Props) => {
     <Root>
       <Backdrop className={classes.backDrop} open={open} onClick={handleClose} />
       <Tooltip
+        sx={sx}
         open={open}
         onClose={handleClose}
         PopperProps={{
