@@ -21,6 +21,7 @@ const classes = {
   recalcButton: `${PREFIX}recalculatebutton`,
   buttonWrapper: `${PREFIX}buttoncontainer`,
   closeIcon: `${PREFIX}close`,
+  info: `${PREFIX}info`,
 };
 
 const StyledDialog = styled(Dialog)(() => ({
@@ -53,6 +54,11 @@ const StyledDialog = styled(Dialog)(() => ({
     position: 'absolute',
     top: '10px',
     right: '10px',
+  },
+  [`.${classes.info}`]: {
+    paddingBottom: '0.6rem',
+    borderBottom: `1px solid ${colors.lighterGrey}`,
+    marginBottom: '0.7rem',
   },
 }));
 
@@ -99,7 +105,9 @@ export const KeskiArvoModal = ({ open = false, closeFn }: Props) => {
     <StyledDialog open={open} onClose={closeFn} maxWidth="lg" scroll="body">
       <Box className={classes.container}>
         <Typography variant="h2">{t('pistelaskuri.heading')}</Typography>
-        {tulos == null && <Typography>{t('pistelaskuri.info')}</Typography>}
+        {tulos == null && (
+          <Typography className={classes.info}>{t('pistelaskuri.info')}</Typography>
+        )}
         {tulos == null && (
           <KeskiarvoLaskuri
             updateKeskiarvoToCalculate={setKeskiarvoToCalculate}></KeskiarvoLaskuri>

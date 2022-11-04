@@ -23,15 +23,15 @@ export const keskiArvotToHakupiste = (keskiarvot: Keskiarvot): HakupisteLaskelma
     return Math.max(1, lasketutPisteet);
   };
   const pisteetKaikki = laskePiste(
-    Number.parseFloat(keskiarvot.kaikki),
+    Number(keskiarvot.kaikki.replace(',', '.')),
     MAXIMUM_SCORE_KAIKKI
   );
   const pisteetLukuaineet = laskePiste(
-    Number.parseFloat(keskiarvot.taideTaitoAineet),
+    Number(keskiarvot.taideTaitoAineet.replace(',', '.')),
     MAXIMUM_SCORE_TAITO
   );
   return {
-    keskiarvo: Number.parseFloat(keskiarvot.lukuaineet),
+    keskiarvo: Number(keskiarvot.lukuaineet.replace(',', '.')),
     pisteet: pisteetKaikki + pisteetLukuaineet,
   };
 };

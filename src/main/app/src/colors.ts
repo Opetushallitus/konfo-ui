@@ -14,6 +14,7 @@ export const colors = {
   // TODO: Should be from specs?
   blue: '#0033CC',
   grey: '#EEEEEE',
+  lighterGrey: '#D5D5D5',
 };
 
 // NOTE: kts. speksi Invision -> Oppija styleguide -> Konfo-UI colors
