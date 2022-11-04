@@ -87,7 +87,7 @@ export const KeskiarvoLaskuri = ({ updateKeskiarvoToCalculate }: Props) => {
   return (
     <LaskuriContainer>
       <Typography variant="h3" sx={{ fontSize: '1.25rem' }}>
-        Peruskoulun keskiarvot
+        {t('pistelaskuri.keskiarvot-header')}
       </Typography>
       <Typography>
         Jos haluat tarkan laskelman, kerro oppiaineiden arvosanat yksitellen.
@@ -95,7 +95,9 @@ export const KeskiarvoLaskuri = ({ updateKeskiarvoToCalculate }: Props) => {
       <Grid container justifyContent="space-evenly" columns={{ xs: 1, sm: 1, md: 3 }}>
         <Grid item xs={1} sm={1} md={1}>
           <InputLabel>
-            <Typography sx={{ fontWeight: 'bold' }}>Lukuaineiden keskiarvo *</Typography>
+            <Typography sx={{ fontWeight: 'bold' }}>
+              {t('pistelaskuri.ka-lukuaineet')}
+            </Typography>
             <Input
               className={classes.input}
               onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
@@ -119,7 +121,7 @@ export const KeskiarvoLaskuri = ({ updateKeskiarvoToCalculate }: Props) => {
           md={1}>
           <InputLabel>
             <Typography sx={{ fontWeight: 'bold' }}>
-              Taide- ja taitoaineiden keskiarvo *
+              {t('pistelaskuri.ka-taito')}
             </Typography>
             <Input
               className={classes.input}
@@ -140,7 +142,9 @@ export const KeskiarvoLaskuri = ({ updateKeskiarvoToCalculate }: Props) => {
         </Grid>
         <Grid item xs={1} sm={1} md={1}>
           <InputLabel>
-            <Typography variant="subtitle1">Kaikkien aineiden keskiarvo *</Typography>
+            <Typography sx={{ fontWeight: 'bold' }}>
+              {t('pistelaskuri.ka-kaikki')}
+            </Typography>
             <Input
               className={classes.input}
               onChange={(event: React.ChangeEvent<HTMLInputElement>) =>

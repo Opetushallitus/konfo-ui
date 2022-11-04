@@ -2,26 +2,32 @@ import React, { useState } from 'react';
 
 import { InfoOutlined } from '@mui/icons-material';
 import { Box, styled, Typography, Button } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 import { educationTypeColorCode, colors } from '#/src/colors';
 import { PageSection } from '#/src/components/common/PageSection';
 
 import { KeskiArvoModal } from './KeskiarvoModal';
 
-const PREFIX = 'PisteContainer';
+const PREFIX = 'PisteContainer__';
 
 const classes = {
-  infoBox: `${PREFIX}__infobox`,
-  openButton: `${PREFIX}__openbutton`,
+  infoBox: `${PREFIX}infobox`,
+  openButton: `${PREFIX}openbutton`,
+  infoIcon: `${PREFIX}__infobox__icon`,
 };
 
 const StyledPageSection = styled(PageSection)(() => ({
   [` .${classes.infoBox}`]: {
+    maxWidth: '982px',
     display: 'flex',
-    flexDirection: 'column',
-    textAlign: 'center',
+    flexDirection: 'row',
+    textAlign: 'left',
     whiteSpace: 'pre-wrap',
+    padding: '0.8rem',
+    paddingRight: '0.9rem',
     backgroundColor: educationTypeColorCode.ammatillinenGreenBg,
+    marginBottom: '1rem',
   },
   [`.${classes.openButton}`]: {
     backgroundColor: colors.brandGreen,
@@ -30,25 +36,28 @@ const StyledPageSection = styled(PageSection)(() => ({
       backgroundColor: colors.brandGreen,
     },
   },
+  [`.${classes.infoIcon}`]: {
+    marginRight: '8px',
+  },
 }));
 
 export const PisteContainer = () => {
+  const { t } = useTranslation();
   const [isModalOpen, setModalOpen] = useState(false);
 
   return (
-    <StyledPageSection heading="Aiemmat sisäänpääsyn pisteet yhteishaussa">
+    <StyledPageSection heading={t('pistelaskuri.graafi.heading')}>
       <Box className={classes.infoBox}>
-        <InfoOutlined />
-        <Typography>
-          Edellisvuosien alin hyväksytty pistemäärä, jolla oppilaitokseen on päässyt
-          opiskelemaan. Tarkista hakukohteesta, järjestetäänkö koulutuksessa lisäksi
-          pääsykoe, joka vaikuttaa lopulliseen pistemäärään. Musiikin, tanssin ja
-          sirkuksen oppilasvalinta perustuu usein pelkkään pääsykokeeseen. Koulutukseen
-          kannattaa hakea, vaikka pistemääräsi ei olisikaan aiempien vuosien tasolla.
+        <InfoOutlined className={classes.infoIcon} />
+        <Typography variant="body1">
+          {t('pistelaskuri.graafi.info')}
+          <span style={{ fontWeight: 600 }}>
+            &nbsp;{t('pistelaskuri.graafi.info-rohkaisu')}
+          </span>
         </Typography>
       </Box>
       <Button onClick={() => setModalOpen(true)} className={classes.openButton}>
-        Laske pistemääräsi ja vertaa
+        &nbsp;{t('pistelaskuri.graafi.laske-ja-vertaa')}
       </Button>
       <KeskiArvoModal
         open={isModalOpen}
