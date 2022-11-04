@@ -572,6 +572,7 @@
     "siirry-etusivulle": "Siirry Opintopolun etusivulle"
   },
   "pistelaskuri": {
+    "taide-info": "Taide- ja taitoaineita ovat liikunta, kuvataide, käsityö, kotitalous ja musiikki.",
     "lukio": {
       "header": "Lukuaineiden keskiarvo lukioon hakua varten",
       "body": "Lukioon pääsyn ratkaisee peruskoulun päättötodistuksen lukuaineiden keskiarvo.\n\nJoillain lukion linjoilla, joissa on tietty painotus (esim. lukion urheilulinja), voi lisäksi olla pääsykoe tai lisänäyttö, joista annetaan pisteitä. Joillain linjoilla voidaan painottaa keskiarvolaskennassa tiettyä oppiainetta. Tarkista valintaperusteet hakukohteen sivulta."
@@ -591,6 +592,9 @@
     },
     "valintaperusteet": {
       "linkki": "Tutustu yleisiin valintaperusteisiin"
+    },
+    "error": {
+      "keskiarvo": "Syötä keskiarvo väliltä 4-10.\nKeskiarvo voi sisältää desimaaleja."
     }
   }
 }
