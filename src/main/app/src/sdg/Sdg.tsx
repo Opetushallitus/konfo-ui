@@ -69,7 +69,7 @@ export const SdgAnalyticTags = () => {
     if (sdgContentCategory) {
       installSDGMetaTags(lngParam, sdgContentCategory);
     }
-    window.initMatomoTracker(lngParam, sdgContentCategory, false);
+    window.initMatomoTracker(lngParam, sdgContentCategory, true);
   }, [lngParam, sdgContentCategory]);
 
   return <></>;
