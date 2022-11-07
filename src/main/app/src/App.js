@@ -147,7 +147,6 @@ const TranslatedRoutes = ({ match, location }) => {
         <ToteutusPage />
       </Route>
       <Route exact path="/:lng/sivu/:id">
-        <SdgAnalyticTags />
         <KoulutusHakuBar />
         <SivuRouter />
       </Route>
@@ -228,6 +227,9 @@ const App = () => {
 
   return (
     <Root betaBannerVisible={betaBanner} isSmall={isSmall} menuVisible={menuVisible}>
+      <Route path="/:lng?/sivu/:id?">
+        <SdgAnalyticTags />
+      </Route>
       <Draft />
       <CookieModal />
       <Box display="flex">

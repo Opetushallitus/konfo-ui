@@ -97,9 +97,14 @@
         includedParams: ["idsite", "rec", "action_name", "url", "_id", "rand", "apiv"],
       };
       var hasInit = false;
-      var initMatomoTracker = function (reInitForSDG) {
+      var initMatomoTracker = function (pageFullyLoaded, forceReInitForSDG) {
         try {
-          if (hasInit && !reInitForSDG) return;
+          if (!pageFullyLoaded || (hasInit && !forceReInitForSDG)) return;
+          if(forceReInitForSDG) {
+            console.log('Reinitializing Matomo for SDG content tracking');
+          } else {
+            console.log('Initializing Matomo without SDG');
+          }
           hasInit = true;
           var tracker;
           if (typeof Matomo !== 'undefined') {
@@ -140,9 +145,6 @@
       if (typeof Matomo === 'undefined') {
         window.matomoAsyncInit = initMatomoTracker;
         window.piwikAsyncInit = initMatomoTracker;
-      }
-      else {
-        initMatomoTracker();
       }
     </script>
     <title>Opintopolku</title>
