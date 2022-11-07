@@ -96,16 +96,13 @@
         // Params that are included in the tracking requests. See https://developer.matomo.org/api-reference/tracking-api
         includedParams: ["idsite", "rec", "action_name", "url", "_id", "rand", "apiv"],
       };
-      var hasInit = false;
-      var initMatomoTracker = function (pageFullyLoaded, forceReInitForSDG) {
+      var trackOnlyOnce = new Set([]);
+      var initMatomoTracker = function (lang, content, pageFullyLoaded) {
         try {
-          if (!pageFullyLoaded || (hasInit && !forceReInitForSDG)) return;
-          if(forceReInitForSDG) {
-            console.log('Reinitializing Matomo for SDG content tracking');
-          } else {
-            console.log('Initializing Matomo without SDG');
-          }
-          hasInit = true;
+          var key = `${lang}/${content}`;
+          if (!pageFullyLoaded || trackOnlyOnce.has(key)) return;
+          trackOnlyOnce.add(key);
+          console.log(`Initializing Matomo with language ${lang} and content ${content}`);
           var tracker;
           if (typeof Matomo !== 'undefined') {
             tracker = Matomo;

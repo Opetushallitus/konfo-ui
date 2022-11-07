@@ -12,7 +12,7 @@ interface ParamTypes {
 
 declare global {
   interface Window {
-    initMatomoTracker(pageFullyLoaded: boolean, forceReInitForSDG: boolean): void;
+    initMatomoTracker(lang: string, content: string, forceReInitForSDG: boolean): void;
   }
 }
 
@@ -68,10 +68,8 @@ export const SdgAnalyticTags = () => {
   useLayoutEffect(() => {
     if (sdgContentCategory) {
       installSDGMetaTags(lngParam, sdgContentCategory);
-      window.initMatomoTracker(true, true);
-    } else {
-      window.initMatomoTracker(true, false);
     }
+    window.initMatomoTracker(lngParam, sdgContentCategory, false);
   }, [lngParam, sdgContentCategory]);
 
   return <></>;
