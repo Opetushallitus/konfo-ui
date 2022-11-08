@@ -104,6 +104,7 @@ export type Hakutieto = {
   hakukohteet: Array<Hakukohde>;
   hakutapa: Koodi;
   koulutuksenAlkamiskausi: Alkamiskausi;
+  kohdejoukko: Koodi;
   nimi: Translateable;
 };
 
