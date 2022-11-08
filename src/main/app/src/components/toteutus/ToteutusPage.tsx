@@ -22,7 +22,11 @@ import { PageSection } from '#/src/components/common/PageSection';
 import TeemakuvaImage from '#/src/components/common/TeemakuvaImage';
 import { Heading } from '#/src/components/Heading';
 import { useOppilaitokset } from '#/src/components/oppilaitos/hooks';
-import { KOULUTUS_TYYPPI, YHTEISHAKU_KOODI_URI } from '#/src/constants';
+import {
+  KOULUTUS_TYYPPI,
+  YHTEISHAKU_KOODI_URI,
+  TOISEN_ASTEEN_YHTEISHAUN_KOHDEJOUKKO,
+} from '#/src/constants';
 import { useSideMenu } from '#/src/hooks';
 import { NotFound } from '#/src/NotFound';
 import { getHakuParams, getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
@@ -142,11 +146,13 @@ export const ToteutusPage = () => {
     [koulutus?.lisatiedot, opetus?.lisatiedot]
   );
 
-  //TODO tähän pitää lisätä tarkastelu haun kohdejoukolle (tarvii bäkkäri muutoksia)
+  console.log(toteutus);
+
   const isToisenAsteenYhteisHaku = toteutus?.hakutiedot?.some(
     (hakutieto: Hakutieto) =>
       hakutieto?.hakutapa?.koodiUri &&
-      hakutieto?.hakutapa?.koodiUri.includes(YHTEISHAKU_KOODI_URI)
+      hakutieto?.hakutapa?.koodiUri.includes(YHTEISHAKU_KOODI_URI) &&
+      hakutieto?.kohdejoukko?.koodiUri?.includes(TOISEN_ASTEEN_YHTEISHAUN_KOHDEJOUKKO)
   );
 
   const erityisopetusHeading = t('toteutus.erityisopetus-otsikko');
