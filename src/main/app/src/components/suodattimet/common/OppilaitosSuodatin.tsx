@@ -13,8 +13,6 @@ export const OppilaitosSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
   const { values = [], ...rest } = props;
 
-  const filteredValues = values.filter((v) => v?.count > 0 || v.checked);
-
   const handleCheck = (item: FilterValue) => {
     const changes = getFilterStateChanges(values)(item);
     props.setFilters(changes);
@@ -36,19 +34,19 @@ export const OppilaitosSuodatin = (props: SuodatinComponentProps) => {
     return [
       {
         label: t('haku.oppilaitos'),
-        options: _fp.sortBy('label')(filteredValues.map((v) => getSelectOption(v))),
+        options: _fp.sortBy('label')(values.map((v) => getSelectOption(v))),
       },
     ];
-  }, [filteredValues, t, naytaFiltterienHakutulosLuvut]);
+  }, [values, t, naytaFiltterienHakutulosLuvut]);
 
   const usedValues = useMemo(
     () =>
-      filteredValues.sort(
+      values.sort(
         (a, b) =>
           Number(b.checked) - Number(a.checked) ||
           localize(a.nimi).localeCompare(localize(b.nimi))
       ),
-    [filteredValues]
+    [values]
   );
 
   return (
