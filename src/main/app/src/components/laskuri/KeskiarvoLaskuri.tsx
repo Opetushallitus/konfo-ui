@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { Box, Typography, styled, Input, InputLabel, Grid } from '@mui/material';
+import { Box, Typography, styled, Input, InputLabel, Grid, Button } from '@mui/material';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { colors } from 'src/colors';
@@ -36,13 +36,17 @@ const LaskuriContainer = styled(Box)(() => ({
 }));
 
 type Props = {
+  changeCalculator: (value: boolean) => void;
   updateKeskiarvoToCalculate: (keskiarvo: Keskiarvot) => void;
 };
 
 const keskiArvotIsEmpty = (kat: Keskiarvot) =>
   _.matches(kat)({ lukuaineet: '', taideTaitoAineet: '', kaikki: '' });
 
-export const KeskiarvoLaskuri = ({ updateKeskiarvoToCalculate }: Props) => {
+export const KeskiarvoLaskuri = ({
+  changeCalculator,
+  updateKeskiarvoToCalculate,
+}: Props) => {
   const { t } = useTranslation();
 
   const [keskiarvot, setKeskiarvot] = useState<Keskiarvot>({
@@ -95,7 +99,10 @@ export const KeskiarvoLaskuri = ({ updateKeskiarvoToCalculate }: Props) => {
         {t('pistelaskuri.keskiarvot-header')}
       </Typography>
       <Typography>
-        Jos haluat tarkan laskelman, kerro oppiaineiden arvosanat yksitellen.
+        Jos haluat tarkan laskelman,{' '}
+        <Button onClick={() => changeCalculator(false)}>
+          kerro oppiaineiden arvosanat yksitellen.
+        </Button>
       </Typography>
       <Grid container justifyContent="space-evenly" columns={{ xs: 1, sm: 1, md: 3 }}>
         <Grid item xs={1} sm={1} md={1}>
