@@ -610,6 +610,9 @@
       "laske-ja-vertaa": "Laske pistemääräsi ja vertaa",
       "info": "Edellisvuosien alin hyväksytty pistemäärä, jolla oppilaitokseen on päässyt opiskelemaan. Tarkista hakukohteesta, järjestetäänkö koulutuksessa lisäksi pääsykoe, joka vaikuttaa lopulliseen pistemäärään. Musiikin, tanssin ja sirkuksen oppilasvalinta perustuu usein pelkkään pääsykokeeseen.",
       "info-rohkaisu": "Koulutukseen kannattaa hakea, vaikka pistemääräsi ei olisikaan aiempien vuosien tasolla."
+    },
+    "aine": {
+      "heading": "Peruskoulun arvosanat"
     }
   }
 }

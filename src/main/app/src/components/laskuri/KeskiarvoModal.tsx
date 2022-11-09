@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 
+import { KeskiarvoAineLaskuri } from './aine/KeskiarvoAineLaskuri';
 import { Keskiarvot, HakupisteLaskelma, keskiArvotToHakupiste } from './Keskiarvo';
 import { KeskiarvoLaskuri } from './KeskiarvoLaskuri';
 import { KeskiarvoTulos } from './KeskiarvoTulos';
@@ -70,6 +71,8 @@ type Props = {
 export const KeskiArvoModal = ({ open = false, closeFn }: Props) => {
   const { t } = useTranslation();
 
+  const [useKeskiarvoLaskuri, setUseKeskiarvoLaskuri] = useState<boolean>(true);
+
   const [keskiarvoToCalculate, setKeskiarvoToCalculate] = useState<Keskiarvot | null>(
     null
   );
@@ -108,9 +111,14 @@ export const KeskiArvoModal = ({ open = false, closeFn }: Props) => {
         {tulos == null && (
           <Typography className={classes.info}>{t('pistelaskuri.info')}</Typography>
         )}
-        {tulos == null && (
+        {tulos == null && useKeskiarvoLaskuri && (
           <KeskiarvoLaskuri
+            changeCalculator={setUseKeskiarvoLaskuri}
             updateKeskiarvoToCalculate={setKeskiarvoToCalculate}></KeskiarvoLaskuri>
+        )}
+        {tulos == null && !useKeskiarvoLaskuri && (
+          <KeskiarvoAineLaskuri
+            changeCalculator={setUseKeskiarvoLaskuri}></KeskiarvoAineLaskuri>
         )}
         {tulos && <KeskiarvoTulos tulos={tulos}></KeskiarvoTulos>}
         <Box className={classes.buttonWrapper}>

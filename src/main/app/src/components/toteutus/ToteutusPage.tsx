@@ -146,8 +146,6 @@ export const ToteutusPage = () => {
     [koulutus?.lisatiedot, opetus?.lisatiedot]
   );
 
-  console.log(toteutus);
-
   const isToisenAsteenYhteisHaku = toteutus?.hakutiedot?.some(
     (hakutieto: Hakutieto) =>
       hakutieto?.hakutapa?.koodiUri &&
