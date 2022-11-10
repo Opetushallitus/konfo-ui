@@ -47,11 +47,12 @@ const AineContainer = styled(Box)(() => ({
 
 type Props = {
   aine: string;
+  updateKouluaine: (kouluaine: Kouluaine) => void;
 };
 
 const ARVOSANA_VALUES = _.range(4, 11);
 
-export const KouluaineInput = ({ aine }: Props) => {
+export const KouluaineInput = ({ aine, updateKouluaine }: Props) => {
   const [kouluaine, setKouluaine] = useState<Kouluaine>({
     nimi: aine,
     arvosana: null,
@@ -64,13 +65,19 @@ export const KouluaineInput = ({ aine }: Props) => {
   const labelId = `aine-label-${aine}`;
 
   const handleArvosanaChange = (event: SelectChangeEvent) => {
-    setKouluaine(Object.assign({}, kouluaine, { arvosana: Number(event.target.value) }));
+    const uusiaine = Object.assign({}, kouluaine, {
+      arvosana: Number(event.target.value),
+    });
+    setKouluaine(uusiaine);
+    updateKouluaine(uusiaine);
   };
 
   const handleValinnainenArvosanaChange = (event: SelectChangeEvent, index: number) => {
     const valinnaisetArvosanat = kouluaine.valinnaisetArvosanat;
     valinnaisetArvosanat[index] = Number(event.target.value);
-    setKouluaine(Object.assign({}, kouluaine, { valinnaisetArvosanat }));
+    const uusiaine = Object.assign({}, kouluaine, { valinnaisetArvosanat });
+    setKouluaine(uusiaine);
+    updateKouluaine(uusiaine);
   };
 
   const addValinnaisaine = () => {
@@ -82,11 +89,22 @@ export const KouluaineInput = ({ aine }: Props) => {
   const removeValinnaisaine = (index: number) => {
     const valinnaisetArvosanat = kouluaine.valinnaisetArvosanat;
     valinnaisetArvosanat.splice(index, 1);
-    setKouluaine(Object.assign({}, kouluaine, { valinnaisetArvosanat }));
+    const uusiaine = Object.assign({}, kouluaine, { valinnaisetArvosanat });
+    setKouluaine(uusiaine);
+    updateKouluaine(uusiaine);
   };
 
   const changePainokerroin = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setKouluaine(Object.assign({}, kouluaine, { painokerroin: event.target.value }));
+    const uusiaine = Object.assign({}, kouluaine, { painokerroin: event.target.value });
+    setKouluaine(uusiaine);
+    updateKouluaine(uusiaine);
+  };
+
+  const poistaPainokerroin = () => {
+    setShowPainokerroin(false);
+    const uusiaine = Object.assign({}, kouluaine, { painokerroin: '' });
+    setKouluaine(uusiaine);
+    updateKouluaine(uusiaine);
   };
 
   return (
@@ -145,7 +163,7 @@ export const KouluaineInput = ({ aine }: Props) => {
               value={kouluaine.painokerroin}
               disableUnderline={true}></Input>
           </InputLabel>
-          <IconButton onClick={() => setShowPainokerroin(false)}>
+          <IconButton onClick={poistaPainokerroin}>
             <DeleteOutlined />
           </IconButton>
         </>

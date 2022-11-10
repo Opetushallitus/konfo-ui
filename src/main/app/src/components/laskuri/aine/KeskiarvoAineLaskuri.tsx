@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Box, Typography, styled, Button } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { colors } from 'src/colors';
 
+import { Kouluaineet, Kouluaine } from './Kouluaine';
 import { KouluaineInput } from './KouluaineInput';
 
 const PREFIX = 'keskiarvo__ainelaskuri__';
@@ -36,6 +37,18 @@ type Props = {
 
 export const KeskiarvoAineLaskuri = ({ changeCalculator }: Props) => {
   const { t } = useTranslation();
+  const [kouluaineet, setKouluaineet] = useState<Kouluaineet>(new Kouluaineet());
+
+  const updateKouluaineFromChild = (
+    kouluaine: Kouluaine,
+    id: number,
+    arrayAvain: string
+  ) => {
+    const aineet = kouluaineet;
+    aineet[arrayAvain as keyof Kouluaineet][id] = kouluaine;
+    setKouluaineet(aineet);
+    console.log(aineet);
+  };
 
   return (
     <LaskuriContainer>
@@ -46,8 +59,40 @@ export const KeskiarvoAineLaskuri = ({ changeCalculator }: Props) => {
         Voit myös{' '}
         <Button onClick={() => changeCalculator(true)}>arvioida keskiarvot itse.</Button>
       </Typography>
-      <KouluaineInput aine="Äidinkieli"></KouluaineInput>
-      <KouluaineInput aine="Matematiikka"></KouluaineInput>
+      <Typography variant="h4">Lukuaineet</Typography>
+      {kouluaineet.kielet.map((kieliaine: Kouluaine, index: number) => (
+        <KouluaineInput
+          updateKouluaine={(kouluaine: Kouluaine) =>
+            updateKouluaineFromChild(kouluaine, index, 'kielet')
+          }
+          aine={kieliaine.nimi}
+          key={`kieliaine-${kieliaine.nimi}-${index}`}></KouluaineInput>
+      ))}
+      {kouluaineet.lisakielet.map((kieliaine: Kouluaine, index: number) => (
+        <KouluaineInput
+          updateKouluaine={(kouluaine: Kouluaine) =>
+            updateKouluaineFromChild(kouluaine, index, 'lisakielet')
+          }
+          aine={kieliaine.nimi}
+          key={`lisakieliaine-${kieliaine.nimi}-${index}`}></KouluaineInput>
+      ))}
+      {kouluaineet.muutLukuaineet.map((lukuaine: Kouluaine, index: number) => (
+        <KouluaineInput
+          updateKouluaine={(kouluaine: Kouluaine) =>
+            updateKouluaineFromChild(kouluaine, index, 'muutLukuaineet')
+          }
+          aine={lukuaine.nimi}
+          key={`lukuaine-${lukuaine.nimi}-${index}`}></KouluaineInput>
+      ))}
+      <Typography variant="h4">Taide- ja taitoaineet</Typography>
+      {kouluaineet.taitoaineet.map((taitoaine: Kouluaine, index: number) => (
+        <KouluaineInput
+          updateKouluaine={(kouluaine: Kouluaine) =>
+            updateKouluaineFromChild(kouluaine, index, 'taitoaineet')
+          }
+          aine={taitoaine.nimi}
+          key={`taitoaine-${taitoaine.nimi}-${index}`}></KouluaineInput>
+      ))}
     </LaskuriContainer>
   );
 };
