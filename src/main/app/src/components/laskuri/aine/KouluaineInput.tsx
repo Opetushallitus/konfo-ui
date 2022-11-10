@@ -11,6 +11,8 @@ import {
   Button,
   SelectChangeEvent,
   IconButton,
+  Typography,
+  Input,
 } from '@mui/material';
 import _ from 'lodash';
 import { colors } from 'src/colors';
@@ -54,8 +56,10 @@ export const KouluaineInput = ({ aine }: Props) => {
     nimi: aine,
     arvosana: null,
     valinnaisetArvosanat: [],
-    painoarvo: null,
+    painokerroin: '',
   });
+
+  const [showPainokerroin, setShowPainokerroin] = useState<boolean>(false);
 
   const labelId = `aine-label-${aine}`;
 
@@ -79,6 +83,10 @@ export const KouluaineInput = ({ aine }: Props) => {
     const valinnaisetArvosanat = kouluaine.valinnaisetArvosanat;
     valinnaisetArvosanat.splice(index, 1);
     setKouluaine(Object.assign({}, kouluaine, { valinnaisetArvosanat }));
+  };
+
+  const changePainokerroin = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setKouluaine(Object.assign({}, kouluaine, { painokerroin: event.target.value }));
   };
 
   return (
@@ -124,7 +132,24 @@ export const KouluaineInput = ({ aine }: Props) => {
       {kouluaine.valinnaisetArvosanat.length < 2 && (
         <Button onClick={addValinnaisaine}>+ Lisää valinnaisaine</Button>
       )}
-      <Button>+ Lisää painokerroin</Button>
+      {!showPainokerroin && (
+        <Button onClick={() => setShowPainokerroin(true)}>+ Lisää painokerroin</Button>
+      )}
+      {showPainokerroin && (
+        <>
+          <InputLabel>
+            <Typography sx={{ fontWeight: 'bold' }}>Painokerroin</Typography>
+            <Input
+              className={classes.input}
+              onChange={changePainokerroin}
+              value={kouluaine.painokerroin}
+              disableUnderline={true}></Input>
+          </InputLabel>
+          <IconButton onClick={() => setShowPainokerroin(false)}>
+            <DeleteOutlined />
+          </IconButton>
+        </>
+      )}
     </AineContainer>
   );
 };
