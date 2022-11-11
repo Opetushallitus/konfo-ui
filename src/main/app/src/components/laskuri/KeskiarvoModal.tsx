@@ -7,7 +7,13 @@ import { useTranslation } from 'react-i18next';
 import { colors } from '#/src/colors';
 
 import { KeskiarvoAineLaskuri } from './aine/KeskiarvoAineLaskuri';
-import { Keskiarvot, HakupisteLaskelma, keskiArvotToHakupiste } from './Keskiarvo';
+import { Kouluaineet } from './aine/Kouluaine';
+import {
+  Keskiarvot,
+  HakupisteLaskelma,
+  keskiArvotToHakupiste,
+  kouluaineetToHakupiste,
+} from './Keskiarvo';
 import { KeskiarvoLaskuri } from './KeskiarvoLaskuri';
 import { KeskiarvoTulos } from './KeskiarvoTulos';
 import { LocalStorageUtil } from './LocalStorageUtil';
@@ -73,6 +79,10 @@ export const KeskiArvoModal = ({ open = false, closeFn }: Props) => {
 
   const [useKeskiarvoLaskuri, setUseKeskiarvoLaskuri] = useState<boolean>(true);
 
+  const [kouluaineetToCalculate, setKouluaineetToCalculate] = useState<Kouluaineet>(
+    new Kouluaineet()
+  );
+
   const [keskiarvoToCalculate, setKeskiarvoToCalculate] = useState<Keskiarvot | null>(
     null
   );
@@ -90,13 +100,18 @@ export const KeskiArvoModal = ({ open = false, closeFn }: Props) => {
   }, []);
 
   const calcButtonDisabled =
-    keskiarvoToCalculate == null ||
-    keskiarvoToCalculate.lukuaineet === '' ||
-    keskiarvoToCalculate.taideTaitoAineet === '' ||
-    keskiarvoToCalculate.kaikki === '';
+    useKeskiarvoLaskuri &&
+    (keskiarvoToCalculate == null ||
+      keskiarvoToCalculate.lukuaineet === '' ||
+      keskiarvoToCalculate.taideTaitoAineet === '' ||
+      keskiarvoToCalculate.kaikki === '');
 
   const calculate = () => {
-    setTulos(keskiArvotToHakupiste(keskiarvoToCalculate as Keskiarvot));
+    if (useKeskiarvoLaskuri) {
+      setTulos(keskiArvotToHakupiste(keskiarvoToCalculate as Keskiarvot));
+    } else {
+      setTulos(kouluaineetToHakupiste(kouluaineetToCalculate));
+    }
   };
 
   const clearTulos = () => {
@@ -118,7 +133,10 @@ export const KeskiArvoModal = ({ open = false, closeFn }: Props) => {
         )}
         {tulos == null && !useKeskiarvoLaskuri && (
           <KeskiarvoAineLaskuri
-            changeCalculator={setUseKeskiarvoLaskuri}></KeskiarvoAineLaskuri>
+            changeCalculator={setUseKeskiarvoLaskuri}
+            updateKouluaineetToCalculate={
+              setKouluaineetToCalculate
+            }></KeskiarvoAineLaskuri>
         )}
         {tulos && <KeskiarvoTulos tulos={tulos}></KeskiarvoTulos>}
         <Box className={classes.buttonWrapper}>
