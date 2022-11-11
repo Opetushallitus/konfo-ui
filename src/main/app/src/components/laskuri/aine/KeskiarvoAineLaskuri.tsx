@@ -33,9 +33,13 @@ const LaskuriContainer = styled(Box)(() => ({
 
 type Props = {
   changeCalculator: (value: boolean) => void;
+  updateKouluaineetToCalculate: (kouluaineet: Kouluaineet) => void;
 };
 
-export const KeskiarvoAineLaskuri = ({ changeCalculator }: Props) => {
+export const KeskiarvoAineLaskuri = ({
+  changeCalculator,
+  updateKouluaineetToCalculate,
+}: Props) => {
   const { t } = useTranslation();
   const [kouluaineet, setKouluaineet] = useState<Kouluaineet>(new Kouluaineet());
 
@@ -47,7 +51,7 @@ export const KeskiarvoAineLaskuri = ({ changeCalculator }: Props) => {
     const aineet = kouluaineet;
     aineet[arrayAvain as keyof Kouluaineet][id] = kouluaine;
     setKouluaineet(aineet);
-    console.log(aineet);
+    updateKouluaineetToCalculate(aineet);
   };
 
   return (
