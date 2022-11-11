@@ -22,5 +22,4 @@ public class ConfigurationController {
   public PublicConfiguration configuration() {
     return configuration.getPublicConfiguration();
   }
-
 }
