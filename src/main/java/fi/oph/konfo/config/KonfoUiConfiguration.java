@@ -79,7 +79,9 @@ public class KonfoUiConfiguration extends OphProperties {
     this.frontProperties.setProperty(
         "konfo-backend.haku.demo", this.require("konfo-backend.haku.demo"));
 
-    publicConfiguration.naytaFiltterienHakutulosLuvut = Boolean.parseBoolean(environment.getRequiredProperty("konfo-ui.nayta-filtterien-hakutulos-luvut"));
+    publicConfiguration.naytaFiltterienHakutulosLuvut =
+        Boolean.parseBoolean(
+            environment.getRequiredProperty("konfo-ui.nayta-filtterien-hakutulos-luvut"));
   }
 
   public PublicConfiguration getPublicConfiguration() {

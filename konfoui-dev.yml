@@ -5,7 +5,7 @@ server:
 bucket:
   url: https://konfo-content.untuvaopintopolku.fi/
 host:
-  host-oppija: http://localhost:3006
+  host-oppija: https://testiopintopolku.fi
   old-oppija-base-url-fi: ""
   old-oppija-base-url-sv: ""
   old-oppija-base-url-en: ""
