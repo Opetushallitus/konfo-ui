@@ -19,6 +19,7 @@ import { HakuKaynnissaSuodatin } from '#/src/components/suodattimet/common/HakuK
 import { HakutapaSuodatin } from '#/src/components/suodattimet/common/HakutapaSuodatin';
 import { OpetuskieliSuodatin } from '#/src/components/suodattimet/common/OpetusKieliSuodatin';
 import { OpetustapaSuodatin } from '#/src/components/suodattimet/common/OpetustapaSuodatin';
+import { OppilaitosSuodatin } from '#/src/components/suodattimet/common/OppilaitosSuodatin';
 import { PohjakoulutusvaatimusSuodatin } from '#/src/components/suodattimet/common/PohjakoulutusvaatimusSuodatin';
 import { SijaintiSuodatin } from '#/src/components/suodattimet/common/SijaintiSuodatin';
 import { ValintatapaSuodatin } from '#/src/components/suodattimet/common/ValintatapaSuodatin';
@@ -263,6 +264,13 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                   setFilters={setFilters}
                 />
               </SuodatinGridItem>
+              <SuodatinGridItem>
+                <OppilaitosSuodatin
+                  elevation={2}
+                  values={usedValues.oppilaitos}
+                  setFilters={setFilters}
+                />
+              </SuodatinGridItem>
               {KORKEAKOULU_KOULUTUSTYYPIT.includes(koulutustyyppi as KOULUTUS_TYYPPI) && (
                 <SuodatinGridItem>
                   <ValintatapaSuodatin
@@ -273,14 +281,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                 </SuodatinGridItem>
               )}
               {koulutustyyppi === KOULUTUS_TYYPPI.LUKIOKOULUTUS && (
-                <Grid
-                  item
-                  container
-                  direction="row"
-                  justifyContent="center"
-                  spacing={2}
-                  className={classes.filtersContainer}
-                  sm={12}>
+                <>
                   <SuodatinGridItem>
                     <LukiolinjatSuodatin
                       name="lukiopainotukset"
@@ -297,7 +298,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                       setFilters={setFilters}
                     />
                   </SuodatinGridItem>
-                </Grid>
+                </>
               )}
               {koulutustyyppi === KOULUTUS_TYYPPI.AMM && (
                 <SuodatinGridItem>

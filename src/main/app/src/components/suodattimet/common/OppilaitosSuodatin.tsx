@@ -9,14 +9,12 @@ import { getFilterStateChanges } from '#/src/tools/filters';
 import { localize } from '#/src/tools/localization';
 import { FilterValue, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 
-export const LukiolinjatSuodatin = (props: SuodatinComponentProps) => {
+export const OppilaitosSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
-  const { name, values = [], ...rest } = props;
-
-  const filteredValues = values.filter((v) => v?.count > 0 || v.checked);
+  const { values = [], ...rest } = props;
 
   const handleCheck = (item: FilterValue) => {
-    const changes = getFilterStateChanges(filteredValues)(item);
+    const changes = getFilterStateChanges(values)(item);
     props.setFilters(changes);
   };
 
@@ -35,23 +33,30 @@ export const LukiolinjatSuodatin = (props: SuodatinComponentProps) => {
 
     return [
       {
-        label: t(`haku.${name}`),
-        options: _fp.sortBy('label')(filteredValues.map((v) => getSelectOption(v))),
+        label: t('haku.oppilaitos'),
+        options: _fp.sortBy('label')(values.map((v) => getSelectOption(v))),
       },
     ];
-  }, [filteredValues, t, name, naytaFiltterienHakutulosLuvut]);
+  }, [values, t, naytaFiltterienHakutulosLuvut]);
 
   const usedValues = useMemo(
-    () => filteredValues.sort((a, b) => Number(b.checked) - Number(a.checked)),
-    [filteredValues]
+    () =>
+      values.sort(
+        (a, b) =>
+          Number(b.checked) - Number(a.checked) ||
+          localize(a.nimi).localeCompare(localize(b.nimi))
+      ),
+    [values]
   );
 
   return (
     <Filter
-      name={t(`haku.${name}`)}
+      name={t('haku.oppilaitos')}
+      selectPlaceholder={t('haku.etsi-oppilaitos')}
+      testId="oppilaitos-filter"
       values={usedValues}
-      options={options}
       handleCheck={handleCheck}
+      options={options}
       expandValues
       displaySelected
       {...rest}

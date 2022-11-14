@@ -4,6 +4,7 @@ import _fp from 'lodash/fp';
 import { useTranslation } from 'react-i18next';
 
 import { Filter } from '#/src/components/common/Filter';
+import { useConfig } from '#/src/config';
 import { getFilterStateChanges } from '#/src/tools/filters';
 import { localize } from '#/src/tools/localization';
 import { FilterValue, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
@@ -23,16 +24,21 @@ export const SijaintiSuodatin = (props: SuodatinComponentProps) => {
 
   const optionsLoading = isFetching;
 
-  const getSelectOption = (value: FilterValue, isMaakunta: boolean) => ({
-    ...value,
-    label: `${localize(value)} (${value.count})`,
-    value: localize(value),
-    isMaakunta,
-    name: value.nimi,
-  });
+  const config = useConfig();
+  const naytaFiltterienHakutulosLuvut = config.naytaFiltterienHakutulosLuvut;
 
-  const groupedSijainnit = useMemo(
-    () => [
+  const groupedSijainnit = useMemo(() => {
+    const getSelectOption = (value: FilterValue, isMaakunta: boolean) => ({
+      ...value,
+      label: naytaFiltterienHakutulosLuvut
+        ? `${localize(value)} (${value.count})`
+        : localize(value),
+      value: localize(value),
+      isMaakunta,
+      name: value.nimi,
+    });
+
+    return [
       {
         label: t('haku.kaupungit-tai-kunnat'),
         options: _fp.sortBy('label')(kuntaValues.map((v) => getSelectOption(v, false))),
@@ -41,9 +47,8 @@ export const SijaintiSuodatin = (props: SuodatinComponentProps) => {
         label: t('haku.maakunnat'),
         options: _fp.sortBy('label')(maakuntaValues.map((v) => getSelectOption(v, true))),
       },
-    ],
-    [kuntaValues, maakuntaValues, t]
-  );
+    ];
+  }, [kuntaValues, maakuntaValues, t, naytaFiltterienHakutulosLuvut]);
 
   const usedValues = useMemo(
     () =>
