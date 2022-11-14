@@ -34,7 +34,7 @@ const isEligibleArvosana = (arvosana: number | null): boolean => {
 
 const isEligiblePainokerroin = (painokerroin: string): boolean => {
   return (
-    _.isNumber(painokerroin) &&
+    _.isNumber(Number.parseFloat(painokerroin)) &&
     Number(painokerroin) >= PAINOKERROIN_MINIMI &&
     Number(painokerroin) <= PAINOKERROIN_MAKSIMI
   );
@@ -99,7 +99,7 @@ const getMatchingScore = (keskiarvo: number, scoreMap: Array<RangeToScore>): num
 const roundKa = (ka: number) => Math.round(ka * 100) / 100;
 
 export const kouluaineetToHakupiste = (kouluaineet: Kouluaineet): HakupisteLaskelma => {
-  const lukuaineet: Array<number> = kouluaineet.kielet
+  const lukuaineet: Array<Kouluaine> = kouluaineet.kielet
     .concat(kouluaineet.lisakielet)
     .concat(kouluaineet.muutLukuaineet)
     .concat(
@@ -107,13 +107,20 @@ export const kouluaineetToHakupiste = (kouluaineet: Kouluaineet): HakupisteLaske
         isEligiblePainokerroin(aine.painokerroin)
       )
     )
-    .filter((aine: Kouluaine) => isEligibleArvosana(aine.arvosana))
-    .map(
+    .filter((aine: Kouluaine) => isEligibleArvosana(aine.arvosana));
+  const lukuaineetOsoittaja: number = _.sum(
+    lukuaineet.map(
       (aine: Kouluaine) =>
         Number(aine.arvosana) *
         (isEligiblePainokerroin(aine.painokerroin) ? Number(aine.painokerroin) : 1)
-    );
-  const lukuKa = roundKa(_.sum(lukuaineet) / lukuaineet.length);
+    )
+  );
+  const lukuaineetNimittaja: number = _.sum(
+    lukuaineet.map((a: Kouluaine) =>
+      isEligiblePainokerroin(a.painokerroin) ? Number(a.painokerroin) : 1
+    )
+  );
+  const lukuKa = roundKa(lukuaineetOsoittaja / lukuaineetNimittaja);
   const kaikki = kouluaineet.kielet
     .concat(kouluaineet.lisakielet)
     .concat(kouluaineet.muutLukuaineet)
