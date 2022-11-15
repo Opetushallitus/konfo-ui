@@ -345,6 +345,9 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                         toteutus.ammatillinenPerustutkintoErityisopetuksena ||
                         toteutus.jarjestetaanErityisopetuksena
                       }
+                      jarjestaaUrheilijanAmmKoulutusta={
+                        toteutus.jarjestaaUrheilijanAmmKoulutusta
+                      }
                       kuvaus={localize(toteutus.kuvaus)}
                       wrapIconTexts={true}
                       iconTexts={[
