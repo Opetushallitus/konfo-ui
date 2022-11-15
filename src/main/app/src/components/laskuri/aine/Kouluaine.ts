@@ -1,3 +1,4 @@
+import { LocalStorable } from '../LocalStorageUtil';
 export interface Kouluaine {
   nimi: string;
   arvosana: number | null;
@@ -9,7 +10,7 @@ const createKouluaine = (nimi: string): Kouluaine => {
   return { nimi, arvosana: null, valinnaisetArvosanat: [], painokerroin: '' };
 };
 
-export class Kouluaineet {
+export class Kouluaineet implements LocalStorable {
   kielet: Array<Kouluaine> = [
     createKouluaine('Äidinkieli ja kirjallisuus'),
     createKouluaine('A1-kieli'),

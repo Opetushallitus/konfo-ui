@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 
 import { DeleteOutlined } from '@mui/icons-material';
 import {
@@ -46,7 +46,7 @@ const AineContainer = styled(Box)(() => ({
 }));
 
 type Props = {
-  aine: string;
+  aine: Kouluaine;
   updateKouluaine: (kouluaine: Kouluaine) => void;
 };
 
@@ -54,13 +54,20 @@ const ARVOSANA_VALUES = _.range(4, 11);
 
 export const KouluaineInput = ({ aine, updateKouluaine }: Props) => {
   const [kouluaine, setKouluaine] = useState<Kouluaine>({
-    nimi: aine,
-    arvosana: null,
-    valinnaisetArvosanat: [],
-    painokerroin: '',
+    nimi: aine.nimi,
+    arvosana: aine.arvosana,
+    valinnaisetArvosanat: aine.valinnaisetArvosanat,
+    painokerroin: aine.painokerroin,
   });
 
   const [showPainokerroin, setShowPainokerroin] = useState<boolean>(false);
+
+  useMemo(() => {
+    if (!_.isEqual(kouluaine, aine)) {
+      setKouluaine(aine);
+      setShowPainokerroin(aine.painokerroin !== '');
+    }
+  }, [aine, kouluaine]);
 
   const labelId = `aine-label-${aine}`;
 
@@ -110,7 +117,7 @@ export const KouluaineInput = ({ aine, updateKouluaine }: Props) => {
   return (
     <AineContainer>
       <FormControl variant="standard" sx={{ minWidth: 150 }}>
-        <InputLabel id={labelId}>{aine}</InputLabel>
+        <InputLabel id={labelId}>{aine.nimi}</InputLabel>
         <Select
           labelId={labelId}
           value={String(kouluaine.arvosana)}
@@ -128,7 +135,9 @@ export const KouluaineInput = ({ aine, updateKouluaine }: Props) => {
             variant="standard"
             sx={{ minWidth: 150 }}
             key={`valinnainen-${index}`}>
-            <InputLabel id={`${labelId}-${index}`}>Valinnaisaine: {aine}</InputLabel>
+            <InputLabel id={`${labelId}-${index}`}>
+              Valinnaisaine: {kouluaine.nimi}
+            </InputLabel>
             <Select
               labelId={`${labelId}-${index}`}
               value={String(valinnainenArvosana)}
