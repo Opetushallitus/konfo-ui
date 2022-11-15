@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { Filter } from '#/src/components/common/Filter';
 import { useConfig } from '#/src/config';
 import { getFilterStateChanges } from '#/src/tools/filters';
-import { localize } from '#/src/tools/localization';
+import { getLanguage, localize } from '#/src/tools/localization';
 import { FilterValue, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 
 export const OppilaitosSuodatin = (props: SuodatinComponentProps) => {
@@ -39,14 +39,16 @@ export const OppilaitosSuodatin = (props: SuodatinComponentProps) => {
     ];
   }, [values, t, naytaFiltterienHakutulosLuvut]);
 
+  const language = getLanguage();
+
   const usedValues = useMemo(
     () =>
       values.sort(
         (a, b) =>
           Number(b.checked) - Number(a.checked) ||
-          localize(a.nimi).localeCompare(localize(b.nimi))
+          localize(a.nimi).localeCompare(localize(b.nimi), language)
       ),
-    [values]
+    [values, language]
   );
 
   return (
