@@ -6,7 +6,7 @@ export interface Kouluaine {
   painokerroin: string;
 }
 
-const createKouluaine = (nimi: string): Kouluaine => {
+export const createKouluaine = (nimi: string): Kouluaine => {
   return { nimi, arvosana: null, valinnaisetArvosanat: [], painokerroin: '' };
 };
 
