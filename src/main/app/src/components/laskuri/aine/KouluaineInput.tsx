@@ -50,6 +50,7 @@ type Props = {
   updateKouluaine: (kouluaine: Kouluaine) => void;
 };
 
+const MAX_VALINNAISET_ARVOSANAT = 3;
 const ARVOSANA_VALUES = _.range(4, 11);
 
 export const KouluaineInput = ({ aine, updateKouluaine }: Props) => {
@@ -156,7 +157,7 @@ export const KouluaineInput = ({ aine, updateKouluaine }: Props) => {
           </FormControl>
         )
       )}
-      {kouluaine.valinnaisetArvosanat.length < 2 && (
+      {kouluaine.valinnaisetArvosanat.length < MAX_VALINNAISET_ARVOSANAT && (
         <Button onClick={addValinnaisaine}>+ Lisää valinnaisaine</Button>
       )}
       {!showPainokerroin && (

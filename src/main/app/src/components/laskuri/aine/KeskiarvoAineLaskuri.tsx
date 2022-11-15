@@ -6,7 +6,8 @@ import { useTranslation } from 'react-i18next';
 import { colors } from 'src/colors';
 
 import { LocalStorageUtil } from '../LocalStorageUtil';
-import { Kouluaineet, Kouluaine } from './Kouluaine';
+import { AddKieliInput } from './AddKieliInput';
+import { Kouluaineet, Kouluaine, createKouluaine } from './Kouluaine';
 import { KouluaineInput } from './KouluaineInput';
 
 const KOULUAINE_STORE_KEY = 'kouluaineet';
@@ -71,6 +72,12 @@ export const KeskiarvoAineLaskuri = ({
     updateKouluaineetToCalculate(aineet);
   };
 
+  const addKieli = (nimi: string) => {
+    const aineet: Kouluaineet = { ...kouluaineet };
+    aineet.lisakielet.push(createKouluaine(nimi));
+    setKouluaineet(aineet);
+  };
+
   return (
     <LaskuriContainer>
       <Typography variant="h3" sx={{ fontSize: '1.25rem' }}>
@@ -97,6 +104,7 @@ export const KeskiarvoAineLaskuri = ({
           aine={kieliaine}
           key={`lisakieliaine-${kieliaine.nimi}-${index}`}></KouluaineInput>
       ))}
+      <AddKieliInput addKieli={addKieli}></AddKieliInput>
       {kouluaineet.muutLukuaineet.map((lukuaine: Kouluaine, index: number) => (
         <KouluaineInput
           updateKouluaine={(kouluaine: Kouluaine) =>
