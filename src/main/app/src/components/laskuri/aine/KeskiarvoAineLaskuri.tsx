@@ -78,6 +78,16 @@ export const KeskiarvoAineLaskuri = ({
     setKouluaineet(aineet);
   };
 
+  const removeKieli = (index: number) => {
+    const aineet: Kouluaineet = { ...kouluaineet };
+    aineet.lisakielet = aineet.lisakielet.filter(
+      (val: Kouluaine, id: number) => id !== index
+    );
+    setKouluaineet(aineet);
+    updateKouluaineetToCalculate(aineet);
+    LocalStorageUtil.save(KOULUAINE_STORE_KEY, aineet);
+  };
+
   return (
     <LaskuriContainer>
       <Typography variant="h3" sx={{ fontSize: '1.25rem' }}>
@@ -104,7 +114,9 @@ export const KeskiarvoAineLaskuri = ({
             updateKouluaineFromChild(kouluaine, index, 'lisakielet')
           }
           aine={kieliaine}
-          key={`lisakieliaine-${kieliaine.nimi}-${index}`}></KouluaineInput>
+          key={`lisakieliaine-${kieliaine.nimi}-${index}`}
+          isLisaKieli={true}
+          removeLisaKieli={() => removeKieli(index)}></KouluaineInput>
       ))}
       <AddKieliInput addKieli={addKieli}></AddKieliInput>
       {kouluaineet.muutLukuaineet.map((lukuaine: Kouluaine, index: number) => (

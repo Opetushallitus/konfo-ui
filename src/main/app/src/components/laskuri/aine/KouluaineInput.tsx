@@ -50,12 +50,19 @@ const AineContainer = styled(Box)(() => ({
 type Props = {
   aine: Kouluaine;
   updateKouluaine: (kouluaine: Kouluaine) => void;
+  isLisaKieli?: boolean;
+  removeLisaKieli?: () => void;
 };
 
 const MAX_VALINNAISET_ARVOSANAT = 3;
 const ARVOSANA_VALUES = _.range(4, 11);
 
-export const KouluaineInput = ({ aine, updateKouluaine }: Props) => {
+export const KouluaineInput = ({
+  aine,
+  updateKouluaine,
+  isLisaKieli = false,
+  removeLisaKieli = () => {},
+}: Props) => {
   const { t } = useTranslation();
   const [kouluaine, setKouluaine] = useState<Kouluaine>({
     nimi: aine.nimi,
@@ -138,6 +145,13 @@ export const KouluaineInput = ({ aine, updateKouluaine }: Props) => {
           <LabelTooltip
             title={t(kouluaine.description)}
             sx={{ marginLeft: '3px' }}></LabelTooltip>
+        )}
+        {isLisaKieli && (
+          <IconButton
+            onClick={removeLisaKieli}
+            aria-label={t('pistelaskuri.aine.removekieli')}>
+            <DeleteOutlined />
+          </IconButton>
         )}
       </FormControl>
       {kouluaine.valinnaisetArvosanat.map(
