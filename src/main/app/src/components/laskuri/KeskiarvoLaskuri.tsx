@@ -99,9 +99,9 @@ export const KeskiarvoLaskuri = ({
         {t('pistelaskuri.keskiarvot-header')}
       </Typography>
       <Typography>
-        Jos haluat tarkan laskelman,{' '}
+        {t('pistelaskuri.vaihdalaskin-1')}
         <Button onClick={() => changeCalculator(false)}>
-          kerro oppiaineiden arvosanat yksitellen.
+          {t('pistelaskuri.vaihdalaskin-2')}
         </Button>
       </Typography>
       <Grid container justifyContent="space-evenly" columns={{ xs: 1, sm: 1, md: 3 }}>

@@ -15,8 +15,10 @@ import {
   Input,
 } from '@mui/material';
 import _ from 'lodash';
+import { useTranslation } from 'react-i18next';
 import { colors } from 'src/colors';
 
+import { LabelTooltip } from '../../common/LabelTooltip';
 import { Kouluaine } from './Kouluaine';
 
 const PREFIX = 'keskiarvo__ainelaskuri__';
@@ -54,11 +56,13 @@ const MAX_VALINNAISET_ARVOSANAT = 3;
 const ARVOSANA_VALUES = _.range(4, 11);
 
 export const KouluaineInput = ({ aine, updateKouluaine }: Props) => {
+  const { t } = useTranslation();
   const [kouluaine, setKouluaine] = useState<Kouluaine>({
     nimi: aine.nimi,
     arvosana: aine.arvosana,
     valinnaisetArvosanat: aine.valinnaisetArvosanat,
     painokerroin: aine.painokerroin,
+    description: aine.description,
   });
 
   const [showPainokerroin, setShowPainokerroin] = useState<boolean>(false);
@@ -119,7 +123,7 @@ export const KouluaineInput = ({ aine, updateKouluaine }: Props) => {
   return (
     <AineContainer>
       <FormControl variant="standard" sx={{ minWidth: 150 }}>
-        <InputLabel id={labelId}>{aine.nimi}</InputLabel>
+        <InputLabel id={labelId}>{t(aine.nimi)}</InputLabel>
         <Select
           labelId={labelId}
           value={String(kouluaine.arvosana)}
@@ -130,6 +134,11 @@ export const KouluaineInput = ({ aine, updateKouluaine }: Props) => {
             </MenuItem>
           ))}
         </Select>
+        {kouluaine.description && (
+          <LabelTooltip
+            title={t(kouluaine.description)}
+            sx={{ marginLeft: '3px' }}></LabelTooltip>
+        )}
       </FormControl>
       {kouluaine.valinnaisetArvosanat.map(
         (valinnainenArvosana: number | null, index: number) => (
@@ -138,7 +147,7 @@ export const KouluaineInput = ({ aine, updateKouluaine }: Props) => {
             sx={{ minWidth: 150 }}
             key={`valinnainen-${index}`}>
             <InputLabel id={`${labelId}-${index}`}>
-              Valinnaisaine: {kouluaine.nimi}
+              {t('pistelaskuri.aine.valinnaisaine')} {t(kouluaine.nimi)}
             </InputLabel>
             <Select
               labelId={`${labelId}-${index}`}
@@ -152,29 +161,39 @@ export const KouluaineInput = ({ aine, updateKouluaine }: Props) => {
                 </MenuItem>
               ))}
             </Select>
-            <IconButton onClick={() => removeValinnaisaine(index)}>
+            <IconButton
+              onClick={() => removeValinnaisaine(index)}
+              aria-label={t('pistelaskuri.aine.removevalinnainen')}>
               <DeleteOutlined />
             </IconButton>
           </FormControl>
         )
       )}
       {kouluaine.valinnaisetArvosanat.length < MAX_VALINNAISET_ARVOSANAT && (
-        <Button onClick={addValinnaisaine}>+ Lisää valinnaisaine</Button>
+        <Button onClick={addValinnaisaine}>
+          {t('pistelaskuri.aine.addvalinnainen')}
+        </Button>
       )}
       {!showPainokerroin && (
-        <Button onClick={() => setShowPainokerroin(true)}>+ Lisää painokerroin</Button>
+        <Button onClick={() => setShowPainokerroin(true)}>
+          {t('pistelaskuri.aine.addpainokerroin')}
+        </Button>
       )}
       {showPainokerroin && (
         <>
           <InputLabel>
-            <Typography sx={{ fontWeight: 'bold' }}>Painokerroin</Typography>
+            <Typography sx={{ fontWeight: 'bold' }}>
+              {t('pistelaskuri.aine.painokerroin')}
+            </Typography>
             <Input
               className={classes.input}
               onChange={changePainokerroin}
               value={kouluaine.painokerroin}
               disableUnderline={true}></Input>
           </InputLabel>
-          <IconButton onClick={poistaPainokerroin}>
+          <IconButton
+            onClick={poistaPainokerroin}
+            aria-label={t('pistelaskuri.aine.removepainokerroin')}>
             <DeleteOutlined />
           </IconButton>
         </>
