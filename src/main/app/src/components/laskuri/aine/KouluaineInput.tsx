@@ -68,7 +68,8 @@ export const KouluaineInput = ({ aine, updateKouluaine }: Props) => {
       setKouluaine(aine);
       setShowPainokerroin(aine.painokerroin !== '');
     }
-  }, [aine, kouluaine]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [aine]);
 
   const labelId = `aine-label-${aine}`;
 
