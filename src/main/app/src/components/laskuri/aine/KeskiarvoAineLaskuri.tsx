@@ -72,9 +72,9 @@ export const KeskiarvoAineLaskuri = ({
     updateKouluaineetToCalculate(aineet);
   };
 
-  const addKieli = (nimi: string) => {
+  const addKieli = (nimi: string, description: string | null) => {
     const aineet: Kouluaineet = { ...kouluaineet };
-    aineet.lisakielet.push(createKouluaine(nimi));
+    aineet.lisakielet.push(createKouluaine(nimi, description));
     setKouluaineet(aineet);
   };
 
@@ -84,10 +84,12 @@ export const KeskiarvoAineLaskuri = ({
         {t('pistelaskuri.aine.heading')}
       </Typography>
       <Typography>
-        Voit myös{' '}
-        <Button onClick={() => changeCalculator(true)}>arvioida keskiarvot itse.</Button>
+        {t('pistelaskuri.aine.vaihdalaskin-1')}
+        <Button onClick={() => changeCalculator(true)}>
+          {t('pistelaskuri.aine.vaihdalaskin-2')}
+        </Button>
       </Typography>
-      <Typography variant="h4">Lukuaineet</Typography>
+      <Typography variant="h4">{t('pistelaskuri.aine.lukuaineet')}</Typography>
       {kouluaineet.kielet.map((kieliaine: Kouluaine, index: number) => (
         <KouluaineInput
           updateKouluaine={(kouluaine: Kouluaine) =>
@@ -113,7 +115,7 @@ export const KeskiarvoAineLaskuri = ({
           aine={lukuaine}
           key={`lukuaine-${lukuaine.nimi}-${index}`}></KouluaineInput>
       ))}
-      <Typography variant="h4">Taide- ja taitoaineet</Typography>
+      <Typography variant="h4">{t('pistelaskuri.aine.taitoaineet')}</Typography>
       {kouluaineet.taitoaineet.map((taitoaine: Kouluaine, index: number) => (
         <KouluaineInput
           updateKouluaine={(kouluaine: Kouluaine) =>

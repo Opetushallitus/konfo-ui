@@ -611,8 +611,48 @@
       "info": "Edellisvuosien alin hyväksytty pistemäärä, jolla oppilaitokseen on päässyt opiskelemaan. Tarkista hakukohteesta, järjestetäänkö koulutuksessa lisäksi pääsykoe, joka vaikuttaa lopulliseen pistemäärään. Musiikin, tanssin ja sirkuksen oppilasvalinta perustuu usein pelkkään pääsykokeeseen.",
       "info-rohkaisu": "Koulutukseen kannattaa hakea, vaikka pistemääräsi ei olisikaan aiempien vuosien tasolla."
     },
+    "vaihdalaskin-1": "Jos haluat tarkan laskelman, ",
+    "vaihdalaskin-2": "kerro oppiaineiden arvosanat yksitellen.",
     "aine": {
-      "heading": "Peruskoulun arvosanat"
+      "heading": "Peruskoulun arvosanat",
+      "valinnaisaine": "Valinnaisaine:",
+      "addvalinnainen": "+ Lisää valinnaisaine",
+      "removevalinnainen": "Poista valinnaisaine",
+      "addpainokerroin": "+ Lisää painokerroin",
+      "removepainokerroin": "Poista painokerroin",
+      "painokerroin": "Painokerroin",
+      "addlanguage": "+ Lisää Kieli",
+      "lukuaineet": "Lukuaineet",
+      "taitoaineet": "Taide- ja taitoaineet",
+      "vaihdalaskin-1": "Voit myös ",
+      "vaihdalaskin-2": "arvioida keskiarvot itse.",
+      "kielikuvaukset": {
+        "a1": "Alakoulussa ensimmäisenä alkanut pakollinen kieli, yleensä englanti",
+        "a2": "Alakoulussa alkanut valinnainen kieli",
+        "b1": "Alakoulussa alkanut toinen kotimainen kieli, yleensä ruotsi",
+        "b2": "Yläkoulussa alkanut valinnainen kieli"
+      }
     }
+  },
+  "kouluaineet": {
+    "aidinkieli": "Äidinkieli ja kirjallisuus",
+    "a1-kieli": "A1-kieli",
+    "a2-kieli": "A2-kieli",
+    "b1-kieli": "B1-kieli",
+    "b2-kieli": "B2-kieli",
+    "matematiikka": "Matematiikka",
+    "biologia": "Biologia",
+    "maantieto": "Maantieto",
+    "fysiikka": "Fysiikka",
+    "kemia": "Kemia",
+    "terveystieto": "Terveystieto",
+    "uskonto": "Uskonto tai elämänkatsomustieto",
+    "historia": "Historia",
+    "yhteiskuntaoppi": "Yhteiskuntaoppi",
+    "musiikki": "Musiikki",
+    "kuvataide": "Kuvataide",
+    "kasityo": "Käsityö",
+    "liikunta": "Liikunta",
+    "kotitalous": "Kotitalous"
   }
 }

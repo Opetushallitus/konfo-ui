@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { Box, styled, Button } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import { colors } from 'src/colors';
 
 const PREFIX = 'keskiarvo__ainelaskuri__lisaakieli__';
@@ -37,27 +38,45 @@ const KieliContainer = styled(Box)(() => ({
 }));
 
 type Props = {
-  addKieli: (name: string) => void;
+  addKieli: (name: string, description: string | null) => void;
 };
 
 export const AddKieliInput = ({ addKieli }: Props) => {
+  const { t } = useTranslation();
   const [showAddKieli, setShowAddKieli] = useState<boolean>(false);
 
-  const addAndClose = (name: string) => {
+  const addAndClose = (name: string, description: string | null = null) => {
     setShowAddKieli(false);
-    addKieli(name);
+    addKieli(name, description);
   };
 
   return (
     <KieliContainer>
-      <Button onClick={() => setShowAddKieli(true)}>+ Lisää Kieli</Button>
+      <Button onClick={() => setShowAddKieli(true)}>
+        {t('pistelaskuri.aine.addlanguage')}
+      </Button>
       {showAddKieli && (
         <div className={classes.kieliValinta}>
-          <Button onClick={() => addAndClose('A1-kieli')}>A1-kieli</Button>
-          <Button onClick={() => addAndClose('A2-kieli')}>A2-kieli</Button>
-          <Button onClick={() => addAndClose('B2-kieli')}>B2-kieli</Button>
-          <Button onClick={() => addAndClose('Äidinkieli ja kirjallisuus')}>
-            Äidinkieli ja kirjallisuus
+          <Button
+            onClick={() =>
+              addAndClose('kouluaineet.a1-kieli', 'pistelaskuri.aine.kielikuvaukset.a1')
+            }>
+            {t('kouluaineet.a1-kieli')}
+          </Button>
+          <Button
+            onClick={() =>
+              addAndClose('kouluaineet.a2-kieli', 'pistelaskuri.aine.kielikuvaukset.a2')
+            }>
+            {t('kouluaineet.a2-kieli')}
+          </Button>
+          <Button
+            onClick={() =>
+              addAndClose('kouluaineet.b2-kieli', 'pistelaskuri.aine.kielikuvaukset.b2')
+            }>
+            {t('kouluaineet.b2-kieli')}
+          </Button>
+          <Button onClick={() => addAndClose('kouluaineet.aidinkieli')}>
+            {t('kouluaineet.aidinkieli')}
           </Button>
         </div>
       )}
