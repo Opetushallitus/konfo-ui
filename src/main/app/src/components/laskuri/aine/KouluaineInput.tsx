@@ -26,11 +26,20 @@ const PREFIX = 'keskiarvo__ainelaskuri__';
 const classes = {
   input: `${PREFIX}input`,
   error: `${PREFIX}error`,
+  optionDisabled: `${PREFIX}option--disabled`,
+  gradeControl: `${PREFIX}gradecontrol`,
+  gradeLabel: `${PREFIX}gradelabel`,
+  gradeSelect: `${PREFIX}gradeselect`,
+  gradeInfo: `${PREFIX}gradeinfo`,
 };
 
 const AineContainer = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'row',
+  marginBottom: '27px',
+  columnGap: '38px',
+  alignItems: 'center',
+  alignContent: 'center',
   [`& .${classes.input}`]: {
     border: `1px solid ${colors.lightGrey}`,
     padding: '0 0.5rem',
@@ -44,6 +53,34 @@ const AineContainer = styled(Box)(() => ({
   [`& .${classes.error}`]: {
     color: colors.red,
     maxWidth: '60%',
+  },
+  [`& .${classes.optionDisabled}`]: {
+    color: colors.lightGrey,
+  },
+  [`& .${classes.gradeControl}`]: {
+    display: 'grid',
+    gridTemplateColumns: '6fr 1fr',
+    gridTemplateAreas: `"label info"
+                       "select select"`,
+    alignItems: 'center',
+    alignContent: 'center',
+    rowGap: '7px',
+    [`& .${classes.gradeLabel}`]: {
+      gridArea: 'label',
+      overflow: 'unset',
+      textOverflow: 'unset',
+      position: 'relative',
+      transformOrigin: 'left',
+      transform: 'none',
+      fontSize: '1rem',
+      fontWeight: 'semibold',
+    },
+    [`& .${classes.gradeInfo}`]: {
+      gridArea: 'info',
+    },
+    [`& .${classes.gradeSelect}`]: {
+      gridArea: 'select',
+    },
   },
 }));
 
@@ -82,7 +119,7 @@ export const KouluaineInput = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [aine]);
 
-  const labelId = `aine-label-${aine}`;
+  const labelId = `aine-label-${aine.nimi}`;
 
   const handleArvosanaChange = (event: SelectChangeEvent) => {
     const uusiaine = Object.assign({}, kouluaine, {
@@ -129,23 +166,40 @@ export const KouluaineInput = ({
 
   return (
     <AineContainer>
-      <FormControl variant="standard" sx={{ minWidth: 150 }}>
-        <InputLabel id={labelId}>{t(aine.nimi)}</InputLabel>
+      <FormControl
+        variant="standard"
+        sx={{ minWidth: 220 }}
+        className={classes.gradeControl}>
+        <InputLabel id={labelId} className={classes.gradeLabel}>
+          {t(aine.nimi)}
+        </InputLabel>
+        <div className={classes.gradeInfo}>
+          {kouluaine.description && (
+            <LabelTooltip
+              title={t(kouluaine.description)}
+              sx={{ marginLeft: '3px' }}></LabelTooltip>
+          )}
+        </div>
         <Select
           labelId={labelId}
           value={String(kouluaine.arvosana)}
-          onChange={handleArvosanaChange}>
+          onChange={handleArvosanaChange}
+          input={<Input className={classes.input} />}
+          className={
+            String(kouluaine.arvosana) === 'null'
+              ? `${classes.optionDisabled} ${classes.gradeSelect}`
+              : classes.gradeSelect
+          }
+          variant="standard">
+          <MenuItem key="arvosana-null" disabled={true} value="null">
+            {t('pistelaskuri.aine.valitsearvosana')}
+          </MenuItem>
           {ARVOSANA_VALUES.map((arvosana: number, index: number) => (
             <MenuItem key={`arvosana-${index}`} value={arvosana}>
               {arvosana}
             </MenuItem>
           ))}
         </Select>
-        {kouluaine.description && (
-          <LabelTooltip
-            title={t(kouluaine.description)}
-            sx={{ marginLeft: '3px' }}></LabelTooltip>
-        )}
         {isLisaKieli && (
           <IconButton
             onClick={removeLisaKieli}
