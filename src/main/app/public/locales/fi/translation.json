@@ -634,7 +634,8 @@
         "b1": "Alakoulussa alkanut toinen kotimainen kieli, yleensä ruotsi",
         "b2": "Yläkoulussa alkanut valinnainen kieli"
       },
-      "removekieli": "Poista kieliaine"
+      "removekieli": "Poista kieliaine",
+      "valitsearvosana": "Valitse arvosana"
     }
   },
   "kouluaineet": {
