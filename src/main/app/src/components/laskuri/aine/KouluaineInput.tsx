@@ -19,7 +19,8 @@ import { useTranslation } from 'react-i18next';
 import { colors } from 'src/colors';
 
 import { LabelTooltip } from '../../common/LabelTooltip';
-import { Kouluaine } from './Kouluaine';
+import { ARVOSANA_VALUES, Kouluaine } from './Kouluaine';
+import { ValinnainenArvosana } from './ValinnainenArvosana';
 
 const PREFIX = 'keskiarvo__ainelaskuri__';
 
@@ -31,6 +32,7 @@ const classes = {
   gradeLabel: `${PREFIX}gradelabel`,
   gradeSelect: `${PREFIX}gradeselect`,
   gradeInfo: `${PREFIX}gradeinfo`,
+  button: `${PREFIX}button`,
 };
 
 const AineContainer = styled(Box)(() => ({
@@ -49,6 +51,9 @@ const AineContainer = styled(Box)(() => ({
     '&:hover': {
       borderColor: colors.black,
     },
+  },
+  button: {
+    fontSize: '1rem',
   },
   [`& .${classes.error}`]: {
     color: colors.red,
@@ -92,7 +97,6 @@ type Props = {
 };
 
 const MAX_VALINNAISET_ARVOSANAT = 3;
-const ARVOSANA_VALUES = _.range(4, 11);
 
 export const KouluaineInput = ({
   aine,
@@ -177,7 +181,7 @@ export const KouluaineInput = ({
           {kouluaine.description && (
             <LabelTooltip
               title={t(kouluaine.description)}
-              sx={{ marginLeft: '3px' }}></LabelTooltip>
+              sx={{ marginLeft: '3px', color: colors.brandGreen }}></LabelTooltip>
           )}
         </div>
         <Select
@@ -210,31 +214,17 @@ export const KouluaineInput = ({
       </FormControl>
       {kouluaine.valinnaisetArvosanat.map(
         (valinnainenArvosana: number | null, index: number) => (
-          <FormControl
-            variant="standard"
-            sx={{ minWidth: 150 }}
-            key={`valinnainen-${index}`}>
-            <InputLabel id={`${labelId}-${index}`}>
-              {t('pistelaskuri.aine.valinnaisaine')} {t(kouluaine.nimi)}
-            </InputLabel>
-            <Select
-              labelId={`${labelId}-${index}`}
-              value={String(valinnainenArvosana)}
-              onChange={(event: SelectChangeEvent) =>
-                handleValinnainenArvosanaChange(event, index)
-              }>
-              {ARVOSANA_VALUES.map((arvosana: number, id: number) => (
-                <MenuItem key={`arvosana-${index}-${id}`} value={arvosana}>
-                  {arvosana}
-                </MenuItem>
-              ))}
-            </Select>
-            <IconButton
-              onClick={() => removeValinnaisaine(index)}
-              aria-label={t('pistelaskuri.aine.removevalinnainen')}>
-              <DeleteOutlined />
-            </IconButton>
-          </FormControl>
+          <ValinnainenArvosana
+            nimi={kouluaine.nimi}
+            labelId={labelId}
+            index={index}
+            arvosana={valinnainenArvosana}
+            removeValinnaisaine={() => removeValinnaisaine(index)}
+            updateValinnainenArvosana={(event: SelectChangeEvent) =>
+              handleValinnainenArvosanaChange(event, index)
+            }
+            key={`valinnainen-${index}`}
+          />
         )
       )}
       {kouluaine.valinnaisetArvosanat.length < MAX_VALINNAISET_ARVOSANAT && (

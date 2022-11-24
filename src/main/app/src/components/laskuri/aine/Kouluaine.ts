@@ -1,4 +1,8 @@
+import _ from 'lodash';
+
 import { LocalStorable } from '../LocalStorageUtil';
+
+export const ARVOSANA_VALUES = _.range(4, 11);
 export interface Kouluaine {
   nimi: string;
   arvosana: number | null;
