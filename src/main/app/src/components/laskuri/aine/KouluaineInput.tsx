@@ -11,7 +11,6 @@ import {
   Button,
   SelectChangeEvent,
   IconButton,
-  Typography,
   Input,
 } from '@mui/material';
 import _ from 'lodash';
@@ -20,6 +19,7 @@ import { colors } from 'src/colors';
 
 import { LabelTooltip } from '../../common/LabelTooltip';
 import { ARVOSANA_VALUES, Kouluaine } from './Kouluaine';
+import { PainokerroinInput } from './PainokerroinInput';
 import { ValinnainenArvosana } from './ValinnainenArvosana';
 
 const PREFIX = 'keskiarvo__ainelaskuri__';
@@ -194,7 +194,8 @@ export const KouluaineInput = ({
               ? `${classes.optionDisabled} ${classes.gradeSelect}`
               : classes.gradeSelect
           }
-          variant="standard">
+          variant="standard"
+          disableUnderline={true}>
           <MenuItem key="arvosana-null" disabled={true} value="null">
             {t('pistelaskuri.aine.valitsearvosana')}
           </MenuItem>
@@ -238,23 +239,11 @@ export const KouluaineInput = ({
         </Button>
       )}
       {showPainokerroin && (
-        <>
-          <InputLabel>
-            <Typography sx={{ fontWeight: 'bold' }}>
-              {t('pistelaskuri.aine.painokerroin')}
-            </Typography>
-            <Input
-              className={classes.input}
-              onChange={changePainokerroin}
-              value={kouluaine.painokerroin}
-              disableUnderline={true}></Input>
-          </InputLabel>
-          <IconButton
-            onClick={poistaPainokerroin}
-            aria-label={t('pistelaskuri.aine.removepainokerroin')}>
-            <DeleteOutlined />
-          </IconButton>
-        </>
+        <PainokerroinInput
+          painokerroin={kouluaine.painokerroin}
+          updatePainokerroin={changePainokerroin}
+          removePainokerroin={poistaPainokerroin}
+        />
       )}
     </AineContainer>
   );

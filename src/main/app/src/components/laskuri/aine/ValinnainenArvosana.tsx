@@ -99,7 +99,8 @@ export const ValinnainenArvosana = ({
             ? `${classes.optionDisabled} ${classes.gradeSelect}`
             : classes.gradeSelect
         }
-        variant="standard">
+        variant="standard"
+        disableUnderline={true}>
         <MenuItem key="arvosana-null" disabled={true} value="null">
           {t('pistelaskuri.aine.valitsearvosana')}
         </MenuItem>
