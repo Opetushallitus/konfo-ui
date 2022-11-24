@@ -34,13 +34,12 @@ const StyledBox = styled(Box)(({ theme }) => ({
     position: 'absolute',
     width: theme.spacing(8),
     height: theme.spacing(8),
-    marginTop: -theme.spacing(8) / 2,
+    marginTop: `calc(-${theme.spacing(8)} / 2)`,
     backgroundColor: colors.brandGreen,
     [theme.breakpoints.down('sm')]: {
       width: theme.spacing(6),
       height: theme.spacing(6),
-      marginLeft: -theme.spacing(6) / 2,
-      marginTop: -theme.spacing(6) / 2,
+      marginTop: `calc(-${theme.spacing(6)} / 2)`,
     },
   },
 }));

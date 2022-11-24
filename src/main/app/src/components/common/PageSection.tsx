@@ -22,7 +22,13 @@ export const PageSection = ({ heading, children, ...props }: Props) => {
       width="100%"
       mt={isSmall ? 4 : 8}
       {...props}>
-      {_fp.isString(heading) ? <Typography variant="h2">{heading}</Typography> : heading}
+      {_fp.isString(heading) ? (
+        <Typography variant="h2" sx={{ textAlign: 'center' }}>
+          {heading}
+        </Typography>
+      ) : (
+        heading
+      )}
       <Spacer />
       {children}
     </Box>

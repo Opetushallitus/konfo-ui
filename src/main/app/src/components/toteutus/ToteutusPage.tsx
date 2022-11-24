@@ -53,6 +53,8 @@ const classes = {
 };
 
 const InnerWrapper = styled('div')(({ theme }) => ({
+  maxWidth: '100vw',
+  padding: '0 0.4rem',
   [`& .${classes.oppilaitosHeadingSpan}`]: {
     ...theme.typography.body1,
     marginTop: '20px',
@@ -255,7 +257,9 @@ export const ToteutusPage = () => {
         )}
         {tyyppi === KOULUTUS_TYYPPI.KK_OPINTOJAKSO &&
           !_.isEmpty(kuuluuOpintokokonaisuuksiin) && (
-            <Opintokokonaisuudet opintokokonaisuudet={kuuluuOpintokokonaisuuksiin || []} />
+            <Opintokokonaisuudet
+              opintokokonaisuudet={kuuluuOpintokokonaisuuksiin || []}
+            />
           )}
         <Box id="haut" display="flex" justifyContent="center">
           <ToteutusHakutiedot toteutus={toteutus} />

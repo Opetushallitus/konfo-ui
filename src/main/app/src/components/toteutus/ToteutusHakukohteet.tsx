@@ -44,6 +44,9 @@ const classes = {
 };
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
+  '&> div': {
+    flexBasis: 'unset',
+  },
   [`& .${classes.hakuName}`]: {
     ...theme.typography.h5,
     fontWeight: 700,
@@ -58,7 +61,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   },
 
   [`& .${classes.paper}`]: {
-    width: '100%',
+    width: '100vw',
     maxWidth: '800px',
     height: '100%',
     borderTop: `5px solid ${colors.brandGreen}`,
