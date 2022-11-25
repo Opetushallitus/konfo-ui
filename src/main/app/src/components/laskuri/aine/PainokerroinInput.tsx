@@ -12,29 +12,32 @@ import {
 import { useTranslation } from 'react-i18next';
 import { colors } from 'src/colors';
 
+import { isEligiblePainokerroin } from '../Keskiarvo';
+
 const PREFIX = 'keskiarvo__ainelaskuri__';
 
 const classes = {
   input: `${PREFIX}input`,
   error: `${PREFIX}error`,
-  optionDisabled: `${PREFIX}option--disabled`,
-  gradeControl: `${PREFIX}gradecontrol`,
-  gradeLabel: `${PREFIX}gradelabel`,
-  gradeSelect: `${PREFIX}gradeselect`,
-  gradeInfo: `${PREFIX}gradeinfo`,
+  label: `${PREFIX}label`,
   button: `${PREFIX}button`,
+  delete: `${PREFIX}delete`,
 };
 
 const PainoControl = styled(FormControl)(() => ({
-  display: 'flex',
-  flexDirection: 'row',
-  marginBottom: '27px',
-  columnGap: '38px',
+  display: 'grid',
+  gridTemplateColumns: '6fr 1fr',
+  gridTemplateAreas: `"label label"
+                     "input delete"
+                     "error error"`,
   alignItems: 'center',
   alignContent: 'center',
+  rowGap: '7px',
   [`& .${classes.input}`]: {
+    gridArea: 'input',
     border: `1px solid ${colors.lightGrey}`,
     padding: '0 0.5rem',
+    marginTop: 0,
     '&:focus-within': {
       borderColor: colors.black,
     },
@@ -42,50 +45,35 @@ const PainoControl = styled(FormControl)(() => ({
       borderColor: colors.black,
     },
   },
-  button: {
-    fontSize: '1rem',
+  [`& .${classes.delete}`]: {
+    gridArea: 'delete',
+    color: colors.brandGreen,
   },
   [`& .${classes.error}`]: {
+    gridArea: 'error',
     color: colors.red,
-    maxWidth: '60%',
   },
-  [`& .${classes.optionDisabled}`]: {
-    color: colors.lightGrey,
-  },
-  [`& .${classes.gradeControl}`]: {
-    display: 'grid',
-    gridTemplateColumns: '6fr 1fr',
-    gridTemplateAreas: `"label info"
-                       "select select"`,
-    alignItems: 'center',
-    alignContent: 'center',
-    rowGap: '7px',
-    [`& .${classes.gradeLabel}`]: {
-      gridArea: 'label',
-      overflow: 'unset',
-      textOverflow: 'unset',
-      position: 'relative',
-      transformOrigin: 'left',
-      transform: 'none',
-      fontSize: '1rem',
-      fontWeight: 'semibold',
-    },
-    [`& .${classes.gradeInfo}`]: {
-      gridArea: 'info',
-    },
-    [`& .${classes.gradeSelect}`]: {
-      gridArea: 'select',
-    },
+  [`& .${classes.label}`]: {
+    gridArea: 'label',
+    overflow: 'unset',
+    textOverflow: 'unset',
+    position: 'relative',
+    transformOrigin: 'left',
+    transform: 'none',
+    fontSize: '1rem',
+    fontWeight: 'semibold',
   },
 }));
 
 type Props = {
+  id: string;
   painokerroin: string;
   updatePainokerroin: (event: React.ChangeEvent<HTMLInputElement>) => void;
   removePainokerroin: () => void;
 };
 
 export const PainokerroinInput = ({
+  id,
   painokerroin,
   updatePainokerroin,
   removePainokerroin,
@@ -94,21 +82,27 @@ export const PainokerroinInput = ({
 
   return (
     <PainoControl variant="standard">
-      <InputLabel>
-        <Typography sx={{ fontWeight: 'bold' }}>
-          {t('pistelaskuri.aine.painokerroin')}
-        </Typography>
-        <Input
-          className={classes.input}
-          onChange={updatePainokerroin}
-          value={painokerroin}
-          disableUnderline={true}></Input>
+      <InputLabel htmlFor={id} className={classes.label}>
+        {t('pistelaskuri.aine.painokerroin')}
       </InputLabel>
+      <Input
+        name={id}
+        className={classes.input}
+        onChange={updatePainokerroin}
+        value={painokerroin}
+        error={!isEligiblePainokerroin(painokerroin)}
+        disableUnderline={true}></Input>
       <IconButton
+        className={classes.delete}
         onClick={removePainokerroin}
         aria-label={t('pistelaskuri.aine.removepainokerroin')}>
         <DeleteOutlined />
       </IconButton>
+      {!isEligiblePainokerroin(painokerroin) && painokerroin !== '' && (
+        <Typography variant="body2" className={classes.error}>
+          {t('pistelaskuri.error.painokerroin')}
+        </Typography>
+      )}
     </PainoControl>
   );
 };

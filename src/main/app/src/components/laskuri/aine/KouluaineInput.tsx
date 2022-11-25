@@ -240,6 +240,7 @@ export const KouluaineInput = ({
       )}
       {showPainokerroin && (
         <PainokerroinInput
+          id={`painokerroin-${kouluaine.nimi}`}
           painokerroin={kouluaine.painokerroin}
           updatePainokerroin={changePainokerroin}
           removePainokerroin={poistaPainokerroin}

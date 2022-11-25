@@ -599,7 +599,8 @@
       "linkki": "Tutustu yleisiin valintaperusteisiin"
     },
     "error": {
-      "keskiarvo": "Syötä keskiarvo väliltä 4-10.\nKeskiarvo voi sisältää desimaaleja."
+      "keskiarvo": "Syötä keskiarvo väliltä 4-10.\nKeskiarvo voi sisältää desimaaleja.",
+      "painokerroin": "Syötä numero väliltä 1-5.\nNumero voi sisältää desimaaleja."
     },
     "keskiarvot-header": "Peruskoulun keskiarvot",
     "ka-lukuaineet": "Lukuaineiden keskiarvo *",
