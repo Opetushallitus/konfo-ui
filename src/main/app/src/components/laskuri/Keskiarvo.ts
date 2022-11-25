@@ -32,7 +32,7 @@ const isEligibleArvosana = (arvosana: number | null): boolean => {
   );
 };
 
-const isEligiblePainokerroin = (painokerroin: string): boolean => {
+export const isEligiblePainokerroin = (painokerroin: string): boolean => {
   return (
     _.isNumber(Number.parseFloat(painokerroin)) &&
     Number(painokerroin) >= PAINOKERROIN_MINIMI &&
