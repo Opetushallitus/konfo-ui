@@ -15,6 +15,11 @@ const KieliContainer = styled(Box)(() => ({
   display: 'flex',
   position: 'relative',
   flexDirection: 'row',
+  width: '100%',
+  borderBottom: `1px solid ${colors.lighterGrey}`,
+  borderTop: `1px solid ${colors.lighterGrey}`,
+  padding: '0.5rem 0',
+  marginBottom: '1rem',
   [`& .${classes.input}`]: {
     border: `1px solid ${colors.lightGrey}`,
     padding: '0 0.5rem',
@@ -30,10 +35,16 @@ const KieliContainer = styled(Box)(() => ({
     zIndex: 200,
     top: '40px',
     left: 0,
-    padding: '1rem 0.5rem',
+    padding: '0.5rem 0.5rem',
     display: 'flex',
     backgroundColor: 'white',
     flexDirection: 'column',
+    borderRadius: '8px',
+    boxShadow: '0px 0px 6px #00000029',
+    button: {
+      textAlign: 'left',
+      justifyContent: 'left',
+    },
   },
 }));
 
