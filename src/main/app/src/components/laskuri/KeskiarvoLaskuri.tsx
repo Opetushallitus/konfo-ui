@@ -100,7 +100,9 @@ export const KeskiarvoLaskuri = ({
       </Typography>
       <Typography>
         {t('pistelaskuri.vaihdalaskin-1')}
-        <Button onClick={() => changeCalculator(false)}>
+        <Button
+          onClick={() => changeCalculator(false)}
+          sx={{ padding: 0, verticalAlign: 'unset', fontSize: '1rem' }}>
           {t('pistelaskuri.vaihdalaskin-2')}
         </Button>
       </Typography>

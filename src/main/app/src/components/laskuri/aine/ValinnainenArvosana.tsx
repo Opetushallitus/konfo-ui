@@ -41,10 +41,16 @@ const ValinnainenControl = styled(FormControl)(() => ({
     transform: 'none',
     fontSize: '1rem',
     fontWeight: 'semibold',
+    lineHeight: '1.6rem',
   },
   [`& .${classes.gradeDelete}`]: {
     gridArea: 'delete',
     color: colors.brandGreen,
+    padding: '0.3rem 0.6rem',
+    svg: {
+      width: '1.4rem',
+      height: '1.4rem',
+    },
   },
   [`& .${classes.gradeSelect}`]: {
     gridArea: 'select',
@@ -66,7 +72,6 @@ const ValinnainenControl = styled(FormControl)(() => ({
 }));
 
 type Props = {
-  nimi: string;
   labelId: string;
   index: number;
   arvosana: number | null;
@@ -75,7 +80,6 @@ type Props = {
 };
 
 export const ValinnainenArvosana = ({
-  nimi,
   labelId,
   index,
   arvosana,
@@ -87,7 +91,7 @@ export const ValinnainenArvosana = ({
   return (
     <ValinnainenControl variant="standard">
       <InputLabel id={`${labelId}-${index}`} className={classes.gradeLabel}>
-        {t('pistelaskuri.aine.valinnaisaine')} {t(nimi)}
+        {t('pistelaskuri.aine.valinnaisaine')}
       </InputLabel>
       <Select
         labelId={`${labelId}-${index}`}

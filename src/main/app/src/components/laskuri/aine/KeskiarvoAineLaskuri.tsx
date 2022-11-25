@@ -34,6 +34,10 @@ const LaskuriContainer = styled(Box)(() => ({
     color: colors.red,
     maxWidth: '60%',
   },
+  button: {
+    fontSize: '1rem',
+    fontWeight: 'semibold',
+  },
 }));
 
 type Props = {
@@ -90,16 +94,20 @@ export const KeskiarvoAineLaskuri = ({
 
   return (
     <LaskuriContainer>
-      <Typography variant="h3" sx={{ fontSize: '1.25rem' }}>
+      <Typography variant="h3" sx={{ fontSize: '1.625rem' }}>
         {t('pistelaskuri.aine.heading')}
       </Typography>
-      <Typography>
+      <Typography sx={{ marginBottom: '1.375rem' }}>
         {t('pistelaskuri.aine.vaihdalaskin-1')}
-        <Button onClick={() => changeCalculator(true)}>
+        <Button
+          onClick={() => changeCalculator(true)}
+          sx={{ padding: 0, verticalAlign: 'unset' }}>
           {t('pistelaskuri.aine.vaihdalaskin-2')}
         </Button>
       </Typography>
-      <Typography variant="h4">{t('pistelaskuri.aine.lukuaineet')}</Typography>
+      <Typography variant="h4" sx={{ marginBottom: '1.375rem', fontSize: '1.25rem' }}>
+        {t('pistelaskuri.aine.lukuaineet')}
+      </Typography>
       {kouluaineet.kielet.map((kieliaine: Kouluaine, index: number) => (
         <KouluaineInput
           updateKouluaine={(kouluaine: Kouluaine) =>
@@ -127,7 +135,9 @@ export const KeskiarvoAineLaskuri = ({
           aine={lukuaine}
           key={`lukuaine-${lukuaine.nimi}-${index}`}></KouluaineInput>
       ))}
-      <Typography variant="h4">{t('pistelaskuri.aine.taitoaineet')}</Typography>
+      <Typography variant="h4" sx={{ margin: '2rem 0 1.375rem', fontSize: '1.25rem' }}>
+        {t('pistelaskuri.aine.taitoaineet')}
+      </Typography>
       {kouluaineet.taitoaineet.map((taitoaine: Kouluaine, index: number) => (
         <KouluaineInput
           updateKouluaine={(kouluaine: Kouluaine) =>

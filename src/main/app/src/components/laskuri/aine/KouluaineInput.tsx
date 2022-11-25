@@ -40,8 +40,8 @@ const AineContainer = styled(Box)(() => ({
   flexDirection: 'row',
   marginBottom: '27px',
   columnGap: '38px',
-  alignItems: 'center',
-  alignContent: 'center',
+  alignItems: 'start',
+  alignContent: 'start',
   [`& .${classes.input}`]: {
     border: `1px solid ${colors.lightGrey}`,
     padding: '0 0.5rem',
@@ -51,6 +51,8 @@ const AineContainer = styled(Box)(() => ({
     '&:hover': {
       borderColor: colors.black,
     },
+    width: '12rem',
+    maxWidth: '100%',
   },
   button: {
     fontSize: '1rem',
@@ -64,24 +66,34 @@ const AineContainer = styled(Box)(() => ({
   },
   [`& .${classes.gradeControl}`]: {
     display: 'grid',
-    gridTemplateColumns: '6fr 1fr',
     gridTemplateAreas: `"label info"
                        "select select"`,
     alignItems: 'center',
     alignContent: 'center',
+    justifyContent: 'start',
     rowGap: '7px',
+    columnGap: '2px',
     [`& .${classes.gradeLabel}`]: {
       gridArea: 'label',
       overflow: 'unset',
       textOverflow: 'unset',
+      overflowWrap: 'normal',
+      whiteSpace: 'break-spaces',
       position: 'relative',
       transformOrigin: 'left',
       transform: 'none',
       fontSize: '1rem',
       fontWeight: 'semibold',
+      maxWidth: '12rem',
+      lineHeight: '1.6rem',
     },
     [`& .${classes.gradeInfo}`]: {
       gridArea: 'info',
+      padding: '0',
+      svg: {
+        width: '1.4rem',
+        height: '1.4rem',
+      },
     },
     [`& .${classes.gradeSelect}`]: {
       gridArea: 'select',
@@ -216,7 +228,6 @@ export const KouluaineInput = ({
       {kouluaine.valinnaisetArvosanat.map(
         (valinnainenArvosana: number | null, index: number) => (
           <ValinnainenArvosana
-            nimi={kouluaine.nimi}
             labelId={labelId}
             index={index}
             arvosana={valinnainenArvosana}
@@ -229,12 +240,12 @@ export const KouluaineInput = ({
         )
       )}
       {kouluaine.valinnaisetArvosanat.length < MAX_VALINNAISET_ARVOSANAT && (
-        <Button onClick={addValinnaisaine}>
+        <Button onClick={addValinnaisaine} sx={{ alignSelf: 'end' }}>
           {t('pistelaskuri.aine.addvalinnainen')}
         </Button>
       )}
       {!showPainokerroin && (
-        <Button onClick={() => setShowPainokerroin(true)}>
+        <Button onClick={() => setShowPainokerroin(true)} sx={{ alignSelf: 'end' }}>
           {t('pistelaskuri.aine.addpainokerroin')}
         </Button>
       )}

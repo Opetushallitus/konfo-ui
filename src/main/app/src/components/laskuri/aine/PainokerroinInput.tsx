@@ -38,6 +38,7 @@ const PainoControl = styled(FormControl)(() => ({
     border: `1px solid ${colors.lightGrey}`,
     padding: '0 0.5rem',
     marginTop: 0,
+    maxWidth: '8rem',
     '&:focus-within': {
       borderColor: colors.black,
     },
@@ -48,6 +49,11 @@ const PainoControl = styled(FormControl)(() => ({
   [`& .${classes.delete}`]: {
     gridArea: 'delete',
     color: colors.brandGreen,
+    padding: '0.3rem 0.6rem',
+    svg: {
+      width: '1.4rem',
+      height: '1.4rem',
+    },
   },
   [`& .${classes.error}`]: {
     gridArea: 'error',
@@ -62,6 +68,7 @@ const PainoControl = styled(FormControl)(() => ({
     transform: 'none',
     fontSize: '1rem',
     fontWeight: 'semibold',
+    lineHeight: '1.6rem',
   },
 }));
 
@@ -91,6 +98,7 @@ export const PainokerroinInput = ({
         onChange={updatePainokerroin}
         value={painokerroin}
         error={!isEligiblePainokerroin(painokerroin)}
+        placeholder={t('pistelaskuri.aine.painokerroin-placeholder')}
         disableUnderline={true}></Input>
       <IconButton
         className={classes.delete}
