@@ -180,7 +180,7 @@ export const Header = (props) => {
               label={testiLabel}
             />
           ) : null}
-          <Hidden mdDown>
+          <Hidden smDown>
             <Box display="flex" className={classes.languageSelector}>
               <Link
                 href={urls.url('oma-opintopolku')}

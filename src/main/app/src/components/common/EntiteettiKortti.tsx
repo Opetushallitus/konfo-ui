@@ -168,7 +168,7 @@ export const EntiteettiKortti = ({
             </Box>
           )}
           {teemakuvaElement && (
-            <Hidden xsDown>
+            <Hidden smDown>
               <Box
                 paddingLeft={2}
                 paddingBottom={2}
