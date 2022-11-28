@@ -116,12 +116,11 @@ describe('Keskiarvo & Hakupisteet', () => {
 
   describe('calculates hakupisteet from kouluaineet', () => {
     const aineet = (
-      aine: Kouluaine,
+      aineita: Array<Kouluaine>,
       avain: string,
-      id: number,
       kouluaineet: Kouluaineet = new Kouluaineet()
     ): Kouluaineet => {
-      kouluaineet[avain as keyof Kouluaineet][id] = aine;
+      kouluaineet[avain as keyof Kouluaineet] = aineita;
       return kouluaineet;
     };
 
@@ -150,28 +149,71 @@ describe('Keskiarvo & Hakupisteet', () => {
     };
 
     it('calculates pisteet using single kouluaine', () => {
-      convertAndVerify(aineet(aine(10, [], ''), 'kielet', 0), 22, 10);
-      convertAndVerify(aineet(aine(4, [], ''), 'muutLukuaineet', 0), 6, 4);
-      convertAndVerify(aineet(aine(8, [], ''), 'muutLukuaineet', 2), 17, 8);
-      convertAndVerify(aineet(aine(7, [], ''), 'taitoaineet', 0), 16, NaN);
+      convertAndVerify(aineet([aine(10, [], '')], 'kielet'), 22, 10);
+      convertAndVerify(aineet([aine(4, [], '')], 'muutLukuaineet'), 6, 4);
+      convertAndVerify(aineet([aine(8, [], '')], 'muutLukuaineet'), 17, 8);
+      convertAndVerify(aineet([aine(7, [], '')], 'taitoaineet'), 16, NaN);
     });
 
     it('calculates pisteet using single kouluaine with valinnaiset', () => {
-      convertAndVerify(aineet(aine(10, [10, 10], ''), 'kielet', 0), 22, 10);
-      convertAndVerify(aineet(aine(4, [4, 4], ''), 'kielet', 0), 6, 4);
-      convertAndVerify(aineet(aine(10, [5], ''), 'kielet', 0), 15, 10);
-      convertAndVerify(aineet(aine(10, [6, 4], ''), 'kielet', 0), 15, 10);
-      convertAndVerify(aineet(aine(6, [10, 10], ''), 'kielet', 0), 17, 6);
-      convertAndVerify(aineet(aine(6, [4, 4], ''), 'kielet', 0), 6, 6);
-      convertAndVerify(aineet(aine(9, [5, 10], ''), 'kielet', 0), 18, 9);
-      convertAndVerify(aineet(aine(9, [9, 6], ''), 'kielet', 0), 18, 9);
-      convertAndVerify(aineet(aine(8, [9, 6], ''), 'kielet', 0), 16, 8);
+      convertAndVerify(aineet([aine(10, [10, 10], '')], 'kielet'), 22, 10);
+      convertAndVerify(aineet([aine(4, [4, 4], '')], 'kielet'), 6, 4);
+      convertAndVerify(aineet([aine(10, [5], '')], 'kielet'), 15, 10);
+      convertAndVerify(aineet([aine(10, [6, 4], '')], 'kielet'), 15, 10);
+      convertAndVerify(aineet([aine(6, [10, 10], '')], 'kielet'), 17, 6);
+      convertAndVerify(aineet([aine(6, [4, 4], '')], 'kielet'), 6, 6);
+      convertAndVerify(aineet([aine(9, [5, 10], '')], 'kielet'), 18, 9);
+      convertAndVerify(aineet([aine(9, [9, 6], '')], 'kielet'), 18, 9);
+      convertAndVerify(aineet([aine(8, [9, 6], '')], 'kielet'), 16, 8);
     });
 
     it('calculates pisteet using single kouluaine with painokerroin', () => {
-      convertAndVerify(aineet(aine(10, [], '2'), 'kielet', 0), 22, 10);
-      convertAndVerify(aineet(aine(10, [], '5'), 'kielet', 0), 22, 10);
-      convertAndVerify(aineet(aine(6, [], '2.5'), 'kielet', 0), 9, 6);
+      convertAndVerify(aineet([aine(10, [], '2')], 'kielet'), 22, 10);
+      convertAndVerify(aineet([aine(10, [], '5')], 'kielet'), 22, 10);
+      convertAndVerify(aineet([aine(6, [], '2.5')], 'kielet'), 9, 6);
+    });
+
+    it('calculcates pisteet using multiple kouluaineet', () => {
+      convertAndVerify(aineet([aine(10, [], ''), aine(10, [], '')], 'kielet'), 22, 10);
+      convertAndVerify(aineet([aine(10, [], ''), aine(4, [], '')], 'kielet'), 13, 7);
+      convertAndVerify(aineet([aine(10, [], ''), aine(5, [], '')], 'kielet'), 15, 7.5);
+      convertAndVerify(
+        aineet([aine(10, [], ''), aine(5, [], ''), aine(10, [], '')], 'kielet'),
+        18,
+        8.33
+      );
+      convertAndVerify(
+        aineet([aine(7, [], ''), aine(9, [], ''), aine(8, [], '')], 'kielet'),
+        17,
+        8
+      );
+    });
+
+    it('calculcates pisteet using multiple kouluaineet with painokerroin', () => {
+      convertAndVerify(aineet([aine(10, [], '2'), aine(4, [], '')], 'kielet'), 13, 8);
+      convertAndVerify(aineet([aine(10, [], ''), aine(4, [], '2')], 'kielet'), 13, 6);
+      convertAndVerify(aineet([aine(10, [], ''), aine(4, [], '3')], 'kielet'), 13, 5.5);
+      convertAndVerify(aineet([aine(10, [], '3'), aine(5, [], '3')], 'kielet'), 15, 7.5);
+      convertAndVerify(
+        aineet([aine(10, [], ''), aine(5, [], '3'), aine(10, [], '2')], 'kielet'),
+        18,
+        7.5
+      );
+      convertAndVerify(
+        aineet([aine(7, [], '2'), aine(9, [], '2'), aine(8, [], '2')], 'kielet'),
+        17,
+        8
+      );
+      convertAndVerify(
+        aineet([aine(7, [], '1'), aine(9, [], '5'), aine(8, [], '2')], 'kielet'),
+        17,
+        8.5
+      );
+      convertAndVerify(
+        aineet([aine(7, [], '3'), aine(9, [], '2'), aine(8, [], '5')], 'kielet'),
+        17,
+        7.9
+      );
     });
   });
 });
