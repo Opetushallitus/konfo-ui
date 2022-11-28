@@ -26,19 +26,20 @@ const classes = {
 
 const PainoControl = styled(FormControl)(() => ({
   display: 'grid',
-  gridTemplateColumns: '6fr 1fr',
+  gridTemplateColumns: '3fr 1fr',
   gridTemplateAreas: `"label label"
                      "input delete"
                      "error error"`,
   alignItems: 'center',
   alignContent: 'center',
+  justifyItems: 'start',
   rowGap: '7px',
   [`& .${classes.input}`]: {
     gridArea: 'input',
     border: `1px solid ${colors.lightGrey}`,
     padding: '0 0.5rem',
     marginTop: 0,
-    maxWidth: '8rem',
+    maxWidth: '6rem',
     '&:focus-within': {
       borderColor: colors.black,
     },

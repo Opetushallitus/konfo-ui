@@ -9,11 +9,13 @@ export interface Kouluaine {
   valinnaisetArvosanat: Array<number | null>;
   painokerroin: string;
   description: string | null;
+  longText?: boolean;
 }
 
 export const createKouluaine = (
   nimi: string,
-  description: string | null = null
+  description: string | null = null,
+  longText: boolean = false
 ): Kouluaine => {
   return {
     nimi,
@@ -21,6 +23,7 @@ export const createKouluaine = (
     valinnaisetArvosanat: [],
     painokerroin: '',
     description,
+    longText,
   };
 };
 
@@ -38,7 +41,7 @@ export class Kouluaineet implements LocalStorable {
     createKouluaine('kouluaineet.fysiikka'),
     createKouluaine('kouluaineet.kemia'),
     createKouluaine('kouluaineet.terveystieto'),
-    createKouluaine('kouluaineet.uskonto'),
+    createKouluaine('kouluaineet.uskonto', null, true),
     createKouluaine('kouluaineet.historia'),
     createKouluaine('kouluaineet.yhteiskuntaoppi'),
   ];
