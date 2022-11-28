@@ -28,7 +28,7 @@ const classes = {
 
 const ValinnainenControl = styled(FormControl)(() => ({
   display: 'grid',
-  gridTemplateColumns: '6fr 1fr',
+  gridTemplateColumns: '4fr 1fr',
   gridTemplateAreas: `"label label"
                      "select delete"`,
   alignItems: 'center',
@@ -59,6 +59,8 @@ const ValinnainenControl = styled(FormControl)(() => ({
   [`& .${classes.input}`]: {
     border: `1px solid ${colors.lightGrey}`,
     padding: '0 0.5rem',
+    maxWidth: '100%',
+    width: '11rem',
     '&:focus-within': {
       borderColor: colors.black,
     },

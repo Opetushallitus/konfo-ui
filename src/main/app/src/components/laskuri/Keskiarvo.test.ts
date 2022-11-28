@@ -130,7 +130,13 @@ describe('Keskiarvo & Hakupisteet', () => {
       valinnaiset: Array<number>,
       painokerroin: string
     ): Kouluaine => {
-      return { nimi: '', arvosana, valinnaisetArvosanat: valinnaiset, painokerroin };
+      return {
+        nimi: '',
+        arvosana,
+        valinnaisetArvosanat: valinnaiset,
+        painokerroin,
+        description: '',
+      };
     };
 
     const convertAndVerify = (

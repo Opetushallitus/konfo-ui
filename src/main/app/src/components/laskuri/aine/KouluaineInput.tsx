@@ -30,18 +30,22 @@ const classes = {
   optionDisabled: `${PREFIX}option--disabled`,
   gradeControl: `${PREFIX}gradecontrol`,
   gradeLabel: `${PREFIX}gradelabel`,
+  gradeLabelContainer: `${PREFIX}gradelabelcontainer`,
   gradeSelect: `${PREFIX}gradeselect`,
   gradeInfo: `${PREFIX}gradeinfo`,
   button: `${PREFIX}button`,
+  poistakieli: `${PREFIX}poistakieli`,
 };
 
-const AineContainer = styled(Box)(() => ({
+const AineContainer = styled(Box, {
+  shouldForwardProp: (prop) => prop !== 'isLisakieli',
+})<{ isLisakieli: boolean }>(({ isLisakieli }) => ({
   display: 'flex',
   flexDirection: 'row',
   marginBottom: '27px',
-  columnGap: '38px',
-  alignItems: 'start',
-  alignContent: 'start',
+  columnGap: '18px',
+  justifyContent: 'flex-start',
+  justifyItems: 'flex-start',
   [`& .${classes.input}`]: {
     border: `1px solid ${colors.lightGrey}`,
     padding: '0 0.5rem',
@@ -66,15 +70,24 @@ const AineContainer = styled(Box)(() => ({
   },
   [`& .${classes.gradeControl}`]: {
     display: 'grid',
-    gridTemplateAreas: `"label info"
-                       "select select"`,
+    gridTemplateAreas: isLisakieli
+      ? `"label label"
+       "select kieli"`
+      : `"label label"
+       "select select"`,
     alignItems: 'center',
     alignContent: 'center',
     justifyContent: 'start',
+    justifyItems: 'start',
     rowGap: '7px',
     columnGap: '2px',
-    [`& .${classes.gradeLabel}`]: {
+    [`& .${classes.gradeLabelContainer}`]: {
       gridArea: 'label',
+      display: 'flex',
+      alignItems: 'center',
+      columnGap: '2px',
+    },
+    [`& .${classes.gradeLabel}`]: {
       overflow: 'unset',
       textOverflow: 'unset',
       overflowWrap: 'normal',
@@ -88,15 +101,24 @@ const AineContainer = styled(Box)(() => ({
       lineHeight: '1.6rem',
     },
     [`& .${classes.gradeInfo}`]: {
-      gridArea: 'info',
       padding: '0',
       svg: {
         width: '1.4rem',
         height: '1.4rem',
+        marginTop: '-4px',
       },
     },
     [`& .${classes.gradeSelect}`]: {
       gridArea: 'select',
+    },
+    [`& .${classes.poistakieli}`]: {
+      gridArea: 'kieli',
+      color: colors.brandGreen,
+      padding: '0.3rem 0.6rem',
+      svg: {
+        width: '1.4rem',
+        height: '1.4rem',
+      },
     },
   },
 }));
@@ -123,6 +145,7 @@ export const KouluaineInput = ({
     valinnaisetArvosanat: aine.valinnaisetArvosanat,
     painokerroin: aine.painokerroin,
     description: aine.description,
+    longText: aine.longText,
   });
 
   const [showPainokerroin, setShowPainokerroin] = useState<boolean>(false);
@@ -181,20 +204,24 @@ export const KouluaineInput = ({
   };
 
   return (
-    <AineContainer>
+    <AineContainer
+      isLisakieli={isLisaKieli}
+      sx={{ alignItems: aine.longText ? 'end' : 'start' }}>
       <FormControl
         variant="standard"
         sx={{ minWidth: 220 }}
         className={classes.gradeControl}>
-        <InputLabel id={labelId} className={classes.gradeLabel}>
-          {t(aine.nimi)}
-        </InputLabel>
-        <div className={classes.gradeInfo}>
-          {kouluaine.description && (
-            <LabelTooltip
-              title={t(kouluaine.description)}
-              sx={{ marginLeft: '3px', color: colors.brandGreen }}></LabelTooltip>
-          )}
+        <div className={classes.gradeLabelContainer}>
+          <InputLabel id={labelId} className={classes.gradeLabel}>
+            {t(aine.nimi)}
+          </InputLabel>
+          <div>
+            {kouluaine.description && (
+              <LabelTooltip
+                title={t(kouluaine.description)}
+                sx={{ marginLeft: '3px', color: colors.brandGreen }}></LabelTooltip>
+            )}
+          </div>
         </div>
         <Select
           labelId={labelId}
@@ -219,6 +246,7 @@ export const KouluaineInput = ({
         </Select>
         {isLisaKieli && (
           <IconButton
+            className={classes.poistakieli}
             onClick={removeLisaKieli}
             aria-label={t('pistelaskuri.aine.removekieli')}>
             <DeleteOutlined />
