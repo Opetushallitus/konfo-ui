@@ -8,6 +8,7 @@ import { educationTypeColorCode, colors } from '#/src/colors';
 import { PageSection } from '#/src/components/common/PageSection';
 
 import { KeskiArvoModal } from './KeskiarvoModal';
+import { PisteGraafi } from './PisteGraafi';
 
 const PREFIX = 'PisteContainer__';
 
@@ -62,6 +63,7 @@ export const PisteContainer = () => {
       <KeskiArvoModal
         open={isModalOpen}
         closeFn={() => setModalOpen(false)}></KeskiArvoModal>
+      <PisteGraafi />
     </StyledPageSection>
   );
 };
