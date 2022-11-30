@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "homepage": "/konfo",
   "private": true,
-  "proxy": "https://testiopintopolku.fi",
+  "proxy": "https://untuvaopintopolku.fi",
   "scripts": {
     "prepare": "cd ../../../ && husky install",
     "start": "craco start",
@@ -56,7 +56,8 @@
     "remove-markdown": "^0.3.0",
     "stacktrace-js": "^2.0.2",
     "typeface-open-sans": "^1.1.13",
-    "url-parse": "^1.5.10"
+    "url-parse": "^1.5.10",
+    "victory": "^36.6.8"
   },
   "devDependencies": {
     "@babel/cli": "^7.16.7",
