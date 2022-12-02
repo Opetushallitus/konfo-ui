@@ -1,13 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { InfoOutlined } from '@mui/icons-material';
-import { Box, styled, Typography, Button } from '@mui/material';
+import {
+  Box,
+  styled,
+  Typography,
+  Button,
+  Select,
+  MenuItem,
+  SelectChangeEvent,
+} from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { educationTypeColorCode, colors } from '#/src/colors';
 import { PageSection } from '#/src/components/common/PageSection';
+import { localize } from '#/src/tools/localization';
+import { Hakukohde } from '#/src/types/HakukohdeTypes';
+import { Hakutieto } from '#/src/types/ToteutusTypes';
 
+import { HakupisteLaskelma } from './Keskiarvo';
 import { KeskiArvoModal } from './KeskiarvoModal';
+import { LocalStorageUtil, RESULT_STORE_KEY } from './LocalStorageUtil';
 import { PisteGraafi } from './PisteGraafi';
 
 const PREFIX = 'PisteContainer__';
@@ -42,9 +55,24 @@ const StyledPageSection = styled(PageSection)(() => ({
   },
 }));
 
-export const PisteContainer = () => {
+type Props = {
+  hakutiedot: Array<Hakutieto>;
+};
+
+export const PisteContainer = ({ hakutiedot }: Props) => {
   const { t } = useTranslation();
   const [isModalOpen, setModalOpen] = useState(false);
+  const hakukohteet = hakutiedot.flatMap((tieto: Hakutieto) => tieto.hakukohteet);
+  const [hakukohde, setHakukohde] = useState(hakukohteet[0]);
+  const [tulos, setTulos] = useState<HakupisteLaskelma | null>(null);
+
+  useEffect(() => {
+    const savedResult = LocalStorageUtil.load(RESULT_STORE_KEY);
+    setTulos(savedResult as HakupisteLaskelma | null);
+  }, []);
+
+  const changeHakukohde = (event: SelectChangeEvent<Hakukohde>) =>
+    setHakukohde(event.target.value as Hakukohde);
 
   return (
     <StyledPageSection heading={t('pistelaskuri.graafi.heading')}>
@@ -60,10 +88,22 @@ export const PisteContainer = () => {
       <Button onClick={() => setModalOpen(true)} className={classes.openButton}>
         &nbsp;{t('pistelaskuri.graafi.laske-ja-vertaa')}
       </Button>
+      <Select
+        value={hakukohde}
+        onChange={changeHakukohde}
+        variant="standard"
+        disableUnderline={true}>
+        {hakukohteet.map((kohde: Hakukohde, index: number) => (
+          <MenuItem key={`hakukohde-${index}`} value={kohde as any}>
+            {localize(kohde.nimi)}
+          </MenuItem>
+        ))}
+      </Select>
       <KeskiArvoModal
         open={isModalOpen}
-        closeFn={() => setModalOpen(false)}></KeskiArvoModal>
-      <PisteGraafi />
+        closeFn={() => setModalOpen(false)}
+        updateTulos={setTulos}></KeskiArvoModal>
+      <PisteGraafi hakukohde={hakukohde} tulos={tulos} />
     </StyledPageSection>
   );
 };

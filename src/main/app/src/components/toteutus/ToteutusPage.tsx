@@ -271,7 +271,9 @@ export const ToteutusPage = () => {
               opintokokonaisuudet={kuuluuOpintokokonaisuuksiin || []}
             />
           )}
-        {isToisenAsteenYhteisHaku && <PisteContainer />}
+        {isToisenAsteenYhteisHaku && (
+          <PisteContainer hakutiedot={toteutus?.hakutiedot || []} />
+        )}
         <Box id="haut" display="flex" justifyContent="center">
           <ToteutusHakutiedot toteutus={toteutus} />
         </Box>

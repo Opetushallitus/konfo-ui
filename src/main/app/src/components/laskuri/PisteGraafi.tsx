@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 
 import { Box } from '@mui/material';
 import {
+  Datum,
   VictoryGroup,
   VictoryBar,
   VictoryChart,
@@ -10,47 +11,56 @@ import {
   VictoryAxis,
 } from 'victory';
 
+import { Hakukohde, PisteHistoria } from '#/src/types/HakukohdeTypes';
+
+import { HakupisteLaskelma } from './Keskiarvo';
+
 const MAX_YEAR = new Date().getUTCFullYear();
 
-console.log(MAX_YEAR);
+type Props = {
+  hakukohde: Hakukohde;
+  tulos: HakupisteLaskelma | null;
+};
 
-export const PisteGraafi = () => {
-  const DATA = [
-    { x: 2018, y: 7.55 },
-    { x: 2019, y: 6.43 },
-    { x: 2020, y: 8.44 },
-    { x: 2021, y: 7.94 },
-    { x: 2022, y: 6.75 },
-  ];
-  const LABELS = DATA.map((data) => `${data.y}`.replace('.', ','));
+export const PisteGraafi = ({ hakukohde, tulos }: Props) => {
+  const [data, setData] = useState<Array<Datum>>([]);
+  const [years, setYears] = useState<Array<number>>([]);
+  const [labels, setLabels] = useState<Array<string>>([]);
+
+  useMemo(() => {
+    const dataNew =
+      hakukohde?.metadata?.pistehistoria?.map((historia: PisteHistoria) => {
+        return { x: Number.parseInt(historia.vuosi), y: historia.pisteet };
+      }) || [];
+    setData(dataNew);
+    setYears(dataNew.map((datum) => datum.x));
+    setLabels(dataNew.map((datum) => `${datum.y}`.replace('.', ',')));
+  }, [hakukohde]);
+
   return (
     <Box>
       <VictoryChart
-        maxDomain={{ y: 10, x: MAX_YEAR }}
-        minDomain={{ y: 4, x: 2017 }}
+        maxDomain={{ y: 30, x: MAX_YEAR }}
+        minDomain={{ y: 0, x: 2017 }}
         width={920}>
-        <VictoryAxis tickValues={[2018, 2019, 2020, 2021, 2022]}></VictoryAxis>
-        <VictoryAxis dependentAxis tickValues={[4, 5, 6, 7, 8, 9, 10]}></VictoryAxis>
+        <VictoryAxis tickValues={years}></VictoryAxis>
+        <VictoryAxis dependentAxis tickValues={[0, 5, 10, 15, 20, 25, 30]}></VictoryAxis>
         <VictoryGroup offset={20}>
           <VictoryBar
-            data={[
-              { x: 2018, y: 7.55 },
-              { x: 2019, y: 6.43 },
-              { x: 2020, y: 8.44 },
-              { x: 2021, y: 7.94 },
-              { x: 2022, y: 6.75 },
-            ]}
+            data={data}
             style={{ data: { fill: '#5BCA13' } }}
-            labels={LABELS}></VictoryBar>
-          <VictoryLine
-            style={{
-              data: { stroke: '#FFCC33' },
-              parent: { border: '3px solid #FFCC33' },
-            }}
-            data={[
-              { x: 2017, y: 7 },
-              { x: 2022, y: 7 },
-            ]}></VictoryLine>
+            labels={labels}></VictoryBar>
+          {tulos && (
+            <VictoryLine
+              style={{
+                data: { stroke: '#FFCC33' },
+                parent: { border: '3px solid #FFCC33' },
+              }}
+              data={[
+                { x: 2017, y: tulos.pisteet },
+                { x: MAX_YEAR, y: tulos.pisteet },
+              ]}></VictoryLine>
+          )}
         </VictoryGroup>
         <VictoryLegend
           orientation="horizontal"
