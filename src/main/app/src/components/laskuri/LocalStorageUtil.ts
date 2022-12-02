@@ -1,5 +1,7 @@
 export interface LocalStorable {}
 
+export const RESULT_STORE_KEY = 'keskiarvotulos';
+
 export const LocalStorageUtil = {
   save: (key: string, obj: LocalStorable) => {
     localStorage.setItem(key, JSON.stringify(obj));

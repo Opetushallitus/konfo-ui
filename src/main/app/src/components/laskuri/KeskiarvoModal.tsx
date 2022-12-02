@@ -16,9 +16,7 @@ import {
 } from './Keskiarvo';
 import { KeskiarvoLaskuri } from './KeskiarvoLaskuri';
 import { KeskiarvoTulos } from './KeskiarvoTulos';
-import { LocalStorageUtil } from './LocalStorageUtil';
-
-const RESULT_STORE_KEY = 'keskiarvotulos';
+import { LocalStorageUtil, RESULT_STORE_KEY } from './LocalStorageUtil';
 
 const PREFIX = 'KeskiarvoModal__';
 
@@ -76,9 +74,10 @@ const StyledDialog = styled(Dialog)(() => ({
 type Props = {
   open: boolean;
   closeFn: () => void;
+  updateTulos: (tulos: HakupisteLaskelma) => void;
 };
 
-export const KeskiArvoModal = ({ open = false, closeFn }: Props) => {
+export const KeskiArvoModal = ({ open = false, closeFn, updateTulos }: Props) => {
   const { t } = useTranslation();
 
   const [useKeskiarvoLaskuri, setUseKeskiarvoLaskuri] = useState<boolean>(true);
@@ -111,11 +110,11 @@ export const KeskiArvoModal = ({ open = false, closeFn }: Props) => {
       keskiarvoToCalculate.kaikki === '');
 
   const calculate = () => {
-    if (useKeskiarvoLaskuri) {
-      setTulos(keskiArvotToHakupiste(keskiarvoToCalculate as Keskiarvot));
-    } else {
-      setTulos(kouluaineetToHakupiste(kouluaineetToCalculate));
-    }
+    let laskettuTulos = useKeskiarvoLaskuri
+      ? keskiArvotToHakupiste(keskiarvoToCalculate as Keskiarvot)
+      : kouluaineetToHakupiste(kouluaineetToCalculate);
+    setTulos(laskettuTulos);
+    updateTulos(laskettuTulos);
   };
 
   const clearTulos = () => {
