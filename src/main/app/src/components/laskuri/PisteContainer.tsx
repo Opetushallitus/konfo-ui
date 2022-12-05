@@ -103,7 +103,16 @@ export const PisteContainer = ({ hakutiedot }: Props) => {
         open={isModalOpen}
         closeFn={() => setModalOpen(false)}
         updateTulos={setTulos}></KeskiArvoModal>
-      <PisteGraafi hakukohde={hakukohde} tulos={tulos} />
+      {hakukohde?.metadata?.pistehistoria &&
+        hakukohde?.metadata?.pistehistoria?.length > 0 && (
+          <PisteGraafi hakukohde={hakukohde} tulos={tulos} />
+        )}
+      {!hakukohde?.metadata?.pistehistoria ||
+        (hakukohde?.metadata?.pistehistoria?.length < 1 && (
+          <Typography variant="body1" sx={{ fontWeight: 600 }}>
+            Hakukohteesta ei ole aiempien vuosien pistetietoja
+          </Typography>
+        ))}
     </StyledPageSection>
   );
 };
