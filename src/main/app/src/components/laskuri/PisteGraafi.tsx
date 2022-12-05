@@ -16,6 +16,7 @@ import { Hakukohde, PisteHistoria } from '#/src/types/HakukohdeTypes';
 import { HakupisteLaskelma } from './Keskiarvo';
 
 const MAX_YEAR = new Date().getUTCFullYear();
+const MIN_YEAR = MAX_YEAR - 4;
 
 type Props = {
   hakukohde: Hakukohde;
@@ -29,9 +30,11 @@ export const PisteGraafi = ({ hakukohde, tulos }: Props) => {
 
   useMemo(() => {
     const dataNew =
-      hakukohde?.metadata?.pistehistoria?.map((historia: PisteHistoria) => {
-        return { x: Number.parseInt(historia.vuosi), y: historia.pisteet };
-      }) || [];
+      hakukohde?.metadata?.pistehistoria
+        ?.filter((historia: PisteHistoria) => Number.parseInt(historia.vuosi) >= MIN_YEAR)
+        .map((historia: PisteHistoria) => {
+          return { x: Number.parseInt(historia.vuosi), y: historia.pisteet };
+        }) || [];
     setData(dataNew);
     setYears(dataNew.map((datum) => datum.x));
     setLabels(dataNew.map((datum) => `${datum.y}`.replace('.', ',')));
@@ -59,7 +62,8 @@ export const PisteGraafi = ({ hakukohde, tulos }: Props) => {
               data={[
                 { x: 2017, y: tulos.pisteet },
                 { x: MAX_YEAR, y: tulos.pisteet },
-              ]}></VictoryLine>
+              ]}
+              labels={[`${tulos.pisteet}`]}></VictoryLine>
           )}
         </VictoryGroup>
         <VictoryLegend
@@ -67,8 +71,8 @@ export const PisteGraafi = ({ hakukohde, tulos }: Props) => {
           gutter={100}
           y={20}
           data={[
-            { name: 'sisäänpääsyn alin keskiarvo', symbol: { fill: '#5BCA13' } },
-            { name: 'arvioitu keskiarvosi', symbol: { fill: '#FFCC33' } },
+            { name: 'sisäänpääsyn alin pistemäärä', symbol: { fill: '#5BCA13' } },
+            { name: 'arvioitu pistemääräsi', symbol: { fill: '#FFCC33' } },
           ]}
         />
       </VictoryChart>
