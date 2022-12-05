@@ -74,10 +74,11 @@ const StyledDialog = styled(Dialog)(() => ({
 type Props = {
   open: boolean;
   closeFn: () => void;
-  updateTulos: (tulos: HakupisteLaskelma) => void;
+  updateTulos: (tulos: HakupisteLaskelma | null) => void;
+  tulos: HakupisteLaskelma | null;
 };
 
-export const KeskiArvoModal = ({ open = false, closeFn, updateTulos }: Props) => {
+export const KeskiArvoModal = ({ open = false, closeFn, updateTulos, tulos }: Props) => {
   const { t } = useTranslation();
 
   const [useKeskiarvoLaskuri, setUseKeskiarvoLaskuri] = useState<boolean>(true);
@@ -89,18 +90,12 @@ export const KeskiArvoModal = ({ open = false, closeFn, updateTulos }: Props) =>
   const [keskiarvoToCalculate, setKeskiarvoToCalculate] = useState<Keskiarvot | null>(
     null
   );
-  const [tulos, setTulos] = useState<HakupisteLaskelma | null>(null);
 
   useEffect(() => {
     if (tulos != null) {
       LocalStorageUtil.save(RESULT_STORE_KEY, tulos);
     }
   }, [tulos]);
-
-  useEffect(() => {
-    const savedResult = LocalStorageUtil.load(RESULT_STORE_KEY);
-    setTulos(savedResult as HakupisteLaskelma | null);
-  }, []);
 
   const calcButtonDisabled =
     useKeskiarvoLaskuri &&
@@ -113,13 +108,12 @@ export const KeskiArvoModal = ({ open = false, closeFn, updateTulos }: Props) =>
     let laskettuTulos = useKeskiarvoLaskuri
       ? keskiArvotToHakupiste(keskiarvoToCalculate as Keskiarvot)
       : kouluaineetToHakupiste(kouluaineetToCalculate);
-    setTulos(laskettuTulos);
     updateTulos(laskettuTulos);
   };
 
   const clearTulos = () => {
-    setTulos(null);
     LocalStorageUtil.remove(RESULT_STORE_KEY);
+    updateTulos(null);
   };
 
   return (

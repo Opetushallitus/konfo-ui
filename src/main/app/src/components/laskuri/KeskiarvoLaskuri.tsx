@@ -7,9 +7,7 @@ import { colors } from 'src/colors';
 
 import { LabelTooltip } from '../common/LabelTooltip';
 import { Keskiarvot } from './Keskiarvo';
-import { LocalStorageUtil } from './LocalStorageUtil';
-
-const AVERAGE_STORE_KEY = 'keskiarvot';
+import { LocalStorageUtil, AVERAGE_STORE_KEY } from './LocalStorageUtil';
 
 const PREFIX = 'keskiarvo__laskuri__';
 

@@ -20,7 +20,12 @@ import { Hakutieto } from '#/src/types/ToteutusTypes';
 
 import { HakupisteLaskelma } from './Keskiarvo';
 import { KeskiArvoModal } from './KeskiarvoModal';
-import { LocalStorageUtil, RESULT_STORE_KEY } from './LocalStorageUtil';
+import {
+  LocalStorageUtil,
+  RESULT_STORE_KEY,
+  KOULUAINE_STORE_KEY,
+  AVERAGE_STORE_KEY,
+} from './LocalStorageUtil';
 import { PisteGraafi } from './PisteGraafi';
 
 const PREFIX = 'PisteContainer__';
@@ -74,6 +79,13 @@ export const PisteContainer = ({ hakutiedot }: Props) => {
   const changeHakukohde = (event: SelectChangeEvent<Hakukohde>) =>
     setHakukohde(event.target.value as Hakukohde);
 
+  const clearData = () => {
+    setTulos(null);
+    LocalStorageUtil.remove(RESULT_STORE_KEY);
+    LocalStorageUtil.remove(AVERAGE_STORE_KEY);
+    LocalStorageUtil.remove(KOULUAINE_STORE_KEY);
+  };
+
   return (
     <StyledPageSection heading={t('pistelaskuri.graafi.heading')}>
       <Box className={classes.infoBox}>
@@ -88,6 +100,7 @@ export const PisteContainer = ({ hakutiedot }: Props) => {
       <Button onClick={() => setModalOpen(true)} className={classes.openButton}>
         &nbsp;{t('pistelaskuri.graafi.laske-ja-vertaa')}
       </Button>
+      {tulos && <Button onClick={clearData}>Poista tietosi</Button>}
       <Select
         value={hakukohde}
         onChange={changeHakukohde}
@@ -102,7 +115,8 @@ export const PisteContainer = ({ hakutiedot }: Props) => {
       <KeskiArvoModal
         open={isModalOpen}
         closeFn={() => setModalOpen(false)}
-        updateTulos={setTulos}></KeskiArvoModal>
+        updateTulos={setTulos}
+        tulos={tulos}></KeskiArvoModal>
       {hakukohde?.metadata?.pistehistoria &&
         hakukohde?.metadata?.pistehistoria?.length > 0 && (
           <PisteGraafi hakukohde={hakukohde} tulos={tulos} />

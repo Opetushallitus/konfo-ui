@@ -1,6 +1,8 @@
 export interface LocalStorable {}
 
 export const RESULT_STORE_KEY = 'keskiarvotulos';
+export const AVERAGE_STORE_KEY = 'keskiarvot';
+export const KOULUAINE_STORE_KEY = 'kouluaineet';
 
 export const LocalStorageUtil = {
   save: (key: string, obj: LocalStorable) => {

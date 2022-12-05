@@ -5,12 +5,10 @@ import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { colors } from 'src/colors';
 
-import { LocalStorageUtil } from '../LocalStorageUtil';
+import { LocalStorageUtil, KOULUAINE_STORE_KEY } from '../LocalStorageUtil';
 import { AddKieliInput } from './AddKieliInput';
 import { Kouluaineet, Kouluaine, createKouluaine } from './Kouluaine';
 import { KouluaineInput } from './KouluaineInput';
-
-const KOULUAINE_STORE_KEY = 'kouluaineet';
 
 const PREFIX = 'keskiarvo__ainelaskuri__';
 
