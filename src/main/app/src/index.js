@@ -8,6 +8,7 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import { Provider, useDispatch } from 'react-redux';
 import { BrowserRouter, useLocation } from 'react-router-dom';
 import 'typeface-open-sans';
+import { CompatRouter } from 'react-router-dom-v5-compat';
 import StackTrace from 'stacktrace-js';
 
 import { getConfiguration, postClientError } from '#/src/api/konfoApi';
@@ -117,12 +118,14 @@ ReactDOM.render(
         <ReactQueryDevtools initialIsOpen={false} />
         <Provider store={getKonfoStore()}>
           <BrowserRouter basename="/konfo">
-            <ThemeProvider theme={theme}>
-              <InitGate>
-                <ScrollToTop />
-                <App />
-              </InitGate>
-            </ThemeProvider>
+            <CompatRouter>
+              <ThemeProvider theme={theme}>
+                <InitGate>
+                  <ScrollToTop />
+                  <App />
+                </InitGate>
+              </ThemeProvider>
+            </CompatRouter>
           </BrowserRouter>
         </Provider>
       </QueryClientProvider>
