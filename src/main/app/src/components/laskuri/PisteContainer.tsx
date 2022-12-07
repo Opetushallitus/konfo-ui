@@ -109,6 +109,7 @@ export const PisteContainer = ({ hakutiedot }: Props) => {
         {hakukohteet.map((kohde: Hakukohde, index: number) => (
           <MenuItem key={`hakukohde-${index}`} value={kohde as any}>
             {localize(kohde.nimi)}
+            {kohde.jarjestyspaikka ? `, ${localize(kohde.jarjestyspaikka.nimi)}` : ''}
           </MenuItem>
         ))}
       </Select>
