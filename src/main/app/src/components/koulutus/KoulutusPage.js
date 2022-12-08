@@ -222,7 +222,7 @@ export const KoulutusPage = () => {
           <PageSection heading={t('koulutus.tiedot')}>
             <KoulutusInfoGrid
               nimikkeet={koulutus?.tutkintoNimikkeet}
-              koulutustyyppi={koulutus?.koulutusTyyppi}
+              koulutustyyppi={koulutus?.koulutustyyppi}
               laajuus={getLocalizedKoulutusLaajuus(koulutus)}
               eqf={koulutus?.eqf}
               nqf={koulutus?.nqf}
@@ -232,7 +232,7 @@ export const KoulutusPage = () => {
           <Kuvaus koulutus={koulutus} />
           <TutkinnonOsat koulutus={koulutus} />
           <Box id="tarjonta">
-            <ToteutusList oid={oid} koulutustyyppi={koulutus?.koulutusTyyppi} />
+            <ToteutusList oid={oid} koulutustyyppi={koulutus?.koulutustyyppi} />
           </Box>
           {tulevatJarjestajat?.length > 0 && (
             <Box id="tulevatJarjestajat">

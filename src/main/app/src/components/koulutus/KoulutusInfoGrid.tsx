@@ -67,7 +67,7 @@ export const KoulutusInfoGrid = ({
     });
   }
 
-  const koulutusTyyppiString = useVisibleKoulutustyyppi({
+  const koulutustyyppiString = useVisibleKoulutustyyppi({
     koulutustyyppi,
     isAvoinKorkeakoulutus,
   });
@@ -75,7 +75,7 @@ export const KoulutusInfoGrid = ({
   perustiedotData.push({
     icon: <ExtensionOutlined className={classes.koulutusInfoGridIcon} />,
     title: t('koulutus.koulutustyyppi'),
-    text: koulutusTyyppiString,
+    text: koulutustyyppiString,
     testid: 'koulutustyyppi',
   });
   perustiedotData.push({

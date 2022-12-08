@@ -126,6 +126,8 @@ export const ToteutusPage = () => {
 
   const hakutiedot = toteutus?.hakutiedot;
 
+  const isAvoinKorkeakoulutus = toteutus?.metadata?.isAvoinKorkeakoulutus;
+
   const notFound = koulutusStatus === 'error' || toteutusStatus === 'error';
 
   const loading =
@@ -195,6 +197,8 @@ export const ToteutusPage = () => {
             laajuus={getLocalizedToteutusLaajuus(toteutus, koulutus)}
             opetus={opetus!}
             hasHaku={hasAnyHakukohde}
+            koulutustyyppi={koulutus?.koulutustyyppi}
+            isAvoinKorkeakoulutus={isAvoinKorkeakoulutus}
           />
         </PageSection>
         {toteutus?.hakuAuki && (

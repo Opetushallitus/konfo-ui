@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { ExtensionOutlined } from '@mui/icons-material';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import EuroIcon from '@mui/icons-material/Euro';
 import FlagOutlinedIcon from '@mui/icons-material/FlagOutlined';
@@ -14,7 +15,8 @@ import { useTranslation } from 'react-i18next';
 
 import { InfoGrid } from '#/src/components/common/InfoGrid';
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
-import { NDASH } from '#/src/constants';
+import { Koulutustyyppi, NDASH } from '#/src/constants';
+import { useVisibleKoulutustyyppi } from '#/src/hooks/useVisibleKoulutustyyppi';
 import { localize } from '#/src/tools/localization';
 import { Translateable } from '#/src/types/common';
 import { Opetus, Yksikko } from '#/src/types/ToteutusTypes';
@@ -85,9 +87,17 @@ type Props = {
   laajuus: string;
   opetus: Opetus;
   hasHaku: boolean;
+  koulutustyyppi?: Koulutustyyppi;
+  isAvoinKorkeakoulutus?: boolean;
 };
 
-export const ToteutusInfoGrid = ({ laajuus, opetus = {}, hasHaku }: Props) => {
+export const ToteutusInfoGrid = ({
+  laajuus,
+  koulutustyyppi,
+  isAvoinKorkeakoulutus = false,
+  opetus = {},
+  hasHaku,
+}: Props) => {
   const { t } = useTranslation();
 
   const kieliString = opetus.opetuskieli?.map(localizeMap).join('\n') ?? '';
@@ -104,7 +114,18 @@ export const ToteutusInfoGrid = ({ laajuus, opetus = {}, hasHaku }: Props) => {
 
   const perustiedotData = [];
 
+  const koulutustyyppiText = useVisibleKoulutustyyppi({
+    koulutustyyppi,
+    isAvoinKorkeakoulutus,
+  });
+
   perustiedotData.push(
+    {
+      icon: <ExtensionOutlined className={classes.koulutusInfoGridIcon} />,
+      title: t('koulutus.koulutustyyppi'),
+      text: koulutustyyppiText,
+      testid: 'koulutustyyppi',
+    },
     {
       icon: <ChatBubbleOutlineIcon className={classes.koulutusInfoGridIcon} />,
       title: t('toteutus.opetuskieli'),
