@@ -6,6 +6,7 @@ import {
   TimelapseOutlined,
   HomeWorkOutlined,
 } from '@mui/icons-material';
+import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { EntiteettiKortti } from '#/src/components/common/EntiteettiKortti';
@@ -29,7 +30,6 @@ type Props = {
     tutkintonimikkeet: Array<Translateable>;
     teemakuva?: string;
     toteutustenTarjoajat: ToteutustenTarjoajat;
-    johtaaTutkintoon: boolean;
     isAvoinKorkeakoulutus: boolean;
   };
   isSmall?: boolean;
@@ -55,7 +55,6 @@ export const KoulutusKortti = ({ koulutus, isSmall }: Props) => {
 
   const {
     oid,
-    johtaaTutkintoon,
     tutkintonimikkeet,
     teemakuva,
     kuvaus,
@@ -77,9 +76,10 @@ export const KoulutusKortti = ({ koulutus, isSmall }: Props) => {
     isAvoinKorkeakoulutus,
   });
 
-  const tutkintonimikkeetText =
-    (tutkintonimikkeet || []).map(localize).join(', ').replace(/,\s*$/, '') ||
-    t('haku.ei-tutkintonimiketta');
+  const tutkintonimikkeetText = (tutkintonimikkeet || [])
+    .map(localize)
+    .join(', ')
+    .replace(/,\s*$/, '');
 
   return (
     <EntiteettiKortti
@@ -89,9 +89,9 @@ export const KoulutusKortti = ({ koulutus, isSmall }: Props) => {
       header={localize(koulutus)}
       kuvaus={kuvausText}
       iconTexts={[
-        johtaaTutkintoon
-          ? [tutkintonimikkeetText, SchoolOutlined]
-          : [koulutustyyppiText, ExtensionOutlined],
+        _.isEmpty(tutkintonimikkeetText)
+          ? [koulutustyyppiText, ExtensionOutlined]
+          : [tutkintonimikkeetText, SchoolOutlined],
         [getLocalizedKoulutusLaajuus(koulutus), TimelapseOutlined],
         toteutustenTarjoajatText && [toteutustenTarjoajatText, HomeWorkOutlined],
       ]}
