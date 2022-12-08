@@ -12,6 +12,7 @@ const PAINOKERROIN_MAKSIMI = 5;
 const AMOUNT_OF_TAITOAINE_TO_USE = 3;
 const COMPLETED_STUDIES_SCORE = 6;
 
+export const ENSISIJAINEN_SCORE_BONUS = 2;
 export interface Keskiarvot extends LocalStorable {
   lukuaineet: string;
   taideTaitoAineet: string;

@@ -142,6 +142,7 @@ export type Toteutus = {
   oppilaitokset: Array<string>;
   liitetytOpintojaksot: Array<Opintojakso>;
   kuuluuOpintokokonaisuuksiin: Array<Opintokokonaisuus>;
+  koulutustyyppi: string;
 
   // NOTE: These are given at selector
   hakuAuki: boolean;
