@@ -78,6 +78,7 @@
   "näytä-kaikki": "Näytä kaikki",
   "ankkurilinkki": "Ankkurilinkki: ",
   "avaa-sulje-valikko": "Avaa tai sulje valikko",
+  "avoin-kk-suffix": "(avoin)",
   "jumpotron": {
     "otsikko": "Jatkuvaa oppimista elämäsi jokaiseen vaiheeseen.",
     "esittely": "Opintopolkun kautta voit suunnitella omia opintoja ja hakea koulutuksiin. Sivuston tiedot ja palvelut ovat luotettavia ja turvallisia.",
@@ -435,7 +436,6 @@
     "ammattikorkeakoulujen-erillishaut": "Ammattikorkeakoulujen erillishaut",
     "ammattikorkeakoulujen-hakijapalvelut": "Ammattikorkeakoulujen hakijapalvelut",
     "ammatilliset-opettajakorkeakoulut": "Ammatilliset opettajakorkeakoulut",
-    "avoin-ammattikorkeakoulu": "Avoin ammattikorkeakoulu",
     "erikoistumiskoulutus-ammattikorkeakoulussa": "Erikoistumiskoulutus ammattikorkeakoulussa",
     "täydennyskoulutus": "Täydennyskoulutus",
     "yliopisto": "Yliopisto",
@@ -447,7 +447,6 @@
     "erillisarvosanan-suorittaminen": "Erillisarvosanan suorittaminen",
     "jatkotutkinnot-ja-koulutukset": "Jatkotutkinnot ja koulutukset",
     "yliopistojen-hakijapalvelut": "Yliopistojen hakijapalvelut",
-    "avoin-yliopisto": "Avoin yliopisto",
     "erikoistumiskoulutus-yliopistossa": "Erikoistumiskoulutus yliopistossa",
     "oppisopimus": "Oppisopimus",
     "opiskelijalle": "Opiskelijalle",

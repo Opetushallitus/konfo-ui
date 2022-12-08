@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next';
 import { ExternalLink } from '#/src/components/common/ExternalLink';
 import { InfoGrid } from '#/src/components/common/InfoGrid';
 import { Koulutustyyppi } from '#/src/constants';
+import { useVisibleKoulutustyyppi } from '#/src/hooks/useVisibleKoulutustyyppi';
 import { localize, localizeArrayToCommaSeparated } from '#/src/tools/localization';
 import { Koodi, Translateable } from '#/src/types/common';
 
@@ -41,6 +42,7 @@ type Props = {
   laajuus: string;
   eqf: Array<Koodi>;
   nqf: Array<Koodi>;
+  isAvoinKorkeakoulutus: boolean;
 };
 
 export const KoulutusInfoGrid = ({
@@ -49,6 +51,7 @@ export const KoulutusInfoGrid = ({
   laajuus,
   eqf,
   nqf,
+  isAvoinKorkeakoulutus,
 }: Props) => {
   const { t } = useTranslation();
 
@@ -64,9 +67,10 @@ export const KoulutusInfoGrid = ({
     });
   }
 
-  const koulutusTyyppiString = koulutustyyppi
-    ? t(`koulutus.tyyppi-${koulutustyyppi}`)
-    : '';
+  const koulutusTyyppiString = useVisibleKoulutustyyppi({
+    koulutustyyppi,
+    isAvoinKorkeakoulutus,
+  });
 
   perustiedotData.push({
     icon: <ExtensionOutlined className={classes.koulutusInfoGridIcon} />,

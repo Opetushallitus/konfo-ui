@@ -87,6 +87,7 @@ const selectKoulutus = (koulutusData: any) => {
       sorakuvaus: koulutusData?.sorakuvaus,
       eqf: koulutusData?.eqf,
       nqf: koulutusData?.nqf,
+      isAvoinKorkeakoulutus: koulutusData?.metadata?.isAvoinKorkeakoulutus,
     };
   } else {
     return undefined;
