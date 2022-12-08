@@ -92,6 +92,8 @@ export type ToteutusMetadata = {
   opintojenLaajuusNumero?: number;
   opintojenLaajuusyksikko?: Koodi;
   isAvoinKorkeakoulutus?: boolean;
+  tunniste?: string;
+  opinnonTyyppi?: Koodi;
 };
 
 export type Organisaatio = {

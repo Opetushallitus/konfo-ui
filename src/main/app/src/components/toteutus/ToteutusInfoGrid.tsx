@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ExtensionOutlined } from '@mui/icons-material';
+import { Class, ExtensionOutlined, LabelOutlined } from '@mui/icons-material';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import EuroIcon from '@mui/icons-material/Euro';
 import FlagOutlinedIcon from '@mui/icons-material/FlagOutlined';
@@ -18,7 +18,7 @@ import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
 import { Koulutustyyppi, NDASH } from '#/src/constants';
 import { useVisibleKoulutustyyppi } from '#/src/hooks/useVisibleKoulutustyyppi';
 import { localize } from '#/src/tools/localization';
-import { Translateable } from '#/src/types/common';
+import { Koodi, Translateable } from '#/src/types/common';
 import { Opetus, Yksikko } from '#/src/types/ToteutusTypes';
 
 import { formatAloitus } from './utils';
@@ -89,12 +89,16 @@ type Props = {
   hasHaku: boolean;
   koulutustyyppi?: Koulutustyyppi;
   isAvoinKorkeakoulutus?: boolean;
+  tunniste?: string;
+  opinnonTyyppi?: Koodi;
 };
 
 export const ToteutusInfoGrid = ({
   laajuus,
   koulutustyyppi,
   isAvoinKorkeakoulutus = false,
+  tunniste,
+  opinnonTyyppi,
   opetus = {},
   hasHaku,
 }: Props) => {
@@ -209,6 +213,24 @@ export const ToteutusInfoGrid = ({
       ),
     }
   );
+
+  const opinnonTyyppiText = localize(opinnonTyyppi);
+
+  if (!_.isEmpty(opinnonTyyppiText)) {
+    perustiedotData.push({
+      icon: <Class className={classes.koulutusInfoGridIcon} />,
+      title: t('koulutus.opinnonTyyppi'),
+      text: opinnonTyyppiText,
+    });
+  }
+
+  if (!_.isEmpty(tunniste)) {
+    perustiedotData.push({
+      icon: <LabelOutlined className={classes.koulutusInfoGridIcon} />,
+      title: t('koulutus.tunniste'),
+      text: tunniste,
+    });
+  }
 
   return (
     <Root>

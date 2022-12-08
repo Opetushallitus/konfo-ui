@@ -4,7 +4,9 @@ import {
   ExtensionOutlined,
   LineStyle,
   SchoolOutlined,
-  Timelapse,
+  TimelapseOutlined,
+  LabelOutlined,
+  Class,
 } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 import _ from 'lodash';
@@ -15,6 +17,7 @@ import { InfoGrid } from '#/src/components/common/InfoGrid';
 import { Koulutustyyppi } from '#/src/constants';
 import { useVisibleKoulutustyyppi } from '#/src/hooks/useVisibleKoulutustyyppi';
 import { localize, localizeArrayToCommaSeparated } from '#/src/tools/localization';
+import { getLocalizedKoulutusLaajuus } from '#/src/tools/utils';
 import { Koodi, Translateable } from '#/src/types/common';
 
 const PREFIX = 'KoulutusInfoGrid';
@@ -36,34 +39,44 @@ const Root = styled('div')(({ theme }) => ({
   },
 }));
 
-type Props = {
-  nimikkeet: Array<Translateable>;
+type Koulutus = {
+  tutkintonimikkeet: Array<Translateable>;
   koulutustyyppi?: Koulutustyyppi;
   laajuus: string;
   eqf: Array<Koodi>;
   nqf: Array<Koodi>;
   isAvoinKorkeakoulutus: boolean;
+  opinnonTyyppi: Koodi;
+  tunniste: string;
 };
 
-export const KoulutusInfoGrid = ({
-  nimikkeet,
-  koulutustyyppi,
-  laajuus,
-  eqf,
-  nqf,
-  isAvoinKorkeakoulutus,
-}: Props) => {
+type Props = {
+  koulutus: Koulutus;
+};
+
+export const KoulutusInfoGrid = ({ koulutus }: Props) => {
+  const {
+    koulutustyyppi,
+    eqf,
+    nqf,
+    isAvoinKorkeakoulutus,
+    tutkintonimikkeet,
+    opinnonTyyppi,
+    tunniste,
+  } = koulutus;
+
+  const laajuus = getLocalizedKoulutusLaajuus(koulutus);
   const { t } = useTranslation();
 
   const perustiedotData = [];
-  if (!_.isEmpty(nimikkeet)) {
-    const nimikeString = nimikkeet
-      ? nimikkeet.map((nimikeObj) => localize(nimikeObj)).join('\n')
-      : t('koulutus.ei-tutkintonimiketta');
+
+  if (!_.isEmpty(tutkintonimikkeet)) {
     perustiedotData.push({
       icon: <SchoolOutlined className={classes.koulutusInfoGridIcon} />,
       title: t('koulutus.tutkintonimikkeet'),
-      text: nimikeString,
+      text: tutkintonimikkeet
+        ? tutkintonimikkeet.map((nimikeObj) => localize(nimikeObj)).join('\n')
+        : t('koulutus.ei-tutkintonimiketta'),
     });
   }
 
@@ -72,18 +85,38 @@ export const KoulutusInfoGrid = ({
     isAvoinKorkeakoulutus,
   });
 
-  perustiedotData.push({
-    icon: <ExtensionOutlined className={classes.koulutusInfoGridIcon} />,
-    title: t('koulutus.koulutustyyppi'),
-    text: koulutustyyppiString,
-    testid: 'koulutustyyppi',
-  });
-  perustiedotData.push({
-    icon: <Timelapse className={classes.koulutusInfoGridIcon} />,
-    title: t('koulutus.koulutuksen-laajuus'),
-    text: laajuus,
-    testid: 'opintojenLaajuus',
-  });
+  perustiedotData.push(
+    {
+      icon: <ExtensionOutlined className={classes.koulutusInfoGridIcon} />,
+      title: t('koulutus.koulutustyyppi'),
+      text: koulutustyyppiString,
+      testid: 'koulutustyyppi',
+    },
+    {
+      icon: <TimelapseOutlined className={classes.koulutusInfoGridIcon} />,
+      title: t('koulutus.koulutuksen-laajuus'),
+      text: laajuus,
+      testid: 'opintojenLaajuus',
+    }
+  );
+
+  const opinnonTyyppiText = localize(opinnonTyyppi);
+
+  if (!_.isEmpty(opinnonTyyppiText)) {
+    perustiedotData.push({
+      icon: <Class className={classes.koulutusInfoGridIcon} />,
+      title: t('koulutus.opinnonTyyppi'),
+      text: opinnonTyyppiText,
+    });
+  }
+
+  if (!_.isEmpty(tunniste)) {
+    perustiedotData.push({
+      icon: <LabelOutlined className={classes.koulutusInfoGridIcon} />,
+      title: t('koulutus.tunniste'),
+      text: tunniste,
+    });
+  }
 
   const eqfString =
     eqf?.length > 0
