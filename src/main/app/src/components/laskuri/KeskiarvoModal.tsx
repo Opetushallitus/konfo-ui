@@ -39,12 +39,14 @@ const StyledDialog = styled(Dialog)(() => ({
   },
   [`.${classes.buttonWrapper}`]: {
     textAlign: 'right',
-    marginTop: '0.5rem',
+    marginTop: '2rem',
   },
   [`.${classes.calcButton}`]: {
     border: `2px solid ${colors.brandGreen}`,
     backgroundColor: colors.brandGreen,
     color: colors.white,
+    fontWeight: 600,
+    fontSize: '1rem',
     '&:hover': {
       backgroundColor: colors.brandGreen,
     },
@@ -56,6 +58,8 @@ const StyledDialog = styled(Dialog)(() => ({
     border: `2px solid ${colors.brandGreen}`,
     color: colors.brandGreen,
     marginLeft: '1.5rem',
+    fontWeight: 600,
+    fontSize: '1rem',
   },
   [`.${classes.closeIcon}`]: {
     position: 'absolute',

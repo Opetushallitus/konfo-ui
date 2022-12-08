@@ -98,7 +98,7 @@ export const KeskiarvoLaskuri = ({
       <Typography variant="h3" sx={{ fontSize: '1.25rem' }}>
         {t('pistelaskuri.keskiarvot-header')}
       </Typography>
-      <Typography>
+      <Typography sx={{ marginBottom: '1.375rem' }}>
         {t('pistelaskuri.vaihdalaskin-1')}
         <Button
           onClick={() => changeCalculator(false)}
