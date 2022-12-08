@@ -32,11 +32,15 @@ const isEligibleArvosana = (arvosana: number | null): boolean => {
   );
 };
 
+const painokerroinToNumber = (painokerroin: string): number =>
+  Number.parseFloat(painokerroin.replace(',', '.'));
+
 export const isEligiblePainokerroin = (painokerroin: string): boolean => {
+  const painokerroinAsNumber = painokerroinToNumber(painokerroin);
   return (
-    _.isNumber(Number.parseFloat(painokerroin)) &&
-    Number(painokerroin) >= PAINOKERROIN_MINIMI &&
-    Number(painokerroin) <= PAINOKERROIN_MAKSIMI
+    _.isNumber(painokerroinAsNumber) &&
+    Number(painokerroinAsNumber) >= PAINOKERROIN_MINIMI &&
+    Number(painokerroinAsNumber) <= PAINOKERROIN_MAKSIMI
   );
 };
 
@@ -112,12 +116,14 @@ export const kouluaineetToHakupiste = (kouluaineet: Kouluaineet): HakupisteLaske
     lukuaineet.map(
       (aine: Kouluaine) =>
         Number(aine.arvosana) *
-        (isEligiblePainokerroin(aine.painokerroin) ? Number(aine.painokerroin) : 1)
+        (isEligiblePainokerroin(aine.painokerroin)
+          ? painokerroinToNumber(aine.painokerroin)
+          : 1)
     )
   );
   const lukuaineetNimittaja: number = _.sum(
     lukuaineet.map((a: Kouluaine) =>
-      isEligiblePainokerroin(a.painokerroin) ? Number(a.painokerroin) : 1
+      isEligiblePainokerroin(a.painokerroin) ? painokerroinToNumber(a.painokerroin) : 1
     )
   );
   const lukuKa = roundKa(lukuaineetOsoittaja / lukuaineetNimittaja);
