@@ -3,7 +3,6 @@ import React from 'react';
 import { Clear } from '@mui/icons-material';
 import { Button, Chip, Grid } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';

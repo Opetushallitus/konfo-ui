@@ -10,8 +10,6 @@ import { useTranslation } from 'react-i18next';
 
 import { EntiteettiKortti } from '#/src/components/common/EntiteettiKortti';
 import { KoulutusKorttiLogo } from '#/src/components/common/KorttiLogo';
-import { Koulutustyyppi } from '#/src/constants';
-import { hasTutkintonimike } from '#/src/tools/hasTutkintonimike';
 import { localize } from '#/src/tools/localization';
 import { getLocalizedKoulutusLaajuus } from '#/src/tools/utils';
 import { Translateable } from '#/src/types/common';
@@ -29,6 +27,7 @@ type Props = {
     tutkintonimikkeet: Array<Translateable>;
     teemakuva?: string;
     toteutustenTarjoajat: ToteutustenTarjoajat;
+    johtaaTutkintoon: boolean;
   };
   isSmall?: boolean;
 };
@@ -56,14 +55,6 @@ export const KoulutusKortti = ({ koulutus, isSmall }: Props) => {
       .replace(/<\/li>/gm, ',</li>')
       .replace(/\.,<\/li>/gm, '.</li>')
       .replace(/<[^>]*>/gm, '') || t('haku.ei_kuvausta');
-  const koulutusHasTutkintonimike = hasTutkintonimike(
-    koulutus?.koulutustyyppi as Koulutustyyppi
-  );
-
-  const tutkintoNimikkeet = koulutusHasTutkintonimike
-    ? (koulutus?.tutkintonimikkeet || []).map(localize).join(', ').replace(/,\s*$/, '') ||
-      t('haku.ei-tutkintonimiketta')
-    : t(`koulutus.tyyppi-${koulutus?.koulutustyyppi}`);
 
   const toteutustenTarjoajatText = useToteutustenTarjoajat(
     koulutus?.toteutustenTarjoajat
@@ -77,10 +68,15 @@ export const KoulutusKortti = ({ koulutus, isSmall }: Props) => {
       header={localize(koulutus)}
       kuvaus={kuvaus}
       iconTexts={[
-        [
-          tutkintoNimikkeet,
-          koulutusHasTutkintonimike ? SchoolOutlined : ExtensionOutlined,
-        ],
+        koulutus?.johtaaTutkintoon
+          ? [
+              (koulutus?.tutkintonimikkeet || [])
+                .map(localize)
+                .join(', ')
+                .replace(/,\s*$/, '') || t('haku.ei-tutkintonimiketta'),
+              SchoolOutlined,
+            ]
+          : [t(`koulutus.tyyppi-${koulutus?.koulutustyyppi}`), ExtensionOutlined],
         [getLocalizedKoulutusLaajuus(koulutus), TimelapseOutlined],
         toteutustenTarjoajatText && [toteutustenTarjoajatText, HomeWorkOutlined],
       ]}

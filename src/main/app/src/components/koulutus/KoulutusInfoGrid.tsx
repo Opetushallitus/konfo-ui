@@ -7,12 +7,12 @@ import {
   Timelapse,
 } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
+import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { ExternalLink } from '#/src/components/common/ExternalLink';
 import { InfoGrid } from '#/src/components/common/InfoGrid';
 import { Koulutustyyppi } from '#/src/constants';
-import { hasTutkintonimike } from '#/src/tools/hasTutkintonimike';
 import { localize, localizeArrayToCommaSeparated } from '#/src/tools/localization';
 import { Koodi, Translateable } from '#/src/types/common';
 
@@ -53,7 +53,7 @@ export const KoulutusInfoGrid = ({
   const { t } = useTranslation();
 
   const perustiedotData = [];
-  if (hasTutkintonimike(koulutustyyppi)) {
+  if (!_.isEmpty(nimikkeet)) {
     const nimikeString = nimikkeet
       ? nimikkeet.map((nimikeObj) => localize(nimikeObj)).join('\n')
       : t('koulutus.ei-tutkintonimiketta');
