@@ -8,7 +8,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { colors } from '#/src/colors';
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
 
-import { HakupisteLaskelma } from './Keskiarvo';
+import { HakupisteLaskelma, ENSISIJAINEN_SCORE_BONUS } from './Keskiarvo';
 
 const PREFIX = 'keskiarvo__tulos__';
 
@@ -116,7 +116,7 @@ export const KeskiarvoTulos = ({ tulos }: Props) => {
         text={t('pistelaskuri.pisteet.lukio')}></ResultSphere>
       <Box className={classes.spheresContainer}>
         <ResultSphere
-          result={tulos.pisteet + 2}
+          result={tulos.pisteet + ENSISIJAINEN_SCORE_BONUS}
           text={t('pistelaskuri.pisteet.ammatillinen-first')}></ResultSphere>
         <ResultSphere
           result={tulos.pisteet}

@@ -18,6 +18,7 @@ import { localize } from '#/src/tools/localization';
 import { Hakukohde } from '#/src/types/HakukohdeTypes';
 import { Hakutieto } from '#/src/types/ToteutusTypes';
 
+import { PisteGraafi } from './graafi/PisteGraafi';
 import { HakupisteLaskelma } from './Keskiarvo';
 import { KeskiArvoModal } from './KeskiarvoModal';
 import {
@@ -26,7 +27,6 @@ import {
   KOULUAINE_STORE_KEY,
   AVERAGE_STORE_KEY,
 } from './LocalStorageUtil';
-import { PisteGraafi } from './PisteGraafi';
 
 const PREFIX = 'PisteContainer__';
 
@@ -62,9 +62,10 @@ const StyledPageSection = styled(PageSection)(() => ({
 
 type Props = {
   hakutiedot: Array<Hakutieto>;
+  isLukio: boolean;
 };
 
-export const PisteContainer = ({ hakutiedot }: Props) => {
+export const PisteContainer = ({ hakutiedot, isLukio }: Props) => {
   const { t } = useTranslation();
   const [isModalOpen, setModalOpen] = useState(false);
   const hakukohteet = hakutiedot.flatMap((tieto: Hakutieto) => tieto.hakukohteet);
@@ -120,7 +121,7 @@ export const PisteContainer = ({ hakutiedot }: Props) => {
         tulos={tulos}></KeskiArvoModal>
       {hakukohde?.metadata?.pistehistoria &&
         hakukohde?.metadata?.pistehistoria?.length > 0 && (
-          <PisteGraafi hakukohde={hakukohde} tulos={tulos} />
+          <PisteGraafi hakukohde={hakukohde} tulos={tulos} isLukio={isLukio} />
         )}
       {!hakukohde?.metadata?.pistehistoria ||
         (hakukohde?.metadata?.pistehistoria?.length < 1 && (

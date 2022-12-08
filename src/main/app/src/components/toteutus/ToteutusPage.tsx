@@ -274,7 +274,10 @@ export const ToteutusPage = () => {
             />
           )}
         {isToisenAsteenYhteisHaku && (
-          <PisteContainer hakutiedot={toteutus?.hakutiedot || []} />
+          <PisteContainer
+            hakutiedot={toteutus?.hakutiedot || []}
+            isLukio={toteutus?.koulutustyyppi === 'lk'}
+          />
         )}
         <Box id="haut" display="flex" justifyContent="center">
           <ToteutusHakutiedot toteutus={toteutus} />
