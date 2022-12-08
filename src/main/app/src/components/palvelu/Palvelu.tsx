@@ -5,7 +5,7 @@ import { styled } from '@mui/material/styles';
 import clsx from 'clsx';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
 import { useContentful } from '#/src/hooks';
@@ -61,7 +61,7 @@ const Paragraph = ({ children }: { children: React.ReactNode }) => (
 );
 
 export const Palvelu = ({ id }: { id: string }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { data, forwardTo, assetUrl } = useContentful();
   const { i18n } = useTranslation();
   const { asset } = data;
@@ -71,7 +71,7 @@ export const Palvelu = ({ id }: { id: string }) => {
   const color = (palvelu.color as keyof typeof classes) || 'sininen';
   const forwardToPage = () => {
     if (palvelu.linkki && palvelu.linkki.id) {
-      history.push(`/${i18n.language}${forwardTo(palvelu.linkki.id)}`);
+      navigate(`/${i18n.language}${forwardTo(palvelu.linkki.id)}`);
     }
   };
 

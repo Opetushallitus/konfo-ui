@@ -4,7 +4,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { Grid, Icon, Typography, Paper } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
 import { useContentful } from '#/src/hooks';
@@ -41,12 +41,12 @@ const StyledPaper = styled(Paper)({
 
 const LinkCard = (props) => {
   const { forwardTo, assetUrl } = useContentful();
-  const history = useHistory();
+  const navigate = useNavigate();
   const { i18n } = useTranslation();
   const { icon, text, sivu } = props;
   const url = (icon || {}).url;
   const forwardToPage = (id) => {
-    history.push(`/${i18n.language}${forwardTo(id)}`);
+    navigate(`/${i18n.language}${forwardTo(id)}`);
   };
 
   return (

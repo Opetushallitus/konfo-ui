@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { urls } from 'oph-urls-js';
 import { useQuery } from 'react-query';
 import { useDispatch } from 'react-redux';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { getContentfulData, getContentfulManifest } from '#/src/api/konfoApi';
 import { SIDEMENU_WIDTH } from '#/src/constants';
@@ -14,7 +14,7 @@ import { theme } from '#/src/theme';
 
 export const useLanguageState = () => {
   const location = useLocation();
-  const history = useHistory();
+  const navigate = useNavigate();
   const lng = location.pathname.match(/^\/(.*?)(\/|$)/)?.[1];
   if (Boolean(lng)) {
     document.documentElement.setAttribute('lang', lng);
@@ -24,13 +24,13 @@ export const useLanguageState = () => {
       document.documentElement.setAttribute('lang', newLang || 'fi');
       if (lng && newLang !== lng) {
         const newPath = location.pathname.replace(new RegExp(`^/${lng}`), `/${newLang}`);
-        history.push({
+        navigate({
           ...location,
           pathname: newPath,
         });
       }
     },
-    [history, location, lng]
+    [navigate, location, lng]
   );
   return [lng, setLanguage];
 };

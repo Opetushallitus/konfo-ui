@@ -14,7 +14,7 @@ import {
 import { styled } from '@mui/material/styles';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
-import { useHistory, Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 import koulutusPlaceholderImg from '#/src/assets/images/Opolkuhts.png';
 import { colors } from '#/src/colors';
@@ -111,7 +111,7 @@ export const Sisaltohaku = () => {
   const { data, forwardTo, assetUrl } = useContentful();
   const { t, i18n } = useTranslation();
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const { sivu, uutinen } = data;
   const index = Object.entries(sivu)
@@ -143,11 +143,11 @@ export const Sisaltohaku = () => {
   const doSearch = useCallback(
     (event) => {
       event?.preventDefault();
-      history.push(`/${i18n.language}/sisaltohaku/?hakusana=${search}`);
+      navigate(`/${i18n.language}/sisaltohaku/?hakusana=${search}`);
       setOffset(0);
       setResults(fetchResults(search));
     },
-    [fetchResults, i18n, history, search]
+    [fetchResults, i18n, navigate, search]
   );
 
   const activeSearch = hakusana !== '';

@@ -5,7 +5,7 @@ import { styled } from '@mui/material/styles';
 import _ from 'lodash';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useEffectOnce } from 'react-use';
 
 import { colors } from '#/src/colors';
@@ -59,7 +59,7 @@ export const Etusivu = () => {
   const { t } = useTranslation();
 
   const { i18n } = useTranslation();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const { clearFilters, setKeyword } = useSearch();
   const { data, isLoading, forwardTo } = useContentful();
@@ -76,7 +76,7 @@ export const Etusivu = () => {
   } = data;
 
   const forwardToPage = (id: string) => {
-    history.push(`/${i18n.language}${forwardTo(id)}`);
+    navigate(`/${i18n.language}${forwardTo(id)}`);
   };
 
   const infos = Object.values(infoData || {});

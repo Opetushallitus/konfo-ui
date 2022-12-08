@@ -15,7 +15,7 @@ import {
 import { styled } from '@mui/material/styles';
 import { urls } from 'oph-urls-js';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
 import LanguageTab from '#/src/components/common/LanguageTab';
@@ -124,7 +124,7 @@ const StyledDrawer = styled(Drawer, {
 export const SideMenu = (props) => {
   const { menuVisible, closeMenu } = props;
   const { t, i18n } = useTranslation();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const { data } = useContentful();
   const [selected, setSelected] = useState([]);
@@ -141,7 +141,7 @@ export const SideMenu = (props) => {
     : (single(valikot).valikot || []).map((v) => valikko[v.id]);
 
   const doSearch = (event) => {
-    history.push(`/${i18n.language}/sisaltohaku/?hakusana=${search}`);
+    navigate(`/${i18n.language}/sisaltohaku/?hakusana=${search}`);
     event.preventDefault();
   };
 
