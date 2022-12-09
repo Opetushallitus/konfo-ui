@@ -88,6 +88,7 @@ export const KOULUTUS_TYYPPI_MUU = {
   ERIKOISLAAKARI: 'erikoislaakari',
   KK_OPINTOJAKSO: 'kk-opintojakso',
   KK_OPINTOKOKONAISUUS: 'kk-opintokokonaisuus',
+  ERIKOISTUMISKOULUTUS: 'erikoistumiskoulutus',
   MUU_AMMATILLINEN_KOULUTUS: 'amm-muu',
   MUUT_AMMATILLISET: 'muut-ammatilliset',
   TELMA: 'telma',
