@@ -9,6 +9,7 @@ import { useIsFetching } from 'react-query';
 import { Navigate, Routes, Route, useLocation, useParams } from 'react-router-dom';
 
 import { CookieModal } from '#/src/components/common/CookieModal';
+import SiteImprove from '#/src/components/common/SiteImprove';
 import { HeadingBoundary } from '#/src/components/Heading';
 import { useSideMenu } from '#/src/hooks';
 import { NotFound } from '#/src/NotFound';
@@ -115,12 +116,9 @@ const TranslatedRoutes = () => {
       ...location,
       pathname: '/' + (langCookie ? langCookie : 'fi') + location.pathname,
     };
-    console.log('----------------');
-    console.log(params);
-    console.log(newLocation);
     return <Navigate to={newLocation} replace />;
   }
-  console.log('includes: ' + supportedLanguages.includes(selectedLanguage));
+
   return supportedLanguages.includes(selectedLanguage) ? (
     <Routes>
       <Route path="/" element={<Etusivu />} />
@@ -269,6 +267,7 @@ const App = () => {
           title: newTitle,
           path: pathname,
           isDefaultTitle: !dontUseDefaultHeader,
+          lang: language,
         };
         setTitleObj(titleState);
       }
@@ -279,7 +278,7 @@ const App = () => {
     <Root betaBannerVisible={betaBanner} isSmall={isSmall} menuVisible={menuVisible}>
       <Draft />
       <CookieModal />
-      {/*<SiteImprove />*/}
+      <SiteImprove titleObj={titleObj} />
       <Box display="flex">
         <Header
           toggleMenu={toggleMenu}

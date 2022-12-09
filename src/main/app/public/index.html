@@ -149,13 +149,28 @@
   <body>
     <noscript> You need to enable JavaScript to run this app.</noscript>
     <div id="wrapper"></div>
-<!--    <script>-->
-<!--      const siteDomain = document.domain;-->
-<!--      if (siteDomain === "localhost") {-->
-<!--        console.log("SITEIMPROVE " +window.location.href)-->
-<!--        //document.write('<script async src="https://siteimproveanalytics.com/js/siteanalyze_6047329.js"></' + 'script>')-->
-<!--      }-->
-<!--    </script>-->
-
+    <script>
+      // if (siteDomain === "opintopolku.fi") {
+        console.log("----> SiteImprove script loaded!");
+        // document.write('<script async src="https://siteimproveanalytics.com/js/siteanalyze_6047329.js"></' + 'script>')
+      // }
+    </script>
+    <script>
+      var siteImproveTracker = function(previousPage, currentPage, title) {
+        // if (siteDomain === "opintopolku.fi") {
+          console.log("------------------------------------>");
+          console.log("----> SiteImproveTracker called!");
+          console.log("----> SiteImproveTracker previouspage: " + previousPage);
+          console.log("----> SiteImproveTracker currentPage: " + currentPage);
+          console.log("----> SiteImproveTracker title: " + title);
+          console.log("<------------------------------------");
+          // _sz.push(["trackdynamic", {
+          //   "url": currentPage,
+          //   "ref": previousPage,
+          //   "title": title
+          // }]);
+        // }
+      };
+    </script>
   </body>
 </html>

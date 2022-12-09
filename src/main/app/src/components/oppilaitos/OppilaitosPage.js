@@ -97,7 +97,7 @@ export const OppilaitosPage = (props) => {
             />
           </Box>
           <Box className={classes.title}>
-            <Typography variant="h1" component="h2">
+            <Typography variant="h1" component="h1">
               {localize(entity)}
             </Typography>
           </Box>
