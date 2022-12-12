@@ -32,7 +32,7 @@ const PisteGraafiLukio = ({ hakukohde, tulos }: Props) => {
   const { data, years, labels }: PisteData = usePisteHistoria(hakukohde);
 
   return (
-    <Box>
+    <Box aria-hidden={true}>
       <VictoryChart
         maxDomain={{ y: 10, x: GRAAFI_MAX_YEAR + 1 }}
         minDomain={{ y: 4, x: GRAAFI_MIN_YEAR }}
@@ -83,7 +83,7 @@ const PisteGraafiAmmatillinen = ({ hakukohde, tulos }: Props) => {
   const { data, years, labels }: PisteData = usePisteHistoria(hakukohde);
 
   return (
-    <Box>
+    <Box aria-hidden={true}>
       <VictoryChart
         maxDomain={{ y: 32, x: GRAAFI_MAX_YEAR + 1 }}
         minDomain={{ y: 0, x: GRAAFI_MIN_YEAR }}
