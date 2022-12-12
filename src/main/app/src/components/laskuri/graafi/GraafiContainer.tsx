@@ -18,6 +18,7 @@ import { Hakukohde } from '#/src/types/HakukohdeTypes';
 import { Hakutieto } from '#/src/types/ToteutusTypes';
 
 import { HakupisteLaskelma } from '../Keskiarvo';
+import { AccessibleGraafi } from './AccessibleGraafi';
 import { PisteGraafi } from './PisteGraafi';
 
 const PREFIX = 'graafi__container__';
@@ -129,7 +130,7 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
         hakukohde?.metadata?.pistehistoria?.length > 0 && (
           <Box>
             <PisteGraafi hakukohde={hakukohde} tulos={tulos} isLukio={isLukio} />
-            <Box className={classes.legend}>
+            <Box className={classes.legend} aria-hidden={true}>
               <Box className={classes.legendScores} />
               <Typography sx={{ fontSize: '0.875rem' }}>
                 {t(
@@ -147,6 +148,7 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
                 )}
               </Typography>
             </Box>
+            <AccessibleGraafi isLukio={isLukio} tulos={tulos} hakukohde={hakukohde} />
           </Box>
         )}
       {!hakukohde?.metadata?.pistehistoria ||
