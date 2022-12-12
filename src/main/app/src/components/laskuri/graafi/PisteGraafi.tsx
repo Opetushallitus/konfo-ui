@@ -6,10 +6,12 @@ import {
   VictoryBar,
   VictoryChart,
   VictoryLine,
-  VictoryLegend,
   VictoryAxis,
+  VictoryTheme,
+  VictoryLabel,
 } from 'victory';
 
+import { colors } from '#/src/colors';
 import { Hakukohde } from '#/src/types/HakukohdeTypes';
 
 import { HakupisteLaskelma, ENSISIJAINEN_SCORE_BONUS } from '../Keskiarvo';
@@ -32,38 +34,46 @@ const PisteGraafiLukio = ({ hakukohde, tulos }: Props) => {
   return (
     <Box>
       <VictoryChart
-        maxDomain={{ y: 10, x: GRAAFI_MAX_YEAR }}
+        maxDomain={{ y: 10, x: GRAAFI_MAX_YEAR + 1 }}
         minDomain={{ y: 4, x: GRAAFI_MIN_YEAR }}
-        width={920}>
-        <VictoryAxis tickValues={years}></VictoryAxis>
-        <VictoryAxis dependentAxis tickValues={[4, 5, 6, 7, 8, 9, 10]}></VictoryAxis>
-        <VictoryGroup offset={20}>
+        width={920}
+        theme={VictoryTheme.material}>
+        <VictoryAxis
+          tickValues={years}
+          style={{
+            axis: { stroke: colors.invisible },
+            ticks: { stroke: colors.invisible },
+            grid: { stroke: colors.invisible },
+          }}
+        />
+        <VictoryAxis
+          dependentAxis
+          tickValues={[4, 6, 8, 10]}
+          style={{
+            axis: { stroke: colors.invisible },
+            ticks: { stroke: colors.invisible },
+            grid: { strokeWidth: '3', strokeDasharray: '' },
+          }}
+        />
+        <VictoryGroup>
           <VictoryBar
             data={data}
-            style={{ data: { fill: '#5BCA13' } }}
+            style={{ data: { fill: colors.verminal } }}
+            barWidth={52}
             labels={labels}></VictoryBar>
           {tulos && (
             <VictoryLine
               style={{
-                data: { stroke: '#FFCC33' },
-                parent: { border: '3px solid #FFCC33' },
+                data: { stroke: colors.sunglow, strokeWidth: 3 },
               }}
               data={[
                 { x: GRAAFI_MIN_YEAR, y: tulos.keskiarvo },
-                { x: GRAAFI_MAX_YEAR, y: tulos.keskiarvo },
+                { x: GRAAFI_MAX_YEAR + 1, y: tulos.keskiarvo },
               ]}
-              labels={[`${tulos.keskiarvo}`]}></VictoryLine>
+              labels={[`${tulos.keskiarvo}`]}
+              labelComponent={<VictoryLabel renderInPortal dx={15} />}></VictoryLine>
           )}
         </VictoryGroup>
-        <VictoryLegend
-          orientation="horizontal"
-          gutter={100}
-          y={20}
-          data={[
-            { name: 'sisäänpääsyn alin keskiarvo', symbol: { fill: '#5BCA13' } },
-            { name: 'arvioitu keskiarvosi', symbol: { fill: '#FFCC33' } },
-          ]}
-        />
       </VictoryChart>
     </Box>
   );
@@ -75,38 +85,46 @@ const PisteGraafiAmmatillinen = ({ hakukohde, tulos }: Props) => {
   return (
     <Box>
       <VictoryChart
-        maxDomain={{ y: 30, x: GRAAFI_MAX_YEAR }}
+        maxDomain={{ y: 32, x: GRAAFI_MAX_YEAR + 1 }}
         minDomain={{ y: 0, x: GRAAFI_MIN_YEAR }}
-        width={920}>
-        <VictoryAxis tickValues={years}></VictoryAxis>
-        <VictoryAxis dependentAxis tickValues={[0, 5, 10, 15, 20, 25, 30]}></VictoryAxis>
-        <VictoryGroup offset={20}>
+        width={920}
+        theme={VictoryTheme.material}>
+        <VictoryAxis
+          tickValues={years}
+          style={{
+            axis: { stroke: colors.invisible },
+            ticks: { stroke: colors.invisible },
+            grid: { stroke: colors.invisible },
+          }}
+        />
+        <VictoryAxis
+          dependentAxis
+          tickValues={[0, 8, 16, 24, 32]}
+          style={{
+            axis: { stroke: colors.invisible },
+            ticks: { stroke: colors.invisible },
+            grid: { strokeWidth: '3', strokeDasharray: '' },
+          }}
+        />
+        <VictoryGroup>
           <VictoryBar
             data={data}
-            style={{ data: { fill: '#5BCA13' } }}
+            style={{ data: { fill: colors.verminal } }}
+            barWidth={52}
             labels={labels}></VictoryBar>
           {tulos && (
             <VictoryLine
               style={{
-                data: { stroke: '#FFCC33' },
-                parent: { border: '3px solid #FFCC33' },
+                data: { stroke: colors.sunglow, strokeWidth: 3 },
               }}
               data={[
                 { x: GRAAFI_MIN_YEAR, y: tulos.pisteet + ENSISIJAINEN_SCORE_BONUS },
-                { x: GRAAFI_MAX_YEAR, y: tulos.pisteet + ENSISIJAINEN_SCORE_BONUS },
+                { x: GRAAFI_MAX_YEAR + 1, y: tulos.pisteet + ENSISIJAINEN_SCORE_BONUS },
               ]}
-              labels={[`${tulos.pisteet}`]}></VictoryLine>
+              labels={[`${tulos.pisteet + ENSISIJAINEN_SCORE_BONUS}`]}
+              labelComponent={<VictoryLabel renderInPortal dx={15} />}></VictoryLine>
           )}
         </VictoryGroup>
-        <VictoryLegend
-          orientation="horizontal"
-          gutter={100}
-          y={20}
-          data={[
-            { name: 'sisäänpääsyn alin pistemäärä', symbol: { fill: '#5BCA13' } },
-            { name: 'arvioitu pistemääräsi', symbol: { fill: '#FFCC33' } },
-          ]}
-        />
       </VictoryChart>
     </Box>
   );
