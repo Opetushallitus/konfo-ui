@@ -28,8 +28,8 @@ export const usePisteHistoria = (hakukohde: Hakukohde): PisteData => {
           return { x: Number.parseInt(historia.vuosi), y: historia.pisteet };
         }) || [];
     setData(dataNew);
-    setYears(dataNew.map((datum) => datum.x));
-    setLabels(dataNew.map((datum) => `${datum.y}`.replace('.', ',')));
+    setYears(dataNew.map((datum: Datum) => datum.x));
+    setLabels(dataNew.map((datum: Datum) => `${datum.y}`.replace('.', ',')));
   }, [hakukohde]);
 
   return { data, years, labels };

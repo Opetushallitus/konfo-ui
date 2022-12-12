@@ -1,24 +1,14 @@
 import React, { useState, useEffect } from 'react';
 
 import { InfoOutlined } from '@mui/icons-material';
-import {
-  Box,
-  styled,
-  Typography,
-  Button,
-  Select,
-  MenuItem,
-  SelectChangeEvent,
-} from '@mui/material';
+import { Box, styled, Typography, Button } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { educationTypeColorCode, colors } from '#/src/colors';
 import { PageSection } from '#/src/components/common/PageSection';
-import { localize } from '#/src/tools/localization';
-import { Hakukohde } from '#/src/types/HakukohdeTypes';
 import { Hakutieto } from '#/src/types/ToteutusTypes';
 
-import { PisteGraafi } from './graafi/PisteGraafi';
+import { GraafiContainer } from './graafi/GraafiContainer';
 import { HakupisteLaskelma } from './Keskiarvo';
 import { KeskiArvoModal } from './KeskiarvoModal';
 import {
@@ -33,7 +23,9 @@ const PREFIX = 'PisteContainer__';
 const classes = {
   infoBox: `${PREFIX}infobox`,
   openButton: `${PREFIX}openbutton`,
+  purifyButton: `${PREFIX}purifybutton`,
   infoIcon: `${PREFIX}__infobox__icon`,
+  buttonsBox: `${PREFIX}__buttonsbox`,
 };
 
 const StyledPageSection = styled(PageSection)(() => ({
@@ -49,14 +41,27 @@ const StyledPageSection = styled(PageSection)(() => ({
     marginBottom: '1rem',
   },
   [`.${classes.openButton}`]: {
+    fontSize: '1rem',
     backgroundColor: colors.brandGreen,
     color: colors.white,
+    fontWeight: 600,
     '&:hover': {
       backgroundColor: colors.brandGreen,
     },
   },
+  [`.${classes.purifyButton}`]: {
+    fontSize: '1rem',
+    border: `2px solid ${colors.brandGreen}`,
+    color: colors.brandGreen,
+    marginLeft: '1.5rem',
+    fontWeight: 600,
+  },
   [`.${classes.infoIcon}`]: {
     marginRight: '8px',
+  },
+  [`.${classes.buttonsBox}`]: {
+    display: 'inline',
+    marginBottom: '1rem',
   },
 }));
 
@@ -68,17 +73,12 @@ type Props = {
 export const PisteContainer = ({ hakutiedot, isLukio }: Props) => {
   const { t } = useTranslation();
   const [isModalOpen, setModalOpen] = useState(false);
-  const hakukohteet = hakutiedot.flatMap((tieto: Hakutieto) => tieto.hakukohteet);
-  const [hakukohde, setHakukohde] = useState(hakukohteet[0]);
   const [tulos, setTulos] = useState<HakupisteLaskelma | null>(null);
 
   useEffect(() => {
     const savedResult = LocalStorageUtil.load(RESULT_STORE_KEY);
     setTulos(savedResult as HakupisteLaskelma | null);
   }, []);
-
-  const changeHakukohde = (event: SelectChangeEvent<Hakukohde>) =>
-    setHakukohde(event.target.value as Hakukohde);
 
   const clearData = () => {
     setTulos(null);
@@ -98,37 +98,22 @@ export const PisteContainer = ({ hakutiedot, isLukio }: Props) => {
           </span>
         </Typography>
       </Box>
-      <Button onClick={() => setModalOpen(true)} className={classes.openButton}>
-        &nbsp;{t('pistelaskuri.graafi.laske-ja-vertaa')}
-      </Button>
-      {tulos && <Button onClick={clearData}>Poista tietosi</Button>}
-      <Select
-        value={hakukohde}
-        onChange={changeHakukohde}
-        variant="standard"
-        disableUnderline={true}>
-        {hakukohteet.map((kohde: Hakukohde, index: number) => (
-          <MenuItem key={`hakukohde-${index}`} value={kohde as any}>
-            {localize(kohde.nimi)}
-            {kohde.jarjestyspaikka ? `, ${localize(kohde.jarjestyspaikka.nimi)}` : ''}
-          </MenuItem>
-        ))}
-      </Select>
+      <Box className={classes.buttonsBox}>
+        <Button onClick={() => setModalOpen(true)} className={classes.openButton}>
+          &nbsp;{t('pistelaskuri.graafi.laske-ja-vertaa')}
+        </Button>
+        {tulos && (
+          <Button onClick={clearData} className={classes.purifyButton}>
+            Poista tietosi
+          </Button>
+        )}
+      </Box>
       <KeskiArvoModal
         open={isModalOpen}
         closeFn={() => setModalOpen(false)}
         updateTulos={setTulos}
         tulos={tulos}></KeskiArvoModal>
-      {hakukohde?.metadata?.pistehistoria &&
-        hakukohde?.metadata?.pistehistoria?.length > 0 && (
-          <PisteGraafi hakukohde={hakukohde} tulos={tulos} isLukio={isLukio} />
-        )}
-      {!hakukohde?.metadata?.pistehistoria ||
-        (hakukohde?.metadata?.pistehistoria?.length < 1 && (
-          <Typography variant="body1" sx={{ fontWeight: 600 }}>
-            Hakukohteesta ei ole aiempien vuosien pistetietoja
-          </Typography>
-        ))}
+      <GraafiContainer hakutiedot={hakutiedot} tulos={tulos} isLukio={isLukio} />
     </StyledPageSection>
   );
 };
