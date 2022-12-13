@@ -1,10 +1,9 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Box, styled, Button, SelectChangeEvent } from '@mui/material';
-import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
-import { Kouluaine } from './Kouluaine';
+import { Kouluaine, hasInitialValues } from './Kouluaine';
 import { KouluaineSelect } from './KouluaineSelect';
 import { PainokerroinInput } from './PainokerroinInput';
 import { ValinnainenArvosana } from './ValinnainenArvosana';
@@ -48,12 +47,11 @@ export const KouluaineInput = ({
 
   const [showPainokerroin, setShowPainokerroin] = useState<boolean>(false);
 
-  useMemo(() => {
-    if (!_.isEqual(kouluaine, aine)) {
+  useEffect(() => {
+    if (!hasInitialValues(aine)) {
       setKouluaine(aine);
       setShowPainokerroin(aine.painokerroin !== '');
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [aine]);
 
   const labelId = `aine-label-${aine.nimi}`;

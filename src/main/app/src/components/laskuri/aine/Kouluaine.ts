@@ -27,6 +27,11 @@ export const createKouluaine = (
   };
 };
 
+export const hasInitialValues = (aine: Kouluaine) => {
+  const initialAine = createKouluaine(aine.nimi, aine.description, aine.longText);
+  return _.isEqual(aine, initialAine);
+};
+
 export class Kouluaineet implements LocalStorable {
   kielet: Array<Kouluaine> = [
     createKouluaine('kouluaineet.aidinkieli'),
