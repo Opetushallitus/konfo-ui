@@ -115,7 +115,7 @@ export const KouluaineSelect = ({
   removeLisaKieli = () => {},
 }: Props) => {
   const { t } = useTranslation();
-  const labelId = `aine-label-${aine.nimi}`;
+  const labelId = `aine-label-${aine.nimi}`.replaceAll('.', '-');
 
   const handleArvosanaChange = (event: SelectChangeEvent) => {
     updateArvosana(Number(event.target.value));
