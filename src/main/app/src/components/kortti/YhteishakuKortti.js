@@ -23,44 +23,13 @@ const classes = {
   kk: `${PREFIX}-kk`,
   button: `${PREFIX}-button`,
   hakulomakeButton: `${PREFIX}-hakulomakebutton`,
+  hakulomakeButtonKk: `${PREFIX}-hakulomakebuttonkk`,
 };
 
 const StyledGrid = styled(Grid)({
   [`& .${classes.card}`]: {
     display: 'block',
     height: '100%',
-  },
-  [`& .${classes.media}`]: {
-    height: 0,
-    paddingTop: '56.25%', // 16:9
-  },
-  [`& .${classes.link}`]: {
-    color: colors.white,
-    display: 'block',
-    fontSize: '16px',
-    lineHeight: '35px',
-  },
-  [`& .${classes.linkElement}`]: {
-    color: colors.white,
-    textDecoration: 'none',
-    verticalAlign: 'super',
-  },
-  [`& .${classes.otsikko}`]: {
-    color: colors.white,
-    fontSize: '24px',
-    fontWeight: 'bold',
-    lineHeight: '28px',
-    paddingTop: '10px',
-    paddingBottom: '15px',
-  },
-  [`& .${classes.haku}`]: {
-    background: colors.blue,
-  },
-  [`& .${classes.verkko}`]: {
-    background: colors.red,
-  },
-  [`& .${classes.polku}`]: {
-    background: colors.brandGreen,
   },
   [`& .${classes.toinenaste}`]: {
     background: colors.brandGreen,
@@ -79,40 +48,47 @@ const StyledGrid = styled(Grid)({
     color: colors.white,
     borderColor: colors.white,
     borderRadius: 3,
-    padding: '10px 20px',
-    margin: 'auto',
+    padding: '5px 10px',
+    margin: '5px',
+    fontSize: '14px',
+    fontWeight: 'bold',
   },
   [`& .${classes.hakulomakeButton}`]: {
-    color: colors.black,
+    color: colors.brandGreen,
     borderColor: colors.white,
     backgroundColor: colors.white,
     borderRadius: 3,
-    padding: '10px 20px',
-    margin: 'auto',
+    padding: '5px 10px',
+    margin: '5px',
+    fontSize: '16px',
+    fontWeight: 'bold',
+  },
+  [`& .${classes.hakulomakeButtonKk}`]: {
+    color: colors.kkMagenta,
+    borderColor: colors.white,
+    backgroundColor: colors.white,
+    borderRadius: 3,
+    padding: '5px 10px',
+    margin: '5px',
+    fontSize: '16px',
+    fontWeight: 'bold',
   },
 });
 
-const YhteishakuKortti = ({ id }) => {
+const YhteishakuKortti = ({ id, n }) => {
   const { data } = useContentful();
-
-  console.log('rendering yh-kortti for id ', id);
-
   const tdata = data?.infoYhteishaku;
-  console.log('rendering yh-kortti for id ', tdata);
-
   const yhInfo = tdata[id];
-  console.log('target: ', yhInfo);
+
+  const kk = yhInfo?.color === 'kk';
+
+  const width = Math.max(12 / n, 6);
 
   return (
-    <StyledGrid item xs={12} sm={12} md={6}>
+    <StyledGrid item xs={12} sm={12} md={12} lg={12} xl={width}>
       <Card className={clsx(classes.card, classes[yhInfo.color])}>
         <CardContent>
-          <Paper
-            className={clsx(classes[yhInfo.color])}
-            elevation={0}
-            onClick={() => {
-              console.log('hui');
-            }}>
+          <Paper className={clsx(classes[yhInfo.color])} elevation={0}>
             <span className="notification-content">
               <h2>{yhInfo.otsikko}</h2>
               <Markdown>{yhInfo.kuvaus}</Markdown>
@@ -121,7 +97,7 @@ const YhteishakuKortti = ({ id }) => {
 
           <Box display="flex" justifyContent="space-between">
             <Button
-              className={classes.hakulomakeButton}
+              className={kk ? classes.hakulomakeButtonKk : classes.hakulomakeButton}
               variant={'outlined'}
               href={yhInfo.linkkiHakulomakkeelle}>
               {'Täytä hakulomake'}

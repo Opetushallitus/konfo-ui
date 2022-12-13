@@ -107,7 +107,7 @@ export const Etusivu = () => {
           <ReactiveBorder>
             <Grid container spacing={3}>
               {yhteishakuInfos.map(({ id }) => (
-                <YhteishakuKortti id={id} key={id} />
+                <YhteishakuKortti id={id} key={id} n={yhteishakuInfos.length} />
               ))}
             </Grid>
           </ReactiveBorder>
