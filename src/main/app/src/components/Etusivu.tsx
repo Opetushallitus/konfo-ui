@@ -10,8 +10,14 @@ import { useEffectOnce } from 'react-use';
 
 import { colors } from '#/src/colors';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
+import YhteishakuKortti from '#/src/components/kortti/YhteishakuKortti';
 import { useContentful } from '#/src/hooks';
-import { Info, Uutiset as UutisetType, Kortit } from '#/src/types/ContentfulTypes';
+import {
+  Info,
+  Uutiset as UutisetType,
+  Kortit,
+  InfoYhteishaku,
+} from '#/src/types/ContentfulTypes';
 
 import { useSearch } from './haku/hakutulosHooks';
 import { Jumpotron } from './Jumpotron';
@@ -23,6 +29,7 @@ const PREFIX = 'Etusivu';
 
 const classes = {
   info: `${PREFIX}-info`,
+  infoYhteishaku: `${PREFIX}-infoYhteishaku`,
   header: `${PREFIX}-header`,
   showMore: `${PREFIX}-showMore`,
 };
@@ -60,13 +67,20 @@ export const Etusivu = () => {
     info: infoData,
     uutiset,
     kortit,
-  }: { info: Info; uutiset: UutisetType; kortit: Kortit } = data;
+    infoYhteishaku,
+  }: {
+    info: Info;
+    uutiset: UutisetType;
+    kortit: Kortit;
+    infoYhteishaku: InfoYhteishaku;
+  } = data;
 
   const forwardToPage = (id: string) => {
     history.push(`/${i18n.language}${forwardTo(id)}`);
   };
 
   const infos = Object.values(infoData || {});
+  const infoYhteishakus = Object.values(infoYhteishaku || {});
 
   const uutislinkit = uutiset?.['etusivun-uutiset']?.linkit ?? [];
 
@@ -85,6 +99,14 @@ export const Etusivu = () => {
         <LoadingCircle />
       ) : (
         <>
+          <ReactiveBorder>
+            <Grid container spacing={3}>
+              {infoYhteishakus.map(({ id }) => (
+                <YhteishakuKortti id={id} key={id} />
+              ))}
+            </Grid>
+          </ReactiveBorder>
+
           <ReactiveBorder>
             <Grid container>
               {infos.map((info) => {
