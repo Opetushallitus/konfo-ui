@@ -1,125 +1,23 @@
 import React, { useState, useMemo } from 'react';
 
-import { DeleteOutlined } from '@mui/icons-material';
-import {
-  Box,
-  styled,
-  Select,
-  InputLabel,
-  FormControl,
-  MenuItem,
-  Button,
-  SelectChangeEvent,
-  IconButton,
-  Input,
-} from '@mui/material';
+import { Box, styled, Button, SelectChangeEvent } from '@mui/material';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
-import { colors } from 'src/colors';
 
-import { LabelTooltip } from '../../common/LabelTooltip';
-import { ARVOSANA_VALUES, Kouluaine } from './Kouluaine';
+import { Kouluaine } from './Kouluaine';
+import { KouluaineSelect } from './KouluaineSelect';
 import { PainokerroinInput } from './PainokerroinInput';
 import { ValinnainenArvosana } from './ValinnainenArvosana';
 
-const PREFIX = 'keskiarvo__ainelaskuri__';
-
-const classes = {
-  input: `${PREFIX}input`,
-  error: `${PREFIX}error`,
-  optionDisabled: `${PREFIX}option--disabled`,
-  gradeControl: `${PREFIX}gradecontrol`,
-  gradeLabel: `${PREFIX}gradelabel`,
-  gradeLabelContainer: `${PREFIX}gradelabelcontainer`,
-  gradeSelect: `${PREFIX}gradeselect`,
-  gradeInfo: `${PREFIX}gradeinfo`,
-  button: `${PREFIX}button`,
-  poistakieli: `${PREFIX}poistakieli`,
-};
-
-const AineContainer = styled(Box, {
-  shouldForwardProp: (prop) => prop !== 'isLisakieli',
-})<{ isLisakieli: boolean }>(({ isLisakieli }) => ({
+const AineContainer = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'row',
   marginBottom: '27px',
   columnGap: '18px',
   justifyContent: 'flex-start',
   justifyItems: 'flex-start',
-  [`& .${classes.input}`]: {
-    border: `1px solid ${colors.lightGrey}`,
-    padding: '0 0.5rem',
-    '&:focus-within': {
-      borderColor: colors.black,
-    },
-    '&:hover': {
-      borderColor: colors.black,
-    },
-    width: '12rem',
-    maxWidth: '100%',
-  },
   button: {
     fontSize: '1rem',
-  },
-  [`& .${classes.error}`]: {
-    color: colors.red,
-    maxWidth: '60%',
-  },
-  [`& .${classes.optionDisabled}`]: {
-    color: colors.lightGrey,
-  },
-  [`& .${classes.gradeControl}`]: {
-    display: 'grid',
-    gridTemplateAreas: isLisakieli
-      ? `"label label"
-       "select kieli"`
-      : `"label label"
-       "select select"`,
-    alignItems: 'center',
-    alignContent: 'center',
-    justifyContent: 'start',
-    justifyItems: 'start',
-    rowGap: '7px',
-    columnGap: '2px',
-    [`& .${classes.gradeLabelContainer}`]: {
-      gridArea: 'label',
-      display: 'flex',
-      alignItems: 'center',
-      columnGap: '2px',
-    },
-    [`& .${classes.gradeLabel}`]: {
-      overflow: 'unset',
-      textOverflow: 'unset',
-      overflowWrap: 'normal',
-      whiteSpace: 'break-spaces',
-      position: 'relative',
-      transformOrigin: 'left',
-      transform: 'none',
-      fontSize: '1rem',
-      fontWeight: 'semibold',
-      maxWidth: '12rem',
-      lineHeight: '1.6rem',
-    },
-    [`& .${classes.gradeInfo}`]: {
-      padding: '0',
-      svg: {
-        width: '1.4rem',
-        height: '1.4rem',
-        marginTop: '-4px',
-      },
-    },
-    [`& .${classes.gradeSelect}`]: {
-      gridArea: 'select',
-    },
-    [`& .${classes.poistakieli}`]: {
-      gridArea: 'kieli',
-      color: colors.brandGreen,
-      padding: '0.3rem 0.6rem',
-      svg: {
-        width: '1.4rem',
-        height: '1.4rem',
-      },
-    },
   },
 }));
 
@@ -160,10 +58,8 @@ export const KouluaineInput = ({
 
   const labelId = `aine-label-${aine.nimi}`;
 
-  const handleArvosanaChange = (event: SelectChangeEvent) => {
-    const uusiaine = Object.assign({}, kouluaine, {
-      arvosana: Number(event.target.value),
-    });
+  const handleArvosanaChange = (arvosana: number) => {
+    const uusiaine = Object.assign({}, kouluaine, { arvosana });
     setKouluaine(uusiaine);
     updateKouluaine(uusiaine);
   };
@@ -204,55 +100,13 @@ export const KouluaineInput = ({
   };
 
   return (
-    <AineContainer
-      isLisakieli={isLisaKieli}
-      sx={{ alignItems: aine.longText ? 'end' : 'start' }}>
-      <FormControl
-        variant="standard"
-        sx={{ minWidth: 220 }}
-        className={classes.gradeControl}>
-        <div className={classes.gradeLabelContainer}>
-          <InputLabel id={labelId} className={classes.gradeLabel}>
-            {t(aine.nimi)}
-          </InputLabel>
-          <div>
-            {kouluaine.description && (
-              <LabelTooltip
-                title={t(kouluaine.description)}
-                sx={{ marginLeft: '3px', color: colors.brandGreen }}></LabelTooltip>
-            )}
-          </div>
-        </div>
-        <Select
-          labelId={labelId}
-          value={String(kouluaine.arvosana)}
-          onChange={handleArvosanaChange}
-          input={<Input className={classes.input} />}
-          className={
-            String(kouluaine.arvosana) === 'null'
-              ? `${classes.optionDisabled} ${classes.gradeSelect}`
-              : classes.gradeSelect
-          }
-          variant="standard"
-          disableUnderline={true}>
-          <MenuItem key="arvosana-null" disabled={true} value="null">
-            {t('pistelaskuri.aine.valitsearvosana')}
-          </MenuItem>
-          {ARVOSANA_VALUES.map((arvosana: number, index: number) => (
-            <MenuItem key={`arvosana-${index}`} value={arvosana}>
-              {arvosana}
-            </MenuItem>
-          ))}
-        </Select>
-        {isLisaKieli && (
-          <IconButton
-            className={classes.poistakieli}
-            onClick={removeLisaKieli}
-            aria-label={t('pistelaskuri.aine.removekieli')}>
-            <DeleteOutlined />
-          </IconButton>
-        )}
-      </FormControl>
+    <AineContainer sx={{ alignItems: aine.longText ? 'end' : 'start' }}>
+      <KouluaineSelect
+        aine={kouluaine}
+        updateArvosana={handleArvosanaChange}
+        isLisaKieli={isLisaKieli}
+        removeLisaKieli={removeLisaKieli}
+      />
       {kouluaine.valinnaisetArvosanat.map(
         (valinnainenArvosana: number | null, index: number) => (
           <ValinnainenArvosana

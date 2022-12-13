@@ -143,7 +143,8 @@ export const KeskiarvoLaskuri = ({
                 changeKeskiarvo(event, 'taideTaitoAineet')
               }
               value={keskiarvot?.taideTaitoAineet}
-              disableUnderline={true}></Input>
+              disableUnderline={true}
+            />
           </InputLabel>
           <LabelTooltip
             title={t('pistelaskuri.taide-info')}
@@ -165,7 +166,8 @@ export const KeskiarvoLaskuri = ({
                 changeKeskiarvo(event, 'kaikki')
               }
               value={keskiarvot?.kaikki}
-              disableUnderline={true}></Input>
+              disableUnderline={true}
+            />
           </InputLabel>
           {!isValidKeskiarvo(keskiarvot?.kaikki) && (
             <Typography variant="body2" className={classes.error}>

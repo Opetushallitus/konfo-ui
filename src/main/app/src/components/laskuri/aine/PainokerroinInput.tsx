@@ -100,7 +100,8 @@ export const PainokerroinInput = ({
         value={painokerroin}
         error={!isEligiblePainokerroin(painokerroin)}
         placeholder={t('pistelaskuri.aine.painokerroin-placeholder')}
-        disableUnderline={true}></Input>
+        disableUnderline={true}
+      />
       <IconButton
         className={classes.delete}
         onClick={removePainokerroin}
