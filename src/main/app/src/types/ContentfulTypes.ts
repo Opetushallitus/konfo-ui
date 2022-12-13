@@ -32,7 +32,7 @@ export type InfoYhteishaku = Record<
     linkkiHakulomakkeelle?: string;
     linkkiOhjeisiin?: string;
     linkkiHakutuloksiin?: string;
-    order?: string;
+    order?: number;
   }
 >;
 

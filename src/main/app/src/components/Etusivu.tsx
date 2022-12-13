@@ -80,7 +80,12 @@ export const Etusivu = () => {
   };
 
   const infos = Object.values(infoData || {});
-  const infoYhteishakus = Object.values(infoYhteishaku || {});
+
+  const yhteishakuInfos = Object.values(infoYhteishaku || {});
+
+  yhteishakuInfos.sort((a, b) => {
+    return (a?.order || 99) - (b?.order || 99);
+  });
 
   const uutislinkit = uutiset?.['etusivun-uutiset']?.linkit ?? [];
 
@@ -101,7 +106,7 @@ export const Etusivu = () => {
         <>
           <ReactiveBorder>
             <Grid container spacing={3}>
-              {infoYhteishakus.map(({ id }) => (
+              {yhteishakuInfos.map(({ id }) => (
                 <YhteishakuKortti id={id} key={id} />
               ))}
             </Grid>
