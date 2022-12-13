@@ -73,7 +73,7 @@ export const TarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
           />
           <Box position="relative">
             <OverlayLoadingCircle isLoading={isFetching} />
-            <Grid container className={classes.grid} direction="column" spacing={1}>
+            <Grid className={classes.grid} direction="column" spacing={1}>
               {values?.map((toteutus: any) => (
                 <Grid item key={toteutus?.toteutusOid}>
                   <EntiteettiKortti
