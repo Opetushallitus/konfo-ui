@@ -70,7 +70,7 @@ const PisteGraafiLukio = ({ hakukohde, tulos }: Props) => {
                 { x: GRAAFI_MIN_YEAR, y: tulos.keskiarvo },
                 { x: GRAAFI_MAX_YEAR + 1, y: tulos.keskiarvo },
               ]}
-              labels={[`${tulos.keskiarvo}`]}
+              labels={[`${String(tulos.keskiarvo).replace('.', ',')}`]}
               labelComponent={<VictoryLabel renderInPortal dx={15} />}></VictoryLine>
           )}
         </VictoryGroup>

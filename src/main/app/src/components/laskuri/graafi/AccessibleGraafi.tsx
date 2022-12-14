@@ -35,7 +35,7 @@ const hakukohdeToPisterajat = (
         isLukio
           ? 'pistelaskuri.graafi.saavutettavuus.vuosika'
           : 'pistelaskuri.graafi.saavutettavuus.vuosipiste',
-        historia
+        { vuosi: historia.vuosi, pisteet: String(historia.pisteet).replace('.', ',') }
       )
     );
   return _.join(pisterajat, ' ');
@@ -47,7 +47,9 @@ const tulosToText = (
   isLukio: boolean
 ) =>
   isLukio
-    ? t('pistelaskuri.graafi.saavutettavuus.ka', tulos)
+    ? t('pistelaskuri.graafi.saavutettavuus.ka', {
+        keskiarvo: String(tulos.keskiarvo).replace('.', ','),
+      })
     : t('pistelaskuri.graafi.saavutettavuus.pisteet', {
         tulos: tulos.pisteet + ENSISIJAINEN_SCORE_BONUS,
       });
