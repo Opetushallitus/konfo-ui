@@ -28,6 +28,7 @@ const TulosContainer = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     display: 'flex',
     flexDirection: 'column',
+    rowGap: '20px',
   },
   [`& .${classes.column}`]: {
     display: 'flex',

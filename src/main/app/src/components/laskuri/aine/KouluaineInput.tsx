@@ -8,7 +8,9 @@ import { KouluaineSelect } from './KouluaineSelect';
 import { PainokerroinInput } from './PainokerroinInput';
 import { ValinnainenArvosana } from './ValinnainenArvosana';
 
-const AineContainer = styled(Box)(() => ({
+const AineContainer = styled(Box, {
+  shouldForwardProp: (prop) => prop !== 'longText',
+})<{ longText: boolean | undefined }>(({ theme, longText }) => ({
   display: 'flex',
   flexDirection: 'row',
   marginBottom: '27px',
@@ -17,6 +19,16 @@ const AineContainer = styled(Box)(() => ({
   justifyItems: 'flex-start',
   button: {
     fontSize: '1rem',
+    alignSelf: 'end',
+    fontWeight: 600,
+  },
+  alignItems: longText ? 'end' : 'start',
+  [theme.breakpoints.down('sm')]: {
+    flexDirection: 'column',
+    alignItems: 'start',
+    button: {
+      alignSelf: 'start',
+    },
   },
 }));
 
@@ -98,7 +110,7 @@ export const KouluaineInput = ({
   };
 
   return (
-    <AineContainer sx={{ alignItems: aine.longText ? 'end' : 'start' }}>
+    <AineContainer longText={aine.longText}>
       <KouluaineSelect
         aine={kouluaine}
         updateArvosana={handleArvosanaChange}
@@ -120,12 +132,12 @@ export const KouluaineInput = ({
         )
       )}
       {kouluaine.valinnaisetArvosanat.length < MAX_VALINNAISET_ARVOSANAT && (
-        <Button onClick={addValinnaisaine} sx={{ alignSelf: 'end' }}>
+        <Button onClick={addValinnaisaine}>
           {t('pistelaskuri.aine.addvalinnainen')}
         </Button>
       )}
       {!showPainokerroin && (
-        <Button onClick={() => setShowPainokerroin(true)} sx={{ alignSelf: 'end' }}>
+        <Button onClick={() => setShowPainokerroin(true)}>
           {t('pistelaskuri.aine.addpainokerroin')}
         </Button>
       )}

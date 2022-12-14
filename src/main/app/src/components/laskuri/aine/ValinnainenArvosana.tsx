@@ -26,7 +26,7 @@ const classes = {
   gradeDelete: `${PREFIX}gradeDelete`,
 };
 
-const ValinnainenControl = styled(FormControl)(() => ({
+const ValinnainenControl = styled(FormControl)(({ theme }) => ({
   display: 'grid',
   gridTemplateColumns: '4fr 1fr',
   gridTemplateAreas: `"label label"
@@ -34,6 +34,9 @@ const ValinnainenControl = styled(FormControl)(() => ({
   alignItems: 'center',
   alignContent: 'center',
   rowGap: '7px',
+  [theme.breakpoints.down('sm')]: {
+    marginTop: '0.4rem',
+  },
   [`& .${classes.gradeLabel}`]: {
     gridArea: 'label',
     position: 'relative',

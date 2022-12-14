@@ -14,22 +14,31 @@ const PREFIX = 'keskiarvo__laskuri__';
 const classes = {
   input: `${PREFIX}input`,
   error: `${PREFIX}error`,
+  inputContainer: `${PREFIX}input__container`,
 };
 
-const LaskuriContainer = styled(Box)(() => ({
-  [`& .${classes.input}`]: {
-    border: `1px solid ${colors.lightGrey}`,
-    padding: '0 0.5rem',
-    '&:focus-within': {
-      borderColor: colors.black,
+const LaskuriContainer = styled(Box)(({ theme }) => ({
+  [`& .${classes.inputContainer}`]: {
+    [theme.breakpoints.down('sm')]: {
+      marginTop: '1.5rem',
+      '&:first-of-type': {
+        marginTop: 0,
+      },
     },
-    '&:hover': {
-      borderColor: colors.black,
+    [`& .${classes.input}`]: {
+      border: `1px solid ${colors.lightGrey}`,
+      padding: '0 0.5rem',
+      '&:focus-within': {
+        borderColor: colors.black,
+      },
+      '&:hover': {
+        borderColor: colors.black,
+      },
     },
-  },
-  [`& .${classes.error}`]: {
-    color: colors.red,
-    maxWidth: '60%',
+    [`& .${classes.error}`]: {
+      color: colors.red,
+      maxWidth: '60%',
+    },
   },
 }));
 
@@ -105,7 +114,7 @@ export const KeskiarvoLaskuri = ({
         </Button>
       </Typography>
       <Grid container justifyContent="space-evenly" columns={{ xs: 1, sm: 1, md: 3 }}>
-        <Grid item xs={1} sm={1} md={1}>
+        <Grid item xs={1} sm={1} md={1} className={classes.inputContainer}>
           <InputLabel>
             <Typography sx={{ fontWeight: 'bold' }}>
               {t('pistelaskuri.ka-lukuaineet')}
@@ -126,6 +135,7 @@ export const KeskiarvoLaskuri = ({
           )}
         </Grid>
         <Grid
+          className={classes.inputContainer}
           item
           sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}
           xs={1}
@@ -153,7 +163,7 @@ export const KeskiarvoLaskuri = ({
             </Typography>
           )}
         </Grid>
-        <Grid item xs={1} sm={1} md={1}>
+        <Grid item xs={1} sm={1} md={1} className={classes.inputContainer}>
           <InputLabel>
             <Typography sx={{ fontWeight: 'bold' }}>
               {t('pistelaskuri.ka-kaikki')}
