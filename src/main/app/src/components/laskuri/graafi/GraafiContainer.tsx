@@ -33,7 +33,7 @@ const classes = {
   legendScore: `${PREFIX}legend_score`,
 };
 
-const StyledBox = styled(Box)(() => ({
+const StyledBox = styled(Box)(({ theme }) => ({
   background: `${colors.white} 0% 0% no-repeat padding-box`,
   boxShadow: '2px 2px 8px #0000001A',
   borderRadius: '2px',
@@ -43,6 +43,11 @@ const StyledBox = styled(Box)(() => ({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+      rowGap: '1rem',
+      textAlign: 'left',
+    },
     [`& .${classes.hakukohdeLabel}`]: {
       fontSize: '1rem',
       fontWeight: 700,
@@ -50,11 +55,14 @@ const StyledBox = styled(Box)(() => ({
     },
     [`& .${classes.hakukohdeSelect}`]: {
       minWidth: '25rem',
-      maxWidth: '80vw',
+      maxWidth: '90vw',
       marginTop: '-0.5rem',
       '.MuiSelect-select': {
         paddingTop: 0,
         paddingBottom: 0,
+      },
+      [theme.breakpoints.down('sm')]: {
+        minWidth: '10rem',
       },
     },
     [`& .${classes.hakukohdeInput}`]: {

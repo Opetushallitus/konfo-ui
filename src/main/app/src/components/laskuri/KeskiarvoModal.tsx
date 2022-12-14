@@ -1,7 +1,16 @@
 import React, { useState, useEffect } from 'react';
 
 import { Close } from '@mui/icons-material';
-import { Box, Dialog, styled, Typography, Button, IconButton } from '@mui/material';
+import {
+  Box,
+  Dialog,
+  styled,
+  Typography,
+  Button,
+  IconButton,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
@@ -29,7 +38,11 @@ const classes = {
   info: `${PREFIX}info`,
 };
 
-const StyledDialog = styled(Dialog)(() => ({
+const StyledDialog = styled(Dialog)(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    width: '95vw',
+    margin: '0.5rem auto 4rem',
+  },
   [`.${classes.container}`]: {
     backgroundColor: 'white',
     padding: '2rem 1rem',
@@ -38,26 +51,34 @@ const StyledDialog = styled(Dialog)(() => ({
   [`.${classes.buttonWrapper}`]: {
     textAlign: 'right',
     marginTop: '2rem',
-  },
-  [`.${classes.calcButton}`]: {
-    border: `2px solid ${colors.brandGreen}`,
-    backgroundColor: colors.brandGreen,
-    color: colors.white,
-    fontWeight: 600,
-    fontSize: '1rem',
-    '&:hover': {
+    [theme.breakpoints.down('sm')]: {
+      display: 'flex',
+      flexDirection: 'column',
+      rowGap: '1rem',
+    },
+    [`.${classes.calcButton}`]: {
+      border: `2px solid ${colors.brandGreen}`,
       backgroundColor: colors.brandGreen,
+      color: colors.white,
+      fontWeight: 600,
+      fontSize: '1rem',
+      '&:hover': {
+        backgroundColor: colors.brandGreen,
+      },
+      '&:disabled': {
+        backgroundColor: colors.lightGrey,
+      },
     },
-    '&:disabled': {
-      backgroundColor: colors.lightGrey,
+    [`.${classes.recalcButton}`]: {
+      border: `2px solid ${colors.brandGreen}`,
+      color: colors.brandGreen,
+      marginLeft: '1.5rem',
+      fontWeight: 600,
+      fontSize: '1rem',
+      [theme.breakpoints.down('sm')]: {
+        marginLeft: 0,
+      },
     },
-  },
-  [`.${classes.recalcButton}`]: {
-    border: `2px solid ${colors.brandGreen}`,
-    color: colors.brandGreen,
-    marginLeft: '1.5rem',
-    fontWeight: 600,
-    fontSize: '1rem',
   },
   [`.${classes.closeIcon}`]: {
     position: 'absolute',
@@ -80,6 +101,9 @@ type Props = {
 
 export const KeskiArvoModal = ({ open = false, closeFn, updateTulos, tulos }: Props) => {
   const { t } = useTranslation();
+
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   const [useKeskiarvoLaskuri, setUseKeskiarvoLaskuri] = useState<boolean>(true);
 
@@ -117,7 +141,12 @@ export const KeskiArvoModal = ({ open = false, closeFn, updateTulos, tulos }: Pr
   };
 
   return (
-    <StyledDialog open={open} onClose={closeFn} maxWidth="lg" scroll="body">
+    <StyledDialog
+      open={open}
+      onClose={closeFn}
+      maxWidth="lg"
+      fullScreen={fullScreen}
+      scroll="body">
       <Box className={classes.container}>
         <Typography variant="h2">{t('pistelaskuri.heading')}</Typography>
         {tulos == null && (

@@ -21,12 +21,18 @@ const classes = {
   linkIcon: `${PREFIX}linkicon`,
 };
 
-const TulosContainer = styled(Box)(() => ({
+const TulosContainer = styled(Box)(({ theme }) => ({
   display: 'grid',
   gridTemplateColumns: '1fr 1fr',
   columnGap: '20px',
+  [theme.breakpoints.down('sm')]: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
   [`& .${classes.column}`]: {
-    width: '50vw',
+    display: 'flex',
+    flexDirection: 'column',
+    columnGap: '20px',
   },
   [`& .${classes.resultSphere}`]: {
     display: 'flex',
@@ -45,10 +51,19 @@ const TulosContainer = styled(Box)(() => ({
   [`& .${classes.spheresContainer}`]: {
     display: 'flex',
     flexDirection: 'row',
+    rowGap: '1rem',
+    [theme.breakpoints.down('sm')]: {
+      margin: '13px auto',
+      flexDirection: 'column',
+      [`& .${classes.resultSphere}`]: {
+        margin: '0 auto',
+      },
+    },
   },
   [`& .${classes.textContainer}`]: {
     background: colors.greyBg,
     padding: '1rem',
+    flexGrow: 2,
   },
   [`& .${classes.textBlock}`]: {
     whiteSpace: 'pre-line',
@@ -105,55 +120,59 @@ export const KeskiarvoTulos = ({ tulos }: Props) => {
   const { t } = useTranslation();
   return (
     <TulosContainer>
-      <Typography variant="h3" sx={{ fontSize: '1.25rem' }}>
-        {t('pistelaskuri.lukio.header')}
-      </Typography>
-      <Typography variant="h3" sx={{ fontSize: '1.25rem' }}>
-        {t('pistelaskuri.ammatillinen.header')}
-      </Typography>
-      <ResultSphere
-        result={tulos.keskiarvo}
-        text={t('pistelaskuri.pisteet.lukio')}></ResultSphere>
-      <Box className={classes.spheresContainer}>
-        <ResultSphere
-          result={tulos.pisteet + ENSISIJAINEN_SCORE_BONUS}
-          text={t('pistelaskuri.pisteet.ammatillinen-first')}></ResultSphere>
-        <ResultSphere
-          result={tulos.pisteet}
-          text={t('pistelaskuri.pisteet.ammatillinen-rest')}></ResultSphere>
+      <Box className={classes.column}>
+        <Typography variant="h3" sx={{ fontSize: '1.25rem' }}>
+          {t('pistelaskuri.lukio.header')}
+        </Typography>
+        <ResultSphere result={tulos.keskiarvo} text={t('pistelaskuri.pisteet.lukio')} />
+        <Paper className={classes.textContainer} elevation={0}>
+          <Typography
+            variant="body1"
+            className={classes.textBlock}
+            sx={{ marginBottom: '0.5rem' }}>
+            {t('pistelaskuri.lukio.body')}
+          </Typography>
+          <LinkToValintaPerusteet />
+        </Paper>
       </Box>
-      <Paper className={classes.textContainer} elevation={0}>
-        <Typography
-          variant="body1"
-          className={classes.textBlock}
-          sx={{ marginBottom: '0.5rem' }}>
-          {t('pistelaskuri.lukio.body')}
+      <Box className={classes.column}>
+        <Typography variant="h3" sx={{ fontSize: '1.25rem' }}>
+          {t('pistelaskuri.ammatillinen.header')}
         </Typography>
-        <LinkToValintaPerusteet></LinkToValintaPerusteet>
-      </Paper>
-      <Paper className={classes.textContainer} elevation={0}>
-        <Typography variant="body1" className={classes.textBlock}>
-          {t('pistelaskuri.ammatillinen.huomioitu')}
-        </Typography>
-        <List sx={{ fontSize: '0.875rem', listStyleType: 'disc', pl: 2 }} dense={true}>
-          <ListItem sx={{ display: 'list-item' }}>
-            {t('pistelaskuri.ammatillinen.pisteytys-yleinen')}
-          </ListItem>
-          <ListItem sx={{ display: 'list-item' }}>
-            {t('pistelaskuri.ammatillinen.pisteytys-painotettava')}
-          </ListItem>
-          <ListItem sx={{ display: 'list-item' }}>
-            {t('pistelaskuri.ammatillinen.pisteytys-ensisijainen')}
-          </ListItem>
-        </List>
-        <Typography
-          variant="body1"
-          className={classes.textBlock}
-          sx={{ marginBottom: '0.5rem' }}>
-          {t('pistelaskuri.ammatillinen.oletus')}
-        </Typography>
-        <LinkToValintaPerusteet></LinkToValintaPerusteet>
-      </Paper>
+        <Box className={classes.spheresContainer}>
+          <ResultSphere
+            result={tulos.pisteet + ENSISIJAINEN_SCORE_BONUS}
+            text={t('pistelaskuri.pisteet.ammatillinen-first')}
+          />
+          <ResultSphere
+            result={tulos.pisteet}
+            text={t('pistelaskuri.pisteet.ammatillinen-rest')}
+          />
+        </Box>
+        <Paper className={classes.textContainer} elevation={0}>
+          <Typography variant="body1" className={classes.textBlock}>
+            {t('pistelaskuri.ammatillinen.huomioitu')}
+          </Typography>
+          <List sx={{ fontSize: '0.875rem', listStyleType: 'disc', pl: 2 }} dense={true}>
+            <ListItem sx={{ display: 'list-item' }}>
+              {t('pistelaskuri.ammatillinen.pisteytys-yleinen')}
+            </ListItem>
+            <ListItem sx={{ display: 'list-item' }}>
+              {t('pistelaskuri.ammatillinen.pisteytys-painotettava')}
+            </ListItem>
+            <ListItem sx={{ display: 'list-item' }}>
+              {t('pistelaskuri.ammatillinen.pisteytys-ensisijainen')}
+            </ListItem>
+          </List>
+          <Typography
+            variant="body1"
+            className={classes.textBlock}
+            sx={{ marginBottom: '0.5rem' }}>
+            {t('pistelaskuri.ammatillinen.oletus')}
+          </Typography>
+          <LinkToValintaPerusteet></LinkToValintaPerusteet>
+        </Paper>
+      </Box>
     </TulosContainer>
   );
 };

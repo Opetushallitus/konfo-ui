@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { InfoOutlined } from '@mui/icons-material';
-import { Box, styled, Typography, Button } from '@mui/material';
+import { Box, styled, Typography, Button, Hidden } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { educationTypeColorCode, colors } from '#/src/colors';
@@ -28,7 +28,7 @@ const classes = {
   buttonsBox: `${PREFIX}__buttonsbox`,
 };
 
-const StyledPageSection = styled(PageSection)(() => ({
+const StyledPageSection = styled(PageSection)(({ theme }) => ({
   [` .${classes.infoBox}`]: {
     maxWidth: '982px',
     display: 'flex',
@@ -39,29 +39,42 @@ const StyledPageSection = styled(PageSection)(() => ({
     paddingRight: '0.9rem',
     backgroundColor: educationTypeColorCode.ammatillinenGreenBg,
     marginBottom: '1rem',
-  },
-  [`.${classes.openButton}`]: {
-    fontSize: '1rem',
-    backgroundColor: colors.brandGreen,
-    color: colors.white,
-    fontWeight: 600,
-    '&:hover': {
-      backgroundColor: colors.brandGreen,
+    [`.${classes.infoIcon}`]: {
+      marginRight: '8px',
+      color: colors.brandGreen,
+      [theme.breakpoints.down('sm')]: {
+        marginRight: '4px',
+        verticalAlign: 'text-bottom',
+      },
     },
   },
-  [`.${classes.purifyButton}`]: {
-    fontSize: '1rem',
-    border: `2px solid ${colors.brandGreen}`,
-    color: colors.brandGreen,
-    marginLeft: '1.5rem',
-    fontWeight: 600,
-  },
-  [`.${classes.infoIcon}`]: {
-    marginRight: '8px',
-  },
   [`.${classes.buttonsBox}`]: {
-    display: 'inline',
+    display: 'flex',
+    flexDirection: 'row',
     marginBottom: '1rem',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+    },
+    [`.${classes.openButton}`]: {
+      fontSize: '1rem',
+      backgroundColor: colors.brandGreen,
+      color: colors.white,
+      fontWeight: 600,
+      '&:hover': {
+        backgroundColor: colors.brandGreen,
+      },
+    },
+    [`.${classes.purifyButton}`]: {
+      fontSize: '1rem',
+      border: `2px solid ${colors.brandGreen}`,
+      color: colors.brandGreen,
+      marginLeft: '1.5rem',
+      fontWeight: 600,
+      [theme.breakpoints.down('sm')]: {
+        marginLeft: 0,
+        marginTop: '0.8rem',
+      },
+    },
   },
 }));
 
@@ -90,8 +103,13 @@ export const PisteContainer = ({ hakutiedot, isLukio }: Props) => {
   return (
     <StyledPageSection heading={t('pistelaskuri.graafi.heading')}>
       <Box className={classes.infoBox}>
-        <InfoOutlined className={classes.infoIcon} />
+        <Hidden smDown>
+          <InfoOutlined className={classes.infoIcon} />
+        </Hidden>
         <Typography variant="body1">
+          <Hidden smUp>
+            <InfoOutlined className={classes.infoIcon} />
+          </Hidden>
           {t('pistelaskuri.graafi.info')}
           <span style={{ fontWeight: 600 }}>
             &nbsp;{t('pistelaskuri.graafi.info-rohkaisu')}
@@ -112,7 +130,8 @@ export const PisteContainer = ({ hakutiedot, isLukio }: Props) => {
         open={isModalOpen}
         closeFn={() => setModalOpen(false)}
         updateTulos={setTulos}
-        tulos={tulos}></KeskiArvoModal>
+        tulos={tulos}
+      />
       <GraafiContainer hakutiedot={hakutiedot} tulos={tulos} isLukio={isLukio} />
     </StyledPageSection>
   );
