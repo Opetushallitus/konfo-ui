@@ -53,7 +53,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     backgroundColor: colors.kkMagenta,
     color: colors.white,
     borderRadius: 2,
-    padding: '15px 10px',
+    padding: '25px 20px',
   },
   [`& .${classes.button}`]: {
     color: colors.white,
