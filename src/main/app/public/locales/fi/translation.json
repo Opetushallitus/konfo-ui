@@ -141,8 +141,10 @@
     "amm-ope-erityisope-ja-opo": "Ammatillinen opettaja-, erityisopettaja- ja opinto-ohjaajakoulutus",
     "ope-pedag-opinnot": "Opettajien pedagogiset opinnot",
     "kk-muu": "Korkeakoulutus (tutkintoon johtamaton)",
-    "kk-opintojakso": "Opintojakso",
-    "kk-opintokokonaisuus": "Opintokokonaisuus",
+    "kk-opintojakso-normal": "Opintojakso",
+    "kk-opintojakso-avoin": "Opintojakso (avoin)",
+    "kk-opintokokonaisuus-normal": "Opintokokonaisuus",
+    "kk-opintokokonaisuus-avoin": "Opintokokonaisuus (avoin)",
     "erikoislaakari": "Erikoislääkäri",
     "muut-ammatilliset": "Ammatillinen koulutus",
     "amm-muu": "Muu ammatillinen koulutus",
@@ -390,7 +392,9 @@
     "sinua-saattaa-kiinnostaa-myos": "Sinua saattaa kiinnostaa myös",
     "ei-suositeltuja-koulutuksia": "Samankaltaisia koulutuksia ei löytynyt",
     "muut-koulutusta-jarjestavat-oppilaitokset": "Muut koulutusta järjestävät oppilaitokset",
-    "hakijan-terveydentila-ja-toimintakyky": "Hakijan terveydentila ja toimintakyky"
+    "hakijan-terveydentila-ja-toimintakyky": "Hakijan terveydentila ja toimintakyky",
+    "tunniste": "Hakijalle näkyvä tunniste",
+    "opinnonTyyppi": "Opinnon tyyppi"
   },
   "vertailu": {
     "takaisin-edelliselle-sivulle": "Takaisin edelliselle sivulle",
