@@ -63,6 +63,10 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     margin: '5px 5px',
     fontSize: '14px',
     fontWeight: 'bold',
+    [`&:hover`]: {
+      backgroundColor: 'transparent',
+      borderColor: colors.white,
+    },
   },
   [`& .${classes.buttons}`]: {
     display: 'block',
@@ -79,6 +83,10 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     margin: '5px',
     fontSize: '16px',
     fontWeight: 'bold',
+    [`&:hover`]: {
+      backgroundColor: colors.white,
+      borderColor: colors.white,
+    },
   },
   [`& .${classes.hakulomakeButtonKk}`]: {
     color: colors.kkMagenta,
@@ -89,6 +97,10 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     margin: '5px',
     fontSize: '16px',
     fontWeight: 'bold',
+    [`&:hover`]: {
+      backgroundColor: colors.white,
+      borderColor: colors.white,
+    },
   },
 }));
 
