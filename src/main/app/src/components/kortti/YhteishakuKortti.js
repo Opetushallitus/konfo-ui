@@ -126,30 +126,37 @@ const YhteishakuKortti = ({ id, n }) => {
           </Paper>
 
           <Grid item className={classes.buttons}>
-            <Button
-              item
-              xs={4}
-              className={kk ? classes.hakulomakeButtonKk : classes.hakulomakeButton}
-              variant={'outlined'}
-              href={yhInfo.linkkiHakulomakkeelle}>
-              {t('yhteishaku-info.tayta-hakulomake') || 'FIXME Täytä hakulomake'}
-            </Button>
-            <Button
-              item
-              xs={4}
-              className={classes.button}
-              variant={'outlined'}
-              href={yhInfo.linkkiOhjeisiin}>
-              {t('yhteishaku-info.ohjeet-hakemiseen') || 'FIXME Ohjeet hakemiseen'}
-            </Button>
-            <Button
-              item
-              xs={4}
-              className={classes.button}
-              variant={'outlined'}
-              href={yhInfo.linkkiHakutuloksiin}>
-              {t('yhteishaku-info.tutustu-koulutuksiin') || 'FIXME Tutustu koulutuksiin'}
-            </Button>
+            {yhInfo.linkkiHakulomakkeelle ? (
+              <Button
+                item
+                xs={4}
+                className={kk ? classes.hakulomakeButtonKk : classes.hakulomakeButton}
+                variant={'outlined'}
+                href={yhInfo.linkkiHakulomakkeelle}>
+                {t('yhteishaku-info.tayta-hakulomake') || 'FIXME Täytä hakulomake'}
+              </Button>
+            ) : null}
+            {yhInfo.linkkiOhjeisiin ? (
+              <Button
+                item
+                xs={4}
+                className={classes.button}
+                variant={'outlined'}
+                href={yhInfo.linkkiOhjeisiin}>
+                {t('yhteishaku-info.ohjeet-hakemiseen') || 'FIXME Ohjeet hakemiseen'}
+              </Button>
+            ) : null}
+            {yhInfo.linkkiHakutuloksiin ? (
+              <Button
+                item
+                xs={4}
+                className={classes.button}
+                variant={'outlined'}
+                href={yhInfo.linkkiHakutuloksiin}>
+                {t('yhteishaku-info.tutustu-koulutuksiin') ||
+                  'FIXME Tutustu koulutuksiin'}
+              </Button>
+            ) : null}
           </Grid>
         </CardContent>
       </Card>
