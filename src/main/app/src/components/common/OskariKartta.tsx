@@ -5,7 +5,7 @@ import { urls } from 'oph-urls-js';
 // @ts-ignore no types
 import OskariRPC from 'oskari-rpc';
 
-import { getLanguage } from '#/src/tools/localization';
+import { LANGUAGE_CODES } from '#/src/constants';
 import { getSearchAddress } from '#/src/tools/utils';
 
 const MARKER_ID = 'OPPILAITOS';
@@ -139,7 +139,7 @@ export const OskariKartta = ({ id, osoite, postitoimipaikka }: Props) => {
         title="kartta"
         id={id}
         style={{ border: 'none', width: '100%', minHeight: 320 }}
-        src={urls.url('kartta.publish-url', getLanguage())}
+        src={urls.url('kartta.publish-url', LANGUAGE_CODES.fi)}
       />
     </Grid>
   );
