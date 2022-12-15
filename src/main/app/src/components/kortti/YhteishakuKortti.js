@@ -133,7 +133,7 @@ const YhteishakuKortti = ({ id, n }) => {
                 className={kk ? classes.hakulomakeButtonKk : classes.hakulomakeButton}
                 variant={'outlined'}
                 href={yhInfo.linkkiHakulomakkeelle}>
-                {t('yhteishaku-info.tayta-hakulomake') || 'FIXME Täytä hakulomake'}
+                {t('yhteishaku-info.tayta-hakulomake')}
               </Button>
             ) : null}
             {yhInfo.linkkiOhjeisiin ? (
@@ -143,7 +143,7 @@ const YhteishakuKortti = ({ id, n }) => {
                 className={classes.button}
                 variant={'outlined'}
                 href={yhInfo.linkkiOhjeisiin}>
-                {t('yhteishaku-info.ohjeet-hakemiseen') || 'FIXME Ohjeet hakemiseen'}
+                {t('yhteishaku-info.ohjeet-hakemiseen')}
               </Button>
             ) : null}
             {yhInfo.linkkiHakutuloksiin ? (
@@ -153,8 +153,7 @@ const YhteishakuKortti = ({ id, n }) => {
                 className={classes.button}
                 variant={'outlined'}
                 href={yhInfo.linkkiHakutuloksiin}>
-                {t('yhteishaku-info.tutustu-koulutuksiin') ||
-                  'FIXME Tutustu koulutuksiin'}
+                {t('yhteishaku-info.tutustu-koulutuksiin')}
               </Button>
             ) : null}
           </Grid>
