@@ -96,7 +96,7 @@ const TutkinnonOsat = ({ koulutus }) => {
           const eperuste = findEperuste(koulutus)(ePerusteId);
           const title = [
             `${localize(nimi)},`,
-            localize(opintojenLaajuus) || opintojenLaajuusNumero,
+            opintojenLaajuusNumero || localize(opintojenLaajuus),
             localize(opintojenLaajuusyksikko),
           ].join(' ');
           const foundTutkinnonOsa = findTutkinnonOsa(eperuste)(tutkinnonosaId);
