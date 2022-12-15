@@ -36,6 +36,8 @@ const ValinnainenControl = styled(FormControl)(({ theme }) => ({
   rowGap: '7px',
   [theme.breakpoints.down('sm')]: {
     marginTop: '0.4rem',
+    justifyContent: 'stretch',
+    gridTemplateColumns: '7fr 1fr',
   },
   [`& .${classes.gradeLabel}`]: {
     gridArea: 'label',
@@ -69,6 +71,9 @@ const ValinnainenControl = styled(FormControl)(({ theme }) => ({
     },
     '&:hover': {
       borderColor: colors.black,
+    },
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
     },
   },
   [`& .${classes.optionDisabled}`]: {

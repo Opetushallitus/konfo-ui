@@ -114,17 +114,18 @@ export const KeskiarvoAineLaskuri = ({
           aine={kieliaine}
           key={`kieliaine-${kieliaine.nimi}-${index}`}></KouluaineInput>
       ))}
-      {kouluaineet.lisakielet.map((kieliaine: Kouluaine, index: number) => (
-        <KouluaineInput
-          updateKouluaine={(kouluaine: Kouluaine) =>
-            updateKouluaineFromChild(kouluaine, index, 'lisakielet')
-          }
-          aine={kieliaine}
-          key={`lisakieliaine-${kieliaine.nimi}-${index}`}
-          isLisaKieli={true}
-          removeLisaKieli={() => removeKieli(index)}></KouluaineInput>
-      ))}
-      <AddKieliInput addKieli={addKieli}></AddKieliInput>
+      <AddKieliInput addKieli={addKieli}>
+        {kouluaineet.lisakielet.map((kieliaine: Kouluaine, index: number) => (
+          <KouluaineInput
+            updateKouluaine={(kouluaine: Kouluaine) =>
+              updateKouluaineFromChild(kouluaine, index, 'lisakielet')
+            }
+            aine={kieliaine}
+            key={`lisakieliaine-${kieliaine.nimi}-${index}`}
+            isLisaKieli={true}
+            removeLisaKieli={() => removeKieli(index)}></KouluaineInput>
+        ))}
+      </AddKieliInput>
       {kouluaineet.muutLukuaineet.map((lukuaine: Kouluaine, index: number) => (
         <KouluaineInput
           updateKouluaine={(kouluaine: Kouluaine) =>

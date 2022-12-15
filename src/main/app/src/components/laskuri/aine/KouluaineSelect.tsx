@@ -32,7 +32,7 @@ const classes = {
 
 const AineSelectControl = styled(FormControl, {
   shouldForwardProp: (prop) => prop !== 'isLisakieli',
-})<{ isLisakieli: boolean }>(({ isLisakieli }) => ({
+})<{ isLisakieli: boolean }>(({ theme, isLisakieli }) => ({
   display: 'grid',
   gridTemplateAreas: isLisakieli
     ? `"label label"
@@ -45,6 +45,12 @@ const AineSelectControl = styled(FormControl, {
   justifyItems: 'start',
   rowGap: '7px',
   columnGap: '2px',
+  [theme.breakpoints.down('sm')]: {
+    gridTemplateColumns: '7fr 1fr',
+    width: '100%',
+    justifyItems: 'stretch',
+  },
+
   [`& .${classes.input}`]: {
     border: `1px solid ${colors.lightGrey}`,
     padding: '0 0.5rem',
@@ -56,6 +62,9 @@ const AineSelectControl = styled(FormControl, {
     },
     width: '12rem',
     maxWidth: '100%',
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+    },
   },
   [`& .${classes.optionDisabled}`]: {
     color: colors.lightGrey,
@@ -65,6 +74,9 @@ const AineSelectControl = styled(FormControl, {
     display: 'flex',
     alignItems: 'center',
     columnGap: '2px',
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+    },
   },
   [`& .${classes.gradeLabel}`]: {
     overflow: 'unset',

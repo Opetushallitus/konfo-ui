@@ -26,8 +26,10 @@ const AineContainer = styled(Box, {
   [theme.breakpoints.down('sm')]: {
     flexDirection: 'column',
     alignItems: 'start',
+    width: '100%',
     button: {
       alignSelf: 'start',
+      paddingLeft: 0,
     },
   },
 }));
