@@ -72,6 +72,9 @@ const ValinnainenControl = styled(FormControl)(({ theme }) => ({
     '&:hover': {
       borderColor: colors.black,
     },
+    [theme.breakpoints.down('lg')]: {
+      width: '6rem',
+    },
     [theme.breakpoints.down('sm')]: {
       width: '100%',
     },
