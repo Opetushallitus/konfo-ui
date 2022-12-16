@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box } from '@mui/material';
+import { Box, useTheme, useMediaQuery } from '@mui/material';
 import {
   VictoryGroup,
   VictoryBar,
@@ -30,6 +30,8 @@ type Props = {
 
 const PisteGraafiLukio = ({ hakukohde, tulos }: Props) => {
   const { data, years, labels }: PisteData = usePisteHistoria(hakukohde);
+  const theme = useTheme();
+  const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
     <Box aria-hidden={true}>
@@ -44,6 +46,7 @@ const PisteGraafiLukio = ({ hakukohde, tulos }: Props) => {
             axis: { stroke: colors.invisible },
             ticks: { stroke: colors.invisible },
             grid: { stroke: colors.invisible },
+            tickLabels: { fontSize: isSmall ? 32 : 14 },
           }}
         />
         <VictoryAxis
@@ -53,25 +56,32 @@ const PisteGraafiLukio = ({ hakukohde, tulos }: Props) => {
             axis: { stroke: colors.invisible },
             ticks: { stroke: colors.invisible },
             grid: { strokeWidth: '3', strokeDasharray: '' },
+            tickLabels: { fontSize: isSmall ? 32 : 14 },
           }}
         />
         <VictoryGroup>
           <VictoryBar
             data={data}
-            style={{ data: { fill: colors.verminal } }}
-            barWidth={52}
+            style={{
+              data: { fill: colors.verminal },
+              labels: { fontSize: isSmall ? 32 : 14 },
+            }}
+            barWidth={isSmall ? 74 : 52}
             labels={labels}></VictoryBar>
           {tulos && (
             <VictoryLine
               style={{
                 data: { stroke: colors.sunglow, strokeWidth: 3 },
+                labels: { fontSize: isSmall ? 32 : 14 },
               }}
               data={[
                 { x: GRAAFI_MIN_YEAR, y: tulos.keskiarvo },
                 { x: GRAAFI_MAX_YEAR + 1, y: tulos.keskiarvo },
               ]}
               labels={[`${String(tulos.keskiarvo).replace('.', ',')}`]}
-              labelComponent={<VictoryLabel renderInPortal dx={15} />}></VictoryLine>
+              labelComponent={
+                <VictoryLabel renderInPortal dx={isSmall ? 25 : 15} />
+              }></VictoryLine>
           )}
         </VictoryGroup>
       </VictoryChart>
@@ -81,6 +91,8 @@ const PisteGraafiLukio = ({ hakukohde, tulos }: Props) => {
 
 const PisteGraafiAmmatillinen = ({ hakukohde, tulos }: Props) => {
   const { data, years, labels }: PisteData = usePisteHistoria(hakukohde);
+  const theme = useTheme();
+  const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
     <Box aria-hidden={true}>
@@ -95,6 +107,7 @@ const PisteGraafiAmmatillinen = ({ hakukohde, tulos }: Props) => {
             axis: { stroke: colors.invisible },
             ticks: { stroke: colors.invisible },
             grid: { stroke: colors.invisible },
+            tickLabels: { fontSize: isSmall ? 32 : 14 },
           }}
         />
         <VictoryAxis
@@ -104,25 +117,32 @@ const PisteGraafiAmmatillinen = ({ hakukohde, tulos }: Props) => {
             axis: { stroke: colors.invisible },
             ticks: { stroke: colors.invisible },
             grid: { strokeWidth: '3', strokeDasharray: '' },
+            tickLabels: { fontSize: isSmall ? 32 : 14 },
           }}
         />
         <VictoryGroup>
           <VictoryBar
             data={data}
-            style={{ data: { fill: colors.verminal } }}
+            style={{
+              data: { fill: colors.verminal },
+              labels: { fontSize: isSmall ? 32 : 14 },
+            }}
             barWidth={52}
             labels={labels}></VictoryBar>
           {tulos && (
             <VictoryLine
               style={{
                 data: { stroke: colors.sunglow, strokeWidth: 3 },
+                labels: { fontSize: isSmall ? 32 : 14 },
               }}
               data={[
                 { x: GRAAFI_MIN_YEAR, y: tulos.pisteet + ENSISIJAINEN_SCORE_BONUS },
                 { x: GRAAFI_MAX_YEAR + 1, y: tulos.pisteet + ENSISIJAINEN_SCORE_BONUS },
               ]}
               labels={[`${tulos.pisteet + ENSISIJAINEN_SCORE_BONUS}`]}
-              labelComponent={<VictoryLabel renderInPortal dx={15} />}></VictoryLine>
+              labelComponent={
+                <VictoryLabel renderInPortal dx={isSmall ? 25 : 15} />
+              }></VictoryLine>
           )}
         </VictoryGroup>
       </VictoryChart>

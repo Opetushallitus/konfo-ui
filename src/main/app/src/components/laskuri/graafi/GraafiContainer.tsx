@@ -82,11 +82,16 @@ const StyledBox = styled(Box)(({ theme }) => ({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+    },
     [`& .${classes.legendScores}`]: {
       width: '12px',
       height: '12px',
       backgroundColor: colors.verminal,
       marginRight: '12px',
+      verticalAlign: 'middle',
+      display: 'inline-block',
     },
     [`& .${classes.legendScore}`]: {
       width: '19px',
@@ -94,6 +99,8 @@ const StyledBox = styled(Box)(({ theme }) => ({
       border: `3px solid ${colors.sunglow}`,
       marginLeft: '25px',
       marginRight: '12px',
+      verticalAlign: 'middle',
+      display: 'inline-block',
     },
   },
 }));
@@ -139,16 +146,16 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
           <Box>
             <PisteGraafi hakukohde={hakukohde} tulos={tulos} isLukio={isLukio} />
             <Box className={classes.legend} aria-hidden={true}>
-              <Box className={classes.legendScores} />
               <Typography sx={{ fontSize: '0.875rem' }}>
+                <Box className={classes.legendScores} />
                 {t(
                   isLukio
                     ? 'pistelaskuri.graafi.alin-keskiarvo'
                     : 'pistelaskuri.graafi.alin-pisteet'
                 )}
               </Typography>
-              <Box className={classes.legendScore} />
               <Typography sx={{ fontSize: '0.875rem' }}>
+                <Box className={classes.legendScore} />
                 {t(
                   isLukio
                     ? 'pistelaskuri.graafi.keskiarvosi'
