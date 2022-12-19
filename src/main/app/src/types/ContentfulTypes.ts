@@ -29,8 +29,12 @@ export type InfoYhteishaku = Record<
     otsikko: string;
     kuvaus: string;
     nimi: string;
+    color: string;
+    tekstiHakulomakkeelle?: string;
     linkkiHakulomakkeelle?: string;
+    tekstiOhjeisiin?: string;
     linkkiOhjeisiin?: string;
+    tekstiHakutuloksiin?: string;
     linkkiHakutuloksiin?: string;
     order?: number;
   }

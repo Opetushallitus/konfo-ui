@@ -4,7 +4,6 @@ import { Grid, Card, CardContent, Paper, Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import clsx from 'clsx';
 import Markdown from 'markdown-to-jsx';
-import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 import { useContentful } from '#/src/hooks';
@@ -105,7 +104,6 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
 }));
 
 const YhteishakuKortti = ({ id, n }) => {
-  const { t } = useTranslation();
   const { data } = useContentful();
   const tdata = data?.infoYhteishaku;
   const yhInfo = tdata[id];
@@ -126,34 +124,34 @@ const YhteishakuKortti = ({ id, n }) => {
           </Paper>
 
           <Grid item className={classes.buttons}>
-            {yhInfo.linkkiHakulomakkeelle ? (
+            {yhInfo.linkkiHakulomakkeelle && yhInfo.tekstiHakulomakkeelle ? (
               <Button
                 item
                 xs={4}
                 className={kk ? classes.hakulomakeButtonKk : classes.hakulomakeButton}
                 variant={'outlined'}
                 href={yhInfo.linkkiHakulomakkeelle}>
-                {t('yhteishaku-info.tayta-hakulomake')}
+                {yhInfo.tekstiHakulomakkeelle}
               </Button>
             ) : null}
-            {yhInfo.linkkiOhjeisiin ? (
+            {yhInfo.linkkiOhjeisiin && yhInfo.tekstiOhjeisiin ? (
               <Button
                 item
                 xs={4}
                 className={classes.button}
                 variant={'outlined'}
                 href={yhInfo.linkkiOhjeisiin}>
-                {t('yhteishaku-info.ohjeet-hakemiseen')}
+                {yhInfo.tekstiOhjeisiin}
               </Button>
             ) : null}
-            {yhInfo.linkkiHakutuloksiin ? (
+            {yhInfo.linkkiHakutuloksiin && yhInfo.tekstiHakutuloksiin ? (
               <Button
                 item
                 xs={4}
                 className={classes.button}
                 variant={'outlined'}
                 href={yhInfo.linkkiHakutuloksiin}>
-                {t('yhteishaku-info.tutustu-koulutuksiin')}
+                {yhInfo.tekstiHakutuloksiin}
               </Button>
             ) : null}
           </Grid>
