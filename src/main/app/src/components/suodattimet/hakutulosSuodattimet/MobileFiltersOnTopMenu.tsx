@@ -15,7 +15,10 @@ import {
 import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
-import { JotpaSuodatin } from '#/src/components/suodattimet/common/JotpaSuodatin';
+import {
+  TyoelamaJaTaydennyskoulutuksetSuodatin,
+  useTyoelamaSuodatinValues,
+} from '#/src/components/suodattimet/common/TyoelamaJaTaydennyskoulutuksetSuodatin';
 import { FILTER_TYPES } from '#/src/constants';
 import { useIsAtEtusivu } from '#/src/store/reducers/appSlice';
 
@@ -197,10 +200,10 @@ export const MobileFiltersOnTopMenu = () => {
             setFilters={setFilters}
           />
           <Divider className={classes.divider} />
-          <JotpaSuodatin
+          <TyoelamaJaTaydennyskoulutuksetSuodatin
             expanded={false}
             displaySelected
-            values={useFilterProps(FILTER_TYPES.JOTPA)}
+            values={useTyoelamaSuodatinValues()}
             setFilters={setFilters}
           />
           <Divider className={classes.divider} />
