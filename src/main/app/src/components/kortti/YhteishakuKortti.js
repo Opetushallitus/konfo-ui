@@ -22,37 +22,31 @@ const classes = {
   hakulomakeButtonKk: `${PREFIX}-hakulomakebuttonkk`,
 };
 
-const StyledGrid = styled(Grid)(({ theme }) => ({
+const StyledGrid = styled(Grid)(() => ({
   [`& .${classes.card}`]: {
     display: 'block',
     height: '100%',
     textAlign: 'center',
   },
   [`& .${classes.otsikko}`]: {
-    width: '80%',
-    marginLeft: '10%',
+    width: '90%',
+    marginLeft: '5%',
     display: 'block',
     textAlign: 'center',
   },
   [`& .${classes.kuvaus}`]: {
-    marginLeft: '5%',
-    [theme.breakpoints.up('xl')]: {
-      marginLeft: '10%',
-      marginRight: '10%',
-    },
     display: 'block',
+    margin: '0px 0px 20px 0px',
   },
   [`& .${classes.toinenaste}`]: {
     backgroundColor: colors.brandGreen,
     color: colors.white,
     borderRadius: 2,
-    padding: '25px 20px',
   },
   [`& .${classes.kk}`]: {
     backgroundColor: colors.kkMagenta,
     color: colors.white,
     borderRadius: 2,
-    padding: '25px 20px',
   },
   [`& .${classes.button}`]: {
     color: colors.white,
@@ -70,8 +64,6 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   [`& .${classes.buttons}`]: {
     display: 'block',
     width: 'auto',
-    marginLeft: 'auto',
-    marginRight: 'auto',
   },
   [`& .${classes.hakulomakeButton}`]: {
     color: colors.brandGreen,
