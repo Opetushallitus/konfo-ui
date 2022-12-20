@@ -120,6 +120,7 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
     )
     .flatMap((tieto: Hakutieto) => tieto.hakukohteet);
   const [hakukohde, setHakukohde] = useState(hakukohteet[0]);
+  const [calculatedTulos, setCalculatedTulos] = useState(tulos);
 
   const changeHakukohde = (event: SelectChangeEvent<Hakukohde>) =>
     setHakukohde(event.target.value as Hakukohde);
@@ -153,7 +154,11 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
       {hakukohde?.metadata?.pistehistoria &&
         hakukohde?.metadata?.pistehistoria?.length > 0 && (
           <Box>
-            <PisteGraafi hakukohde={hakukohde} tulos={tulos} isLukio={isLukio} />
+            <PisteGraafi
+              hakukohde={hakukohde}
+              tulos={calculatedTulos}
+              isLukio={isLukio}
+            />
             <Box className={classes.legend} aria-hidden={true}>
               <Typography sx={{ fontSize: '0.875rem' }}>
                 <Box className={classes.legendScores} />
@@ -174,7 +179,11 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
                 </Typography>
               )}
             </Box>
-            <AccessibleGraafi isLukio={isLukio} tulos={tulos} hakukohde={hakukohde} />
+            <AccessibleGraafi
+              isLukio={isLukio}
+              tulos={calculatedTulos}
+              hakukohde={hakukohde}
+            />
           </Box>
         )}
       {!hakukohde?.metadata?.pistehistoria ||
@@ -183,6 +192,12 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
             {t('pistelaskuri.graafi.ei-tuloksia')}
           </Typography>
         ))}
+      {Boolean(hakukohde.hakukohteenLinja?.painotetutArvosanat) === true &&
+        (hakukohde.hakukohteenLinja?.painotetutArvosanat || []).length > 0 && (
+          <Typography variant="body1" sx={{ fontWeight: 600, margin: '1rem 0' }}>
+            Hakukohteella on painotettuja arvosanoja
+          </Typography>
+        )}
     </StyledBox>
   );
 };
