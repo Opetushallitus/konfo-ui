@@ -182,7 +182,7 @@ export const Valintakokeet = ({
                     <Heading variant="h4">{localize(nimi)}</Heading>
                     {!_.isEmpty(tietoja) && <LocalizedHTML data={tietoja!} />}
                     <HeadingBoundary>
-                      {vahimmaispisteet && (
+                      {(vahimmaispisteet || vahimmaispisteet === 0) && (
                         <>
                           <Heading variant="h5" className={classes.valintakoeSubHeader}>
                             {t('valintaperuste.alin-hyvaksytty-pistemaara')}
