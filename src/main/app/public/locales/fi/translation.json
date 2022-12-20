@@ -574,23 +574,23 @@
     "siirry-etusivulle": "Siirry Opintopolun etusivulle"
   },
   "pistelaskuri": {
-    "heading": "Hakupistelaskuri",
-    "info": "Arvioi peruskoulun päättötodistuksen keskiarvosi tai syötä kaikkien oppiaineiden arvosanat. Laskuri laskee hakupisteesi yhteishakua varten uusimpien valintaperusteiden mukaan.",
-    "laske": "Laske hakupisteet",
+    "heading": "Valintapistelaskuri",
+    "info": "Arvioi perusopetuksen päättötodistuksen keskiarvosi tai syötä kaikkien oppiaineiden arvosanat. Laskuri laskee valintapisteesi yhteishakua varten uusimpien valintaperusteiden mukaan.",
+    "laske": "Laske valintapisteet",
     "laske-uudestaan": "Laske uudestaan",
     "vertaa": "Vertaa pisteitä ja sulje laskuri",
-    "taide-info": "Taide- ja taitoaineita ovat liikunta, kuvataide, käsityö, kotitalous ja musiikki.",
+    "taide-info": "Taide- ja taitoaineita ovat liikunta, kuvataide, käsityö, kotitalous ja musiikki. Laske keskiarvo kolmesta parhaasta arvosanasta",
     "lukio": {
-      "header": "Lukuaineiden keskiarvo lukioon hakua varten",
-      "body": "Lukioon pääsyn ratkaisee peruskoulun päättötodistuksen lukuaineiden keskiarvo.\n\nJoillain lukion linjoilla, joissa on tietty painotus (esim. lukion urheilulinja), voi lisäksi olla pääsykoe tai lisänäyttö, joista annetaan pisteitä. Joillain linjoilla voidaan painottaa keskiarvolaskennassa tiettyä oppiainetta. Tarkista valintaperusteet hakukohteen sivulta."
+      "header": "Lukiokoulutuksen lukuaineiden keskiarvo",
+      "body": "Lukiokoulutuksen valinnassa käytetään perusopetuksen päättötodistuksen lukuaineiden keskiarvoa. Joillain lukion linjoilla voidaan painottaa tiettyjä oppiaineita (esim. lukion urheilulinja). Lisäksi voi olla pääsykoe tai lisänäyttö, joista annetaan pisteitä. Tarkista valintaperusteet hakukohteen sivulta."
     },
     "ammatillinen": {
-      "header": "Ammatillisen koulutuksen hakupisteet",
+      "header": "Ammatillisen koulutuksen valintapisteet",
       "huomioitu": "Laskurissa huomioitu:",
       "pisteytys-yleinen": "1-16 pistettä yleisestä koulumenestyksestä",
       "pisteytys-painotettava": "1-8 pistettä painotettavista arvosanoista",
       "pisteytys-ensisijainen": "2 pistettä ensimmäisestä hakutoiveesta",
-      "oletus": " Laskuri olettaa, että olet suorittanut peruskoulun tai peruskoulun jälkeisen valmentavan koulutuksen samana tai edellisenä vuonna kuin haet ammatilliseen koulutukseen. Jos et ole, vähennä tuloksesta 6 pistettä.\n\nLisäksi voit saada pääsy- ja soveltuvuuskokeista 0-10 pistettä, mikäli koulutukseen järjestetään pääsykoe. "
+      "oletus": "Laskuri olettaa, että olet suorittanut perusopetuksen tai perusopetuksen jälkeisen valmentavan koulutuksen samana tai edellisenä vuonna kuin haet ammatilliseen koulutukseen. Jos et ole, vähennä tuloksesta 6 pistettä. Lisäksi voit saada pääsy- ja soveltuvuuskokeista 0-10 pistettä, mikäli koulutukseen järjestetään pääsykoe."
     },
     "pisteet": {
       "lukio": "lukuaineiden keskiarvo",
@@ -604,15 +604,15 @@
       "keskiarvo": "Syötä keskiarvo väliltä 4-10.\nKeskiarvo voi sisältää desimaaleja.",
       "painokerroin": "Syötä numero väliltä 1-5.\nNumero voi sisältää desimaaleja."
     },
-    "keskiarvot-header": "Peruskoulun keskiarvot",
+    "keskiarvot-header": "Perusopetuksen keskiarvot",
     "ka-lukuaineet": "Lukuaineiden keskiarvo *",
     "ka-taito": "Taide- ja taitoaineiden keskiarvo *",
     "ka-kaikki": "Kaikkien aineiden keskiarvo *",
     "graafi": {
       "heading": "Aiemmat sisäänpääsyn pisteet yhteishaussa",
       "laske-ja-vertaa": "Laske pistemääräsi ja vertaa",
-      "info": "Edellisvuosien alin hyväksytty pistemäärä, jolla oppilaitokseen on päässyt opiskelemaan. Tarkista hakukohteesta, järjestetäänkö koulutuksessa lisäksi pääsykoe, joka vaikuttaa lopulliseen pistemäärään. Musiikin, tanssin ja sirkuksen oppilasvalinta perustuu usein pelkkään pääsykokeeseen.",
-      "info-rohkaisu": "Koulutukseen kannattaa hakea, vaikka pistemääräsi ei olisikaan aiempien vuosien tasolla.",
+      "info": "Edellisvuosien alin hyväksytty pistemäärä, jolla oppilaitokseen on päässyt opiskelemaan. Tarkista hakukohteesta, järjestetäänkö koulutuksessa lisäksi pääsykoe, joka vaikuttaa lopulliseen pistemäärään. Esimerkiksi musiikkialan, tanssin ja sirkusalan opiskelijavalinta voi perustua pelkkään pääsykokeeseen.",
+      "info-rohkaisu": "Pistelasku on suuntaa antava. Koulutukseen kannattaa hakea, vaikka pistemääräsi ei olisikaan aiempien vuosien tasolla.",
       "ei-tuloksia": "Hakukohteesta ei ole aiempien vuosien pistetietoja",
       "keskiarvosi": "arvioitu keskiarvosi",
       "alin-keskiarvo": "sisäänpääsyn alin keskiarvo",
@@ -629,7 +629,7 @@
     "vaihdalaskin-1": "Jos haluat tarkan laskelman, ",
     "vaihdalaskin-2": "kerro oppiaineiden arvosanat yksitellen.",
     "aine": {
-      "heading": "Peruskoulun arvosanat",
+      "heading": "Perusopetuksen arvosanat",
       "valinnaisaine": "Valinnaisaine",
       "addvalinnainen": "+ Lisää valinnaisaine",
       "removevalinnainen": "Poista valinnaisaine",
