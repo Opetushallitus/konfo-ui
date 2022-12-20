@@ -156,7 +156,7 @@ export const KeskiarvoLaskuri = ({
           </InputLabel>
           <LabelTooltip
             title={t('pistelaskuri.taide-info')}
-            sx={{ marginLeft: '3px' }}></LabelTooltip>
+            sx={{ marginLeft: '3px', color: colors.brandGreen }}></LabelTooltip>
           {!isValidKeskiarvo(keskiarvot?.taideTaitoAineet) && (
             <Typography variant="body2" className={classes.error}>
               {t('pistelaskuri.error.keskiarvo')}
