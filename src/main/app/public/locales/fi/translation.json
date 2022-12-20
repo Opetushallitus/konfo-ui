@@ -572,5 +572,10 @@
   },
   "header": {
     "siirry-etusivulle": "Siirry Opintopolun etusivulle"
+  },
+  "yhteishaku-info": {
+    "tayta-hakulomake": "Täytä hakulomake",
+    "ohjeet-hakemiseen": "Ohjeet hakemiseen",
+    "tutustu-koulutuksiin": "Tutustu koulutuksiin"
   }
 }
