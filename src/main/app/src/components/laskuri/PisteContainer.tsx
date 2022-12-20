@@ -78,6 +78,9 @@ const StyledPageSection = styled(PageSection)(({ theme }) => ({
   },
 }));
 
+const MODAL_KEY_PREFIX = 'PISTELASKURI_MODAL_KEY_';
+let MODAL_KEY_COUNTER = 1;
+
 type Props = {
   hakutiedot: Array<Hakutieto>;
   isLukio: boolean;
@@ -87,6 +90,7 @@ export const PisteContainer = ({ hakutiedot, isLukio }: Props) => {
   const { t } = useTranslation();
   const [isModalOpen, setModalOpen] = useState(false);
   const [tulos, setTulos] = useState<HakupisteLaskelma | null>(null);
+  const [modalKey, setModalKey] = useState(MODAL_KEY_PREFIX + MODAL_KEY_COUNTER);
 
   useEffect(() => {
     const savedResult = LocalStorageUtil.load(RESULT_STORE_KEY);
@@ -98,6 +102,7 @@ export const PisteContainer = ({ hakutiedot, isLukio }: Props) => {
     LocalStorageUtil.remove(RESULT_STORE_KEY);
     LocalStorageUtil.remove(AVERAGE_STORE_KEY);
     LocalStorageUtil.remove(KOULUAINE_STORE_KEY);
+    setModalKey(MODAL_KEY_PREFIX + ++MODAL_KEY_COUNTER);
   };
 
   return (
@@ -127,6 +132,7 @@ export const PisteContainer = ({ hakutiedot, isLukio }: Props) => {
         )}
       </Box>
       <KeskiArvoModal
+        key={modalKey}
         open={isModalOpen}
         closeFn={() => setModalOpen(false)}
         updateTulos={setTulos}

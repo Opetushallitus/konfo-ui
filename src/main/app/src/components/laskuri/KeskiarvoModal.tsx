@@ -67,6 +67,7 @@ const StyledDialog = styled(Dialog)(({ theme }) => ({
       },
       '&:disabled': {
         backgroundColor: colors.lightGrey,
+        border: `2px solid ${colors.lightGrey}`,
       },
     },
     [`.${classes.recalcButton}`]: {
