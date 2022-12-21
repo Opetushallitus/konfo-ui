@@ -14,11 +14,7 @@ import {
 import { useFilterProps } from '../../haku/hakutulosHooks';
 
 type Props = Omit<SuodatinComponentProps, 'values'> & {
-  values: {
-    jotpa: FilterValues;
-    tyovoimakoulutus: FilterValues;
-    taydennyskoulutus: FilterValues;
-  };
+  values: FilterValues;
 };
 
 export const useTyoelamaSuodatinValues = () => {
@@ -27,11 +23,7 @@ export const useTyoelamaSuodatinValues = () => {
   const taydennyskoulutus = useFilterProps(FILTER_TYPES.TAYDENNYSKOULUTUS);
 
   return useMemo(
-    () => ({
-      jotpa,
-      taydennyskoulutus,
-      tyovoimakoulutus,
-    }),
+    () => [...jotpa, ...taydennyskoulutus, ...tyovoimakoulutus],
     [jotpa, tyovoimakoulutus, taydennyskoulutus]
   );
 };
@@ -58,25 +50,9 @@ export const TyoelamaJaTaydennyskoulutuksetSuodatin = (props: Props) => {
     <>
       <Filter
         {...props}
-        testId="jotpa-filter"
-        name={t('haku.jotpa')}
-        values={values.jotpa}
-        handleCheck={handleCheck}
-        displaySelected
-      />
-      <Filter
-        {...props}
-        testId="tyovoimakoulutukset-filter"
-        name={t('haku.tyovoimakoulutukset')}
-        values={values.tyovoimakoulutus}
-        handleCheck={handleCheck}
-        displaySelected
-      />
-      <Filter
-        {...props}
-        testId="tyovoimakoulutukset-filter"
-        name={t('haku.tyovoimakoulutukset')}
-        values={values.taydennyskoulutus}
+        testId="tyoelama-ja-taydennyskoulutukset-filter"
+        name={t('haku.tyoelama-ja-taydennyskoulutukset')}
+        values={values}
         handleCheck={handleCheck}
         displaySelected
       />
