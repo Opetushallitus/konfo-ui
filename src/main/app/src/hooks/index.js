@@ -23,6 +23,7 @@ export const useLanguageState = () => {
     (newLang) => {
       document.documentElement.setAttribute('lang', newLang || 'fi');
       if (lng && newLang !== lng) {
+        i18n.changeLanguage(newLang);
         const newPath = location.pathname.replace(new RegExp(`^/${lng}`), `/${newLang}`);
         navigate({
           ...location,

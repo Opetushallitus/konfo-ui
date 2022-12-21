@@ -29,13 +29,13 @@ export const SiteImprove = (props) => {
     };
 
     const title = titleObj?.title;
-    console.log(titleObj);
-    console.log('title ' + title);
-    console.log('isAtEtusivu ' + isAtEtusivu);
-    console.log('langCookie ' + langCookie);
-    console.log('isLangSetOnPath ' + isLangSetOnPath());
-    console.log('langCookieMatchesTitle ' + langCookieMatchesTitle());
-    console.log('isTitleLoaded ' + isTitleLoaded());
+    // console.log(titleObj);
+    // console.log('title ' + title);
+    // console.log('isAtEtusivu ' + isAtEtusivu);
+    // console.log('langCookie ' + langCookie);
+    // console.log('isLangSetOnPath ' + isLangSetOnPath());
+    // console.log('langCookieMatchesTitle ' + langCookieMatchesTitle());
+    // console.log('isTitleLoaded ' + isTitleLoaded());
 
     if (isLangSetOnPath() && isTitleLoaded()) {
       window.siteImproveTracker(previousLocation, currentLocation, title);
