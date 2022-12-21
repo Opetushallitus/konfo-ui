@@ -92,6 +92,9 @@ export type ToteutusMetadata = {
   lisatietoaHakeutumisesta?: Translateable;
   opintojenLaajuusNumero?: number;
   opintojenLaajuusyksikko?: Koodi;
+  isAvoinKorkeakoulutus?: boolean;
+  tunniste?: string;
+  opinnonTyyppi?: Koodi;
 };
 
 export type Organisaatio = {

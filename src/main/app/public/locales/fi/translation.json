@@ -78,6 +78,7 @@
   "näytä-kaikki": "Näytä kaikki",
   "ankkurilinkki": "Ankkurilinkki: ",
   "avaa-sulje-valikko": "Avaa tai sulje valikko",
+  "avoin-kk-suffix": "(avoin)",
   "jumpotron": {
     "otsikko": "Jatkuvaa oppimista elämäsi jokaiseen vaiheeseen.",
     "esittely": "Opintopolkun kautta voit suunnitella omia opintoja ja hakea koulutuksiin. Sivuston tiedot ja palvelut ovat luotettavia ja turvallisia.",
@@ -140,8 +141,10 @@
     "amm-ope-erityisope-ja-opo": "Ammatillinen opettaja-, erityisopettaja- ja opinto-ohjaajakoulutus",
     "ope-pedag-opinnot": "Opettajien pedagogiset opinnot",
     "kk-muu": "Korkeakoulutus (tutkintoon johtamaton)",
-    "kk-opintojakso": "Opintojakso",
-    "kk-opintokokonaisuus": "Opintokokonaisuus",
+    "kk-opintojakso-normal": "Opintojakso",
+    "kk-opintojakso-avoin": "Opintojakso (avoin)",
+    "kk-opintokokonaisuus-normal": "Opintokokonaisuus",
+    "kk-opintokokonaisuus-avoin": "Opintokokonaisuus (avoin)",
     "erikoislaakari": "Erikoislääkäri",
     "muut-ammatilliset": "Ammatillinen koulutus",
     "amm-muu": "Muu ammatillinen koulutus",
@@ -389,7 +392,9 @@
     "sinua-saattaa-kiinnostaa-myos": "Sinua saattaa kiinnostaa myös",
     "ei-suositeltuja-koulutuksia": "Samankaltaisia koulutuksia ei löytynyt",
     "muut-koulutusta-jarjestavat-oppilaitokset": "Muut koulutusta järjestävät oppilaitokset",
-    "hakijan-terveydentila-ja-toimintakyky": "Hakijan terveydentila ja toimintakyky"
+    "hakijan-terveydentila-ja-toimintakyky": "Hakijan terveydentila ja toimintakyky",
+    "tunniste": "Hakijalle näkyvä tunniste",
+    "opinnonTyyppi": "Opinnon tyyppi"
   },
   "vertailu": {
     "takaisin-edelliselle-sivulle": "Takaisin edelliselle sivulle",
@@ -435,7 +440,6 @@
     "ammattikorkeakoulujen-erillishaut": "Ammattikorkeakoulujen erillishaut",
     "ammattikorkeakoulujen-hakijapalvelut": "Ammattikorkeakoulujen hakijapalvelut",
     "ammatilliset-opettajakorkeakoulut": "Ammatilliset opettajakorkeakoulut",
-    "avoin-ammattikorkeakoulu": "Avoin ammattikorkeakoulu",
     "erikoistumiskoulutus-ammattikorkeakoulussa": "Erikoistumiskoulutus ammattikorkeakoulussa",
     "täydennyskoulutus": "Täydennyskoulutus",
     "yliopisto": "Yliopisto",
@@ -447,7 +451,6 @@
     "erillisarvosanan-suorittaminen": "Erillisarvosanan suorittaminen",
     "jatkotutkinnot-ja-koulutukset": "Jatkotutkinnot ja koulutukset",
     "yliopistojen-hakijapalvelut": "Yliopistojen hakijapalvelut",
-    "avoin-yliopisto": "Avoin yliopisto",
     "erikoistumiskoulutus-yliopistossa": "Erikoistumiskoulutus yliopistossa",
     "oppisopimus": "Oppisopimus",
     "opiskelijalle": "Opiskelijalle",

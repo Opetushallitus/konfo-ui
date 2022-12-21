@@ -8,10 +8,9 @@ import { useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import { getContentfulData, getContentfulManifest } from '#/src/api/konfoApi';
+import { SIDEMENU_WIDTH } from '#/src/constants';
 import { setMenuState, useMenuOpen } from '#/src/store/reducers/appSlice';
-
-import { SIDEMENU_WIDTH } from './constants';
-import { theme } from './theme';
+import { theme } from '#/src/theme';
 
 export const useLanguageState = () => {
   const location = useLocation();

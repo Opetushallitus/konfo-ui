@@ -75,18 +75,21 @@ const selectKoulutus = (koulutusData: any) => {
       suorittaneenOsaaminen: koulutusData.metadata?.kuvaus?.suorittaneenOsaaminen,
       koulutusAla: koulutusData.metadata?.koulutusala,
       tutkintoNimi: koulutusData?.nimi,
-      tutkintoNimikkeet: koulutusData.metadata?.tutkintonimike,
+      tutkintonimikkeet: koulutusData.metadata?.tutkintonimike,
       opintojenLaajuus: koulutusData.metadata?.opintojenLaajuus,
       opintojenLaajuusNumero: koulutusData.metadata?.opintojenLaajuusNumero,
       opintojenLaajuusNumeroMin: koulutusData.metadata?.opintojenLaajuusNumeroMin,
       opintojenLaajuusNumeroMax: koulutusData.metadata?.opintojenLaajuusNumeroMax,
       opintojenLaajuusyksikko: koulutusData.metadata?.opintojenLaajuusyksikko,
-      koulutusTyyppi: koulutusData.metadata?.tyyppi,
+      koulutustyyppi: koulutusData.metadata?.tyyppi,
       lisatiedot: koulutusData.metadata?.lisatiedot,
       teemakuva: koulutusData?.teemakuva,
       sorakuvaus: koulutusData?.sorakuvaus,
       eqf: koulutusData?.eqf,
       nqf: koulutusData?.nqf,
+      isAvoinKorkeakoulutus: koulutusData?.metadata?.isAvoinKorkeakoulutus,
+      tunniste: koulutusData?.metadata?.tunniste, // Avoin-kk "hakijalle näkyvä tunniste"
+      opinnonTyyppi: koulutusData?.metadata?.opinnonTyyppi, // Avoin-kk
     };
   } else {
     return undefined;

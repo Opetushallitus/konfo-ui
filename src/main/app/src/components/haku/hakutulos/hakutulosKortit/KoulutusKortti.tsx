@@ -6,12 +6,13 @@ import {
   TimelapseOutlined,
   HomeWorkOutlined,
 } from '@mui/icons-material';
+import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { EntiteettiKortti } from '#/src/components/common/EntiteettiKortti';
 import { KoulutusKorttiLogo } from '#/src/components/common/KorttiLogo';
 import { Koulutustyyppi } from '#/src/constants';
-import { hasTutkintonimike } from '#/src/tools/hasTutkintonimike';
+import { useVisibleKoulutustyyppi } from '#/src/hooks/useVisibleKoulutustyyppi';
 import { localize } from '#/src/tools/localization';
 import { getLocalizedKoulutusLaajuus } from '#/src/tools/utils';
 import { Translateable } from '#/src/types/common';
@@ -25,10 +26,11 @@ type Props = {
   koulutus: {
     oid: string;
     kuvaus: Translateable;
-    koulutustyyppi: string;
+    koulutustyyppi: Koulutustyyppi;
     tutkintonimikkeet: Array<Translateable>;
     teemakuva?: string;
     toteutustenTarjoajat: ToteutustenTarjoajat;
+    isAvoinKorkeakoulutus: boolean;
   };
   isSmall?: boolean;
 };
@@ -51,36 +53,45 @@ const useToteutustenTarjoajat = (toteutustenTarjoajat?: ToteutustenTarjoajat) =>
 export const KoulutusKortti = ({ koulutus, isSmall }: Props) => {
   const { t } = useTranslation();
 
-  const kuvaus =
-    localize(koulutus?.kuvaus)
+  const {
+    oid,
+    tutkintonimikkeet,
+    teemakuva,
+    kuvaus,
+    toteutustenTarjoajat,
+    koulutustyyppi,
+    isAvoinKorkeakoulutus,
+  } = koulutus;
+
+  const kuvausText =
+    localize(kuvaus)
       .replace(/<\/li>/gm, ',</li>')
       .replace(/\.,<\/li>/gm, '.</li>')
       .replace(/<[^>]*>/gm, '') || t('haku.ei_kuvausta');
-  const koulutusHasTutkintonimike = hasTutkintonimike(
-    koulutus?.koulutustyyppi as Koulutustyyppi
-  );
 
-  const tutkintoNimikkeet = koulutusHasTutkintonimike
-    ? (koulutus?.tutkintonimikkeet || []).map(localize).join(', ').replace(/,\s*$/, '') ||
-      t('haku.ei-tutkintonimiketta')
-    : t(`koulutus.tyyppi-${koulutus?.koulutustyyppi}`);
+  const toteutustenTarjoajatText = useToteutustenTarjoajat(toteutustenTarjoajat);
 
-  const toteutustenTarjoajatText = useToteutustenTarjoajat(
-    koulutus?.toteutustenTarjoajat
-  );
+  const koulutustyyppiText = useVisibleKoulutustyyppi({
+    koulutustyyppi,
+    isAvoinKorkeakoulutus,
+  });
+
+  const tutkintonimikkeetText = (tutkintonimikkeet || [])
+    .map(localize)
+    .join(', ')
+    .replace(/,\s*$/, '');
 
   return (
     <EntiteettiKortti
-      koulutustyyppi={koulutus?.koulutustyyppi}
-      to={`/koulutus/${koulutus?.oid}`}
-      teemakuvaElement={<KoulutusKorttiLogo image={koulutus?.teemakuva} alt="" />}
+      koulutustyyppi={koulutustyyppi}
+      to={`/koulutus/${oid}`}
+      teemakuvaElement={<KoulutusKorttiLogo image={teemakuva} alt="" />}
       header={localize(koulutus)}
-      kuvaus={kuvaus}
+      kuvaus={kuvausText}
       iconTexts={[
-        [
-          tutkintoNimikkeet,
-          koulutusHasTutkintonimike ? SchoolOutlined : ExtensionOutlined,
-        ],
+        _.isEmpty(tutkintonimikkeetText)
+          ? [koulutustyyppiText, ExtensionOutlined]
+          : [tutkintonimikkeetText, SchoolOutlined],
         [getLocalizedKoulutusLaajuus(koulutus), TimelapseOutlined],
         toteutustenTarjoajatText && [toteutustenTarjoajatText, HomeWorkOutlined],
       ]}
