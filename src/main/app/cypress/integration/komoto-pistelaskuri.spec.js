@@ -20,8 +20,8 @@ describe('Pistelaskuri KOMOTO', () => {
 
   it('Shows keskiarvo dialog', () => {
     cy.get('.PisteContainer__openbutton').click();
-    cy.get('.KeskiarvoModal__container h2').contains('Hakupistelaskuri');
-    cy.get('.KeskiarvoModal__container h3').contains('Peruskoulun keskiarvot');
+    cy.get('.KeskiarvoModal__container h2').contains('Valintapistelaskuri');
+    cy.get('.KeskiarvoModal__container h3').contains('Perusopetuksen keskiarvot');
   });
 
   it('Shows result after filling keskiarvot', () => {
@@ -59,8 +59,8 @@ describe('Pistelaskuri KOMOTO', () => {
     cy.get('.KeskiarvoModal__calculatebutton').click();
     cy.get('.PisteContainer__purifybutton').click();
     cy.get('.PisteContainer__openbutton').click();
-    cy.get('.KeskiarvoModal__container h2').contains('Hakupistelaskuri');
-    cy.get('.KeskiarvoModal__container h3').contains('Peruskoulun arvosanat');
+    cy.get('.KeskiarvoModal__container h2').contains('Valintapistelaskuri');
+    cy.get('.KeskiarvoModal__container h3').contains('Perusopetuksen keskiarvot');
     cy.get('.keskiarvo__tulos__sphere').should('not.exist');
   });
 });
