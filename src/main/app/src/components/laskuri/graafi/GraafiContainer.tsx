@@ -154,14 +154,16 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
                     : 'pistelaskuri.graafi.alin-pisteet'
                 )}
               </Typography>
-              <Typography sx={{ fontSize: '0.875rem' }}>
-                <Box className={classes.legendScore} />
-                {t(
-                  isLukio
-                    ? 'pistelaskuri.graafi.keskiarvosi'
-                    : 'pistelaskuri.graafi.pisteesi'
-                )}
-              </Typography>
+              {tulos && (
+                <Typography sx={{ fontSize: '0.875rem' }}>
+                  <Box className={classes.legendScore} />
+                  {t(
+                    isLukio
+                      ? 'pistelaskuri.graafi.keskiarvosi'
+                      : 'pistelaskuri.graafi.pisteesi'
+                  )}
+                </Typography>
+              )}
             </Box>
             <AccessibleGraafi isLukio={isLukio} tulos={tulos} hakukohde={hakukohde} />
           </Box>
