@@ -581,7 +581,7 @@
     "vertaa": "Vertaa pisteitä ja sulje laskuri",
     "taide-info": "Taide- ja taitoaineita ovat liikunta, kuvataide, käsityö, kotitalous ja musiikki. Laske keskiarvo kolmesta parhaasta arvosanasta",
     "lukio": {
-      "header": "Lukiokoulutuksen lukuaineiden keskiarvo",
+      "header": "Lukuaineiden keskiarvo lukioon hakua varten",
       "body": "Lukiokoulutuksen valinnassa käytetään perusopetuksen päättötodistuksen lukuaineiden keskiarvoa. Joillain lukion linjoilla voidaan painottaa tiettyjä oppiaineita (esim. lukion urheilulinja). Lisäksi voi olla pääsykoe tai lisänäyttö, joista annetaan pisteitä. Tarkista valintaperusteet hakukohteen sivulta."
     },
     "ammatillinen": {
