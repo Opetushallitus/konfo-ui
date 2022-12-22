@@ -92,16 +92,18 @@ export const Yhteystiedot = ({
   const theme = useTheme();
   const isSm = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const localizedYhteystiedot = useMemo(
-    () =>
-      (yhteystiedot || [])
-        .concat(hakijapalveluidenYhteystiedot as any) // TODO: undefined cannot be concated :I
-        .concat(organisaatioidenYhteystiedot as any)
-        .filter(Boolean)
-        .map(parseYhteystieto())
-        .sort(byLocaleCompare('nimi')),
-    [hakijapalveluidenYhteystiedot, organisaatioidenYhteystiedot, yhteystiedot]
-  );
+  const localizedYhteystiedot = useMemo(() => {
+    const organisaatiot = (yhteystiedot || [])
+      .concat(organisaatioidenYhteystiedot as any)
+      .filter(Boolean)
+      .map(parseYhteystieto())
+      .sort(byLocaleCompare('nimi'));
+
+    return [hakijapalveluidenYhteystiedot as any] // hakijapalveluidenYhteystiedot aina ensimmäisenä, vasta sen jälkeen sortataan
+      .map(parseYhteystieto())
+      .filter(Boolean)
+      .concat(organisaatiot);
+  }, [hakijapalveluidenYhteystiedot, organisaatioidenYhteystiedot, yhteystiedot]);
 
   return (
     <StyledBox
