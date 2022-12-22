@@ -9,6 +9,13 @@ export const sortValues = <T>(filterObj: Record<string, T>) =>
     'id'
   );
 
+const BOOLEAN_FILTERS = [
+  FILTER_TYPES.HAKUKAYNNISSA,
+  FILTER_TYPES.JOTPA,
+  FILTER_TYPES.TYOVOIMAKOULUTUS,
+  FILTER_TYPES.TAYDENNYSKOULUTUS,
+];
+
 // NOTE: Tämä funktio hoitaa kovakoodatut rakenteet erikoisemmille suodattimille e.g. hakukaynnissa / hakutapa + yhteishaku
 export const getFilterWithChecked = (
   filters: Record<string, any> | undefined,
@@ -26,24 +33,13 @@ export const getFilterWithChecked = (
     return {};
   }
 
-  if (filterId === FILTER_TYPES.HAKUKAYNNISSA) {
+  if (_.includes(BOOLEAN_FILTERS, filterId)) {
     return {
-      [FILTER_TYPES.HAKUKAYNNISSA]: {
-        id: FILTER_TYPES.HAKUKAYNNISSA,
-        filterId: FILTER_TYPES.HAKUKAYNNISSA,
+      [filterId]: {
+        id: filterId,
+        filterId: filterId,
         count: filter.count,
-        checked: Boolean(allCheckedValues[FILTER_TYPES.HAKUKAYNNISSA]),
-      },
-    };
-  }
-
-  if (filterId === FILTER_TYPES.JOTPA) {
-    return {
-      [FILTER_TYPES.JOTPA]: {
-        id: FILTER_TYPES.JOTPA,
-        filterId: FILTER_TYPES.JOTPA,
-        count: filter.count,
-        checked: Boolean(allCheckedValues[FILTER_TYPES.JOTPA]),
+        checked: Boolean(allCheckedValues[filterId]),
       },
     };
   }
