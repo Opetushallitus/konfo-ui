@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 
 import { Kouluaine, hasInitialValues } from './Kouluaine';
 import { KouluaineSelect } from './KouluaineSelect';
-import { PainokerroinInput } from './PainokerroinInput';
 import { ValinnainenArvosana } from './ValinnainenArvosana';
 
 const AineContainer = styled(Box, {
@@ -59,12 +58,9 @@ export const KouluaineInput = ({
     longText: aine.longText,
   });
 
-  const [showPainokerroin, setShowPainokerroin] = useState<boolean>(false);
-
   useEffect(() => {
     if (!hasInitialValues(aine)) {
       setKouluaine(aine);
-      setShowPainokerroin(aine.painokerroin !== '');
     }
   }, [aine]);
 
@@ -98,19 +94,6 @@ export const KouluaineInput = ({
     updateKouluaine(uusiaine);
   };
 
-  const changePainokerroin = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const uusiaine = Object.assign({}, kouluaine, { painokerroin: event.target.value });
-    setKouluaine(uusiaine);
-    updateKouluaine(uusiaine);
-  };
-
-  const poistaPainokerroin = () => {
-    setShowPainokerroin(false);
-    const uusiaine = Object.assign({}, kouluaine, { painokerroin: '' });
-    setKouluaine(uusiaine);
-    updateKouluaine(uusiaine);
-  };
-
   return (
     <AineContainer longText={aine.longText}>
       <KouluaineSelect
@@ -137,19 +120,6 @@ export const KouluaineInput = ({
         <Button onClick={addValinnaisaine}>
           {t('pistelaskuri.aine.addvalinnainen')}
         </Button>
-      )}
-      {!showPainokerroin && (
-        <Button onClick={() => setShowPainokerroin(true)}>
-          {t('pistelaskuri.aine.addpainokerroin')}
-        </Button>
-      )}
-      {showPainokerroin && (
-        <PainokerroinInput
-          id={`painokerroin-${kouluaine.nimi}`}
-          painokerroin={kouluaine.painokerroin}
-          updatePainokerroin={changePainokerroin}
-          removePainokerroin={poistaPainokerroin}
-        />
       )}
     </AineContainer>
   );
