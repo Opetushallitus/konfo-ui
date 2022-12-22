@@ -12,6 +12,7 @@ import {
 } from 'victory';
 
 import { colors } from '#/src/colors';
+import { formatDouble } from '#/src/tools/utils';
 import { Hakukohde } from '#/src/types/HakukohdeTypes';
 
 import { HakupisteLaskelma, ENSISIJAINEN_SCORE_BONUS } from '../Keskiarvo';
@@ -67,7 +68,8 @@ const PisteGraafiLukio = ({ hakukohde, tulos }: Props) => {
               labels: { fontSize: isSmall ? 32 : 14 },
             }}
             barWidth={isSmall ? 74 : 52}
-            labels={labels}></VictoryBar>
+            labels={labels}
+          />
           {tulos && (
             <VictoryLine
               style={{
@@ -78,10 +80,9 @@ const PisteGraafiLukio = ({ hakukohde, tulos }: Props) => {
                 { x: GRAAFI_MIN_YEAR, y: tulos.keskiarvo },
                 { x: GRAAFI_MAX_YEAR + 1, y: tulos.keskiarvo },
               ]}
-              labels={[`${String(tulos.keskiarvo).replace('.', ',')}`]}
-              labelComponent={
-                <VictoryLabel renderInPortal dx={isSmall ? 25 : 15} />
-              }></VictoryLine>
+              labels={[formatDouble(tulos.keskiarvo)]}
+              labelComponent={<VictoryLabel renderInPortal dx={isSmall ? 25 : 15} />}
+            />
           )}
         </VictoryGroup>
       </VictoryChart>
@@ -128,7 +129,8 @@ const PisteGraafiAmmatillinen = ({ hakukohde, tulos }: Props) => {
               labels: { fontSize: isSmall ? 32 : 14 },
             }}
             barWidth={52}
-            labels={labels}></VictoryBar>
+            labels={labels}
+          />
           {tulos && (
             <VictoryLine
               style={{
@@ -140,9 +142,8 @@ const PisteGraafiAmmatillinen = ({ hakukohde, tulos }: Props) => {
                 { x: GRAAFI_MAX_YEAR + 1, y: tulos.pisteet + ENSISIJAINEN_SCORE_BONUS },
               ]}
               labels={[`${tulos.pisteet + ENSISIJAINEN_SCORE_BONUS}`]}
-              labelComponent={
-                <VictoryLabel renderInPortal dx={isSmall ? 25 : 15} />
-              }></VictoryLine>
+              labelComponent={<VictoryLabel renderInPortal dx={isSmall ? 25 : 15} />}
+            />
           )}
         </VictoryGroup>
       </VictoryChart>

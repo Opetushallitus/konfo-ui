@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Heading, HeadingBoundary } from '#/src/components/Heading';
 import { localize } from '#/src/tools/localization';
-import { toId } from '#/src/tools/utils';
+import { formatDouble, toId } from '#/src/tools/utils';
 import { PainotettuArvosana, KoodiUrit } from '#/src/types/HakukohdeTypes';
 
 const PREFIX = 'PainotetutArvosanat';
@@ -72,7 +72,7 @@ export const PainotetutArvosanat = ({ arvosanat }: Props) => {
                   <tr key={index}>
                     <td className={classes.cell}>{getOppiaineName(arvosana.koodit)}</td>
                     <td className={classes.cell}>
-                      {arvosana.painokerroin.toString().replace('.', ',')}
+                      {formatDouble(arvosana.painokerroin)}
                     </td>
                   </tr>
                 ))}

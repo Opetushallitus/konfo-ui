@@ -1,7 +1,8 @@
-import { useState, useMemo } from 'react';
+import { useMemo } from 'react';
 
 import { Datum } from 'victory';
 
+import { formatDouble } from '#/src/tools/utils';
 import { Hakukohde, PisteHistoria } from '#/src/types/HakukohdeTypes';
 
 export const GRAAFI_MAX_YEAR = new Date().getUTCFullYear();
@@ -14,11 +15,7 @@ export type PisteData = {
 };
 
 export const usePisteHistoria = (hakukohde: Hakukohde): PisteData => {
-  const [data, setData] = useState<Array<Datum>>([]);
-  const [years, setYears] = useState<Array<number>>([]);
-  const [labels, setLabels] = useState<Array<string>>([]);
-
-  useMemo(() => {
+  return useMemo(() => {
     const dataNew =
       hakukohde?.metadata?.pistehistoria
         ?.filter(
@@ -27,10 +24,9 @@ export const usePisteHistoria = (hakukohde: Hakukohde): PisteData => {
         .map((historia: PisteHistoria) => {
           return { x: Number.parseInt(historia.vuosi), y: historia.pisteet };
         }) || [];
-    setData(dataNew);
-    setYears(dataNew.map((datum: Datum) => datum.x));
-    setLabels(dataNew.map((datum: Datum) => `${datum.y}`.replace('.', ',')));
+    const data = dataNew;
+    const years = dataNew.map((datum: Datum) => datum.x);
+    const labels = dataNew.map((datum: Datum) => formatDouble(datum.y));
+    return { data, years, labels };
   }, [hakukohde]);
-
-  return { data, years, labels };
 };

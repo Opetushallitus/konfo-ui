@@ -7,6 +7,7 @@ import { Link as RouterLink } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
+import { formatDouble } from '#/src/tools/utils';
 
 import { HakupisteLaskelma, ENSISIJAINEN_SCORE_BONUS } from './Keskiarvo';
 
@@ -25,6 +26,9 @@ const TulosContainer = styled(Box)(({ theme }) => ({
   display: 'grid',
   gridTemplateColumns: '1fr 1fr',
   columnGap: '20px',
+  h3: {
+    fontSize: '1.25rem',
+  },
   [theme.breakpoints.down('sm')]: {
     display: 'flex',
     flexDirection: 'column',
@@ -86,15 +90,13 @@ type ResultSphereProps = {
 };
 
 const ResultSphere = ({ result, text }: ResultSphereProps) => {
-  const resultWithComma = String(result).replace('.', ',');
+  const resultWithComma = formatDouble(result);
   return (
     <Box className={classes.resultSphere}>
       <Typography sx={{ fontSize: '3rem', fontWeight: 'bold' }}>
         {resultWithComma}
       </Typography>
-      <Typography sx={{ fontSize: '0.875rem' }} variant="body2">
-        {text}
-      </Typography>
+      <Typography variant="body2">{text}</Typography>
     </Box>
   );
 };
@@ -122,9 +124,7 @@ export const KeskiarvoTulos = ({ tulos }: Props) => {
   return (
     <TulosContainer>
       <Box className={classes.column}>
-        <Typography variant="h3" sx={{ fontSize: '1.25rem' }}>
-          {t('pistelaskuri.lukio.header')}
-        </Typography>
+        <Typography variant="h3">{t('pistelaskuri.lukio.header')}</Typography>
         <ResultSphere result={tulos.keskiarvo} text={t('pistelaskuri.pisteet.lukio')} />
         <Paper className={classes.textContainer} elevation={0}>
           <Typography
@@ -137,9 +137,7 @@ export const KeskiarvoTulos = ({ tulos }: Props) => {
         </Paper>
       </Box>
       <Box className={classes.column}>
-        <Typography variant="h3" sx={{ fontSize: '1.25rem' }}>
-          {t('pistelaskuri.ammatillinen.header')}
-        </Typography>
+        <Typography variant="h3">{t('pistelaskuri.ammatillinen.header')}</Typography>
         <Box className={classes.spheresContainer}>
           <ResultSphere
             result={tulos.pisteet + ENSISIJAINEN_SCORE_BONUS}

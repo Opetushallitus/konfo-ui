@@ -112,7 +112,8 @@ export const KeskiarvoAineLaskuri = ({
             updateKouluaineFromChild(kouluaine, index, 'kielet')
           }
           aine={kieliaine}
-          key={`kieliaine-${kieliaine.nimi}-${index}`}></KouluaineInput>
+          key={`kieliaine-${kieliaine.nimi}-${index}`}
+        />
       ))}
       <AddKieliInput addKieli={addKieli}>
         {kouluaineet.lisakielet.map((kieliaine: Kouluaine, index: number) => (
@@ -123,7 +124,8 @@ export const KeskiarvoAineLaskuri = ({
             aine={kieliaine}
             key={`lisakieliaine-${kieliaine.nimi}-${index}`}
             isLisaKieli={true}
-            removeLisaKieli={() => removeKieli(index)}></KouluaineInput>
+            removeLisaKieli={() => removeKieli(index)}
+          />
         ))}
       </AddKieliInput>
       {kouluaineet.muutLukuaineet.map((lukuaine: Kouluaine, index: number) => (
@@ -132,7 +134,8 @@ export const KeskiarvoAineLaskuri = ({
             updateKouluaineFromChild(kouluaine, index, 'muutLukuaineet')
           }
           aine={lukuaine}
-          key={`lukuaine-${lukuaine.nimi}-${index}`}></KouluaineInput>
+          key={`lukuaine-${lukuaine.nimi}-${index}`}
+        />
       ))}
       <Typography variant="h4" sx={{ margin: '2rem 0 1.375rem', fontSize: '1.25rem' }}>
         {t('pistelaskuri.aine.taitoaineet')}
@@ -143,7 +146,8 @@ export const KeskiarvoAineLaskuri = ({
             updateKouluaineFromChild(kouluaine, index, 'taitoaineet')
           }
           aine={taitoaine}
-          key={`taitoaine-${taitoaine.nimi}-${index}`}></KouluaineInput>
+          key={`taitoaine-${taitoaine.nimi}-${index}`}
+        />
       ))}
     </LaskuriContainer>
   );

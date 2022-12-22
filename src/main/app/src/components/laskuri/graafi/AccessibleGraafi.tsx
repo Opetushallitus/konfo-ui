@@ -6,6 +6,7 @@ import _ from 'lodash';
 import { useTranslation, TFunction } from 'react-i18next';
 
 import { localize } from '#/src/tools/localization';
+import { formatDouble } from '#/src/tools/utils';
 import { Hakukohde, PisteHistoria } from '#/src/types/HakukohdeTypes';
 
 import { HakupisteLaskelma, ENSISIJAINEN_SCORE_BONUS } from '../Keskiarvo';
@@ -35,7 +36,7 @@ const hakukohdeToPisterajat = (
         isLukio
           ? 'pistelaskuri.graafi.saavutettavuus.vuosika'
           : 'pistelaskuri.graafi.saavutettavuus.vuosipiste',
-        { vuosi: historia.vuosi, pisteet: String(historia.pisteet).replace('.', ',') }
+        { vuosi: historia.vuosi, pisteet: formatDouble(historia.pisteet) }
       )
     );
   return _.join(pisterajat, ' ');
@@ -48,7 +49,7 @@ const tulosToText = (
 ) =>
   isLukio
     ? t('pistelaskuri.graafi.saavutettavuus.ka', {
-        keskiarvo: String(tulos.keskiarvo).replace('.', ','),
+        keskiarvo: formatDouble(tulos.keskiarvo),
       })
     : t('pistelaskuri.graafi.saavutettavuus.pisteet', {
         tulos: tulos.pisteet + ENSISIJAINEN_SCORE_BONUS,
