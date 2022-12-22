@@ -618,6 +618,7 @@
       "alin-keskiarvo": "sisäänpääsyn alin keskiarvo",
       "pisteesi": "arvioitu pistemääräsi",
       "alin-pisteet": "sisäänpääsyn alin pistemäärä",
+      "poista": "Poista tietosi",
       "saavutettavuus": {
         "saate": "Sisäänpääsyn alin pisteraja on ollut kohteelle {{kohde}}",
         "pisteet": "Arvioitu pistemääräsi on {{tulos}}",

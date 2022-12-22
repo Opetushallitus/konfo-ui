@@ -127,7 +127,7 @@ export const PisteContainer = ({ hakutiedot, isLukio }: Props) => {
         </Button>
         {tulos && (
           <Button onClick={clearData} className={classes.purifyButton}>
-            Poista tietosi
+            {t('pistelaskuri.graafi.poista')}
           </Button>
         )}
       </Box>
