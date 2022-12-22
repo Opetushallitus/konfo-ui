@@ -118,8 +118,8 @@ export const HakupalkkiFilters = () => {
             summaryHidden={true}
           />
         }
-        id="jotpa"
-        header={t('haku.jotpa')}
+        id="tyoelama-ja-taydennyskoulutukset-filter"
+        header={t('haku.tyoelama-ja-taydennyskoulutukset')}
       />
       <Divider orientation="vertical" flexItem />
       <Suodatin
