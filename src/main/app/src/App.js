@@ -267,7 +267,6 @@ const App = () => {
           title: newTitle,
           path: pathname,
           isDefaultTitle: !dontUseDefaultHeader,
-          lang: language,
         };
         setTitleObj(titleState);
       }

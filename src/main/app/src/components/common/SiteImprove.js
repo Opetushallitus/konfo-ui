@@ -17,27 +17,20 @@ export const SiteImprove = (props) => {
   const langCookie = Cookies.get('lang');
 
   useEffect(() => {
-    const isLangSetOnPath = () => currentLocation.includes('/' + langCookie);
-    const langCookieMatchesTitle = () => titleObj?.lang === langCookie;
+    const langCookieMatchesTitlePath = () => titleObj?.path.startsWith('/' + langCookie);
 
-    const isTitleLoaded = () => {
+    const isTitleLangCorrect = () => {
       if (titleObj == null) {
         return false;
-      } else if (isAtEtusivu && langCookieMatchesTitle()) {
+      } else if (isAtEtusivu && langCookieMatchesTitlePath()) {
         return true;
-      } else return !isAtEtusivu && !titleObj?.isDefaultTitle;
+      } else
+        return !isAtEtusivu && !titleObj?.isDefaultTitle && langCookieMatchesTitlePath();
     };
 
     const title = titleObj?.title;
-    // console.log(titleObj);
-    // console.log('title ' + title);
-    // console.log('isAtEtusivu ' + isAtEtusivu);
-    // console.log('langCookie ' + langCookie);
-    // console.log('isLangSetOnPath ' + isLangSetOnPath());
-    // console.log('langCookieMatchesTitle ' + langCookieMatchesTitle());
-    // console.log('isTitleLoaded ' + isTitleLoaded());
 
-    if (isLangSetOnPath() && isTitleLoaded()) {
+    if (isTitleLangCorrect()) {
       window.siteImproveTracker(previousLocation, currentLocation, title);
     }
   }, [previousLocation, currentLocation, titleObj, langCookie, isAtEtusivu]);

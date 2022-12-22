@@ -3,7 +3,7 @@ server:
   servlet:
     context-path: /konfo
 bucket:
-  url: https://konfo-content.testiopintopolku.fi/
+  url: https://konfo-content.untuvaopintopolku.fi/
 host:
   host-oppija: https://testiopintopolku.fi
   old-oppija-base-url-fi: ""
