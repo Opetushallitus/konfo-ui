@@ -95,11 +95,13 @@ export const Yhteystiedot = ({
   const localizedYhteystiedot = useMemo(() => {
     const organisaatiot = (yhteystiedot || [])
       .concat(organisaatioidenYhteystiedot as any)
+      .filter((obj) => _.hasIn(obj, 'nimi'))
       .filter(Boolean)
       .map(parseYhteystieto())
       .sort(byLocaleCompare('nimi'));
 
     return [hakijapalveluidenYhteystiedot as any] // hakijapalveluidenYhteystiedot aina ensimmäisenä, vasta sen jälkeen sortataan
+      .filter((obj) => _.hasIn(obj, 'nimi'))
       .map(parseYhteystieto())
       .filter(Boolean)
       .concat(organisaatiot);
