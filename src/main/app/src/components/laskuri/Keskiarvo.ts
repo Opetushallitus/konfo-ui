@@ -26,10 +26,16 @@ export interface Osalasku extends LocalStorable {
   suorittanutBonus: number;
 }
 
+export enum LaskelmaTapa {
+  KESKIARVOT,
+  LUKUAINEET,
+}
+
 export interface HakupisteLaskelma extends LocalStorable {
   keskiarvo: number;
   pisteet: number;
   osalasku?: Osalasku;
+  tapa: LaskelmaTapa;
 }
 
 const isEligibleArvosana = (arvosana: number | null): boolean => {
@@ -149,15 +155,21 @@ export const kouluaineetToHakupiste = (kouluaineet: Kouluaineet): HakupisteLaske
     .sort((a: number, b: number) => b - a)
     .slice(0, AMOUNT_OF_TAITOAINE_TO_USE);
   const taitoKa = roundKa(_.sum(taitoaineet) / taitoaineet.length);
-  return keskiArvotToHakupiste({
-    lukuaineet: String(lukuKa),
-    taideTaitoAineet: String(taitoKa),
-    kaikki: String(kaikkiKa),
-    suorittanut: kouluaineet.suorittanut,
-  });
+  return keskiArvotToHakupiste(
+    {
+      lukuaineet: String(lukuKa),
+      taideTaitoAineet: String(taitoKa),
+      kaikki: String(kaikkiKa),
+      suorittanut: kouluaineet.suorittanut,
+    },
+    LaskelmaTapa.LUKUAINEET
+  );
 };
 
-export const keskiArvotToHakupiste = (keskiarvot: Keskiarvot): HakupisteLaskelma => {
+export const keskiArvotToHakupiste = (
+  keskiarvot: Keskiarvot,
+  tapa: LaskelmaTapa = LaskelmaTapa.KESKIARVOT
+): HakupisteLaskelma => {
   const pisteetKaikki = getMatchingScore(
     Number(keskiarvot.kaikki.replace(',', '.')),
     PISTEET_KAIKKI_MAP
@@ -175,5 +187,6 @@ export const keskiArvotToHakupiste = (keskiarvot: Keskiarvot): HakupisteLaskelma
       taideTaitoAineet: pisteetTaitoaineet,
       suorittanutBonus,
     },
+    tapa,
   };
 };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import {
   Box,
@@ -18,7 +18,9 @@ import { localize } from '#/src/tools/localization';
 import { Hakukohde } from '#/src/types/HakukohdeTypes';
 import { Hakutieto } from '#/src/types/ToteutusTypes';
 
-import { HakupisteLaskelma } from '../Keskiarvo';
+import { Kouluaineet, kopioiKouluaineetPainokertoimilla } from '../aine/Kouluaine';
+import { HakupisteLaskelma, LaskelmaTapa, kouluaineetToHakupiste } from '../Keskiarvo';
+import { KOULUAINE_STORE_KEY, LocalStorageUtil } from '../LocalStorageUtil';
 import { AccessibleGraafi } from './AccessibleGraafi';
 import { PisteGraafi } from './PisteGraafi';
 
@@ -122,8 +124,31 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
   const [hakukohde, setHakukohde] = useState(hakukohteet[0]);
   const [calculatedTulos, setCalculatedTulos] = useState(tulos);
 
-  const changeHakukohde = (event: SelectChangeEvent<Hakukohde>) =>
-    setHakukohde(event.target.value as Hakukohde);
+  useEffect(() => {
+    setCalculatedTulos(tulos);
+  }, [tulos]);
+
+  const hasPainokertoimia = (hk: Hakukohde) =>
+    Boolean(hk.hakukohteenLinja?.painotetutArvosanat) === true &&
+    (hk.hakukohteenLinja?.painotetutArvosanat || []).length > 0;
+
+  const changeHakukohde = (event: SelectChangeEvent<Hakukohde>) => {
+    const uusiHakukohde = event.target.value as Hakukohde;
+    setHakukohde(uusiHakukohde);
+    if (tulos?.tapa === LaskelmaTapa.LUKUAINEET && hasPainokertoimia(uusiHakukohde)) {
+      const savedResult = LocalStorageUtil.load(KOULUAINE_STORE_KEY);
+      if (savedResult) {
+        console.log(uusiHakukohde.hakukohteenLinja?.painotetutArvosanat);
+        const aineet = savedResult as Kouluaineet;
+        const modifiedAineet = kopioiKouluaineetPainokertoimilla(
+          aineet,
+          uusiHakukohde.hakukohteenLinja?.painotetutArvosanat || []
+        );
+        console.log(modifiedAineet);
+        setCalculatedTulos(kouluaineetToHakupiste(modifiedAineet));
+      }
+    }
+  };
 
   return (
     <StyledBox>
@@ -192,12 +217,11 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
             {t('pistelaskuri.graafi.ei-tuloksia')}
           </Typography>
         ))}
-      {Boolean(hakukohde.hakukohteenLinja?.painotetutArvosanat) === true &&
-        (hakukohde.hakukohteenLinja?.painotetutArvosanat || []).length > 0 && (
-          <Typography variant="body1" sx={{ fontWeight: 600, margin: '1rem 0' }}>
-            Hakukohteella on painotettuja arvosanoja
-          </Typography>
-        )}
+      {hasPainokertoimia(hakukohde) && (
+        <Typography variant="body1" sx={{ fontWeight: 600, margin: '1rem 0' }}>
+          Hakukohteella on painotettuja arvosanoja
+        </Typography>
+      )}
     </StyledBox>
   );
 };

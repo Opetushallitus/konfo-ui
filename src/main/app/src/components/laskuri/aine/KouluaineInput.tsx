@@ -56,6 +56,7 @@ export const KouluaineInput = ({
     painokerroin: aine.painokerroin,
     description: aine.description,
     longText: aine.longText,
+    painotettavatoppiaineetlukiossaKoodiUri: aine.painotettavatoppiaineetlukiossaKoodiUri,
   });
 
   useEffect(() => {
