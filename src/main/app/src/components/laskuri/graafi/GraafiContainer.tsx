@@ -126,7 +126,20 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
 
   useEffect(() => {
     setCalculatedTulos(tulos);
-  }, [tulos]);
+    if (tulos?.tapa === LaskelmaTapa.LUKUAINEET && hasPainokertoimia(hakukohde)) {
+      const savedResult = LocalStorageUtil.load(KOULUAINE_STORE_KEY);
+      if (savedResult) {
+        const aineet = savedResult as Kouluaineet;
+        const modifiedAineet = kopioiKouluaineetPainokertoimilla(
+          aineet,
+          hakukohde.hakukohteenLinja?.painotetutArvosanat || []
+        );
+        setCalculatedTulos(kouluaineetToHakupiste(modifiedAineet));
+      }
+    } else {
+      setCalculatedTulos(tulos);
+    }
+  }, [tulos, hakukohde]);
 
   const hasPainokertoimia = (hk: Hakukohde) =>
     Boolean(hk.hakukohteenLinja?.painotetutArvosanat) === true &&
@@ -135,19 +148,6 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
   const changeHakukohde = (event: SelectChangeEvent<Hakukohde>) => {
     const uusiHakukohde = event.target.value as Hakukohde;
     setHakukohde(uusiHakukohde);
-    if (tulos?.tapa === LaskelmaTapa.LUKUAINEET && hasPainokertoimia(uusiHakukohde)) {
-      const savedResult = LocalStorageUtil.load(KOULUAINE_STORE_KEY);
-      if (savedResult) {
-        console.log(uusiHakukohde.hakukohteenLinja?.painotetutArvosanat);
-        const aineet = savedResult as Kouluaineet;
-        const modifiedAineet = kopioiKouluaineetPainokertoimilla(
-          aineet,
-          uusiHakukohde.hakukohteenLinja?.painotetutArvosanat || []
-        );
-        console.log(modifiedAineet);
-        setCalculatedTulos(kouluaineetToHakupiste(modifiedAineet));
-      }
-    }
   };
 
   return (
