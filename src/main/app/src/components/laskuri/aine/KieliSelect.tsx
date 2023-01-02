@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { styled, Select, InputLabel, FormControl, MenuItem, Input } from '@mui/material';
-import { useTranslation } from 'react-i18next';
 import { colors } from 'src/colors';
 
+import { translate } from '#/src/tools/localization';
 import { Koodi } from '#/src/types/common';
 
 import { useKieliKoodit } from '../hooks';
@@ -105,7 +105,6 @@ type Props = {
 };
 
 export const KieliSelect = ({ aine }: Props) => {
-  const { t } = useTranslation();
   const { data } = useKieliKoodit();
 
   const handleKieliChange = () => {
@@ -133,11 +132,11 @@ export const KieliSelect = ({ aine }: Props) => {
           variant="standard"
           disableUnderline={true}>
           <MenuItem key="arvosana-null" disabled={true} value="null">
-            {t('pistelaskuri.aine.valitsearvosana')}
+            Valitse kieli
           </MenuItem>
           {data.map((kieli: Koodi, index: number) => (
             <MenuItem key={`arvosana-${index}`} value={kieli.koodiUri}>
-              {kieli.koodiUri}
+              {translate(kieli.nimi)}
             </MenuItem>
           ))}
         </Select>
