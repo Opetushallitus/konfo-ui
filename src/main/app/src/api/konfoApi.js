@@ -91,6 +91,10 @@ export const getHakuDemo = async (hakuOid) => {
   }
 };
 
+export const getKoodistonKoodit = async (koodisto) => {
+  return await get(urls.url('konfo-backend.koodisto.koodit', koodisto));
+};
+
 export const getValintaperuste = createEntityGetter('valintaperusteet');
 
 export const searchKoulutukset = (requestParams, signal) =>

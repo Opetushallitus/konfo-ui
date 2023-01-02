@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Box, styled, Button, SelectChangeEvent } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-import { Kouluaine, hasInitialValues } from './Kouluaine';
+import { Kouluaine, hasInitialValues, Kieliaine } from './Kouluaine';
 import { KouluaineSelect } from './KouluaineSelect';
 import { ValinnainenArvosana } from './ValinnainenArvosana';
 
@@ -49,15 +49,7 @@ export const KouluaineInput = ({
   removeLisaKieli = () => {},
 }: Props) => {
   const { t } = useTranslation();
-  const [kouluaine, setKouluaine] = useState<Kouluaine>({
-    nimi: aine.nimi,
-    arvosana: aine.arvosana,
-    valinnaisetArvosanat: aine.valinnaisetArvosanat,
-    painokerroin: aine.painokerroin,
-    description: aine.description,
-    longText: aine.longText,
-    painotettavatoppiaineetlukiossaKoodiUri: aine.painotettavatoppiaineetlukiossaKoodiUri,
-  });
+  const [kouluaine, setKouluaine] = useState<Kouluaine | Kieliaine>({ ...aine });
 
   useEffect(() => {
     if (!hasInitialValues(aine)) {

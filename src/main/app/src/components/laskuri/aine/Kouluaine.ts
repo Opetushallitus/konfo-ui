@@ -10,15 +10,20 @@ export interface Kouluaine {
   arvosana: number | null;
   valinnaisetArvosanat: Array<number | null>;
   painokerroin: string;
-  description: string | null;
   longText?: boolean;
-  painotettavatoppiaineetlukiossaKoodiUri: string | null;
+  painotettavatoppiaineetlukiossaKoodiUri: string;
 }
+
+export interface Kieliaine extends Kouluaine {
+  kuvaus: string;
+  kieliKoodi?: string | null;
+}
+
+export const isKieliaine = (aine: Kouluaine): aine is Kieliaine => 'kuvaus' in aine;
 
 export const createKouluaine = (
   nimi: string,
-  painotettavatoppiaineetlukiossaKoodiUri: string | null = null,
-  description: string | null = null,
+  painotettavatoppiaineetlukiossaKoodiUri: string,
   longText: boolean = false
 ): Kouluaine => {
   return {
@@ -26,17 +31,24 @@ export const createKouluaine = (
     arvosana: null,
     valinnaisetArvosanat: [],
     painokerroin: '',
-    description,
     longText,
     painotettavatoppiaineetlukiossaKoodiUri,
   };
 };
 
+export const createKieliaine = (
+  nimi: string,
+  painotettavatoppiaineetlukiossaKoodiUri: string,
+  kuvaus: string
+): Kieliaine =>
+  Object.assign(createKouluaine(nimi, painotettavatoppiaineetlukiossaKoodiUri), {
+    kuvaus,
+  });
+
 export const hasInitialValues = (aine: Kouluaine) => {
   const initialAine = createKouluaine(
     aine.nimi,
     aine.painotettavatoppiaineetlukiossaKoodiUri,
-    aine.description,
     aine.longText
   );
   return _.isEqual(aine, initialAine);
@@ -45,8 +57,16 @@ export const hasInitialValues = (aine: Kouluaine) => {
 export class Kouluaineet implements LocalStorable {
   kielet: Array<Kouluaine> = [
     createKouluaine('kouluaineet.aidinkieli', 'painotettavatoppiaineetlukiossa_ai'),
-    createKouluaine('kouluaineet.a1-kieli', null, 'pistelaskuri.aine.kielikuvaukset.a1'),
-    createKouluaine('kouluaineet.b1-kieli', null, 'pistelaskuri.aine.kielikuvaukset.b1'),
+    createKieliaine(
+      'kouluaineet.a1-kieli',
+      'painotettavatoppiaineetlukiossa_a1',
+      'pistelaskuri.aine.kielikuvaukset.a1'
+    ),
+    createKieliaine(
+      'kouluaineet.b1-kieli',
+      'painotettavatoppiaineetlukiossa_b1',
+      'pistelaskuri.aine.kielikuvaukset.b1'
+    ),
   ];
   lisakielet: Array<Kouluaine> = [];
   muutLukuaineet: Array<Kouluaine> = [
@@ -56,12 +76,7 @@ export class Kouluaineet implements LocalStorable {
     createKouluaine('kouluaineet.fysiikka', 'painotettavatoppiaineetlukiossa_fy'),
     createKouluaine('kouluaineet.kemia', 'painotettavatoppiaineetlukiossa_ke'),
     createKouluaine('kouluaineet.terveystieto', 'painotettavatoppiaineetlukiossa_te'),
-    createKouluaine(
-      'kouluaineet.uskonto',
-      'painotettavatoppiaineetlukiossa_kt',
-      null,
-      true
-    ),
+    createKouluaine('kouluaineet.uskonto', 'painotettavatoppiaineetlukiossa_kt', true),
     createKouluaine('kouluaineet.historia', 'painotettavatoppiaineetlukiossa_hi'),
     createKouluaine('kouluaineet.yhteiskuntaoppi', 'painotettavatoppiaineetlukiossa_yh'),
   ];

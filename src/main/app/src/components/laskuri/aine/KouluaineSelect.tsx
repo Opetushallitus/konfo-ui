@@ -15,7 +15,8 @@ import { useTranslation } from 'react-i18next';
 import { colors } from 'src/colors';
 
 import { LabelTooltip } from '../../common/LabelTooltip';
-import { ARVOSANA_VALUES, Kouluaine } from './Kouluaine';
+import { KieliSelect } from './KieliSelect';
+import { ARVOSANA_VALUES, Kouluaine, Kieliaine, isKieliaine } from './Kouluaine';
 
 const PREFIX = 'keskiarvo__ainelaskuri__';
 
@@ -114,7 +115,7 @@ const AineSelectControl = styled(FormControl, {
 }));
 
 type Props = {
-  aine: Kouluaine;
+  aine: Kouluaine | Kieliaine;
   updateArvosana: (arvosana: number) => void;
   isLisaKieli?: boolean;
   removeLisaKieli?: () => void;
@@ -144,13 +145,14 @@ export const KouluaineSelect = ({
           {t(aine.nimi)}
         </InputLabel>
         <div>
-          {aine.description && (
+          {isKieliaine(aine) && (
             <LabelTooltip
-              title={t(aine.description)}
+              title={t(aine.kuvaus)}
               sx={{ marginLeft: '3px', color: colors.brandGreen }}></LabelTooltip>
           )}
         </div>
       </div>
+      {isKieliaine(aine) && <KieliSelect aine={aine} />}
       <Select
         labelId={labelId}
         value={String(aine.arvosana)}

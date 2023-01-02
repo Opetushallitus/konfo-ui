@@ -4,6 +4,7 @@ import { Box, styled, Typography, Button, List, ListItem } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
+import { formatDouble } from '#/src/tools/utils';
 
 import { Kouluaine } from '../aine/Kouluaine';
 
@@ -35,17 +36,19 @@ export const PainotetutArvosanat = ({ painotetutArvosanat }: Props) => {
       <Typography variant="body1" sx={{ fontWeight: 600, margin: '1rem 0' }}>
         Hakukohteella on painotettuja arvosanoja
       </Typography>
-      <Button onClick={() => setShowPainotetut(!showPainotetut)}>
-        {showPainotetut
-          ? 'Piilota antamasi kouluaineet joihin vaikuttaa painokerroin'
-          : 'Näytä antamasi kouluaineet joihin vaikuttaa painokerroin'}
-      </Button>
+      {painotetutArvosanat.length > 0 && (
+        <Button onClick={() => setShowPainotetut(!showPainotetut)}>
+          {showPainotetut
+            ? 'Piilota antamasi kouluaineet joihin vaikuttaa painokerroin'
+            : 'Näytä antamasi kouluaineet joihin vaikuttaa painokerroin'}
+        </Button>
+      )}
       {showPainotetut && (
         <List>
           {painotetutArvosanat.map((painotettu: Kouluaine, index: number) => (
             <ListItem key={`painotettu-${index}`}>{`Aine: ${t(
               painotettu.nimi
-            )}, painokerroin: ${painotettu.painokerroin}`}</ListItem>
+            )}, painokerroin: ${formatDouble(painotettu.painokerroin)}`}</ListItem>
           ))}
         </List>
       )}
