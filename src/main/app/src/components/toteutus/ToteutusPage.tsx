@@ -22,7 +22,11 @@ import { PageSection } from '#/src/components/common/PageSection';
 import TeemakuvaImage from '#/src/components/common/TeemakuvaImage';
 import { Heading } from '#/src/components/Heading';
 import { useOppilaitokset } from '#/src/components/oppilaitos/hooks';
-import { KOULUTUS_TYYPPI } from '#/src/constants';
+import {
+  KOULUTUS_TYYPPI,
+  YHTEISHAKU_KOODI_URI,
+  TOISEN_ASTEEN_YHTEISHAUN_KOHDEJOUKKO,
+} from '#/src/constants';
 import { useSideMenu } from '#/src/hooks';
 import { NotFound } from '#/src/NotFound';
 import { getHakuParams, getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
@@ -32,6 +36,7 @@ import { getLocalizedToteutusLaajuus, sanitizedHTMLParser } from '#/src/tools/ut
 import { Hakutieto } from '#/src/types/ToteutusTypes';
 
 import { useKoulutus } from '../koulutus/hooks';
+import { PisteContainer } from '../laskuri/PisteContainer';
 import { Asiasanat } from './Asiasanat';
 import { Diplomit } from './Diplomit';
 import { HakuKaynnissaCard } from './HakuKaynnissaCard';
@@ -143,6 +148,13 @@ export const ToteutusPage = () => {
   const combinedLisatiedot = useMemo(
     () => [...(koulutus?.lisatiedot || []), ...(opetus?.lisatiedot || [])],
     [koulutus?.lisatiedot, opetus?.lisatiedot]
+  );
+
+  const isToisenAsteenYhteisHaku = toteutus?.hakutiedot?.some(
+    (hakutieto: Hakutieto) =>
+      hakutieto?.hakutapa?.koodiUri &&
+      hakutieto?.hakutapa?.koodiUri.includes(YHTEISHAKU_KOODI_URI) &&
+      hakutieto?.kohdejoukko?.koodiUri?.includes(TOISEN_ASTEEN_YHTEISHAUN_KOHDEJOUKKO)
   );
 
   const erityisopetusHeading = t('toteutus.erityisopetus-otsikko');
@@ -267,6 +279,12 @@ export const ToteutusPage = () => {
               opintokokonaisuudet={kuuluuOpintokokonaisuuksiin || []}
             />
           )}
+        {isToisenAsteenYhteisHaku && (
+          <PisteContainer
+            hakutiedot={toteutus?.hakutiedot || []}
+            isLukio={toteutus?.koulutustyyppi === 'lk'}
+          />
+        )}
         <Box id="haut" display="flex" justifyContent="center">
           <ToteutusHakutiedot toteutus={toteutus} />
         </Box>

@@ -576,6 +576,107 @@
   "header": {
     "siirry-etusivulle": "Siirry Opintopolun etusivulle"
   },
+  "pistelaskuri": {
+    "heading": "Valintapistelaskuri",
+    "info": "Arvioi perusopetuksen päättötodistuksen keskiarvosi tai syötä kaikkien oppiaineiden arvosanat. Laskuri laskee valintapisteesi yhteishakua varten uusimpien valintaperusteiden mukaan.",
+    "laske": "Laske valintapisteet",
+    "laske-uudestaan": "Laske uudestaan",
+    "vertaa": "Vertaa pisteitä ja sulje laskuri",
+    "taide-info": "Taide- ja taitoaineita ovat liikunta, kuvataide, käsityö, kotitalous ja musiikki. Laske keskiarvo kolmesta parhaasta arvosanasta",
+    "lukio": {
+      "header": "Lukuaineiden keskiarvo lukioon hakua varten",
+      "body": "Lukiokoulutuksen valinnassa käytetään perusopetuksen päättötodistuksen lukuaineiden keskiarvoa. Joillain lukion linjoilla voidaan painottaa tiettyjä oppiaineita (esim. lukion urheilulinja). Lisäksi voi olla pääsykoe tai lisänäyttö, joista annetaan pisteitä. Tarkista valintaperusteet hakukohteen sivulta."
+    },
+    "ammatillinen": {
+      "header": "Ammatillisen koulutuksen valintapisteet",
+      "huomioitu": "Laskurissa huomioitu:",
+      "pisteytys-yleinen": "1-16 pistettä yleisestä koulumenestyksestä",
+      "pisteytys-painotettava": "1-8 pistettä painotettavista arvosanoista",
+      "pisteytys-ensisijainen": "2 pistettä ensimmäisestä hakutoiveesta",
+      "oletus": "Laskuri olettaa, että olet suorittanut perusopetuksen tai perusopetuksen jälkeisen valmentavan koulutuksen samana tai edellisenä vuonna kuin haet ammatilliseen koulutukseen. Jos et ole, vähennä tuloksesta 6 pistettä. Lisäksi voit saada pääsy- ja soveltuvuuskokeista 0-10 pistettä, mikäli koulutukseen järjestetään pääsykoe."
+    },
+    "pisteet": {
+      "lukio": "lukuaineiden keskiarvo",
+      "ammatillinen-first": "Ensisijaisen hakukohteen pisteet",
+      "ammatillinen-rest": "2. - 7. hakukohteen pisteet"
+    },
+    "valintaperusteet": {
+      "linkki": "Tutustu yleisiin valintaperusteisiin"
+    },
+    "error": {
+      "keskiarvo": "Syötä keskiarvo väliltä 4-10.\nKeskiarvo voi sisältää desimaaleja.",
+      "painokerroin": "Syötä numero väliltä 1-5.\nNumero voi sisältää desimaaleja."
+    },
+    "keskiarvot-header": "Perusopetuksen keskiarvot",
+    "ka-lukuaineet": "Lukuaineiden keskiarvo *",
+    "ka-taito": "Taide- ja taitoaineiden keskiarvo *",
+    "ka-kaikki": "Kaikkien aineiden keskiarvo *",
+    "graafi": {
+      "heading": "Aiemmat sisäänpääsyn pisteet yhteishaussa",
+      "laske-ja-vertaa": "Laske pistemääräsi ja vertaa",
+      "info": "Edellisvuosien alin hyväksytty pistemäärä, jolla oppilaitokseen on päässyt opiskelemaan. Tarkista hakukohteesta, järjestetäänkö koulutuksessa lisäksi pääsykoe, joka vaikuttaa lopulliseen pistemäärään. Esimerkiksi musiikkialan, tanssin ja sirkusalan opiskelijavalinta voi perustua pelkkään pääsykokeeseen.",
+      "info-rohkaisu": "Pistelasku on suuntaa antava. Koulutukseen kannattaa hakea, vaikka pistemääräsi ei olisikaan aiempien vuosien tasolla.",
+      "ei-tuloksia": "Hakukohteesta ei ole aiempien vuosien pistetietoja",
+      "keskiarvosi": "arvioitu keskiarvosi",
+      "alin-keskiarvo": "sisäänpääsyn alin keskiarvo",
+      "pisteesi": "arvioitu pistemääräsi",
+      "alin-pisteet": "sisäänpääsyn alin pistemäärä",
+      "poista": "Poista tietosi",
+      "saavutettavuus": {
+        "saate": "Sisäänpääsyn alin pisteraja on ollut kohteelle {{kohde}}",
+        "pisteet": "Arvioitu pistemääräsi on {{tulos}}",
+        "ka": "Arvioitu keskiarvosi on {{keskiarvo}}",
+        "vuosipiste": "Vuonna {{vuosi}}: {{pisteet}} pistettä.",
+        "vuosika": "Vuonna {{vuosi}}: {{pisteet}} keskiarvolla."
+      }
+    },
+    "vaihdalaskin-1": "Jos haluat tarkan laskelman, ",
+    "vaihdalaskin-2": "kerro oppiaineiden arvosanat yksitellen.",
+    "aine": {
+      "heading": "Perusopetuksen arvosanat",
+      "valinnaisaine": "Valinnaisaine",
+      "addvalinnainen": "+ Lisää valinnaisaine",
+      "removevalinnainen": "Poista valinnaisaine",
+      "addpainokerroin": "+ Lisää painokerroin",
+      "removepainokerroin": "Poista painokerroin",
+      "painokerroin": "Painokerroin",
+      "painokerroin-placeholder": "esim 1,1",
+      "addlanguage": "+ Lisää Kieli",
+      "lukuaineet": "Lukuaineet",
+      "taitoaineet": "Taide- ja taitoaineet",
+      "vaihdalaskin-1": "Voit myös ",
+      "vaihdalaskin-2": "arvioida keskiarvot itse.",
+      "kielikuvaukset": {
+        "a1": "Alakoulussa ensimmäisenä alkanut pakollinen kieli, yleensä englanti",
+        "a2": "Alakoulussa alkanut valinnainen kieli",
+        "b1": "Alakoulussa alkanut toinen kotimainen kieli, yleensä ruotsi",
+        "b2": "Yläkoulussa alkanut valinnainen kieli"
+      },
+      "removekieli": "Poista kieliaine",
+      "valitsearvosana": "Valitse arvosana"
+    }
+  },
+  "kouluaineet": {
+    "aidinkieli": "Äidinkieli ja kirjallisuus",
+    "a1-kieli": "A1-kieli",
+    "a2-kieli": "A2-kieli",
+    "b1-kieli": "B1-kieli",
+    "b2-kieli": "B2-kieli",
+    "matematiikka": "Matematiikka",
+    "biologia": "Biologia",
+    "maantieto": "Maantieto",
+    "fysiikka": "Fysiikka",
+    "kemia": "Kemia",
+    "terveystieto": "Terveystieto",
+    "uskonto": "Uskonto tai elämänkatsomustieto",
+    "historia": "Historia",
+    "yhteiskuntaoppi": "Yhteiskuntaoppi",
+    "musiikki": "Musiikki",
+    "kuvataide": "Kuvataide",
+    "kasityo": "Käsityö",
+    "liikunta": "Liikunta",
+    "kotitalous": "Kotitalous"
+  },
   "yhteishaku-info": {
     "tayta-hakulomake": "Täytä hakulomake",
     "ohjeet-hakemiseen": "Ohjeet hakemiseen",

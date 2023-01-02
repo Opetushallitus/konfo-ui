@@ -1,5 +1,7 @@
 export const YHTEISHAKU_KOODI_URI = 'hakutapa_01';
 
+export const TOISEN_ASTEEN_YHTEISHAUN_KOHDEJOUKKO = 'haunkohdejoukko_11';
+
 export const FILTER_TYPES = {
   KOULUTUSALA: 'koulutusala',
   KOULUTUSTYYPPI: 'koulutustyyppi',

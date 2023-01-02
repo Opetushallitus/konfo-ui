@@ -42,6 +42,15 @@ export type Hakuaika = {
   formatoituPaattyy: FormatoituAikaleima;
 };
 
+export type PisteHistoria = {
+  pisteet: number;
+  vuosi: string;
+};
+
+export type Metadata = {
+  pistehistoria?: Array<PisteHistoria>;
+};
+
 export type Hakukohde = {
   aloituspaikat: {
     lukumaara?: number;
@@ -83,6 +92,7 @@ export type Hakukohde = {
   liitteidenToimitustapa: string;
   liitteidenToimitusosoite: LiitteenYhteystiedot;
   hasValintaperustekuvausData: boolean;
+  metadata?: Metadata;
 };
 
 export type HakukohdeOid = string;
