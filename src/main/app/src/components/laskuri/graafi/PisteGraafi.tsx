@@ -21,6 +21,8 @@ import {
   GRAAFI_MIN_YEAR,
   usePisteHistoria,
   PisteData,
+  graafiYearModifier,
+  GraafiBoundary,
 } from './GraafiUtil';
 
 type Props = {
@@ -37,8 +39,14 @@ const PisteGraafiLukio = ({ hakukohde, tulos }: Props) => {
   return (
     <Box aria-hidden={true}>
       <VictoryChart
-        maxDomain={{ y: 10, x: GRAAFI_MAX_YEAR + 1 }}
-        minDomain={{ y: 4, x: GRAAFI_MIN_YEAR }}
+        maxDomain={{
+          y: 10,
+          x: GRAAFI_MAX_YEAR + graafiYearModifier(years, GraafiBoundary.MAX),
+        }}
+        minDomain={{
+          y: 4,
+          x: GRAAFI_MIN_YEAR + graafiYearModifier(years, GraafiBoundary.MIN),
+        }}
         width={920}
         theme={VictoryTheme.material}>
         <VictoryAxis
@@ -77,8 +85,14 @@ const PisteGraafiLukio = ({ hakukohde, tulos }: Props) => {
                 labels: { fontSize: isSmall ? 32 : 14 },
               }}
               data={[
-                { x: GRAAFI_MIN_YEAR, y: tulos.keskiarvo },
-                { x: GRAAFI_MAX_YEAR + 1, y: tulos.keskiarvo },
+                {
+                  x: GRAAFI_MIN_YEAR + graafiYearModifier(years, GraafiBoundary.MIN),
+                  y: tulos.keskiarvo,
+                },
+                {
+                  x: GRAAFI_MAX_YEAR + graafiYearModifier(years, GraafiBoundary.MAX),
+                  y: tulos.keskiarvo,
+                },
               ]}
               labels={[formatDouble(tulos.keskiarvo)]}
               labelComponent={<VictoryLabel renderInPortal dx={isSmall ? 25 : 15} />}
@@ -98,8 +112,14 @@ const PisteGraafiAmmatillinen = ({ hakukohde, tulos }: Props) => {
   return (
     <Box aria-hidden={true}>
       <VictoryChart
-        maxDomain={{ y: 32, x: GRAAFI_MAX_YEAR + 1 }}
-        minDomain={{ y: 0, x: GRAAFI_MIN_YEAR }}
+        maxDomain={{
+          y: 32,
+          x: GRAAFI_MAX_YEAR + graafiYearModifier(years, GraafiBoundary.MAX),
+        }}
+        minDomain={{
+          y: 0,
+          x: GRAAFI_MIN_YEAR + graafiYearModifier(years, GraafiBoundary.MIN),
+        }}
         width={920}
         theme={VictoryTheme.material}>
         <VictoryAxis
@@ -138,8 +158,14 @@ const PisteGraafiAmmatillinen = ({ hakukohde, tulos }: Props) => {
                 labels: { fontSize: isSmall ? 32 : 14 },
               }}
               data={[
-                { x: GRAAFI_MIN_YEAR, y: tulos.pisteet + ENSISIJAINEN_SCORE_BONUS },
-                { x: GRAAFI_MAX_YEAR + 1, y: tulos.pisteet + ENSISIJAINEN_SCORE_BONUS },
+                {
+                  x: GRAAFI_MIN_YEAR + graafiYearModifier(years, GraafiBoundary.MIN),
+                  y: tulos.pisteet + ENSISIJAINEN_SCORE_BONUS,
+                },
+                {
+                  x: GRAAFI_MAX_YEAR + graafiYearModifier(years, GraafiBoundary.MAX),
+                  y: tulos.pisteet + ENSISIJAINEN_SCORE_BONUS,
+                },
               ]}
               labels={[`${tulos.pisteet + ENSISIJAINEN_SCORE_BONUS}`]}
               labelComponent={<VictoryLabel renderInPortal dx={isSmall ? 25 : 15} />}

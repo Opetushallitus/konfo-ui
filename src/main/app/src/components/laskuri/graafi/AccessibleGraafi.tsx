@@ -10,7 +10,7 @@ import { formatDouble } from '#/src/tools/utils';
 import { Hakukohde, PisteHistoria } from '#/src/types/HakukohdeTypes';
 
 import { HakupisteLaskelma, ENSISIJAINEN_SCORE_BONUS } from '../Keskiarvo';
-import { GRAAFI_MIN_YEAR } from './GraafiUtil';
+import { GRAAFI_MIN_YEAR, MAX_ITEMS } from './GraafiUtil';
 
 type Props = {
   hakukohde: Hakukohde;
@@ -25,12 +25,13 @@ const hakukohdeToPisterajat = (
 ) => {
   const pisterajat = hakukohde.metadata?.pistehistoria
     ?.filter(
-      (historia: PisteHistoria) => Number.parseInt(historia.vuosi) > GRAAFI_MIN_YEAR
+      (historia: PisteHistoria) => Number.parseInt(historia.vuosi) >= GRAAFI_MIN_YEAR
     )
     .sort(
       (a: PisteHistoria, b: PisteHistoria) =>
         Number.parseInt(a.vuosi) - Number.parseInt(b.vuosi)
     )
+    .slice(0, MAX_ITEMS)
     .map((historia: PisteHistoria) =>
       t(
         isLukio
