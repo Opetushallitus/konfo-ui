@@ -19,6 +19,7 @@ export const colors = {
   invisible: 'rgba(255,255,255,0)',
   verminal: '#5BCA13',
   sunglow: '#FFCC33',
+  kkMagenta: '#990066',
 };
 
 // NOTE: kts. speksi Invision -> Oppija styleguide -> Konfo-UI colors

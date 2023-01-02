@@ -84,6 +84,7 @@ export type ToteutusMetadata = {
   erityisetKoulutustehtavat: Array<{ koodi: Koodi; kuvaus: Translateable }>;
   diplomit: Array<Lukiodiplomi>;
   kielivalikoima: Kielivalikoima;
+  jarjestaaUrheilijanAmmKoulutusta: boolean;
   ammatillinenPerustutkintoErityisopetuksena: boolean;
   jarjestetaanErityisopetuksena: boolean;
   hakutermi: 'hakeutuminen' | 'ilmoittautuminen';
@@ -91,6 +92,9 @@ export type ToteutusMetadata = {
   lisatietoaHakeutumisesta?: Translateable;
   opintojenLaajuusNumero?: number;
   opintojenLaajuusyksikko?: Koodi;
+  isAvoinKorkeakoulutus?: boolean;
+  tunniste?: string;
+  opinnonTyyppi?: Koodi;
 };
 
 export type Organisaatio = {
@@ -169,6 +173,7 @@ export type Jarjestaja = {
   toteutusOid: string;
   toteutusNimi: string;
   tutkintonimikkeet: TODOType;
+  jarjestaaUrheilijanAmmKoulutusta: boolean;
   ammatillinenPerustutkintoErityisopetuksena: boolean;
   jarjestetaanErityisopetuksena: boolean;
   hakuAuki: boolean;

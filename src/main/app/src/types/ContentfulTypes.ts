@@ -22,6 +22,24 @@ export type Info = Record<
   }
 >;
 
+export type InfoYhteishaku = Record<
+  string,
+  {
+    id: string;
+    otsikko: string;
+    kuvaus: string;
+    nimi: string;
+    color: string;
+    tekstiHakulomakkeelle?: string;
+    linkkiHakulomakkeelle?: string;
+    tekstiOhjeisiin?: string;
+    linkkiOhjeisiin?: string;
+    tekstiHakutuloksiin?: string;
+    linkkiHakutuloksiin?: string;
+    order?: number;
+  }
+>;
+
 export type Kortit = Record<
   string,
   Contentful & {
