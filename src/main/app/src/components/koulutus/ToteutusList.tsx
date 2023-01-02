@@ -327,7 +327,6 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
           <>
             {someValuesToShow ? (
               <Grid
-                container
                 direction="column"
                 justifyContent="center"
                 className={classes.grid}
