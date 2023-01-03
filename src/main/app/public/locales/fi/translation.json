@@ -628,6 +628,10 @@
         "ka": "Arvioitu keskiarvosi on {{keskiarvo}}",
         "vuosipiste": "Vuonna {{vuosi}}: {{pisteet}} pistettä.",
         "vuosika": "Vuonna {{vuosi}}: {{pisteet}} keskiarvolla."
+      },
+      "hakukohde": {
+        "lukio": "Lukio:",
+        "muu": "Koulutus:"
       }
     },
     "vaihdalaskin-1": "Jos haluat tarkan laskelman, ",
