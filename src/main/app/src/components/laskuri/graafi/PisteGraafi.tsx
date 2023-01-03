@@ -9,6 +9,7 @@ import {
   VictoryAxis,
   VictoryTheme,
   VictoryLabel,
+  Datum,
 } from 'victory';
 
 import { colors } from '#/src/colors';
@@ -36,11 +37,18 @@ const PisteGraafiLukio = ({ hakukohde, tulos }: Props) => {
   const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
 
+  const DEFAULT_MAX = 10;
+
+  const maxY = (datas: Array<Datum>): number => {
+    const highestScore = datas.map((datum) => datum.y).sort((a, b) => b - a)[0];
+    return Math.max(DEFAULT_MAX, highestScore);
+  };
+
   return (
     <Box aria-hidden={true}>
       <VictoryChart
         maxDomain={{
-          y: 10,
+          y: maxY(data),
           x: GRAAFI_MAX_YEAR + graafiYearModifier(years, GraafiBoundary.MAX),
         }}
         minDomain={{
@@ -60,7 +68,7 @@ const PisteGraafiLukio = ({ hakukohde, tulos }: Props) => {
         />
         <VictoryAxis
           dependentAxis
-          tickValues={[4, 6, 8, 10]}
+          tickValues={[4, 6, 8, maxY(data)]}
           style={{
             axis: { stroke: colors.invisible },
             ticks: { stroke: colors.invisible },
