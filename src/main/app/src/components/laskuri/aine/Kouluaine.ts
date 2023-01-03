@@ -90,15 +90,24 @@ export class Kouluaineet implements LocalStorable {
   suorittanut: boolean = true;
 }
 
+const koodiUriKieliAineelle = (aine: Kieliaine): string | undefined => {
+  if (aine.kieliKoodi) {
+    return aine.painotettavatoppiaineetlukiossaKoodiUri + aine.kieliKoodi.split('_')[1];
+  }
+  return;
+};
+
 export const kopioiKouluaineetPainokertoimilla = (
   kouluaineet: Kouluaineet,
   painotetutArvosanat: Array<PainotettuArvosana>
 ): Kouluaineet => {
   const setPainokerroinIfMatches = (aine: Kouluaine): Kouluaine => {
-    const matchingPa = painotetutArvosanat.find((pa: PainotettuArvosana) =>
-      pa.koodit.oppiaine.koodiUri.startsWith(
-        aine.painotettavatoppiaineetlukiossaKoodiUri || 'äöy'
-      )
+    const koodiUriToCompare = isKieliaine(aine)
+      ? koodiUriKieliAineelle(aine)
+      : aine.painotettavatoppiaineetlukiossaKoodiUri;
+    const matchingPa = painotetutArvosanat.find(
+      (pa: PainotettuArvosana) =>
+        koodiUriToCompare && pa.koodit.oppiaine.koodiUri.startsWith(koodiUriToCompare)
     );
     if (matchingPa) {
       return Object.assign(

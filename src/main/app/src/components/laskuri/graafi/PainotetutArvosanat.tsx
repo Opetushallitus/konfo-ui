@@ -6,7 +6,8 @@ import { useTranslation } from 'react-i18next';
 import { colors } from '#/src/colors';
 import { formatDouble } from '#/src/tools/utils';
 
-import { Kouluaine } from '../aine/Kouluaine';
+import { isKieliaine, Kouluaine } from '../aine/Kouluaine';
+import { useKieliKoodit } from '../hooks';
 
 const StyledBox = styled(Box)(() => ({
   marginTop: '1rem',
@@ -24,6 +25,7 @@ type Props = {
 export const PainotetutArvosanat = ({ painotetutArvosanat }: Props) => {
   const { t } = useTranslation();
   const [showPainotetut, setShowPainotetut] = useState(false);
+  const kielikoodit = useKieliKoodit();
 
   useEffect(() => {
     if (painotetutArvosanat.length < 1) {
@@ -46,9 +48,13 @@ export const PainotetutArvosanat = ({ painotetutArvosanat }: Props) => {
       {showPainotetut && (
         <List>
           {painotetutArvosanat.map((painotettu: Kouluaine, index: number) => (
-            <ListItem key={`painotettu-${index}`}>{`Aine: ${t(
-              painotettu.nimi
-            )}, painokerroin: ${formatDouble(painotettu.painokerroin)}`}</ListItem>
+            <ListItem key={`painotettu-${index}`}>{`Aine: ${t(painotettu.nimi)}${
+              isKieliaine(painotettu)
+                ? ' ' +
+                  kielikoodit?.find((koodi) => koodi.koodiUri === painotettu.kieliKoodi)
+                    ?.nimi.fi
+                : ''
+            }, painokerroin: ${formatDouble(painotettu.painokerroin)}`}</ListItem>
           ))}
         </List>
       )}
