@@ -1,6 +1,14 @@
 import React from 'react';
 
-import { styled, Select, InputLabel, FormControl, MenuItem, Input } from '@mui/material';
+import {
+  styled,
+  Select,
+  InputLabel,
+  FormControl,
+  MenuItem,
+  Input,
+  SelectChangeEvent,
+} from '@mui/material';
 import { colors } from 'src/colors';
 
 import { translate } from '#/src/tools/localization';
@@ -102,13 +110,14 @@ const KieliSelectControl = styled(FormControl)(({ theme }) => ({
 
 type Props = {
   aine: Kieliaine;
+  updateKieli: (koodiUri: string) => void;
 };
 
-export const KieliSelect = ({ aine }: Props) => {
+export const KieliSelect = ({ aine, updateKieli }: Props) => {
   const { data } = useKieliKoodit();
 
-  const handleKieliChange = () => {
-    return;
+  const handleKieliChange = (event: SelectChangeEvent) => {
+    updateKieli(event.target.value);
   };
 
   return (
@@ -125,7 +134,7 @@ export const KieliSelect = ({ aine }: Props) => {
           onChange={handleKieliChange}
           input={<Input className={classes.input} />}
           className={
-            String(aine.arvosana) === 'null'
+            aine.kieliKoodi == null
               ? `${classes.optionDisabled} ${classes.gradeSelect}`
               : classes.gradeSelect
           }

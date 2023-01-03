@@ -65,6 +65,12 @@ export const KouluaineInput = ({
     updateKouluaine(uusiaine);
   };
 
+  const handleKieliChange = (kieliKoodi: string) => {
+    const uusiaine = Object.assign({}, kouluaine, { kieliKoodi });
+    setKouluaine(uusiaine);
+    updateKouluaine(uusiaine);
+  };
+
   const handleValinnainenArvosanaChange = (event: SelectChangeEvent, index: number) => {
     const valinnaisetArvosanat = kouluaine.valinnaisetArvosanat;
     valinnaisetArvosanat[index] = Number(event.target.value);
@@ -92,6 +98,7 @@ export const KouluaineInput = ({
       <KouluaineSelect
         aine={kouluaine}
         updateArvosana={handleArvosanaChange}
+        updateKieli={handleKieliChange}
         isLisaKieli={isLisaKieli}
         removeLisaKieli={removeLisaKieli}
       />

@@ -117,6 +117,7 @@ const AineSelectControl = styled(FormControl, {
 type Props = {
   aine: Kouluaine | Kieliaine;
   updateArvosana: (arvosana: number) => void;
+  updateKieli: (koodiUri: string) => void;
   isLisaKieli?: boolean;
   removeLisaKieli?: () => void;
 };
@@ -124,6 +125,7 @@ type Props = {
 export const KouluaineSelect = ({
   aine,
   updateArvosana,
+  updateKieli,
   isLisaKieli = false,
   removeLisaKieli = () => {},
 }: Props) => {
@@ -152,7 +154,7 @@ export const KouluaineSelect = ({
           )}
         </div>
       </div>
-      {isKieliaine(aine) && <KieliSelect aine={aine} />}
+      {isKieliaine(aine) && <KieliSelect aine={aine} updateKieli={updateKieli} />}
       <Select
         labelId={labelId}
         value={String(aine.arvosana)}
