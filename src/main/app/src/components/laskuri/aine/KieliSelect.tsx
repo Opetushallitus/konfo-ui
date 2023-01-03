@@ -114,7 +114,7 @@ type Props = {
 };
 
 export const KieliSelect = ({ aine, updateKieli }: Props) => {
-  const { data } = useKieliKoodit();
+  const data = useKieliKoodit();
 
   const handleKieliChange = (event: SelectChangeEvent) => {
     updateKieli(event.target.value);
