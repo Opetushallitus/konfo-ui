@@ -630,7 +630,7 @@
         "vuosika": "Vuonna {{vuosi}}: {{pisteet}} keskiarvolla."
       },
       "hakukohde": {
-        "lukio": "Lukio:",
+        "lukio": "Linja:",
         "muu": "Koulutus:"
       }
     },
