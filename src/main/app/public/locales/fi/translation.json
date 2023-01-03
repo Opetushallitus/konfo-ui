@@ -618,7 +618,7 @@
       "info-rohkaisu": "Pistelasku on suuntaa antava. Koulutukseen kannattaa hakea, vaikka pistemääräsi ei olisikaan aiempien vuosien tasolla.",
       "ei-tuloksia": "Hakukohteesta ei ole aiempien vuosien pistetietoja",
       "keskiarvosi": "arvioitu keskiarvosi",
-      "alin-keskiarvo": "sisäänpääsyn alin keskiarvo",
+      "alin-keskiarvo": "sisäänpääsyn alin keskiarvo tai pistemäärä",
       "pisteesi": "arvioitu pistemääräsi",
       "alin-pisteet": "sisäänpääsyn alin pistemäärä",
       "poista": "Poista tietosi",
@@ -628,6 +628,10 @@
         "ka": "Arvioitu keskiarvosi on {{keskiarvo}}",
         "vuosipiste": "Vuonna {{vuosi}}: {{pisteet}} pistettä.",
         "vuosika": "Vuonna {{vuosi}}: {{pisteet}} keskiarvolla."
+      },
+      "hakukohde": {
+        "lukio": "Linja:",
+        "muu": "Koulutus:"
       }
     },
     "vaihdalaskin-1": "Jos haluat tarkan laskelman, ",

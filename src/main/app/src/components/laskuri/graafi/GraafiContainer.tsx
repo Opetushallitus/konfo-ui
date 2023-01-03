@@ -123,7 +123,11 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
     <StyledBox>
       <FormControl variant="standard" className={classes.hakukohdeControl}>
         <label className={classes.hakukohdeLabel} htmlFor="hakukohde-select">
-          {isLukio ? 'Linja:' : 'Koulutus:'}
+          {t(
+            isLukio
+              ? 'pistelaskuri.graafi.hakukohde.lukio'
+              : 'pistelaskuri.graafi.hakukohde.muu'
+          )}
         </label>
         <Select
           name="hakukohde-select"
