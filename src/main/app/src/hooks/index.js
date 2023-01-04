@@ -11,6 +11,7 @@ import { getContentfulData, getContentfulManifest } from '#/src/api/konfoApi';
 import { SIDEMENU_WIDTH } from '#/src/constants';
 import { setMenuState, useMenuOpen } from '#/src/store/reducers/appSlice';
 import { theme } from '#/src/theme';
+import i18n from '#/src/tools/i18n';
 
 export const useLanguageState = () => {
   const location = useLocation();
