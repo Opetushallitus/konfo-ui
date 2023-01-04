@@ -7,9 +7,7 @@ import { Kouluaine, hasInitialValues, Kieliaine } from './Kouluaine';
 import { KouluaineSelect } from './KouluaineSelect';
 import { ValinnainenArvosana } from './ValinnainenArvosana';
 
-const AineContainer = styled(Box, {
-  shouldForwardProp: (prop) => prop !== 'longText',
-})<{ longText: boolean | undefined }>(({ theme, longText }) => ({
+const AineContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   marginBottom: '27px',
@@ -21,7 +19,7 @@ const AineContainer = styled(Box, {
     alignSelf: 'end',
     fontWeight: 600,
   },
-  alignItems: longText ? 'end' : 'start',
+  alignItems: 'end',
   [theme.breakpoints.down('sm')]: {
     flexDirection: 'column',
     alignItems: 'start',
@@ -94,7 +92,7 @@ export const KouluaineInput = ({
   };
 
   return (
-    <AineContainer longText={aine.longText}>
+    <AineContainer>
       <KouluaineSelect
         aine={kouluaine}
         updateArvosana={handleArvosanaChange}

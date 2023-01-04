@@ -45,7 +45,7 @@ const ValinnainenControl = styled(FormControl)(({ theme }) => ({
     transformOrigin: 'left',
     transform: 'none',
     fontSize: '1rem',
-    fontWeight: 'semibold',
+    fontWeight: 600,
     lineHeight: '1.6rem',
   },
   [`& .${classes.gradeDelete}`]: {

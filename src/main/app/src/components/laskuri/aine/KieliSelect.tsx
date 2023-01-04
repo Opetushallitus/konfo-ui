@@ -22,26 +22,17 @@ const PREFIX = 'keskiarvo__ainelaskuri__';
 const classes = {
   input: `${PREFIX}input`,
   optionDisabled: `${PREFIX}option--disabled`,
-  gradeControl: `${PREFIX}gradecontrol`,
-  gradeLabel: `${PREFIX}gradelabel`,
-  gradeLabelContainer: `${PREFIX}gradelabelcontainer`,
-  gradeSelect: `${PREFIX}gradeselect`,
-  gradeInfo: `${PREFIX}gradeinfo`,
-  poistakieli: `${PREFIX}poistakieli`,
+  langLabel: `${PREFIX}langlabel`,
+  langLabelContainer: `${PREFIX}langlabelcontainer`,
 };
 
 const KieliSelectControl = styled(FormControl)(({ theme }) => ({
-  display: 'grid',
-  gridTemplateAreas: `"label label"
-     "select select"`,
-  alignItems: 'center',
-  alignContent: 'center',
-  justifyContent: 'start',
-  justifyItems: 'start',
+  display: 'flex',
+  justifyContent: 'flex-start',
+  justifyItems: 'flex-start',
   rowGap: '7px',
   columnGap: '2px',
   [theme.breakpoints.down('sm')]: {
-    gridTemplateColumns: '7fr 1fr',
     width: '100%',
     justifyItems: 'stretch',
   },
@@ -64,8 +55,7 @@ const KieliSelectControl = styled(FormControl)(({ theme }) => ({
   [`& .${classes.optionDisabled}`]: {
     color: colors.lightGrey,
   },
-  [`& .${classes.gradeLabelContainer}`]: {
-    gridArea: 'label',
+  [`& .${classes.langLabelContainer}`]: {
     display: 'flex',
     alignItems: 'center',
     columnGap: '2px',
@@ -73,7 +63,7 @@ const KieliSelectControl = styled(FormControl)(({ theme }) => ({
       width: '100%',
     },
   },
-  [`& .${classes.gradeLabel}`]: {
+  [`& .${classes.langLabel}`]: {
     overflow: 'unset',
     textOverflow: 'unset',
     overflowWrap: 'normal',
@@ -82,29 +72,9 @@ const KieliSelectControl = styled(FormControl)(({ theme }) => ({
     transformOrigin: 'left',
     transform: 'none',
     fontSize: '1rem',
-    fontWeight: 'semibold',
+    fontWeight: 'normal',
     maxWidth: '12rem',
     lineHeight: '1.6rem',
-  },
-  [`& .${classes.gradeInfo}`]: {
-    padding: '0',
-    svg: {
-      width: '1.4rem',
-      height: '1.4rem',
-      marginTop: '-4px',
-    },
-  },
-  [`& .${classes.gradeSelect}`]: {
-    gridArea: 'select',
-  },
-  [`& .${classes.poistakieli}`]: {
-    gridArea: 'kieli',
-    color: colors.brandGreen,
-    padding: '0.3rem 0.6rem',
-    svg: {
-      width: '1.4rem',
-      height: '1.4rem',
-    },
   },
 }));
 
@@ -121,30 +91,23 @@ export const KieliSelect = ({ aine, updateKieli }: Props) => {
   };
 
   return (
-    <KieliSelectControl
-      variant="standard"
-      sx={{ minWidth: 220 }}
-      className={classes.gradeControl}>
-      <div className={classes.gradeLabelContainer}>
-        <InputLabel className={classes.gradeLabel}>Kieli</InputLabel>
+    <KieliSelectControl variant="standard" sx={{ minWidth: 220 }}>
+      <div className={classes.langLabelContainer}>
+        <InputLabel className={classes.langLabel}>Kielen nimi</InputLabel>
       </div>
       {data !== undefined && (
         <Select
-          value={String(aine.kieliKoodi)}
+          value={String(aine.kieliKoodi || null)}
           onChange={handleKieliChange}
           input={<Input className={classes.input} />}
-          className={
-            aine.kieliKoodi == null
-              ? `${classes.optionDisabled} ${classes.gradeSelect}`
-              : classes.gradeSelect
-          }
+          className={aine.kieliKoodi == null ? `${classes.optionDisabled}` : ''}
           variant="standard"
           disableUnderline={true}>
-          <MenuItem key="arvosana-null" disabled={true} value="null">
+          <MenuItem key="kieli-null" disabled={true} value="null">
             Valitse kieli
           </MenuItem>
           {data.map((kieli: Koodi, index: number) => (
-            <MenuItem key={`arvosana-${index}`} value={kieli.koodiUri}>
+            <MenuItem key={`kieli-${index}`} value={kieli.koodiUri}>
               {translate(kieli.nimi)}
             </MenuItem>
           ))}

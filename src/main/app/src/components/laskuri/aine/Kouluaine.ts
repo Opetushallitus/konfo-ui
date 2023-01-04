@@ -10,7 +10,6 @@ export interface Kouluaine {
   arvosana: number | null;
   valinnaisetArvosanat: Array<number | null>;
   painokerroin: string;
-  longText?: boolean;
   painotettavatoppiaineetlukiossaKoodiUri: string;
 }
 
@@ -23,15 +22,13 @@ export const isKieliaine = (aine: Kouluaine): aine is Kieliaine => 'kuvaus' in a
 
 export const createKouluaine = (
   nimi: string,
-  painotettavatoppiaineetlukiossaKoodiUri: string,
-  longText: boolean = false
+  painotettavatoppiaineetlukiossaKoodiUri: string
 ): Kouluaine => {
   return {
     nimi,
     arvosana: null,
     valinnaisetArvosanat: [],
     painokerroin: '',
-    longText,
     painotettavatoppiaineetlukiossaKoodiUri,
   };
 };
@@ -48,8 +45,7 @@ export const createKieliaine = (
 export const hasInitialValues = (aine: Kouluaine) => {
   const initialAine = createKouluaine(
     aine.nimi,
-    aine.painotettavatoppiaineetlukiossaKoodiUri,
-    aine.longText
+    aine.painotettavatoppiaineetlukiossaKoodiUri
   );
   return _.isEqual(aine, initialAine);
 };
@@ -76,7 +72,7 @@ export class Kouluaineet implements LocalStorable {
     createKouluaine('kouluaineet.fysiikka', 'painotettavatoppiaineetlukiossa_fy'),
     createKouluaine('kouluaineet.kemia', 'painotettavatoppiaineetlukiossa_ke'),
     createKouluaine('kouluaineet.terveystieto', 'painotettavatoppiaineetlukiossa_te'),
-    createKouluaine('kouluaineet.uskonto', 'painotettavatoppiaineetlukiossa_kt', true),
+    createKouluaine('kouluaineet.uskonto', 'painotettavatoppiaineetlukiossa_kt'),
     createKouluaine('kouluaineet.historia', 'painotettavatoppiaineetlukiossa_hi'),
     createKouluaine('kouluaineet.yhteiskuntaoppi', 'painotettavatoppiaineetlukiossa_yh'),
   ];
