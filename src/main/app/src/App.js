@@ -204,11 +204,11 @@ const TranslatedRoutes = () => {
           </>
         }
       />
-      <Route element={<NotFound />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   ) : (
     <Routes>
-      <Route element={<NotFound />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };
