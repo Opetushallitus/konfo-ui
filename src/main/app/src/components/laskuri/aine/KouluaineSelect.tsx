@@ -111,7 +111,7 @@ const AineSelectControl = styled(FormControl, {
     transformOrigin: 'left',
     transform: 'none',
     fontSize: '1rem',
-    fontWeight: isKieliaine ? 'normal' : 600,
+    fontWeight: isKieli ? 'normal' : 600,
     maxWidth: '12rem',
     lineHeight: '1.6rem',
   },
