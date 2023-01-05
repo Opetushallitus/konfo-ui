@@ -166,11 +166,11 @@ export const {
 export default hakutulosSlice.reducer;
 
 export const navigateToHaku =
-  ({ history }) =>
+  ({ navigate }) =>
   (_dispatch, getState) => {
     const state = getState();
     const url = getHakuUrl(state);
-    history.push('/' + getLanguage() + url);
+    navigate('/' + getLanguage() + url);
   };
 
 const getCleanUrlSearch = (search, apiRequestParams) =>

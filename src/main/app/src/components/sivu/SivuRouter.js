@@ -4,7 +4,7 @@ import { Grid } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
-import { useParams, Link as RouterLink, Redirect } from 'react-router-dom';
+import { useParams, Link as RouterLink, Navigate } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
@@ -93,7 +93,7 @@ export const SivuRouter = () => {
       (slugInfo) => slugInfo.id === idInfo?.id && slugInfo?.language === lngParam
     );
     if (newSlug) {
-      return <Redirect to={`/${lngParam}/sivu/${newSlug}`} />;
+      return <Navigate to={`/${lngParam}/sivu/${newSlug}`} replace />;
     } else {
       return <NotFound loading={isLoading} />;
     }

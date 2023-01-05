@@ -5,7 +5,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
 import { useContentful, useSideMenu } from '#/src/hooks';
@@ -126,14 +126,14 @@ const ValikkoItem = (props) => {
   );
 };
 const SidebarValikko = (props) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { i18n } = useTranslation();
   const { forwardTo } = useContentful();
   const { parent, select, deselect, closeMenu, name, id, links } = props;
   const { keepMenuVisible } = useSideMenu();
 
   const forwardToPage = (pageId) => {
-    history.push(`/${i18n.language}${forwardTo(pageId)}`);
+    navigate(`/${i18n.language}${forwardTo(pageId)}`);
     if (!keepMenuVisible) {
       closeMenu();
     }

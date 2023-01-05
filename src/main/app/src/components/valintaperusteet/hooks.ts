@@ -9,7 +9,7 @@ import {
 import { useUrlParams } from '#/src/tools/useUrlParams';
 
 type PageDataProps = {
-  hakukohdeOid: string;
+  hakukohdeOid?: string;
 };
 
 export type PageData = {
@@ -52,7 +52,7 @@ export const useValintaperustePageData = (props: PageDataProps) => {
 };
 
 type PreviewPageDataProps = {
-  valintaperusteId: string;
+  valintaperusteId?: string;
 };
 
 export type PreviewPageData = {

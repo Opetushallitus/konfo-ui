@@ -268,7 +268,9 @@ export const ValintaperustePage = () => {
             <Grid item xs={12} md={3} />
             <Grid item xs={12} md={6}>
               <Paluu paluuLinkki={toteutusLink} />
-              <Heading>{t('lomake.valintaperusteet')}</Heading>
+              <Heading>
+                {t('lomake.valintaperusteet') + ' - ' + localize(hakukohde?.nimi)}
+              </Heading>
             </Grid>
             <Grid item xs={12} md={3} />
             <ValintaperusteContent

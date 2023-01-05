@@ -1,22 +1,26 @@
 import { useCallback, useMemo } from 'react';
 
 import qs from 'query-string';
-import { useHistory } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import { cleanRequestParams } from '#/src/tools/utils';
 
 export const useUrlParams = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
+  const location = useLocation();
   const search = useMemo(
-    () => qs.parse(history.location.search, { parseNumbers: true }),
-    [history.location.search]
+    () => qs.parse(location.search, { parseNumbers: true }),
+    [location.search]
   );
 
   const updateUrlSearchParams = useCallback(
     (updatedProps: object) => {
-      history.replace({ search: qs.stringify(cleanRequestParams(updatedProps)) });
+      navigate(
+        { search: qs.stringify(cleanRequestParams(updatedProps)) },
+        { replace: true }
+      );
     },
-    [history]
+    [navigate]
   );
 
   const isDraft = useMemo(() => Boolean(search?.draft), [search]);

@@ -85,7 +85,7 @@ export const selectToteutus = (toteutus: any) => {
 };
 
 type UseToteutusProps = {
-  oid: string;
+  oid?: string;
   isDraft?: boolean;
 };
 

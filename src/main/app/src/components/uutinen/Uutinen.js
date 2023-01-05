@@ -4,7 +4,7 @@ import { Card, CardContent, CardMedia, Grid } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
 import { useContentful } from '#/src/hooks';
@@ -61,7 +61,7 @@ const useImageUrl = (uutinen, asset, assetUrl) =>
 export const Uutinen = ({ id }) => {
   const { t, i18n } = useTranslation();
 
-  const history = useHistory();
+  const navigate = useNavigate();
   const { data, forwardTo, assetUrl } = useContentful();
 
   const uutinen = data.uutinen[id];
@@ -71,7 +71,7 @@ export const Uutinen = ({ id }) => {
   const imgUrl = useImageUrl(uutinen, asset, assetUrl);
 
   const forwardToPage = (pageId) => {
-    history.push(`/${i18n.language}${forwardTo(pageId)}`);
+    navigate(`/${i18n.language}${forwardTo(pageId)}`);
   };
 
   const timestamp = uutinen.formatoituUpdated || uutinen.formatoituCreated;

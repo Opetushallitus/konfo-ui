@@ -3,7 +3,7 @@ import { useCallback, useMemo } from 'react';
 import _fp from 'lodash/fp';
 import { useQuery } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { searchKoulutukset, searchOppilaitokset } from '#/src/api/konfoApi';
 import {
@@ -119,12 +119,12 @@ export const useSearch = () => {
     pageSize,
   ]);
 
-  const history = useHistory();
+  const navigate = useNavigate();
   const currentPage = useCurrentPage();
 
   const goToSearchPage = useCallback(
-    () => dispatch(navigateToHaku({ history })),
-    [dispatch, history]
+    () => dispatch(navigateToHaku({ navigate })),
+    [dispatch, navigate]
   );
 
   const setPagination = useCallback(
@@ -263,15 +263,15 @@ export const useAllSelectedFilters = () => {
 const useDispatchCb = (fn: (x: any) => any, options: { syncUrl?: boolean } = {}) => {
   const dispatch = useDispatch();
   const currentPage = useCurrentPage();
-  const history = useHistory();
+  const navigate = useNavigate();
   return useCallback(
     (props) => {
       dispatch(fn(props));
       if (options?.syncUrl && currentPage === 'haku') {
-        dispatch(navigateToHaku({ history }));
+        dispatch(navigateToHaku({ navigate }));
       }
     },
-    [dispatch, fn, currentPage, options, history]
+    [dispatch, fn, currentPage, options, navigate]
   );
 };
 

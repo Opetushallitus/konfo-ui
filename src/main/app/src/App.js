@@ -6,9 +6,10 @@ import clsx from 'clsx';
 import Cookies from 'js-cookie';
 import { useTranslation } from 'react-i18next';
 import { useIsFetching } from 'react-query';
-import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
+import { Navigate, Routes, Route, useLocation, useParams } from 'react-router-dom';
 
 import { CookieModal } from '#/src/components/common/CookieModal';
+import SiteImprove from '#/src/components/common/SiteImprove';
 import { HeadingBoundary } from '#/src/components/Heading';
 import { useSideMenu } from '#/src/hooks';
 import { NotFound } from '#/src/NotFound';
@@ -94,10 +95,11 @@ const KoulutusHakuBar = () => (
   </div>
 );
 
-const TranslatedRoutes = ({ match, location }) => {
+const TranslatedRoutes = () => {
   const { i18n } = useTranslation();
-  const selectedLanguage = match.params.lng;
-
+  const location = useLocation();
+  const params = useParams();
+  const selectedLanguage = params?.lng;
   useEffect(() => {
     if (supportedLanguages.includes(selectedLanguage)) {
       i18n.changeLanguage(selectedLanguage);
@@ -114,53 +116,100 @@ const TranslatedRoutes = ({ match, location }) => {
       ...location,
       pathname: '/' + (langCookie ? langCookie : 'fi') + location.pathname,
     };
-    return <Redirect to={newLocation} />;
+    return <Navigate to={newLocation} replace />;
   }
 
   return supportedLanguages.includes(selectedLanguage) ? (
-    <Switch>
-      <Route exact path="/:lng">
-        <Etusivu />
-      </Route>
-      <Route exact path="/:lng/sisaltohaku/">
-        <Sisaltohaku />
-      </Route>
-      <Route exact path="/:lng/haku/:keyword?">
-        <KoulutusHakuBar />
-        <HakuPage />
-      </Route>
-      <Route exact path="/:lng/koulutus/:oid">
-        <KoulutusHakuBar />
-        <KoulutusPage />
-      </Route>
-      <Route exact path="/:lng/oppilaitos/:oid">
-        <KoulutusHakuBar />
-        <OppilaitosPage />
-      </Route>
-      <Route exact path="/:lng/oppilaitososa/:oid">
-        <KoulutusHakuBar />
-        <OppilaitosPage oppilaitosOsa />
-      </Route>
-      <Route exact path="/:lng/toteutus/:oid">
-        <KoulutusHakuBar />
-        <ToteutusPage />
-      </Route>
-      <Route exact path="/:lng/sivu/:id">
-        <KoulutusHakuBar />
-        <SivuRouter />
-      </Route>
-      <Route exact path="/:lng/hakukohde/:hakukohdeOid/valintaperuste">
-        <KoulutusHakuBar />
-        <ValintaperustePage />
-      </Route>
-      <Route exact path="/:lng/valintaperuste/:valintaperusteId">
-        <KoulutusHakuBar />
-        <ValintaperustePreviewPage />
-      </Route>
-      <Route component={NotFound} />
-    </Switch>
+    <Routes>
+      <Route path="/" element={<Etusivu />} />
+      <Route path="sisaltohaku/" element={<Sisaltohaku />} />
+      <Route
+        path="haku/:keyword/*"
+        element={
+          <>
+            <KoulutusHakuBar />
+            <HakuPage />
+          </>
+        }
+      />
+      <Route
+        path="haku/*"
+        element={
+          <>
+            <KoulutusHakuBar />
+            <HakuPage />
+          </>
+        }
+      />
+      <Route
+        path="koulutus/:oid"
+        element={
+          <>
+            <KoulutusHakuBar />
+            <KoulutusPage />
+          </>
+        }
+      />
+      <Route
+        path="oppilaitos/:oid"
+        element={
+          <>
+            <KoulutusHakuBar />
+            <OppilaitosPage />
+          </>
+        }
+      />
+      <Route
+        path="oppilaitososa/:oid"
+        element={
+          <>
+            <KoulutusHakuBar />
+            <OppilaitosPage oppilaitosOsa />
+          </>
+        }
+      />
+      <Route
+        path="toteutus/:oid"
+        element={
+          <>
+            <KoulutusHakuBar />
+            <ToteutusPage />
+          </>
+        }
+      />
+      <Route
+        path="sivu/:id"
+        element={
+          <>
+            <KoulutusHakuBar />
+            <SivuRouter />
+          </>
+        }
+      />
+      <Route
+        path="hakukohde/:hakukohdeOid/valintaperuste"
+        element={
+          <>
+            <KoulutusHakuBar />
+            <ValintaperustePage />
+          </>
+        }
+      />
+      <Route
+        path="valintaperuste/:valintaperusteId"
+        element={
+          <>
+            <KoulutusHakuBar />
+            <ValintaperustePreviewPage />
+          </>
+        }
+      />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   ) : (
-    <Route component={NotFound} />
+    <Routes>
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   );
 };
 
@@ -228,6 +277,7 @@ const App = () => {
     <Root betaBannerVisible={betaBanner} isSmall={isSmall} menuVisible={menuVisible}>
       <Draft />
       <CookieModal />
+      <SiteImprove titleObj={titleObj} />
       <Box display="flex">
         <Header
           toggleMenu={toggleMenu}
@@ -249,7 +299,10 @@ const App = () => {
             [classes.contentShift]: menuVisible,
           })}>
           <HeadingBoundary>
-            <Route path="/:lng?" component={TranslatedRoutes} />
+            <Routes>
+              <Route path="/:lng/*" element={<TranslatedRoutes />} />
+              <Route path="*" element={<TranslatedRoutes />} />
+            </Routes>
             <Palvelut />
             <Footer />
           </HeadingBoundary>
