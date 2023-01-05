@@ -19,9 +19,15 @@ export interface Keskiarvot extends LocalStorable {
   kaikki: string;
 }
 
+export interface Osalasku extends LocalStorable {
+  kaikki: number;
+  taideTaitoAineet: number;
+}
+
 export interface HakupisteLaskelma extends LocalStorable {
   keskiarvo: number;
   pisteet: number;
+  osalasku?: Osalasku;
 }
 
 const isEligibleArvosana = (arvosana: number | null): boolean => {
@@ -153,12 +159,13 @@ export const keskiArvotToHakupiste = (keskiarvot: Keskiarvot): HakupisteLaskelma
     Number(keskiarvot.kaikki.replace(',', '.')),
     PISTEET_KAIKKI_MAP
   );
-  const pisteetLukuaineet = getMatchingScore(
+  const pisteetTaitoaineet = getMatchingScore(
     Number(keskiarvot.taideTaitoAineet.replace(',', '.')),
     PISTEET_TAITO_MAP
   );
   return {
     keskiarvo: Number(keskiarvot.lukuaineet.replace(',', '.')),
-    pisteet: pisteetKaikki + pisteetLukuaineet + COMPLETED_STUDIES_SCORE,
+    pisteet: pisteetKaikki + pisteetTaitoaineet + COMPLETED_STUDIES_SCORE,
+    osalasku: { kaikki: pisteetKaikki, taideTaitoAineet: pisteetTaitoaineet },
   };
 };
