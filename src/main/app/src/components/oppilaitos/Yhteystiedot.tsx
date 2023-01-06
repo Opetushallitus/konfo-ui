@@ -100,6 +100,14 @@ export const Yhteystiedot = ({
       .map(parseYhteystieto())
       .sort(byLocaleCompare('nimi'));
 
+    if (Array.isArray(hakijapalveluidenYhteystiedot)) {
+      return hakijapalveluidenYhteystiedot
+        .filter(Boolean)
+        .map(parseYhteystieto())
+        .sort(byLocaleCompare('nimi'))
+        .concat(organisaatiot);
+    }
+
     return [hakijapalveluidenYhteystiedot as any] // hakijapalveluidenYhteystiedot aina ensimmäisenä, vasta sen jälkeen sortataan
       .filter((obj) => _.hasIn(obj, 'nimi'))
       .map(parseYhteystieto())
