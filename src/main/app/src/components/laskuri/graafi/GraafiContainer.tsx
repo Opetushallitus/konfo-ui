@@ -18,11 +18,7 @@ import { localize } from '#/src/tools/localization';
 import { Hakukohde } from '#/src/types/HakukohdeTypes';
 import { Hakutieto } from '#/src/types/ToteutusTypes';
 
-import {
-  Kouluaineet,
-  kopioiKouluaineetPainokertoimilla,
-  Kouluaine,
-} from '../aine/Kouluaine';
+import { Kouluaineet, kopioiKouluaineetPainokertoimilla } from '../aine/Kouluaine';
 import { HakupisteLaskelma, LaskelmaTapa, kouluaineetToHakupiste } from '../Keskiarvo';
 import { KOULUAINE_STORE_KEY, LocalStorageUtil } from '../LocalStorageUtil';
 import { AccessibleGraafi } from './AccessibleGraafi';
@@ -128,7 +124,6 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
     .flatMap((tieto: Hakutieto) => tieto.hakukohteet);
   const [hakukohde, setHakukohde] = useState(hakukohteet[0]);
   const [calculatedTulos, setCalculatedTulos] = useState(tulos);
-  const [painotetutArvosanat, setPainotetutarvosanat] = useState<Array<Kouluaine>>([]);
 
   useEffect(() => {
     setCalculatedTulos(tulos);
@@ -141,16 +136,9 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
           hakukohde.hakukohteenLinja?.painotetutArvosanat || []
         );
         setCalculatedTulos(kouluaineetToHakupiste(modifiedAineet));
-        const painotetut = modifiedAineet.kielet
-          .concat(modifiedAineet.lisakielet)
-          .concat(modifiedAineet.muutLukuaineet)
-          .concat(modifiedAineet.taitoaineet)
-          .filter((aine: Kouluaine) => aine.painokerroin !== '');
-        setPainotetutarvosanat(painotetut);
       }
     } else {
       setCalculatedTulos(tulos);
-      setPainotetutarvosanat([]);
     }
   }, [tulos, hakukohde]);
 
@@ -231,7 +219,9 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
           </Typography>
         ))}
       {hasPainokertoimia(hakukohde) && (
-        <PainotetutArvosanat painotetutArvosanat={painotetutArvosanat} />
+        <PainotetutArvosanat
+          painotetutArvosanat={hakukohde.hakukohteenLinja?.painotetutArvosanat || []}
+        />
       )}
     </StyledBox>
   );

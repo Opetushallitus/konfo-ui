@@ -1,63 +1,37 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
-import { Box, styled, Typography, Button, List, ListItem } from '@mui/material';
+import { Box, styled, Typography, List, ListItem } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-import { colors } from '#/src/colors';
+import { translate } from '#/src/tools/localization';
 import { formatDouble } from '#/src/tools/utils';
-
-import { isKieliaine, Kouluaine } from '../aine/Kouluaine';
-import { useKieliKoodit } from '../hooks';
+import { PainotettuArvosana } from '#/src/types/HakukohdeTypes';
 
 const StyledBox = styled(Box)(() => ({
   marginTop: '1rem',
-  background: `${colors.white} 0% 0% no-repeat padding-box`,
-  boxShadow: 'inset -2px -2px 7px #0000001A',
-  borderRadius: '2px',
-  padding: '20px',
-  textAlign: 'center',
 }));
 
 type Props = {
-  painotetutArvosanat: Array<Kouluaine>;
+  painotetutArvosanat: Array<PainotettuArvosana>;
 };
 
 export const PainotetutArvosanat = ({ painotetutArvosanat }: Props) => {
   const { t } = useTranslation();
-  const [showPainotetut, setShowPainotetut] = useState(false);
-  const kielikoodit = useKieliKoodit();
-
-  useEffect(() => {
-    if (painotetutArvosanat.length < 1) {
-      setShowPainotetut(false);
-    }
-  }, [painotetutArvosanat]);
 
   return (
     <StyledBox>
       <Typography variant="body1" sx={{ fontWeight: 600, margin: '1rem 0' }}>
-        Hakukohteella on painotettuja arvosanoja
+        {t('pistelaskuri.graafi.painotettujaarvosanoja')}
       </Typography>
-      {painotetutArvosanat.length > 0 && (
-        <Button onClick={() => setShowPainotetut(!showPainotetut)}>
-          {showPainotetut
-            ? 'Piilota antamasi kouluaineet joihin vaikuttaa painokerroin'
-            : 'Näytä antamasi kouluaineet joihin vaikuttaa painokerroin'}
-        </Button>
-      )}
-      {showPainotetut && (
-        <List>
-          {painotetutArvosanat.map((painotettu: Kouluaine, index: number) => (
-            <ListItem key={`painotettu-${index}`}>{`Aine: ${t(painotettu.nimi)}${
-              isKieliaine(painotettu)
-                ? ' ' +
-                  kielikoodit?.find((koodi) => koodi.koodiUri === painotettu.kieliKoodi)
-                    ?.nimi.fi
-                : ''
-            }, painokerroin: ${formatDouble(painotettu.painokerroin)}`}</ListItem>
-          ))}
-        </List>
-      )}
+      <List dense={true} sx={{ listStyleType: 'disc', paddingLeft: '3rem' }}>
+        {painotetutArvosanat.map((painotettu: PainotettuArvosana, index: number) => (
+          <ListItem key={`painotettu-${index}`} sx={{ display: 'list-item' }}>
+            {`${translate(painotettu.koodit.oppiaine.nimi)}, ${t(
+              'pistelaskuri.graafi.painokerroin'
+            )}: ${formatDouble(painotettu.painokerroin)}`}
+          </ListItem>
+        ))}
+      </List>
     </StyledBox>
   );
 };

@@ -646,7 +646,9 @@
       "hakukohde": {
         "lukio": "Linja:",
         "muu": "Koulutus:"
-      }
+      },
+      "painotettujaarvosanoja": "Lukiolinjalla on painotettuja arvosanoja keskiarvolaskennassa",
+      "painokerroin": "painokerroin"
     },
     "vaihdalaskin-1": "Jos haluat tarkan laskelman, ",
     "vaihdalaskin-2": "kerro oppiaineiden arvosanat yksitellen.",
