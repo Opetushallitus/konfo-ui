@@ -594,7 +594,7 @@
       "pisteytys-yleinen": "1-16 pistettä yleisestä koulumenestyksestä",
       "pisteytys-painotettava": "1-8 pistettä painotettavista arvosanoista",
       "pisteytys-ensisijainen": "2 pistettä ensimmäisestä hakutoiveesta",
-      "oletus": "Laskuri olettaa, että olet suorittanut perusopetuksen tai perusopetuksen jälkeisen valmentavan koulutuksen samana tai edellisenä vuonna kuin haet ammatilliseen koulutukseen. Jos et ole, vähennä tuloksesta 6 pistettä. Lisäksi voit saada pääsy- ja soveltuvuuskokeista 0-10 pistettä, mikäli koulutukseen järjestetään pääsykoe."
+      "oletus": "Lisäksi voit saada pääsy- ja soveltuvuuskokeista 0-10 pistettä, mikäli koulutukseen järjestetään pääsykoe."
     },
     "pisteet": {
       "lukio": "lukuaineiden keskiarvo",

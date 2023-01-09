@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { OpenInNew } from '@mui/icons-material';
-import { Box, Typography, styled, Paper, List, ListItem } from '@mui/material';
+import { Box, Typography, styled, Paper } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -9,7 +9,7 @@ import { colors } from '#/src/colors';
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
 import { formatDouble } from '#/src/tools/utils';
 
-import { HakupisteLaskelma, ENSISIJAINEN_SCORE_BONUS } from './Keskiarvo';
+import { HakupisteLaskelma, ENSISIJAINEN_SCORE_BONUS, Osalasku } from './Keskiarvo';
 
 const PREFIX = 'keskiarvo__tulos__';
 
@@ -20,6 +20,9 @@ const classes = {
   textContainer: `${PREFIX}textcontainer`,
   textBlock: `${PREFIX}textblock`,
   linkIcon: `${PREFIX}linkicon`,
+  osalaskut: `${PREFIX}osalaskut`,
+  osalaskutSection: `${PREFIX}osalaskut__section`,
+  osalaskutDisc: `${PREFIX}osalaskut__disc`,
 };
 
 const TulosContainer = styled(Box)(({ theme }) => ({
@@ -82,6 +85,25 @@ const TulosContainer = styled(Box)(({ theme }) => ({
     marginRight: '5px',
     marginBottom: '1px',
   },
+  [`& .${classes.osalaskut}`]: {
+    display: 'flex',
+    flexDirection: 'column',
+    paddingLeft: '4.5rem',
+    paddingRight: '2rem',
+    marginBottom: '1.4rem',
+    [`& .${classes.osalaskutSection}`]: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'top',
+      [`& .${classes.osalaskutDisc}`]: {
+        width: '10px',
+        height: '10px',
+        borderRadius: 45,
+        marginRight: '0.5rem',
+        marginTop: '7px',
+      },
+    },
+  },
 }));
 
 type ResultSphereProps = {
@@ -112,6 +134,53 @@ const LinkToValintaPerusteet = () => {
       <OpenInNew className={classes.linkIcon} />
       {t('pistelaskuri.valintaperusteet.linkki')}
     </LocalizedLink>
+  );
+};
+
+type OsalaskutProps = {
+  osalasku: Osalasku;
+};
+
+const Osalaskut = ({ osalasku }: OsalaskutProps) => {
+  return (
+    <Box className={classes.osalaskut}>
+      <Box className={classes.osalaskutSection}>
+        <Box className={classes.osalaskutDisc} sx={{ backgroundColor: '#FFCC33' }} />
+        <Typography variant="body1" className={classes.textBlock}>
+          Yleinen koulumenestys {osalasku.kaikki} / 16 p
+        </Typography>
+      </Box>
+      <Box className={classes.osalaskutSection}>
+        <Box
+          className={classes.osalaskutDisc}
+          sx={{ backgroundColor: colors.brandGreen }}
+        />
+        <Typography variant="body1" className={classes.textBlock}>
+          Painotettavat arvosanat {osalasku.taideTaitoAineet} / 9 p
+        </Typography>
+      </Box>
+      <Box className={classes.osalaskutSection}>
+        <Box
+          className={classes.osalaskutDisc}
+          sx={{ backgroundColor: colors.darkGrey }}
+        />
+        <Typography
+          variant="body1"
+          className={classes.textBlock}
+          sx={{ lineHeight: '1.3rem' }}>
+          Perusopetuksen / valmentavan koulutuksen suorittaminen hakuvuonna 6 / 6 p
+        </Typography>
+      </Box>
+      <Box className={classes.osalaskutSection}>
+        <Box
+          className={classes.osalaskutDisc}
+          sx={{ backgroundColor: colors.kkMagenta }}
+        />
+        <Typography variant="body1" className={classes.textBlock}>
+          Ensimmäinen hakutoive 2 p
+        </Typography>
+      </Box>
+    </Box>
   );
 };
 
@@ -148,21 +217,8 @@ export const KeskiarvoTulos = ({ tulos }: Props) => {
             text={t('pistelaskuri.pisteet.ammatillinen-rest')}
           />
         </Box>
+        {tulos.osalasku && <Osalaskut osalasku={tulos.osalasku} />}
         <Paper className={classes.textContainer} elevation={0}>
-          <Typography variant="body1" className={classes.textBlock}>
-            {t('pistelaskuri.ammatillinen.huomioitu')}
-          </Typography>
-          <List sx={{ fontSize: '0.875rem', listStyleType: 'disc', pl: 2 }} dense={true}>
-            <ListItem sx={{ display: 'list-item' }}>
-              {t('pistelaskuri.ammatillinen.pisteytys-yleinen')}
-            </ListItem>
-            <ListItem sx={{ display: 'list-item' }}>
-              {t('pistelaskuri.ammatillinen.pisteytys-painotettava')}
-            </ListItem>
-            <ListItem sx={{ display: 'list-item' }}>
-              {t('pistelaskuri.ammatillinen.pisteytys-ensisijainen')}
-            </ListItem>
-          </List>
           <Typography
             variant="body1"
             className={classes.textBlock}
