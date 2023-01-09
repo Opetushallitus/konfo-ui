@@ -93,6 +93,45 @@ export const consoleWarning = (...props) => {
   }
 };
 
+function getFormattedOpintojenLaajuus(
+  opintojenLaajuusNumero,
+  opintojenLaajuusYksikko,
+  opintojenLaajuusMin,
+  opintojenLaajuusMax
+) {
+  const usedOpintojenLaajuusNumero =
+    !_fp.isEmpty(opintojenLaajuusMin) && opintojenLaajuusMin === opintojenLaajuusMax
+      ? opintojenLaajuusMin
+      : opintojenLaajuusNumero;
+
+  let opintojenLaajuus;
+  if (usedOpintojenLaajuusNumero) {
+    const includesYksikko = /\D+$/.test(usedOpintojenLaajuusNumero);
+
+    if (includesYksikko) {
+      opintojenLaajuus = usedOpintojenLaajuusNumero;
+    } else if (opintojenLaajuusYksikko) {
+      opintojenLaajuus =
+        `${usedOpintojenLaajuusNumero} ${opintojenLaajuusYksikko}`.trim();
+    }
+  } else if (opintojenLaajuusMin || opintojenLaajuusMax) {
+    if (opintojenLaajuusMin && opintojenLaajuusMax) {
+      opintojenLaajuus =
+        `${opintojenLaajuusMin}${NDASH}${opintojenLaajuusMax} ${opintojenLaajuusYksikko}`.trim();
+    } else if (opintojenLaajuusMin) {
+      opintojenLaajuus = `${getTranslationForKey(
+        'vähintään'
+      )} ${opintojenLaajuusMin} ${opintojenLaajuusYksikko}`.trim();
+    } else if (opintojenLaajuusMax) {
+      opintojenLaajuus = `${getTranslationForKey(
+        'enintään'
+      )} ${opintojenLaajuusMax} ${opintojenLaajuusYksikko}`.trim();
+    }
+  }
+
+  return opintojenLaajuus;
+}
+
 function getLocalizedKoulutusOpintojenLaajuus(koulutus) {
   const tutkinnonOsat = koulutus?.tutkinnonOsat || [];
 
@@ -114,35 +153,12 @@ function getLocalizedKoulutusOpintojenLaajuus(koulutus) {
   const opintojenLaajuusMin = formatDouble(koulutus?.opintojenLaajuusNumeroMin);
   const opintojenLaajuusMax = formatDouble(koulutus?.opintojenLaajuusNumeroMax);
 
-  if (!_fp.isEmpty(opintojenLaajuusMin) && opintojenLaajuusMin === opintojenLaajuusMax) {
-    opintojenLaajuusNumero = opintojenLaajuusMin;
-  }
-
-  let opintojenLaajuus;
-  if (opintojenLaajuusNumero) {
-    const includesYksikko = /\D+$/.test(opintojenLaajuusNumero);
-
-    if (includesYksikko) {
-      opintojenLaajuus = opintojenLaajuusNumero;
-    } else if (opintojenLaajuusYksikko) {
-      opintojenLaajuus = `${opintojenLaajuusNumero} ${opintojenLaajuusYksikko}`.trim();
-    }
-  } else if (opintojenLaajuusMin) {
-    if (opintojenLaajuusMin && opintojenLaajuusMax) {
-      opintojenLaajuus =
-        `${opintojenLaajuusMin}${NDASH}${opintojenLaajuusMax} ${opintojenLaajuusYksikko}`.trim();
-    } else if (opintojenLaajuusMin) {
-      opintojenLaajuus = `${getTranslationForKey(
-        'vähintään'
-      )} ${opintojenLaajuusMin} ${opintojenLaajuusYksikko}`.trim();
-    } else if (opintojenLaajuusMax) {
-      opintojenLaajuus = `${getTranslationForKey(
-        'enintään'
-      )} ${opintojenLaajuusMax} ${opintojenLaajuusYksikko}`.trim();
-    }
-  }
-
-  return opintojenLaajuus;
+  return getFormattedOpintojenLaajuus(
+    opintojenLaajuusNumero,
+    opintojenLaajuusYksikko,
+    opintojenLaajuusMin,
+    opintojenLaajuusMax
+  );
 }
 
 export function getLocalizedKoulutusLaajuus(koulutus) {
@@ -153,16 +169,21 @@ export function getLocalizedKoulutusLaajuus(koulutus) {
 }
 
 export function getLocalizedToteutusLaajuus(toteutus, koulutus) {
-  const toteutusLaajuusNumero = toteutus?.metadata?.opintojenLaajuusNumero;
-  const toteutusLaajuusyksikko = localize(toteutus?.metadata?.opintojenLaajuusyksikko);
-  if (toteutusLaajuusNumero && toteutusLaajuusyksikko) {
-    return `${toteutusLaajuusNumero} ${toteutusLaajuusyksikko}`;
-  } else {
-    return (
-      getLocalizedKoulutusOpintojenLaajuus(koulutus) ||
-      getTranslationForKey('koulutus.ei-laajuutta')
-    );
-  }
+  const laajuusNumero = formatDouble(toteutus?.metadata?.opintojenLaajuusNumero);
+  const laajuusNumeroMin = formatDouble(toteutus?.metadata?.opintojenLaajuusNumeroMin);
+  const laajuusNumeroMax = formatDouble(toteutus?.metadata?.opintojenLaajuusNumeroMax);
+  const laajuusyksikko = localize(toteutus?.metadata?.opintojenLaajuusyksikko);
+  const laajuus = getFormattedOpintojenLaajuus(
+    laajuusNumero,
+    laajuusyksikko,
+    laajuusNumeroMin,
+    laajuusNumeroMax
+  );
+  return (
+    laajuus ||
+    getLocalizedKoulutusOpintojenLaajuus(koulutus) ||
+    getTranslationForKey('koulutus.ei-laajuutta')
+  );
 }
 
 export function byLocaleCompare(prop) {

@@ -83,6 +83,7 @@ export enum KOULUTUS_TYYPPI {
   AMMATILLINEN_OPETTAJA_ERITYISOPETTAJA_JA_OPOKOULUTUS = 'amm-ope-erityisope-ja-opo',
   OPETTAJIEN_PEDAGOGISET_OPINNOT = 'ope-pedag-opinnot',
   AIKUISTEN_PERUSOPETUS = 'aikuisten-perusopetus',
+  TAITEIDEN_PERUSOPETUS = 'taiteiden-perusopetus',
   MUUT_KOULUTUKSET = 'muut_koulutukset',
   KK_OPINTOJAKSO = 'kk-opintojakso',
   KK_OPINTOKOKONAISUUS = 'kk-opintokokonaisuus',

@@ -1,4 +1,5 @@
-import { getSearchAddress } from './utils';
+import { NDASH } from '../constants';
+import { getSearchAddress, getLocalizedToteutusLaajuus } from './utils';
 
 describe('Utils/OsoiteParser', () => {
   test.each([
@@ -17,5 +18,71 @@ describe('Utils/OsoiteParser', () => {
     expect(getSearchAddress(postinumeroJaPaikka, osoite).addressNoNumbers).toEqual(
       expected
     );
+  });
+});
+
+describe('Utils/getLocalizedToteutusLaajuus', () => {
+  test.each([
+    [
+      {
+        metadata: {
+          opintojenLaajuusNumero: 10,
+          opintojenLaajuusyksikko: { nimi: { fi: 'opintopistettä' } },
+        },
+      },
+      {},
+      '10 opintopistettä',
+    ],
+    [
+      {
+        metadata: {
+          opintojenLaajuusNumeroMin: 10,
+          opintojenLaajuusNumeroMax: 20,
+          opintojenLaajuusyksikko: { nimi: { fi: 'tuntia' } },
+        },
+      },
+      {},
+      `10${NDASH}20 tuntia`,
+    ],
+    [
+      {
+        metadata: {
+          opintojenLaajuusNumeroMin: 10,
+          opintojenLaajuusNumeroMax: 10,
+          opintojenLaajuusyksikko: { nimi: { fi: 'vuotta' } },
+        },
+      },
+      {},
+      `10 vuotta`,
+    ],
+    [
+      {
+        metadata: {
+          opintojenLaajuusNumeroMin: 10,
+          opintojenLaajuusyksikko: { nimi: { fi: 'viikkoa' } },
+        },
+      },
+      {},
+      'undefined 10 viikkoa',
+    ],
+    [
+      {
+        metadata: {
+          opintojenLaajuusNumeroMax: 10,
+          opintojenLaajuusyksikko: { nimi: { fi: 'viikkoa' } },
+        },
+      },
+      {},
+      'undefined 10 viikkoa',
+    ],
+    [
+      {
+        metadata: {},
+      },
+      { opintojenLaajuusNumero: '20 osaamispistettä' },
+      '20 osaamispistettä',
+    ],
+  ])('localized laajuus description', (toteutus, koulutus, expected) => {
+    expect(getLocalizedToteutusLaajuus(toteutus, koulutus)).toEqual(expected);
   });
 });
