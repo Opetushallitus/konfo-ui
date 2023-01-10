@@ -9,7 +9,7 @@ export const sortValues = <T>(filterObj: Record<string, T>) =>
     'id'
   );
 
-const BOOLEAN_FILTERS = [
+export const BOOLEAN_FILTER_TYPES: Array<string> = [
   FILTER_TYPES.HAKUKAYNNISSA,
   FILTER_TYPES.JOTPA,
   FILTER_TYPES.TYOVOIMAKOULUTUS,
@@ -33,7 +33,7 @@ export const getFilterWithChecked = (
     return {};
   }
 
-  if (_.includes(BOOLEAN_FILTERS, filterId)) {
+  if (_.includes(BOOLEAN_FILTER_TYPES, filterId)) {
     return {
       [filterId]: {
         id: filterId,
@@ -127,19 +127,15 @@ export const getFilterStateChanges =
     return retVal;
   };
 
-const filtersWithBooleanValues: Array<string> = [
-  FILTER_TYPES.HAKUKAYNNISSA,
-  FILTER_TYPES.JOTPA,
-];
 export const getFilterStateChangesForDelete =
   (values: Array<FilterValue>) => (item: FilterValue) => {
     const retVal = getFilterStateChanges(values)(item);
-    const retValWithBooleanValues = filtersWithBooleanValues.includes(item.filterId)
+    const retValWithBooleanValues = BOOLEAN_FILTER_TYPES.includes(item.filterId)
       ? _.omit(
           { ...retVal, [item.filterId]: !item.checked },
-          _.without(filtersWithBooleanValues, item.filterId)
+          _.without(BOOLEAN_FILTER_TYPES, item.filterId)
         )
-      : _.omit(retVal, filtersWithBooleanValues);
+      : _.omit(retVal, BOOLEAN_FILTER_TYPES);
 
     return retValWithBooleanValues;
   };
