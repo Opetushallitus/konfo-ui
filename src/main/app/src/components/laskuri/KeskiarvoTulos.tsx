@@ -7,16 +7,14 @@ import { Link as RouterLink } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
-import { formatDouble } from '#/src/tools/utils';
 
-import { HakupisteLaskelma, ENSISIJAINEN_SCORE_BONUS, Osalasku } from './Keskiarvo';
+import { HakupisteLaskelma, Osalasku } from './Keskiarvo';
+import { ResultSphere, ResultSpheres } from './ResultSphere';
 
 const PREFIX = 'keskiarvo__tulos__';
 
 const classes = {
   column: `${PREFIX}column`,
-  resultSphere: `${PREFIX}sphere`,
-  spheresContainer: `${PREFIX}spheres`,
   textContainer: `${PREFIX}textcontainer`,
   textBlock: `${PREFIX}textblock`,
   linkIcon: `${PREFIX}linkicon`,
@@ -41,32 +39,6 @@ const TulosContainer = styled(Box)(({ theme }) => ({
     display: 'flex',
     flexDirection: 'column',
     columnGap: '20px',
-  },
-  [`& .${classes.resultSphere}`]: {
-    display: 'flex',
-    alignItems: 'center',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    rowGap: '10px',
-    width: '182px',
-    height: '182px',
-    borderRadius: '50%',
-    border: `2px solid #FFCC33`,
-    margin: '13px auto 27px',
-    textAlign: 'center',
-    padding: '0 0.4rem',
-  },
-  [`& .${classes.spheresContainer}`]: {
-    display: 'flex',
-    flexDirection: 'row',
-    rowGap: '1rem',
-    [theme.breakpoints.down('sm')]: {
-      margin: '13px auto',
-      flexDirection: 'column',
-      [`& .${classes.resultSphere}`]: {
-        margin: '0 auto',
-      },
-    },
   },
   [`& .${classes.textContainer}`]: {
     background: colors.greyBg,
@@ -105,23 +77,6 @@ const TulosContainer = styled(Box)(({ theme }) => ({
     },
   },
 }));
-
-type ResultSphereProps = {
-  result: number;
-  text: string;
-};
-
-const ResultSphere = ({ result, text }: ResultSphereProps) => {
-  const resultWithComma = formatDouble(result);
-  return (
-    <Box className={classes.resultSphere}>
-      <Typography sx={{ fontSize: '3rem', fontWeight: 'bold' }}>
-        {resultWithComma}
-      </Typography>
-      <Typography variant="body2">{text}</Typography>
-    </Box>
-  );
-};
 
 const LinkToValintaPerusteet = () => {
   const { t } = useTranslation();
@@ -207,16 +162,7 @@ export const KeskiarvoTulos = ({ tulos }: Props) => {
       </Box>
       <Box className={classes.column}>
         <Typography variant="h3">{t('pistelaskuri.ammatillinen.header')}</Typography>
-        <Box className={classes.spheresContainer}>
-          <ResultSphere
-            result={tulos.pisteet + ENSISIJAINEN_SCORE_BONUS}
-            text={t('pistelaskuri.pisteet.ammatillinen-first')}
-          />
-          <ResultSphere
-            result={tulos.pisteet}
-            text={t('pistelaskuri.pisteet.ammatillinen-rest')}
-          />
-        </Box>
+        <ResultSpheres tulos={tulos} />
         {tulos.osalasku && <Osalaskut osalasku={tulos.osalasku} />}
         <Paper className={classes.textContainer} elevation={0}>
           <Typography
