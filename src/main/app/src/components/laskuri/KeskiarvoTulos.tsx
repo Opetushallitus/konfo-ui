@@ -111,7 +111,7 @@ const Osalaskut = ({ osalasku }: OsalaskutProps) => {
           sx={{ backgroundColor: colors.brandGreen }}
         />
         <Typography variant="body1" className={classes.textBlock}>
-          Painotettavat arvosanat {osalasku.taideTaitoAineet} / 9 p
+          Painotettavat arvosanat {osalasku.taideTaitoAineet} / 8 p
         </Typography>
       </Box>
       <Box className={classes.osalaskutSection}>
@@ -149,7 +149,10 @@ export const KeskiarvoTulos = ({ tulos }: Props) => {
     <TulosContainer>
       <Box className={classes.column}>
         <Typography variant="h3">{t('pistelaskuri.lukio.header')}</Typography>
-        <ResultSphere result={tulos.keskiarvo} text={t('pistelaskuri.pisteet.lukio')} />
+        <ResultSphere
+          results={[tulos.keskiarvo]}
+          text={t('pistelaskuri.pisteet.lukio')}
+        />
         <Paper className={classes.textContainer} elevation={0}>
           <Typography
             variant="body1"
@@ -162,7 +165,7 @@ export const KeskiarvoTulos = ({ tulos }: Props) => {
       </Box>
       <Box className={classes.column}>
         <Typography variant="h3">{t('pistelaskuri.ammatillinen.header')}</Typography>
-        <ResultSpheres tulos={tulos} />
+        {tulos.osalasku && <ResultSpheres osalasku={tulos.osalasku} />}
         {tulos.osalasku && <Osalaskut osalasku={tulos.osalasku} />}
         <Paper className={classes.textContainer} elevation={0}>
           <Typography
