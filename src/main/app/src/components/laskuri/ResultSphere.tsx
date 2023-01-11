@@ -8,7 +8,7 @@ import { VictoryPie } from 'victory-pie';
 import { colors } from '#/src/colors';
 import { formatDouble } from '#/src/tools/utils';
 
-import { ENSISIJAINEN_SCORE_BONUS, Osalasku } from './Keskiarvo';
+import { ENSISIJAINEN_SCORE_BONUS, Osalasku, COMPLETED_STUDIES_SCORE } from './Keskiarvo';
 
 const PREFIX = 'keskiarvo__tulos__pallerot__';
 
@@ -109,13 +109,13 @@ export const ResultSpheres = ({ osalasku }: ResultSpheresProps) => {
         results={[
           osalasku.kaikki,
           osalasku.taideTaitoAineet,
-          6,
+          COMPLETED_STUDIES_SCORE,
           ENSISIJAINEN_SCORE_BONUS,
         ]}
         text={t('pistelaskuri.pisteet.ammatillinen-first')}
       />
       <ResultSphere
-        results={[osalasku?.kaikki, osalasku?.taideTaitoAineet, 6]}
+        results={[osalasku?.kaikki, osalasku?.taideTaitoAineet, COMPLETED_STUDIES_SCORE]}
         text={t('pistelaskuri.pisteet.ammatillinen-rest')}
       />
     </PallerotContainer>

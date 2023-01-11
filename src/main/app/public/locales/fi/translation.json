@@ -599,7 +599,13 @@
     "pisteet": {
       "lukio": "lukuaineiden keskiarvo",
       "ammatillinen-first": "Ensisijaisen hakukohteen pisteet",
-      "ammatillinen-rest": "2. - 7. hakukohteen pisteet"
+      "ammatillinen-rest": "2. - 7. hakukohteen pisteet",
+      "osalasku": {
+        "kaikki": "Yleinen koulumenestys {{kaikki}} / 16 p",
+        "taito": "Painotettavat arvosanat {{taideTaitoAineet}} / 8 p",
+        "suoritettu": "Perusopetuksen / valmentavan koulutuksen suorittaminen hakuvuonna 6 / 6 p",
+        "ensisijainen": "Ensimmäinen hakutoive 2 p"
+      }
     },
     "valintaperusteet": {
       "linkki": "Tutustu yleisiin valintaperusteisiin"

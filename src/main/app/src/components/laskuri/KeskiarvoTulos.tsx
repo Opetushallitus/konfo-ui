@@ -101,12 +101,13 @@ type OsalaskutProps = {
 };
 
 const Osalaskut = ({ osalasku }: OsalaskutProps) => {
+  const { t } = useTranslation();
   return (
     <Box className={classes.osalaskut}>
       <Box className={classes.osalaskutSection}>
         <Box className={classes.osalaskutDisc} sx={{ backgroundColor: colors.sunglow }} />
         <Typography variant="body1" className={classes.textBlock}>
-          Yleinen koulumenestys {osalasku.kaikki} / 16 p
+          {t('pistelaskuri.pisteet.osalasku.kaikki', osalasku)}
         </Typography>
       </Box>
       <Box className={classes.osalaskutSection}>
@@ -115,7 +116,7 @@ const Osalaskut = ({ osalasku }: OsalaskutProps) => {
           sx={{ backgroundColor: colors.brandGreen }}
         />
         <Typography variant="body1" className={classes.textBlock}>
-          Painotettavat arvosanat {osalasku.taideTaitoAineet} / 8 p
+          {t('pistelaskuri.pisteet.osalasku.taito', osalasku)}
         </Typography>
       </Box>
       <Box className={classes.osalaskutSection}>
@@ -127,7 +128,7 @@ const Osalaskut = ({ osalasku }: OsalaskutProps) => {
           variant="body1"
           className={classes.textBlock}
           sx={{ lineHeight: '1.3rem' }}>
-          Perusopetuksen / valmentavan koulutuksen suorittaminen hakuvuonna 6 / 6 p
+          {t('pistelaskuri.pisteet.osalasku.suoritettu')}
         </Typography>
       </Box>
       <Box className={classes.osalaskutSection}>
@@ -136,7 +137,7 @@ const Osalaskut = ({ osalasku }: OsalaskutProps) => {
           sx={{ backgroundColor: colors.kkMagenta }}
         />
         <Typography variant="body1" className={classes.textBlock}>
-          Ensimmäinen hakutoive 2 p
+          {t('pistelaskuri.pisteet.osalasku.ensisijainen')}
         </Typography>
       </Box>
     </Box>
@@ -178,7 +179,7 @@ export const KeskiarvoTulos = ({ tulos }: Props) => {
             sx={{ marginBottom: '0.5rem' }}>
             {t('pistelaskuri.ammatillinen.oletus')}
           </Typography>
-          <LinkToValintaPerusteet></LinkToValintaPerusteet>
+          <LinkToValintaPerusteet />
         </Paper>
       </Box>
     </TulosContainer>

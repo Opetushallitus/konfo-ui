@@ -112,6 +112,13 @@ describe('Keskiarvo & Hakupisteet', () => {
       convertAndVerifyPisteet(ka(10, 7.11, 8.99), 19);
       convertAndVerifyPisteet(ka(10, 8.99, 7.05), 23);
     });
+
+    it('contains osalasku information', async () => {
+      const result = keskiArvotToHakupiste(ka(10, 8.24, 7.95));
+      expect(result.osalasku).toBeDefined();
+      expect(result.osalasku?.kaikki).toEqual(11);
+      expect(result.osalasku?.taideTaitoAineet).toEqual(4);
+    });
   });
 
   describe('calculates hakupisteet from kouluaineet', () => {
@@ -214,6 +221,15 @@ describe('Keskiarvo & Hakupisteet', () => {
         17,
         7.9
       );
+    });
+
+    it('contains osalasku information', async () => {
+      const result = kouluaineetToHakupiste(
+        aineet([aine(10, [], ''), aine(5, [], ''), aine(10, [], '')], 'kielet')
+      );
+      expect(result.osalasku).toBeDefined();
+      expect(result.osalasku?.kaikki).toEqual(12);
+      expect(result.osalasku?.taideTaitoAineet).toEqual(0);
     });
   });
 });
