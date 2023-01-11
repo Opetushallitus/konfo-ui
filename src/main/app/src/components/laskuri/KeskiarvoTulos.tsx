@@ -63,6 +63,10 @@ const TulosContainer = styled(Box)(({ theme }) => ({
     paddingLeft: '4.5rem',
     paddingRight: '2rem',
     marginBottom: '1.4rem',
+    [theme.breakpoints.down('sm')]: {
+      paddingLeft: '0.3rem',
+      paddingRight: '0.3rem',
+    },
     [`& .${classes.osalaskutSection}`]: {
       display: 'flex',
       flexDirection: 'row',
@@ -100,7 +104,7 @@ const Osalaskut = ({ osalasku }: OsalaskutProps) => {
   return (
     <Box className={classes.osalaskut}>
       <Box className={classes.osalaskutSection}>
-        <Box className={classes.osalaskutDisc} sx={{ backgroundColor: '#FFCC33' }} />
+        <Box className={classes.osalaskutDisc} sx={{ backgroundColor: colors.sunglow }} />
         <Typography variant="body1" className={classes.textBlock}>
           Yleinen koulumenestys {osalasku.kaikki} / 16 p
         </Typography>
