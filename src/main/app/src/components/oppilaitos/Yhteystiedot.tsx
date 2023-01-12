@@ -78,13 +78,11 @@ type Props = {
 };
 
 export const hasYhteystiedot = (props: Props = {} as any) =>
-  (props.yhteystiedot && props.yhteystiedot?.length > 0) ||
   !_.isEmpty(props.hakijapalveluidenYhteystiedot);
 
 export const Yhteystiedot = ({
   id,
   heading,
-  yhteystiedot,
   hakijapalveluidenYhteystiedot,
   organisaatioidenYhteystiedot,
 }: Props) => {
@@ -93,8 +91,8 @@ export const Yhteystiedot = ({
   const isSm = useMediaQuery(theme.breakpoints.down('sm'));
 
   const localizedYhteystiedot = useMemo(() => {
-    const organisaatiot = (yhteystiedot || [])
-      .concat(organisaatioidenYhteystiedot as any)
+    const organisaatiot = (organisaatioidenYhteystiedot || [])
+      // .concat(organisaatioidenYhteystiedot as any)
       .filter((obj) => _.hasIn(obj, 'nimi'))
       .filter(Boolean)
       .map(parseYhteystieto())
@@ -113,7 +111,7 @@ export const Yhteystiedot = ({
       .map(parseYhteystieto())
       .filter(Boolean)
       .concat(organisaatiot);
-  }, [hakijapalveluidenYhteystiedot, organisaatioidenYhteystiedot, yhteystiedot]);
+  }, [hakijapalveluidenYhteystiedot, organisaatioidenYhteystiedot]);
 
   return (
     <StyledBox
