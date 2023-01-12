@@ -13,6 +13,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
+import { YHTEISHAKU_KOODI_URI } from '#/src/constants';
 import { localize } from '#/src/tools/localization';
 import { Hakukohde } from '#/src/types/HakukohdeTypes';
 import { Hakutieto } from '#/src/types/ToteutusTypes';
@@ -113,7 +114,11 @@ type Props = {
 
 export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
   const { t } = useTranslation();
-  const hakukohteet = hakutiedot.flatMap((tieto: Hakutieto) => tieto.hakukohteet);
+  const hakukohteet = hakutiedot
+    .filter((tieto: Hakutieto) =>
+      tieto.hakutapa?.koodiUri?.includes(YHTEISHAKU_KOODI_URI)
+    )
+    .flatMap((tieto: Hakutieto) => tieto.hakukohteet);
   const [hakukohde, setHakukohde] = useState(hakukohteet[0]);
 
   const changeHakukohde = (event: SelectChangeEvent<Hakukohde>) =>
