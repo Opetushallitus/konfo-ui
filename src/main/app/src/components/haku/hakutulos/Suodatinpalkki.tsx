@@ -9,11 +9,14 @@ import { FILTER_TYPES } from '#/src/constants';
 
 import { HakuKaynnissaSuodatin } from '../../suodattimet/common/HakuKaynnissaSuodatin';
 import { HakutapaSuodatin } from '../../suodattimet/common/HakutapaSuodatin';
-import { JotpaSuodatin } from '../../suodattimet/common/JotpaSuodatin';
 import { OpetuskieliSuodatin } from '../../suodattimet/common/OpetusKieliSuodatin';
 import { OpetustapaSuodatin } from '../../suodattimet/common/OpetustapaSuodatin';
 import { PohjakoulutusvaatimusSuodatin } from '../../suodattimet/common/PohjakoulutusvaatimusSuodatin';
 import { SijaintiSuodatin } from '../../suodattimet/common/SijaintiSuodatin';
+import {
+  TyoelamaJaTaydennyskoulutuksetSuodatin,
+  useTyoelamaSuodatinValues,
+} from '../../suodattimet/common/TyoelamaJaTaydennyskoulutuksetSuodatin';
 import { ValintatapaSuodatin } from '../../suodattimet/common/ValintatapaSuodatin';
 import { KoulutusalaSuodatin } from '../../suodattimet/hakutulosSuodattimet/KoulutusalaSuodatin';
 import { KoulutustyyppiSuodatin } from '../../suodattimet/hakutulosSuodattimet/KoulutustyyppiSuodatin';
@@ -81,10 +84,10 @@ export const Suodatinpalkki = () => {
         values={useFilterProps(FILTER_TYPES.HAKUKAYNNISSA)}
         setFilters={setFilters}
       />
-      <JotpaSuodatin
+      <TyoelamaJaTaydennyskoulutuksetSuodatin
         expanded
         elevation={2}
-        values={useFilterProps(FILTER_TYPES.JOTPA)}
+        values={useTyoelamaSuodatinValues()}
         setFilters={setFilters}
       />
       <HakutapaSuodatin

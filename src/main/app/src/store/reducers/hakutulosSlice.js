@@ -32,6 +32,8 @@ export const initialState = {
   valintatapa: [],
   hakukaynnissa: false,
   jotpa: false,
+  tyovoimakoulutus: false,
+  taydennyskoulutus: false,
   hakutapa: [],
   yhteishaku: [], // NOTE: tämä suodatin ei käytä koodistoarvoja vaan hakuOideja
   kunta: [],
@@ -69,6 +71,8 @@ const hakutulosSlice = createSlice({
       state.valintatapa = [];
       state.hakukaynnissa = false;
       state.jotpa = false;
+      state.tyovoimakoulutus = false;
+      state.taydennyskoulutus = false;
       state.hakutapa = [];
       state.yhteishaku = [];
       state.kunta = [];
@@ -137,6 +141,12 @@ const hakutulosSlice = createSlice({
               break;
             case FILTER_TYPES.JOTPA:
               state.jotpa = value === 'true';
+              break;
+            case FILTER_TYPES.TYOVOIMAKOULUTUS:
+              state.tyovoimakoulutus = value === 'true';
+              break;
+            case FILTER_TYPES.TAYDENNYSKOULUTUS:
+              state.taydennyskoulutus = value === 'true';
               break;
             default:
               state[key] = valueList;

@@ -9,6 +9,13 @@ export const sortValues = <T>(filterObj: Record<string, T>) =>
     'id'
   );
 
+export const BOOLEAN_FILTER_TYPES: Array<string> = [
+  FILTER_TYPES.HAKUKAYNNISSA,
+  FILTER_TYPES.JOTPA,
+  FILTER_TYPES.TYOVOIMAKOULUTUS,
+  FILTER_TYPES.TAYDENNYSKOULUTUS,
+];
+
 // NOTE: Tämä funktio hoitaa kovakoodatut rakenteet erikoisemmille suodattimille e.g. hakukaynnissa / hakutapa + yhteishaku
 export const getFilterWithChecked = (
   filters: Record<string, any> | undefined,
@@ -26,24 +33,13 @@ export const getFilterWithChecked = (
     return {};
   }
 
-  if (filterId === FILTER_TYPES.HAKUKAYNNISSA) {
+  if (_.includes(BOOLEAN_FILTER_TYPES, filterId)) {
     return {
-      [FILTER_TYPES.HAKUKAYNNISSA]: {
-        id: FILTER_TYPES.HAKUKAYNNISSA,
-        filterId: FILTER_TYPES.HAKUKAYNNISSA,
+      [filterId]: {
+        id: filterId,
+        filterId: filterId,
         count: filter.count,
-        checked: Boolean(allCheckedValues[FILTER_TYPES.HAKUKAYNNISSA]),
-      },
-    };
-  }
-
-  if (filterId === FILTER_TYPES.JOTPA) {
-    return {
-      [FILTER_TYPES.JOTPA]: {
-        id: FILTER_TYPES.JOTPA,
-        filterId: FILTER_TYPES.JOTPA,
-        count: filter.count,
-        checked: Boolean(allCheckedValues[FILTER_TYPES.JOTPA]),
+        checked: Boolean(allCheckedValues[filterId]),
       },
     };
   }
@@ -131,19 +127,15 @@ export const getFilterStateChanges =
     return retVal;
   };
 
-const filtersWithBooleanValues: Array<string> = [
-  FILTER_TYPES.HAKUKAYNNISSA,
-  FILTER_TYPES.JOTPA,
-];
 export const getFilterStateChangesForDelete =
   (values: Array<FilterValue>) => (item: FilterValue) => {
     const retVal = getFilterStateChanges(values)(item);
-    const retValWithBooleanValues = filtersWithBooleanValues.includes(item.filterId)
+    const retValWithBooleanValues = BOOLEAN_FILTER_TYPES.includes(item.filterId)
       ? _.omit(
           { ...retVal, [item.filterId]: !item.checked },
-          _.without(filtersWithBooleanValues, item.filterId)
+          _.without(BOOLEAN_FILTER_TYPES, item.filterId)
         )
-      : _.omit(retVal, filtersWithBooleanValues);
+      : _.omit(retVal, BOOLEAN_FILTER_TYPES);
 
     return retValWithBooleanValues;
   };

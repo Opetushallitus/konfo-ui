@@ -33,6 +33,10 @@ const getYhteishaku = (state) => state.hakutulos.yhteishaku;
 const getPohjakoulutusvaatimus = (state) => state.hakutulos.pohjakoulutusvaatimus;
 const getJotpa = (state) => state.hakutulos.jotpa;
 
+const getTyovoimakoulutus = (state) => state.hakutulos.tyovoimakoulutus;
+
+const getTaydennyskoulutus = (state) => state.hakutulos.taydennyskoulutus;
+
 export const getFilters = (state) => _.pick(state.hakutulos, FILTER_TYPES_ARR);
 
 export const getSelectedTab = (state) => state.hakutulos.selectedTab;
@@ -73,6 +77,8 @@ export const getIsAnyFilterSelected = createSelector(
     getYhteishaku,
     getPohjakoulutusvaatimus,
     getJotpa,
+    getTyovoimakoulutus,
+    getTaydennyskoulutus,
   ],
   (
     opetuskieli,
@@ -87,11 +93,15 @@ export const getIsAnyFilterSelected = createSelector(
     hakutapa,
     yhteishaku,
     pohjakoulutusvaatimus,
-    jotpa
+    jotpa,
+    tyovoimakoulutus,
+    taydennyskoulutus
   ) => {
     return (
       hakukaynnissa ||
       jotpa ||
+      tyovoimakoulutus ||
+      taydennyskoulutus ||
       _.some(
         [
           opetuskieli,
@@ -134,6 +144,8 @@ export const getAPIRequestParams = createSelector(
     getYhteishaku,
     getPohjakoulutusvaatimus,
     getJotpa,
+    getTyovoimakoulutus,
+    getTaydennyskoulutus,
   ],
   (
     keyword,
@@ -152,7 +164,9 @@ export const getAPIRequestParams = createSelector(
     hakutapa,
     yhteishaku,
     pohjakoulutusvaatimus,
-    jotpa
+    jotpa,
+    tyovoimakoulutus,
+    taydennyskoulutus
   ) => ({
     keyword,
     order,
@@ -167,6 +181,8 @@ export const getAPIRequestParams = createSelector(
     hakutapa: getCheckedFiltersIdsStr(hakutapa),
     hakukaynnissa,
     jotpa,
+    tyovoimakoulutus,
+    taydennyskoulutus,
     yhteishaku: getCheckedFiltersIdsStr(yhteishaku),
     pohjakoulutusvaatimus: getCheckedFiltersIdsStr(pohjakoulutusvaatimus),
   })
@@ -198,6 +214,8 @@ export const getInitialCheckedToteutusFilters = createSelector(
       'opetustapa',
       'hakukaynnissa',
       'jotpa',
+      'tyovoimakoulutus',
+      'taydennyskoulutus',
       'hakutapa',
       'yhteishaku',
       'pohjakoulutusvaatimus',
