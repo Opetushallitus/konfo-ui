@@ -23,6 +23,7 @@ export interface Keskiarvot extends LocalStorable {
 export interface Osalasku extends LocalStorable {
   kaikki: number;
   taideTaitoAineet: number;
+  suorittanutBonus: number;
 }
 
 export interface HakupisteLaskelma extends LocalStorable {
@@ -165,9 +166,14 @@ export const keskiArvotToHakupiste = (keskiarvot: Keskiarvot): HakupisteLaskelma
     Number(keskiarvot.taideTaitoAineet.replace(',', '.')),
     PISTEET_TAITO_MAP
   );
+  const suorittanutBonus = keskiarvot.suorittanut ? COMPLETED_STUDIES_SCORE : 0;
   return {
     keskiarvo: Number(keskiarvot.lukuaineet.replace(',', '.')),
-    pisteet: pisteetKaikki + pisteetTaitoaineet + COMPLETED_STUDIES_SCORE,
-    osalasku: { kaikki: pisteetKaikki, taideTaitoAineet: pisteetTaitoaineet },
+    pisteet: pisteetKaikki + pisteetTaitoaineet + suorittanutBonus,
+    osalasku: {
+      kaikki: pisteetKaikki,
+      taideTaitoAineet: pisteetTaitoaineet,
+      suorittanutBonus,
+    },
   };
 };

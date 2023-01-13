@@ -128,7 +128,7 @@ const Osalaskut = ({ osalasku }: OsalaskutProps) => {
           variant="body1"
           className={classes.textBlock}
           sx={{ lineHeight: '1.3rem' }}>
-          {t('pistelaskuri.pisteet.osalasku.suoritettu')}
+          {t('pistelaskuri.pisteet.osalasku.suoritettu', osalasku)}
         </Typography>
       </Box>
       <Box className={classes.osalaskutSection}>
