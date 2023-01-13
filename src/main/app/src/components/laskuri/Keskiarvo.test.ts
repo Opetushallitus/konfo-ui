@@ -8,6 +8,7 @@ describe('Keskiarvo & Hakupisteet', () => {
         lukuaineet: String(luku),
         kaikki: String(kaikki),
         taideTaitoAineet: String(taito),
+        suorittanut: true,
       };
     };
 
