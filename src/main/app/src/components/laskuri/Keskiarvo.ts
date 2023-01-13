@@ -17,6 +17,7 @@ export interface Keskiarvot extends LocalStorable {
   lukuaineet: string;
   taideTaitoAineet: string;
   kaikki: string;
+  suorittanut: boolean;
 }
 
 export interface Osalasku extends LocalStorable {
@@ -151,6 +152,7 @@ export const kouluaineetToHakupiste = (kouluaineet: Kouluaineet): HakupisteLaske
     lukuaineet: String(lukuKa),
     taideTaitoAineet: String(taitoKa),
     kaikki: String(kaikkiKa),
+    suorittanut: true,
   });
 };
 

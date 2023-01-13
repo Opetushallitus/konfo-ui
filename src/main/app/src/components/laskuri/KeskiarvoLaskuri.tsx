@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { colors } from 'src/colors';
 
 import { LabelTooltip } from '../common/LabelTooltip';
+import { SuorittanutCheckbox } from './common/SuorittanutCheckbox';
 import { Keskiarvot } from './Keskiarvo';
 import { LocalStorageUtil, AVERAGE_STORE_KEY } from './LocalStorageUtil';
 
@@ -60,6 +61,7 @@ export const KeskiarvoLaskuri = ({
     lukuaineet: '',
     taideTaitoAineet: '',
     kaikki: '',
+    suorittanut: true,
   });
 
   useEffect(() => {
@@ -78,6 +80,7 @@ export const KeskiarvoLaskuri = ({
         lukuaineet: '',
         taideTaitoAineet: '',
         kaikki: '',
+        suorittanut: true,
       });
     }
   }, [updateKeskiarvoToCalculate]);
@@ -93,7 +96,9 @@ export const KeskiarvoLaskuri = ({
   const changeKeskiarvo = (event: React.ChangeEvent<HTMLInputElement>, avain: string) => {
     const uusiArvo = event.target.value;
     let newKeskiArvo = { ...keskiarvot } as Keskiarvot;
-    newKeskiArvo[avain as keyof Keskiarvot] = uusiArvo;
+    newKeskiArvo[avain as keyof Keskiarvot] = ['true', 'false'].includes(uusiArvo)
+      ? Boolean(uusiArvo)
+      : uusiArvo;
     setKeskiarvot(newKeskiArvo);
     if (isValidKeskiarvo(uusiArvo)) {
       updateKeskiarvoToCalculate(newKeskiArvo);
@@ -183,6 +188,7 @@ export const KeskiarvoLaskuri = ({
             </Typography>
           )}
         </Grid>
+        <SuorittanutCheckbox suorittanut={true} toggleSuorittanut={() => false} />
       </Grid>
     </LaskuriContainer>
   );
