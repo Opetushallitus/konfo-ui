@@ -47,6 +47,21 @@ describe('Pistelaskuri KOMOTO', () => {
     cy.get('.keskiarvo__tulos__pallerot__pallero').eq(2).contains(22);
   });
 
+  it('Shows osalaskut', () => {
+    cy.get('.keskiarvo__tulos__osalaskut__section .keskiarvo__tulos__textblock')
+      .eq(0)
+      .contains('16 / 16');
+    cy.get('.keskiarvo__tulos__osalaskut__section .keskiarvo__tulos__textblock')
+      .eq(1)
+      .contains('0 / 8');
+    cy.get('.keskiarvo__tulos__osalaskut__section .keskiarvo__tulos__textblock')
+      .eq(2)
+      .contains('6 / 6');
+    cy.get('.keskiarvo__tulos__osalaskut__section .keskiarvo__tulos__textblock')
+      .eq(3)
+      .contains('2');
+  });
+
   it('Remembers previous result', () => {
     cy.get('.KeskiarvoModal__calculatebutton').click();
     cy.get('.PisteContainer__openbutton').click();
@@ -62,5 +77,16 @@ describe('Pistelaskuri KOMOTO', () => {
     cy.get('.KeskiarvoModal__container h2').contains('Valintapistelaskuri');
     cy.get('.KeskiarvoModal__container h3').contains('Perusopetuksen keskiarvot');
     cy.get('.keskiarvo__tulos__pallerot__pallero').should('not.exist');
+  });
+
+  it('Shows result without suoritettu checked', () => {
+    cy.get('.keskiarvo__laskuri__input').eq(0).type(8);
+    cy.get('.keskiarvo__laskuri__input').eq(1).type(9);
+    cy.get('.keskiarvo__laskuri__input').eq(2).type(6);
+    cy.get('.MuiCheckbox-root input').click();
+    cy.get('.KeskiarvoModal__calculatebutton').click();
+    cy.get('.keskiarvo__tulos__pallerot__pallero').eq(0).contains(8);
+    cy.get('.keskiarvo__tulos__pallerot__pallero').eq(1).contains(12);
+    cy.get('.keskiarvo__tulos__pallerot__pallero').eq(2).contains(10);
   });
 });
