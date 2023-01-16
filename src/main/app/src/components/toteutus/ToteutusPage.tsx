@@ -150,12 +150,17 @@ export const ToteutusPage = () => {
     [koulutus?.lisatiedot, opetus?.lisatiedot]
   );
 
-  const isToisenAsteenYhteisHaku = toteutus?.hakutiedot?.some(
-    (hakutieto: Hakutieto) =>
-      hakutieto?.hakutapa?.koodiUri &&
-      hakutieto?.hakutapa?.koodiUri.includes(YHTEISHAKU_KOODI_URI) &&
-      hakutieto?.kohdejoukko?.koodiUri?.includes(TOISEN_ASTEEN_YHTEISHAUN_KOHDEJOUKKO)
-  );
+  const isToisenAsteenYhteisHaku =
+    tyyppi &&
+    [KOULUTUS_TYYPPI.AMM.toString(), KOULUTUS_TYYPPI.LUKIOKOULUTUS.toString()].includes(
+      tyyppi
+    ) &&
+    toteutus?.hakutiedot?.some(
+      (hakutieto: Hakutieto) =>
+        hakutieto?.hakutapa?.koodiUri &&
+        hakutieto?.hakutapa?.koodiUri.includes(YHTEISHAKU_KOODI_URI) &&
+        hakutieto?.kohdejoukko?.koodiUri?.includes(TOISEN_ASTEEN_YHTEISHAUN_KOHDEJOUKKO)
+    );
 
   const erityisopetusHeading = t('toteutus.erityisopetus-otsikko');
   let erityisopetusText = '';
