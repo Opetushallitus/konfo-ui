@@ -193,15 +193,15 @@ export const KeskiarvoLaskuri = ({
             </Typography>
           )}
         </Grid>
-        <SuorittanutCheckbox
-          suorittanut={keskiarvot.suorittanut}
-          toggleSuorittanut={() =>
-            changeKeskiarvo('', (ka: Keskiarvot) =>
-              Object.assign({}, ka, { suorittanut: !keskiarvot.suorittanut })
-            )
-          }
-        />
       </Grid>
+      <SuorittanutCheckbox
+        suorittanut={keskiarvot.suorittanut}
+        toggleSuorittanut={() =>
+          changeKeskiarvo('', (ka: Keskiarvot) =>
+            Object.assign({}, ka, { suorittanut: !keskiarvot.suorittanut })
+          )
+        }
+      />
     </LaskuriContainer>
   );
 };
