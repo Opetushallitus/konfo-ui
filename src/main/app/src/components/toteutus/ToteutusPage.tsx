@@ -155,6 +155,7 @@ export const ToteutusPage = () => {
     [KOULUTUS_TYYPPI.AMM.toString(), KOULUTUS_TYYPPI.LUKIOKOULUTUS.toString()].includes(
       tyyppi
     ) &&
+    !ammatillinenPerustutkintoErityisopetuksena &&
     toteutus?.hakutiedot?.some(
       (hakutieto: Hakutieto) =>
         hakutieto?.hakutapa?.koodiUri &&
