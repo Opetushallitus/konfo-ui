@@ -57,4 +57,5 @@ export class Kouluaineet implements LocalStorable {
     createKouluaine('kouluaineet.liikunta'),
     createKouluaine('kouluaineet.kotitalous'),
   ];
+  suorittanut: boolean = true;
 }

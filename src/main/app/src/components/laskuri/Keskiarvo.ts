@@ -153,7 +153,7 @@ export const kouluaineetToHakupiste = (kouluaineet: Kouluaineet): HakupisteLaske
     lukuaineet: String(lukuKa),
     taideTaitoAineet: String(taitoKa),
     kaikki: String(kaikkiKa),
-    suorittanut: true,
+    suorittanut: kouluaineet.suorittanut,
   });
 };
 
