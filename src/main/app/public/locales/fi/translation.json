@@ -578,6 +578,7 @@
     "siirry-etusivulle": "Siirry Opintopolun etusivulle"
   },
   "pistelaskuri": {
+    "suoritan": "Olen suorittanut/suoritan peruskoulun, TUVA-koulutuksen tai oppivelvollisten linjan hakuvuonna.",
     "heading": "Valintapistelaskuri",
     "info": "Arvioi perusopetuksen päättötodistuksen keskiarvosi tai syötä kaikkien oppiaineiden arvosanat. Laskuri laskee valintapisteesi yhteishakua varten uusimpien valintaperusteiden mukaan.",
     "laske": "Laske valintapisteet",

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { FormControl, FormControlLabel, styled } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 import { KonfoCheckbox } from '../../common/Checkbox';
 
@@ -14,13 +15,12 @@ type Props = {
 };
 
 export const SuorittanutCheckbox = ({ suorittanut, toggleSuorittanut }: Props) => {
+  const { t } = useTranslation();
   return (
     <SuorittanutControl>
       <FormControlLabel
         control={<KonfoCheckbox checked={suorittanut} onClick={toggleSuorittanut} />}
-        label={
-          'Olen suorittanut/suoritan peruskoulun, TUVA-koulutuksen tai oppivelvollisten linjan hakuvuonna.'
-        }
+        label={t('pistelaskuri.suoritan')}
       />
     </SuorittanutControl>
   );
