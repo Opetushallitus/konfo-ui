@@ -9,6 +9,7 @@ import {
   Input,
   SelectChangeEvent,
 } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import { colors } from 'src/colors';
 
 import { translate } from '#/src/tools/localization';
@@ -84,6 +85,7 @@ type Props = {
 };
 
 export const KieliSelect = ({ aine, updateKieli }: Props) => {
+  const { t } = useTranslation();
   const data = useKieliKoodit();
 
   const handleKieliChange = (event: SelectChangeEvent) => {
@@ -93,7 +95,9 @@ export const KieliSelect = ({ aine, updateKieli }: Props) => {
   return (
     <KieliSelectControl variant="standard" sx={{ minWidth: 220 }}>
       <div className={classes.langLabelContainer}>
-        <InputLabel className={classes.langLabel}>Kielen nimi</InputLabel>
+        <InputLabel className={classes.langLabel}>
+          {t('pistelaskuri.aine.kielennimi')}
+        </InputLabel>
       </div>
       {data !== undefined && (
         <Select
@@ -104,7 +108,7 @@ export const KieliSelect = ({ aine, updateKieli }: Props) => {
           variant="standard"
           disableUnderline={true}>
           <MenuItem key="kieli-null" disabled={true} value="null">
-            Valitse kieli
+            {t('pistelaskuri.aine.valitsekieli')}
           </MenuItem>
           {data.map((kieli: Koodi, index: number) => (
             <MenuItem key={`kieli-${index}`} value={kieli.koodiUri}>

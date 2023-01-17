@@ -673,7 +673,10 @@
         "b2": "Yläkoulussa alkanut valinnainen kieli"
       },
       "removekieli": "Poista kieliaine",
-      "valitsearvosana": "Valitse arvosana"
+      "valitsearvosana": "Valitse arvosana",
+      "valitsekieli": "Valitse kieli",
+      "arvosana": "Arvosana",
+      "kielennimi": "Kielen nimi"
     }
   },
   "kouluaineet": {

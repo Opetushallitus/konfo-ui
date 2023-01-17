@@ -171,7 +171,7 @@ export const KouluaineSelect = ({
       )}
       <div className={classes.gradeLabelContainer}>
         <InputLabel id={labelId} className={classes.gradeLabel}>
-          {t(isKieliaine(aine) ? 'Arvosana' : aine.nimi)}
+          {t(isKieliaine(aine) ? t('pistelaskuri.aine.arvosana') : aine.nimi)}
         </InputLabel>
       </div>
       <Select
