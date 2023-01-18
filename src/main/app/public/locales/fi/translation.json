@@ -262,6 +262,7 @@
     "vapaa-sivistystyo-muu": "Muu",
     "vapaa-sivistystyo-opistovuosi": "Opistovuosi",
     "aikuisten-perusopetus": "Aikuisten perusopetus",
+    "taiteen-perusopetus": "Taiteen perusopetus",
     "urheilijan-amm-koulutus": "Urheilijan ammatillinen koulutus",
     "valitse": "Valitse",
     "vertaile": "Vertaile",
@@ -376,6 +377,7 @@
     "tyyppi-amm-ope-erityisope-ja-opo": "Ammatillinen opettaja-, erityisopettaja- ja opinto-ohjaajakoulutus",
     "tyyppi-ope-pedag-opinnot": "Opettajien pedagogiset opinnot",
     "tyyppi-aikuisten-perusopetus": "Aikuisten perusopetus",
+    "tyyppi-taiteen-perusopetus": "Taiteen perusopetus",
     "tyyppi-kk-opintojakso": "Opintojakso",
     "tyyppi-kk-opintokokonaisuus": "Opintokokonaisuus",
     "tyyppi-erikoislaakari": "Erikoislaakari",
@@ -575,7 +577,8 @@
     "opintojaksot": "Opintoihin sisältyvät opintojaksot",
     "opintojakson-kuvaus": "Opintojakson kuvaus",
     "lue-lisaa-opintojaksosta": "Lue lisää opintojaksosta",
-    "kuuluu-opintokokonaisuuksiin": "Opintojakso kuuluu seuraaviin opintokokonaisuuksiin:"
+    "kuuluu-opintokokonaisuuksiin": "Opintojakso kuuluu seuraaviin opintokokonaisuuksiin:",
+    "taiteenala": "Taiteenalat"
   },
   "header": {
     "siirry-etusivulle": "Siirry Opintopolun etusivulle"

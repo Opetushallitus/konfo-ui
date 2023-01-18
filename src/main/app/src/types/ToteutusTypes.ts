@@ -95,6 +95,7 @@ export type ToteutusMetadata = {
   isAvoinKorkeakoulutus?: boolean;
   tunniste?: string;
   opinnonTyyppi?: Koodi;
+  taiteenala?: Array<Translateable>;
 };
 
 export type Organisaatio = {

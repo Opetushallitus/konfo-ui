@@ -209,6 +209,7 @@ export const ToteutusPage = () => {
             isAvoinKorkeakoulutus={isAvoinKorkeakoulutus}
             tunniste={toteutus?.metadata?.tunniste}
             opinnonTyyppi={toteutus?.metadata?.opinnonTyyppi}
+            taiteenala={toteutus?.metadata?.taiteenala}
           />
         </PageSection>
         {toteutus?.hakuAuki && (

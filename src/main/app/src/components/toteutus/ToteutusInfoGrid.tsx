@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Class, ExtensionOutlined, LabelOutlined } from '@mui/icons-material';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+import ColorLensIcon from '@mui/icons-material/ColorLens';
 import EuroIcon from '@mui/icons-material/Euro';
 import FlagOutlinedIcon from '@mui/icons-material/FlagOutlined';
 import HourglassEmptyOutlinedIcon from '@mui/icons-material/HourglassEmptyOutlined';
@@ -91,6 +92,7 @@ type Props = {
   isAvoinKorkeakoulutus?: boolean;
   tunniste?: string;
   opinnonTyyppi?: Koodi;
+  taiteenala?: Array<Translateable>;
 };
 
 export const ToteutusInfoGrid = ({
@@ -99,6 +101,7 @@ export const ToteutusInfoGrid = ({
   isAvoinKorkeakoulutus = false,
   tunniste,
   opinnonTyyppi,
+  taiteenala,
   opetus = {},
   hasHaku,
 }: Props) => {
@@ -142,16 +145,27 @@ export const ToteutusInfoGrid = ({
       icon: <TimelapseIcon className={classes.koulutusInfoGridIcon} />,
       title: t('koulutus.koulutuksen-laajuus'),
       text: laajuus,
-    },
-    {
-      icon: <ScheduleIcon className={classes.koulutusInfoGridIcon} />,
-      title: t('koulutus.suunniteltu-kesto'),
-      text: kestoString,
-      modalText: !_.isEmpty(opetus.suunniteltuKestoKuvaus) && (
-        <LocalizedHTML data={opetus.suunniteltuKestoKuvaus!} noMargin />
-      ),
     }
   );
+
+  const taiteenalaString = taiteenala?.map(localizeMap).join('\n') ?? '';
+
+  if (!_.isEmpty(taiteenalaString)) {
+    perustiedotData.push({
+      icon: <ColorLensIcon className={classes.koulutusInfoGridIcon} />,
+      title: t('toteutus.taiteenala'),
+      text: taiteenalaString,
+    });
+  }
+
+  perustiedotData.push({
+    icon: <ScheduleIcon className={classes.koulutusInfoGridIcon} />,
+    title: t('koulutus.suunniteltu-kesto'),
+    text: kestoString,
+    modalText: !_.isEmpty(opetus.suunniteltuKestoKuvaus) && (
+      <LocalizedHTML data={opetus.suunniteltuKestoKuvaus!} noMargin />
+    ),
+  });
 
   const { alkaaText, alkaaModalText, paattyyText } = hasHaku
     ? ({} as any)
