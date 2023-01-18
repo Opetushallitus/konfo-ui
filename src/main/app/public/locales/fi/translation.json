@@ -584,6 +584,7 @@
     "siirry-etusivulle": "Siirry Opintopolun etusivulle"
   },
   "pistelaskuri": {
+    "suoritan": "Olen suorittanut/suoritan peruskoulun, TUVA-koulutuksen tai oppivelvollisten linjan hakuvuonna.",
     "heading": "Valintapistelaskuri",
     "info": "Arvioi perusopetuksen päättötodistuksen keskiarvosi tai syötä kaikkien oppiaineiden arvosanat. Laskuri laskee valintapisteesi yhteishakua varten uusimpien valintaperusteiden mukaan.",
     "laske": "Laske valintapisteet",
@@ -600,12 +601,18 @@
       "pisteytys-yleinen": "1-16 pistettä yleisestä koulumenestyksestä",
       "pisteytys-painotettava": "1-8 pistettä painotettavista arvosanoista",
       "pisteytys-ensisijainen": "2 pistettä ensimmäisestä hakutoiveesta",
-      "oletus": "Laskuri olettaa, että olet suorittanut perusopetuksen tai perusopetuksen jälkeisen valmentavan koulutuksen samana tai edellisenä vuonna kuin haet ammatilliseen koulutukseen. Jos et ole, vähennä tuloksesta 6 pistettä. Lisäksi voit saada pääsy- ja soveltuvuuskokeista 0-10 pistettä, mikäli koulutukseen järjestetään pääsykoe."
+      "oletus": "Lisäksi voit saada pääsy- ja soveltuvuuskokeista 0-10 pistettä, mikäli koulutukseen järjestetään pääsykoe."
     },
     "pisteet": {
       "lukio": "lukuaineiden keskiarvo",
       "ammatillinen-first": "Ensisijaisen hakukohteen pisteet",
-      "ammatillinen-rest": "2. - 7. hakukohteen pisteet"
+      "ammatillinen-rest": "2. - 7. hakukohteen pisteet",
+      "osalasku": {
+        "kaikki": "Yleinen koulumenestys {{kaikki}} / 16 p",
+        "taito": "Painotettavat arvosanat {{taideTaitoAineet}} / 8 p",
+        "suoritettu": "Perusopetuksen / valmentavan koulutuksen suorittaminen hakuvuonna {{suorittanutBonus}} / 6 p",
+        "ensisijainen": "Ensimmäinen hakutoive 2 p"
+      }
     },
     "valintaperusteet": {
       "linkki": "Tutustu yleisiin valintaperusteisiin"

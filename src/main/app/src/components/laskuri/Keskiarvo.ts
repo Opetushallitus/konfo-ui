@@ -10,18 +10,26 @@ const ARVOSANAN_MAKSIMI = 10;
 const PAINOKERROIN_MINIMI = 1;
 const PAINOKERROIN_MAKSIMI = 5;
 const AMOUNT_OF_TAITOAINE_TO_USE = 3;
-const COMPLETED_STUDIES_SCORE = 6;
+export const COMPLETED_STUDIES_SCORE = 6;
 
 export const ENSISIJAINEN_SCORE_BONUS = 2;
 export interface Keskiarvot extends LocalStorable {
   lukuaineet: string;
   taideTaitoAineet: string;
   kaikki: string;
+  suorittanut: boolean;
+}
+
+export interface Osalasku extends LocalStorable {
+  kaikki: number;
+  taideTaitoAineet: number;
+  suorittanutBonus: number;
 }
 
 export interface HakupisteLaskelma extends LocalStorable {
   keskiarvo: number;
   pisteet: number;
+  osalasku?: Osalasku;
 }
 
 const isEligibleArvosana = (arvosana: number | null): boolean => {
@@ -145,6 +153,7 @@ export const kouluaineetToHakupiste = (kouluaineet: Kouluaineet): HakupisteLaske
     lukuaineet: String(lukuKa),
     taideTaitoAineet: String(taitoKa),
     kaikki: String(kaikkiKa),
+    suorittanut: kouluaineet.suorittanut,
   });
 };
 
@@ -153,12 +162,18 @@ export const keskiArvotToHakupiste = (keskiarvot: Keskiarvot): HakupisteLaskelma
     Number(keskiarvot.kaikki.replace(',', '.')),
     PISTEET_KAIKKI_MAP
   );
-  const pisteetLukuaineet = getMatchingScore(
+  const pisteetTaitoaineet = getMatchingScore(
     Number(keskiarvot.taideTaitoAineet.replace(',', '.')),
     PISTEET_TAITO_MAP
   );
+  const suorittanutBonus = keskiarvot.suorittanut ? COMPLETED_STUDIES_SCORE : 0;
   return {
     keskiarvo: Number(keskiarvot.lukuaineet.replace(',', '.')),
-    pisteet: pisteetKaikki + pisteetLukuaineet + COMPLETED_STUDIES_SCORE,
+    pisteet: pisteetKaikki + pisteetTaitoaineet + suorittanutBonus,
+    osalasku: {
+      kaikki: pisteetKaikki,
+      taideTaitoAineet: pisteetTaitoaineet,
+      suorittanutBonus,
+    },
   };
 };

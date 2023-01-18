@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { colors } from 'src/colors';
 
 import { LabelTooltip } from '../common/LabelTooltip';
+import { SuorittanutCheckbox } from './common/SuorittanutCheckbox';
 import { Keskiarvot } from './Keskiarvo';
 import { LocalStorageUtil, AVERAGE_STORE_KEY } from './LocalStorageUtil';
 
@@ -48,7 +49,7 @@ type Props = {
 };
 
 const keskiArvotIsEmpty = (kat: Keskiarvot) =>
-  _.matches(kat)({ lukuaineet: '', taideTaitoAineet: '', kaikki: '' });
+  _.matches(kat)({ lukuaineet: '', taideTaitoAineet: '', kaikki: '', suorittanut: true });
 
 export const KeskiarvoLaskuri = ({
   changeCalculator,
@@ -60,6 +61,7 @@ export const KeskiarvoLaskuri = ({
     lukuaineet: '',
     taideTaitoAineet: '',
     kaikki: '',
+    suorittanut: true,
   });
 
   useEffect(() => {
@@ -78,6 +80,7 @@ export const KeskiarvoLaskuri = ({
         lukuaineet: '',
         taideTaitoAineet: '',
         kaikki: '',
+        suorittanut: true,
       });
     }
   }, [updateKeskiarvoToCalculate]);
@@ -90,12 +93,13 @@ export const KeskiarvoLaskuri = ({
     );
   };
 
-  const changeKeskiarvo = (event: React.ChangeEvent<HTMLInputElement>, avain: string) => {
-    const uusiArvo = event.target.value;
-    let newKeskiArvo = { ...keskiarvot } as Keskiarvot;
-    newKeskiArvo[avain as keyof Keskiarvot] = uusiArvo;
+  const changeKeskiarvo = (
+    value: string,
+    assigner: (ka: Keskiarvot, val: string) => Keskiarvot
+  ) => {
+    let newKeskiArvo = assigner(keskiarvot, value);
     setKeskiarvot(newKeskiArvo);
-    if (isValidKeskiarvo(uusiArvo)) {
+    if (isValidKeskiarvo(value)) {
       updateKeskiarvoToCalculate(newKeskiArvo);
     }
   };
@@ -122,7 +126,9 @@ export const KeskiarvoLaskuri = ({
             <Input
               className={classes.input}
               onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                changeKeskiarvo(event, 'lukuaineet')
+                changeKeskiarvo(event.target.value, (ka: Keskiarvot, val: string) =>
+                  Object.assign({}, ka, { lukuaineet: val })
+                )
               }
               value={keskiarvot?.lukuaineet}
               error={!isValidKeskiarvo(keskiarvot?.lukuaineet)}
@@ -148,7 +154,9 @@ export const KeskiarvoLaskuri = ({
             <Input
               className={classes.input}
               onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                changeKeskiarvo(event, 'taideTaitoAineet')
+                changeKeskiarvo(event.target.value, (ka: Keskiarvot, val: string) =>
+                  Object.assign({}, ka, { taideTaitoAineet: val })
+                )
               }
               value={keskiarvot?.taideTaitoAineet}
               disableUnderline={true}
@@ -171,7 +179,9 @@ export const KeskiarvoLaskuri = ({
             <Input
               className={classes.input}
               onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                changeKeskiarvo(event, 'kaikki')
+                changeKeskiarvo(event.target.value, (ka: Keskiarvot, val: string) =>
+                  Object.assign({}, ka, { kaikki: val })
+                )
               }
               value={keskiarvot?.kaikki}
               disableUnderline={true}
@@ -184,6 +194,14 @@ export const KeskiarvoLaskuri = ({
           )}
         </Grid>
       </Grid>
+      <SuorittanutCheckbox
+        suorittanut={keskiarvot.suorittanut}
+        toggleSuorittanut={() =>
+          changeKeskiarvo('', (ka: Keskiarvot) =>
+            Object.assign({}, ka, { suorittanut: !keskiarvot.suorittanut })
+          )
+        }
+      />
     </LaskuriContainer>
   );
 };

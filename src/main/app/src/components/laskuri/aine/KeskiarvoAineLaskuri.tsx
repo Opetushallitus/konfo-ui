@@ -5,6 +5,7 @@ import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { colors } from 'src/colors';
 
+import { SuorittanutCheckbox } from '../common/SuorittanutCheckbox';
 import { LocalStorageUtil, KOULUAINE_STORE_KEY } from '../LocalStorageUtil';
 import { AddKieliInput } from './AddKieliInput';
 import { Kouluaineet, Kouluaine, createKouluaine } from './Kouluaine';
@@ -60,13 +61,8 @@ export const KeskiarvoAineLaskuri = ({
     }
   }, [updateKouluaineetToCalculate]);
 
-  const updateKouluaineFromChild = (
-    kouluaine: Kouluaine,
-    id: number,
-    arrayAvain: string
-  ) => {
-    const aineet = kouluaineet;
-    aineet[arrayAvain as keyof Kouluaineet][id] = kouluaine;
+  const updateKouluaineFromChild = (assigner: (aineet: Kouluaineet) => Kouluaineet) => {
+    const aineet = assigner(kouluaineet);
     setKouluaineet(aineet);
     if (!_.isEqual(kouluaineet, new Kouluaineet())) {
       LocalStorageUtil.save(KOULUAINE_STORE_KEY, aineet);
@@ -103,13 +99,24 @@ export const KeskiarvoAineLaskuri = ({
           {t('pistelaskuri.aine.vaihdalaskin-2')}
         </Button>
       </Typography>
+      <SuorittanutCheckbox
+        suorittanut={kouluaineet.suorittanut}
+        toggleSuorittanut={() =>
+          updateKouluaineFromChild((aineet: Kouluaineet) =>
+            Object.assign({}, aineet, { suorittanut: !kouluaineet.suorittanut })
+          )
+        }
+      />
       <Typography variant="h4" sx={{ marginBottom: '1.375rem', fontSize: '1.25rem' }}>
         {t('pistelaskuri.aine.lukuaineet')}
       </Typography>
       {kouluaineet.kielet.map((kieliaine: Kouluaine, index: number) => (
         <KouluaineInput
           updateKouluaine={(kouluaine: Kouluaine) =>
-            updateKouluaineFromChild(kouluaine, index, 'kielet')
+            updateKouluaineFromChild((aineet: Kouluaineet) => {
+              aineet.kielet[index] = kouluaine;
+              return aineet;
+            })
           }
           aine={kieliaine}
           key={`kieliaine-${kieliaine.nimi}-${index}`}
@@ -119,7 +126,10 @@ export const KeskiarvoAineLaskuri = ({
         {kouluaineet.lisakielet.map((kieliaine: Kouluaine, index: number) => (
           <KouluaineInput
             updateKouluaine={(kouluaine: Kouluaine) =>
-              updateKouluaineFromChild(kouluaine, index, 'lisakielet')
+              updateKouluaineFromChild((aineet: Kouluaineet) => {
+                aineet.lisakielet[index] = kouluaine;
+                return aineet;
+              })
             }
             aine={kieliaine}
             key={`lisakieliaine-${kieliaine.nimi}-${index}`}
@@ -131,7 +141,10 @@ export const KeskiarvoAineLaskuri = ({
       {kouluaineet.muutLukuaineet.map((lukuaine: Kouluaine, index: number) => (
         <KouluaineInput
           updateKouluaine={(kouluaine: Kouluaine) =>
-            updateKouluaineFromChild(kouluaine, index, 'muutLukuaineet')
+            updateKouluaineFromChild((aineet: Kouluaineet) => {
+              aineet.muutLukuaineet[index] = kouluaine;
+              return aineet;
+            })
           }
           aine={lukuaine}
           key={`lukuaine-${lukuaine.nimi}-${index}`}
@@ -143,7 +156,10 @@ export const KeskiarvoAineLaskuri = ({
       {kouluaineet.taitoaineet.map((taitoaine: Kouluaine, index: number) => (
         <KouluaineInput
           updateKouluaine={(kouluaine: Kouluaine) =>
-            updateKouluaineFromChild(kouluaine, index, 'taitoaineet')
+            updateKouluaineFromChild((aineet: Kouluaineet) => {
+              aineet.taitoaineet[index] = kouluaine;
+              return aineet;
+            })
           }
           aine={taitoaine}
           key={`taitoaine-${taitoaine.nimi}-${index}`}
