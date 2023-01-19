@@ -11,6 +11,7 @@ import {
   SelectChangeEvent,
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
 
 import { colors } from '#/src/colors';
 import { YHTEISHAKU_KOODI_URI } from '#/src/constants';
@@ -19,8 +20,10 @@ import { Hakukohde } from '#/src/types/HakukohdeTypes';
 import { Hakutieto } from '#/src/types/ToteutusTypes';
 
 import { Kouluaineet, kopioiKouluaineetPainokertoimilla } from '../aine/Kouluaine';
+import { setHakukohde as setHk } from '../hooks';
 import { HakupisteLaskelma, LaskelmaTapa, kouluaineetToHakupiste } from '../Keskiarvo';
 import { KOULUAINE_STORE_KEY, LocalStorageUtil } from '../LocalStorageUtil';
+import { hasPainokertoimia } from '../PisteLaskuriUtil';
 import { AccessibleGraafi } from './AccessibleGraafi';
 import { PainotetutArvosanat } from './PainotetutArvosanat';
 import { PisteGraafi } from './PisteGraafi';
@@ -116,18 +119,23 @@ type Props = {
 };
 
 export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
+  const dispatch = useDispatch();
   const { t } = useTranslation();
   const hakukohteet = hakutiedot
     .filter((tieto: Hakutieto) =>
       tieto.hakutapa?.koodiUri?.includes(YHTEISHAKU_KOODI_URI)
     )
     .flatMap((tieto: Hakutieto) => tieto.hakukohteet);
+
   const [hakukohde, setHakukohde] = useState(hakukohteet[0]);
   const [calculatedTulos, setCalculatedTulos] = useState(tulos);
 
   useEffect(() => {
-    setCalculatedTulos(tulos);
-    if (tulos?.tapa === LaskelmaTapa.LUKUAINEET && hasPainokertoimia(hakukohde)) {
+    if (
+      tulos?.tapa === LaskelmaTapa.LUKUAINEET &&
+      hakukohde &&
+      hasPainokertoimia(hakukohde)
+    ) {
       const savedResult = LocalStorageUtil.load(KOULUAINE_STORE_KEY);
       if (savedResult) {
         const aineet = savedResult as Kouluaineet;
@@ -142,13 +150,10 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
     }
   }, [tulos, hakukohde]);
 
-  const hasPainokertoimia = (hk: Hakukohde) =>
-    Boolean(hk.hakukohteenLinja?.painotetutArvosanat) === true &&
-    (hk.hakukohteenLinja?.painotetutArvosanat || []).length > 0;
-
   const changeHakukohde = (event: SelectChangeEvent<Hakukohde>) => {
     const uusiHakukohde = event.target.value as Hakukohde;
     setHakukohde(uusiHakukohde);
+    dispatch(setHk(uusiHakukohde));
   };
 
   return (
@@ -218,7 +223,7 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
             {t('pistelaskuri.graafi.ei-tuloksia')}
           </Typography>
         ))}
-      {hasPainokertoimia(hakukohde) && (
+      {hakukohde && hasPainokertoimia(hakukohde) && (
         <PainotetutArvosanat
           painotetutArvosanat={hakukohde.hakukohteenLinja?.painotetutArvosanat || []}
         />

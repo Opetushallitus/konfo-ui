@@ -1,5 +1,6 @@
 import { combineReducers } from '@reduxjs/toolkit';
 
+import { pistelaskuriSlice } from '../../components/laskuri/hooks';
 import appSlice from './appSlice';
 import hakutulosSlice from './hakutulosSlice';
 import koulutusSlice from './koulutusSlice';
@@ -10,4 +11,5 @@ export default combineReducers({
   oppilaitos: oppilaitosSlice,
   hakutulos: hakutulosSlice,
   app: appSlice,
+  pistelaskuri: pistelaskuriSlice.reducer,
 });

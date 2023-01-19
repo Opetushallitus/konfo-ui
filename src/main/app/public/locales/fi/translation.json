@@ -605,6 +605,7 @@
     },
     "pisteet": {
       "lukio": "lukuaineiden keskiarvo",
+      "lukio-painotettu": "painotettu keskiarvo",
       "ammatillinen-first": "Ensisijaisen hakukohteen pisteet",
       "ammatillinen-rest": "2. - 7. hakukohteen pisteet",
       "osalasku": {

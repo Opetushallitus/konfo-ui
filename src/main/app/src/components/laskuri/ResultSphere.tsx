@@ -44,9 +44,10 @@ const PalleroContainer = styled(Box)(({ theme }) => ({
 type ResultSphereProps = {
   results: Array<number>;
   text: string;
+  colorScales?: Array<string>;
 };
 
-export const ResultSphere = ({ results, text }: ResultSphereProps) => {
+export const ResultSphere = ({ results, text, colorScales }: ResultSphereProps) => {
   const resultWithComma = formatDouble(results.reduce((a, b) => a + b));
   const resultsData = results.map((val) => {
     return { x: '', y: val };
@@ -62,12 +63,14 @@ export const ResultSphere = ({ results, text }: ResultSphereProps) => {
         innerRadius={isMedium ? 85 : 95}
         data={resultsData}
         style={{ labels: { fillOpacity: 0 } }}
-        colorScale={[
-          colors.sunglow,
-          colors.brandGreen,
-          colors.darkGrey,
-          colors.kkMagenta,
-        ]}
+        colorScale={
+          colorScales || [
+            colors.sunglow,
+            colors.brandGreen,
+            colors.darkGrey,
+            colors.kkMagenta,
+          ]
+        }
         containerComponent={<VictoryContainer responsive={false} />}
       />
       <Box className={classes.resultTextContainer}>
@@ -96,11 +99,13 @@ const PallerotContainer = styled(Box)(({ theme }) => ({
   },
 }));
 
-type ResultSpheresProps = {
+type ResultSpheresAmmatillinenProps = {
   osalasku: Osalasku;
 };
 
-export const ResultSpheres = ({ osalasku }: ResultSpheresProps) => {
+export const ResultSpheresAmmatillinen = ({
+  osalasku,
+}: ResultSpheresAmmatillinenProps) => {
   const { t } = useTranslation();
 
   return (
@@ -121,6 +126,29 @@ export const ResultSpheres = ({ osalasku }: ResultSpheresProps) => {
           osalasku?.suorittanutBonus,
         ]}
         text={t('pistelaskuri.pisteet.ammatillinen-rest')}
+      />
+    </PallerotContainer>
+  );
+};
+
+type ResultSpheresLukioProps = {
+  keskiarvo: number;
+  painotettuKa: number;
+};
+
+export const ResultSpheresLukio = ({
+  keskiarvo,
+  painotettuKa,
+}: ResultSpheresLukioProps) => {
+  const { t } = useTranslation();
+
+  return (
+    <PallerotContainer>
+      <ResultSphere results={[keskiarvo]} text={t('pistelaskuri.pisteet.lukio')} />
+      <ResultSphere
+        results={[painotettuKa]}
+        text={t('pistelaskuri.pisteet.lukio-painotettu')}
+        colorScales={[colors.kkMagenta]}
       />
     </PallerotContainer>
   );

@@ -3,6 +3,7 @@ import {
   YHTEISHAKU_KOODI_URI,
   TOISEN_ASTEEN_YHTEISHAUN_KOHDEJOUKKO,
 } from '#/src/constants';
+import { Hakukohde } from '#/src/types/HakukohdeTypes';
 import { Toteutus, Hakutieto } from '#/src/types/ToteutusTypes';
 
 export const showPisteLaskuri = (
@@ -24,3 +25,7 @@ export const showPisteLaskuri = (
       )
   );
 };
+
+export const hasPainokertoimia = (hk: Hakukohde) =>
+  Boolean(hk.hakukohteenLinja?.painotetutArvosanat) === true &&
+  (hk.hakukohteenLinja?.painotetutArvosanat || []).length > 0;
