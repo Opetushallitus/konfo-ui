@@ -1,8 +1,6 @@
 import { useMemo } from 'react';
 
-import { createSlice } from '@reduxjs/toolkit';
 import { useQuery } from 'react-query';
-import { useSelector } from 'react-redux';
 
 import { getKoodistonKoodit } from '#/src/api/konfoApi';
 import { translate } from '#/src/tools/localization';
@@ -22,20 +20,3 @@ export const useKieliKoodit = () => {
     });
   }, [data]);
 };
-
-export const pistelaskuriSlice = createSlice({
-  name: 'pistelaskuri',
-  initialState: {
-    hakukohde: undefined,
-  },
-  reducers: {
-    setHakukohde: (state, action) => {
-      state.hakukohde = action.payload;
-    },
-  },
-});
-
-export const useLaskuriHakukohde = () =>
-  useSelector((state) => (state as any).pistelaskuri.hakukohde);
-
-export const { setHakukohde } = pistelaskuriSlice.actions;

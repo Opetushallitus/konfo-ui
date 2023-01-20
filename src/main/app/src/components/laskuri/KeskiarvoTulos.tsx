@@ -7,9 +7,9 @@ import { Link as RouterLink } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
+import { useLaskuriHakukohde } from '#/src/store/reducers/pistelaskuriSlice';
 
 import { kopioiKouluaineetPainokertoimilla, Kouluaineet } from './aine/Kouluaine';
-import { useLaskuriHakukohde } from './hooks';
 import {
   HakupisteLaskelma,
   kouluaineetToHakupiste,

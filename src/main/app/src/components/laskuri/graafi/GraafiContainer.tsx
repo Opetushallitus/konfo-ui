@@ -15,12 +15,12 @@ import { useDispatch } from 'react-redux';
 
 import { colors } from '#/src/colors';
 import { YHTEISHAKU_KOODI_URI } from '#/src/constants';
+import { setHakukohde as setHk } from '#/src/store/reducers/pistelaskuriSlice';
 import { localize } from '#/src/tools/localization';
 import { Hakukohde } from '#/src/types/HakukohdeTypes';
 import { Hakutieto } from '#/src/types/ToteutusTypes';
 
 import { Kouluaineet, kopioiKouluaineetPainokertoimilla } from '../aine/Kouluaine';
-import { setHakukohde as setHk } from '../hooks';
 import { HakupisteLaskelma, LaskelmaTapa, kouluaineetToHakupiste } from '../Keskiarvo';
 import { KOULUAINE_STORE_KEY, LocalStorageUtil } from '../LocalStorageUtil';
 import { hasPainokertoimia } from '../PisteLaskuriUtil';
