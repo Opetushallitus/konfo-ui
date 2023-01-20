@@ -148,12 +148,12 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
     } else {
       setCalculatedTulos(tulos);
     }
-  }, [tulos, hakukohde]);
+    dispatch(setHk(hakukohde));
+  }, [tulos, hakukohde, dispatch]);
 
   const changeHakukohde = (event: SelectChangeEvent<Hakukohde>) => {
     const uusiHakukohde = event.target.value as Hakukohde;
     setHakukohde(uusiHakukohde);
-    dispatch(setHk(uusiHakukohde));
   };
 
   return (
