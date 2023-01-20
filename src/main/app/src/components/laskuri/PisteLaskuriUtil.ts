@@ -27,5 +27,4 @@ export const showPisteLaskuri = (
 };
 
 export const hasPainokertoimia = (hk: Hakukohde) =>
-  Boolean(hk.hakukohteenLinja?.painotetutArvosanat) === true &&
   (hk.hakukohteenLinja?.painotetutArvosanat || []).length > 0;
