@@ -21,6 +21,7 @@ const OpintojaksoContent = ({ opintojakso }: { opintojakso: Opintojakso }) => {
       {sanitizedHTMLParser(localize(opintojakso?.metadata?.kuvaus))}
       <Button variant="outlined" size="large" color="primary">
         <LocalizedLink
+          target="_blank"
           tabIndex={-1}
           underline="none"
           component={RouterLink}
