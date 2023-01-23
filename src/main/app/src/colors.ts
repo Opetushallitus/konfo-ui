@@ -10,6 +10,7 @@ export const colors = {
   greyBg: '#F5F7F9', // Desktop BG
   white: '#FFFFFF', // Content area bg, text on dark bg
   red: '#CC3300', // Error states
+  korkeakouluPurple: '#990066',
 
   // TODO: Should be from specs?
   blue: '#0033CC',
@@ -32,9 +33,11 @@ export const educationTypeColorCode: Record<string, string> = {
   ammatillinenGreenBg: '#F4FFF4', // Highlight BG color
 
   // korkeakouluPurple
-  kk: '#990066',
-  yo: '#990066',
-  amk: '#990066',
+  kk: colors.korkeakouluPurple,
+  yo: colors.korkeakouluPurple,
+  amk: colors.korkeakouluPurple,
+  'kk-opintojakso': colors.korkeakouluPurple,
+  'kk-opintokokonaisuus': colors.korkeakouluPurple,
   korkeakouluBg: '#FFEFF9', // Highlight BG color
 
   // lukioBlue
