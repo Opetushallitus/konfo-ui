@@ -60,7 +60,7 @@ const KieliContainer = styled(Box)(({ theme }) => ({
 }));
 
 type Props = {
-  addKieli: (name: string, description: string | null) => void;
+  addKieli: (name: string, lukiokoodi: string, description: string | null) => void;
   children?: React.ReactNode;
 };
 
@@ -68,9 +68,13 @@ export const AddKieliInput = ({ children, addKieli }: Props) => {
   const { t } = useTranslation();
   const [showAddKieli, setShowAddKieli] = useState<boolean>(false);
 
-  const addAndClose = (name: string, description: string | null = null) => {
+  const addAndClose = (
+    name: string,
+    lukiokoodi: string,
+    description: string | null = null
+  ) => {
     setShowAddKieli(false);
-    addKieli(name, description);
+    addKieli(name, lukiokoodi, description);
   };
 
   return (
@@ -84,23 +88,41 @@ export const AddKieliInput = ({ children, addKieli }: Props) => {
           <div className={classes.kieliValinta}>
             <Button
               onClick={() =>
-                addAndClose('kouluaineet.a1-kieli', 'pistelaskuri.aine.kielikuvaukset.a1')
+                addAndClose(
+                  'kouluaineet.a1-kieli',
+                  'painotettavatoppiaineetlukiossa_a1',
+                  'pistelaskuri.aine.kielikuvaukset.a1'
+                )
               }>
               {t('kouluaineet.a1-kieli')}
             </Button>
             <Button
               onClick={() =>
-                addAndClose('kouluaineet.a2-kieli', 'pistelaskuri.aine.kielikuvaukset.a2')
+                addAndClose(
+                  'kouluaineet.a2-kieli',
+                  'painotettavatoppiaineetlukiossa_a2',
+                  'pistelaskuri.aine.kielikuvaukset.a2'
+                )
               }>
               {t('kouluaineet.a2-kieli')}
             </Button>
             <Button
               onClick={() =>
-                addAndClose('kouluaineet.b2-kieli', 'pistelaskuri.aine.kielikuvaukset.b2')
+                addAndClose(
+                  'kouluaineet.b2-kieli',
+                  'painotettavatoppiaineetlukiossa_b2',
+                  'pistelaskuri.aine.kielikuvaukset.b2'
+                )
               }>
               {t('kouluaineet.b2-kieli')}
             </Button>
-            <Button onClick={() => addAndClose('kouluaineet.aidinkieli')}>
+            <Button
+              onClick={() =>
+                addAndClose(
+                  'kouluaineet.aidinkieli',
+                  'painotettavatoppiaineetlukiossa_ai'
+                )
+              }>
               {t('kouluaineet.aidinkieli')}
             </Button>
           </div>

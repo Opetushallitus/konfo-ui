@@ -37,9 +37,7 @@ describe('Pistelaskuri KOMOTO', () => {
   it('Shows result after filling kouluaine', () => {
     cy.get('.KeskiarvoModal__recalculatebutton').click();
     cy.get('.KeskiarvoModal__container button').eq(0).click();
-    cy.get('.KeskiarvoModal__container .keskiarvo__ainelaskuri__gradeselect')
-      .eq(0)
-      .click();
+    cy.get('.KeskiarvoModal__container .kouluaine__gradeselect').eq(0).click();
     cy.get('.MuiPopover-root li').eq(1).click();
     cy.get('.KeskiarvoModal__calculatebutton').click();
     cy.get('.keskiarvo__tulos__pallerot__pallero').eq(0).contains(10);

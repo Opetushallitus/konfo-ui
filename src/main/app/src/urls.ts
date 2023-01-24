@@ -25,6 +25,7 @@ const development = {
   'konfo-backend.oppilaitosOsa.tarjonta':
     '/konfo-backend/search/oppilaitoksen-osa/$1/tarjonta',
   'konfo-backend.hakukohde': '/konfo-backend/hakukohde/$1',
+  'konfo-backend.koodisto.koodit': '/konfo-backend/koodisto/$1/koodit',
   'konfo-backend.haku.demo': '/konfo-backend/haku/$1/demo',
   'konfo-backend.haku': '/konfo-backend/haku/$1',
   'konfo-backend.koulutus.kuvaus': '/konfo-backend/kuvaus/$1',

@@ -3,14 +3,11 @@ import React, { useState, useEffect } from 'react';
 import { Box, styled, Button, SelectChangeEvent } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-import { Kouluaine, hasInitialValues } from './Kouluaine';
+import { Kouluaine, hasInitialValues, Kieliaine } from './Kouluaine';
 import { KouluaineSelect } from './KouluaineSelect';
-import { PainokerroinInput } from './PainokerroinInput';
 import { ValinnainenArvosana } from './ValinnainenArvosana';
 
-const AineContainer = styled(Box, {
-  shouldForwardProp: (prop) => prop !== 'longText',
-})<{ longText: boolean | undefined }>(({ theme, longText }) => ({
+const AineContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   marginBottom: '27px',
@@ -22,7 +19,7 @@ const AineContainer = styled(Box, {
     alignSelf: 'end',
     fontWeight: 600,
   },
-  alignItems: longText ? 'end' : 'start',
+  alignItems: 'end',
   [theme.breakpoints.down('sm')]: {
     flexDirection: 'column',
     alignItems: 'start',
@@ -50,21 +47,11 @@ export const KouluaineInput = ({
   removeLisaKieli = () => {},
 }: Props) => {
   const { t } = useTranslation();
-  const [kouluaine, setKouluaine] = useState<Kouluaine>({
-    nimi: aine.nimi,
-    arvosana: aine.arvosana,
-    valinnaisetArvosanat: aine.valinnaisetArvosanat,
-    painokerroin: aine.painokerroin,
-    description: aine.description,
-    longText: aine.longText,
-  });
-
-  const [showPainokerroin, setShowPainokerroin] = useState<boolean>(false);
+  const [kouluaine, setKouluaine] = useState<Kouluaine | Kieliaine>({ ...aine });
 
   useEffect(() => {
     if (!hasInitialValues(aine)) {
       setKouluaine(aine);
-      setShowPainokerroin(aine.painokerroin !== '');
     }
   }, [aine]);
 
@@ -72,6 +59,12 @@ export const KouluaineInput = ({
 
   const handleArvosanaChange = (arvosana: number) => {
     const uusiaine = Object.assign({}, kouluaine, { arvosana });
+    setKouluaine(uusiaine);
+    updateKouluaine(uusiaine);
+  };
+
+  const handleKieliChange = (kieliKoodi: string) => {
+    const uusiaine = Object.assign({}, kouluaine, { kieliKoodi });
     setKouluaine(uusiaine);
     updateKouluaine(uusiaine);
   };
@@ -98,24 +91,12 @@ export const KouluaineInput = ({
     updateKouluaine(uusiaine);
   };
 
-  const changePainokerroin = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const uusiaine = Object.assign({}, kouluaine, { painokerroin: event.target.value });
-    setKouluaine(uusiaine);
-    updateKouluaine(uusiaine);
-  };
-
-  const poistaPainokerroin = () => {
-    setShowPainokerroin(false);
-    const uusiaine = Object.assign({}, kouluaine, { painokerroin: '' });
-    setKouluaine(uusiaine);
-    updateKouluaine(uusiaine);
-  };
-
   return (
-    <AineContainer longText={aine.longText}>
+    <AineContainer>
       <KouluaineSelect
         aine={kouluaine}
         updateArvosana={handleArvosanaChange}
+        updateKieli={handleKieliChange}
         isLisaKieli={isLisaKieli}
         removeLisaKieli={removeLisaKieli}
       />
@@ -137,19 +118,6 @@ export const KouluaineInput = ({
         <Button onClick={addValinnaisaine}>
           {t('pistelaskuri.aine.addvalinnainen')}
         </Button>
-      )}
-      {!showPainokerroin && (
-        <Button onClick={() => setShowPainokerroin(true)}>
-          {t('pistelaskuri.aine.addpainokerroin')}
-        </Button>
-      )}
-      {showPainokerroin && (
-        <PainokerroinInput
-          id={`painokerroin-${kouluaine.nimi}`}
-          painokerroin={kouluaine.painokerroin}
-          updatePainokerroin={changePainokerroin}
-          removePainokerroin={poistaPainokerroin}
-        />
       )}
     </AineContainer>
   );

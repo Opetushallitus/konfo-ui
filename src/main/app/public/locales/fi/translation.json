@@ -605,6 +605,7 @@
     },
     "pisteet": {
       "lukio": "lukuaineiden keskiarvo",
+      "lukio-painotettu": "painotettu keskiarvo",
       "ammatillinen-first": "Ensisijaisen hakukohteen pisteet",
       "ammatillinen-rest": "2. - 7. hakukohteen pisteet",
       "osalasku": {
@@ -646,7 +647,9 @@
       "hakukohde": {
         "lukio": "Linja:",
         "muu": "Koulutus:"
-      }
+      },
+      "painotettujaarvosanoja": "Lukiolinjalla on painotettuja arvosanoja keskiarvolaskennassa",
+      "painokerroin": "painokerroin"
     },
     "vaihdalaskin-1": "Jos haluat tarkan laskelman, ",
     "vaihdalaskin-2": "kerro oppiaineiden arvosanat yksitellen.",
@@ -671,7 +674,10 @@
         "b2": "Yläkoulussa alkanut valinnainen kieli"
       },
       "removekieli": "Poista kieliaine",
-      "valitsearvosana": "Valitse arvosana"
+      "valitsearvosana": "Valitse arvosana",
+      "valitsekieli": "Valitse kieli",
+      "arvosana": "Arvosana",
+      "kielennimi": "Kielen nimi"
     }
   },
   "kouluaineet": {

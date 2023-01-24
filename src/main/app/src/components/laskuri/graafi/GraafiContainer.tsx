@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import {
   Box,
@@ -11,15 +11,21 @@ import {
   SelectChangeEvent,
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
 
 import { colors } from '#/src/colors';
 import { YHTEISHAKU_KOODI_URI } from '#/src/constants';
+import { setHakukohde as setHk } from '#/src/store/reducers/pistelaskuriSlice';
 import { localize } from '#/src/tools/localization';
 import { Hakukohde } from '#/src/types/HakukohdeTypes';
 import { Hakutieto } from '#/src/types/ToteutusTypes';
 
-import { HakupisteLaskelma } from '../Keskiarvo';
+import { Kouluaineet, kopioiKouluaineetPainokertoimilla } from '../aine/Kouluaine';
+import { HakupisteLaskelma, LaskelmaTapa, kouluaineetToHakupiste } from '../Keskiarvo';
+import { KOULUAINE_STORE_KEY, LocalStorageUtil } from '../LocalStorageUtil';
+import { hasPainokertoimia } from '../PisteLaskuriUtil';
 import { AccessibleGraafi } from './AccessibleGraafi';
+import { PainotetutArvosanat } from './PainotetutArvosanat';
 import { PisteGraafi } from './PisteGraafi';
 
 const PREFIX = 'graafi__container__';
@@ -113,16 +119,42 @@ type Props = {
 };
 
 export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
+  const dispatch = useDispatch();
   const { t } = useTranslation();
   const hakukohteet = hakutiedot
     .filter((tieto: Hakutieto) =>
       tieto.hakutapa?.koodiUri?.includes(YHTEISHAKU_KOODI_URI)
     )
     .flatMap((tieto: Hakutieto) => tieto.hakukohteet);
-  const [hakukohde, setHakukohde] = useState(hakukohteet[0]);
 
-  const changeHakukohde = (event: SelectChangeEvent<Hakukohde>) =>
-    setHakukohde(event.target.value as Hakukohde);
+  const [hakukohde, setHakukohde] = useState(hakukohteet[0]);
+  const [calculatedTulos, setCalculatedTulos] = useState(tulos);
+
+  useEffect(() => {
+    if (
+      tulos?.tapa === LaskelmaTapa.LUKUAINEET &&
+      hakukohde &&
+      hasPainokertoimia(hakukohde)
+    ) {
+      const savedResult = LocalStorageUtil.load(KOULUAINE_STORE_KEY);
+      if (savedResult) {
+        const aineet = savedResult as Kouluaineet;
+        const modifiedAineet = kopioiKouluaineetPainokertoimilla(
+          aineet,
+          hakukohde.hakukohteenLinja?.painotetutArvosanat || []
+        );
+        setCalculatedTulos(kouluaineetToHakupiste(modifiedAineet));
+      }
+    } else {
+      setCalculatedTulos(tulos);
+    }
+    dispatch(setHk(hakukohde));
+  }, [tulos, hakukohde, dispatch]);
+
+  const changeHakukohde = (event: SelectChangeEvent<Hakukohde>) => {
+    const uusiHakukohde = event.target.value as Hakukohde;
+    setHakukohde(uusiHakukohde);
+  };
 
   return (
     <StyledBox>
@@ -153,7 +185,11 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
       {hakukohde?.metadata?.pistehistoria &&
         hakukohde?.metadata?.pistehistoria?.length > 0 && (
           <Box>
-            <PisteGraafi hakukohde={hakukohde} tulos={tulos} isLukio={isLukio} />
+            <PisteGraafi
+              hakukohde={hakukohde}
+              tulos={calculatedTulos}
+              isLukio={isLukio}
+            />
             <Box className={classes.legend} aria-hidden={true}>
               <Typography sx={{ fontSize: '0.875rem' }}>
                 <Box className={classes.legendScores} />
@@ -174,7 +210,11 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
                 </Typography>
               )}
             </Box>
-            <AccessibleGraafi isLukio={isLukio} tulos={tulos} hakukohde={hakukohde} />
+            <AccessibleGraafi
+              isLukio={isLukio}
+              tulos={calculatedTulos}
+              hakukohde={hakukohde}
+            />
           </Box>
         )}
       {!hakukohde?.metadata?.pistehistoria ||
@@ -183,6 +223,11 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
             {t('pistelaskuri.graafi.ei-tuloksia')}
           </Typography>
         ))}
+      {hakukohde && hasPainokertoimia(hakukohde) && (
+        <PainotetutArvosanat
+          painotetutArvosanat={hakukohde.hakukohteenLinja?.painotetutArvosanat || []}
+        />
+      )}
     </StyledBox>
   );
 };

@@ -8,7 +8,7 @@ import { colors } from 'src/colors';
 import { SuorittanutCheckbox } from '../common/SuorittanutCheckbox';
 import { LocalStorageUtil, KOULUAINE_STORE_KEY } from '../LocalStorageUtil';
 import { AddKieliInput } from './AddKieliInput';
-import { Kouluaineet, Kouluaine, createKouluaine } from './Kouluaine';
+import { Kouluaineet, Kouluaine, createKieliaine, createKouluaine } from './Kouluaine';
 import { KouluaineInput } from './KouluaineInput';
 
 const PREFIX = 'keskiarvo__ainelaskuri__';
@@ -70,9 +70,13 @@ export const KeskiarvoAineLaskuri = ({
     updateKouluaineetToCalculate(aineet);
   };
 
-  const addKieli = (nimi: string, description: string | null) => {
+  const addKieli = (nimi: string, lukiokoodi: string, description: string | null) => {
     const aineet: Kouluaineet = { ...kouluaineet };
-    aineet.lisakielet.push(createKouluaine(nimi, description));
+    aineet.lisakielet.push(
+      description
+        ? createKieliaine(nimi, lukiokoodi, description)
+        : createKouluaine(nimi, lukiokoodi)
+    );
     setKouluaineet(aineet);
   };
 
