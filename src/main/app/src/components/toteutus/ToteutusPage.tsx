@@ -352,6 +352,7 @@ export const ToteutusPage = () => {
         {!_.isEmpty(toteutus?.oppilaitokset) && (
           <ToteutuksenYhteystiedot
             oids={_fp.uniq(toteutus!.oppilaitokset.concat(toteutus!.organisaatiot))}
+            tarjoajat={toteutus?.tarjoajat}
           />
         )}
       </InnerWrapper>

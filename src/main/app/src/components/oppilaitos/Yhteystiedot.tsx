@@ -11,6 +11,7 @@ import Spacer from '#/src/components/common/Spacer';
 import { localize } from '#/src/tools/localization';
 import { byLocaleCompare, toId } from '#/src/tools/utils';
 import { Yhteystiedot as YhteystiedotType } from '#/src/types/common';
+import { Organisaatio } from '#/src/types/ToteutusTypes';
 
 const PREFIX = 'Yhteystiedot';
 
@@ -72,6 +73,7 @@ const YhteystietoRow = ({ title, text }: { title: string; text: string }) => (
 type Props = {
   id: string;
   heading?: string;
+  tarjoajat?: Array<Organisaatio>;
   yhteystiedot?: Array<YhteystiedotType>;
   hakijapalveluidenYhteystiedot?: YhteystiedotType;
   organisaatioidenYhteystiedot?: Array<YhteystiedotType>;
@@ -85,6 +87,7 @@ export const Yhteystiedot = ({
   id,
   heading,
   yhteystiedot,
+  tarjoajat,
   hakijapalveluidenYhteystiedot,
   organisaatioidenYhteystiedot,
 }: Props) => {
@@ -93,9 +96,10 @@ export const Yhteystiedot = ({
   const isSm = useMediaQuery(theme.breakpoints.down('sm'));
 
   const localizedYhteystiedot = useMemo(() => {
-    const organisaatiot = (yhteystiedot ? [] : []) // yhteystiedot tarvitaan useMemo hookiin uudelleenlataamiseen vaikka yhteystiedot taulun tietoa ei tarvita UIssa
+    const organisaatiot = (yhteystiedot || [])
       .concat(organisaatioidenYhteystiedot as any)
       .filter((obj) => _.hasIn(obj, 'nimi'))
+      .filter((obj) => tarjoajat?.some((ta) => obj?.nimi?.fi === ta?.nimi?.fi))
       .filter(Boolean)
       .map(parseYhteystieto())
       .sort(byLocaleCompare('nimi'));
@@ -113,7 +117,12 @@ export const Yhteystiedot = ({
       .map(parseYhteystieto())
       .filter(Boolean)
       .concat(organisaatiot);
-  }, [hakijapalveluidenYhteystiedot, organisaatioidenYhteystiedot, yhteystiedot]);
+  }, [
+    hakijapalveluidenYhteystiedot,
+    organisaatioidenYhteystiedot,
+    yhteystiedot,
+    tarjoajat,
+  ]);
 
   return (
     <StyledBox
