@@ -11,6 +11,7 @@ import Spacer from '#/src/components/common/Spacer';
 import { localize } from '#/src/tools/localization';
 import { byLocaleCompare, toId } from '#/src/tools/utils';
 import { Yhteystiedot as YhteystiedotType } from '#/src/types/common';
+import { Organisaatio } from '#/src/types/ToteutusTypes';
 
 const PREFIX = 'Yhteystiedot';
 
@@ -72,6 +73,7 @@ const YhteystietoRow = ({ title, text }: { title: string; text: string }) => (
 type Props = {
   id: string;
   heading?: string;
+  tarjoajat?: Array<Organisaatio>;
   yhteystiedot?: Array<YhteystiedotType>;
   hakijapalveluidenYhteystiedot?: YhteystiedotType;
   organisaatioidenYhteystiedot?: Array<YhteystiedotType>;
@@ -85,6 +87,7 @@ export const Yhteystiedot = ({
   id,
   heading,
   yhteystiedot,
+  tarjoajat,
   hakijapalveluidenYhteystiedot,
   organisaatioidenYhteystiedot,
 }: Props) => {
@@ -92,16 +95,34 @@ export const Yhteystiedot = ({
   const theme = useTheme();
   const isSm = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const localizedYhteystiedot = useMemo(
-    () =>
-      (yhteystiedot || [])
-        .concat(hakijapalveluidenYhteystiedot as any) // TODO: undefined cannot be concated :I
-        .concat(organisaatioidenYhteystiedot as any)
+  const localizedYhteystiedot = useMemo(() => {
+    const organisaatiot = (yhteystiedot || [])
+      .concat(organisaatioidenYhteystiedot as any)
+      .filter((obj) => _.hasIn(obj, 'nimi'))
+      .filter((obj) => tarjoajat?.some((ta) => obj?.nimi?.fi === ta?.nimi?.fi))
+      .filter(Boolean)
+      .map(parseYhteystieto())
+      .sort(byLocaleCompare('nimi'));
+
+    if (Array.isArray(hakijapalveluidenYhteystiedot)) {
+      return hakijapalveluidenYhteystiedot
         .filter(Boolean)
         .map(parseYhteystieto())
-        .sort(byLocaleCompare('nimi')),
-    [hakijapalveluidenYhteystiedot, organisaatioidenYhteystiedot, yhteystiedot]
-  );
+        .sort(byLocaleCompare('nimi'))
+        .concat(organisaatiot);
+    }
+
+    return [hakijapalveluidenYhteystiedot as any] // hakijapalveluidenYhteystiedot aina ensimmäisenä, vasta sen jälkeen sortataan
+      .filter((obj) => _.hasIn(obj, 'nimi'))
+      .map(parseYhteystieto())
+      .filter(Boolean)
+      .concat(organisaatiot);
+  }, [
+    hakijapalveluidenYhteystiedot,
+    organisaatioidenYhteystiedot,
+    yhteystiedot,
+    tarjoajat,
+  ]);
 
   return (
     <StyledBox
