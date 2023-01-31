@@ -1,5 +1,3 @@
-import React from 'react';
-
 import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
 import { Box, Card, CardContent, Divider, Grid, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
@@ -172,16 +170,16 @@ const LiiteCard = ({
                   <Divider />
                 </Box>
               </Grid>
-              <Grid item xs={2}></Grid>
-              <Grid item xs={10}>
+              <Grid item xs={1}></Grid>
+              <Grid item xs={11}>
                 <ToimituspaikkaByToimitustapa
                   toimitustapa={toimitustapa}
                   toimitusosoite={toimitusosoite}
                   hakijapalveluidenYhteystiedot={hakijapalveluidenYhteystiedot}
                 />
               </Grid>
-              <Grid item xs={2}></Grid>
-              <Grid item xs={10}>
+              <Grid item xs={1}></Grid>
+              <Grid item xs={11}>
                 <Box m={1}>
                   <Heading variant="h5">
                     {t('valintaperuste.toimitettava-viimeistään')}
