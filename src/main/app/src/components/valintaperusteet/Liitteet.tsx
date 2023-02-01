@@ -158,7 +158,7 @@ const LiiteCard = ({
                   <Grid item xs={11}>
                     <Box m={1}>
                       <Heading variant="h5">{localize(nimi)}</Heading>
-                      <Typography style={{ wordBreak: 'break-word' }}>
+                      <Typography style={{ wordWrap: 'break-word' }}>
                         <LocalizedHTML data={kuvaus} />
                       </Typography>
                     </Box>
