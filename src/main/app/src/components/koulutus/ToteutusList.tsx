@@ -39,6 +39,7 @@ import {
   localizeArrayToCommaSeparated,
 } from '#/src/tools/localization';
 import { mapValues } from '#/src/tools/lodashFpUncapped';
+import { getLocalizedToteutusLaajuus } from '#/src/tools/utils';
 import { FilterValue } from '#/src/types/SuodatinTypes';
 import { Jarjestaja } from '#/src/types/ToteutusTypes';
 
@@ -349,6 +350,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                         toteutus.jarjestaaUrheilijanAmmKoulutusta
                       }
                       kuvaus={localize(toteutus.kuvaus)}
+                      opintojenLaajuus={getLocalizedToteutusLaajuus(toteutus)}
                       wrapIconTexts={true}
                       iconTexts={[
                         [
