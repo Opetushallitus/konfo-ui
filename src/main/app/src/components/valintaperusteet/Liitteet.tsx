@@ -1,5 +1,3 @@
-import React from 'react';
-
 import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
 import { Box, Card, CardContent, Divider, Grid, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
@@ -150,17 +148,19 @@ const LiiteCard = ({
             <StyledGrid container>
               {liitteet.map(({ nimi, kuvaus }, i) => (
                 <Grid container key={`liite-${nimi}-${i}`}>
-                  <Grid item container xs={2} justifyContent="flex-end">
+                  <Grid item container xs={1} justifyContent="flex-end">
                     <FileIcon
                       classes={{
                         root: classes.root,
                       }}
                     />
                   </Grid>
-                  <Grid item xs={10}>
+                  <Grid item xs={11}>
                     <Box m={1}>
                       <Heading variant="h5">{localize(nimi)}</Heading>
-                      <LocalizedHTML data={kuvaus} />
+                      <Typography style={{ overflowWrap: 'break-word' }}>
+                        <LocalizedHTML data={kuvaus} />
+                      </Typography>
                     </Box>
                   </Grid>
                 </Grid>
@@ -170,16 +170,16 @@ const LiiteCard = ({
                   <Divider />
                 </Box>
               </Grid>
-              <Grid item xs={2}></Grid>
-              <Grid item xs={10}>
+              <Grid item xs={1}></Grid>
+              <Grid item xs={11}>
                 <ToimituspaikkaByToimitustapa
                   toimitustapa={toimitustapa}
                   toimitusosoite={toimitusosoite}
                   hakijapalveluidenYhteystiedot={hakijapalveluidenYhteystiedot}
                 />
               </Grid>
-              <Grid item xs={2}></Grid>
-              <Grid item xs={10}>
+              <Grid item xs={1}></Grid>
+              <Grid item xs={11}>
                 <Box m={1}>
                   <Heading variant="h5">
                     {t('valintaperuste.toimitettava-viimeistään')}
