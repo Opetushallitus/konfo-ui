@@ -271,7 +271,8 @@
     "ei-koulutuksen-tarjoajia": "Koulutuksella ei ole tarjoajia",
     "tyoelama-ja-taydennyskoulutukset": "Työelämä- ja täydennyskoulutukset",
     "taydennyskoulutus": "Täydennyskoulutus",
-    "tyovoimakoulutus": "Työvoimakoulutus"
+    "tyovoimakoulutus": "Työvoimakoulutus",
+    "muu": "Muu koulutus"
   },
   "navigaatio": {
     "edellinen": "Edellinen",
@@ -381,6 +382,7 @@
     "tyyppi-kk-opintojakso": "Opintojakso",
     "tyyppi-kk-opintokokonaisuus": "Opintokokonaisuus",
     "tyyppi-erikoislaakari": "Erikoislaakari",
+    "tyyppi-muu": "Muu koulutus",
     "tarjonta": "Tutustu tarjontaan",
     "haku-kaynnissa": "Haku käynnissä",
     "katso-jarjestavat": "Katso koulutusta järjestävät oppilaitokset.",
