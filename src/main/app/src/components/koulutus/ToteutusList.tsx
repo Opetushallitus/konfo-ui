@@ -3,8 +3,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import EuroSymbolIcon from '@mui/icons-material/EuroSymbol';
 import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
 import PublicIcon from '@mui/icons-material/Public';
-import { Grid, Hidden, Typography } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { Box, Grid, Hidden, Typography } from '@mui/material';
 import _fp from 'lodash/fp';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -48,26 +47,6 @@ import { LukiolinjatSuodatin } from '../suodattimet/toteutusSuodattimet/Lukiolin
 import { MobileFiltersOnTopMenu } from '../suodattimet/toteutusSuodattimet/MobileFiltersOnTopMenu';
 import { useKoulutusJarjestajat } from './hooks';
 
-const PREFIX = 'ToteutusList';
-
-const classes = {
-  grid: `${PREFIX}-grid`,
-  filtersContainer: `${PREFIX}-filtersContainer`,
-  filter: `${PREFIX}-filter`,
-};
-
-const Root = styled('div')({
-  [`& .${classes.grid}`]: {
-    maxWidth: '900px',
-  },
-  [`& .${classes.filtersContainer}`]: {
-    marginBottom: '16px',
-  },
-  [`& .${classes.filter}`]: {
-    minWidth: '250px',
-  },
-});
-
 type Props = {
   oid: string;
   koulutustyyppi: string;
@@ -82,7 +61,7 @@ type JarjestajaData = {
 
 const SuodatinGridItem: React.FC = ({ children }) => {
   return (
-    <Grid item className={classes.filter} xs={6} lg={4}>
+    <Grid item sx={{ minWidth: '250px' }} xs={6} lg={4}>
       {children}
     </Grid>
   );
@@ -188,7 +167,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
   const [preventClicks, setPreventClicks] = useState(false);
 
   return (
-    <Root>
+    <Box>
       <PageSection
         heading={
           <Typography variant="h2" id={scrollTargetId}>
@@ -212,8 +191,8 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
               item
               direction="row"
               justifyContent="center"
+              mb={2}
               spacing={2}
-              className={classes.filtersContainer}
               sm={10}>
               <SuodatinGridItem>
                 <OpetuskieliSuodatin
@@ -325,78 +304,76 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
         </>
         <Pagination total={total} pagination={pagination} setPagination={setPagination} />
         <QueryResultWrapper queryResult={queryResult}>
-          <>
-            {someValuesToShow ? (
-              <Grid
-                container
-                direction="column"
-                justifyContent="center"
-                className={classes.grid}
-                alignItems="stretch"
-                spacing={1}>
-                {jarjestajat?.map((toteutus, i) => (
-                  <Grid item key={i}>
-                    <EntiteettiKortti
-                      koulutustyyppi={toteutus.koulutustyyppi}
-                      to={`/toteutus/${toteutus.toteutusOid}`}
-                      logoElement={<OppilaitosKorttiLogo image={toteutus.kuva} alt="" />}
-                      preHeader={localize(toteutus)}
-                      header={localize(toteutus.toteutusNimi)}
-                      erityisopetusHeader={
-                        toteutus.ammatillinenPerustutkintoErityisopetuksena ||
-                        toteutus.jarjestetaanErityisopetuksena
-                      }
-                      jarjestaaUrheilijanAmmKoulutusta={
-                        toteutus.jarjestaaUrheilijanAmmKoulutusta
-                      }
-                      kuvaus={localize(toteutus.kuvaus)}
-                      opintojenLaajuus={getLocalizedToteutusLaajuus(toteutus)}
-                      wrapIconTexts={true}
-                      iconTexts={[
-                        [
-                          localizeArrayToCommaSeparated(toteutus.kunnat, {
-                            sorted: true,
-                          }),
-                          PublicIcon,
-                        ],
-                        [
-                          localizeArrayToCommaSeparated(toteutus.opetusajat, {
-                            sorted: true,
-                          }),
-                          HourglassEmptyIcon,
-                        ],
-                        [
-                          getLocalizedMaksullisuus(
-                            toteutus.maksullisuustyyppi,
-                            toteutus.maksunMaara
-                          ),
-                          EuroSymbolIcon,
-                        ],
-                        [
-                          toteutus.hakuAuki ? (
-                            <TextWithBackground>
-                              {t('haku.hakukaynnissa')}
-                            </TextWithBackground>
-                          ) : (
-                            <></>
-                          ),
-                          undefined,
-                        ],
-                      ]}
-                    />
-                  </Grid>
-                ))}
-              </Grid>
-            ) : (
-              <Typography variant="body1" paragraph>
-                {t(
-                  someSelected
-                    ? 'koulutus.ei-rajaimia-vastaavia-toteutuksia'
-                    : 'koulutus.ei-toteutuksia'
-                )}
-              </Typography>
-            )}
-          </>
+          {someValuesToShow ? (
+            <Box
+              sx={{
+                flexDirection: 'column',
+                alignItems: 'center',
+                width: '100%',
+                maxWidth: '900px',
+              }}>
+              {jarjestajat?.map((toteutus) => (
+                <Box key={toteutus.toteutusOid}>
+                  <EntiteettiKortti
+                    koulutustyyppi={toteutus.koulutustyyppi}
+                    to={`/toteutus/${toteutus.toteutusOid}`}
+                    logoElement={<OppilaitosKorttiLogo image={toteutus.kuva} alt="" />}
+                    preHeader={localize(toteutus)}
+                    header={localize(toteutus.toteutusNimi)}
+                    erityisopetusHeader={
+                      toteutus.ammatillinenPerustutkintoErityisopetuksena ||
+                      toteutus.jarjestetaanErityisopetuksena
+                    }
+                    jarjestaaUrheilijanAmmKoulutusta={
+                      toteutus.jarjestaaUrheilijanAmmKoulutusta
+                    }
+                    kuvaus={localize(toteutus.kuvaus)}
+                    opintojenLaajuus={getLocalizedToteutusLaajuus(toteutus)}
+                    wrapIconTexts={true}
+                    iconTexts={[
+                      [
+                        localizeArrayToCommaSeparated(toteutus.kunnat, {
+                          sorted: true,
+                        }),
+                        PublicIcon,
+                      ],
+                      [
+                        localizeArrayToCommaSeparated(toteutus.opetusajat, {
+                          sorted: true,
+                        }),
+                        HourglassEmptyIcon,
+                      ],
+                      [
+                        getLocalizedMaksullisuus(
+                          toteutus.maksullisuustyyppi,
+                          toteutus.maksunMaara
+                        ),
+                        EuroSymbolIcon,
+                      ],
+                      [
+                        toteutus.hakuAuki ? (
+                          <TextWithBackground>
+                            {t('haku.hakukaynnissa')}
+                          </TextWithBackground>
+                        ) : (
+                          <></>
+                        ),
+                        undefined,
+                      ],
+                    ]}
+                  />
+                </Box>
+              ))}
+            </Box>
+          ) : (
+            <Typography variant="body1" paragraph>
+              {t(
+                someSelected
+                  ? 'koulutus.ei-rajaimia-vastaavia-toteutuksia'
+                  : 'koulutus.ei-toteutuksia'
+              )}
+            </Typography>
+          )}
         </QueryResultWrapper>
         <Pagination
           total={total}
@@ -422,6 +399,6 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
           setPreventClicks(false);
           e.stopPropagation();
         }}></div>
-    </Root>
+    </Box>
   );
 };

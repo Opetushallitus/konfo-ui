@@ -3,8 +3,7 @@ import React from 'react';
 import EuroSymbolIcon from '@mui/icons-material/EuroSymbol';
 import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
 import PublicIcon from '@mui/icons-material/Public';
-import { Typography, Grid, Box } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { Typography, Box } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { EntiteettiKortti } from '#/src/components/common/EntiteettiKortti';
@@ -17,25 +16,6 @@ import { PageSection } from '#/src/components/common/PageSection';
 import { Pagination } from '#/src/components/common/Pagination';
 
 import { usePaginatedTarjonta } from './hooks';
-
-const PREFIX = 'TarjontaList';
-
-const classes = {
-  container: `${PREFIX}-container`,
-  grid: `${PREFIX}-grid`,
-};
-
-const StyledPageSection = styled(PageSection)({
-  [`& .${classes.container}`]: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    marginTop: '100px',
-  },
-  [`& .${classes.grid}`]: {
-    maxWidth: '900px',
-  },
-});
 
 type Props = {
   oid: string;
@@ -60,7 +40,7 @@ export const TarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
       return <LoadingCircle />;
     case 'success':
       return tarjonta.hasHits ? (
-        <StyledPageSection
+        <PageSection
           heading={
             <Typography variant="h2" id={scrolltargetId}>
               {t('oppilaitos.oppilaitoksessa-jarjestettavat-koulutukset')}
@@ -71,11 +51,11 @@ export const TarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
             pagination={pagination}
             setPagination={setPagination}
           />
-          <Box position="relative">
+          <Box position="relative" sx={{ width: '100%', maxWidth: '900px' }}>
             <OverlayLoadingCircle isLoading={isFetching} />
-            <Grid className={classes.grid} direction="column" spacing={1}>
+            <Box flexDirection="column" alignItems="stretch">
               {values?.map((toteutus: any) => (
-                <Grid item key={toteutus?.toteutusOid}>
+                <Box key={toteutus?.toteutusOid}>
                   <EntiteettiKortti
                     koulutustyyppi={toteutus?.tyyppi}
                     to={`/toteutus/${toteutus?.toteutusOid}`}
@@ -91,9 +71,9 @@ export const TarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
                       [toteutus?.price, EuroSymbolIcon],
                     ]}
                   />
-                </Grid>
+                </Box>
               ))}
-            </Grid>
+            </Box>
           </Box>
           <Pagination
             total={total}
@@ -101,7 +81,7 @@ export const TarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
             setPagination={setPagination}
             scrollTargetId={scrolltargetId}
           />
-        </StyledPageSection>
+        </PageSection>
       ) : null;
     default:
       return null;
