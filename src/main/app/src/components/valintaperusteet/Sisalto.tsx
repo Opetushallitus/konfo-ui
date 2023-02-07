@@ -85,45 +85,47 @@ const Taulukko = ({ data: { rows } }: SisaltoTaulukko) => {
   const [headerRow, ...restRows] = rows;
 
   return (
-    <TableContainer component={Paper}>
-      <Table size="small" aria-label={t('valintaperuste.taulukko')}>
-        <TableHead>
-          <StyledTableRow
-            classes={{
-              root: classes.root,
-            }}>
-            {headerRow?.columns.map((col, index) => (
-              <HeaderCell
-                key={`cell-${index}`}
-                align="left"
-                classes={{
-                  head: classes.head,
-                }}>
-                {localize(col?.text)}
-              </HeaderCell>
-            ))}
-          </StyledTableRow>
-        </TableHead>
-        <TableBody>
-          {restRows.map(({ isHeader, columns }, index) => {
-            const Cell = isHeader ? SubHeaderCell : TableCell;
-            return (
-              <StyledTableRow
-                key={`row-${index}`}
-                classes={{
-                  root: classes.root,
-                }}>
-                {columns.map((col, idx) => (
-                  <Cell key={`cell-${idx}`} align="left">
-                    {localize(col?.text)}
-                  </Cell>
-                ))}
-              </StyledTableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <StyledBox>
+      <TableContainer component={Paper}>
+        <Table size="small" aria-label={t('valintaperuste.taulukko')}>
+          <TableHead>
+            <StyledTableRow
+              classes={{
+                root: classes.root,
+              }}>
+              {headerRow?.columns.map((col, index) => (
+                <HeaderCell
+                  key={`cell-${index}`}
+                  align="left"
+                  classes={{
+                    head: classes.head,
+                  }}>
+                  {localize(col?.text)}
+                </HeaderCell>
+              ))}
+            </StyledTableRow>
+          </TableHead>
+          <TableBody>
+            {restRows.map(({ isHeader, columns }, index) => {
+              const Cell = isHeader ? SubHeaderCell : TableCell;
+              return (
+                <StyledTableRow
+                  key={`row-${index}`}
+                  classes={{
+                    root: classes.root,
+                  }}>
+                  {columns.map((col, idx) => (
+                    <Cell key={`cell-${idx}`} align="left">
+                      {localize(col?.text)}
+                    </Cell>
+                  ))}
+                </StyledTableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </StyledBox>
   );
 };
 
