@@ -87,7 +87,7 @@ export const Sivu = ({ id }) => {
         <Grid item xs={12} sm={12} md={tableOfContents ? 7 : 6}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12} md={12}>
-              <Sisalto content={content} />
+              {content === undefined ? null : <Sisalto content={content} />}
             </Grid>
           </Grid>
         </Grid>

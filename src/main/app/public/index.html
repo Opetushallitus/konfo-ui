@@ -7,6 +7,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=yes"
     />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta id="sdg-analytics-placeholder" />
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -95,11 +96,13 @@
         // Params that are included in the tracking requests. See https://developer.matomo.org/api-reference/tracking-api
         includedParams: ["idsite", "rec", "action_name", "url", "_id", "rand", "apiv"],
       };
-      var hasInit = false;
-      var initMatomoTracker = function () {
+      var trackOnlyOnce = new Set([]);
+      var initMatomoTracker = function (lang, content, pageFullyLoaded) {
         try {
-          if (hasInit) return;
-          hasInit = true;
+          var key = `${lang}/${content}`;
+          if (!pageFullyLoaded || trackOnlyOnce.has(key)) return;
+          trackOnlyOnce.add(key);
+          console.log(`Initializing Matomo with language ${lang} and content ${content}`);
           var tracker;
           if (typeof Matomo !== 'undefined') {
             tracker = Matomo;
@@ -139,9 +142,6 @@
       if (typeof Matomo === 'undefined') {
         window.matomoAsyncInit = initMatomoTracker;
         window.piwikAsyncInit = initMatomoTracker;
-      }
-      else {
-        initMatomoTracker();
       }
     </script>
     <title>Opintopolku</title>

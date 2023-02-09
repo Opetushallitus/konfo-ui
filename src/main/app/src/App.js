@@ -13,6 +13,7 @@ import SiteImprove from '#/src/components/common/SiteImprove';
 import { HeadingBoundary } from '#/src/components/Heading';
 import { useSideMenu } from '#/src/hooks';
 import { NotFound } from '#/src/NotFound';
+import { SdgAnalyticTags } from '#/src/sdg/Sdg';
 import { supportedLanguages } from '#/src/tools/i18n';
 import { getLanguage } from '#/src/tools/localization';
 
@@ -275,6 +276,9 @@ const App = () => {
 
   return (
     <Root betaBannerVisible={betaBanner} isSmall={isSmall} menuVisible={menuVisible}>
+      <Route path="/:lng?/sivu/:id?">
+        <SdgAnalyticTags />
+      </Route>
       <Draft />
       <CookieModal />
       <SiteImprove titleObj={titleObj} />
