@@ -338,7 +338,8 @@ export const ToteutusPage = () => {
                           <ExternalLink
                             className={classes.yhteystiedotLink}
                             href={localize(yhteyshenkilo.wwwSivu)}>
-                            {localize(yhteyshenkilo.wwwSivu)}
+                            {localize(yhteyshenkilo.wwwSivuTeksti) ||
+                              localize(yhteyshenkilo.wwwSivu)}
                           </ExternalLink>
                         </Grid>
                       )}

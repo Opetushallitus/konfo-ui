@@ -51,6 +51,7 @@ export type Yhteyshenkilo = {
   sahkoposti: Translateable;
   titteli: Translateable;
   wwwSivu: Translateable;
+  wwwSivuTeksti: Translateable;
 };
 
 export type Lukiodiplomi = {
