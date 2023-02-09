@@ -169,10 +169,18 @@ export function getLocalizedKoulutusLaajuus(koulutus) {
 }
 
 export function getLocalizedToteutusLaajuus(toteutus, koulutus) {
-  const laajuusNumero = formatDouble(toteutus?.metadata?.opintojenLaajuusNumero);
-  const laajuusNumeroMin = formatDouble(toteutus?.metadata?.opintojenLaajuusNumeroMin);
-  const laajuusNumeroMax = formatDouble(toteutus?.metadata?.opintojenLaajuusNumeroMax);
-  const laajuusyksikko = localize(toteutus?.metadata?.opintojenLaajuusyksikko);
+  const laajuusNumero = formatDouble(
+    toteutus?.metadata?.opintojenLaajuusNumero || toteutus?.opintojenLaajuusNumero
+  );
+  const laajuusNumeroMin = formatDouble(
+    toteutus?.metadata?.opintojenLaajuusNumeroMin || toteutus?.opintojenLaajuusNumeroMin
+  );
+  const laajuusNumeroMax = formatDouble(
+    toteutus?.metadata?.opintojenLaajuusNumeroMax || toteutus?.opintojenLaajuusNumeroMax
+  );
+  const laajuusyksikko = localize(
+    toteutus?.metadata?.opintojenLaajuusyksikko || toteutus?.opintojenLaajuusyksikko
+  );
   const laajuus = getFormattedOpintojenLaajuus(
     laajuusNumero,
     laajuusyksikko,

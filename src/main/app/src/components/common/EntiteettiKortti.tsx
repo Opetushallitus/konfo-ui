@@ -116,6 +116,7 @@ type Props = {
   isSmall?: boolean;
   wrapIconTexts?: boolean;
   jarjestaaUrheilijanAmmKoulutusta?: boolean;
+  opintojenLaajuus?: string;
 };
 
 export const EntiteettiKortti = ({
@@ -131,6 +132,7 @@ export const EntiteettiKortti = ({
   isSmall: isSmallProp,
   wrapIconTexts = false,
   jarjestaaUrheilijanAmmKoulutusta = false,
+  opintojenLaajuus,
 }: Props) => {
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -185,7 +187,9 @@ export const EntiteettiKortti = ({
               </Typography>
             )}
             <Typography variant="h4" className={classes.header}>
-              {_.trim(header)}
+              {_.trim(
+                _.isEmpty(opintojenLaajuus) ? header : `${header}, ${opintojenLaajuus}`
+              )}
             </Typography>
           </Box>
 

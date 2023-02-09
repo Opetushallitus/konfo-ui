@@ -21,6 +21,7 @@ const OpintojaksoContent = ({ opintojakso }: { opintojakso: Opintojakso }) => {
       {sanitizedHTMLParser(localize(opintojakso?.metadata?.kuvaus))}
       <Button variant="outlined" size="large" color="primary">
         <LocalizedLink
+          target="_blank"
           tabIndex={-1}
           underline="none"
           component={RouterLink}
@@ -39,9 +40,21 @@ export const Opintojaksot = ({ opintojaksot }: { opintojaksot: Array<Opintojakso
     <PageSection heading={t('toteutus.opintojaksot')}>
       <Accordion
         items={opintojaksot.map((opintojakso: any) => ({
-          title: `${localize(opintojakso?.nimi)}, ${getLocalizedToteutusLaajuus(
-            opintojakso
-          )}`,
+          title: (
+            <>
+              <LocalizedLink
+                style={{ fontWeight: 600 }}
+                target="_blank"
+                tabIndex={-1}
+                underline="none"
+                component={RouterLink}
+                to={`/toteutus/${opintojakso?.oid}`}>
+                {localize(opintojakso?.nimi)}
+              </LocalizedLink>
+              &#44;&nbsp;
+              <Typography>{getLocalizedToteutusLaajuus(opintojakso)}</Typography>
+            </>
+          ),
           content: <OpintojaksoContent opintojakso={opintojakso} />,
         }))}
       />
