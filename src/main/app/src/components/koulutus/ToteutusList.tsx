@@ -328,7 +328,14 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                       toteutus.jarjestaaUrheilijanAmmKoulutusta
                     }
                     kuvaus={localize(toteutus.kuvaus)}
-                    opintojenLaajuus={getLocalizedToteutusLaajuus(toteutus)}
+                    opintojenLaajuus={
+                      [
+                        KOULUTUS_TYYPPI.KK_OPINTOJAKSO,
+                        KOULUTUS_TYYPPI.KK_OPINTOKOKONAISUUS,
+                      ].includes(koulutustyyppi as KOULUTUS_TYYPPI)
+                        ? getLocalizedToteutusLaajuus(toteutus)
+                        : undefined
+                    }
                     wrapIconTexts={true}
                     iconTexts={[
                       [
