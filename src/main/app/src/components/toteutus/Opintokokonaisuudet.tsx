@@ -20,6 +20,7 @@ export const Opintokokonaisuudet = ({
       {opintokokonaisuudet.map((opintokokonaisuus) => (
         <LocalizedLink
           sx={{ fontSize: '1.25rem' }}
+          target="_blank"
           tabIndex={-1}
           component={RouterLink}
           to={`/toteutus/${opintokokonaisuus.oid}`}>
