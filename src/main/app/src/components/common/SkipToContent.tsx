@@ -20,7 +20,6 @@ const SkipLink = styled(Link)({
     textAlign: 'center',
     padding: '8px',
     paddingBottom: '30px',
-    position: 'absolute',
     zIndex: '100000',
     opacity: '1',
   },
