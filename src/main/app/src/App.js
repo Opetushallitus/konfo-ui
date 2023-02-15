@@ -20,6 +20,7 @@ import { Draft } from './components/common/Draft';
 import Footer from './components/common/Footer';
 import { Header } from './components/common/Header';
 import { SideMenu } from './components/common/SideMenu';
+import { SkipToContent } from './components/common/SkipToContent';
 import { Etusivu } from './components/Etusivu';
 import { HakuPage } from './components/haku/HakuPage';
 import { Hakupalkki } from './components/haku/Hakupalkki';
@@ -275,6 +276,7 @@ const App = () => {
 
   return (
     <Root betaBannerVisible={betaBanner} isSmall={isSmall} menuVisible={menuVisible}>
+      <SkipToContent />
       <Draft />
       <CookieModal />
       <SiteImprove titleObj={titleObj} />
