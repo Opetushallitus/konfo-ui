@@ -3,12 +3,6 @@ import React, { useRef } from 'react';
 import { Backdrop, Box, CircularProgress } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-const PREFIX = 'LoadingCircle';
-
-const classes = {
-  backdrop: `${PREFIX}-backdrop`,
-};
-
 const CIRCLE_MIN_HEIGHT = 100;
 
 const StyledBackdrop = styled(Backdrop, {
@@ -17,7 +11,7 @@ const StyledBackdrop = styled(Backdrop, {
   position: 'absolute',
   zIndex: 1000,
   color: '#fff',
-  backgroundColor: 'rgba(0,0,0,0.3)',
+  backgroundColor: noContent ? 'transparent' : 'rgba(0,0,0,0.3)',
   boxShadow: noContent ? 'none' : '0 0 5px 5px rgba(0,0,0,0.3)',
 }));
 
@@ -31,7 +25,7 @@ export const LoadingCircle = () => {
 
 export const OverlayLoadingCircle = ({ isLoading = false, noContent = false }) => {
   return (
-    <StyledBackdrop className={classes.backdrop} open={isLoading} noContent={noContent}>
+    <StyledBackdrop open={isLoading} noContent={noContent}>
       <LoadingCircle />
     </StyledBackdrop>
   );

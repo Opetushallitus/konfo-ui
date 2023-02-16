@@ -62,7 +62,6 @@ export const LANGUAGE_CODES = {
   en: 'en',
 } as const;
 
-// TODO: loput tyypit
 export enum KOULUTUS_TYYPPI {
   AMM = 'amm',
   AMM_TUTKINNON_OSA = 'amm-tutkinnon-osa',
@@ -84,10 +83,10 @@ export enum KOULUTUS_TYYPPI {
   OPETTAJIEN_PEDAGOGISET_OPINNOT = 'ope-pedag-opinnot',
   AIKUISTEN_PERUSOPETUS = 'aikuisten-perusopetus',
   TAITEEN_PERUSOPETUS = 'taiteen-perusopetus',
-  MUUT_KOULUTUKSET = 'muut_koulutukset',
   KK_OPINTOJAKSO = 'kk-opintojakso',
   KK_OPINTOKOKONAISUUS = 'kk-opintokokonaisuus',
   ERIKOISLAAKARI = 'erikoislaakari',
+  MUU = 'muu',
 }
 
 // Jotta hakurajainvalinta näkyy Muut koulutustyypit -valikossa ja toimii oikein,
@@ -105,7 +104,6 @@ export const KOULUTUS_TYYPPI_MUU = {
   KK_OPINTOKOKONAISUUS_AVOIN: 'kk-opintokokonaisuus-avoin',
   ERIKOISTUMISKOULUTUS: 'erikoistumiskoulutus',
   MUU_AMMATILLINEN_KOULUTUS: 'amm-muu',
-  MUUT_AMMATILLISET: 'muut-ammatilliset',
   TELMA: 'telma',
   TUVA: 'tuva',
   TUVA_NORMAL: 'tuva-normal',
@@ -113,6 +111,7 @@ export const KOULUTUS_TYYPPI_MUU = {
   VAPAA_SIVISTYSTYO: 'vapaa-sivistystyo',
   VAPAA_SIVISTYSTYO_OPISTOVUOSI: 'vapaa-sivistystyo-opistovuosi',
   VAPAA_SIVISTYSTYO_MUU: 'vapaa-sivistystyo-muu',
+  MUU: 'muu',
 } as const;
 
 export const KOULUTUS_TYYPPI_MUU_ARR = Object.values(KOULUTUS_TYYPPI_MUU);
