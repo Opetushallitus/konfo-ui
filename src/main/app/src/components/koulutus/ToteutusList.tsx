@@ -7,6 +7,7 @@ import { Box, Grid, Hidden, Typography } from '@mui/material';
 import _fp from 'lodash/fp';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+import { match } from 'ts-pattern';
 
 import { EntiteettiKortti } from '#/src/components/common/EntiteettiKortti';
 import { OppilaitosKorttiLogo } from '#/src/components/common/KorttiLogo';
@@ -328,14 +329,13 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                       toteutus.jarjestaaUrheilijanAmmKoulutusta
                     }
                     kuvaus={localize(toteutus.kuvaus)}
-                    opintojenLaajuus={
-                      [
+                    opintojenLaajuus={match(koulutustyyppi)
+                      .with(
                         KOULUTUS_TYYPPI.KK_OPINTOJAKSO,
                         KOULUTUS_TYYPPI.KK_OPINTOKOKONAISUUS,
-                      ].includes(koulutustyyppi as KOULUTUS_TYYPPI)
-                        ? getLocalizedToteutusLaajuus(toteutus)
-                        : undefined
-                    }
+                        () => getLocalizedToteutusLaajuus(toteutus)
+                      )
+                      .otherwise(() => undefined)}
                     wrapIconTexts={true}
                     iconTexts={[
                       [
