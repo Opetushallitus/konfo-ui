@@ -16,10 +16,13 @@ export const Opintokokonaisuudet = ({
   const { t } = useTranslation();
 
   return opintokokonaisuudet?.length > 0 ? (
-    <PageSection heading={t('toteutus.kuuluu-opintokokonaisuuksiin')}>
+    <PageSection
+      style={{ textAlign: 'center' }}
+      heading={t('toteutus.kuuluu-opintokokonaisuuksiin')}>
       {opintokokonaisuudet.map((opintokokonaisuus) => (
         <LocalizedLink
           sx={{ fontSize: '1.25rem' }}
+          target="_blank"
           tabIndex={-1}
           component={RouterLink}
           to={`/toteutus/${opintokokonaisuus.oid}`}>
