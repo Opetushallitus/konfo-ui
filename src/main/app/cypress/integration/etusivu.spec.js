@@ -31,7 +31,7 @@ describe('Etusivu', () => {
       }
     );
     cy.visit('/');
-    cy.findByRole('searchbox').type('auto');
+    cy.findByRole('combobox').type('auto');
     cy.findByRole('button', { name: /^Rajaa/ }).click();
     cy.findByTestId('valitse_koulutustyyppi').click();
     cy.findByLabelText('Lukiokoulutus').check();
