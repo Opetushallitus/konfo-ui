@@ -28,11 +28,14 @@ ESLintin voi ajaa käsin komennolla `npm run lint`, tai automaattisen fiksauksen
 
 ## Testit
 
-Selainta vasten ajettavat testit (cypress) olettavat kälin löytyvän ajossa portista `3005`. Käyttöliittymätestit käynnistyy komennolla:
+Selainta vasten ajettavat testit (cypress) olettavat kälin löytyvän ajossa portista `3005` (ks. otsikko "Käyttöliittymän kehittäminen" yllä). Cypress-käyttöliittymä josta voi valita ajettavat testit käynnistyy komennolla:
 
     cd src/main/app
     npm run cypress:open
 
+Kaikkien testien ajo:
+
+    npm run cypress:run
 ### API-kutsujen mockaaminen
 
 KTO-projektissa on toteutettu omat työkalut API-kutsujen mockauksen helpottamiseen. Työkalut ja niiden dokumentaatio löytyvät [kto-ui-common](https://github.com/Opetushallitus/kto-ui-common)-reposta. `Update-mocks.js`-skriptille on tehty käytön helpottamiseksi npm skripti `update-mocks`, jota siis kutsutaan komennolla `npm run update-mocks`. Muista käynnistää lokaali kehitysproxy (`npm run start`) ennen mockien päivitystä, jotta mockeille tulee oikeaa dataa localhostin kautta.

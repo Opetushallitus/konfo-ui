@@ -6,6 +6,13 @@ describe('Etusivu', () => {
     cy.get('h1').contains('Ammatillinen koulutus');
   });
 
+  it('Should have skip to content link hidden by default', () => {
+    cy.visit('/');
+    cy.findByRole('link', { name: 'Siirry sisältöön' })
+      .should('have.css', 'z-index', '999')
+      .and('have.css', 'left', '-9999px');
+  });
+
   it('Should pass koulutustyyppi filter selection to haku page', () => {
     cy.intercept(
       {
