@@ -13,6 +13,7 @@ const classes = {
 
 const StyledImageComponent = styled(Card)({
   [`& .${classes.media}`]: {
+    backgroundSize: 'contain',
     height: 0,
     paddingTop: '56.25%', // 16:9 aspect ratio
   },
