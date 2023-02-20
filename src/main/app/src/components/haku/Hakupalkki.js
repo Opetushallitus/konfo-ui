@@ -6,6 +6,8 @@ import {
   ExpandLessOutlined,
 } from '@mui/icons-material';
 import {
+  Autocomplete,
+  TextField,
   Box,
   CircularProgress,
   Divider,
@@ -15,7 +17,6 @@ import {
   Tooltip,
   IconButton,
   Button,
-  InputBase,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import _ from 'lodash';
@@ -155,13 +156,21 @@ const checkIsKeywordValid = (word) => _.size(word) === 0 || _.size(word) > 2;
 export const Hakupalkki = () => {
   const { t } = useTranslation();
 
-  const { keyword, koulutusData, goToSearchPage, setKeyword } = useSearch();
+  const {
+    keyword,
+    koulutusData,
+    autoCompleteOptions,
+    goToSearchPage,
+    setKeyword,
+    setSearchPhrase,
+  } = useSearch();
 
   const koulutusFilters = koulutusData?.filters;
   const isAtEtusivu = useIsAtEtusivu();
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [isKeywordValid, setIsKeywordValid] = useState(true);
+  const [inputValue, setInputValue] = useState('');
 
   const handleDesktopBtnClick = (e) => {
     window.scrollTo({
@@ -187,9 +196,7 @@ export const Hakupalkki = () => {
         component="form"
         onSubmit={(e) => {
           e.preventDefault();
-          const formData = new FormData(e.target);
-          const keywordValue = formData.get('keyword');
-          setKeyword(keywordValue ?? '');
+          setKeyword(inputValue ?? '');
           goToSearchPage();
         }}
         className={classes.inputRoot}
@@ -198,21 +205,32 @@ export const Hakupalkki = () => {
           placement="bottom-start"
           open={!isKeywordValid}
           title={t('haku.syota-ainakin-kolme-merkkia')}>
-          <InputBase
-            key={keyword}
+          <Autocomplete
+            options={autoCompleteOptions || []}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                placeholder={t('haku.kehoite')}
+                InputProps={{
+                  'aria-label': t('haku.kehoite'),
+                  ...params.InputProps,
+                  type: 'search',
+                }}
+              />
+            )}
             className={classes.input}
-            name="keyword"
             defaultValue={keyword}
-            onChange={(e) => {
-              const inputKeyword = e.target.value;
-              setIsKeywordValid(checkIsKeywordValid(inputKeyword));
+            value={keyword || inputValue}
+            onInputChange={(event, newInputValue) => {
+              setInputValue(newInputValue);
+              setIsKeywordValid(checkIsKeywordValid(newInputValue));
+              if (_.size(newInputValue) > 2) {
+                setSearchPhrase(newInputValue);
+              }
             }}
             type="search"
             placeholder={t('haku.kehoite')}
-            inputProps={{
-              'aria-label': t('haku.kehoite'),
-              autoComplete: 'off',
-            }}
+            inputProps={{ 'aria-label': t('haku.kehoite'), autoComplete: 'off' }}
           />
         </Tooltip>
         {isAtEtusivu && (

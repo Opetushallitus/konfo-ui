@@ -61,7 +61,7 @@ export const Etusivu = () => {
   const { i18n } = useTranslation();
   const navigate = useNavigate();
 
-  const { clearFilters, setKeyword } = useSearch();
+  const { clearFilters, setKeyword, setSearchPhrase } = useSearch();
   const { data, isLoading, forwardTo } = useContentful();
   const {
     info: infoData,
@@ -94,6 +94,7 @@ export const Etusivu = () => {
   useEffectOnce(() => {
     // NOTE: Tyhjätään aina kaikki hakutulosvalinnat kun saavutaan etusivulle
     setKeyword('');
+    setSearchPhrase('');
     clearFilters();
   });
 

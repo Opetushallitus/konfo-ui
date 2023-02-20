@@ -25,6 +25,7 @@ export const initialState = {
 
   // Persistoidut suodatinvalinnat, listoja valituista koodiarvoista (+ kaksi boolean rajainta)
   keyword: '',
+  searchPhrase: '',
   koulutustyyppi: [],
   'koulutustyyppi-muu': [],
   koulutusala: [],
@@ -51,6 +52,9 @@ const hakutulosSlice = createSlice({
   reducers: {
     setKeyword: (state, { payload }) => {
       state.keyword = payload.keyword;
+    },
+    setSearchPhrase: (state, { payload }) => {
+      state.searchPhrase = payload.searchPhrase;
     },
     setSelectedTab: (state, { payload }) => {
       state.selectedTab = payload.newSelectedTab;
@@ -160,6 +164,7 @@ const hakutulosSlice = createSlice({
 
 export const {
   setKeyword,
+  setSearchPhrase,
   setSelectedTab,
   setFilterSelectedValues,
   resetPagination,

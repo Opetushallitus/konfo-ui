@@ -12,6 +12,8 @@ export const getKoulutusOffset = (state) => state.hakutulos.koulutusOffset;
 
 export const getOppilaitosOffset = (state) => state.hakutulos.oppilaitosOffset;
 
+export const getSearchPhrase = (state) => state.hakutulos.searchPhrase;
+
 const getOpetuskieli = (state) => state.hakutulos.opetuskieli;
 
 const getKoulutustyyppi = (state) => state.hakutulos.koulutustyyppi;

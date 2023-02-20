@@ -1,11 +1,16 @@
 import { useCallback, useMemo } from 'react';
 
+import _ from 'lodash';
 import _fp from 'lodash/fp';
 import { useQuery } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { searchKoulutukset, searchOppilaitokset } from '#/src/api/konfoApi';
+import {
+  searchKoulutukset,
+  searchOppilaitokset,
+  autoCompleteSearch,
+} from '#/src/api/konfoApi';
 import {
   getCombinedQueryIsFetching,
   getCombinedQueryStatus,
@@ -25,12 +30,14 @@ import {
   setOrder,
   clearSelectedFilters,
   setKeyword,
+  setSearchPhrase,
 } from '#/src/store/reducers/hakutulosSlice';
 import {
   getAPIRequestParams,
   getFilters,
   getIsAnyFilterSelected,
   getKeyword,
+  getSearchPhrase,
   getKoulutusOffset,
   getKoulutusPage,
   getOppilaitosOffset,
@@ -57,8 +64,18 @@ const useOppilaitosSearch = createSearchQueryHook(
   searchOppilaitokset
 );
 
+const useAutocompleteSearch = createSearchQueryHook(
+  'autoCompleteSearch',
+  ({ searchPhrase }) => {
+    if (_.size(searchPhrase) > 2) {
+      return autoCompleteSearch({ searchPhrase });
+    }
+  }
+);
+
 export const useSearch = () => {
   const keyword = useSelector(getKeyword);
+  const searchPhrase = useSelector(getSearchPhrase);
   const isAnyFilterSelected = useSelector(getIsAnyFilterSelected);
   const pageSize = useSelector(getSize);
   const selectedTab = useSelector(getSelectedTab);
@@ -86,6 +103,9 @@ export const useSearch = () => {
     koulutusQueryResult,
     oppilaitosQueryResult,
   ]);
+
+  const autoCompleteResult = useAutocompleteSearch({ searchPhrase });
+  const autoCompleteOptions = autoCompleteResult?.data?.hits;
 
   const dispatch = useDispatch();
 
@@ -165,15 +185,23 @@ export const useSearch = () => {
     [dispatch]
   );
 
+  const setSearchPhraseCb = useCallback(
+    (sp) => dispatch(setSearchPhrase({ searchPhrase: sp })),
+    [dispatch]
+  );
+
   return useMemo(
     () => ({
       keyword,
+      searchPhrase,
       setKeyword: setKeywordCb,
+      setSearchPhrase: setSearchPhraseCb,
       isFetching,
       isAnyFilterSelected,
       status,
       koulutusData,
       oppilaitosData,
+      autoCompleteOptions,
       pagination,
       setPagination,
       resetPagination: resetPaginationCb,
@@ -190,7 +218,9 @@ export const useSearch = () => {
     }),
     [
       keyword,
+      searchPhrase,
       setKeywordCb,
+      setSearchPhraseCb,
       isFetching,
       isAnyFilterSelected,
       status,
@@ -199,6 +229,7 @@ export const useSearch = () => {
       resetPaginationCb,
       oppilaitosData,
       koulutusData,
+      autoCompleteOptions,
       clearFilters,
       selectedTab,
       setSelectedTabCb,
