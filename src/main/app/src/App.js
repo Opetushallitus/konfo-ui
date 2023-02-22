@@ -256,7 +256,7 @@ const App = () => {
   const focusRef = useRef(null);
   const chatIsVisible = useChat();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     focusRef.current.focus();
   }, [pathname]);
 
