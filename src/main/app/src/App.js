@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 
 import { useMediaQuery, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { visuallyHidden } from '@mui/utils';
 import clsx from 'clsx';
 import Cookies from 'js-cookie';
 import { useTranslation } from 'react-i18next';
@@ -20,6 +21,7 @@ import { Draft } from './components/common/Draft';
 import Footer from './components/common/Footer';
 import { Header } from './components/common/Header';
 import { SideMenu } from './components/common/SideMenu';
+import { SkipToContent } from './components/common/SkipToContent';
 import { Etusivu } from './components/Etusivu';
 import { HakuPage } from './components/haku/HakuPage';
 import { Hakupalkki } from './components/haku/Hakupalkki';
@@ -251,7 +253,12 @@ const App = () => {
   const isFetching = useIsFetching();
   const [sideMenuKey, setSideMenuKey] = useState(1);
 
+  const focusRef = useRef(null);
   const chatIsVisible = useChat();
+
+  useLayoutEffect(() => {
+    focusRef.current.focus();
+  }, [pathname]);
 
   useLayoutEffect(() => {
     const defaultHeader = defaultTitle(language);
@@ -275,6 +282,8 @@ const App = () => {
 
   return (
     <Root betaBannerVisible={betaBanner} isSmall={isSmall} menuVisible={menuVisible}>
+      <span sx={visuallyHidden} id="focus-reset-target" tabIndex="-1" ref={focusRef} />
+      <SkipToContent />
       <Draft />
       <CookieModal />
       <SiteImprove titleObj={titleObj} />

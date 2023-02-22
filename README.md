@@ -28,10 +28,16 @@ ESLintin voi ajaa käsin komennolla `npm run lint`, tai automaattisen fiksauksen
 
 ## Testit
 
-Selainta vasten ajettavat testit (cypress) olettavat kälin löytyvän ajossa portista `3005`. Käyttöliittymätestit käynnistyy komennolla:
+Selainta vasten ajettavat testit (cypress) olettavat kälin löytyvän ajossa portista `3005` (ks. otsikko "Käyttöliittymän kehittäminen" yllä). Cypress-käyttöliittymä josta voi valita ajettavat testit käynnistyy komennolla:
 
     cd src/main/app
     npm run cypress:open
+
+Kaikkien testien ajo headlessina:
+
+    npm run cypress:run
+
+Testien ajo toimii Node.js 16 ja NPM 8 versioilla.
 
 ### API-kutsujen mockaaminen
 
