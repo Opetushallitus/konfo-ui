@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 
 import { useMediaQuery, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { visuallyHidden } from '@mui/utils';
 import clsx from 'clsx';
 import Cookies from 'js-cookie';
 import { useTranslation } from 'react-i18next';
@@ -252,7 +253,12 @@ const App = () => {
   const isFetching = useIsFetching();
   const [sideMenuKey, setSideMenuKey] = useState(1);
 
+  const focusRef = useRef(null);
   const chatIsVisible = useChat();
+
+  useEffect(() => {
+    focusRef.current.focus();
+  }, [pathname]);
 
   useLayoutEffect(() => {
     const defaultHeader = defaultTitle(language);
@@ -276,6 +282,7 @@ const App = () => {
 
   return (
     <Root betaBannerVisible={betaBanner} isSmall={isSmall} menuVisible={menuVisible}>
+      <span sx={visuallyHidden} id="focus-reset-target" tabIndex="-1" ref={focusRef} />
       <SkipToContent />
       <Draft />
       <CookieModal />

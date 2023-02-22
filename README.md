@@ -33,9 +33,12 @@ Selainta vasten ajettavat testit (cypress) olettavat kälin löytyvän ajossa po
     cd src/main/app
     npm run cypress:open
 
-Kaikkien testien ajo:
+Kaikkien testien ajo headlessina:
 
     npm run cypress:run
+
+Testien ajo toimii Node.js 16 ja NPM 8 versioilla.
+
 ### API-kutsujen mockaaminen
 
 KTO-projektissa on toteutettu omat työkalut API-kutsujen mockauksen helpottamiseen. Työkalut ja niiden dokumentaatio löytyvät [kto-ui-common](https://github.com/Opetushallitus/kto-ui-common)-reposta. `Update-mocks.js`-skriptille on tehty käytön helpottamiseksi npm skripti `update-mocks`, jota siis kutsutaan komennolla `npm run update-mocks`. Muista käynnistää lokaali kehitysproxy (`npm run start`) ennen mockien päivitystä, jotta mockeille tulee oikeaa dataa localhostin kautta.
