@@ -99,7 +99,9 @@ export const Yhteystiedot = ({
     const organisaatiot = (yhteystiedot || [])
       .concat(organisaatioidenYhteystiedot as any)
       .filter((obj) => _.hasIn(obj, 'nimi'))
-      .filter((obj) => tarjoajat?.some((ta) => obj?.nimi?.fi === ta?.nimi?.fi))
+      .filter((obj) =>
+        tarjoajat?.some((ta) => obj?.nimi?.fi === ta?.nimi?.fi || obj?.oid === ta?.oid)
+      )
       .filter(Boolean)
       .map(parseYhteystieto())
       .sort(byLocaleCompare('nimi'));
