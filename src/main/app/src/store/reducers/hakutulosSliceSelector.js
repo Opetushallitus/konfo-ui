@@ -190,6 +190,60 @@ export const getAPIRequestParams = createSelector(
   })
 );
 
+export const getAutocompleteRequestParams = createSelector(
+  [
+    getSearchPhrase,
+    getOpetuskieli,
+    getKoulutustyyppi,
+    getKoulutustyyppiMuu,
+    getKoulutusala,
+    getKunta,
+    getMaakunta,
+    getOpetustapa,
+    getValintatapa,
+    getHakukaynnissa,
+    getHakutapa,
+    getYhteishaku,
+    getPohjakoulutusvaatimus,
+    getJotpa,
+    getTyovoimakoulutus,
+    getTaydennyskoulutus,
+  ],
+  (
+    searchPhrase,
+    opetuskieli,
+    koulutustyyppi,
+    koulutustyyppiMuu,
+    koulutusala,
+    kunta,
+    maakunta,
+    opetustapa,
+    valintatapa,
+    hakukaynnissa,
+    hakutapa,
+    yhteishaku,
+    pohjakoulutusvaatimus,
+    jotpa,
+    tyovoimakoulutus,
+    taydennyskoulutus
+  ) => ({
+    searchPhrase,
+    opetuskieli: getCheckedFiltersIdsStr(opetuskieli),
+    koulutustyyppi: getCheckedFiltersIdsStr(_.concat(koulutustyyppi, koulutustyyppiMuu)),
+    koulutusala: getCheckedFiltersIdsStr(koulutusala),
+    sijainti: getCheckedFiltersIdsStr(_.concat(kunta, maakunta)),
+    opetustapa: getCheckedFiltersIdsStr(opetustapa),
+    valintatapa: getCheckedFiltersIdsStr(valintatapa),
+    hakutapa: getCheckedFiltersIdsStr(hakutapa),
+    hakukaynnissa,
+    jotpa,
+    tyovoimakoulutus,
+    taydennyskoulutus,
+    yhteishaku: getCheckedFiltersIdsStr(yhteishaku),
+    pohjakoulutusvaatimus: getCheckedFiltersIdsStr(pohjakoulutusvaatimus),
+  })
+);
+
 export const getHakuParams = createSelector([getAPIRequestParams], (apiRequestParams) => {
   const hakuParams = cleanRequestParams(
     _.pick(apiRequestParams, ['order', 'sort', 'size', ...FILTER_TYPES_ARR])

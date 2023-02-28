@@ -47,6 +47,7 @@ import {
   getSize,
   getSort,
   getSortOrder,
+  getAutocompleteRequestParams,
 } from '#/src/store/reducers/hakutulosSliceSelector';
 import { getFilterWithChecked, sortValues } from '#/src/tools/filters';
 import { ValueOf } from '#/src/types/common';
@@ -66,9 +67,11 @@ const useOppilaitosSearch = createSearchQueryHook(
 
 const useAutocompleteSearch = createSearchQueryHook(
   'autoCompleteSearch',
-  ({ searchPhrase }) => {
-    if (_.size(searchPhrase) > 2) {
-      return autoCompleteSearch({ searchPhrase });
+  (requestParams) => {
+    if (_.size(requestParams.searchPhrase) > 2) {
+      return autoCompleteSearch(requestParams);
+    } else {
+      return [];
     }
   }
 );
@@ -83,6 +86,7 @@ export const useSearch = () => {
   const oppilaitosOffset = useSelector(getOppilaitosOffset);
 
   const requestParams = useSelector(getAPIRequestParams);
+  const autoCompleteRequestParams = useSelector(getAutocompleteRequestParams);
 
   const koulutusPage = useSelector(getKoulutusPage);
   const oppilaitosPage = useSelector(getOppilaitosPage);
@@ -99,13 +103,16 @@ export const useSearch = () => {
   const { data: oppilaitosData } = oppilaitosQueryResult;
 
   const status = getCombinedQueryStatus([koulutusQueryResult, oppilaitosQueryResult]);
+
+  const autoCompleteResult = useAutocompleteSearch(autoCompleteRequestParams);
+  const autoCompleteOptions = autoCompleteResult?.data?.hits;
+
   const isFetching = getCombinedQueryIsFetching([
     koulutusQueryResult,
     oppilaitosQueryResult,
+    autoCompleteResult,
   ]);
-
-  const autoCompleteResult = useAutocompleteSearch({ searchPhrase });
-  const autoCompleteOptions = autoCompleteResult?.data?.hits;
+  const isFetchingAutocompleteResults = autoCompleteResult.isFetching;
 
   const dispatch = useDispatch();
 
@@ -197,6 +204,7 @@ export const useSearch = () => {
       setKeyword: setKeywordCb,
       setSearchPhrase: setSearchPhraseCb,
       isFetching,
+      isFetchingAutocompleteResults,
       isAnyFilterSelected,
       status,
       koulutusData,
@@ -222,6 +230,7 @@ export const useSearch = () => {
       setKeywordCb,
       setSearchPhraseCb,
       isFetching,
+      isFetchingAutocompleteResults,
       isAnyFilterSelected,
       status,
       pagination,
