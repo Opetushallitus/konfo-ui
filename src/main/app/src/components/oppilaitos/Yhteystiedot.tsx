@@ -23,7 +23,7 @@ const classes = {
 
 const StyledBox = styled(Box)(() => ({
   [`& .${classes.container}`]: {
-    marginTop: 20,
+    marginTop: 10,
   },
 
   [`& .${classes.info}`]: {
@@ -77,6 +77,7 @@ type Props = {
   yhteystiedot?: Array<YhteystiedotType>;
   hakijapalveluidenYhteystiedot?: YhteystiedotType;
   organisaatioidenYhteystiedot?: Array<YhteystiedotType>;
+  matchTarjoajat: boolean;
 };
 
 export const hasYhteystiedot = (props: Props = {} as any) =>
@@ -90,6 +91,7 @@ export const Yhteystiedot = ({
   tarjoajat,
   hakijapalveluidenYhteystiedot,
   organisaatioidenYhteystiedot,
+  matchTarjoajat = true,
 }: Props) => {
   const { t } = useTranslation();
   const theme = useTheme();
@@ -99,8 +101,10 @@ export const Yhteystiedot = ({
     const organisaatiot = (yhteystiedot || [])
       .concat(organisaatioidenYhteystiedot as any)
       .filter((obj) => _.hasIn(obj, 'nimi'))
-      .filter((obj) =>
-        tarjoajat?.some((ta) => obj?.nimi?.fi === ta?.nimi?.fi || obj?.oid === ta?.oid)
+      .filter(
+        (obj) =>
+          !matchTarjoajat ||
+          tarjoajat?.some((ta) => obj?.nimi?.fi === ta?.nimi?.fi || obj?.oid === ta?.oid)
       )
       .filter(Boolean)
       .map(parseYhteystieto())
@@ -124,6 +128,7 @@ export const Yhteystiedot = ({
     organisaatioidenYhteystiedot,
     yhteystiedot,
     tarjoajat,
+    matchTarjoajat,
   ]);
 
   return (
