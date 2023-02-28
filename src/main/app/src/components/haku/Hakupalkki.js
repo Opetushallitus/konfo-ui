@@ -6,7 +6,6 @@ import {
   ExpandLessOutlined,
 } from '@mui/icons-material';
 import {
-  Grid,
   Box,
   CircularProgress,
   Divider,
@@ -16,12 +15,13 @@ import {
   Tooltip,
   IconButton,
   Button,
+  Autocomplete,
+  InputBase,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
-import Select, { components } from 'react-select';
 
 import { colors } from '#/src/colors';
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
@@ -100,6 +100,7 @@ const StyledBox = styled(Box)(({ theme }) => ({
     [theme.breakpoints.down('sm')]: {
       height: '58px',
     },
+    paddingLeft: '15px',
     display: 'flex',
     width: '100%',
     alignItems: 'center',
@@ -151,50 +152,38 @@ const StyledPopover = styled(Popover)(() => ({
   },
 }));
 
-const customStyles = {
-  control: (provided, state) => ({
-    ...provided,
-    minHeight: '34px',
-    border: 0,
-    boxShadow: state.isFocused ? 0 : 0,
-    '&:hover': {
-      border: state.isFocused ? 0 : 0,
-    },
-    cursor: 'text',
-  }),
-  indicatorSeparator: (provided) => ({
-    ...provided,
-    display: 'none',
-  }),
-  indicatorsContainer: (provided) => ({
-    ...provided,
-    padding: '6px',
-  }),
-};
+const checkIsKeywordValid = (word) => _.size(word) === 0 || _.size(word) > 2;
 
-// const checkIsKeywordValid = (word) => _.size(word) === 0 || _.size(word) > 2;
-
-const LoadingIndicator = () => <CircularProgress size={25} color="inherit" />;
+const SearchInput = React.forwardRef((props, ref) => (
+  <InputBase
+    ref={ref}
+    sx={{
+      borderRadius: 0,
+      flex: 1,
+      width: '100%',
+    }}
+    {...props}
+  />
+));
 
 export const Hakupalkki = () => {
   const { t } = useTranslation();
 
   const {
     keyword,
-    // searchPhrase,
+    searchPhrase,
     koulutusData,
     autoCompleteOptions,
     goToSearchPage,
     setKeyword,
-    // setSearchPhrase,
+    setSearchPhrase,
     isFetchingAutocompleteResults,
   } = useSearch();
   const koulutusFilters = koulutusData?.filters;
   const isAtEtusivu = useIsAtEtusivu();
 
   const [anchorEl, setAnchorEl] = useState(null);
-  const [isKeywordValid /* setIsKeywordValid */] = useState(true);
-  // const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState(() => keyword);
 
   const handleDesktopBtnClick = (e) => {
     window.scrollTo({
@@ -214,13 +203,7 @@ export const Hakupalkki = () => {
     isPopoverOpen ? <ExpandLessOutlined /> : <ExpandMoreOutlined />;
   const id = isPopoverOpen ? 'filters-popover' : undefined;
 
-  const NoOptionsMessage = (props) => {
-    return (
-      <components.NoOptionsMessage {...props}>
-        <span>{t('sisaltohaku.eituloksia')}</span>
-      </components.NoOptionsMessage>
-    );
-  };
+  const isKeywordValid = checkIsKeywordValid(inputValue);
 
   return (
     <StyledBox display="flex" flexDirection="column" alignItems="flex-end" flexGrow={1}>
@@ -230,8 +213,6 @@ export const Hakupalkki = () => {
           e.preventDefault();
           const formData = new FormData(e.target);
           const keywordValue = formData.get('keyword');
-          console.log('!!!!!!!!!!!!!!!!!!!!!! onSubmit ' + keywordValue);
-          console.log(formData);
           setKeyword(keywordValue ?? '');
           goToSearchPage();
         }}
@@ -241,53 +222,37 @@ export const Hakupalkki = () => {
           placement="bottom-start"
           open={!isKeywordValid}
           title={t('haku.syota-ainakin-kolme-merkkia')}>
-          <Grid item style={{ width: '100%' }}>
-            <Select
-              components={{
-                LoadingIndicator,
-                NoOptionsMessage,
-                DropdownIndicator: () => null,
-              }}
-              key={keyword}
-              name="keyword"
-              styles={customStyles}
-              defaultValue={keyword}
-              isLoading={isFetchingAutocompleteResults}
-              options={autoCompleteOptions || []}
-              className={classes.input}
-              placeholder={t('haku.kehoite')}
-              /*
-              onInputChange={(newInputValue, { action }) => {
-                console.log('!!!!!!!!!!!!!!!!!!!!!! onInputChange ' + newInputValue + '*');
-                console.log(action);
-                if (action === 'input-change') {
-                  setInputValue(newInputValue);
-                  setIsKeywordValid(checkIsKeywordValid(newInputValue));
-                  if (_.size(newInputValue) > 2) {
-                    setSearchPhrase(newInputValue);
-                  } else if (_.size(searchPhrase) > 0) {
-                    setSearchPhrase('');
-                  }
-                }
-              }}
-              */
-              // onChange={(newValue) => {
-              //  console.log('!!!!!!!!!!!!!!!!!!!!!! onChange ');
-              //  console.log(newValue.label);
-              //  setInputValue(newValue.label);
-              //  setKeyword(newValue.label);
-              //  goToSearchPage();
-              // }}
-              theme={(theme) => ({
-                ...theme,
-                colors: {
-                  ...theme.colors,
-                  primary25: colors.grey,
-                  primary: colors.grey,
-                },
-              })}
-            />
-          </Grid>
+          <Autocomplete
+            fullWidth={true}
+            key={keyword}
+            defaultValue={keyword}
+            options={autoCompleteOptions ?? []}
+            noOptionsText={t('sisaltohaku.eituloksia')}
+            loading={isFetchingAutocompleteResults}
+            freeSolo={true}
+            onInputChange={(_e, newInputValue) => {
+              setInputValue(newInputValue);
+              if (_.size(newInputValue) > 2) {
+                setSearchPhrase(newInputValue);
+              } else if (_.size(searchPhrase) > 0) {
+                setSearchPhrase('');
+              }
+            }}
+            onChange={(_e, value, reason) => {
+              if (reason === 'selectOption') {
+                setKeyword(value.label);
+                goToSearchPage();
+              }
+            }}
+            renderInput={(params) => (
+              <SearchInput
+                ref={params.InputProps.ref}
+                type="text"
+                name="keyword"
+                inputProps={params.inputProps}
+              />
+            )}
+          />
         </Tooltip>
         {isAtEtusivu && (
           <Hidden smDown>
