@@ -32,7 +32,6 @@ describe('Haku', () => {
     cy.visit('/fi/haku/auto');
     cy.findAllByRole('progressbar').should('not.exist');
   });
-
   it('Koulutustyyppi checkboxes should work hierarchically', () => {
     cy.findByTestId('koulutustyyppi-filter').within(() => {
       cy.findByRole('checkbox', { name: /Ammatillinen koulutus/ }).as(
@@ -274,11 +273,8 @@ describe('Haku', () => {
         lukioChk().should('exist').should('not.be.checked');
       });
   });
-  /*
   it("Koulutuskortti data should be presented correctly for 'Tutkinnon osa'", () => {
-    const searchBox = () =>
-      cy.findByRole('combobox');
-        // .findByPlaceholderText('Etsi koulutuksia tai oppilaitoksia');
+    const searchBox = () => cy.findByTestId('autocomplete-input');
     const searchButton = () => cy.findByRole('button', { name: /etsi/i });
 
     searchBox().type('{selectall}').type('Hevosten hyvinvoinnista huolehtiminen');
@@ -289,10 +285,7 @@ describe('Haku', () => {
     });
   });
   it("Koulutuskortti data should be presented correctly for 'Osaamisala'", () => {
-    const searchBox = () =>
-      cy
-        .findAllByRole('combobox')
-        .findByPlaceholderText(/etsi koulutuksia tai oppilaitoksia/i);
+    const searchBox = () => cy.findByTestId('autocomplete-input');
     const searchButton = () => cy.findByRole('button', { name: /etsi/i });
 
     searchBox().type('{selectall}').type('Jalkojenhoidon osaamisala');
@@ -302,5 +295,4 @@ describe('Haku', () => {
       cy.findByText('145 osaamispistettä').should('exist');
     });
   });
-  */
 });

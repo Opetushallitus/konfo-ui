@@ -110,7 +110,6 @@ export const useSearch = () => {
   const isFetching = getCombinedQueryIsFetching([
     koulutusQueryResult,
     oppilaitosQueryResult,
-    autoCompleteResult,
   ]);
   const isFetchingAutocompleteResults = autoCompleteResult.isFetching;
 

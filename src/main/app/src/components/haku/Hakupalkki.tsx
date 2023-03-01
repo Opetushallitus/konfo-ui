@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import {
   SearchOutlined,
@@ -19,6 +19,7 @@ import {
   InputBase,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { debounce } from '@mui/material/utils';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
@@ -152,19 +153,7 @@ const StyledPopover = styled(Popover)(() => ({
   },
 }));
 
-const checkIsKeywordValid = (word) => _.size(word) === 0 || _.size(word) > 2;
-
-const SearchInput = React.forwardRef((props, ref) => (
-  <InputBase
-    ref={ref}
-    sx={{
-      borderRadius: 0,
-      flex: 1,
-      width: '100%',
-    }}
-    {...props}
-  />
-));
+const checkIsKeywordValid = (word: string) => _.size(word) === 0 || _.size(word) > 2;
 
 export const Hakupalkki = () => {
   const { t } = useTranslation();
@@ -182,10 +171,10 @@ export const Hakupalkki = () => {
   const koulutusFilters = koulutusData?.filters;
   const isAtEtusivu = useIsAtEtusivu();
 
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const [inputValue, setInputValue] = useState(() => keyword);
 
-  const handleDesktopBtnClick = (e) => {
+  const handleDesktopBtnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     window.scrollTo({
       top: 250,
       left: 0,
@@ -204,14 +193,18 @@ export const Hakupalkki = () => {
   const id = isPopoverOpen ? 'filters-popover' : undefined;
 
   const isKeywordValid = checkIsKeywordValid(inputValue);
+  const setSearchPhraseDelayed = useMemo(
+    () => debounce(setSearchPhrase, 200),
+    [setSearchPhrase]
+  );
 
   return (
     <StyledBox display="flex" flexDirection="column" alignItems="flex-end" flexGrow={1}>
       <Paper
         component="form"
-        onSubmit={(e) => {
-          e.preventDefault();
-          const formData = new FormData(e.target);
+        onSubmit={(event: React.ChangeEvent<HTMLFormElement>) => {
+          event.preventDefault();
+          const formData = new FormData(event.target);
           const keywordValue = formData.get('keyword');
           setKeyword(keywordValue ?? '');
           goToSearchPage();
@@ -221,7 +214,7 @@ export const Hakupalkki = () => {
         <Tooltip
           placement="bottom-start"
           open={!isKeywordValid}
-          title={t('haku.syota-ainakin-kolme-merkkia')}>
+          title={t('haku.syota-ainakin-kolme-merkkia') || ''}>
           <Autocomplete
             fullWidth={true}
             key={keyword}
@@ -233,7 +226,7 @@ export const Hakupalkki = () => {
             onInputChange={(_e, newInputValue) => {
               setInputValue(newInputValue);
               if (_.size(newInputValue) > 2) {
-                setSearchPhrase(newInputValue);
+                setSearchPhraseDelayed(newInputValue);
               } else if (_.size(searchPhrase) > 0) {
                 setSearchPhrase('');
               }
@@ -244,14 +237,24 @@ export const Hakupalkki = () => {
                 goToSearchPage();
               }
             }}
-            renderInput={(params) => (
-              <SearchInput
-                ref={params.InputProps.ref}
-                type="text"
-                name="keyword"
-                inputProps={params.inputProps}
-              />
-            )}
+            renderInput={(params) => {
+              const { InputProps, ...rest } = params;
+              return (
+                <InputBase
+                  data-cy="autocomplete-input"
+                  sx={{
+                    borderRadius: 0,
+                    flex: 1,
+                    width: '100%',
+                  }}
+                  type="text"
+                  name="keyword"
+                  placeholder={t('haku.kehoite')}
+                  {...InputProps}
+                  {...rest}
+                />
+              );
+            }}
           />
         </Tooltip>
         {isAtEtusivu && (
