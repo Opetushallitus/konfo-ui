@@ -42,10 +42,10 @@ const handleOppilaitosData = (
       ...data,
       ...entity,
       oppilaitosOsat: isOppilaitosOsa
-        ? data.parentToimipisteOid
+        ? data?.parentToimipisteOid
           ? [
-              data.oppilaitos.osat.find(
-                (osa: Organisaatio) => osa.oid === data.parentToimipisteOid
+              data?.oppilaitos?.osat?.find(
+                (osa: Organisaatio) => osa.oid === data?.parentToimipisteOid
               ),
             ]
           : undefined

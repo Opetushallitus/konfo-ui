@@ -77,7 +77,7 @@ type Props = {
   yhteystiedot?: Array<YhteystiedotType>;
   hakijapalveluidenYhteystiedot?: YhteystiedotType;
   organisaatioidenYhteystiedot?: Array<YhteystiedotType>;
-  matchTarjoajat: boolean;
+  matchTarjoajat?: boolean;
 };
 
 export const hasYhteystiedot = (props: Props = {} as any) =>
