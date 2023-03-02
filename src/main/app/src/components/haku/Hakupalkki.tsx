@@ -220,6 +220,7 @@ export const Hakupalkki = () => {
             key={keyword}
             defaultValue={keyword}
             options={autoCompleteOptions ?? []}
+            filterOptions={(opt) => opt}
             noOptionsText={t('sisaltohaku.eituloksia')}
             loading={isFetchingAutocompleteResults}
             freeSolo={true}
