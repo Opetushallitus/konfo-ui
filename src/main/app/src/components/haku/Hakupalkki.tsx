@@ -221,7 +221,8 @@ export const Hakupalkki = () => {
             defaultValue={keyword}
             options={autoCompleteOptions ?? []}
             filterOptions={(opt) => opt}
-            noOptionsText={t('sisaltohaku.eituloksia')}
+            noOptionsText={t('haku.ei-ehdotuksia')}
+            loadingText={t('haku.lataus-käynnissä')}
             loading={isFetchingAutocompleteResults}
             freeSolo={true}
             onInputChange={(_e, newInputValue) => {
