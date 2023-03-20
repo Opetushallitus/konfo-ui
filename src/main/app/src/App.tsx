@@ -5,6 +5,7 @@ import { styled } from '@mui/material/styles';
 import { visuallyHidden } from '@mui/utils';
 import clsx from 'clsx';
 import Cookies from 'js-cookie';
+import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useIsFetching } from 'react-query';
 import { Navigate, Routes, Route, useLocation, useParams } from 'react-router-dom';
@@ -50,44 +51,54 @@ const classes = {
   smContent: `${PREFIX}smContent`,
 };
 
-const Root = styled('div')(({ betaBannerVisible, isSmall, menuVisible }) => ({
-  [`& .${classes.content}`]: {
-    marginTop: getHeaderHeight(theme)({ betaBannerVisible, isSmall }),
-    minWidth: 0,
-    flexGrow: 1,
-    padding: 0,
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: -SIDEMENU_WIDTH,
-  },
+const Root = styled('div')(
+  ({
+    betaBannerVisible,
+    isSmall,
+    menuVisible,
+  }: {
+    betaBannerVisible?: boolean;
+    isSmall?: boolean;
+    menuVisible?: boolean;
+  }) => ({
+    [`& .${classes.content}`]: {
+      marginTop: getHeaderHeight(theme)({ betaBannerVisible, isSmall }),
+      minWidth: 0,
+      flexGrow: 1,
+      padding: 0,
+      transition: theme.transitions.create('margin', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+      marginLeft: -SIDEMENU_WIDTH,
+    },
 
-  [`& .${classes.contentShift}`]: {
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginLeft: 0,
-  },
+    [`& .${classes.contentShift}`]: {
+      transition: theme.transitions.create('margin', {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+      marginLeft: 0,
+    },
 
-  [`& .${classes.smContent}`]: {
-    marginTop: getHeaderHeight(theme)({ betaBannerVisible, isSmall }),
-    minWidth: 0,
-    flexGrow: 1,
-    padding: 0,
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    overflow: 'hidden',
-    top: menuVisible ? 0 : 'auto',
-    bottom: menuVisible ? 0 : 'auto',
-  },
-}));
+    [`& .${classes.smContent}`]: {
+      marginTop: getHeaderHeight(theme)({ betaBannerVisible, isSmall }),
+      minWidth: 0,
+      flexGrow: 1,
+      padding: 0,
+      transition: theme.transitions.create('margin', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      overflow: 'hidden',
+      top: menuVisible ? 0 : 'auto',
+      bottom: menuVisible ? 0 : 'auto',
+    },
+  })
+);
 
 const KoulutusHakuBar = () => (
   <div style={{ margin: 'auto', maxWidth: '1600px' }}>
@@ -102,17 +113,19 @@ const TranslatedRoutes = () => {
   const location = useLocation();
   const params = useParams();
   const selectedLanguage = params?.lng;
+  const isSupportedLanguageSelected = _.includes(supportedLanguages, selectedLanguage);
+
   useEffect(() => {
-    if (supportedLanguages.includes(selectedLanguage)) {
+    if (selectedLanguage && isSupportedLanguageSelected) {
       i18n.changeLanguage(selectedLanguage);
       Cookies.set('lang', selectedLanguage, {
         expires: 1800,
         path: '/',
       });
     }
-  }, [i18n, selectedLanguage]);
+  }, [i18n, selectedLanguage, isSupportedLanguageSelected]);
 
-  if (!supportedLanguages.includes(selectedLanguage)) {
+  if (!isSupportedLanguageSelected) {
     let langCookie = Cookies.get('lang');
     const newLocation = {
       ...location,
@@ -121,7 +134,7 @@ const TranslatedRoutes = () => {
     return <Navigate to={newLocation} replace />;
   }
 
-  return supportedLanguages.includes(selectedLanguage) ? (
+  return isSupportedLanguageSelected ? (
     <Routes>
       <Route path="/" element={<Etusivu />} />
       <Route path="sisaltohaku/" element={<Sisaltohaku />} />
@@ -215,7 +228,7 @@ const TranslatedRoutes = () => {
   );
 };
 
-const defaultTitle = (lang) => {
+const defaultTitle = (lang: string) => {
   switch (lang) {
     case 'en':
       return 'Studyinfo';
@@ -227,7 +240,7 @@ const defaultTitle = (lang) => {
   }
 };
 
-const removeLastDot = (str) => {
+const removeLastDot = (str?: string | null) => {
   if (str) {
     const nStr = str.trim();
     if (nStr.length === 0) {
@@ -242,10 +255,16 @@ const removeLastDot = (str) => {
   }
 };
 
+type TitleObject = {
+  isDefaultTitle?: boolean;
+  title?: string;
+  path?: string;
+};
+
 const App = () => {
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
   const [betaBanner, setBetaBanner] = useState(true);
-  const [titleObj, setTitleObj] = useState(null);
+  const [titleObj, setTitleObj] = useState<TitleObject>();
   const language = getLanguage();
   const { pathname } = useLocation();
   const { state: menuVisible, toggleMenu, closeMenu } = useSideMenu();
@@ -253,11 +272,11 @@ const App = () => {
   const isFetching = useIsFetching();
   const [sideMenuKey, setSideMenuKey] = useState(1);
 
-  const focusRef = useRef(null);
+  const focusRef = useRef<HTMLSpanElement>(null);
   const chatIsVisible = useChat();
 
   useLayoutEffect(() => {
-    focusRef.current.focus();
+    focusRef?.current?.focus();
   }, [pathname]);
 
   useLayoutEffect(() => {
@@ -265,7 +284,9 @@ const App = () => {
     const h1 = removeLastDot(document.querySelector('h1')?.textContent);
     const dontUseDefaultHeader = !(isAtEtusivu || isFetching) && h1;
     const newTitle = dontUseDefaultHeader ? h1 + ' - ' + defaultHeader : defaultHeader;
-    const { isDefaultTitle, title, path } = titleObj || { isDefaultTitle: true };
+    const { isDefaultTitle, title, path }: TitleObject = titleObj || {
+      isDefaultTitle: true,
+    };
     if (title !== newTitle) {
       const lockTitleOnThisPath = isDefaultTitle || pathname !== path;
       if (lockTitleOnThisPath) {
@@ -282,7 +303,7 @@ const App = () => {
 
   return (
     <Root betaBannerVisible={betaBanner} isSmall={isSmall} menuVisible={menuVisible}>
-      <span sx={visuallyHidden} id="focus-reset-target" tabIndex="-1" ref={focusRef} />
+      <span style={visuallyHidden} id="focus-reset-target" tabIndex={-1} ref={focusRef} />
       <SkipToContent />
       <Draft />
       <CookieModal />
