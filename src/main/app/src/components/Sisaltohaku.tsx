@@ -21,7 +21,7 @@ import { colors } from '#/src/colors';
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
 import Murupolku from '#/src/components/common/Murupolku';
 import MuiFlatPagination from '#/src/components/pagination';
-import { useContentful } from '#/src/hooks';
+import { useContentful } from '#/src/hooks/useContentful';
 import { useUrlParams } from '#/src/tools/useUrlParams';
 
 import { Preview } from './Preview';

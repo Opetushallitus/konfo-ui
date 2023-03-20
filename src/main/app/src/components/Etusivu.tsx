@@ -11,7 +11,7 @@ import { useEffectOnce } from 'react-use';
 import { colors } from '#/src/colors';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import YhteishakuKortti from '#/src/components/kortti/YhteishakuKortti';
-import { useContentful } from '#/src/hooks';
+import { useContentful } from '#/src/hooks/useContentful';
 import {
   Info,
   Uutiset as UutisetType,

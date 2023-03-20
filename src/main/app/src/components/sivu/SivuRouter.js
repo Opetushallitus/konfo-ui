@@ -9,7 +9,7 @@ import { useParams, Link as RouterLink, Navigate } from 'react-router-dom';
 import { colors } from '#/src/colors';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
-import { useContentful } from '#/src/hooks';
+import { useContentful } from '#/src/hooks/useContentful';
 
 import { Sivu } from './Sivu';
 import { SivuKooste } from './SivuKooste';

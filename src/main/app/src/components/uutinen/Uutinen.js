@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
-import { useContentful } from '#/src/hooks';
+import { useContentful } from '#/src/hooks/useContentful';
 import { formatDateString } from '#/src/tools/utils';
 
 const PREFIX = 'Uutinen';
