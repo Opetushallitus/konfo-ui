@@ -124,8 +124,6 @@ export const Header = (props) => {
 
   const { toggleMenu, isOpen, betaBanner, setBetaBanner, refreshSideMenu } = props;
 
-  setBetaBanner(false);
-
   const hostname = window.location.hostname;
   const testiLabels = {
     'untuvaopintopolku.fi': 'untuva',

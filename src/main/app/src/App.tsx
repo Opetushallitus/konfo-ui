@@ -263,7 +263,7 @@ type TitleObject = {
 
 const App = () => {
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
-  const [betaBanner, setBetaBanner] = useState(true);
+  const [betaBanner, setBetaBanner] = useState(false);
   const [titleObj, setTitleObj] = useState<TitleObject>();
   const language = getLanguage();
   const { pathname } = useLocation();
