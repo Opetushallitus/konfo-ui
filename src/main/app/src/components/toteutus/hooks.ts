@@ -1,4 +1,4 @@
-import _fp from 'lodash/fp';
+import _ from 'lodash';
 import { useQuery } from 'react-query';
 
 import { getToteutus } from '#/src/api/konfoApi';
@@ -24,10 +24,10 @@ const selectHakukohteetByHakutapa = (toteutus: any) => {
     return {};
   }
 
-  const hakutavat = _fp.flow(
-    _fp.map(_fp.prop('hakutapa')),
-    _fp.sortBy('koodiUri'),
-    _fp.uniqBy('koodiUri')
+  const hakutavat = _.flow(
+    (tiedot) => _.map(tiedot, 'hakutapa'),
+    (tavat) => _.sortBy(tavat, 'koodiUri'),
+    (koodit) => _.uniqBy(koodit, 'koodiUri')
   )(toteutus.hakutiedot);
 
   // Konfossa halutaan näyttää hakukohteet hakutyypeittäin, ei per haku
@@ -55,18 +55,15 @@ const selectHakukohteetByHakutapa = (toteutus: any) => {
 export const selectMuuHaku = (toteutus: any) => {
   // TODO: SORA-kuvaus - atm. we only get an Id from the API but we cannot do anything with it
   return {
-    ..._fp.pick(
-      [
-        'aloituspaikat',
-        'hakuaika',
-        'hakulomakeLinkki',
-        'hakutermi',
-        'lisatietoaHakeutumisesta',
-        'lisatietoaValintaperusteista',
-        'opetus',
-      ],
-      toteutus.metadata
-    ),
+    ..._.pick(toteutus.metadata, [
+      'aloituspaikat',
+      'hakuaika',
+      'hakulomakeLinkki',
+      'hakutermi',
+      'lisatietoaHakeutumisesta',
+      'lisatietoaValintaperusteista',
+      'opetus',
+    ]),
     isHakuAuki: Boolean(toteutus?.hakuAuki),
     nimi: toteutus.nimi,
     // TODO: we do not get osoite from the API atm. so just use all the tarjoajat to fetch oppilaitoksenOsat

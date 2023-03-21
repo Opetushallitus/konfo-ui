@@ -1,7 +1,6 @@
 import { useEffect, useMemo } from 'react';
 
 import _ from 'lodash';
-import _fp from 'lodash/fp';
 import { useQuery } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -141,20 +140,19 @@ export const useKoulutusJarjestajat = ({
 
   const createQueryParams = (values: Record<string, Array<string> | boolean>) => {
     // TODO: konfo-backend haluaa maakunta ja kunta -rajainten sijaan "sijainti" -rajaimen, pitäisi refaktoroida sinne maakunta + kunta käyttöön
-    const valuesWithSijainti = _fp.omit(
-      ['maakunta', 'kunta', 'koulutusala', 'koulutustyyppi', 'koulutustyyppi-muu'],
+    const valuesWithSijainti = _.omit(
       {
         ...values,
         sijainti: [
           ...((values.maakunta as Array<string>) ?? []),
           ...((values.kunta as Array<string>) ?? []),
         ],
-      }
+      },
+      ['maakunta', 'kunta', 'koulutusala', 'koulutustyyppi', 'koulutustyyppi-muu']
     );
 
-    return _fp.mapValues(
-      (v: Array<string> | string) => (_fp.isArray(v) ? v!.join(',') : v!.toString()),
-      valuesWithSijainti
+    return _.mapValues(valuesWithSijainti, (v: Array<string> | string) =>
+      _.isArray(v) ? v!.join(',') : v!.toString()
     );
   };
 

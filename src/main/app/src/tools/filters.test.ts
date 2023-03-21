@@ -1,6 +1,12 @@
-import _fp from 'lodash/fp';
+import produce from 'immer';
+import _ from 'lodash';
 
 import { getFilterStateChanges } from './filters';
+
+const fpSet = (x: Record<string, any>, path: string, value: any) =>
+  produce(x, (draft) => {
+    _.set(draft, path, value);
+  });
 
 // prettier-ignore
 const baseValues = [
@@ -31,23 +37,23 @@ describe('hakutulosSuodattimet utils', () => {
 
     // Testataan valinna poisto + yläkoodin valinnan poisto kun alakoodi poistetaan
     [
-      _fp.set('[0].checked', true, baseValues),
-      _fp.set('checked', true, baseValues[0]),
+      fpSet(baseValues, '[0].checked', true),
+      fpSet(baseValues[0], 'checked', true),
       { a: [] },
     ],
     [
-      _fp.flow(
-        _fp.set('[1].checked', true),
-        _fp.set('[1].alakoodit[0].checked', true),
-        _fp.set('[1].alakoodit[1].checked', true)
+      _.flow(
+        (x) => fpSet(x, '[1].checked', true),
+        (x) => fpSet(x, '[1].alakoodit[0].checked', true),
+        (x) => fpSet(x, '[1].alakoodit[1].checked', true)
       )(baseValues),
-      _fp.set('checked', true, baseValues[1].alakoodit![0]),
+      fpSet(baseValues[1].alakoodit![0], 'checked', true),
       { a: ['a2.2'] },
     ],
 
     // Testataan yläkoodin valinnan asetus kun kaikki alakoodit tulee valituksi
     [
-      _fp.set('[1].alakoodit[1].checked', true, baseValues),
+      fpSet(baseValues, '[1].alakoodit[1].checked', true),
       baseValues[1].alakoodit![0],
       { a: ['a2.2', 'a2.1', 'a2'] },
     ],

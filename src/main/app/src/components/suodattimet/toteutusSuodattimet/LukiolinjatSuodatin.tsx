@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 
-import _fp from 'lodash/fp';
+import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { Filter } from '#/src/components/common/Filter';
@@ -36,7 +36,10 @@ export const LukiolinjatSuodatin = (props: SuodatinComponentProps) => {
     return [
       {
         label: t(`haku.${name}`),
-        options: _fp.sortBy('label')(filteredValues.map((v) => getSelectOption(v))),
+        options: _.sortBy(
+          filteredValues.map((v) => getSelectOption(v)),
+          'label'
+        ),
       },
     ];
   }, [filteredValues, t, name, naytaFiltterienHakutulosLuvut]);

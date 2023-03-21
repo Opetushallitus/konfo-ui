@@ -2,7 +2,8 @@ import React, { useEffect, useMemo } from 'react';
 
 import { Grid } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import _fp from 'lodash/fp';
+import produce from 'immer';
+import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useLocation, useParams } from 'react-router-dom';
@@ -73,21 +74,20 @@ const ValintaperusteContent = ({
   yleiskuvaukset,
 }: ContentProps) => {
   const { hakukelpoisuus, kuvaus, lisatiedot, sisalto } = valintaperuste?.metadata || {};
-  const hakukelpoisuusVisible = !_fp.isEmpty(hakukelpoisuus);
-  const kuvausVisible = !_fp.isEmpty(kuvaus) || sisalto?.length > 0;
+  const hakukelpoisuusVisible = !_.isEmpty(hakukelpoisuus);
+  const kuvausVisible = !_.isEmpty(kuvaus) || sisalto?.length > 0;
   const valintatavatVisible =
-    valintatavat?.length > 0 || !_fp.isEmpty(hakukohde?.metadata?.kynnysehto);
+    valintatavat?.length > 0 || !_.isEmpty(hakukohde?.metadata?.kynnysehto);
   const valintakokeetVisible = valintakokeet?.length > 0;
   const yleiskuvauksetVisible =
-    !_fp.isEmpty(yleiskuvaukset?.hakukohde) ||
-    !_fp.isEmpty(yleiskuvaukset?.valintaperuste);
-  const lisatiedotVisible = !_fp.isEmpty(lisatiedot);
+    !_.isEmpty(yleiskuvaukset?.hakukohde) || !_.isEmpty(yleiskuvaukset?.valintaperuste);
+  const lisatiedotVisible = !_.isEmpty(lisatiedot);
   const liitteetVisible = hakukohde?.liitteet.length > 0;
   const painotetutArvosanatVisible =
     hakukohde?.metadata?.hakukohteenLinja?.painotetutArvosanat.length > 0;
   const alinHyvaksyttyKeskiarvo =
     hakukohde?.metadata?.hakukohteenLinja?.alinHyvaksyttyKeskiarvo;
-  const alinHyvaksyttyKeskiarvoVisible = _fp.isNumber(alinHyvaksyttyKeskiarvo);
+  const alinHyvaksyttyKeskiarvoVisible = _.isNumber(alinHyvaksyttyKeskiarvo);
 
   const { hash } = useLocation();
 
@@ -230,10 +230,15 @@ export const ValintaperustePage = () => {
         const added = lisatilaisuudet?.find(
           (tilaisuus: any) => tilaisuus.id === v.id
         )?.tilaisuudet;
-        return added ? _fp.set('tilaisuudet', _fp.concat(v.tilaisuudet, added), v) : v;
+        return added
+          ? produce(
+              added,
+              (draft: any) => (draft.tilaisuudet = _.concat(v.tilaisuudet, added))
+            )
+          : v;
       }
     );
-    return _fp.concat(hakukohteenValintakokeet, usedValintaperusteenKokeet) || [];
+    return _.concat(hakukohteenValintakokeet, usedValintaperusteenKokeet) || [];
   }, [hakukohteenValintakokeet, valintaperusteenValintakokeet, lisatilaisuudet]);
 
   const yleiskuvaukset = {

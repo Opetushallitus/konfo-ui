@@ -4,7 +4,6 @@ import DirectionsOutlinedIcon from '@mui/icons-material/DirectionsOutlined';
 import { Box, Grid, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import _ from 'lodash';
-import _fp from 'lodash/fp';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -352,7 +351,7 @@ export const ToteutusPage = () => {
         )}
         {!_.isEmpty(toteutus?.oppilaitokset) && (
           <ToteutuksenYhteystiedot
-            oids={_fp.uniq(toteutus!.oppilaitokset.concat(toteutus!.organisaatiot))}
+            oids={_.uniq(toteutus!.oppilaitokset.concat(toteutus!.organisaatiot))}
             tarjoajat={toteutus?.tarjoajat}
           />
         )}

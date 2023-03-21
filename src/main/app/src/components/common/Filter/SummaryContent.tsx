@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 
 import { Grid, Typography } from '@mui/material';
 import { TFunction } from 'i18next';
-import _fp from 'lodash/fp';
+import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { localize } from '#/src/tools/localization';
@@ -19,15 +19,13 @@ type Props = {
 };
 
 const stringTooLongForChip = (name: string) =>
-  !_fp.inRange(0, MAX_CHARS_BEFORE_CHIP_TO_NUMBER, _fp.size(name));
+  !_.inRange(_.size(name), 0, MAX_CHARS_BEFORE_CHIP_TO_NUMBER);
 
 export const SummaryContent = ({ values, filterName, displaySelected }: Props) => {
   const { t } = useTranslation();
   const selectedValues = useMemo(
     () =>
-      _fp
-        .flatten(values?.map((v) => [v, ...(v.alakoodit || [])]))
-        .filter((v) => v.checked),
+      _.flatten(values?.map((v) => [v, ...(v.alakoodit || [])])).filter((v) => v.checked),
     [values]
   );
   const selectedFiltersStr = selectedValues

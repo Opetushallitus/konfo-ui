@@ -1,5 +1,5 @@
 import DOMPurify from 'dompurify';
-import _fp from 'lodash/fp';
+import _ from 'lodash';
 import ReactHtmlParser from 'react-html-parser';
 
 import { NDASH } from '#/src/constants';
@@ -17,7 +17,7 @@ DOMPurify.addHook('afterSanitizeAttributes', function (node) {
 export const sanitizeHTML = (html) => DOMPurify.sanitize(html);
 
 // Filters all untruthy values, we do not want false or 0 values sent
-export const cleanRequestParams = _fp.pickBy(_fp.identity);
+export const cleanRequestParams = (params) => _.pickBy(params, Boolean);
 
 export const koodiUriToPostinumero = (str = '') => {
   return str.match(/^posti_(\d+)/)?.[1] ?? '';
@@ -27,10 +27,10 @@ export const parseOsoiteData = (osoiteData) => {
   const postiosoite = osoiteData?.postiosoite ?? {};
   const osoite = localize(postiosoite.osoite);
   const postinumero = koodiUriToPostinumero(postiosoite.postinumero?.koodiUri);
-  const postitoimipaikka = _fp.capitalize(localize(postiosoite.postinumero?.nimi));
+  const postitoimipaikka = _.capitalize(localize(postiosoite.postinumero?.nimi));
   const yhteystiedot =
     osoite && postinumero && postitoimipaikka
-      ? _fp.trim(`${osoite}, ${postinumero} ${postitoimipaikka}`, ', ')
+      ? _.trim(`${osoite}, ${postinumero} ${postitoimipaikka}`, ', ')
       : '';
   const sahkoposti = osoiteData?.sahkoposti;
   const nimi = osoiteData?.nimi;
@@ -76,7 +76,7 @@ export const formatDateRange = (start, end) =>
 export const sanitizedHTMLParser = (html, ...rest) =>
   ReactHtmlParser(sanitizeHTML(html), ...rest);
 
-export const toId = _fp.kebabCase;
+export const toId = _.kebabCase;
 
 export const scrollIntoView = (element) => {
   element.scrollIntoView({
@@ -100,7 +100,7 @@ function getFormattedOpintojenLaajuus(
   opintojenLaajuusMax
 ) {
   const usedOpintojenLaajuusNumero =
-    !_fp.isEmpty(opintojenLaajuusMin) && opintojenLaajuusMin === opintojenLaajuusMax
+    !_.isEmpty(opintojenLaajuusMin) && opintojenLaajuusMin === opintojenLaajuusMax
       ? opintojenLaajuusMin
       : opintojenLaajuusNumero;
 
@@ -140,14 +140,14 @@ function getLocalizedKoulutusOpintojenLaajuus(koulutus) {
     formatDouble(koulutus?.opintojenLaajuusNumero) ||
     (tutkinnonOsat && tutkinnonOsat.map((k) => k?.opintojenLaajuusNumero).join(' + '));
 
-  if (_fp.isString(opintojenLaajuusNumero)) {
-    opintojenLaajuusNumero = opintojenLaajuusNumero.split('+').map(_fp.trim).join(' + ');
+  if (_.isString(opintojenLaajuusNumero)) {
+    opintojenLaajuusNumero = opintojenLaajuusNumero.split('+').map(_.trim).join(' + ');
   }
 
   const opintojenLaajuusYksikko =
     localize(
       koulutus?.opintojenLaajuusyksikko ||
-        _fp.find('opintojenLaajuusyksikko', tutkinnonOsat)?.opintojenLaajuusyksikko
+        _.find(tutkinnonOsat, 'opintojenLaajuusyksikko')?.opintojenLaajuusyksikko
     ) || '';
 
   const opintojenLaajuusMin = formatDouble(koulutus?.opintojenLaajuusNumeroMin);

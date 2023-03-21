@@ -4,7 +4,7 @@ import EuroSymbolIcon from '@mui/icons-material/EuroSymbol';
 import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
 import PublicIcon from '@mui/icons-material/Public';
 import { Box, Grid, Hidden, Typography } from '@mui/material';
-import _fp from 'lodash/fp';
+import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { match } from 'ts-pattern';
@@ -38,7 +38,6 @@ import {
   getLocalizedMaksullisuus,
   localizeArrayToCommaSeparated,
 } from '#/src/tools/localization';
-import { mapValues } from '#/src/tools/lodashFpUncapped';
 import { getLocalizedToteutusLaajuus } from '#/src/tools/utils';
 import { FilterValue } from '#/src/types/SuodatinTypes';
 import { Jarjestaja } from '#/src/types/ToteutusTypes';
@@ -67,6 +66,8 @@ const SuodatinGridItem: React.FC = ({ children }) => {
     </Grid>
   );
 };
+
+const idsMatch = (id: string) => (val: FilterValue) => val.id === id;
 
 export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
   const { t } = useTranslation();
@@ -100,16 +101,15 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
     }
   }, [oid, setFilters, initialValues, previousOid, isComingFromHakuPage, setPagination]);
 
-  const usedValues = useMemo(
+  const usedValues: any = useMemo(
     () =>
-      mapValues((_value: any, key: string) =>
+      _.mapValues(sortedFilters, (_value, key: string) =>
         sortValues(getFilterWithChecked(sortedFilters, filters, key))
-      )(sortedFilters),
+      ),
     [sortedFilters, filters]
   );
 
   const selectedFiltersFlatList = useMemo(() => {
-    const idsMatch = (id: string) => (val: FilterValue) => val.id === id;
     return Object.keys(filters)
       .map((k: string) => {
         if (!filters[k].map) {
@@ -153,10 +153,10 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
     setFilters(changes);
   };
 
-  const someSelected = _fp.some((v) => (_fp.isArray(v) ? v.length > 0 : v), filters);
+  const someSelected = _.some(filters, (v) => (_.isArray(v) ? v.length > 0 : v));
 
   const handleFiltersClear = useCallback(() => {
-    const usedFilters = _fp.mapValues((v) => (_fp.isArray(v) ? [] : false), filters);
+    const usedFilters = _.mapValues(filters, (v) => (_.isArray(v) ? [] : false));
 
     setFilters(usedFilters);
   }, [filters, setFilters]);

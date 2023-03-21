@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Box, Divider, Grid, Typography } from '@mui/material';
-import _fp from 'lodash/fp';
+import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
@@ -24,7 +24,7 @@ export const Kuvaus = ({ kuvaus, sisalto = [] }: Props) => {
       <Box py={4}>
         <Divider />
       </Box>
-      {!_fp.isEmpty(kuvaus) && (
+      {!_.isEmpty(kuvaus) && (
         <Box>
           <Typography id={toId(t('valintaperuste.kuvaus'))} variant="h2">
             {t('valintaperuste.kuvaus')}
