@@ -69,6 +69,7 @@ export const Palvelu = ({ id }: { id: string }) => {
 
   const a = palvelu.image ? asset[palvelu.image.id] : null;
   const color = (palvelu.color as keyof typeof classes) || 'sininen';
+
   const forwardToPage = () => {
     if (palvelu.linkki && palvelu.linkki.id) {
       navigate(`/${i18n.language}${forwardTo(palvelu.linkki.id)}`);
@@ -91,7 +92,7 @@ export const Palvelu = ({ id }: { id: string }) => {
           avatar={
             <Avatar
               aria-label={palvelu.name}
-              src={assetUrl(a.url)}
+              src={assetUrl(a?.url)}
               className={classes.avatar}
             />
           }

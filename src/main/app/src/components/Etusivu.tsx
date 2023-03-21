@@ -12,12 +12,7 @@ import { colors } from '#/src/colors';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import YhteishakuKortti from '#/src/components/kortti/YhteishakuKortti';
 import { useContentful } from '#/src/hooks/useContentful';
-import {
-  Info,
-  Uutiset as UutisetType,
-  Kortit,
-  InfoYhteishaku,
-} from '#/src/types/ContentfulTypes';
+import { Kortit } from '#/src/types/ContentfulTypes';
 
 import { useSearch } from './haku/hakutulosHooks';
 import { Jumpotron } from './Jumpotron';
@@ -63,17 +58,7 @@ export const Etusivu = () => {
 
   const { clearFilters, setKeyword } = useSearch();
   const { data, isLoading, forwardTo } = useContentful();
-  const {
-    info: infoData,
-    uutiset,
-    kortit,
-    infoYhteishaku,
-  }: {
-    info: Info;
-    uutiset: UutisetType;
-    kortit: Kortit;
-    infoYhteishaku: InfoYhteishaku;
-  } = data;
+  const { info: infoData, uutiset, kortit, infoYhteishaku } = data;
 
   const forwardToPage = (id: string) => {
     navigate(`/${i18n.language}${forwardTo(id)}`);

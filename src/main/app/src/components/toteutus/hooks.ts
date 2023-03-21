@@ -92,7 +92,7 @@ type UseToteutusProps = {
 export const useToteutus = ({ oid, isDraft }: UseToteutusProps) => {
   return useQuery<Toteutus>(
     ['getToteutus', { oid, isDraft }],
-    () => getToteutus(oid, isDraft),
+    () => getToteutus(oid!, isDraft),
     {
       select: selectToteutus,
       enabled: Boolean(oid),

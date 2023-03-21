@@ -67,8 +67,8 @@ type ResultProps = {
   id: string;
   url: string;
   image: { name: string; description: string };
-  sivu: { name: string; description: string; content: string; sideContent: string };
-  assetUrl: string;
+  sivu: { name: string; description?: string; content: string; sideContent?: string };
+  assetUrl?: string;
   classes: Record<string, string>;
 };
 
@@ -108,7 +108,7 @@ const PAGESIZE = 10;
 const asKeywords = (s: string) => s.toLowerCase().split(/[ ,]+/);
 
 export const Sisaltohaku = () => {
-  const { data, forwardTo, assetUrl } = useContentful();
+  const { data, forwardTo, assetUrl, isLoading } = useContentful();
   const { t, i18n } = useTranslation();
 
   const navigate = useNavigate();
@@ -194,7 +194,7 @@ export const Sisaltohaku = () => {
           </Paper>
         </Grid>
         {activeSearch && _.isEmpty(results) ? (
-          data.loading ? null : (
+          isLoading ? null : (
             <React.Fragment>
               <Grid item xs={12}>
                 <h1>{t('sisaltohaku.eituloksia')}</h1>

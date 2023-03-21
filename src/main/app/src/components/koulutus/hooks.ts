@@ -23,7 +23,13 @@ import {
   resetTulevatJarjestajatPaging,
 } from '#/src/store/reducers/koulutusSlice';
 
-export const fetchKoulutus = async (oid?: string, isDraft: boolean = false) => {
+type TutkinnonOsa = {
+  ePerusteId: string;
+  opintojenLaajuusyksikko: string;
+  opintojenLaajuusNumero: number;
+};
+
+export const fetchKoulutus = async (oid: string, isDraft: boolean = false) => {
   const koulutusData = await getKoulutus(oid, isDraft);
   if (
     (koulutusData?.koulutustyyppi === KOULUTUS_TYYPPI.AMM && koulutusData.ePerusteId) ||
@@ -33,19 +39,17 @@ export const fetchKoulutus = async (oid?: string, isDraft: boolean = false) => {
     const koulutusKuvausData = await getKoulutusKuvaus(koulutusData.ePerusteId);
     _.set(koulutusData, 'metadata.kuvaus', koulutusKuvausData);
   } else if (koulutusData?.koulutustyyppi === KOULUTUS_TYYPPI.AMM_TUTKINNON_OSA) {
-    const tutkinnonOsat = koulutusData?.metadata?.tutkinnonOsat ?? [];
-    const eperusteet = _.uniq(tutkinnonOsat.map((t: any) => t.ePerusteId));
+    const tutkinnonOsat: Array<TutkinnonOsa> =
+      koulutusData?.metadata?.tutkinnonOsat ?? [];
+    const ePerusteIds = _.uniq(tutkinnonOsat.map((t) => t.ePerusteId));
 
-    let e = [];
-    for (const index in eperusteet) {
-      const id = eperusteet[index];
-      const eperuste = await getEperusteKuvaus(id);
-      e.push(eperuste);
-    }
+    const ePerusteet = await Promise.all(
+      ePerusteIds.map((ePerusteId) => getEperusteKuvaus(ePerusteId))
+    );
 
     let yksikko = tutkinnonOsat[0]?.opintojenLaajuusyksikko;
     let pisteet = tutkinnonOsat
-      .map((tutkinnonOsa: any) => tutkinnonOsa.opintojenLaajuusNumero)
+      .map((tutkinnonOsa) => tutkinnonOsa.opintojenLaajuusNumero)
       .join(' + ');
 
     _.set(koulutusData, 'metadata.opintojenLaajuusyksikko', yksikko);
@@ -57,7 +61,7 @@ export const fetchKoulutus = async (oid?: string, isDraft: boolean = false) => {
       },
     });
 
-    _.set(koulutusData, 'eperusteet', e);
+    _.set(koulutusData, 'eperusteet', ePerusteet);
   }
   return koulutusData;
 };
@@ -104,7 +108,7 @@ type UseKoulutusProps = {
 export const useKoulutus = ({ oid, isDraft }: UseKoulutusProps) => {
   return useQuery(
     ['fetchKoulutus', { oid, isDraft }],
-    () => fetchKoulutus(oid, isDraft),
+    () => fetchKoulutus(oid!, isDraft),
     {
       select: selectKoulutus,
       enabled: Boolean(oid),

@@ -2,7 +2,6 @@ import { useCallback, useEffect, useRef } from 'react';
 
 import { useMediaQuery } from '@mui/material';
 import _ from 'lodash';
-import { useQuery } from 'react-query';
 import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -33,17 +32,6 @@ export const useLanguageState = () => {
     [navigate, location, lng]
   );
   return [lng, setLanguage];
-};
-
-// Load asynchronous data once and then cache it forever
-export const useQueryOnce = (key, fn, options = {}) => {
-  return useQuery(key, fn, {
-    staleTime: Infinity,
-    cacheTime: Infinity,
-    refetchOnMount: false,
-    retry: 1,
-    ...options,
-  });
 };
 
 export function usePreviousNonEmpty(value) {

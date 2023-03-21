@@ -1,6 +1,8 @@
 import { Alkamiskausityyppi } from '#/src/constants';
 import { FormatoituAikaleima } from '#/src/types/HakukohdeTypes';
 
+export type LanguageCode = 'fi' | 'sv' | 'en';
+
 export type Translateable = { fi?: string; sv?: string; en?: string };
 export type Koodi = { koodiUri: string; nimi: Translateable };
 
