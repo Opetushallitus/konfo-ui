@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { isEmpty } from 'lodash';
 
 import { Hakulomaketyyppi } from '#/src/constants';
 import { Toteutus } from '#/src/types/ToteutusTypes';
@@ -18,7 +18,7 @@ export const ToteutusHakutiedot = ({ toteutus }: Props) => {
       return <ToteutusHakuMuu toteutus={toteutus} />;
     case hakulomaketyyppi === Hakulomaketyyppi.EI_SAHKOISTA:
       return <ToteutusHakuEiSahkoista toteutus={toteutus} />;
-    case !_.isEmpty(toteutus?.hakutiedot):
+    case !isEmpty(toteutus?.hakutiedot):
       return <ToteutusHakukohteet toteutus={toteutus} />;
     default:
       return null;

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { useTheme, useMediaQuery } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import _ from 'lodash';
+import { head, last } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { MurupolkuDrawer } from './MurupolkuDrawer';
@@ -44,7 +44,7 @@ const useCollapsingPath = (path) => {
   const isNarrow = useMediaQuery(theme.breakpoints.down('sm'));
 
   if (isNarrow && path.length > 2) {
-    return [_.head(path), { name: '...', isCollapsedPart: true }, _.last(path)];
+    return [head(path), { name: '...', isCollapsedPart: true }, last(path)];
   } else {
     return path;
   }

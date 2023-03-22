@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from 'react';
 
-import _ from 'lodash';
+import { set, uniq, omit, mapValues } from 'lodash';
 import { useQuery } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -36,11 +36,11 @@ export const fetchKoulutus = async (oid: string, isDraft: boolean = false) => {
       koulutusData.ePerusteId)
   ) {
     const koulutusKuvausData = await getKoulutusKuvaus(koulutusData.ePerusteId);
-    _.set(koulutusData, 'metadata.kuvaus', koulutusKuvausData);
+    set(koulutusData, 'metadata.kuvaus', koulutusKuvausData);
   } else if (koulutusData?.koulutustyyppi === KOULUTUS_TYYPPI.AMM_TUTKINNON_OSA) {
     const tutkinnonOsat: Array<TutkinnonOsa> =
       koulutusData?.metadata?.tutkinnonOsat ?? [];
-    const ePerusteIds = _.uniq(tutkinnonOsat.map((t) => t.ePerusteId));
+    const ePerusteIds = uniq(tutkinnonOsat.map((t) => t.ePerusteId));
 
     const ePerusteet = await Promise.all(
       ePerusteIds.map((ePerusteId) => getEperusteKuvaus(ePerusteId))
@@ -51,8 +51,8 @@ export const fetchKoulutus = async (oid: string, isDraft: boolean = false) => {
       .map((tutkinnonOsa) => tutkinnonOsa.opintojenLaajuusNumero)
       .join(' + ');
 
-    _.set(koulutusData, 'metadata.opintojenLaajuusyksikko', yksikko);
-    _.set(koulutusData, 'metadata.opintojenLaajuus', {
+    set(koulutusData, 'metadata.opintojenLaajuusyksikko', yksikko);
+    set(koulutusData, 'metadata.opintojenLaajuus', {
       nimi: {
         sv: pisteet,
         fi: pisteet,
@@ -60,7 +60,7 @@ export const fetchKoulutus = async (oid: string, isDraft: boolean = false) => {
       },
     });
 
-    _.set(koulutusData, 'eperusteet', ePerusteet);
+    set(koulutusData, 'eperusteet', ePerusteet);
   }
   return koulutusData;
 };
@@ -140,7 +140,7 @@ export const useKoulutusJarjestajat = ({
 
   const createQueryParams = (values: Record<string, Array<string> | boolean>) => {
     // TODO: konfo-backend haluaa maakunta ja kunta -rajainten sijaan "sijainti" -rajaimen, pitäisi refaktoroida sinne maakunta + kunta käyttöön
-    const valuesWithSijainti = _.omit(
+    const valuesWithSijainti = omit(
       {
         ...values,
         sijainti: [
@@ -151,8 +151,8 @@ export const useKoulutusJarjestajat = ({
       ['maakunta', 'kunta', 'koulutusala', 'koulutustyyppi', 'koulutustyyppi-muu']
     );
 
-    return _.mapValues(valuesWithSijainti, (v: Array<string> | string) =>
-      _.isArray(v) ? v!.join(',') : v!.toString()
+    return mapValues(valuesWithSijainti, (v: Array<string> | string) =>
+      Array.isArray(v) ? v!.join(',') : v!.toString()
     );
   };
 

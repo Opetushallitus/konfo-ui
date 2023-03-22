@@ -4,7 +4,7 @@ import EuroSymbolIcon from '@mui/icons-material/EuroSymbol';
 import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
 import PublicIcon from '@mui/icons-material/Public';
 import { Box, Grid, Hidden, Typography } from '@mui/material';
-import _ from 'lodash';
+import { mapValues, some } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { match } from 'ts-pattern';
@@ -103,7 +103,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
 
   const usedValues: any = useMemo(
     () =>
-      _.mapValues(sortedFilters, (_value, key: string) =>
+      mapValues(sortedFilters, (_value, key: string) =>
         sortValues(getFilterWithChecked(sortedFilters, filters, key))
       ),
     [sortedFilters, filters]
@@ -153,10 +153,10 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
     setFilters(changes);
   };
 
-  const someSelected = _.some(filters, (v) => (_.isArray(v) ? v.length > 0 : v));
+  const someSelected = some(filters, (v) => (Array.isArray(v) ? v.length > 0 : v));
 
   const handleFiltersClear = useCallback(() => {
-    const usedFilters = _.mapValues(filters, (v) => (_.isArray(v) ? [] : false));
+    const usedFilters = mapValues(filters, (v) => (Array.isArray(v) ? [] : false));
 
     setFilters(usedFilters);
   }, [filters, setFilters]);

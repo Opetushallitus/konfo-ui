@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { Button, Grid, Paper } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import _ from 'lodash';
+import { take } from 'lodash';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -48,7 +48,7 @@ const Root = styled('div')({
   },
 });
 
-const getFirst = (entry: Kortit) => Object.values(entry || {})[0] || {};
+const getFirst = (entry: Kortit) => Object.values(entry ?? {})[0] || {};
 
 export const Etusivu = () => {
   const { t } = useTranslation();
@@ -138,7 +138,7 @@ export const Etusivu = () => {
                 <h2 className={classes.header}>{t('ajankohtaista-ja-uutisia')}</h2>
               </Grid>
               <Grid container spacing={3}>
-                <Uutiset uutiset={showMore ? _.take(uutislinkit, 3) : uutislinkit} />
+                <Uutiset uutiset={showMore ? take(uutislinkit, 3) : uutislinkit} />
               </Grid>
 
               <Grid container direction="row" justifyContent="center" alignItems="center">

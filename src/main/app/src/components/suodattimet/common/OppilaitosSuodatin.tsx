@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 
-import _ from 'lodash';
+import { sortBy } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { Filter } from '#/src/components/common/Filter';
@@ -34,7 +34,7 @@ export const OppilaitosSuodatin = (props: SuodatinComponentProps) => {
     return [
       {
         label: t('haku.oppilaitos'),
-        options: _.sortBy(
+        options: sortBy(
           values.map((v) => getSelectOption(v)),
           'label'
         ),

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Box, Typography, BoxProps, useMediaQuery } from '@mui/material';
-import _ from 'lodash';
+import { isString } from 'lodash';
 
 import { theme } from '#/src/theme';
 
@@ -22,7 +22,7 @@ export const PageSection = ({ heading, children, ...props }: Props) => {
       width="100%"
       mt={isSmall ? 4 : 8}
       {...props}>
-      {_.isString(heading) ? (
+      {isString(heading) ? (
         <Typography variant="h2" sx={{ textAlign: 'center' }}>
           {heading}
         </Typography>

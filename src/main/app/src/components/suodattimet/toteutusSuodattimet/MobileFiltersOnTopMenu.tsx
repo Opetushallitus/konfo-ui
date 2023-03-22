@@ -13,7 +13,7 @@ import {
   Typography,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import _ from 'lodash';
+import { flow, map, sum } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { MobileToggleFiltersButton } from '#/src/components/haku/hakutulos/MobileToggleFiltersButton';
@@ -94,14 +94,14 @@ export const MobileFiltersOnTopMenu = ({
 
   const chosenFilterCount = useMemo(
     () =>
-      _.flow(
+      flow(
         (vs) =>
-          _.map(
+          map(
             vs,
             (v: Array<FilterValue>) =>
               v.filter((filterValue) => filterValue.checked).length
           ),
-        _.sum
+        sum
       )(values as any), // TS ei osaa päätellä tätä oikein
     [values]
   );

@@ -5,7 +5,7 @@ import {
   SportsSoccer as SportsSoccerIcon,
 } from '@mui/icons-material';
 import { Box, Button, Typography } from '@mui/material';
-import _ from 'lodash';
+import { isEmpty, size } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -108,7 +108,6 @@ export const OppilaitosPage = (props) => {
               icon={<SportsSoccerIcon />}
             />
           )}
-
           <Box mt={7.5}>
             <TeemakuvaImage
               imgUrl={entity?.teemakuva}
@@ -134,7 +133,7 @@ export const OppilaitosPage = (props) => {
               variant="contained"
               size="medium"
               color="primary">
-              {_.isEmpty(entity.metadata.wwwSivu.nimi)
+              {isEmpty(entity.metadata.wwwSivu.nimi)
                 ? t('oppilaitos.oppilaitoksen-www-sivut')
                 : localize(entity.metadata.wwwSivu)}
               <OpenInNewIcon fontSize="small" />
@@ -145,14 +144,13 @@ export const OppilaitosPage = (props) => {
           )}
           <TarjontaList oid={oid} isOppilaitosOsa={isOppilaitosOsa} />
           <TulevaTarjontaList oid={oid} isOppilaitosOsa={isOppilaitosOsa} />
-
-          {_.size(tietoaOpiskelusta) > 0 && (
+          {size(tietoaOpiskelusta) > 0 && (
             <TietoaOpiskelusta
               heading={t('oppilaitos.tietoa-opiskelusta')}
               tietoaOpiskelusta={tietoaOpiskelusta}
             />
           )}
-          {isOppilaitosOsa || _.isEmpty(oppilaitosOsat) ? null : (
+          {isOppilaitosOsa || isEmpty(oppilaitosOsat) ? null : (
             <OppilaitosOsaList
               oppilaitosOsat={oppilaitosOsat}
               title={t('oppilaitos.tutustu-toimipisteisiin')}

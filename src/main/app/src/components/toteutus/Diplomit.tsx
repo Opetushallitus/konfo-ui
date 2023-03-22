@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import _ from 'lodash';
+import { map, isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { Accordion } from '#/src/components/common/Accordion';
@@ -35,7 +35,7 @@ const ListContent = ({
     <>
       {leadParagraph && <Typography>{localize(leadParagraph)}</Typography>}
       <ul>
-        {_.map(items, (item, i) => (
+        {map(items, (item, i) => (
           <li key={i}>{localize(item)}</li>
         ))}
       </ul>
@@ -55,9 +55,9 @@ const DiplomiContent = ({ diplomi }: { diplomi: Lukiodiplomi }) => {
       <ListContent leadParagraph={diplomi?.tavoitteetKohde} items={diplomi.tavoitteet} />
       <Typography variant="h4">{t('toteutus.keskeiset-sisällöt')}</Typography>
       <ListContent items={diplomi?.sisallot} />
-      {!_.isEmpty(linkki) && (
+      {!isEmpty(linkki) && (
         <ExternalLink target="_blank" rel="noopener" href={linkki}>
-          {_.isEmpty(altTeksti) ? t('toteutus.lisätietoa') : altTeksti}
+          {isEmpty(altTeksti) ? t('toteutus.lisätietoa') : altTeksti}
         </ExternalLink>
       )}
     </>

@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { isString, flow, map, filter, isEmpty, trim, uniq } from 'lodash';
 
 import { Koodi, Translateable } from '#/src/types/common';
 import { Maksullisuustyyppi } from '#/src/types/ToteutusTypes';
@@ -25,19 +25,19 @@ export const translate = (nimi: any) => {
 export const localize = (obj: any) => (obj ? translate(obj.nimi || obj) : '');
 
 export const localizeIfNimiObject = (obj: any) =>
-  obj ? (_.isString(obj.nimi) ? obj.nimi : translate(obj.nimi || obj)) : '';
+  obj ? (isString(obj.nimi) ? obj.nimi : translate(obj.nimi || obj)) : '';
 
 export const localizeArrayToCommaSeparated = (
   arr: Array<Koodi | Translateable>,
   { sorted }: { sorted?: boolean } = { sorted: false }
 ) =>
-  _.flow(
-    (x) => _.map(x, _.flow(localize, _.trim)),
-    (x) => _.filter(x, (item) => !_.isEmpty(item)),
+  flow(
+    (x) => map(x, flow(localize, trim)),
+    (x) => filter(x, (item) => !isEmpty(item)),
     (x) => (sorted ? x.sort() : x),
-    _.uniq,
-    (x) => _.join(x, ', '),
-    (v) => (_.isEmpty(v) ? '' : v)
+    uniq,
+    (x) => x?.join(', '),
+    (v) => (isEmpty(v) ? '' : v)
   )(arr);
 
 export const getTranslationForKey = (key = '') => i18n.t(key);

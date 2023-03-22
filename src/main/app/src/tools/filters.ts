@@ -1,11 +1,11 @@
-import _ from 'lodash';
+import { sortBy, toPairs, includes, mapValues, some, omit, without } from 'lodash';
 
 import { FILTER_TYPES, YHTEISHAKU_KOODI_URI } from '#/src/constants';
 import { FilterValue } from '#/src/types/SuodatinTypes';
 
 export const sortValues = <T>(filterObj: Record<string, T>) =>
-  _.sortBy(
-    _.toPairs(filterObj).map(([id, values]) => ({ id, ...values })),
+  sortBy(
+    toPairs(filterObj).map(([id, values]) => ({ id, ...values })),
     'id'
   );
 
@@ -33,7 +33,7 @@ export const getFilterWithChecked = (
     return {};
   }
 
-  if (_.includes(BOOLEAN_FILTER_TYPES, filterId)) {
+  if (includes(BOOLEAN_FILTER_TYPES, filterId)) {
     return {
       [filterId]: {
         id: filterId,
@@ -44,17 +44,17 @@ export const getFilterWithChecked = (
     };
   }
 
-  return _.mapValues(filter, (v, id) => ({
+  return mapValues(filter, (v, id) => ({
     ...v,
     id,
     filterId,
-    checked: _.some(allCheckedValues[filterId], (checkedId) => checkedId === id),
+    checked: some(allCheckedValues[filterId], (checkedId) => checkedId === id),
     alakoodit:
       id === YHTEISHAKU_KOODI_URI
         ? sortValues(filters[FILTER_TYPES.YHTEISHAKU])?.map((alakoodi) => ({
             ...alakoodi,
             filterId: FILTER_TYPES.YHTEISHAKU,
-            checked: _.some(
+            checked: some(
               allCheckedValues[FILTER_TYPES.YHTEISHAKU],
               (checkedId) => checkedId === alakoodi.id
             ),
@@ -62,7 +62,7 @@ export const getFilterWithChecked = (
         : sortValues(v.alakoodit)?.map((alakoodi) => ({
             ...alakoodi,
             filterId,
-            checked: _.some(
+            checked: some(
               allCheckedValues[filterId],
               (checkedId) => checkedId === alakoodi.id
             ),
@@ -131,11 +131,11 @@ export const getFilterStateChangesForDelete =
   (values: Array<FilterValue>) => (item: FilterValue) => {
     const retVal = getFilterStateChanges(values)(item);
     const retValWithBooleanValues = BOOLEAN_FILTER_TYPES.includes(item.filterId)
-      ? _.omit(
+      ? omit(
           { ...retVal, [item.filterId]: !item.checked },
-          _.without(BOOLEAN_FILTER_TYPES, item.filterId)
+          without(BOOLEAN_FILTER_TYPES, item.filterId)
         )
-      : _.omit(retVal, BOOLEAN_FILTER_TYPES);
+      : omit(retVal, BOOLEAN_FILTER_TYPES);
 
     return retValWithBooleanValues;
   };

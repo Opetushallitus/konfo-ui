@@ -2,7 +2,7 @@ import React from 'react';
 
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { Link } from '@mui/material';
-import _ from 'lodash';
+import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
 
@@ -28,7 +28,7 @@ export const useOsaamisalaKuvaukset = ({
     ['getOsaamisalatPageData', { ePerusteId, requestParams }],
     () => getToteutusOsaamisalaKuvaus({ ePerusteId, requestParams }),
     {
-      enabled: !_.isNil(ePerusteId) && !_.isEmpty(requestParams),
+      enabled: ePerusteId != null && !isEmpty(requestParams),
     }
   );
 
@@ -56,7 +56,7 @@ export const Osaamisalat = ({
       osaamisalaKuvaukset?.find(
         (koa: any) => toa?.koodi?.koodiUri === koa?.osaamisalakoodiUri
       ) || {};
-    const kuvaus = _.isEmpty(extendedData?.kuvaus)
+    const kuvaus = isEmpty(extendedData?.kuvaus)
       ? `<p>${t('toteutus.osaamisalalle-ei-loytynyt-kuvausta')}</p>`
       : localize(extendedData?.kuvaus);
     return { ...toa, extendedData, kuvaus };
@@ -65,7 +65,7 @@ export const Osaamisalat = ({
   switch (true) {
     case isLoading:
       return <LoadingCircle />;
-    case _.isEmpty(osaamisalatCombined):
+    case isEmpty(osaamisalatCombined):
       return null;
     default:
       return (
@@ -76,7 +76,7 @@ export const Osaamisalat = ({
               content: (
                 <>
                   {sanitizedHTMLParser(osaamisala?.kuvaus)}
-                  {!_.isEmpty(osaamisala?.linkki) && !_.isEmpty(osaamisala?.otsikko) && (
+                  {!isEmpty(osaamisala?.linkki) && !isEmpty(osaamisala?.otsikko) && (
                     <Link
                       target="_blank"
                       rel="noopener"

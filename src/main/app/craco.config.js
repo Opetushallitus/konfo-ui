@@ -1,5 +1,5 @@
 const { ESLINT_MODES } = require('@craco/craco');
-const _ = require('lodash');
+const { flow } = require('lodash');
 
 const alias = require('./webpack-alias');
 
@@ -29,7 +29,7 @@ module.exports = {
   },
   webpack: {
     alias,
-    configure: _.flow((config) => ({
+    configure: flow((config) => ({
       ...config,
       ...(CI
         ? {

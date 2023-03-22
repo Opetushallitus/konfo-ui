@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Box, Card, CardContent, Divider, Grid, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import _ from 'lodash';
+import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
@@ -80,7 +80,7 @@ const TilaisuusComponent = ({
             </Box>
           </Grid>
         ) : null}
-        {!_.isEmpty(lisatietoja) && (
+        {!isEmpty(lisatietoja) && (
           <Grid item xs={12}>
             <Box py={1}>
               <Heading className={classes.valintakoeSubHeader} variant="h5">
@@ -144,7 +144,7 @@ export const Valintakokeet = ({
           {t('valintaperuste.valintakokeet')}
         </Heading>
         <HeadingBoundary>
-          {!_.isEmpty(valintaperusteYk) && (
+          {!isEmpty(valintaperusteYk) && (
             <Box py={1}>
               <Heading variant="h3">
                 {t('valintaperuste.valintakokeet-yleiskuvaus-valintaperuste')}
@@ -152,7 +152,7 @@ export const Valintakokeet = ({
               <LocalizedHTML data={valintaperusteYk} />
             </Box>
           )}
-          {!_.isEmpty(hakukohdeYk) && (
+          {!isEmpty(hakukohdeYk) && (
             <Box py={1}>
               <Heading variant="h3">
                 {t('valintaperuste.valintakokeet-yleiskuvaus-hakukohde')}
@@ -180,7 +180,7 @@ export const Valintakokeet = ({
                   }}>
                   <CardContent>
                     <Heading variant="h4">{localize(nimi)}</Heading>
-                    {!_.isEmpty(tietoja) && <LocalizedHTML data={tietoja!} />}
+                    {!isEmpty(tietoja) && <LocalizedHTML data={tietoja!} />}
                     <HeadingBoundary>
                       {(vahimmaispisteet || vahimmaispisteet === 0) && (
                         <>
@@ -190,7 +190,7 @@ export const Valintakokeet = ({
                           <Typography variant="body1">{vahimmaispisteet}</Typography>
                         </>
                       )}
-                      {!_.isEmpty(ohjeetEnnakkovalmistautumiseen) && (
+                      {!isEmpty(ohjeetEnnakkovalmistautumiseen) && (
                         <>
                           <Heading variant="h5" className={classes.valintakoeSubHeader}>
                             {t('valintaperuste.valmistautumisohjeet-hakijalle')}
@@ -198,7 +198,7 @@ export const Valintakokeet = ({
                           <LocalizedHTML data={ohjeetEnnakkovalmistautumiseen!} />
                         </>
                       )}
-                      {!_.isEmpty(ohjeetErityisjarjestelyihin) && (
+                      {!isEmpty(ohjeetErityisjarjestelyihin) && (
                         <>
                           <Heading variant="h5" className={classes.valintakoeSubHeader}>
                             {t('valintaperuste.ohjeet-erityisjarjestelyihin')}

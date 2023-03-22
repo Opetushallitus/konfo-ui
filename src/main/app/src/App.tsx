@@ -5,7 +5,7 @@ import { styled } from '@mui/material/styles';
 import { visuallyHidden } from '@mui/utils';
 import clsx from 'clsx';
 import Cookies from 'js-cookie';
-import _ from 'lodash';
+import { includes } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useIsFetching } from 'react-query';
 import { Navigate, Routes, Route, useLocation, useParams } from 'react-router-dom';
@@ -113,7 +113,7 @@ const TranslatedRoutes = () => {
   const location = useLocation();
   const params = useParams();
   const selectedLanguage = params?.lng;
-  const isSupportedLanguageSelected = _.includes(supportedLanguages, selectedLanguage);
+  const isSupportedLanguageSelected = includes(supportedLanguages, selectedLanguage);
 
   useEffect(() => {
     if (selectedLanguage && isSupportedLanguageSelected) {

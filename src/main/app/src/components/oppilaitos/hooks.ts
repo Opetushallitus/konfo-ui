@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from 'react';
 
-import _ from 'lodash';
+import { flow, filter, map, size } from 'lodash';
 import { useQueries, useQuery } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -42,10 +42,10 @@ const handleOppilaitosData = (
       ...entity,
       oppilaitosOsat: isOppilaitosOsa
         ? undefined
-        : _.flow(
-            (osat) => _.filter(osat, { status: ACTIVE }),
+        : flow(
+            (osat) => filter(osat, { status: ACTIVE }),
             (activeOsat) =>
-              _.map(activeOsat, (osa: any) => ({
+              map(activeOsat, (osa: any) => ({
                 ...osa,
                 nimi: removeOppilaitosName(localize(osa.nimi), localize(data.nimi)),
               }))
@@ -117,7 +117,7 @@ type UsePaginatedTarjontaProps = {
 
 const selectTarjonta = (tarjonta: any) => {
   return {
-    values: _.map(tarjonta?.hits, (t: any) => ({
+    values: map(tarjonta?.hits, (t: any) => ({
       toteutusName: localize(t.nimi),
       description: localize(t.kuvaus),
       locations: localizeArrayToCommaSeparated(t.kunnat, { sorted: true }),
@@ -128,7 +128,7 @@ const selectTarjonta = (tarjonta: any) => {
       toteutusOid: t.toteutusOid,
       jarjestaaUrheilijanAmmKoulutusta: t.jarjestaaUrheilijanAmmKoulutusta,
     })),
-    hasHits: _.size(tarjonta?.hits) > 0,
+    hasHits: size(tarjonta?.hits) > 0,
     total: tarjonta?.total,
   };
 };

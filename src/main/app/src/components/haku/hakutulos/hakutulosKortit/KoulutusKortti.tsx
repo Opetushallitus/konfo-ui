@@ -6,7 +6,7 @@ import {
   TimelapseOutlined,
   HomeWorkOutlined,
 } from '@mui/icons-material';
-import _ from 'lodash';
+import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { EntiteettiKortti } from '#/src/components/common/EntiteettiKortti';
@@ -89,7 +89,7 @@ export const KoulutusKortti = ({ koulutus, isSmall }: Props) => {
       header={localize(koulutus)}
       kuvaus={kuvausText}
       iconTexts={[
-        _.isEmpty(tutkintonimikkeetText)
+        isEmpty(tutkintonimikkeetText)
           ? [koulutustyyppiText, ExtensionOutlined]
           : [tutkintonimikkeetText, SchoolOutlined],
         [getLocalizedKoulutusLaajuus(koulutus), TimelapseOutlined],

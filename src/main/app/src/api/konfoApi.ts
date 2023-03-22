@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import Cookies from 'js-cookie';
-import _ from 'lodash';
+import { includes, isEmpty, map } from 'lodash';
 import { urls } from 'oph-urls-js';
 import qs from 'query-string';
 
@@ -23,9 +23,9 @@ const client = axios.create({
 });
 
 client.interceptors.request.use((request: RequestConfig): RequestConfig => {
-  if (_.includes(['post', 'put', 'patch', 'delete'], request.method)) {
+  if (includes(['post', 'put', 'patch', 'delete'], request.method)) {
     const csrfCookie = Cookies.get('CSRF');
-    if (csrfCookie && !_.isEmpty(csrfCookie)) {
+    if (csrfCookie && !isEmpty(csrfCookie)) {
       request.headers = {
         ...(request.headers ?? {}),
         CSRF: csrfCookie,
@@ -183,8 +183,8 @@ export const getContentfulManifest = async () =>
     )
   )?.data;
 
-function reduceToKeyValue(values: Array<ContentfulItem> = []) {
-  return values.reduce((res, value) => {
+function reduceToKeyValue(contentfulRes: Array<ContentfulItem> = []) {
+  return contentfulRes.reduce((res, value) => {
     res[value.id] = value;
     if (value.url) {
       res[value.url] = value;
@@ -205,7 +205,7 @@ export const getContentfulData = (
   lang: LanguageCode
 ) => {
   return Promise.all(
-    _.map(manifestData, (v, key) => {
+    map(manifestData, (v, key) => {
       if (v[lang] === undefined) {
         console.log(
           'Sisältöä valitulle kielelle ei löydy! ' + JSON.stringify(v) + ', key ' + key
@@ -218,10 +218,10 @@ export const getContentfulData = (
       });
     })
   ).then((all) => {
-    const contentfulData: ContentfulData = _.assign({}, ...all);
+    const contentfulData: ContentfulData = Object.assign({}, ...all);
     const slugsToIds: Record<string, { language: LanguageCode; id: string }> =
-      _.fromPairs(
-        _.values(contentfulData?.sivu).map((sivu) => [
+      Object.fromEntries(
+        Object.values(contentfulData?.sivu ?? {}).map((sivu) => [
           sivu.slug!,
           { language: lang, id: sivu.id },
         ])

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { Box, Typography, styled, Button } from '@mui/material';
-import _ from 'lodash';
+import { isEqual } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { colors } from 'src/colors';
 
@@ -64,7 +64,7 @@ export const KeskiarvoAineLaskuri = ({
   const updateKouluaineFromChild = (assigner: (aineet: Kouluaineet) => Kouluaineet) => {
     const aineet = assigner(kouluaineet);
     setKouluaineet(aineet);
-    if (!_.isEqual(kouluaineet, new Kouluaineet())) {
+    if (!isEqual(kouluaineet, new Kouluaineet())) {
       LocalStorageUtil.save(KOULUAINE_STORE_KEY, aineet);
     }
     updateKouluaineetToCalculate(aineet);

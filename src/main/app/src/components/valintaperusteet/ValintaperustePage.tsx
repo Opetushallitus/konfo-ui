@@ -3,7 +3,7 @@ import React, { useEffect, useMemo } from 'react';
 import { Grid } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import produce from 'immer';
-import _ from 'lodash';
+import { isEmpty, isNumber, concat } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useLocation, useParams } from 'react-router-dom';
@@ -74,20 +74,20 @@ const ValintaperusteContent = ({
   yleiskuvaukset,
 }: ContentProps) => {
   const { hakukelpoisuus, kuvaus, lisatiedot, sisalto } = valintaperuste?.metadata || {};
-  const hakukelpoisuusVisible = !_.isEmpty(hakukelpoisuus);
-  const kuvausVisible = !_.isEmpty(kuvaus) || sisalto?.length > 0;
+  const hakukelpoisuusVisible = !isEmpty(hakukelpoisuus);
+  const kuvausVisible = !isEmpty(kuvaus) || sisalto?.length > 0;
   const valintatavatVisible =
-    valintatavat?.length > 0 || !_.isEmpty(hakukohde?.metadata?.kynnysehto);
+    valintatavat?.length > 0 || !isEmpty(hakukohde?.metadata?.kynnysehto);
   const valintakokeetVisible = valintakokeet?.length > 0;
   const yleiskuvauksetVisible =
-    !_.isEmpty(yleiskuvaukset?.hakukohde) || !_.isEmpty(yleiskuvaukset?.valintaperuste);
-  const lisatiedotVisible = !_.isEmpty(lisatiedot);
+    !isEmpty(yleiskuvaukset?.hakukohde) || !isEmpty(yleiskuvaukset?.valintaperuste);
+  const lisatiedotVisible = !isEmpty(lisatiedot);
   const liitteetVisible = hakukohde?.liitteet.length > 0;
   const painotetutArvosanatVisible =
     hakukohde?.metadata?.hakukohteenLinja?.painotetutArvosanat.length > 0;
   const alinHyvaksyttyKeskiarvo =
     hakukohde?.metadata?.hakukohteenLinja?.alinHyvaksyttyKeskiarvo;
-  const alinHyvaksyttyKeskiarvoVisible = _.isNumber(alinHyvaksyttyKeskiarvo);
+  const alinHyvaksyttyKeskiarvoVisible = isNumber(alinHyvaksyttyKeskiarvo);
 
   const { hash } = useLocation();
 
@@ -233,12 +233,12 @@ export const ValintaperustePage = () => {
         return added
           ? produce(
               added,
-              (draft: any) => (draft.tilaisuudet = _.concat(v.tilaisuudet, added))
+              (draft: any) => (draft.tilaisuudet = concat(v.tilaisuudet, added))
             )
           : v;
       }
     );
-    return _.concat(hakukohteenValintakokeet, usedValintaperusteenKokeet) || [];
+    return concat(hakukohteenValintakokeet, usedValintaperusteenKokeet) || [];
   }, [hakukohteenValintakokeet, valintaperusteenValintakokeet, lisatilaisuudet]);
 
   const yleiskuvaukset = {

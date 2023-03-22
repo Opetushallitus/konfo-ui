@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef } from 'react';
 
 import { useMediaQuery } from '@mui/material';
-import _ from 'lodash';
+import { isEmpty } from 'lodash';
 import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -38,7 +38,7 @@ export function usePreviousNonEmpty(value) {
   const ref = useRef();
 
   useEffect(() => {
-    if (!_.isEmpty(value)) {
+    if (!isEmpty(value)) {
       ref.current = value;
     }
   }, [value]); // Only re-run if value changes

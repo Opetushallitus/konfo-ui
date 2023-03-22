@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react';
 
-import _ from 'lodash';
+import { flow, pickBy, map, uniqBy, flatten } from 'lodash';
 import { useQuery } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -232,15 +232,17 @@ export const useAllSelectedFilters = () => {
 
   const selectedFiltersWithAlakoodit = useMemo(
     () =>
-      _.flow(
-        (vals) => _.pickBy(vals, (v) => (_.isArray(v) ? v.length > 0 : v)),
-        _.keys,
-        (keys) =>
-          _.map(keys, (filterId) =>
-            _.values(getFilterWithChecked(koulutusFilters, allCheckedValues, filterId))
+      flow(
+        (vals) => pickBy(vals, (v) => (Array.isArray(v) ? v.length > 0 : v)),
+        Object.keys,
+        (ks) =>
+          map(ks, (filterId) =>
+            Object.values(
+              getFilterWithChecked(koulutusFilters, allCheckedValues, filterId)
+            )
           ),
-        _.flatten,
-        (flatted) => _.uniqBy(flatted, 'id')
+        flatten,
+        (flatted) => uniqBy(flatted, 'id')
       )(allCheckedValues),
     [koulutusFilters, allCheckedValues]
   );

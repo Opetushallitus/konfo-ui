@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { flow, map, sortBy, uniqBy, pick } from 'lodash';
 import { useQuery } from 'react-query';
 
 import { getToteutus } from '#/src/api/konfoApi';
@@ -24,10 +24,10 @@ const selectHakukohteetByHakutapa = (toteutus: any) => {
     return {};
   }
 
-  const hakutavat = _.flow(
-    (tiedot) => _.map(tiedot, 'hakutapa'),
-    (tavat) => _.sortBy(tavat, 'koodiUri'),
-    (koodit) => _.uniqBy(koodit, 'koodiUri')
+  const hakutavat = flow(
+    (tiedot) => map(tiedot, 'hakutapa'),
+    (tavat) => sortBy(tavat, 'koodiUri'),
+    (koodit) => uniqBy(koodit, 'koodiUri')
   )(toteutus.hakutiedot);
 
   // Konfossa halutaan näyttää hakukohteet hakutyypeittäin, ei per haku
@@ -55,7 +55,7 @@ const selectHakukohteetByHakutapa = (toteutus: any) => {
 export const selectMuuHaku = (toteutus: any) => {
   // TODO: SORA-kuvaus - atm. we only get an Id from the API but we cannot do anything with it
   return {
-    ..._.pick(toteutus.metadata, [
+    ...pick(toteutus.metadata, [
       'aloituspaikat',
       'hakuaika',
       'hakulomakeLinkki',

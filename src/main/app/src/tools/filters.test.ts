@@ -1,11 +1,11 @@
 import produce from 'immer';
-import _ from 'lodash';
+import { set, flow } from 'lodash';
 
 import { getFilterStateChanges } from './filters';
 
 const fpSet = (x: Record<string, any>, path: string, value: any) =>
   produce(x, (draft) => {
-    _.set(draft, path, value);
+    set(draft, path, value);
   });
 
 // prettier-ignore
@@ -42,7 +42,7 @@ describe('hakutulosSuodattimet utils', () => {
       { a: [] },
     ],
     [
-      _.flow(
+      flow(
         (x) => fpSet(x, '[1].checked', true),
         (x) => fpSet(x, '[1].alakoodit[0].checked', true),
         (x) => fpSet(x, '[1].alakoodit[1].checked', true)

@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react';
 
-import _ from 'lodash';
+import { findKey, find, isEmpty } from 'lodash';
 import { urls } from 'oph-urls-js';
 
 import { getContentfulData, getContentfulManifest } from '#/src/api/konfoApi';
@@ -36,8 +36,8 @@ const assetUrl = (url?: string) =>
 const findParent = (id: string, cData: ContentfulData): Array<ContentfulItem> => {
   const { valikko, sivu, sivuKooste } = cData;
   const childId = (sivu[id] || sivuKooste[id] || {}).id || id;
-  const parentId = _.findKey(valikko, (item) => {
-    return _.find(item.linkki, (i) => i.id === childId);
+  const parentId = findKey(valikko, (item) => {
+    return find(item.linkki, (i) => i.id === childId);
   });
   if (parentId) {
     const parentItem = valikko[parentId];
@@ -103,7 +103,7 @@ export const useContentful = () => {
       assetUrl,
       slugsToIds,
       data: contentfulData ?? initialContentfulData,
-      isLoading: isLoadingContent || _.isEmpty(slugsToIds),
+      isLoading: isLoadingContent || isEmpty(slugsToIds),
     }),
     [forwardTo, murupolku, slugsToIds, contentfulData, isLoadingContent]
   );

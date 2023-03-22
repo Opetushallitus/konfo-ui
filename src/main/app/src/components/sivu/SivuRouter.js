@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Grid } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import _ from 'lodash';
+import { findKey } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useParams, Link as RouterLink, Navigate } from 'react-router-dom';
 
@@ -88,7 +88,7 @@ export const SivuRouter = () => {
       return <StyledNotFound loading={isLoading} />;
     }
   } else {
-    const newSlug = _.findKey(
+    const newSlug = findKey(
       slugsToIds,
       (slugInfo) => slugInfo.id === idInfo?.id && slugInfo?.language === lngParam
     );
