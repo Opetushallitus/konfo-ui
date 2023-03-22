@@ -56,12 +56,6 @@ export const LANG_NAME_BY_CODE = {
   en: 'englanti',
 } as const;
 
-export const LANGUAGE_CODES = {
-  fi: 'fi',
-  sv: 'sv',
-  en: 'en',
-} as const;
-
 export enum KOULUTUS_TYYPPI {
   AMM = 'amm',
   AMM_TUTKINNON_OSA = 'amm-tutkinnon-osa',
