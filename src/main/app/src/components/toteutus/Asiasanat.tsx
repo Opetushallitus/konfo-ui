@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import { TextButton } from '#/src/components/common/TextButton';
 import { TextWithBackground } from '#/src/components/common/TextWithBackground';
-import { hostUrlWithLangCode } from '#/src/tools/localization';
+import { getLanguage } from '#/src/tools/localization';
 
 const filterAsiasanatForLang = (arr: Array<any>, language: string) => {
   return arr?.filter((asiasana: any) => asiasana.kieli === language);
@@ -56,6 +56,7 @@ const AsiasanatExpander = ({
   translatedAsiasanat: Array<string>;
 }) => {
   const { t } = useTranslation();
+  const language = getLanguage();
   const [isExpanded, setIsExpanded] = useState(
     translatedAsiasanat?.length <= UNEXPANDED_ASIASANA_LIMIT
   );
@@ -68,7 +69,7 @@ const AsiasanatExpander = ({
         {visibleAsiasanat.map((asiasana: string) => (
           <Grid item key={asiasana}>
             <Link
-              href={`${hostUrlWithLangCode}/haku/${asiasana}`}
+              href={`/konfo/${language}/haku/${asiasana}`}
               underline="none"
               target="_blank"
               rel="noopener">
