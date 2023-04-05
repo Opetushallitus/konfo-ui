@@ -13,6 +13,8 @@ const classes = {
 };
 
 const StyledMarkdown = styled(Markdown)({
+  position: 'sticky',
+  top: '90px',
   [`& .${classes.link}`]: {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
