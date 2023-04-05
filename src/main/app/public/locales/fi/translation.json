@@ -244,6 +244,8 @@
     "summary_plural": "Etsintäsi tuotti {{count}} osumaa",
     "suomi": "Suomi",
     "syota-ainakin-kolme-merkkia": "Syötä ainakin kolme merkkiä",
+    "lataus-käynnissä": "Haetaan...",
+    "ei-ehdotuksia": "Ei ehdotuksia",
     "tapahtui-tekninen-virhe": "Tapahtui tekninen virhe",
     "teemakuva": "teemakuva",
     "tohtori": "Tohtoritutkinto",

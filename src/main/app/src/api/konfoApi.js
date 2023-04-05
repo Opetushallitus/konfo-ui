@@ -109,6 +109,11 @@ export const searchOppilaitokset = (requestParams, signal) =>
     signal,
   });
 
+export const autoCompleteSearch = (requestParams) =>
+  get(urls.url('konfo-backend.search.autocomplete'), {
+    params: { lng: getLanguage(), ...cleanRequestParams(requestParams) },
+  });
+
 export const postClientError = (errorData) =>
   client.post('/konfo-backend/client-error', errorData);
 
