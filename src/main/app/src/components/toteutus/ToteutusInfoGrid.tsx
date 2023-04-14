@@ -16,7 +16,7 @@ import { useTranslation } from 'react-i18next';
 
 import { InfoGrid } from '#/src/components/common/InfoGrid';
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
-import { Koulutustyyppi, NDASH } from '#/src/constants';
+import { Koulutustyyppi, NDASH, MAKSULLISUUSTYYPPI } from '#/src/constants';
 import { useVisibleKoulutustyyppi } from '#/src/hooks/useVisibleKoulutustyyppi';
 import { localize } from '#/src/tools/localization';
 import { Koodi, Translateable } from '#/src/types/common';
@@ -64,7 +64,9 @@ const formatApuraha = (opetus: Opetus, t: TFunction) => {
 const formatMaksullisuus = (opetus: Opetus, t: TFunction) => {
   return opetus?.maksunMaara &&
     opetus?.maksullisuustyyppi &&
-    ['maksullinen', 'lukuvuosimaksu'].includes(opetus?.maksullisuustyyppi)
+    [MAKSULLISUUSTYYPPI.MAKSULLINEN, MAKSULLISUUSTYYPPI.LUKUVUOSIMAKSU].includes(
+      opetus?.maksullisuustyyppi
+    )
     ? `${opetus?.maksunMaara} €`
     : t('toteutus.ei-maksua');
 };
@@ -210,23 +212,26 @@ export const ToteutusInfoGrid = ({
     {
       icon: <EuroIcon className={classes.koulutusInfoGridIcon} />,
       title:
-        opetus?.maksullisuustyyppi === 'lukuvuosimaksu'
+        opetus?.maksullisuustyyppi === MAKSULLISUUSTYYPPI.LUKUVUOSIMAKSU
           ? t('toteutus.lukuvuosimaksu')
           : t('toteutus.maksullisuus'),
       text: maksullisuusString,
       modalText: !isEmpty(opetus.maksullisuusKuvaus) && (
         <LocalizedHTML data={opetus.maksullisuusKuvaus!} noMargin />
       ),
-    },
-    {
+    }
+  );
+
+  if (opetus?.maksullisuustyyppi === MAKSULLISUUSTYYPPI.LUKUVUOSIMAKSU) {
+    perustiedotData.push({
       icon: 'ApurahaIcon',
       title: t('toteutus.apuraha'),
       text: apurahaString,
       modalText: !isEmpty(opetus?.apuraha?.kuvaus) && (
         <LocalizedHTML data={opetus.apuraha?.kuvaus!} noMargin />
       ),
-    }
-  );
+    });
+  }
 
   const opinnonTyyppiText = localize(opinnonTyyppi);
 

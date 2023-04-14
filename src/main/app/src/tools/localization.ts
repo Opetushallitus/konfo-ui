@@ -1,5 +1,6 @@
 import { isString, flow, map, filter, isEmpty, trim, uniq } from 'lodash';
 
+import { MAKSULLISUUSTYYPPI } from '#/src/constants';
 import { Koodi, Translateable } from '#/src/types/common';
 import { Maksullisuustyyppi } from '#/src/types/ToteutusTypes';
 
@@ -60,9 +61,11 @@ export const getLocalizedMaksullisuus = (
   maksullisuustyyppi: Maksullisuustyyppi,
   maksuAmount: number
 ) =>
-  ['maksullinen', 'lukuvuosimaksu'].includes(maksullisuustyyppi)
+  [MAKSULLISUUSTYYPPI.MAKSULLINEN, MAKSULLISUUSTYYPPI.LUKUVUOSIMAKSU].includes(
+    maksullisuustyyppi
+  )
     ? `${
-        maksullisuustyyppi === 'lukuvuosimaksu'
+        maksullisuustyyppi === MAKSULLISUUSTYYPPI.LUKUVUOSIMAKSU
           ? getTranslationForKey('toteutus.lukuvuosimaksu') + ' '
           : ''
       }${maksuAmount} € 

@@ -150,3 +150,9 @@ export enum Alkamiskausityyppi {
 }
 
 export const NDASH = '\u2013';
+
+export enum MAKSULLISUUSTYYPPI {
+  MAKSULLINEN = 'maksullinen',
+  MAKSUTON = 'maksuton',
+  LUKUVUOSIMAKSU = 'lukuvuosimaksu',
+}
