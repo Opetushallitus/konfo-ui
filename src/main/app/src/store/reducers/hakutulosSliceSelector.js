@@ -12,6 +12,8 @@ export const getKoulutusOffset = (state) => state.hakutulos.koulutusOffset;
 
 export const getOppilaitosOffset = (state) => state.hakutulos.oppilaitosOffset;
 
+export const getSearchPhrase = (state) => state.hakutulos.searchPhrase;
+
 const getOpetuskieli = (state) => state.hakutulos.opetuskieli;
 
 const getKoulutustyyppi = (state) => state.hakutulos.koulutustyyppi;
@@ -172,6 +174,60 @@ export const getAPIRequestParams = createSelector(
     order,
     sort,
     size,
+    opetuskieli: getCheckedFiltersIdsStr(opetuskieli),
+    koulutustyyppi: getCheckedFiltersIdsStr(concat(koulutustyyppi, koulutustyyppiMuu)),
+    koulutusala: getCheckedFiltersIdsStr(koulutusala),
+    sijainti: getCheckedFiltersIdsStr(concat(kunta, maakunta)),
+    opetustapa: getCheckedFiltersIdsStr(opetustapa),
+    valintatapa: getCheckedFiltersIdsStr(valintatapa),
+    hakutapa: getCheckedFiltersIdsStr(hakutapa),
+    hakukaynnissa,
+    jotpa,
+    tyovoimakoulutus,
+    taydennyskoulutus,
+    yhteishaku: getCheckedFiltersIdsStr(yhteishaku),
+    pohjakoulutusvaatimus: getCheckedFiltersIdsStr(pohjakoulutusvaatimus),
+  })
+);
+
+export const getAutocompleteRequestParams = createSelector(
+  [
+    getSearchPhrase,
+    getOpetuskieli,
+    getKoulutustyyppi,
+    getKoulutustyyppiMuu,
+    getKoulutusala,
+    getKunta,
+    getMaakunta,
+    getOpetustapa,
+    getValintatapa,
+    getHakukaynnissa,
+    getHakutapa,
+    getYhteishaku,
+    getPohjakoulutusvaatimus,
+    getJotpa,
+    getTyovoimakoulutus,
+    getTaydennyskoulutus,
+  ],
+  (
+    searchPhrase,
+    opetuskieli,
+    koulutustyyppi,
+    koulutustyyppiMuu,
+    koulutusala,
+    kunta,
+    maakunta,
+    opetustapa,
+    valintatapa,
+    hakukaynnissa,
+    hakutapa,
+    yhteishaku,
+    pohjakoulutusvaatimus,
+    jotpa,
+    tyovoimakoulutus,
+    taydennyskoulutus
+  ) => ({
+    searchPhrase,
     opetuskieli: getCheckedFiltersIdsStr(opetuskieli),
     koulutustyyppi: getCheckedFiltersIdsStr(concat(koulutustyyppi, koulutustyyppiMuu)),
     koulutusala: getCheckedFiltersIdsStr(koulutusala),

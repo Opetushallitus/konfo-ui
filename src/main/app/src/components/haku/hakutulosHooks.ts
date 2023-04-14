@@ -1,11 +1,15 @@
 import { useCallback, useMemo } from 'react';
 
-import { flow, pickBy, map, uniqBy, flatten } from 'lodash';
+import { flow, pickBy, map, uniqBy, flatten, size } from 'lodash';
 import { useQuery } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { searchKoulutukset, searchOppilaitokset } from '#/src/api/konfoApi';
+import {
+  searchKoulutukset,
+  searchOppilaitokset,
+  autoCompleteSearch,
+} from '#/src/api/konfoApi';
 import {
   getCombinedQueryIsFetching,
   getCombinedQueryStatus,
@@ -25,12 +29,14 @@ import {
   setOrder,
   clearSelectedFilters,
   setKeyword,
+  setSearchPhrase,
 } from '#/src/store/reducers/hakutulosSlice';
 import {
   getAPIRequestParams,
   getFilters,
   getIsAnyFilterSelected,
   getKeyword,
+  getSearchPhrase,
   getKoulutusOffset,
   getKoulutusPage,
   getOppilaitosOffset,
@@ -40,6 +46,7 @@ import {
   getSize,
   getSort,
   getSortOrder,
+  getAutocompleteRequestParams,
 } from '#/src/store/reducers/hakutulosSliceSelector';
 import { getFilterWithChecked, sortValues } from '#/src/tools/filters';
 import { ValueOf } from '#/src/types/common';
@@ -57,8 +64,20 @@ const useOppilaitosSearch = createSearchQueryHook(
   searchOppilaitokset
 );
 
+const useAutocompleteSearch = createSearchQueryHook(
+  'autoCompleteSearch',
+  (requestParams) => {
+    if (size(requestParams.searchPhrase) > 2) {
+      return autoCompleteSearch(requestParams);
+    } else {
+      return [];
+    }
+  }
+);
+
 export const useSearch = () => {
   const keyword = useSelector(getKeyword);
+  const searchPhrase = useSelector(getSearchPhrase);
   const isAnyFilterSelected = useSelector(getIsAnyFilterSelected);
   const pageSize = useSelector(getSize);
   const selectedTab = useSelector(getSelectedTab);
@@ -66,6 +85,7 @@ export const useSearch = () => {
   const oppilaitosOffset = useSelector(getOppilaitosOffset);
 
   const requestParams = useSelector(getAPIRequestParams);
+  const autoCompleteRequestParams = useSelector(getAutocompleteRequestParams);
 
   const koulutusPage = useSelector(getKoulutusPage);
   const oppilaitosPage = useSelector(getOppilaitosPage);
@@ -82,10 +102,15 @@ export const useSearch = () => {
   const { data: oppilaitosData } = oppilaitosQueryResult;
 
   const status = getCombinedQueryStatus([koulutusQueryResult, oppilaitosQueryResult]);
+
+  const autoCompleteResult = useAutocompleteSearch(autoCompleteRequestParams);
+  const autoCompleteOptions = autoCompleteResult?.data?.hits;
+
   const isFetching = getCombinedQueryIsFetching([
     koulutusQueryResult,
     oppilaitosQueryResult,
   ]);
+  const isFetchingAutocompleteResults = autoCompleteResult.isFetching;
 
   const dispatch = useDispatch();
 
@@ -129,8 +154,8 @@ export const useSearch = () => {
 
   const setPagination = useCallback(
     (newPagination) => {
-      const { size, offset } = newPagination ?? {};
-      dispatch(setSize({ newSize: size }));
+      const { size: _size, offset } = newPagination ?? {};
+      dispatch(setSize({ newSize: _size }));
       if (offset != null) {
         if (selectedTab === 'koulutus') {
           dispatch(setKoulutusOffset({ offset }));
@@ -165,15 +190,24 @@ export const useSearch = () => {
     [dispatch]
   );
 
+  const setSearchPhraseCb = useCallback(
+    (sp) => dispatch(setSearchPhrase({ searchPhrase: sp })),
+    [dispatch]
+  );
+
   return useMemo(
     () => ({
       keyword,
+      searchPhrase,
       setKeyword: setKeywordCb,
+      setSearchPhrase: setSearchPhraseCb,
       isFetching,
+      isFetchingAutocompleteResults,
       isAnyFilterSelected,
       status,
       koulutusData,
       oppilaitosData,
+      autoCompleteOptions,
       pagination,
       setPagination,
       resetPagination: resetPaginationCb,
@@ -190,8 +224,11 @@ export const useSearch = () => {
     }),
     [
       keyword,
+      searchPhrase,
       setKeywordCb,
+      setSearchPhraseCb,
       isFetching,
+      isFetchingAutocompleteResults,
       isAnyFilterSelected,
       status,
       pagination,
@@ -199,6 +236,7 @@ export const useSearch = () => {
       resetPaginationCb,
       oppilaitosData,
       koulutusData,
+      autoCompleteOptions,
       clearFilters,
       selectedTab,
       setSelectedTabCb,

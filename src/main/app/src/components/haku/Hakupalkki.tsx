@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import {
   SearchOutlined,
@@ -15,9 +15,11 @@ import {
   Tooltip,
   IconButton,
   Button,
+  Autocomplete,
   InputBase,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { debounce } from '@mui/material/utils';
 import { size, isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
@@ -52,7 +54,7 @@ const StyledBox = styled(Box)(({ theme }) => ({
 
   [`& .${classes.input}`]: {
     borderRadius: 0,
-    marginLeft: theme.spacing(3),
+    marginLeft: theme.spacing(2),
     flex: 1,
     color: colors.darkGrey,
     fontSize: '16px',
@@ -99,6 +101,7 @@ const StyledBox = styled(Box)(({ theme }) => ({
     [theme.breakpoints.down('sm')]: {
       height: '58px',
     },
+    paddingLeft: '15px',
     display: 'flex',
     width: '100%',
     alignItems: 'center',
@@ -150,20 +153,28 @@ const StyledPopover = styled(Popover)(() => ({
   },
 }));
 
-const checkIsKeywordValid = (word) => size(word) === 0 || size(word) > 2;
+const checkIsKeywordValid = (word: string) => size(word) === 0 || size(word) > 2;
 
 export const Hakupalkki = () => {
   const { t } = useTranslation();
 
-  const { keyword, koulutusData, goToSearchPage, setKeyword } = useSearch();
-
+  const {
+    keyword,
+    searchPhrase,
+    koulutusData,
+    autoCompleteOptions,
+    goToSearchPage,
+    setKeyword,
+    setSearchPhrase,
+    isFetchingAutocompleteResults,
+  } = useSearch();
   const koulutusFilters = koulutusData?.filters;
   const isAtEtusivu = useIsAtEtusivu();
 
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [isKeywordValid, setIsKeywordValid] = useState(true);
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const [inputValue, setInputValue] = useState(() => keyword);
 
-  const handleDesktopBtnClick = (e) => {
+  const handleDesktopBtnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     window.scrollTo({
       top: 250,
       left: 0,
@@ -181,13 +192,19 @@ export const Hakupalkki = () => {
     isPopoverOpen ? <ExpandLessOutlined /> : <ExpandMoreOutlined />;
   const id = isPopoverOpen ? 'filters-popover' : undefined;
 
+  const isKeywordValid = checkIsKeywordValid(inputValue);
+  const setSearchPhraseDelayed = useMemo(
+    () => debounce(setSearchPhrase, 200),
+    [setSearchPhrase]
+  );
+
   return (
     <StyledBox display="flex" flexDirection="column" alignItems="flex-end" flexGrow={1}>
       <Paper
         component="form"
-        onSubmit={(e) => {
-          e.preventDefault();
-          const formData = new FormData(e.target);
+        onSubmit={(event: React.ChangeEvent<HTMLFormElement>) => {
+          event.preventDefault();
+          const formData = new FormData(event.target);
           const keywordValue = formData.get('keyword');
           setKeyword(keywordValue ?? '');
           goToSearchPage();
@@ -197,21 +214,48 @@ export const Hakupalkki = () => {
         <Tooltip
           placement="bottom-start"
           open={!isKeywordValid}
-          title={t('haku.syota-ainakin-kolme-merkkia')}>
-          <InputBase
+          title={t('haku.syota-ainakin-kolme-merkkia') || ''}>
+          <Autocomplete
+            fullWidth={true}
             key={keyword}
-            className={classes.input}
-            name="keyword"
             defaultValue={keyword}
-            onChange={(e) => {
-              const inputKeyword = e.target.value;
-              setIsKeywordValid(checkIsKeywordValid(inputKeyword));
+            options={autoCompleteOptions ?? []}
+            filterOptions={(opt) => opt}
+            noOptionsText={t('haku.ei-ehdotuksia')}
+            loadingText={t('haku.lataus-käynnissä')}
+            loading={isFetchingAutocompleteResults}
+            freeSolo={true}
+            onInputChange={(_e, newInputValue) => {
+              setInputValue(newInputValue);
+              if (size(newInputValue) > 2) {
+                setSearchPhraseDelayed(newInputValue);
+              } else if (size(searchPhrase) > 0) {
+                setSearchPhrase('');
+              }
             }}
-            type="search"
-            placeholder={t('haku.kehoite')}
-            inputProps={{
-              'aria-label': t('haku.kehoite'),
-              autoComplete: 'off',
+            onChange={(_e, value, reason) => {
+              if (reason === 'selectOption') {
+                setKeyword(value.label);
+                goToSearchPage();
+              }
+            }}
+            renderInput={(params) => {
+              const { InputProps, ...rest } = params;
+              return (
+                <InputBase
+                  data-cy="autocomplete-input"
+                  sx={{
+                    borderRadius: 0,
+                    flex: 1,
+                    width: '100%',
+                  }}
+                  type="text"
+                  name="keyword"
+                  placeholder={t('haku.kehoite')}
+                  {...InputProps}
+                  {...rest}
+                />
+              );
             }}
           />
         </Tooltip>

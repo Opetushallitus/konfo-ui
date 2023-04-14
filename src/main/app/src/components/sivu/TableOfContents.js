@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { styled } from '@mui/material/styles';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
@@ -13,6 +11,8 @@ const classes = {
 };
 
 const StyledMarkdown = styled(Markdown)({
+  position: 'sticky',
+  top: '90px',
   [`& .${classes.link}`]: {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -83,6 +83,9 @@ const TableOfContents = (props) => {
             component: Null,
           },
           br: {
+            component: Null,
+          },
+          table: {
             component: Null,
           },
         },
