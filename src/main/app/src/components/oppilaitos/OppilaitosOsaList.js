@@ -20,12 +20,12 @@ const OppilaitosOsaList = (props) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const cardInfos = oppilaitosOsat
-    .sort((a, b) => a.nimi.localeCompare(b.nimi))
     .map((osa) => ({
       text: formToimipisteenNimi(osa, oppilaitosOsat),
       image: osa?.oppilaitoksenOsa?.teemakuva || DefaultHeroImage,
       link: `/oppilaitososa/${osa.oid}`,
-    }));
+    }))
+    .sort((a, b) => a.text.localeCompare(b.text));
   return (
     <Box mt={isMobile ? 6 : 12} display="flex" alignItems="center" flexDirection="column">
       <Typography variant="h2">{title}</Typography>
