@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Grid, Typography } from '@mui/material';
+import { Grid, Typography, Box } from '@mui/material';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
@@ -59,7 +59,7 @@ export const TulevaTarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
               {t('oppilaitos.tulevat-koulutukset')}
             </Typography>
           }>
-          <div style={{ position: 'relative' }}>
+          <Box position="relative" sx={{ width: '100%', maxWidth: '900px' }}>
             <OverlayLoadingCircle isLoading={isFetching} />
             <Grid
               container
@@ -68,7 +68,7 @@ export const TulevaTarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
               alignItems="stretch"
               spacing={1}>
               {values.map((kts) => (
-                <Grid item key={kts.koulutusOid} xs={12} md={4}>
+                <Grid item key={kts.koulutusOid}>
                   <LocalizedLink
                     underline="none"
                     component={RouterLink}
@@ -84,7 +84,7 @@ export const TulevaTarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
                 </Grid>
               ))}
             </Grid>
-          </div>
+          </Box>
           <Pagination
             total={total}
             pagination={pagination}
