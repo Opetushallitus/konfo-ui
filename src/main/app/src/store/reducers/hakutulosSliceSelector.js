@@ -1,5 +1,5 @@
 import { createSelector } from '@reduxjs/toolkit';
-import _ from 'lodash';
+import { pick, some, size as _size, sortBy, concat } from 'lodash';
 import qs from 'query-string';
 
 import { FILTER_TYPES_ARR } from '#/src/constants';
@@ -39,7 +39,7 @@ const getTyovoimakoulutus = (state) => state.hakutulos.tyovoimakoulutus;
 
 const getTaydennyskoulutus = (state) => state.hakutulos.taydennyskoulutus;
 
-export const getFilters = (state) => _.pick(state.hakutulos, FILTER_TYPES_ARR);
+export const getFilters = (state) => pick(state.hakutulos, FILTER_TYPES_ARR);
 
 export const getSelectedTab = (state) => state.hakutulos.selectedTab;
 
@@ -104,7 +104,7 @@ export const getIsAnyFilterSelected = createSelector(
       jotpa ||
       tyovoimakoulutus ||
       taydennyskoulutus ||
-      _.some(
+      some(
         [
           opetuskieli,
           koulutustyyppi,
@@ -118,14 +118,14 @@ export const getIsAnyFilterSelected = createSelector(
           yhteishaku,
           pohjakoulutusvaatimus,
         ],
-        (filterArr) => _.size(filterArr) > 0
+        (filterArr) => _size(filterArr) > 0
       )
     );
   }
 );
 
 const getCheckedFiltersIdsStr = (checkedfiltersArr) =>
-  checkedfiltersArr ? _.join(_.sortBy(checkedfiltersArr), ',') : '';
+  checkedfiltersArr ? sortBy(checkedfiltersArr)?.join(',') ?? '' : '';
 
 export const getAPIRequestParams = createSelector(
   [
@@ -175,9 +175,9 @@ export const getAPIRequestParams = createSelector(
     sort,
     size,
     opetuskieli: getCheckedFiltersIdsStr(opetuskieli),
-    koulutustyyppi: getCheckedFiltersIdsStr(_.concat(koulutustyyppi, koulutustyyppiMuu)),
+    koulutustyyppi: getCheckedFiltersIdsStr(concat(koulutustyyppi, koulutustyyppiMuu)),
     koulutusala: getCheckedFiltersIdsStr(koulutusala),
-    sijainti: getCheckedFiltersIdsStr(_.concat(kunta, maakunta)),
+    sijainti: getCheckedFiltersIdsStr(concat(kunta, maakunta)),
     opetustapa: getCheckedFiltersIdsStr(opetustapa),
     valintatapa: getCheckedFiltersIdsStr(valintatapa),
     hakutapa: getCheckedFiltersIdsStr(hakutapa),
@@ -229,9 +229,9 @@ export const getAutocompleteRequestParams = createSelector(
   ) => ({
     searchPhrase,
     opetuskieli: getCheckedFiltersIdsStr(opetuskieli),
-    koulutustyyppi: getCheckedFiltersIdsStr(_.concat(koulutustyyppi, koulutustyyppiMuu)),
+    koulutustyyppi: getCheckedFiltersIdsStr(concat(koulutustyyppi, koulutustyyppiMuu)),
     koulutusala: getCheckedFiltersIdsStr(koulutusala),
-    sijainti: getCheckedFiltersIdsStr(_.concat(kunta, maakunta)),
+    sijainti: getCheckedFiltersIdsStr(concat(kunta, maakunta)),
     opetustapa: getCheckedFiltersIdsStr(opetustapa),
     valintatapa: getCheckedFiltersIdsStr(valintatapa),
     hakutapa: getCheckedFiltersIdsStr(hakutapa),
@@ -246,7 +246,7 @@ export const getAutocompleteRequestParams = createSelector(
 
 export const getHakuParams = createSelector([getAPIRequestParams], (apiRequestParams) => {
   const hakuParams = cleanRequestParams(
-    _.pick(apiRequestParams, ['order', 'sort', 'size', ...FILTER_TYPES_ARR])
+    pick(apiRequestParams, ['order', 'sort', 'size', ...FILTER_TYPES_ARR])
   );
 
   const hakuParamsStr = qs.stringify(hakuParams, { arrayFormat: 'comma' });
@@ -263,7 +263,7 @@ export const getHakuUrl = createSelector(
 export const getInitialCheckedToteutusFilters = createSelector(
   [getFilters],
   (checkedValues) =>
-    _.pick(checkedValues, [
+    pick(checkedValues, [
       'opetuskieli',
       'maakunta',
       'kunta',

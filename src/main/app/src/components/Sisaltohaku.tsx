@@ -12,7 +12,7 @@ import {
   Typography,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import _ from 'lodash';
+import { isEmpty, trim } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
@@ -21,7 +21,7 @@ import { colors } from '#/src/colors';
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
 import Murupolku from '#/src/components/common/Murupolku';
 import MuiFlatPagination from '#/src/components/pagination';
-import { useContentful } from '#/src/hooks';
+import { useContentful } from '#/src/hooks/useContentful';
 import { useUrlParams } from '#/src/tools/useUrlParams';
 
 import { Preview } from './Preview';
@@ -67,8 +67,8 @@ type ResultProps = {
   id: string;
   url: string;
   image: { name: string; description: string };
-  sivu: { name: string; description: string; content: string; sideContent: string };
-  assetUrl: string;
+  sivu: { name: string; description?: string; content: string; sideContent?: string };
+  assetUrl?: string;
   classes: Record<string, string>;
 };
 
@@ -108,7 +108,7 @@ const PAGESIZE = 10;
 const asKeywords = (s: string) => s.toLowerCase().split(/[ ,]+/);
 
 export const Sisaltohaku = () => {
-  const { data, forwardTo, assetUrl } = useContentful();
+  const { data, forwardTo, assetUrl, isLoading } = useContentful();
   const { t, i18n } = useTranslation();
 
   const navigate = useNavigate();
@@ -125,7 +125,7 @@ export const Sisaltohaku = () => {
   const fetchResults = useCallback(
     (input) => {
       const keywords = asKeywords(input);
-      if (_.isEmpty(keywords)) {
+      if (isEmpty(keywords)) {
         return [];
       } else {
         return index.filter(({ content }) => keywords.find((kw) => content.includes(kw)));
@@ -134,7 +134,7 @@ export const Sisaltohaku = () => {
     [index]
   );
   const { search: urlSearch } = useUrlParams();
-  const hakusana = _.trim(urlSearch.hakusana as string);
+  const hakusana = trim(urlSearch.hakusana as string);
 
   const [offset, setOffset] = useState(0);
   const [search, setSearch] = useState(hakusana);
@@ -177,7 +177,7 @@ export const Sisaltohaku = () => {
               className={classes.input}
               defaultValue={search}
               onKeyPress={(event) => event.key === 'Enter' && doSearch(event)}
-              onChange={({ target }) => setSearch(_.trim(target.value))}
+              onChange={({ target }) => setSearch(trim(target.value))}
               placeholder={t('sidebar.etsi-tietoa-opintopolusta')}
               inputProps={{
                 'aria-label': t('sidebar.etsi-tietoa-opintopolusta'),
@@ -193,8 +193,8 @@ export const Sisaltohaku = () => {
             </Button>
           </Paper>
         </Grid>
-        {activeSearch && _.isEmpty(results) ? (
-          data.loading ? null : (
+        {activeSearch && isEmpty(results) ? (
+          isLoading ? null : (
             <React.Fragment>
               <Grid item xs={12}>
                 <h1>{t('sisaltohaku.eituloksia')}</h1>

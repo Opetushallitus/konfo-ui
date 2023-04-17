@@ -9,7 +9,6 @@ import {
   Chip,
   CssBaseline,
   Hidden,
-  Icon,
   IconButton,
   Toolbar,
   Typography,
@@ -20,24 +19,22 @@ import { urls } from 'oph-urls-js';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
 
-import OPOLogoEN from '#/src/assets/images/OPO_Logo_Header_englanti.svg';
-import OPOLogoSV from '#/src/assets/images/OPO_Logo_Header_ruotsi.svg';
-import OPOLogoFI from '#/src/assets/images/OPO_Logo_Header_suomi.svg';
+import { ReactComponent as OPOLogoEN } from '#/src/assets/images/opintopolku_logo_header_en.svg';
+import { ReactComponent as OPOLogoFI } from '#/src/assets/images/opintopolku_logo_header_fi.svg';
+import { ReactComponent as OPOLogoSV } from '#/src/assets/images/opintopolku_logo_header_sv.svg';
 import { colors } from '#/src/colors';
 import BetaBanner from '#/src/components/common/BetaBanner';
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
 import { getLanguage } from '#/src/tools/localization';
 
-import LanguageDropDown from './LanguageDropDown';
+import { LanguageDropDown } from './LanguageDropDown';
 
 const PREFIX = 'Header';
 
 const classes = {
   testiLabel: `${PREFIX}-testiLabel`,
-  icon: `${PREFIX}-icon`,
   testi: `${PREFIX}-testi`,
   appBar: `${PREFIX}-appBar`,
-  iconButton: `${PREFIX}-iconButton`,
   menuButton: `${PREFIX}-menuButton`,
   menuBox: `${PREFIX}-menuBox`,
   menuText: `${PREFIX}-menuText`,
@@ -63,22 +60,12 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
     padding: '0.3rem 1.5rem',
   },
 
-  [`& .${classes.icon}`]: {
-    width: '160px',
-    height: '100%',
-    cursor: 'pointer',
-  },
-
   [`& .${classes.testi}`]: {
     color: colors.white,
     borderRadius: 2,
     marginLeft: 20,
     padding: '0px 5px',
     background: colors.red,
-  },
-
-  [`& .${classes.iconButton}`]: {
-    padding: 10,
   },
 
   [`& .${classes.menuButton}`]: {
@@ -119,12 +106,23 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
   },
 }));
 
+const getOpintopolkuHeaderLogo = () => {
+  switch (getLanguage()) {
+    case 'fi':
+      return OPOLogoFI;
+    case 'en':
+      return OPOLogoEN;
+    case 'sv':
+      return OPOLogoSV;
+    default:
+      return OPOLogoFI;
+  }
+};
+
 export const Header = (props) => {
   const { t } = useTranslation();
 
   const { toggleMenu, isOpen, betaBanner, setBetaBanner, refreshSideMenu } = props;
-
-  setBetaBanner(false);
 
   const hostname = window.location.hostname;
   const testiLabels = {
@@ -135,18 +133,7 @@ export const Header = (props) => {
   const testiLabel = testiLabels[hostname];
   const showTestiLabel = testiLabel != null;
 
-  const OpintopolkuHeaderLogo = () => {
-    switch (getLanguage()) {
-      case 'fi':
-        return OPOLogoFI;
-      case 'en':
-        return OPOLogoEN;
-      case 'sv':
-        return OPOLogoSV;
-      default:
-        return OPOLogoFI;
-    }
-  };
+  const OpintopolkuHeaderLogo = getOpintopolkuHeaderLogo();
 
   return (
     <Fragment>
@@ -170,9 +157,12 @@ export const Header = (props) => {
             to="/"
             title={t('header.siirry-etusivulle')}
             onClick={refreshSideMenu}>
-            <Icon className={classes.icon}>
-              <img alt={t('header.siirry-etusivulle')} src={OpintopolkuHeaderLogo()} />
-            </Icon>
+            <OpintopolkuHeaderLogo
+              focusable="false"
+              aria-hidden="true"
+              height="26px"
+              width="auto"
+            />
           </LocalizedLink>
           {showTestiLabel ? (
             <Chip

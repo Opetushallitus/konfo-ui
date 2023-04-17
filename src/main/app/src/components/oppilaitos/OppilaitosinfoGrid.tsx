@@ -6,7 +6,7 @@ import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
 import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined';
 import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import { styled } from '@mui/material/styles';
-import _fp from 'lodash/fp';
+import { flow, map, join, toString, capitalize } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { InfoGrid } from '#/src/components/common/InfoGrid';
@@ -44,10 +44,10 @@ export const OppilaitosinfoGrid = ({
   const { t } = useTranslation();
 
   const paikkakunnat = localizeArrayToCommaSeparated(kotipaikat, { sorted: true });
-  const opetuskielet = _fp.compose(
-    _fp.join(', '),
-    _fp.map(_fp.capitalize),
-    _fp.map(`nimi.${getLanguage()}`)
+  const opetuskielet = flow(
+    (k) => map(k, `nimi.${getLanguage()}`),
+    (nimet) => map(nimet, capitalize),
+    (nimet) => join(nimet, ', ')
   )(opetuskieli);
 
   const perustiedotData = [
@@ -59,22 +59,22 @@ export const OppilaitosinfoGrid = ({
     {
       icon: <PeopleOutlineIcon className={classes.koulutusInfoGridIcon} />,
       title: t('oppilaitos.opiskelojoita'),
-      text: _fp.toString(opiskelijoita),
+      text: toString(opiskelijoita),
     },
     {
       icon: <ChatBubbleOutlineIcon className={classes.koulutusInfoGridIcon} />,
       title: t('oppilaitos.opetuskielet'),
       text: opetuskielet,
     },
-    ...condArray(!_fp.isNil(toimipisteita), {
+    ...condArray(toimipisteita != null, {
       icon: <HomeWorkOutlinedIcon className={classes.koulutusInfoGridIcon} />,
       title: t('oppilaitos.toimipisteita'),
-      text: _fp.toString(toimipisteita),
+      text: toString(toimipisteita),
     }),
     {
       icon: <SchoolOutlinedIcon className={classes.koulutusInfoGridIcon} />,
       title: t('oppilaitos.tutkintoon-johtavia-koulutuksia'),
-      text: _fp.toString(koulutusohjelmia),
+      text: toString(koulutusohjelmia),
     },
   ];
 

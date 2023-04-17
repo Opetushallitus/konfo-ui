@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 
 import { Box, Grid, Paper, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import _ from 'lodash';
+import { isEmpty, hasIn } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
@@ -81,7 +81,7 @@ type Props = {
 
 export const hasYhteystiedot = (props: Props = {} as any) =>
   (props.yhteystiedot && props.yhteystiedot?.length > 0) ||
-  !_.isEmpty(props.hakijapalveluidenYhteystiedot);
+  !isEmpty(props.hakijapalveluidenYhteystiedot);
 
 export const Yhteystiedot = ({
   id,
@@ -98,7 +98,7 @@ export const Yhteystiedot = ({
   const localizedYhteystiedot = useMemo(() => {
     const organisaatiot = (yhteystiedot || [])
       .concat(organisaatioidenYhteystiedot as any)
-      .filter((obj) => _.hasIn(obj, 'nimi'))
+      .filter((obj) => hasIn(obj, 'nimi'))
       .filter((obj) => tarjoajat?.some((ta) => obj?.nimi?.fi === ta?.nimi?.fi))
       .filter(Boolean)
       .map(parseYhteystieto())
@@ -113,7 +113,7 @@ export const Yhteystiedot = ({
     }
 
     return [hakijapalveluidenYhteystiedot as any] // hakijapalveluidenYhteystiedot aina ensimmäisenä, vasta sen jälkeen sortataan
-      .filter((obj) => _.hasIn(obj, 'nimi'))
+      .filter((obj) => hasIn(obj, 'nimi'))
       .map(parseYhteystieto())
       .filter(Boolean)
       .concat(organisaatiot);

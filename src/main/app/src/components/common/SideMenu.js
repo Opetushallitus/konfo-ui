@@ -23,7 +23,7 @@ import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import Murupolku from '#/src/components/common/Murupolku';
 import SidebarValikko from '#/src/components/common/SidebarValikko';
 import { SIDEMENU_WIDTH } from '#/src/constants';
-import { useContentful } from '#/src/hooks';
+import { useContentful } from '#/src/hooks/useContentful';
 import { getHeaderHeight } from '#/src/theme';
 
 const PREFIX = 'SideMenu';

@@ -3,7 +3,7 @@ import React from 'react';
 import { Grid, Icon, Paper, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import clsx from 'clsx';
-import _ from 'lodash';
+import { isString } from 'lodash';
 
 import ApurahaIcon from '#/src/assets/images/Apuraha.svg';
 import KoulutuksenLaajuusIcon from '#/src/assets/images/koulutuksen_laajuus.svg';
@@ -86,7 +86,7 @@ export const InfoGrid = (props: Props) => {
             lg={4}
             key={`info-grid-${e.id}-${index}`}>
             <Grid item>
-              {_.isString(e.icon) ? (
+              {isString(e.icon) ? (
                 <Icon>
                   <img src={iconLookupTable[e.icon]} alt="" />
                 </Icon>

@@ -19,7 +19,8 @@
     "lint": "eslint src/ cypress/",
     "lint:fix": "eslint src/ cypress/ --fix",
     "update-mocks": "node ./node_modules/kto-ui-common/scripts/update-mocks.js",
-    "analyze": "source-map-explorer 'build/static/js/*.js'"
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "tsc": "tsc"
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",

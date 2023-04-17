@@ -6,7 +6,7 @@ import clsx from 'clsx';
 import Markdown from 'markdown-to-jsx';
 
 import { colors } from '#/src/colors';
-import { useContentful } from '#/src/hooks';
+import { useContentful } from '#/src/hooks/useContentful';
 
 const PREFIX = 'YhteishakuKortti';
 

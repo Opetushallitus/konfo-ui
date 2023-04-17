@@ -1,5 +1,5 @@
 import { TFunction } from 'i18next';
-import _ from 'lodash';
+import { isEmpty } from 'lodash';
 
 import { getHakuDemo } from '#/src/api/konfoApi';
 import { Alkamiskausityyppi } from '#/src/constants';
@@ -41,7 +41,7 @@ export const formatAloitus = (
 
 const formDemoLink = (link: Translateable): Translateable => {
   const transform = (langLink: string | undefined) => {
-    if (langLink && !_.isEmpty(langLink)) {
+    if (langLink && !isEmpty(langLink)) {
       return langLink.includes('?')
         ? langLink.concat('&demo=true')
         : langLink.concat('?demo=true');

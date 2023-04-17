@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Grid, Typography } from '@mui/material';
-import _ from 'lodash';
+import { toString, min, max } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { SuodatinMobileSlider } from '#/src/components/common/Filter/CustomizedMuiComponents';
@@ -15,7 +15,7 @@ export const MobileResultsPerPageExpansionMenu = () => {
   const size = pagination.size;
   const marks = pageSizeArray.map((_size) => ({
     value: _size,
-    label: _.toString(_size),
+    label: toString(_size),
   }));
 
   const handleSliderValueChange = (e, newSize) => {
@@ -39,8 +39,8 @@ export const MobileResultsPerPageExpansionMenu = () => {
         <SuodatinMobileSlider
           value={size}
           track={false}
-          min={_.min(pageSizeArray)}
-          max={_.max(pageSizeArray)}
+          min={min(pageSizeArray)}
+          max={max(pageSizeArray)}
           marks={marks}
           step={null}
           getAriaValueText={(value) => value}

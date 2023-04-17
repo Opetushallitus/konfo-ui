@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Box, Divider, Grid, Typography } from '@mui/material';
-import _ from 'lodash';
+import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
@@ -32,7 +32,7 @@ export const Valintatavat = ({ hakukohteenKynnysehto, valintatavat = [] }: Props
             ({ enimmaispisteet, kynnysehto, nimi, sisalto, vahimmaispisteet }, index) => (
               <React.Fragment key={`valintatapa-${index}`}>
                 <Heading variant="h3">{localize(nimi)}</Heading>
-                {!_.isUndefined(vahimmaispisteet) && (
+                {vahimmaispisteet !== undefined && (
                   <Box display="flex" flexWrap="wrap" paddingBottom={1}>
                     <Box marginRight={4} flexBasis="33%">
                       <Heading variant="h5">
@@ -40,7 +40,7 @@ export const Valintatavat = ({ hakukohteenKynnysehto, valintatavat = [] }: Props
                       </Heading>
                       <Typography variant="body1">{vahimmaispisteet}</Typography>
                     </Box>
-                    {!_.isUndefined(enimmaispisteet) && (
+                    {enimmaispisteet !== undefined && (
                       <Box>
                         <Heading variant="h5">
                           {t('valintaperuste.enimmaispisteet')}
@@ -50,7 +50,7 @@ export const Valintatavat = ({ hakukohteenKynnysehto, valintatavat = [] }: Props
                     )}
                   </Box>
                 )}
-                {!_.isEmpty(kynnysehto) && (
+                {!isEmpty(kynnysehto) && (
                   <Box py={1}>
                     <Heading variant="h5">{t('valintaperuste.kynnysehto')}</Heading>
                     <LocalizedHTML data={kynnysehto!} />
@@ -60,7 +60,7 @@ export const Valintatavat = ({ hakukohteenKynnysehto, valintatavat = [] }: Props
               </React.Fragment>
             )
           )}
-          {!_.isEmpty(hakukohteenKynnysehto) && (
+          {!isEmpty(hakukohteenKynnysehto) && (
             <Box py={1}>
               <Heading variant="h5">{t('valintaperuste.hakukohteenKynnysehto')}</Heading>
               <LocalizedHTML data={hakukohteenKynnysehto} />

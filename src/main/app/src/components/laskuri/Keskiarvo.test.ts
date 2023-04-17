@@ -128,7 +128,7 @@ describe('Keskiarvo & Hakupisteet', () => {
       avain: string,
       kouluaineet: Kouluaineet = new Kouluaineet()
     ): Kouluaineet => {
-      kouluaineet[avain as keyof Kouluaineet] = aineita;
+      kouluaineet[avain as keyof Kouluaineet] = aineita as any;
       return kouluaineet;
     };
 
@@ -142,7 +142,7 @@ describe('Keskiarvo & Hakupisteet', () => {
         arvosana,
         valinnaisetArvosanat: valinnaiset,
         painokerroin,
-        description: '',
+        painotettavatoppiaineetlukiossaKoodiUri: '',
       };
     };
 

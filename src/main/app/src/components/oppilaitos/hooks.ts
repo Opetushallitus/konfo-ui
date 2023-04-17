@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from 'react';
 
-import _fp from 'lodash/fp';
+import { flow, filter, map, size } from 'lodash';
 import { useQueries, useQuery } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -43,19 +43,19 @@ const handleOppilaitosData = (
       ...entity,
       oppilaitosOsat: isOppilaitosOsa
         ? undefined
-        : _fp.flow(
-            _fp.prop('osat'),
-            _fp.filter({ status: ACTIVE }),
-            _fp.map((osa: any) => ({
-              ...osa,
-              nimi: removeOppilaitosName(localize(osa.nimi), localize(data.nimi)),
-            }))
-          )(data),
+        : flow(
+            (osat) => filter(osat, { status: ACTIVE }),
+            (activeOsat) =>
+              map(activeOsat, (osa: any) => ({
+                ...osa,
+                nimi: removeOppilaitosName(localize(osa.nimi), localize(data.nimi)),
+              }))
+          )(data?.osat),
       esittelyHtml: localize(entity?.metadata?.esittely) ?? '',
       tietoaOpiskelusta: entity?.metadata?.tietoaOpiskelusta ?? [],
       kotipaikat:
         data?.osat?.length > 0
-          ? data?.osat?.map(_fp.prop('kotipaikka'))
+          ? data?.osat?.map((osa: any) => osa?.kotipaikka)
           : [data?.kotipaikka],
     },
     ...rest,
@@ -118,21 +118,18 @@ type UsePaginatedTarjontaProps = {
 
 const selectTarjonta = (tarjonta: any) => {
   return {
-    values: _fp.map(
-      (t: any) => ({
-        toteutusName: localize(t.nimi),
-        description: localize(t.kuvaus),
-        locations: localizeArrayToCommaSeparated(t.kunnat, { sorted: true }),
-        opetustapa: localizeArrayToCommaSeparated(t.opetusajat, { sorted: true }),
-        price: getLocalizedMaksullisuus(t.maksullisuustyyppi, t.maksunMaara),
-        tyyppi: t.koulutustyyppi,
-        kuva: t.kuva,
-        toteutusOid: t.toteutusOid,
-        jarjestaaUrheilijanAmmKoulutusta: t.jarjestaaUrheilijanAmmKoulutusta,
-      }),
-      tarjonta?.hits
-    ),
-    hasHits: _fp.size(tarjonta?.hits) > 0,
+    values: map(tarjonta?.hits, (t: any) => ({
+      toteutusName: localize(t.nimi),
+      description: localize(t.kuvaus),
+      locations: localizeArrayToCommaSeparated(t.kunnat, { sorted: true }),
+      opetustapa: localizeArrayToCommaSeparated(t.opetusajat, { sorted: true }),
+      price: getLocalizedMaksullisuus(t.maksullisuustyyppi, t.maksunMaara),
+      tyyppi: t.koulutustyyppi,
+      kuva: t.kuva,
+      toteutusOid: t.toteutusOid,
+      jarjestaaUrheilijanAmmKoulutusta: t.jarjestaaUrheilijanAmmKoulutusta,
+    })),
+    hasHits: size(tarjonta?.hits) > 0,
     total: tarjonta?.total,
   };
 };

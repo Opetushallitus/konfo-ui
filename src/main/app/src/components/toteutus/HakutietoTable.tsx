@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Grid, GridSize, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import _ from 'lodash';
+import { isEmpty } from 'lodash';
 
 import { LabelTooltip } from '#/src/components/common/LabelTooltip';
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
@@ -45,7 +45,7 @@ export const HakutietoTable = ({
                   {heading}
                 </Typography>
               </Grid>
-              {!_.isEmpty(modalText) && (
+              {!isEmpty(modalText) && (
                 <Grid item>
                   <LabelTooltip title={<LocalizedHTML noMargin data={modalText} />} />
                 </Grid>

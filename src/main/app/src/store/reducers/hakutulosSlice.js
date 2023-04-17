@@ -1,5 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
-import _ from 'lodash';
+import {
+  forEach,
+  isMatch,
+  split,
+  without,
+  intersection,
+  mapValues,
+  pick,
+  includes,
+  join,
+  sortBy,
+} from 'lodash';
 
 import {
   FILTER_TYPES,
@@ -60,7 +71,7 @@ const hakutulosSlice = createSlice({
       state.selectedTab = payload.newSelectedTab;
     },
     setFilterSelectedValues: (state, { payload: newValues = [] }) => {
-      _.forEach(newValues, (values, filterId) => (state[filterId] = values));
+      forEach(newValues, (values, filterId) => (state[filterId] = values));
       resetPagination(state);
     },
     resetPagination: (state) => {
@@ -117,9 +128,9 @@ const hakutulosSlice = createSlice({
       const apiRequestParams = getAPIRequestParams({ hakutulos: state });
       const cleanedParams = getCleanUrlSearch(params, apiRequestParams);
 
-      if (!_.isMatch(apiRequestParams, cleanedParams)) {
-        _.forEach(cleanedParams, (value, key) => {
-          const valueList = _.split(value, ',');
+      if (!isMatch(apiRequestParams, cleanedParams)) {
+        forEach(cleanedParams, (value, key) => {
+          const valueList = split(value, ',');
           switch (key) {
             case 'keyword':
             case 'size':
@@ -130,8 +141,8 @@ const hakutulosSlice = createSlice({
             // TODO: Olisi parempi jos backend lähettäisi ja vastaanottaisi nämä yhtenäisesti,
             // Nyt on lähtiessä koulutustyyppi vs. paluupostina tulee koulutustyyppi JA koulutustyyppi-muu
             case FILTER_TYPES.KOULUTUSTYYPPI:
-              state.koulutustyyppi = _.without(valueList, ...KOULUTUS_TYYPPI_MUU_ARR);
-              state['koulutustyyppi-muu'] = _.intersection(
+              state.koulutustyyppi = without(valueList, ...KOULUTUS_TYYPPI_MUU_ARR);
+              state['koulutustyyppi-muu'] = intersection(
                 valueList,
                 KOULUTUS_TYYPPI_MUU_ARR
               );
@@ -189,8 +200,8 @@ export const navigateToHaku =
   };
 
 const getCleanUrlSearch = (search, apiRequestParams) =>
-  _.mapValues(_.pick(search, _.keys(apiRequestParams)), (value, key) =>
-    _.includes(FILTER_TYPES_ARR_FOR_KONFO_BACKEND, key)
-      ? _.join(_.sortBy(_.split(value, ',')), ',')
+  mapValues(pick(search, Object.keys(apiRequestParams ?? {})), (value, key) =>
+    includes(FILTER_TYPES_ARR_FOR_KONFO_BACKEND, key)
+      ? join(sortBy(split(value, ',')), ',')
       : value
   );

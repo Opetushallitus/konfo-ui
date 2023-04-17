@@ -5,7 +5,7 @@ import { styled } from '@mui/material/styles';
 
 import { colors } from '#/src/colors';
 import Murupolku from '#/src/components/common/Murupolku';
-import { useContentful } from '#/src/hooks';
+import { useContentful } from '#/src/hooks/useContentful';
 
 import Sisalto from './Sisalto';
 import TableOfContents from './TableOfContents';

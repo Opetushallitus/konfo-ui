@@ -7,7 +7,7 @@ const CIRCLE_MIN_HEIGHT = 100;
 
 const StyledBackdrop = styled(Backdrop, {
   shouldForwardProp: (prop) => 'noContent' !== prop,
-})(({ noContent }) => ({
+})<{ noContent: boolean }>(({ noContent }) => ({
   position: 'absolute',
   zIndex: 1000,
   color: '#fff',
@@ -31,10 +31,10 @@ export const OverlayLoadingCircle = ({ isLoading = false, noContent = false }) =
   );
 };
 
-export const LoadingCircleWrapper = ({ children }) => {
-  const ref = useRef(null);
+export const LoadingCircleWrapper = ({ children }: { children: React.ReactNode }) => {
+  const ref = useRef<HTMLDivElement>();
 
-  const noContent = ref.current?.clientHeight <= CIRCLE_MIN_HEIGHT;
+  const noContent = !ref?.current || ref?.current?.clientHeight <= CIRCLE_MIN_HEIGHT;
 
   return (
     <Box

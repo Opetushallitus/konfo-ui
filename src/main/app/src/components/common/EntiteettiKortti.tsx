@@ -4,7 +4,7 @@ import DirectionsOutlinedIcon from '@mui/icons-material/DirectionsOutlined';
 import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
 import { Hidden, Paper, Typography, useMediaQuery, useTheme, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import _ from 'lodash';
+import { truncate, trim, isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -136,11 +136,11 @@ export const EntiteettiKortti = ({
 }: Props) => {
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
-  const isSmall = _.isNil(isSmallProp) ? smDown : isSmallProp;
+  const isSmall = isSmallProp == null ? smDown : isSmallProp;
 
   const { t } = useTranslation();
 
-  const kuvaus = _.truncate(kuvausProp, { length: 255 }) || t('haku.ei_kuvausta');
+  const kuvaus = truncate(kuvausProp, { length: 255 }) || t('haku.ei_kuvausta');
 
   let erityisopetusHeaderText = '';
   if (erityisopetusHeader && koulutustyyppi === KOULUTUS_TYYPPI.AMM) {
@@ -187,8 +187,8 @@ export const EntiteettiKortti = ({
               </Typography>
             )}
             <Typography variant="h4" className={classes.header}>
-              {_.trim(
-                _.isEmpty(opintojenLaajuus) ? header : `${header}, ${opintojenLaajuus}`
+              {trim(
+                isEmpty(opintojenLaajuus) ? header : `${header}, ${opintojenLaajuus}`
               )}
             </Typography>
           </Box>

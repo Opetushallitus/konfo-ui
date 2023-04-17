@@ -3,7 +3,7 @@ import React from 'react';
 import { Card, CardMedia } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-import { useContentful } from '#/src/hooks';
+import { useContentful } from '#/src/hooks/useContentful';
 
 const PREFIX = 'ImageComponent';
 

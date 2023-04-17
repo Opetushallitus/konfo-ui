@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Grid, Typography, Box } from '@mui/material';
-import _ from 'lodash';
+import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -52,7 +52,7 @@ export const TulevaTarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
     case 'loading':
       return <LoadingCircle />;
     case 'success':
-      return _.isEmpty(values) ? null : (
+      return isEmpty(values) ? null : (
         <PageSection
           heading={
             <Typography variant="h2" id={scrollTargetId}>
