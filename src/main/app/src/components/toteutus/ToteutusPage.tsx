@@ -28,7 +28,7 @@ import { NotFound } from '#/src/NotFound';
 import { getHakuParams, getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
 import { localize, localizeLukiolinja } from '#/src/tools/localization';
 import { useUrlParams } from '#/src/tools/useUrlParams';
-import { getLocalizedToteutusLaajuus, sanitizedHTMLParser } from '#/src/tools/utils';
+import { getLocalizedOpintojenLaajuus, sanitizedHTMLParser } from '#/src/tools/utils';
 import { Hakutieto } from '#/src/types/ToteutusTypes';
 
 import { useKoulutus } from '../koulutus/hooks';
@@ -202,7 +202,7 @@ export const ToteutusPage = () => {
         </Box>
         <PageSection heading={t('koulutus.tiedot')}>
           <ToteutusInfoGrid
-            laajuus={getLocalizedToteutusLaajuus(toteutus, koulutus)}
+            laajuus={getLocalizedOpintojenLaajuus(toteutus, koulutus)}
             opetus={opetus!}
             hasHaku={hasAnyHakukohde}
             koulutustyyppi={koulutus?.koulutustyyppi}

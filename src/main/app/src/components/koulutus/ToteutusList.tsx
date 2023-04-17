@@ -39,7 +39,7 @@ import {
   localizeArrayToCommaSeparated,
 } from '#/src/tools/localization';
 import { mapValues } from '#/src/tools/lodashFpUncapped';
-import { getLocalizedToteutusLaajuus } from '#/src/tools/utils';
+import { getLocalizedOpintojenLaajuus } from '#/src/tools/utils';
 import { FilterValue } from '#/src/types/SuodatinTypes';
 import { Jarjestaja } from '#/src/types/ToteutusTypes';
 
@@ -333,7 +333,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                       .with(
                         KOULUTUS_TYYPPI.KK_OPINTOJAKSO,
                         KOULUTUS_TYYPPI.KK_OPINTOKOKONAISUUS,
-                        () => getLocalizedToteutusLaajuus(toteutus)
+                        () => getLocalizedOpintojenLaajuus(toteutus)
                       )
                       .otherwise(() => undefined)}
                     wrapIconTexts={true}
