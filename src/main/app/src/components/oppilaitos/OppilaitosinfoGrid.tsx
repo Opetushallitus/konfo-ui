@@ -34,6 +34,12 @@ type Props = {
   toimipisteita?: number;
 };
 
+type Perustieto = {
+  icon: JSX.Element;
+  title: string;
+  text: string;
+};
+
 export const OppilaitosinfoGrid = ({
   opiskelijoita,
   kotipaikat,
@@ -50,7 +56,7 @@ export const OppilaitosinfoGrid = ({
     _fp.map(`nimi.${getLanguage()}`)
   )(opetuskieli);
 
-  const perustiedotData = [
+  const perustiedotData: Array<Perustieto> = [
     {
       icon: <PublicOutlinedIcon className={classes.koulutusInfoGridIcon} />,
       title: t('oppilaitos.paikkakunta'),
@@ -77,6 +83,9 @@ export const OppilaitosinfoGrid = ({
       text: _fp.toString(koulutusohjelmia),
     },
   ];
+  const filteredPerustiedotData = perustiedotData
+    .filter((perustieto) => !_fp.isEmpty(perustieto.text))
+    .filter((perustieto) => !_fp.isEqual(perustieto.text.trim(), '0'));
 
-  return <StyledInfoGrid gridData={perustiedotData} />;
+  return <StyledInfoGrid gridData={filteredPerustiedotData} />;
 };
