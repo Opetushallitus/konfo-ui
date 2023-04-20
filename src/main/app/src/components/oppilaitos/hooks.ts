@@ -25,6 +25,7 @@ import {
   getLocalizedMaksullisuus,
 } from '#/src/tools/localization';
 import { getLocalizedOpintojenLaajuus } from '#/src/tools/utils';
+import { Organisaatio } from '#/src/types/ToteutusTypes';
 
 const removeOppilaitosName = (osaName: string, oppilaitosName: string) =>
   osaName.replace(`${oppilaitosName}, `, '');
@@ -42,7 +43,13 @@ const handleOppilaitosData = (
       ...data,
       ...entity,
       oppilaitosOsat: isOppilaitosOsa
-        ? undefined
+        ? data?.parentToimipisteOid
+          ? [
+              data?.oppilaitos?.osat?.find(
+                (osa: Organisaatio) => osa.oid === data?.parentToimipisteOid
+              ),
+            ]
+          : undefined
         : _fp.flow(
             _fp.prop('osat'),
             _fp.filter({ status: ACTIVE }),

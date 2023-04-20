@@ -17,6 +17,7 @@ export type Yhteystiedot = {
   kayntiosoiteStr?: Translateable;
   sahkoposti?: Translateable;
   puhelinnumero?: Translateable;
+  oid?: string;
 };
 
 export type Alkamiskausi = {
