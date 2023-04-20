@@ -8,7 +8,7 @@ import { Accordion } from '#/src/components/common/Accordion';
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
 import { PageSection } from '#/src/components/common/PageSection';
 import { localize } from '#/src/tools/localization';
-import { getLocalizedToteutusLaajuus, sanitizedHTMLParser } from '#/src/tools/utils';
+import { getLocalizedOpintojenLaajuus, sanitizedHTMLParser } from '#/src/tools/utils';
 import { Opintojakso } from '#/src/types/ToteutusTypes';
 
 const OpintojaksoContent = ({ opintojakso }: { opintojakso: Opintojakso }) => {
@@ -52,7 +52,7 @@ export const Opintojaksot = ({ opintojaksot }: { opintojaksot: Array<Opintojakso
                 {localize(opintojakso?.nimi)}
               </LocalizedLink>
               &#44;&nbsp;
-              <Typography>{getLocalizedToteutusLaajuus(opintojakso)}</Typography>
+              <Typography>{getLocalizedOpintojenLaajuus(opintojakso)}</Typography>
             </>
           ),
           content: <OpintojaksoContent opintojakso={opintojakso} />,

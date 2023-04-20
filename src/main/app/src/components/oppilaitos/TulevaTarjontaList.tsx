@@ -1,21 +1,24 @@
 import React from 'react';
 
-import { Grid, Typography } from '@mui/material';
+import {
+  SchoolOutlined,
+  TimelapseOutlined,
+  ExtensionOutlined,
+} from '@mui/icons-material';
+import { Typography, Box } from '@mui/material';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
-import { Link as RouterLink } from 'react-router-dom';
 
 import { educationTypeColorCode } from '#/src/colors';
+import { EntiteettiKortti } from '#/src/components/common/EntiteettiKortti';
 import {
   LoadingCircle,
   OverlayLoadingCircle,
 } from '#/src/components/common/LoadingCircle';
-import { LocalizedLink } from '#/src/components/common/LocalizedLink';
 import { PageSection } from '#/src/components/common/PageSection';
 import { Pagination } from '#/src/components/common/Pagination';
 
 import { usePaginatedTarjonta } from './hooks';
-import { TulevaKoulutusCard } from './TulevaKoulutusCard';
 
 type Tarjonta = {
   koulutusName: string;
@@ -59,32 +62,25 @@ export const TulevaTarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
               {t('oppilaitos.tulevat-koulutukset')}
             </Typography>
           }>
-          <div style={{ position: 'relative' }}>
+          <Box position="relative" sx={{ width: '100%', maxWidth: '900px' }}>
             <OverlayLoadingCircle isLoading={isFetching} />
-            <Grid
-              container
-              direction="row"
-              justifyContent="center"
-              alignItems="stretch"
-              spacing={1}>
+            <Box flexDirection="column" alignItems="stretch">
               {values.map((kts) => (
-                <Grid item key={kts.koulutusOid} xs={12} md={4}>
-                  <LocalizedLink
-                    underline="none"
-                    component={RouterLink}
-                    to={`/koulutus/${kts.koulutusOid}`}>
-                    <TulevaKoulutusCard
-                      koulutusName={kts.koulutusName}
-                      tutkintonimikkeet={kts.tutkintonimikkeet}
-                      koulutustyypit={kts.koulutustyypit}
-                      opintojenlaajuus={kts.opintojenlaajuus}
-                      tyyppi={kts.tyyppi}
-                    />
-                  </LocalizedLink>
-                </Grid>
+                <Box key={kts.koulutusOid}>
+                  <EntiteettiKortti
+                    koulutustyyppi={kts?.tyyppi}
+                    to={`/koulutus/${kts?.koulutusOid}`}
+                    header={kts?.koulutusName}
+                    iconTexts={[
+                      [kts?.tutkintonimikkeet, SchoolOutlined],
+                      [kts?.koulutustyypit, ExtensionOutlined],
+                      [kts?.opintojenlaajuus, TimelapseOutlined],
+                    ]}
+                  />
+                </Box>
               ))}
-            </Grid>
-          </div>
+            </Box>
+          </Box>
           <Pagination
             total={total}
             pagination={pagination}

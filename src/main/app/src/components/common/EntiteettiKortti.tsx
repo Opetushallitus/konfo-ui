@@ -109,7 +109,7 @@ type Props = {
   preHeader?: string;
   header: string;
   erityisopetusHeader?: boolean;
-  kuvaus: string;
+  kuvaus?: string;
   iconTexts: Array<IconText | undefined | false>;
   logoElement?: React.ReactNode;
   teemakuvaElement?: React.ReactNode;
@@ -140,7 +140,9 @@ export const EntiteettiKortti = ({
 
   const { t } = useTranslation();
 
-  const kuvaus = _.truncate(kuvausProp, { length: 255 }) || t('haku.ei_kuvausta');
+  const kuvaus = _.isUndefined(kuvausProp)
+    ? undefined
+    : _.truncate(kuvausProp, { length: 255 }) || t('haku.ei_kuvausta');
 
   let erityisopetusHeaderText = '';
   if (erityisopetusHeader && koulutustyyppi === KOULUTUS_TYYPPI.AMM) {
@@ -207,30 +209,34 @@ export const EntiteettiKortti = ({
             />
           )}
 
-          <Hidden xsDown>
-            <Typography component="div" className={classes.kuvaus} variant="body1">
-              {sanitizedHTMLParser(kuvaus)}
-            </Typography>
-          </Hidden>
+          {kuvaus && (
+            <Hidden xsDown>
+              <Typography component="div" className={classes.kuvaus} variant="body1">
+                {sanitizedHTMLParser(kuvaus)}
+              </Typography>
+            </Hidden>
+          )}
 
           <Box className={classes.iconTexts}>
             {iconTexts.filter(Boolean).map((iconText, i) => {
               const [content, IconComponent] = iconText as IconText;
               return (
-                <Box
-                  key={`header-icon-text-${i}`}
-                  flexBasis="33.33%"
-                  flexShrink={1}
-                  marginBottom={1}>
-                  <Typography
-                    style={{
-                      display: 'flex',
-                      marginRight: '8px',
-                    }}>
-                    {IconComponent && <IconComponent style={{ marginRight: '8px' }} />}
-                    {content}
-                  </Typography>
-                </Box>
+                content && (
+                  <Box
+                    key={`header-icon-text-${i}`}
+                    flexBasis="33.33%"
+                    flexShrink={1}
+                    marginBottom={1}>
+                    <Typography
+                      style={{
+                        display: 'flex',
+                        marginRight: '8px',
+                      }}>
+                      {IconComponent && <IconComponent style={{ marginRight: '8px' }} />}
+                      {content}
+                    </Typography>
+                  </Box>
+                )
               );
             })}
           </Box>
