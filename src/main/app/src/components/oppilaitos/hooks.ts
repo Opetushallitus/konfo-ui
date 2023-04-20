@@ -24,6 +24,7 @@ import {
   localizeArrayToCommaSeparated,
   getLocalizedMaksullisuus,
 } from '#/src/tools/localization';
+import { Organisaatio } from '#/src/types/ToteutusTypes';
 
 const removeOppilaitosName = (osaName: string, oppilaitosName: string) =>
   osaName.replace(`${oppilaitosName}, `, '');
@@ -41,7 +42,13 @@ const handleOppilaitosData = (
       ...data,
       ...entity,
       oppilaitosOsat: isOppilaitosOsa
-        ? undefined
+        ? data?.parentToimipisteOid
+          ? [
+              data?.oppilaitos?.osat?.find(
+                (osa: Organisaatio) => osa.oid === data?.parentToimipisteOid
+              ),
+            ]
+          : undefined
         : flow(
             (osat) => filter(osat, { status: ACTIVE }),
             (activeOsat) =>

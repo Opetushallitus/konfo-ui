@@ -55,7 +55,11 @@ export const ToteutuksenYhteystiedot = ({
     () =>
       oppilaitokset
         .filter((v) => hasYhteystiedot(v.data.oppilaitoksenOsa?.metadata))
-        .flatMap((v) => v.data.oppilaitoksenOsa.metadata.yhteystiedot),
+        .flatMap((v) =>
+          v.data.oppilaitoksenOsa.metadata.yhteystiedot.map((y: typeof Yhteystiedot) =>
+            Object.assign({ oid: v.data.oppilaitoksenOsa.organisaatio?.oid }, y)
+          )
+        ),
     [oppilaitokset]
   );
   return (

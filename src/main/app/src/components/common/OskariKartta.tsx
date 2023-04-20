@@ -133,7 +133,9 @@ export const OskariKartta = ({ id, osoite, postitoimipaikka }: Props) => {
       md={6}
       sm={12}
       // Ei poisteta domista vaan piilotetaan koska channel eventit räjähtää mikäli dom-elementti puuttuu
-      style={{ ...(error && { flexBasis: 0, height: 0, visibility: 'hidden' }) }}>
+      style={{
+        ...(error && { flexBasis: 0, height: 0, visibility: 'hidden', padding: 0 }),
+      }}>
       <iframe
         title="kartta"
         id={id}
