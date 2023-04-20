@@ -1,5 +1,5 @@
 import { NDASH } from '../constants';
-import { getSearchAddress, getLocalizedToteutusLaajuus } from './utils';
+import { getSearchAddress, getLocalizedOpintojenLaajuus } from './utils';
 
 describe('Utils/OsoiteParser', () => {
   test.each([
@@ -21,7 +21,7 @@ describe('Utils/OsoiteParser', () => {
   });
 });
 
-describe('Utils/getLocalizedToteutusLaajuus', () => {
+describe('Utils/getLocalizedOpintojenLaajuus', () => {
   test.each([
     [
       {
@@ -83,6 +83,6 @@ describe('Utils/getLocalizedToteutusLaajuus', () => {
       '20 osaamispistettä',
     ],
   ])('localized laajuus description', (toteutus, koulutus, expected) => {
-    expect(getLocalizedToteutusLaajuus(toteutus, koulutus)).toEqual(expected);
+    expect(getLocalizedOpintojenLaajuus(toteutus, koulutus)).toEqual(expected);
   });
 });

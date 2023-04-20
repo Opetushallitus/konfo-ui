@@ -24,6 +24,7 @@ import {
   localizeArrayToCommaSeparated,
   getLocalizedMaksullisuus,
 } from '#/src/tools/localization';
+import { getLocalizedOpintojenLaajuus } from '#/src/tools/utils';
 import { Organisaatio } from '#/src/types/ToteutusTypes';
 
 const removeOppilaitosName = (osaName: string, oppilaitosName: string) =>
@@ -150,9 +151,7 @@ const selectTulevaTarjonta = (tulevaTarjonta: any) => {
       sorted: true,
     }),
     koulutustyypit: localizeArrayToCommaSeparated(k.koulutustyypit, { sorted: true }),
-    opintojenlaajuus: `${localize(k.opintojenLaajuus)} ${localize(
-      k.opintojenLaajuusyksikko
-    )}`,
+    opintojenlaajuus: getLocalizedOpintojenLaajuus(undefined, k),
     tyyppi: k.koulutustyyppi,
   }));
 

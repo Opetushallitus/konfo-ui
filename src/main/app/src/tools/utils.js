@@ -168,7 +168,7 @@ export function getLocalizedKoulutusLaajuus(koulutus) {
   );
 }
 
-export function getLocalizedToteutusLaajuus(toteutus, koulutus) {
+export function getLocalizedOpintojenLaajuus(toteutus, koulutus) {
   const laajuusNumero = formatDouble(
     toteutus?.metadata?.opintojenLaajuusNumero || toteutus?.opintojenLaajuusNumero
   );
