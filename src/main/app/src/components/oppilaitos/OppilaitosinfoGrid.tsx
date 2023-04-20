@@ -6,7 +6,7 @@ import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
 import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined';
 import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import { styled } from '@mui/material/styles';
-import { flow, map, join, toString, capitalize } from 'lodash';
+import { flow, map, join, toString, capitalize, isEmpty, isEqual } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { InfoGrid } from '#/src/components/common/InfoGrid';
@@ -34,6 +34,12 @@ type Props = {
   toimipisteita?: number;
 };
 
+type Perustieto = {
+  icon: JSX.Element;
+  title: string;
+  text: string;
+};
+
 export const OppilaitosinfoGrid = ({
   opiskelijoita,
   kotipaikat,
@@ -50,7 +56,7 @@ export const OppilaitosinfoGrid = ({
     (nimet) => join(nimet, ', ')
   )(opetuskieli);
 
-  const perustiedotData = [
+  const perustiedotData: Array<Perustieto> = [
     {
       icon: <PublicOutlinedIcon className={classes.koulutusInfoGridIcon} />,
       title: t('oppilaitos.paikkakunta'),
@@ -77,6 +83,9 @@ export const OppilaitosinfoGrid = ({
       text: toString(koulutusohjelmia),
     },
   ];
+  const filteredPerustiedotData = perustiedotData
+    .filter((perustieto) => isEmpty(perustieto.text))
+    .filter((perustieto) => isEqual(perustieto.text.trim(), '0'));
 
-  return <StyledInfoGrid gridData={perustiedotData} />;
+  return <StyledInfoGrid gridData={filteredPerustiedotData} />;
 };

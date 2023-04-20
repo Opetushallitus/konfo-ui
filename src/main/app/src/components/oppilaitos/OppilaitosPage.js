@@ -90,6 +90,14 @@ export const OppilaitosPage = (props) => {
                   name: localize(entity?.oppilaitos),
                   link: `/oppilaitos/${entity?.oppilaitos?.oid}`,
                 }),
+                ...condArray(isOppilaitosOsa && entity?.parentToimipisteOid, {
+                  name: localize(
+                    entity?.oppilaitosOsat?.find(
+                      (o) => o.oid === entity?.parentToimipisteOid
+                    )
+                  ),
+                  link: `/oppilaitososa/${entity?.parentToimipisteOid}`,
+                }),
                 {
                   name: localize(entity),
                 },
@@ -160,6 +168,7 @@ export const OppilaitosPage = (props) => {
             <Yhteystiedot
               id={localize(entity)}
               heading={t('oppilaitos.yhteystiedot')}
+              matchTarjoajat={false}
               {...entity.metadata}
             />
           )}

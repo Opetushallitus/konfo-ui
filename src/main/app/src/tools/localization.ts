@@ -11,7 +11,6 @@ const lng = (nimi: any, lang: 'fi' | 'en' | 'sv') =>
   nimi?.['kieli_' + lang] || nimi?.[lang] || false;
 
 export const getLanguage = () => i18n.language;
-
 export const translate = (nimi: any) => {
   const language = getLanguage();
   if ('en' === language) {
