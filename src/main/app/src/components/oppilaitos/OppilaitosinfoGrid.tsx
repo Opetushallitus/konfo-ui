@@ -1,7 +1,6 @@
-import React from 'react';
-
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import HomeWorkOutlinedIcon from '@mui/icons-material/HomeWorkOutlined';
+import LocalLibraryOutlinedIcon from '@mui/icons-material/LocalLibraryOutlined';
 import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
 import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined';
 import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
@@ -30,7 +29,8 @@ type Props = {
   opiskelijoita: number;
   kotipaikat: Array<Koodi>;
   opetuskieli: Array<Koodi>;
-  koulutusohjelmia: number;
+  tutkintoonJohtavat: number;
+  tutkintoonJohtamattomat: number;
   toimipisteita?: number;
 };
 
@@ -44,7 +44,8 @@ export const OppilaitosinfoGrid = ({
   opiskelijoita,
   kotipaikat,
   opetuskieli,
-  koulutusohjelmia,
+  tutkintoonJohtavat,
+  tutkintoonJohtamattomat,
   toimipisteita,
 }: Props) => {
   const { t } = useTranslation();
@@ -80,7 +81,12 @@ export const OppilaitosinfoGrid = ({
     {
       icon: <SchoolOutlinedIcon className={classes.koulutusInfoGridIcon} />,
       title: t('oppilaitos.tutkintoon-johtavia-koulutuksia'),
-      text: _fp.toString(koulutusohjelmia),
+      text: _fp.toString(tutkintoonJohtavat),
+    },
+    {
+      icon: <LocalLibraryOutlinedIcon className={classes.koulutusInfoGridIcon} />,
+      title: t('oppilaitos.koulutuksia-jotka-eivat-johda-tutkntoon'),
+      text: _fp.toString(tutkintoonJohtamattomat),
     },
   ];
   const filteredPerustiedotData = perustiedotData

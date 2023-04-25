@@ -1,5 +1,3 @@
-import React from 'react';
-
 import {
   OpenInNew as OpenInNewIcon,
   SportsSoccer as SportsSoccerIcon,
@@ -131,7 +129,10 @@ export const OppilaitosPage = (props) => {
               }
               kotipaikat={entity?.kotipaikat}
               opetuskieli={entity?.opetuskieli ?? []}
-              koulutusohjelmia={entity?.koulutusohjelmia ?? ''}
+              tutkintoonJohtavat={entity?.koulutusohjelmatLkm?.tutkintoonJohtavat ?? ''}
+              tutkintoonJohtamattomat={
+                entity?.koulutusohjelmatLkm?.eiTutkintoonJohtavat ?? ''
+              }
             />
           </PageSection>
           {entity?.metadata?.wwwSivu && (
