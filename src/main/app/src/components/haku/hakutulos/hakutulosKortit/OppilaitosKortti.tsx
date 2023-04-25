@@ -1,6 +1,8 @@
-import React from 'react';
-
-import { SchoolOutlined, PublicOutlined } from '@mui/icons-material';
+import {
+  SchoolOutlined,
+  PublicOutlined,
+  LocalLibraryOutlined,
+} from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 
 import { EntiteettiKortti } from '#/src/components/common/EntiteettiKortti';
@@ -10,7 +12,11 @@ import { Koodi, Translateable } from '#/src/types/common';
 
 type Props = {
   oppilaitos: {
-    koulutusohjelmia: number;
+    koulutusohjelmatLkm?: {
+      kaikki: number;
+      tutkintoonJohtavat: number;
+      eiTutkintoonJohtavat: number;
+    };
     kuvaus?: Translateable;
     logo?: string;
     oid: string;
@@ -28,13 +34,20 @@ export const OppilaitosKortti = ({ oppilaitos, isSmall }: Props) => {
   const kuvaus =
     localize(oppilaitos?.kuvaus).replace(/<[^>]*>/gm, '') || t('haku.ei_kuvausta');
 
-  const koulutusohjelmaCount = oppilaitos?.koulutusohjelmia || 0;
-
-  const koulutusOhjelmatStr =
-    koulutusohjelmaCount === 0
+  const tutkintoonJohtavat = oppilaitos?.koulutusohjelmatLkm?.tutkintoonJohtavat || 0;
+  const tutkintoonJohtamattomat =
+    oppilaitos?.koulutusohjelmatLkm?.eiTutkintoonJohtavat || 0;
+  const tutkintoonJohtavatStr =
+    tutkintoonJohtavat === 0
       ? t('haku.ei-tutkintoon-johtavia-koulutuksia')
       : t('haku.tutkintoon-johtava-koulutus-maara', {
-          count: koulutusohjelmaCount,
+          count: tutkintoonJohtavat,
+        });
+  const tutkintoonJohtamattomatStr =
+    tutkintoonJohtamattomat === 0
+      ? t('haku.ei-tutkintoon-johtamattomia-koulutuksia')
+      : t('haku.tutkintoon-johtamaton-koulutus-maara', {
+          count: tutkintoonJohtamattomat,
         });
   const logoAltText = `${localize(oppilaitos)} ${t('haku.oppilaitoksen-logo')}`;
 
@@ -45,7 +58,8 @@ export const OppilaitosKortti = ({ oppilaitos, isSmall }: Props) => {
       header={localize(oppilaitos)}
       kuvaus={kuvaus}
       iconTexts={[
-        [koulutusOhjelmatStr, SchoolOutlined],
+        [tutkintoonJohtavatStr, SchoolOutlined],
+        [tutkintoonJohtamattomatStr, LocalLibraryOutlined],
         [paikkakunnatStr, PublicOutlined],
       ]}
       isSmall={isSmall}
