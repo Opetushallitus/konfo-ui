@@ -34,21 +34,18 @@ export const OppilaitosKortti = ({ oppilaitos, isSmall }: Props) => {
   const kuvaus =
     localize(oppilaitos?.kuvaus).replace(/<[^>]*>/gm, '') || t('haku.ei_kuvausta');
 
-  const tutkintoonJohtavat = oppilaitos?.koulutusohjelmatLkm?.tutkintoonJohtavat || 0;
-  const tutkintoonJohtamattomat =
-    oppilaitos?.koulutusohjelmatLkm?.eiTutkintoonJohtavat || 0;
-  const tutkintoonJohtavatStr =
-    tutkintoonJohtavat === 0
-      ? t('haku.ei-tutkintoon-johtavia-koulutuksia')
-      : t('haku.tutkintoon-johtava-koulutus-maara', {
-          count: tutkintoonJohtavat,
-        });
-  const tutkintoonJohtamattomatStr =
-    tutkintoonJohtamattomat === 0
-      ? t('haku.ei-tutkintoon-johtamattomia-koulutuksia')
-      : t('haku.tutkintoon-johtamaton-koulutus-maara', {
-          count: tutkintoonJohtamattomat,
-        });
+  const tutkintoonJohtavat = oppilaitos?.koulutusohjelmatLkm?.tutkintoonJohtavat;
+  const tutkintoonJohtamattomat = oppilaitos?.koulutusohjelmatLkm?.eiTutkintoonJohtavat;
+  const tutkintoonJohtavatStr = tutkintoonJohtavat
+    ? t('haku.tutkintoon-johtava-koulutus-maara', {
+        count: tutkintoonJohtavat,
+      })
+    : t('haku.ei-tutkintoon-johtavia-koulutuksia');
+  const tutkintoonJohtamattomatStr = tutkintoonJohtamattomat
+    ? t('haku.tutkintoon-johtamaton-koulutus-maara', {
+        count: tutkintoonJohtamattomat,
+      })
+    : t('haku.ei-tutkintoon-johtamattomia-koulutuksia');
   const logoAltText = `${localize(oppilaitos)} ${t('haku.oppilaitoksen-logo')}`;
 
   return (
