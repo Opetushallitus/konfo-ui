@@ -5,7 +5,7 @@ import { Typography, Grid, Box } from '@mui/material';
 import InfoCardGrid from '#/src/components/common/InfoCardGrid';
 import { InfoGrid } from '#/src/components/common/InfoGrid';
 import Tree from '#/src/components/common/Tree';
-import { useContentful } from '#/src/hooks';
+import { useContentful } from '#/src/hooks/useContentful';
 
 import Sisalto from './Sisalto';
 

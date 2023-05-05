@@ -8,7 +8,8 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
-import { useContentful, useSideMenu } from '#/src/hooks';
+import { useSideMenu } from '#/src/hooks';
+import { useContentful } from '#/src/hooks/useContentful';
 
 const PREFIX = 'SidebarValikko';
 

@@ -1,7 +1,6 @@
 import { useEffect, useMemo } from 'react';
 
-import _ from 'lodash';
-import _fp from 'lodash/fp';
+import { set, uniq, omit, mapValues } from 'lodash';
 import { useQuery } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -23,7 +22,13 @@ import {
   resetTulevatJarjestajatPaging,
 } from '#/src/store/reducers/koulutusSlice';
 
-export const fetchKoulutus = async (oid?: string, isDraft: boolean = false) => {
+type TutkinnonOsa = {
+  ePerusteId: string;
+  opintojenLaajuusyksikko: string;
+  opintojenLaajuusNumero: number;
+};
+
+export const fetchKoulutus = async (oid: string, isDraft: boolean = false) => {
   const koulutusData = await getKoulutus(oid, isDraft);
   if (
     (koulutusData?.koulutustyyppi === KOULUTUS_TYYPPI.AMM && koulutusData.ePerusteId) ||
@@ -31,25 +36,23 @@ export const fetchKoulutus = async (oid?: string, isDraft: boolean = false) => {
       koulutusData.ePerusteId)
   ) {
     const koulutusKuvausData = await getKoulutusKuvaus(koulutusData.ePerusteId);
-    _.set(koulutusData, 'metadata.kuvaus', koulutusKuvausData);
+    set(koulutusData, 'metadata.kuvaus', koulutusKuvausData);
   } else if (koulutusData?.koulutustyyppi === KOULUTUS_TYYPPI.AMM_TUTKINNON_OSA) {
-    const tutkinnonOsat = koulutusData?.metadata?.tutkinnonOsat ?? [];
-    const eperusteet = _.uniq(tutkinnonOsat.map((t: any) => t.ePerusteId));
+    const tutkinnonOsat: Array<TutkinnonOsa> =
+      koulutusData?.metadata?.tutkinnonOsat ?? [];
+    const ePerusteIds = uniq(tutkinnonOsat.map((t) => t.ePerusteId));
 
-    let e = [];
-    for (const index in eperusteet) {
-      const id = eperusteet[index];
-      const eperuste = await getEperusteKuvaus(id);
-      e.push(eperuste);
-    }
+    const ePerusteet = await Promise.all(
+      ePerusteIds.map((ePerusteId) => getEperusteKuvaus(ePerusteId))
+    );
 
     let yksikko = tutkinnonOsat[0]?.opintojenLaajuusyksikko;
     let pisteet = tutkinnonOsat
-      .map((tutkinnonOsa: any) => tutkinnonOsa.opintojenLaajuusNumero)
+      .map((tutkinnonOsa) => tutkinnonOsa.opintojenLaajuusNumero)
       .join(' + ');
 
-    _.set(koulutusData, 'metadata.opintojenLaajuusyksikko', yksikko);
-    _.set(koulutusData, 'metadata.opintojenLaajuus', {
+    set(koulutusData, 'metadata.opintojenLaajuusyksikko', yksikko);
+    set(koulutusData, 'metadata.opintojenLaajuus', {
       nimi: {
         sv: pisteet,
         fi: pisteet,
@@ -57,7 +60,7 @@ export const fetchKoulutus = async (oid?: string, isDraft: boolean = false) => {
       },
     });
 
-    _.set(koulutusData, 'eperusteet', e);
+    set(koulutusData, 'eperusteet', ePerusteet);
   }
   return koulutusData;
 };
@@ -104,7 +107,7 @@ type UseKoulutusProps = {
 export const useKoulutus = ({ oid, isDraft }: UseKoulutusProps) => {
   return useQuery(
     ['fetchKoulutus', { oid, isDraft }],
-    () => fetchKoulutus(oid, isDraft),
+    () => fetchKoulutus(oid!, isDraft),
     {
       select: selectKoulutus,
       enabled: Boolean(oid),
@@ -137,20 +140,19 @@ export const useKoulutusJarjestajat = ({
 
   const createQueryParams = (values: Record<string, Array<string> | boolean>) => {
     // TODO: konfo-backend haluaa maakunta ja kunta -rajainten sijaan "sijainti" -rajaimen, pitäisi refaktoroida sinne maakunta + kunta käyttöön
-    const valuesWithSijainti = _fp.omit(
-      ['maakunta', 'kunta', 'koulutusala', 'koulutustyyppi', 'koulutustyyppi-muu'],
+    const valuesWithSijainti = omit(
       {
         ...values,
         sijainti: [
           ...((values.maakunta as Array<string>) ?? []),
           ...((values.kunta as Array<string>) ?? []),
         ],
-      }
+      },
+      ['maakunta', 'kunta', 'koulutusala', 'koulutustyyppi', 'koulutustyyppi-muu']
     );
 
-    return _fp.mapValues(
-      (v: Array<string> | string) => (_fp.isArray(v) ? v!.join(',') : v!.toString()),
-      valuesWithSijainti
+    return mapValues(valuesWithSijainti, (v: Array<string> | string) =>
+      Array.isArray(v) ? v!.join(',') : v!.toString()
     );
   };
 

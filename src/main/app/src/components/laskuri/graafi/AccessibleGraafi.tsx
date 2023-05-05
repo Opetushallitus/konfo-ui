@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Box, Typography } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
-import _ from 'lodash';
+import { join } from 'lodash';
 import { useTranslation, TFunction } from 'react-i18next';
 
 import { localize } from '#/src/tools/localization';
@@ -40,7 +40,7 @@ const hakukohdeToPisterajat = (
         { vuosi: historia.vuosi, pisteet: formatDouble(historia.pisteet) }
       )
     );
-  return _.join(pisterajat, ' ');
+  return join(pisterajat, ' ');
 };
 
 const tulosToText = (

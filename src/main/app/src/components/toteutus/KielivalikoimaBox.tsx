@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import _ from 'lodash';
+import { isEmpty, every, size } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { ColoredPaperContent } from '#/src/components/common/ColoredPaperContent';
@@ -47,9 +47,7 @@ export const KielivalikoimaBox = ({
 }) => {
   const { t } = useTranslation();
 
-  const hasKielivalikoima = !(
-    _.isEmpty(kielivalikoima) || _.every(kielivalikoima, _.isEmpty)
-  );
+  const hasKielivalikoima = !(isEmpty(kielivalikoima) || every(kielivalikoima, isEmpty));
 
   return hasKielivalikoima ? (
     <StyledPageSection heading={t('toteutus.kielivalikoima')}>
@@ -60,7 +58,7 @@ export const KielivalikoimaBox = ({
               {kielivalikoimaKeys.map(
                 (valikoimaKey) =>
                   // _.size() palauttaa nollan myös nil-arvoille
-                  _.size(kielivalikoima?.[valikoimaKey]) !== 0 && (
+                  size(kielivalikoima?.[valikoimaKey]) !== 0 && (
                     <tr key={valikoimaKey}>
                       <th className={classes.cell}>{t(`toteutus.${valikoimaKey}`)}</th>
                       <td className={classes.cell}>

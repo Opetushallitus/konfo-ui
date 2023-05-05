@@ -1,13 +1,13 @@
 import React from 'react';
 
 import { Link } from '@mui/material';
-import _ from 'lodash';
+import { head } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { defaultLanguage, supportedLanguages } from '#/src/tools/i18n';
 
 const localizeHref = (href: string, lng: string) =>
-  _.head(href) === '/' ? `/${lng + href}` : `/${lng}/${href}`;
+  head(href) === '/' ? `/${lng + href}` : `/${lng}/${href}`;
 
 type Props = {
   to: string;

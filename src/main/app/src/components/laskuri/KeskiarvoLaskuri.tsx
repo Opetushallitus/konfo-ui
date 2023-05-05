@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { Box, Typography, styled, Input, InputLabel, Grid, Button } from '@mui/material';
-import _ from 'lodash';
+import { matches, isNumber } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { colors } from 'src/colors';
 
@@ -49,7 +49,7 @@ type Props = {
 };
 
 const keskiArvotIsEmpty = (kat: Keskiarvot) =>
-  _.matches(kat)({ lukuaineet: '', taideTaitoAineet: '', kaikki: '', suorittanut: true });
+  matches(kat)({ lukuaineet: '', taideTaitoAineet: '', kaikki: '', suorittanut: true });
 
 export const KeskiarvoLaskuri = ({
   changeCalculator,
@@ -89,7 +89,7 @@ export const KeskiarvoLaskuri = ({
     const withDot = ka.replace(',', '.');
     return (
       '' === ka ||
-      (_.isNumber(Number(withDot)) && Number(withDot) >= 4 && Number(withDot) <= 10)
+      (isNumber(Number(withDot)) && Number(withDot) >= 4 && Number(withDot) <= 10)
     );
   };
 

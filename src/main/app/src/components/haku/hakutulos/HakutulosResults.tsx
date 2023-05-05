@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Grid, Typography, useTheme } from '@mui/material';
-import _ from 'lodash';
+import { size } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
 import { useWindowSize } from 'react-use';
@@ -40,7 +40,7 @@ export const HakutulosResults = ({
   const hakutulosWidth = useHakutulosWidth();
   const isSmall = hakutulosWidth < theme.breakpoints.values['sm'];
 
-  if (selectedTab === 'koulutus' && _.size(koulutusHits) > 0) {
+  if (selectedTab === 'koulutus' && size(koulutusHits) > 0) {
     return (
       <>
         {koulutusHits.map((koulutus) => (
@@ -49,7 +49,7 @@ export const HakutulosResults = ({
       </>
     );
   }
-  if (selectedTab === 'oppilaitos' && _.size(oppilaitosHits) > 0) {
+  if (selectedTab === 'oppilaitos' && size(oppilaitosHits) > 0) {
     return (
       <>
         {oppilaitosHits.map((oppilaitos) => (

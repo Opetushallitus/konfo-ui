@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 
-import _fp from 'lodash/fp';
+import { sortBy } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { Filter } from '#/src/components/common/Filter';
@@ -41,11 +41,14 @@ export const SijaintiSuodatin = (props: SuodatinComponentProps) => {
     return [
       {
         label: t('haku.kaupungit-tai-kunnat'),
-        options: _fp.sortBy('label')(kuntaValues.map((v) => getSelectOption(v, false))),
+        options: sortBy(kuntaValues.map((v) => getSelectOption(v, false), 'label')),
       },
       {
         label: t('haku.maakunnat'),
-        options: _fp.sortBy('label')(maakuntaValues.map((v) => getSelectOption(v, true))),
+        options: sortBy(
+          maakuntaValues.map((v) => getSelectOption(v, true)),
+          'label'
+        ),
       },
     ];
   }, [kuntaValues, maakuntaValues, t, naytaFiltterienHakutulosLuvut]);

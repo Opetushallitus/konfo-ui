@@ -1,10 +1,10 @@
-import _ from 'lodash';
+import { range, isEqual } from 'lodash';
 
 import { PainotettuArvosana } from '#/src/types/HakukohdeTypes';
 
 import { LocalStorable } from '../LocalStorageUtil';
 
-export const ARVOSANA_VALUES = _.range(10, 3);
+export const ARVOSANA_VALUES = range(10, 3);
 export interface Kouluaine {
   nimi: string;
   arvosana: number | null;
@@ -47,7 +47,7 @@ export const hasInitialValues = (aine: Kouluaine) => {
     aine.nimi,
     aine.painotettavatoppiaineetlukiossaKoodiUri
   );
-  return _.isEqual(aine, initialAine);
+  return isEqual(aine, initialAine);
 };
 
 export class Kouluaineet implements LocalStorable {

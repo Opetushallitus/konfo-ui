@@ -1,5 +1,6 @@
-import _fp from 'lodash/fp';
+import { isString, flow, map, filter, isEmpty, trim, uniq } from 'lodash';
 
+import { MAKSULLISUUSTYYPPI } from '#/src/constants';
 import { Koodi, Translateable } from '#/src/types/common';
 import { Maksullisuustyyppi } from '#/src/types/ToteutusTypes';
 
@@ -24,19 +25,19 @@ export const translate = (nimi: any) => {
 export const localize = (obj: any) => (obj ? translate(obj.nimi || obj) : '');
 
 export const localizeIfNimiObject = (obj: any) =>
-  obj ? (_fp.isString(obj.nimi) ? obj.nimi : translate(obj.nimi || obj)) : '';
+  obj ? (isString(obj.nimi) ? obj.nimi : translate(obj.nimi || obj)) : '';
 
 export const localizeArrayToCommaSeparated = (
   arr: Array<Koodi | Translateable>,
   { sorted }: { sorted?: boolean } = { sorted: false }
 ) =>
-  _fp.flow(
-    _fp.map(_fp.flow(localize, _fp.trim)),
-    _fp.filter(_fp.negate(_fp.isEmpty)),
-    (v) => (sorted ? _fp.sortBy(_fp.identity)(v) : v),
-    _fp.uniq,
-    _fp.join(', '),
-    (v) => (_fp.isEmpty(v) ? '' : v)
+  flow(
+    (x) => map(x, flow(localize, trim)),
+    (x) => filter(x, (item) => !isEmpty(item)),
+    (x) => (sorted ? x.sort() : x),
+    uniq,
+    (x) => x?.join(', '),
+    (v) => (isEmpty(v) ? '' : v)
   )(arr);
 
 export const getTranslationForKey = (key = '') => i18n.t(key);
@@ -59,9 +60,11 @@ export const getLocalizedMaksullisuus = (
   maksullisuustyyppi: Maksullisuustyyppi,
   maksuAmount: number
 ) =>
-  ['maksullinen', 'lukuvuosimaksu'].includes(maksullisuustyyppi)
+  [MAKSULLISUUSTYYPPI.MAKSULLINEN, MAKSULLISUUSTYYPPI.LUKUVUOSIMAKSU].includes(
+    maksullisuustyyppi
+  )
     ? `${
-        maksullisuustyyppi === 'lukuvuosimaksu'
+        maksullisuustyyppi === MAKSULLISUUSTYYPPI.LUKUVUOSIMAKSU
           ? getTranslationForKey('toteutus.lukuvuosimaksu') + ' '
           : ''
       }${maksuAmount} € 

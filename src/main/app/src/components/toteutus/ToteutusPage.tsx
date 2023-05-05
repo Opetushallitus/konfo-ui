@@ -3,8 +3,7 @@ import React, { useMemo } from 'react';
 import DirectionsOutlinedIcon from '@mui/icons-material/DirectionsOutlined';
 import { Box, Grid, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import _ from 'lodash';
-import _fp from 'lodash/fp';
+import { some, isEmpty, uniq } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -136,9 +135,9 @@ export const ToteutusPage = () => {
     !notFound &&
     (koulutusStatus === 'loading' ||
       toteutusStatus === 'loading' ||
-      (hasOppilaitokset && _.some(oppilaitokset, 'isLoading')));
+      (hasOppilaitokset && some(oppilaitokset, 'isLoading')));
 
-  const hasAnyHakukohde = _.some(hakutiedot, (v: Hakutieto) => v.hakukohteet.length > 0);
+  const hasAnyHakukohde = some(hakutiedot, (v: Hakutieto) => v.hakukohteet.length > 0);
   const hakuUrl = useSelector(getHakuUrl);
   const { hakuParamsStr } = useSelector(getHakuParams);
 
@@ -241,10 +240,10 @@ export const ToteutusPage = () => {
             }
           />
         )}
-        {!_.isEmpty(kuvaus) && (
+        {!isEmpty(kuvaus) && (
           <HtmlTextBox heading={t('koulutus.kuvaus')} html={localize(kuvaus)} />
         )}
-        {!_.isEmpty(painotukset) && (
+        {!isEmpty(painotukset) && (
           <PageSection heading={t('toteutus.painotukset')}>
             <Accordion
               items={painotukset.map((painotus: any) => ({
@@ -254,7 +253,7 @@ export const ToteutusPage = () => {
             />
           </PageSection>
         )}
-        {!_.isEmpty(erityisetKoulutustehtavat) && (
+        {!isEmpty(erityisetKoulutustehtavat) && (
           <PageSection heading={t('toteutus.erityiset-koulutustehtavat')}>
             <Accordion
               items={erityisetKoulutustehtavat.map((koulutustehtava: any) => ({
@@ -267,11 +266,11 @@ export const ToteutusPage = () => {
         <KielivalikoimaBox kielivalikoima={kielivalikoima} />
         <Diplomit diplomit={diplomit} />
         <Osaamisalat toteutus={toteutus!} koulutus={koulutus} />
-        {tyyppi === KOULUTUS_TYYPPI.KK_OPINTOKOKONAISUUS && !_.isEmpty(opintojaksot) && (
+        {tyyppi === KOULUTUS_TYYPPI.KK_OPINTOKOKONAISUUS && !isEmpty(opintojaksot) && (
           <Opintojaksot opintojaksot={opintojaksot || []} />
         )}
         {tyyppi === KOULUTUS_TYYPPI.KK_OPINTOJAKSO &&
-          !_.isEmpty(kuuluuOpintokokonaisuuksiin) && (
+          !isEmpty(kuuluuOpintokokonaisuuksiin) && (
             <Opintokokonaisuudet
               opintokokonaisuudet={kuuluuOpintokokonaisuuksiin || []}
             />
@@ -333,7 +332,7 @@ export const ToteutusPage = () => {
                           {localize(yhteyshenkilo.puhelinnumero)}
                         </Typography>
                       </Grid>
-                      {!_.isEmpty(yhteyshenkilo.wwwSivu) && (
+                      {!isEmpty(yhteyshenkilo.wwwSivu) && (
                         <Grid item>
                           <ExternalLink
                             className={classes.yhteystiedotLink}
@@ -350,9 +349,9 @@ export const ToteutusPage = () => {
             </Box>
           </PageSection>
         )}
-        {!_.isEmpty(toteutus?.oppilaitokset) && (
+        {!isEmpty(toteutus?.oppilaitokset) && (
           <ToteutuksenYhteystiedot
-            oids={_fp.uniq(toteutus!.oppilaitokset.concat(toteutus!.organisaatiot))}
+            oids={uniq(toteutus!.oppilaitokset.concat(toteutus!.organisaatiot))}
             tarjoajat={toteutus?.tarjoajat}
           />
         )}

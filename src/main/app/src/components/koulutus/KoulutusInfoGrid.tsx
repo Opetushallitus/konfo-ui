@@ -9,7 +9,7 @@ import {
   Class,
 } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
-import _ from 'lodash';
+import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { ExternalLink } from '#/src/components/common/ExternalLink';
@@ -70,7 +70,7 @@ export const KoulutusInfoGrid = ({ koulutus }: Props) => {
 
   const perustiedotData = [];
 
-  if (!_.isEmpty(tutkintonimikkeet)) {
+  if (!isEmpty(tutkintonimikkeet)) {
     perustiedotData.push({
       icon: <SchoolOutlined className={classes.koulutusInfoGridIcon} />,
       title: t('koulutus.tutkintonimikkeet'),
@@ -102,7 +102,7 @@ export const KoulutusInfoGrid = ({ koulutus }: Props) => {
 
   const opinnonTyyppiText = localize(opinnonTyyppi);
 
-  if (!_.isEmpty(opinnonTyyppiText)) {
+  if (!isEmpty(opinnonTyyppiText)) {
     perustiedotData.push({
       icon: <Class className={classes.koulutusInfoGridIcon} />,
       title: t('koulutus.opinnonTyyppi'),
@@ -110,7 +110,7 @@ export const KoulutusInfoGrid = ({ koulutus }: Props) => {
     });
   }
 
-  if (!_.isEmpty(tunniste)) {
+  if (!isEmpty(tunniste)) {
     perustiedotData.push({
       icon: <LabelOutlined className={classes.koulutusInfoGridIcon} />,
       title: t('koulutus.tunniste'),

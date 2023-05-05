@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import _ from 'lodash';
+import { merge } from 'lodash';
 
 import { getPaginationPage } from '#/src/tools/utils';
 
@@ -34,12 +34,12 @@ const koulutusSlice = createSlice({
     },
     setJarjestajatPaging(state, action) {
       if (action.payload) {
-        _.merge(state.jarjestajat.pagination, action.payload);
+        merge(state.jarjestajat.pagination, action.payload);
       }
     },
     setTulevatJarjestajatPaging(state, action) {
       if (action.payload) {
-        _.merge(state.tulevatJarjestajat.pagination, action.payload);
+        merge(state.tulevatJarjestajat.pagination, action.payload);
       }
     },
     setTulevatJarjestajatFilters(state, action) {

@@ -1,7 +1,7 @@
 import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
 import { Box, Card, CardContent, Divider, Grid, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import _ from 'lodash';
+import { isEmpty, groupBy, map } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
@@ -49,8 +49,7 @@ const Toimituspaikka = ({
   missingMsgKey,
 }: ToimituspaikkaProps) => {
   const { t } = useTranslation();
-  const missing =
-    _.isEmpty(postiosoite) && _.isEmpty(sahkoposti) && _.isEmpty(verkkosivu);
+  const missing = isEmpty(postiosoite) && isEmpty(sahkoposti) && isEmpty(verkkosivu);
   return missing ? (
     missingMsgKey ? (
       <Typography>{t(missingMsgKey)}</Typography>
@@ -198,7 +197,7 @@ const LiiteCard = ({
 };
 
 const tyypeittain = (liitteet: Array<Liite>) =>
-  _.groupBy(liitteet || [], (liite) => localize(liite?.tyyppi));
+  groupBy(liitteet || [], (liite) => localize(liite?.tyyppi));
 
 type Props = {
   liitteet: Array<Liite>;
@@ -228,7 +227,7 @@ export const Liitteet = ({ liitteet, hakukohde, organisaatioOid }: Props) => {
         <Heading id={toId(t('valintaperuste.liitteet'))} variant="h2">
           {t('valintaperuste.liitteet')}
         </Heading>
-        {_.map(liitteetTyypeittain, (values, tyyppi) => (
+        {map(liitteetTyypeittain, (values, tyyppi) => (
           <div key={`liitteet-${tyyppi}`}>
             <HeadingBoundary>
               <Box py={2}>

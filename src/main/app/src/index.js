@@ -13,7 +13,7 @@ import StackTrace from 'stacktrace-js';
 import { getConfiguration, postClientError } from '#/src/api/konfoApi';
 import App from '#/src/App';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
-import { useQueryOnce } from '#/src/hooks';
+import { useQueryOnce } from '#/src/hooks/useQueryOnce';
 import ScrollToTop from '#/src/ScrollToTop';
 import { getKonfoStore } from '#/src/store';
 import { locationChanged } from '#/src/store/reducers/appSlice';

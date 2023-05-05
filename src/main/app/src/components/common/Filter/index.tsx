@@ -18,7 +18,7 @@ import {
   Typography,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import _ from 'lodash';
+import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import Select, {
   components,
@@ -318,7 +318,7 @@ export const Filter = ({
                     return null;
                   }
 
-                  return _.isEmpty(value.alakoodit) ? (
+                  return isEmpty(value.alakoodit) ? (
                     <FilterCheckbox
                       key={value.id}
                       value={value}

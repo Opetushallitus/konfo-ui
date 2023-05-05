@@ -14,7 +14,7 @@ import {
   Typography,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import _ from 'lodash';
+import { isEmpty, sortBy, toPairs, some, every, map } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -216,7 +216,7 @@ const HakuCardGrid = ({ tyyppiOtsikko, icon, toteutus, hakukohteet }: GridProps)
                                 ),
                               ],
                             },
-                            !_.isEmpty(hakukohde.hakukohteenLinja?.lisatietoa) && {
+                            !isEmpty(hakukohde.hakukohteenLinja?.lisatietoa) && {
                               size: 12,
                               heading: t('toteutus.lisätietoa'),
                               content: [],
@@ -331,14 +331,14 @@ export const ToteutusHakukohteet = ({ toteutus }: Props) => {
 
   const hakukohteetByHakutapa = toteutus?.hakukohteetByHakutapa;
 
-  const sortedByHakutapaAndHakuaika = _.sortBy(
-    _.toPairs(hakukohteetByHakutapa),
+  const sortedByHakutapaAndHakuaika = sortBy(
+    toPairs(hakukohteetByHakutapa),
     ([hakutapa]) => {
-      return Number(_.get(hakutapa?.split('_'), 1));
+      return Number(hakutapa?.split('_')?.[1]);
     },
     ([, haku]) => {
-      const isAuki = _.some(haku.hakukohteet, ['isHakuAuki', true]);
-      const isMennyt = _.every(haku.hakukohteet, ['isHakuMennyt', true]);
+      const isAuki = some(haku.hakukohteet, ['isHakuAuki', true]);
+      const isMennyt = every(haku.hakukohteet, ['isHakuMennyt', true]);
       return isAuki ? 0 : isMennyt ? 2 : 1;
     }
   );
@@ -347,11 +347,11 @@ export const ToteutusHakukohteet = ({ toteutus }: Props) => {
     <Grid item xs={12} sm={12} md={10} lg={8}>
       <PageSection heading={t('toteutus.koulutuksen-hakukohteet')}>
         <Grid container direction="column" spacing={2}>
-          {_.map(sortedByHakutapaAndHakuaika, ([hakutapaKoodiUri, h]) => {
+          {map(sortedByHakutapaAndHakuaika, ([hakutapaKoodiUri, h]) => {
             const IconComponent = getHakutyyppiIcon(
               hakutapaKoodiUri as keyof typeof typeToIconMap
             );
-            const hks = _.sortBy(h.hakukohteet, (hk) => {
+            const hks = sortBy(h.hakukohteet, (hk) => {
               return hk.isHakuAuki ? 0 : hk.isHakuMennyt ? 2 : 1;
             });
 

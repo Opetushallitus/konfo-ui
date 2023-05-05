@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { Button, Grid, Paper } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import _ from 'lodash';
+import { take } from 'lodash';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -11,13 +11,8 @@ import { useEffectOnce } from 'react-use';
 import { colors } from '#/src/colors';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import YhteishakuKortti from '#/src/components/kortti/YhteishakuKortti';
-import { useContentful } from '#/src/hooks';
-import {
-  Info,
-  Uutiset as UutisetType,
-  Kortit,
-  InfoYhteishaku,
-} from '#/src/types/ContentfulTypes';
+import { useContentful } from '#/src/hooks/useContentful';
+import { Kortit } from '#/src/types/ContentfulTypes';
 
 import { useSearch } from './haku/hakutulosHooks';
 import { Jumpotron } from './Jumpotron';
@@ -53,7 +48,7 @@ const Root = styled('div')({
   },
 });
 
-const getFirst = (entry: Kortit) => Object.values(entry || {})[0] || {};
+const getFirst = (entry: Kortit) => Object.values(entry ?? {})[0] || {};
 
 export const Etusivu = () => {
   const { t } = useTranslation();
@@ -63,17 +58,7 @@ export const Etusivu = () => {
 
   const { clearFilters, setKeyword, setSearchPhrase } = useSearch();
   const { data, isLoading, forwardTo } = useContentful();
-  const {
-    info: infoData,
-    uutiset,
-    kortit,
-    infoYhteishaku,
-  }: {
-    info: Info;
-    uutiset: UutisetType;
-    kortit: Kortit;
-    infoYhteishaku: InfoYhteishaku;
-  } = data;
+  const { info: infoData, uutiset, kortit, infoYhteishaku } = data;
 
   const forwardToPage = (id: string) => {
     navigate(`/${i18n.language}${forwardTo(id)}`);
@@ -154,7 +139,7 @@ export const Etusivu = () => {
                 <h2 className={classes.header}>{t('ajankohtaista-ja-uutisia')}</h2>
               </Grid>
               <Grid container spacing={3}>
-                <Uutiset uutiset={showMore ? _.take(uutislinkit, 3) : uutislinkit} />
+                <Uutiset uutiset={showMore ? take(uutislinkit, 3) : uutislinkit} />
               </Grid>
 
               <Grid container direction="row" justifyContent="center" alignItems="center">

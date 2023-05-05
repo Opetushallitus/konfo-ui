@@ -1,4 +1,4 @@
-import { Hakulomaketyyppi, KOULUTUS_TYYPPI } from '#/src/constants';
+import { Hakulomaketyyppi, KOULUTUS_TYYPPI, MAKSULLISUUSTYYPPI } from '#/src/constants';
 
 import { Koodi, Translateable, TODOType, ValueOf, Alkamiskausi } from './common';
 import { Hakukohde } from './HakukohdeTypes';
@@ -17,7 +17,10 @@ export type Apuraha = {
   kuvaus?: Translateable;
 };
 
-export type Maksullisuustyyppi = 'maksullinen' | 'maksuton' | 'lukuvuosimaksu';
+export type Maksullisuustyyppi =
+  | typeof MAKSULLISUUSTYYPPI.MAKSULLINEN
+  | typeof MAKSULLISUUSTYYPPI.MAKSUTON
+  | typeof MAKSULLISUUSTYYPPI.LUKUVUOSIMAKSU;
 
 export type Opetus = {
   koulutuksenAlkamiskausi?: Alkamiskausi;

@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { Box, Button, Grid, Typography } from '@mui/material';
-import _ from 'lodash';
+import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { OppilaitosKorttiLogo } from '#/src/components/common/KorttiLogo';
@@ -31,8 +31,8 @@ export const ToteutuksenYhteystiedot = ({
       oppilaitokset
         .filter(
           (v) =>
-            !_.isEmpty(v.data.metadata?.wwwSivu) ||
-            !_.isEmpty(v.data.metadata?.esittely) ||
+            !isEmpty(v.data.metadata?.wwwSivu) ||
+            !isEmpty(v.data.metadata?.esittely) ||
             hasYhteystiedot(v.data.metadata)
         )
         .map((v) => v.data),
@@ -106,7 +106,7 @@ export const ToteutuksenYhteystiedot = ({
                   variant="contained"
                   size="medium"
                   color="primary">
-                  {_.isEmpty(oppilaitos.metadata.wwwSivu.nimi)
+                  {isEmpty(oppilaitos.metadata.wwwSivu.nimi)
                     ? t('oppilaitos.oppilaitoksen-www-sivut')
                     : localize(oppilaitos.metadata.wwwSivu)}
                   <OpenInNewIcon fontSize="small" />

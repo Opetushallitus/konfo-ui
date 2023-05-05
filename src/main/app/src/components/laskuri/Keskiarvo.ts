@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { isNumber, sum } from 'lodash';
 
 import { Kouluaineet, Kouluaine } from './aine/Kouluaine';
 import { LocalStorable } from './LocalStorageUtil';
@@ -53,7 +53,7 @@ const painokerroinToNumber = (painokerroin: string): number =>
 export const isEligiblePainokerroin = (painokerroin: string): boolean => {
   const painokerroinAsNumber = painokerroinToNumber(painokerroin);
   return (
-    _.isNumber(painokerroinAsNumber) &&
+    isNumber(painokerroinAsNumber) &&
     Number(painokerroinAsNumber) >= PAINOKERROIN_MINIMI &&
     Number(painokerroinAsNumber) <= PAINOKERROIN_MAKSIMI
   );
@@ -63,8 +63,7 @@ const kouluAineToAverage = (aine: Kouluaine): number => {
   const eligibleValinnaiset = aine.valinnaisetArvosanat.filter(isEligibleArvosana);
   return eligibleValinnaiset.length < 1
     ? Number(aine.arvosana)
-    : (Number(aine.arvosana) + _.sum(eligibleValinnaiset) / eligibleValinnaiset.length) /
-        2;
+    : (Number(aine.arvosana) + sum(eligibleValinnaiset) / eligibleValinnaiset.length) / 2;
 };
 
 const isInRangePredFn = (min: number, max: number): ((keskiarvo: number) => boolean) => {
@@ -127,7 +126,7 @@ export const kouluaineetToHakupiste = (kouluaineet: Kouluaineet): HakupisteLaske
       )
     )
     .filter((aine: Kouluaine) => isEligibleArvosana(aine.arvosana));
-  const lukuaineetOsoittaja: number = _.sum(
+  const lukuaineetOsoittaja: number = sum(
     lukuaineet.map(
       (aine: Kouluaine) =>
         Number(aine.arvosana) *
@@ -136,7 +135,7 @@ export const kouluaineetToHakupiste = (kouluaineet: Kouluaineet): HakupisteLaske
           : 1)
     )
   );
-  const lukuaineetNimittaja: number = _.sum(
+  const lukuaineetNimittaja: number = sum(
     lukuaineet.map((a: Kouluaine) =>
       isEligiblePainokerroin(a.painokerroin) ? painokerroinToNumber(a.painokerroin) : 1
     )
@@ -148,13 +147,13 @@ export const kouluaineetToHakupiste = (kouluaineet: Kouluaineet): HakupisteLaske
     .concat(kouluaineet.taitoaineet)
     .filter((aine: Kouluaine) => isEligibleArvosana(aine.arvosana))
     .map(kouluAineToAverage);
-  const kaikkiKa = roundKa(_.sum(kaikki) / kaikki.length);
+  const kaikkiKa = roundKa(sum(kaikki) / kaikki.length);
   const taitoaineet = kouluaineet.taitoaineet
     .filter((aine: Kouluaine) => isEligibleArvosana(aine.arvosana))
     .map(kouluAineToAverage)
     .sort((a: number, b: number) => b - a)
     .slice(0, AMOUNT_OF_TAITOAINE_TO_USE);
-  const taitoKa = roundKa(_.sum(taitoaineet) / taitoaineet.length);
+  const taitoKa = roundKa(sum(taitoaineet) / taitoaineet.length);
   return keskiArvotToHakupiste(
     {
       lukuaineet: String(lukuKa),

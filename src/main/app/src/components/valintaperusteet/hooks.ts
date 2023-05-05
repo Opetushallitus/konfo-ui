@@ -24,10 +24,7 @@ export type PageData = {
 // * toteutus is fetched only for koulutusOid, other data already returns on getHakukohde
 // * koulutus is fetched only for koulutus nimi
 // Refactor this to only use getHakukohde when all data is available from the call
-const getValintaperustePageData = async (
-  { hakukohdeOid }: PageDataProps,
-  isDraft: boolean
-) => {
+const getValintaperustePageData = async (hakukohdeOid: string, isDraft: boolean) => {
   const hakukohde = await getHakukohde(hakukohdeOid, isDraft);
   const { toteutus: hakukohdeToteutus, valintaperuste: hakukohdeValintaperuste } =
     hakukohde ?? {};
@@ -40,13 +37,14 @@ const getValintaperustePageData = async (
   return { koulutus, toteutus, hakukohde, valintaperuste };
 };
 
-export const useValintaperustePageData = (props: PageDataProps) => {
+export const useValintaperustePageData = ({ hakukohdeOid }: PageDataProps) => {
   const { isDraft } = useUrlParams();
   return useQuery<PageData>(
-    ['getValintaperustePageData', props],
-    () => getValintaperustePageData(props, isDraft),
+    ['getValintaperustePageData', hakukohdeOid],
+    () => getValintaperustePageData(hakukohdeOid!, isDraft),
     {
       refetchOnWindowFocus: false,
+      enabled: Boolean(hakukohdeOid),
     }
   );
 };
@@ -60,7 +58,7 @@ export type PreviewPageData = {
 };
 
 const getValintaperustePreviewPageData = async (
-  { valintaperusteId }: PreviewPageDataProps,
+  valintaperusteId: string,
   isDraft: boolean
 ) => {
   const valintaperuste = await getValintaperuste(valintaperusteId, isDraft);
@@ -68,13 +66,16 @@ const getValintaperustePreviewPageData = async (
   return { valintaperuste };
 };
 
-export const useValintaperustePreviewPageData = (props: PreviewPageDataProps) => {
+export const useValintaperustePreviewPageData = ({
+  valintaperusteId,
+}: PreviewPageDataProps) => {
   const { isDraft } = useUrlParams();
   return useQuery<PreviewPageData>(
-    ['getValintaperustePreviewPageData', props],
-    () => getValintaperustePreviewPageData(props, isDraft),
+    ['getValintaperustePreviewPageData', valintaperusteId],
+    () => getValintaperustePreviewPageData(valintaperusteId!, isDraft),
     {
       refetchOnWindowFocus: false,
+      enabled: Boolean(valintaperusteId),
     }
   );
 };

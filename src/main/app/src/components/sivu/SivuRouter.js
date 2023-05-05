@@ -2,14 +2,14 @@ import React from 'react';
 
 import { Grid } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import _ from 'lodash';
+import { findKey } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useParams, Link as RouterLink, Navigate } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
-import { useContentful } from '#/src/hooks';
+import { useContentful } from '#/src/hooks/useContentful';
 
 import { Sivu } from './Sivu';
 import { SivuKooste } from './SivuKooste';
@@ -88,7 +88,7 @@ export const SivuRouter = () => {
       return <StyledNotFound loading={isLoading} />;
     }
   } else {
-    const newSlug = _.findKey(
+    const newSlug = findKey(
       slugsToIds,
       (slugInfo) => slugInfo.id === idInfo?.id && slugInfo?.language === lngParam
     );

@@ -1,7 +1,6 @@
 import { useCallback, useMemo } from 'react';
 
-import _ from 'lodash';
-import _fp from 'lodash/fp';
+import { flow, pickBy, map, uniqBy, flatten, size } from 'lodash';
 import { useQuery } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -68,7 +67,7 @@ const useOppilaitosSearch = createSearchQueryHook(
 const useAutocompleteSearch = createSearchQueryHook(
   'autoCompleteSearch',
   (requestParams) => {
-    if (_.size(requestParams.searchPhrase) > 2) {
+    if (size(requestParams.searchPhrase) > 2) {
       return autoCompleteSearch(requestParams);
     } else {
       return [];
@@ -155,8 +154,8 @@ export const useSearch = () => {
 
   const setPagination = useCallback(
     (newPagination) => {
-      const { size, offset } = newPagination ?? {};
-      dispatch(setSize({ newSize: size }));
+      const { size: _size, offset } = newPagination ?? {};
+      dispatch(setSize({ newSize: _size }));
       if (offset != null) {
         if (selectedTab === 'koulutus') {
           dispatch(setKoulutusOffset({ offset }));
@@ -271,14 +270,17 @@ export const useAllSelectedFilters = () => {
 
   const selectedFiltersWithAlakoodit = useMemo(
     () =>
-      _fp.flow(
-        _fp.pickBy((v) => (_fp.isArray(v) ? v.length > 0 : v)),
-        _fp.keys,
-        _fp.map((filterId) =>
-          _fp.values(getFilterWithChecked(koulutusFilters, allCheckedValues, filterId))
-        ),
-        _fp.flatten,
-        _fp.uniqBy('id')
+      flow(
+        (vals) => pickBy(vals, (v) => (Array.isArray(v) ? v.length > 0 : v)),
+        Object.keys,
+        (ks) =>
+          map(ks, (filterId) =>
+            Object.values(
+              getFilterWithChecked(koulutusFilters, allCheckedValues, filterId)
+            )
+          ),
+        flatten,
+        (flatted) => uniqBy(flatted, 'id')
       )(allCheckedValues),
     [koulutusFilters, allCheckedValues]
   );

@@ -20,7 +20,7 @@ import {
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { debounce } from '@mui/material/utils';
-import _ from 'lodash';
+import { size, isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -153,7 +153,7 @@ const StyledPopover = styled(Popover)(() => ({
   },
 }));
 
-const checkIsKeywordValid = (word: string) => _.size(word) === 0 || _.size(word) > 2;
+const checkIsKeywordValid = (word: string) => size(word) === 0 || size(word) > 2;
 
 export const Hakupalkki = () => {
   const { t } = useTranslation();
@@ -227,9 +227,9 @@ export const Hakupalkki = () => {
             freeSolo={true}
             onInputChange={(_e, newInputValue) => {
               setInputValue(newInputValue);
-              if (_.size(newInputValue) > 2) {
+              if (size(newInputValue) > 2) {
                 setSearchPhraseDelayed(newInputValue);
-              } else if (_.size(searchPhrase) > 0) {
+              } else if (size(searchPhrase) > 0) {
                 setSearchPhrase('');
               }
             }}
@@ -266,7 +266,7 @@ export const Hakupalkki = () => {
               <Button
                 aria-describedby={id}
                 endIcon={
-                  !isPopoverOpen || !_.isEmpty(koulutusFilters) ? (
+                  !isPopoverOpen || !isEmpty(koulutusFilters) ? (
                     <ExpandIcon />
                   ) : (
                     <CircularProgress size={25} color="inherit" />
@@ -302,7 +302,7 @@ export const Hakupalkki = () => {
           </IconButton>
         </Hidden>
       </Paper>
-      {!_.isEmpty(koulutusFilters) && (
+      {!isEmpty(koulutusFilters) && (
         <Hidden smDown>
           <StyledPopover
             id={id}

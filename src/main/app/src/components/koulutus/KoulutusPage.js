@@ -2,7 +2,7 @@ import React from 'react';
 
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { Box, Link as MuiLink, Typography } from '@mui/material';
-import _ from 'lodash';
+import { head, isEmpty } from 'lodash';
 import { urls } from 'oph-urls-js';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -56,10 +56,10 @@ const AdditionalStylesFn = ({ theme }) => ({
 });
 
 const findEperuste = (koulutus) => (id) =>
-  _.head(koulutus.eperusteet.filter((e) => e.id === id));
+  head(koulutus.eperusteet.filter((e) => e.id === id));
 
 const findTutkinnonOsa = (eperuste) => (id) =>
-  _.head(eperuste.tutkinnonOsat.filter((t) => t.id === id));
+  head(eperuste.tutkinnonOsat.filter((t) => t.id === id));
 
 const getKuvausHtmlSection = (t, captionKey, localizableText) =>
   localizableText ? '<h3>' + t(captionKey) + '</h3>' + localize(localizableText) : '';
@@ -144,7 +144,7 @@ const Kuvaus = ({ koulutus }) => {
           koulutus?.tyotehtavatJoissaVoiToimia
         )
       : localize(koulutus?.kuvaus);
-  return !_.isEmpty(koulutus?.kuvaus) ||
+  return !isEmpty(koulutus?.kuvaus) ||
     koulutus?.suorittaneenOsaaminen ||
     koulutus?.tyotehtavatJoissaVoiToimia ? (
     <HtmlTextBox
@@ -153,7 +153,7 @@ const Kuvaus = ({ koulutus }) => {
       html={createKoulutusHtml()}
       className={classes.root}
       additionalContent={
-        !_.isEmpty(koulutus?.linkkiEPerusteisiin) && (
+        !isEmpty(koulutus?.linkkiEPerusteisiin) && (
           <ExternalLink
             target="_blank"
             rel="noopener"

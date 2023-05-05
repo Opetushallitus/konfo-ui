@@ -1,11 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import _ from 'lodash';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
 import { KEEP_VALIKKO_OPEN_WIDTH } from '#/src/constants';
 
-const getLocationPage = (location) => _.split(location?.pathname, '/')?.[2];
+const getLocationPage = (location) => location?.pathname?.split('/')?.[2];
 
 const getFullUrl = (location) =>
   window.location.protocol + '//' + window.location.hostname + '/konfo' + location;

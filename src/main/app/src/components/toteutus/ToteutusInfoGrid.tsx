@@ -11,12 +11,12 @@ import ScheduleIcon from '@mui/icons-material/Schedule';
 import TimelapseIcon from '@mui/icons-material/Timelapse';
 import { styled } from '@mui/material/styles';
 import { TFunction } from 'i18next';
-import _ from 'lodash';
+import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { InfoGrid } from '#/src/components/common/InfoGrid';
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
-import { Koulutustyyppi, NDASH } from '#/src/constants';
+import { Koulutustyyppi, NDASH, MAKSULLISUUSTYYPPI } from '#/src/constants';
 import { useVisibleKoulutustyyppi } from '#/src/hooks/useVisibleKoulutustyyppi';
 import { localize } from '#/src/tools/localization';
 import { Koodi, Translateable } from '#/src/types/common';
@@ -64,7 +64,9 @@ const formatApuraha = (opetus: Opetus, t: TFunction) => {
 const formatMaksullisuus = (opetus: Opetus, t: TFunction) => {
   return opetus?.maksunMaara &&
     opetus?.maksullisuustyyppi &&
-    ['maksullinen', 'lukuvuosimaksu'].includes(opetus?.maksullisuustyyppi)
+    [MAKSULLISUUSTYYPPI.MAKSULLINEN, MAKSULLISUUSTYYPPI.LUKUVUOSIMAKSU].includes(
+      opetus?.maksullisuustyyppi
+    )
     ? `${opetus?.maksunMaara} €`
     : t('toteutus.ei-maksua');
 };
@@ -137,7 +139,7 @@ export const ToteutusInfoGrid = ({
       icon: <ChatBubbleOutlineIcon className={classes.koulutusInfoGridIcon} />,
       title: t('toteutus.opetuskieli'),
       text: kieliString,
-      modalText: !_.isEmpty(opetus.opetuskieletKuvaus) && (
+      modalText: !isEmpty(opetus.opetuskieletKuvaus) && (
         <LocalizedHTML data={opetus.opetuskieletKuvaus!} noMargin />
       ),
     },
@@ -150,7 +152,7 @@ export const ToteutusInfoGrid = ({
 
   const taiteenalaString = taiteenala?.map(localizeMap).join('\n') ?? '';
 
-  if (!_.isEmpty(taiteenalaString)) {
+  if (!isEmpty(taiteenalaString)) {
     perustiedotData.push({
       icon: <ColorLensIcon className={classes.koulutusInfoGridIcon} />,
       title: t('toteutus.taiteenala'),
@@ -162,7 +164,7 @@ export const ToteutusInfoGrid = ({
     icon: <ScheduleIcon className={classes.koulutusInfoGridIcon} />,
     title: t('koulutus.suunniteltu-kesto'),
     text: kestoString,
-    modalText: !_.isEmpty(opetus.suunniteltuKestoKuvaus) && (
+    modalText: !isEmpty(opetus.suunniteltuKestoKuvaus) && (
       <LocalizedHTML data={opetus.suunniteltuKestoKuvaus!} noMargin />
     ),
   });
@@ -176,7 +178,7 @@ export const ToteutusInfoGrid = ({
       icon: <FlagOutlinedIcon className={classes.koulutusInfoGridIcon} />,
       title: t('toteutus.koulutus-alkaa'),
       text: alkaaText,
-      modalText: !_.isEmpty(alkaaModalText) && (
+      modalText: !isEmpty(alkaaModalText) && (
         <LocalizedHTML data={alkaaModalText} noMargin />
       ),
     });
@@ -195,7 +197,7 @@ export const ToteutusInfoGrid = ({
       icon: <HourglassEmptyOutlinedIcon className={classes.koulutusInfoGridIcon} />,
       title: t('toteutus.opetusaika'),
       text: opetusAikaString,
-      modalText: !_.isEmpty(opetus.opetusaikaKuvaus) && (
+      modalText: !isEmpty(opetus.opetusaikaKuvaus) && (
         <LocalizedHTML data={opetus.opetusaikaKuvaus!} noMargin />
       ),
     },
@@ -203,34 +205,37 @@ export const ToteutusInfoGrid = ({
       icon: <MenuBookIcon className={classes.koulutusInfoGridIcon} />,
       title: t('toteutus.opetustapa'),
       text: opetustapaString,
-      modalText: !_.isEmpty(opetus.opetustapaKuvaus) && (
+      modalText: !isEmpty(opetus.opetustapaKuvaus) && (
         <LocalizedHTML data={opetus.opetustapaKuvaus!} noMargin />
       ),
     },
     {
       icon: <EuroIcon className={classes.koulutusInfoGridIcon} />,
       title:
-        opetus?.maksullisuustyyppi === 'lukuvuosimaksu'
+        opetus?.maksullisuustyyppi === MAKSULLISUUSTYYPPI.LUKUVUOSIMAKSU
           ? t('toteutus.lukuvuosimaksu')
           : t('toteutus.maksullisuus'),
       text: maksullisuusString,
-      modalText: !_.isEmpty(opetus.maksullisuusKuvaus) && (
+      modalText: !isEmpty(opetus.maksullisuusKuvaus) && (
         <LocalizedHTML data={opetus.maksullisuusKuvaus!} noMargin />
-      ),
-    },
-    {
-      icon: 'ApurahaIcon',
-      title: t('toteutus.apuraha'),
-      text: apurahaString,
-      modalText: !_.isEmpty(opetus?.apuraha?.kuvaus) && (
-        <LocalizedHTML data={opetus.apuraha?.kuvaus!} noMargin />
       ),
     }
   );
 
+  if (opetus?.maksullisuustyyppi === MAKSULLISUUSTYYPPI.LUKUVUOSIMAKSU) {
+    perustiedotData.push({
+      icon: 'ApurahaIcon',
+      title: t('toteutus.apuraha'),
+      text: apurahaString,
+      modalText: !isEmpty(opetus?.apuraha?.kuvaus) && (
+        <LocalizedHTML data={opetus.apuraha?.kuvaus!} noMargin />
+      ),
+    });
+  }
+
   const opinnonTyyppiText = localize(opinnonTyyppi);
 
-  if (!_.isEmpty(opinnonTyyppiText)) {
+  if (!isEmpty(opinnonTyyppiText)) {
     perustiedotData.push({
       icon: <Class className={classes.koulutusInfoGridIcon} />,
       title: t('koulutus.opinnonTyyppi'),
@@ -238,7 +243,7 @@ export const ToteutusInfoGrid = ({
     });
   }
 
-  if (!_.isEmpty(tunniste)) {
+  if (!isEmpty(tunniste)) {
     perustiedotData.push({
       icon: <LabelOutlined className={classes.koulutusInfoGridIcon} />,
       title: t('koulutus.tunniste'),

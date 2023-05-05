@@ -215,7 +215,7 @@ export const theme = createTheme({
     MuiPopover: {
       styleOverrides: {
         root: {
-          border: '10px solid black',
+          boxShadow: 'inset 0 0 0 10px rgba(0, 0, 0, 1);',
           background: 'rgba(0,0,0,0.5)',
           opacity: 1,
           transition: 'all 0.5s',
