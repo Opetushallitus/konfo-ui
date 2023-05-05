@@ -53,7 +53,6 @@ export const OppilaitosinfoGrid = ({
   const paikkakunnat = localizeArrayToCommaSeparated(kotipaikat, { sorted: true });
   const opetuskielet = _fp.compose(
     _fp.join(', '),
-    _fp.map(_fp.capitalize),
     _fp.map(`nimi.${getLanguage()}`)
   )(opetuskieli);
 
