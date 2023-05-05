@@ -53,7 +53,6 @@ export const OppilaitosinfoGrid = ({
   const paikkakunnat = localizeArrayToCommaSeparated(kotipaikat, { sorted: true });
   const opetuskielet = flow(
     (k) => map(k, `nimi.${getLanguage()}`),
-    (nimet) => map(nimet, capitalize),
     (nimet) => join(nimet, ', ')
   )(opetuskieli);
 
