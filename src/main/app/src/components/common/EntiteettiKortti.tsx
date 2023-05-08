@@ -1,5 +1,3 @@
-import React from 'react';
-
 import DirectionsOutlinedIcon from '@mui/icons-material/DirectionsOutlined';
 import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
 import { Hidden, Paper, Typography, useMediaQuery, useTheme, Box } from '@mui/material';
@@ -110,7 +108,7 @@ type Props = {
   header: string;
   erityisopetusHeader?: boolean;
   kuvaus?: string;
-  iconTexts: Array<IconText | undefined | false>;
+  iconTexts: Array<IconText | undefined | false | any>;
   logoElement?: React.ReactNode;
   teemakuvaElement?: React.ReactNode;
   isSmall?: boolean;
