@@ -30,7 +30,6 @@ export const OppilaitosKortti = ({ oppilaitos, isSmall }: Props) => {
   const { t } = useTranslation();
 
   const paikkakunnatStr = localizeArrayToCommaSeparated(oppilaitos?.paikkakunnat);
-
   const kuvaus =
     localize(oppilaitos?.kuvaus).replace(/<[^>]*>/gm, '') || t('haku.ei_kuvausta');
 
@@ -47,6 +46,13 @@ export const OppilaitosKortti = ({ oppilaitos, isSmall }: Props) => {
       })
     : t('haku.ei-tutkintoon-johtamattomia-koulutuksia');
   const logoAltText = `${localize(oppilaitos)} ${t('haku.oppilaitoksen-logo')}`;
+  const iconTexts = [
+    [tutkintoonJohtavatStr, SchoolOutlined],
+    [tutkintoonJohtamattomatStr, LocalLibraryOutlined],
+    [paikkakunnatStr, PublicOutlined],
+  ]
+    .filter((it) => it[0] !== t('haku.ei-tutkintoon-johtavia-koulutuksia'))
+    .filter((it) => it[0] !== t('haku.ei-tutkintoon-johtamattomia-koulutuksia'));
 
   return (
     <EntiteettiKortti
@@ -54,11 +60,7 @@ export const OppilaitosKortti = ({ oppilaitos, isSmall }: Props) => {
       logoElement={<OppilaitosKorttiLogo image={oppilaitos?.logo} alt={logoAltText} />}
       header={localize(oppilaitos)}
       kuvaus={kuvaus}
-      iconTexts={[
-        [tutkintoonJohtavatStr, SchoolOutlined],
-        [tutkintoonJohtamattomatStr, LocalLibraryOutlined],
-        [paikkakunnatStr, PublicOutlined],
-      ]}
+      iconTexts={iconTexts}
       isSmall={isSmall}
     />
   );
