@@ -84,8 +84,8 @@ export const OppilaitosinfoGrid = ({
     },
   ];
   const filteredPerustiedotData = perustiedotData
-    .filter((perustieto) => isEmpty(perustieto.text))
-    .filter((perustieto) => isEqual(perustieto.text.trim(), '0'));
+    .filter((perustieto) => !isEmpty(perustieto.text))
+    .filter((perustieto) => !isEqual(perustieto.text.trim(), '0'));
 
   return <StyledInfoGrid gridData={filteredPerustiedotData} />;
 };
