@@ -108,6 +108,20 @@ export type Organisaatio = {
   paikkakunta: Koodi;
 };
 
+export type OppilaitosOsa = {
+  kotipaikka: {
+    koodiUri: string;
+    nimi: Translateable;
+  };
+  nimi: Translateable;
+  oid: string;
+  opetuskieli: Array<Koodi>;
+  oppilaitoksenOsa?: any;
+  organissationTyyppi: Array<Koodi>;
+  parentToimipisteOid?: string;
+  status: string;
+};
+
 export type Hakutieto = {
   hakuOid: string;
   hakukohteet: Array<Hakukohde>;

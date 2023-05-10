@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
@@ -14,7 +14,7 @@ import {
   Typography,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { isEmpty, sortBy, toPairs, some, every, map } from 'lodash';
+import { isEmpty, sortBy, toPairs, some, every, map, get, find } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -30,7 +30,7 @@ import { useOsoitteet } from '#/src/tools/useOppilaitosOsoite';
 import { useUrlParams } from '#/src/tools/useUrlParams';
 import { formatDateString, formatDouble } from '#/src/tools/utils';
 import { Hakukohde } from '#/src/types/HakukohdeTypes';
-import { Toteutus } from '#/src/types/ToteutusTypes';
+import { OppilaitosOsa, Toteutus } from '#/src/types/ToteutusTypes';
 
 import { HakutietoTable } from './HakutietoTable';
 import { formatAloitus } from './utils';
@@ -78,9 +78,16 @@ type GridProps = {
   icon: JSX.Element;
   toteutus?: Toteutus;
   hakukohteet: Array<Hakukohde>;
+  oppilaitosOsat?: Array<OppilaitosOsa>;
 };
 
-const HakuCardGrid = ({ tyyppiOtsikko, icon, toteutus, hakukohteet }: GridProps) => {
+const HakuCardGrid = ({
+  tyyppiOtsikko,
+  icon,
+  toteutus,
+  hakukohteet,
+  oppilaitosOsat,
+}: GridProps) => {
   const { t } = useTranslation();
 
   const { data: demoLinks } = useDemoLinks(hakukohteet);
@@ -97,7 +104,22 @@ const HakuCardGrid = ({ tyyppiOtsikko, icon, toteutus, hakukohteet }: GridProps)
   const { osoitteet } = useOsoitteet(oppilaitosOids, true);
 
   const { isDraft } = useUrlParams();
-
+  function getFullToimipisteNimi(oid: string) {
+    const toimipiste = find(oppilaitosOsat, function (opOsa) {
+      if (get(opOsa, 'oid', 'toimipiste oid not found') === oid) return true;
+    });
+    const parentToimipiste = find(oppilaitosOsat, function (opOsa) {
+      if (
+        get(opOsa, 'oid', 'toimipisteNotFound') ===
+        get(toimipiste, 'parentToimipisteOid', 'parentNotFound')
+      )
+        return true;
+    });
+    return [parentToimipiste, toimipiste]
+      .filter(Boolean)
+      .map((tp) => localize(tp))
+      .join(', ');
+  }
   return (
     <Box marginY={3}>
       <Box ml={2} display="flex" justifyContent="center">
@@ -119,7 +141,8 @@ const HakuCardGrid = ({ tyyppiOtsikko, icon, toteutus, hakukohteet }: GridProps)
             const jarjestyspaikka =
               hakukohde.jarjestyspaikka &&
               [
-                localize(hakukohde.jarjestyspaikka.nimi),
+                getFullToimipisteNimi(hakukohde.jarjestyspaikka.oid) ||
+                  localize(hakukohde.jarjestyspaikka),
                 getJarjestyspaikkaYhteystiedot(hakukohde.jarjestyspaikka, osoitteet),
               ]
                 .filter(Boolean)
@@ -324,9 +347,10 @@ const getHakutyyppiIcon = (koodiUri: keyof typeof typeToIconMap) =>
 
 type Props = {
   toteutus?: Toteutus;
+  oppilaitosOsat?: Array<OppilaitosOsa>;
 };
 
-export const ToteutusHakukohteet = ({ toteutus }: Props) => {
+export const ToteutusHakukohteet = ({ toteutus, oppilaitosOsat }: Props) => {
   const { t } = useTranslation();
 
   const hakukohteetByHakutapa = toteutus?.hakukohteetByHakutapa;
@@ -362,6 +386,7 @@ export const ToteutusHakukohteet = ({ toteutus }: Props) => {
                 hakukohteet={hks}
                 icon={<IconComponent />}
                 key={hakutapaKoodiUri}
+                oppilaitosOsat={oppilaitosOsat}
               />
             );
           })}
