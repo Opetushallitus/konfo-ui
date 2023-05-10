@@ -5,7 +5,7 @@ import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
 import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined';
 import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import { styled } from '@mui/material/styles';
-import { flow, map, join, toString, capitalize, isEmpty, isEqual } from 'lodash';
+import { flow, map, join, toString, isEmpty, isEqual } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { InfoGrid } from '#/src/components/common/InfoGrid';
