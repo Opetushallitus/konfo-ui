@@ -105,16 +105,16 @@ const HakuCardGrid = ({
 
   const { isDraft } = useUrlParams();
   function getFullToimipisteNimi(oid: string) {
-    const toimipiste = find(oppilaitosOsat, function (opOsa) {
-      if (get(opOsa, 'oid', 'toimipiste oid not found') === oid) return true;
-    });
-    const parentToimipiste = find(oppilaitosOsat, function (opOsa) {
-      if (
+    const toimipiste = find(
+      oppilaitosOsat,
+      (opOsa) => get(opOsa, 'oid', 'toimipiste oid not found') === oid
+    );
+    const parentToimipiste = find(
+      oppilaitosOsat,
+      (opOsa) =>
         get(opOsa, 'oid', 'toimipisteNotFound') ===
         get(toimipiste, 'parentToimipisteOid', 'parentNotFound')
-      )
-        return true;
-    });
+    );
     return [parentToimipiste, toimipiste]
       .filter(Boolean)
       .map((tp) => localize(tp))
