@@ -1,5 +1,5 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { pick, some, size as _size, sortBy, concat } from 'lodash';
+import { pick, some, size as _size, sortBy, concat, isEqual } from 'lodash';
 import qs from 'query-string';
 
 import { FILTER_TYPES_ARR } from '#/src/constants';
@@ -203,7 +203,7 @@ export const getAPIRequestParams = createSelector(
     taydennyskoulutus,
     yhteishaku: getCheckedFiltersIdsStr(yhteishaku),
     pohjakoulutusvaatimus: getCheckedFiltersIdsStr(pohjakoulutusvaatimus),
-    koulutuksenkestokuukausina: _.isEqual(
+    koulutuksenkestokuukausina: isEqual(
       koulutuksenkestokuukausina,
       KOULUTUKSENKESTO_UNLIMITED
     )

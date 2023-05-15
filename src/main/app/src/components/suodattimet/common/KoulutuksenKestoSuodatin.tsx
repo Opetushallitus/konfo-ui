@@ -3,7 +3,7 @@ import React from 'react';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import _ from 'lodash';
+import { toInteger, nth } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { FilterValues, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
@@ -16,9 +16,9 @@ import {
 } from '../../common/Filter/CustomizedMuiComponents';
 
 const numberValues = (filterValues: FilterValues | undefined) => {
-  const filterValue = _.nth(filterValues, 0);
-  const firstNumVal = _.toInteger(_.nth(filterValue?.anyValue, 0));
-  const secondNumVal = _.toInteger(_.nth(filterValue?.anyValue, 1));
+  const filterValue = nth(filterValues, 0);
+  const firstNumVal = toInteger(nth(filterValue?.anyValue, 0));
+  const secondNumVal = toInteger(nth(filterValue?.anyValue, 1));
   return [Math.min(firstNumVal, secondNumVal), Math.max(firstNumVal, secondNumVal)];
 };
 
@@ -66,8 +66,8 @@ export const KoulutuksenKestoSuodatin = ({
     _e: React.SyntheticEvent | Event,
     rangeValues: any
   ) => {
-    const min = _.toInteger(_.nth(rangeValues, 0));
-    const max = _.toInteger(_.nth(rangeValues, 1));
+    const min = toInteger(nth(rangeValues, 0));
+    const max = toInteger(nth(rangeValues, 1));
     setRangeHeader(`${valueText(min)} - ${valueText(max)}`);
     setShowSliderInternalValues(false);
     setFilters({ koulutuksenkestokuukausina: [min, max] });
