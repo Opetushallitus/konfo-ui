@@ -19,11 +19,7 @@ import {
 } from '#/src/constants';
 import { getLanguage } from '#/src/tools/localization';
 
-import {
-  KOULUTUKSENKESTO_UNLIMITED,
-  getAPIRequestParams,
-  getHakuUrl,
-} from './hakutulosSliceSelector';
+import { getAPIRequestParams, getHakuUrl } from './hakutulosSliceSelector';
 
 export const initialState = {
   selectedTab: 'koulutus',
@@ -57,7 +53,7 @@ export const initialState = {
   lukiolinjaterityinenkoulutustehtava: [],
   osaamisala: [],
   opetusaika: [],
-  koulutuksenkestokuukausina: KOULUTUKSENKESTO_UNLIMITED,
+  koulutuksenkestokuukausina: [],
 };
 
 const hakutulosSlice = createSlice({
@@ -98,7 +94,7 @@ const hakutulosSlice = createSlice({
       state.lukiolinjaterityinenkoulutustehtava = [];
       state.osaamisala = [];
       state.opetusaika = [];
-      state.koulutuksenkestokuukausina = KOULUTUKSENKESTO_UNLIMITED;
+      state.koulutuksenkestokuukausina = [];
 
       resetPagination(state);
     },

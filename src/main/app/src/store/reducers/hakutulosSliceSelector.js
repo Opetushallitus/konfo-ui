@@ -1,5 +1,5 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { pick, some, size as _size, sortBy, concat, isEqual } from 'lodash';
+import { pick, some, size as _size, sortBy, concat } from 'lodash';
 import qs from 'query-string';
 
 import { FILTER_TYPES_ARR } from '#/src/constants';
@@ -65,8 +65,6 @@ export const getOrder = (state) => state.hakutulos.order;
 export const getSort = (state) => state.hakutulos.sort;
 
 export const getSortOrder = (state) => state.hakutulos.sort + '_' + state.hakutulos.order;
-
-export const KOULUTUKSENKESTO_UNLIMITED = [0, 72]; // 0 - 6 vuotta
 
 //Selectors
 export const getIsAnyFilterSelected = createSelector(
@@ -203,12 +201,7 @@ export const getAPIRequestParams = createSelector(
     taydennyskoulutus,
     yhteishaku: getCheckedFiltersIdsStr(yhteishaku),
     pohjakoulutusvaatimus: getCheckedFiltersIdsStr(pohjakoulutusvaatimus),
-    koulutuksenkestokuukausina: isEqual(
-      koulutuksenkestokuukausina,
-      KOULUTUKSENKESTO_UNLIMITED
-    )
-      ? ''
-      : getCheckedFiltersIdsStr(koulutuksenkestokuukausina),
+    koulutuksenkestokuukausina: getCheckedFiltersIdsStr(koulutuksenkestokuukausina),
   })
 );
 
