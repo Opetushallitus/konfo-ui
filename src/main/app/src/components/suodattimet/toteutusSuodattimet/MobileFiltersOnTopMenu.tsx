@@ -27,6 +27,7 @@ import { ValintatapaSuodatin } from '#/src/components/suodattimet/common/Valinta
 import { KOULUTUS_TYYPPI, KORKEAKOULU_KOULUTUSTYYPIT } from '#/src/constants';
 import { FilterValue } from '#/src/types/SuodatinTypes';
 
+import { KoulutuksenKestoSuodatin } from '../common/KoulutuksenKestoSuodatin';
 import { OpetusaikaSuodatin } from '../common/OpetusaikaSuodatin';
 import { AmmOsaamisalatSuodatin } from './AmmOsaamisalatSuodatin';
 import { LukiolinjatSuodatin } from './LukiolinjatSuodatin';
@@ -236,6 +237,12 @@ export const MobileFiltersOnTopMenu = ({
           <OpetustapaSuodatin
             expanded={false}
             values={values.opetustapa}
+            setFilters={setFilters}
+          />
+          <Divider className={classes.divider} />
+          <KoulutuksenKestoSuodatin
+            expanded={false}
+            values={values.koulutuksenkestokuukausina}
             setFilters={setFilters}
           />
           <Divider className={classes.divider} />

@@ -33,6 +33,7 @@ import {
 } from '../../haku/hakutulosHooks';
 import { HakuKaynnissaSuodatin } from '../common/HakuKaynnissaSuodatin';
 import { HakutapaSuodatin } from '../common/HakutapaSuodatin';
+import { KoulutuksenKestoSuodatin } from '../common/KoulutuksenKestoSuodatin';
 import { OpetusaikaSuodatin } from '../common/OpetusaikaSuodatin';
 import { OpetuskieliSuodatin } from '../common/OpetusKieliSuodatin';
 import { OpetustapaSuodatin } from '../common/OpetustapaSuodatin';
@@ -240,6 +241,13 @@ export const MobileFiltersOnTopMenu = () => {
             expanded={false}
             displaySelected
             values={useFilterProps(FILTER_TYPES.OPETUSTAPA)}
+            setFilters={setFilters}
+          />
+          <Divider className={classes.divider} />
+          <KoulutuksenKestoSuodatin
+            expanded={false}
+            displaySelected
+            values={useFilterProps(FILTER_TYPES.KOULUTUKSENKESTOKUUKAUSINA)}
             setFilters={setFilters}
           />
           <Divider className={classes.divider} />

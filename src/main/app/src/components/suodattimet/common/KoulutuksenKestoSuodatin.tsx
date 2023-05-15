@@ -16,9 +16,9 @@ import {
 } from '../../common/Filter/CustomizedMuiComponents';
 
 const numberValues = (filterValues: FilterValues | undefined) => {
-  const filterValue = nth(filterValues, 0);
-  const firstNumVal = toInteger(nth(filterValue?.anyValue, 0));
-  const secondNumVal = toInteger(nth(filterValue?.anyValue, 1));
+  const anyValue = nth(filterValues, 0)?.anyValue;
+  const firstNumVal = anyValue && anyValue.length > 0 ? toInteger(anyValue[0]) : 0;
+  const secondNumVal = anyValue && anyValue.length > 1 ? toInteger(anyValue[1]) : 72;
   return [Math.min(firstNumVal, secondNumVal), Math.max(firstNumVal, secondNumVal)];
 };
 
@@ -38,7 +38,7 @@ export const KoulutuksenKestoSuodatin = ({
   const [showSliderInternalValues, setShowSliderInternalValues] =
     React.useState<boolean>(false);
   const [sliderInternalValues, setSliderInternalValues] = React.useState<Array<number>>([
-    0, 0,
+    0, 72,
   ]);
   const [rangeHeader, setRangeHeader] = React.useState<string>('');
   const marks = [
@@ -70,7 +70,8 @@ export const KoulutuksenKestoSuodatin = ({
     const max = toInteger(nth(rangeValues, 1));
     setRangeHeader(`${valueText(min)} - ${valueText(max)}`);
     setShowSliderInternalValues(false);
-    setFilters({ koulutuksenkestokuukausina: [min, max] });
+    const valueRange = min !== 0 || max !== 72 ? [min, max] : [];
+    setFilters({ koulutuksenkestokuukausina: valueRange });
   };
 
   const valueText = (val: number) => {
