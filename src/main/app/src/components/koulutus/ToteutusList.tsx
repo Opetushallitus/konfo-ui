@@ -4,7 +4,7 @@ import EuroSymbolIcon from '@mui/icons-material/EuroSymbol';
 import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
 import PublicIcon from '@mui/icons-material/Public';
 import { Box, Grid, Hidden, Typography } from '@mui/material';
-import { mapValues, some } from 'lodash';
+import { mapValues, some, nth, includes } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { match } from 'ts-pattern';
@@ -32,6 +32,7 @@ import {
   getFilterWithChecked,
   sortValues,
   getFilterStateChangesForDelete,
+  ANYVALUE_FILTER_TYPES,
 } from '#/src/tools/filters';
 import {
   localize,
@@ -42,6 +43,7 @@ import { getLocalizedOpintojenLaajuus } from '#/src/tools/utils';
 import { FilterValue } from '#/src/types/SuodatinTypes';
 import { Jarjestaja } from '#/src/types/ToteutusTypes';
 
+import { KoulutuksenKestoSuodatin } from '../suodattimet/common/KoulutuksenKestoSuodatin';
 import { OpetusaikaSuodatin } from '../suodattimet/common/OpetusaikaSuodatin';
 import { ChipList } from '../suodattimet/hakutulosSuodattimet/SuodatinValinnat';
 import { LukiolinjatSuodatin } from '../suodattimet/toteutusSuodattimet/LukiolinjatSuodatin';
@@ -122,6 +124,20 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                   id: k,
                   count: 1,
                   filterId: k,
+                },
+              ]
+            : [];
+        }
+        if (includes(ANYVALUE_FILTER_TYPES, k)) {
+          const anyValue = filters[k];
+          const usedValue: FilterValue | undefined = nth(usedValues[k], 0);
+          return anyValue
+            ? [
+                {
+                  anyValue,
+                  id: k,
+                  filterId: k,
+                  count: usedValue ? usedValue.count : 0,
                 },
               ]
             : [];
@@ -257,6 +273,13 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                 <OpetusaikaSuodatin
                   elevation={2}
                   values={usedValues.opetusaika}
+                  setFilters={setFilters}
+                />
+              </SuodatinGridItem>
+              <SuodatinGridItem>
+                <KoulutuksenKestoSuodatin
+                  elevation={2}
+                  values={usedValues.koulutuksenkestokuukausina}
                   setFilters={setFilters}
                 />
               </SuodatinGridItem>

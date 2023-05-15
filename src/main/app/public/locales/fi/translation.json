@@ -275,7 +275,10 @@
     "tyoelama-ja-taydennyskoulutukset": "Työelämä- ja täydennyskoulutukset",
     "taydennyskoulutus": "Täydennyskoulutus",
     "tyovoimakoulutus": "Työvoimakoulutus",
-    "muu": "Muu koulutus"
+    "muu": "Muu koulutus",
+    "koulutuksenkestokuukausina": "Koulutuksen kesto",
+    "lyhenne-vuosi": "v",
+    "lyhenne-kuukausi": "kk"
   },
   "navigaatio": {
     "edellinen": "Edellinen",

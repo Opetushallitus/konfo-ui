@@ -9,6 +9,7 @@ import { FILTER_TYPES } from '#/src/constants';
 
 import { HakuKaynnissaSuodatin } from '../../suodattimet/common/HakuKaynnissaSuodatin';
 import { HakutapaSuodatin } from '../../suodattimet/common/HakutapaSuodatin';
+import { KoulutuksenKestoSuodatin } from '../../suodattimet/common/KoulutuksenKestoSuodatin';
 import { OpetusaikaSuodatin } from '../../suodattimet/common/OpetusaikaSuodatin';
 import { OpetuskieliSuodatin } from '../../suodattimet/common/OpetusKieliSuodatin';
 import { OpetustapaSuodatin } from '../../suodattimet/common/OpetustapaSuodatin';
@@ -119,6 +120,12 @@ export const Suodatinpalkki = () => {
         expanded={false}
         elevation={2}
         values={useFilterProps(FILTER_TYPES.OPETUSTAPA)}
+        setFilters={setFilters}
+      />
+      <KoulutuksenKestoSuodatin
+        expanded
+        elevation={2}
+        values={useFilterProps(FILTER_TYPES.KOULUTUKSENKESTOKUUKAUSINA)}
         setFilters={setFilters}
       />
     </StyledGrid>

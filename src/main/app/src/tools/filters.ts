@@ -16,6 +16,10 @@ export const BOOLEAN_FILTER_TYPES: Array<string> = [
   FILTER_TYPES.TAYDENNYSKOULUTUS,
 ];
 
+export const ANYVALUE_FILTER_TYPES: Array<string> = [
+  FILTER_TYPES.KOULUTUKSENKESTOKUUKAUSINA,
+];
+
 // NOTE: Tämä funktio hoitaa kovakoodatut rakenteet erikoisemmille suodattimille e.g. hakukaynnissa / hakutapa + yhteishaku
 export const getFilterWithChecked = (
   filters: Record<string, any> | undefined,
@@ -40,6 +44,18 @@ export const getFilterWithChecked = (
         filterId: filterId,
         count: filter.count,
         checked: Boolean(allCheckedValues[filterId]),
+      },
+    };
+  }
+
+  if (includes(ANYVALUE_FILTER_TYPES, filterId)) {
+    return {
+      [filterId]: {
+        id: filterId,
+        filterId: filterId,
+        count: filter.count,
+        checked: Boolean(allCheckedValues[filterId]),
+        anyValue: allCheckedValues[filterId],
       },
     };
   }

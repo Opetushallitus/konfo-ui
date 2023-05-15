@@ -4,7 +4,7 @@ import { Grid, Typography } from '@mui/material';
 import { toString, min, max } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
-import { SuodatinMobileSlider } from '#/src/components/common/Filter/CustomizedMuiComponents';
+import { SuodatinSlider } from '#/src/components/common/Filter/CustomizedMuiComponents';
 import { pageSizeArray } from '#/src/constants';
 
 import { useSearch } from '../hakutulosHooks';
@@ -36,7 +36,7 @@ export const MobileResultsPerPageExpansionMenu = () => {
         </Typography>
       </Grid>
       <Grid item xs={12} sm>
-        <SuodatinMobileSlider
+        <SuodatinSlider
           value={size}
           track={false}
           min={min(pageSizeArray)}
