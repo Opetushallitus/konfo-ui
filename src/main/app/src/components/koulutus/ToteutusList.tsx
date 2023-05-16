@@ -131,7 +131,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
         if (includes(ANYVALUE_FILTER_TYPES, k)) {
           const anyValue = filters[k];
           const usedValue: FilterValue | undefined = nth(usedValues[k], 0);
-          return anyValue
+          return anyValue && anyValue.length > 0
             ? [
                 {
                   anyValue,
