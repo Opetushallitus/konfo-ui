@@ -20,6 +20,7 @@ import { KoulutusalaSuodatin } from '#/src/components/suodattimet/hakutulosSuoda
 import { KoulutustyyppiSuodatin } from '#/src/components/suodattimet/hakutulosSuodattimet/KoulutustyyppiSuodatin';
 import { FILTER_TYPES } from '#/src/constants';
 
+import { OpetusaikaSuodatin } from '../suodattimet/common/OpetusaikaSuodatin';
 import { Suodatin } from './Suodatin';
 
 const PREFIX = 'HakupalkkiFilters';
@@ -60,6 +61,19 @@ export const HakupalkkiFilters = () => {
         children={
           <OpetuskieliSuodatin
             values={useFilterProps(FILTER_TYPES.OPETUSKIELI)}
+            setFilters={setFilters}
+            expanded={true}
+            summaryHidden={true}
+          />
+        }
+        id="opetuskieli"
+        header={t('haku.opetuskieli')}
+      />
+      <Divider orientation="vertical" flexItem />
+      <Suodatin
+        children={
+          <OpetusaikaSuodatin
+            values={useFilterProps(FILTER_TYPES.OPETUSAIKA)}
             setFilters={setFilters}
             expanded={true}
             summaryHidden={true}

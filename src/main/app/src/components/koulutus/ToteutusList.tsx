@@ -42,6 +42,7 @@ import { getLocalizedOpintojenLaajuus } from '#/src/tools/utils';
 import { FilterValue } from '#/src/types/SuodatinTypes';
 import { Jarjestaja } from '#/src/types/ToteutusTypes';
 
+import { OpetusaikaSuodatin } from '../suodattimet/common/OpetusaikaSuodatin';
 import { ChipList } from '../suodattimet/hakutulosSuodattimet/SuodatinValinnat';
 import { LukiolinjatSuodatin } from '../suodattimet/toteutusSuodattimet/LukiolinjatSuodatin';
 import { MobileFiltersOnTopMenu } from '../suodattimet/toteutusSuodattimet/MobileFiltersOnTopMenu';
@@ -249,6 +250,13 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                 <OppilaitosSuodatin
                   elevation={2}
                   values={usedValues.oppilaitos}
+                  setFilters={setFilters}
+                />
+              </SuodatinGridItem>
+              <SuodatinGridItem>
+                <OpetusaikaSuodatin
+                  elevation={2}
+                  values={usedValues.opetusaika}
                   setFilters={setFilters}
                 />
               </SuodatinGridItem>
