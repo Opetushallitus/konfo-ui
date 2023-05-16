@@ -146,12 +146,18 @@ export const getFilterStateChanges =
 export const getFilterStateChangesForDelete =
   (values: Array<FilterValue>) => (item: FilterValue) => {
     const retVal = getFilterStateChanges(values)(item);
+    const retValWithAnyValues = ANYVALUE_FILTER_TYPES.includes(item.filterId)
+      ? omit(
+          { ...retVal, [item.filterId]: [] },
+          without(ANYVALUE_FILTER_TYPES, item.filterId)
+        )
+      : omit(retVal, ANYVALUE_FILTER_TYPES);
     const retValWithBooleanValues = BOOLEAN_FILTER_TYPES.includes(item.filterId)
       ? omit(
-          { ...retVal, [item.filterId]: !item.checked },
+          { ...retValWithAnyValues, [item.filterId]: !item.checked },
           without(BOOLEAN_FILTER_TYPES, item.filterId)
         )
-      : omit(retVal, BOOLEAN_FILTER_TYPES);
+      : omit(retValWithAnyValues, BOOLEAN_FILTER_TYPES);
 
     return retValWithBooleanValues;
   };

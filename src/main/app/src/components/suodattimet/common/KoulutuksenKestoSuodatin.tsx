@@ -3,7 +3,7 @@ import React from 'react';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import { toInteger, nth } from 'lodash';
+import { toInteger, nth, isEqual } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { FilterValues, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
@@ -37,10 +37,11 @@ export const KoulutuksenKestoSuodatin = ({
 
   const [showSliderInternalValues, setShowSliderInternalValues] =
     React.useState<boolean>(false);
+
   const [sliderInternalValues, setSliderInternalValues] = React.useState<Array<number>>([
     0, 72,
   ]);
-  const [rangeHeader, setRangeHeader] = React.useState<string>('');
+
   const marks = [
     { value: 0, label: '' },
     { value: 12, label: yearsAbbr(1) },
@@ -53,6 +54,7 @@ export const KoulutuksenKestoSuodatin = ({
 
   const sliderValues = () =>
     showSliderInternalValues ? sliderInternalValues : numberValues(values);
+
   const handleSliderValueChange = (
     _e: Event,
     newValue: number | Array<number>,
@@ -68,7 +70,8 @@ export const KoulutuksenKestoSuodatin = ({
   ) => {
     const min = toInteger(nth(rangeValues, 0));
     const max = toInteger(nth(rangeValues, 1));
-    setRangeHeader(`${valueText(min)} - ${valueText(max)}`);
+    setShowSliderInternalValues(true);
+    setSliderInternalValues([min, max]);
     setShowSliderInternalValues(false);
     const valueRange = min !== 0 || max !== 72 ? [min, max] : [];
     setFilters({ koulutuksenkestokuukausina: valueRange });
@@ -90,6 +93,13 @@ export const KoulutuksenKestoSuodatin = ({
     }
   };
 
+  const rangeHeader = () => {
+    const rangeValues = numberValues(values);
+    return isEqual(rangeValues, [0, 72])
+      ? ''
+      : `${valueText(rangeValues[0])} - ${valueText(rangeValues[1])}`;
+  };
+
   return (
     <SuodatinAccordion elevation={elevation} defaultExpanded={expanded} square>
       {!summaryHidden && (
@@ -104,7 +114,7 @@ export const KoulutuksenKestoSuodatin = ({
                 {t('haku.koulutuksenkestokuukausina')}
               </Typography>
             </Grid>
-            {displaySelected && <Grid item>{rangeHeader}</Grid>}
+            {displaySelected && <Grid item>{rangeHeader()}</Grid>}
           </Grid>
         </SuodatinAccordionSummary>
       )}
