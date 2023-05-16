@@ -115,6 +115,7 @@ const StyledSuodatinAccordion = styled(SuodatinAccordion)(({ theme }) => ({
 
 type CheckboxProps = {
   value: FilterValue;
+  isCountVisible?: boolean;
   handleCheck: (v: FilterValue) => void;
   indented?: boolean;
   expandButton?: JSX.Element;
@@ -123,14 +124,14 @@ type CheckboxProps = {
 const FilterCheckbox = ({
   handleCheck,
   indented,
+  isCountVisible,
   value,
   expandButton,
 }: CheckboxProps) => {
   const { t } = useTranslation();
   const { count, id, nimi, checked } = value;
   const labelId = `filter-list-label-${id}`;
-  const config = useConfig();
-  const naytaFiltterienHakutulosLuvut = config.naytaFiltterienHakutulosLuvut;
+
   return (
     <ListItem
       key={id}
@@ -138,7 +139,7 @@ const FilterCheckbox = ({
       button
       onClick={() => handleCheck(value)}
       className={indented ? classes.indentedCheckbox : ''}
-      style={!indented && naytaFiltterienHakutulosLuvut ? { paddingRight: '48px' } : {}}>
+      style={!indented && isCountVisible ? { paddingRight: '48px' } : {}}>
       <ListItemIcon>
         <KonfoCheckbox
           edge="start"
@@ -160,7 +161,7 @@ const FilterCheckbox = ({
         }
       />
       {expandButton && <ListItemIcon>{expandButton}</ListItemIcon>}
-      {naytaFiltterienHakutulosLuvut && (
+      {isCountVisible && (
         <ListItemSecondaryAction style={{ right: '4px' }}>
           {`(${count})`}
         </ListItemSecondaryAction>
@@ -171,12 +172,14 @@ const FilterCheckbox = ({
 
 const FilterCheckboxGroup = ({
   defaultExpandAlakoodit,
+  isCountVisible,
   handleCheck,
   value,
 }: {
   defaultExpandAlakoodit: boolean;
   handleCheck: (v: FilterValue) => void;
   value: FilterValue;
+  isCountVisible?: boolean;
 }) => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(defaultExpandAlakoodit);
@@ -184,11 +187,13 @@ const FilterCheckboxGroup = ({
     e.stopPropagation();
     setIsOpen(!isOpen);
   };
+
   return (
     <>
       <FilterCheckbox
         value={value}
         handleCheck={handleCheck}
+        isCountVisible={isCountVisible}
         expandButton={
           <IconButton
             size="small"
@@ -204,7 +209,13 @@ const FilterCheckboxGroup = ({
       />
       {isOpen &&
         value.alakoodit?.map((v) => (
-          <FilterCheckbox key={v.id} value={v} handleCheck={handleCheck} indented />
+          <FilterCheckbox
+            key={v.id}
+            value={v}
+            handleCheck={handleCheck}
+            indented
+            isCountVisible={isCountVisible}
+          />
         ))}
     </>
   );
@@ -230,6 +241,7 @@ type Props = {
   additionalContent?: JSX.Element;
   isHaku?: boolean;
   setFilters: (value: any) => void;
+  isCountVisible?: boolean;
 };
 
 export const isIndeterminate = (v: FilterValue) =>
@@ -243,7 +255,7 @@ export const Filter = ({
   elevation = 0,
   // display selected kertoo että näytetään infoa valituista,
   // summaryHidden kertoo että näytetään mutta ei haluta näyttää tekstiä
-  // TODO: Liikaa boolean propseja, tekee huonon komponenttirajapinnan
+  // TODO: Liikaa boolean propseja -> huono komponenttirajapinta
   displaySelected = false,
   summaryHidden = false,
   values,
@@ -256,10 +268,14 @@ export const Filter = ({
   defaultExpandAlakoodit = false,
   onFocus,
   onHide,
+  isCountVisible: isCountVisibleProp = true,
 }: Props) => {
   const { t } = useTranslation();
   const [hideRest, setHideRest] = useState(expandValues);
   const usedName = [name, values?.length === 0 && '(0)'].filter(Boolean).join(' ');
+
+  const config = useConfig();
+  const isCountVisible = isCountVisibleProp && config?.naytaFiltterienHakutulosLuvut;
 
   return (
     <StyledSuodatinAccordion
@@ -323,6 +339,7 @@ export const Filter = ({
                       key={value.id}
                       value={value}
                       handleCheck={handleCheck}
+                      isCountVisible={isCountVisible}
                     />
                   ) : (
                     <FilterCheckboxGroup
@@ -330,6 +347,7 @@ export const Filter = ({
                       defaultExpandAlakoodit={defaultExpandAlakoodit}
                       value={value}
                       handleCheck={handleCheck}
+                      isCountVisible={isCountVisible}
                     />
                   );
                 })}
