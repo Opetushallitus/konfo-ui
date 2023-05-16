@@ -7,17 +7,17 @@ import {
   SearchOutlined,
 } from '@mui/icons-material';
 import {
+  Box,
   Button,
   CircularProgress,
   Grid,
   IconButton,
   List,
   ListItem,
+  ListItemButton,
   ListItemIcon,
-  ListItemSecondaryAction,
   Typography,
 } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import Select, {
@@ -44,7 +44,7 @@ import { SummaryContent } from './SummaryContent';
 
 const HIDE_NOT_EXPANDED_AMOUNT = 5;
 
-type OptionType = { label: string; checked?: boolean };
+type OptionType = { label: string; checked?: boolean; id?: string };
 
 type OptionsType = Array<OptionType>;
 
@@ -84,37 +84,31 @@ type OptionProps = RSOptionProps<OptionType, false, GroupBase<OptionType>>;
 const Option = React.forwardRef(
   ({ data, innerProps, isFocused }: OptionProps, ref: any) => {
     // innerProps contain interaction functions e.g. onClick
+
     return (
-      <ListItem ref={ref} dense button {...innerProps} selected={isFocused}>
-        <KonfoCheckbox
-          checked={data?.checked}
-          disableRipple
-          role="presentation"
-          style={{ pointerEvents: 'none' }}
-        />
-        {data?.label}
+      <ListItem key={data?.id} disablePadding>
+        <ListItemButton
+          ref={ref}
+          {...innerProps}
+          dense
+          disableGutters
+          selected={isFocused}>
+          <KonfoCheckbox
+            checked={data?.checked}
+            disableRipple
+            role="presentation"
+            style={{ pointerEvents: 'none' }}
+          />
+          {data?.label}
+        </ListItemButton>
       </ListItem>
     );
   }
 );
 
-const classes = {
-  buttonLabel: 'buttonLabel',
-  indentedCheckbox: 'indentedCheckbox',
-};
-
-const StyledSuodatinAccordion = styled(SuodatinAccordion)(({ theme }) => ({
-  [`& .${classes.buttonLabel}`]: {
-    fontSize: 14,
-  },
-
-  [`& .${classes.indentedCheckbox}`]: {
-    paddingLeft: theme.spacing(2.2),
-  },
-}));
-
 type CheckboxProps = {
   value: FilterValue;
+  isCountVisible?: boolean;
   handleCheck: (v: FilterValue) => void;
   indented?: boolean;
   expandButton?: JSX.Element;
@@ -123,60 +117,62 @@ type CheckboxProps = {
 const FilterCheckbox = ({
   handleCheck,
   indented,
+  isCountVisible,
   value,
   expandButton,
 }: CheckboxProps) => {
   const { t } = useTranslation();
   const { count, id, nimi, checked } = value;
   const labelId = `filter-list-label-${id}`;
-  const config = useConfig();
-  const naytaFiltterienHakutulosLuvut = config.naytaFiltterienHakutulosLuvut;
+
   return (
-    <ListItem
-      key={id}
-      dense
-      button
-      onClick={() => handleCheck(value)}
-      className={indented ? classes.indentedCheckbox : ''}
-      style={!indented && naytaFiltterienHakutulosLuvut ? { paddingRight: '48px' } : {}}>
-      <ListItemIcon>
-        <KonfoCheckbox
-          edge="start"
-          checked={checked}
-          indeterminateIcon={<IndeterminateCheckBoxOutlined />}
-          indeterminate={isIndeterminate(value)}
-          tabIndex={-1}
-          disableRipple
-          inputProps={{ 'aria-labelledby': labelId }}
+    <ListItem key={id} disablePadding>
+      <ListItemButton
+        dense
+        disableGutters
+        onClick={() => handleCheck(value)}
+        sx={{
+          marginLeft: indented ? 2 : 0,
+        }}>
+        <ListItemIcon>
+          <KonfoCheckbox
+            edge="start"
+            checked={checked}
+            indeterminateIcon={<IndeterminateCheckBoxOutlined />}
+            indeterminate={isIndeterminate(value)}
+            tabIndex={-1}
+            disableRipple
+            inputProps={{ 'aria-labelledby': labelId }}
+          />
+        </ListItemIcon>
+        <SuodatinListItemText
+          id={labelId}
+          primary={
+            // Kaikille suodattimille ei tule backendista käännöksiä
+            <Typography style={{ wordWrap: 'break-word' }} variant="body2">
+              {localize(nimi) || t(`haku.${id}`)}
+            </Typography>
+          }
         />
-      </ListItemIcon>
-      <SuodatinListItemText
-        id={labelId}
-        primary={
-          // Kaikille suodattimille ei tule backendista käännöksiä
-          <Typography style={{ wordWrap: 'break-word' }} variant="body2">
-            {localize(nimi) || t(`haku.${id}`)}
-          </Typography>
-        }
-      />
-      {expandButton && <ListItemIcon>{expandButton}</ListItemIcon>}
-      {naytaFiltterienHakutulosLuvut && (
-        <ListItemSecondaryAction style={{ right: '4px' }}>
-          {`(${count})`}
-        </ListItemSecondaryAction>
-      )}
+        <Box paddingLeft={1}>{expandButton}</Box>
+        {isCountVisible && (
+          <Typography marginLeft={1} variant="body2">{`(${count})`}</Typography>
+        )}
+      </ListItemButton>
     </ListItem>
   );
 };
 
 const FilterCheckboxGroup = ({
   defaultExpandAlakoodit,
+  isCountVisible,
   handleCheck,
   value,
 }: {
   defaultExpandAlakoodit: boolean;
   handleCheck: (v: FilterValue) => void;
   value: FilterValue;
+  isCountVisible?: boolean;
 }) => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(defaultExpandAlakoodit);
@@ -184,11 +180,13 @@ const FilterCheckboxGroup = ({
     e.stopPropagation();
     setIsOpen(!isOpen);
   };
+
   return (
     <>
       <FilterCheckbox
         value={value}
         handleCheck={handleCheck}
+        isCountVisible={isCountVisible}
         expandButton={
           <IconButton
             size="small"
@@ -204,7 +202,13 @@ const FilterCheckboxGroup = ({
       />
       {isOpen &&
         value.alakoodit?.map((v) => (
-          <FilterCheckbox key={v.id} value={v} handleCheck={handleCheck} indented />
+          <FilterCheckbox
+            key={v.id}
+            value={v}
+            handleCheck={handleCheck}
+            indented
+            isCountVisible={isCountVisible}
+          />
         ))}
     </>
   );
@@ -230,6 +234,7 @@ type Props = {
   additionalContent?: JSX.Element;
   isHaku?: boolean;
   setFilters: (value: any) => void;
+  isCountVisible?: boolean;
 };
 
 export const isIndeterminate = (v: FilterValue) =>
@@ -243,7 +248,7 @@ export const Filter = ({
   elevation = 0,
   // display selected kertoo että näytetään infoa valituista,
   // summaryHidden kertoo että näytetään mutta ei haluta näyttää tekstiä
-  // TODO: Liikaa boolean propseja, tekee huonon komponenttirajapinnan
+  // TODO: Liikaa boolean propseja -> huono komponenttirajapinta
   displaySelected = false,
   summaryHidden = false,
   values,
@@ -256,13 +261,17 @@ export const Filter = ({
   defaultExpandAlakoodit = false,
   onFocus,
   onHide,
+  isCountVisible: isCountVisibleProp = true,
 }: Props) => {
   const { t } = useTranslation();
   const [hideRest, setHideRest] = useState(expandValues);
   const usedName = [name, values?.length === 0 && '(0)'].filter(Boolean).join(' ');
 
+  const config = useConfig();
+  const isCountVisible = isCountVisibleProp && config?.naytaFiltterienHakutulosLuvut;
+
   return (
-    <StyledSuodatinAccordion
+    <SuodatinAccordion
       disabled={values?.length === 0}
       data-cy={testId}
       elevation={elevation}
@@ -323,6 +332,7 @@ export const Filter = ({
                       key={value.id}
                       value={value}
                       handleCheck={handleCheck}
+                      isCountVisible={isCountVisible}
                     />
                   ) : (
                     <FilterCheckboxGroup
@@ -330,6 +340,7 @@ export const Filter = ({
                       defaultExpandAlakoodit={defaultExpandAlakoodit}
                       value={value}
                       handleCheck={handleCheck}
+                      isCountVisible={isCountVisible}
                     />
                   );
                 })}
@@ -339,7 +350,9 @@ export const Filter = ({
             <Button
               color="secondary"
               size="small"
-              className={classes.buttonLabel}
+              sx={{
+                fontSize: 14,
+              }}
               endIcon={hideRest ? <ExpandMore /> : <ExpandLess />}
               fullWidth
               onClick={() => setHideRest(!hideRest)}>
@@ -348,6 +361,6 @@ export const Filter = ({
           )}
         </Grid>
       </SuodatinAccordionDetails>
-    </StyledSuodatinAccordion>
+    </SuodatinAccordion>
   );
 };
