@@ -28,7 +28,7 @@ import { getHakuParams, getHakuUrl } from '#/src/store/reducers/hakutulosSliceSe
 import { localize, localizeLukiolinja } from '#/src/tools/localization';
 import { useUrlParams } from '#/src/tools/useUrlParams';
 import { getLocalizedOpintojenLaajuus, sanitizedHTMLParser } from '#/src/tools/utils';
-import { Hakutieto } from '#/src/types/ToteutusTypes';
+import { Hakutieto, OppilaitosOsa } from '#/src/types/ToteutusTypes';
 
 import { useKoulutus } from '../koulutus/hooks';
 import { PisteContainer } from '../laskuri/PisteContainer';
@@ -159,6 +159,8 @@ export const ToteutusPage = () => {
   } else if (jarjestetaanErityisopetuksena) {
     erityisopetusText = t('toteutus.tuva-erityisopetus-teksti');
   }
+  const oppilaitosOsat: Array<OppilaitosOsa> =
+    hasOppilaitokset && oppilaitokset[0]?.data?.osat;
 
   return notFound ? (
     <NotFound />
@@ -282,7 +284,7 @@ export const ToteutusPage = () => {
           />
         )}
         <Box id="haut" display="flex" justifyContent="center">
-          <ToteutusHakutiedot toteutus={toteutus} />
+          <ToteutusHakutiedot toteutus={toteutus} oppilaitosOsat={oppilaitosOsat} />
         </Box>
         {combinedLisatiedot.length > 0 && (
           <PageSection heading={t('koulutus.lisätietoa')}>
