@@ -35,24 +35,8 @@ export const OppilaitosKortti = ({ oppilaitos, isSmall }: Props) => {
 
   const tutkintoonJohtavat = oppilaitos?.koulutusohjelmatLkm?.tutkintoonJohtavat;
   const tutkintoonJohtamattomat = oppilaitos?.koulutusohjelmatLkm?.eiTutkintoonJohtavat;
-  const tutkintoonJohtavatStr = tutkintoonJohtavat
-    ? t('haku.tutkintoon-johtava-koulutus-maara', {
-        count: tutkintoonJohtavat,
-      })
-    : t('haku.ei-tutkintoon-johtavia-koulutuksia');
-  const tutkintoonJohtamattomatStr = tutkintoonJohtamattomat
-    ? t('haku.tutkintoon-johtamaton-koulutus-maara', {
-        count: tutkintoonJohtamattomat,
-      })
-    : t('haku.ei-tutkintoon-johtamattomia-koulutuksia');
+
   const logoAltText = `${localize(oppilaitos)} ${t('haku.oppilaitoksen-logo')}`;
-  const iconTexts = [
-    [tutkintoonJohtavatStr, SchoolOutlined],
-    [tutkintoonJohtamattomatStr, LocalLibraryOutlined],
-    [paikkakunnatStr, PublicOutlined],
-  ]
-    .filter((it) => it[0] !== t('haku.ei-tutkintoon-johtavia-koulutuksia'))
-    .filter((it) => it[0] !== t('haku.ei-tutkintoon-johtamattomia-koulutuksia'));
 
   return (
     <EntiteettiKortti
@@ -60,7 +44,25 @@ export const OppilaitosKortti = ({ oppilaitos, isSmall }: Props) => {
       logoElement={<OppilaitosKorttiLogo image={oppilaitos?.logo} alt={logoAltText} />}
       header={localize(oppilaitos)}
       kuvaus={kuvaus}
-      iconTexts={iconTexts}
+      iconTexts={[
+        tutkintoonJohtavat
+          ? [
+              t('haku.tutkintoon-johtava-koulutus-maara', {
+                count: tutkintoonJohtavat,
+              }),
+              SchoolOutlined,
+            ]
+          : undefined,
+        tutkintoonJohtamattomat
+          ? [
+              t('haku.tutkintoon-johtamaton-koulutus-maara', {
+                count: tutkintoonJohtamattomat,
+              }),
+              LocalLibraryOutlined,
+            ]
+          : undefined,
+        [paikkakunnatStr, PublicOutlined],
+      ]}
       isSmall={isSmall}
     />
   );
