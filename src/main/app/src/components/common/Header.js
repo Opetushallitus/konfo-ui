@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import AppsIcon from '@mui/icons-material/Apps';
 import CloseIcon from '@mui/icons-material/Close';
@@ -25,6 +25,7 @@ import { ReactComponent as OPOLogoSV } from '#/src/assets/images/opintopolku_log
 import { colors } from '#/src/colors';
 import BetaBanner from '#/src/components/common/BetaBanner';
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
+import { theme } from '#/src/theme';
 import { getLanguage } from '#/src/tools/localization';
 
 import { LanguageDropDown } from './LanguageDropDown';
@@ -45,11 +46,9 @@ const classes = {
   toolBar: `${PREFIX}-ToolBar`,
 };
 
-const StyledAppBar = styled(AppBar)(({ theme }) => ({
+const StyledAppBar = styled(AppBar)(() => ({
   position: 'fixed',
-  height: 'auto',
-  zIndex: theme.zIndex.drawer + 1,
-
+  height: theme.headerHeight,
   [`& .${classes.testiLabel}`]: {
     fontSize: 12,
     fontWeight: 'bold',
@@ -119,24 +118,28 @@ const getOpintopolkuHeaderLogo = () => {
   }
 };
 
-export const Header = (props) => {
+const TESTI_LABELS = {
+  'untuvaopintopolku.fi': 'untuva',
+  'hahtuvaopintopolku.fi': 'hahtuva',
+  'testiopintopolku.fi': 'testi',
+};
+
+export const Header = ({
+  toggleMenu,
+  isOpen,
+  betaBanner,
+  setBetaBanner,
+  refreshSideMenu,
+}) => {
   const { t } = useTranslation();
 
-  const { toggleMenu, isOpen, betaBanner, setBetaBanner, refreshSideMenu } = props;
-
-  const hostname = window.location.hostname;
-  const testiLabels = {
-    'untuvaopintopolku.fi': 'untuva',
-    'hahtuvaopintopolku.fi': 'hahtuva',
-    'testiopintopolku.fi': 'testi',
-  };
-  const testiLabel = testiLabels[hostname];
+  const testiLabel = TESTI_LABELS[window.location.hostname];
   const showTestiLabel = testiLabel != null;
 
   const OpintopolkuHeaderLogo = getOpintopolkuHeaderLogo();
 
   return (
-    <Fragment>
+    <>
       <CssBaseline />
       <StyledAppBar className={classes.appBar}>
         {betaBanner ? <BetaBanner onClose={() => setBetaBanner(false)} /> : null}
@@ -159,14 +162,14 @@ export const Header = (props) => {
             onClick={refreshSideMenu}>
             <OpintopolkuHeaderLogo focusable="false" aria-hidden="true" height="26px" />
           </LocalizedLink>
-          {showTestiLabel ? (
+          {showTestiLabel && (
             <Chip
               className={classes.testi}
               size="small"
               classes={{ label: classes.testiLabel }}
               label={testiLabel}
             />
-          ) : null}
+          )}
           <Hidden smDown>
             <Box display="flex" className={classes.languageSelector}>
               <Link
@@ -183,6 +186,6 @@ export const Header = (props) => {
           </Hidden>
         </Toolbar>
       </StyledAppBar>
-    </Fragment>
+    </>
   );
 };

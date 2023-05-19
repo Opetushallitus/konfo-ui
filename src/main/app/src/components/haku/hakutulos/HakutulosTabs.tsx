@@ -1,9 +1,11 @@
 import React from 'react';
 
 import { SchoolOutlined, HomeWorkOutlined } from '@mui/icons-material';
-import { Tabs, Tab, useMediaQuery, useTheme } from '@mui/material';
+import { Tabs, Tab, useTheme } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
+
+import { useHakutulosWidth } from '#/src/store/reducers/appSlice';
 
 import { useSearch } from '../hakutulosHooks';
 
@@ -57,11 +59,13 @@ export const HakutulosTabs = () => {
   const oppilaitosTotal = oppilaitosData?.total;
 
   const theme = useTheme();
-  const muiScreenSizeMinMd = useMediaQuery(theme.breakpoints.up('md'));
+
+  const [hakutulosWidth] = useHakutulosWidth();
+  const isHakutulosMinMd = hakutulosWidth <= theme.breakpoints.values['md'];
 
   return (
     <StyledTabs
-      variant={muiScreenSizeMinMd ? 'standard' : 'fullWidth'}
+      variant={isHakutulosMinMd ? 'standard' : 'fullWidth'}
       value={selectedTab}
       indicatorColor="primary"
       textColor="primary"

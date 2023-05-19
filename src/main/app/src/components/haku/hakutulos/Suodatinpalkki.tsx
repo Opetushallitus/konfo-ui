@@ -1,8 +1,7 @@
-import React, { useLayoutEffect } from 'react';
+import React from 'react';
 
 import { Grid } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { createGlobalState, useMeasure } from 'react-use';
 
 import { useFilterProps, useSearch } from '#/src/components/haku/hakutulosHooks';
 import { FILTER_TYPES } from '#/src/constants';
@@ -34,25 +33,11 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   },
 }));
 
-const useSuodatinpalkkiWidthState = createGlobalState(0);
-
-export const useSuodatinpalkkiWidth = () => {
-  const [width] = useSuodatinpalkkiWidthState();
-  return width;
-};
-
 export const Suodatinpalkki = () => {
-  const [, setWidth] = useSuodatinpalkkiWidthState();
-  const [ref, { width: measuredWidth }] = useMeasure();
-  const realWidth = Math.round(measuredWidth);
   const { setFilters } = useSearch();
-  useLayoutEffect(() => {
-    setWidth(realWidth);
-    return () => setWidth(0);
-  }, [setWidth, realWidth]);
 
   return (
-    <StyledGrid ref={ref as any} item lg={3} md={4} className={classes.rajaaTuloksia}>
+    <StyledGrid item lg={3} md={4} className={classes.rajaaTuloksia}>
       <KoulutustyyppiSuodatin
         expanded
         elevation={2}

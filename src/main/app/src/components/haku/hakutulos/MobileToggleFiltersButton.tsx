@@ -6,21 +6,21 @@ import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
-import { useSideMenu } from '#/src/hooks';
+import { useHakutulosWidth } from '#/src/store/reducers/appSlice';
 
 const PREFIX = 'MobileToggleFiltersButton';
 
 const classes = {
   frontPageButton: `${PREFIX}-frontPageButton`,
   button: `${PREFIX}-button`,
-  buttonRoot: `${PREFIX}-buttonRoot`,
   buttonLabel: `${PREFIX}-buttonLabel`,
   fixed: `${PREFIX}-fixed`,
-  fixedMenuOpen: `${PREFIX}-fixedMenuOpen`,
   fixedButtonLabel: `${PREFIX}-fixedButtonLabel`,
 };
 
-const StyledButtonGroup = styled(ButtonGroup)(() => ({
+const StyledButtonGroup = styled(ButtonGroup, {
+  shouldForwardProp: (prop) => prop !== 'hakutulosWidth',
+})<{ hakutulosWidth: number }>(({ hakutulosWidth }) => ({
   [`& .${classes.frontPageButton}`]: {
     color: colors.white,
     fontWeight: 600,
@@ -28,10 +28,6 @@ const StyledButtonGroup = styled(ButtonGroup)(() => ({
 
   [`& .${classes.button}`]: {
     marginBottom: '16px',
-  },
-
-  [`& .${classes.buttonRoot}`]: {
-    border: 0,
   },
 
   [`& .${classes.buttonLabel}`]: {
@@ -45,17 +41,8 @@ const StyledButtonGroup = styled(ButtonGroup)(() => ({
     position: 'fixed',
     zIndex: 1,
     bottom: 30,
-    left: '50%',
-    transform: 'translateX(-50%)',
-    backgroundColor: colors.brandGreen,
-  },
-
-  [`& .${classes.fixedMenuOpen}`]: {
-    position: 'fixed',
-    zIndex: 1,
-    bottom: 30,
-    left: '65%',
-    transform: 'translateX(-50%)',
+    translate: '50%',
+    right: `${Math.round(hakutulosWidth / 2)}px`,
     backgroundColor: colors.brandGreen,
   },
 
@@ -88,11 +75,13 @@ export const MobileToggleFiltersButton = ({
     () => t('haku.nayta-hakutulos', { count: hitCount }),
     [t, hitCount]
   );
-  const menuOpen = useSideMenu().state;
-  const fixedStyle = menuOpen ? classes.fixedMenuOpen : classes.fixed;
+  const [hakutulosWidth] = useHakutulosWidth();
+
   // TODO: Spinner when loading would be nice
   return (
-    <StyledButtonGroup className={type === 'fixed' ? fixedStyle : classes.button}>
+    <StyledButtonGroup
+      hakutulosWidth={hakutulosWidth}
+      className={type === 'fixed' ? classes.fixed : classes.button}>
       {showFilters ? (
         <Button className={classes.fixedButtonLabel} onClick={handleFiltersShowToggle}>
           {buttonText}
