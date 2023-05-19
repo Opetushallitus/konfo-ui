@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { Button, Grid, Paper } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { take } from 'lodash';
+import { size, take } from 'lodash';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -74,7 +74,7 @@ export const Etusivu = () => {
 
   const uutislinkit = uutiset?.['etusivun-uutiset']?.linkit ?? [];
 
-  const [showMore, setShowMore] = useState(!(uutislinkit.length > 3));
+  const [showMore, setShowMore] = useState(size(uutislinkit) <= 3);
 
   useEffectOnce(() => {
     // NOTE: Tyhjätään aina kaikki hakutulosvalinnat kun saavutaan etusivulle
