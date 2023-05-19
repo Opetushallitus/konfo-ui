@@ -1,6 +1,14 @@
 import DirectionsOutlinedIcon from '@mui/icons-material/DirectionsOutlined';
 import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
-import { Hidden, Paper, Typography, useMediaQuery, useTheme, Box } from '@mui/material';
+import {
+  Hidden,
+  Paper,
+  Typography,
+  useMediaQuery,
+  useTheme,
+  Box,
+  SvgIcon,
+} from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { truncate, trim, isEmpty, isUndefined } from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -94,7 +102,7 @@ const StyledLocalizedLink = styled(LocalizedLink, {
 }));
 
 // TODO: Jostain syystä TS:n labeled tuples ei toiminut, e.g. IconComponent: (...props: any) => JSX.Element
-type IconText = [JSX.Element | string, ((...props: any) => JSX.Element) | undefined];
+type IconText = [JSX.Element | string, typeof SvgIcon | undefined];
 
 type StyledLocalizedLinkProps = {
   isSmall?: boolean;
@@ -108,7 +116,7 @@ type Props = {
   header: string;
   erityisopetusHeader?: boolean;
   kuvaus?: string;
-  iconTexts: Array<IconText | undefined | false | any>;
+  iconTexts: Array<IconText | undefined>;
   logoElement?: React.ReactNode;
   teemakuvaElement?: React.ReactNode;
   isSmall?: boolean;
