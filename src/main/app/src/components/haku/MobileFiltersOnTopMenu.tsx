@@ -1,20 +1,9 @@
 import React, { useCallback, useMemo, useState } from 'react';
 
-import { Close } from '@mui/icons-material';
-import {
-  AppBar,
-  Button,
-  Container,
-  Divider,
-  Grid,
-  IconButton,
-  SwipeableDrawer,
-  Toolbar,
-  Typography,
-} from '@mui/material';
-import { styled } from '@mui/material/styles';
-import { useTranslation } from 'react-i18next';
+import { Divider } from '@mui/material';
 
+import { FilterSearchResultsButton } from '#/src/components/common/FilterSearchResultsButton';
+import { MobileRajainDrawer } from '#/src/components/common/MobileRajainDrawer';
 import {
   TyoelamaJaTaydennyskoulutuksetSuodatin,
   useTyoelamaSuodatinValues,
@@ -33,52 +22,15 @@ import { ValintatapaSuodatin } from '../suodattimet/common/ValintatapaSuodatin';
 import { KoulutusalaSuodatin } from '../suodattimet/hakutulosSuodattimet/KoulutusalaSuodatin';
 import { KoulutustyyppiSuodatin } from '../suodattimet/hakutulosSuodattimet/KoulutustyyppiSuodatin';
 import { MobileResultsPerPageExpansionMenu } from './hakutulos/MobileResultsPerPageExpansionMenu';
-import { MobileToggleFiltersButton } from './hakutulos/MobileToggleFiltersButton';
 import MobileToggleKoulutusOppilaitos from './hakutulos/MobileToggleKoulutusOppilaitos';
 import MobileToggleOrderByButtonMenu from './hakutulos/MobileToggleOrderByButtonMenu';
 import { useAllSelectedFilters, useFilterProps, useSearch } from './hakutulosHooks';
 
-const PREFIX = 'MobileFiltersOnTopMenu';
-
-const classes = {
-  paperAnchorBottom: `${PREFIX}-paperAnchorBottom`,
-  appBarRoot: `${PREFIX}-appBarRoot`,
-  buttonLabel: `${PREFIX}-buttonLabel`,
-  containerRoot: `${PREFIX}-containerRoot`,
-  divider: `${PREFIX}-divider`,
-};
-
-const StyledSwipeableDrawer = styled(SwipeableDrawer)(() => ({
-  [`& .${classes.paperAnchorBottom}`]: {
-    height: '100%',
-  },
-
-  [`& .${classes.appBarRoot}`]: {
-    height: 50,
-  },
-
-  [`& .${classes.buttonLabel}`]: {
-    fontSize: 16,
-    fontWeight: 600,
-    whiteSpace: 'nowrap',
-  },
-
-  [`& .${classes.containerRoot}`]: {
-    marginTop: 60,
-    // Calculation: Viewport height - Appbar height(60) -
-    // ToggleFilter button height(40), bottom margin(30) and top margin(20))
-    maxHeight: 'calc(100vh - 60px - 30px - 40px - 20px)',
-    overflowY: 'scroll',
-  },
-
-  [`& .${classes.divider}`]: {
-    margin: '3px 0',
-  },
-}));
-
-export const MobileFiltersOnTopMenu = () => {
-  const { t } = useTranslation();
-
+export const MobileFiltersOnTopMenu = ({
+  isButtonInline = false,
+}: {
+  isButtonInline?: boolean;
+}) => {
   const isAtEtusivu = useIsAtEtusivu();
 
   const {
@@ -96,160 +48,122 @@ export const MobileFiltersOnTopMenu = () => {
   );
 
   const { flat: allSelectedFilters } = useAllSelectedFilters();
-  const count = allSelectedFilters?.length ?? 0;
+  const rajainCount = allSelectedFilters?.length ?? 0;
 
   const [showFilters, setShowFilters] = useState(false);
-  const toggleShowFilters = useCallback(
+  const onToggleShowFilters = useCallback(
     () => setShowFilters(!showFilters),
     [showFilters]
   );
 
-  const handleFiltersShowToggle = () => {
+  const onShowResults = () => {
     if (isAtEtusivu) {
       goToSearchPage();
     }
-    toggleShowFilters();
+    onToggleShowFilters();
   };
 
   return (
-    <React.Fragment>
+    <>
       {!showFilters && (
-        <MobileToggleFiltersButton
-          type={isAtEtusivu ? 'frontpage' : 'fixed'}
-          chosenFilterCount={count}
-          showFilters={showFilters}
-          handleFiltersShowToggle={toggleShowFilters}
+        <FilterSearchResultsButton
+          inline={isButtonInline}
+          textColor="white"
+          chosenFilterCount={rajainCount}
+          onClick={onToggleShowFilters}
         />
       )}
-      <StyledSwipeableDrawer
-        classes={{ paperAnchorBottom: classes.paperAnchorBottom }}
-        anchor="bottom"
-        onClose={toggleShowFilters}
-        onOpen={toggleShowFilters}
-        open={showFilters}
-        style={{ zIndex: 1222 }}>
-        <AppBar classes={{ root: classes.appBarRoot }}>
-          <Toolbar variant="dense" disableGutters>
-            <Grid
-              container
-              justifyContent="space-between"
-              alignItems="center"
-              wrap="nowrap">
-              <Grid item>
-                <IconButton color="inherit" onClick={toggleShowFilters}>
-                  <Close />
-                </IconButton>
-              </Grid>
-              <Grid item>
-                <Typography variant="body1" noWrap color="inherit">
-                  {t('haku.rajaa-tuloksia')}
-                </Typography>
-              </Grid>
-              <Grid item style={{ paddingRight: '10px' }}>
-                {count > 0 && (
-                  <Button
-                    color="inherit"
-                    classes={{ text: classes.buttonLabel }}
-                    onClick={clearFilters}>
-                    {t('haku.poista-valitut')}
-                  </Button>
-                )}
-              </Grid>
-            </Grid>
-          </Toolbar>
-        </AppBar>
-        <Container classes={{ root: classes.containerRoot }}>
-          {isAtEtusivu && <MobileToggleKoulutusOppilaitos />}
-          {isAtEtusivu && <Divider className={classes.divider} />}
-          <KoulutustyyppiSuodatin
-            expanded={false}
-            displaySelected
-            values={useFilterProps(FILTER_TYPES.KOULUTUSTYYPPI)}
-            muuValues={useFilterProps(FILTER_TYPES.KOULUTUSTYYPPI_MUU)}
-            setFilters={setFilters}
-          />
-          <Divider className={classes.divider} />
-          <OpetuskieliSuodatin
-            expanded={false}
-            displaySelected
-            values={useFilterProps(FILTER_TYPES.OPETUSKIELI)}
-            setFilters={setFilters}
-          />
-          <Divider className={classes.divider} />
-          <OpetusaikaSuodatin
-            expanded={false}
-            displaySelected
-            values={useFilterProps(FILTER_TYPES.OPETUSAIKA)}
-            setFilters={setFilters}
-          />
-          <Divider className={classes.divider} />
-          <SijaintiSuodatin
-            expanded={false}
-            displaySelected
-            kuntaValues={useFilterProps(FILTER_TYPES.KUNTA)}
-            maakuntaValues={useFilterProps(FILTER_TYPES.MAAKUNTA)}
-            setFilters={setFilters}
-          />
-          <Divider className={classes.divider} />
-          <PohjakoulutusvaatimusSuodatin
-            expanded={false}
-            displaySelected
-            values={useFilterProps(FILTER_TYPES.POHJAKOULUTUSVAATIMUS)}
-            setFilters={setFilters}
-          />
-          <Divider className={classes.divider} />
-          <HakuKaynnissaSuodatin
-            expanded={false}
-            displaySelected
-            values={useFilterProps(FILTER_TYPES.HAKUKAYNNISSA)}
-            setFilters={setFilters}
-          />
-          <Divider className={classes.divider} />
-          <TyoelamaJaTaydennyskoulutuksetSuodatin
-            expanded={false}
-            displaySelected
-            values={useTyoelamaSuodatinValues()}
-            setFilters={setFilters}
-          />
-          <Divider className={classes.divider} />
-          <HakutapaSuodatin
-            expanded={false}
-            displaySelected
-            values={useFilterProps(FILTER_TYPES.HAKUTAPA)}
-            setFilters={setFilters}
-          />
-          <Divider className={classes.divider} />
-          <ValintatapaSuodatin
-            expanded={false}
-            displaySelected
-            values={useFilterProps(FILTER_TYPES.VALINTATAPA)}
-            setFilters={setFilters}
-          />
-          <Divider className={classes.divider} />
-          <KoulutusalaSuodatin
-            expanded={false}
-            displaySelected
-            values={useFilterProps(FILTER_TYPES.KOULUTUSALA)}
-            setFilters={setFilters}
-          />
-          <Divider className={classes.divider} />
-          <OpetustapaSuodatin
-            expanded={false}
-            displaySelected
-            values={useFilterProps(FILTER_TYPES.OPETUSTAPA)}
-            setFilters={setFilters}
-          />
-          <Divider className={classes.divider} />
-          {!isAtEtusivu && <MobileToggleOrderByButtonMenu />}
-          {!isAtEtusivu && <MobileResultsPerPageExpansionMenu />}
-        </Container>
-        <MobileToggleFiltersButton
-          type="fixed"
-          hitCount={hitCount}
-          showFilters={showFilters}
-          handleFiltersShowToggle={handleFiltersShowToggle}
+      <MobileRajainDrawer
+        isOpen={showFilters}
+        toggleOpen={onToggleShowFilters}
+        showResults={onShowResults}
+        clearRajainSelection={clearFilters}
+        rajainCount={rajainCount}
+        resultCount={hitCount}>
+        {isAtEtusivu && <MobileToggleKoulutusOppilaitos />}
+        {isAtEtusivu && <Divider />}
+        <KoulutustyyppiSuodatin
+          expanded={false}
+          displaySelected
+          values={useFilterProps(FILTER_TYPES.KOULUTUSTYYPPI)}
+          muuValues={useFilterProps(FILTER_TYPES.KOULUTUSTYYPPI_MUU)}
+          setFilters={setFilters}
         />
-      </StyledSwipeableDrawer>
-    </React.Fragment>
+        <Divider />
+        <OpetuskieliSuodatin
+          expanded={false}
+          displaySelected
+          values={useFilterProps(FILTER_TYPES.OPETUSKIELI)}
+          setFilters={setFilters}
+        />
+        <Divider />
+        <OpetusaikaSuodatin
+          expanded={false}
+          displaySelected
+          values={useFilterProps(FILTER_TYPES.OPETUSAIKA)}
+          setFilters={setFilters}
+        />
+        <Divider />
+        <SijaintiSuodatin
+          expanded={false}
+          displaySelected
+          kuntaValues={useFilterProps(FILTER_TYPES.KUNTA)}
+          maakuntaValues={useFilterProps(FILTER_TYPES.MAAKUNTA)}
+          setFilters={setFilters}
+        />
+        <Divider />
+        <PohjakoulutusvaatimusSuodatin
+          expanded={false}
+          displaySelected
+          values={useFilterProps(FILTER_TYPES.POHJAKOULUTUSVAATIMUS)}
+          setFilters={setFilters}
+        />
+        <Divider />
+        <HakuKaynnissaSuodatin
+          expanded={false}
+          displaySelected
+          values={useFilterProps(FILTER_TYPES.HAKUKAYNNISSA)}
+          setFilters={setFilters}
+        />
+        <Divider />
+        <TyoelamaJaTaydennyskoulutuksetSuodatin
+          expanded={false}
+          displaySelected
+          values={useTyoelamaSuodatinValues()}
+          setFilters={setFilters}
+        />
+        <Divider />
+        <HakutapaSuodatin
+          expanded={false}
+          displaySelected
+          values={useFilterProps(FILTER_TYPES.HAKUTAPA)}
+          setFilters={setFilters}
+        />
+        <Divider />
+        <ValintatapaSuodatin
+          expanded={false}
+          displaySelected
+          values={useFilterProps(FILTER_TYPES.VALINTATAPA)}
+          setFilters={setFilters}
+        />
+        <Divider />
+        <KoulutusalaSuodatin
+          expanded={false}
+          displaySelected
+          values={useFilterProps(FILTER_TYPES.KOULUTUSALA)}
+          setFilters={setFilters}
+        />
+        <Divider />
+        <OpetustapaSuodatin
+          expanded={false}
+          displaySelected
+          values={useFilterProps(FILTER_TYPES.OPETUSTAPA)}
+          setFilters={setFilters}
+        />
+        <Divider />
+        {!isAtEtusivu && <MobileToggleOrderByButtonMenu />}
+        {!isAtEtusivu && <MobileResultsPerPageExpansionMenu />}
+      </MobileRajainDrawer>
+    </>
   );
 };

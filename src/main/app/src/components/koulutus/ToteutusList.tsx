@@ -4,7 +4,7 @@ import EuroSymbolIcon from '@mui/icons-material/EuroSymbol';
 import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
 import PublicIcon from '@mui/icons-material/Public';
 import { Box, Grid, Hidden, Typography } from '@mui/material';
-import { mapValues, some } from 'lodash';
+import { mapValues, size, some } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { match } from 'ts-pattern';
 
@@ -64,6 +64,7 @@ const SuodatinGridItem: React.FC = ({ children }) => {
 export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
   const { t } = useTranslation();
 
+  // TODO: filters todella hämmentävä nimi tässä
   const { queryResult, setFilters, setPagination, pagination, filters } =
     useKoulutusJarjestajat({
       oid,
@@ -106,8 +107,8 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
           </Typography>
         }>
         <>
-          <Hidden smDown>
-            {(allSelectedFilters?.flat?.length ?? 0) > 0 && (
+          <Hidden mdDown>
+            {size(allSelectedFilters?.flat) > 0 && (
               <div>
                 <SuodatinValinnat
                   allSelectedFilters={allSelectedFilters}
@@ -116,7 +117,6 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                 />
               </div>
             )}
-
             <Grid
               container
               item
@@ -232,6 +232,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
           <Hidden mdUp>
             <MobileFiltersOnTopMenu
               koulutustyyppi={koulutustyyppi}
+              rajainCount={size(allSelectedFilters?.flat)}
               values={usedValues}
               loading={isLoading}
               hitCount={total}
