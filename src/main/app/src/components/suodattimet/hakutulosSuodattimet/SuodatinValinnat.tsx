@@ -2,50 +2,11 @@ import React from 'react';
 
 import { Clear } from '@mui/icons-material';
 import { Button, Chip, Grid } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
-import { colors } from '#/src/colors';
 import { getFilterStateChangesForDelete } from '#/src/tools/filters';
 import { localize } from '#/src/tools/localization';
 import { FilterValue } from '#/src/types/SuodatinTypes';
-
-import { useAllSelectedFilters, useSearch } from '../../haku/hakutulosHooks';
-
-const PREFIX = 'ChipList';
-
-const classes = {
-  chipRoot: `${PREFIX}-chipRoot`,
-  chipLabel: `${PREFIX}-chipLabel`,
-  clearButtonLabel: `${PREFIX}-clearButtonLabel`,
-  clearButtonSizeSmall: `${PREFIX}-clearButtonSizeSmall`,
-};
-
-const Root = styled('div')(() => ({
-  [`& .${classes.chipRoot}`]: {
-    marginBottom: 5,
-    marginRight: 5,
-    borderRadius: 5,
-    backgroundColor: colors.lightGrey,
-    border: 'none',
-  },
-
-  [`& .${classes.chipLabel}`]: {
-    fontSize: 12,
-    fontWeight: 600,
-  },
-
-  [`& .${classes.clearButtonLabel}`]: {
-    fontWeight: 600,
-    fontSize: 14,
-    textDecoration: 'underline',
-    whiteSpace: 'nowrap',
-  },
-
-  [`& .${classes.clearButtonSizeSmall}`]: {
-    padding: '1px 5px',
-  },
-}));
 
 type ChosenFiltersProps = {
   filters: Array<FilterValue>;
@@ -72,9 +33,13 @@ export const ChipList = ({
             size="small"
             data-cy={`chip-${entry.id}`}
             key={`chip_${entry.id}`}
-            classes={{
-              root: classes.chipRoot,
-              label: classes.chipLabel,
+            sx={{
+              marginBottom: 1,
+              marginRight: 1,
+              borderRadius: 2,
+              border: 'none',
+              fontSize: 12,
+              fontWeight: 600,
             }}
             // NOTE: Some filters are not koodisto values and must be translated
             label={localize(entry) || t(`haku.${entry.id}`)}
@@ -86,9 +51,12 @@ export const ChipList = ({
         <Button
           size="small"
           startIcon={<Clear />}
-          classes={{
-            text: classes.clearButtonLabel,
-            sizeSmall: classes.clearButtonSizeSmall,
+          sx={{
+            fontWeight: 600,
+            fontSize: 14,
+            textDecoration: 'underline',
+            whiteSpace: 'nowrap',
+            padding: '1px 5px',
           }}
           onClick={handleClearFilters}>
           {t('haku.poista-valitut-rajaimet')}
@@ -98,24 +66,23 @@ export const ChipList = ({
   );
 };
 
-export const SuodatinValinnat = () => {
-  const { selectedFiltersFlatList, selectedFiltersWithAlakoodit } =
-    useAllSelectedFilters();
-
-  const { setFilters, clearFilters } = useSearch();
+export const SuodatinValinnat = ({
+  allSelectedFilters,
+  setFilters,
+  clearFilters,
+}: any) => {
+  const { flat, withAlakoodit } = allSelectedFilters;
 
   const getHandleDelete = (item: FilterValue) => () => {
-    const changes = getFilterStateChangesForDelete(selectedFiltersWithAlakoodit)(item);
+    const changes = getFilterStateChangesForDelete(withAlakoodit)(item);
     setFilters(changes);
   };
 
   return (
-    <Root>
-      <ChipList
-        filters={selectedFiltersFlatList}
-        getHandleDelete={getHandleDelete}
-        handleClearFilters={clearFilters}
-      />
-    </Root>
+    <ChipList
+      filters={flat}
+      getHandleDelete={getHandleDelete}
+      handleClearFilters={clearFilters}
+    />
   );
 };

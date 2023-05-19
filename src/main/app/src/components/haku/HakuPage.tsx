@@ -30,7 +30,7 @@ import { BackendErrorMessage } from './hakutulos/BackendErrorMessage';
 import { HakutulosResults } from './hakutulos/HakutulosResults';
 import { HakutulosTabs } from './hakutulos/HakutulosTabs';
 import { Suodatinpalkki } from './hakutulos/Suodatinpalkki';
-import { useSearch, useSearchSortOrder } from './hakutulosHooks';
+import { useAllSelectedFilters, useSearch, useSearchSortOrder } from './hakutulosHooks';
 
 const PREFIX = 'HakuPage';
 
@@ -140,6 +140,19 @@ const getPageSortTranslationKey = (sort: string) => {
     default:
       return '';
   }
+};
+
+const RajainValinnat = () => {
+  const allSelectedFilters = useAllSelectedFilters();
+  const { setFilters, clearFilters } = useSearch();
+
+  return (
+    <SuodatinValinnat
+      allSelectedFilters={allSelectedFilters}
+      setFilters={setFilters}
+      clearFilters={clearFilters}
+    />
+  );
 };
 
 export const HakuPage = () => {
@@ -257,7 +270,7 @@ export const HakuPage = () => {
           {mdUp ? <Suodatinpalkki /> : <MobileFiltersOnTopMenu />}
           <Grid item container direction="column" xs>
             <Grid item>
-              <Hidden smDown>{isAnyFilterSelected && <SuodatinValinnat />}</Hidden>
+              <Hidden smDown>{isAnyFilterSelected && <RajainValinnat />}</Hidden>
               {isFetching && <LoadingCircle />}
               {!isFetching && status === 'error' && <BackendErrorMessage />}
               {!isFetching && status === 'success' && (
