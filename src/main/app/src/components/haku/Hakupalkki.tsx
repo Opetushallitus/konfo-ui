@@ -20,7 +20,7 @@ import {
   Link,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { size, isEmpty } from 'lodash';
+import { size, isEmpty, omit } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -214,7 +214,8 @@ const SearchBox = ({
             );
           }}
           renderInput={(params) => {
-            const { InputProps, ...rest } = params;
+            const { InputProps } = params;
+            const rest = omit(params, ['InputProps', 'InputLabelProps']);
             return (
               <InputBase
                 data-cy="autocomplete-input"
