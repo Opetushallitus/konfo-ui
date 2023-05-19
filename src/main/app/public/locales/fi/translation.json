@@ -276,9 +276,9 @@
     "taydennyskoulutus": "Täydennyskoulutus",
     "tyovoimakoulutus": "Työvoimakoulutus",
     "muu": "Muu koulutus",
-    "nayta-kaikki-koulutus-hakutulokset": "Näytä kaikki {{count}} hakuehdoilla löytyvä koulutus",
+    "nayta-kaikki-koulutus-hakutulokset": "Näytä {{count}} hakuehdoilla löytyvä koulutus",
     "nayta-kaikki-koulutus-hakutulokset_plural": "Näytä kaikki {{count}} hakuehdoilla löytyvää koulutusta",
-    "nayta-kaikki-oppilaitos-hakutulokset": "Näytä kaikki {{count}} hakuehdoilla löytyvä oppilaitos",
+    "nayta-kaikki-oppilaitos-hakutulokset": "Näytä {{count}} hakuehdoilla löytyvä oppilaitos",
     "nayta-kaikki-oppilaitos-hakutulokset_plural": "Näytä kaikki {{count}} hakuehdoilla löytyvää oppilaitosta"
   },
   "navigaatio": {
