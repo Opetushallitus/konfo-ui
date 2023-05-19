@@ -157,12 +157,7 @@ export const Header = (props) => {
             to="/"
             title={t('header.siirry-etusivulle')}
             onClick={refreshSideMenu}>
-            <OpintopolkuHeaderLogo
-              focusable="false"
-              aria-hidden="true"
-              height="26px"
-              width="auto"
-            />
+            <OpintopolkuHeaderLogo focusable="false" aria-hidden="true" height="26px" />
           </LocalizedLink>
           {showTestiLabel ? (
             <Chip
