@@ -1,6 +1,7 @@
 import { playMocks } from 'kto-ui-common/cypress/mockUtils';
 
 import hakuMocks from '#/cypress/mocks/haku.mocks.json';
+import { findSearchInput } from '#/cypress/utils';
 
 describe('Haku', () => {
   beforeEach(() => {
@@ -274,10 +275,9 @@ describe('Haku', () => {
       });
   });
   it("Koulutuskortti data should be presented correctly for 'Tutkinnon osa'", () => {
-    const searchBox = () => cy.findByTestId('autocomplete-input');
     const searchButton = () => cy.findByRole('button', { name: /etsi/i });
 
-    searchBox().type('{selectall}').type('Hevosten hyvinvoinnista huolehtiminen');
+    findSearchInput().type('{selectall}').type('Hevosten hyvinvoinnista huolehtiminen');
     searchButton().click();
     cy.findByTestId('Hevosten hyvinvoinnista huolehtiminen').within(() => {
       cy.findByText('Tutkinnon osa').should('exist');
@@ -285,10 +285,9 @@ describe('Haku', () => {
     });
   });
   it("Koulutuskortti data should be presented correctly for 'Osaamisala'", () => {
-    const searchBox = () => cy.findByTestId('autocomplete-input');
     const searchButton = () => cy.findByRole('button', { name: /etsi/i });
 
-    searchBox().type('{selectall}').type('Jalkojenhoidon osaamisala');
+    findSearchInput().type('{selectall}').type('Jalkojenhoidon osaamisala');
     searchButton().click();
     cy.findByTestId('Jalkojenhoidon osaamisala').within(() => {
       cy.findByText('Osaamisala').should('exist');

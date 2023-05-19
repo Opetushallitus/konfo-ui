@@ -83,7 +83,6 @@ export const createRenderInput =
     const rest = omit(params, ['InputProps', 'InputLabelProps']);
     return (
       <InputBase
-        data-cy="autocomplete-input"
         sx={{
           borderRadius: 0,
           flex: 1,
