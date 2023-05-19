@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import {
   SearchOutlined,
@@ -20,7 +20,6 @@ import {
   Link,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { debounce } from '@mui/material/utils';
 import { size, isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
@@ -31,7 +30,7 @@ import { useIsAtEtusivu } from '#/src/store/reducers/appSlice';
 
 import { MobileFiltersOnTopMenu } from '../suodattimet/hakutulosSuodattimet/MobileFiltersOnTopMenu';
 import { HakupalkkiFilters } from './HakupalkkiFilters';
-import { useSearch } from './hakutulosHooks';
+import { useAutoComplete, useSearch } from './hakutulosHooks';
 
 const PREFIX = 'Hakupalkki';
 
@@ -156,24 +155,118 @@ const StyledPopover = styled(Popover)(() => ({
 
 const checkIsKeywordValid = (word: string) => size(word) === 0 || size(word) > 2;
 
+const SearchBox = ({
+  keyword,
+  doSearch,
+  rajaaButton,
+}: {
+  keyword: string;
+  doSearch: any;
+  rajaaButton?: JSX.Element | null;
+}) => {
+  const { setSearchPhraseDebounced, isFetching, data } = useAutoComplete();
+
+  const [inputValue, setInputValue] = useState<string>(() => keyword);
+  const isKeywordValid = checkIsKeywordValid(inputValue);
+
+  const { t } = useTranslation();
+
+  return (
+    <Paper
+      component="form"
+      onSubmit={(event: React.ChangeEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const keywordValue = formData.get('keyword');
+        doSearch(keywordValue);
+      }}
+      className={classes.inputRoot}
+      elevation={4}>
+      <Tooltip
+        placement="bottom-start"
+        open={!isKeywordValid}
+        title={t('haku.syota-ainakin-kolme-merkkia') || ''}>
+        <Autocomplete
+          fullWidth={true}
+          key={keyword}
+          defaultValue={keyword}
+          options={data?.hits ?? ([] as any)}
+          filterOptions={(opt) => opt}
+          noOptionsText={t('haku.ei-ehdotuksia')}
+          loadingText={t('haku.lataus-käynnissä')}
+          loading={isFetching}
+          freeSolo={true}
+          onInputChange={(_e, newInputValue) => {
+            setInputValue(newInputValue);
+            setSearchPhraseDebounced(newInputValue);
+          }}
+          renderOption={(props, option: any) => {
+            return (
+              <li {...props}>
+                <Link
+                  color="inherit"
+                  to={`/koulutus/${option.id}`}
+                  component={RouterLink}
+                  underline="none">
+                  {option.label}
+                </Link>
+              </li>
+            );
+          }}
+          renderInput={(params) => {
+            const { InputProps, ...rest } = params;
+            return (
+              <InputBase
+                data-cy="autocomplete-input"
+                sx={{
+                  borderRadius: 0,
+                  flex: 1,
+                  width: '100%',
+                }}
+                type="text"
+                name="keyword"
+                placeholder={t('haku.kehoite')}
+                {...InputProps}
+                {...rest}
+              />
+            );
+          }}
+        />
+      </Tooltip>
+      {rajaaButton}
+      <Hidden smDown>
+        <Button
+          startIcon={<SearchOutlined />}
+          disabled={!isKeywordValid}
+          type="submit"
+          variant="contained"
+          color="secondary"
+          className={classes.searchButton}
+          aria-label={t('haku.etsi')}>
+          {t('haku.etsi')}
+        </Button>
+      </Hidden>
+      <Hidden mdUp>
+        <IconButton
+          disabled={!isKeywordValid}
+          type="submit"
+          className={classes.mobileIconButton}
+          aria-label={t('haku.etsi')}>
+          <SearchOutlined />
+        </IconButton>
+      </Hidden>
+    </Paper>
+  );
+};
+
 export const Hakupalkki = () => {
   const { t } = useTranslation();
 
-  const {
-    keyword,
-    searchPhrase,
-    koulutusData,
-    autoCompleteOptions,
-    goToSearchPage,
-    setKeyword,
-    setSearchPhrase,
-    isFetchingAutocompleteResults,
-  } = useSearch();
+  const { keyword, koulutusData, goToSearchPage, setKeyword } = useSearch();
   const koulutusFilters = koulutusData?.filters;
   const isAtEtusivu = useIsAtEtusivu();
 
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
-  const [inputValue, setInputValue] = useState(() => keyword);
 
   const handleDesktopBtnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     window.scrollTo({
@@ -189,133 +282,45 @@ export const Hakupalkki = () => {
   };
 
   const isPopoverOpen = Boolean(anchorEl);
-  const ExpandIcon = () =>
-    isPopoverOpen ? <ExpandLessOutlined /> : <ExpandMoreOutlined />;
+
+  const doSearch = useCallback(
+    (phrase: string) => {
+      setKeyword(phrase);
+      goToSearchPage();
+    },
+    [setKeyword, goToSearchPage]
+  );
+
   const id = isPopoverOpen ? 'filters-popover' : undefined;
 
-  const isKeywordValid = checkIsKeywordValid(inputValue);
-  const setSearchPhraseDelayed = useMemo(
-    () => debounce(setSearchPhrase, 200),
-    [setSearchPhrase]
-  );
+  const ExpandIcon = () =>
+    isPopoverOpen ? <ExpandLessOutlined /> : <ExpandMoreOutlined />;
+
+  const rajaaButton = isAtEtusivu ? (
+    <Hidden smDown>
+      <Box component="div" className={classes.box}>
+        <Divider orientation="vertical" />
+        <Button
+          aria-describedby={id}
+          endIcon={
+            !isPopoverOpen || !isEmpty(koulutusFilters) ? (
+              <ExpandIcon />
+            ) : (
+              <CircularProgress size={25} color="inherit" />
+            )
+          }
+          onClick={handleDesktopBtnClick}
+          className={classes.expandButton}
+          aria-label={t('haku.rajaa')}>
+          {t('haku.rajaa')}
+        </Button>
+      </Box>
+    </Hidden>
+  ) : null;
 
   return (
     <StyledBox display="flex" flexDirection="column" alignItems="flex-end" flexGrow={1}>
-      <Paper
-        component="form"
-        onSubmit={(event: React.ChangeEvent<HTMLFormElement>) => {
-          event.preventDefault();
-          const formData = new FormData(event.target);
-          const keywordValue = formData.get('keyword');
-          setKeyword(keywordValue ?? '');
-          goToSearchPage();
-        }}
-        className={classes.inputRoot}
-        elevation={4}>
-        <Tooltip
-          placement="bottom-start"
-          open={!isKeywordValid}
-          title={t('haku.syota-ainakin-kolme-merkkia') || ''}>
-          <Autocomplete
-            fullWidth={true}
-            key={keyword}
-            defaultValue={keyword}
-            filterOptions={(opt) => opt}
-            options={autoCompleteOptions ?? []}
-            noOptionsText={t('haku.ei-ehdotuksia')}
-            loadingText={t('haku.lataus-käynnissä')}
-            loading={isFetchingAutocompleteResults}
-            freeSolo={true}
-            onInputChange={(_e, newInputValue) => {
-              setInputValue(newInputValue);
-              if (size(newInputValue) > 2) {
-                setSearchPhraseDelayed(newInputValue);
-              } else if (size(searchPhrase) > 0) {
-                setSearchPhrase('');
-              }
-            }}
-            onChange={(_e, value, reason) => {
-              if (reason === 'selectOption') {
-                setKeyword('');
-                setSearchPhrase('');
-              }
-            }}
-            renderOption={(props, option: any) => {
-              return (
-                <li {...props}>
-                  <Link
-                    color="inherit"
-                    to={`/koulutus/${option.id}`}
-                    component={RouterLink}
-                    underline="none">
-                    {option.label}
-                  </Link>
-                </li>
-              );
-            }}
-            renderInput={(params) => {
-              const { InputProps, ...rest } = params;
-              return (
-                <InputBase
-                  data-cy="autocomplete-input"
-                  sx={{
-                    borderRadius: 0,
-                    flex: 1,
-                    width: '100%',
-                  }}
-                  type="text"
-                  name="keyword"
-                  placeholder={t('haku.kehoite')}
-                  {...InputProps}
-                  {...rest}
-                />
-              );
-            }}
-          />
-        </Tooltip>
-        {isAtEtusivu && (
-          <Hidden smDown>
-            <Box component="div" className={classes.box}>
-              <Divider orientation="vertical" />
-              <Button
-                aria-describedby={id}
-                endIcon={
-                  !isPopoverOpen || !isEmpty(koulutusFilters) ? (
-                    <ExpandIcon />
-                  ) : (
-                    <CircularProgress size={25} color="inherit" />
-                  )
-                }
-                onClick={handleDesktopBtnClick}
-                className={classes.expandButton}
-                aria-label={t('haku.rajaa')}>
-                {t('haku.rajaa')}
-              </Button>
-            </Box>
-          </Hidden>
-        )}
-        <Hidden smDown>
-          <Button
-            startIcon={<SearchOutlined />}
-            disabled={!isKeywordValid}
-            type="submit"
-            variant="contained"
-            color="secondary"
-            className={classes.searchButton}
-            aria-label={t('haku.etsi')}>
-            {t('haku.etsi')}
-          </Button>
-        </Hidden>
-        <Hidden mdUp>
-          <IconButton
-            disabled={!isKeywordValid}
-            type="submit"
-            className={classes.mobileIconButton}
-            aria-label={t('haku.etsi')}>
-            <SearchOutlined />
-          </IconButton>
-        </Hidden>
-      </Paper>
+      <SearchBox keyword={keyword} doSearch={doSearch} rajaaButton={rajaaButton} />
       {!isEmpty(koulutusFilters) && (
         <Hidden smDown>
           <StyledPopover
