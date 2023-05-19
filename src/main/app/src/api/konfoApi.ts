@@ -6,16 +6,19 @@ import qs from 'query-string';
 
 import { getLanguage } from '#/src/tools/localization';
 import { cleanRequestParams, isCypress } from '#/src/tools/utils';
-import { Koodi, LanguageCode, TODOType, Translateable } from '#/src/types/common';
+import {
+  AutocompleteResult,
+  Koodi,
+  LanguageCode,
+  TODOType,
+  RequestParams,
+} from '#/src/types/common';
 import {
   ContentfulData,
   ContentfulItem,
   ContentfulManifestData,
 } from '#/src/types/ContentfulTypes';
 
-import { ToteutustenTarjoajat } from '../components/haku/hakutulos/hakutulosKortit/KoulutusKortti';
-
-export type RequestParams = Record<string, any>;
 type RequestConfig = AxiosRequestConfig<RequestParams>;
 
 const client = axios.create({
@@ -149,19 +152,6 @@ export const searchOppilaitokset = (requestParams: RequestParams, signal?: Abort
     params: { lng: getLanguage(), ...cleanRequestParams(requestParams) },
     signal,
   });
-
-export type AutocompleteHit = { oid: string; nimi: Translateable };
-
-export type AutocompleteResult = {
-  koulutukset: {
-    total: number;
-    hits: Array<AutocompleteHit & { toteutustenTarjoajat?: ToteutustenTarjoajat }>;
-  };
-  oppilaitokset: {
-    total: number;
-    hits: Array<AutocompleteHit>;
-  };
-};
 
 export const autoCompleteSearch = (requestParams: RequestParams) =>
   get<AutocompleteResult>(urls.url('konfo-backend.search.autocomplete'), {

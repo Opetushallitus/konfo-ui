@@ -17,13 +17,13 @@ import { useHakutulosWidth } from '#/src/store/reducers/appSlice';
 import { urlParamsChanged } from '#/src/store/reducers/hakutulosSlice';
 import { useUrlParams } from '#/src/tools/useUrlParams';
 
-import { MobileFiltersOnTopMenu } from '../suodattimet/hakutulosSuodattimet/MobileFiltersOnTopMenu';
 import { SuodatinValinnat } from '../suodattimet/hakutulosSuodattimet/SuodatinValinnat';
 import { BackendErrorMessage } from './hakutulos/BackendErrorMessage';
 import { HakutulosResults } from './hakutulos/HakutulosResults';
 import { HakutulosTabs } from './hakutulos/HakutulosTabs';
 import { Suodatinpalkki } from './hakutulos/Suodatinpalkki';
 import { useAllSelectedFilters, useSearch, useSearchSortOrder } from './hakutulosHooks';
+import { MobileFiltersOnTopMenu } from './MobileFiltersOnTopMenu';
 
 const PREFIX = 'HakuPage';
 

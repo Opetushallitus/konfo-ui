@@ -22,25 +22,21 @@ import {
 import { FILTER_TYPES } from '#/src/constants';
 import { useIsAtEtusivu } from '#/src/store/reducers/appSlice';
 
-import { MobileResultsPerPageExpansionMenu } from '../../haku/hakutulos/MobileResultsPerPageExpansionMenu';
-import { MobileToggleFiltersButton } from '../../haku/hakutulos/MobileToggleFiltersButton';
-import MobileToggleKoulutusOppilaitos from '../../haku/hakutulos/MobileToggleKoulutusOppilaitos';
-import MobileToggleOrderByButtonMenu from '../../haku/hakutulos/MobileToggleOrderByButtonMenu';
-import {
-  useAllSelectedFilters,
-  useFilterProps,
-  useSearch,
-} from '../../haku/hakutulosHooks';
-import { HakuKaynnissaSuodatin } from '../common/HakuKaynnissaSuodatin';
-import { HakutapaSuodatin } from '../common/HakutapaSuodatin';
-import { OpetusaikaSuodatin } from '../common/OpetusaikaSuodatin';
-import { OpetuskieliSuodatin } from '../common/OpetusKieliSuodatin';
-import { OpetustapaSuodatin } from '../common/OpetustapaSuodatin';
-import { PohjakoulutusvaatimusSuodatin } from '../common/PohjakoulutusvaatimusSuodatin';
-import { SijaintiSuodatin } from '../common/SijaintiSuodatin';
-import { ValintatapaSuodatin } from '../common/ValintatapaSuodatin';
-import { KoulutusalaSuodatin } from './KoulutusalaSuodatin';
-import { KoulutustyyppiSuodatin } from './KoulutustyyppiSuodatin';
+import { HakuKaynnissaSuodatin } from '../suodattimet/common/HakuKaynnissaSuodatin';
+import { HakutapaSuodatin } from '../suodattimet/common/HakutapaSuodatin';
+import { OpetusaikaSuodatin } from '../suodattimet/common/OpetusaikaSuodatin';
+import { OpetuskieliSuodatin } from '../suodattimet/common/OpetusKieliSuodatin';
+import { OpetustapaSuodatin } from '../suodattimet/common/OpetustapaSuodatin';
+import { PohjakoulutusvaatimusSuodatin } from '../suodattimet/common/PohjakoulutusvaatimusSuodatin';
+import { SijaintiSuodatin } from '../suodattimet/common/SijaintiSuodatin';
+import { ValintatapaSuodatin } from '../suodattimet/common/ValintatapaSuodatin';
+import { KoulutusalaSuodatin } from '../suodattimet/hakutulosSuodattimet/KoulutusalaSuodatin';
+import { KoulutustyyppiSuodatin } from '../suodattimet/hakutulosSuodattimet/KoulutustyyppiSuodatin';
+import { MobileResultsPerPageExpansionMenu } from './hakutulos/MobileResultsPerPageExpansionMenu';
+import { MobileToggleFiltersButton } from './hakutulos/MobileToggleFiltersButton';
+import MobileToggleKoulutusOppilaitos from './hakutulos/MobileToggleKoulutusOppilaitos';
+import MobileToggleOrderByButtonMenu from './hakutulos/MobileToggleOrderByButtonMenu';
+import { useAllSelectedFilters, useFilterProps, useSearch } from './hakutulosHooks';
 
 const PREFIX = 'MobileFiltersOnTopMenu';
 
