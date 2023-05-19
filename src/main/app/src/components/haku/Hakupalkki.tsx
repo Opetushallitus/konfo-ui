@@ -253,9 +253,11 @@ const createRenderAutocompleteGroup =
   ({ key, group, children }: AutocompleteRenderGroupParams) => {
     const title = t(getTranslationKey(group));
     return (
-      <nav aria-label={title} key={key}>
-        <AutocompleteGroupList data-title={title}>{children}</AutocompleteGroupList>
-      </nav>
+      <li>
+        <nav aria-label={title} key={key}>
+          <AutocompleteGroupList data-title={title}>{children}</AutocompleteGroupList>
+        </nav>
+      </li>
     );
   };
 
