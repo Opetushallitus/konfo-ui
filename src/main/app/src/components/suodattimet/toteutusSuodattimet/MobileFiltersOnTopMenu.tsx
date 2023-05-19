@@ -27,6 +27,7 @@ import { ValintatapaSuodatin } from '#/src/components/suodattimet/common/Valinta
 import { KOULUTUS_TYYPPI, KORKEAKOULU_KOULUTUSTYYPIT } from '#/src/constants';
 import { FilterValue } from '#/src/types/SuodatinTypes';
 
+import { OpetusaikaSuodatin } from '../common/OpetusaikaSuodatin';
 import { AmmOsaamisalatSuodatin } from './AmmOsaamisalatSuodatin';
 import { LukiolinjatSuodatin } from './LukiolinjatSuodatin';
 
@@ -156,6 +157,11 @@ export const MobileFiltersOnTopMenu = ({
           <OpetuskieliSuodatin
             expanded={false}
             values={values.opetuskieli}
+            setFilters={setFilters}
+          />
+          <OpetusaikaSuodatin
+            expanded={false}
+            values={values.opetusaika}
             setFilters={setFilters}
           />
           <Divider className={classes.divider} />
