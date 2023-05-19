@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 
 import {
   SearchOutlined,
@@ -155,6 +155,40 @@ const StyledPopover = styled(Popover)(() => ({
 
 const checkIsKeywordValid = (word: string) => size(word) === 0 || size(word) > 2;
 
+type AutocompleteOption = {
+  id: string;
+  label: string;
+  type?: 'koulutus' | 'oppilaitos';
+};
+
+const AutocompleteResultList: React.FC = ({ children, ...rest }) => {
+  return <ul {...rest}>{children}</ul>;
+};
+
+const renderOption = (
+  props: React.HTMLAttributes<HTMLLIElement>,
+  option: AutocompleteOption
+) => {
+  return (
+    <li {...props} style={{ padding: 0 }}>
+      <Link
+        color="inherit"
+        sx={{
+          padding: 1,
+          width: '100%',
+          ':hover': {
+            backgroundColor: 'rgba(0,0,0,0.04)',
+          },
+        }}
+        to={option?.type ? `/${option?.type}/${option.id}` : ''}
+        component={RouterLink}
+        underline="none">
+        {option.label}
+      </Link>
+    </li>
+  );
+};
+
 const SearchBox = ({
   keyword,
   doSearch,
@@ -169,7 +203,20 @@ const SearchBox = ({
   const [inputValue, setInputValue] = useState<string>(() => keyword);
   const isKeywordValid = checkIsKeywordValid(inputValue);
 
+  const defaultValueOption: AutocompleteOption = useMemo(
+    () => ({ label: keyword, id: keyword }),
+    [keyword]
+  );
+
   const { t } = useTranslation();
+
+  const allHits = useMemo(
+    () => [
+      ...(data?.koulutukset?.hits?.map?.((k) => ({ ...k, type: 'koulutus' })) ?? []),
+      ...(data?.oppilaitokset?.hits?.map?.((o) => ({ ...o, type: 'oppilaitos' })) ?? []),
+    ],
+    [data]
+  );
 
   return (
     <Paper
@@ -189,30 +236,20 @@ const SearchBox = ({
         <Autocomplete
           fullWidth={true}
           key={keyword}
-          defaultValue={keyword}
-          options={data?.hits ?? ([] as any)}
+          //open={true}
+          defaultValue={defaultValueOption}
+          options={allHits as Array<AutocompleteOption>}
           filterOptions={(opt) => opt}
           noOptionsText={t('haku.ei-ehdotuksia')}
           loadingText={t('haku.lataus-käynnissä')}
           loading={isFetching}
+          ListboxComponent={AutocompleteResultList}
           freeSolo={true}
           onInputChange={(_e, newInputValue) => {
             setInputValue(newInputValue);
             setSearchPhraseDebounced(newInputValue);
           }}
-          renderOption={(props, option: any) => {
-            return (
-              <li {...props}>
-                <Link
-                  color="inherit"
-                  to={`/koulutus/${option.id}`}
-                  component={RouterLink}
-                  underline="none">
-                  {option.label}
-                </Link>
-              </li>
-            );
-          }}
+          renderOption={renderOption}
           renderInput={(params) => {
             const { InputProps } = params;
             const rest = omit(params, ['InputProps', 'InputLabelProps']);
