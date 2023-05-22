@@ -20,6 +20,7 @@ import { KoulutusalaSuodatin } from '#/src/components/suodattimet/hakutulosSuoda
 import { KoulutustyyppiSuodatin } from '#/src/components/suodattimet/hakutulosSuodattimet/KoulutustyyppiSuodatin';
 import { FILTER_TYPES } from '#/src/constants';
 
+import { KoulutuksenKestoSuodatin } from '../suodattimet/common/KoulutuksenKestoSuodatin';
 import { OpetusaikaSuodatin } from '../suodattimet/common/OpetusaikaSuodatin';
 import { Suodatin } from './Suodatin';
 
@@ -186,6 +187,19 @@ export const HakupalkkiFilters = () => {
         }
         id="opetustapa"
         header={t('haku.opetustapa')}
+      />
+      <Divider orientation="vertical" flexItem />
+      <Suodatin
+        children={
+          <KoulutuksenKestoSuodatin
+            setFilters={setFilters}
+            values={useFilterProps(FILTER_TYPES.KOULUTUKSENKESTOKUUKAUSINA)}
+            expanded={true}
+            summaryHidden={true}
+          />
+        }
+        id="koulutuksenkesto"
+        header={t('haku.koulutuksenkestokuukausina')}
       />
     </StyledBox>
   );

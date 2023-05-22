@@ -28,6 +28,7 @@ export type FilterValue = {
   nimi?: Translateable;
   alakoodit?: Array<Omit<FilterValue, 'alakoodit'>>;
   hidden?: boolean; // Jotkut rajaimet eivät näytä kaikkia arvoja kerralla (koulutustyyppi), mutta kaikki arvot tarvitaan
+  anyValue?: any;
 };
 
 export type FilterValues = Array<FilterValue>;

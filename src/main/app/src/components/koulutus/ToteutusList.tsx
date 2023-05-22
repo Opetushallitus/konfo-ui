@@ -4,7 +4,7 @@ import EuroSymbolIcon from '@mui/icons-material/EuroSymbol';
 import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
 import PublicIcon from '@mui/icons-material/Public';
 import { Box, Grid, Hidden, Typography } from '@mui/material';
-import { mapValues, size, some } from 'lodash';
+import { mapValues, some, size } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { match } from 'ts-pattern';
 
@@ -35,6 +35,7 @@ import { FilterValue } from '#/src/types/SuodatinTypes';
 import { Jarjestaja } from '#/src/types/ToteutusTypes';
 
 import { useSelectedFilters } from '../haku/hakutulosHooks';
+import { KoulutuksenKestoSuodatin } from '../suodattimet/common/KoulutuksenKestoSuodatin';
 import { OpetusaikaSuodatin } from '../suodattimet/common/OpetusaikaSuodatin';
 import { SuodatinValinnat } from '../suodattimet/hakutulosSuodattimet/SuodatinValinnat';
 import { LukiolinjatSuodatin } from '../suodattimet/toteutusSuodattimet/LukiolinjatSuodatin';
@@ -186,6 +187,13 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                 <OpetusaikaSuodatin
                   elevation={2}
                   values={usedValues.opetusaika}
+                  setFilters={setFilters}
+                />
+              </SuodatinGridItem>
+              <SuodatinGridItem>
+                <KoulutuksenKestoSuodatin
+                  elevation={2}
+                  values={usedValues.koulutuksenkestokuukausina}
                   setFilters={setFilters}
                 />
               </SuodatinGridItem>
