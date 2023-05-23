@@ -231,10 +231,9 @@ export const ValintaperustePage = () => {
           (tilaisuus: any) => tilaisuus.id === v.id
         )?.tilaisuudet;
         return added
-          ? produce(
-              added,
-              (draft: any) => (draft.tilaisuudet = concat(v.tilaisuudet, added))
-            )
+          ? produce(v, (draft: any) => {
+              draft.tilaisuudet = concat(v.tilaisuudet, added);
+            })
           : v;
       }
     );
