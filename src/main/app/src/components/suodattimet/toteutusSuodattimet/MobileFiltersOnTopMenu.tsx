@@ -15,6 +15,7 @@ import { KOULUTUS_TYYPPI, KORKEAKOULU_KOULUTUSTYYPIT } from '#/src/constants';
 import { FilterValue } from '#/src/types/SuodatinTypes';
 
 import { MobileRajainDrawer } from '../../common/MobileRajainDrawer';
+import { KoulutuksenKestoSuodatin } from '../common/KoulutuksenKestoSuodatin';
 import { OpetusaikaSuodatin } from '../common/OpetusaikaSuodatin';
 import { AmmOsaamisalatSuodatin } from './AmmOsaamisalatSuodatin';
 import { LukiolinjatSuodatin } from './LukiolinjatSuodatin';
@@ -146,6 +147,12 @@ export const MobileFiltersOnTopMenu = ({
         <OpetustapaSuodatin
           expanded={false}
           values={values.opetustapa}
+          setFilters={setFilters}
+        />
+        <Divider />
+        <KoulutuksenKestoSuodatin
+          expanded={false}
+          values={values.koulutuksenkestokuukausina}
           setFilters={setFilters}
         />
         <Divider />

@@ -28,6 +28,9 @@ const getMaakunta = (state) => state.hakutulos.maakunta;
 
 const getOpetustapa = (state) => state.hakutulos.opetustapa;
 
+const getKoulutuksenKestoKuukausina = (state) =>
+  state.hakutulos.koulutuksenkestokuukausina;
+
 const getValintatapa = (state) => state.hakutulos.valintatapa;
 const getHakukaynnissa = (state) => state.hakutulos.hakukaynnissa;
 const getHakutapa = (state) => state.hakutulos.hakutapa;
@@ -82,6 +85,7 @@ export const getIsAnyFilterSelected = createSelector(
     getJotpa,
     getTyovoimakoulutus,
     getTaydennyskoulutus,
+    getKoulutuksenKestoKuukausina,
   ],
   (
     opetuskieli,
@@ -99,7 +103,8 @@ export const getIsAnyFilterSelected = createSelector(
     pohjakoulutusvaatimus,
     jotpa,
     tyovoimakoulutus,
-    taydennyskoulutus
+    taydennyskoulutus,
+    koulutuksenkestokuukausina
   ) => {
     return (
       hakukaynnissa ||
@@ -120,6 +125,7 @@ export const getIsAnyFilterSelected = createSelector(
           hakutapa,
           yhteishaku,
           pohjakoulutusvaatimus,
+          koulutuksenkestokuukausina,
         ],
         (filterArr) => _size(filterArr) > 0
       )
@@ -152,6 +158,7 @@ export const getAPIRequestParams = createSelector(
     getJotpa,
     getTyovoimakoulutus,
     getTaydennyskoulutus,
+    getKoulutuksenKestoKuukausina,
   ],
   (
     keyword,
@@ -173,7 +180,8 @@ export const getAPIRequestParams = createSelector(
     pohjakoulutusvaatimus,
     jotpa,
     tyovoimakoulutus,
-    taydennyskoulutus
+    taydennyskoulutus,
+    koulutuksenkestokuukausina
   ) => ({
     keyword,
     order,
@@ -193,6 +201,7 @@ export const getAPIRequestParams = createSelector(
     taydennyskoulutus,
     yhteishaku: getCheckedFiltersIdsStr(yhteishaku),
     pohjakoulutusvaatimus: getCheckedFiltersIdsStr(pohjakoulutusvaatimus),
+    koulutuksenkestokuukausina: getCheckedFiltersIdsStr(koulutuksenkestokuukausina),
   })
 );
 
@@ -214,6 +223,7 @@ export const getAutocompleteRequestParams = createSelector(
     getJotpa,
     getTyovoimakoulutus,
     getTaydennyskoulutus,
+    getKoulutuksenKestoKuukausina,
   ],
   (
     opetusaika,
@@ -231,7 +241,8 @@ export const getAutocompleteRequestParams = createSelector(
     pohjakoulutusvaatimus,
     jotpa,
     tyovoimakoulutus,
-    taydennyskoulutus
+    taydennyskoulutus,
+    koulutuksenkestokuukausina
   ) => ({
     opetusaika: getCheckedFiltersIdsStr(opetusaika),
     opetuskieli: getCheckedFiltersIdsStr(opetuskieli),
@@ -247,6 +258,7 @@ export const getAutocompleteRequestParams = createSelector(
     taydennyskoulutus,
     yhteishaku: getCheckedFiltersIdsStr(yhteishaku),
     pohjakoulutusvaatimus: getCheckedFiltersIdsStr(pohjakoulutusvaatimus),
+    koulutuksenkestokuukausina: getCheckedFiltersIdsStr(koulutuksenkestokuukausina),
   })
 );
 
@@ -289,5 +301,6 @@ export const getInitialCheckedToteutusFilters = createSelector(
       'lukiopainotukset',
       'lukiolinjaterityinenkoulutustehtava',
       'osaamisala',
+      'koulutuksenkestokuukausina',
     ])
 );
