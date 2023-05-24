@@ -80,7 +80,7 @@ export const HakupalkkiFilters = () => {
           />
         }
         id="opetuskieli"
-        header={t('haku.opetuskieli')}
+        header={t('haku.opetusaika')}
       />
       <Divider orientation="vertical" flexItem />
       <Suodatin
