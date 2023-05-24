@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { Grid, Card, CardHeader, CardContent } from '@mui/material';
+import { Grid, Card, CardHeader, CardContent, Box, Hidden } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
+import { Link as RouterLink } from 'react-router-dom';
 
 import Image from '#/src/assets/images/o-EDUCATION-facebook.jpg';
 import { colors } from '#/src/colors';
 
+import { LocalizedLink } from './common/LocalizedLink';
 import { Hakupalkki } from './haku/Hakupalkki';
+import { useSearch } from './haku/hakutulosHooks';
+import { MobileFiltersOnTopMenu } from './haku/MobileFiltersOnTopMenu';
+import { RajaaPopoverButton, RajaimetPopover } from './haku/RajaimetPopover';
 import { ReactiveBorder } from './ReactiveBorder';
 
 const PREFIX = 'Jumpotron';
@@ -29,7 +35,6 @@ const Root = styled('div')(({ theme }) => ({
 
   [`& .${classes.jumpotron}`]: {
     backgroundColor: colors.brandGreen,
-    marginTop: '85px',
     [theme.breakpoints.down('lg')]: {
       minWidth: 600,
     },
@@ -64,6 +69,13 @@ const Root = styled('div')(({ theme }) => ({
 export const Jumpotron = () => {
   const { t } = useTranslation();
 
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const isPopoverOpen = Boolean(anchorEl);
+
+  const { koulutusData, isFetching } = useSearch();
+
+  const koulutusFilters = koulutusData?.filters;
+
   return (
     <Root className={classes.callToAction}>
       <Grid container direction="row" justifyContent="flex-start" alignItems="center">
@@ -79,7 +91,40 @@ export const Jumpotron = () => {
                   }
                 />
                 <CardContent className={classes.content}>
-                  <Hakupalkki />
+                  <Hakupalkki
+                    rajaaButton={
+                      isEmpty(koulutusFilters) ? null : (
+                        <RajaaPopoverButton
+                          setAnchorEl={setAnchorEl}
+                          isPopoverOpen={isPopoverOpen}
+                          isLoading={isFetching}
+                        />
+                      )
+                    }
+                  />
+                  {!isEmpty(koulutusFilters) && (
+                    <RajaimetPopover anchorEl={anchorEl} setAnchorEl={setAnchorEl} />
+                  )}
+                  <Box
+                    display="flex"
+                    flexDirection="row-reverse"
+                    width="100%"
+                    justifyContent="space-between"
+                    alignItems="flex-end">
+                    <LocalizedLink
+                      component={RouterLink}
+                      to="/haku"
+                      sx={{
+                        marginTop: 0,
+                        textDecoration: 'underline',
+                        color: 'white',
+                      }}>
+                      {t('jumpotron.naytakaikki')}
+                    </LocalizedLink>
+                    <Hidden mdUp>
+                      <MobileFiltersOnTopMenu isButtonInline={true} />
+                    </Hidden>
+                  </Box>
                 </CardContent>
               </ReactiveBorder>
             </Card>

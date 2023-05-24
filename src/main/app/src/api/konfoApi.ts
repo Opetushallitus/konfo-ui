@@ -6,14 +6,19 @@ import qs from 'query-string';
 
 import { getLanguage } from '#/src/tools/localization';
 import { cleanRequestParams, isCypress } from '#/src/tools/utils';
-import { Koodi, LanguageCode, TODOType } from '#/src/types/common';
+import {
+  AutocompleteResult,
+  Koodi,
+  LanguageCode,
+  TODOType,
+  RequestParams,
+} from '#/src/types/common';
 import {
   ContentfulData,
   ContentfulItem,
   ContentfulManifestData,
 } from '#/src/types/ContentfulTypes';
 
-export type RequestParams = Record<string, any>;
 type RequestConfig = AxiosRequestConfig<RequestParams>;
 
 const client = axios.create({
@@ -149,7 +154,7 @@ export const searchOppilaitokset = (requestParams: RequestParams, signal?: Abort
   });
 
 export const autoCompleteSearch = (requestParams: RequestParams) =>
-  get(urls.url('konfo-backend.search.autocomplete'), {
+  get<AutocompleteResult>(urls.url('konfo-backend.search.autocomplete'), {
     params: { lng: getLanguage(), ...cleanRequestParams(requestParams) },
   });
 

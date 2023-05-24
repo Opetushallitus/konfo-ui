@@ -1,36 +1,29 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 
 import { ExpandMore } from '@mui/icons-material';
-import {
-  Box,
-  Grid,
-  Hidden,
-  MenuItem,
-  Paper,
-  Select,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from '@mui/material';
+import { Box, Grid, MenuItem, Paper, Select, Typography, useTheme } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { useMeasure, useWindowSize } from 'react-use';
 
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import Murupolku from '#/src/components/common/Murupolku';
 import { Pagination } from '#/src/components/common/Pagination';
 import { pageSizeArray, pageSortArray } from '#/src/constants';
+import { useSideMenu } from '#/src/hooks';
+import { useHakutulosWidth } from '#/src/store/reducers/appSlice';
 import { urlParamsChanged } from '#/src/store/reducers/hakutulosSlice';
 import { useUrlParams } from '#/src/tools/useUrlParams';
 
-import { MobileFiltersOnTopMenu } from '../suodattimet/hakutulosSuodattimet/MobileFiltersOnTopMenu';
 import { SuodatinValinnat } from '../suodattimet/hakutulosSuodattimet/SuodatinValinnat';
 import { BackendErrorMessage } from './hakutulos/BackendErrorMessage';
 import { HakutulosResults } from './hakutulos/HakutulosResults';
 import { HakutulosTabs } from './hakutulos/HakutulosTabs';
 import { Suodatinpalkki } from './hakutulos/Suodatinpalkki';
-import { useSearch, useSearchSortOrder } from './hakutulosHooks';
+import { useAllSelectedFilters, useSearch, useSearchSortOrder } from './hakutulosHooks';
+import { MobileFiltersOnTopMenu } from './MobileFiltersOnTopMenu';
 
 const PREFIX = 'HakuPage';
 
@@ -105,16 +98,6 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     fontWeight: 600,
     whiteSpace: 'nowrap',
   },
-
-  [`& .${classes.murupolkuContainer}`]: {
-    margin: theme.spacing(5, 0, 7, 0),
-    [theme.breakpoints.down('md')]: {
-      margin: theme.spacing(2, 0),
-    },
-    [theme.breakpoints.down('sm')]: {
-      margin: theme.spacing(0),
-    },
-  },
 }));
 
 const useSyncedHakuParams = () => {
@@ -142,6 +125,37 @@ const getPageSortTranslationKey = (sort: string) => {
   }
 };
 
+const RajainValinnat = () => {
+  const allSelectedFilters = useAllSelectedFilters();
+  const { setFilters, clearFilters } = useSearch();
+
+  return (
+    <SuodatinValinnat
+      allSelectedFilters={allSelectedFilters}
+      setFilters={setFilters}
+      clearFilters={clearFilters}
+    />
+  );
+};
+
+const useContentWidth = () => {
+  const { width: windowWidth } = useWindowSize();
+  const { width: sideMenuWidth } = useSideMenu();
+
+  return Math.round(windowWidth - sideMenuWidth);
+};
+
+const useSyncHakutulosWidth = () => {
+  const [hakutulosRef, { width: realHakutulosWidth }] = useMeasure();
+
+  const [, setHakutulosWidth] = useHakutulosWidth();
+  useLayoutEffect(() => {
+    setHakutulosWidth(Math.round(realHakutulosWidth));
+  }, [realHakutulosWidth, setHakutulosWidth]);
+
+  return hakutulosRef;
+};
+
 export const HakuPage = () => {
   const theme = useTheme();
   const { t } = useTranslation();
@@ -162,9 +176,13 @@ export const HakuPage = () => {
 
   const { sortOrder, setSortOrder } = useSearchSortOrder();
 
-  const mdUp = useMediaQuery(theme.breakpoints.up('md'));
-
   const scrollTargetId = 'hakutulos-content';
+
+  const hakutulosRef = useSyncHakutulosWidth();
+  const [hakutulosWidth] = useHakutulosWidth();
+  const isHakutulosSmUp = hakutulosWidth >= theme.breakpoints.values['sm'];
+  const contentWidth = useContentWidth();
+  const isContentMdUp = contentWidth >= theme.breakpoints.values['md'];
 
   return (
     <StyledGrid className={classes.hakutulosSisalto} container>
@@ -180,16 +198,16 @@ export const HakuPage = () => {
         </Grid>
         <Grid
           container
-          alignItems="flex-start"
+          alignItems="flex-end"
           spacing={2}
           style={{ marginBottom: theme.spacing(2) }}>
-          <Hidden smDown>
+          {isContentMdUp && (
             <Grid item lg={3} md={4} sm={12}>
               <Typography style={{ paddingTop: 10 }} variant="h5">
                 {t('haku.rajaa-tuloksia')}
               </Typography>
             </Grid>
-          </Hidden>
+          )}
           <Grid
             item
             container
@@ -201,7 +219,7 @@ export const HakuPage = () => {
             <Grid item lg={6} md={7} xs={12} className={classes.toggleWrapper}>
               <HakutulosTabs />
             </Grid>
-            <Hidden smDown>
+            {isContentMdUp && (
               <Grid item style={{ paddingTop: 6 }}>
                 <Box component="span" className={classes.boxRoot}>
                   {t('haku.tulokset-per-sivu')}
@@ -250,14 +268,14 @@ export const HakuPage = () => {
                   ))}
                 </Select>
               </Grid>
-            </Hidden>
+            )}
           </Grid>
         </Grid>
         <Grid item container spacing={2} wrap="nowrap">
-          {mdUp ? <Suodatinpalkki /> : <MobileFiltersOnTopMenu />}
-          <Grid item container direction="column" xs>
+          {isContentMdUp ? <Suodatinpalkki /> : <MobileFiltersOnTopMenu />}
+          <Grid item container direction="column" xs ref={hakutulosRef as any}>
             <Grid item>
-              <Hidden smDown>{isAnyFilterSelected && <SuodatinValinnat />}</Hidden>
+              {isHakutulosSmUp && isAnyFilterSelected && <RajainValinnat />}
               {isFetching && <LoadingCircle />}
               {!isFetching && status === 'error' && <BackendErrorMessage />}
               {!isFetching && status === 'success' && (

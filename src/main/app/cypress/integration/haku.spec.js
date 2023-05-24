@@ -1,6 +1,7 @@
 import { playMocks } from 'kto-ui-common/cypress/mockUtils';
 
 import hakuMocks from '#/cypress/mocks/haku.mocks.json';
+import { findSearchInput } from '#/cypress/utils';
 
 describe('Haku', () => {
   beforeEach(() => {
@@ -32,6 +33,69 @@ describe('Haku', () => {
     cy.visit('/fi/haku/auto');
     cy.findAllByRole('progressbar').should('not.exist');
   });
+
+  it('Should show autocomplete suggestions', () => {
+    cy.intercept(
+      {
+        url: 'konfo-backend/search/autocomplete*',
+        query: {
+          searchPhrase: 'auto',
+          lng: 'fi',
+        },
+      },
+      {
+        fixture: 'search-autocomplete-auto.json',
+      }
+    );
+    Cypress.on('uncaught:exception', () => {
+      // Prevent 'ResizeObserver loop limit exceeded' exception from failing the test
+      return false;
+    });
+
+    findSearchInput().type('{selectall}').type('auto');
+
+    const findKoulutuksetNav = () => cy.findByRole('navigation', { name: 'Koulutukset' });
+    const findOppilaitoksetNav = () =>
+      cy.findByRole('navigation', { name: 'Oppilaitokset' });
+    findKoulutuksetNav().within(() => {
+      cy.findByText('koulutus nimi fi', { exact: false }).should('exist');
+      cy.findByText('koulutus nimi fi', { exact: false }).click();
+    });
+
+    cy.url().should('contain', 'konfo/fi/koulutus/123456');
+    cy.go('back');
+
+    findSearchInput().click();
+    findKoulutuksetNav().within(() => {
+      cy.findByText('Näytä 1 hakuehdoilla löytyvä koulutus').should('exist').click();
+    });
+
+    cy.url().should(
+      'contain',
+      'konfo/fi/haku/auto?order=desc&size=20&sort=score&tab=koulutus'
+    );
+
+    findSearchInput().click();
+
+    findOppilaitoksetNav().within(() => {
+      cy.findByText('oppilaitos nimi fi', { exact: false }).should('exist').click();
+    });
+
+    cy.url().should('contain', 'konfo/fi/oppilaitos/654321');
+    cy.go('back');
+
+    findSearchInput().click();
+
+    findOppilaitoksetNav().within(() => {
+      cy.findByText('Näytä 1 hakuehdoilla löytyvä oppilaitos').should('exist').click();
+    });
+
+    cy.url().should(
+      'contain',
+      'konfo/fi/haku/auto?order=desc&size=20&sort=score&tab=oppilaitos'
+    );
+  });
+
   it('Koulutustyyppi checkboxes should work hierarchically', () => {
     cy.findByTestId('koulutustyyppi-filter').within(() => {
       cy.findByRole('checkbox', { name: /Ammatillinen koulutus/ }).as(
@@ -274,10 +338,9 @@ describe('Haku', () => {
       });
   });
   it("Koulutuskortti data should be presented correctly for 'Tutkinnon osa'", () => {
-    const searchBox = () => cy.findByTestId('autocomplete-input');
     const searchButton = () => cy.findByRole('button', { name: /etsi/i });
 
-    searchBox().type('{selectall}').type('Hevosten hyvinvoinnista huolehtiminen');
+    findSearchInput().type('{selectall}').type('Hevosten hyvinvoinnista huolehtiminen');
     searchButton().click();
     cy.findByTestId('Hevosten hyvinvoinnista huolehtiminen').within(() => {
       cy.findByText('Tutkinnon osa').should('exist');
@@ -285,10 +348,9 @@ describe('Haku', () => {
     });
   });
   it("Koulutuskortti data should be presented correctly for 'Osaamisala'", () => {
-    const searchBox = () => cy.findByTestId('autocomplete-input');
     const searchButton = () => cy.findByRole('button', { name: /etsi/i });
 
-    searchBox().type('{selectall}').type('Jalkojenhoidon osaamisala');
+    findSearchInput().type('{selectall}').type('Jalkojenhoidon osaamisala');
     searchButton().click();
     cy.findByTestId('Jalkojenhoidon osaamisala').within(() => {
       cy.findByText('Osaamisala').should('exist');

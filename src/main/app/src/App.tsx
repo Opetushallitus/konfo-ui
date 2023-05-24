@@ -53,8 +53,7 @@ const classes = {
 
 const Root = styled('div')(
   ({
-    betaBannerVisible,
-    isSmall,
+    betaBannerVisible = false,
     menuVisible,
   }: {
     betaBannerVisible?: boolean;
@@ -62,7 +61,7 @@ const Root = styled('div')(
     menuVisible?: boolean;
   }) => ({
     [`& .${classes.content}`]: {
-      marginTop: getHeaderHeight(theme)({ betaBannerVisible, isSmall }),
+      marginTop: getHeaderHeight(theme)({ betaBannerVisible }),
       minWidth: 0,
       flexGrow: 1,
       padding: 0,
@@ -82,7 +81,7 @@ const Root = styled('div')(
     },
 
     [`& .${classes.smContent}`]: {
-      marginTop: getHeaderHeight(theme)({ betaBannerVisible, isSmall }),
+      marginTop: getHeaderHeight(theme)({ betaBannerVisible }),
       minWidth: 0,
       flexGrow: 1,
       padding: 0,

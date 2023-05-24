@@ -22,3 +22,6 @@ export const assertBreadcrumb = ({ length, lastHrefContains, hasHakutuloksetLink
       });
   }
 };
+
+export const findSearchInput = () =>
+  cy.findByPlaceholderText('Etsi koulutuksia tai oppilaitoksia');

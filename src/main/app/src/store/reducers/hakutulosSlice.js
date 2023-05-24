@@ -21,10 +21,8 @@ import { getLanguage } from '#/src/tools/localization';
 
 import { getAPIRequestParams, getHakuUrl } from './hakutulosSliceSelector';
 
-const KOULUTUS = 'koulutus';
-
 export const initialState = {
-  selectedTab: KOULUTUS,
+  selectedTab: 'koulutus',
   size: 20,
   order: 'desc',
   sort: 'score',
@@ -36,7 +34,6 @@ export const initialState = {
 
   // Persistoidut suodatinvalinnat, listoja valituista koodiarvoista (+ kaksi boolean rajainta)
   keyword: '',
-  searchPhrase: '',
   koulutustyyppi: [],
   'koulutustyyppi-muu': [],
   koulutusala: [],
@@ -64,9 +61,6 @@ const hakutulosSlice = createSlice({
   reducers: {
     setKeyword: (state, { payload }) => {
       state.keyword = payload.keyword;
-    },
-    setSearchPhrase: (state, { payload }) => {
-      state.searchPhrase = payload.searchPhrase;
     },
     setSelectedTab: (state, { payload }) => {
       state.selectedTab = payload.newSelectedTab;
@@ -130,6 +124,8 @@ const hakutulosSlice = createSlice({
       const apiRequestParams = getAPIRequestParams({ hakutulos: state });
       const cleanedParams = getCleanUrlSearch(params, apiRequestParams);
 
+      state.selectedTab = params?.tab ?? 'koulutus';
+
       if (!isMatch(apiRequestParams, cleanedParams)) {
         forEach(cleanedParams, (value, key) => {
           const valueList = split(value, ',');
@@ -177,7 +173,6 @@ const hakutulosSlice = createSlice({
 
 export const {
   setKeyword,
-  setSearchPhrase,
   setSelectedTab,
   setFilterSelectedValues,
   resetPagination,

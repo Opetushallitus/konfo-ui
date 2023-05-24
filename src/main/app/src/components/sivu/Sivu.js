@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 
 import { Grid } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { useLocation } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
 import Murupolku from '#/src/components/common/Murupolku';
@@ -48,14 +49,14 @@ const Root = styled('div')({
 export const Sivu = ({ id }) => {
   const { data, murupolku } = useContentful();
 
-  useEffect(() => {
-    const el = window.location.hash
-      ? document.getElementById(window.location.hash.substring(1))
-      : null;
+  const { hash } = useLocation();
+
+  useLayoutEffect(() => {
+    const el = hash === '#' ? null : document.getElementById(hash.substring(1));
     if (el) {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-  });
+  }, [hash]);
 
   const pageId = id;
   const { sivu } = data;

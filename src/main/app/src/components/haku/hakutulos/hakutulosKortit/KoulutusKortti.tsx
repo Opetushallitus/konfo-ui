@@ -7,7 +7,8 @@ import {
   HomeWorkOutlined,
 } from '@mui/icons-material';
 import { isEmpty } from 'lodash';
-import { useTranslation } from 'react-i18next';
+import { TFunction, useTranslation } from 'react-i18next';
+import { match, P } from 'ts-pattern';
 
 import { EntiteettiKortti } from '#/src/components/common/EntiteettiKortti';
 import { KoulutusKorttiLogo } from '#/src/components/common/KorttiLogo';
@@ -15,12 +16,7 @@ import { Koulutustyyppi } from '#/src/constants';
 import { useVisibleKoulutustyyppi } from '#/src/hooks/useVisibleKoulutustyyppi';
 import { localize } from '#/src/tools/localization';
 import { getLocalizedKoulutusLaajuus } from '#/src/tools/utils';
-import { Translateable } from '#/src/types/common';
-
-type ToteutustenTarjoajat = {
-  count: number;
-  nimi?: Translateable | null;
-};
+import { ToteutustenTarjoajat, Translateable } from '#/src/types/common';
 
 type Props = {
   koulutus: {
@@ -35,19 +31,22 @@ type Props = {
   isSmall?: boolean;
 };
 
+export const getToteutustenTarjoajat = (
+  t: TFunction,
+  toteutustenTarjoajat?: ToteutustenTarjoajat
+) =>
+  match(toteutustenTarjoajat)
+    .with({ count: 0 }, () => t('haku.ei-koulutuksen-tarjoajia'))
+    .with({ count: 1 }, () => localize(toteutustenTarjoajat?.nimi))
+    .with(
+      { count: P.number },
+      () => `${toteutustenTarjoajat?.count} ${t('haku.koulutuksen-tarjoajaa')}`
+    )
+    .otherwise(() => undefined);
+
 const useToteutustenTarjoajat = (toteutustenTarjoajat?: ToteutustenTarjoajat) => {
   const { t } = useTranslation();
-
-  if (toteutustenTarjoajat) {
-    switch (toteutustenTarjoajat?.count) {
-      case 0:
-        return t('haku.ei-koulutuksen-tarjoajia');
-      case 1:
-        return localize(toteutustenTarjoajat?.nimi);
-      default:
-        return `${toteutustenTarjoajat?.count} ${t('haku.koulutuksen-tarjoajaa')}`;
-    }
-  }
+  return getToteutustenTarjoajat(t, toteutustenTarjoajat);
 };
 
 export const KoulutusKortti = ({ koulutus, isSmall }: Props) => {
@@ -93,7 +92,9 @@ export const KoulutusKortti = ({ koulutus, isSmall }: Props) => {
           ? [koulutustyyppiText, ExtensionOutlined]
           : [tutkintonimikkeetText, SchoolOutlined],
         [getLocalizedKoulutusLaajuus(koulutus), TimelapseOutlined],
-        toteutustenTarjoajatText && [toteutustenTarjoajatText, HomeWorkOutlined],
+        toteutustenTarjoajatText
+          ? [toteutustenTarjoajatText, HomeWorkOutlined]
+          : undefined,
       ]}
       isSmall={isSmall}
     />

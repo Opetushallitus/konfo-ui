@@ -6,6 +6,8 @@ import { colors } from './colors';
 // Material UI theme customization
 // Learn more: https://mui.com/material-ui/customization/theming/
 
+const HEADER_HEIGHT_PX = 72;
+
 const breakpoints = {
   ...createBreakpoints({}),
   values: {
@@ -20,14 +22,12 @@ const breakpoints = {
 
 export const getHeaderHeight =
   (theme) =>
-  ({ betaBannerVisible, isSmall = false }) =>
-    (isSmall ? theme.smHeaderHeight : theme.headerHeight) +
-    (betaBannerVisible ? theme.betaBannerHeight : 0);
+  ({ betaBannerVisible = false }) =>
+    theme.headerHeight + (betaBannerVisible ? theme.betaBannerHeight : 0);
 
 export const theme = createTheme({
   betaBannerHeight: 40,
-  headerHeight: 64,
-  smHeaderHeight: 54,
+  headerHeight: HEADER_HEIGHT_PX,
   breakpoints,
   palette: {
     primary: {
@@ -208,7 +208,7 @@ export const theme = createTheme({
     MuiTypography: {
       styleOverrides: {
         root: {
-          scrollMarginTop: '100px',
+          scrollMarginTop: `${HEADER_HEIGHT_PX}px`,
         },
       },
     },
@@ -219,6 +219,13 @@ export const theme = createTheme({
           background: 'rgba(0,0,0,0.5)',
           opacity: 1,
           transition: 'all 0.5s',
+        },
+      },
+    },
+    MuiAutocomplete: {
+      styleOverrides: {
+        popper: {
+          zIndex: 3,
         },
       },
     },
