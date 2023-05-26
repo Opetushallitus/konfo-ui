@@ -76,7 +76,8 @@ export const HakutulosTabs = () => {
           labelIcon: classes.tabLabelIcon,
           root: classes.tabRoot,
         }}
-        label={`${t('haku.koulutukset')} (${koulutusTotal ?? 0})`}></Tab>
+        label={`${t('haku.koulutukset')} (${koulutusTotal ?? 0})`}
+      />
       <Tab
         value="oppilaitos"
         icon={<HomeWorkOutlined className={classes.tabIconMargin} />}
@@ -85,7 +86,8 @@ export const HakutulosTabs = () => {
           labelIcon: classes.tabLabelIcon,
           root: classes.tabRoot,
         }}
-        label={`${t('haku.oppilaitokset')} (${oppilaitosTotal ?? 0})`}></Tab>
+        label={`${t('haku.oppilaitokset')} (${oppilaitosTotal ?? 0})`}
+      />
     </StyledTabs>
   );
 };

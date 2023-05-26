@@ -6,12 +6,14 @@ import qs from 'query-string';
 
 import { getLanguage } from '#/src/tools/localization';
 import { cleanRequestParams, isCypress } from '#/src/tools/utils';
-import { Koodi, LanguageCode, TODOType } from '#/src/types/common';
+import { Koodi, LanguageCode, TODOType, Translateable } from '#/src/types/common';
 import {
   ContentfulData,
   ContentfulItem,
   ContentfulManifestData,
 } from '#/src/types/ContentfulTypes';
+
+import { ToteutustenTarjoajat } from '../components/haku/hakutulos/hakutulosKortit/KoulutusKortti';
 
 export type RequestParams = Record<string, any>;
 type RequestConfig = AxiosRequestConfig<RequestParams>;
@@ -148,16 +150,16 @@ export const searchOppilaitokset = (requestParams: RequestParams, signal?: Abort
     signal,
   });
 
-type AutocompleteHits = Array<{ id: string; label: string }>;
+export type AutocompleteHit = { oid: string; nimi: Translateable };
 
-type AutocompleteResult = {
+export type AutocompleteResult = {
   koulutukset: {
     total: number;
-    hits: AutocompleteHits;
+    hits: Array<AutocompleteHit & { toteutustenTarjoajat?: ToteutustenTarjoajat }>;
   };
   oppilaitokset: {
     total: number;
-    hits: AutocompleteHits;
+    hits: Array<AutocompleteHit>;
   };
 };
 

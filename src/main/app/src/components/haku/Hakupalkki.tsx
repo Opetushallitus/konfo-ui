@@ -4,6 +4,7 @@ import {
   SearchOutlined,
   ExpandMoreOutlined,
   ExpandLessOutlined,
+  HomeWorkOutlined,
 } from '@mui/icons-material';
 import {
   Box,
@@ -18,19 +19,30 @@ import {
   Autocomplete,
   InputBase,
   Link,
+  AutocompleteRenderGroupParams,
+  AutocompleteRenderInputParams,
+  Typography,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { size, isEmpty, omit } from 'lodash';
-import { useTranslation } from 'react-i18next';
-import { Link as RouterLink } from 'react-router-dom';
+import { size, isEmpty, omit, identity, concat } from 'lodash';
+import { TFunction, useTranslation } from 'react-i18next';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { match } from 'ts-pattern';
 
+import { AutocompleteResult } from '#/src/api/konfoApi';
 import { colors } from '#/src/colors';
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
 import { useIsAtEtusivu } from '#/src/store/reducers/appSlice';
+import { theme } from '#/src/theme';
+import { localize } from '#/src/tools/localization';
 
 import { MobileFiltersOnTopMenu } from '../suodattimet/hakutulosSuodattimet/MobileFiltersOnTopMenu';
 import { HakupalkkiFilters } from './HakupalkkiFilters';
-import { useAutoComplete, useSearch } from './hakutulosHooks';
+import {
+  ToteutustenTarjoajat,
+  getToteutustenTarjoajat,
+} from './hakutulos/hakutulosKortit/KoulutusKortti';
+import { useAutoComplete, useHakuUrl, useSearch } from './hakutulosHooks';
 
 const PREFIX = 'Hakupalkki';
 
@@ -45,7 +57,7 @@ const classes = {
   link: `${PREFIX}-link`,
 };
 
-const StyledBox = styled(Box)(({ theme }) => ({
+const StyledBox = styled(Box)(() => ({
   [`& .${classes.box}`]: {
     borderLeft: `2px solid ${colors.lightGrey}`,
     paddingLeft: '10px',
@@ -155,37 +167,184 @@ const StyledPopover = styled(Popover)(() => ({
 
 const checkIsKeywordValid = (word: string) => size(word) === 0 || size(word) > 2;
 
-type AutocompleteOption = {
-  id: string;
-  label: string;
-  type?: 'koulutus' | 'oppilaitos';
-};
+type AutocompleteOption =
+  | {
+      label: string;
+      type: 'oppilaitos';
+      link: string;
+    }
+  | {
+      label: string;
+      type: 'koulutus';
+      toteutustenTarjoajat?: ToteutustenTarjoajat;
+      link: string;
+    };
 
-const AutocompleteResultList: React.FC = ({ children, ...rest }) => {
-  return <ul {...rest}>{children}</ul>;
-};
-
-const renderOption = (
-  props: React.HTMLAttributes<HTMLLIElement>,
-  option: AutocompleteOption
-) => {
+const AutocompleteOptionLink = ({
+  to,
+  children,
+}: {
+  to: string;
+  children: React.ReactNode;
+}) => {
   return (
-    <li {...props} style={{ padding: 0 }}>
-      <Link
-        color="inherit"
-        sx={{
-          padding: 1,
-          width: '100%',
-          ':hover': {
-            backgroundColor: 'rgba(0,0,0,0.04)',
-          },
-        }}
-        to={option?.type ? `/${option?.type}/${option.id}` : ''}
-        component={RouterLink}
-        underline="none">
-        {option.label}
-      </Link>
-    </li>
+    <Link
+      color="inherit"
+      sx={{
+        display: 'block',
+        padding: 1,
+        width: '100%',
+      }}
+      to={to}
+      component={RouterLink}
+      underline="none">
+      {children}
+    </Link>
+  );
+};
+
+const createRenderOption =
+  (t: TFunction) =>
+  (props: React.HTMLAttributes<HTMLLIElement>, option: AutocompleteOption) => {
+    return (
+      <li {...props} key={option.link} style={{ padding: 0 }}>
+        <AutocompleteOptionLink to={option.link}>
+          <Box>{option.label}</Box>
+          {match(option)
+            .with({ type: 'koulutus' }, (k) => {
+              const tarjoajatText = getToteutustenTarjoajat(t, k.toteutustenTarjoajat);
+              return tarjoajatText ? (
+                <Box display="flex" alignItems="center" flexDirection="row">
+                  <HomeWorkOutlined />
+                  <Typography pl={1} variant="body2">
+                    {tarjoajatText}
+                  </Typography>
+                </Box>
+              ) : null;
+            })
+            .otherwise(() => '')}
+        </AutocompleteOptionLink>
+      </li>
+    );
+  };
+
+const AutocompleteGroupList = styled('ul')`
+  list-style-type: 'none';
+  margin: 0;
+  padding: 0;
+  &[data-title]::before {
+    content: attr(data-title);
+    display: block;
+    font-weight: bold;
+    padding: ${theme.spacing(1)};
+    border-top: 1px solid ${colors.lightGrey};
+    border-bottom: 1px solid ${colors.lightGrey};
+  }
+`;
+
+const getTranslationKey = (entity: string) =>
+  match(entity)
+    .with('koulutus', () => 'haku.koulutukset')
+    .with('oppilaitos', () => 'haku.oppilaitokset')
+    .otherwise(() => '');
+
+const createRenderAutocompleteGroup =
+  ({ t }: { t: TFunction }) =>
+  ({ key, group, children }: AutocompleteRenderGroupParams) => {
+    const title = t(getTranslationKey(group));
+    return (
+      <nav aria-label={title} key={key}>
+        <AutocompleteGroupList data-title={title}>{children}</AutocompleteGroupList>
+      </nav>
+    );
+  };
+
+const createRenderInput = (t: TFunction) => (params: AutocompleteRenderInputParams) => {
+  const { InputProps } = params;
+  const rest = omit(params, ['InputProps', 'InputLabelProps']);
+  return (
+    <InputBase
+      data-cy="autocomplete-input"
+      sx={{
+        borderRadius: 0,
+        flex: 1,
+        width: '100%',
+      }}
+      type="text"
+      name="keyword"
+      placeholder={t('haku.kehoite')}
+      {...InputProps}
+      {...rest}
+    />
+  );
+};
+
+const useKoulutusOptions = (
+  keyword: string,
+  koulutukset: AutocompleteResult['koulutukset'] | undefined,
+  t: TFunction
+) => {
+  const hits = koulutukset?.hits;
+  const total = koulutukset?.total;
+
+  const { i18n } = useTranslation();
+  const lng = i18n.language;
+
+  const hakuUrl = useHakuUrl(keyword, 'koulutus');
+  return useMemo(
+    () =>
+      isEmpty(hits)
+        ? []
+        : concat(
+            hits?.map?.((k) => ({
+              label: localize(k.nimi),
+              type: 'koulutus',
+              link: `/${lng}/koulutus/${k.oid}`,
+              toteutustenTarjoajat: k.toteutustenTarjoajat,
+            })) as Array<AutocompleteOption>,
+            [
+              {
+                label: t(`haku.nayta-kaikki-koulutus-hakutulokset`, { count: total }),
+                type: 'koulutus',
+                link: hakuUrl,
+              },
+            ]
+          ),
+    [hits, total, t, hakuUrl, lng]
+  );
+};
+
+const useOppilaitosOptions = (
+  keyword: string,
+  oppilaitokset: AutocompleteResult['oppilaitokset'] | undefined,
+  t: TFunction
+) => {
+  const hits = oppilaitokset?.hits;
+  const total = oppilaitokset?.total;
+
+  const { i18n } = useTranslation();
+  const lng = i18n.language;
+
+  const hakuUrl = useHakuUrl(keyword, 'oppilaitos');
+  return useMemo(
+    () =>
+      isEmpty(hits)
+        ? []
+        : concat(
+            hits?.map?.((k) => ({
+              label: localize(k.nimi),
+              type: 'oppilaitos',
+              link: `${lng}/koulutus/${k.oid}`,
+            })),
+            [
+              {
+                label: t(`haku.nayta-kaikki-oppilaitos-hakutulokset`, { count: total }),
+                type: 'oppilaitos',
+                link: hakuUrl,
+              },
+            ]
+          ),
+    [hits, total, hakuUrl, t, lng]
   );
 };
 
@@ -203,20 +362,17 @@ const SearchBox = ({
   const [inputValue, setInputValue] = useState<string>(() => keyword);
   const isKeywordValid = checkIsKeywordValid(inputValue);
 
-  const defaultValueOption: AutocompleteOption = useMemo(
-    () => ({ label: keyword, id: keyword }),
-    [keyword]
-  );
-
   const { t } = useTranslation();
 
+  const koulutusOptions = useKoulutusOptions(inputValue, data?.koulutukset, t);
+  const oppilaitosOptions = useOppilaitosOptions(inputValue, data?.oppilaitokset, t);
+
   const allHits = useMemo(
-    () => [
-      ...(data?.koulutukset?.hits?.map?.((k) => ({ ...k, type: 'koulutus' })) ?? []),
-      ...(data?.oppilaitokset?.hits?.map?.((o) => ({ ...o, type: 'oppilaitos' })) ?? []),
-    ],
-    [data]
+    () => [...koulutusOptions, ...oppilaitosOptions],
+    [koulutusOptions, oppilaitosOptions]
   );
+
+  const navigate = useNavigate();
 
   return (
     <Paper
@@ -236,51 +392,39 @@ const SearchBox = ({
         <Autocomplete
           fullWidth={true}
           key={keyword}
-          //open={true}
-          defaultValue={defaultValueOption}
+          inputValue={inputValue}
           options={allHits as Array<AutocompleteOption>}
-          filterOptions={(opt) => opt}
+          filterOptions={identity}
           noOptionsText={t('haku.ei-ehdotuksia')}
           loadingText={t('haku.lataus-käynnissä')}
           loading={isFetching}
-          ListboxComponent={AutocompleteResultList}
-          freeSolo={true}
-          onInputChange={(_e, newInputValue) => {
-            setInputValue(newInputValue);
-            setSearchPhraseDebounced(newInputValue);
+          groupBy={(option) => option.type}
+          onChange={(e, value) => {
+            e.preventDefault();
+            if (value?.link) {
+              navigate(value?.link as any);
+            }
           }}
-          renderOption={renderOption}
-          renderInput={(params) => {
-            const { InputProps } = params;
-            const rest = omit(params, ['InputProps', 'InputLabelProps']);
-            return (
-              <InputBase
-                data-cy="autocomplete-input"
-                sx={{
-                  borderRadius: 0,
-                  flex: 1,
-                  width: '100%',
-                }}
-                type="text"
-                name="keyword"
-                placeholder={t('haku.kehoite')}
-                {...InputProps}
-                {...rest}
-              />
-            );
+          onInputChange={(_e, newInputValue, reason) => {
+            if (reason !== 'reset') {
+              setInputValue(newInputValue);
+              setSearchPhraseDebounced(newInputValue);
+            }
           }}
+          renderGroup={createRenderAutocompleteGroup({ t })}
+          renderOption={createRenderOption(t)}
+          renderInput={createRenderInput(t)}
         />
       </Tooltip>
       {rajaaButton}
-      <Hidden smDown>
+      <Hidden mdDown>
         <Button
           startIcon={<SearchOutlined />}
           disabled={!isKeywordValid}
           type="submit"
           variant="contained"
           color="secondary"
-          className={classes.searchButton}
-          aria-label={t('haku.etsi')}>
+          className={classes.searchButton}>
           {t('haku.etsi')}
         </Button>
       </Hidden>
@@ -348,8 +492,7 @@ export const Hakupalkki = () => {
             )
           }
           onClick={handleDesktopBtnClick}
-          className={classes.expandButton}
-          aria-label={t('haku.rajaa')}>
+          className={classes.expandButton}>
           {t('haku.rajaa')}
         </Button>
       </Box>
@@ -358,7 +501,12 @@ export const Hakupalkki = () => {
 
   return (
     <StyledBox display="flex" flexDirection="column" alignItems="flex-end" flexGrow={1}>
-      <SearchBox keyword={keyword} doSearch={doSearch} rajaaButton={rajaaButton} />
+      <SearchBox
+        key={keyword}
+        keyword={keyword}
+        doSearch={doSearch}
+        rajaaButton={rajaaButton}
+      />
       {!isEmpty(koulutusFilters) && (
         <Hidden smDown>
           <StyledPopover

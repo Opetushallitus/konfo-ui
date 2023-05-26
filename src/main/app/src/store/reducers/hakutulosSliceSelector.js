@@ -252,7 +252,7 @@ export const getAutocompleteRequestParams = createSelector(
 
 export const getHakuParams = createSelector([getAPIRequestParams], (apiRequestParams) => {
   const hakuParams = cleanRequestParams(
-    pick(apiRequestParams, ['order', 'sort', 'size', ...FILTER_TYPES_ARR])
+    pick(apiRequestParams, ['order', 'sort', 'size', 'tab', ...FILTER_TYPES_ARR])
   );
 
   const hakuParamsStr = qs.stringify(hakuParams, { arrayFormat: 'comma' });
@@ -263,6 +263,11 @@ export const getHakuUrl = createSelector(
   [getKeyword, getHakuParams],
   (keyword, { hakuParamsStr }) => `/haku${keyword ? '/' + keyword : ''}?${hakuParamsStr}`
 );
+
+export const createHakuUrl = (keyword, hakuParams, lng) =>
+  `/${lng}/haku${keyword ? '/' + keyword : ''}?${qs.stringify(hakuParams, {
+    arrayFormat: 'comma',
+  })}`;
 
 export const getInitialCheckedToteutusFilters = createSelector(
   [getFilters],
