@@ -269,12 +269,7 @@ export const useFilterProps = (id: ValueOf<typeof FILTER_TYPES>) => {
   );
 };
 
-export const useAllSelectedFilters = () => {
-  const { koulutusData } = useSearch();
-  const koulutusFilters = koulutusData.filters;
-
-  const allCheckedValues = useSelector(getFilters);
-
+export const useSelectedFilters = (availableFilters: any, checkedFilters: any) => {
   const selectedFiltersWithAlakoodit = useMemo(
     () =>
       flow(
@@ -283,13 +278,13 @@ export const useAllSelectedFilters = () => {
         (ks) =>
           map(ks, (filterId) =>
             Object.values(
-              getFilterWithChecked(koulutusFilters, allCheckedValues, filterId)
+              getFilterWithChecked(availableFilters, checkedFilters, filterId)
             )
           ),
         flatten,
         (flatted) => uniqBy(flatted, 'id')
-      )(allCheckedValues),
-    [koulutusFilters, allCheckedValues]
+      )(checkedFilters),
+    [availableFilters, checkedFilters]
   );
 
   const selectedFiltersFlatList = useMemo(
@@ -302,10 +297,18 @@ export const useAllSelectedFilters = () => {
   ); // Alakoodilistoissa voi olla valitsemattomia koodeja
 
   return {
-    count: selectedFiltersFlatList.length,
-    selectedFiltersFlatList,
-    selectedFiltersWithAlakoodit,
+    flat: selectedFiltersFlatList,
+    withAlakoodit: selectedFiltersWithAlakoodit,
   };
+};
+
+export const useAllSelectedFilters = () => {
+  const { koulutusData } = useSearch();
+  const koulutusFilters = koulutusData.filters;
+
+  const allCheckedValues = useSelector(getFilters);
+
+  return useSelectedFilters(koulutusFilters, allCheckedValues);
 };
 
 const useDispatchCb = (fn: (x: any) => any, options: { syncUrl?: boolean } = {}) => {

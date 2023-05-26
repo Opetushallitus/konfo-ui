@@ -99,7 +99,8 @@ export const MobileFiltersOnTopMenu = () => {
     [selectedTab, koulutusData, oppilaitosData]
   );
 
-  const { count } = useAllSelectedFilters();
+  const { flat: allSelectedFilters } = useAllSelectedFilters();
+  const count = allSelectedFilters?.length ?? 0;
 
   const [showFilters, setShowFilters] = useState(false);
   const toggleShowFilters = useCallback(

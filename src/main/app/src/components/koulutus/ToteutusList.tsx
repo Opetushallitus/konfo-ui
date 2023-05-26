@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 
 import EuroSymbolIcon from '@mui/icons-material/EuroSymbol';
 import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
@@ -6,7 +6,6 @@ import PublicIcon from '@mui/icons-material/Public';
 import { Box, Grid, Hidden, Typography } from '@mui/material';
 import { mapValues, some } from 'lodash';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
 import { match } from 'ts-pattern';
 
 import { EntiteettiKortti } from '#/src/components/common/EntiteettiKortti';
@@ -25,14 +24,7 @@ import { SijaintiSuodatin } from '#/src/components/suodattimet/common/SijaintiSu
 import { ValintatapaSuodatin } from '#/src/components/suodattimet/common/ValintatapaSuodatin';
 import { AmmOsaamisalatSuodatin } from '#/src/components/suodattimet/toteutusSuodattimet/AmmOsaamisalatSuodatin';
 import { KOULUTUS_TYYPPI, KORKEAKOULU_KOULUTUSTYYPIT } from '#/src/constants';
-import { usePreviousNonEmpty } from '#/src/hooks';
-import { usePreviousPage } from '#/src/store/reducers/appSlice';
-import { getInitialCheckedToteutusFilters } from '#/src/store/reducers/hakutulosSliceSelector';
-import {
-  getFilterWithChecked,
-  sortValues,
-  getFilterStateChangesForDelete,
-} from '#/src/tools/filters';
+import { getFilterWithChecked, sortValues } from '#/src/tools/filters';
 import {
   localize,
   getLocalizedMaksullisuus,
@@ -42,8 +34,9 @@ import { getLocalizedOpintojenLaajuus } from '#/src/tools/utils';
 import { FilterValue } from '#/src/types/SuodatinTypes';
 import { Jarjestaja } from '#/src/types/ToteutusTypes';
 
+import { useSelectedFilters } from '../haku/hakutulosHooks';
 import { OpetusaikaSuodatin } from '../suodattimet/common/OpetusaikaSuodatin';
-import { ChipList } from '../suodattimet/hakutulosSuodattimet/SuodatinValinnat';
+import { SuodatinValinnat } from '../suodattimet/hakutulosSuodattimet/SuodatinValinnat';
 import { LukiolinjatSuodatin } from '../suodattimet/toteutusSuodattimet/LukiolinjatSuodatin';
 import { MobileFiltersOnTopMenu } from '../suodattimet/toteutusSuodattimet/MobileFiltersOnTopMenu';
 import { useKoulutusJarjestajat } from './hooks';
@@ -68,15 +61,8 @@ const SuodatinGridItem: React.FC = ({ children }) => {
   );
 };
 
-const idsMatch = (id: string) => (val: FilterValue) => val.id === id;
-
 export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
   const { t } = useTranslation();
-
-  // NOTE: Tämä haetaan vain kerran alkuarvoja varten + Haetaan järjestäjätulokset hakusivulta periytyneillä rajaimilla
-  const initialCheckedFilters = useSelector<any, Record<string, Array<string>>>(
-    getInitialCheckedToteutusFilters
-  );
 
   const { queryResult, setFilters, setPagination, pagination, filters } =
     useKoulutusJarjestajat({
@@ -86,21 +72,6 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
   const { data = {}, isLoading } = queryResult;
 
   const { sortedFilters, jarjestajat, total } = data as JarjestajaData;
-  const [initialValues] = useState(initialCheckedFilters);
-
-  const previousOid = usePreviousNonEmpty(oid);
-
-  const previousPage = usePreviousPage();
-
-  const isComingFromHakuPage = previousPage === 'haku';
-
-  // Jos oid vaihtuu ja tullaan hakusivulta, initialisoi filtterit hakutulosten filttereistä
-  useEffect(() => {
-    if (oid !== previousOid && isComingFromHakuPage) {
-      setFilters(initialValues);
-      setPagination({ offset: 0 });
-    }
-  }, [oid, setFilters, initialValues, previousOid, isComingFromHakuPage, setPagination]);
 
   const usedValues: any = useMemo(
     () =>
@@ -110,49 +81,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
     [sortedFilters, filters]
   );
 
-  const selectedFiltersFlatList = useMemo(() => {
-    return Object.keys(filters)
-      .map((k: string) => {
-        if (!filters[k].map) {
-          const booleanValue = filters[k];
-          return booleanValue
-            ? [
-                {
-                  checked: true,
-                  id: k,
-                  count: 1,
-                  filterId: k,
-                },
-              ]
-            : [];
-        }
-        return filters[k]
-          .map((v: FilterValue) => [v, ...(v.alakoodit || [])])
-          .flat()
-          .map((v: string) => {
-            const matchingFilter =
-              usedValues[k]?.find(idsMatch(v)) ||
-              usedValues[k]
-                ?.map((val: FilterValue) => val.alakoodit)
-                .flat()
-                .find(idsMatch(v));
-            return {
-              checked: true,
-              id: v,
-              count: matchingFilter ? matchingFilter.count : 0,
-              filterId: k,
-              nimi: matchingFilter?.nimi,
-            };
-          });
-      })
-      .flat();
-  }, [usedValues, filters]);
-
-  const handleCheck = (item: FilterValue) => () => {
-    const values = usedValues[item.filterId];
-    const changes = getFilterStateChangesForDelete(values)(item);
-    setFilters(changes);
-  };
+  const allSelectedFilters = useSelectedFilters(sortedFilters, filters);
 
   const someSelected = some(filters, (v) => (Array.isArray(v) ? v.length > 0 : v));
 
@@ -178,12 +107,12 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
         }>
         <>
           <Hidden smDown>
-            {selectedFiltersFlatList.length > 0 && (
+            {(allSelectedFilters?.flat?.length ?? 0) > 0 && (
               <div>
-                <ChipList
-                  filters={selectedFiltersFlatList}
-                  getHandleDelete={handleCheck}
-                  handleClearFilters={handleFiltersClear}
+                <SuodatinValinnat
+                  allSelectedFilters={allSelectedFilters}
+                  setFilters={setFilters}
+                  clearFilters={handleFiltersClear}
                 />
               </div>
             )}
