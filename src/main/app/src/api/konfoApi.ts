@@ -148,8 +148,12 @@ export const searchOppilaitokset = (requestParams: RequestParams, signal?: Abort
     signal,
   });
 
+type AutocompleteResult = {
+  hits: Array<{ id: string; label: string }>;
+};
+
 export const autoCompleteSearch = (requestParams: RequestParams) =>
-  get(urls.url('konfo-backend.search.autocomplete'), {
+  get<AutocompleteResult>(urls.url('konfo-backend.search.autocomplete'), {
     params: { lng: getLanguage(), ...cleanRequestParams(requestParams) },
   });
 

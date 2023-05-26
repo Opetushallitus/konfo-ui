@@ -12,8 +12,6 @@ export const getKoulutusOffset = (state) => state.hakutulos.koulutusOffset;
 
 export const getOppilaitosOffset = (state) => state.hakutulos.oppilaitosOffset;
 
-export const getSearchPhrase = (state) => state.hakutulos.searchPhrase;
-
 const getOpetuskieli = (state) => state.hakutulos.opetuskieli;
 
 const getOpetusaika = (state) => state.hakutulos.opetusaika;
@@ -200,7 +198,6 @@ export const getAPIRequestParams = createSelector(
 
 export const getAutocompleteRequestParams = createSelector(
   [
-    getSearchPhrase,
     getOpetusaika,
     getOpetuskieli,
     getKoulutustyyppi,
@@ -219,7 +216,6 @@ export const getAutocompleteRequestParams = createSelector(
     getTaydennyskoulutus,
   ],
   (
-    searchPhrase,
     opetusaika,
     opetuskieli,
     koulutustyyppi,
@@ -237,7 +233,6 @@ export const getAutocompleteRequestParams = createSelector(
     tyovoimakoulutus,
     taydennyskoulutus
   ) => ({
-    searchPhrase,
     opetusaika: getCheckedFiltersIdsStr(opetusaika),
     opetuskieli: getCheckedFiltersIdsStr(opetuskieli),
     koulutustyyppi: getCheckedFiltersIdsStr(concat(koulutustyyppi, koulutustyyppiMuu)),
@@ -266,9 +261,7 @@ export const getHakuParams = createSelector([getAPIRequestParams], (apiRequestPa
 
 export const getHakuUrl = createSelector(
   [getKeyword, getHakuParams],
-  (keyword, { hakuParamsStr }) => {
-    return `/haku${keyword ? '/' + keyword : ''}?${hakuParamsStr}`;
-  }
+  (keyword, { hakuParamsStr }) => `/haku${keyword ? '/' + keyword : ''}?${hakuParamsStr}`
 );
 
 export const getInitialCheckedToteutusFilters = createSelector(

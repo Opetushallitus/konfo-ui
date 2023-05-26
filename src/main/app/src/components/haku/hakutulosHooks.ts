@@ -1,5 +1,6 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
+import { debounce } from '@mui/material';
 import { flow, pickBy, map, uniqBy, flatten, size } from 'lodash';
 import { useQuery } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
@@ -29,14 +30,12 @@ import {
   setOrder,
   clearSelectedFilters,
   setKeyword,
-  setSearchPhrase,
 } from '#/src/store/reducers/hakutulosSlice';
 import {
   getAPIRequestParams,
   getFilters,
   getIsAnyFilterSelected,
   getKeyword,
-  getSearchPhrase,
   getKoulutusOffset,
   getKoulutusPage,
   getOppilaitosOffset,
@@ -64,20 +63,46 @@ const useOppilaitosSearch = createSearchQueryHook(
   searchOppilaitokset
 );
 
-const useAutocompleteSearch = createSearchQueryHook(
-  'autoCompleteSearch',
-  (requestParams) => {
-    if (size(requestParams.searchPhrase) > 2) {
-      return autoCompleteSearch(requestParams);
-    } else {
-      return [];
+const useAutoCompleteQuery = (requestParams: any) => {
+  return useQuery(
+    ['autoCompleteSearch', requestParams],
+    () => autoCompleteSearch(requestParams),
+    {
+      enabled: size(requestParams.searchPhrase) >= 3,
     }
-  }
-);
+  );
+};
+
+export const useAutoComplete = () => {
+  const autoCompleteRequestParams = useSelector(getAutocompleteRequestParams);
+
+  const [searchPhrase, setSearchPhrase] = useState<string>();
+
+  const { data, isFetching, status } = useAutoCompleteQuery({
+    ...autoCompleteRequestParams,
+    searchPhrase,
+  });
+
+  const setSearchPhraseDebounced = useMemo(
+    () => debounce(setSearchPhrase, 300),
+    [setSearchPhrase]
+  );
+
+  return useMemo(
+    () => ({
+      setSearchPhraseDebounced: setSearchPhraseDebounced,
+      status,
+      isFetching,
+      data,
+    }),
+    [setSearchPhraseDebounced, isFetching, data, status]
+  );
+};
+
+export const useSearchOperations = () => {};
 
 export const useSearch = () => {
   const keyword = useSelector(getKeyword);
-  const searchPhrase = useSelector(getSearchPhrase);
   const isAnyFilterSelected = useSelector(getIsAnyFilterSelected);
   const pageSize = useSelector(getSize);
   const selectedTab = useSelector(getSelectedTab);
@@ -85,7 +110,6 @@ export const useSearch = () => {
   const oppilaitosOffset = useSelector(getOppilaitosOffset);
 
   const requestParams = useSelector(getAPIRequestParams);
-  const autoCompleteRequestParams = useSelector(getAutocompleteRequestParams);
 
   const koulutusPage = useSelector(getKoulutusPage);
   const oppilaitosPage = useSelector(getOppilaitosPage);
@@ -103,14 +127,10 @@ export const useSearch = () => {
 
   const status = getCombinedQueryStatus([koulutusQueryResult, oppilaitosQueryResult]);
 
-  const autoCompleteResult = useAutocompleteSearch(autoCompleteRequestParams);
-  const autoCompleteOptions = autoCompleteResult?.data?.hits;
-
   const isFetching = getCombinedQueryIsFetching([
     koulutusQueryResult,
     oppilaitosQueryResult,
   ]);
-  const isFetchingAutocompleteResults = autoCompleteResult.isFetching;
 
   const dispatch = useDispatch();
 
@@ -190,24 +210,15 @@ export const useSearch = () => {
     [dispatch]
   );
 
-  const setSearchPhraseCb = useCallback(
-    (sp) => dispatch(setSearchPhrase({ searchPhrase: sp })),
-    [dispatch]
-  );
-
   return useMemo(
     () => ({
       keyword,
-      searchPhrase,
       setKeyword: setKeywordCb,
-      setSearchPhrase: setSearchPhraseCb,
       isFetching,
-      isFetchingAutocompleteResults,
       isAnyFilterSelected,
       status,
       koulutusData,
       oppilaitosData,
-      autoCompleteOptions,
       pagination,
       setPagination,
       resetPagination: resetPaginationCb,
@@ -224,11 +235,8 @@ export const useSearch = () => {
     }),
     [
       keyword,
-      searchPhrase,
       setKeywordCb,
-      setSearchPhraseCb,
       isFetching,
-      isFetchingAutocompleteResults,
       isAnyFilterSelected,
       status,
       pagination,
@@ -236,7 +244,6 @@ export const useSearch = () => {
       resetPaginationCb,
       oppilaitosData,
       koulutusData,
-      autoCompleteOptions,
       clearFilters,
       selectedTab,
       setSelectedTabCb,
