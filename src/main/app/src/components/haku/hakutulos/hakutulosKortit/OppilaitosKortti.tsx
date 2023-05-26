@@ -1,6 +1,8 @@
-import React from 'react';
-
-import { SchoolOutlined, PublicOutlined } from '@mui/icons-material';
+import {
+  SchoolOutlined,
+  PublicOutlined,
+  LocalLibraryOutlined,
+} from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 
 import { EntiteettiKortti } from '#/src/components/common/EntiteettiKortti';
@@ -10,7 +12,11 @@ import { Koodi, Translateable } from '#/src/types/common';
 
 type Props = {
   oppilaitos: {
-    koulutusohjelmia: number;
+    koulutusohjelmatLkm?: {
+      kaikki: number;
+      tutkintoonJohtavat: number;
+      eiTutkintoonJohtavat: number;
+    };
     kuvaus?: Translateable;
     logo?: string;
     oid: string;
@@ -24,18 +30,12 @@ export const OppilaitosKortti = ({ oppilaitos, isSmall }: Props) => {
   const { t } = useTranslation();
 
   const paikkakunnatStr = localizeArrayToCommaSeparated(oppilaitos?.paikkakunnat);
-
   const kuvaus =
     localize(oppilaitos?.kuvaus).replace(/<[^>]*>/gm, '') || t('haku.ei_kuvausta');
 
-  const koulutusohjelmaCount = oppilaitos?.koulutusohjelmia || 0;
+  const tutkintoonJohtavat = oppilaitos?.koulutusohjelmatLkm?.tutkintoonJohtavat;
+  const tutkintoonJohtamattomat = oppilaitos?.koulutusohjelmatLkm?.eiTutkintoonJohtavat;
 
-  const koulutusOhjelmatStr =
-    koulutusohjelmaCount === 0
-      ? t('haku.ei-tutkintoon-johtavia-koulutuksia')
-      : t('haku.tutkintoon-johtava-koulutus-maara', {
-          count: koulutusohjelmaCount,
-        });
   const logoAltText = `${localize(oppilaitos)} ${t('haku.oppilaitoksen-logo')}`;
 
   return (
@@ -45,7 +45,22 @@ export const OppilaitosKortti = ({ oppilaitos, isSmall }: Props) => {
       header={localize(oppilaitos)}
       kuvaus={kuvaus}
       iconTexts={[
-        [koulutusOhjelmatStr, SchoolOutlined],
+        tutkintoonJohtavat
+          ? [
+              t('haku.tutkintoon-johtava-koulutus-maara', {
+                count: tutkintoonJohtavat,
+              }),
+              SchoolOutlined,
+            ]
+          : undefined,
+        tutkintoonJohtamattomat
+          ? [
+              t('haku.tutkintoon-johtamaton-koulutus-maara', {
+                count: tutkintoonJohtamattomat,
+              }),
+              LocalLibraryOutlined,
+            ]
+          : undefined,
         [paikkakunnatStr, PublicOutlined],
       ]}
       isSmall={isSmall}
