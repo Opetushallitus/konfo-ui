@@ -279,72 +279,39 @@ const createRenderInput = (t: TFunction) => (params: AutocompleteRenderInputPara
   );
 };
 
-const useKoulutusOptions = (
+const useAutocompleteOptions = (
   keyword: string,
-  koulutukset: AutocompleteResult['koulutukset'] | undefined,
-  t: TFunction
+  type: 'koulutus' | 'oppilaitos',
+  t: TFunction,
+  response?: AutocompleteResult['koulutukset'] | AutocompleteResult['oppilaitokset']
 ) => {
-  const hits = koulutukset?.hits;
-  const total = koulutukset?.total;
+  const hits = response?.hits;
+  const total = response?.total;
 
   const { i18n } = useTranslation();
   const lng = i18n.language;
 
-  const hakuUrl = useHakuUrl(keyword, 'koulutus');
+  const hakuUrl = useHakuUrl(keyword, type);
   return useMemo(
     () =>
       isEmpty(hits)
         ? []
         : concat(
             hits?.map?.((k) => ({
+              ...omit(k, ['oid', 'nimi']),
               label: localize(k.nimi),
-              type: 'koulutus',
-              link: `/${lng}/koulutus/${k.oid}`,
-              toteutustenTarjoajat: k.toteutustenTarjoajat,
+              type,
+              link: `/${lng}/${type}/${k.oid}`,
             })) as Array<AutocompleteOption>,
             [
               {
-                label: t(`haku.nayta-kaikki-koulutus-hakutulokset`, { count: total }),
-                type: 'koulutus',
+                label: t(`haku.nayta-kaikki-${type}-hakutulokset`, { count: total }),
+                type,
                 link: hakuUrl,
               },
             ]
           ),
-    [hits, total, t, hakuUrl, lng]
-  );
-};
-
-const useOppilaitosOptions = (
-  keyword: string,
-  oppilaitokset: AutocompleteResult['oppilaitokset'] | undefined,
-  t: TFunction
-) => {
-  const hits = oppilaitokset?.hits;
-  const total = oppilaitokset?.total;
-
-  const { i18n } = useTranslation();
-  const lng = i18n.language;
-
-  const hakuUrl = useHakuUrl(keyword, 'oppilaitos');
-  return useMemo(
-    () =>
-      isEmpty(hits)
-        ? []
-        : concat(
-            hits?.map?.((k) => ({
-              label: localize(k.nimi),
-              type: 'oppilaitos',
-              link: `${lng}/koulutus/${k.oid}`,
-            })),
-            [
-              {
-                label: t(`haku.nayta-kaikki-oppilaitos-hakutulokset`, { count: total }),
-                type: 'oppilaitos',
-                link: hakuUrl,
-              },
-            ]
-          ),
-    [hits, total, hakuUrl, t, lng]
+    [hits, total, t, hakuUrl, lng, type]
   );
 };
 
@@ -364,8 +331,18 @@ const SearchBox = ({
 
   const { t } = useTranslation();
 
-  const koulutusOptions = useKoulutusOptions(inputValue, data?.koulutukset, t);
-  const oppilaitosOptions = useOppilaitosOptions(inputValue, data?.oppilaitokset, t);
+  const koulutusOptions = useAutocompleteOptions(
+    inputValue,
+    'koulutus',
+    t,
+    data?.koulutukset
+  );
+  const oppilaitosOptions = useAutocompleteOptions(
+    inputValue,
+    'oppilaitos',
+    t,
+    data?.oppilaitokset
+  );
 
   const allHits = useMemo(
     () => [...koulutusOptions, ...oppilaitosOptions],
