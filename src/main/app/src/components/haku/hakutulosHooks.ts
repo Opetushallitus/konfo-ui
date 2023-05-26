@@ -365,10 +365,6 @@ export const useSearchSortOrder = () => {
   };
 };
 
-export const usePagination = (tab: 'koulutus' | 'oppilaitos') => {
-  return tab;
-};
-
 export const useSearchTab = () => {
   const searchTab = useSelector(getSelectedTab);
   const dispatch = useDispatch();
