@@ -16,12 +16,7 @@ import { Koulutustyyppi } from '#/src/constants';
 import { useVisibleKoulutustyyppi } from '#/src/hooks/useVisibleKoulutustyyppi';
 import { localize } from '#/src/tools/localization';
 import { getLocalizedKoulutusLaajuus } from '#/src/tools/utils';
-import { Translateable } from '#/src/types/common';
-
-export type ToteutustenTarjoajat = {
-  count: number;
-  nimi?: Translateable | null;
-};
+import { ToteutustenTarjoajat, Translateable } from '#/src/types/common';
 
 type Props = {
   koulutus: {
