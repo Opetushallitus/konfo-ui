@@ -26,11 +26,11 @@ export const useAutocompleteOptions = (
       isEmpty(hits)
         ? []
         : concat(
-            hits?.map?.((k) => ({
-              ...omit(k, ['oid', 'nimi']),
-              label: localize(k.nimi),
+            hits?.map?.((hit) => ({
+              ...omit(hit, ['oid', 'nimi']),
+              label: localize(hit.nimi),
               type,
-              link: `/${lng}/${type}/${k.oid}`,
+              link: `/${lng}/${type}/${hit.oid}`,
             })) as Array<AutocompleteOption>,
             [
               {

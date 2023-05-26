@@ -4,7 +4,6 @@ import { HomeWorkOutlined } from '@mui/icons-material';
 import {
   Box,
   InputBase,
-  Link,
   AutocompleteRenderGroupParams,
   AutocompleteRenderInputParams,
   Typography,
@@ -13,9 +12,9 @@ import {
   Autocomplete,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { identity, omit, size } from 'lodash';
+import { identity, isString, omit, size } from 'lodash';
 import { TFunction, useTranslation } from 'react-i18next';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { match } from 'ts-pattern';
 
 import { colors } from '#/src/colors';
@@ -29,50 +28,25 @@ import { SearchButton } from './SearchButton';
 
 const checkIsKeywordValid = (word: string) => size(word) === 0 || size(word) > 2;
 
-const AutocompleteOptionLink = ({
-  to,
-  children,
-}: {
-  to: string;
-  children: React.ReactNode;
-}) => {
-  return (
-    <Link
-      color="inherit"
-      sx={{
-        display: 'block',
-        padding: 1,
-        width: '100%',
-      }}
-      to={to}
-      component={RouterLink}
-      underline="none">
-      {children}
-    </Link>
-  );
-};
-
 export const createRenderOption =
   (t: TFunction) =>
   (props: React.HTMLAttributes<HTMLLIElement>, option: AutocompleteOption) => {
     return (
-      <li {...props} key={option.link} style={{ padding: 0 }}>
-        <AutocompleteOptionLink to={option.link}>
-          <Box>{option.label}</Box>
-          {match(option)
-            .with({ type: 'koulutus' }, (k) => {
-              const tarjoajatText = getToteutustenTarjoajat(t, k.toteutustenTarjoajat);
-              return tarjoajatText ? (
-                <Box display="flex" alignItems="center" flexDirection="row">
-                  <HomeWorkOutlined />
-                  <Typography pl={1} variant="body2">
-                    {tarjoajatText}
-                  </Typography>
-                </Box>
-              ) : null;
-            })
-            .otherwise(() => '')}
-        </AutocompleteOptionLink>
+      <li {...props} style={{ display: 'block' }} key={option.link}>
+        <Box>{option.label}</Box>
+        {match(option)
+          .with({ type: 'koulutus' }, (k) => {
+            const tarjoajatText = getToteutustenTarjoajat(t, k.toteutustenTarjoajat);
+            return tarjoajatText ? (
+              <Box display="flex" alignItems="center" flexDirection="row">
+                <HomeWorkOutlined />
+                <Typography pl={1} variant="body2">
+                  {tarjoajatText}
+                </Typography>
+              </Box>
+            ) : null;
+          })
+          .otherwise(() => null)}
       </li>
     );
   };
@@ -118,17 +92,22 @@ const getTranslationKey = (entity: string) =>
     .otherwise(() => '');
 
 const createRenderAutocompleteGroup =
-  ({ t }: { t: TFunction }) =>
+  (t: TFunction) =>
   ({ key, group, children }: AutocompleteRenderGroupParams) => {
     const title = t(getTranslationKey(group));
     return (
-      <li>
-        <nav aria-label={title} key={key}>
+      <li key={key}>
+        <nav aria-label={title}>
           <AutocompleteGroupList data-title={title}>{children}</AutocompleteGroupList>
         </nav>
       </li>
     );
   };
+
+const useIsOptionEqualToValue = () => {
+  const { pathname, search: urlSearch } = useLocation();
+  return (option: AutocompleteOption) => option.link === pathname + urlSearch;
+};
 
 export const SearchBox = ({
   keyword,
@@ -136,12 +115,12 @@ export const SearchBox = ({
   rajaaButton,
 }: {
   keyword: string;
-  doSearch: any;
+  doSearch: (keyword: string) => void;
   rajaaButton?: JSX.Element | null;
 }) => {
   const { setSearchPhraseDebounced, isFetching, data } = useAutoComplete();
 
-  const [inputValue, setInputValue] = useState<string>(() => keyword);
+  const [inputValue, setInputValue] = useState<string>(() => keyword || '');
   const isKeywordValid = checkIsKeywordValid(inputValue);
 
   const { t } = useTranslation();
@@ -165,6 +144,7 @@ export const SearchBox = ({
   );
 
   const navigate = useNavigate();
+  const isOptionEqualToValue = useIsOptionEqualToValue();
 
   return (
     <Paper
@@ -172,7 +152,7 @@ export const SearchBox = ({
       onSubmit={(event: React.ChangeEvent<HTMLFormElement>) => {
         event.preventDefault();
         const formData = new FormData(event.target);
-        const keywordValue = formData.get('keyword');
+        const keywordValue = formData.get('keyword')?.toString() ?? '';
         doSearch(keywordValue);
       }}
       sx={{
@@ -199,16 +179,17 @@ export const SearchBox = ({
           fullWidth={true}
           key={keyword}
           inputValue={inputValue}
-          options={allHits as Array<AutocompleteOption>}
+          freeSolo={true}
+          isOptionEqualToValue={isOptionEqualToValue}
+          options={allHits}
           filterOptions={identity}
           noOptionsText={t('haku.ei-ehdotuksia')}
           loadingText={t('haku.lataus-käynnissä')}
           loading={isFetching}
           groupBy={(option) => option.type}
-          onChange={(e, value) => {
-            e.preventDefault();
-            if (value?.link) {
-              navigate(value?.link as any);
+          onChange={(_e, val) => {
+            if (!isString(val) && val?.link) {
+              navigate(val.link);
             }
           }}
           onInputChange={(_e, newInputValue, reason) => {
@@ -217,7 +198,7 @@ export const SearchBox = ({
               setSearchPhraseDebounced(newInputValue);
             }
           }}
-          renderGroup={createRenderAutocompleteGroup({ t })}
+          renderGroup={createRenderAutocompleteGroup(t)}
           renderOption={createRenderOption(t)}
           renderInput={createRenderInput(t)}
         />
