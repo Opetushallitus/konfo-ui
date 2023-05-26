@@ -148,8 +148,17 @@ export const searchOppilaitokset = (requestParams: RequestParams, signal?: Abort
     signal,
   });
 
+type AutocompleteHits = Array<{ id: string; label: string }>;
+
 type AutocompleteResult = {
-  hits: Array<{ id: string; label: string }>;
+  koulutukset: {
+    total: number;
+    hits: AutocompleteHits;
+  };
+  oppilaitokset: {
+    total: number;
+    hits: AutocompleteHits;
+  };
 };
 
 export const autoCompleteSearch = (requestParams: RequestParams) =>
