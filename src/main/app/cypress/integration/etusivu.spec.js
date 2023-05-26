@@ -1,3 +1,5 @@
+import { findSearchInput } from '#/cypress/utils';
+
 describe('Etusivu', () => {
   it('Should have cards with working links', () => {
     cy.visit('/');
@@ -31,7 +33,7 @@ describe('Etusivu', () => {
       }
     );
     cy.visit('/');
-    cy.findByTestId('autocomplete-input').type('auto');
+    findSearchInput().type('auto');
     cy.findByRole('button', { name: /^Rajaa/ }).click();
     cy.findByTestId('valitse_koulutustyyppi').click();
     cy.findByLabelText('Lukiokoulutus').check();
