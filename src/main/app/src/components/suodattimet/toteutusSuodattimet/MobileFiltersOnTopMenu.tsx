@@ -1,22 +1,9 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
-import { Close } from '@mui/icons-material';
-import {
-  AppBar,
-  Button,
-  Container,
-  Divider,
-  Grid,
-  IconButton,
-  SwipeableDrawer,
-  Toolbar,
-  Typography,
-} from '@mui/material';
-import { styled } from '@mui/material/styles';
-import { flow, map, sum } from 'lodash';
-import { useTranslation } from 'react-i18next';
+import { Box, Divider } from '@mui/material';
 
-import { MobileToggleFiltersButton } from '#/src/components/haku/hakutulos/MobileToggleFiltersButton';
+import { colors } from '#/src/colors';
+import { FilterSearchResultsButton } from '#/src/components/common/FilterSearchResultsButton';
 import { HakuKaynnissaSuodatin } from '#/src/components/suodattimet/common/HakuKaynnissaSuodatin';
 import { HakutapaSuodatin } from '#/src/components/suodattimet/common/HakutapaSuodatin';
 import { OpetuskieliSuodatin } from '#/src/components/suodattimet/common/OpetusKieliSuodatin';
@@ -27,50 +14,15 @@ import { ValintatapaSuodatin } from '#/src/components/suodattimet/common/Valinta
 import { KOULUTUS_TYYPPI, KORKEAKOULU_KOULUTUSTYYPIT } from '#/src/constants';
 import { FilterValue } from '#/src/types/SuodatinTypes';
 
+import { MobileRajainDrawer } from '../../common/MobileRajainDrawer';
 import { OpetusaikaSuodatin } from '../common/OpetusaikaSuodatin';
 import { AmmOsaamisalatSuodatin } from './AmmOsaamisalatSuodatin';
 import { LukiolinjatSuodatin } from './LukiolinjatSuodatin';
 
-const PREFIX = 'ToteutusMobileFiltersOnTopMenu';
-
-const classes = {
-  paperAnchorBottom: `${PREFIX}-paperAnchorBottom`,
-  appBarRoot: `${PREFIX}-appBarRoot`,
-  buttonLabel: `${PREFIX}-buttonLabel`,
-  containerRoot: `${PREFIX}-containerRoot`,
-  divider: `${PREFIX}-divider`,
-};
-
-const StyledSwipeableDrawer = styled(SwipeableDrawer)(() => ({
-  zIndex: 1222,
-  [`& .${classes.paperAnchorBottom}`]: {
-    height: '100%',
-  },
-
-  [`& .${classes.appBarRoot}`]: {
-    height: 50,
-  },
-
-  [`& .${classes.buttonLabel}`]: {
-    fontSize: 16,
-    fontWeight: 600,
-    whiteSpace: 'nowrap',
-  },
-
-  [`& .${classes.containerRoot}`]: {
-    marginTop: 60,
-    height: '100%',
-    overflowY: 'scroll',
-  },
-
-  [`& .${classes.divider}`]: {
-    margin: '3px 0',
-  },
-}));
-
 type Props = {
   koulutustyyppi: string;
   values: Record<string, Array<FilterValue>>;
+  rajainCount: number;
   hitCount: number;
   loading: boolean;
   clearChosenFilters: VoidFunction;
@@ -79,175 +31,125 @@ type Props = {
 
 export const MobileFiltersOnTopMenu = ({
   koulutustyyppi,
+  rajainCount,
   values,
   hitCount,
   loading,
   clearChosenFilters,
   setFilters,
 }: Props) => {
-  const { t } = useTranslation();
-
   const [showFilters, setShowFilters] = useState(false);
   const toggleShowFilters = useCallback(
     () => setShowFilters(!showFilters),
     [showFilters]
   );
 
-  const chosenFilterCount = useMemo(
-    () =>
-      flow(
-        (vs) =>
-          map(
-            vs,
-            (v: Array<FilterValue>) =>
-              v.filter((filterValue) => filterValue.checked).length
-          ),
-        sum
-      )(values as any), // TS ei osaa päätellä tätä oikein
-    [values]
-  );
-
   return (
     <React.Fragment>
       {!showFilters && (
-        <MobileToggleFiltersButton
-          type="KOMO"
-          chosenFilterCount={chosenFilterCount}
-          showFilters={showFilters}
-          handleFiltersShowToggle={toggleShowFilters}
-        />
+        <Box marginBottom={1}>
+          <FilterSearchResultsButton
+            inline={true}
+            textColor={colors.brandGreen}
+            chosenFilterCount={rajainCount}
+            onClick={toggleShowFilters}
+          />
+        </Box>
       )}
-      <StyledSwipeableDrawer
-        classes={{ paperAnchorBottom: classes.paperAnchorBottom }}
-        anchor="bottom"
-        onClose={toggleShowFilters}
-        onOpen={toggleShowFilters}
-        open={showFilters}>
-        <AppBar classes={{ root: classes.appBarRoot }}>
-          <Toolbar variant="dense" disableGutters>
-            <Grid
-              container
-              justifyContent="space-between"
-              alignItems="center"
-              wrap="nowrap">
-              <Grid item>
-                <IconButton color="inherit" onClick={toggleShowFilters}>
-                  <Close />
-                </IconButton>
-              </Grid>
-              <Grid item>
-                <Typography variant="body1" noWrap color="inherit">
-                  {t('haku.rajaa-tuloksia')}
-                </Typography>
-              </Grid>
-              <Grid item style={{ paddingRight: '10px' }}>
-                {chosenFilterCount > 0 && (
-                  <Button
-                    color="inherit"
-                    classes={{ text: classes.buttonLabel }}
-                    onClick={clearChosenFilters}>
-                    {t('haku.poista-valitut')}
-                  </Button>
-                )}
-              </Grid>
-            </Grid>
-          </Toolbar>
-        </AppBar>
-        <Container className={classes.containerRoot}>
-          <OpetuskieliSuodatin
-            expanded={false}
-            values={values.opetuskieli}
-            setFilters={setFilters}
-          />
-          <OpetusaikaSuodatin
-            expanded={false}
-            values={values.opetusaika}
-            setFilters={setFilters}
-          />
-          <Divider className={classes.divider} />
-          <SijaintiSuodatin
-            expanded={false}
-            maakuntaValues={values.maakunta}
-            kuntaValues={values.kunta}
-            loading={loading}
-            setFilters={setFilters}
-          />
-          <Divider className={classes.divider} />
-          <PohjakoulutusvaatimusSuodatin
-            expanded={false}
-            values={values.pohjakoulutusvaatimus}
-            setFilters={setFilters}
-          />
-          <Divider className={classes.divider} />
-          {values.hakukaynnissa && (
-            <HakuKaynnissaSuodatin
-              expanded={false}
-              values={values.hakukaynnissa}
-              setFilters={setFilters}
-            />
-          )}
-          <Divider className={classes.divider} />
-          {values.hakutapa && (
-            <HakutapaSuodatin
-              expanded={false}
-              values={values.hakutapa}
-              setFilters={setFilters}
-            />
-          )}
-          <Divider className={classes.divider} />
-          {KORKEAKOULU_KOULUTUSTYYPIT.includes(koulutustyyppi as KOULUTUS_TYYPPI) && (
-            <>
-              <ValintatapaSuodatin
-                expanded={false}
-                values={values.valintatapa}
-                setFilters={setFilters}
-              />
-              <Divider className={classes.divider} />
-            </>
-          )}
-          {koulutustyyppi === KOULUTUS_TYYPPI.LUKIOKOULUTUS && (
-            <>
-              <LukiolinjatSuodatin
-                name="lukiopainotukset"
-                expanded={false}
-                values={values.lukiopainotukset}
-                setFilters={setFilters}
-              />
-              <Divider className={classes.divider} />
-              <LukiolinjatSuodatin
-                name="lukiolinjat_er"
-                expanded={false}
-                values={values.lukiolinjaterityinenkoulutustehtava}
-                setFilters={setFilters}
-              />
-              <Divider className={classes.divider} />
-            </>
-          )}
-          {koulutustyyppi === KOULUTUS_TYYPPI.AMM && (
-            <>
-              <AmmOsaamisalatSuodatin
-                expanded={false}
-                values={values.osaamisala}
-                setFilters={setFilters}
-              />
-              <Divider className={classes.divider} />
-            </>
-          )}
-          <OpetustapaSuodatin
-            expanded={false}
-            values={values.opetustapa}
-            setFilters={setFilters}
-          />
-          <Divider className={classes.divider} />
-        </Container>
-        <MobileToggleFiltersButton
-          type="fixed"
-          chosenFilterCount={chosenFilterCount}
-          hitCount={hitCount}
-          showFilters={showFilters}
-          handleFiltersShowToggle={toggleShowFilters}
+      <MobileRajainDrawer
+        isOpen={showFilters}
+        toggleOpen={toggleShowFilters}
+        showResults={toggleShowFilters}
+        clearRajainSelection={clearChosenFilters}
+        rajainCount={rajainCount}
+        resultCount={hitCount}>
+        <OpetuskieliSuodatin
+          expanded={false}
+          values={values.opetuskieli}
+          setFilters={setFilters}
         />
-      </StyledSwipeableDrawer>
+        <Divider />
+        <OpetusaikaSuodatin
+          expanded={false}
+          values={values.opetusaika}
+          setFilters={setFilters}
+        />
+        <Divider />
+        <SijaintiSuodatin
+          expanded={false}
+          maakuntaValues={values.maakunta}
+          kuntaValues={values.kunta}
+          loading={loading}
+          setFilters={setFilters}
+        />
+        <Divider />
+        <PohjakoulutusvaatimusSuodatin
+          expanded={false}
+          values={values.pohjakoulutusvaatimus}
+          setFilters={setFilters}
+        />
+        <Divider />
+        {values.hakukaynnissa && (
+          <HakuKaynnissaSuodatin
+            expanded={false}
+            values={values.hakukaynnissa}
+            setFilters={setFilters}
+          />
+        )}
+        <Divider />
+        {values.hakutapa && (
+          <HakutapaSuodatin
+            expanded={false}
+            values={values.hakutapa}
+            setFilters={setFilters}
+          />
+        )}
+        <Divider />
+        {KORKEAKOULU_KOULUTUSTYYPIT.includes(koulutustyyppi as KOULUTUS_TYYPPI) && (
+          <>
+            <ValintatapaSuodatin
+              expanded={false}
+              values={values.valintatapa}
+              setFilters={setFilters}
+            />
+            <Divider />
+          </>
+        )}
+        {koulutustyyppi === KOULUTUS_TYYPPI.LUKIOKOULUTUS && (
+          <>
+            <LukiolinjatSuodatin
+              name="lukiopainotukset"
+              expanded={false}
+              values={values.lukiopainotukset}
+              setFilters={setFilters}
+            />
+            <Divider />
+            <LukiolinjatSuodatin
+              name="lukiolinjat_er"
+              expanded={false}
+              values={values.lukiolinjaterityinenkoulutustehtava}
+              setFilters={setFilters}
+            />
+            <Divider />
+          </>
+        )}
+        {koulutustyyppi === KOULUTUS_TYYPPI.AMM && (
+          <>
+            <AmmOsaamisalatSuodatin
+              expanded={false}
+              values={values.osaamisala}
+              setFilters={setFilters}
+            />
+            <Divider />
+          </>
+        )}
+        <OpetustapaSuodatin
+          expanded={false}
+          values={values.opetustapa}
+          setFilters={setFilters}
+        />
+        <Divider />
+      </MobileRajainDrawer>
     </React.Fragment>
   );
 };
