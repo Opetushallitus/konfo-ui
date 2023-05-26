@@ -17,6 +17,7 @@ import {
   Button,
   Autocomplete,
   InputBase,
+  Link,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { debounce } from '@mui/material/utils';
@@ -219,8 +220,8 @@ export const Hakupalkki = () => {
             fullWidth={true}
             key={keyword}
             defaultValue={keyword}
-            options={autoCompleteOptions ?? []}
             filterOptions={(opt) => opt}
+            options={autoCompleteOptions ?? []}
             noOptionsText={t('haku.ei-ehdotuksia')}
             loadingText={t('haku.lataus-käynnissä')}
             loading={isFetchingAutocompleteResults}
@@ -235,9 +236,22 @@ export const Hakupalkki = () => {
             }}
             onChange={(_e, value, reason) => {
               if (reason === 'selectOption') {
-                setKeyword(value.label);
-                goToSearchPage();
+                setKeyword('');
+                setSearchPhrase('');
               }
+            }}
+            renderOption={(props, option: any) => {
+              return (
+                <li {...props}>
+                  <Link
+                    color="inherit"
+                    to={`/koulutus/${option.id}`}
+                    component={RouterLink}
+                    underline="none">
+                    {option.label}
+                  </Link>
+                </li>
+              );
             }}
             renderInput={(params) => {
               const { InputProps, ...rest } = params;
