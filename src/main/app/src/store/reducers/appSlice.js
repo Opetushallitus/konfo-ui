@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
 import { KEEP_VALIKKO_OPEN_WIDTH } from '#/src/constants';
@@ -17,6 +17,7 @@ const getSiteImproveUrl = (location) => {
 export const appSlice = createSlice({
   name: 'app',
   initialState: {
+    hakutulosWidth: 0,
     sideMenuOpen: !(window.innerWidth < KEEP_VALIKKO_OPEN_WIDTH),
     // currentPage tallennettu vain, jotta voidaan päätellä previousPage
     currentPage: undefined,
@@ -25,6 +26,9 @@ export const appSlice = createSlice({
     previousSiteImproveUrl: undefined,
   },
   reducers: {
+    setHakutulosWidth: (state, action) => {
+      state.hakutulosWidth = action.payload;
+    },
     setMenuState: (state, action) => {
       state.sideMenuOpen = action.payload;
     },
@@ -59,6 +63,13 @@ export const useCurrentSiteImproveLocation = () =>
 
 export const useIsAtEtusivu = () => useCurrentPage() === '';
 
-export const { setMenuState, locationChanged } = appSlice.actions;
+export const { setMenuState, locationChanged, setHakutulosWidth } = appSlice.actions;
+
+export const useHakutulosWidth = () => {
+  const width = useSelector((state) => state.app.hakutulosWidth);
+  const dispatch = useDispatch();
+
+  return [width, (newWidth) => dispatch(setHakutulosWidth(newWidth))];
+};
 
 export default appSlice.reducer;

@@ -29,7 +29,6 @@ const Root = styled('div')(({ theme }) => ({
 
   [`& .${classes.jumpotron}`]: {
     backgroundColor: colors.brandGreen,
-    marginTop: '85px',
     [theme.breakpoints.down('lg')]: {
       minWidth: 600,
     },

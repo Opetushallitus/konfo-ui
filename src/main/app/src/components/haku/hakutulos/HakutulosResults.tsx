@@ -4,28 +4,18 @@ import { Grid, Typography, useTheme } from '@mui/material';
 import { size } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
-import { useWindowSize } from 'react-use';
 
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
-import { useSideMenu } from '#/src/hooks';
+import { useHakutulosWidth } from '#/src/store/reducers/appSlice';
 
 import { KoulutusKortti } from './hakutulosKortit/KoulutusKortti';
 import { OppilaitosKortti } from './hakutulosKortit/OppilaitosKortti';
-import { useSuodatinpalkkiWidth } from './Suodatinpalkki';
 
 type Props = {
   selectedTab: 'koulutus' | 'oppilaitos';
   koulutusHits: Array<any>;
   oppilaitosHits: Array<any>;
   keyword: string;
-};
-
-const useHakutulosWidth = () => {
-  const { width: sideMenuWidth } = useSideMenu();
-  const { width: windowWidth } = useWindowSize();
-  const suodatinpalkkiWidth = useSuodatinpalkkiWidth();
-
-  return windowWidth - sideMenuWidth - suodatinpalkkiWidth;
 };
 
 export const HakutulosResults = ({
@@ -37,7 +27,7 @@ export const HakutulosResults = ({
   const theme = useTheme();
   const { t } = useTranslation();
 
-  const hakutulosWidth = useHakutulosWidth();
+  const [hakutulosWidth] = useHakutulosWidth();
   const isSmall = hakutulosWidth < theme.breakpoints.values['sm'];
 
   if (selectedTab === 'koulutus' && size(koulutusHits) > 0) {
