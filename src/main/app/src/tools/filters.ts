@@ -19,7 +19,7 @@ export const BOOLEAN_FILTER_TYPES: Array<string> = [
 // NOTE: Tämä funktio hoitaa kovakoodatut rakenteet erikoisemmille suodattimille e.g. hakukaynnissa / hakutapa + yhteishaku
 export const getFilterWithChecked = (
   filters: Record<string, any> | undefined,
-  allCheckedValues: Record<string, any>,
+  allCheckedValues: Record<string, FilterValue>,
   originalFilterId: string
 ) => {
   // Yhteishaku -suodatin käsitellään osana hakutapa-suodatinta

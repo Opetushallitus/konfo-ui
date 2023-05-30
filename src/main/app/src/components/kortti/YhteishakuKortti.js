@@ -118,7 +118,6 @@ const YhteishakuKortti = ({ id, n }) => {
           <Grid item className={classes.buttons}>
             {yhInfo.linkkiHakulomakkeelle && yhInfo.tekstiHakulomakkeelle ? (
               <Button
-                item
                 xs={4}
                 className={kk ? classes.hakulomakeButtonKk : classes.hakulomakeButton}
                 variant={'outlined'}
@@ -128,7 +127,6 @@ const YhteishakuKortti = ({ id, n }) => {
             ) : null}
             {yhInfo.linkkiOhjeisiin && yhInfo.tekstiOhjeisiin ? (
               <Button
-                item
                 xs={4}
                 className={classes.button}
                 variant={'outlined'}
@@ -138,7 +136,6 @@ const YhteishakuKortti = ({ id, n }) => {
             ) : null}
             {yhInfo.linkkiHakutuloksiin && yhInfo.tekstiHakutuloksiin ? (
               <Button
-                item
                 xs={4}
                 className={classes.button}
                 variant={'outlined'}

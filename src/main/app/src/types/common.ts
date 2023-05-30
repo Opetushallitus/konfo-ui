@@ -40,3 +40,36 @@ declare module '@mui/system/createTheme/createBreakpoints' {
     xxl: true;
   }
 }
+
+export type ToteutustenTarjoajat = {
+  count: number;
+  nimi?: Translateable | null;
+};
+
+export type AutocompleteOption =
+  | {
+      label: string;
+      type: 'oppilaitos';
+      link: string;
+    }
+  | {
+      label: string;
+      type: 'koulutus';
+      toteutustenTarjoajat?: ToteutustenTarjoajat;
+      link: string;
+    };
+
+export type AutocompleteHit = { oid: string; nimi: Translateable };
+
+export type AutocompleteResult = {
+  koulutukset: {
+    total: number;
+    hits: Array<AutocompleteHit & { toteutustenTarjoajat?: ToteutustenTarjoajat }>;
+  };
+  oppilaitokset: {
+    total: number;
+    hits: Array<AutocompleteHit>;
+  };
+};
+
+export type RequestParams = Record<string, any>;

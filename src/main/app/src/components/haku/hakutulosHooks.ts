@@ -1,5 +1,6 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
+import { debounce } from '@mui/material';
 import { flow, pickBy, map, uniqBy, flatten, size } from 'lodash';
 import { useQuery } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,6 +16,7 @@ import {
   getCombinedQueryStatus,
 } from '#/src/components/common/QueryResultWrapper';
 import { FILTER_TYPES } from '#/src/constants';
+import { useLanguageState } from '#/src/hooks';
 import { useCurrentPage } from '#/src/store/reducers/appSlice';
 import {
   setKoulutusOffset,
@@ -29,14 +31,12 @@ import {
   setOrder,
   clearSelectedFilters,
   setKeyword,
-  setSearchPhrase,
 } from '#/src/store/reducers/hakutulosSlice';
 import {
   getAPIRequestParams,
   getFilters,
   getIsAnyFilterSelected,
   getKeyword,
-  getSearchPhrase,
   getKoulutusOffset,
   getKoulutusPage,
   getOppilaitosOffset,
@@ -47,70 +47,115 @@ import {
   getSort,
   getSortOrder,
   getAutocompleteRequestParams,
+  getHakuParams,
+  createHakuUrl,
 } from '#/src/store/reducers/hakutulosSliceSelector';
 import { getFilterWithChecked, sortValues } from '#/src/tools/filters';
 import { ValueOf } from '#/src/types/common';
 
 const createSearchQueryHook =
-  (key: string, fn: (x: any, signal: any) => any) => (requestParams: any) =>
+  (key: string, fn: (x: any, signal: any) => any, defaultOptions: any = {}) =>
+  (requestParams: any, options: any = {}) =>
     useQuery([key, requestParams], ({ signal }) => fn(requestParams, signal), {
-      keepPreviousData: true,
+      ...defaultOptions,
+      ...options,
     });
 
-const useKoulutusSearch = createSearchQueryHook('searchKoulutukset', searchKoulutukset);
+const useKoulutusSearch = createSearchQueryHook('searchKoulutukset', searchKoulutukset, {
+  keepPreviousData: true,
+});
 
 const useOppilaitosSearch = createSearchQueryHook(
   'searchOppilaitokset',
-  searchOppilaitokset
-);
-
-const useAutocompleteSearch = createSearchQueryHook(
-  'autoCompleteSearch',
-  (requestParams) => {
-    if (size(requestParams.searchPhrase) > 2) {
-      return autoCompleteSearch(requestParams);
-    } else {
-      return [];
-    }
+  searchOppilaitokset,
+  {
+    keepPreviousData: true,
   }
 );
 
+const useAutoCompleteQuery = (requestParams: any) => {
+  return useQuery(
+    ['autoCompleteSearch', requestParams],
+    () => autoCompleteSearch(requestParams),
+    {
+      enabled: size(requestParams.searchPhrase) >= 3,
+    }
+  );
+};
+
+export const useAutoComplete = () => {
+  const autoCompleteRequestParams = useSelector(getAutocompleteRequestParams);
+
+  const [searchPhrase, setSearchPhrase] = useState<string>();
+
+  const { data, isFetching, status } = useAutoCompleteQuery({
+    ...autoCompleteRequestParams,
+    searchPhrase,
+  });
+
+  const setSearchPhraseDebounced = useMemo(
+    () => debounce(setSearchPhrase, 300),
+    [setSearchPhrase]
+  );
+
+  return useMemo(
+    () => ({
+      setSearchPhraseDebounced: setSearchPhraseDebounced,
+      status,
+      isFetching,
+      data,
+    }),
+    [setSearchPhraseDebounced, isFetching, data, status]
+  );
+};
+
+export const useSearchOperations = () => {};
+
+const isOnPageWithHaku = (currentPage: string) => ['', 'haku'].includes(currentPage);
+
 export const useSearch = () => {
   const keyword = useSelector(getKeyword);
-  const searchPhrase = useSelector(getSearchPhrase);
   const isAnyFilterSelected = useSelector(getIsAnyFilterSelected);
   const pageSize = useSelector(getSize);
-  const selectedTab = useSelector(getSelectedTab);
   const koulutusOffset = useSelector(getKoulutusOffset);
   const oppilaitosOffset = useSelector(getOppilaitosOffset);
 
   const requestParams = useSelector(getAPIRequestParams);
-  const autoCompleteRequestParams = useSelector(getAutocompleteRequestParams);
 
   const koulutusPage = useSelector(getKoulutusPage);
   const oppilaitosPage = useSelector(getOppilaitosPage);
 
-  const koulutusQueryResult = useKoulutusSearch({ page: koulutusPage, ...requestParams });
+  const currentPage = useCurrentPage();
+
+  const { searchTab: selectedTab, setSearchTab } = useSearchTab();
+
+  const koulutusQueryResult = useKoulutusSearch(
+    { page: koulutusPage, ...requestParams },
+    {
+      enabled: isOnPageWithHaku(currentPage),
+    }
+  );
 
   const { data: koulutusData = {} } = koulutusQueryResult;
 
-  const oppilaitosQueryResult = useOppilaitosSearch({
-    page: oppilaitosPage,
-    ...requestParams,
-  });
+  const oppilaitosQueryResult = useOppilaitosSearch(
+    {
+      page: oppilaitosPage,
+      ...requestParams,
+    },
+    {
+      enabled: isOnPageWithHaku(currentPage),
+    }
+  );
 
   const { data: oppilaitosData } = oppilaitosQueryResult;
 
   const status = getCombinedQueryStatus([koulutusQueryResult, oppilaitosQueryResult]);
 
-  const autoCompleteResult = useAutocompleteSearch(autoCompleteRequestParams);
-  const autoCompleteOptions = autoCompleteResult?.data?.hits;
-
   const isFetching = getCombinedQueryIsFetching([
     koulutusQueryResult,
     oppilaitosQueryResult,
   ]);
-  const isFetchingAutocompleteResults = autoCompleteResult.isFetching;
 
   const dispatch = useDispatch();
 
@@ -145,7 +190,6 @@ export const useSearch = () => {
   ]);
 
   const navigate = useNavigate();
-  const currentPage = useCurrentPage();
 
   const goToSearchPage = useCallback(
     () => dispatch(navigateToHaku({ navigate })),
@@ -178,11 +222,6 @@ export const useSearch = () => {
     }
   }, [dispatch, currentPage, goToSearchPage]);
 
-  const setSelectedTabCb = useCallback(
-    (tab) => dispatch(setSelectedTab({ newSelectedTab: tab })),
-    [dispatch]
-  );
-
   const resetPaginationCb = useCallback(() => dispatch(resetPagination), [dispatch]);
 
   const setKeywordCb = useCallback(
@@ -190,24 +229,15 @@ export const useSearch = () => {
     [dispatch]
   );
 
-  const setSearchPhraseCb = useCallback(
-    (sp) => dispatch(setSearchPhrase({ searchPhrase: sp })),
-    [dispatch]
-  );
-
   return useMemo(
     () => ({
       keyword,
-      searchPhrase,
       setKeyword: setKeywordCb,
-      setSearchPhrase: setSearchPhraseCb,
       isFetching,
-      isFetchingAutocompleteResults,
       isAnyFilterSelected,
       status,
       koulutusData,
       oppilaitosData,
-      autoCompleteOptions,
       pagination,
       setPagination,
       resetPagination: resetPaginationCb,
@@ -219,16 +249,13 @@ export const useSearch = () => {
       },
       clearFilters,
       selectedTab,
-      setSelectedTab: setSelectedTabCb,
+      setSelectedTab: setSearchTab,
       goToSearchPage,
     }),
     [
       keyword,
-      searchPhrase,
       setKeywordCb,
-      setSearchPhraseCb,
       isFetching,
-      isFetchingAutocompleteResults,
       isAnyFilterSelected,
       status,
       pagination,
@@ -236,10 +263,9 @@ export const useSearch = () => {
       resetPaginationCb,
       oppilaitosData,
       koulutusData,
-      autoCompleteOptions,
       clearFilters,
       selectedTab,
-      setSelectedTabCb,
+      setSearchTab,
       goToSearchPage,
       dispatch,
       currentPage,
@@ -249,7 +275,8 @@ export const useSearch = () => {
 
 export const useFilterProps = (id: ValueOf<typeof FILTER_TYPES>) => {
   const { koulutusData, oppilaitosData } = useSearch();
-  const selectedTab = useSelector(getSelectedTab);
+
+  const { searchTab: selectedTab } = useSearchTab();
 
   const usedFilters =
     selectedTab === 'koulutus' ? koulutusData?.filters : oppilaitosData?.filters;
@@ -262,12 +289,7 @@ export const useFilterProps = (id: ValueOf<typeof FILTER_TYPES>) => {
   );
 };
 
-export const useAllSelectedFilters = () => {
-  const { koulutusData } = useSearch();
-  const koulutusFilters = koulutusData.filters;
-
-  const allCheckedValues = useSelector(getFilters);
-
+export const useSelectedFilters = (availableFilters: any, checkedFilters: any) => {
   const selectedFiltersWithAlakoodit = useMemo(
     () =>
       flow(
@@ -276,13 +298,13 @@ export const useAllSelectedFilters = () => {
         (ks) =>
           map(ks, (filterId) =>
             Object.values(
-              getFilterWithChecked(koulutusFilters, allCheckedValues, filterId)
+              getFilterWithChecked(availableFilters, checkedFilters, filterId)
             )
           ),
         flatten,
         (flatted) => uniqBy(flatted, 'id')
-      )(allCheckedValues),
-    [koulutusFilters, allCheckedValues]
+      )(checkedFilters),
+    [availableFilters, checkedFilters]
   );
 
   const selectedFiltersFlatList = useMemo(
@@ -295,10 +317,18 @@ export const useAllSelectedFilters = () => {
   ); // Alakoodilistoissa voi olla valitsemattomia koodeja
 
   return {
-    count: selectedFiltersFlatList.length,
-    selectedFiltersFlatList,
-    selectedFiltersWithAlakoodit,
+    flat: selectedFiltersFlatList,
+    withAlakoodit: selectedFiltersWithAlakoodit,
   };
+};
+
+export const useAllSelectedFilters = () => {
+  const { koulutusData } = useSearch();
+  const koulutusFilters = koulutusData.filters;
+
+  const allCheckedValues = useSelector(getFilters);
+
+  return useSelectedFilters(koulutusFilters, allCheckedValues);
 };
 
 const useDispatchCb = (fn: (x: any) => any, options: { syncUrl?: boolean } = {}) => {
@@ -333,4 +363,26 @@ export const useSearchSortOrder = () => {
     setOrder: setOrderCb,
     setSortOrder: setSortOrderCb,
   };
+};
+
+export const useSearchTab = () => {
+  const searchTab = useSelector(getSelectedTab);
+  const dispatch = useDispatch();
+
+  const setSearchTab = useCallback(
+    (tab) => dispatch(setSelectedTab({ newSelectedTab: tab })),
+    [dispatch]
+  );
+
+  return {
+    searchTab,
+    setSearchTab,
+  };
+};
+
+export const useHakuUrl = (keyword: string, tab: string) => {
+  const { hakuParams } = useSelector(getHakuParams);
+  const [lng] = useLanguageState();
+
+  return createHakuUrl(keyword, { ...hakuParams, tab }, lng as string);
 };

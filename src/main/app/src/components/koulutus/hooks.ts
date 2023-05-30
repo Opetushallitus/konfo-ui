@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { set, uniq, omit, mapValues } from 'lodash';
 import { useQuery } from 'react-query';
@@ -12,6 +12,8 @@ import {
 } from '#/src/api/konfoApi';
 import { KOULUTUS_TYYPPI } from '#/src/constants';
 import { usePreviousNonEmpty } from '#/src/hooks';
+import { usePreviousPage } from '#/src/store/reducers/appSlice';
+import { getInitialCheckedToteutusFilters } from '#/src/store/reducers/hakutulosSliceSelector';
 import {
   resetJarjestajatPaging,
   setJarjestajatFilters,
@@ -138,6 +140,47 @@ export const useKoulutusJarjestajat = ({
   const { pagination = {}, filters = {} } = requestProps;
   const previousFilters = usePreviousNonEmpty(filters);
 
+  // NOTE: Tämä haetaan vain kerran alkuarvoja varten + Haetaan järjestäjätulokset hakusivulta periytyneillä rajaimilla
+  const initialCheckedFilters = useSelector<any, Record<string, Array<string>>>(
+    getInitialCheckedToteutusFilters
+  );
+
+  const setPagination = useCallback(
+    (newPaging: any) => {
+      dispatch(
+        isTuleva
+          ? setTulevatJarjestajatPaging(newPaging)
+          : setJarjestajatPaging(newPaging)
+      );
+    },
+    [isTuleva, dispatch]
+  );
+
+  const setFilters = useCallback(
+    (newFilters: any) => {
+      dispatch(
+        isTuleva
+          ? setTulevatJarjestajatFilters(newFilters)
+          : setJarjestajatFilters(newFilters)
+      );
+    },
+    [isTuleva, dispatch]
+  );
+
+  const [initialValues] = useState(initialCheckedFilters);
+
+  const previousPage = usePreviousPage();
+
+  const hasSetInitialFilters = useRef(false);
+
+  useEffect(() => {
+    if (previousPage === 'haku' && !hasSetInitialFilters.current) {
+      setFilters(initialValues);
+      setPagination({ offset: 0 });
+      hasSetInitialFilters.current = true;
+    }
+  }, [oid, setFilters, initialValues, previousPage, setPagination]);
+
   const createQueryParams = (values: Record<string, Array<string> | boolean>) => {
     // TODO: konfo-backend haluaa maakunta ja kunta -rajainten sijaan "sijainti" -rajaimen, pitäisi refaktoroida sinne maakunta + kunta käyttöön
     const valuesWithSijainti = omit(
@@ -189,21 +232,9 @@ export const useKoulutusJarjestajat = ({
       queryOptions: requestProps,
       filters,
       pagination,
-      setPagination: (newPaging: any) => {
-        dispatch(
-          isTuleva
-            ? setTulevatJarjestajatPaging(newPaging)
-            : setJarjestajatPaging(newPaging)
-        );
-      },
-      setFilters: (newFilters: any) => {
-        dispatch(
-          isTuleva
-            ? setTulevatJarjestajatFilters(newFilters)
-            : setJarjestajatFilters(newFilters)
-        );
-      },
+      setPagination,
+      setFilters,
     }),
-    [filters, result, requestProps, isTuleva, dispatch, pagination]
+    [filters, setFilters, result, requestProps, pagination, setPagination]
   );
 };

@@ -1,0 +1,33 @@
+{
+    "koulutukset": {
+        "total": 1,
+        "hits": [
+            {
+                "oid": "123456",
+                "nimi": {
+                    "fi": "koulutus nimi fi",
+                    "sv": "koulutus nimi sv"
+                },
+                "toteutustenTarjoajat": {
+                    "count": 1,
+                    "nimi": {
+                        "fi": "tarjoaja nimi fi",
+                        "sv": "tarjoaja nimi sv"
+                    }
+                }
+            }
+        ]
+    },
+    "oppilaitokset": {
+        "total": 1,
+        "hits": [
+            {
+                "oid": "654321",
+                "nimi": {
+                    "fi": "oppilaitos nimi fi",
+                    "sv": "oppilaitos nimi sv"
+                }
+            }
+        ]
+    }
+}

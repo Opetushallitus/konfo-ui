@@ -2,12 +2,6 @@ import React from 'react';
 
 import { styled } from '@mui/material/styles';
 
-const PREFIX = 'ReactiveBorder';
-
-const classes = {
-  spaceOnBorders: `${PREFIX}-spaceOnBorders`,
-};
-
 const Root = styled('div')(({ theme }) => ({
   margin: 2, // NOTE: This is a fast fix for Grid containers with negative margins inside this component
   paddingTop: 25,
@@ -30,6 +24,6 @@ const Root = styled('div')(({ theme }) => ({
   },
 }));
 
-export const ReactiveBorder = ({ children }: { children: React.ReactNode }) => {
-  return <Root className={classes.spaceOnBorders}>{children}</Root>;
-};
+export const ReactiveBorder = ({ children }: { children: React.ReactNode }) => (
+  <Root>{children}</Root>
+);
