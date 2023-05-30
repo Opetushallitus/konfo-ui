@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "homepage": "/konfo",
   "private": true,
-  "proxy": "https://testiopintopolku.fi",
   "scripts": {
     "prepare": "cd ../../../ && husky install",
     "start": "vite dev",

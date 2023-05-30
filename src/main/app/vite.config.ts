@@ -3,16 +3,16 @@ import url from 'url';
 
 import { optimizeLodashImports } from '@optimize-lodash/rollup-plugin';
 import react from '@vitejs/plugin-react';
-import { defineConfig } from 'vite';
+import { defineConfig, loadEnv } from 'vite';
 import pluginRewriteAll from 'vite-plugin-rewrite-all';
 import svgr from 'vite-plugin-svgr';
 
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const opintopolkuDevTarget = 'https://testiopintopolku.fi';
+export default defineConfig(({ mode }) => {
+  const env = Object.assign({}, process.env, loadEnv(mode, process.cwd(), ''));
 
-export default defineConfig(() => {
   return {
     base: '/konfo',
     build: {
@@ -25,10 +25,10 @@ export default defineConfig(() => {
     },
     plugins: [react(), svgr(), optimizeLodashImports(), pluginRewriteAll()],
     server: {
-      port: 3005,
+      port: Number(env.PORT) || 3005,
       proxy: {
         '/konfo-backend': {
-          target: opintopolkuDevTarget,
+          target: env.OPINTOPOLKU_PROXY_URL,
           changeOrigin: true,
           secure: false,
         },
