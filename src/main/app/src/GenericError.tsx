@@ -26,7 +26,7 @@ const buttonText: Translation = {
 const GenericError = () => {
   const getLang = (): string => {
     const location = window.location;
-    let lang = location.pathname.match(/^\/(.*?)(\/|$)/)?.[1];
+    const lang = location.pathname.match(/^\/(.*?)(\/|$)/)?.[1];
     if (['fi', 'sv', 'en'].includes(String(lang))) {
       return String(lang);
     }

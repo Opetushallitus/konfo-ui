@@ -13,7 +13,8 @@ import {
   Typography,
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { colors } from 'src/colors';
+
+import { colors } from '#/src/colors';
 
 import { LabelTooltip } from '../../common/LabelTooltip';
 import { KieliSelect } from './KieliSelect';

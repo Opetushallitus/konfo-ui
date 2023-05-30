@@ -1,6 +1,6 @@
 import { urls } from 'oph-urls-js';
 
-import { isCypress } from './tools/utils';
+import { isCypress, isDev } from './tools/utils';
 
 // Muista lisätä myös spring-boot-sovellukseen uudet urlit
 
@@ -41,9 +41,8 @@ const development = {
 };
 
 export const configureUrls = async () => {
-  const { NODE_ENV } = process.env;
   urls.addCallerId(CALLER_ID);
-  if (['development', 'test'].includes(NODE_ENV) || isCypress) {
+  if (isDev || isCypress) {
     urls.addProperties(development);
   } else {
     await urls.load('/konfo/rest/config/frontProperties');

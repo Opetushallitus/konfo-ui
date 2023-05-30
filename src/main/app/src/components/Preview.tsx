@@ -1,6 +1,6 @@
 import React from 'react';
 
-// @ts-ignore no types
+// @ts-expect-error no types
 import removeMd from 'remove-markdown';
 
 const AT_LEAST_AMOUNT = 200;

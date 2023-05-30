@@ -130,7 +130,7 @@ export const KeskiArvoModal = ({ open = false, closeFn, updateTulos, tulos }: Pr
       keskiarvoToCalculate.kaikki === '');
 
   const calculate = () => {
-    let laskettuTulos = useKeskiarvoLaskuri
+    const laskettuTulos = useKeskiarvoLaskuri
       ? keskiArvotToHakupiste(keskiarvoToCalculate as Keskiarvot)
       : kouluaineetToHakupiste(kouluaineetToCalculate);
     updateTulos(laskettuTulos);

@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { Box, Typography, styled, Button } from '@mui/material';
 import { isEqual } from 'lodash';
 import { useTranslation } from 'react-i18next';
-import { colors } from 'src/colors';
+
+import { colors } from '#/src/colors';
 
 import { SuorittanutCheckbox } from '../common/SuorittanutCheckbox';
 import { LocalStorageUtil, KOULUAINE_STORE_KEY } from '../LocalStorageUtil';

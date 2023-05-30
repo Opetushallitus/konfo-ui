@@ -59,7 +59,7 @@ const uninterestingErrors = {
 };
 
 window.onerror = (errorMsg, _url, line, col, errorObj) => {
-  if (process.env.NODE_ENV === 'production' && !isCypress) {
+  if (import.meta?.NODE_ENV === 'production' && !isCypress) {
     const errorKey = errorMsg + line;
     const send = (trace) => {
       if (!uninterestingErrors[errorKey]) {

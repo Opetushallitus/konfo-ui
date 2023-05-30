@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { Box, Typography, styled, Input, InputLabel, Grid, Button } from '@mui/material';
 import { matches, isNumber } from 'lodash';
 import { useTranslation } from 'react-i18next';
-import { colors } from 'src/colors';
+
+import { colors } from '#/src/colors';
 
 import { LabelTooltip } from '../common/LabelTooltip';
 import { SuorittanutCheckbox } from './common/SuorittanutCheckbox';
@@ -97,7 +98,7 @@ export const KeskiarvoLaskuri = ({
     value: string,
     assigner: (ka: Keskiarvot, val: string) => Keskiarvot
   ) => {
-    let newKeskiArvo = assigner(keskiarvot, value);
+    const newKeskiArvo = assigner(keskiarvot, value);
     setKeskiarvot(newKeskiArvo);
     if (isValidKeskiarvo(value)) {
       updateKeskiarvoToCalculate(newKeskiArvo);

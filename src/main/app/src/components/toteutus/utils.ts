@@ -74,7 +74,7 @@ export const demoLinksPerLomakeId = async (
       } else {
         result.set(lomakeId, undefined);
       }
-    } else if (Boolean(result.get(lomakeId))) {
+    } else if (result.get(lomakeId)) {
       result.get(lomakeId)?.set(hakukohdeOid, formDemoLink(hakukohde.hakulomakeLinkki));
     }
   }
