@@ -203,7 +203,7 @@ export const condArray = (cond, item) => (cond ? [item] : []);
 export const formatDouble = (number, fixed) =>
   (fixed === undefined ? number : number?.toFixed(fixed))?.toString().replace('.', ',');
 
-export const isCypress = import.meta.env.VITE_CYPRESS;
+export const isCypress = window.Cypress;
 
 export const isDev = import.meta.env.MODE === 'development';
 
