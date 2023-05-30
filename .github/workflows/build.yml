@@ -31,7 +31,7 @@ jobs:
           distribution: 'corretto'
           cache: 'maven'
 
-      - uses: szenius/set-timezone@v1.0
+      - uses: szenius/set-timezone@v1.2
         with:
           timezoneLinux: "Europe/Helsinki"
 
@@ -54,7 +54,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3 
 
-      - uses: szenius/set-timezone@v1.0
+      - uses: szenius/set-timezone@v1.2
         with:
           timezoneLinux: "Europe/Helsinki"
 
