@@ -16,7 +16,6 @@ import { colors } from '#/src/colors';
 import { formatDouble } from '#/src/tools/utils';
 import { Hakukohde } from '#/src/types/HakukohdeTypes';
 
-import { HakupisteLaskelma, ENSISIJAINEN_SCORE_BONUS } from '../Keskiarvo';
 import {
   GRAAFI_MAX_YEAR,
   GRAAFI_MIN_YEAR,
@@ -25,6 +24,7 @@ import {
   graafiYearModifier,
   GraafiBoundary,
 } from './GraafiUtil';
+import { HakupisteLaskelma, ENSISIJAINEN_SCORE_BONUS } from '../Keskiarvo';
 
 type Props = {
   hakukohde: Hakukohde;

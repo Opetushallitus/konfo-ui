@@ -98,13 +98,7 @@ const SivuItem = (props) => {
 const OtsikkoItem = (props) => {
   const { name } = props;
   return (
-    <h2
-      role="menuitem"
-      className={classes.otsikkoText}
-      variant="menu"
-      typography="menu"
-      tabIndex="0"
-      aria-label={name}>
+    <h2 role="menuitem" className={classes.otsikkoText} tabIndex="0" aria-label={name}>
       {name}
     </h2>
   );

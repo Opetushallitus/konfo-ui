@@ -5,10 +5,10 @@ import { urls } from 'oph-urls-js';
 
 import { getContentfulData, getContentfulManifest } from '#/src/api/konfoApi';
 
-import { LanguageCode } from '../types/common';
-import { ContentfulData, ContentfulItem } from '../types/ContentfulTypes';
 import { useLanguageState, usePreviousNonEmpty } from './index';
 import { useQueryOnce } from './useQueryOnce';
+import { LanguageCode } from '../types/common';
+import { ContentfulData, ContentfulItem } from '../types/ContentfulTypes';
 
 const initialContentfulData: ContentfulData = {
   kortit: {},

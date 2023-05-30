@@ -20,8 +20,8 @@ import { KoulutusalaSuodatin } from '#/src/components/suodattimet/hakutulosSuoda
 import { KoulutustyyppiSuodatin } from '#/src/components/suodattimet/hakutulosSuodattimet/KoulutustyyppiSuodatin';
 import { FILTER_TYPES } from '#/src/constants';
 
-import { OpetusaikaSuodatin } from '../suodattimet/common/OpetusaikaSuodatin';
 import { Suodatin } from './Suodatin';
+import { OpetusaikaSuodatin } from '../suodattimet/common/OpetusaikaSuodatin';
 
 const PREFIX = 'HakupalkkiFilters';
 

@@ -116,7 +116,7 @@ export const KOULUTUS_TYYPPI_MUU = {
 
 export const KOULUTUS_TYYPPI_MUU_ARR = Object.values(KOULUTUS_TYYPPI_MUU);
 
-export type Koulutustyyppi = typeof KOULUTUS_TYYPPI[keyof typeof KOULUTUS_TYYPPI];
+export type Koulutustyyppi = (typeof KOULUTUS_TYYPPI)[keyof typeof KOULUTUS_TYYPPI];
 
 export const TUTKINTOON_JOHTAVAT_KORKEAKOULU_KOULUTUSTYYPIT = [
   KOULUTUS_TYYPPI.AMKKOULUTUS,

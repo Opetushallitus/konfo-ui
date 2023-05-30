@@ -15,8 +15,8 @@ import { colors } from '#/src/colors';
 import { translate } from '#/src/tools/localization';
 import { Koodi } from '#/src/types/common';
 
-import { useKieliKoodit } from '../hooks';
 import { Kieliaine } from './Kouluaine';
+import { useKieliKoodit } from '../hooks';
 
 const PREFIX = 'keskiarvo__ainelaskuri__';
 

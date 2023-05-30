@@ -5,6 +5,7 @@ import { optimizeLodashImports } from '@optimize-lodash/rollup-plugin';
 import react from '@vitejs/plugin-react';
 import browserslistToEsbuild from 'browserslist-to-esbuild';
 import { defineConfig, loadEnv } from 'vite';
+import eslint from 'vite-plugin-eslint';
 import pluginRewriteAll from 'vite-plugin-rewrite-all';
 import svgr from 'vite-plugin-svgr';
 
@@ -25,7 +26,7 @@ export default defineConfig(({ mode }) => {
         '#': path.resolve(__dirname),
       },
     },
-    plugins: [react(), svgr(), optimizeLodashImports(), pluginRewriteAll()],
+    plugins: [react(), eslint(), svgr(), optimizeLodashImports(), pluginRewriteAll()],
     server: {
       port: Number(env.PORT) || 3005,
       proxy: {
