@@ -1,6 +1,5 @@
-import { playMocks } from 'kto-ui-common/cypress/mockUtils';
-
 import valintaperusteMocks from '#/cypress/mocks/valintaperuste.mocks.json';
+import { playMocks } from '#/cypress/utils';
 
 describe('Valintaperuste page', () => {
   beforeEach(() => {

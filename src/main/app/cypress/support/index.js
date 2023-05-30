@@ -1,8 +1,9 @@
 import { configure } from '@testing-library/cypress';
-import { playMocks } from 'kto-ui-common/cypress/mockUtils';
 
 import commonMocks from '#/cypress/mocks/common.mocks.json';
+
 import './commands';
+import { playMocks } from '../utils';
 
 configure({ testIdAttribute: 'data-cy' });
 
