@@ -4,13 +4,13 @@ import { playMocks } from '#/cypress/utils';
 describe('Pistelaskuri KOMOTO', () => {
   beforeEach(() => {
     playMocks(komotoPistelaskuriMocks);
-  });
-
-  it('Pistelaskuri KOMOTO renders properly', () => {
     cy.visit('/fi/toteutus/1.2.246.562.17.00000000000000005700');
 
     // Wait for everything to load
     cy.findByRole('progressbar').should('not.exist');
+  });
+
+  it('Pistelaskuri KOMOTO renders properly', () => {
     cy.get('.PisteContainer__infobox').contains(
       'Edellisvuosien alin hyväksytty pistemäärä, jolla oppilaitokseen on päässyt opiskelemaan.'
     );
@@ -23,7 +23,8 @@ describe('Pistelaskuri KOMOTO', () => {
     cy.get('.KeskiarvoModal__container h3').contains('Perusopetuksen keskiarvot');
   });
 
-  it('Shows result after filling keskiarvot', () => {
+  it('Shows keskiarvo, kouluaine and osalaskut remembering previous result', () => {
+    cy.get('.PisteContainer__openbutton').click();
     cy.get('.keskiarvo__laskuri__input').eq(0).type(8);
     cy.get('.keskiarvo__laskuri__input').eq(1).type(9);
     cy.get('.keskiarvo__laskuri__input').eq(2).type(6);
@@ -31,9 +32,8 @@ describe('Pistelaskuri KOMOTO', () => {
     cy.get('.keskiarvo__tulos__pallerot__pallero').eq(0).contains(8);
     cy.get('.keskiarvo__tulos__pallerot__pallero').eq(1).contains(18);
     cy.get('.keskiarvo__tulos__pallerot__pallero').eq(2).contains(16);
-  });
 
-  it('Shows result after filling kouluaine', () => {
+    //Shows result after filling kouluaine
     cy.get('.KeskiarvoModal__recalculatebutton').click();
     cy.get('.KeskiarvoModal__container button').eq(0).click();
     cy.get('.KeskiarvoModal__container .kouluaine__gradeselect').eq(0).click();
@@ -42,9 +42,8 @@ describe('Pistelaskuri KOMOTO', () => {
     cy.get('.keskiarvo__tulos__pallerot__pallero').eq(0).contains(10);
     cy.get('.keskiarvo__tulos__pallerot__pallero').eq(1).contains(24);
     cy.get('.keskiarvo__tulos__pallerot__pallero').eq(2).contains(22);
-  });
 
-  it('Shows osalaskut', () => {
+    // Shows osalaskut
     cy.get('.keskiarvo__tulos__osalaskut__section .keskiarvo__tulos__textblock')
       .eq(0)
       .contains('16 / 16');
@@ -57,17 +56,13 @@ describe('Pistelaskuri KOMOTO', () => {
     cy.get('.keskiarvo__tulos__osalaskut__section .keskiarvo__tulos__textblock')
       .eq(3)
       .contains('2');
-  });
 
-  it('Remembers previous result', () => {
-    cy.get('.KeskiarvoModal__calculatebutton').click();
-    cy.get('.PisteContainer__openbutton').click();
+    // Remembers previous result
     cy.get('.keskiarvo__tulos__pallerot__pallero').eq(0).contains(10);
     cy.get('.keskiarvo__tulos__pallerot__pallero').eq(1).contains(24);
     cy.get('.keskiarvo__tulos__pallerot__pallero').eq(2).contains(22);
-  });
 
-  it('Removes previous result', () => {
+    // Removes previous result
     cy.get('.KeskiarvoModal__calculatebutton').click();
     cy.get('.PisteContainer__purifybutton').click();
     cy.get('.PisteContainer__openbutton').click();
@@ -77,6 +72,7 @@ describe('Pistelaskuri KOMOTO', () => {
   });
 
   it('Shows result without suoritettu checked', () => {
+    cy.get('.PisteContainer__openbutton').click();
     cy.get('.keskiarvo__laskuri__input').eq(0).type(8);
     cy.get('.keskiarvo__laskuri__input').eq(1).type(9);
     cy.get('.keskiarvo__laskuri__input').eq(2).type(6);
