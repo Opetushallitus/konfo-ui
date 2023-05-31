@@ -60,6 +60,8 @@ export const KoulutuksenKestoSuodatin = ({
     newValue: number | Array<number>,
     _activeThumb: number
   ) => {
+    console.log('!!!!!!!!!!!!! handleValueChange');
+    console.log(newValue);
     setShowSliderInternalValues(true);
     setSliderInternalValues(newValue as Array<number>);
   };
@@ -70,8 +72,16 @@ export const KoulutuksenKestoSuodatin = ({
   ) => {
     const min = toInteger(nth(rangeValues, 0));
     const max = toInteger(nth(rangeValues, 1));
-    setShowSliderInternalValues(true);
-    setSliderInternalValues([min, max]);
+    console.log(
+      '!!!!!!!!!!!!!!! handleSliderValueCommit ' +
+        min +
+        ' ' +
+        max +
+        ' ' +
+        showSliderInternalValues
+    );
+    //setShowSliderInternalValues(true);
+    //setSliderInternalValues([min, max]);
     setShowSliderInternalValues(false);
     const valueRange = min !== 0 || max !== 72 ? [min, max] : [];
     setFilters({ koulutuksenkestokuukausina: valueRange });
@@ -120,7 +130,7 @@ export const KoulutuksenKestoSuodatin = ({
       )}
       <SuodatinAccordionDetails {...(summaryHidden && { style: { padding: 0 } })}>
         <Grid container direction="column" wrap="nowrap">
-          <Grid item>
+          <Grid item sx={{ marginLeft: 0.5, marginRight: 0.5 }}>
             <SuodatinSlider
               value={sliderValues()}
               min={0}
