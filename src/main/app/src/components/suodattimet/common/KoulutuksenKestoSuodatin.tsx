@@ -130,7 +130,7 @@ export const KoulutuksenKestoSuodatin = ({
       )}
       <SuodatinAccordionDetails {...(summaryHidden && { style: { padding: 0 } })}>
         <Grid container direction="column" wrap="nowrap">
-          <Grid item sx={{ marginLeft: 0.5, marginRight: 0.5 }}>
+          <Grid item sx={{ mx: 1 }}>
             <SuodatinSlider
               value={sliderValues()}
               min={0}
