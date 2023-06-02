@@ -13,6 +13,16 @@ import { supportedLanguages } from '#/src/tools/i18n';
 const CustomInput = styled(InputBase)({
   color: 'white',
   fontSize: 'small',
+
+  // Roll focus indicator back to browser UA stylesheet values
+  div: {
+    ':focus-visible': {
+      outlineColor: '-webkit-focus-ring-color',
+      outlineStyle: 'auto',
+      outlineWidth: 'thin',
+      outline: 'revert',
+    },
+  },
 });
 
 export const LanguageDropDown = () => {
