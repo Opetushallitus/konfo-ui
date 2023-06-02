@@ -21,19 +21,7 @@ import { getLanguage } from '#/src/tools/localization';
 
 import { getAPIRequestParams, getHakuUrl } from './hakutulosSliceSelector';
 
-export const initialState = {
-  selectedTab: 'koulutus',
-  size: 20,
-  order: 'desc',
-  sort: 'score',
-
-  // offset = ensimmäisen näytettävän entiteetin järjestysnumero
-  // Sivunumero päätellään offsetin ja size:n perusteella
-  koulutusOffset: 0,
-  oppilaitosOffset: 0,
-
-  // Persistoidut suodatinvalinnat, listoja valituista koodiarvoista (+ kaksi boolean rajainta)
-  keyword: '',
+const INITIAL_FILTERS = {
   koulutustyyppi: [],
   'koulutustyyppi-muu': [],
   koulutusala: [],
@@ -53,6 +41,23 @@ export const initialState = {
   lukiolinjaterityinenkoulutustehtava: [],
   osaamisala: [],
   opetusaika: [],
+  alkamiskausi: [],
+};
+
+export const initialState = {
+  selectedTab: 'koulutus',
+  size: 20,
+  order: 'desc',
+  sort: 'score',
+
+  // offset = ensimmäisen näytettävän entiteetin järjestysnumero
+  // Sivunumero päätellään offsetin ja size:n perusteella
+  koulutusOffset: 0,
+  oppilaitosOffset: 0,
+
+  // Persistoidut suodatinvalinnat, listoja valituista koodiarvoista (+ kaksi boolean rajainta)
+  keyword: '',
+  ...INITIAL_FILTERS,
 };
 
 const hakutulosSlice = createSlice({
@@ -74,26 +79,7 @@ const hakutulosSlice = createSlice({
       state.oppilaitosOffset = 0;
     },
     clearSelectedFilters: (state) => {
-      state.koulutustyyppi = [];
-      state['koulutustyyppi-muu'] = [];
-      state.koulutusala = [];
-      state.opetuskieli = [];
-      state.valintatapa = [];
-      state.hakukaynnissa = false;
-      state.jotpa = false;
-      state.tyovoimakoulutus = false;
-      state.taydennyskoulutus = false;
-      state.hakutapa = [];
-      state.yhteishaku = [];
-      state.kunta = [];
-      state.maakunta = [];
-      state.opetustapa = [];
-      state.pohjakoulutusvaatimus = [];
-      state.lukiopainotukset = [];
-      state.lukiolinjaterityinenkoulutustehtava = [];
-      state.osaamisala = [];
-      state.opetusaika = [];
-
+      Object.assign(state, INITIAL_FILTERS);
       resetPagination(state);
     },
     setSize: (state, { payload }) => {

@@ -21,6 +21,7 @@ import { KoulutustyyppiSuodatin } from '#/src/components/suodattimet/hakutulosSu
 import { FILTER_TYPES } from '#/src/constants';
 
 import { Suodatin } from './Suodatin';
+import { AlkamiskausiSuodatin } from '../suodattimet/common/AlkamiskausiSuodatin';
 import { OpetusaikaSuodatin } from '../suodattimet/common/OpetusaikaSuodatin';
 
 const PREFIX = 'HakupalkkiFilters';
@@ -140,6 +141,15 @@ export const HakupalkkiFilters = () => {
       <Suodatin id="opetustapa" header={t('haku.opetustapa')}>
         <OpetustapaSuodatin
           values={useFilterProps(FILTER_TYPES.OPETUSTAPA)}
+          setFilters={setFilters}
+          expanded={true}
+          summaryHidden={true}
+        />
+      </Suodatin>
+      <Divider orientation="vertical" flexItem />
+      <Suodatin id="alkamiskausi" header={t('haku.alkamiskausi')}>
+        <AlkamiskausiSuodatin
+          values={useFilterProps(FILTER_TYPES.ALKAMISKAUSI)}
           setFilters={setFilters}
           expanded={true}
           summaryHidden={true}

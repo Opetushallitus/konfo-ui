@@ -23,6 +23,7 @@ export const FILTER_TYPES = {
   LUKIOLINJATERITYINENKOULUTUSTEHTAVA: 'lukiolinjaterityinenkoulutustehtava',
   OSAAMISALA: 'osaamisala',
   SIJAINTI: 'sijainti', // TODO: Poista tämä kun konfo-backend ei enää käytä sijaintirajainta vaan kunta + maakunta
+  ALKAMISKAUSI: 'alkamiskausi',
 } as const;
 
 export const FILTER_TYPES_ARR = Object.values(FILTER_TYPES);
@@ -47,6 +48,7 @@ export const FILTER_TYPES_ARR_FOR_KONFO_BACKEND = [
   'lukiopainotukset',
   'lukiolinjaterityinenkoulutustehtava',
   'osaamisala',
+  'alkamiskausi',
 ] as const;
 
 export const SIDEMENU_WIDTH = 330;

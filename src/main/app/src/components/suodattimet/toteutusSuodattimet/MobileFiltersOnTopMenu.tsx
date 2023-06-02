@@ -17,6 +17,7 @@ import { FilterValue } from '#/src/types/SuodatinTypes';
 import { AmmOsaamisalatSuodatin } from './AmmOsaamisalatSuodatin';
 import { LukiolinjatSuodatin } from './LukiolinjatSuodatin';
 import { MobileRajainDrawer } from '../../common/MobileRajainDrawer';
+import { AlkamiskausiSuodatin } from '../common/AlkamiskausiSuodatin';
 import { OpetusaikaSuodatin } from '../common/OpetusaikaSuodatin';
 
 type Props = {
@@ -146,6 +147,12 @@ export const MobileFiltersOnTopMenu = ({
         <OpetustapaSuodatin
           expanded={false}
           values={values.opetustapa}
+          setFilters={setFilters}
+        />
+        <Divider />
+        <AlkamiskausiSuodatin
+          expanded={false}
+          values={values.alkamiskausi}
           setFilters={setFilters}
         />
         <Divider />
