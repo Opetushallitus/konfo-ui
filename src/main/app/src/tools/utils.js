@@ -209,3 +209,14 @@ export const isDev = import.meta.env.MODE === 'development';
 
 export const getPaginationPage = ({ offset, size }) =>
   1 + (size ? Math.round(offset / size) : 0);
+
+const tryWarn = (fn, defaultValue) => {
+  try {
+    return fn();
+  } catch (e) {
+    console.warn(e);
+    return defaultValue;
+  }
+};
+
+export const parseUrl = (url) => tryWarn(() => new URL(url));
