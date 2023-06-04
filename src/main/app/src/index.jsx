@@ -1,7 +1,7 @@
 import React, { Suspense, useEffect } from 'react';
 
 import { ThemeProvider } from '@mui/material/styles';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { ErrorBoundary } from 'react-error-boundary';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
@@ -110,7 +110,9 @@ const InitGate = ({ children }) => {
   }
 };
 
-ReactDOM.render(
+const root = createRoot(document.getElementById('wrapper'));
+
+root.render(
   <ErrorBoundary FallbackComponent={GenericError}>
     <Suspense fallback={<LoadingCircle />}>
       <QueryClientProvider client={queryClient}>
@@ -127,6 +129,5 @@ ReactDOM.render(
         </Provider>
       </QueryClientProvider>
     </Suspense>
-  </ErrorBoundary>,
-  document.getElementById('wrapper')
+  </ErrorBoundary>
 );

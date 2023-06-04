@@ -44,10 +44,9 @@ const StyledBox = styled(Box)(({ theme }) => ({
   },
 }));
 
-type Props = {
-  children: React.ReactNode;
+type Props = React.PropsWithChildren<{
   icon: React.ReactNode;
-};
+}>;
 
 export const ContentWithTopIcon = ({ children, icon }: Props) => {
   return (

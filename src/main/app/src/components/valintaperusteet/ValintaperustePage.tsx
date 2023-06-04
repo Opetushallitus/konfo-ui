@@ -46,7 +46,7 @@ const Root = styled('div')(() => ({
   },
 }));
 
-const Row: React.FC = ({ children }) => {
+const Row: React.FC<React.PropsWithChildren> = ({ children }) => {
   return (
     <Grid container direction="row" justifyContent="center" className={classes.container}>
       <Grid item xs={12} sm={12} md={10}>

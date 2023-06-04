@@ -75,3 +75,5 @@ export type AutocompleteResult = {
 };
 
 export type RequestParams = Record<string, any>;
+
+export type ReduxTodo = any;

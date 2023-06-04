@@ -54,7 +54,7 @@ type JarjestajaData = {
   sortedFilters: Record<string, Record<string, FilterValue>>;
 };
 
-const SuodatinGridItem: React.FC = ({ children }) => {
+const SuodatinGridItem: React.FC<React.PropsWithChildren> = ({ children }) => {
   return (
     <Grid item sx={{ minWidth: '250px' }} xs={6} lg={4}>
       {children}

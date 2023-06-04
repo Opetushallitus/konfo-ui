@@ -24,6 +24,6 @@ const Root = styled('div')(({ theme }) => ({
   },
 }));
 
-export const ReactiveBorder = ({ children }: { children: React.ReactNode }) => (
+export const ReactiveBorder = ({ children }: React.PropsWithChildren) => (
   <Root>{children}</Root>
 );

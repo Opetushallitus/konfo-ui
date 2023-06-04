@@ -4,7 +4,7 @@ import { Typography, TypographyVariant, TypographyProps } from '@mui/material';
 
 const HeadingLevelContext = React.createContext(0);
 
-export const HeadingBoundary: React.FC = ({ children }) => {
+export const HeadingBoundary = ({ children }: React.PropsWithChildren) => {
   const level = useContext(HeadingLevelContext);
 
   return (

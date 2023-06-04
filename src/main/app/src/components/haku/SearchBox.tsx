@@ -12,8 +12,9 @@ import {
   Autocomplete,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { TFunction } from 'i18next';
 import { identity, isString, omit, size } from 'lodash';
-import { TFunction, useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { match } from 'ts-pattern';
 

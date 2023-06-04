@@ -2,8 +2,9 @@ import React from 'react';
 
 import { Box, Typography } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
+import { TFunction } from 'i18next';
 import { join } from 'lodash';
-import { useTranslation, TFunction } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 import { localize } from '#/src/tools/localization';
 import { formatDouble } from '#/src/tools/utils';

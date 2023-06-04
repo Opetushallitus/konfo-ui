@@ -35,6 +35,7 @@ export const configureI18n = () =>
         useSuspense: false,
       },
       compatibilityJSON: 'v3',
+      returnNull: false,
     });
 
 export default i18n;
