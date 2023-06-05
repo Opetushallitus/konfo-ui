@@ -15,7 +15,7 @@ import App from '#/src/App';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { useQueryOnce } from '#/src/hooks/useQueryOnce';
 import ScrollToTop from '#/src/ScrollToTop';
-import { getKonfoStore } from '#/src/store';
+import { store } from '#/src/store';
 import { locationChanged } from '#/src/store/reducers/appSlice';
 import { theme } from '#/src/theme';
 import { configureI18n } from '#/src/tools/i18n';
@@ -117,7 +117,7 @@ root.render(
     <Suspense fallback={<LoadingCircle />}>
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={false} />
-        <Provider store={getKonfoStore()}>
+        <Provider store={store}>
           <BrowserRouter basename="/konfo">
             <ThemeProvider theme={theme}>
               <InitGate>
