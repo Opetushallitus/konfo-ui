@@ -13,6 +13,16 @@ import { supportedLanguages } from '#/src/tools/i18n';
 const CustomInput = styled(InputBase)({
   color: 'white',
   fontSize: 'small',
+
+  // Roll focus indicator back to browser UA stylesheet values
+  div: {
+    ':focus-visible': {
+      outlineColor: '-webkit-focus-ring-color',
+      outlineStyle: 'auto',
+      outlineWidth: 'thin',
+      outline: 'revert',
+    },
+  },
 });
 
 export const LanguageDropDown = () => {
@@ -54,7 +64,7 @@ export const LanguageDropDown = () => {
         onOpen={handleOpen}
         onChange={handleChange}
         renderValue={(value) => value?.toUpperCase()}
-        input={<CustomInput />}>
+        input={<CustomInput aria-label={t('opintopolku.valitsekieli')} />}>
         {supportedLanguages.map((langCode) => (
           <MenuItem key={langCode} value={langCode}>
             {t(`kielivalinta.${(LANG_NAME_BY_CODE as any)[langCode]}`)}
