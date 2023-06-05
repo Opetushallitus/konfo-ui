@@ -45,15 +45,11 @@ Testien ajo toimii Node.js 16 ja NPM 8 versioilla.
 Tämän helpottamiseksi on tehty npm-skripti `preview:watch`, joka buildaa sovelluksen jääden tarkkailemaan muutoksia, ja käynnistää testi-palvelimen, joka servaa buildatun sovelluksen.
 Näin ajettuna Cypress-testit ovat n. 5 kertaa nopeampia, ja Cypress-testien tekeminen mukavampaa.
 
-### API-kutsujen mockaaminen
-
-KTO-projektissa on toteutettu omat työkalut API-kutsujen mockauksen helpottamiseen. Työkalut ja niiden dokumentaatio löytyvät [kto-ui-common](https://github.com/Opetushallitus/kto-ui-common)-reposta. `Update-mocks.js`-skriptille on tehty käytön helpottamiseksi npm skripti `update-mocks`, jota siis kutsutaan komennolla `npm run update-mocks`. Muista käynnistää lokaali kehitysproxy (`npm run start`) ennen mockien päivitystä, jotta mockeille tulee oikeaa dataa localhostin kautta.
-
 ### Yksikkötestit
 
-`npm test`
+`npm run test`
 
-Yksikkötestit nimetään päätteellä `.test.js` ja ne luodaan niihin kansioihin missä niiden testaama koodi sijaitsee. Yksikkötestit kannattaa kirjoittaa lähinnä monimutkaisille apufunktioille ja suurin osa testausta pitäisi tehdä cypress-testeinä.
+Yksikkötestit nimetään päätteellä `.test.js` tai `.test.ts` ja ne luodaan niihin kansioihin missä niiden testaama koodi sijaitsee. Yksikkötestit kannattaa kirjoittaa lähinnä monimutkaisille apufunktioille ja suurin osa testausta pitäisi tehdä Cypress-testeinä.
 
 ## Spring boot (erikoistapaukset)
 
