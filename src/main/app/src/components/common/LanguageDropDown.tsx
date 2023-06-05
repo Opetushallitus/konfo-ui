@@ -64,7 +64,7 @@ export const LanguageDropDown = () => {
         onOpen={handleOpen}
         onChange={handleChange}
         renderValue={(value) => value?.toUpperCase()}
-        input={<CustomInput />}>
+        input={<CustomInput aria-label={t('opintopolku.valitsekieli')} />}>
         {supportedLanguages.map((langCode) => (
           <MenuItem key={langCode} value={langCode}>
             {t(`kielivalinta.${(LANG_NAME_BY_CODE as any)[langCode]}`)}
