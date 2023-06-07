@@ -85,4 +85,10 @@ export const SuodatinSlider = withStyles({
     color: colors.brandGreen,
     fontWeight: 700,
   },
+  thumb: {
+    transition: 'none',
+  },
+  track: {
+    transition: 'none',
+  },
 })(Slider);
