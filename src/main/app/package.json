@@ -7,6 +7,7 @@
     "prepare": "cd ../../../ && husky install",
     "start": "vite dev",
     "build": "vite build",
+    "preview:watch": "cross-env vite build --watch & node test-server.js",
     "test": "cross-env NODE_ENV=test vitest",
     "serve:test": "node test-server.js",
     "cypress:run": "cross-env cypress run -b chrome",
