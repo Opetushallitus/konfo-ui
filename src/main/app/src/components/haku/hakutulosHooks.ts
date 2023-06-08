@@ -63,6 +63,8 @@ const createSearchQueryHook =
 
 const useKoulutusSearch = createSearchQueryHook('searchKoulutukset', searchKoulutukset, {
   keepPreviousData: true,
+  refetchOnMount: false,
+  refetchOnWindowFocus: false,
 });
 
 const useOppilaitosSearch = createSearchQueryHook(
@@ -70,6 +72,8 @@ const useOppilaitosSearch = createSearchQueryHook(
   searchOppilaitokset,
   {
     keepPreviousData: true,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   }
 );
 
