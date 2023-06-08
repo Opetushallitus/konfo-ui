@@ -21,6 +21,7 @@ import { KoulutustyyppiSuodatin } from '#/src/components/suodattimet/hakutulosSu
 import { FILTER_TYPES } from '#/src/constants';
 
 import { KoulutuksenKestoSuodatin } from '../suodattimet/common/KoulutuksenKestoSuodatin';
+import { AlkamiskausiSuodatin } from '../suodattimet/common/AlkamiskausiSuodatin';
 import { OpetusaikaSuodatin } from '../suodattimet/common/OpetusaikaSuodatin';
 import { Suodatin } from './Suodatin';
 
@@ -146,10 +147,20 @@ export const HakupalkkiFilters = () => {
           summaryHidden={true}
         />
       </Suodatin>
+      <Divider orientation="vertical" flexItem />
       <Suodatin id="koulutuksenkesto" header={t('haku.koulutuksenkestokuukausina')}>
         <KoulutuksenKestoSuodatin
           setFilters={setFilters}
           values={useFilterProps(FILTER_TYPES.KOULUTUKSENKESTOKUUKAUSINA)}
+          expanded={true}
+          summaryHidden={true}
+        />
+      </Suodatin>
+      <Divider orientation="vertical" flexItem />
+      <Suodatin id="alkamiskausi" header={t('haku.alkamiskausi')}>
+        <AlkamiskausiSuodatin
+          values={useFilterProps(FILTER_TYPES.ALKAMISKAUSI)}
+          setFilters={setFilters}
           expanded={true}
           summaryHidden={true}
         />

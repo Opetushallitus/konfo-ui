@@ -6,6 +6,7 @@ import { styled } from '@mui/material/styles';
 import { useFilterProps, useSearch } from '#/src/components/haku/hakutulosHooks';
 import { FILTER_TYPES } from '#/src/constants';
 
+import { AlkamiskausiSuodatin } from '../../suodattimet/common/AlkamiskausiSuodatin';
 import { HakuKaynnissaSuodatin } from '../../suodattimet/common/HakuKaynnissaSuodatin';
 import { HakutapaSuodatin } from '../../suodattimet/common/HakutapaSuodatin';
 import { KoulutuksenKestoSuodatin } from '../../suodattimet/common/KoulutuksenKestoSuodatin';
@@ -111,6 +112,12 @@ export const Suodatinpalkki = () => {
         expanded
         elevation={2}
         values={useFilterProps(FILTER_TYPES.KOULUTUKSENKESTOKUUKAUSINA)}
+        setFilters={setFilters}
+      />
+      <AlkamiskausiSuodatin
+        expanded
+        elevation={2}
+        values={useFilterProps(FILTER_TYPES.ALKAMISKAUSI)}
         setFilters={setFilters}
       />
     </StyledGrid>

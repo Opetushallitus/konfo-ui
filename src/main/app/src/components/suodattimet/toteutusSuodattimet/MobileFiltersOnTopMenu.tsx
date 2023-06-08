@@ -17,6 +17,7 @@ import { FilterValue } from '#/src/types/SuodatinTypes';
 import { AmmOsaamisalatSuodatin } from './AmmOsaamisalatSuodatin';
 import { LukiolinjatSuodatin } from './LukiolinjatSuodatin';
 import { MobileRajainDrawer } from '../../common/MobileRajainDrawer';
+import { AlkamiskausiSuodatin } from '../common/AlkamiskausiSuodatin';
 import { OpetusaikaSuodatin } from '../common/OpetusaikaSuodatin';
 import { KoulutuksenKestoSuodatin } from '../common/KoulutuksenKestoSuodatin';
 
@@ -153,6 +154,11 @@ export const MobileFiltersOnTopMenu = ({
         <KoulutuksenKestoSuodatin
           expanded={false}
           values={values.koulutuksenkestokuukausina}
+          setFilters={setFilters}
+        />
+        <AlkamiskausiSuodatin
+          expanded={false}
+          values={values.alkamiskausi}
           setFilters={setFilters}
         />
         <Divider />

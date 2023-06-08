@@ -288,7 +288,8 @@
     "koulutuksenkestokuukausina": "Koulutuksen kesto",
     "lyhenne-vuosi": "v",
     "lyhenne-kuukausi": "kk",
-    "muu-amm-tutkinto": "Muu ammatillinen"
+    "muu-amm-tutkinto": "Muu ammatillinen",
+    "alkamiskausi": "Alkamiskausi"
   },
   "navigaatio": {
     "edellinen": "Edellinen",

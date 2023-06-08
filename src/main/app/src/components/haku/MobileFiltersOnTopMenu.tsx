@@ -15,6 +15,7 @@ import { MobileResultsPerPageExpansionMenu } from './hakutulos/MobileResultsPerP
 import MobileToggleKoulutusOppilaitos from './hakutulos/MobileToggleKoulutusOppilaitos';
 import MobileToggleOrderByButtonMenu from './hakutulos/MobileToggleOrderByButtonMenu';
 import { useAllSelectedFilters, useFilterProps, useSearch } from './hakutulosHooks';
+import { AlkamiskausiSuodatin } from '../suodattimet/common/AlkamiskausiSuodatin';
 import { HakuKaynnissaSuodatin } from '../suodattimet/common/HakuKaynnissaSuodatin';
 import { HakutapaSuodatin } from '../suodattimet/common/HakutapaSuodatin';
 import { KoulutuksenKestoSuodatin } from '../suodattimet/common/KoulutuksenKestoSuodatin';
@@ -166,7 +167,13 @@ export const MobileFiltersOnTopMenu = ({
           setFilters={setFilters}
         />
         <Divider />
-
+        <AlkamiskausiSuodatin
+          expanded={false}
+          displaySelected
+          values={useFilterProps(FILTER_TYPES.ALKAMISKAUSI)}
+          setFilters={setFilters}
+        />
+        <Divider />
         {!isAtEtusivu && <MobileToggleOrderByButtonMenu />}
         {!isAtEtusivu && <MobileResultsPerPageExpansionMenu />}
       </MobileRajainDrawer>
