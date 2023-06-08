@@ -287,7 +287,8 @@
     "nayta-kaikki-oppilaitos-hakutulokset_plural": "Näytä kaikki {{count}} hakuehdoilla löytyvää oppilaitosta",
     "koulutuksenkestokuukausina": "Koulutuksen kesto",
     "lyhenne-vuosi": "v",
-    "lyhenne-kuukausi": "kk"
+    "lyhenne-kuukausi": "kk",
+    "muu-amm-tutkinto": "Muu ammatillinen"
   },
   "navigaatio": {
     "edellinen": "Edellinen",
@@ -399,6 +400,7 @@
     "tyyppi-kk-opintokokonaisuus": "Opintokokonaisuus",
     "tyyppi-erikoislaakari": "Erikoislaakari",
     "tyyppi-muu": "Muu koulutus",
+    "tyyppi-lk": "Lukio",
     "tarjonta": "Tutustu tarjontaan",
     "haku-kaynnissa": "Haku käynnissä",
     "katso-jarjestavat": "Katso koulutusta järjestävät oppilaitokset.",
