@@ -1,6 +1,6 @@
 import DOMPurify from 'dompurify';
+import parseHtmlToReact from 'html-react-parser';
 import { pickBy, capitalize, trim, isEmpty, isString, find, kebabCase } from 'lodash';
-import ReactHtmlParser from 'react-html-parser';
 
 import { NDASH } from '#/src/constants';
 
@@ -74,7 +74,7 @@ export const formatDateRange = (start, end) =>
   `${formatDateString(start)} ${NDASH} ${end ? formatDateString(end) : ''}`;
 
 export const sanitizedHTMLParser = (html, ...rest) =>
-  ReactHtmlParser(sanitizeHTML(html), ...rest);
+  parseHtmlToReact(sanitizeHTML(html), ...rest);
 
 export const toId = kebabCase;
 
