@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { Grid } from '@mui/material';
 import { urls } from 'oph-urls-js';
-// @ts-ignore no types
+// @ts-expect-error no types
 import OskariRPC from 'oskari-rpc';
 
 import { getSearchAddress } from '#/src/tools/utils';

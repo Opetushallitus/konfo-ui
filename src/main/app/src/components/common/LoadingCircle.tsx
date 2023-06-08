@@ -23,7 +23,13 @@ export const LoadingCircle = () => {
   );
 };
 
-export const OverlayLoadingCircle = ({ isLoading = false, noContent = false }) => {
+export const OverlayLoadingCircle = ({
+  isLoading = false,
+  noContent = false,
+}: {
+  isLoading: boolean;
+  noContent: boolean;
+}) => {
   return (
     <StyledBackdrop open={isLoading} noContent={noContent}>
       <LoadingCircle />

@@ -1,15 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit';
 
+import { isDev } from '../tools/utils';
 import reducer from './reducers';
 
 export function getKonfoStore() {
   const store = configureStore({
     reducer,
-    devTools: process.env.NODE_ENV === 'development',
+    devTools: isDev,
   });
 
-  if (process.env.NODE_ENV !== 'production' && module.hot) {
-    module.hot.accept('./reducers', () => store.replaceReducer(reducer));
+  if (isDev && import.meta.hot) {
+    import.meta.hot.accept('./reducers', () => store.replaceReducer(reducer));
   }
   return store;
 }

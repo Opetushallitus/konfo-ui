@@ -48,8 +48,8 @@ export const fetchKoulutus = async (oid: string, isDraft: boolean = false) => {
       ePerusteIds.map((ePerusteId) => getEperusteKuvaus(ePerusteId))
     );
 
-    let yksikko = tutkinnonOsat[0]?.opintojenLaajuusyksikko;
-    let pisteet = tutkinnonOsat
+    const yksikko = tutkinnonOsat[0]?.opintojenLaajuusyksikko;
+    const pisteet = tutkinnonOsat
       .map((tutkinnonOsa) => tutkinnonOsa.opintojenLaajuusNumero)
       .join(' + ');
 

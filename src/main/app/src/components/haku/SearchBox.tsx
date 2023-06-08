@@ -28,9 +28,11 @@ import { SearchButton } from './SearchButton';
 
 const checkIsKeywordValid = (word: string) => size(word) === 0 || size(word) > 2;
 
-export const createRenderOption =
-  (t: TFunction) =>
-  (props: React.HTMLAttributes<HTMLLIElement>, option: AutocompleteOption) => {
+export const createRenderOption = (t: TFunction) => {
+  return function KonfoAutocompleteOption(
+    props: React.HTMLAttributes<HTMLLIElement>,
+    option: AutocompleteOption
+  ) {
     return (
       <li {...props} style={{ display: 'block' }} key={option.link}>
         <Box>{option.label}</Box>
@@ -50,9 +52,10 @@ export const createRenderOption =
       </li>
     );
   };
+};
 
-export const createRenderInput =
-  (t: TFunction) => (params: AutocompleteRenderInputParams) => {
+export const createRenderInput = (t: TFunction) => {
+  return function KonfoAutocompleteInput(params: AutocompleteRenderInputParams) {
     const { InputProps } = params;
     const rest = omit(params, ['InputProps', 'InputLabelProps']);
     return (
@@ -70,6 +73,7 @@ export const createRenderInput =
       />
     );
   };
+};
 
 const AutocompleteGroupList = styled('ul')`
   list-style-type: 'none';
@@ -91,9 +95,12 @@ const getTranslationKey = (entity: string) =>
     .with('oppilaitos', () => 'haku.oppilaitokset')
     .otherwise(() => '');
 
-const createRenderAutocompleteGroup =
-  (t: TFunction) =>
-  ({ key, group, children }: AutocompleteRenderGroupParams) => {
+const createRenderAutocompleteGroup = (t: TFunction) => {
+  return function KonfoAutocompleteGroup({
+    key,
+    group,
+    children,
+  }: AutocompleteRenderGroupParams) {
     const title = t(getTranslationKey(group));
     return (
       <li key={key}>
@@ -103,6 +110,7 @@ const createRenderAutocompleteGroup =
       </li>
     );
   };
+};
 
 const useIsOptionEqualToValue = () => {
   const { pathname, search: urlSearch } = useLocation();

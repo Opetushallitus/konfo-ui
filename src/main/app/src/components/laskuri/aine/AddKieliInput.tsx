@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 
 import { Box, styled, Button } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { colors } from 'src/colors';
+
+import { colors } from '#/src/colors';
 
 const PREFIX = 'keskiarvo__ainelaskuri__lisaakieli__';
 

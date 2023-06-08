@@ -85,10 +85,8 @@ export const scrollIntoView = (element) => {
   });
 };
 
-const { NODE_ENV } = process.env || {};
-
 export const consoleWarning = (...props) => {
-  if (NODE_ENV !== 'test') {
+  if (!isCypress) {
     console.warn(...props);
   }
 };
@@ -205,7 +203,9 @@ export const condArray = (cond, item) => (cond ? [item] : []);
 export const formatDouble = (number, fixed) =>
   (fixed === undefined ? number : number?.toFixed(fixed))?.toString().replace('.', ',');
 
-export const isCypress = process.env.REACT_APP_CYPRESS;
+export const isCypress = import.meta.env.VITE_CYPRESS;
+
+export const isDev = import.meta.env.MODE === 'development';
 
 export const getPaginationPage = ({ offset, size }) =>
   1 + (size ? Math.round(offset / size) : 0);

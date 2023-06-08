@@ -10,8 +10,8 @@ import {
   SelectChangeEvent,
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { colors } from 'src/colors';
 
+import { colors } from '#/src/colors';
 import { translate } from '#/src/tools/localization';
 import { Koodi } from '#/src/types/common';
 
