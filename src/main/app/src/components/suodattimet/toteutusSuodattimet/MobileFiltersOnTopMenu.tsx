@@ -156,6 +156,7 @@ export const MobileFiltersOnTopMenu = ({
           values={values.koulutuksenkestokuukausina}
           setFilters={setFilters}
         />
+        <Divider />
         <AlkamiskausiSuodatin
           expanded={false}
           values={values.alkamiskausi}
