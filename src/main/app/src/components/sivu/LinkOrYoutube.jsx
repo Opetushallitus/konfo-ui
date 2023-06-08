@@ -3,7 +3,8 @@ import React from 'react';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { Link } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import parse from 'url-parse';
+
+import { parseUrl } from '#/src/tools/utils';
 
 const PREFIX = 'LinkOrYoutube';
 
@@ -36,7 +37,8 @@ const StyledLink = styled(Link)({
 });
 
 export const LinkOrYoutube = ({ children, className, href, ...props }) => {
-  const url = parse(href, true);
+  const url = parseUrl(href);
+  const v = url?.searchParams?.get?.('v');
 
   if (className === 'embedly-card') {
     return (
@@ -47,10 +49,7 @@ export const LinkOrYoutube = ({ children, className, href, ...props }) => {
             title={props.title || props.url || href}
             width="560"
             height="315"
-            src={`https://www.youtube.com/embed${
-              (url.query.v && '/' + url.query.v) || url.pathname
-            }`}
-            frameBorder="0"
+            src={`https://www.youtube.com/embed${(v && '/' + v) || url.pathname}`}
             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen={true}
           />
