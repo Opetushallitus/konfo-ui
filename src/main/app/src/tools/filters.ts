@@ -16,6 +16,10 @@ export const BOOLEAN_FILTER_TYPES: Array<string> = [
   FILTER_TYPES.TAYDENNYSKOULUTUS,
 ];
 
+export const ANYVALUE_FILTER_TYPES: Array<string> = [
+  FILTER_TYPES.KOULUTUKSENKESTOKUUKAUSINA,
+];
+
 // NOTE: Tämä funktio hoitaa kovakoodatut rakenteet erikoisemmille suodattimille e.g. hakukaynnissa / hakutapa + yhteishaku
 export const getFilterWithChecked = (
   filters: Record<string, any> | undefined,
@@ -40,6 +44,18 @@ export const getFilterWithChecked = (
         filterId: filterId,
         count: filter.count,
         checked: Boolean(allCheckedValues[filterId]),
+      },
+    };
+  }
+
+  if (includes(ANYVALUE_FILTER_TYPES, filterId)) {
+    return {
+      [filterId]: {
+        id: filterId,
+        filterId: filterId,
+        count: filter.count,
+        checked: Boolean(allCheckedValues[filterId]),
+        anyValue: allCheckedValues[filterId],
       },
     };
   }
@@ -130,12 +146,18 @@ export const getFilterStateChanges =
 export const getFilterStateChangesForDelete =
   (values: Array<FilterValue>) => (item: FilterValue) => {
     const retVal = getFilterStateChanges(values)(item);
+    const retValWithAnyValues = ANYVALUE_FILTER_TYPES.includes(item.filterId)
+      ? omit(
+          { ...retVal, [item.filterId]: [] },
+          without(ANYVALUE_FILTER_TYPES, item.filterId)
+        )
+      : omit(retVal, ANYVALUE_FILTER_TYPES);
     const retValWithBooleanValues = BOOLEAN_FILTER_TYPES.includes(item.filterId)
       ? omit(
-          { ...retVal, [item.filterId]: !item.checked },
+          { ...retValWithAnyValues, [item.filterId]: !item.checked },
           without(BOOLEAN_FILTER_TYPES, item.filterId)
         )
-      : omit(retVal, BOOLEAN_FILTER_TYPES);
+      : omit(retValWithAnyValues, BOOLEAN_FILTER_TYPES);
 
     return retValWithBooleanValues;
   };

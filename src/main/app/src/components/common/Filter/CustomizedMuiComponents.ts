@@ -80,9 +80,15 @@ export const SuodatinMobileChip = withStyles({
   },
 })(Chip);
 
-export const SuodatinMobileSlider = withStyles({
+export const SuodatinSlider = withStyles({
   markLabelActive: {
     color: colors.brandGreen,
     fontWeight: 700,
+  },
+  thumb: {
+    transition: 'none',
+  },
+  track: {
+    transition: 'none',
   },
 })(Slider);

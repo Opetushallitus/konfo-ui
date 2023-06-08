@@ -35,6 +35,7 @@ import { FilterValue } from '#/src/types/SuodatinTypes';
 import { Jarjestaja } from '#/src/types/ToteutusTypes';
 
 import { useSelectedFilters } from '../haku/hakutulosHooks';
+import { KoulutuksenKestoSuodatin } from '../suodattimet/common/KoulutuksenKestoSuodatin';
 import { OpetusaikaSuodatin } from '../suodattimet/common/OpetusaikaSuodatin';
 import { SuodatinValinnat } from '../suodattimet/hakutulosSuodattimet/SuodatinValinnat';
 import { LukiolinjatSuodatin } from '../suodattimet/toteutusSuodattimet/LukiolinjatSuodatin';
@@ -186,6 +187,13 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                 <OpetusaikaSuodatin
                   elevation={2}
                   values={usedValues.opetusaika}
+                  setFilters={setFilters}
+                />
+              </SuodatinGridItem>
+              <SuodatinGridItem>
+                <KoulutuksenKestoSuodatin
+                  elevation={2}
+                  values={usedValues.koulutuksenkestokuukausina}
                   setFilters={setFilters}
                 />
               </SuodatinGridItem>

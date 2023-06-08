@@ -53,6 +53,7 @@ export const initialState = {
   lukiolinjaterityinenkoulutustehtava: [],
   osaamisala: [],
   opetusaika: [],
+  koulutuksenkestokuukausina: [],
 };
 
 const hakutulosSlice = createSlice({
@@ -93,6 +94,7 @@ const hakutulosSlice = createSlice({
       state.lukiolinjaterityinenkoulutustehtava = [];
       state.osaamisala = [];
       state.opetusaika = [];
+      state.koulutuksenkestokuukausina = [];
 
       resetPagination(state);
     },

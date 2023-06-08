@@ -13,6 +13,7 @@ import { useIsAtEtusivu } from '#/src/store/reducers/appSlice';
 
 import { HakuKaynnissaSuodatin } from '../suodattimet/common/HakuKaynnissaSuodatin';
 import { HakutapaSuodatin } from '../suodattimet/common/HakutapaSuodatin';
+import { KoulutuksenKestoSuodatin } from '../suodattimet/common/KoulutuksenKestoSuodatin';
 import { OpetusaikaSuodatin } from '../suodattimet/common/OpetusaikaSuodatin';
 import { OpetuskieliSuodatin } from '../suodattimet/common/OpetusKieliSuodatin';
 import { OpetustapaSuodatin } from '../suodattimet/common/OpetustapaSuodatin';
@@ -51,17 +52,14 @@ export const MobileFiltersOnTopMenu = ({
   const rajainCount = allSelectedFilters?.length ?? 0;
 
   const [showFilters, setShowFilters] = useState(false);
-  const onToggleShowFilters = useCallback(
-    () => setShowFilters(!showFilters),
-    [showFilters]
-  );
+  const onToggleShowFilters = useCallback(() => setShowFilters((s) => !s), []);
 
-  const onShowResults = () => {
+  const onShowResults = useCallback(() => {
     if (isAtEtusivu) {
       goToSearchPage();
     }
     onToggleShowFilters();
-  };
+  }, [isAtEtusivu, goToSearchPage, onToggleShowFilters]);
 
   return (
     <>
@@ -161,6 +159,14 @@ export const MobileFiltersOnTopMenu = ({
           setFilters={setFilters}
         />
         <Divider />
+        <KoulutuksenKestoSuodatin
+          expanded={false}
+          displaySelected
+          values={useFilterProps(FILTER_TYPES.KOULUTUKSENKESTOKUUKAUSINA)}
+          setFilters={setFilters}
+        />
+        <Divider />
+
         {!isAtEtusivu && <MobileToggleOrderByButtonMenu />}
         {!isAtEtusivu && <MobileResultsPerPageExpansionMenu />}
       </MobileRajainDrawer>
