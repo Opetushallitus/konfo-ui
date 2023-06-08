@@ -6,11 +6,11 @@ import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 
-import { SuorittanutCheckbox } from '../common/SuorittanutCheckbox';
-import { LocalStorageUtil, KOULUAINE_STORE_KEY } from '../LocalStorageUtil';
 import { AddKieliInput } from './AddKieliInput';
 import { Kouluaineet, Kouluaine, createKieliaine, createKouluaine } from './Kouluaine';
 import { KouluaineInput } from './KouluaineInput';
+import { SuorittanutCheckbox } from '../common/SuorittanutCheckbox';
+import { LocalStorageUtil, KOULUAINE_STORE_KEY } from '../LocalStorageUtil';
 
 const PREFIX = 'keskiarvo__ainelaskuri__';
 

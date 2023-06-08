@@ -33,7 +33,6 @@ import { useConfig } from '#/src/config';
 import { localize, localizeIfNimiObject } from '#/src/tools/localization';
 import { FilterValue, FilterValues } from '#/src/types/SuodatinTypes';
 
-import { KonfoCheckbox } from '../Checkbox';
 import {
   SuodatinAccordion,
   SuodatinAccordionDetails,
@@ -41,6 +40,7 @@ import {
   SuodatinListItemText,
 } from './CustomizedMuiComponents';
 import { SummaryContent } from './SummaryContent';
+import { KonfoCheckbox } from '../Checkbox';
 
 const HIDE_NOT_EXPANDED_AMOUNT = 5;
 

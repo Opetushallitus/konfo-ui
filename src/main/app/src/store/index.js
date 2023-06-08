@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import { isDev } from '../tools/utils';
 import reducer from './reducers';
+import { isDev } from '../tools/utils';
 
 export function getKonfoStore() {
   const store = configureStore({

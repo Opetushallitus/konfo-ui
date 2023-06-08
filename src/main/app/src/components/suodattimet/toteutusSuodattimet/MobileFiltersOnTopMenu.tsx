@@ -14,11 +14,11 @@ import { ValintatapaSuodatin } from '#/src/components/suodattimet/common/Valinta
 import { KOULUTUS_TYYPPI, KORKEAKOULU_KOULUTUSTYYPIT } from '#/src/constants';
 import { FilterValue } from '#/src/types/SuodatinTypes';
 
-import { MobileRajainDrawer } from '../../common/MobileRajainDrawer';
-import { KoulutuksenKestoSuodatin } from '../common/KoulutuksenKestoSuodatin';
-import { OpetusaikaSuodatin } from '../common/OpetusaikaSuodatin';
 import { AmmOsaamisalatSuodatin } from './AmmOsaamisalatSuodatin';
 import { LukiolinjatSuodatin } from './LukiolinjatSuodatin';
+import { MobileRajainDrawer } from '../../common/MobileRajainDrawer';
+import { OpetusaikaSuodatin } from '../common/OpetusaikaSuodatin';
+import { KoulutuksenKestoSuodatin } from '../common/KoulutuksenKestoSuodatin';
 
 type Props = {
   koulutustyyppi: string;

@@ -1,5 +1,5 @@
-import { NDASH } from '../constants';
 import { getSearchAddress, getLocalizedOpintojenLaajuus } from './utils';
+import { NDASH } from '../constants';
 
 describe('Utils/OsoiteParser', () => {
   test.each([

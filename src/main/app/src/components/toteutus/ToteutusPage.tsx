@@ -30,9 +30,6 @@ import { useUrlParams } from '#/src/tools/useUrlParams';
 import { getLocalizedOpintojenLaajuus, sanitizedHTMLParser } from '#/src/tools/utils';
 import { Hakutieto, OppilaitosOsa } from '#/src/types/ToteutusTypes';
 
-import { useKoulutus } from '../koulutus/hooks';
-import { PisteContainer } from '../laskuri/PisteContainer';
-import { showPisteLaskuri } from '../laskuri/PisteLaskuriUtil';
 import { Asiasanat } from './Asiasanat';
 import { Diplomit } from './Diplomit';
 import { HakuKaynnissaCard } from './HakuKaynnissaCard';
@@ -44,6 +41,9 @@ import { Osaamisalat } from './Osaamisalat';
 import { ToteutuksenYhteystiedot } from './ToteutuksenYhteystiedot';
 import { ToteutusHakutiedot } from './ToteutusHakutiedot';
 import { ToteutusInfoGrid } from './ToteutusInfoGrid';
+import { useKoulutus } from '../koulutus/hooks';
+import { PisteContainer } from '../laskuri/PisteContainer';
+import { showPisteLaskuri } from '../laskuri/PisteLaskuriUtil';
 
 const PREFIX = 'ToteutusPage';
 

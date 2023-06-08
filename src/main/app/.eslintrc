@@ -12,7 +12,6 @@
         "plugin:@typescript-eslint/eslint-recommended",
         "plugin:@typescript-eslint/recommended",
         "prettier",
-        "prettier/react",
         "plugin:cypress/recommended",
         "plugin:lodash/recommended"
     ],
@@ -27,6 +26,7 @@
         "cypress/globals": true
     },
     "rules": {
+        "react/prop-types": "off",
         "react/display-name": "off",
         "@typescript-eslint/no-empty-function": "off",
         "@typescript-eslint/no-explicit-any": "off",
