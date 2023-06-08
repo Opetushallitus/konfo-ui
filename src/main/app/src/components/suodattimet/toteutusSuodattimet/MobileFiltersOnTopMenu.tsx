@@ -18,8 +18,8 @@ import { AmmOsaamisalatSuodatin } from './AmmOsaamisalatSuodatin';
 import { LukiolinjatSuodatin } from './LukiolinjatSuodatin';
 import { MobileRajainDrawer } from '../../common/MobileRajainDrawer';
 import { AlkamiskausiSuodatin } from '../common/AlkamiskausiSuodatin';
-import { OpetusaikaSuodatin } from '../common/OpetusaikaSuodatin';
 import { KoulutuksenKestoSuodatin } from '../common/KoulutuksenKestoSuodatin';
+import { OpetusaikaSuodatin } from '../common/OpetusaikaSuodatin';
 
 type Props = {
   koulutustyyppi: string;

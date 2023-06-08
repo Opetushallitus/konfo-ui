@@ -36,8 +36,8 @@ import { Jarjestaja } from '#/src/types/ToteutusTypes';
 
 import { useKoulutusJarjestajat } from './hooks';
 import { useSelectedFilters } from '../haku/hakutulosHooks';
-import { KoulutuksenKestoSuodatin } from '../suodattimet/common/KoulutuksenKestoSuodatin';
 import { AlkamiskausiSuodatin } from '../suodattimet/common/AlkamiskausiSuodatin';
+import { KoulutuksenKestoSuodatin } from '../suodattimet/common/KoulutuksenKestoSuodatin';
 import { OpetusaikaSuodatin } from '../suodattimet/common/OpetusaikaSuodatin';
 import { SuodatinValinnat } from '../suodattimet/hakutulosSuodattimet/SuodatinValinnat';
 import { LukiolinjatSuodatin } from '../suodattimet/toteutusSuodattimet/LukiolinjatSuodatin';

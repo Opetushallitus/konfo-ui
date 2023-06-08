@@ -20,10 +20,10 @@ import { KoulutusalaSuodatin } from '#/src/components/suodattimet/hakutulosSuoda
 import { KoulutustyyppiSuodatin } from '#/src/components/suodattimet/hakutulosSuodattimet/KoulutustyyppiSuodatin';
 import { FILTER_TYPES } from '#/src/constants';
 
-import { KoulutuksenKestoSuodatin } from '../suodattimet/common/KoulutuksenKestoSuodatin';
-import { AlkamiskausiSuodatin } from '../suodattimet/common/AlkamiskausiSuodatin';
-import { OpetusaikaSuodatin } from '../suodattimet/common/OpetusaikaSuodatin';
 import { Suodatin } from './Suodatin';
+import { AlkamiskausiSuodatin } from '../suodattimet/common/AlkamiskausiSuodatin';
+import { KoulutuksenKestoSuodatin } from '../suodattimet/common/KoulutuksenKestoSuodatin';
+import { OpetusaikaSuodatin } from '../suodattimet/common/OpetusaikaSuodatin';
 
 const PREFIX = 'HakupalkkiFilters';
 
