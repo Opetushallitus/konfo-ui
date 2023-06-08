@@ -1,7 +1,5 @@
-import { playMocks } from 'kto-ui-common/cypress/mockUtils';
-
 import hakuMocks from '#/cypress/mocks/haku.mocks.json';
-import { findSearchInput } from '#/cypress/utils';
+import { findSearchInput, playMocks } from '#/cypress/utils';
 
 describe('Haku', () => {
   beforeEach(() => {

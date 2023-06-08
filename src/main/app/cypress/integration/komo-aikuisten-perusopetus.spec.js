@@ -1,6 +1,5 @@
-import { playMocks } from 'kto-ui-common/cypress/mockUtils';
-
 import komoAiperMocks from '#/cypress/mocks/komo-aikuisten-perusopetus.mocks.json';
+import { playMocks } from '#/cypress/utils';
 
 describe('Aikuisten perusopetus KOMO', () => {
   beforeEach(() => {
