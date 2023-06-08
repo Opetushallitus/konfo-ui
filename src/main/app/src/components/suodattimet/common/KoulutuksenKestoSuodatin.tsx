@@ -52,8 +52,9 @@ export const KoulutuksenKestoSuodatin = ({
     { value: 72, label: yearsAbbr(6) },
   ];
 
-  const sliderValues = () =>
-    showSliderInternalValues ? sliderInternalValues : numberValues(values);
+  const sliderValues = showSliderInternalValues
+    ? sliderInternalValues
+    : numberValues(values);
 
   const handleSliderValueChange = (
     _e: Event,
@@ -120,7 +121,7 @@ export const KoulutuksenKestoSuodatin = ({
         <Grid container direction="column" wrap="nowrap">
           <Grid item sx={{ mx: 1 }}>
             <SuodatinSlider
-              value={sliderValues()}
+              value={sliderValues}
               min={0}
               max={72}
               marks={marks}

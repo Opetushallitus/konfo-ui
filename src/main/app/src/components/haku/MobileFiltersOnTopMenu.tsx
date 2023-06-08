@@ -52,17 +52,14 @@ export const MobileFiltersOnTopMenu = ({
   const rajainCount = allSelectedFilters?.length ?? 0;
 
   const [showFilters, setShowFilters] = useState(false);
-  const onToggleShowFilters = useCallback(
-    () => setShowFilters(!showFilters),
-    [showFilters]
-  );
+  const onToggleShowFilters = useCallback(() => setShowFilters((s) => !s), []);
 
-  const onShowResults = () => {
+  const onShowResults = useCallback(() => {
     if (isAtEtusivu) {
       goToSearchPage();
     }
     onToggleShowFilters();
-  };
+  }, [isAtEtusivu, goToSearchPage, onToggleShowFilters]);
 
   return (
     <>

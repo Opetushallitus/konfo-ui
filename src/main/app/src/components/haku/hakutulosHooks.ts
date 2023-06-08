@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
 
 import { debounce } from '@mui/material';
-import { flow, pickBy, map, uniqBy, flatten, size } from 'lodash';
+import { flow, pickBy, map, uniqBy, flatten, size, isEqual } from 'lodash';
 import { useQuery } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -233,48 +233,33 @@ export const useSearch = () => {
     [dispatch]
   );
 
-  return useMemo(
-    () => ({
-      keyword,
-      setKeyword: setKeywordCb,
-      isFetching,
-      isAnyFilterSelected,
-      status,
-      koulutusData,
-      oppilaitosData,
-      pagination,
-      setPagination,
-      resetPagination: resetPaginationCb,
-      setFilters: (changes: any) => {
-        dispatch(setFilterSelectedValues(changes));
-        if (currentPage === 'haku') {
-          goToSearchPage();
-        }
-      },
-      clearFilters,
-      selectedTab,
-      setSelectedTab: setSearchTab,
-      goToSearchPage,
-    }),
-    [
-      keyword,
-      setKeywordCb,
-      isFetching,
-      isAnyFilterSelected,
-      status,
-      pagination,
-      setPagination,
-      resetPaginationCb,
-      oppilaitosData,
-      koulutusData,
-      clearFilters,
-      selectedTab,
-      setSearchTab,
-      goToSearchPage,
-      dispatch,
-      currentPage,
-    ]
+  const setFilters = useCallback(
+    (changes: any) => {
+      dispatch(setFilterSelectedValues(changes));
+      if (currentPage === 'haku') {
+        goToSearchPage();
+      }
+    },
+    [dispatch, goToSearchPage, currentPage]
   );
+
+  return {
+    keyword,
+    setKeyword: setKeywordCb,
+    isFetching,
+    isAnyFilterSelected,
+    status,
+    koulutusData,
+    oppilaitosData,
+    pagination,
+    setPagination,
+    resetPagination: resetPaginationCb,
+    setFilters,
+    clearFilters,
+    selectedTab,
+    setSelectedTab: setSearchTab,
+    goToSearchPage,
+  };
 };
 
 export const useFilterProps = (id: ValueOf<typeof FILTER_TYPES>) => {
@@ -330,7 +315,7 @@ export const useAllSelectedFilters = () => {
   const { koulutusData } = useSearch();
   const koulutusFilters = koulutusData.filters;
 
-  const allCheckedValues = useSelector(getFilters);
+  const allCheckedValues = useSelector(getFilters, isEqual);
 
   return useSelectedFilters(koulutusFilters, allCheckedValues);
 };
