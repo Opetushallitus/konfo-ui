@@ -1,6 +1,7 @@
 # Konfo-UI
 
-Konfo-UI on luotu create-react-app:lla (`src/main/app`). Juuressa oleva Spring Boot 2.0 -sovellus hoitaa lähinnä sovelluksen jakamisen ympäristöihin deplattaessa.
+Koulutustarjonnan julkinen käyttöliittymä. React-kirjastolla kehitetty SPA (single page app), jonka varsinainen koodi sijaitsee hakemistossa `src/main/app`. 
+Juurihakemiston Spring Boot -kääre tarjoilee SPA:n ympäristökohtaisten asetusten kanssa, kun sovellus asennetaan pilveen.
 
 [![Konfo-ui](https://github.com/Opetushallitus/konfo-ui/actions/workflows/build.yml/badge.svg)](https://github.com/Opetushallitus/konfo-ui/actions/workflows/build.yml)
 
@@ -18,7 +19,8 @@ http://localhost:3005/
 
 ## Käyttöliittymän kehittäminen tietyn ympäristön datalla
 
-`src/main/app/package.json` -tiedoston rivi `proxy: <ympäristö>` määrittää minkä ympäristön dataa lokaalisti käynnistyvä konfo-ui käyttää (proxyttämällä). Riviä muokkaamalla pystyy helposti käynnistämään lokaalin konfo-ui:n jonkun tietyn ympäristön datalla e.g. lokaali konfo-backend.
+Ympäristömuuttuja OPINTOPOLKU_PROXY_URL määrittää mihin domainiin konfo-ui:sta lähtevät konfo-backend-kyselyt ohjataan lokaalisti ajettaessa. 
+Voit luoda itsellesi tiedoston `.env.development.local` ja asettaa muuttujan siellä. Tiedostoa muokkaamalla pystyy helposti käynnistämään lokaalin konfo-ui:n jotakin tiettyä ympäristöä tai lokaalia konfo-backendiä vasten.
 
 ## Koodin tyyli ja tarkistus (ESLint & Prettier)
 
@@ -38,6 +40,10 @@ Kaikkien testien ajo headlessina:
     npm run cypress:run
 
 Testien ajo toimii Node.js 16 ja NPM 8 versioilla.
+
+**Huom!** Viten kanssa Cypress-testit ovat melko hitaita, jos sovellusta ajetaan `npm run start`-komennolla. (kts. https://github.com/cypress-io/cypress/issues/22968)
+Tämän helpottamiseksi on tehty npm-skripti `preview:watch`, joka buildaa sovelluksen jääden tarkkailemaan muutoksia, ja käynnistää testi-palvelimen, joka servaa buildatun sovelluksen.
+Näin ajettuna Cypress-testit ovat n. 5 kertaa nopeampia, ja Cypress-testien tekeminen mukavampaa.
 
 ### API-kutsujen mockaaminen
 
