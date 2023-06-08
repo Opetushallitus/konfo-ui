@@ -128,7 +128,6 @@ export const KoulutuksenKestoSuodatin = ({
               step={1}
               valueLabelDisplay="auto"
               valueLabelFormat={valueText}
-              aria-label={t('haku.koulutuksenkestokuukausina')}
               onChange={handleSliderValueChange}
               onChangeCommitted={handleSliderValueCommit}
             />
