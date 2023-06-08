@@ -113,11 +113,6 @@
       "eslint --fix --max-warnings 0"
     ]
   },
-  "jest": {
-    "moduleNameMapper": {
-      "^#(.*)$": "<rootDir>$1"
-    }
-  },
   "browserslist": {
     "production": [
       ">0.2%",
