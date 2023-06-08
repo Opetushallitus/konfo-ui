@@ -7,10 +7,11 @@ import { theme } from '#/src/theme';
 
 import Spacer from './Spacer';
 
-type Props = {
-  heading: string | JSX.Element;
-  children: React.ReactNode;
-} & BoxProps;
+type Props = React.PropsWithChildren<
+  {
+    heading: string | JSX.Element;
+  } & BoxProps
+>;
 
 export const PageSection = ({ heading, children, ...props }: Props) => {
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));

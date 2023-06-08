@@ -57,7 +57,7 @@ describe('hakutulosSuodattimet utils', () => {
       baseValues[1].alakoodit![0],
       { a: ['a2.2', 'a2.1', 'a2'] },
     ],
-  ])('getFilterStateChanges', (values, item, expected) => {
+  ])('getFilterStateChanges', (values: any, item: any, expected) => {
     expect(getFilterStateChanges(values)(item)).toEqual(expected);
   });
 });

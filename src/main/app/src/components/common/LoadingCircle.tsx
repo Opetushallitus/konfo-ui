@@ -28,7 +28,7 @@ export const OverlayLoadingCircle = ({
   noContent = false,
 }: {
   isLoading: boolean;
-  noContent: boolean;
+  noContent?: boolean;
 }) => {
   return (
     <StyledBackdrop open={isLoading} noContent={noContent}>
@@ -37,7 +37,7 @@ export const OverlayLoadingCircle = ({
   );
 };
 
-export const LoadingCircleWrapper = ({ children }: { children: React.ReactNode }) => {
+export const LoadingCircleWrapper = ({ children }: React.PropsWithChildren) => {
   const ref = useRef<HTMLDivElement>();
 
   const noContent = !ref?.current || ref?.current?.clientHeight <= CIRCLE_MIN_HEIGHT;

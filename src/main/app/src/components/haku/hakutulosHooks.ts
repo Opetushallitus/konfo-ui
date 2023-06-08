@@ -51,7 +51,13 @@ import {
   createHakuUrl,
 } from '#/src/store/reducers/hakutulosSliceSelector';
 import { getFilterWithChecked, sortValues } from '#/src/tools/filters';
-import { ValueOf } from '#/src/types/common';
+import { ReduxTodo, ValueOf } from '#/src/types/common';
+
+type Pagination = {
+  size?: number;
+  total?: number;
+  offset?: number;
+};
 
 const createSearchQueryHook =
   (key: string, fn: (x: any, signal: any) => any, defaultOptions: any = {}) =>
@@ -196,12 +202,12 @@ export const useSearch = () => {
   const navigate = useNavigate();
 
   const goToSearchPage = useCallback(
-    () => dispatch(navigateToHaku({ navigate })),
+    () => dispatch(navigateToHaku({ navigate }) as ReduxTodo),
     [dispatch, navigate]
   );
 
   const setPagination = useCallback(
-    (newPagination) => {
+    (newPagination?: Pagination) => {
       const { size: _size, offset } = newPagination ?? {};
       dispatch(setSize({ newSize: _size }));
       if (offset != null) {
@@ -229,7 +235,7 @@ export const useSearch = () => {
   const resetPaginationCb = useCallback(() => dispatch(resetPagination), [dispatch]);
 
   const setKeywordCb = useCallback(
-    (k) => dispatch(setKeyword({ keyword: k })),
+    (k: string) => dispatch(setKeyword({ keyword: k })),
     [dispatch]
   );
 
@@ -325,10 +331,10 @@ const useDispatchCb = (fn: (x: any) => any, options: { syncUrl?: boolean } = {})
   const currentPage = useCurrentPage();
   const navigate = useNavigate();
   return useCallback(
-    (props) => {
+    (props: unknown) => {
       dispatch(fn(props));
       if (options?.syncUrl && currentPage === 'haku') {
-        dispatch(navigateToHaku({ navigate }));
+        dispatch(navigateToHaku({ navigate }) as ReduxTodo);
       }
     },
     [dispatch, fn, currentPage, options, navigate]
@@ -359,7 +365,7 @@ export const useSearchTab = () => {
   const dispatch = useDispatch();
 
   const setSearchTab = useCallback(
-    (tab) => dispatch(setSelectedTab({ newSelectedTab: tab })),
+    (tab: string) => dispatch(setSelectedTab({ newSelectedTab: tab })),
     [dispatch]
   );
 

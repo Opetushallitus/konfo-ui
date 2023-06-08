@@ -17,15 +17,14 @@ import { theme } from '#/src/theme';
 
 import { ShowSearchResultsButton } from './ShowSearchResultsButton';
 
-type Props = {
+type Props = React.PropsWithChildren<{
   isOpen: boolean;
   toggleOpen: () => void;
   showResults: () => void;
   clearRajainSelection: () => void;
   rajainCount: number;
   resultCount: number;
-  children: React.ReactNode;
-};
+}>;
 
 export const MobileRajainDrawer = ({
   isOpen,

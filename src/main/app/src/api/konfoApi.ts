@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosRequestConfig, InternalAxiosRequestConfig } from 'axios';
 import Cookies from 'js-cookie';
 import { includes, isEmpty, map } from 'lodash';
 import { urls } from 'oph-urls-js';
@@ -27,18 +27,17 @@ const client = axios.create({
   },
 });
 
-client.interceptors.request.use((request: RequestConfig): RequestConfig => {
-  if (includes(['post', 'put', 'patch', 'delete'], request.method)) {
-    const csrfCookie = Cookies.get('CSRF');
-    if (csrfCookie && !isEmpty(csrfCookie)) {
-      request.headers = {
-        ...(request.headers ?? {}),
-        CSRF: csrfCookie,
-      };
+client.interceptors.request.use(
+  (request: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
+    if (includes(['post', 'put', 'patch', 'delete'], request.method)) {
+      const csrfCookie = Cookies.get('CSRF');
+      if (csrfCookie && !isEmpty(csrfCookie)) {
+        Object.assign(request.headers, { CSRF: csrfCookie });
+      }
     }
+    return request;
   }
-  return request;
-});
+);
 
 const get = async <T = unknown>(url: string, config: RequestConfig = {}) => {
   const response = await client.get<T>(url, config);

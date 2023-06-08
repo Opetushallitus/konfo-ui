@@ -6,8 +6,9 @@ import {
   TimelapseOutlined,
   HomeWorkOutlined,
 } from '@mui/icons-material';
+import { TFunction } from 'i18next';
 import { isEmpty } from 'lodash';
-import { TFunction, useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { match, P } from 'ts-pattern';
 
 import { EntiteettiKortti } from '#/src/components/common/EntiteettiKortti';

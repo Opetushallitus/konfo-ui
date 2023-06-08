@@ -28,10 +28,9 @@ type CreateProps = {
   LoadingWrapper: any;
 };
 
-type Props = {
-  children: JSX.Element;
+type Props = React.PropsWithChildren<{
   queryResult: QueryObserverResult | Array<QueryObserverResult>;
-};
+}>;
 
 export const createQueryResultWrapper =
   ({ ErrorComponent, LoadingWrapper }: CreateProps) =>
@@ -57,7 +56,7 @@ export const createQueryResultWrapper =
       case 'idle':
         return <div></div>;
       case 'success':
-        return children ? children : <div></div>;
+        return children ? <>{children}</> : <div></div>;
       case 'error':
         console.error(errors);
         return <ErrorComponent onRetry={refetch} />;

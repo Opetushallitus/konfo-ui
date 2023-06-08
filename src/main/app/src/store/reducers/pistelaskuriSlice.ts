@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootStateOrAny, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
+import { ReduxTodo } from '#/src/types/common';
 import { Hakukohde } from '#/src/types/HakukohdeTypes';
 
 type LaskuriSliceState = {
@@ -20,6 +21,6 @@ export const pistelaskuriSlice = createSlice({
 });
 
 export const useLaskuriHakukohde = () =>
-  useSelector((state: RootStateOrAny) => state.pistelaskuri.hakukohde);
+  useSelector((state: ReduxTodo) => state.pistelaskuri.hakukohde);
 
 export const { setHakukohde } = pistelaskuriSlice.actions;
