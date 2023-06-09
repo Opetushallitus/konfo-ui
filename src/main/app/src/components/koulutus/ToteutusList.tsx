@@ -34,13 +34,14 @@ import { getLocalizedOpintojenLaajuus } from '#/src/tools/utils';
 import { FilterValue } from '#/src/types/SuodatinTypes';
 import { Jarjestaja } from '#/src/types/ToteutusTypes';
 
+import { useKoulutusJarjestajat } from './hooks';
 import { useSelectedFilters } from '../haku/hakutulosHooks';
+import { AlkamiskausiSuodatin } from '../suodattimet/common/AlkamiskausiSuodatin';
 import { KoulutuksenKestoSuodatin } from '../suodattimet/common/KoulutuksenKestoSuodatin';
 import { OpetusaikaSuodatin } from '../suodattimet/common/OpetusaikaSuodatin';
 import { SuodatinValinnat } from '../suodattimet/hakutulosSuodattimet/SuodatinValinnat';
 import { LukiolinjatSuodatin } from '../suodattimet/toteutusSuodattimet/LukiolinjatSuodatin';
 import { MobileFiltersOnTopMenu } from '../suodattimet/toteutusSuodattimet/MobileFiltersOnTopMenu';
-import { useKoulutusJarjestajat } from './hooks';
 
 type Props = {
   oid: string;
@@ -54,7 +55,7 @@ type JarjestajaData = {
   sortedFilters: Record<string, Record<string, FilterValue>>;
 };
 
-const SuodatinGridItem: React.FC = ({ children }) => {
+const SuodatinGridItem: React.FC<React.PropsWithChildren> = ({ children }) => {
   return (
     <Grid item sx={{ minWidth: '250px' }} xs={6} lg={4}>
       {children}
@@ -194,6 +195,13 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                 <KoulutuksenKestoSuodatin
                   elevation={2}
                   values={usedValues.koulutuksenkestokuukausina}
+                  setFilters={setFilters}
+                />
+              </SuodatinGridItem>
+              <SuodatinGridItem>
+                <AlkamiskausiSuodatin
+                  elevation={2}
+                  values={usedValues.alkamiskausi}
                   setFilters={setFilters}
                 />
               </SuodatinGridItem>

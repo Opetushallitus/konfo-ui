@@ -1,3 +1,5 @@
+import { vi } from 'vitest';
+
 import { Alkamiskausityyppi } from '#/src/constants';
 import { Hakukohde } from '#/src/types/HakukohdeTypes';
 
@@ -20,7 +22,7 @@ describe('toteutus utils', () => {
   });
 });
 
-jest.mock('#/src/api/konfoApi', () => ({
+vi.mock('#/src/api/konfoApi', () => ({
   getHakuDemo: (hakuOid: string) => {
     switch (hakuOid) {
       case 'haku-demo-allowed-1':

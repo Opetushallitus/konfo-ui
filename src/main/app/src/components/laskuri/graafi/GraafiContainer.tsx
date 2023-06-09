@@ -20,13 +20,13 @@ import { localize } from '#/src/tools/localization';
 import { Hakukohde } from '#/src/types/HakukohdeTypes';
 import { Hakutieto } from '#/src/types/ToteutusTypes';
 
+import { AccessibleGraafi } from './AccessibleGraafi';
+import { PainotetutArvosanat } from './PainotetutArvosanat';
+import { PisteGraafi } from './PisteGraafi';
 import { Kouluaineet, kopioiKouluaineetPainokertoimilla } from '../aine/Kouluaine';
 import { HakupisteLaskelma, LaskelmaTapa, kouluaineetToHakupiste } from '../Keskiarvo';
 import { KOULUAINE_STORE_KEY, LocalStorageUtil } from '../LocalStorageUtil';
 import { hasPainokertoimia } from '../PisteLaskuriUtil';
-import { AccessibleGraafi } from './AccessibleGraafi';
-import { PainotetutArvosanat } from './PainotetutArvosanat';
-import { PisteGraafi } from './PisteGraafi';
 
 const PREFIX = 'graafi__container__';
 

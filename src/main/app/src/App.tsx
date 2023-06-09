@@ -125,7 +125,7 @@ const TranslatedRoutes = () => {
   }, [i18n, selectedLanguage, isSupportedLanguageSelected]);
 
   if (!isSupportedLanguageSelected) {
-    let langCookie = Cookies.get('lang');
+    const langCookie = Cookies.get('lang');
     const newLocation = {
       ...location,
       pathname: '/' + (langCookie ? langCookie : 'fi') + location.pathname,

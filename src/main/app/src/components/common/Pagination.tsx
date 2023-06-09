@@ -60,7 +60,7 @@ export const Pagination = ({
   const { size, offset } = pagination;
 
   const handleClick = useCallback(
-    (_e, newOffset) => {
+    (_ev: unknown, newOffset: number) => {
       if (scrollTargetId) {
         document.getElementById(scrollTargetId)?.scrollIntoView();
       }

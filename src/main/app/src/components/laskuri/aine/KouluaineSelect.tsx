@@ -13,11 +13,12 @@ import {
   Typography,
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { colors } from 'src/colors';
 
-import { LabelTooltip } from '../../common/LabelTooltip';
+import { colors } from '#/src/colors';
+
 import { KieliSelect } from './KieliSelect';
 import { ARVOSANA_VALUES, Kouluaine, Kieliaine, isKieliaine } from './Kouluaine';
+import { LabelTooltip } from '../../common/LabelTooltip';
 const PREFIX = 'kouluaine__';
 
 const classes = {

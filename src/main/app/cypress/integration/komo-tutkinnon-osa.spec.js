@@ -1,16 +1,16 @@
-import { playMocks } from 'kto-ui-common/cypress/mockUtils';
-
 import komoTutkinnonOsaMocks from '#/cypress/mocks/komo-tutkinnon-osa.mocks.json';
+import { playMocks } from '#/cypress/utils';
 
 describe('Tutkinnon osa KOMO', () => {
   beforeEach(() => {
     playMocks(komoTutkinnonOsaMocks);
-  });
-  it('Tutkinnon osa KOMO renders properly', () => {
     cy.visit('/fi/koulutus/1.2.246.562.13.00000000000000000622');
 
     // Wait for everything to load
     cy.findByRole('progressbar').should('not.exist');
+  });
+
+  it('Tutkinnon osa KOMO renders properly', () => {
     cy.get('h1').contains('(testi) Hevosten hyvinvoinnista huolehtiminen');
     cy.findByText('Tutkinnon osa').should('exist');
     cy.findByText('25 + 20 osaamispistettä');

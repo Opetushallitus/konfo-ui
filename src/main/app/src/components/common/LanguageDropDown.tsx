@@ -26,7 +26,7 @@ export const LanguageDropDown = () => {
     setOpen(false);
   };
   const handleChange = (event: any) => {
-    let selectedLanguage: string = event.target.value;
+    const selectedLanguage: string = event.target.value;
     Cookies.set('lang', selectedLanguage, {
       expires: 1800,
       path: '/',

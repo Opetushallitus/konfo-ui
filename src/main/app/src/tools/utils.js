@@ -1,6 +1,6 @@
 import DOMPurify from 'dompurify';
+import parseHtmlToReact from 'html-react-parser';
 import { pickBy, capitalize, trim, isEmpty, isString, find, kebabCase } from 'lodash';
-import ReactHtmlParser from 'react-html-parser';
 
 import { NDASH } from '#/src/constants';
 
@@ -74,7 +74,7 @@ export const formatDateRange = (start, end) =>
   `${formatDateString(start)} ${NDASH} ${end ? formatDateString(end) : ''}`;
 
 export const sanitizedHTMLParser = (html, ...rest) =>
-  ReactHtmlParser(sanitizeHTML(html), ...rest);
+  parseHtmlToReact(sanitizeHTML(html), ...rest);
 
 export const toId = kebabCase;
 
@@ -85,10 +85,8 @@ export const scrollIntoView = (element) => {
   });
 };
 
-const { NODE_ENV } = process.env || {};
-
 export const consoleWarning = (...props) => {
-  if (NODE_ENV !== 'test') {
+  if (!isCypress) {
     console.warn(...props);
   }
 };
@@ -205,7 +203,19 @@ export const condArray = (cond, item) => (cond ? [item] : []);
 export const formatDouble = (number, fixed) =>
   (fixed === undefined ? number : number?.toFixed(fixed))?.toString().replace('.', ',');
 
-export const isCypress = process.env.REACT_APP_CYPRESS;
+export const isCypress = window.Cypress;
+
+export const isDev = import.meta.env.MODE === 'development';
 
 export const getPaginationPage = ({ offset, size }) =>
   1 + (size ? Math.round(offset / size) : 0);
+
+const tryCatch = (fn, defaultValue) => {
+  try {
+    return fn();
+  } catch (e) {
+    return defaultValue;
+  }
+};
+
+export const parseUrl = (url) => tryCatch(() => new URL(url));

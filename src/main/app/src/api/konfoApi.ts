@@ -1,11 +1,11 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosRequestConfig, InternalAxiosRequestConfig } from 'axios';
 import Cookies from 'js-cookie';
 import { includes, isEmpty, map } from 'lodash';
 import { urls } from 'oph-urls-js';
 import qs from 'query-string';
 
 import { getLanguage } from '#/src/tools/localization';
-import { cleanRequestParams, isCypress } from '#/src/tools/utils';
+import { cleanRequestParams, isCypress, isDev } from '#/src/tools/utils';
 import {
   AutocompleteResult,
   Koodi,
@@ -27,18 +27,17 @@ const client = axios.create({
   },
 });
 
-client.interceptors.request.use((request: RequestConfig): RequestConfig => {
-  if (includes(['post', 'put', 'patch', 'delete'], request.method)) {
-    const csrfCookie = Cookies.get('CSRF');
-    if (csrfCookie && !isEmpty(csrfCookie)) {
-      request.headers = {
-        ...(request.headers ?? {}),
-        CSRF: csrfCookie,
-      };
+client.interceptors.request.use(
+  (request: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
+    if (includes(['post', 'put', 'patch', 'delete'], request.method)) {
+      const csrfCookie = Cookies.get('CSRF');
+      if (csrfCookie && !isEmpty(csrfCookie)) {
+        Object.assign(request.headers, { CSRF: csrfCookie });
+      }
     }
+    return request;
   }
-  return request;
-});
+);
 
 const get = async <T = unknown>(url: string, config: RequestConfig = {}) => {
   const response = await client.get<T>(url, config);
@@ -54,8 +53,7 @@ const createEntityGetter =
     );
 
 export const getConfiguration = () => {
-  const { NODE_ENV } = process.env;
-  if (['development', 'test'].includes(NODE_ENV) || isCypress) {
+  if (isDev || isCypress) {
     return { naytaFiltterienHakutulosLuvut: true };
   } else {
     return get('/konfo/rest/config/configuration');

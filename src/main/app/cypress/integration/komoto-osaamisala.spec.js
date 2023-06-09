@@ -1,17 +1,15 @@
-import { playMocks } from 'kto-ui-common/cypress/mockUtils';
-
 import komotoOsaamisalaMocks from '#/cypress/mocks/komoto-osaamisala.mocks.json';
+import { playMocks } from '#/cypress/utils';
 
 describe('Osaamisala KOMOTO', () => {
   beforeEach(() => {
     playMocks(komotoOsaamisalaMocks);
+    cy.visit('/fi/toteutus/1.2.246.562.17.00000000000000000471');
+    // Wait for everything to load
+    cy.findByRole('progressbar').should('not.exist');
   });
 
   it('Osaamisala KOMOTO renders properly', () => {
-    cy.visit('/fi/toteutus/1.2.246.562.17.00000000000000000471');
-
-    // Wait for everything to load
-    cy.findByRole('progressbar').should('not.exist');
     cy.get('h1').contains('Hevosten kengittämisen osaamisala');
     cy.findByText('100 osaamispistettä');
     cy.get('h2').contains('Ilmoittaudu koulutukseen');

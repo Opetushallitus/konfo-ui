@@ -11,6 +11,11 @@ import {
 import { FILTER_TYPES } from '#/src/constants';
 import { useIsAtEtusivu } from '#/src/store/reducers/appSlice';
 
+import { MobileResultsPerPageExpansionMenu } from './hakutulos/MobileResultsPerPageExpansionMenu';
+import MobileToggleKoulutusOppilaitos from './hakutulos/MobileToggleKoulutusOppilaitos';
+import MobileToggleOrderByButtonMenu from './hakutulos/MobileToggleOrderByButtonMenu';
+import { useAllSelectedFilters, useFilterProps, useSearch } from './hakutulosHooks';
+import { AlkamiskausiSuodatin } from '../suodattimet/common/AlkamiskausiSuodatin';
 import { HakuKaynnissaSuodatin } from '../suodattimet/common/HakuKaynnissaSuodatin';
 import { HakutapaSuodatin } from '../suodattimet/common/HakutapaSuodatin';
 import { KoulutuksenKestoSuodatin } from '../suodattimet/common/KoulutuksenKestoSuodatin';
@@ -22,10 +27,6 @@ import { SijaintiSuodatin } from '../suodattimet/common/SijaintiSuodatin';
 import { ValintatapaSuodatin } from '../suodattimet/common/ValintatapaSuodatin';
 import { KoulutusalaSuodatin } from '../suodattimet/hakutulosSuodattimet/KoulutusalaSuodatin';
 import { KoulutustyyppiSuodatin } from '../suodattimet/hakutulosSuodattimet/KoulutustyyppiSuodatin';
-import { MobileResultsPerPageExpansionMenu } from './hakutulos/MobileResultsPerPageExpansionMenu';
-import MobileToggleKoulutusOppilaitos from './hakutulos/MobileToggleKoulutusOppilaitos';
-import MobileToggleOrderByButtonMenu from './hakutulos/MobileToggleOrderByButtonMenu';
-import { useAllSelectedFilters, useFilterProps, useSearch } from './hakutulosHooks';
 
 export const MobileFiltersOnTopMenu = ({
   isButtonInline = false,
@@ -166,7 +167,13 @@ export const MobileFiltersOnTopMenu = ({
           setFilters={setFilters}
         />
         <Divider />
-
+        <AlkamiskausiSuodatin
+          expanded={false}
+          displaySelected
+          values={useFilterProps(FILTER_TYPES.ALKAMISKAUSI)}
+          setFilters={setFilters}
+        />
+        <Divider />
         {!isAtEtusivu && <MobileToggleOrderByButtonMenu />}
         {!isAtEtusivu && <MobileResultsPerPageExpansionMenu />}
       </MobileRajainDrawer>

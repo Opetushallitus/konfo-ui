@@ -1,6 +1,5 @@
-import { playMocks } from 'kto-ui-common/cypress/mockUtils';
-
 import notfoundMocks from '#/cypress/mocks/notfound.mocks.json';
+import { playMocks } from '#/cypress/utils';
 
 describe('404 page', () => {
   beforeEach(() => {

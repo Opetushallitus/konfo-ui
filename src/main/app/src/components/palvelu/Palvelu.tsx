@@ -54,7 +54,7 @@ const StyledGrid = styled(Grid)({
   },
 });
 
-const Paragraph = ({ children }: { children: React.ReactNode }) => (
+const Paragraph = ({ children }: React.PropsWithChildren) => (
   <Box lineHeight="21px" fontSize="14px">
     {children}
   </Box>

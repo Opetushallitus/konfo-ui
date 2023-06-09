@@ -1,6 +1,5 @@
-import { playMocks } from 'kto-ui-common/cypress/mockUtils';
-
 import komoTuvaMocks from '#/cypress/mocks/komo-tuva.mocks.json';
+import { playMocks } from '#/cypress/utils';
 
 describe('TUVA KOMO', () => {
   beforeEach(() => {

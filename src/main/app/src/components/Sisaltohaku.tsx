@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, SyntheticEvent } from 'react';
 
 import SearchIcon from '@mui/icons-material/Search';
 import {
@@ -123,7 +123,7 @@ export const Sisaltohaku = () => {
       };
     });
   const fetchResults = useCallback(
-    (input) => {
+    (input: string) => {
       const keywords = asKeywords(input);
       if (isEmpty(keywords)) {
         return [];
@@ -141,7 +141,7 @@ export const Sisaltohaku = () => {
   const [results, setResults] = useState(fetchResults(hakusana));
 
   const doSearch = useCallback(
-    (event) => {
+    (event: SyntheticEvent) => {
       event?.preventDefault();
       navigate(`/${i18n.language}/sisaltohaku/?hakusana=${search}`);
       setOffset(0);

@@ -2,7 +2,7 @@ import i18n from 'i18next';
 import Backend from 'i18next-http-backend';
 import { initReactI18next } from 'react-i18next';
 
-import { isCypress } from './utils';
+import { isCypress, isDev } from './utils';
 
 export const supportedLanguages = ['fi', 'sv', 'en'];
 export const defaultLanguage = 'fi';
@@ -17,14 +17,14 @@ export const configureI18n = () =>
       fallbackLng: defaultLanguage,
       lng: defaultLanguage,
       supportedLngs: supportedLanguages,
-      debug: process.env.NODE_ENV === 'development',
+      debug: isDev,
       load: 'languageOnly',
       interpolation: {
         escapeValue: false,
       },
       backend: {
         loadPath:
-          process.env.NODE_ENV === 'development' || isCypress
+          isDev || isCypress
             ? '/konfo/locales/{{lng}}/{{ns}}.json'
             : '/konfo-backend/translation/{{lng}}',
         customHeaders: {
@@ -35,6 +35,7 @@ export const configureI18n = () =>
         useSuspense: false,
       },
       compatibilityJSON: 'v3',
+      returnNull: false,
     });
 
 export default i18n;

@@ -1,4 +1,4 @@
-export interface LocalStorable {}
+export type LocalStorable = object;
 
 export const RESULT_STORE_KEY = 'keskiarvotulos';
 export const AVERAGE_STORE_KEY = 'keskiarvot';

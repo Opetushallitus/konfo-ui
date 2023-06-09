@@ -7,7 +7,7 @@
       "jsx": "react",
       "allowJs": true,
       "moduleResolution": "node",
-      "types": ["cypress", "@types/testing-library__cypress"]
+      "types": ["cypress", "node", "@types/testing-library__cypress"]
     },
     "include": ["**/*.ts", "**/*.js"]
   }

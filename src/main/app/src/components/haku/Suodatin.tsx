@@ -1,4 +1,4 @@
-import React, { ReactNode, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 import { ExpandLessOutlined, ExpandMoreOutlined } from '@mui/icons-material';
 import { Typography, Box, Button } from '@mui/material';
@@ -40,11 +40,10 @@ const StyledBox = styled(Box)(({ theme }) => ({
   },
 }));
 
-type Props = {
+type Props = React.PropsWithChildren<{
   id: string;
-  children: ReactNode;
   header: string;
-};
+}>;
 
 export const Suodatin = ({ id, children, header }: Props) => {
   const { t } = useTranslation();

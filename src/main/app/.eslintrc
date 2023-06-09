@@ -1,24 +1,57 @@
 {
+    "parser": "@typescript-eslint/parser",
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    },
     "extends": [
-        "react-app",
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:react/jsx-runtime",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
         "prettier",
-        "prettier/react",
         "plugin:cypress/recommended",
         "plugin:lodash/recommended"
     ],
     "plugins": [
+        "@typescript-eslint",
         "cypress",
         "prettier",
-        "lodash"
+        "lodash",
+        "import"
     ],
     "env": {
         "cypress/globals": true
     },
     "rules": {
-        "no-restricted-imports": ["error", "lodash/fp", "lodash-fp/*"],
-        "@typescript-eslint/no-duplicate-imports": ["warn"],
-        "@typescript-eslint/no-shadow": ["warn"],
-        "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
+        "react/prop-types": "off",
+        "react/display-name": "off",
+        "@typescript-eslint/no-empty-function": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-inferrable-types": "off",
+        "@typescript-eslint/no-non-null-assertion": "off",
+        "react/jsx-uses-react": [
+            "warn"
+        ],
+        "no-restricted-imports": [
+            "error",
+            "lodash/fp",
+            "lodash-fp/*"
+        ],
+        "@typescript-eslint/no-duplicate-imports": [
+            "warn"
+        ],
+        "@typescript-eslint/no-shadow": [
+            "warn"
+        ],
+        "@typescript-eslint/no-unused-vars": [
+            "warn",
+            {
+                "argsIgnorePattern": "^_"
+            }
+        ],
         "@typescript-eslint/ban-types": [
             "error",
             {
@@ -71,7 +104,10 @@
                 }
             }
         ],
-        "lodash/import-scope": ["error", "member"],
+        "lodash/import-scope": [
+            "error",
+            "member"
+        ],
         "lodash/matches-prop-shorthand": "off",
         "lodash/prefer-lodash-method": "off",
         "lodash/prefer-lodash-chain": "off",
@@ -83,8 +119,14 @@
             "error",
             "as-needed"
         ],
-        "no-negated-condition": ["warn"],
-        "no-implicit-coercion": ["warn"],
-        "no-var": ["warn"]
+        "no-negated-condition": [
+            "warn"
+        ],
+        "no-implicit-coercion": [
+            "warn"
+        ],
+        "no-var": [
+            "warn"
+        ]
     }
 }

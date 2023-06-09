@@ -228,7 +228,7 @@ export const ToteutusInfoGrid = ({
       title: t('toteutus.apuraha'),
       text: apurahaString,
       modalText: !isEmpty(opetus?.apuraha?.kuvaus) && (
-        <LocalizedHTML data={opetus.apuraha?.kuvaus!} noMargin />
+        <LocalizedHTML data={opetus.apuraha?.kuvaus} noMargin />
       ),
     });
   }

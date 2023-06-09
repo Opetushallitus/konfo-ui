@@ -63,7 +63,7 @@ const StyledBox = styled(Box)(({ theme }) => ({
 
 type Props = {
   items: Array<{ title: any; content: any }>;
-  ContentWrapper?: React.FC;
+  ContentWrapper?: React.FC<React.PropsWithChildren>;
   noColors?: boolean;
 };
 

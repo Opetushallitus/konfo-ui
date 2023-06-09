@@ -14,7 +14,7 @@ export const useLanguageState = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const lng = location.pathname.match(/^\/(.*?)(\/|$)/)?.[1];
-  if (Boolean(lng)) {
+  if (lng) {
     document.documentElement.setAttribute('lang', lng);
   }
   const setLanguage = useCallback(

@@ -90,9 +90,10 @@ const ToimituspaikkaByToimitustapa = ({
 }: ToimituspaikkaByToimitustapaProps) => {
   const { t } = useTranslation();
 
+  const postiosoiteObject = hakijapalveluidenYhteystiedot?.postiosoite;
+
   switch (toimitustapa) {
     case LIITTEEN_TOIMITUSTAPA.JARJESTAJAN_OSOITE:
-      const postiosoiteObject = hakijapalveluidenYhteystiedot?.postiosoite;
       return (
         <Toimituspaikka
           postiosoite={localizeOsoite(

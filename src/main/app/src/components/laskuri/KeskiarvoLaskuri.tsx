@@ -3,12 +3,13 @@ import React, { useState, useEffect } from 'react';
 import { Box, Typography, styled, Input, InputLabel, Grid, Button } from '@mui/material';
 import { matches, isNumber } from 'lodash';
 import { useTranslation } from 'react-i18next';
-import { colors } from 'src/colors';
 
-import { LabelTooltip } from '../common/LabelTooltip';
+import { colors } from '#/src/colors';
+
 import { SuorittanutCheckbox } from './common/SuorittanutCheckbox';
 import { Keskiarvot } from './Keskiarvo';
 import { LocalStorageUtil, AVERAGE_STORE_KEY } from './LocalStorageUtil';
+import { LabelTooltip } from '../common/LabelTooltip';
 
 const PREFIX = 'keskiarvo__laskuri__';
 
@@ -97,7 +98,7 @@ export const KeskiarvoLaskuri = ({
     value: string,
     assigner: (ka: Keskiarvot, val: string) => Keskiarvot
   ) => {
-    let newKeskiArvo = assigner(keskiarvot, value);
+    const newKeskiArvo = assigner(keskiarvot, value);
     setKeskiarvot(newKeskiArvo);
     if (isValidKeskiarvo(value)) {
       updateKeskiarvoToCalculate(newKeskiArvo);

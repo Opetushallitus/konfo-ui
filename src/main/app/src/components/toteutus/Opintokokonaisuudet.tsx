@@ -21,6 +21,7 @@ export const Opintokokonaisuudet = ({
       heading={t('toteutus.kuuluu-opintokokonaisuuksiin')}>
       {opintokokonaisuudet.map((opintokokonaisuus) => (
         <LocalizedLink
+          key={opintokokonaisuus.oid}
           sx={{ fontSize: '1.25rem' }}
           target="_blank"
           tabIndex={-1}

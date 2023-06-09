@@ -1,7 +1,7 @@
 import React, { Suspense, useEffect } from 'react';
 
 import { ThemeProvider } from '@mui/material/styles';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { ErrorBoundary } from 'react-error-boundary';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
@@ -15,7 +15,7 @@ import App from '#/src/App';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { useQueryOnce } from '#/src/hooks/useQueryOnce';
 import ScrollToTop from '#/src/ScrollToTop';
-import { getKonfoStore } from '#/src/store';
+import { store } from '#/src/store';
 import { locationChanged } from '#/src/store/reducers/appSlice';
 import { theme } from '#/src/theme';
 import { configureI18n } from '#/src/tools/i18n';
@@ -59,7 +59,7 @@ const uninterestingErrors = {
 };
 
 window.onerror = (errorMsg, _url, line, col, errorObj) => {
-  if (process.env.NODE_ENV === 'production' && !isCypress) {
+  if (import.meta?.NODE_ENV === 'production' && !isCypress) {
     const errorKey = errorMsg + line;
     const send = (trace) => {
       if (!uninterestingErrors[errorKey]) {
@@ -110,12 +110,14 @@ const InitGate = ({ children }) => {
   }
 };
 
-ReactDOM.render(
+const root = createRoot(document.getElementById('wrapper'));
+
+root.render(
   <ErrorBoundary FallbackComponent={GenericError}>
     <Suspense fallback={<LoadingCircle />}>
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={false} />
-        <Provider store={getKonfoStore()}>
+        <Provider store={store}>
           <BrowserRouter basename="/konfo">
             <ThemeProvider theme={theme}>
               <InitGate>
@@ -127,6 +129,5 @@ ReactDOM.render(
         </Provider>
       </QueryClientProvider>
     </Suspense>
-  </ErrorBoundary>,
-  document.getElementById('wrapper')
+  </ErrorBoundary>
 );
