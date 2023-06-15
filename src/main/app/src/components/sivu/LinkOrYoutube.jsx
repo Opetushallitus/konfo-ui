@@ -40,7 +40,7 @@ export const LinkOrYoutube = ({ children, className, href, ...props }) => {
   const url = parseUrl(href);
   const v = url?.searchParams?.get?.('v');
 
-  if (className === 'embedly-card') {
+  if (className === 'embedly-card' || props.class === 'embedly-card') {
     return (
       <div className={classes.padding}>
         <div className={classes.container}>
