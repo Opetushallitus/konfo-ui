@@ -15,6 +15,7 @@ const PREFIX = 'keskiarvo__tulos__pallerot__';
 const classes = {
   resultSphere: `${PREFIX}pallero`,
   resultTextContainer: `${PREFIX}textcontainer`,
+  embeddedResultTextContainer: `${PREFIX}embeddedtextcontainer`,
 };
 
 const PalleroContainer = styled(Box)(({ theme }) => ({
@@ -39,22 +40,36 @@ const PalleroContainer = styled(Box)(({ theme }) => ({
       width: '182px',
     },
   },
+  [`& .${classes.embeddedResultTextContainer}`]: {
+    zIndex: 5,
+    position: 'absolute',
+    width: '132px',
+    [theme.breakpoints.down('sm')]: {
+      width: '182px',
+    },
+  },
 }));
 
 type ResultSphereProps = {
   results: Array<number>;
   text: string;
   colorScales?: Array<string>;
+  embedded: boolean;
 };
 
-export const ResultSphere = ({ results, text, colorScales }: ResultSphereProps) => {
+export const ResultSphere = ({
+  results,
+  text,
+  colorScales,
+  embedded,
+}: ResultSphereProps) => {
   const resultWithComma = formatDouble(results.reduce((a, b) => a + b));
   const resultsData = results.map((val) => {
     return { x: '', y: val };
   });
   const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
-  const isMedium = useMediaQuery(theme.breakpoints.down('md')) && !isSmall;
+  const isMedium = (useMediaQuery(theme.breakpoints.down('md')) || embedded) && !isSmall;
 
   return (
     <PalleroContainer className={classes.resultSphere}>
@@ -73,7 +88,10 @@ export const ResultSphere = ({ results, text, colorScales }: ResultSphereProps) 
         }
         containerComponent={<VictoryContainer responsive={false} />}
       />
-      <Box className={classes.resultTextContainer}>
+      <Box
+        className={
+          embedded ? classes.embeddedResultTextContainer : classes.resultTextContainer
+        }>
         <Typography sx={{ fontSize: '3rem', fontWeight: 'bold', marginBottom: '7px' }}>
           {resultWithComma}
         </Typography>
@@ -101,10 +119,12 @@ const PallerotContainer = styled(Box)(({ theme }) => ({
 
 type ResultSpheresAmmatillinenProps = {
   osalasku: Osalasku;
+  embedded: boolean;
 };
 
 export const ResultSpheresAmmatillinen = ({
   osalasku,
+  embedded,
 }: ResultSpheresAmmatillinenProps) => {
   const { t } = useTranslation();
 
@@ -118,6 +138,7 @@ export const ResultSpheresAmmatillinen = ({
           ENSISIJAINEN_SCORE_BONUS,
         ]}
         text={t('pistelaskuri.pisteet.ammatillinen-first')}
+        embedded={embedded}
       />
       <ResultSphere
         results={[
@@ -126,6 +147,7 @@ export const ResultSpheresAmmatillinen = ({
           osalasku?.suorittanutBonus,
         ]}
         text={t('pistelaskuri.pisteet.ammatillinen-rest')}
+        embedded={embedded}
       />
     </PallerotContainer>
   );
@@ -134,21 +156,28 @@ export const ResultSpheresAmmatillinen = ({
 type ResultSpheresLukioProps = {
   keskiarvo: number;
   painotettuKa: number;
+  embedded: boolean;
 };
 
 export const ResultSpheresLukio = ({
   keskiarvo,
   painotettuKa,
+  embedded,
 }: ResultSpheresLukioProps) => {
   const { t } = useTranslation();
 
   return (
     <PallerotContainer>
-      <ResultSphere results={[keskiarvo]} text={t('pistelaskuri.pisteet.lukio')} />
+      <ResultSphere
+        results={[keskiarvo]}
+        text={t('pistelaskuri.pisteet.lukio')}
+        embedded={embedded}
+      />
       <ResultSphere
         results={[painotettuKa]}
         text={t('pistelaskuri.pisteet.lukio-painotettu')}
         colorScales={[colors.kkMagenta]}
+        embedded={embedded}
       />
     </PallerotContainer>
   );

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 import { Box, Typography, styled, Button } from '@mui/material';
 import { isEqual } from 'lodash';
@@ -17,6 +17,7 @@ const PREFIX = 'keskiarvo__ainelaskuri__';
 const classes = {
   input: `${PREFIX}input`,
   error: `${PREFIX}error`,
+  changeCalcButton: `${PREFIX}changecalcbutton`,
 };
 
 const LaskuriContainer = styled(Box)(() => ({
@@ -34,6 +35,12 @@ const LaskuriContainer = styled(Box)(() => ({
     color: colors.red,
     maxWidth: '60%',
   },
+  [`& .${classes.changeCalcButton}`]: {
+    margin: '1rem 0 1.5rem 0',
+    border: `2px solid ${colors.brandGreen}`,
+    color: colors.brandGreen,
+    fontWeight: 600,
+  },
   button: {
     fontSize: '1rem',
     fontWeight: 'semibold',
@@ -43,28 +50,27 @@ const LaskuriContainer = styled(Box)(() => ({
 type Props = {
   changeCalculator: (value: boolean) => void;
   updateKouluaineetToCalculate: (kouluaineet: Kouluaineet) => void;
+  kouluaineet: Kouluaineet;
 };
 
 export const KeskiarvoAineLaskuri = ({
   changeCalculator,
   updateKouluaineetToCalculate,
+  kouluaineet,
 }: Props) => {
   const { t } = useTranslation();
-  const [kouluaineet, setKouluaineet] = useState<Kouluaineet>(new Kouluaineet());
 
   useEffect(() => {
     const savedResult = LocalStorageUtil.load(KOULUAINE_STORE_KEY);
     if (savedResult) {
-      setKouluaineet(savedResult as Kouluaineet);
       updateKouluaineetToCalculate(savedResult as Kouluaineet);
     } else {
-      setKouluaineet(new Kouluaineet());
+      updateKouluaineetToCalculate(new Kouluaineet());
     }
   }, [updateKouluaineetToCalculate]);
 
   const updateKouluaineFromChild = (assigner: (aineet: Kouluaineet) => Kouluaineet) => {
     const aineet = assigner(kouluaineet);
-    setKouluaineet(aineet);
     if (!isEqual(kouluaineet, new Kouluaineet())) {
       LocalStorageUtil.save(KOULUAINE_STORE_KEY, aineet);
     }
@@ -78,7 +84,7 @@ export const KeskiarvoAineLaskuri = ({
         ? createKieliaine(nimi, lukiokoodi, description)
         : createKouluaine(nimi, lukiokoodi)
     );
-    setKouluaineet(aineet);
+    updateKouluaineetToCalculate(aineet);
   };
 
   const removeKieli = (index: number) => {
@@ -86,7 +92,6 @@ export const KeskiarvoAineLaskuri = ({
     aineet.lisakielet = aineet.lisakielet.filter(
       (val: Kouluaine, id: number) => id !== index
     );
-    setKouluaineet(aineet);
     updateKouluaineetToCalculate(aineet);
     LocalStorageUtil.save(KOULUAINE_STORE_KEY, aineet);
   };
@@ -96,14 +101,9 @@ export const KeskiarvoAineLaskuri = ({
       <Typography variant="h3" sx={{ fontSize: '1.625rem' }}>
         {t('pistelaskuri.aine.heading')}
       </Typography>
-      <Typography sx={{ marginBottom: '1.375rem' }}>
+      <Button className={classes.changeCalcButton} onClick={() => changeCalculator(true)}>
         {t('pistelaskuri.aine.vaihdalaskin-1')}
-        <Button
-          onClick={() => changeCalculator(true)}
-          sx={{ padding: 0, verticalAlign: 'unset' }}>
-          {t('pistelaskuri.aine.vaihdalaskin-2')}
-        </Button>
-      </Typography>
+      </Button>
       <SuorittanutCheckbox
         suorittanut={kouluaineet.suorittanut}
         toggleSuorittanut={() =>

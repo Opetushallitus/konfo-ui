@@ -3,7 +3,9 @@ import React, { useState, useEffect } from 'react';
 import { Box, styled, Button, SelectChangeEvent } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-import { Kouluaine, hasInitialValues, Kieliaine } from './Kouluaine';
+import { PainokerroinInput } from '#/src/components/laskuri/aine/PainokerroinInput';
+
+import { Kouluaine, Kieliaine } from './Kouluaine';
 import { KouluaineSelect } from './KouluaineSelect';
 import { ValinnainenArvosana } from './ValinnainenArvosana';
 
@@ -48,11 +50,10 @@ export const KouluaineInput = ({
 }: Props) => {
   const { t } = useTranslation();
   const [kouluaine, setKouluaine] = useState<Kouluaine | Kieliaine>({ ...aine });
+  const [showPainokerroin, setShowPainokerroin] = useState(aine.painokerroin !== '');
 
   useEffect(() => {
-    if (!hasInitialValues(aine)) {
-      setKouluaine(aine);
-    }
+    setKouluaine(aine);
   }, [aine]);
 
   const labelId = `aine-label-${aine.nimi}`;
@@ -91,6 +92,17 @@ export const KouluaineInput = ({
     updateKouluaine(uusiaine);
   };
 
+  const updatePainokerroin = (painokerroin: string) => {
+    const uusiaine = Object.assign({}, kouluaine, { painokerroin });
+    setKouluaine(uusiaine);
+    updateKouluaine(uusiaine);
+  };
+
+  const removePainokerroin = () => {
+    setShowPainokerroin(false);
+    updatePainokerroin('');
+  };
+
   return (
     <AineContainer>
       <KouluaineSelect
@@ -117,6 +129,21 @@ export const KouluaineInput = ({
       {kouluaine.valinnaisetArvosanat.length < MAX_VALINNAISET_ARVOSANAT && (
         <Button onClick={addValinnaisaine}>
           {t('pistelaskuri.aine.addvalinnainen')}
+        </Button>
+      )}
+      {showPainokerroin ? (
+        <PainokerroinInput
+          labelId={labelId}
+          painokerroin={kouluaine.painokerroin}
+          updatePainokerroin={updatePainokerroin}
+          removePainokerroin={removePainokerroin}
+        />
+      ) : (
+        <Button
+          onClick={() => {
+            setShowPainokerroin(true);
+          }}>
+          {t('pistelaskuri.aine.addpainokerroin')}
         </Button>
       )}
     </AineContainer>

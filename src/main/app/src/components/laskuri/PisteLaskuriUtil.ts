@@ -1,3 +1,4 @@
+import { Kouluaine, Kouluaineet } from '#/src/components/laskuri/aine/Kouluaine';
 import {
   KOULUTUS_TYYPPI,
   YHTEISHAKU_KOODI_URI,
@@ -28,3 +29,13 @@ export const showPisteLaskuri = (
 
 export const hasPainokertoimia = (hk: Hakukohde) =>
   (hk.hakukohteenLinja?.painotetutArvosanat || []).length > 0;
+
+export const hasManualPainokertoimia = (aineet: Kouluaineet): boolean => {
+  return Boolean(
+    aineet.kielet
+      .concat(aineet.lisakielet)
+      .concat(aineet.muutLukuaineet)
+      .concat(aineet.taitoaineet)
+      .find((aine: Kouluaine) => aine.painokerroin !== '')
+  );
+};
