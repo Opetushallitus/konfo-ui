@@ -19,7 +19,7 @@ import { store } from '#/src/store';
 import { locationChanged } from '#/src/store/reducers/appSlice';
 import { theme } from '#/src/theme';
 import { configureI18n } from '#/src/tools/i18n';
-import { isCypress } from '#/src/tools/utils';
+import { isCypress, isProd } from '#/src/tools/utils';
 import { configureUrls } from '#/src/urls';
 
 import GenericError from './GenericError';
@@ -59,7 +59,7 @@ const uninterestingErrors = {
 };
 
 window.onerror = (errorMsg, _url, line, col, errorObj) => {
-  if (import.meta?.NODE_ENV === 'production' && !isCypress) {
+  if (isProd && !isCypress) {
     const errorKey = errorMsg + line;
     const send = (trace) => {
       if (!uninterestingErrors[errorKey]) {

@@ -207,6 +207,8 @@ export const isCypress = window.Cypress;
 
 export const isDev = import.meta.env.MODE === 'development';
 
+export const isProd = import.meta.env.MODE === 'production';
+
 export const getPaginationPage = ({ offset, size }) =>
   1 + (size ? Math.round(offset / size) : 0);
 
