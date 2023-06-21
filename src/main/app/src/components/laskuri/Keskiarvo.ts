@@ -116,10 +116,18 @@ const getMatchingScore = (keskiarvo: number, scoreMap: Array<RangeToScore>): num
 
 const roundKa = (ka: number) => Math.round(ka * 100) / 100;
 
-export const kouluaineetToHakupisteWithPainokertoimet = (
-  kouluaineet: Kouluaineet
-): HakupisteLaskelma => {
-  console.log(kouluaineet);
+const lukuaineKeskiarvo = (kouluaineet: Kouluaineet): number => {
+  const lukuaineet: Array<Kouluaine> = kouluaineet.kielet
+    .concat(kouluaineet.lisakielet)
+    .concat(kouluaineet.muutLukuaineet)
+    .filter((aine: Kouluaine) => isEligibleArvosana(aine.arvosana));
+  const lukuaineetOsoittaja: number = sum(
+    lukuaineet.map((aine: Kouluaine) => Number(aine.arvosana))
+  );
+  return roundKa(lukuaineetOsoittaja / lukuaineet.length);
+};
+
+export const lukuaineKeskiarvoPainotettu = (kouluaineet: Kouluaineet): number => {
   const lukuaineet: Array<Kouluaine> = kouluaineet.kielet
     .concat(kouluaineet.lisakielet)
     .concat(kouluaineet.muutLukuaineet)
@@ -143,41 +151,11 @@ export const kouluaineetToHakupisteWithPainokertoimet = (
       isEligiblePainokerroin(a.painokerroin) ? painokerroinToNumber(a.painokerroin) : 1
     )
   );
-  const lukuKa = roundKa(lukuaineetOsoittaja / lukuaineetNimittaja);
-  const kaikki = kouluaineet.kielet
-    .concat(kouluaineet.lisakielet)
-    .concat(kouluaineet.muutLukuaineet)
-    .concat(kouluaineet.taitoaineet)
-    .filter((aine: Kouluaine) => isEligibleArvosana(aine.arvosana))
-    .map(kouluAineToAverage);
-  const kaikkiKa = roundKa(sum(kaikki) / kaikki.length);
-  const taitoaineet = kouluaineet.taitoaineet
-    .filter((aine: Kouluaine) => isEligibleArvosana(aine.arvosana))
-    .map(kouluAineToAverage)
-    .sort((a: number, b: number) => b - a)
-    .slice(0, AMOUNT_OF_TAITOAINE_TO_USE);
-  const taitoKa = roundKa(sum(taitoaineet) / taitoaineet.length);
-  return keskiArvotToHakupiste(
-    {
-      lukuaineet: String(lukuKa),
-      taideTaitoAineet: String(taitoKa),
-      kaikki: String(kaikkiKa),
-      suorittanut: kouluaineet.suorittanut,
-    },
-    LaskelmaTapa.LUKUAINEET
-  );
+  return roundKa(lukuaineetOsoittaja / lukuaineetNimittaja);
 };
 
 export const kouluaineetToHakupiste = (kouluaineet: Kouluaineet): HakupisteLaskelma => {
-  console.log(kouluaineet);
-  const lukuaineet: Array<Kouluaine> = kouluaineet.kielet
-    .concat(kouluaineet.lisakielet)
-    .concat(kouluaineet.muutLukuaineet)
-    .filter((aine: Kouluaine) => isEligibleArvosana(aine.arvosana));
-  const lukuaineetOsoittaja: number = sum(
-    lukuaineet.map((aine: Kouluaine) => Number(aine.arvosana))
-  );
-  const lukuKa = roundKa(lukuaineetOsoittaja / lukuaineet.length);
+  const lukuKa = lukuaineKeskiarvo(kouluaineet);
   const kaikki = kouluaineet.kielet
     .concat(kouluaineet.lisakielet)
     .concat(kouluaineet.muutLukuaineet)

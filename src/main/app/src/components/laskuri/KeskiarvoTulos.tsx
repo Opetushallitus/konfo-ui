@@ -12,8 +12,8 @@ import { useLaskuriHakukohde } from '#/src/store/reducers/pistelaskuriSlice';
 import { kopioiKouluaineetPainokertoimilla, Kouluaineet } from './aine/Kouluaine';
 import {
   HakupisteLaskelma,
-  kouluaineetToHakupisteWithPainokertoimet,
   LaskelmaTapa,
+  lukuaineKeskiarvoPainotettu,
   Osalasku,
 } from './Keskiarvo';
 import { hasManualPainokertoimia, hasPainokertoimia } from './PisteLaskuriUtil';
@@ -173,16 +173,14 @@ export const KeskiarvoTulos = ({ tulos, embedded, kouluaineet }: Props) => {
 
   const painotettuKeskiarvo = (): number => {
     if (hakukohde) {
+      console.log(hakukohde);
       const modifiedAineet = kopioiKouluaineetPainokertoimilla(
         kouluaineet,
         hakukohde.hakukohteenLinja?.painotetutArvosanat || []
       );
-      return kouluaineetToHakupisteWithPainokertoimet(modifiedAineet).keskiarvo;
+      return lukuaineKeskiarvoPainotettu(modifiedAineet);
     }
-    if (embedded) {
-      return kouluaineetToHakupisteWithPainokertoimet(kouluaineet).keskiarvo;
-    }
-    return tulos.keskiarvo;
+    return lukuaineKeskiarvoPainotettu(kouluaineet);
   };
 
   return (

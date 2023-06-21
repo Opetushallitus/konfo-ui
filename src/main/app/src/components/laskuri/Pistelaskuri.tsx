@@ -141,19 +141,24 @@ export const Pistelaskuri = ({
         <KeskiarvoLaskuri
           changeCalculator={setUseKeskiarvoLaskuri}
           updateKeskiarvoToCalculate={setKeskiarvoToCalculate}
-          keskiarvot={keskiarvoToCalculate}></KeskiarvoLaskuri>
+          keskiarvot={keskiarvoToCalculate}
+          embedded={embedded}
+        />
       )}
       {tulos == null && !useKeskiarvoLaskuri && (
         <KeskiarvoAineLaskuri
           changeCalculator={setUseKeskiarvoLaskuri}
           updateKouluaineetToCalculate={setKouluaineetToCalculate}
-          kouluaineet={kouluaineetToCalculate}></KeskiarvoAineLaskuri>
+          kouluaineet={kouluaineetToCalculate}
+          embedded={embedded}
+        />
       )}
       {tulos && (
         <KeskiarvoTulos
           tulos={tulos}
           embedded={embedded}
-          kouluaineet={kouluaineetToCalculate}></KeskiarvoTulos>
+          kouluaineet={kouluaineetToCalculate}
+        />
       )}
       <Box className={classes.buttonWrapper}>
         <Button className={classes.clearButton} onClick={clearValues}>

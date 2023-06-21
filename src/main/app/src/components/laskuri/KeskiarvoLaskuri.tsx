@@ -59,6 +59,7 @@ type Props = {
   changeCalculator: (value: boolean) => void;
   updateKeskiarvoToCalculate: (keskiarvo: Keskiarvot) => void;
   keskiarvot: Keskiarvot;
+  embedded: boolean;
 };
 
 const keskiArvotIsEmpty = (kat: Keskiarvot) =>

@@ -8,6 +8,7 @@ import {
   IconButton,
   Input,
   Typography,
+  Button,
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { colors } from 'src/colors';
@@ -78,47 +79,64 @@ type Props = {
   labelId: string;
   painokerroin: string;
   updatePainokerroin: (newPk: string) => void;
-  removePainokerroin: () => void;
 };
 
 export const PainokerroinInput = ({
   labelId,
   painokerroin,
   updatePainokerroin,
-  removePainokerroin,
 }: Props) => {
   const { t } = useTranslation();
 
+  const [showPainokerroin, setShowPainokerroin] = useState(painokerroin !== '');
   const [inputtedPainokerroin, setInputtedPainokerroin] = useState(painokerroin);
+
+  const removePainokerroin = () => {
+    setShowPainokerroin(false);
+    updatePainokerroin('');
+  };
+
+  const handlePainokerroinChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newPk = event.target.value;
+    setInputtedPainokerroin(newPk);
+    if (isEligiblePainokerroin(newPk)) {
+      updatePainokerroin(newPk);
+    }
+  };
+
+  if (!showPainokerroin) {
+    return (
+      <Button
+        onClick={() => {
+          setShowPainokerroin(true);
+        }}>
+        {t('pistelaskuri.aine.painokerroin.add')}
+      </Button>
+    );
+  }
 
   return (
     <PainokerroinControl variant="standard">
       <InputLabel id={`${labelId}-painokerroin`} className={classes.label}>
-        {t('pistelaskuri.aine.painokerroin')}
+        {t('pistelaskuri.aine.painokerroin.label')}
       </InputLabel>
       <Input
         className={classes.input}
-        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-          const newPk = event.target.value;
-          setInputtedPainokerroin(newPk);
-          if (isEligiblePainokerroin(newPk)) {
-            updatePainokerroin(newPk);
-          }
-        }}
+        onChange={handlePainokerroinChange}
         value={inputtedPainokerroin}
         error={!isEligiblePainokerroin(inputtedPainokerroin)}
         disableUnderline={true}
+        placeholder={t('pistelaskuri.aine.painokerroin.placehoder')}
       />
       {!isEligiblePainokerroin(inputtedPainokerroin) && (
         <Typography variant="body2" className={classes.error}>
-          {t('pistelaskuri.aine.error.painokerroin')}
+          {t('pistelaskuri.aine.painokerroin.error')}
         </Typography>
       )}
-
       <IconButton
         className={classes.delete}
         onClick={removePainokerroin}
-        aria-label={t('pistelaskuri.aine.removepainokerroin')}>
+        aria-label={t('pistelaskuri.aine.painokerroin.remove')}>
         <DeleteOutlined />
       </IconButton>
     </PainokerroinControl>

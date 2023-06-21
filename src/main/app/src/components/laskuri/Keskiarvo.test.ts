@@ -1,9 +1,5 @@
 import { Kouluaine, Kouluaineet } from './aine/Kouluaine';
-import {
-  Keskiarvot,
-  keskiArvotToHakupiste,
-  kouluaineetToHakupisteWithPainokertoimet,
-} from './Keskiarvo';
+import { Keskiarvot, keskiArvotToHakupiste, kouluaineetToHakupiste } from './Keskiarvo';
 
 describe('Keskiarvo & Hakupisteet', () => {
   describe('calculates hakupisteet from keskiarvot', () => {
@@ -155,7 +151,7 @@ describe('Keskiarvo & Hakupisteet', () => {
       expectedPisteet: number,
       expectedKeskiarvo: number
     ) => {
-      const laskelma = kouluaineetToHakupisteWithPainokertoimet(kouluaineet);
+      const laskelma = kouluaineetToHakupiste(kouluaineet);
       expect(laskelma.keskiarvo).toEqual(expectedKeskiarvo);
       expect(laskelma.pisteet).toEqual(expectedPisteet);
     };
@@ -229,7 +225,7 @@ describe('Keskiarvo & Hakupisteet', () => {
     });
 
     it('contains osalasku information', async () => {
-      const result = kouluaineetToHakupisteWithPainokertoimet(
+      const result = kouluaineetToHakupiste(
         aineet([aine(10, [], ''), aine(5, [], ''), aine(10, [], '')], 'kielet')
       );
       expect(result.osalasku).toBeDefined();

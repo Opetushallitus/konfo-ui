@@ -38,6 +38,7 @@ type Props = {
   updateKouluaine: (kouluaine: Kouluaine) => void;
   isLisaKieli?: boolean;
   removeLisaKieli?: () => void;
+  embedded: boolean;
 };
 
 const MAX_VALINNAISET_ARVOSANAT = 3;
@@ -47,10 +48,10 @@ export const KouluaineInput = ({
   updateKouluaine,
   isLisaKieli = false,
   removeLisaKieli = () => {},
+  embedded,
 }: Props) => {
   const { t } = useTranslation();
   const [kouluaine, setKouluaine] = useState<Kouluaine | Kieliaine>({ ...aine });
-  const [showPainokerroin, setShowPainokerroin] = useState(aine.painokerroin !== '');
 
   useEffect(() => {
     setKouluaine(aine);
@@ -98,11 +99,6 @@ export const KouluaineInput = ({
     updateKouluaine(uusiaine);
   };
 
-  const removePainokerroin = () => {
-    setShowPainokerroin(false);
-    updatePainokerroin('');
-  };
-
   return (
     <AineContainer>
       <KouluaineSelect
@@ -131,20 +127,12 @@ export const KouluaineInput = ({
           {t('pistelaskuri.aine.addvalinnainen')}
         </Button>
       )}
-      {showPainokerroin ? (
+      {embedded && (
         <PainokerroinInput
           labelId={labelId}
           painokerroin={kouluaine.painokerroin}
           updatePainokerroin={updatePainokerroin}
-          removePainokerroin={removePainokerroin}
         />
-      ) : (
-        <Button
-          onClick={() => {
-            setShowPainokerroin(true);
-          }}>
-          {t('pistelaskuri.aine.addpainokerroin')}
-        </Button>
       )}
     </AineContainer>
   );

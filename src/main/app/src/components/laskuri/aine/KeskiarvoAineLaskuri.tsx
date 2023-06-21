@@ -51,12 +51,14 @@ type Props = {
   changeCalculator: (value: boolean) => void;
   updateKouluaineetToCalculate: (kouluaineet: Kouluaineet) => void;
   kouluaineet: Kouluaineet;
+  embedded: boolean;
 };
 
 export const KeskiarvoAineLaskuri = ({
   changeCalculator,
   updateKouluaineetToCalculate,
   kouluaineet,
+  embedded,
 }: Props) => {
   const { t } = useTranslation();
 
@@ -125,6 +127,7 @@ export const KeskiarvoAineLaskuri = ({
           }
           aine={kieliaine}
           key={`kieliaine-${kieliaine.nimi}-${index}`}
+          embedded={embedded}
         />
       ))}
       <AddKieliInput addKieli={addKieli}>
@@ -140,6 +143,7 @@ export const KeskiarvoAineLaskuri = ({
             key={`lisakieliaine-${kieliaine.nimi}-${index}`}
             isLisaKieli={true}
             removeLisaKieli={() => removeKieli(index)}
+            embedded={embedded}
           />
         ))}
       </AddKieliInput>
@@ -153,6 +157,7 @@ export const KeskiarvoAineLaskuri = ({
           }
           aine={lukuaine}
           key={`lukuaine-${lukuaine.nimi}-${index}`}
+          embedded={embedded}
         />
       ))}
       <Typography variant="h4" sx={{ margin: '2rem 0 1.375rem', fontSize: '1.25rem' }}>
@@ -168,6 +173,7 @@ export const KeskiarvoAineLaskuri = ({
           }
           aine={taitoaine}
           key={`taitoaine-${taitoaine.nimi}-${index}`}
+          embedded={embedded}
         />
       ))}
     </LaskuriContainer>
