@@ -36,7 +36,7 @@ const queryClient = new QueryClient({
 });
 
 if ('serviceWorker' in navigator) {
-  if (window.Cypress) {
+  if (isCypress) {
     console.log('Not registering service worker');
   } else {
     console.log('Registering service worker');
@@ -58,6 +58,7 @@ const uninterestingErrors = {
   'Script Error.0': true,
 };
 
+console.log({ isProd, isCypress });
 window.onerror = (errorMsg, _url, line, col, errorObj) => {
   if (isProd && !isCypress) {
     const errorKey = errorMsg + line;

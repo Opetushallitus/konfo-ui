@@ -95,8 +95,9 @@ const useAutoCompleteQuery = (requestParams: any) => {
 
 export const useAutoComplete = () => {
   const autoCompleteRequestParams = useSelector(getAutocompleteRequestParams);
+  const keyword = useSelector(getKeyword);
 
-  const [searchPhrase, setSearchPhrase] = useState<string>();
+  const [searchPhrase, setSearchPhrase] = useState<string>(() => keyword);
 
   const { data, isFetching, status } = useAutoCompleteQuery({
     ...autoCompleteRequestParams,

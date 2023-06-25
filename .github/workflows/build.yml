@@ -14,7 +14,6 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
 
@@ -51,14 +50,9 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
-
+    container: mcr.microsoft.com/playwright:v1.35.0-jammy
     steps:
       - uses: actions/checkout@v3 
-
-      - uses: szenius/set-timezone@v1.2
-        with:
-          timezoneLinux: "Europe/Helsinki"
-
       - uses: actions/setup-node@v3
         with:
           node-version: 16
