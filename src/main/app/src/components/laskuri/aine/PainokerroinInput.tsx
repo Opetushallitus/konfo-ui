@@ -11,8 +11,8 @@ import {
   Button,
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { colors } from 'src/colors';
 
+import { colors } from '#/src/colors';
 import { isEligiblePainokerroin } from '#/src/components/laskuri/Keskiarvo';
 
 const PREFIX = 'keskiarvo__ainelaskuri__painokerroin__';

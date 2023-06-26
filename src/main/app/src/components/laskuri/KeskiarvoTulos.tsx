@@ -173,14 +173,13 @@ export const KeskiarvoTulos = ({ tulos, embedded, kouluaineet }: Props) => {
 
   const painotettuKeskiarvo = (): number => {
     if (hakukohde) {
-      console.log(hakukohde);
       const modifiedAineet = kopioiKouluaineetPainokertoimilla(
         kouluaineet,
         hakukohde.hakukohteenLinja?.painotetutArvosanat || []
       );
       return lukuaineKeskiarvoPainotettu(modifiedAineet);
     }
-    return lukuaineKeskiarvoPainotettu(kouluaineet);
+    return tulos.keskiarvoPainotettu;
   };
 
   return (

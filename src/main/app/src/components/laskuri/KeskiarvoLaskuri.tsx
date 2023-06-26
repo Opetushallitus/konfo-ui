@@ -96,7 +96,7 @@ export const KeskiarvoLaskuri = ({
     value: string,
     assigner: (ka: Keskiarvot, val: string) => Keskiarvot
   ) => {
-    let newKeskiArvo = assigner(keskiarvot, value);
+    const newKeskiArvo = assigner(keskiarvot, value);
     updateKeskiarvoToCalculate(newKeskiArvo);
   };
 

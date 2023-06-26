@@ -116,7 +116,7 @@ export const Pistelaskuri = ({
       keskiarvoToCalculate.kaikki === '');
 
   const calculate = () => {
-    let laskettuTulos = useKeskiarvoLaskuri
+    const laskettuTulos = useKeskiarvoLaskuri
       ? keskiArvotToHakupiste(keskiarvoToCalculate)
       : kouluaineetToHakupiste(kouluaineetToCalculate);
     updateTulos(laskettuTulos);
