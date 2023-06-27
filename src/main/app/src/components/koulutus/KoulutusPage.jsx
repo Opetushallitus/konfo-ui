@@ -153,11 +153,15 @@ const Kuvaus = ({ koulutus }) => {
       html={createKoulutusHtml()}
       className={classes.root}
       additionalContent={
-        !isEmpty(koulutus?.linkkiEPerusteisiin) && (
+        koulutus?.ePerusteId && (
           <ExternalLink
             target="_blank"
             rel="noopener"
-            href={localize(koulutus?.linkkiEPerusteisiin)}
+            href={urls.url(
+              'eperusteet-service.eperuste.kooste',
+              getLanguage(),
+              koulutus?.ePerusteId
+            )}
             className={classes.linkButton}
             data-testid="eperuste-linkki">
             {t('koulutus.eperuste-linkki')}
