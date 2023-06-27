@@ -110,7 +110,7 @@ export const PainokerroinInput = ({
         onClick={() => {
           setShowPainokerroin(true);
         }}>
-        {t('pistelaskuri.aine.painokerroin.add')}
+        {t('pistelaskuri.aine.addpainokerroin')}
       </Button>
     );
   }
@@ -118,7 +118,7 @@ export const PainokerroinInput = ({
   return (
     <PainokerroinControl variant="standard">
       <InputLabel id={`${labelId}-painokerroin`} className={classes.label}>
-        {t('pistelaskuri.aine.painokerroin.label')}
+        {t('pistelaskuri.aine.painokerroin')}
       </InputLabel>
       <Input
         className={classes.input}
@@ -126,17 +126,17 @@ export const PainokerroinInput = ({
         value={inputtedPainokerroin}
         error={!isEligiblePainokerroin(inputtedPainokerroin)}
         disableUnderline={true}
-        placeholder={t('pistelaskuri.aine.painokerroin.placehoder')}
+        placeholder={t('pistelaskuri.aine.painokerroin-placeholder')}
       />
-      {!isEligiblePainokerroin(inputtedPainokerroin) && (
+      {inputtedPainokerroin !== '' && !isEligiblePainokerroin(inputtedPainokerroin) && (
         <Typography variant="body2" className={classes.error}>
-          {t('pistelaskuri.aine.painokerroin.error')}
+          {t('pistelaskuri.error.painokerroin')}
         </Typography>
       )}
       <IconButton
         className={classes.delete}
         onClick={removePainokerroin}
-        aria-label={t('pistelaskuri.aine.painokerroin.remove')}>
+        aria-label={t('pistelaskuri.aine.removepainokerroin')}>
         <DeleteOutlined />
       </IconButton>
     </PainokerroinControl>
