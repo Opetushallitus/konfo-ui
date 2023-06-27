@@ -21,6 +21,7 @@ const classes = {
 };
 
 const LaskuriContainer = styled(Box)(() => ({
+  width: '100%',
   [`& .${classes.input}`]: {
     border: `1px solid ${colors.lightGrey}`,
     padding: '0 0.5rem',
@@ -36,7 +37,7 @@ const LaskuriContainer = styled(Box)(() => ({
     maxWidth: '60%',
   },
   [`& .${classes.changeCalcButton}`]: {
-    margin: '1rem 0 1.5rem 0',
+    marginTop: '1rem',
     border: `2px solid ${colors.brandGreen}`,
     color: colors.brandGreen,
     fontWeight: 600,
@@ -104,7 +105,7 @@ export const KeskiarvoAineLaskuri = ({
         {t('pistelaskuri.aine.heading')}
       </Typography>
       <Button className={classes.changeCalcButton} onClick={() => changeCalculator(true)}>
-        {t('pistelaskuri.aine.vaihdalaskin-1')}
+        {t('pistelaskuri.aine.vaihdalaskin')}
       </Button>
       <SuorittanutCheckbox
         suorittanut={kouluaineet.suorittanut}

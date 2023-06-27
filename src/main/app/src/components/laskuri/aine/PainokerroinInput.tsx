@@ -22,23 +22,17 @@ const classes = {
   label: `${PREFIX}label`,
   delete: `${PREFIX}delete`,
   error: `${PREFIX}error`,
+  add: `${PREFIX}add`,
 };
 
 const PainokerroinControl = styled(FormControl)(({ theme }) => ({
-  display: 'grid',
-  gridTemplateColumns: '4fr 1fr',
-  gridTemplateAreas: `"label label"
-                     "select delete"`,
-  alignItems: 'center',
-  alignContent: 'center',
-  rowGap: '7px',
+  display: 'flex',
+  flexDirection: 'row',
   [theme.breakpoints.down('sm')]: {
     marginTop: '0.4rem',
     justifyContent: 'stretch',
-    gridTemplateColumns: '7fr 1fr',
   },
   [`& .${classes.label}`]: {
-    gridArea: 'label',
     position: 'relative',
     transformOrigin: 'left',
     transform: 'none',
@@ -47,9 +41,9 @@ const PainokerroinControl = styled(FormControl)(({ theme }) => ({
     lineHeight: '1.6rem',
   },
   [`& .${classes.delete}`]: {
-    gridArea: 'delete',
     color: colors.brandGreen,
-    padding: '0.3rem 0.6rem',
+    alignSelf: 'end',
+    padding: '0.4rem 0.6rem',
     svg: {
       width: '1.4rem',
       height: '1.4rem',
@@ -72,6 +66,13 @@ const PainokerroinControl = styled(FormControl)(({ theme }) => ({
     [theme.breakpoints.down('sm')]: {
       width: '100%',
     },
+  },
+  [`& .${classes.error}`]: {
+    color: colors.red,
+  },
+  [`& .${classes.add}`]: {
+    marginTop: '1.6rem',
+    whiteSpace: 'nowrap',
   },
 }));
 
@@ -104,41 +105,45 @@ export const PainokerroinInput = ({
     }
   };
 
-  if (!showPainokerroin) {
-    return (
-      <Button
-        onClick={() => {
-          setShowPainokerroin(true);
-        }}>
-        {t('pistelaskuri.aine.addpainokerroin')}
-      </Button>
-    );
-  }
-
   return (
     <PainokerroinControl variant="standard">
-      <InputLabel id={`${labelId}-painokerroin`} className={classes.label}>
-        {t('pistelaskuri.aine.painokerroin')}
-      </InputLabel>
-      <Input
-        className={classes.input}
-        onChange={handlePainokerroinChange}
-        value={inputtedPainokerroin}
-        error={!isEligiblePainokerroin(inputtedPainokerroin)}
-        disableUnderline={true}
-        placeholder={t('pistelaskuri.aine.painokerroin-placeholder')}
-      />
-      {inputtedPainokerroin !== '' && !isEligiblePainokerroin(inputtedPainokerroin) && (
-        <Typography variant="body2" className={classes.error}>
-          {t('pistelaskuri.error.painokerroin')}
-        </Typography>
+      {showPainokerroin ? (
+        <>
+          <InputLabel id={`${labelId}-painokerroin`} className={classes.label}>
+            <Typography sx={{ fontWeight: '600', marginBottom: '7px' }}>
+              {t('pistelaskuri.aine.painokerroin')}
+            </Typography>
+            <Input
+              className={classes.input}
+              onChange={handlePainokerroinChange}
+              value={inputtedPainokerroin}
+              error={!isEligiblePainokerroin(inputtedPainokerroin)}
+              disableUnderline={true}
+              placeholder={t('pistelaskuri.aine.painokerroin-placeholder')}
+            />
+          </InputLabel>
+          <IconButton
+            className={classes.delete}
+            onClick={removePainokerroin}
+            aria-label={t('pistelaskuri.aine.removepainokerroin')}>
+            <DeleteOutlined />
+          </IconButton>
+          {inputtedPainokerroin !== '' &&
+            !isEligiblePainokerroin(inputtedPainokerroin) && (
+              <Typography variant="body2" className={classes.error}>
+                {t('pistelaskuri.error.painokerroin')}
+              </Typography>
+            )}
+        </>
+      ) : (
+        <Button
+          className={classes.add}
+          onClick={() => {
+            setShowPainokerroin(true);
+          }}>
+          {t('pistelaskuri.aine.addpainokerroin')}
+        </Button>
       )}
-      <IconButton
-        className={classes.delete}
-        onClick={removePainokerroin}
-        aria-label={t('pistelaskuri.aine.removepainokerroin')}>
-        <DeleteOutlined />
-      </IconButton>
     </PainokerroinControl>
   );
 };

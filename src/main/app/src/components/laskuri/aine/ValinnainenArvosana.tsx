@@ -60,7 +60,7 @@ const ValinnainenControl = styled(FormControl)(({ theme }) => ({
   },
   [`& .${classes.gradeSelect}`]: {
     gridArea: 'select',
-    marginTop: 0,
+    margin: '0 0 0.5rem 0',
   },
   [`& .${classes.input}`]: {
     border: `1px solid ${colors.lightGrey}`,

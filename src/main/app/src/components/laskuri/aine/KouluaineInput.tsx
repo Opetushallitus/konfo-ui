@@ -1,31 +1,27 @@
 import React, { useState, useEffect } from 'react';
 
-import { Box, styled, Button, SelectChangeEvent } from '@mui/material';
-import { useTranslation } from 'react-i18next';
+import { Box, styled, SelectChangeEvent } from '@mui/material';
 
 import { PainokerroinInput } from '#/src/components/laskuri/aine/PainokerroinInput';
+import { ValinnaisetArvosanat } from '#/src/components/laskuri/aine/ValinnaisetArvosanat';
 
 import { Kouluaine, Kieliaine } from './Kouluaine';
 import { KouluaineSelect } from './KouluaineSelect';
-import { ValinnainenArvosana } from './ValinnainenArvosana';
 
 const AineContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   marginBottom: '27px',
   columnGap: '18px',
-  justifyContent: 'flex-start',
-  justifyItems: 'flex-start',
+  alignItems: 'start',
   button: {
     fontSize: '1rem',
-    alignSelf: 'end',
+    alignSelf: 'start',
     fontWeight: 600,
   },
-  alignItems: 'end',
   [theme.breakpoints.down('sm')]: {
     flexDirection: 'column',
     alignItems: 'start',
-    width: '100%',
     button: {
       alignSelf: 'start',
       paddingLeft: 0,
@@ -41,8 +37,6 @@ type Props = {
   embedded: boolean;
 };
 
-const MAX_VALINNAISET_ARVOSANAT = 3;
-
 export const KouluaineInput = ({
   aine,
   updateKouluaine,
@@ -50,7 +44,6 @@ export const KouluaineInput = ({
   removeLisaKieli = () => {},
   embedded,
 }: Props) => {
-  const { t } = useTranslation();
   const [kouluaine, setKouluaine] = useState<Kouluaine | Kieliaine>({ ...aine });
 
   useEffect(() => {
@@ -108,25 +101,14 @@ export const KouluaineInput = ({
         isLisaKieli={isLisaKieli}
         removeLisaKieli={removeLisaKieli}
       />
-      {kouluaine.valinnaisetArvosanat.map(
-        (valinnainenArvosana: number | null, index: number) => (
-          <ValinnainenArvosana
-            labelId={labelId}
-            index={index}
-            arvosana={valinnainenArvosana}
-            removeValinnaisaine={() => removeValinnaisaine(index)}
-            updateValinnainenArvosana={(event: SelectChangeEvent) =>
-              handleValinnainenArvosanaChange(event, index)
-            }
-            key={`valinnainen-${index}`}
-          />
-        )
-      )}
-      {kouluaine.valinnaisetArvosanat.length < MAX_VALINNAISET_ARVOSANAT && (
-        <Button onClick={addValinnaisaine}>
-          {t('pistelaskuri.aine.addvalinnainen')}
-        </Button>
-      )}
+      <ValinnaisetArvosanat
+        addValinnaisaine={addValinnaisaine}
+        arvosanat={kouluaine.valinnaisetArvosanat}
+        removeValinnaisaine={removeValinnaisaine}
+        embedded={embedded}
+        handleValinnainenArvosanaChange={handleValinnainenArvosanaChange}
+        labelId={labelId}
+      />
       {embedded && (
         <PainokerroinInput
           labelId={labelId}

@@ -20,7 +20,7 @@ const classes = {
   changeCalcButton: `${PREFIX}changecalcbutton`,
 };
 
-const LaskuriContainer = styled(Box)(({ theme }) => ({
+const LaskuriContainer = styled(Box)<{ embedded: boolean }>(({ theme, embedded }) => ({
   [`& .${classes.inputContainer}`]: {
     [theme.breakpoints.down('sm')]: {
       marginTop: '1.5rem',
@@ -31,6 +31,8 @@ const LaskuriContainer = styled(Box)(({ theme }) => ({
     [`& .${classes.input}`]: {
       border: `1px solid ${colors.lightGrey}`,
       padding: '0 0.5rem',
+      marginTop: '0.5rem',
+      maxWidth: '90%',
       '&:focus-within': {
         borderColor: colors.black,
       },
@@ -53,6 +55,9 @@ const LaskuriContainer = styled(Box)(({ theme }) => ({
     fontSize: '1rem',
     fontWeight: 'semibold',
   },
+  p: {
+    fontSize: embedded ? '0.9rem' : '1rem',
+  },
 }));
 
 type Props = {
@@ -69,6 +74,7 @@ export const KeskiarvoLaskuri = ({
   changeCalculator,
   updateKeskiarvoToCalculate,
   keskiarvot,
+  embedded,
 }: Props) => {
   const { t } = useTranslation();
 
@@ -101,17 +107,20 @@ export const KeskiarvoLaskuri = ({
   };
 
   return (
-    <LaskuriContainer>
+    <LaskuriContainer embedded={embedded}>
       <Typography variant="h3" sx={{ fontSize: '1.25rem' }}>
         {t('pistelaskuri.keskiarvot-header')}
       </Typography>
       <Button
         className={classes.changeCalcButton}
         onClick={() => changeCalculator(false)}>
-        {t('pistelaskuri.vaihdalaskin-1')}
+        {t('pistelaskuri.vaihdalaskin')}
       </Button>
-      <Grid container justifyContent="space-evenly" columns={{ xs: 1, sm: 1, md: 3 }}>
-        <Grid item xs={1} sm={1} md={1} className={classes.inputContainer}>
+      <Grid
+        container
+        justifyContent="space-evenly"
+        columns={{ xs: 1, sm: 1, md: embedded ? 10 : 3 }}>
+        <Grid item xs={1} sm={1} md={embedded ? 3 : 1} className={classes.inputContainer}>
           <InputLabel>
             <Typography sx={{ fontWeight: '600' }}>
               {t('pistelaskuri.ka-lukuaineet')}
@@ -125,7 +134,9 @@ export const KeskiarvoLaskuri = ({
               }
               value={keskiarvot?.lukuaineet}
               error={!isValidKeskiarvo(keskiarvot?.lukuaineet)}
-              disableUnderline={true}></Input>
+              disableUnderline={true}
+              placeholder={t('pistelaskuri.ka-placeholder')}
+            />
           </InputLabel>
           {!isValidKeskiarvo(keskiarvot?.lukuaineet) && (
             <Typography variant="body2" className={classes.error}>
@@ -136,10 +147,10 @@ export const KeskiarvoLaskuri = ({
         <Grid
           className={classes.inputContainer}
           item
-          sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'nowrap' }}
           xs={1}
           sm={1}
-          md={1}>
+          md={embedded ? 4 : 1}
+          sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
           <InputLabel>
             <Typography sx={{ fontWeight: '600' }}>
               {t('pistelaskuri.ka-taito')}
@@ -153,6 +164,7 @@ export const KeskiarvoLaskuri = ({
               }
               value={keskiarvot?.taideTaitoAineet}
               disableUnderline={true}
+              placeholder={t('pistelaskuri.ka-placeholder')}
             />
           </InputLabel>
           <LabelTooltip
@@ -165,9 +177,9 @@ export const KeskiarvoLaskuri = ({
             </Typography>
           )}
         </Grid>
-        <Grid item xs={1} sm={1} md={1} className={classes.inputContainer}>
+        <Grid item xs={1} sm={1} md={embedded ? 3 : 1} className={classes.inputContainer}>
           <InputLabel>
-            <Typography sx={{ fontWeight: '600' }}>
+            <Typography sx={{ fontWeight: '600', overflow: 'visible' }}>
               {t('pistelaskuri.ka-kaikki')}
             </Typography>
             <Input
@@ -179,6 +191,7 @@ export const KeskiarvoLaskuri = ({
               }
               value={keskiarvot?.kaikki}
               disableUnderline={true}
+              placeholder={t('pistelaskuri.ka-placeholder')}
             />
           </InputLabel>
           {!isValidKeskiarvo(keskiarvot?.kaikki) && (
