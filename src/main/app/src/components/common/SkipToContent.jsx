@@ -10,7 +10,7 @@ const SkipLink = styled(Link)({
   zIndex: '999',
   opacity: '0',
 
-  [`&.Mui-focusVisible`]: {
+  '&.Mui-focusVisible': {
     color: colors.black,
     background: colors.lightGreenBg,
     height: '30px',

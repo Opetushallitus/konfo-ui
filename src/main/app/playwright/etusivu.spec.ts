@@ -17,10 +17,17 @@ test.describe('Etusivu', () => {
     await expect(page.locator('h1')).toContainText('Ammatillinen koulutus');
   });
 
-  test('Should have skip to content link hidden by default', async ({ page }) => {
+  test('Should have skip to content link hidden by default, and show it when pressing tab', async ({
+    page,
+  }) => {
     test.slow();
     await page.goto('/konfo');
-    await expect(page.getByRole('link', { name: 'Siirry sisältöön' })).toBeHidden();
+    const siirrySisaltoonLink = page.getByRole('link', { name: 'Siirry sisältöön' });
+    await expect(siirrySisaltoonLink).toHaveCSS('opacity', '0');
+    await page.keyboard.press('Tab');
+    // .toBeVisible()-assertio ei toimi luotettavasti tässä tilanteessa.
+    // Liittyy mahdollisesti jotenkin tähän: https://github.com/testing-library/jest-dom/issues/209
+    await expect(siirrySisaltoonLink).toHaveCSS('opacity', '1');
   });
 
   test('Should pass koulutustyyppi filter selection to haku page', async ({ page }) => {
