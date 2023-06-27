@@ -1,19 +1,21 @@
 import { test, expect } from '@playwright/test';
 
 import {
+  fixtureFromFile,
   getSearchButton,
   getSearchInput,
   mocksFromFile,
   setupCommonTest,
 } from './test-tools';
 
-test.describe('Etusivu', () => {
+test.describe('Haku', () => {
   test.beforeEach(async ({ page, context, baseURL }) => {
     setupCommonTest({ page, context, baseURL });
 
-    await page.route('/konfo-backend/search/oppilaitokset**', (route) => {
-      route.fulfill({ path: 'cypress/fixtures/search-oppilaitokset-all.json' });
-    });
+    await page.route(
+      '/konfo-backend/search/oppilaitokset**',
+      fixtureFromFile('search-oppilaitokset-all.json')
+    );
 
     await mocksFromFile(page, 'haku.mocks.json');
 
@@ -22,13 +24,15 @@ test.describe('Etusivu', () => {
 
   test('Should show autocomplete suggestions', async ({ page }) => {
     test.slow();
-    await page.route('/konfo-backend/search/autocomplete**', (route) => {
-      route.fulfill({ path: 'cypress/fixtures/search-autocomplete-auto.json' });
-    });
+    await page.route(
+      '/konfo-backend/search/autocomplete**',
+      fixtureFromFile('search-autocomplete-auto.json')
+    );
 
-    await page.route('/konfo-backend/search/koulutukset**', (route) => {
-      route.fulfill({ path: 'cypress/fixtures/search-koulutukset-auto.json' });
-    });
+    await page.route(
+      '/konfo-backend/search/koulutukset**',
+      fixtureFromFile('search-koulutukset-auto.json')
+    );
 
     const searchInput = getSearchInput(page);
     const koulutuksetNav = page.getByRole('navigation', { name: 'Koulutukset' });
@@ -37,7 +41,7 @@ test.describe('Etusivu', () => {
     await expect(searchInput).toBeVisible();
     await searchInput.fill('auto');
     await koulutuksetNav.getByText('koulutus nimi fi').click();
-    await page.waitForURL(new RegExp('/konfo/fi/koulutus/123456$'));
+    await expect(page).toHaveURL(new RegExp('/konfo/fi/koulutus/123456$'));
     await page.goBack({ waitUntil: 'domcontentloaded' });
     await searchInput.click();
     await expect(
@@ -47,10 +51,10 @@ test.describe('Etusivu', () => {
     await page.waitForURL(
       new RegExp('/konfo/fi/haku/auto\\?order=desc&size=20&sort=score')
     );
-    await expect(page.getByRole('progressbar').last()).not.toBeVisible();
+    await expect(page.getByRole('progressbar').last()).toBeHidden();
     await getSearchInput(page).click();
     await oppilaitoksetNav.getByText('oppilaitos nimi fi').click();
-    await page.waitForURL(new RegExp('konfo/fi/oppilaitos/654321$'));
+    await expect(page).toHaveURL(new RegExp('/konfo/fi/oppilaitos/654321$'));
     await page.goBack({ waitUntil: 'domcontentloaded' });
     await getSearchInput(page).click();
     await oppilaitoksetNav.getByText('Näytä 1 hakuehdoilla löytyvä oppilaitos').click();
@@ -62,9 +66,10 @@ test.describe('Etusivu', () => {
   test("Koulutustyyppi switching between 'Tutkintoon johtavat' and 'Muut'", async ({
     page,
   }) => {
-    await page.route('/konfo-backend/search/koulutukset**', (route) => {
-      route.fulfill({ path: 'cypress/fixtures/search-koulutukset-auto.json' });
-    });
+    await page.route(
+      '/konfo-backend/search/koulutukset**',
+      fixtureFromFile('search-koulutukset-auto.json')
+    );
 
     const koulutustyyppiFilter = page.getByTestId('koulutustyyppi-filter');
     const tutkintoonJohtavatBtn = koulutustyyppiFilter.getByRole('button', {
@@ -104,15 +109,16 @@ test.describe('Etusivu', () => {
     await expect(osaamisalaChk).toBeVisible();
     await expect(ammMuuChk).toBeVisible();
     await expect(telmaChk).toBeVisible();
-    await expect(ammatillinenPerustutkintoChk).not.toBeVisible();
-    await expect(erikoisammattitutkintoChk).not.toBeVisible();
+    await expect(ammatillinenPerustutkintoChk).toBeHidden();
+    await expect(erikoisammattitutkintoChk).toBeHidden();
   });
 
   test('Koulutustyyppi checkboxes should work hierarchically', async ({ page }) => {
     test.slow();
-    await page.route('/konfo-backend/search/koulutukset**', (route) => {
-      route.fulfill({ path: 'cypress/fixtures/search-koulutukset-all.json' });
-    });
+    await page.route(
+      '/konfo-backend/search/koulutukset**',
+      fixtureFromFile('search-koulutukset-all.json')
+    );
 
     const koulutustyyppiFilter = page.getByTestId('koulutustyyppi-filter');
     const amkCheckbox = koulutustyyppiFilter.getByRole('checkbox', {
@@ -145,9 +151,10 @@ test.describe('Etusivu', () => {
   });
 
   test('Opetustapa filter checkboxes and mobile summary view', async ({ page }) => {
-    await page.route('/konfo-backend/search/koulutukset**', (route) => {
-      route.fulfill({ path: 'cypress/fixtures/search-koulutukset-auto.json' });
-    });
+    await page.route(
+      '/konfo-backend/search/koulutukset**',
+      fixtureFromFile('search-koulutukset-auto.json')
+    );
 
     const opetustapaFilter = page.getByTestId('opetustapa-filter');
     const etaopetusChk = opetustapaFilter.getByRole('checkbox', { name: /Etäopetus/i });
@@ -170,9 +177,10 @@ test.describe('Etusivu', () => {
   });
 
   test('Valintatapa filter checkboxes', async ({ page }) => {
-    await page.route('/konfo-backend/search/koulutukset**', (route) => {
-      route.fulfill({ path: 'cypress/fixtures/search-koulutukset-auto.json' });
-    });
+    await page.route(
+      '/konfo-backend/search/koulutukset**',
+      fixtureFromFile('search-koulutukset-auto.json')
+    );
 
     const valintatapaFilter = page.getByTestId('valintatapa-filter');
     const koepisteetChk = valintatapaFilter.getByRole('checkbox', {
@@ -195,9 +203,10 @@ test.describe('Etusivu', () => {
   });
 
   test('Haku käynnissä filter checkbox', async ({ page }) => {
-    await page.route('/konfo-backend/search/koulutukset**', (route) => {
-      route.fulfill({ path: 'cypress/fixtures/search-koulutukset-auto.json' });
-    });
+    await page.route(
+      '/konfo-backend/search/koulutukset**',
+      fixtureFromFile('search-koulutukset-auto.json')
+    );
 
     const hakukaynnissaFilter = page.getByTestId('hakukaynnissa-filter');
     const hakuKaynnissaChk = hakukaynnissaFilter.getByRole('checkbox', {
@@ -211,9 +220,10 @@ test.describe('Etusivu', () => {
   });
 
   test('Hakutapa filter checkboxes', async ({ page }) => {
-    await page.route('/konfo-backend/search/koulutukset**', (route) => {
-      route.fulfill({ path: 'cypress/fixtures/search-koulutukset-auto.json' });
-    });
+    await page.route(
+      '/konfo-backend/search/koulutukset**',
+      fixtureFromFile('search-koulutukset-auto.json')
+    );
 
     const hakutapaFilter = page.getByTestId('hakutapa-filter');
     const yhteishakuChk = hakutapaFilter.getByRole('checkbox', { name: /Yhteishaku/i });
@@ -231,9 +241,10 @@ test.describe('Etusivu', () => {
   });
 
   test('Pohjakoulutusvaatimus filter checkboxes', async ({ page }) => {
-    await page.route('/konfo-backend/search/koulutukset**', (route) => {
-      route.fulfill({ path: 'cypress/fixtures/search-koulutukset-auto.json' });
-    });
+    await page.route(
+      '/konfo-backend/search/koulutukset**',
+      fixtureFromFile('search-koulutukset-auto.json')
+    );
 
     const pohjakoulutusVaatimusFilter = page.getByTestId('pohjakoulutusvaatimus-filter');
     const ammatillinenPerustutkintoChk = pohjakoulutusVaatimusFilter.getByRole(

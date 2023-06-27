@@ -1,8 +1,8 @@
 import path from 'path';
 
-import { BrowserContext, Page } from '@playwright/test';
+import { BrowserContext, Page, Route, expect } from '@playwright/test';
 
-const MOCKS_PATH = path.resolve(__dirname, '../cypress/mocks');
+const MOCKS_PATH = path.resolve(__dirname, './mocks');
 
 export const mocksFromFile = async (ctx: { route: Page['route'] }, fileName: string) => {
   const mocks: Array<{
@@ -27,12 +27,8 @@ export const mocksFromFile = async (ctx: { route: Page['route'] }, fileName: str
 };
 
 export const setupCommonTest = async ({ page, context, baseURL }) => {
-  await page.route('**/faq.e49945eb.svg', (route) => {
-    route.fulfill({ path: 'cypress/fixtures/faq.e49945eb.svg' });
-  });
-  await page.route('**/ehoks.fdeaa517.svg', (route) =>
-    route.fulfill({ path: 'cypress/fixtures/ehoks.fdeaa517.svg' })
-  );
+  await page.route('**/faq.e49945eb.svg', fixtureFromFile('faq.e49945eb.svg'));
+  await page.route('**/ehoks.fdeaa517.svg', fixtureFromFile('ehoks.fdeaa517.svg'));
 
   await page.route('**/sv/translation.json', (route) => route.fulfill({ json: {} }));
   await page.route('https://occhat.elisa.fi/**', (route) => route.fulfill({ json: {} }));
@@ -53,3 +49,11 @@ export const getSearchInput = (page: Page) =>
   page.getByPlaceholder('Etsi koulutuksia tai oppilaitoksia');
 
 export const getSearchButton = (page: Page) => page.getByRole('button', { name: /Etsi/ });
+
+export const expectURLEndsWith = (page: Page, urlEnd: string) =>
+  expect(page).toHaveURL(new RegExp(urlEnd + '$'));
+
+const FIXTURES_PATH = path.resolve(__dirname, './fixtures');
+
+export const fixtureFromFile = (fileName: string) => (route: Route) =>
+  route.fulfill({ path: path.resolve(FIXTURES_PATH, fileName) });

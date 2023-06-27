@@ -1,6 +1,6 @@
 import { devices, test } from '@playwright/test';
 
-import { setupCommonTest } from './test-tools';
+import { expectURLEndsWith, setupCommonTest } from './test-tools';
 
 test.use({ ...devices['Galaxy S9+'] });
 
@@ -23,6 +23,6 @@ test.describe('Sivut (mobiili)', () => {
     await page
       .getByRole('menuitem', { name: 'Sökandes hälsa och funktionsförmåga' })
       .click();
-    await page.waitForURL('**/sv/sivu/soekandes-haelsa-och-funktionsfoermaga');
+    await expectURLEndsWith(page, '/sv/sivu/soekandes-haelsa-och-funktionsfoermaga');
   });
 });

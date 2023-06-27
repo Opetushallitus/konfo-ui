@@ -28,7 +28,7 @@ test.describe('Aikuisten perusopetus KOMO', () => {
     await expect(kuvaus.getByText('Ihan vaan peruskoulutus')).toBeVisible();
     await expect(
       kuvaus.getByRole('link', { name: 'Lue lisää ePerusteet palvelussa' })
-    ).not.toBeVisible();
+    ).toBeHidden();
   });
 
   test('renders kuvaus with a link to ePerusteet', async ({ page }) => {

@@ -79,10 +79,7 @@
               "nimi": "Antti Sarjanoja"
             },
             "modified": "2021-01-12T12:20",
-            "organisaatiot": [
-              "1.2.246.562.10.75204242195",
-              "1.2.246.562.10.44643809609"
-            ]
+            "organisaatiot": ["1.2.246.562.10.75204242195", "1.2.246.562.10.44643809609"]
           }
         ],
         "esikatselu": true,
@@ -95,9 +92,7 @@
           "nimi": "Xamk Pääkäyttäjä-Testi"
         },
         "oid": "1.2.246.562.13.00000000000000000558",
-        "kielivalinta": [
-          "fi"
-        ],
+        "kielivalinta": ["fi"],
         "koulutus": {
           "koodiUri": "koulutus_671116#12",
           "nimi": {
@@ -4953,14 +4948,9 @@
           "nimi": "Antti Sarjanoja"
         },
         "oid": "1.2.246.562.17.00000000000000000420",
-        "kielivalinta": [
-          "fi"
-        ],
+        "kielivalinta": ["fi"],
         "timestamp": 1610625896092,
-        "organisaatiot": [
-          "1.2.246.562.10.75204242195",
-          "1.2.246.562.10.44643809609"
-        ],
+        "organisaatiot": ["1.2.246.562.10.75204242195", "1.2.246.562.10.44643809609"],
         "organisaatio": {
           "paikkakunta": {
             "koodiUri": "kunta_286",

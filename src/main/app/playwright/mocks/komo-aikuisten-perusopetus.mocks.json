@@ -35,15 +35,10 @@
           "nimi": "Matti Pitkämäki"
         },
         "oid": "1.2.246.562.13.00000000000000002339",
-        "kielivalinta": [
-          "fi"
-        ],
+        "kielivalinta": ["fi"],
         "timestamp": 1645164856659,
         "julkinen": false,
-        "organisaatiot": [
-          "1.2.246.562.10.00000000001",
-          "1.2.246.562.10.56753942459"
-        ],
+        "organisaatiot": ["1.2.246.562.10.00000000001", "1.2.246.562.10.56753942459"],
         "organisaatio": {
           "paikkakunta": {
             "koodiUri": null,
@@ -108,15 +103,10 @@
           "nimi": "Matti Pitkämäki"
         },
         "oid": "1.2.246.562.13.00000000000000002340",
-        "kielivalinta": [
-          "fi",
-          "sv"
-        ],
+        "kielivalinta": ["fi", "sv"],
         "timestamp": 1645165439694,
         "julkinen": true,
-        "organisaatiot": [
-          "1.2.246.562.10.00000000001"
-        ],
+        "organisaatiot": ["1.2.246.562.10.00000000001"],
         "organisaatio": {
           "paikkakunta": {
             "koodiUri": null,

@@ -31,7 +31,7 @@ export const ChipList = ({
         {filters.map((entry) => (
           <Chip
             size="small"
-            data-cy={`chip-${entry.id}`}
+            data-testid={`chip-${entry.id}`}
             key={`chip_${entry.id}`}
             sx={{
               marginBottom: 1,

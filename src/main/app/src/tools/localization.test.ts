@@ -1,3 +1,5 @@
+import { Koodi } from '#/src/types/common';
+
 import { localizeLukiolinja, localizeOsoite } from './localization';
 
 describe('localization', () => {
@@ -22,6 +24,6 @@ describe('localization', () => {
     ],
     [{}, undefined],
   ])('localizeLukiolinja', (koodi, lukiolinjaTitle) => {
-    expect(localizeLukiolinja(koodi)).toEqual(lukiolinjaTitle);
+    expect(localizeLukiolinja(koodi as Koodi)).toEqual(lukiolinjaTitle);
   });
 });

@@ -25,9 +25,9 @@
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
     <meta name="theme-color" content="#378703" />
     <script>
-      var siteDomain = document.domain;
+      var siteDomain = location.hostname;
 
-      // NOTE: Do not run any analytics on local dev / cypress runs
+      // NOTE: Do not run any analytics on local dev / playwright runs
       if (siteDomain !== 'localhost') {
         var matomoSiteId;
         switch (siteDomain) {

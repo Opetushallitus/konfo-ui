@@ -124,7 +124,7 @@ export const InfoGrid = (props: Props) => {
                     component="div"
                     variant="body1"
                     key={i}
-                    data-cy={e['testid']}
+                    data-testid={e['testid']}
                     aria-labelledby={toId(e.title)}>
                     {line}
                   </Typography>

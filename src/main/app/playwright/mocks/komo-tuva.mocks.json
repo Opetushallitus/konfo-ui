@@ -49,16 +49,10 @@
           "nimi": "Heidi Lammi-Mihaljov"
         },
         "oid": "1.2.246.562.13.00000000000000000400",
-        "kielivalinta": [
-          "fi",
-          "sv"
-        ],
+        "kielivalinta": ["fi", "sv"],
         "timestamp": 1625722600737,
         "julkinen": false,
-        "organisaatiot": [
-          "1.2.246.562.10.401318955310",
-          "1.2.246.562.10.63885487908"
-        ],
+        "organisaatiot": ["1.2.246.562.10.401318955310", "1.2.246.562.10.63885487908"],
         "organisaatio": {
           "paikkakunta": {
             "koodiUri": "kunta_491",
@@ -76,29 +70,30 @@
           "tyyppi": "tuva",
           "kuvaus": {
             "fi": "<p>Tämä on kuvaus fi.</p>",
-			      "sv": "<p>Tämä on kuvaus sv.</p>"
-		      },
-		      "lisatiedot": [],
-		      "linkkiEPerusteisiin": {},
-		      "opintojenLaajuus": {
-			      "koodiUri": "opintojenlaajuus_38#1",
-			      "nimi": {
-				      "fi": "38 viikkoa"
-			      }
-		      },
-		      "tutkintonimike": [],
-		      "opintojenLaajuusyksikko": {
-			      "koodiUri": "opintojenlaajuusyksikko_8#1",
-			      "nimi": {
-				      "fi": "viikkoa"
-			      }
-		      }
-	      },
-	      "koulutustyyppi": "tuva"
+            "sv": "<p>Tämä on kuvaus sv.</p>"
+          },
+          "lisatiedot": [],
+          "linkkiEPerusteisiin": {},
+          "opintojenLaajuus": {
+            "koodiUri": "opintojenlaajuus_38#1",
+            "nimi": {
+              "fi": "38 viikkoa"
+            }
+          },
+          "tutkintonimike": [],
+          "opintojenLaajuusyksikko": {
+            "koodiUri": "opintojenlaajuusyksikko_8#1",
+            "nimi": {
+              "fi": "viikkoa"
+            }
+          }
+        },
+        "koulutustyyppi": "tuva"
       },
       "status": 200
     }
-  },{
+  },
+  {
     "method": "GET",
     "url": "http://localhost:3005/konfo-backend/koulutus/1.2.246.562.13.00000000000000000624",
     "response": {
@@ -148,16 +143,10 @@
           "nimi": "Heidi Lammi-Mihaljov"
         },
         "oid": "1.2.246.562.13.00000000000000000400",
-        "kielivalinta": [
-          "fi",
-          "sv"
-        ],
+        "kielivalinta": ["fi", "sv"],
         "timestamp": 1625722600737,
         "julkinen": false,
-        "organisaatiot": [
-          "1.2.246.562.10.401318955310",
-          "1.2.246.562.10.63885487908"
-        ],
+        "organisaatiot": ["1.2.246.562.10.401318955310", "1.2.246.562.10.63885487908"],
         "organisaatio": {
           "paikkakunta": {
             "koodiUri": "kunta_491",
@@ -175,31 +164,30 @@
           "tyyppi": "tuva",
           "kuvaus": {
             "fi": "<p>Tämä on kuvaus fi.</p>",
-			      "sv": "<p>Tämä on kuvaus sv.</p>"
-		      },
-		      "lisatiedot": [],
-		      "linkkiEPerusteisiin": {
+            "sv": "<p>Tämä on kuvaus sv.</p>"
+          },
+          "lisatiedot": [],
+          "linkkiEPerusteisiin": {
             "fi": "https://www.oph.fi",
             "sv": "https://www.oph.fi/sv"
           },
-		      "opintojenLaajuus": {
-			      "koodiUri": "opintojenlaajuus_38#1",
-			      "nimi": {
-				      "fi": "38 viikkoa"
-			      }
-		      },
-		      "tutkintonimike": [],
-		      "opintojenLaajuusyksikko": {
-			      "koodiUri": "opintojenlaajuusyksikko_8#1",
-			      "nimi": {
-				      "fi": "viikkoa"
-			      }
-		      }
-	      },
-	      "koulutustyyppi": "tuva"
+          "opintojenLaajuus": {
+            "koodiUri": "opintojenlaajuus_38#1",
+            "nimi": {
+              "fi": "38 viikkoa"
+            }
+          },
+          "tutkintonimike": [],
+          "opintojenLaajuusyksikko": {
+            "koodiUri": "opintojenlaajuusyksikko_8#1",
+            "nimi": {
+              "fi": "viikkoa"
+            }
+          }
+        },
+        "koulutustyyppi": "tuva"
       },
       "status": 200
     }
   }
 ]
-

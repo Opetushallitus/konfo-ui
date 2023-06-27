@@ -1,3 +1,4 @@
+import dns from 'dns';
 import path from 'path';
 import url from 'url';
 
@@ -8,6 +9,8 @@ import { defineConfig, loadEnv } from 'vite';
 import checker from 'vite-plugin-checker';
 import pluginRewriteAll from 'vite-plugin-rewrite-all';
 import svgr from 'vite-plugin-svgr';
+
+dns.setDefaultResultOrder('verbatim');
 
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -68,6 +71,7 @@ export default defineConfig(({ mode }) => {
     ],
     server: {
       port: Number(env.PORT) || 3005,
+      host: 'localhost',
       proxy: {
         '/konfo-backend': {
           target: env.OPINTOPOLKU_PROXY_URL,

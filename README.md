@@ -30,26 +30,27 @@ ESLintin voi ajaa käsin komennolla `npm run lint`, tai automaattisen fiksauksen
 
 ## Testit
 
-Selainta vasten ajettavat testit (cypress) olettavat kälin löytyvän ajossa portista `3005` (ks. otsikko "Käyttöliittymän kehittäminen" yllä). Cypress-käyttöliittymä josta voi valita ajettavat testit käynnistyy komennolla:
+Selainta vasten ajettavat testit (playwright) olettavat kälin löytyvän ajossa portista `3005` (ks. otsikko "Käyttöliittymän kehittäminen" yllä). Playwright-käyttöliittymä josta voi valita ajettavat testit käynnistyy komennolla:
 
     cd src/main/app
-    npm run cypress:open
+    npm run playwright:ui
 
 Kaikkien testien ajo headlessina:
 
-    npm run cypress:run
+    npm run playwright
 
 Testien ajo toimii Node.js 16 ja NPM 8 versioilla.
 
-**Huom!** Viten kanssa Cypress-testit ovat melko hitaita, jos sovellusta ajetaan `npm run start`-komennolla. (kts. https://github.com/cypress-io/cypress/issues/22968)
+"Visual Studio Code"-editorissa kannattaa käyttää virallista Playwright-pluginia, jolloin editorista voi ajaa yksittäisiä testejä ja debugata testejä: https://playwright.dev/docs/getting-started-vscode
+
+**Huom!** Viten kanssa Playwright-testit ovat melko hitaita, jos sovellusta ajetaan `npm run start`-komennolla.
 Tämän helpottamiseksi on tehty npm-skripti `preview:watch`, joka buildaa sovelluksen jääden tarkkailemaan muutoksia, ja käynnistää testi-palvelimen, joka servaa buildatun sovelluksen.
-Näin ajettuna Cypress-testit ovat n. 5 kertaa nopeampia, ja Cypress-testien tekeminen mukavampaa.
 
 ### Yksikkötestit
 
 `npm run test`
 
-Yksikkötestit nimetään päätteellä `.test.js` tai `.test.ts` ja ne luodaan niihin kansioihin missä niiden testaama koodi sijaitsee. Yksikkötestit kannattaa kirjoittaa lähinnä monimutkaisille apufunktioille ja suurin osa testausta pitäisi tehdä Cypress-testeinä.
+Yksikkötestit nimetään päätteellä `.test.js` tai `.test.ts` ja ne luodaan niihin kansioihin missä niiden testaama koodi sijaitsee. Yksikkötestit kannattaa kirjoittaa lähinnä monimutkaisille apufunktioille ja suurin osa testausta pitäisi tehdä Playwright-testeinä.
 
 ## Spring boot (erikoistapaukset)
 

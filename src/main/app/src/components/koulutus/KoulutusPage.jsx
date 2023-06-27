@@ -148,7 +148,7 @@ const Kuvaus = ({ koulutus }) => {
     koulutus?.suorittaneenOsaaminen ||
     koulutus?.tyotehtavatJoissaVoiToimia ? (
     <HtmlTextBox
-      data-cy="kuvaus"
+      data-testid="kuvaus"
       heading={t('koulutus.kuvaus')}
       html={createKoulutusHtml()}
       className={classes.root}
@@ -159,7 +159,7 @@ const Kuvaus = ({ koulutus }) => {
             rel="noopener"
             href={localize(koulutus?.linkkiEPerusteisiin)}
             className={classes.linkButton}
-            data-cy="eperuste-linkki">
+            data-testid="eperuste-linkki">
             {t('koulutus.eperuste-linkki')}
           </ExternalLink>
         )

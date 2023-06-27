@@ -1,6 +1,11 @@
 import { expect, test } from '@playwright/test';
 
-import { getSearchButton, getSearchInput, setupCommonTest } from './test-tools';
+import {
+  fixtureFromFile,
+  getSearchButton,
+  getSearchInput,
+  setupCommonTest,
+} from './test-tools';
 
 test.describe('Etusivu', () => {
   test.beforeEach(async ({ page, context, baseURL }) => {
@@ -19,13 +24,15 @@ test.describe('Etusivu', () => {
   });
 
   test('Should pass koulutustyyppi filter selection to haku page', async ({ page }) => {
-    await page.route('/konfo-backend/search/oppilaitokset**', (route) => {
-      route.fulfill({ path: 'cypress/fixtures/search-oppilaitokset-all.json' });
-    });
+    await page.route(
+      '/konfo-backend/search/oppilaitokset**',
+      fixtureFromFile('search-oppilaitokset-all.json')
+    );
 
-    await page.route('/konfo-backend/search/koulutukset**', (route) => {
-      route.fulfill({ path: 'cypress/fixtures/search-koulutukset-all.json' });
-    });
+    await page.route(
+      '/konfo-backend/search/koulutukset**',
+      fixtureFromFile('search-koulutukset-all.json')
+    );
 
     await page.goto('/konfo');
     await getSearchInput(page).fill('auto');
@@ -35,7 +42,7 @@ test.describe('Etusivu', () => {
     await page.keyboard.press('Escape');
     await page.keyboard.press('Escape');
     await getSearchButton(page).click();
-    await page.waitForURL(
+    await expect(page).toHaveURL(
       new RegExp('/konfo/fi/haku/auto\\?koulutustyyppi=lk&order=desc&size=20&sort=score$')
     );
   });
