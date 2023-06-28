@@ -116,7 +116,7 @@ root.render(
   <ErrorBoundary FallbackComponent={GenericError}>
     <Suspense fallback={<LoadingCircle />}>
       <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools initialIsOpen={false} />
+        {!isPlaywright && <ReactQueryDevtools initialIsOpen={false} />}
         <Provider store={store}>
           <BrowserRouter basename="/konfo">
             <ThemeProvider theme={theme}>
