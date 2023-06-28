@@ -24,10 +24,15 @@ test.describe('Etusivu', () => {
     await page.goto('/konfo');
     const siirrySisaltoonLink = page.getByRole('link', { name: 'Siirry sisältöön' });
     await expect(siirrySisaltoonLink).toHaveCSS('opacity', '0');
+    await expect(siirrySisaltoonLink).not.toBeInViewport();
+    // Täytyy odottaa ensin, että focus on resetoitu oikeaan elementtiin.
+    // Jos tabia painetaan tätä ennen, ei fokus siirry "siirry sisältöön"-linkkiin
+    await expect(page.locator('#focus-reset-target')).toBeFocused();
     await page.keyboard.press('Tab');
     // .toBeVisible()-assertio ei toimi luotettavasti tässä tilanteessa.
     // Liittyy mahdollisesti jotenkin tähän: https://github.com/testing-library/jest-dom/issues/209
     await expect(siirrySisaltoonLink).toHaveCSS('opacity', '1');
+    await expect(siirrySisaltoonLink).toBeInViewport();
   });
 
   test('Should pass koulutustyyppi filter selection to haku page', async ({ page }) => {

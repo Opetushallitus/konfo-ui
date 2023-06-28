@@ -27,6 +27,13 @@ export const mocksFromFile = async (ctx: { route: Page['route'] }, fileName: str
 };
 
 export const setupCommonTest = async ({ page, context, baseURL }) => {
+  await context.addCookies([
+    {
+      name: 'oph-mandatory-cookies-accepted',
+      value: 'true',
+      url: new URL(baseURL).origin,
+    },
+  ]);
   await page.route('**/faq.e49945eb.svg', fixtureFromFile('faq.e49945eb.svg'));
   await page.route('**/ehoks.fdeaa517.svg', fixtureFromFile('ehoks.fdeaa517.svg'));
 
@@ -34,10 +41,6 @@ export const setupCommonTest = async ({ page, context, baseURL }) => {
   await page.route('https://occhat.elisa.fi/**', (route) => route.fulfill({ json: {} }));
 
   await mocksFromFile(page, 'common.mocks.json');
-
-  await context.addCookies([
-    { name: 'oph-mandatory-cookies-accepted', value: 'true', url: baseURL },
-  ]);
 };
 
 export const getCookie = async (context: BrowserContext, name: string) => {
