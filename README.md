@@ -5,22 +5,33 @@ Juurihakemiston Spring Boot -kääre tarjoilee SPA:n ympäristökohtaisten asetu
 
 [![Konfo-ui](https://github.com/Opetushallitus/konfo-ui/actions/workflows/build.yml/badge.svg)](https://github.com/Opetushallitus/konfo-ui/actions/workflows/build.yml)
 
-## Käyttöliittymän kehittäminen
+## Esivaatimukset
 
-TL;DR
+Asenna koneellesi esim NVM:ää käyttäen:
 
-    cd src/main/app
+- Node.js versio 16
+- NPM versio 8
+
+
+
+## Ajaminen lokaalisti
+
+Frontend-sovellus löytyy hakemistosta `/src/main/app`. Kaikki tämän dokumentin komennot suoritetaan kyseisessä hakemistossa, ellei toisin mainita.
+
+Asenna ensin riippuvuudet ajamalla:
+
     npm ci
-    npm start
+
+Käynnistä konfo-ui kehityspalvelin:
+
+    npm run start
 
 Käyttöliittymä aukeaa osoitteeseen:
 
-http://localhost:3005/
-
-## Käyttöliittymän kehittäminen tietyn ympäristön datalla
+http://localhost:3005/konfo
 
 Ympäristömuuttuja OPINTOPOLKU_PROXY_URL määrittää mihin domainiin konfo-ui:sta lähtevät konfo-backend-kyselyt ohjataan lokaalisti ajettaessa. 
-Voit luoda itsellesi tiedoston `.env.development.local` ja asettaa muuttujan siellä. Tiedostoa muokkaamalla pystyy helposti käynnistämään lokaalin konfo-ui:n jotakin tiettyä ympäristöä tai lokaalia konfo-backendiä vasten.
+Voit luoda itsellesi tiedoston `.env.development.local` ja asettaa muuttujan siellä. Tiedostoa muokkaamalla pystyy helposti käynnistämään lokaalin konfo-ui:n jotakin tiettyä ympäristöä tai lokaalia konfo-backendiä (http://localhost:3006) vasten. Katso mallia tiedostosta `.env.development`.
 
 ## Koodin tyyli ja tarkistus (ESLint & Prettier)
 
@@ -28,27 +39,36 @@ Käytössä on ESlint ja Prettier koodin tyylin yhdenmukaistamiseksi ja staattis
 
 ESLintin voi ajaa käsin komennolla `npm run lint`, tai automaattisen fiksauksen kanssa `npm run lint:fix`.
 
-## Testit
+## Integraatiotestit
 
-Selainta vasten ajettavat testit (playwright) olettavat kälin löytyvän ajossa portista `3005` (ks. otsikko "Käyttöliittymän kehittäminen" yllä). Playwright-käyttöliittymä josta voi valita ajettavat testit käynnistyy komennolla:
+Koko sovellusta vasten ajettavat testit on toteutettu [Playwright](https://playwright.dev)-kirjastolla. 
+Ensimmäisellä kerralla, ja aina kun Playwright-riippuvuus päivittyy, täytyy sen käyttämät selaimet riippuvuuksineen asentaa käsin komennolla:
 
-    cd src/main/app
-    npm run playwright:ui
+    npx playwright install
 
-Kaikkien testien ajo headlessina:
+Playwright-testit olettavat kälin löytyvän ajossa portista `3005` (ks. otsikko "Käyttöliittymän kehittäminen" yllä).
+Jos haluat ajaa **kaikki** testit kannattaa käynnistää ensin sovellus komennolla:
+
+    npm run preview:watch
+
+ja ajaa sitten kaikki testit toisessa terminaalissa komennolla
 
     npm run playwright
 
-Testien ajo toimii Node.js 16 ja NPM 8 versioilla.
+`preview:watch` npm skiripti buildaa sovelluksen jääden tarkkailemaan muutoksia, ja käynnistää testi-palvelimen, joka servaa buildatun sovelluksen.
+Testien ajaminen Viten dev-serveriä vasten (`npm run start`) on paljon hitaampaa kuin servattua tuotanto-buildia vasten, ja aikakatkaisuja voi tulla, vaikka rajoja on kasvatettu.
 
-"Visual Studio Code"-editorissa kannattaa käyttää virallista Playwright-pluginia, jolloin editorista voi ajaa yksittäisiä testejä ja debugata testejä: https://playwright.dev/docs/getting-started-vscode
+Yksittäisten testien ajamisessa ei ole niin väliä, miten sovellus on käynnistetty (`npm run start` tai `npm run preview:watch`). Kätevintä yksittäisten Playwright-testien ajaminen ja debuggaminen on käyttämällä "Visual Studio Code"-editorissa virallista Playwright-pluginia: https://playwright.dev/docs/getting-started-vscode
 
-**Huom!** Viten kanssa Playwright-testit ovat melko hitaita, jos sovellusta ajetaan `npm run start`-komennolla.
-Tämän helpottamiseksi on tehty npm-skripti `preview:watch`, joka buildaa sovelluksen jääden tarkkailemaan muutoksia, ja käynnistää testi-palvelimen, joka servaa buildatun sovelluksen.
+Yksittäisiä testejä voi myös ajaa [Playwrightin UI-moodissa](https://playwright.dev/docs/test-ui-mode), jonka saa käynnistettyä komennolla:
+
+    npm run playwright:ui
 
 ### Yksikkötestit
 
-`npm run test`
+Yksikkötestit on toteutettu [Vitest](https://vitest.dev/):llä, ja ne voi ajaa komennolla:
+
+    npm run test
 
 Yksikkötestit nimetään päätteellä `.test.js` tai `.test.ts` ja ne luodaan niihin kansioihin missä niiden testaama koodi sijaitsee. Yksikkötestit kannattaa kirjoittaa lähinnä monimutkaisille apufunktioille ja suurin osa testausta pitäisi tehdä Playwright-testeinä.
 
