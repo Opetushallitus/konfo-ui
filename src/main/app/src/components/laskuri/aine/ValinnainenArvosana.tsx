@@ -28,39 +28,34 @@ const classes = {
 };
 
 const ValinnainenControl = styled(FormControl)(({ theme }) => ({
-  display: 'grid',
-  gridTemplateColumns: '4fr 1fr',
-  gridTemplateAreas: `"label label"
-                     "select delete"`,
-  alignItems: 'center',
-  alignContent: 'center',
+  display: 'flex',
+  flexDirection: 'row',
   rowGap: '7px',
   [theme.breakpoints.down('sm')]: {
     marginTop: '0.4rem',
-    justifyContent: 'stretch',
-    gridTemplateColumns: '7fr 1fr',
   },
   [`& .${classes.gradeLabel}`]: {
-    gridArea: 'label',
     position: 'relative',
     transformOrigin: 'left',
     transform: 'none',
     fontSize: '1rem',
-    fontWeight: 600,
+    fontWeight: 'normal',
     lineHeight: '1.6rem',
+    display: 'flex',
+    flexDirection: 'column',
+    rowGap: '7px',
   },
   [`& .${classes.gradeDelete}`]: {
-    gridArea: 'delete',
     color: colors.brandGreen,
-    padding: '0.3rem 0.6rem',
+    padding: '0.3rem 0.6rem 0.5rem 0.6rem',
+    alignSelf: 'end',
     svg: {
       width: '1.4rem',
       height: '1.4rem',
     },
   },
   [`& .${classes.gradeSelect}`]: {
-    gridArea: 'select',
-    margin: '0 0 0.5rem 0',
+    margin: '0',
   },
   [`& .${classes.input}`]: {
     border: `1px solid ${colors.lightGrey}`,
@@ -106,28 +101,28 @@ export const ValinnainenArvosana = ({
     <ValinnainenControl variant="standard">
       <InputLabel id={`${labelId}-${index}`} className={classes.gradeLabel}>
         {t('pistelaskuri.aine.valinnaisaine')}
-      </InputLabel>
-      <Select
-        labelId={`${labelId}-${index}`}
-        value={String(arvosana)}
-        onChange={updateValinnainenArvosana}
-        input={<Input className={classes.input} />}
-        className={
-          String(arvosana) === 'null'
-            ? `${classes.optionDisabled} ${classes.gradeSelect}`
-            : classes.gradeSelect
-        }
-        variant="standard"
-        disableUnderline={true}>
-        <MenuItem key="arvosana-null" disabled={true} value="null">
-          {t('pistelaskuri.aine.valitsearvosana')}
-        </MenuItem>
-        {ARVOSANA_VALUES.map((arvo: number, id: number) => (
-          <MenuItem key={`arvosana-${index}-${id}`} value={arvo}>
-            {arvo}
+        <Select
+          labelId={`${labelId}-${index}`}
+          value={String(arvosana)}
+          onChange={updateValinnainenArvosana}
+          input={<Input className={classes.input} />}
+          className={
+            String(arvosana) === 'null'
+              ? `${classes.optionDisabled} ${classes.gradeSelect}`
+              : classes.gradeSelect
+          }
+          variant="standard"
+          disableUnderline={true}>
+          <MenuItem key="arvosana-null" disabled={true} value="null">
+            {t('pistelaskuri.aine.valitsearvosana')}
           </MenuItem>
-        ))}
-      </Select>
+          {ARVOSANA_VALUES.map((arvo: number, id: number) => (
+            <MenuItem key={`arvosana-${index}-${id}`} value={arvo}>
+              {arvo}
+            </MenuItem>
+          ))}
+        </Select>
+      </InputLabel>
       <IconButton
         className={classes.gradeDelete}
         onClick={removeValinnaisaine}

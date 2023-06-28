@@ -18,20 +18,19 @@ const ValinnaisetContainer = styled(Box)<{ embedded: boolean }>(
   ({ theme, embedded }) => ({
     display: 'flex',
     flexDirection: embedded ? 'column' : 'row',
-    alignItems: 'start',
-    select: {
-      marginBottom: '0.5rem',
-    },
-    [`& .${classes.addFirst}.${classes.add}`]: {
-      marginTop: '1.6rem',
-    },
+    alignSelf: 'end',
+    rowGap: '7px',
     [`& .${classes.add}`]: {
       marginTop: embedded ? '0' : '1.6rem',
       marginRight: '2.7rem',
       whiteSpace: 'nowrap',
+      [theme.breakpoints.down('sm')]: {
+        marginTop: '0',
+      },
     },
     [theme.breakpoints.down('sm')]: {
       flexDirection: 'column',
+      width: '100%',
     },
   })
 );

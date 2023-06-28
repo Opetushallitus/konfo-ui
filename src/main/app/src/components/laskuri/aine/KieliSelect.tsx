@@ -29,15 +29,11 @@ const classes = {
 
 const KieliSelectControl = styled(FormControl)(({ theme }) => ({
   display: 'flex',
-  justifyContent: 'flex-start',
-  justifyItems: 'flex-start',
   rowGap: '7px',
   columnGap: '2px',
   [theme.breakpoints.down('sm')]: {
     width: '100%',
-    justifyItems: 'stretch',
   },
-
   [`& .${classes.input}`]: {
     border: `1px solid ${colors.lightGrey}`,
     padding: '0 0.5rem',
@@ -58,7 +54,6 @@ const KieliSelectControl = styled(FormControl)(({ theme }) => ({
   },
   [`& .${classes.langLabelContainer}`]: {
     display: 'flex',
-    alignItems: 'center',
     columnGap: '2px',
     [theme.breakpoints.down('sm')]: {
       width: '100%',
@@ -93,7 +88,7 @@ export const KieliSelect = ({ aine, updateKieli }: Props) => {
   };
 
   return (
-    <KieliSelectControl variant="standard" sx={{ minWidth: 220 }}>
+    <KieliSelectControl variant="standard">
       <div className={classes.langLabelContainer}>
         <InputLabel className={classes.langLabel}>
           {t('pistelaskuri.aine.kielennimi')}

@@ -28,22 +28,24 @@ const classes = {
 const PainokerroinControl = styled(FormControl)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
+  alignSelf: 'stretch',
+  alignItems: 'start',
   [theme.breakpoints.down('sm')]: {
     marginTop: '0.4rem',
-    justifyContent: 'stretch',
   },
   [`& .${classes.label}`]: {
     position: 'relative',
     transformOrigin: 'left',
     transform: 'none',
     fontSize: '1rem',
-    fontWeight: 600,
+    fontWeight: 'normal',
     lineHeight: '1.6rem',
+    overflow: 'visible',
   },
   [`& .${classes.delete}`]: {
     color: colors.brandGreen,
-    alignSelf: 'end',
-    padding: '0.4rem 0.6rem',
+    alignSelf: 'start',
+    padding: '0.3rem 0.6rem 0.5rem 0.6rem',
     svg: {
       width: '1.4rem',
       height: '1.4rem',
@@ -53,7 +55,7 @@ const PainokerroinControl = styled(FormControl)(({ theme }) => ({
     border: `1px solid ${colors.lightGrey}`,
     padding: '0 0.5rem',
     maxWidth: '100%',
-    width: '11rem',
+    width: '12rem',
     '&:focus-within': {
       borderColor: colors.black,
     },
@@ -73,6 +75,9 @@ const PainokerroinControl = styled(FormControl)(({ theme }) => ({
   [`& .${classes.add}`]: {
     marginTop: '1.6rem',
     whiteSpace: 'nowrap',
+    [theme.breakpoints.down('sm')]: {
+      marginTop: '0',
+    },
   },
 }));
 
@@ -110,7 +115,7 @@ export const PainokerroinInput = ({
       {showPainokerroin ? (
         <>
           <InputLabel id={`${labelId}-painokerroin`} className={classes.label}>
-            <Typography sx={{ fontWeight: '600', marginBottom: '7px' }}>
+            <Typography sx={{ marginBottom: '6px' }}>
               {t('pistelaskuri.aine.painokerroin')}
             </Typography>
             <Input
@@ -121,13 +126,13 @@ export const PainokerroinInput = ({
               disableUnderline={true}
               placeholder={t('pistelaskuri.aine.painokerroin-placeholder')}
             />
+            <IconButton
+              className={classes.delete}
+              onClick={removePainokerroin}
+              aria-label={t('pistelaskuri.aine.removepainokerroin')}>
+              <DeleteOutlined />
+            </IconButton>
           </InputLabel>
-          <IconButton
-            className={classes.delete}
-            onClick={removePainokerroin}
-            aria-label={t('pistelaskuri.aine.removepainokerroin')}>
-            <DeleteOutlined />
-          </IconButton>
           {inputtedPainokerroin !== '' &&
             !isEligiblePainokerroin(inputtedPainokerroin) && (
               <Typography variant="body2" className={classes.error}>
