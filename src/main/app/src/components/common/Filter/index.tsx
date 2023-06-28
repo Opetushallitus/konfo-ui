@@ -195,7 +195,7 @@ const FilterCheckboxGroup = ({
             onFocus={(e) => {
               e.stopPropagation();
             }}
-            data-cy={`show-more-${value.id}`}>
+            data-testid={`show-more-${value.id}`}>
             {isOpen ? <ExpandLess /> : <ExpandMore />}
           </IconButton>
         }
@@ -273,7 +273,7 @@ export const Filter = ({
   return (
     <SuodatinAccordion
       disabled={values?.length === 0}
-      data-cy={testId}
+      data-testid={testId}
       elevation={elevation}
       defaultExpanded={expanded}
       square>

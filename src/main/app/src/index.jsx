@@ -19,7 +19,7 @@ import { store } from '#/src/store';
 import { locationChanged } from '#/src/store/reducers/appSlice';
 import { theme } from '#/src/theme';
 import { configureI18n } from '#/src/tools/i18n';
-import { isCypress } from '#/src/tools/utils';
+import { isPlaywright, isProd } from '#/src/tools/utils';
 import { configureUrls } from '#/src/urls';
 
 import GenericError from './GenericError';
@@ -36,7 +36,7 @@ const queryClient = new QueryClient({
 });
 
 if ('serviceWorker' in navigator) {
-  if (window.Cypress) {
+  if (isPlaywright) {
     console.log('Not registering service worker');
   } else {
     console.log('Registering service worker');
@@ -59,7 +59,7 @@ const uninterestingErrors = {
 };
 
 window.onerror = (errorMsg, _url, line, col, errorObj) => {
-  if (import.meta?.NODE_ENV === 'production' && !isCypress) {
+  if (isProd && !isPlaywright) {
     const errorKey = errorMsg + line;
     const send = (trace) => {
       if (!uninterestingErrors[errorKey]) {
@@ -116,7 +116,7 @@ root.render(
   <ErrorBoundary FallbackComponent={GenericError}>
     <Suspense fallback={<LoadingCircle />}>
       <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools initialIsOpen={false} />
+        {!isPlaywright && <ReactQueryDevtools initialIsOpen={false} />}
         <Provider store={store}>
           <BrowserRouter basename="/konfo">
             <ThemeProvider theme={theme}>

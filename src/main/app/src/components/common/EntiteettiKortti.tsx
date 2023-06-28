@@ -165,7 +165,7 @@ export const EntiteettiKortti = ({
       wrapIconTexts={wrapIconTexts}
       isSmall={isSmall}>
       <Paper
-        data-cy={header}
+        data-testid={header}
         classes={{ root: classes.paperRoot }}
         style={{
           borderTop: `5px solid ${educationTypeColorCode[koulutustyyppi]}`,

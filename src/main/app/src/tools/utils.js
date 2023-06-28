@@ -86,7 +86,7 @@ export const scrollIntoView = (element) => {
 };
 
 export const consoleWarning = (...props) => {
-  if (!isCypress) {
+  if (!isPlaywright) {
     console.warn(...props);
   }
 };
@@ -203,9 +203,11 @@ export const condArray = (cond, item) => (cond ? [item] : []);
 export const formatDouble = (number, fixed) =>
   (fixed === undefined ? number : number?.toFixed(fixed))?.toString().replace('.', ',');
 
-export const isCypress = window.Cypress;
+export const isPlaywright = Boolean(localStorage.getItem('isPlaywright'));
 
 export const isDev = import.meta.env.MODE === 'development';
+
+export const isProd = import.meta.env.MODE === 'production';
 
 export const getPaginationPage = ({ offset, size }) =>
   1 + (size ? Math.round(offset / size) : 0);

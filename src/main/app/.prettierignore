@@ -1,5 +1,4 @@
-cypress/**/__snapshots__/*
-cypress/fixtures/*
-cypress/mocks/*
+playwright/fixtures/*
+playwright/mocks/*
 tsconfig.json
 package-lock.json

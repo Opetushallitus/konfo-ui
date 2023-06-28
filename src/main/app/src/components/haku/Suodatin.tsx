@@ -63,7 +63,7 @@ export const Suodatin = ({ id, children, header }: Props) => {
         onClick={() => setIsOpen(true)}
         ref={anchorRef}
         aria-label={t('haku.valitse')}
-        data-cy={`valitse_${id}`}
+        data-testid={`valitse_${id}`}
         className={classes.expandButton}>
         {t('haku.valitse')}
       </Button>

@@ -30,9 +30,6 @@ etc/
 node/
 target/
 
-src/main/app/cypress/screenshots/
 src/main/app/.vscode/
-
-src/main/app/snapshots.js
 
 .cert/*

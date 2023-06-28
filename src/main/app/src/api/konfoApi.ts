@@ -5,7 +5,7 @@ import { urls } from 'oph-urls-js';
 import qs from 'query-string';
 
 import { getLanguage } from '#/src/tools/localization';
-import { cleanRequestParams, isCypress, isDev } from '#/src/tools/utils';
+import { cleanRequestParams, isPlaywright, isDev } from '#/src/tools/utils';
 import {
   AutocompleteResult,
   Koodi,
@@ -53,7 +53,7 @@ const createEntityGetter =
     );
 
 export const getConfiguration = () => {
-  if (isDev || isCypress) {
+  if (isDev || isPlaywright) {
     return { naytaFiltterienHakutulosLuvut: true };
   } else {
     return get('/konfo/rest/config/configuration');
