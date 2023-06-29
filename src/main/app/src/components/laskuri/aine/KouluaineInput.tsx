@@ -1,33 +1,64 @@
 import React, { useState, useEffect } from 'react';
 
-import { Box, styled, Button, SelectChangeEvent } from '@mui/material';
+import { Box, styled, SelectChangeEvent, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-import { Kouluaine, hasInitialValues, Kieliaine } from './Kouluaine';
-import { KouluaineSelect } from './KouluaineSelect';
-import { ValinnainenArvosana } from './ValinnainenArvosana';
+import { colors } from '#/src/colors';
+import { LabelTooltip } from '#/src/components/common/LabelTooltip';
+import { KieliSelect } from '#/src/components/laskuri/aine/KieliSelect';
+import { PainokerroinInput } from '#/src/components/laskuri/aine/PainokerroinInput';
+import { ValinnaisetArvosanat } from '#/src/components/laskuri/aine/ValinnaisetArvosanat';
 
-const AineContainer = styled(Box)(({ theme }) => ({
+import { Kouluaine, Kieliaine, isKieliaine } from './Kouluaine';
+import { KouluaineSelect } from './KouluaineSelect';
+
+const PREFIX = 'kouluaineinput__';
+
+const classes = {
+  headerContainer: `${PREFIX}headerContainer`,
+  header: `${PREFIX}header`,
+  gradeLabel: `${PREFIX}gradelabel`,
+};
+
+const AineContainer = styled(Box)<{ isKieli: boolean }>(({ theme, isKieli }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'start',
+  rowGap: '0.5rem',
+  [`& .${classes.headerContainer}`]: {
+    display: 'flex',
+    flexDirection: 'row',
+    [`.${classes.header}`]: {
+      fontWeight: 600,
+      display: 'flex',
+    },
+  },
+  [`& .${classes.gradeLabel}`]: {
+    whiteSpace: 'break-spaces',
+    fontSize: '1rem',
+    fontWeight: isKieli ? 'normal' : 600,
+    maxWidth: '12rem',
+    lineHeight: '1.6rem',
+  },
+  [theme.breakpoints.down('sm')]: {
+    marginBottom: '27px',
+    width: '100%',
+  },
+}));
+
+const ArvosanaContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
-  marginBottom: '27px',
   columnGap: '18px',
-  justifyContent: 'flex-start',
-  justifyItems: 'flex-start',
   button: {
     fontSize: '1rem',
-    alignSelf: 'end',
     fontWeight: 600,
   },
-  alignItems: 'end',
   [theme.breakpoints.down('sm')]: {
-    flexDirection: 'column',
-    alignItems: 'start',
     width: '100%',
-    button: {
-      alignSelf: 'start',
-      paddingLeft: 0,
-    },
+    flexDirection: 'column',
+    rowGap: '0.5rem',
+    alignItems: 'stretch',
   },
 }));
 
@@ -36,23 +67,21 @@ type Props = {
   updateKouluaine: (kouluaine: Kouluaine) => void;
   isLisaKieli?: boolean;
   removeLisaKieli?: () => void;
+  embedded: boolean;
 };
-
-const MAX_VALINNAISET_ARVOSANAT = 3;
 
 export const KouluaineInput = ({
   aine,
   updateKouluaine,
   isLisaKieli = false,
   removeLisaKieli = () => {},
+  embedded,
 }: Props) => {
   const { t } = useTranslation();
   const [kouluaine, setKouluaine] = useState<Kouluaine | Kieliaine>({ ...aine });
 
   useEffect(() => {
-    if (!hasInitialValues(aine)) {
-      setKouluaine(aine);
-    }
+    setKouluaine(aine);
   }, [aine]);
 
   const labelId = `aine-label-${aine.nimi}`;
@@ -91,34 +120,56 @@ export const KouluaineInput = ({
     updateKouluaine(uusiaine);
   };
 
+  const updatePainokerroin = (painokerroin: string) => {
+    const uusiaine = Object.assign({}, kouluaine, { painokerroin });
+    setKouluaine(uusiaine);
+    updateKouluaine(uusiaine);
+  };
+
+  const isKieli = isKieliaine(kouluaine);
+
   return (
-    <AineContainer>
-      <KouluaineSelect
-        aine={kouluaine}
-        updateArvosana={handleArvosanaChange}
-        updateKieli={handleKieliChange}
-        isLisaKieli={isLisaKieli}
-        removeLisaKieli={removeLisaKieli}
-      />
-      {kouluaine.valinnaisetArvosanat.map(
-        (valinnainenArvosana: number | null, index: number) => (
-          <ValinnainenArvosana
+    <AineContainer isKieli={isKieli}>
+      {isKieli && (
+        <>
+          <div className={classes.headerContainer}>
+            <Typography className={classes.header}>
+              {t(kouluaine.nimi)}
+              <LabelTooltip
+                title={t(kouluaine.kuvaus)}
+                sx={{ marginLeft: '3px', color: colors.brandGreen }}
+              />
+            </Typography>
+          </div>
+          <KieliSelect aine={kouluaine} updateKieli={handleKieliChange} />
+        </>
+      )}
+      <Typography className={classes.gradeLabel}>
+        {t(isKieli ? 'pistelaskuri.aine.arvosana' : kouluaine.nimi)}
+      </Typography>
+      <ArvosanaContainer>
+        <KouluaineSelect
+          aine={kouluaine}
+          updateArvosana={handleArvosanaChange}
+          isLisaKieli={isLisaKieli}
+          removeLisaKieli={removeLisaKieli}
+        />
+        <ValinnaisetArvosanat
+          addValinnaisaine={addValinnaisaine}
+          arvosanat={kouluaine.valinnaisetArvosanat}
+          removeValinnaisaine={removeValinnaisaine}
+          embedded={embedded}
+          handleValinnainenArvosanaChange={handleValinnainenArvosanaChange}
+          labelId={labelId}
+        />
+        {embedded && (
+          <PainokerroinInput
             labelId={labelId}
-            index={index}
-            arvosana={valinnainenArvosana}
-            removeValinnaisaine={() => removeValinnaisaine(index)}
-            updateValinnainenArvosana={(event: SelectChangeEvent) =>
-              handleValinnainenArvosanaChange(event, index)
-            }
-            key={`valinnainen-${index}`}
+            kouluaine={kouluaine}
+            updatePainokerroin={updatePainokerroin}
           />
-        )
-      )}
-      {kouluaine.valinnaisetArvosanat.length < MAX_VALINNAISET_ARVOSANAT && (
-        <Button onClick={addValinnaisaine}>
-          {t('pistelaskuri.aine.addvalinnainen')}
-        </Button>
-      )}
+        )}
+      </ArvosanaContainer>
     </AineContainer>
   );
 };

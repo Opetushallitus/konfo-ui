@@ -105,14 +105,10 @@ export const kopioiKouluaineetPainokertoimilla = (
       (pa: PainotettuArvosana) =>
         koodiUriToCompare && pa.koodit.oppiaine.koodiUri.startsWith(koodiUriToCompare)
     );
-    if (matchingPa) {
-      return Object.assign(
-        { ...aine },
-        { painokerroin: String(matchingPa.painokerroin) }
-      );
-    } else {
-      return aine;
-    }
+    return Object.assign(
+      { ...aine },
+      { painokerroin: matchingPa ? String(matchingPa.painokerroin) : '' }
+    );
   };
   const modifiedKouluaineet = { ...kouluaineet };
   modifiedKouluaineet.kielet = modifiedKouluaineet.kielet.map(setPainokerroinIfMatches);

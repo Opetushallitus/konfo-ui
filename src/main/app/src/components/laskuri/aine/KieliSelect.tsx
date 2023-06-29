@@ -18,7 +18,7 @@ import { Koodi } from '#/src/types/common';
 import { Kieliaine } from './Kouluaine';
 import { useKieliKoodit } from '../hooks';
 
-const PREFIX = 'keskiarvo__ainelaskuri__';
+const PREFIX = 'keskiarvo__ainelaskuri__kieli';
 
 const classes = {
   input: `${PREFIX}input`,
@@ -29,18 +29,17 @@ const classes = {
 
 const KieliSelectControl = styled(FormControl)(({ theme }) => ({
   display: 'flex',
-  justifyContent: 'flex-start',
-  justifyItems: 'flex-start',
-  rowGap: '7px',
+  flexDirection: 'column',
+  rowGap: '0.5rem',
   columnGap: '2px',
   [theme.breakpoints.down('sm')]: {
+    alignItems: 'stretch',
     width: '100%',
-    justifyItems: 'stretch',
   },
-
   [`& .${classes.input}`]: {
     border: `1px solid ${colors.lightGrey}`,
     padding: '0 0.5rem',
+    marginTop: 0,
     '&:focus-within': {
       borderColor: colors.black,
     },
@@ -50,19 +49,12 @@ const KieliSelectControl = styled(FormControl)(({ theme }) => ({
     width: '12rem',
     maxWidth: '100%',
     [theme.breakpoints.down('sm')]: {
-      width: '100%',
+      marginRight: '2.7rem',
+      width: 'auto',
     },
   },
   [`& .${classes.optionDisabled}`]: {
     color: colors.lightGrey,
-  },
-  [`& .${classes.langLabelContainer}`]: {
-    display: 'flex',
-    alignItems: 'center',
-    columnGap: '2px',
-    [theme.breakpoints.down('sm')]: {
-      width: '100%',
-    },
   },
   [`& .${classes.langLabel}`]: {
     overflow: 'unset',
@@ -93,12 +85,10 @@ export const KieliSelect = ({ aine, updateKieli }: Props) => {
   };
 
   return (
-    <KieliSelectControl variant="standard" sx={{ minWidth: 220 }}>
-      <div className={classes.langLabelContainer}>
-        <InputLabel className={classes.langLabel}>
-          {t('pistelaskuri.aine.kielennimi')}
-        </InputLabel>
-      </div>
+    <KieliSelectControl variant="standard">
+      <InputLabel className={classes.langLabel}>
+        {t('pistelaskuri.aine.kielennimi')}
+      </InputLabel>
       {data !== undefined && (
         <Select
           value={String(aine.kieliKoodi || null)}

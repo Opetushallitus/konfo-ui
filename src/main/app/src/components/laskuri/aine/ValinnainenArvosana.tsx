@@ -10,6 +10,7 @@ import {
   SelectChangeEvent,
   IconButton,
   Input,
+  Box,
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
@@ -28,39 +29,35 @@ const classes = {
 };
 
 const ValinnainenControl = styled(FormControl)(({ theme }) => ({
-  display: 'grid',
-  gridTemplateColumns: '4fr 1fr',
-  gridTemplateAreas: `"label label"
-                     "select delete"`,
-  alignItems: 'center',
-  alignContent: 'center',
-  rowGap: '7px',
-  [theme.breakpoints.down('sm')]: {
-    marginTop: '0.4rem',
-    justifyContent: 'stretch',
-    gridTemplateColumns: '7fr 1fr',
-  },
+  display: 'flex',
+  flexDirection: 'row',
+  rowGap: '0.5rem',
   [`& .${classes.gradeLabel}`]: {
-    gridArea: 'label',
     position: 'relative',
     transformOrigin: 'left',
     transform: 'none',
     fontSize: '1rem',
-    fontWeight: 600,
+    fontWeight: 'normal',
     lineHeight: '1.6rem',
+    display: 'flex',
+    flexDirection: 'column',
+    rowGap: '0.5rem',
+    [theme.breakpoints.down('sm')]: {
+      alignItems: 'stretch',
+      width: '100%',
+    },
   },
   [`& .${classes.gradeDelete}`]: {
-    gridArea: 'delete',
     color: colors.brandGreen,
-    padding: '0.3rem 0.6rem',
+    padding: '0.3rem 0.6rem 0.5rem 0.6rem',
+    alignSelf: 'end',
     svg: {
       width: '1.4rem',
       height: '1.4rem',
     },
   },
   [`& .${classes.gradeSelect}`]: {
-    gridArea: 'select',
-    marginTop: 0,
+    margin: '0',
   },
   [`& .${classes.input}`]: {
     border: `1px solid ${colors.lightGrey}`,
@@ -85,6 +82,11 @@ const ValinnainenControl = styled(FormControl)(({ theme }) => ({
   },
 }));
 
+const SelectContainer = styled(Box)(() => ({
+  display: 'flex',
+  flexDirection: 'row',
+}));
+
 type Props = {
   labelId: string;
   index: number;
@@ -103,37 +105,39 @@ export const ValinnainenArvosana = ({
   const { t } = useTranslation();
 
   return (
-    <ValinnainenControl variant="standard">
+    <ValinnainenControl variant="standard" sx={{ minWidth: 220 }}>
       <InputLabel id={`${labelId}-${index}`} className={classes.gradeLabel}>
         {t('pistelaskuri.aine.valinnaisaine')}
+        <SelectContainer>
+          <Select
+            labelId={`${labelId}-${index}`}
+            value={String(arvosana)}
+            onChange={updateValinnainenArvosana}
+            input={<Input className={classes.input} />}
+            className={
+              String(arvosana) === 'null'
+                ? `${classes.optionDisabled} ${classes.gradeSelect}`
+                : classes.gradeSelect
+            }
+            variant="standard"
+            disableUnderline={true}>
+            <MenuItem key="arvosana-null" disabled={true} value="null">
+              {t('pistelaskuri.aine.valitsearvosana')}
+            </MenuItem>
+            {ARVOSANA_VALUES.map((arvo: number, id: number) => (
+              <MenuItem key={`arvosana-${index}-${id}`} value={arvo}>
+                {arvo}
+              </MenuItem>
+            ))}
+          </Select>
+          <IconButton
+            className={classes.gradeDelete}
+            onClick={removeValinnaisaine}
+            aria-label={t('pistelaskuri.aine.removevalinnainen')}>
+            <DeleteOutlined />
+          </IconButton>
+        </SelectContainer>
       </InputLabel>
-      <Select
-        labelId={`${labelId}-${index}`}
-        value={String(arvosana)}
-        onChange={updateValinnainenArvosana}
-        input={<Input className={classes.input} />}
-        className={
-          String(arvosana) === 'null'
-            ? `${classes.optionDisabled} ${classes.gradeSelect}`
-            : classes.gradeSelect
-        }
-        variant="standard"
-        disableUnderline={true}>
-        <MenuItem key="arvosana-null" disabled={true} value="null">
-          {t('pistelaskuri.aine.valitsearvosana')}
-        </MenuItem>
-        {ARVOSANA_VALUES.map((arvo: number, id: number) => (
-          <MenuItem key={`arvosana-${index}-${id}`} value={arvo}>
-            {arvo}
-          </MenuItem>
-        ))}
-      </Select>
-      <IconButton
-        className={classes.gradeDelete}
-        onClick={removeValinnaisaine}
-        aria-label={t('pistelaskuri.aine.removevalinnainen')}>
-        <DeleteOutlined />
-      </IconButton>
     </ValinnainenControl>
   );
 };

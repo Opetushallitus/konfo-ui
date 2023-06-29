@@ -24,7 +24,11 @@ import { AccessibleGraafi } from './AccessibleGraafi';
 import { PainotetutArvosanat } from './PainotetutArvosanat';
 import { PisteGraafi } from './PisteGraafi';
 import { Kouluaineet, kopioiKouluaineetPainokertoimilla } from '../aine/Kouluaine';
-import { HakupisteLaskelma, LaskelmaTapa, kouluaineetToHakupiste } from '../Keskiarvo';
+import {
+  HakupisteLaskelma,
+  LaskelmaTapa,
+  lukuaineKeskiarvoPainotettu,
+} from '../Keskiarvo';
 import { KOULUAINE_STORE_KEY, LocalStorageUtil } from '../LocalStorageUtil';
 import { hasPainokertoimia } from '../PisteLaskuriUtil';
 
@@ -143,7 +147,10 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
           aineet,
           hakukohde.hakukohteenLinja?.painotetutArvosanat || []
         );
-        setCalculatedTulos(kouluaineetToHakupiste(modifiedAineet));
+        setCalculatedTulos({
+          ...tulos,
+          keskiarvoPainotettu: lukuaineKeskiarvoPainotettu(modifiedAineet),
+        });
       }
     } else {
       setCalculatedTulos(tulos);

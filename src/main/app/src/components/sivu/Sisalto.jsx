@@ -5,6 +5,7 @@ import Markdown from 'markdown-to-jsx';
 import { Link as RouterLink } from 'react-router-dom';
 
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
+import { EmbeddedPistelaskuri } from '#/src/components/laskuri/EmbeddedPistelaskuri';
 import { ImageComponent } from '#/src/components/sivu/ImageComponent';
 import { useContentful } from '#/src/hooks/useContentful';
 
@@ -79,6 +80,9 @@ const Sisalto = ({ content, excludeMedia }) => {
           },
           sivu: {
             component: SivuLink,
+          },
+          pistelaskuri: {
+            component: EmbeddedPistelaskuri,
           },
         },
       }}>
