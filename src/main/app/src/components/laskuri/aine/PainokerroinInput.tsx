@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { DeleteOutlined } from '@mui/icons-material';
 import {
@@ -9,10 +9,12 @@ import {
   Input,
   Typography,
   Button,
+  Box,
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
+import { Kouluaine } from '#/src/components/laskuri/aine/Kouluaine';
 import { isEligiblePainokerroin } from '#/src/components/laskuri/Keskiarvo';
 
 const PREFIX = 'keskiarvo__ainelaskuri__painokerroin__';
@@ -20,6 +22,7 @@ const PREFIX = 'keskiarvo__ainelaskuri__painokerroin__';
 const classes = {
   input: `${PREFIX}input`,
   label: `${PREFIX}label`,
+  labelContainer: `${PREFIX}labelcontainer`,
   delete: `${PREFIX}delete`,
   error: `${PREFIX}error`,
   add: `${PREFIX}add`,
@@ -27,13 +30,14 @@ const classes = {
 
 const PainokerroinControl = styled(FormControl)(({ theme }) => ({
   display: 'flex',
-  flexDirection: 'row',
-  alignSelf: 'stretch',
+  flexDirection: 'column',
   alignItems: 'start',
+  position: 'relative',
+  top: '-2.1rem', // lineheight 1.6rem + rowgap 0.5rem
   [theme.breakpoints.down('sm')]: {
-    marginTop: '0.4rem',
+    top: 0,
   },
-  [`& .${classes.label}`]: {
+  [`& .${classes.labelContainer}`]: {
     position: 'relative',
     transformOrigin: 'left',
     transform: 'none',
@@ -41,6 +45,11 @@ const PainokerroinControl = styled(FormControl)(({ theme }) => ({
     fontWeight: 'normal',
     lineHeight: '1.6rem',
     overflow: 'visible',
+    display: 'flex',
+    flexDirection: 'column',
+    rowGap: '0.5rem',
+    alignItems: 'stretch',
+    width: '100%',
   },
   [`& .${classes.delete}`]: {
     color: colors.brandGreen,
@@ -71,6 +80,10 @@ const PainokerroinControl = styled(FormControl)(({ theme }) => ({
   },
   [`& .${classes.error}`]: {
     color: colors.red,
+    maxWidth: '12rem',
+    [theme.breakpoints.down('sm')]: {
+      maxWidth: '100%',
+    },
   },
   [`& .${classes.add}`]: {
     marginTop: '1.6rem',
@@ -81,26 +94,35 @@ const PainokerroinControl = styled(FormControl)(({ theme }) => ({
   },
 }));
 
+const InputContainer = styled(Box)(() => ({
+  display: 'flex',
+  flexDirection: 'row',
+}));
+
 type Props = {
   labelId: string;
-  painokerroin: string;
+  kouluaine: Kouluaine;
   updatePainokerroin: (newPk: string) => void;
 };
 
-export const PainokerroinInput = ({
-  labelId,
-  painokerroin,
-  updatePainokerroin,
-}: Props) => {
+export const PainokerroinInput = ({ labelId, kouluaine, updatePainokerroin }: Props) => {
   const { t } = useTranslation();
 
-  const [showPainokerroin, setShowPainokerroin] = useState(painokerroin !== '');
-  const [inputtedPainokerroin, setInputtedPainokerroin] = useState(painokerroin);
+  const [showPainokerroin, setShowPainokerroin] = useState(kouluaine.painokerroin !== '');
+  const [inputtedPainokerroin, setInputtedPainokerroin] = useState(
+    kouluaine.painokerroin
+  );
 
   const removePainokerroin = () => {
     setShowPainokerroin(false);
+    setInputtedPainokerroin('');
     updatePainokerroin('');
   };
+
+  useEffect(() => {
+    setShowPainokerroin(kouluaine.painokerroin !== '');
+    setInputtedPainokerroin(kouluaine.painokerroin);
+  }, [kouluaine]);
 
   const handlePainokerroinChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newPk = event.target.value;
@@ -111,27 +133,29 @@ export const PainokerroinInput = ({
   };
 
   return (
-    <PainokerroinControl variant="standard">
+    <PainokerroinControl variant="standard" sx={{ minWidth: 220 }}>
       {showPainokerroin ? (
         <>
-          <InputLabel id={`${labelId}-painokerroin`} className={classes.label}>
-            <Typography sx={{ marginBottom: '6px' }}>
+          <InputLabel id={`${labelId}-painokerroin`} className={classes.labelContainer}>
+            <Typography className={classes.label}>
               {t('pistelaskuri.aine.painokerroin')}
             </Typography>
-            <Input
-              className={classes.input}
-              onChange={handlePainokerroinChange}
-              value={inputtedPainokerroin}
-              error={!isEligiblePainokerroin(inputtedPainokerroin)}
-              disableUnderline={true}
-              placeholder={t('pistelaskuri.aine.painokerroin-placeholder')}
-            />
-            <IconButton
-              className={classes.delete}
-              onClick={removePainokerroin}
-              aria-label={t('pistelaskuri.aine.removepainokerroin')}>
-              <DeleteOutlined />
-            </IconButton>
+            <InputContainer>
+              <Input
+                className={classes.input}
+                onChange={handlePainokerroinChange}
+                value={inputtedPainokerroin}
+                error={!isEligiblePainokerroin(inputtedPainokerroin)}
+                disableUnderline={true}
+                placeholder={t('pistelaskuri.aine.painokerroin-placeholder')}
+              />
+              <IconButton
+                className={classes.delete}
+                onClick={removePainokerroin}
+                aria-label={t('pistelaskuri.aine.removepainokerroin')}>
+                <DeleteOutlined />
+              </IconButton>
+            </InputContainer>
           </InputLabel>
           {inputtedPainokerroin !== '' &&
             !isEligiblePainokerroin(inputtedPainokerroin) && (

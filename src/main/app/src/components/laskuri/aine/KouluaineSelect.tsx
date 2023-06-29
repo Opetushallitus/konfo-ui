@@ -4,19 +4,17 @@ import { DeleteOutlined } from '@mui/icons-material';
 import {
   styled,
   Select,
-  InputLabel,
   FormControl,
   MenuItem,
   SelectChangeEvent,
   IconButton,
   Input,
-  Box,
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 
-import { ARVOSANA_VALUES, Kouluaine, Kieliaine, isKieliaine } from './Kouluaine';
+import { ARVOSANA_VALUES, Kouluaine, Kieliaine } from './Kouluaine';
 const PREFIX = 'kouluaine__';
 
 const classes = {
@@ -24,22 +22,22 @@ const classes = {
   optionDisabled: `${PREFIX}option--disabled`,
   headerContainer: `${PREFIX}headerContainer`,
   header: `${PREFIX}header`,
-  gradeLabel: `${PREFIX}gradelabel`,
-  gradeLabelContainer: `${PREFIX}gradelabelcontainer`,
   gradeSelect: `${PREFIX}gradeselect`,
   poistakieli: `${PREFIX}poistakieli`,
 };
 
 const AineSelectControl = styled(FormControl, {
-  shouldForwardProp: (prop) => prop !== 'isKieli',
-})<{ isKieli: boolean }>(({ theme, isKieli }) => ({
+  shouldForwardProp: (prop) => prop !== 'isLisaKieli',
+})<{ isLisaKieli: boolean }>(({ theme, isLisaKieli }) => ({
   display: 'flex',
+  flexDirection: 'row',
   alignItems: 'start',
-  alignContent: 'start',
-  rowGap: '7px',
+  rowGap: '0.5rem',
   columnGap: '2px',
+  marginBottom: '27px',
   [theme.breakpoints.down('sm')]: {
     width: '100%',
+    marginBottom: 0,
   },
   [`& .${classes.input}`]: {
     border: `1px solid ${colors.lightGrey}`,
@@ -54,6 +52,7 @@ const AineSelectControl = styled(FormControl, {
     maxWidth: '100%',
     [theme.breakpoints.down('sm')]: {
       width: '100%',
+      marginRight: isLisaKieli ? 0 : '2.7rem',
     },
   },
   [`& .${classes.headerContainer}`]: {
@@ -66,27 +65,6 @@ const AineSelectControl = styled(FormControl, {
   [`& .${classes.optionDisabled}`]: {
     color: colors.lightGrey,
   },
-  [`& .${classes.gradeLabelContainer}`]: {
-    display: 'flex',
-    alignItems: 'center',
-    columnGap: '2px',
-    [theme.breakpoints.down('sm')]: {
-      width: '100%',
-    },
-  },
-  [`& .${classes.gradeLabel}`]: {
-    overflow: 'unset',
-    textOverflow: 'unset',
-    overflowWrap: 'normal',
-    whiteSpace: 'break-spaces',
-    position: 'relative',
-    transformOrigin: 'left',
-    transform: 'none',
-    fontSize: '1rem',
-    fontWeight: isKieli ? 'normal' : 600,
-    maxWidth: '12rem',
-    lineHeight: '1.6rem',
-  },
   [`& .${classes.poistakieli}`]: {
     color: colors.brandGreen,
     padding: '0.3rem 0.6rem',
@@ -95,11 +73,6 @@ const AineSelectControl = styled(FormControl, {
       height: '1.4rem',
     },
   },
-}));
-
-const SelectContainer = styled(Box)(() => ({
-  display: 'flex',
-  flexDirection: 'row',
 }));
 
 type Props = {
@@ -124,45 +97,38 @@ export const KouluaineSelect = ({
 
   return (
     <AineSelectControl
-      isKieli={isKieliaine(aine)}
+      isLisaKieli={isLisaKieli}
       variant="standard"
       sx={{ minWidth: 220 }}>
-      <div className={classes.gradeLabelContainer}>
-        <InputLabel id={labelId} className={classes.gradeLabel}>
-          {t(isKieliaine(aine) ? 'pistelaskuri.aine.arvosana' : aine.nimi)}
-        </InputLabel>
-      </div>
-      <SelectContainer>
-        <Select
-          labelId={labelId}
-          value={String(aine.arvosana)}
-          onChange={handleArvosanaChange}
-          input={<Input className={classes.input} />}
-          className={
-            String(aine.arvosana) === 'null'
-              ? `${classes.optionDisabled} ${classes.gradeSelect}`
-              : classes.gradeSelect
-          }
-          variant="standard"
-          disableUnderline={true}>
-          <MenuItem key="arvosana-null" disabled={true} value="null">
-            {t('pistelaskuri.aine.valitsearvosana')}
+      <Select
+        labelId={labelId}
+        value={String(aine.arvosana)}
+        onChange={handleArvosanaChange}
+        input={<Input className={classes.input} />}
+        className={
+          String(aine.arvosana) === 'null'
+            ? `${classes.optionDisabled} ${classes.gradeSelect}`
+            : classes.gradeSelect
+        }
+        variant="standard"
+        disableUnderline={true}>
+        <MenuItem key="arvosana-null" disabled={true} value="null">
+          {t('pistelaskuri.aine.valitsearvosana')}
+        </MenuItem>
+        {ARVOSANA_VALUES.map((arvosana: number, index: number) => (
+          <MenuItem key={`arvosana-${index}`} value={arvosana}>
+            {arvosana}
           </MenuItem>
-          {ARVOSANA_VALUES.map((arvosana: number, index: number) => (
-            <MenuItem key={`arvosana-${index}`} value={arvosana}>
-              {arvosana}
-            </MenuItem>
-          ))}
-        </Select>
-        {isLisaKieli && (
-          <IconButton
-            className={classes.poistakieli}
-            onClick={removeLisaKieli}
-            aria-label={t('pistelaskuri.aine.removekieli')}>
-            <DeleteOutlined />
-          </IconButton>
-        )}
-      </SelectContainer>
+        ))}
+      </Select>
+      {isLisaKieli && (
+        <IconButton
+          className={classes.poistakieli}
+          onClick={removeLisaKieli}
+          aria-label={t('pistelaskuri.aine.removekieli')}>
+          <DeleteOutlined />
+        </IconButton>
+      )}
     </AineSelectControl>
   );
 };

@@ -88,7 +88,7 @@ const TulosContainer = styled(Box)(({ theme }) => ({
         height: '10px',
         borderRadius: 45,
         marginRight: '0.5rem',
-        marginTop: '7px',
+        marginTop: '0.5rem',
       },
     },
   },

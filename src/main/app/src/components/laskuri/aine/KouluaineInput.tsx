@@ -17,20 +17,32 @@ const PREFIX = 'kouluaineinput__';
 const classes = {
   headerContainer: `${PREFIX}headerContainer`,
   header: `${PREFIX}header`,
+  gradeLabel: `${PREFIX}gradelabel`,
 };
 
-const AineContainer = styled(Box)(() => ({
+const AineContainer = styled(Box)<{ isKieli: boolean }>(({ theme, isKieli }) => ({
   display: 'flex',
   flexDirection: 'column',
-  marginBottom: '27px',
   alignItems: 'start',
+  rowGap: '0.5rem',
   [`& .${classes.headerContainer}`]: {
-    marginBottom: '7px',
+    display: 'flex',
+    flexDirection: 'row',
     [`.${classes.header}`]: {
       fontWeight: 600,
       display: 'flex',
-      marginBottom: '0.5rem',
     },
+  },
+  [`& .${classes.gradeLabel}`]: {
+    whiteSpace: 'break-spaces',
+    fontSize: '1rem',
+    fontWeight: isKieli ? 'normal' : 600,
+    maxWidth: '12rem',
+    lineHeight: '1.6rem',
+  },
+  [theme.breakpoints.down('sm')]: {
+    marginBottom: '27px',
+    width: '100%',
   },
 }));
 
@@ -38,16 +50,15 @@ const ArvosanaContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   columnGap: '18px',
-  alignItems: 'start',
   button: {
     fontSize: '1rem',
-    alignSelf: 'start',
     fontWeight: 600,
   },
   [theme.breakpoints.down('sm')]: {
+    width: '100%',
     flexDirection: 'column',
+    rowGap: '0.5rem',
     alignItems: 'stretch',
-    alignSelf: 'start',
   },
 }));
 
@@ -115,19 +126,27 @@ export const KouluaineInput = ({
     updateKouluaine(uusiaine);
   };
 
+  const isKieli = isKieliaine(kouluaine);
+
   return (
-    <AineContainer>
-      {isKieliaine(kouluaine) && (
-        <div className={classes.headerContainer}>
-          <Typography className={classes.header}>
-            {t(kouluaine.nimi)}
-            <LabelTooltip
-              title={t(kouluaine.kuvaus)}
-              sx={{ marginLeft: '3px', color: colors.brandGreen }}></LabelTooltip>
-          </Typography>
+    <AineContainer isKieli={isKieli}>
+      {isKieli && (
+        <>
+          <div className={classes.headerContainer}>
+            <Typography className={classes.header}>
+              {t(kouluaine.nimi)}
+              <LabelTooltip
+                title={t(kouluaine.kuvaus)}
+                sx={{ marginLeft: '3px', color: colors.brandGreen }}
+              />
+            </Typography>
+          </div>
           <KieliSelect aine={kouluaine} updateKieli={handleKieliChange} />
-        </div>
+        </>
       )}
+      <Typography className={classes.gradeLabel}>
+        {t(isKieli ? 'pistelaskuri.aine.arvosana' : kouluaine.nimi)}
+      </Typography>
       <ArvosanaContainer>
         <KouluaineSelect
           aine={kouluaine}
@@ -146,7 +165,7 @@ export const KouluaineInput = ({
         {embedded && (
           <PainokerroinInput
             labelId={labelId}
-            painokerroin={kouluaine.painokerroin}
+            kouluaine={kouluaine}
             updatePainokerroin={updatePainokerroin}
           />
         )}

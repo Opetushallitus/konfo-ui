@@ -55,6 +55,9 @@ const StyledDiv = styled('div')(({ theme }) => ({
         backgroundColor: colors.lightGrey,
         border: `2px solid ${colors.lightGrey}`,
       },
+      [theme.breakpoints.down('sm')]: {
+        marginLeft: 0,
+      },
     },
     [`.${classes.recalcButton},.${classes.clearButton}`]: {
       border: `2px solid ${colors.brandGreen}`,
