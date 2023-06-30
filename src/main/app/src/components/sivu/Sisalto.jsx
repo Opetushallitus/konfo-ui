@@ -12,7 +12,7 @@ import { useContentful } from '#/src/hooks/useContentful';
 import { Accordion, Summary } from './Accordion';
 import { LinkOrYoutube } from './LinkOrYoutube';
 
-const Sisalto = ({ content, excludeMedia }) => {
+const Sisalto = ({ content, excludeMedia, rootRef }) => {
   const { data, forwardTo } = useContentful();
   const { sivu } = data;
   const isBlank = (str) => {
@@ -83,6 +83,9 @@ const Sisalto = ({ content, excludeMedia }) => {
           },
           pistelaskuri: {
             component: EmbeddedPistelaskuri,
+            props: {
+              rootRef: rootRef,
+            },
           },
         },
       }}>
