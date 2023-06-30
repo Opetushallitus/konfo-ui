@@ -724,6 +724,16 @@
           "tableOfContents": "false",
           "slug": "ammatillinen-koulutus-koosteen-tekstiosio",
           "content": "Ammatillisia tutkintoja ovat ammatilliset perustutkinnot, ammattitutkinnot ja erikoisammattitutkinnot.  Ammatillisissa opilaitoksissa voi opiskella myös erilaisia tutkintoon johtamattomia opintokokonaisuuksia.\n\nAmmatilliseen koulutukseen voi hakea ympäri vuoden jatkuvan haun kautta. Jos haet ammatilliseen perustutkintokoulutukseen peruskoulusta tai lukiosta, niin haet pääasiassa yhteishaun kautta. Ammattitutkintoihin ja erikoisammattitutkintoihin haet aina jatkuvan haun kautta.\n  \nVoit suorittaa perus-, ammatti- tai erikoisammattitutkintoja tai tutkinnon osia myös työvoimakoulutuksena. Ammatillinen työvoimakoulutus on tarkoitettu ensisijaisesti työttömille tai työttömyysuhan alaisille aikuisille, jotka ovat suorittaneet oppivelvollisuutensa. Opiskelijaksi ottamisessa käytetään työ- ja elinkeinopalvelun työvoimapoliittinen harkinta."
+        },
+        {
+          "id": "2EruQzhgmlY1lmdPfTfLx7",
+          "name": "Pistelaskuritesti",
+          "type": "sivu",
+          "created": "2023-06-14T10:22:45.545Z",
+          "updated": "2023-06-14T10:39:58.906Z",
+          "tableOfContents": "false",
+          "slug": "pistelaskuritesti",
+          "content": "<pistelaskuri/>"
         }
       ],
       "status": 200

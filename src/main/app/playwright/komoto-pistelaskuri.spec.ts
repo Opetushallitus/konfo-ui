@@ -7,9 +7,9 @@ const getKeskiarvoPalleroTulokset = (page: Page) =>
 
 test.describe('Pistelaskuri KOMOTO', () => {
   test.beforeEach(async ({ page, context, baseURL }) => {
-    setupCommonTest({ page, context, baseURL });
-    mocksFromFile(page, 'komoto-pistelaskuri.mocks.json');
-    page.goto('/konfo/fi/toteutus/1.2.246.562.17.00000000000000005700');
+    await setupCommonTest({ page, context, baseURL });
+    await mocksFromFile(page, 'komoto-pistelaskuri.mocks.json');
+    await page.goto('/konfo/fi/toteutus/1.2.246.562.17.00000000000000005700');
   });
 
   test('Pistelaskuri KOMOTO renders properly', async ({ page }) => {
@@ -47,6 +47,11 @@ test.describe('Pistelaskuri KOMOTO', () => {
     await expect(keskiarvoPalleroTulokset.nth(0)).toHaveText('8');
     await expect(keskiarvoPalleroTulokset.nth(1)).toHaveText('18');
     await expect(keskiarvoPalleroTulokset.nth(2)).toHaveText('16');
+
+    //Shows compare button
+    await expect(page.locator('.Pistelaskuri__calculatebutton')).toHaveText(
+      'Vertaa pisteitä ja sulje laskuri'
+    );
 
     //Shows result after filling kouluaine
     await page.locator('.Pistelaskuri__recalculatebutton').click();
