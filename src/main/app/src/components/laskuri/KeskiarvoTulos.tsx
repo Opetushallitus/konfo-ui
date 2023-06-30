@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { OpenInNew } from '@mui/icons-material';
-import { Box, Typography, styled, Paper } from '@mui/material';
+import { Box, Typography, styled, Paper, useTheme, useMediaQuery } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -38,6 +38,7 @@ const classes = {
 const TulosContainer = styled(Box)(({ theme }) => ({
   display: 'grid',
   gridTemplateColumns: '1fr 1fr',
+  gridTemplateRows: '1fr auto',
   columnGap: '20px',
   h3: {
     fontSize: '1.25rem',
@@ -50,7 +51,6 @@ const TulosContainer = styled(Box)(({ theme }) => ({
   [`& .${classes.column}`]: {
     display: 'flex',
     flexDirection: 'column',
-    columnGap: '20px',
   },
   [`& .${classes.textContainer}`]: {
     background: colors.greyBg,
@@ -82,8 +82,8 @@ const TulosContainer = styled(Box)(({ theme }) => ({
     [`& .${classes.osalaskutSection}`]: {
       display: 'flex',
       flexDirection: 'row',
-      alignItems: 'top',
       [`& .${classes.osalaskutDisc}`]: {
+        minWidth: '10px',
         width: '10px',
         height: '10px',
         borderRadius: 45,
@@ -182,10 +182,16 @@ export const KeskiarvoTulos = ({ tulos, embedded, kouluaineet }: Props) => {
     return tulos.keskiarvoPainotettu;
   };
 
+  const theme = useTheme();
+  const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
+
   return (
     <TulosContainer>
+      <Typography variant="h3">{t('pistelaskuri.lukio.header')}</Typography>
+      {!isSmall && (
+        <Typography variant="h3">{t('pistelaskuri.ammatillinen.header')}</Typography>
+      )}
       <Box className={classes.column}>
-        <Typography variant="h3">{t('pistelaskuri.lukio.header')}</Typography>
         {showPainokerroinSphere() ? (
           <ResultSpheresLukio
             keskiarvo={tulos.keskiarvo}
@@ -209,8 +215,10 @@ export const KeskiarvoTulos = ({ tulos, embedded, kouluaineet }: Props) => {
           <LinkToValintaPerusteet />
         </Paper>
       </Box>
-      <Box className={classes.column}>
+      {isSmall && (
         <Typography variant="h3">{t('pistelaskuri.ammatillinen.header')}</Typography>
+      )}
+      <Box className={classes.column}>
         {tulos.osalasku && (
           <>
             <ResultSpheresAmmatillinen osalasku={tulos.osalasku} embedded={embedded} />
