@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 import { Close } from '@mui/icons-material';
 import {
@@ -56,6 +56,7 @@ type Props = {
 
 export const KeskiArvoModal = ({ open = false, closeFn, updateTulos, tulos }: Props) => {
   const { t } = useTranslation();
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
@@ -67,12 +68,17 @@ export const KeskiArvoModal = ({ open = false, closeFn, updateTulos, tulos }: Pr
       maxWidth="lg"
       fullScreen={fullScreen}
       scroll="body">
-      <Box className={classes.container}>
+      <Box className={classes.container} ref={containerRef}>
         <Typography variant="h2">{t('pistelaskuri.heading')}</Typography>
         {tulos == null && (
           <Typography className={classes.info}>{t('pistelaskuri.info')}</Typography>
         )}
-        <Pistelaskuri updateTulos={updateTulos} tulos={tulos} closeFn={closeFn} />
+        <Pistelaskuri
+          updateTulos={updateTulos}
+          tulos={tulos}
+          closeFn={closeFn}
+          rootRef={containerRef}
+        />
         <IconButton
           aria-label={t('sulje')}
           className={classes.closeIcon}

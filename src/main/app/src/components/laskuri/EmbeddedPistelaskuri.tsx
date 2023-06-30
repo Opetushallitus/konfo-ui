@@ -10,7 +10,11 @@ import {
 
 import { HakupisteLaskelma } from './Keskiarvo';
 
-export const EmbeddedPistelaskuri = () => {
+type Props = {
+  rootRef: React.MutableRefObject<HTMLDivElement | null>;
+};
+
+export const EmbeddedPistelaskuri = ({ rootRef }: Props) => {
   const [tulos, setTulos] = useState<HakupisteLaskelma | null>(null);
   const dispatch = useDispatch();
   const hakukohde = useLaskuriHakukohde();
@@ -21,5 +25,12 @@ export const EmbeddedPistelaskuri = () => {
     }
   }, [hakukohde, dispatch]);
 
-  return <Pistelaskuri updateTulos={setTulos} embedded={true} tulos={tulos} />;
+  return (
+    <Pistelaskuri
+      updateTulos={setTulos}
+      embedded={true}
+      tulos={tulos}
+      rootRef={rootRef}
+    />
+  );
 };

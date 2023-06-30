@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 
 import { Grid } from '@mui/material';
 import { styled } from '@mui/material/styles';
@@ -51,6 +51,8 @@ export const Sivu = ({ id }) => {
 
   const { hash } = useLocation();
 
+  const rootRef = useRef(null);
+
   useLayoutEffect(() => {
     const el = hash === '#' ? null : document.getElementById(hash.substring(1));
     if (el) {
@@ -66,7 +68,7 @@ export const Sivu = ({ id }) => {
   const tableOfContents = page.tableOfContents === 'true';
 
   return (
-    <Root className={classes.component}>
+    <Root ref={rootRef} className={classes.component}>
       <Grid
         container
         direction="row"
@@ -88,7 +90,7 @@ export const Sivu = ({ id }) => {
         <Grid item xs={12} sm={12} md={tableOfContents ? 7 : 6}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12} md={12}>
-              <Sisalto content={content} />
+              <Sisalto content={content} rootRef={rootRef} />
             </Grid>
           </Grid>
         </Grid>
