@@ -86,7 +86,9 @@ export const ResultSphere = ({
             colors.kkMagenta,
           ]
         }
-        containerComponent={<VictoryContainer responsive={false} />}
+        containerComponent={
+          <VictoryContainer responsive={false} style={{ touchAction: 'auto' }} />
+        }
       />
       <Box
         className={

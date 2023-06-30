@@ -39,6 +39,9 @@ const LaskuriContainer = styled(Box)<{ embedded: boolean }>(({ theme, embedded }
       '&:hover': {
         borderColor: colors.black,
       },
+      [theme.breakpoints.down('sm')]: {
+        maxWidth: '100%',
+      },
     },
     [`& .${classes.error}`]: {
       color: colors.red,
