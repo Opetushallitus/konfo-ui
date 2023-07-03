@@ -22,6 +22,9 @@ const classes = {
 
 const LaskuriContainer = styled(Box)<{ embedded: boolean }>(({ theme, embedded }) => ({
   [`& .${classes.inputContainer}`]: {
+    ['&:last-of-type label']: {
+      overflow: 'visible',
+    },
     [theme.breakpoints.down('sm')]: {
       marginTop: '1.5rem',
       '&:first-of-type': {
@@ -182,7 +185,7 @@ export const KeskiarvoLaskuri = ({
         </Grid>
         <Grid item xs={1} sm={1} md={embedded ? 3 : 1} className={classes.inputContainer}>
           <InputLabel>
-            <Typography sx={{ fontWeight: '600', overflow: 'visible' }}>
+            <Typography sx={{ fontWeight: '600' }}>
               {t('pistelaskuri.ka-kaikki')}
             </Typography>
             <Input
