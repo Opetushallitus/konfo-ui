@@ -20,7 +20,7 @@ const ValinnaisetContainer = styled(Box)<{ embedded: boolean }>(
     flexDirection: embedded ? 'column' : 'row',
     rowGap: '0.5rem',
     position: 'relative',
-    top: '-2.1rem', // lineheight 1.6rem + rowgap 0.5rem
+    top: '-2.1rem', // Offset by lineheight 1.6rem and rowgap 0.5rem to align headers
     [`& .${classes.add}`]: {
       marginRight: '2.7rem',
       alignSelf: 'start',

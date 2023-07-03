@@ -33,7 +33,7 @@ const PainokerroinControl = styled(FormControl)(({ theme }) => ({
   flexDirection: 'column',
   alignItems: 'start',
   position: 'relative',
-  top: '-2.1rem', // lineheight 1.6rem + rowgap 0.5rem
+  top: '-2.1rem', // Offset by lineheight 1.6rem and rowgap 0.5rem to align headers
   [theme.breakpoints.down('sm')]: {
     top: 0,
   },

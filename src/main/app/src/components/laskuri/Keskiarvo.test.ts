@@ -1,5 +1,10 @@
 import { Kouluaine, Kouluaineet } from './aine/Kouluaine';
-import { Keskiarvot, keskiArvotToHakupiste, kouluaineetToHakupiste } from './Keskiarvo';
+import {
+  isValidKeskiarvo,
+  Keskiarvot,
+  keskiArvotToHakupiste,
+  kouluaineetToHakupiste,
+} from './Keskiarvo';
 
 describe('Keskiarvo & Hakupisteet', () => {
   describe('calculates hakupisteet from keskiarvot', () => {
@@ -250,6 +255,17 @@ describe('Keskiarvo & Hakupisteet', () => {
       expect(result.osalasku).toBeDefined();
       expect(result.osalasku?.kaikki).toEqual(12);
       expect(result.osalasku?.taideTaitoAineet).toEqual(0);
+    });
+
+    it('correctly checks validity of keskiarvo', async () => {
+      expect(isValidKeskiarvo('9')).toBeTruthy();
+      expect(isValidKeskiarvo('4')).toBeTruthy();
+      expect(isValidKeskiarvo('10')).toBeTruthy();
+      expect(isValidKeskiarvo('10.1')).toBeFalsy();
+      expect(isValidKeskiarvo('10,1')).toBeFalsy();
+      expect(isValidKeskiarvo('3.9')).toBeFalsy();
+      expect(isValidKeskiarvo('3,9')).toBeFalsy();
+      expect(isValidKeskiarvo('')).toBeTruthy();
     });
   });
 });
