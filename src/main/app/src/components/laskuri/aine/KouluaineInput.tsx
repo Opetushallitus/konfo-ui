@@ -129,7 +129,7 @@ export const KouluaineInput = ({
   const isKieli = isKieliaine(kouluaine);
 
   return (
-    <AineContainer isKieli={isKieli}>
+    <AineContainer isKieli={isKieli} data-testid={`${PREFIX}${kouluaine.nimi}`}>
       {isKieli && (
         <>
           <div className={classes.headerContainer}>
