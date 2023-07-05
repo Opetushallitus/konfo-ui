@@ -94,7 +94,7 @@ export const OppilaitosPage = (props) => {
                       (o) => o.oid === entity?.parentToimipisteOid
                     )
                   ),
-                  link: `/oppilaitososa/${entity?.parentToimipisteOid}`,
+                  link: `/oppilaitos/${entity?.parentToimipisteOid}`,
                 }),
                 {
                   name: localize(entity),

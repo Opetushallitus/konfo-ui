@@ -23,7 +23,7 @@ const OppilaitosOsaList = (props) => {
     .map((osa) => ({
       text: formToimipisteenNimi(osa, oppilaitosOsat),
       image: osa?.oppilaitoksenOsa?.teemakuva || DefaultHeroImage,
-      link: `/oppilaitososa/${osa.oid}`,
+      link: `/oppilaitos/${osa.oid}`,
     }))
     .sort((a, b) => a.text.localeCompare(b.text));
   return (
