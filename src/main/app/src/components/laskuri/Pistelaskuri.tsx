@@ -4,7 +4,6 @@ import { Box, Button, styled } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
-import { scrollIntoView } from '#/src/tools/utils';
 
 import { KeskiarvoAineLaskuri } from './aine/KeskiarvoAineLaskuri';
 import { Kouluaineet } from './aine/Kouluaine';
@@ -126,13 +125,11 @@ export const Pistelaskuri = ({
       ? keskiArvotToHakupiste(keskiarvoToCalculate)
       : kouluaineetToHakupiste(kouluaineetToCalculate);
     updateTulos(laskettuTulos);
-    scrollIntoView(rootRef.current);
   };
 
   const clearTulos = () => {
     LocalStorageUtil.remove(RESULT_STORE_KEY);
     updateTulos(null);
-    scrollIntoView(rootRef.current);
   };
 
   const clearValues = () => {
@@ -151,6 +148,7 @@ export const Pistelaskuri = ({
           updateKeskiarvoToCalculate={setKeskiarvoToCalculate}
           keskiarvot={keskiarvoToCalculate}
           embedded={embedded}
+          rootRef={rootRef}
         />
       )}
       {tulos == null && !useKeskiarvoLaskuri && (
@@ -159,6 +157,7 @@ export const Pistelaskuri = ({
           updateKouluaineetToCalculate={setKouluaineetToCalculate}
           kouluaineet={kouluaineetToCalculate}
           embedded={embedded}
+          rootRef={rootRef}
         />
       )}
       {tulos && (
@@ -166,6 +165,7 @@ export const Pistelaskuri = ({
           tulos={tulos}
           embedded={embedded}
           kouluaineet={kouluaineetToCalculate}
+          rootRef={rootRef}
         />
       )}
       <Box className={classes.buttonWrapper}>

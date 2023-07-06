@@ -5,6 +5,7 @@ import { matches } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
+import { scrollIntoView } from '#/src/tools/utils';
 
 import { SuorittanutCheckbox } from './common/SuorittanutCheckbox';
 import { isValidKeskiarvo, Keskiarvot } from './Keskiarvo';
@@ -71,6 +72,7 @@ type Props = {
   updateKeskiarvoToCalculate: (keskiarvo: Keskiarvot) => void;
   keskiarvot: Keskiarvot;
   embedded: boolean;
+  rootRef: React.MutableRefObject<HTMLDivElement | null>;
 };
 
 const keskiArvotIsEmpty = (kat: Keskiarvot) =>
@@ -81,8 +83,13 @@ export const KeskiarvoLaskuri = ({
   updateKeskiarvoToCalculate,
   keskiarvot,
   embedded,
+  rootRef,
 }: Props) => {
   const { t } = useTranslation();
+
+  useEffect(() => {
+    scrollIntoView(rootRef.current);
+  });
 
   useEffect(() => {
     if (!keskiArvotIsEmpty(keskiarvot)) {
