@@ -14,35 +14,35 @@ const classes = {
   add: `${PREFIX}add`,
 };
 
-const ValinnaisetContainer = styled(Box)<{ embedded: boolean }>(
-  ({ theme, embedded }) => ({
-    display: 'flex',
-    flexDirection: embedded ? 'column' : 'row',
-    rowGap: '0.5rem',
-    position: 'relative',
-    top: '-2.1rem', // Offset by lineheight 1.6rem and rowgap 0.5rem to align headers
-    [`& .${classes.add}`]: {
-      marginRight: '2.7rem',
-      alignSelf: 'start',
-      whiteSpace: 'nowrap',
-      marginTop: embedded ? 0 : '1.6rem',
-      [theme.breakpoints.down('sm')]: {
-        marginTop: '0',
-      },
-    },
-    [`& .${classes.add}.${classes.addFirst}`]: {
-      [theme.breakpoints.up('sm')]: {
-        marginTop: '1.6rem',
-      },
-    },
+const ValinnaisetContainer = styled(Box, {
+  shouldForwardProp: (propName) => propName !== 'embedded',
+})<{ embedded: boolean }>(({ theme, embedded }) => ({
+  display: 'flex',
+  flexDirection: embedded ? 'column' : 'row',
+  rowGap: '0.5rem',
+  position: 'relative',
+  top: '-2.1rem', // Offset by lineheight 1.6rem and rowgap 0.5rem to align headers
+  [`& .${classes.add}`]: {
+    marginRight: '2.7rem',
+    alignSelf: 'start',
+    whiteSpace: 'nowrap',
+    marginTop: embedded ? 0 : '1.6rem',
     [theme.breakpoints.down('sm')]: {
-      flexDirection: 'column',
-      alignItems: 'stretch',
-      width: '100%',
-      top: 0,
+      marginTop: '0',
     },
-  })
-);
+  },
+  [`& .${classes.add}.${classes.addFirst}`]: {
+    [theme.breakpoints.up('sm')]: {
+      marginTop: '1.6rem',
+    },
+  },
+  [theme.breakpoints.down('sm')]: {
+    flexDirection: 'column',
+    alignItems: 'stretch',
+    width: '100%',
+    top: 0,
+  },
+}));
 
 type Props = {
   labelId: string;

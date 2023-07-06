@@ -5,7 +5,6 @@ import { isEqual } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
-import { scrollIntoView } from '#/src/tools/utils';
 
 import { AddKieliInput } from './AddKieliInput';
 import { Kouluaineet, Kouluaine, createKieliaine, createKouluaine } from './Kouluaine';
@@ -54,7 +53,6 @@ type Props = {
   updateKouluaineetToCalculate: (kouluaineet: Kouluaineet) => void;
   kouluaineet: Kouluaineet;
   embedded: boolean;
-  rootRef: React.MutableRefObject<HTMLDivElement | null>;
 };
 
 export const KeskiarvoAineLaskuri = ({
@@ -62,13 +60,8 @@ export const KeskiarvoAineLaskuri = ({
   updateKouluaineetToCalculate,
   kouluaineet,
   embedded,
-  rootRef,
 }: Props) => {
   const { t } = useTranslation();
-
-  useEffect(() => {
-    scrollIntoView(rootRef.current);
-  });
 
   useEffect(() => {
     const savedResult = LocalStorageUtil.load(KOULUAINE_STORE_KEY);

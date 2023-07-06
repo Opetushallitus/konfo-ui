@@ -79,7 +79,7 @@ export const sanitizedHTMLParser = (html, ...rest) =>
 export const toId = kebabCase;
 
 export const scrollIntoView = (element) => {
-  element.scrollIntoView({
+  element?.scrollIntoView({
     behavior: 'smooth',
     block: 'start',
   });

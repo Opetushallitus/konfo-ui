@@ -5,7 +5,6 @@ import { matches } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
-import { scrollIntoView } from '#/src/tools/utils';
 
 import { SuorittanutCheckbox } from './common/SuorittanutCheckbox';
 import { isValidKeskiarvo, Keskiarvot } from './Keskiarvo';
@@ -21,7 +20,9 @@ const classes = {
   changeCalcButton: `${PREFIX}changecalcbutton`,
 };
 
-const LaskuriContainer = styled(Box)<{ embedded: boolean }>(({ theme, embedded }) => ({
+const LaskuriContainer = styled(Box, {
+  shouldForwardProp: (propName) => propName !== 'embedded',
+})<{ embedded: boolean }>(({ theme, embedded }) => ({
   [`& .${classes.inputContainer}`]: {
     ['&:last-of-type label']: {
       overflow: 'visible',
@@ -72,7 +73,6 @@ type Props = {
   updateKeskiarvoToCalculate: (keskiarvo: Keskiarvot) => void;
   keskiarvot: Keskiarvot;
   embedded: boolean;
-  rootRef: React.MutableRefObject<HTMLDivElement | null>;
 };
 
 const keskiArvotIsEmpty = (kat: Keskiarvot) =>
@@ -83,13 +83,8 @@ export const KeskiarvoLaskuri = ({
   updateKeskiarvoToCalculate,
   keskiarvot,
   embedded,
-  rootRef,
 }: Props) => {
   const { t } = useTranslation();
-
-  useEffect(() => {
-    scrollIntoView(rootRef.current);
-  });
 
   useEffect(() => {
     if (!keskiArvotIsEmpty(keskiarvot)) {
