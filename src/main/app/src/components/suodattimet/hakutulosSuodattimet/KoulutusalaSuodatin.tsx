@@ -23,7 +23,6 @@ export const KoulutusalaSuodatin = (props: SuodatinComponentProps) => {
       name={t('haku.koulutusalat')}
       values={values}
       handleCheck={handleCheck}
-      isCountVisible={false} // Piilotettu siihen asti kun koulutusalojen lukumäärät saadaan korjattua
     />
   );
 };
