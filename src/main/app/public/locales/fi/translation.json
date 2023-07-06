@@ -672,8 +672,11 @@
       "painotettujaarvosanoja": "Lukiolinjalla on painotettuja arvosanoja keskiarvolaskennassa",
       "painokerroin": "painokerroin"
     },
+    "vaihdalaskin": "Syötä oppiaineiden arvosanat yksitellen",
     "vaihdalaskin-1": "Jos haluat tarkan laskelman, ",
     "vaihdalaskin-2": "kerro oppiaineiden arvosanat yksitellen.",
+    "tyhjenna": "Tyhjennä",
+    "ka-placeholder": "Esim. 8,4",
     "aine": {
       "heading": "Perusopetuksen arvosanat",
       "valinnaisaine": "Valinnaisaine",
@@ -682,10 +685,11 @@
       "addpainokerroin": "+ Lisää painokerroin",
       "removepainokerroin": "Poista painokerroin",
       "painokerroin": "Painokerroin",
-      "painokerroin-placeholder": "esim 1,1",
+      "painokerroin-placeholder": "Esim. 1,1",
       "addlanguage": "+ Lisää Kieli",
       "lukuaineet": "Lukuaineet",
       "taitoaineet": "Taide- ja taitoaineet",
+      "vaihdalaskin": "Arvioi keskiarvot itse",
       "vaihdalaskin-1": "Voit myös ",
       "vaihdalaskin-2": "arvioida keskiarvot itse.",
       "kielikuvaukset": {

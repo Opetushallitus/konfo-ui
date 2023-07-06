@@ -15,6 +15,7 @@ export const COMPLETED_STUDIES_SCORE = 6;
 export const ENSISIJAINEN_SCORE_BONUS = 2;
 export interface Keskiarvot extends LocalStorable {
   lukuaineet: string;
+  lukuaineetPainotettu?: string;
   taideTaitoAineet: string;
   kaikki: string;
   suorittanut: boolean;
@@ -33,6 +34,7 @@ export enum LaskelmaTapa {
 
 export interface HakupisteLaskelma extends LocalStorable {
   keskiarvo: number;
+  keskiarvoPainotettu: number;
   pisteet: number;
   osalasku?: Osalasku;
   tapa: LaskelmaTapa;
@@ -116,7 +118,18 @@ const getMatchingScore = (keskiarvo: number, scoreMap: Array<RangeToScore>): num
 
 const roundKa = (ka: number) => Math.round(ka * 100) / 100;
 
-export const kouluaineetToHakupiste = (kouluaineet: Kouluaineet): HakupisteLaskelma => {
+const lukuaineKeskiarvo = (kouluaineet: Kouluaineet): number => {
+  const lukuaineet: Array<Kouluaine> = kouluaineet.kielet
+    .concat(kouluaineet.lisakielet)
+    .concat(kouluaineet.muutLukuaineet)
+    .filter((aine: Kouluaine) => isEligibleArvosana(aine.arvosana));
+  const lukuaineetOsoittaja: number = sum(
+    lukuaineet.map((aine: Kouluaine) => Number(aine.arvosana))
+  );
+  return roundKa(lukuaineetOsoittaja / lukuaineet.length);
+};
+
+export const lukuaineKeskiarvoPainotettu = (kouluaineet: Kouluaineet): number => {
   const lukuaineet: Array<Kouluaine> = kouluaineet.kielet
     .concat(kouluaineet.lisakielet)
     .concat(kouluaineet.muutLukuaineet)
@@ -140,7 +153,12 @@ export const kouluaineetToHakupiste = (kouluaineet: Kouluaineet): HakupisteLaske
       isEligiblePainokerroin(a.painokerroin) ? painokerroinToNumber(a.painokerroin) : 1
     )
   );
-  const lukuKa = roundKa(lukuaineetOsoittaja / lukuaineetNimittaja);
+  return roundKa(lukuaineetOsoittaja / lukuaineetNimittaja);
+};
+
+export const kouluaineetToHakupiste = (kouluaineet: Kouluaineet): HakupisteLaskelma => {
+  const lukuKa = lukuaineKeskiarvo(kouluaineet);
+  const lukuKaPainotettu = lukuaineKeskiarvoPainotettu(kouluaineet);
   const kaikki = kouluaineet.kielet
     .concat(kouluaineet.lisakielet)
     .concat(kouluaineet.muutLukuaineet)
@@ -157,6 +175,7 @@ export const kouluaineetToHakupiste = (kouluaineet: Kouluaineet): HakupisteLaske
   return keskiArvotToHakupiste(
     {
       lukuaineet: String(lukuKa),
+      lukuaineetPainotettu: String(lukuKaPainotettu),
       taideTaitoAineet: String(taitoKa),
       kaikki: String(kaikkiKa),
       suorittanut: kouluaineet.suorittanut,
@@ -180,6 +199,9 @@ export const keskiArvotToHakupiste = (
   const suorittanutBonus = keskiarvot.suorittanut ? COMPLETED_STUDIES_SCORE : 0;
   return {
     keskiarvo: Number(keskiarvot.lukuaineet.replace(',', '.')),
+    keskiarvoPainotettu: keskiarvot.lukuaineetPainotettu
+      ? Number(keskiarvot.lukuaineetPainotettu.replace(',', '.'))
+      : Number(keskiarvot.lukuaineet.replace(',', '.')),
     pisteet: pisteetKaikki + pisteetTaitoaineet + suorittanutBonus,
     osalasku: {
       kaikki: pisteetKaikki,
@@ -188,4 +210,12 @@ export const keskiArvotToHakupiste = (
     },
     tapa,
   };
+};
+
+export const isValidKeskiarvo = (ka: string) => {
+  const withDot = ka.replace(',', '.');
+  return (
+    '' === ka ||
+    (isNumber(Number(withDot)) && Number(withDot) >= 4 && Number(withDot) <= 10)
+  );
 };

@@ -95,14 +95,14 @@ const PisteGraafiLukio = ({ hakukohde, tulos }: Props) => {
               data={[
                 {
                   x: GRAAFI_MIN_YEAR + graafiYearModifier(years, GraafiBoundary.MIN),
-                  y: tulos.keskiarvo,
+                  y: tulos.keskiarvoPainotettu,
                 },
                 {
                   x: GRAAFI_MAX_YEAR + graafiYearModifier(years, GraafiBoundary.MAX),
-                  y: tulos.keskiarvo,
+                  y: tulos.keskiarvoPainotettu,
                 },
               ]}
-              labels={[formatDouble(tulos.keskiarvo)]}
+              labels={[formatDouble(tulos.keskiarvoPainotettu)]}
               labelComponent={<VictoryLabel renderInPortal dx={isSmall ? 25 : 15} />}
             />
           )}

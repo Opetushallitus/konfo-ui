@@ -5,13 +5,14 @@ import Markdown from 'markdown-to-jsx';
 import { Link as RouterLink } from 'react-router-dom';
 
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
+import { EmbeddedPistelaskuri } from '#/src/components/laskuri/EmbeddedPistelaskuri';
 import { ImageComponent } from '#/src/components/sivu/ImageComponent';
 import { useContentful } from '#/src/hooks/useContentful';
 
 import { Accordion, Summary } from './Accordion';
 import { LinkOrYoutube } from './LinkOrYoutube';
 
-const Sisalto = ({ content, excludeMedia }) => {
+const Sisalto = ({ content, excludeMedia, rootRef }) => {
   const { data, forwardTo } = useContentful();
   const { sivu } = data;
   const isBlank = (str) => {
@@ -79,6 +80,12 @@ const Sisalto = ({ content, excludeMedia }) => {
           },
           sivu: {
             component: SivuLink,
+          },
+          pistelaskuri: {
+            component: EmbeddedPistelaskuri,
+            props: {
+              rootRef: rootRef,
+            },
           },
         },
       }}>

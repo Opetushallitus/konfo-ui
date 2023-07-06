@@ -1,11 +1,17 @@
 import { Kouluaine, Kouluaineet } from './aine/Kouluaine';
-import { Keskiarvot, keskiArvotToHakupiste, kouluaineetToHakupiste } from './Keskiarvo';
+import {
+  isValidKeskiarvo,
+  Keskiarvot,
+  keskiArvotToHakupiste,
+  kouluaineetToHakupiste,
+} from './Keskiarvo';
 
 describe('Keskiarvo & Hakupisteet', () => {
   describe('calculates hakupisteet from keskiarvot', () => {
     const ka = (luku: number, kaikki: number, taito: number): Keskiarvot => {
       return {
         lukuaineet: String(luku),
+        lukuaineetPainotettu: String(luku),
         kaikki: String(kaikki),
         taideTaitoAineet: String(taito),
         suorittanut: true,
@@ -149,11 +155,15 @@ describe('Keskiarvo & Hakupisteet', () => {
     const convertAndVerify = (
       kouluaineet: Kouluaineet,
       expectedPisteet: number,
-      expectedKeskiarvo: number
+      expectedKeskiarvo: number,
+      expectedKeskiarvoPainotettu?: number
     ) => {
       const laskelma = kouluaineetToHakupiste(kouluaineet);
       expect(laskelma.keskiarvo).toEqual(expectedKeskiarvo);
       expect(laskelma.pisteet).toEqual(expectedPisteet);
+      if (expectedKeskiarvoPainotettu) {
+        expect(laskelma.keskiarvoPainotettu).toEqual(expectedKeskiarvoPainotettu);
+      }
     };
 
     it('calculates pisteet using single kouluaine', () => {
@@ -176,9 +186,9 @@ describe('Keskiarvo & Hakupisteet', () => {
     });
 
     it('calculates pisteet using single kouluaine with painokerroin', () => {
-      convertAndVerify(aineet([aine(10, [], '2')], 'kielet'), 22, 10);
-      convertAndVerify(aineet([aine(10, [], '5')], 'kielet'), 22, 10);
-      convertAndVerify(aineet([aine(6, [], '2.5')], 'kielet'), 9, 6);
+      convertAndVerify(aineet([aine(10, [], '2')], 'kielet'), 22, 10, 10);
+      convertAndVerify(aineet([aine(10, [], '5')], 'kielet'), 22, 10, 10);
+      convertAndVerify(aineet([aine(6, [], '2.5')], 'kielet'), 9, 6, 6);
     });
 
     it('calculcates pisteet using multiple kouluaineet', () => {
@@ -198,28 +208,42 @@ describe('Keskiarvo & Hakupisteet', () => {
     });
 
     it('calculcates pisteet using multiple kouluaineet with painokerroin', () => {
-      convertAndVerify(aineet([aine(10, [], '2'), aine(4, [], '')], 'kielet'), 13, 8);
-      convertAndVerify(aineet([aine(10, [], ''), aine(4, [], '2')], 'kielet'), 13, 6);
-      convertAndVerify(aineet([aine(10, [], ''), aine(4, [], '3')], 'kielet'), 13, 5.5);
-      convertAndVerify(aineet([aine(10, [], '3'), aine(5, [], '3')], 'kielet'), 15, 7.5);
+      convertAndVerify(aineet([aine(10, [], '2'), aine(4, [], '')], 'kielet'), 13, 7, 8);
+      convertAndVerify(aineet([aine(10, [], ''), aine(4, [], '2')], 'kielet'), 13, 7, 6);
+      convertAndVerify(
+        aineet([aine(10, [], ''), aine(4, [], '3')], 'kielet'),
+        13,
+        7,
+        5.5
+      );
+      convertAndVerify(
+        aineet([aine(10, [], '3'), aine(5, [], '3')], 'kielet'),
+        15,
+        7.5,
+        7.5
+      );
       convertAndVerify(
         aineet([aine(10, [], ''), aine(5, [], '3'), aine(10, [], '2')], 'kielet'),
         18,
+        8.33,
         7.5
       );
       convertAndVerify(
         aineet([aine(7, [], '2'), aine(9, [], '2'), aine(8, [], '2')], 'kielet'),
         17,
+        8,
         8
       );
       convertAndVerify(
         aineet([aine(7, [], '1'), aine(9, [], '5'), aine(8, [], '2')], 'kielet'),
         17,
+        8,
         8.5
       );
       convertAndVerify(
         aineet([aine(7, [], '3'), aine(9, [], '2'), aine(8, [], '5')], 'kielet'),
         17,
+        8,
         7.9
       );
     });
@@ -231,6 +255,17 @@ describe('Keskiarvo & Hakupisteet', () => {
       expect(result.osalasku).toBeDefined();
       expect(result.osalasku?.kaikki).toEqual(12);
       expect(result.osalasku?.taideTaitoAineet).toEqual(0);
+    });
+
+    it('correctly checks validity of keskiarvo', async () => {
+      expect(isValidKeskiarvo('9')).toBeTruthy();
+      expect(isValidKeskiarvo('4')).toBeTruthy();
+      expect(isValidKeskiarvo('10')).toBeTruthy();
+      expect(isValidKeskiarvo('10.1')).toBeFalsy();
+      expect(isValidKeskiarvo('10,1')).toBeFalsy();
+      expect(isValidKeskiarvo('3.9')).toBeFalsy();
+      expect(isValidKeskiarvo('3,9')).toBeFalsy();
+      expect(isValidKeskiarvo('')).toBeTruthy();
     });
   });
 });

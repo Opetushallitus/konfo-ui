@@ -17,10 +17,13 @@ export const pistelaskuriSlice = createSlice({
     setHakukohde: (state, action: PayloadAction<Hakukohde>) => {
       state.hakukohde = action.payload;
     },
+    unsetHakukohde: (state) => {
+      state.hakukohde = undefined;
+    },
   },
 });
 
 export const useLaskuriHakukohde = () =>
   useSelector((state: ReduxTodo) => state.pistelaskuri.hakukohde);
 
-export const { setHakukohde } = pistelaskuriSlice.actions;
+export const { setHakukohde, unsetHakukohde } = pistelaskuriSlice.actions;

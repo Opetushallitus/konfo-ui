@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { OpenInNew } from '@mui/icons-material';
-import { Box, Typography, styled, Paper } from '@mui/material';
+import { Box, Typography, styled, Paper, useTheme, useMediaQuery } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -12,12 +12,11 @@ import { useLaskuriHakukohde } from '#/src/store/reducers/pistelaskuriSlice';
 import { kopioiKouluaineetPainokertoimilla, Kouluaineet } from './aine/Kouluaine';
 import {
   HakupisteLaskelma,
-  kouluaineetToHakupiste,
   LaskelmaTapa,
+  lukuaineKeskiarvoPainotettu,
   Osalasku,
 } from './Keskiarvo';
-import { KOULUAINE_STORE_KEY, LocalStorageUtil } from './LocalStorageUtil';
-import { hasPainokertoimia } from './PisteLaskuriUtil';
+import { hasManualPainokertoimia, hasPainokertoimia } from './PisteLaskuriUtil';
 import {
   ResultSphere,
   ResultSpheresAmmatillinen,
@@ -39,6 +38,7 @@ const classes = {
 const TulosContainer = styled(Box)(({ theme }) => ({
   display: 'grid',
   gridTemplateColumns: '1fr 1fr',
+  gridTemplateRows: '1fr auto',
   columnGap: '20px',
   h3: {
     fontSize: '1.25rem',
@@ -51,7 +51,6 @@ const TulosContainer = styled(Box)(({ theme }) => ({
   [`& .${classes.column}`]: {
     display: 'flex',
     flexDirection: 'column',
-    columnGap: '20px',
   },
   [`& .${classes.textContainer}`]: {
     background: colors.greyBg,
@@ -83,13 +82,13 @@ const TulosContainer = styled(Box)(({ theme }) => ({
     [`& .${classes.osalaskutSection}`]: {
       display: 'flex',
       flexDirection: 'row',
-      alignItems: 'top',
       [`& .${classes.osalaskutDisc}`]: {
+        minWidth: '10px',
         width: '10px',
         height: '10px',
         borderRadius: 45,
         marginRight: '0.5rem',
-        marginTop: '7px',
+        marginTop: '0.5rem',
       },
     },
   },
@@ -159,42 +158,51 @@ const Osalaskut = ({ osalasku }: OsalaskutProps) => {
 
 type Props = {
   tulos: HakupisteLaskelma;
+  embedded: boolean;
+  kouluaineet: Kouluaineet;
 };
 
-export const KeskiarvoTulos = ({ tulos }: Props) => {
+export const KeskiarvoTulos = ({ tulos, embedded, kouluaineet }: Props) => {
   const hakukohde = useLaskuriHakukohde();
   const { t } = useTranslation();
 
   const showPainokerroinSphere = () =>
-    tulos.tapa === LaskelmaTapa.LUKUAINEET && hakukohde && hasPainokertoimia(hakukohde);
+    tulos.tapa === LaskelmaTapa.LUKUAINEET &&
+    ((hakukohde && hasPainokertoimia(hakukohde)) ||
+      (embedded && hasManualPainokertoimia(kouluaineet)));
 
   const painotettuKeskiarvo = (): number => {
-    const savedResult = LocalStorageUtil.load(KOULUAINE_STORE_KEY);
-    if (savedResult && hakukohde) {
-      const aineet = savedResult as Kouluaineet;
+    if (hakukohde) {
       const modifiedAineet = kopioiKouluaineetPainokertoimilla(
-        aineet,
+        kouluaineet,
         hakukohde.hakukohteenLinja?.painotetutArvosanat || []
       );
-      return kouluaineetToHakupiste(modifiedAineet).keskiarvo;
+      return lukuaineKeskiarvoPainotettu(modifiedAineet);
     }
-    return tulos.keskiarvo;
+    return tulos.keskiarvoPainotettu;
   };
+
+  const theme = useTheme();
+  const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
     <TulosContainer>
+      <Typography variant="h3">{t('pistelaskuri.lukio.header')}</Typography>
+      {!isSmall && (
+        <Typography variant="h3">{t('pistelaskuri.ammatillinen.header')}</Typography>
+      )}
       <Box className={classes.column}>
-        <Typography variant="h3">{t('pistelaskuri.lukio.header')}</Typography>
-        {!showPainokerroinSphere() && (
-          <ResultSphere
-            results={[tulos.keskiarvo]}
-            text={t('pistelaskuri.pisteet.lukio')}
-          />
-        )}
-        {showPainokerroinSphere() && (
+        {showPainokerroinSphere() ? (
           <ResultSpheresLukio
             keskiarvo={tulos.keskiarvo}
             painotettuKa={painotettuKeskiarvo()}
+            embedded={embedded}
+          />
+        ) : (
+          <ResultSphere
+            results={[tulos.keskiarvo]}
+            text={t('pistelaskuri.pisteet.lukio')}
+            embedded={embedded}
           />
         )}
         <Paper className={classes.textContainer} elevation={0}>
@@ -207,10 +215,16 @@ export const KeskiarvoTulos = ({ tulos }: Props) => {
           <LinkToValintaPerusteet />
         </Paper>
       </Box>
-      <Box className={classes.column}>
+      {isSmall && (
         <Typography variant="h3">{t('pistelaskuri.ammatillinen.header')}</Typography>
-        {tulos.osalasku && <ResultSpheresAmmatillinen osalasku={tulos.osalasku} />}
-        {tulos.osalasku && <Osalaskut osalasku={tulos.osalasku} />}
+      )}
+      <Box className={classes.column}>
+        {tulos.osalasku && (
+          <>
+            <ResultSpheresAmmatillinen osalasku={tulos.osalasku} embedded={embedded} />
+            <Osalaskut osalasku={tulos.osalasku} />
+          </>
+        )}
         <Paper className={classes.textContainer} elevation={0}>
           <Typography
             variant="body1"
