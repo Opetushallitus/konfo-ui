@@ -20,7 +20,9 @@ const classes = {
   gradeLabel: `${PREFIX}gradelabel`,
 };
 
-const AineContainer = styled(Box)<{ isKieli: boolean }>(({ theme, isKieli }) => ({
+const AineContainer = styled(Box, {
+  shouldForwardProp: (propName) => propName !== 'isKieli',
+})<{ isKieli: boolean }>(({ theme, isKieli }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'start',
