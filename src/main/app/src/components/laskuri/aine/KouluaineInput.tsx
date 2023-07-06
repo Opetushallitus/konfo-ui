@@ -133,13 +133,11 @@ export const KouluaineInput = ({
       {isKieli && (
         <>
           <div className={classes.headerContainer}>
-            <Typography className={classes.header}>
-              {t(kouluaine.nimi)}
-              <LabelTooltip
-                title={t(kouluaine.kuvaus)}
-                sx={{ marginLeft: '3px', color: colors.brandGreen }}
-              />
-            </Typography>
+            <Typography className={classes.header}>{t(kouluaine.nimi)}</Typography>
+            <LabelTooltip
+              title={t(kouluaine.kuvaus)}
+              sx={{ marginLeft: '3px', marginBottom: '3px', color: colors.brandGreen }}
+            />
           </div>
           <KieliSelect aine={kouluaine} updateKieli={handleKieliChange} />
         </>

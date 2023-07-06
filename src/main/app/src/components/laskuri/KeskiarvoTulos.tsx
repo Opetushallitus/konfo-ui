@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { OpenInNew } from '@mui/icons-material';
 import { Box, Typography, styled, Paper, useTheme, useMediaQuery } from '@mui/material';
@@ -8,6 +8,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { colors } from '#/src/colors';
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
 import { useLaskuriHakukohde } from '#/src/store/reducers/pistelaskuriSlice';
+import { scrollIntoView } from '#/src/tools/utils';
 
 import { kopioiKouluaineetPainokertoimilla, Kouluaineet } from './aine/Kouluaine';
 import {
@@ -160,11 +161,16 @@ type Props = {
   tulos: HakupisteLaskelma;
   embedded: boolean;
   kouluaineet: Kouluaineet;
+  rootRef: React.MutableRefObject<HTMLDivElement | null>;
 };
 
-export const KeskiarvoTulos = ({ tulos, embedded, kouluaineet }: Props) => {
+export const KeskiarvoTulos = ({ tulos, embedded, kouluaineet, rootRef }: Props) => {
   const hakukohde = useLaskuriHakukohde();
   const { t } = useTranslation();
+
+  useEffect(() => {
+    scrollIntoView(rootRef.current);
+  });
 
   const showPainokerroinSphere = () =>
     tulos.tapa === LaskelmaTapa.LUKUAINEET &&
