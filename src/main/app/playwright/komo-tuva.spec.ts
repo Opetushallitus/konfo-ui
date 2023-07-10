@@ -33,6 +33,13 @@ test.describe('TUVA KOMO', () => {
     await expect(kuvaus.getByTestId('eperuste-linkki')).toBeHidden();
   });
 
+  test('renders kuvaus with a link to ePerusteet if koulutus has ePerusteid', async ({
+    page,
+  }) => {
+    await page.goto('/konfo/fi/koulutus/1.2.246.562.13.00000000000000000625');
+    await expect(page.getByTestId('kuvaus').getByTestId('eperuste-linkki')).toBeVisible();
+  });
+
   test('renders kuvaus with a link to ePerusteet', async ({ page }) => {
     await page.goto('/konfo/fi/koulutus/1.2.246.562.13.00000000000000000624');
     await expect(page.getByTestId('kuvaus').getByTestId('eperuste-linkki')).toBeVisible();

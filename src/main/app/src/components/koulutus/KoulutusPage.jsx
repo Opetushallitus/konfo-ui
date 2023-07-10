@@ -153,7 +153,7 @@ const Kuvaus = ({ koulutus }) => {
       html={createKoulutusHtml()}
       className={classes.root}
       additionalContent={
-        !isEmpty(koulutus?.linkkiEPerusteisiin) && (
+        (!isEmpty(koulutus?.linkkiEPerusteisiin) && (
           <ExternalLink
             target="_blank"
             rel="noopener"
@@ -162,7 +162,21 @@ const Kuvaus = ({ koulutus }) => {
             data-testid="eperuste-linkki">
             {t('koulutus.eperuste-linkki')}
           </ExternalLink>
-        )
+        )) ||
+        (koulutus?.ePerusteId && (
+          <ExternalLink
+            target="_blank"
+            rel="noopener"
+            href={urls.url(
+              'eperusteet-service.eperuste.tiedot',
+              getLanguage(),
+              koulutus?.ePerusteId
+            )}
+            className={classes.linkButton}
+            data-testid="eperuste-linkki">
+            {t('koulutus.eperuste-linkki')}
+          </ExternalLink>
+        ))
       }
     />
   ) : null;
