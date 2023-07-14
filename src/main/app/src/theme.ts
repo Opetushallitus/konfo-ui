@@ -211,7 +211,7 @@ export const theme = createTheme({
     MuiLink: {
       defaultProps: {
         component: LocalizedLink,
-      } as LinkProps,
+      } as LinkProps, // https://mui.com/material-ui/guides/routing/#global-theme-link
       styleOverrides: {
         root: {
           cursor: 'pointer',
