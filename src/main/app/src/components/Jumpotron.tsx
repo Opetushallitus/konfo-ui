@@ -21,8 +21,6 @@ const PREFIX = 'Jumpotron';
 const classes = {
   callToAction: `${PREFIX}-callToAction`,
   jumpotron: `${PREFIX}-jumpotron`,
-  title: `${PREFIX}-title`,
-  subheader: `${PREFIX}-subheader`,
   content: `${PREFIX}-content`,
 };
 
@@ -35,34 +33,27 @@ const Root = styled('div')(({ theme }) => ({
 
   [`& .${classes.jumpotron}`]: {
     backgroundColor: colors.brandGreen,
+    minWidth: 800,
+    padding: '50px',
     [theme.breakpoints.down('lg')]: {
       minWidth: 600,
     },
     [theme.breakpoints.down('md')]: {
       minWidth: 200,
-    },
-    [theme.breakpoints.up('lg')]: {
-      minWidth: 800,
+      padding: '20px',
     },
   },
+}));
 
-  [`& .${classes.title}`]: {
-    color: colors.white,
-    fontSize: '40px',
-    fontWeight: 'bold',
-    letterSpacing: '-1.5px',
-    lineHeight: '48px',
-  },
-
-  [`& .${classes.subheader}`]: {
-    color: colors.white,
-    fontSize: '16px',
-    lineHeight: '27px',
-  },
-
-  [`& .${classes.content}`]: {
-    paddingTop: 0,
-    paddingBottom: 0,
+const JumpotronTitle = styled('h1')(({ theme }) => ({
+  color: colors.white,
+  fontSize: '40px',
+  fontWeight: 'bold',
+  lineHeight: '50px',
+  marginTop: 0,
+  [theme.breakpoints.down('md')]: {
+    fontSize: '20px',
+    lineHeight: '26px',
   },
 }));
 
@@ -82,51 +73,47 @@ export const Jumpotron = () => {
         <Grid item xs={12} sm={12} md={10} lg={8}>
           <ReactiveBorder>
             <Card className={classes.jumpotron}>
-              <ReactiveBorder>
-                <CardHeader
-                  disableTypography={true}
-                  title={<h1 className={classes.title}>{t('jumpotron.otsikko')}</h1>}
-                  subheader={
-                    <p className={classes.subheader}>{t('jumpotron.esittely')}</p>
+              <CardHeader
+                sx={{ padding: 0 }}
+                disableTypography={true}
+                title={<JumpotronTitle>{t('jumpotron.otsikko')}</JumpotronTitle>}
+              />
+              <CardContent sx={{ padding: 0 }}>
+                <Hakupalkki
+                  rajaaButton={
+                    isEmpty(koulutusFilters) ? null : (
+                      <RajaaPopoverButton
+                        setAnchorEl={setAnchorEl}
+                        isPopoverOpen={isPopoverOpen}
+                        isLoading={isFetching}
+                      />
+                    )
                   }
                 />
-                <CardContent className={classes.content}>
-                  <Hakupalkki
-                    rajaaButton={
-                      isEmpty(koulutusFilters) ? null : (
-                        <RajaaPopoverButton
-                          setAnchorEl={setAnchorEl}
-                          isPopoverOpen={isPopoverOpen}
-                          isLoading={isFetching}
-                        />
-                      )
-                    }
-                  />
-                  {!isEmpty(koulutusFilters) && (
-                    <RajaimetPopover anchorEl={anchorEl} setAnchorEl={setAnchorEl} />
-                  )}
-                  <Box
-                    display="flex"
-                    flexDirection="row-reverse"
-                    width="100%"
-                    justifyContent="space-between"
-                    alignItems="flex-end">
-                    <LocalizedLink
-                      component={RouterLink}
-                      to="/haku"
-                      sx={{
-                        marginTop: 0,
-                        textDecoration: 'underline',
-                        color: 'white',
-                      }}>
-                      {t('jumpotron.naytakaikki')}
-                    </LocalizedLink>
-                    <Hidden mdUp>
-                      <MobileFiltersOnTopMenu isButtonInline={true} />
-                    </Hidden>
-                  </Box>
-                </CardContent>
-              </ReactiveBorder>
+                {!isEmpty(koulutusFilters) && (
+                  <RajaimetPopover anchorEl={anchorEl} setAnchorEl={setAnchorEl} />
+                )}
+                <Box
+                  display="flex"
+                  flexDirection="row-reverse"
+                  width="100%"
+                  justifyContent="space-between"
+                  alignItems="flex-end">
+                  <LocalizedLink
+                    component={RouterLink}
+                    to="/haku"
+                    sx={{
+                      marginTop: 0,
+                      textDecoration: 'underline',
+                      color: 'white',
+                    }}>
+                    {t('jumpotron.naytakaikki')}
+                  </LocalizedLink>
+                  <Hidden mdUp>
+                    <MobileFiltersOnTopMenu isButtonInline={true} />
+                  </Hidden>
+                </Box>
+              </CardContent>
             </Card>
           </ReactiveBorder>
         </Grid>
