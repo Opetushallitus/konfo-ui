@@ -49,11 +49,11 @@ const JumpotronTitle = styled('h1')(({ theme }) => ({
   color: colors.white,
   fontSize: '40px',
   fontWeight: 'bold',
-  lineHeight: '50px',
+  lineHeight: '54px',
   marginTop: 0,
   [theme.breakpoints.down('md')]: {
-    fontSize: '20px',
-    lineHeight: '26px',
+    fontSize: '22px',
+    lineHeight: '30px',
   },
 }));
 
