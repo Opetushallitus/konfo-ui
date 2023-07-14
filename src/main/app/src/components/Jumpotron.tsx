@@ -1,8 +1,17 @@
 import React, { useState } from 'react';
 
-import { Grid, Box, Hidden, Paper, Button } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import { isEmpty } from 'lodash';
+import {
+  Grid,
+  Box,
+  Hidden,
+  Paper,
+  Button,
+  useMediaQuery,
+  Link,
+  ButtonProps,
+} from '@mui/material';
+import { useTheme, styled } from '@mui/system';
+import { isEmpty, castArray } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import Image from '#/src/assets/images/o-EDUCATION-facebook.jpg';
@@ -14,50 +23,28 @@ import { MobileFiltersOnTopMenu } from './haku/MobileFiltersOnTopMenu';
 import { RajaaPopoverButton, RajaimetPopover } from './haku/RajaimetPopover';
 import { ReactiveBorder } from './ReactiveBorder';
 
-const PREFIX = 'Jumpotron';
-
-const classes = {
-  callToAction: `${PREFIX}-callToAction`,
-  jumpotron: `${PREFIX}-jumpotron`,
-  content: `${PREFIX}-content`,
-  button: `${PREFIX}-button`,
-};
-
-const Root = styled('div')(({ theme }) => ({
+const Root = styled('div', { name: 'JumpotronRoot' })({
   backgroundImage: `url(${Image})`,
   backgroundRepeat: 'no-repeat',
   backgroundSize: 'cover',
   backgroundPosition: 'center',
   display: 'block',
+});
 
-  [`& .${classes.jumpotron}`]: {
-    backgroundColor: colors.brandGreen,
-    minWidth: 800,
-    padding: '50px',
-    [theme.breakpoints.down('lg')]: {
-      minWidth: 600,
-    },
-    [theme.breakpoints.down('md')]: {
-      minWidth: 200,
-      padding: '20px',
-    },
+const JumpotronPaper = styled(Paper, { name: 'JumpotronPaper' })(({ theme }) => ({
+  backgroundColor: colors.brandGreen,
+  minWidth: 800,
+  padding: '50px',
+  [theme.breakpoints.down('lg')]: {
+    minWidth: 600,
   },
-  [`& .${classes.button}`]: {
-    color: colors.white,
-    borderColor: colors.white,
-    borderRadius: 3,
-    padding: '5px 5%',
-    margin: '5px 5px',
-    fontSize: '14px',
-    fontWeight: 'bold',
-    [`&:hover`]: {
-      backgroundColor: 'transparent',
-      borderColor: colors.white,
-    },
+  [theme.breakpoints.down('md')]: {
+    minWidth: 200,
+    padding: '20px',
   },
 }));
 
-const JumpotronTitle = styled('h1')(({ theme }) => ({
+const JumpotronTitle = styled('h1', { name: 'JumpotronTitle' })(({ theme }) => ({
   color: colors.white,
   fontSize: '40px',
   fontWeight: 'bold',
@@ -69,13 +56,44 @@ const JumpotronTitle = styled('h1')(({ theme }) => ({
   },
 }));
 
-const ShowAllResultsLink = () => {
-  const { t } = useTranslation();
+type OutlinedInvertedButtonProps = Omit<ButtonProps, 'variant' | 'color'> & {
+  accentColor?: string;
+};
 
-  return (
-    <Button href="/haku" variant="outlined" className={classes.button}>
-      {t('jumpotron.naytakaikki')}
-    </Button>
+const OutlinedInvertedButton = React.forwardRef<
+  HTMLButtonElement,
+  OutlinedInvertedButtonProps
+>(({ accentColor = 'transparent', sx, ...props }, ref) => (
+  <Button
+    {...props}
+    ref={ref}
+    variant="outlined"
+    color="inverted"
+    sx={[
+      {
+        color: 'white',
+        backgroundColor: accentColor,
+        borderColor: 'white',
+      },
+      ...castArray(sx).filter(Boolean),
+    ]}
+  />
+));
+
+const ShowAllResultsLink = ({ children }: React.PropsWithChildren) => {
+  const theme = useTheme();
+  const isSmall = useMediaQuery(theme.breakpoints.down('md'));
+
+  return isSmall ? (
+    <Link
+      href="/haku"
+      sx={{ marginTop: '3px', color: 'white', textDecoration: 'underline' }}>
+      {children}
+    </Link>
+  ) : (
+    <OutlinedInvertedButton href="/haku" sx={{ marginTop: 1 }}>
+      {children}
+    </OutlinedInvertedButton>
   );
 };
 
@@ -90,11 +108,11 @@ export const Jumpotron = () => {
   const koulutusFilters = koulutusData?.filters;
 
   return (
-    <Root className={classes.callToAction}>
+    <Root>
       <Grid container direction="row" justifyContent="flex-start" alignItems="center">
         <Grid item xs={12} sm={12} md={10} lg={8}>
           <ReactiveBorder>
-            <Paper className={classes.jumpotron}>
+            <JumpotronPaper>
               <Box>
                 <JumpotronTitle>{t('jumpotron.otsikko')}</JumpotronTitle>
               </Box>
@@ -119,13 +137,13 @@ export const Jumpotron = () => {
                   width="100%"
                   justifyContent="space-between"
                   alignItems="stretch">
-                  <ShowAllResultsLink />
+                  <ShowAllResultsLink>{t('jumpotron.naytakaikki')}</ShowAllResultsLink>
                   <Hidden mdUp>
                     <MobileFiltersOnTopMenu isButtonInline={true} />
                   </Hidden>
                 </Box>
               </Box>
-            </Paper>
+            </JumpotronPaper>
           </ReactiveBorder>
         </Grid>
       </Grid>
