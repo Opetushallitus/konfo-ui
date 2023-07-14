@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Grid, Card, CardHeader, CardContent, Box, Hidden } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { styled, useTheme } from '@mui/material/styles';
 import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
@@ -57,6 +57,34 @@ const JumpotronTitle = styled('h1')(({ theme }) => ({
   },
 }));
 
+const ShowAllResultsLink = () => {
+  const { t } = useTranslation();
+
+  const theme = useTheme();
+
+  return (
+    <LocalizedLink
+      component={RouterLink}
+      to="/haku"
+      sx={{
+        marginTop: '20px',
+        color: 'white',
+        border: '2px solid white',
+        borderRadius: '2px',
+        padding: '8px 30px',
+        textDecoration: 'none',
+        [theme.breakpoints.down('md')]: {
+          marginTop: '5px',
+          border: 'none',
+          textDecoration: 'underline',
+          padding: 0,
+        },
+      }}>
+      {t('jumpotron.naytakaikki')}
+    </LocalizedLink>
+  );
+};
+
 export const Jumpotron = () => {
   const { t } = useTranslation();
 
@@ -95,20 +123,11 @@ export const Jumpotron = () => {
                 )}
                 <Box
                   display="flex"
-                  flexDirection="row-reverse"
+                  flexDirection="row"
                   width="100%"
                   justifyContent="space-between"
-                  alignItems="flex-end">
-                  <LocalizedLink
-                    component={RouterLink}
-                    to="/haku"
-                    sx={{
-                      marginTop: 0,
-                      textDecoration: 'underline',
-                      color: 'white',
-                    }}>
-                    {t('jumpotron.naytakaikki')}
-                  </LocalizedLink>
+                  alignItems="stretch">
+                  <ShowAllResultsLink />
                   <Hidden mdUp>
                     <MobileFiltersOnTopMenu isButtonInline={true} />
                   </Hidden>
