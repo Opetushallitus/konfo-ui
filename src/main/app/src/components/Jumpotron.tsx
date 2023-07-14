@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Grid, Card, CardHeader, CardContent, Box, Hidden } from '@mui/material';
+import { Grid, Box, Hidden, Paper } from '@mui/material';
 import { styled, useTheme } from '@mui/material/styles';
 import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -100,13 +100,11 @@ export const Jumpotron = () => {
       <Grid container direction="row" justifyContent="flex-start" alignItems="center">
         <Grid item xs={12} sm={12} md={10} lg={8}>
           <ReactiveBorder>
-            <Card className={classes.jumpotron}>
-              <CardHeader
-                sx={{ padding: 0 }}
-                disableTypography={true}
-                title={<JumpotronTitle>{t('jumpotron.otsikko')}</JumpotronTitle>}
-              />
-              <CardContent sx={{ padding: 0 }}>
+            <Paper className={classes.jumpotron}>
+              <Box>
+                <JumpotronTitle>{t('jumpotron.otsikko')}</JumpotronTitle>
+              </Box>
+              <Box>
                 <Hakupalkki
                   rajaaButton={
                     isEmpty(koulutusFilters) ? null : (
@@ -132,8 +130,8 @@ export const Jumpotron = () => {
                     <MobileFiltersOnTopMenu isButtonInline={true} />
                   </Hidden>
                 </Box>
-              </CardContent>
-            </Card>
+              </Box>
+            </Paper>
           </ReactiveBorder>
         </Grid>
       </Grid>
