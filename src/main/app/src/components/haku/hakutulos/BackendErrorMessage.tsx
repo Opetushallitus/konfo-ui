@@ -1,13 +1,11 @@
 import React from 'react';
 
 import { ErrorOutline } from '@mui/icons-material';
-import { Avatar, Button, Grid, Paper, Typography } from '@mui/material';
+import { Avatar, Button, Grid, Link, Paper, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
-import { Link as RouterLink } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
-import { LocalizedLink } from '#/src/components/common/LocalizedLink';
 
 const PREFIX = 'BackendErrorMessage';
 
@@ -93,9 +91,9 @@ export const BackendErrorMessage = () => {
         </Paper>
       </Grid>
       <Grid item>
-        <LocalizedLink underline="always" component={RouterLink} to="/" variant="body1">
+        <Link underline="always" href="/" variant="body1">
           {t('haku.siirry-opintopolun-etusivulle')}
-        </LocalizedLink>
+        </Link>
       </Grid>
     </StyledGrid>
   );

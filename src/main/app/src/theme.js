@@ -2,6 +2,7 @@ import { createTheme } from '@mui/material';
 import createBreakpoints from '@mui/system/createTheme/createBreakpoints';
 
 import { colors } from './colors';
+import { LocalizedLink } from './components/common/LocalizedLink';
 
 // Material UI theme customization
 // Learn more: https://mui.com/material-ui/customization/theming/
@@ -137,6 +138,11 @@ export const theme = createTheme({
         },
       },
     },
+    MuiButtonBase: {
+      defaultProps: {
+        LinkComponent: LocalizedLink,
+      },
+    },
     MuiFormLabel: {
       styleOverrides: {
         root: {
@@ -199,6 +205,9 @@ export const theme = createTheme({
       },
     },
     MuiLink: {
+      defaultProps: {
+        component: LocalizedLink,
+      },
       styleOverrides: {
         root: {
           cursor: 'pointer',

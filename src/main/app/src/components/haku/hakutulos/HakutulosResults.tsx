@@ -1,11 +1,9 @@
 import React from 'react';
 
-import { Grid, Typography, useTheme } from '@mui/material';
+import { Grid, Link, Typography, useTheme } from '@mui/material';
 import { size } from 'lodash';
 import { useTranslation } from 'react-i18next';
-import { Link as RouterLink } from 'react-router-dom';
 
-import { LocalizedLink } from '#/src/components/common/LocalizedLink';
 import { useHakutulosWidth } from '#/src/store/reducers/appSlice';
 
 import { KoulutusKortti } from './hakutulosKortit/KoulutusKortti';
@@ -67,9 +65,9 @@ export const HakutulosResults = ({
         <Typography paragraph>{t('haku.summary', { keyword: keyword || '' })}</Typography>
       </Grid>
       <Grid item>
-        <LocalizedLink underline="always" variant="body1" component={RouterLink} to="/">
+        <Link underline="always" variant="body1" href="/">
           {t('haku.siirry-opintopolun-etusivulle')}
-        </LocalizedLink>
+        </Link>
       </Grid>
     </Grid>
   );

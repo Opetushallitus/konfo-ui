@@ -1,13 +1,11 @@
 import React from 'react';
 
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { Grid, Card, CardContent, CardMedia } from '@mui/material';
+import { Grid, Card, CardContent, CardMedia, Link } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import clsx from 'clsx';
-import { Link as RouterLink } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
-import { LocalizedLink } from '#/src/components/common/LocalizedLink';
 import { useContentful } from '#/src/hooks/useContentful';
 
 const PREFIX = 'Kortti';
@@ -89,12 +87,9 @@ const Kortti = ({ id }) => {
             .map((page) => (
               <div className={classes.link} key={page.id}>
                 <ChevronRightIcon />
-                <LocalizedLink
-                  component={RouterLink}
-                  className={classes.linkElement}
-                  to={forwardTo(page.id)}>
+                <Link className={classes.linkElement} href={forwardTo(page.id)}>
                   {page.name}
-                </LocalizedLink>
+                </Link>
               </div>
             ))}
         </CardContent>

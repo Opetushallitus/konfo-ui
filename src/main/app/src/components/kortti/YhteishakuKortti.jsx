@@ -120,7 +120,7 @@ const YhteishakuKortti = ({ id, n }) => {
               <Button
                 xs={4}
                 className={kk ? classes.hakulomakeButtonKk : classes.hakulomakeButton}
-                variant={'outlined'}
+                variant="outlined"
                 href={yhInfo.linkkiHakulomakkeelle}>
                 {yhInfo.tekstiHakulomakkeelle}
               </Button>
@@ -129,7 +129,7 @@ const YhteishakuKortti = ({ id, n }) => {
               <Button
                 xs={4}
                 className={classes.button}
-                variant={'outlined'}
+                variant="outlined"
                 href={yhInfo.linkkiOhjeisiin}>
                 {yhInfo.tekstiOhjeisiin}
               </Button>
@@ -138,7 +138,7 @@ const YhteishakuKortti = ({ id, n }) => {
               <Button
                 xs={4}
                 className={classes.button}
-                variant={'outlined'}
+                variant="outlined"
                 href={yhInfo.linkkiHakutuloksiin}>
                 {yhInfo.tekstiHakutuloksiin}
               </Button>

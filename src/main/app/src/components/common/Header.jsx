@@ -17,14 +17,12 @@ import Link from '@mui/material/Link';
 import { styled } from '@mui/material/styles';
 import { urls } from 'oph-urls-js';
 import { useTranslation } from 'react-i18next';
-import { Link as RouterLink } from 'react-router-dom';
 
 import { ReactComponent as OPOLogoEN } from '#/src/assets/images/opintopolku_logo_header_en.svg';
 import { ReactComponent as OPOLogoFI } from '#/src/assets/images/opintopolku_logo_header_fi.svg';
 import { ReactComponent as OPOLogoSV } from '#/src/assets/images/opintopolku_logo_header_sv.svg';
 import { colors } from '#/src/colors';
 import BetaBanner from '#/src/components/common/BetaBanner';
-import { LocalizedLink } from '#/src/components/common/LocalizedLink';
 import { theme } from '#/src/theme';
 import { getLanguage } from '#/src/tools/localization';
 
@@ -155,13 +153,9 @@ export const Header = ({
               <Typography className={classes.menuText}>{t('valikko')}</Typography>
             </Box>
           </IconButton>
-          <LocalizedLink
-            component={RouterLink}
-            to="/"
-            title={t('header.siirry-etusivulle')}
-            onClick={refreshSideMenu}>
+          <Link href="/" title={t('header.siirry-etusivulle')} onClick={refreshSideMenu}>
             <OpintopolkuHeaderLogo focusable="false" aria-hidden="true" height="26px" />
-          </LocalizedLink>
+          </Link>
           {showTestiLabel && (
             <Chip
               className={classes.testi}

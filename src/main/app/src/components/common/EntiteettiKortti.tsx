@@ -12,7 +12,6 @@ import {
 import { styled } from '@mui/material/styles';
 import { truncate, trim, isEmpty, isUndefined } from 'lodash';
 import { useTranslation } from 'react-i18next';
-import { Link as RouterLink } from 'react-router-dom';
 
 import { colors, educationTypeColorCode } from '#/src/colors';
 import { AdditionalInfoWithIcon } from '#/src/components/common/AdditionalInfoWithIcon';
@@ -158,12 +157,7 @@ export const EntiteettiKortti = ({
   }
 
   return (
-    <StyledLocalizedLink
-      underline="none"
-      component={RouterLink}
-      to={to}
-      wrapIconTexts={wrapIconTexts}
-      isSmall={isSmall}>
+    <StyledLocalizedLink href={to} wrapIconTexts={wrapIconTexts} isSmall={isSmall}>
       <Paper
         data-testid={header}
         classes={{ root: classes.paperRoot }}

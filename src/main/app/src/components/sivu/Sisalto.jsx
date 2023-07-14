@@ -1,10 +1,8 @@
 import React from 'react';
 
-import { Typography } from '@mui/material';
+import { Link, Typography } from '@mui/material';
 import Markdown from 'markdown-to-jsx';
-import { Link as RouterLink } from 'react-router-dom';
 
-import { LocalizedLink } from '#/src/components/common/LocalizedLink';
 import { EmbeddedPistelaskuri } from '#/src/components/laskuri/EmbeddedPistelaskuri';
 import { ImageComponent } from '#/src/components/sivu/ImageComponent';
 import { useContentful } from '#/src/hooks/useContentful';
@@ -20,9 +18,9 @@ const Sisalto = ({ content, excludeMedia, rootRef }) => {
   };
   const SivuLink = ({ slug, children }) => {
     return sivu[slug] ? (
-      <LocalizedLink component={RouterLink} to={forwardTo(slug)} underline="always">
+      <Link href={forwardTo(slug)} underline="always">
         {isBlank(children ? children[0] : null) ? sivu[slug].name : children}
-      </LocalizedLink>
+      </Link>
     ) : null;
   };
 

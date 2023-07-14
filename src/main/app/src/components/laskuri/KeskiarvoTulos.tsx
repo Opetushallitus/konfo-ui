@@ -1,12 +1,18 @@
 import React from 'react';
 
 import { OpenInNew } from '@mui/icons-material';
-import { Box, Typography, styled, Paper, useTheme, useMediaQuery } from '@mui/material';
+import {
+  Box,
+  Typography,
+  styled,
+  Paper,
+  Link,
+  useTheme,
+  useMediaQuery,
+} from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { Link as RouterLink } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
-import { LocalizedLink } from '#/src/components/common/LocalizedLink';
 import { useLaskuriHakukohde } from '#/src/store/reducers/pistelaskuriSlice';
 
 import { kopioiKouluaineetPainokertoimilla, Kouluaineet } from './aine/Kouluaine';
@@ -97,14 +103,13 @@ const TulosContainer = styled(Box)(({ theme }) => ({
 const LinkToValintaPerusteet = () => {
   const { t } = useTranslation();
   return (
-    <LocalizedLink
+    <Link
       sx={{ fontSize: '0.875rem' }}
-      component={RouterLink}
-      to="sivu/perusopetuksen-jalkeisen-koulutuksen-yhteishaun-valintaperusteet"
+      href="/sivu/perusopetuksen-jalkeisen-koulutuksen-yhteishaun-valintaperusteet"
       title={t('pistelaskuri.valintaperusteet.linkki')}>
       <OpenInNew className={classes.linkIcon} />
       {t('pistelaskuri.valintaperusteet.linkki')}
-    </LocalizedLink>
+    </Link>
   );
 };
 

@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
 
-import { Grid, Box, Hidden, Paper } from '@mui/material';
-import { styled, useTheme } from '@mui/material/styles';
+import { Grid, Box, Hidden, Paper, Button } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
-import { Link as RouterLink } from 'react-router-dom';
 
 import Image from '#/src/assets/images/o-EDUCATION-facebook.jpg';
 import { colors } from '#/src/colors';
 
-import { LocalizedLink } from './common/LocalizedLink';
 import { Hakupalkki } from './haku/Hakupalkki';
 import { useSearch } from './haku/hakutulosHooks';
 import { MobileFiltersOnTopMenu } from './haku/MobileFiltersOnTopMenu';
@@ -22,6 +20,7 @@ const classes = {
   callToAction: `${PREFIX}-callToAction`,
   jumpotron: `${PREFIX}-jumpotron`,
   content: `${PREFIX}-content`,
+  button: `${PREFIX}-button`,
 };
 
 const Root = styled('div')(({ theme }) => ({
@@ -43,6 +42,19 @@ const Root = styled('div')(({ theme }) => ({
       padding: '20px',
     },
   },
+  [`& .${classes.button}`]: {
+    color: colors.white,
+    borderColor: colors.white,
+    borderRadius: 3,
+    padding: '5px 5%',
+    margin: '5px 5px',
+    fontSize: '14px',
+    fontWeight: 'bold',
+    [`&:hover`]: {
+      backgroundColor: 'transparent',
+      borderColor: colors.white,
+    },
+  },
 }));
 
 const JumpotronTitle = styled('h1')(({ theme }) => ({
@@ -60,28 +72,10 @@ const JumpotronTitle = styled('h1')(({ theme }) => ({
 const ShowAllResultsLink = () => {
   const { t } = useTranslation();
 
-  const theme = useTheme();
-
   return (
-    <LocalizedLink
-      component={RouterLink}
-      to="/haku"
-      sx={{
-        marginTop: '20px',
-        color: 'white',
-        border: '2px solid white',
-        borderRadius: '2px',
-        padding: '8px 30px',
-        textDecoration: 'none',
-        [theme.breakpoints.down('md')]: {
-          marginTop: '5px',
-          border: 'none',
-          textDecoration: 'underline',
-          padding: 0,
-        },
-      }}>
+    <Button href="/haku" variant="outlined" className={classes.button}>
       {t('jumpotron.naytakaikki')}
-    </LocalizedLink>
+    </Button>
   );
 };
 

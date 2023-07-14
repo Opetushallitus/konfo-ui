@@ -10,11 +10,12 @@ import {
   CardMedia,
   InputBase,
   Typography,
+  Link,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { isEmpty, trim } from 'lodash';
 import { useTranslation } from 'react-i18next';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import koulutusPlaceholderImg from '#/src/assets/images/Opolkuhts.png';
 import { colors } from '#/src/colors';
@@ -77,7 +78,7 @@ const Result = ({ id, url, image, sivu, assetUrl }: ResultProps) => {
 
   return (
     <Grid item xs={12} key={id}>
-      <LocalizedLink underline="none" component={RouterLink} to={url}>
+      <LocalizedLink href={url}>
         <Card
           classes={{
             root: classes.root,
@@ -203,9 +204,9 @@ export const Sisaltohaku = () => {
                 <span>{t('sisaltohaku.summary', { hakusana: hakusana || '' })}</span>
               </Grid>
               <Grid item xs={12}>
-                <LocalizedLink underline="always" component={RouterLink} to="/">
+                <Link underline="always" href="/">
                   {t('sisaltohaku.takaisin')}
-                </LocalizedLink>
+                </Link>
               </Grid>
             </React.Fragment>
           )

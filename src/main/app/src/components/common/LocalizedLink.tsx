@@ -1,30 +1,39 @@
 import React from 'react';
 
-import { Link } from '@mui/material';
-import { head } from 'lodash';
+import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
+import { Link as RouterLink, LinkProps as RouterLinkProps } from 'react-router-dom';
 
 import { defaultLanguage, supportedLanguages } from '#/src/tools/i18n';
 
-const localizeHref = (href: string, lng: string) =>
-  head(href) === '/' ? `/${lng + href}` : `/${lng}/${href}`;
-
-type Props = {
-  to: string;
-  component?: any;
-  children?: React.ReactNode;
-  [key: string]: any;
+const localizeHref = (href: string | undefined = '', lng: string) => {
+  // Jos linkissä on protokolla tai se alkaa "/konfo" tai "/<kieli>" ei täydennetä linkkiä
+  if (href === '' || href.includes('://') || /^\/(konfo|fi|sv|en)(\/|$)/.test(href)) {
+    return href;
+  } else {
+    // Lisätään kieli URL:ään
+    return href.startsWith('/') ? `/${lng}${href}` : `/${lng}/${href}`;
+  }
 };
 
-export const LocalizedLink = ({ children, to, component, ...rest }: Props) => {
-  const { i18n } = useTranslation();
-  const currentLng = i18n.language;
-  const linkLng = supportedLanguages.includes(currentLng) ? currentLng : defaultLanguage;
-  const usedTo = localizeHref(to, linkLng);
-
-  return (
-    <Link to={usedTo} {...rest} component={component}>
-      {children}
-    </Link>
-  );
+type Props = Omit<RouterLinkProps, 'to'> & {
+  href?: string;
 };
+
+const UnstyledRouterLink = styled(RouterLink)({
+  all: 'unset',
+  cursor: 'pointer',
+});
+
+export const LocalizedLink = React.forwardRef<HTMLAnchorElement, Props>(
+  ({ href, ...rest }, ref) => {
+    const { i18n } = useTranslation();
+    const currentLng = i18n.language;
+    const linkLng = supportedLanguages.includes(currentLng)
+      ? currentLng
+      : defaultLanguage;
+    const realTo = localizeHref(href, linkLng);
+
+    return <UnstyledRouterLink ref={ref} to={realTo} {...rest} />;
+  }
+);

@@ -1,14 +1,13 @@
 import React from 'react';
 
-import { Grid } from '@mui/material';
+import { Grid, Link } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { findKey } from 'lodash';
 import { useTranslation } from 'react-i18next';
-import { useParams, Link as RouterLink, Navigate } from 'react-router-dom';
+import { useParams, Navigate } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
-import { LocalizedLink } from '#/src/components/common/LocalizedLink';
 import { useContentful } from '#/src/hooks/useContentful';
 
 import { Sivu } from './Sivu';
@@ -36,9 +35,7 @@ const NotFound = ({ loading }) => {
         <Grid item xs={12} sm={6} md={6} className={classes.notFound}>
           <h1 className={classes.header1}>{t('sisaltohaku.sivua-ei-löytynyt')}</h1>
           <p>{t('sisaltohaku.etsimääsi-ei-löydy')}</p>
-          <LocalizedLink component={RouterLink} to={'/'}>
-            {t('sisaltohaku.takaisin')}
-          </LocalizedLink>
+          <Link href="/">{t('sisaltohaku.takaisin')}</Link>
         </Grid>
       )}
     </Grid>

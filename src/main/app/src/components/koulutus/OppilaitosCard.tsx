@@ -4,7 +4,6 @@ import PublicIcon from '@mui/icons-material/Public';
 import { Grid, Paper, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
-import { Link as RouterLink } from 'react-router-dom';
 
 import { educationTypeColorCode } from '#/src/colors';
 import { OppilaitosKorttiLogo } from '#/src/components/common/KorttiLogo';
@@ -67,10 +66,7 @@ export const OppilaitosCard = ({
 
   return (
     <StyledGrid item xs={12} sm={6} md={4} tyyppi={tyyppi}>
-      <LocalizedLink
-        underline="none"
-        component={RouterLink}
-        to={`/oppilaitos/${oppilaitosOid}`}>
+      <LocalizedLink href={`/oppilaitos/${oppilaitosOid}`}>
         <Paper className={classes.paper}>
           <Grid
             container

@@ -1,11 +1,9 @@
 import React from 'react';
 
 import ArrowBackIos from '@mui/icons-material/ArrowBackIos';
+import { Link } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
-import { Link as RouterLink } from 'react-router-dom';
-
-import { LocalizedLink } from '#/src/components/common/LocalizedLink';
 
 const PREFIX = 'Paluu';
 
@@ -31,14 +29,13 @@ export const Paluu = ({ paluuLinkki }: Props) => {
   const { t } = useTranslation();
   return (
     <Root className={classes.link}>
-      <LocalizedLink
-        component={RouterLink}
+      <Link
         color="secondary"
         aria-label={t('lomake.palaa-esittelyyn')}
-        to={paluuLinkki}>
+        href={paluuLinkki}>
         <ArrowBackIos className={classes.arrow} />
         {t('lomake.palaa-esittelyyn')}
-      </LocalizedLink>
+      </Link>
     </Root>
   );
 };

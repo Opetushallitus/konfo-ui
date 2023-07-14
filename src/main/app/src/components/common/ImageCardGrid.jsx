@@ -1,11 +1,8 @@
 import React from 'react';
 
-import { Grid, useTheme, useMediaQuery } from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
+import { Grid, useTheme, useMediaQuery, Link } from '@mui/material';
 
 import ImageCardWithText from '#/src/components/common/ImageCardWithText';
-
-import { LocalizedLink } from './LocalizedLink';
 
 export const ImageCardGrid = (props) => {
   const { cards, cardIsLink } = props;
@@ -18,13 +15,7 @@ export const ImageCardGrid = (props) => {
 
         return (
           <Grid item key={`ImageCardWithText-${i}`}>
-            {cardIsLink ? (
-              <LocalizedLink component={RouterLink} to={card.link}>
-                {cardElement}
-              </LocalizedLink>
-            ) : (
-              cardElement
-            )}
+            {cardIsLink ? <Link href={card.link}>{cardElement}</Link> : cardElement}
           </Grid>
         );
       })}
