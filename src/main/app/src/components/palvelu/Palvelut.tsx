@@ -41,27 +41,25 @@ const Root = styled('div')({
   },
   [`& .${classes.rivi}`]: {
     overflow: 'hidden',
-    paddingBottom: '24  px',
+    paddingBottom: '24px',
   },
 });
 
-type RiviProps = { otsikko: string; kortit: Array<{ id: string }> };
+type RiviProps = { otsikko: string; kortit?: Array<{ id: string }> };
 
 const Rivi = ({ otsikko, kortit }: RiviProps) => {
-  return (
-    <>
-      <Grid container className={classes.rivi}>
-        <Typography className={classes.header} variant="h1" component="h2">
-          {otsikko}
-        </Typography>
-        <Grid container spacing={3}>
-          {kortit?.map((p) => (
-            <Palvelu id={p.id} key={p.id} />
-          ))}
-        </Grid>
+  return kortit ? (
+    <Grid container className={classes.rivi}>
+      <Typography className={classes.header} variant="h1" component="h2">
+        {otsikko}
+      </Typography>
+      <Grid container spacing={3}>
+        {kortit.map((p) => (
+          <Palvelu id={p.id} key={p.id} />
+        ))}
       </Grid>
-    </>
-  );
+    </Grid>
+  ) : null;
 };
 
 const first = (entry: object) => Object.values(entry || [])[0] || {};
