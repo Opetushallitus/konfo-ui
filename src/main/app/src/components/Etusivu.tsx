@@ -126,9 +126,7 @@ export const Etusivu = () => {
               <h2 className={classes.header}>{t('oikopolut')}</h2>
               <Grid container spacing={3}>
                 {/* TODO: Miksi tässä halutaan kaivaa vain ensimmäinen korttisetti? Vai tuleeko niitä koskaan enempää */}
-                {getFirst(kortit).kortit?.map(({ id }) => (
-                  <Kortti id={id} key={id} />
-                ))}
+                {getFirst(kortit).kortit?.map(({ id }) => <Kortti id={id} key={id} />)}
               </Grid>
             </Grid>
           </ReactiveBorder>
