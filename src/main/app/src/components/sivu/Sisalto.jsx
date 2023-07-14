@@ -10,21 +10,23 @@ import { useContentful } from '#/src/hooks/useContentful';
 import { Accordion, Summary } from './Accordion';
 import { LinkOrYoutube } from './LinkOrYoutube';
 
-const Sisalto = ({ content, excludeMedia, rootRef }) => {
+const isBlank = (str) => {
+  return !str || /^\s*$/.test(str);
+};
+
+const SivuLink = ({ slug, children }) => {
   const { data, forwardTo } = useContentful();
   const { sivu } = data;
-  const isBlank = (str) => {
-    return !str || /^\s*$/.test(str);
-  };
-  const SivuLink = ({ slug, children }) => {
-    return sivu[slug] ? (
-      <Link href={forwardTo(slug)} underline="always">
-        {isBlank(children ? children[0] : null) ? sivu[slug].name : children}
-      </Link>
-    ) : null;
-  };
 
-  return (
+  return sivu[slug] ? (
+    <Link href={forwardTo(slug)} underline="always">
+      {isBlank(children ? children[0] : null) ? sivu[slug].name : children}
+    </Link>
+  ) : null;
+};
+
+const Sisalto = ({ content, excludeMedia, rootRef }) => {
+  return content ? (
     <Markdown
       options={{
         overrides: {
@@ -89,6 +91,6 @@ const Sisalto = ({ content, excludeMedia, rootRef }) => {
       }}>
       {content}
     </Markdown>
-  );
+  ) : null;
 };
 export default Sisalto;
