@@ -1,17 +1,8 @@
 import React, { useState } from 'react';
 
-import {
-  Grid,
-  Box,
-  Hidden,
-  Paper,
-  Button,
-  useMediaQuery,
-  Link,
-  ButtonProps,
-} from '@mui/material';
+import { Grid, Box, Hidden, Paper, useMediaQuery, Link } from '@mui/material';
 import { useTheme, styled } from '@mui/system';
-import { isEmpty, castArray } from 'lodash';
+import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import Image from '#/src/assets/images/o-EDUCATION-facebook.jpg';
@@ -21,6 +12,7 @@ import { Hakupalkki } from './haku/Hakupalkki';
 import { useSearch } from './haku/hakutulosHooks';
 import { MobileFiltersOnTopMenu } from './haku/MobileFiltersOnTopMenu';
 import { RajaaPopoverButton, RajaimetPopover } from './haku/RajaimetPopover';
+import { OutlinedInvertedButton } from './OutlinedInvertedButton';
 import { ReactiveBorder } from './ReactiveBorder';
 
 const Root = styled('div', { name: 'JumpotronRoot' })({
@@ -55,30 +47,6 @@ const JumpotronTitle = styled('h1', { name: 'JumpotronTitle' })(({ theme }) => (
     lineHeight: '30px',
   },
 }));
-
-type OutlinedInvertedButtonProps = Omit<ButtonProps, 'variant' | 'color'> & {
-  accentColor?: string;
-};
-
-const OutlinedInvertedButton = React.forwardRef<
-  HTMLButtonElement,
-  OutlinedInvertedButtonProps
->(({ accentColor = 'transparent', sx, ...props }, ref) => (
-  <Button
-    {...props}
-    ref={ref}
-    variant="outlined"
-    color="inverted"
-    sx={[
-      {
-        color: 'white',
-        backgroundColor: accentColor,
-        borderColor: 'white',
-      },
-      ...castArray(sx).filter(Boolean),
-    ]}
-  />
-));
 
 const ShowAllResultsLink = ({ children }: React.PropsWithChildren) => {
   const theme = useTheme();
