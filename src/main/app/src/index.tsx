@@ -86,6 +86,7 @@ window.onerror = (errorMsg, _url, line, col, errorObj) => {
   }
 };
 
+// getElementById() ei palauta tässä null, koska tiedetään #wrapper-elementin olevan olemassa.
 const root = createRoot(document.getElementById('wrapper') as Element);
 
 root.render(
