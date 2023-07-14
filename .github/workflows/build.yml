@@ -65,8 +65,10 @@ jobs:
         run: |
           cd src/main/app
           npm ci --no-audit --prefer-offline
+          npm run tsc
+          npm run lint
           npm run build
-          npm run test:ci   
+          npm run test:ci
 
   deploy-container:
     needs: [build, test]
