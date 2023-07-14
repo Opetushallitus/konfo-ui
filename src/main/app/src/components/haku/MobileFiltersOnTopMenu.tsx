@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo, useState } from 'react';
 
 import { Divider } from '@mui/material';
+import { t } from 'i18next';
 
 import { FilterSearchResultsButton } from '#/src/components/common/FilterSearchResultsButton';
 import { MobileRajainDrawer } from '#/src/components/common/MobileRajainDrawer';
@@ -67,8 +68,9 @@ export const MobileFiltersOnTopMenu = ({
           inline={isButtonInline}
           textColor="white"
           chosenFilterCount={rajainCount}
-          onClick={onToggleShowFilters}
-        />
+          onClick={onToggleShowFilters}>
+          {isAtEtusivu ? t('haku.rajaa') : t('haku.rajaa-tuloksia')}
+        </FilterSearchResultsButton>
       )}
       <MobileRajainDrawer
         isOpen={showFilters}
