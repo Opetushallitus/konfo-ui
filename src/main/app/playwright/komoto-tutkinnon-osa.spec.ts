@@ -6,7 +6,7 @@ test.describe('Tutkinnon osa KOMOTO', () => {
   test.beforeEach(async ({ page, context, baseURL }) => {
     await setupCommonTest({ page, context, baseURL });
     await mocksFromFile(page, 'komoto-tutkinnon-osa.mocks.json');
-    page.goto('/konfo/fi/toteutus/1.2.246.562.17.00000000000000000469');
+    await page.goto('/konfo/fi/toteutus/1.2.246.562.17.00000000000000000469');
   });
 
   test('Tutkinnon osa KOMOTO renders properly', async ({ page }) => {
