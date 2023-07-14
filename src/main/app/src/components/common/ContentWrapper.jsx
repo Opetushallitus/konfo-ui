@@ -18,7 +18,7 @@ const StyledContainer = styled(Container, {
 
   backgroundColor: colors.white,
   maxWidth: '1600px',
-  '& a': {
+  '& a[!class]': {
     color: colors.brandGreen,
     textDecoration: 'underline',
   },

@@ -133,9 +133,6 @@ export const theme = createTheme({
     },
     MuiButton: {
       styleOverrides: {
-        containedPrimary: {
-          color: 'white',
-        },
         outlined: {
           backgroundColor: 'transparent',
           borderWidth: '1px',

@@ -22,7 +22,7 @@ const StyledPageSection = styled(PageSection)(({ theme }) => ({
   [`& .${classes.textArea}`]: {
     margin: '60px auto',
     width: '63%',
-    '& a': {
+    '& a[!class]': {
       color: colors.brandGreen,
       textDecoration: 'underline',
     },
