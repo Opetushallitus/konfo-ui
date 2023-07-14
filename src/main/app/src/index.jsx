@@ -1,28 +1,25 @@
-import React, { Suspense, useEffect } from 'react';
+import React, { Suspense } from 'react';
 
 import { ThemeProvider } from '@mui/material/styles';
 import { createRoot } from 'react-dom/client';
 import { ErrorBoundary } from 'react-error-boundary';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import { Provider, useDispatch } from 'react-redux';
-import { BrowserRouter, useLocation } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 import 'typeface-open-sans';
 import StackTrace from 'stacktrace-js';
 
-import { getConfiguration, postClientError } from '#/src/api/konfoApi';
+import { postClientError } from '#/src/api/konfoApi';
 import App from '#/src/App';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
-import { useQueryOnce } from '#/src/hooks/useQueryOnce';
 import ScrollToTop from '#/src/ScrollToTop';
 import { store } from '#/src/store';
-import { locationChanged } from '#/src/store/reducers/appSlice';
 import { theme } from '#/src/theme';
-import { configureI18n } from '#/src/tools/i18n';
 import { isPlaywright, isProd } from '#/src/tools/utils';
-import { configureUrls } from '#/src/urls';
 
 import GenericError from './GenericError';
+import { InitGate } from './InitGate';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -82,31 +79,6 @@ window.onerror = (errorMsg, _url, line, col, errorObj) => {
       .catch(() => {
         send(JSON.stringify(errorObj));
       });
-  }
-};
-
-const useSyncAppPage = () => {
-  const dispatch = useDispatch();
-  const location = useLocation();
-
-  useEffect(() => {
-    dispatch(locationChanged(location));
-  }, [dispatch, location]);
-};
-
-const InitGate = ({ children }) => {
-  const { status: urlStatus } = useQueryOnce('urls', configureUrls);
-  const { status: i18nStatus } = useQueryOnce('i18n', configureI18n);
-  const { status: configurationStatus } = useQueryOnce('configuration', getConfiguration);
-
-  useSyncAppPage();
-
-  if ([urlStatus, i18nStatus, configurationStatus].includes('loading')) {
-    return <LoadingCircle />;
-  } else if ([urlStatus, i18nStatus, configurationStatus].includes('error')) {
-    return <div>Sovelluksen lataaminen epäonnistui!</div>;
-  } else {
-    return children;
   }
 };
 

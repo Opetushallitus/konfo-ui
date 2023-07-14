@@ -42,7 +42,7 @@ const getAsiasanatForLanguage = (asiasanat: Array<any>, language: string) => {
 
 const UNEXPANDED_ASIASANA_LIMIT = 10;
 
-export const useVisibleAsiasanat = (asiasanat: Array<string>, isExpanded: boolean) => {
+const useVisibleAsiasanat = (asiasanat: Array<string>, isExpanded: boolean) => {
   if (isExpanded) {
     return asiasanat;
   } else {

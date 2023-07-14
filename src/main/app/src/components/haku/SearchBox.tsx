@@ -23,13 +23,13 @@ import { useAutocompleteOptions } from '#/src/hooks/useAutocompleteOptions';
 import { theme } from '#/src/theme';
 import { AutocompleteOption } from '#/src/types/common';
 
-import { getToteutustenTarjoajat } from './hakutulos/hakutulosKortit/KoulutusKortti';
+import { getToteutustenTarjoajat } from './hakutulos/hakutulosKortit/getToteutustenTarjoajat';
 import { useAutoComplete } from './hakutulosHooks';
 import { SearchButton } from './SearchButton';
 
 const checkIsKeywordValid = (word: string) => size(word) === 0 || size(word) > 2;
 
-export const createRenderOption = (t: TFunction) => {
+const createRenderOption = (t: TFunction) => {
   return function KonfoAutocompleteOption(
     props: React.HTMLAttributes<HTMLLIElement>,
     option: AutocompleteOption
@@ -55,7 +55,7 @@ export const createRenderOption = (t: TFunction) => {
   };
 };
 
-export const createRenderInput = (t: TFunction) => {
+const createRenderInput = (t: TFunction) => {
   return function KonfoAutocompleteInput(params: AutocompleteRenderInputParams) {
     const { InputProps } = params;
     const rest = omit(params, ['InputProps', 'InputLabelProps']);

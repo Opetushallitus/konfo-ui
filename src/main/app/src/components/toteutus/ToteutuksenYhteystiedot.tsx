@@ -9,9 +9,11 @@ import { OppilaitosKorttiLogo } from '#/src/components/common/KorttiLogo';
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
 import Spacer from '#/src/components/common/Spacer';
 import { useOppilaitokset } from '#/src/components/oppilaitos/hooks';
-import { hasYhteystiedot, Yhteystiedot } from '#/src/components/oppilaitos/Yhteystiedot';
+import { Yhteystiedot } from '#/src/components/oppilaitos/Yhteystiedot';
 import { localize } from '#/src/tools/localization';
 import { Organisaatio } from '#/src/types/ToteutusTypes';
+
+import { hasYhteystiedot } from '../oppilaitos/hasYhteystiedot';
 
 // NOTE: In most cases there is only one oppilaitos per KOMOTO but there is no limit in data model
 export const ToteutuksenYhteystiedot = ({

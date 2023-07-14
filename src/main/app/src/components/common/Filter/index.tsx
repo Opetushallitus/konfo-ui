@@ -237,7 +237,7 @@ type Props = {
   isCountVisible?: boolean;
 };
 
-export const isIndeterminate = (v: FilterValue) =>
+const isIndeterminate = (v: FilterValue) =>
   !v.checked && Boolean(v.alakoodit?.some((alakoodi) => alakoodi.checked));
 
 // NOTE: Do *not* put redux code here, this component is used both with and without

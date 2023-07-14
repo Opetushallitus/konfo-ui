@@ -20,10 +20,7 @@ type UseOsaamisalatProps = {
   requestParams: { 'koodi-urit': string };
 };
 
-export const useOsaamisalaKuvaukset = ({
-  ePerusteId,
-  requestParams,
-}: UseOsaamisalatProps) =>
+const useOsaamisalaKuvaukset = ({ ePerusteId, requestParams }: UseOsaamisalatProps) =>
   useQuery(
     ['getOsaamisalatPageData', { ePerusteId, requestParams }],
     () => getToteutusOsaamisalaKuvaus({ ePerusteId, requestParams }),

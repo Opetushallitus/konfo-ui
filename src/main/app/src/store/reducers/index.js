@@ -6,7 +6,7 @@ import koulutusSlice from './koulutusSlice';
 import oppilaitosSlice from './oppilaitosSlice';
 import { pistelaskuriSlice } from './pistelaskuriSlice';
 
-export default combineReducers({
+export const reducer = combineReducers({
   koulutus: koulutusSlice,
   oppilaitos: oppilaitosSlice,
   hakutulos: hakutulosSlice,

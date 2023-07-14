@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import { useTranslation } from 'react-i18next';
 import { match } from 'ts-pattern';
@@ -11,21 +11,8 @@ import {
   SuodatinComponentProps,
 } from '#/src/types/SuodatinTypes';
 
-import { useFilterProps } from '../../haku/hakutulosHooks';
-
 type Props = Omit<SuodatinComponentProps, 'values'> & {
   values: FilterValues;
-};
-
-export const useTyoelamaSuodatinValues = () => {
-  const jotpa = useFilterProps(FILTER_TYPES.JOTPA);
-  const tyovoimakoulutus = useFilterProps(FILTER_TYPES.TYOVOIMAKOULUTUS);
-  const taydennyskoulutus = useFilterProps(FILTER_TYPES.TAYDENNYSKOULUTUS);
-
-  return useMemo(
-    () => [...jotpa, ...taydennyskoulutus, ...tyovoimakoulutus],
-    [jotpa, tyovoimakoulutus, taydennyskoulutus]
-  );
 };
 
 export const TyoelamaJaTaydennyskoulutuksetSuodatin = (props: Props) => {

@@ -15,10 +15,8 @@ import { OpetuskieliSuodatin } from '../../suodattimet/common/OpetusKieliSuodati
 import { OpetustapaSuodatin } from '../../suodattimet/common/OpetustapaSuodatin';
 import { PohjakoulutusvaatimusSuodatin } from '../../suodattimet/common/PohjakoulutusvaatimusSuodatin';
 import { SijaintiSuodatin } from '../../suodattimet/common/SijaintiSuodatin';
-import {
-  TyoelamaJaTaydennyskoulutuksetSuodatin,
-  useTyoelamaSuodatinValues,
-} from '../../suodattimet/common/TyoelamaJaTaydennyskoulutuksetSuodatin';
+import { TyoelamaJaTaydennyskoulutuksetSuodatin } from '../../suodattimet/common/TyoelamaJaTaydennyskoulutuksetSuodatin';
+import { useTyoelamaSuodatinValues } from '../../suodattimet/common/useTyoelamaSuodatinValues';
 import { ValintatapaSuodatin } from '../../suodattimet/common/ValintatapaSuodatin';
 import { KoulutusalaSuodatin } from '../../suodattimet/hakutulosSuodattimet/KoulutusalaSuodatin';
 import { KoulutustyyppiSuodatin } from '../../suodattimet/hakutulosSuodattimet/KoulutustyyppiSuodatin';

@@ -11,10 +11,7 @@ import { OpetuskieliSuodatin } from '#/src/components/suodattimet/common/OpetusK
 import { OpetustapaSuodatin } from '#/src/components/suodattimet/common/OpetustapaSuodatin';
 import { PohjakoulutusvaatimusSuodatin } from '#/src/components/suodattimet/common/PohjakoulutusvaatimusSuodatin';
 import { SijaintiSuodatin } from '#/src/components/suodattimet/common/SijaintiSuodatin';
-import {
-  TyoelamaJaTaydennyskoulutuksetSuodatin,
-  useTyoelamaSuodatinValues,
-} from '#/src/components/suodattimet/common/TyoelamaJaTaydennyskoulutuksetSuodatin';
+import { TyoelamaJaTaydennyskoulutuksetSuodatin } from '#/src/components/suodattimet/common/TyoelamaJaTaydennyskoulutuksetSuodatin';
 import { ValintatapaSuodatin } from '#/src/components/suodattimet/common/ValintatapaSuodatin';
 import { KoulutusalaSuodatin } from '#/src/components/suodattimet/hakutulosSuodattimet/KoulutusalaSuodatin';
 import { KoulutustyyppiSuodatin } from '#/src/components/suodattimet/hakutulosSuodattimet/KoulutustyyppiSuodatin';
@@ -24,6 +21,7 @@ import { Suodatin } from './Suodatin';
 import { AlkamiskausiSuodatin } from '../suodattimet/common/AlkamiskausiSuodatin';
 import { KoulutuksenKestoSuodatin } from '../suodattimet/common/KoulutuksenKestoSuodatin';
 import { OpetusaikaSuodatin } from '../suodattimet/common/OpetusaikaSuodatin';
+import { useTyoelamaSuodatinValues } from '../suodattimet/common/useTyoelamaSuodatinValues';
 
 const PREFIX = 'HakupalkkiFilters';
 

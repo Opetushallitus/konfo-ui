@@ -10,7 +10,6 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Typography,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
@@ -18,8 +17,8 @@ import { useTranslation } from 'react-i18next';
 import { colors } from '#/src/colors';
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
 import { localize } from '#/src/tools/localization';
-import { toId } from '#/src/tools/utils';
 
+import { tagHeaders } from './tagHeaders';
 import { Sisalto, SisaltoTaulukko, SisaltoTeksti } from './ValintaperusteTypes';
 
 const PREFIX = 'SisaltoComponent';
@@ -30,7 +29,7 @@ const classes = {
   body: `${PREFIX}-body`,
 };
 
-const StyledBox = styled(Box)(({ theme }) => ({
+export const StyledBox = styled(Box)(({ theme }) => ({
   [`& .${classes.root}`]: {
     '&:nth-of-type(even)': {
       backgroundColor: theme.palette.action.hover,
@@ -53,26 +52,6 @@ const StyledTableRow = TableRow;
 const HeaderCell = TableCell;
 
 const SubHeaderCell = TableCell;
-
-const headers = ['h1', 'h2', 'h3', 'h4', 'h5'];
-
-const checkIsHeader = (tag: string) => headers.includes(tag);
-
-// TODO: What is node here?
-export const tagHeaders = (node: any) => {
-  if (checkIsHeader(node.name) && node.children[0]?.data) {
-    const text = node.children[0].data;
-    const id = toId(text);
-    const isH1 = 'h1' === node.name;
-    return (
-      <StyledBox pt={isH1 ? 0.5 : 0} key={id}>
-        <Typography id={id} variant={node.name}>
-          {text}
-        </Typography>
-      </StyledBox>
-    );
-  }
-};
 
 const Teksti = ({ data }: SisaltoTeksti) => (
   <Grid item xs={12}>
