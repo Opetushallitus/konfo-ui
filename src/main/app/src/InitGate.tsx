@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { PropsWithChildren, useEffect } from 'react';
 
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router';
@@ -20,7 +20,7 @@ const useSyncAppPage = () => {
   }, [dispatch, location]);
 };
 
-export const InitGate = ({ children }) => {
+export const InitGate = ({ children }: PropsWithChildren) => {
   const { status: urlStatus } = useQueryOnce('urls', configureUrls);
   const { status: i18nStatus } = useQueryOnce('i18n', configureI18n);
   const { status: configurationStatus } = useQueryOnce('configuration', getConfiguration);
@@ -32,6 +32,6 @@ export const InitGate = ({ children }) => {
   } else if ([urlStatus, i18nStatus, configurationStatus].includes('error')) {
     return <div>Sovelluksen lataaminen epäonnistui!</div>;
   } else {
-    return children;
+    return <>{children}</>;
   }
 };
