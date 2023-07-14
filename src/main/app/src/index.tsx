@@ -11,9 +11,9 @@ import 'typeface-open-sans';
 import StackTrace from 'stacktrace-js';
 
 import { postClientError } from '#/src/api/konfoApi';
-import App from '#/src/App';
+import { App } from '#/src/App';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
-import ScrollToTop from '#/src/ScrollToTop';
+import { ScrollToTop } from '#/src/ScrollToTop';
 import { store } from '#/src/store';
 import { theme } from '#/src/theme';
 import { isPlaywright, isProd } from '#/src/tools/utils';
@@ -50,18 +50,18 @@ if ('serviceWorker' in navigator) {
   }
 }
 
-const uninterestingErrors = {
+const uninterestingErrors: Record<string, boolean> = {
   'ResizeObserver loop limit exceeded0': true,
   'Script Error.0': true,
 };
 
 window.onerror = (errorMsg, _url, line, col, errorObj) => {
   if (isProd && !isPlaywright) {
-    const errorKey = errorMsg + line;
-    const send = (trace) => {
+    const errorKey = `${errorMsg}${line}`;
+    const send = (trace?: string) => {
       if (!uninterestingErrors[errorKey]) {
         postClientError({
-          'error-message': errorMsg,
+          'error-message': errorMsg.toString(),
           url: window.location.href,
           line: line,
           col: col,
@@ -71,18 +71,22 @@ window.onerror = (errorMsg, _url, line, col, errorObj) => {
         uninterestingErrors[errorKey] = true;
       }
     };
-    StackTrace.fromError(errorObj)
-      .then((err) => {
-        console.log(err);
-        send(JSON.stringify(err));
-      })
-      .catch(() => {
-        send(JSON.stringify(errorObj));
-      });
+    if (errorObj) {
+      StackTrace.fromError(errorObj)
+        .then((err) => {
+          console.error(err);
+          send(JSON.stringify(err));
+        })
+        .catch(() => {
+          send(JSON.stringify(errorObj));
+        });
+    } else {
+      send();
+    }
   }
 };
 
-const root = createRoot(document.getElementById('wrapper'));
+const root = createRoot(document.getElementById('wrapper') as Element);
 
 root.render(
   <ErrorBoundary FallbackComponent={GenericError}>
