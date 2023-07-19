@@ -192,20 +192,23 @@ export const getContentfulManifest = async () =>
   )?.data;
 
 function reduceToKeyValue(contentfulRes: Array<ContentfulItem> = []) {
-  return contentfulRes.reduce((res, value) => {
-    res[value.id] = value;
-    if (value.url) {
-      res[value.url] = value;
-    }
-    if (value.slug) {
-      res[value.slug] = value;
-    }
-    // lehti.json:ssa on "sivu"-kenttä
-    if (value.sivu?.id) {
-      res[value.sivu.id] = value;
-    }
-    return res;
-  }, {} as Record<string, ContentfulItem>);
+  return contentfulRes.reduce(
+    (res, value) => {
+      res[value.id] = value;
+      if (value.url) {
+        res[value.url] = value;
+      }
+      if (value.slug) {
+        res[value.slug] = value;
+      }
+      // lehti.json:ssa on "sivu"-kenttä
+      if (value.sivu?.id) {
+        res[value.sivu.id] = value;
+      }
+      return res;
+    },
+    {} as Record<string, ContentfulItem>
+  );
 }
 
 export const getContentfulData = (

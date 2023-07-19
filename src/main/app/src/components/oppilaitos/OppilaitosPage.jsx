@@ -21,13 +21,14 @@ import { localize } from '#/src/tools/localization';
 import { useUrlParams } from '#/src/tools/useUrlParams';
 import { condArray } from '#/src/tools/utils';
 
+import { hasYhteystiedot } from './hasYhteystiedot';
 import { useOppilaitos } from './hooks';
 import { OppilaitosinfoGrid } from './OppilaitosinfoGrid';
 import OppilaitosOsaList from './OppilaitosOsaList';
 import { TarjontaList } from './TarjontaList';
 import { TietoaOpiskelusta } from './TietoaOpiskelusta';
 import { TulevaTarjontaList } from './TulevaTarjontaList';
-import { hasYhteystiedot, Yhteystiedot } from './Yhteystiedot';
+import { Yhteystiedot } from './Yhteystiedot';
 
 const PREFIX = 'OppilaitosPage';
 

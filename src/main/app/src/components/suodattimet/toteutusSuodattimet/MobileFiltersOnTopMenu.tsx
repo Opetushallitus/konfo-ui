@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 
 import { Box, Divider } from '@mui/material';
+import { t } from 'i18next';
 
 import { colors } from '#/src/colors';
 import { FilterSearchResultsButton } from '#/src/components/common/FilterSearchResultsButton';
@@ -54,8 +55,9 @@ export const MobileFiltersOnTopMenu = ({
             inline={true}
             textColor={colors.brandGreen}
             chosenFilterCount={rajainCount}
-            onClick={toggleShowFilters}
-          />
+            onClick={toggleShowFilters}>
+            {t('haku.rajaa-tuloksia')}
+          </FilterSearchResultsButton>
         </Box>
       )}
       <MobileRajainDrawer

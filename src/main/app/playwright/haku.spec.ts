@@ -10,7 +10,7 @@ import {
 
 test.describe('Haku', () => {
   test.beforeEach(async ({ page, context, baseURL }) => {
-    setupCommonTest({ page, context, baseURL });
+    await setupCommonTest({ page, context, baseURL });
 
     await page.route(
       '/konfo-backend/search/oppilaitokset**',

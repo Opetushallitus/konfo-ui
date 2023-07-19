@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
-import { Box, Grid, Link } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
+import { LocalizedLink } from '#/src/components/common/LocalizedLink';
 import { TextButton } from '#/src/components/common/TextButton';
 import { TextWithBackground } from '#/src/components/common/TextWithBackground';
-import { getLanguage } from '#/src/tools/localization';
 
 const filterAsiasanatForLang = (arr: Array<any>, language: string) => {
   return arr?.filter((asiasana: any) => asiasana.kieli === language);
@@ -42,7 +42,7 @@ const getAsiasanatForLanguage = (asiasanat: Array<any>, language: string) => {
 
 const UNEXPANDED_ASIASANA_LIMIT = 10;
 
-export const useVisibleAsiasanat = (asiasanat: Array<string>, isExpanded: boolean) => {
+const useVisibleAsiasanat = (asiasanat: Array<string>, isExpanded: boolean) => {
   if (isExpanded) {
     return asiasanat;
   } else {
@@ -56,7 +56,6 @@ const AsiasanatExpander = ({
   translatedAsiasanat: Array<string>;
 }) => {
   const { t } = useTranslation();
-  const language = getLanguage();
   const [isExpanded, setIsExpanded] = useState(
     translatedAsiasanat?.length <= UNEXPANDED_ASIASANA_LIMIT
   );
@@ -68,13 +67,9 @@ const AsiasanatExpander = ({
       <Grid alignItems="center" justifyContent="center" container spacing={1}>
         {visibleAsiasanat.map((asiasana: string) => (
           <Grid item key={asiasana}>
-            <Link
-              href={`/konfo/${language}/haku/${asiasana}`}
-              underline="none"
-              target="_blank"
-              rel="noopener">
+            <LocalizedLink href={`/haku/${asiasana}`} target="_blank" rel="noopener">
               <TextWithBackground>{asiasana}</TextWithBackground>
-            </Link>
+            </LocalizedLink>
           </Grid>
         ))}
       </Grid>

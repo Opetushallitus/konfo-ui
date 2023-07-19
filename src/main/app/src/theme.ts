@@ -1,7 +1,8 @@
-import { createTheme } from '@mui/material';
+import { LinkProps, createTheme } from '@mui/material';
 import createBreakpoints from '@mui/system/createTheme/createBreakpoints';
 
 import { colors } from './colors';
+import { LocalizedLink } from './components/common/LocalizedLink';
 
 // Material UI theme customization
 // Learn more: https://mui.com/material-ui/customization/theming/
@@ -20,11 +21,6 @@ const breakpoints = {
   },
 };
 
-export const getHeaderHeight =
-  (theme) =>
-  ({ betaBannerVisible = false }) =>
-    theme.headerHeight + (betaBannerVisible ? theme.betaBannerHeight : 0);
-
 export const theme = createTheme({
   betaBannerHeight: 40,
   headerHeight: HEADER_HEIGHT_PX,
@@ -32,6 +28,7 @@ export const theme = createTheme({
   palette: {
     primary: {
       main: colors.brandGreen,
+      contrastText: colors.white,
     },
     secondary: {
       main: colors.brandGreen,
@@ -39,6 +36,10 @@ export const theme = createTheme({
     text: {
       primary: colors.black,
       secondary: colors.black,
+    },
+    inverted: {
+      main: colors.white,
+      contrastText: colors.brandGreen,
     },
   },
   typography: {
@@ -132,9 +133,15 @@ export const theme = createTheme({
     },
     MuiButton: {
       styleOverrides: {
-        containedPrimary: {
-          color: 'white !important',
+        outlined: {
+          backgroundColor: 'transparent',
+          borderWidth: '1px',
         },
+      },
+    },
+    MuiButtonBase: {
+      defaultProps: {
+        LinkComponent: LocalizedLink,
       },
     },
     MuiFormLabel: {
@@ -199,6 +206,9 @@ export const theme = createTheme({
       },
     },
     MuiLink: {
+      defaultProps: {
+        component: LocalizedLink,
+      } as LinkProps, // https://mui.com/material-ui/guides/routing/#global-theme-link
       styleOverrides: {
         root: {
           cursor: 'pointer',
@@ -231,3 +241,8 @@ export const theme = createTheme({
     },
   },
 });
+
+export function getHeaderHeight(themeProp: typeof theme) {
+  return ({ betaBannerVisible = false }) =>
+    themeProp.headerHeight + (betaBannerVisible ? themeProp.betaBannerHeight : 0);
+}

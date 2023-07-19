@@ -14,7 +14,7 @@ import {
 import {
   getCombinedQueryIsFetching,
   getCombinedQueryStatus,
-} from '#/src/components/common/QueryResultWrapper';
+} from '#/src/components/common/QueryResultWrapper/queryResultUtils';
 import { FILTER_TYPES } from '#/src/constants';
 import { useLanguageState } from '#/src/hooks';
 import { useCurrentPage } from '#/src/store/reducers/appSlice';

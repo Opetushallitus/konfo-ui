@@ -80,7 +80,7 @@ export const MurupolkuDrawer = ({ path, onClose, isOpen }) => {
         <Box className={classes.drawerContainer}>
           {path.map(({ name, link, isHome }, index) => (
             <Box
-              key={`${name} ${index}`}
+              key={`${name} ${link}`}
               className={classes.drawerItemWrapper}
               style={{ textIndent: `${index * FRAGMENT_INDENT_STEP}px` }}>
               <MurupolkuFragment

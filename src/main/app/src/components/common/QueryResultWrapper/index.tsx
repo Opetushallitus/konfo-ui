@@ -2,24 +2,13 @@ import React from 'react';
 
 import { QueryObserverResult } from 'react-query';
 
-import { ErrorMessage } from './ErrorMessage';
-import { LoadingCircleWrapper } from './LoadingCircle';
+import { getCombinedQueryStatus } from './queryResultUtils';
+import { ErrorMessage } from '../ErrorMessage';
+import { LoadingCircleWrapper } from '../LoadingCircle';
 
-export const getCombinedQueryStatus = (responses: Array<QueryObserverResult> = []) => {
-  switch (true) {
-    case responses.some((res) => res?.status === 'loading'):
-      return 'loading';
-    case responses.some((res) => res?.status === 'error'):
-      return 'error';
-    case responses.every((res) => res?.status === 'success'):
-      return 'success';
-    default:
-      return 'idle';
-  }
-};
-
-export const getCombinedQueryIsFetching = (responses: Array<QueryObserverResult> = []) =>
-  responses.some((res) => res?.isFetching);
+type QueryResultWrapperProps = React.PropsWithChildren<{
+  queryResult: QueryObserverResult | Array<QueryObserverResult>;
+}>;
 
 type ErrorComponentType = React.ComponentType<{ onRetry?: () => void }>;
 
@@ -28,13 +17,9 @@ type CreateProps = {
   LoadingWrapper: any;
 };
 
-type Props = React.PropsWithChildren<{
-  queryResult: QueryObserverResult | Array<QueryObserverResult>;
-}>;
-
-export const createQueryResultWrapper =
+const createQueryResultWrapper =
   ({ ErrorComponent, LoadingWrapper }: CreateProps) =>
-  ({ children, queryResult }: Props) => {
+  ({ children, queryResult }: QueryResultWrapperProps) => {
     let status, isFetching, errors, refetch;
     if (Array.isArray(queryResult)) {
       status = getCombinedQueryStatus(queryResult);

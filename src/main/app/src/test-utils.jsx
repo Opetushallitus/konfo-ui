@@ -1,3 +1,4 @@
+/* eslint react-refresh/only-export-components: "off" */
 import React from 'react';
 
 import { ThemeProvider } from '@mui/material/styles';

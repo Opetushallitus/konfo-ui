@@ -260,7 +260,7 @@ type TitleObject = {
   path?: string;
 };
 
-const App = () => {
+export const App = () => {
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
   const [betaBanner, setBetaBanner] = useState(false);
   const [titleObj, setTitleObj] = useState<TitleObject>();
@@ -341,5 +341,3 @@ const App = () => {
     </Root>
   );
 };
-
-export default App;

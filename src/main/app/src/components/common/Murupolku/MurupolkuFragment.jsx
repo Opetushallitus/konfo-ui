@@ -2,12 +2,10 @@ import React from 'react';
 
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-import { Button, useMediaQuery } from '@mui/material';
+import { Button, Link, useMediaQuery } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { Link as RouterLink } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
-import { LocalizedLink } from '#/src/components/common/LocalizedLink';
 import { useSideMenu } from '#/src/hooks';
 import { theme } from '#/src/theme';
 
@@ -110,28 +108,21 @@ const shortenName = (name) => {
   return name;
 };
 
-export const MurupolkuFragment = (props) => {
-  const {
-    link,
-    name,
-    isLast,
-    openDrawer,
-    closeDrawer = () => {},
-    isCollapsedPart,
-    isHome,
-  } = props;
-
-  const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
-  const isMedium = useMediaQuery(theme.breakpoints.down('md'));
-  const isLarge = useMediaQuery(theme.breakpoints.down('lg'));
-  const isXLarge = useMediaQuery(theme.breakpoints.down('xl'));
+export const MurupolkuFragment = ({
+  link,
+  name,
+  isLast,
+  openDrawer,
+  closeDrawer = () => {},
+  isCollapsedPart,
+  isHome,
+}) => {
+  const isXLargeDown = useMediaQuery(theme.breakpoints.down('xl'));
   const { state: menuVisible } = useSideMenu();
 
-  const normalizedName = name ? name.trim() : '';
+  const normalizedName = name?.trim() ?? '';
   const shortenedName =
-    isSmall || isMedium || isLarge || isXLarge || menuVisible
-      ? shortenName(normalizedName)
-      : normalizedName;
+    isXLargeDown || menuVisible ? shortenName(normalizedName) : normalizedName;
 
   return (
     <Root isLast={isLast} link={link} isHome={isHome}>
@@ -141,22 +132,15 @@ export const MurupolkuFragment = (props) => {
           {normalizedName}
         </Button>
       ) : (
-        <LocalizedLink
-          {...(link
-            ? {
-                component: RouterLink,
-                to: link,
-              }
-            : {
-                href: isLast ? window.location.href : undefined,
-              })}
+        <Link
+          href={link ?? (isLast ? window.location.href : undefined)}
           className={classes.link}
           title={normalizedName}
           onClick={closeDrawer}
           aria-current={isLast ? 'location' : undefined}>
           {isHome && <HomeOutlinedIcon aria-hidden="true" className={classes.home} />}
           {shortenedName}
-        </LocalizedLink>
+        </Link>
       )}
     </Root>
   );

@@ -127,8 +127,8 @@ export const getFilterStateChanges =
       return retVal;
     } else {
       // Koodi oli alakoodi -> Etsitään yläkoodi ja muut alakoodit
-      const ylakoodi = values.find((v) =>
-        v.alakoodit?.some((alakoodi) => alakoodi.id === item.id)
+      const ylakoodi = values.find(
+        (v) => v.alakoodit?.some((alakoodi) => alakoodi.id === item.id)
       )!;
 
       // Jos alakoodivalinnan jälkeen kaikki alakoodit on valittu, myös yläkoodikin täytyy asettaa valituksi

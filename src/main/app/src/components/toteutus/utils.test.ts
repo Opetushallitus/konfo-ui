@@ -1,3 +1,4 @@
+import { identity } from 'lodash';
 import { vi } from 'vitest';
 
 import { Alkamiskausityyppi } from '#/src/constants';
@@ -18,7 +19,7 @@ describe('toteutus utils', () => {
       },
     ],
   ])('formatAloitus', (input, output) => {
-    expect(formatAloitus(input as any, (t: any) => t)).toEqual(output);
+    expect(formatAloitus(input as any, identity as any)).toEqual(output);
   });
 });
 

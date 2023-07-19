@@ -1,13 +1,11 @@
 import React, { useCallback, useMemo, useState } from 'react';
 
 import { Divider } from '@mui/material';
+import { t } from 'i18next';
 
 import { FilterSearchResultsButton } from '#/src/components/common/FilterSearchResultsButton';
 import { MobileRajainDrawer } from '#/src/components/common/MobileRajainDrawer';
-import {
-  TyoelamaJaTaydennyskoulutuksetSuodatin,
-  useTyoelamaSuodatinValues,
-} from '#/src/components/suodattimet/common/TyoelamaJaTaydennyskoulutuksetSuodatin';
+import { TyoelamaJaTaydennyskoulutuksetSuodatin } from '#/src/components/suodattimet/common/TyoelamaJaTaydennyskoulutuksetSuodatin';
 import { FILTER_TYPES } from '#/src/constants';
 import { useIsAtEtusivu } from '#/src/store/reducers/appSlice';
 
@@ -24,6 +22,7 @@ import { OpetuskieliSuodatin } from '../suodattimet/common/OpetusKieliSuodatin';
 import { OpetustapaSuodatin } from '../suodattimet/common/OpetustapaSuodatin';
 import { PohjakoulutusvaatimusSuodatin } from '../suodattimet/common/PohjakoulutusvaatimusSuodatin';
 import { SijaintiSuodatin } from '../suodattimet/common/SijaintiSuodatin';
+import { useTyoelamaSuodatinValues } from '../suodattimet/common/useTyoelamaSuodatinValues';
 import { ValintatapaSuodatin } from '../suodattimet/common/ValintatapaSuodatin';
 import { KoulutusalaSuodatin } from '../suodattimet/hakutulosSuodattimet/KoulutusalaSuodatin';
 import { KoulutustyyppiSuodatin } from '../suodattimet/hakutulosSuodattimet/KoulutustyyppiSuodatin';
@@ -69,8 +68,9 @@ export const MobileFiltersOnTopMenu = ({
           inline={isButtonInline}
           textColor="white"
           chosenFilterCount={rajainCount}
-          onClick={onToggleShowFilters}
-        />
+          onClick={onToggleShowFilters}>
+          {isAtEtusivu ? t('haku.rajaa') : t('haku.rajaa-tuloksia')}
+        </FilterSearchResultsButton>
       )}
       <MobileRajainDrawer
         isOpen={showFilters}

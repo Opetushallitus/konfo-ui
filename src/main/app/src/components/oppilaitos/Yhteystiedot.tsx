@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 
 import { Box, Grid, Paper, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { isEmpty, hasIn } from 'lodash';
+import { hasIn } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
@@ -70,7 +70,7 @@ const YhteystietoRow = ({ title, text }: { title: string; text: string }) => (
   </Grid>
 );
 
-type Props = {
+export type Props = {
   id: string;
   heading?: string;
   tarjoajat?: Array<Organisaatio>;
@@ -79,10 +79,6 @@ type Props = {
   organisaatioidenYhteystiedot?: Array<YhteystiedotType>;
   matchTarjoajat?: boolean;
 };
-
-export const hasYhteystiedot = (props: Props = {} as any) =>
-  (props.yhteystiedot && props.yhteystiedot?.length > 0) ||
-  !isEmpty(props.hakijapalveluidenYhteystiedot);
 
 export const Yhteystiedot = ({
   id,

@@ -8,7 +8,8 @@ import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
 import { toId } from '#/src/tools/utils';
 import { Translateable } from '#/src/types/common';
 
-import { SisaltoComponent, tagHeaders } from './Sisalto';
+import { SisaltoComponent } from './Sisalto';
+import { tagHeaders } from './tagHeaders';
 import { Sisalto } from './ValintaperusteTypes';
 
 type Props = {
