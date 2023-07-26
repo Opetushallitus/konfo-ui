@@ -72,7 +72,7 @@ const CloseBanner = ({ onClose }) => {
   );
 };
 
-const BetaBanner = (props) => {
+export const BetaBanner = (props) => {
   return (
     <StyledBox
       display="flex"
@@ -93,5 +93,3 @@ const BetaBanner = (props) => {
     </StyledBox>
   );
 };
-
-export default BetaBanner;

@@ -80,7 +80,7 @@ const StyledDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-const Palaute = (props) => {
+export const Palaute = (props) => {
   const { t } = useTranslation();
   const [palauteAnnettu, setPalauteAnnettu] = useState(false);
   const { open, hide } = props;
@@ -216,4 +216,3 @@ const Palaute = (props) => {
     </StyledDialog>
   );
 };
-export default Palaute;

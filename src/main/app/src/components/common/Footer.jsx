@@ -81,7 +81,7 @@ const Root = styled('footer')({
   },
 });
 
-const Footer = () => {
+export const Footer = () => {
   const { t } = useTranslation();
   const { data } = useContentful();
   const theme = useTheme();
@@ -193,5 +193,3 @@ const Footer = () => {
     </Root>
   );
 };
-
-export default Footer;

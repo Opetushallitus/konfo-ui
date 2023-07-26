@@ -48,7 +48,7 @@ const Root = styled('div')(({ theme }) => ({
   },
 }));
 
-const ImageCardWithText = (props) => {
+export const ImageCardWithText = (props) => {
   const { image, cardText } = props;
   return (
     <Root className={classes.root}>
@@ -62,5 +62,3 @@ const ImageCardWithText = (props) => {
     </Root>
   );
 };
-
-export default ImageCardWithText;

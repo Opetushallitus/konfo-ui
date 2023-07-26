@@ -127,7 +127,7 @@ const handleClick =
     onClick(ev, getOffset(page, limit), page);
   };
 
-const PageButton: React.FunctionComponent<
+const UnstyledPageButton: React.FunctionComponent<
   PageButtonProps & WithStyles<PageButtonClassKey>
 > = ({
   limit = 1,
@@ -219,8 +219,6 @@ const PageButton: React.FunctionComponent<
   return button;
 };
 
-const PageButtonWithStyles: React.ComponentType<PageButtonProps> = withStyles(styles, {
+export const PageButton: React.ComponentType<PageButtonProps> = withStyles(styles, {
   name: 'MuiFlatPageButton',
-})(PageButton);
-
-export default PageButtonWithStyles;
+})(UnstyledPageButton);

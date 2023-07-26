@@ -50,7 +50,7 @@ const useCollapsingPath = (path) => {
   }
 };
 
-const Murupolku = ({ path }) => {
+export const Murupolku = ({ path }) => {
   const { t } = useTranslation();
 
   const homePart = { name: t('etusivu'), link: '/', isHome: true };
@@ -86,5 +86,3 @@ const Murupolku = ({ path }) => {
     </Root>
   );
 };
-
-export default Murupolku;

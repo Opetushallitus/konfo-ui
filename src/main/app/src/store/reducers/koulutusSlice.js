@@ -23,7 +23,7 @@ export const initialState = {
   },
 };
 
-const koulutusSlice = createSlice({
+export const koulutusSlice = createSlice({
   name: 'koulutus',
   initialState,
   reducers: {
@@ -67,7 +67,6 @@ export const {
   selectTulevatJarjestajatQuery,
   resetTulevatJarjestajatPaging,
 } = koulutusSlice.actions;
-export default koulutusSlice.reducer;
 
 const withPage = (pagination) => ({
   ...pagination,

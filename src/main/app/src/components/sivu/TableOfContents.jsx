@@ -28,7 +28,7 @@ const StyledMarkdown = styled(Markdown)({
   },
 });
 
-const TableOfContents = (props) => {
+export const TableOfContents = (props) => {
   const { content } = props;
   const { t } = useTranslation();
   const HeadingLevelToComponent = ({ children, id }) => {
@@ -94,5 +94,3 @@ const TableOfContents = (props) => {
     </StyledMarkdown>
   );
 };
-
-export default TableOfContents;

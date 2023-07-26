@@ -42,7 +42,7 @@ const StyledSuodatinAccordion = styled(SuodatinAccordion)(() => ({
   },
 }));
 
-const MobileToggleKoulutusOppilaitos = () => {
+export const MobileToggleKoulutusOppilaitos = () => {
   const { t } = useTranslation();
   const { selectedTab, setSelectedTab } = useSearch();
 
@@ -79,5 +79,3 @@ const MobileToggleKoulutusOppilaitos = () => {
     </StyledSuodatinAccordion>
   );
 };
-
-export default MobileToggleKoulutusOppilaitos;

@@ -9,13 +9,13 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import { Accordion } from '#/src/components/common/Accordion';
-import ContentWrapper from '#/src/components/common/ContentWrapper';
+import { ContentWrapper } from '#/src/components/common/ContentWrapper';
 import { ExternalLink } from '#/src/components/common/ExternalLink';
-import HtmlTextBox from '#/src/components/common/HtmlTextBox';
+import { HtmlTextBox } from '#/src/components/common/HtmlTextBox';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
-import Murupolku from '#/src/components/common/Murupolku';
+import { Murupolku } from '#/src/components/common/Murupolku';
 import { PageSection } from '#/src/components/common/PageSection';
-import TeemakuvaImage from '#/src/components/common/TeemakuvaImage';
+import { TeemakuvaImage } from '#/src/components/common/TeemakuvaImage';
 import { NotFound } from '#/src/NotFound';
 import { getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
 import { getLanguage, localize } from '#/src/tools/localization';

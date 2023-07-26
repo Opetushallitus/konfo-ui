@@ -24,7 +24,7 @@ const StyledContainer = styled(Container, {
   },
 }));
 
-const ContentWrapper = (props) => {
+export const ContentWrapper = (props) => {
   const theme = useTheme();
 
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -46,5 +46,3 @@ const ContentWrapper = (props) => {
     </StyledContainer>
   );
 };
-
-export default ContentWrapper;

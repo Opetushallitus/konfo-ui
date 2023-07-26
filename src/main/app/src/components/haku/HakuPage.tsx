@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom';
 import { useMeasure, useWindowSize } from 'react-use';
 
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
-import Murupolku from '#/src/components/common/Murupolku';
+import { Murupolku } from '#/src/components/common/Murupolku';
 import { Pagination } from '#/src/components/common/Pagination';
 import { pageSizeArray, pageSortArray } from '#/src/constants';
 import { useSideMenu } from '#/src/hooks';

@@ -39,7 +39,7 @@ const StyledPaper = styled(Paper)({
   },
 });
 
-const LinkCard = (props) => {
+export const LinkCard = (props) => {
   const { forwardTo, assetUrl } = useContentful();
   const navigate = useNavigate();
   const { i18n } = useTranslation();
@@ -76,4 +76,3 @@ const LinkCard = (props) => {
     </StyledPaper>
   );
 };
-export default LinkCard;

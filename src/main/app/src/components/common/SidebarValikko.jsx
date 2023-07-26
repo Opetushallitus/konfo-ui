@@ -120,7 +120,8 @@ const ValikkoItem = (props) => {
     </ListItemLink>
   );
 };
-const SidebarValikko = (props) => {
+
+export const SidebarValikko = (props) => {
   const navigate = useNavigate();
   const { i18n } = useTranslation();
   const { forwardTo } = useContentful();
@@ -171,5 +172,3 @@ const SidebarValikko = (props) => {
     </StyledList>
   );
 };
-
-export default SidebarValikko;

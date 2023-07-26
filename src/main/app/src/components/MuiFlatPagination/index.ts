@@ -5,5 +5,4 @@ as it is outdated and not actively developed.
 (material-ui-flat-pagination project these files were copied from were using MIT license)
 */
 
-export { default } from './Pagination';
 export * from './Pagination';

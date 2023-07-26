@@ -18,7 +18,7 @@ import { store } from '#/src/store';
 import { theme } from '#/src/theme';
 import { isPlaywright, isProd } from '#/src/tools/utils';
 
-import GenericError from './GenericError';
+import { GenericError } from './GenericError';
 import { InitGate } from './InitGate';
 
 const queryClient = new QueryClient({

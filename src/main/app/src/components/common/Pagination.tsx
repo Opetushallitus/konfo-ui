@@ -4,7 +4,7 @@ import { ChevronLeftOutlined, ChevronRightOutlined } from '@mui/icons-material';
 import { Box, CssBaseline } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-import MuiFlatPagination from '#/src/components/pagination';
+import { MuiFlatPagination } from '#/src/components/MuiFlatPagination';
 
 const PREFIX = 'Pagination';
 

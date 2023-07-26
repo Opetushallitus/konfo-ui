@@ -95,7 +95,7 @@ const StyledGrid = styled(Grid)(() => ({
   },
 }));
 
-const YhteishakuKortti = ({ id, n }) => {
+export const YhteishakuKortti = ({ id, n }) => {
   const { data } = useContentful();
   const tdata = data?.infoYhteishaku;
   const yhInfo = tdata[id];
@@ -149,5 +149,3 @@ const YhteishakuKortti = ({ id, n }) => {
     </StyledGrid>
   );
 };
-
-export default YhteishakuKortti;

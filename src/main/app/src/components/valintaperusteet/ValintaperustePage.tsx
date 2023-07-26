@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 import { useLocation, useParams } from 'react-router-dom';
 
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
-import Murupolku from '#/src/components/common/Murupolku';
+import { Murupolku } from '#/src/components/common/Murupolku';
 import { Heading } from '#/src/components/Heading';
 import { NotFound } from '#/src/NotFound';
 import { getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';

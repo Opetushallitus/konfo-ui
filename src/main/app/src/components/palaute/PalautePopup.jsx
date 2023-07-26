@@ -7,7 +7,7 @@ import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
-import Palaute from '#/src/components/common/Palaute';
+import { Palaute } from '#/src/components/common/Palaute';
 
 const PREFIX = 'PalautePopup';
 

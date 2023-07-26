@@ -2,9 +2,9 @@ import React from 'react';
 
 import { Grid } from '@mui/material';
 
-import LinkCard from './LinkCard';
+import { LinkCard } from './LinkCard';
 
-const LinkCardGrid = ({ id, cards }) => {
+export const LinkCardGrid = ({ id, cards }) => {
   return (
     <Grid container spacing={3} direction="column">
       {(cards || []).map((card, index) => (
@@ -15,5 +15,3 @@ const LinkCardGrid = ({ id, cards }) => {
     </Grid>
   );
 };
-
-export default LinkCardGrid;

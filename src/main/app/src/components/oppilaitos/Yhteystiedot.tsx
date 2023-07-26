@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 import { OskariKartta } from '#/src/components/common/OskariKartta';
-import Spacer from '#/src/components/common/Spacer';
+import { Spacer } from '#/src/components/common/Spacer';
 import { localize } from '#/src/tools/localization';
 import { byLocaleCompare, toId } from '#/src/tools/utils';
 import { Yhteystiedot as YhteystiedotType } from '#/src/types/common';

@@ -48,7 +48,7 @@ const SortOrderButton = ({ isActive, onClick, endIcon, children }) => {
   );
 };
 
-const MobileToggleOrderByButtonMenu = () => {
+export const MobileToggleOrderByButtonMenu = () => {
   const { t } = useTranslation();
 
   const { sort, order, sortOrder, setSortOrder } = useSearchSortOrder();
@@ -94,5 +94,3 @@ const MobileToggleOrderByButtonMenu = () => {
     </StyledGrid>
   );
 };
-
-export default MobileToggleOrderByButtonMenu;

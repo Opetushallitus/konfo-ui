@@ -59,7 +59,7 @@ const StyledGrid = styled(Grid)({
   },
 });
 
-const Kortti = ({ id }) => {
+export const Kortti = ({ id }) => {
   const { data, forwardTo, assetUrl } = useContentful();
   const { asset, sivu } = data;
   const kortti = data.kortti[id];
@@ -97,5 +97,3 @@ const Kortti = ({ id }) => {
     </StyledGrid>
   );
 };
-
-export default Kortti;

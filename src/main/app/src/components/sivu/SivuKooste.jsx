@@ -2,12 +2,12 @@ import React from 'react';
 
 import { Typography, Grid, Box } from '@mui/material';
 
-import InfoCardGrid from '#/src/components/common/InfoCardGrid';
+import { InfoCardGrid } from '#/src/components/common/InfoCardGrid';
 import { InfoGrid } from '#/src/components/common/InfoGrid';
-import Tree from '#/src/components/common/Tree';
+import { Tree } from '#/src/components/common/Tree';
 import { useContentful } from '#/src/hooks/useContentful';
 
-import Sisalto from './Sisalto';
+import { Sisalto } from './Sisalto';
 
 // TODO: Mikä tämä komponentti on? Kovakoodattuja käännöksiä, testitekstillä
 const testiTeksti = `Ammatillisia tutkintoja ovat ammatilliset perustutkinnot, ammattitutkinnot ja erikoisammattitutkinnot.  Tässä osiossa kerrotaan yleisesti opinnoista ja tutkinnon suorittamisesta.`;

@@ -5,7 +5,7 @@ import { createStyles, WithStyles, withStyles } from '@mui/styles';
 import clsx from 'clsx';
 
 import { computePages, PagePosition, Position } from './core';
-import PageButton, { PageButtonClassKey, PageVariant } from './PageButton';
+import { PageButton, PageButtonClassKey, PageVariant } from './PageButton';
 
 export type PaginationClassKey = PageButtonClassKey;
 
@@ -69,7 +69,7 @@ export interface PaginationProps
   size?: 'small' | 'medium' | 'large';
 }
 
-const Pagination: React.FunctionComponent<
+const UnstyledPagination: React.FunctionComponent<
   PaginationProps & WithStyles<PaginationClassKey>
 > = ({
   limit = 1,
@@ -163,8 +163,9 @@ const Pagination: React.FunctionComponent<
   );
 };
 
-const PaginationWithStyles: React.ComponentType<PaginationProps> = withStyles(styles, {
-  name: 'MuiFlatPagination',
-})(Pagination);
-
-export default PaginationWithStyles;
+export const MuiFlatPagination: React.ComponentType<PaginationProps> = withStyles(
+  styles,
+  {
+    name: 'MuiFlatPagination',
+  }
+)(UnstyledPagination);

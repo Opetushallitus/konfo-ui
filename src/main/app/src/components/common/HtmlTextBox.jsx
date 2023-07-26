@@ -44,7 +44,7 @@ const Ellipsis = ({ onShowMore }) => {
   );
 };
 
-const HtmlTextBox = (props) => {
+export const HtmlTextBox = (props) => {
   const { heading, html, additionalContent, ...rest } = props;
 
   const [isExpanded, setIsExpanded] = useState(false);
@@ -73,5 +73,3 @@ const HtmlTextBox = (props) => {
     </StyledPageSection>
   );
 };
-
-export default HtmlTextBox;

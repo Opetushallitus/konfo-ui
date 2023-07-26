@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 import { OppilaitosKorttiLogo } from '#/src/components/common/KorttiLogo';
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
-import Spacer from '#/src/components/common/Spacer';
+import { Spacer } from '#/src/components/common/Spacer';
 import { useOppilaitokset } from '#/src/components/oppilaitos/hooks';
 import { Yhteystiedot } from '#/src/components/oppilaitos/Yhteystiedot';
 import { localize } from '#/src/tools/localization';

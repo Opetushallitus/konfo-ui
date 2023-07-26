@@ -5,8 +5,8 @@ import { styled } from '@mui/material/styles';
 
 import TreeImage from '#/src/assets/images/ammatillinen_koulutus_puu.svg'; //TODO: This should probably be a prop
 
-import LinkCardGrid from './LinkCardGrid';
-import Spacer from './Spacer';
+import { LinkCardGrid } from './LinkCardGrid';
+import { Spacer } from './Spacer';
 
 const PREFIX = 'Tree';
 
@@ -26,7 +26,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   },
 }));
 
-const Tree = ({ id, title, cardsLeft, cardsRight }) => {
+export const Tree = ({ id, title, cardsLeft, cardsRight }) => {
   return (
     <StyledGrid container direction="column" alignItems="center">
       <Grid item>
@@ -53,5 +53,3 @@ const Tree = ({ id, title, cardsLeft, cardsRight }) => {
     </StyledGrid>
   );
 };
-
-export default Tree;

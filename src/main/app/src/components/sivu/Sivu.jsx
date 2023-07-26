@@ -5,11 +5,11 @@ import { styled } from '@mui/material/styles';
 import { useLocation } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
-import Murupolku from '#/src/components/common/Murupolku';
+import { Murupolku } from '#/src/components/common/Murupolku';
 import { useContentful } from '#/src/hooks/useContentful';
 
-import Sisalto from './Sisalto';
-import TableOfContents from './TableOfContents';
+import { Sisalto } from './Sisalto';
+import { TableOfContents } from './TableOfContents';
 
 const PREFIX = 'Sivu';
 

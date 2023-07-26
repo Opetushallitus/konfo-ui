@@ -22,7 +22,7 @@ import { ReactComponent as OPOLogoEN } from '#/src/assets/images/opintopolku_log
 import { ReactComponent as OPOLogoFI } from '#/src/assets/images/opintopolku_logo_header_fi.svg';
 import { ReactComponent as OPOLogoSV } from '#/src/assets/images/opintopolku_logo_header_sv.svg';
 import { colors } from '#/src/colors';
-import BetaBanner from '#/src/components/common/BetaBanner';
+import { BetaBanner } from '#/src/components/common/BetaBanner';
 import { theme } from '#/src/theme';
 import { getLanguage } from '#/src/tools/localization';
 

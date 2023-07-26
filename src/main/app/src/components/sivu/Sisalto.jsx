@@ -25,7 +25,7 @@ const SivuLink = ({ slug, children }) => {
   ) : null;
 };
 
-const Sisalto = ({ content, excludeMedia, rootRef }) => {
+export const Sisalto = ({ content, excludeMedia, rootRef }) => {
   return content ? (
     <Markdown
       options={{
@@ -93,4 +93,3 @@ const Sisalto = ({ content, excludeMedia, rootRef }) => {
     </Markdown>
   ) : null;
 };
-export default Sisalto;

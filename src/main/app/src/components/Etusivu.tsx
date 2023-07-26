@@ -10,13 +10,13 @@ import { useEffectOnce } from 'react-use';
 
 import { colors } from '#/src/colors';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
-import YhteishakuKortti from '#/src/components/kortti/YhteishakuKortti';
+import { YhteishakuKortti } from '#/src/components/kortti/YhteishakuKortti';
 import { useContentful } from '#/src/hooks/useContentful';
 import { Kortit } from '#/src/types/ContentfulTypes';
 
 import { useSearch } from './haku/hakutulosHooks';
 import { Jumpotron } from './Jumpotron';
-import Kortti from './kortti/Kortti';
+import { Kortti } from './kortti/Kortti';
 import { ReactiveBorder } from './ReactiveBorder';
 import { Uutiset } from './uutinen/Uutiset';
 

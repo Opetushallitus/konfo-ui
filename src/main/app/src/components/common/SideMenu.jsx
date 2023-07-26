@@ -18,10 +18,10 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
-import LanguageTab from '#/src/components/common/LanguageTab';
+import { LanguageTab } from '#/src/components/common/LanguageTab';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
-import Murupolku from '#/src/components/common/Murupolku';
-import SidebarValikko from '#/src/components/common/SidebarValikko';
+import { Murupolku } from '#/src/components/common/Murupolku';
+import { SidebarValikko } from '#/src/components/common/SidebarValikko';
 import { SIDEMENU_WIDTH } from '#/src/constants';
 import { useContentful } from '#/src/hooks/useContentful';
 import { getHeaderHeight } from '#/src/theme';
