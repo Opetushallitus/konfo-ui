@@ -6,15 +6,7 @@ import { Link as RouterLink, LinkProps as RouterLinkProps } from 'react-router-d
 
 import { defaultLanguage, supportedLanguages } from '#/src/tools/i18n';
 
-const localizeHref = (href: string | undefined = '', lng: string) => {
-  // Jos linkissä on protokolla tai se alkaa "/konfo" tai "/<kieli>" ei täydennetä linkkiä
-  if (href === '' || href.includes('://') || /^\/(konfo|fi|sv|en)(\/|$)/.test(href)) {
-    return href;
-  } else {
-    // Lisätään kieli URL:ään
-    return href.startsWith('/') ? `/${lng}${href}` : `/${lng}/${href}`;
-  }
-};
+import { localizeHref } from './localizeHref';
 
 type Props = Omit<RouterLinkProps, 'to'> & {
   href?: string;
