@@ -2,3 +2,4 @@ playwright/fixtures/*
 playwright/mocks/*
 tsconfig.json
 package-lock.json
+src/types/contentful/*

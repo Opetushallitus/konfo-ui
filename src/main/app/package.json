@@ -17,7 +17,9 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "analyze": "vite-bundle-visualizer",
-    "tsc": "tsc"
+    "tsc": "tsc",
+    "cf-content-types": "cf-content-types-generator -s $CONTENTFUL_SPACE_ID -t $CONTENTFUL_MANAGEMENT_API_ACCESS_TOKEN -X -o ./src/types/contentful",
+    "contentful:typegen": "dotenv-run-script .env.local -- cf-content-types"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -76,7 +78,10 @@
     "@typescript-eslint/parser": "^6.0.0",
     "@vitejs/plugin-react": "^4.0.3",
     "browserslist-to-esbuild": "^1.2.0",
+    "cf-content-types-generator": "^2.12.2",
+    "contentful": "^10.3.5",
     "cross-env": "^7.0.3",
+    "dotenv-run-script": "^0.3.0",
     "eslint": "^8.45.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-import": "^2.27.5",
