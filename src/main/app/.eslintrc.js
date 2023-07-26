@@ -105,6 +105,12 @@ module.exports = {
   },
   overrides: [
     {
+      files: '*.config.ts',
+      rules: {
+        'import/no-default-export': 'off',
+      },
+    },
+    {
       files: './playwright/*.ts',
       extends: 'plugin:playwright/recommended',
       parserOptions: {

@@ -1,9 +1,7 @@
-// @ts-nocheck
+import http from 'http';
+import path from 'path';
 
-const http = require('http');
-const path = require('path');
-
-const express = require('express');
+import express from 'express';
 
 const app = express();
 
