@@ -5,14 +5,13 @@ import { styled } from '@mui/material/styles';
 import { size, take } from 'lodash';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
 import { useEffectOnce } from 'react-use';
 
 import { colors } from '#/src/colors';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { YhteishakuKortti } from '#/src/components/kortti/YhteishakuKortti';
 import { useContentful } from '#/src/hooks/useContentful';
-import { Kortit } from '#/src/types/ContentfulTypes';
+import { CfRecord, ContentfulKortit } from '#/src/types/ContentfulTypes';
 
 import { useSearch } from './haku/hakutulosHooks';
 import { Jumpotron } from './Jumpotron';
@@ -48,21 +47,15 @@ const Root = styled('div')({
   },
 });
 
-const getFirst = (entry: Kortit) => Object.values(entry ?? {})[0] || {};
+const getFirst = (entry: CfRecord<ContentfulKortit>) =>
+  Object.values(entry ?? {})[0] || {};
 
 export const Etusivu = () => {
   const { t } = useTranslation();
 
-  const { i18n } = useTranslation();
-  const navigate = useNavigate();
-
   const { clearFilters, setKeyword } = useSearch();
-  const { data, isLoading, forwardTo } = useContentful();
+  const { data, isLoading } = useContentful();
   const { info: infoData, uutiset, kortit, infoYhteishaku } = data;
-
-  const forwardToPage = (id: string) => {
-    navigate(`/${i18n.language}${forwardTo(id)}`);
-  };
 
   const infos = Object.values(infoData || {});
 
@@ -100,21 +93,11 @@ export const Etusivu = () => {
           <ReactiveBorder>
             <Grid container>
               {infos.map((info) => {
-                const linkId = info?.linkki?.id;
-
                 return (
                   <Grid item xs={12} key={info.id}>
-                    <Paper
-                      className={classes.info}
-                      style={linkId ? { cursor: 'pointer' } : {}}
-                      elevation={0}
-                      onClick={() => {
-                        if (linkId) {
-                          forwardToPage(linkId);
-                        }
-                      }}>
+                    <Paper className={classes.info} elevation={0}>
                       <span className="notification-content">
-                        <Markdown>{info.content}</Markdown>
+                        {info?.content && <Markdown>{info.content}</Markdown>}
                       </span>
                     </Paper>
                   </Grid>
@@ -126,7 +109,7 @@ export const Etusivu = () => {
               <h2 className={classes.header}>{t('oikopolut')}</h2>
               <Grid container spacing={3}>
                 {/* TODO: Miksi tässä halutaan kaivaa vain ensimmäinen korttisetti? Vai tuleeko niitä koskaan enempää */}
-                {getFirst(kortit).kortit?.map(({ id }) => <Kortti id={id} key={id} />)}
+                {getFirst(kortit).kortit?.map((k) => <Kortti id={k?.id} key={k?.id} />)}
               </Grid>
             </Grid>
           </ReactiveBorder>

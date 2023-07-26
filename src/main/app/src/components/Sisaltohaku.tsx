@@ -24,6 +24,7 @@ import { Murupolku } from '#/src/components/common/Murupolku';
 import { MuiFlatPagination } from '#/src/components/MuiFlatPagination';
 import { useContentful } from '#/src/hooks/useContentful';
 import { useUrlParams } from '#/src/tools/useUrlParams';
+import { ContentfulAsset, ContentfulSivu } from '#/src/types/ContentfulTypes';
 
 import { Preview } from './Preview';
 import { ReactiveBorder } from './ReactiveBorder';
@@ -67,8 +68,8 @@ const StyledGrid = styled(Grid)({
 type ResultProps = {
   id: string;
   url: string;
-  image: { name: string; description: string };
-  sivu: { name: string; description?: string; content: string; sideContent?: string };
+  image?: ContentfulAsset;
+  sivu: ContentfulSivu;
   assetUrl?: string;
   classes: Record<string, string>;
 };
@@ -92,13 +93,17 @@ const Result = ({ id, url, image, sivu, assetUrl }: ResultProps) => {
               {sivu.description || <Preview markdown={sivu.content} />}
             </Typography>
           </CardContent>
-          <CardMedia
-            className={classes.image}
-            image={assetUrl || koulutusPlaceholderImg}
-            title={image.description || image.name || t('sisaltohaku.paikanpitäjä')}
-            aria-label={image.description || image.name || t('sisaltohaku.paikanpitäjä')}
-            role="img"
-          />
+          {image && (
+            <CardMedia
+              className={classes.image}
+              image={assetUrl || koulutusPlaceholderImg}
+              title={image.description || image.name || t('sisaltohaku.paikanpitäjä')}
+              aria-label={
+                image.description || image.name || t('sisaltohaku.paikanpitäjä')
+              }
+              role="img"
+            />
+          )}
         </Card>
       </LocalizedLink>
     </Grid>
@@ -215,14 +220,14 @@ export const Sisaltohaku = () => {
             {paginate().map(({ id }) => {
               const s = sivu[id];
               const u = uutinen[id];
-              const image = u?.image || {};
+              const image = u?.image;
               return (
                 <Result
                   id={id}
                   key={id}
                   url={forwardTo(s.id)!}
                   sivu={s}
-                  assetUrl={assetUrl(image.url)}
+                  assetUrl={assetUrl(image?.url)}
                   image={image}
                   classes={{
                     root: classes.root2,

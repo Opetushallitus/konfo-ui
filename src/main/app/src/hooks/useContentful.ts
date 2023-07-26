@@ -4,40 +4,43 @@ import { findKey, find, isEmpty } from 'lodash';
 import { urls } from 'oph-urls-js';
 
 import { getContentfulData, getContentfulManifest } from '#/src/api/konfoApi';
+import { LanguageCode } from '#/src/types/common';
+import { CommonContentfulFields, ContentfulData } from '#/src/types/ContentfulTypes';
 
 import { useLanguageState, usePreviousNonEmpty } from './index';
 import { useQueryOnce } from './useQueryOnce';
-import { LanguageCode } from '../types/common';
-import { ContentfulData, ContentfulItem } from '../types/ContentfulTypes';
 
 const initialContentfulData: ContentfulData = {
-  kortit: {},
-  sivu: {},
-  info: {},
   asset: {},
-  footer: {},
-  sivuKooste: {},
   content: {},
-  palvelut: {},
-  valikot: {},
-  ohjeetJaTuki: {},
-  uutiset: {},
   cookieModalText: {},
+  esittely: {},
+  footer: {},
+  info: {},
   infoYhteishaku: {},
-  valikko: {},
-  palvelu: {},
-  uutinen: {},
+  kortit: {},
+  kortti: {},
   lehti: {},
+  ohjeetJaTuki: {},
+  palvelu: {},
+  palvelut: {},
+  puu: {},
+  sivu: {},
+  sivuKooste: {},
+  uutinen: {},
+  uutiset: {},
+  valikko: {},
+  valikot: {},
 };
 
 const assetUrl = (url?: string) =>
   url && `${urls.url('konfo-backend.content', '')}${url}`;
 
-const findParent = (id: string, cData: ContentfulData): Array<ContentfulItem> => {
+const findParent = (id: string, cData: ContentfulData): Array<CommonContentfulFields> => {
   const { valikko, sivu, sivuKooste } = cData;
   const childId = (sivu[id] || sivuKooste[id] || {}).id || id;
   const parentId = findKey(valikko, (item) => {
-    return find(item.linkki, (i) => i.id === childId);
+    return find(item.linkki, (i) => i?.id === childId);
   });
   if (parentId) {
     const parentItem = valikko[parentId];
@@ -64,7 +67,7 @@ export const useContentful = () => {
     (id: string, nullIfUnvailable?: boolean) => {
       const sivu = contentfulData?.sivu[id] || contentfulData?.sivuKooste[id];
       return sivu
-        ? `/sivu/${sivu.slug || id}`
+        ? `/sivu/${sivu.slug ?? id}`
         : nullIfUnvailable
         ? null
         : `/sivu/poistettu`;
