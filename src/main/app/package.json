@@ -18,7 +18,7 @@
     "lint:fix": "eslint . --fix",
     "analyze": "vite-bundle-visualizer",
     "tsc": "tsc",
-    "cf-content-types": "cf-content-types-generator -s $CONTENTFUL_SPACE_ID -t $CONTENTFUL_MANAGEMENT_API_ACCESS_TOKEN -X -o ./src/types/contentful",
+    "cf-content-types": "cf-content-types-generator -s $CONTENTFUL_SPACE_ID -t $CONTENTFUL_MANAGEMENT_API_TOKEN -X -o ./src/types/contentful",
     "contentful:typegen": "dotenv-run-script .env.local -- cf-content-types"
   },
   "dependencies": {
