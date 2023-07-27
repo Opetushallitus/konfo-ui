@@ -12,7 +12,7 @@ import {
   Typography,
   Link,
 } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { includes, last } from 'lodash';
 import { urls } from 'oph-urls-js';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -24,7 +24,8 @@ import { Murupolku } from '#/src/components/common/Murupolku';
 import { SidebarValikko } from '#/src/components/common/SidebarValikko';
 import { SIDEMENU_WIDTH } from '#/src/constants';
 import { useContentful } from '#/src/hooks/useContentful';
-import { getHeaderHeight } from '#/src/theme';
+import { getHeaderHeight, styled } from '#/src/theme';
+import { getOne } from '#/src/tools/getOne';
 
 const PREFIX = 'SideMenu';
 
@@ -44,105 +45,112 @@ const classes = {
 };
 
 const StyledDrawer = styled(Drawer, {
-  shouldForwardProp: (prop) => !['isSmall', 'betaBannerVisible'].includes(prop),
-})(({ theme, isSmall, betaBannerVisible }) => ({
-  width: isSmall ? '100%' : SIDEMENU_WIDTH,
-  flexShrink: 0,
-
-  [`& .${classes.drawerPaper}`]: {
-    marginTop: getHeaderHeight(theme)({ betaBannerVisible, isSmall }),
-    height: `calc(100% - ${getHeaderHeight(theme)({ betaBannerVisible, isSmall })}px)`,
+  shouldForwardProp: (prop) => !includes(['isSmall', 'betaBannerVisible'], prop),
+})<{ isSmall: boolean; betaBannerVisible: boolean }>(
+  ({ theme, isSmall, betaBannerVisible }) => ({
     width: isSmall ? '100%' : SIDEMENU_WIDTH,
-  },
+    flexShrink: 0,
 
-  [`& .${classes.inputBackground}`]: {
-    backgroundColor: colors.white,
-    paddingLeft: '20px',
-    paddingTop: '20px',
-    paddingBottom: '20px',
-  },
+    [`& .${classes.drawerPaper}`]: {
+      marginTop: getHeaderHeight(theme)({ betaBannerVisible }),
+      height: `calc(100% - ${getHeaderHeight(theme)({ betaBannerVisible })}px)`,
+      width: isSmall ? '100%' : SIDEMENU_WIDTH,
+    },
 
-  [`& .${classes.murupolku}`]: {
-    paddingLeft: '20px',
-    paddingTop: '20px',
-    paddingBottom: '20px',
-  },
+    [`& .${classes.inputBackground}`]: {
+      backgroundColor: colors.white,
+      paddingLeft: '20px',
+      paddingTop: '20px',
+      paddingBottom: '20px',
+    },
 
-  [`& .${classes.inputRoot}`]: {
-    height: '38px',
-    display: 'flex',
-    alignItems: 'center',
-    boxSizing: 'border-box',
-    border: '1px solid #B2B2B2',
-    borderRadius: '2px',
-    width: 290,
-  },
+    [`& .${classes.murupolku}`]: {
+      paddingLeft: '20px',
+      paddingTop: '20px',
+      paddingBottom: '20px',
+    },
 
-  [`& .${classes.input}`]: {
-    borderRadius: 0,
-    marginLeft: theme.spacing(1),
-    flex: 1,
-  },
+    [`& .${classes.inputRoot}`]: {
+      height: '38px',
+      display: 'flex',
+      alignItems: 'center',
+      boxSizing: 'border-box',
+      border: '1px solid #B2B2B2',
+      borderRadius: '2px',
+      width: 290,
+    },
 
-  [`& .${classes.iconButton}`]: {
-    minWidth: '40px',
-    maxWidth: '40px',
-    borderRadius: 0,
-  },
+    [`& .${classes.input}`]: {
+      borderRadius: 0,
+      marginLeft: theme.spacing(1),
+      flex: 1,
+    },
 
-  [`& .${classes.divider}`]: {
-    height: 28,
-    margin: 4,
-  },
+    [`& .${classes.iconButton}`]: {
+      minWidth: '40px',
+      maxWidth: '40px',
+      borderRadius: 0,
+    },
 
-  [`& .${classes.drawerHeader}`]: {
-    display: 'flex',
-    alignItems: 'center',
-    padding: theme.spacing(0, 1),
-    ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
-  },
+    [`& .${classes.divider}`]: {
+      height: 28,
+      margin: 4,
+    },
 
-  [`& .${classes.omaOpintopolkuLink}`]: {
-    display: 'flex',
-    alignItems: 'left',
-    flexDirection: 'row',
-    margin: '20px 0px 0px 0px',
-  },
+    [`& .${classes.drawerHeader}`]: {
+      display: 'flex',
+      alignItems: 'center',
+      padding: theme.spacing(0, 1),
+      ...theme.mixins.toolbar,
+      justifyContent: 'flex-end',
+    },
 
-  [`& .${classes.omaOpintopolkuIcon}`]: {
-    color: colors.brandGreen,
-    marginRight: 10,
-  },
+    [`& .${classes.omaOpintopolkuLink}`]: {
+      display: 'flex',
+      alignItems: 'left',
+      flexDirection: 'row',
+      margin: '20px 0px 0px 0px',
+    },
 
-  [`& .${classes.omaOpintopolkuText}`]: {
-    color: colors.brandGreen,
-    fontSize: 'inherit',
-  },
-}));
+    [`& .${classes.omaOpintopolkuIcon}`]: {
+      color: colors.brandGreen,
+      marginRight: 10,
+    },
 
-export const SideMenu = (props) => {
+    [`& .${classes.omaOpintopolkuText}`]: {
+      color: colors.brandGreen,
+      fontSize: 'inherit',
+    },
+  })
+);
+
+export const SideMenu = (props: {
+  betaBannerVisible: boolean;
+  menuVisible?: boolean;
+  isSmall: boolean;
+  closeMenu: () => void;
+}) => {
   const { menuVisible, closeMenu } = props;
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
 
-  const { data } = useContentful();
-  const [selected, setSelected] = useState([]);
+  const { data, isLoading } = useContentful();
+  const [selected, setSelected] = useState<Array<string>>([]);
   const [search, setSearch] = useState('');
 
-  const { valikot, valikko, isLoading } = data;
-  const selectValikko = (newValikko) => setSelected([...selected, newValikko]);
+  const { valikot, valikko } = data;
+  const selectValikko = (newValikkoId: string) =>
+    setSelected([...selected, newValikkoId]);
   const popSelected = () => setSelected(selected.slice(0, -1));
-  const last = (a) => (a ? a[a.length - 1] : null);
-  const single = (entry) => Object.values(entry || {})[0] || {};
-  const selectedValikko = last(selected) ? (valikko || {})[last(selected)] : null;
+  const lastSelected = last(selected);
+  const selectedValikko = lastSelected ? (valikko ?? {})[lastSelected] : null;
   const linkit = selectedValikko
     ? [selectedValikko]
-    : (single(valikot).valikot || []).map((v) => valikko[v.id]);
+    : (getOne(valikot).valikot || []).map((v) => valikko[v.id]);
 
-  const doSearch = (event) => {
-    navigate(`/${i18n.language}/sisaltohaku/?hakusana=${search}`);
+  const doSearch = (event: React.SyntheticEvent) => {
     event.preventDefault();
+    navigate(`/${i18n.language}/sisaltohaku/?hakusana=${search}`);
   };
 
   return (
@@ -179,7 +187,11 @@ export const SideMenu = (props) => {
           <InputBase
             className={classes.input}
             value={search}
-            onKeyPress={(event) => event.key === 'Enter' && doSearch(event)}
+            onKeyUp={(event) => {
+              if (event.key === 'Enter') {
+                doSearch(event);
+              }
+            }}
             onChange={({ target }) => setSearch(target.value)}
             placeholder={t('sidebar.etsi-tietoa-opintopolusta')}
             inputProps={{

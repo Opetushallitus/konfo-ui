@@ -1,7 +1,7 @@
 import React from 'react';
 
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import { Link, LinkBaseProps } from '@mui/material';
+import { Link, LinkProps } from '@mui/material';
 import { styled } from '@mui/material/styles';
 const PREFIX = 'ExternalLink';
 
@@ -17,9 +17,7 @@ const StyledLink = styled(Link)({
   },
 });
 
-export {};
-
-export const ExternalLink = ({ children, ...props }: LinkBaseProps) => {
+export const ExternalLink = ({ children, ...props }: LinkProps) => {
   return (
     <StyledLink target="_blank" variant="body1" {...props}>
       {children}

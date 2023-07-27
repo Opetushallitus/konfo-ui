@@ -17,6 +17,7 @@ import OPOLogoFooterSV from '#/src/assets/images/OPO_Logo_Footer_ruotsi.svg';
 import { colors } from '#/src/colors';
 import { ImageComponent } from '#/src/components/sivu/ImageComponent';
 import { useContentful } from '#/src/hooks/useContentful';
+import { getOne } from '#/src/tools/getOne';
 import { getLanguage } from '#/src/tools/localization';
 
 const PREFIX = 'Footer';
@@ -80,10 +81,6 @@ const Root = styled('footer')({
     paddingRight: 10,
   },
 });
-
-function getOne<T extends Record<string, T[keyof T]>>(entry: T) {
-  return Object.values<T[keyof T]>(entry)?.[0];
-}
 
 const overrides = {
   overrides: {
