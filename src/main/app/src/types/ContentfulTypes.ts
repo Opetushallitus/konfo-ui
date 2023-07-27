@@ -11,7 +11,6 @@ import { LanguageCode, Translateable } from './common';
 import {
   TypeContent,
   TypeCookieModalText,
-  TypeEsittely,
   TypeFooter,
   TypeInfo,
   TypeInfoGrid,
@@ -22,6 +21,7 @@ import {
   TypeOhjeetJaTuki,
   TypePalvelu,
   TypePalvelut,
+  TypePikalinkit,
   TypePuu,
   TypeSivu,
   TypeSivuKooste,
@@ -92,7 +92,6 @@ type Mod = 'WITHOUT_UNRESOLVABLE_LINKS';
 
 export type ContentfulContent = ContentfulItem<TypeContent<Mod, ''>>;
 export type ContentfulCookieModalTex = ContentfulItem<TypeCookieModalText<Mod, ''>>;
-export type ContentfulEsittely = ContentfulItem<TypeEsittely<Mod, ''>>;
 export type ContentfulFooter = ContentfulItem<TypeFooter<Mod, ''>>;
 export type ContentfulInfo = ContentfulItem<TypeInfo<Mod, ''>>;
 export type ContentfulInfoGrid = ContentfulItem<TypeInfoGrid<Mod, ''>>;
@@ -103,6 +102,7 @@ export type ContentfulLehti = ContentfulItem<TypeLehti<Mod, ''>>;
 export type ContentfulOhjeetJaTuki = ContentfulItem<TypeOhjeetJaTuki<Mod, ''>>;
 export type ContentfulPalvelu = ContentfulItem<TypePalvelu<Mod, ''>>;
 export type ContentfulPalvelut = ContentfulItem<TypePalvelut<Mod, ''>>;
+export type ContentfulPikalinkit = ContentfulItem<TypePikalinkit<Mod, ''>>;
 export type ContentfulPuu = ContentfulItem<TypePuu<Mod, ''>>;
 export type ContentfulSivu = ContentfulItem<TypeSivu<Mod, ''>>;
 export type ContentfulSivuKooste = ContentfulItem<TypeSivuKooste<Mod, ''>>;
@@ -117,7 +117,6 @@ export type ContentfulData = {
   asset: CfRecord<ContentfulAsset>;
   content: CfRecord<ContentfulContent>;
   cookieModalText: CfRecord<ContentfulCookieModalTex>;
-  esittely: CfRecord<ContentfulEsittely>;
   footer: CfRecord<ContentfulFooter>;
   info: CfRecord<ContentfulInfo>;
   infoGrid: CfRecord<ContentfulInfoGrid>;
@@ -128,6 +127,7 @@ export type ContentfulData = {
   ohjeetJaTuki: CfRecord<ContentfulOhjeetJaTuki>;
   palvelu: CfRecord<ContentfulPalvelu>;
   palvelut: CfRecord<ContentfulPalvelut>;
+  pikalinkit: CfRecord<ContentfulPikalinkit>;
   puu: CfRecord<ContentfulPuu>;
   sivu: CfRecord<ContentfulSivu>;
   sivuKooste: CfRecord<ContentfulSivuKooste>;

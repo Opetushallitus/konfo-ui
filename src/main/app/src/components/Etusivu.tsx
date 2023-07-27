@@ -11,11 +11,12 @@ import { colors } from '#/src/colors';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { YhteishakuKortti } from '#/src/components/kortti/YhteishakuKortti';
 import { useContentful } from '#/src/hooks/useContentful';
-import { CfRecord, ContentfulKortit } from '#/src/types/ContentfulTypes';
+import { getOne } from '#/src/tools/getOne';
 
 import { useSearch } from './haku/hakutulosHooks';
 import { Jumpotron } from './Jumpotron';
 import { Kortti } from './kortti/Kortti';
+import { Pikalinkit } from './Pikalinkit';
 import { ReactiveBorder } from './ReactiveBorder';
 import { Uutiset } from './uutinen/Uutiset';
 
@@ -47,15 +48,12 @@ const Root = styled('div')({
   },
 });
 
-const getFirst = (entry: CfRecord<ContentfulKortit>) =>
-  Object.values(entry ?? {})[0] || {};
-
 export const Etusivu = () => {
   const { t } = useTranslation();
 
   const { clearFilters, setKeyword } = useSearch();
   const { data, isLoading } = useContentful();
-  const { info: infoData, uutiset, kortit, infoYhteishaku } = data;
+  const { info: infoData, uutiset, kortit, infoYhteishaku, pikalinkit, content } = data;
 
   const infos = Object.values(infoData || {});
 
@@ -104,12 +102,14 @@ export const Etusivu = () => {
                 );
               })}
             </Grid>
-
+            <Grid container>
+              <Pikalinkit pikalinkit={pikalinkit} content={content} />
+            </Grid>
             <Grid container>
               <h2 className={classes.header}>{t('oikopolut')}</h2>
               <Grid container spacing={3}>
-                {/* TODO: Miksi tässä halutaan kaivaa vain ensimmäinen korttisetti? Vai tuleeko niitä koskaan enempää */}
-                {getFirst(kortit).kortit?.map((k) => <Kortti id={k?.id} key={k?.id} />)}
+                {/* Kortit-sisältötyyppi kuvaa korttilistauksen etusivulla, joten niitä on aina vain yksi */}
+                {getOne(kortit)?.kortit?.map((k) => <Kortti id={k?.id} key={k?.id} />)}
               </Grid>
             </Grid>
           </ReactiveBorder>

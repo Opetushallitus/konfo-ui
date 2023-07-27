@@ -1,6 +1,5 @@
 export type { TypeContent, TypeContentFields, TypeContentSkeleton } from "./TypeContent";
 export type { TypeCookieModalText, TypeCookieModalTextFields, TypeCookieModalTextSkeleton } from "./TypeCookieModalText";
-export type { TypeEsittely, TypeEsittelyFields, TypeEsittelySkeleton } from "./TypeEsittely";
 export type { TypeFooter, TypeFooterFields, TypeFooterSkeleton } from "./TypeFooter";
 export type { TypeInfo, TypeInfoFields, TypeInfoSkeleton } from "./TypeInfo";
 export type { TypeInfoGrid, TypeInfoGridFields, TypeInfoGridSkeleton } from "./TypeInfoGrid";
@@ -11,6 +10,7 @@ export type { TypeLehti, TypeLehtiFields, TypeLehtiSkeleton } from "./TypeLehti"
 export type { TypeOhjeetJaTuki, TypeOhjeetJaTukiFields, TypeOhjeetJaTukiSkeleton } from "./TypeOhjeetJaTuki";
 export type { TypePalvelu, TypePalveluFields, TypePalveluSkeleton } from "./TypePalvelu";
 export type { TypePalvelut, TypePalvelutFields, TypePalvelutSkeleton } from "./TypePalvelut";
+export type { TypePikalinkit, TypePikalinkitFields, TypePikalinkitSkeleton } from "./TypePikalinkit";
 export type { TypePuu, TypePuuFields, TypePuuSkeleton } from "./TypePuu";
 export type { TypeSivu, TypeSivuFields, TypeSivuSkeleton } from "./TypeSivu";
 export type { TypeSivuKooste, TypeSivuKoosteFields, TypeSivuKoosteSkeleton } from "./TypeSivuKooste";

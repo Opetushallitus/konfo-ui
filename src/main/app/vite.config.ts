@@ -8,6 +8,7 @@ import browserslistToEsbuild from 'browserslist-to-esbuild';
 import { defineConfig, loadEnv } from 'vite';
 import checker from 'vite-plugin-checker';
 import pluginRewriteAll from 'vite-plugin-rewrite-all';
+import { viteStaticCopy } from 'vite-plugin-static-copy';
 import svgr from 'vite-plugin-svgr';
 
 dns.setDefaultResultOrder('verbatim');
@@ -55,6 +56,18 @@ export default defineConfig(({ mode }) => {
     plugins: [
       react(),
       svgr(),
+      viteStaticCopy({
+        targets: [
+          {
+            src: 'node_modules/@material-design-icons/svg/outlined/*.svg',
+            dest: 'icons/material/outlined',
+          },
+          {
+            src: 'node_modules/@material-design-icons/svg/filled/*.svg',
+            dest: 'icons/material/filled',
+          },
+        ],
+      }),
       optimizeLodashImports(),
       // Tuotanto-buildissa karsitaan devaus-plugineja hidastamasta
       ...(isDev
