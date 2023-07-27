@@ -51,6 +51,16 @@ const findParent = (id: string, cData: ContentfulData): Array<CommonContentfulFi
   }
 };
 
+const useForwardTo = (contentfulData?: ContentfulData) => {
+  function forwardTo(id: string, defaultValue?: string): string;
+  function forwardTo(id: string, defaultValue: null): string | null;
+  function forwardTo(id: string, defaultValue: string | null = '/sivu/poistettu') {
+    const sivu = contentfulData?.sivu[id] || contentfulData?.sivuKooste[id];
+    return sivu ? `/sivu/${sivu?.slug ?? id}` : defaultValue;
+  }
+  return useCallback(forwardTo, [contentfulData]);
+};
+
 export const useContentful = () => {
   const [lng] = useLanguageState();
 
@@ -64,18 +74,7 @@ export const useContentful = () => {
 
   const { contentfulData, slugsToIds: newSlugsToIds } = data ?? {};
 
-  const forwardTo = useCallback(
-    (id: string, nullIfUnvailable: boolean = false) => {
-      const sivu = contentfulData?.sivu[id] || contentfulData?.sivuKooste[id];
-      const link = sivu ? `/sivu/${sivu?.slug ?? id}` : undefined;
-      if (nullIfUnvailable) {
-        return link ?? null;
-      } else {
-        return link ?? '/sivu/poistettu';
-      }
-    },
-    [contentfulData]
-  );
+  const forwardTo = useForwardTo(contentfulData);
 
   const murupolku = useCallback(
     (pageId: string) => {
@@ -86,7 +85,7 @@ export const useContentful = () => {
         const breadcrumb = page ? findParent(pageId, contentfulData).concat([page]) : [];
         return breadcrumb.map((b) => ({
           name: b.name,
-          link: forwardTo(b.id, true),
+          link: forwardTo(b.id, null),
         }));
       }
       return [];

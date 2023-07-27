@@ -225,7 +225,7 @@ export const Sisaltohaku = () => {
                 <Result
                   id={id}
                   key={id}
-                  url={forwardTo(s.id)!}
+                  url={forwardTo(s.id)}
                   sivu={s}
                   assetUrl={assetUrl(image?.url)}
                   image={image}

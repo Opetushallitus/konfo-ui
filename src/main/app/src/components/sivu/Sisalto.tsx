@@ -23,7 +23,7 @@ const SivuLink = ({ slug, children }: { slug: string; children: [string] | [] })
   const { sivu } = data;
 
   return sivu[slug] ? (
-    <Link href={forwardTo(slug) ?? ''} underline="always">
+    <Link href={forwardTo(slug)} underline="always">
       {isBlank(children?.[0]) ? sivu[slug].name : children}
     </Link>
   ) : null;
