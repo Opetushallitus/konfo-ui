@@ -95,31 +95,31 @@ const StyledGrid = styled(Grid)(() => ({
   },
 }));
 
-export const YhteishakuKortti = ({ id, n }) => {
+export const YhteishakuKortti = ({ id, n }: { id: string; n: number }) => {
   const { data } = useContentful();
   const tdata = data?.infoYhteishaku;
-  const yhInfo = tdata[id];
-
-  const kk = yhInfo?.color === 'kk';
+  const yhInfo = tdata[id] ?? {};
+  const color = yhInfo?.color;
+  const colorClass = color && classes[color];
+  const isKK = color === 'kk';
 
   const width = Math.max(12 / n, 6);
 
   return (
     <StyledGrid item xs={12} sm={12} md={12} lg={12} xl={width}>
-      <Card className={clsx(classes.card, classes[yhInfo.color])}>
+      <Card className={clsx(classes.card, colorClass)}>
         <CardContent>
           <h2 className={classes.otsikko}>{yhInfo.otsikko}</h2>
-          <Paper className={clsx(classes[yhInfo.color])} elevation={0}>
+          <Paper className={clsx(colorClass)} elevation={0}>
             <span className="notification-content">
-              <Markdown className={classes.kuvaus}>{yhInfo.kuvaus}</Markdown>
+              <Markdown className={classes.kuvaus}>{yhInfo.kuvaus ?? ''}</Markdown>
             </span>
           </Paper>
 
           <Grid item className={classes.buttons}>
             {yhInfo.linkkiHakulomakkeelle && yhInfo.tekstiHakulomakkeelle ? (
               <Button
-                xs={4}
-                className={kk ? classes.hakulomakeButtonKk : classes.hakulomakeButton}
+                className={isKK ? classes.hakulomakeButtonKk : classes.hakulomakeButton}
                 variant="outlined"
                 href={yhInfo.linkkiHakulomakkeelle}>
                 {yhInfo.tekstiHakulomakkeelle}
@@ -127,7 +127,6 @@ export const YhteishakuKortti = ({ id, n }) => {
             ) : null}
             {yhInfo.linkkiOhjeisiin && yhInfo.tekstiOhjeisiin ? (
               <Button
-                xs={4}
                 className={classes.button}
                 variant="outlined"
                 href={yhInfo.linkkiOhjeisiin}>
@@ -136,7 +135,6 @@ export const YhteishakuKortti = ({ id, n }) => {
             ) : null}
             {yhInfo.linkkiHakutuloksiin && yhInfo.tekstiHakutuloksiin ? (
               <Button
-                xs={4}
                 className={classes.button}
                 variant="outlined"
                 href={yhInfo.linkkiHakutuloksiin}>
