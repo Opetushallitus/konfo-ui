@@ -59,23 +59,21 @@ const StyledGrid = styled(Grid)({
   },
 });
 
-export const Kortti = ({ id }) => {
+export const Kortti = ({ id }: { id: string }) => {
   const { data, forwardTo, assetUrl } = useContentful();
   const { asset, sivu } = data;
   const kortti = data.kortti[id];
 
   const linkit = kortti.linkit || [];
-  const getImgUrl = (uutinen) => {
-    const a = asset[uutinen.image?.id];
-    return a ? assetUrl(a.url) : null;
-  };
+  const a = kortti.image && asset[kortti.image.id];
+  const imgUrl = assetUrl(a?.url);
 
   return (
     <StyledGrid item xs={12} sm={6} md={4}>
       <Card className={clsx(classes.card, classes[kortti.color])}>
         <CardMedia
           className={classes.media}
-          image={getImgUrl(kortti)}
+          image={imgUrl}
           role="img"
           title={kortti.name}
         />
