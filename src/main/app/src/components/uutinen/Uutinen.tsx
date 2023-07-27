@@ -32,6 +32,7 @@ const StyledGrid = styled(Grid)({
     lineHeight: '26px',
     color: colors.brandGreen,
     height: '100%',
+    borderRadius: '3px',
   },
   [`& .${classes.content}`]: {
     marginTop: '20px',
@@ -89,7 +90,7 @@ export const Uutinen = ({ id }: { id: string }) => {
 
   return (
     <StyledGrid item xs={12} sm={6} md={4} onClick={() => forwardToPage(link)}>
-      <Card className={classes.card} elevation={6}>
+      <Card className={classes.card} elevation={3}>
         {imgUrl && (
           <CardMedia
             className={classes.media}
