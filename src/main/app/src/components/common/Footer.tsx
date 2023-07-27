@@ -81,35 +81,41 @@ const Root = styled('footer')({
   },
 });
 
+function getOne<T extends Record<string, T[keyof T]>>(entry: T) {
+  return Object.values<T[keyof T]>(entry)?.[0];
+}
+
+const overrides = {
+  overrides: {
+    img: {
+      component: ImageComponent,
+    },
+    a: {
+      component: Link,
+      props: {
+        className: classes.link,
+      },
+    },
+    p: {
+      component: Typography,
+      props: {
+        variant: 'body1',
+        component: 'div',
+        paragraph: true,
+      },
+    },
+  },
+};
+
 export const Footer = () => {
   const { t } = useTranslation();
   const { data } = useContentful();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('md'));
 
-  const single = (entry) => Object.values(entry || {})[0] || {};
-  const { content, contentRight, contentCenter, lopputekstit } = single(data.footer);
-  const overrides = {
-    overrides: {
-      img: {
-        component: ImageComponent,
-      },
-      a: {
-        component: Link,
-        props: {
-          className: classes.link,
-        },
-      },
-      p: {
-        component: Typography,
-        props: {
-          variant: 'body1',
-          component: 'div',
-          paragraph: true,
-        },
-      },
-    },
-  };
+  // Footereita on vain yksi
+  const { content, contentRight, contentCenter, lopputekstit } =
+    getOne(data.footer) ?? {};
 
   const OpintopolkuFooterLogo = () => {
     switch (getLanguage()) {
@@ -159,17 +165,17 @@ export const Footer = () => {
           className={classes.content}>
           <Grid item xs={12} sm={4} md={3}>
             <Box lineHeight={'21px'} m={1}>
-              <Markdown options={overrides}>{content || ''}</Markdown>
+              <Markdown options={overrides}>{content ?? ''}</Markdown>
             </Box>
           </Grid>
           <Grid item xs={12} sm={4} md={3}>
             <Box lineHeight={'21px'} m={1}>
-              <Markdown options={overrides}>{contentCenter || ''}</Markdown>
+              <Markdown options={overrides}>{contentCenter ?? ''}</Markdown>
             </Box>
           </Grid>
           <Grid item xs={12} sm={4} md={3}>
             <Box lineHeight={'21px'} m={1}>
-              <Markdown options={overrides}>{contentRight || ''}</Markdown>
+              <Markdown options={overrides}>{contentRight ?? ''}</Markdown>
             </Box>
           </Grid>
         </Grid>
