@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
 import { useContentful } from '#/src/hooks/useContentful';
+import { ContentfulAsset, ContentfulLink } from '#/src/types/ContentfulTypes';
 
 const PREFIX = 'LinkCard';
 
@@ -39,13 +40,17 @@ const StyledPaper = styled(Paper)({
   },
 });
 
-export const LinkCard = (props) => {
+export const LinkCard = (props: {
+  sivu?: ContentfulLink;
+  text?: string;
+  icon?: ContentfulAsset;
+}) => {
   const { forwardTo, assetUrl } = useContentful();
   const navigate = useNavigate();
   const { i18n } = useTranslation();
   const { icon, text, sivu } = props;
   const url = (icon || {}).url;
-  const forwardToPage = (id) => {
+  const forwardToPage = (id: string) => {
     navigate(`/${i18n.language}${forwardTo(id)}`);
   };
 

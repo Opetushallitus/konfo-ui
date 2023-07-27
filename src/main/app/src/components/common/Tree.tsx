@@ -4,6 +4,7 @@ import { Grid, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 import TreeImage from '#/src/assets/images/ammatillinen_koulutus_puu.svg'; //TODO: This should probably be a prop
+import { ContentfulLehti } from '#/src/types/ContentfulTypes';
 
 import { LinkCardGrid } from './LinkCardGrid';
 import { Spacer } from './Spacer';
@@ -26,7 +27,17 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   },
 }));
 
-export const Tree = ({ id, title, cardsLeft, cardsRight }) => {
+export const Tree = ({
+  id,
+  title,
+  cardsLeft,
+  cardsRight,
+}: {
+  id: string;
+  title: string;
+  cardsLeft?: Array<ContentfulLehti>;
+  cardsRight?: Array<ContentfulLehti>;
+}) => {
   return (
     <StyledGrid container direction="column" alignItems="center">
       <Grid item>
