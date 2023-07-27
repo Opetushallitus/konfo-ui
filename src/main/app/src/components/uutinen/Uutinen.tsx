@@ -9,6 +9,11 @@ import { useNavigate } from 'react-router-dom';
 import { colors } from '#/src/colors';
 import { useContentful } from '#/src/hooks/useContentful';
 import { formatDateString } from '#/src/tools/utils';
+import {
+  CfRecord,
+  ContentfulAsset,
+  ContentfulUutinen,
+} from '#/src/types/ContentfulTypes';
 
 const PREFIX = 'Uutinen';
 
@@ -51,14 +56,18 @@ const StyledGrid = styled(Grid)({
   },
 });
 
-const useImageUrl = (uutinen, asset, assetUrl) =>
+const useImageUrl = (
+  uutinen: ContentfulUutinen,
+  asset: CfRecord<ContentfulAsset>,
+  assetUrl: (x?: string) => string | undefined
+) =>
   useMemo(() => {
     const image = uutinen?.image;
     const a = image && asset[image?.id];
     return a && assetUrl(a.url);
   }, [uutinen, asset, assetUrl]);
 
-export const Uutinen = ({ id }) => {
+export const Uutinen = ({ id }: { id: string }) => {
   const { t, i18n } = useTranslation();
 
   const navigate = useNavigate();
@@ -70,14 +79,16 @@ export const Uutinen = ({ id }) => {
   const { asset } = data;
   const imgUrl = useImageUrl(uutinen, asset, assetUrl);
 
-  const forwardToPage = (pageId) => {
-    navigate(`/${i18n.language}${forwardTo(pageId)}`);
+  const forwardToPage = (pageId?: string) => {
+    if (pageId) {
+      navigate(`/${i18n.language}${forwardTo(pageId)}`);
+    }
   };
 
   const timestamp = uutinen.formatoituUpdated || uutinen.formatoituCreated;
 
   return (
-    <StyledGrid item xs={12} sm={6} md={4} onClick={() => link && forwardToPage(link)}>
+    <StyledGrid item xs={12} sm={6} md={4} onClick={() => forwardToPage(link)}>
       <Card className={classes.card} elevation={6}>
         {imgUrl && (
           <CardMedia
@@ -101,7 +112,7 @@ export const Uutinen = ({ id }) => {
             </Grid>
           </Grid>
           <div className={classes.content}>
-            <Markdown>{uutinen.content}</Markdown>
+            {uutinen.content && <Markdown>{uutinen.content}</Markdown>}
           </div>
         </CardContent>
       </Card>
