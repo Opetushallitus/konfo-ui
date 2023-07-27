@@ -2,7 +2,13 @@ import React from 'react';
 
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
+import {
+  List,
+  ListItemButton,
+  ListItemButtonProps,
+  ListItemIcon,
+  ListItemText,
+} from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -10,6 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import { colors } from '#/src/colors';
 import { useSideMenu } from '#/src/hooks';
 import { useContentful } from '#/src/hooks/useContentful';
+import { ContentfulLink, ContentfulValikko } from '#/src/types/ContentfulTypes';
 
 const PREFIX = 'SidebarValikko';
 
@@ -27,7 +34,7 @@ const classes = {
 };
 
 const StyledList = styled(List)({
-  color: colors.green,
+  color: colors.brandGreen,
   marginLeft: '20px',
   [`& .${classes.valikko}`]: {
     paddingTop: '0',
@@ -78,39 +85,54 @@ const StyledList = styled(List)({
   },
 });
 
-const ListItemLink = (props) => {
-  return <ListItem button component="a" {...props} />;
+const ListItemLink = (props: ListItemButtonProps) => {
+  return <ListItemButton component="a" {...props} />;
 };
-const SivuItem = (props) => {
-  const { name, id, onClick } = props;
+const SivuItem = ({
+  name,
+  id,
+  onClick,
+}: {
+  name: string;
+  id: string;
+  onClick: (id: string) => void;
+}) => {
   return (
     <ListItemLink role="none" onClick={() => onClick(id)} className={classes.valikko}>
       <ListItemText
         role="menuitem"
         className={classes.valintaText}
-        tabIndex="0"
+        tabIndex={0}
         aria-label={name}>
         {name}
       </ListItemText>
     </ListItemLink>
   );
 };
-const OtsikkoItem = (props) => {
-  const { name } = props;
+
+const OtsikkoItem = ({ name }: { name: string }) => {
   return (
-    <h2 role="menuitem" className={classes.otsikkoText} tabIndex="0" aria-label={name}>
+    <h2 role="menuitem" className={classes.otsikkoText} tabIndex={0} aria-label={name}>
       {name}
     </h2>
   );
 };
-const ValikkoItem = (props) => {
-  const { name, id, select } = props;
+
+const ValikkoItem = ({
+  name,
+  id,
+  select,
+}: {
+  name: string;
+  id: string;
+  select: (id: string) => void;
+}) => {
   return (
     <ListItemLink role="none" className={classes.valikko} onClick={() => select(id)}>
       <ListItemText
         className={classes.valintaText}
         role="menuitem"
-        tabIndex="0"
+        tabIndex={0}
         aria-label={name}>
         {name}
       </ListItemText>
@@ -121,14 +143,21 @@ const ValikkoItem = (props) => {
   );
 };
 
-export const SidebarValikko = (props) => {
+export const SidebarValikko = (props: {
+  parent?: ContentfulValikko;
+  select: (id: string) => void;
+  deselect: () => void;
+  closeMenu: () => void;
+  name: string;
+  links: Array<ContentfulLink>;
+}) => {
   const navigate = useNavigate();
   const { i18n } = useTranslation();
   const { forwardTo } = useContentful();
-  const { parent, select, deselect, closeMenu, name, id, links } = props;
+  const { parent, select, deselect, closeMenu, name, links } = props;
   const { keepMenuVisible } = useSideMenu();
 
-  const forwardToPage = (pageId) => {
+  const forwardToPage = (pageId: string) => {
     navigate(`/${i18n.language}${forwardTo(pageId)}`);
     if (!keepMenuVisible) {
       closeMenu();
@@ -142,12 +171,12 @@ export const SidebarValikko = (props) => {
           <ListItemIcon className={classes.parentOtsikkoIconBase}>
             <ChevronLeftIcon className={classes.parentOtsikkoIcon} />
           </ListItemIcon>
-          <ListItemText role="menuitem" tabIndex="0" aria-label={parent.name}>
+          <ListItemText role="menuitem" tabIndex={0} aria-label={parent.name}>
             {parent.name}
           </ListItemText>
         </ListItemLink>
       ) : null}
-      <OtsikkoItem key={`otsikko-item-${name}`} name={name} id={id} />
+      <OtsikkoItem key={`otsikko-item-${name}`} name={name} />
       {links.map((i) => {
         if (i.type === 'sivu') {
           return (

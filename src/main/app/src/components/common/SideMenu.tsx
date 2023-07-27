@@ -143,10 +143,10 @@ export const SideMenu = (props: {
     setSelected([...selected, newValikkoId]);
   const popSelected = () => setSelected(selected.slice(0, -1));
   const lastSelected = last(selected);
-  const selectedValikko = lastSelected ? (valikko ?? {})[lastSelected] : null;
+  const selectedValikko = lastSelected ? (valikko ?? {})[lastSelected] : undefined;
   const linkit = selectedValikko
     ? [selectedValikko]
-    : (getOne(valikot).valikot || []).map((v) => valikko[v.id]);
+    : (getOne(valikot)?.valikot ?? []).map((v) => valikko[v.id]);
 
   const doSearch = (event: React.SyntheticEvent) => {
     event.preventDefault();
@@ -223,7 +223,6 @@ export const SideMenu = (props: {
           return (
             <SidebarValikko
               key={id}
-              id={id}
               parent={selectedValikko}
               name={linkkiValikko.name}
               deselect={popSelected}
