@@ -13,12 +13,14 @@ import { YhteishakuKortti } from '#/src/components/kortti/YhteishakuKortti';
 import { useContentful } from '#/src/hooks/useContentful';
 import { getOne } from '#/src/tools/getOne';
 
+import { ContentSection } from './ContentSection';
+import { Gap } from './Gap';
 import { useSearch } from './haku/hakutulosHooks';
 import { Jumpotron } from './Jumpotron';
 import { Kortti } from './kortti/Kortti';
 import { Pikalinkit } from './Pikalinkit';
-import { ReactiveBorder } from './ReactiveBorder';
 import { Uutiset } from './uutinen/Uutiset';
+import { WithSideMargins } from './WithSideMargins';
 
 const PREFIX = 'Etusivu';
 
@@ -37,7 +39,6 @@ const Root = styled('div')({
   },
   [`& .${classes.header}`]: {
     fontSize: '28px',
-    paddingTop: '60px',
     paddingBottom: '28px',
     fontWeight: 700,
   },
@@ -47,6 +48,8 @@ const Root = styled('div')({
     textTransform: 'none',
   },
 });
+
+const SectionGap = () => <Gap y={6} />;
 
 export const Etusivu = () => {
   const { t } = useTranslation();
@@ -72,6 +75,7 @@ export const Etusivu = () => {
     setKeyword('');
     clearFilters();
   });
+  const pikalinkitData = getOne(pikalinkit);
 
   return (
     <Root>
@@ -80,50 +84,47 @@ export const Etusivu = () => {
         <LoadingCircle />
       ) : (
         <>
-          <ReactiveBorder>
+          <WithSideMargins>
+            <SectionGap />
             <Grid container spacing={3}>
               {yhteishakuInfos.map(({ id }) => (
                 <YhteishakuKortti id={id} key={id} n={yhteishakuInfos.length} />
               ))}
             </Grid>
-          </ReactiveBorder>
-
-          <ReactiveBorder>
+            <Gap y={3} />
             <Grid container>
-              {infos.map((info) => {
-                return (
-                  <Grid item xs={12} key={info.id}>
-                    <Paper className={classes.info} elevation={0}>
-                      <span className="notification-content">
-                        {info?.content && <Markdown>{info.content}</Markdown>}
-                      </span>
-                    </Paper>
-                  </Grid>
-                );
-              })}
+              {infos.map((info) => (
+                <Grid item xs={12} key={info.id}>
+                  <Paper className={classes.info} elevation={0}>
+                    <span className="notification-content">
+                      {info?.content && <Markdown>{info.content}</Markdown>}
+                    </span>
+                  </Paper>
+                </Grid>
+              ))}
             </Grid>
-            <Grid container>
-              <Pikalinkit pikalinkit={pikalinkit} content={content} />
-            </Grid>
-            <Grid container>
-              <h2 className={classes.header}>{t('oikopolut')}</h2>
+          </WithSideMargins>
+          <SectionGap />
+          <Pikalinkit pikalinkit={pikalinkitData} content={content} />
+          <SectionGap />
+          <WithSideMargins>
+            <ContentSection heading={t('oikopolut')}>
               <Grid container spacing={3}>
                 {/* Kortit-sisältötyyppi kuvaa korttilistauksen etusivulla, joten niitä on aina vain yksi */}
                 {getOne(kortit)?.kortit?.map((k) => <Kortti id={k?.id} key={k?.id} />)}
               </Grid>
-            </Grid>
-          </ReactiveBorder>
-          <ReactiveBorder>
-            <Grid container>
-              <Grid item xs={12}>
-                <h2 className={classes.header}>{t('ajankohtaista-ja-uutisia')}</h2>
-              </Grid>
+            </ContentSection>
+            <SectionGap />
+            <ContentSection heading={t('ajankohtaista-ja-uutisia')}>
               <Grid container spacing={3}>
                 <Uutiset uutiset={showMore ? take(uutislinkit, 3) : uutislinkit} />
               </Grid>
-
-              <Grid container direction="row" justifyContent="center" alignItems="center">
-                {showMore && (
+              {showMore ? (
+                <Grid
+                  container
+                  direction="row"
+                  justifyContent="center"
+                  alignItems="center">
                   <Button
                     className={classes.showMore}
                     variant="contained"
@@ -131,10 +132,11 @@ export const Etusivu = () => {
                     color="primary">
                     {t('näytä-kaikki')}
                   </Button>
-                )}
-              </Grid>
-            </Grid>
-          </ReactiveBorder>
+                </Grid>
+              ) : null}
+              <SectionGap />
+            </ContentSection>
+          </WithSideMargins>
         </>
       )}
     </Root>

@@ -1,11 +1,9 @@
 import React from 'react';
 
-import { Link, Typography, useTheme } from '@mui/material';
+import { Link, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery/useMediaQuery';
-import clsx from 'clsx';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
 
@@ -17,8 +15,11 @@ import OPOLogoFooterSV from '#/src/assets/images/OPO_Logo_Footer_ruotsi.svg';
 import { colors } from '#/src/colors';
 import { ImageComponent } from '#/src/components/sivu/ImageComponent';
 import { useContentful } from '#/src/hooks/useContentful';
+import { theme } from '#/src/theme';
 import { getOne } from '#/src/tools/getOne';
 import { getLanguage } from '#/src/tools/localization';
+
+import { WithSideMargins } from '../WithSideMargins';
 
 const PREFIX = 'Footer';
 
@@ -34,19 +35,9 @@ const classes = {
 };
 
 const Root = styled('footer')({
-  [`& .${classes.footer}`]: {
-    backgroundColor: colors.white,
-    lineHeight: '21px',
-  },
-  [`& .${classes.link}`]: {
-    display: 'block',
-    fontSize: '14px',
-    lineHeight: '26px',
-  },
-  [`& .${classes.content}`]: {
-    paddingTop: '36px',
-    paddingBottom: '36px',
-  },
+  marginTop: theme.spacing(8),
+  marginBottom: theme.spacing(7),
+  lineHeight: '21px',
   [`& .${classes.hr}`]: {
     backgroundColor: colors.white,
     width: '100%',
@@ -72,14 +63,6 @@ const Root = styled('footer')({
     backgroundColor: colors.white,
     padding: '0 40px 0 40px',
   },
-  [`& .${classes.spaceOnBorders}`]: {
-    paddingLeft: 90,
-    paddingRight: 90,
-  },
-  [`& .${classes.smSpaceOnBorders}`]: {
-    paddingLeft: 10,
-    paddingRight: 10,
-  },
 });
 
 const overrides = {
@@ -90,7 +73,7 @@ const overrides = {
     a: {
       component: Link,
       props: {
-        className: classes.link,
+        variant: 'body2',
       },
     },
     p: {
@@ -104,45 +87,39 @@ const overrides = {
   },
 };
 
+const OpintopolkuFooterLogo = () => {
+  switch (getLanguage()) {
+    case 'fi':
+      return OPOLogoFooterFI;
+    case 'en':
+      return OPOLogoFooterEN;
+    case 'sv':
+      return OPOLogoFooterSV;
+    default:
+      return OPOLogoFooterFI;
+  }
+};
+
+const OPHFooterLogo = () => {
+  switch (getLanguage()) {
+    case 'en':
+      return OPHIconEN;
+    default:
+      return OPHIcon;
+  }
+};
+
 export const Footer = () => {
   const { t } = useTranslation();
   const { data } = useContentful();
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.up('md'));
 
   // Footereita on vain yksi
   const { content, contentRight, contentCenter, lopputekstit } =
     getOne(data.footer) ?? {};
 
-  const OpintopolkuFooterLogo = () => {
-    switch (getLanguage()) {
-      case 'fi':
-        return OPOLogoFooterFI;
-      case 'en':
-        return OPOLogoFooterEN;
-      case 'sv':
-        return OPOLogoFooterSV;
-      default:
-        return OPOLogoFooterFI;
-    }
-  };
-
-  const OPHFooterLogo = () => {
-    switch (getLanguage()) {
-      case 'en':
-        return OPHIconEN;
-      default:
-        return OPHIcon;
-    }
-  };
-
   return (
     <Root>
-      <div
-        className={clsx(
-          classes.footer,
-          matches ? classes.spaceOnBorders : classes.smSpaceOnBorders
-        )}>
+      <WithSideMargins>
         <Grid container>
           <Grid item xs={12}>
             <div className={classes.hr}>
@@ -159,19 +136,19 @@ export const Footer = () => {
           direction="row"
           justifyContent="space-evenly"
           alignItems="flex-start"
-          className={classes.content}>
+          paddingY={2}>
           <Grid item xs={12} sm={4} md={3}>
-            <Box lineHeight={'21px'} m={1}>
+            <Box m={1}>
               <Markdown options={overrides}>{content ?? ''}</Markdown>
             </Box>
           </Grid>
           <Grid item xs={12} sm={4} md={3}>
-            <Box lineHeight={'21px'} m={1}>
+            <Box m={1}>
               <Markdown options={overrides}>{contentCenter ?? ''}</Markdown>
             </Box>
           </Grid>
           <Grid item xs={12} sm={4} md={3}>
-            <Box lineHeight={'21px'} m={1}>
+            <Box m={1}>
               <Markdown options={overrides}>{contentRight ?? ''}</Markdown>
             </Box>
           </Grid>
@@ -192,7 +169,7 @@ export const Footer = () => {
             <Markdown options={overrides}>{lopputekstit || ''}</Markdown>
           </Grid>
         </Grid>
-      </div>
+      </WithSideMargins>
     </Root>
   );
 };
