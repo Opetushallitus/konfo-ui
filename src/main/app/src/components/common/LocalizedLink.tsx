@@ -9,7 +9,7 @@ import { defaultLanguage, supportedLanguages } from '#/src/tools/i18n';
 import { localizeHref } from './localizeHref';
 
 type Props = Omit<RouterLinkProps, 'to'> & {
-  href?: string;
+  href?: string | null;
 };
 
 const UnstyledRouterLink = styled(RouterLink)({

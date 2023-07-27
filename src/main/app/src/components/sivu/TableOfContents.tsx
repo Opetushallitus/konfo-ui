@@ -28,24 +28,28 @@ const StyledMarkdown = styled(Markdown)({
   },
 });
 
-export const TableOfContents = (props) => {
-  const { content } = props;
+const HeadingLevelToComponent = ({
+  children,
+  id,
+}: React.PropsWithChildren<{ id: string }>) => {
   const { t } = useTranslation();
-  const HeadingLevelToComponent = ({ children, id }) => {
-    const value = children;
-    const anchor = id;
-    return (
-      <Link
-        className={classes.link}
-        aria-label={t('ankkurilinkki') + ' ' + value}
-        to={`#${anchor}`}
-        scroll={(el) => el.scrollIntoView({ behavior: 'smooth', block: 'start' })}>
-        {value}
-      </Link>
-    );
-  };
-  const Null = () => null;
+  const value = children;
   return (
+    <Link
+      className={classes.link}
+      aria-label={t('ankkurilinkki') + ' ' + value}
+      to={`#${id}`}
+      scroll={(el) => el.scrollIntoView({ behavior: 'smooth', block: 'start' })}>
+      {value}
+    </Link>
+  );
+};
+
+const Null = () => null;
+
+export const TableOfContents = (props: { content?: string }) => {
+  const { content } = props;
+  return content ? (
     <StyledMarkdown
       options={{
         overrides: {
@@ -92,5 +96,5 @@ export const TableOfContents = (props) => {
       }}>
       {content}
     </StyledMarkdown>
-  );
+  ) : null;
 };

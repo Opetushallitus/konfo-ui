@@ -36,7 +36,20 @@ const StyledLink = styled(Link)({
   },
 });
 
-export const LinkOrYoutube = ({ children, className, href, ...props }) => {
+type LinkOrYoutubeProps = React.PropsWithChildren<{
+  href: string;
+  class: string;
+  title: string;
+  url: string;
+  className: string;
+}>;
+
+export const LinkOrYoutube = ({
+  children,
+  className,
+  href,
+  ...props
+}: LinkOrYoutubeProps) => {
   const url = parseUrl(href);
   const v = url?.searchParams?.get?.('v');
 
@@ -65,7 +78,7 @@ export const LinkOrYoutube = ({ children, className, href, ...props }) => {
         href={href}
         underline="always">
         {children}
-        <OpenInNewIcon className={classes.icon} />
+        <OpenInNewIcon />
       </StyledLink>
     );
   }

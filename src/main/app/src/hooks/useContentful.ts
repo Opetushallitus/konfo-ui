@@ -17,6 +17,7 @@ const initialContentfulData: ContentfulData = {
   esittely: {},
   footer: {},
   info: {},
+  infoGrid: {},
   infoYhteishaku: {},
   kortit: {},
   kortti: {},
@@ -64,13 +65,14 @@ export const useContentful = () => {
   const { contentfulData, slugsToIds: newSlugsToIds } = data ?? {};
 
   const forwardTo = useCallback(
-    (id: string, nullIfUnvailable?: boolean) => {
+    (id: string, nullIfUnvailable: boolean = false) => {
       const sivu = contentfulData?.sivu[id] || contentfulData?.sivuKooste[id];
-      return sivu
-        ? `/sivu/${sivu.slug ?? id}`
-        : nullIfUnvailable
-        ? null
-        : `/sivu/poistettu`;
+      const link = sivu ? `/sivu/${sivu?.slug ?? id}` : undefined;
+      if (nullIfUnvailable) {
+        return link ?? null;
+      } else {
+        return link ?? '/sivu/poistettu';
+      }
     },
     [contentfulData]
   );
@@ -94,7 +96,7 @@ export const useContentful = () => {
 
   const oldSlugsToIds = usePreviousNonEmpty(newSlugsToIds);
 
-  const slugsToIds = useMemo(
+  const slugsToIds: Record<string, { language: LanguageCode; id: string }> = useMemo(
     () => ({ ...(oldSlugsToIds ?? {}), ...(newSlugsToIds ?? {}) }),
     [oldSlugsToIds, newSlugsToIds]
   );

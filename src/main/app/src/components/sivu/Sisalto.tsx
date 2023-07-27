@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { RefObject } from 'react';
 
 import { Link, Typography } from '@mui/material';
 import Markdown from 'markdown-to-jsx';
@@ -10,22 +10,34 @@ import { useContentful } from '#/src/hooks/useContentful';
 import { Accordion, Summary } from './Accordion';
 import { LinkOrYoutube } from './LinkOrYoutube';
 
-const isBlank = (str) => {
+const isBlank = (str?: string) => {
   return !str || /^\s*$/.test(str);
 };
 
-const SivuLink = ({ slug, children }) => {
+// Markdownissa tällainen:
+// <sivu slug="sivun-url-tunniste">Kuvaava linkin teksti</sivu>
+// Children-attribuuttiin näyttää tulevan aina taulukko, jossa elementin string, eli tässä
+// esimerkissä children olisi ["Kuvaava linkin teksti"]
+const SivuLink = ({ slug, children }: { slug: string; children: [string] | [] }) => {
   const { data, forwardTo } = useContentful();
   const { sivu } = data;
 
   return sivu[slug] ? (
-    <Link href={forwardTo(slug)} underline="always">
-      {isBlank(children ? children[0] : null) ? sivu[slug].name : children}
+    <Link href={forwardTo(slug) ?? ''} underline="always">
+      {isBlank(children?.[0]) ? sivu[slug].name : children}
     </Link>
   ) : null;
 };
 
-export const Sisalto = ({ content, excludeMedia, rootRef }) => {
+export const Sisalto = ({
+  content,
+  excludeMedia = false,
+  rootRef,
+}: {
+  content?: string;
+  excludeMedia?: boolean;
+  rootRef?: RefObject<HTMLDivElement>;
+}) => {
   return content ? (
     <Markdown
       options={{

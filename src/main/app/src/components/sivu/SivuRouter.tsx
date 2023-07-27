@@ -21,7 +21,7 @@ const classes = {
   component: `${PREFIX}-component`,
 };
 
-const NotFound = ({ loading }) => {
+const NotFound = ({ loading }: { loading: boolean }) => {
   const { t } = useTranslation();
 
   return (
@@ -71,28 +71,29 @@ export const SivuRouter = () => {
   const { id: slug, lng: lngParam } = useParams();
   const { data, slugsToIds, isLoading } = useContentful();
   const { sivu, sivuKooste } = data;
-  const idInfo = slugsToIds?.[slug];
 
   if (isLoading) {
     return <LoadingCircle />;
   }
-  if (idInfo?.language === lngParam) {
-    if (sivu[slug]) {
-      return <Sivu id={slug} />;
-    } else if (sivuKooste[slug]) {
-      return <SivuKooste id={slug} />;
+  if (slug) {
+    const idInfo = slugsToIds?.[slug];
+    if (idInfo?.language === lngParam) {
+      if (sivu[slug]) {
+        return <Sivu id={slug} />;
+      } else if (sivuKooste[slug]) {
+        return <SivuKooste id={slug} />;
+      } else {
+        return <StyledNotFound loading={isLoading} />;
+      }
     } else {
-      return <StyledNotFound loading={isLoading} />;
-    }
-  } else {
-    const newSlug = findKey(
-      slugsToIds,
-      (slugInfo) => slugInfo.id === idInfo?.id && slugInfo?.language === lngParam
-    );
-    if (newSlug) {
-      return <Navigate to={`/${lngParam}/sivu/${newSlug}`} replace />;
-    } else {
-      return <NotFound loading={isLoading} />;
+      const newSlug = findKey(
+        slugsToIds,
+        (slugInfo) => slugInfo.id === idInfo?.id && slugInfo?.language === lngParam
+      );
+      if (newSlug) {
+        return <Navigate to={`/${lngParam}/sivu/${newSlug}`} replace />;
+      }
     }
   }
+  return <NotFound loading={isLoading} />;
 };

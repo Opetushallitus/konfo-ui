@@ -19,7 +19,7 @@ const StyledImageComponent = styled(Card)({
   },
 });
 
-export const ImageComponent = ({ src, alt }) => {
+export const ImageComponent = ({ src, alt }: { src: string; alt?: string }) => {
   const { data, assetUrl } = useContentful();
   const { asset } = data;
   const url = src.replace('//images.ctfassets.net/', '');

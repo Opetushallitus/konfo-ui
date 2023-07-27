@@ -1,4 +1,11 @@
-import { Asset, ChainModifiers, Entry, EntrySkeletonType, LocaleCode } from 'contentful';
+import {
+  Asset,
+  ChainModifiers,
+  Entry,
+  EntrySkeletonType,
+  EntryFieldTypes,
+  LocaleCode,
+} from 'contentful';
 
 import { LanguageCode, Translateable } from './common';
 import {
@@ -37,14 +44,18 @@ export type CommonContentfulFields = {
 export type GenericContentfulItem = CommonContentfulFields & {
   slug?: string;
   url?: string;
-  sivu?: EntryLinkki<TypeSivu<Mod, ''>>;
+  sivu?: ContentfulEntryLink<TypeSivu<Mod, ''>>;
 };
 
-type EntryLinkki<E extends Entry> = {
+export type ContentfulLink<Type extends string = ContentTypeId> = {
   id: string;
-  type: E['sys']['contentType']['sys']['id'];
+  type: Type;
   name: string;
 };
+
+type ContentfulEntryLink<E extends Entry> = ContentfulLink<
+  E['sys']['contentType']['sys']['id']
+>;
 
 export type ContentfulAsset = CommonContentfulFields & {
   type: 'asset';
@@ -53,47 +64,52 @@ export type ContentfulAsset = CommonContentfulFields & {
   url: string;
 };
 
-type FieldsModItem<T> = T extends Asset
+// JSON-objektit ja totuusarvot tulee stringeinä
+type FieldsModVal<T> = T extends EntryFieldTypes.Object['data']
+  ? 'string'
+  : T extends boolean
+  ? 'true' | 'false'
+  : T extends Asset
   ? ContentfulAsset
   : T extends Entry
-  ? EntryLinkki<T>
+  ? ContentfulEntryLink<T>
   : T extends Array<infer E>
   ? E extends Entry
-    ? Array<EntryLinkki<E>>
-    : T
+    ? Array<ContentfulEntryLink<E>>
+    : Array<ContentfulLink>
   : T;
 
 type FieldsMod<F extends EntrySkeletonType['fields']> = {
-  [P in keyof F]: FieldsModItem<F[P]>;
+  [P in keyof F]: FieldsModVal<F[P]>;
 };
 
-export type ContentfulItemG<
-  C extends Entry<EntrySkeletonType, ChainModifiers, LocaleCode>,
-> = CommonContentfulFields & {
-  type: C['sys']['contentType']['sys']['id'];
-} & FieldsMod<C['fields']>;
+type ContentfulItem<C extends Entry<EntrySkeletonType, ChainModifiers, LocaleCode>> =
+  CommonContentfulFields & {
+    type: C['sys']['contentType']['sys']['id'];
+  } & FieldsMod<C['fields']>;
 
 type Mod = 'WITHOUT_UNRESOLVABLE_LINKS';
-export type ContentfulContent = ContentfulItemG<TypeContent<Mod, ''>>;
-export type ContentfulCookieModalTex = ContentfulItemG<TypeCookieModalText<Mod, ''>>;
-export type ContentfulEsittely = ContentfulItemG<TypeEsittely<Mod, ''>>;
-export type ContentfulFooter = ContentfulItemG<TypeFooter<Mod, ''>>;
-export type ContentfulInfo = ContentfulItemG<TypeInfo<Mod, ''>>;
-export type ContentfulInfoGrid = ContentfulItemG<TypeInfoGrid<Mod, ''>>;
-export type ContentfulInfoYhteishaku = ContentfulItemG<TypeInfoYhteishaku<Mod, ''>>;
-export type ContentfulKortit = ContentfulItemG<TypeKortit<Mod, ''>>;
-export type ContentfulKortti = ContentfulItemG<TypeKortti<Mod, ''>>;
-export type ContentfulLehti = ContentfulItemG<TypeLehti<Mod, ''>>;
-export type ContentfulOhjeetJaTuki = ContentfulItemG<TypeOhjeetJaTuki<Mod, ''>>;
-export type ContentfulPalvelu = ContentfulItemG<TypePalvelu<Mod, ''>>;
-export type ContentfulPalvelut = ContentfulItemG<TypePalvelut<Mod, ''>>;
-export type ContentfulPuu = ContentfulItemG<TypePuu<Mod, ''>>;
-export type ContentfulSivu = ContentfulItemG<TypeSivu<Mod, ''>>;
-export type ContentfulSivuKooste = ContentfulItemG<TypeSivuKooste<Mod, ''>>;
-export type ContentfulUutinen = ContentfulItemG<TypeUutinen<Mod, ''>>;
-export type ContentfulUutiset = ContentfulItemG<TypeUutiset<Mod, ''>>;
-export type ContentfulValikko = ContentfulItemG<TypeValikko<Mod, ''>>;
-export type ContentfulValikot = ContentfulItemG<TypeValikot<Mod, ''>>;
+
+export type ContentfulContent = ContentfulItem<TypeContent<Mod, ''>>;
+export type ContentfulCookieModalTex = ContentfulItem<TypeCookieModalText<Mod, ''>>;
+export type ContentfulEsittely = ContentfulItem<TypeEsittely<Mod, ''>>;
+export type ContentfulFooter = ContentfulItem<TypeFooter<Mod, ''>>;
+export type ContentfulInfo = ContentfulItem<TypeInfo<Mod, ''>>;
+export type ContentfulInfoGrid = ContentfulItem<TypeInfoGrid<Mod, ''>>;
+export type ContentfulInfoYhteishaku = ContentfulItem<TypeInfoYhteishaku<Mod, ''>>;
+export type ContentfulKortit = ContentfulItem<TypeKortit<Mod, ''>>;
+export type ContentfulKortti = ContentfulItem<TypeKortti<Mod, ''>>;
+export type ContentfulLehti = ContentfulItem<TypeLehti<Mod, ''>>;
+export type ContentfulOhjeetJaTuki = ContentfulItem<TypeOhjeetJaTuki<Mod, ''>>;
+export type ContentfulPalvelu = ContentfulItem<TypePalvelu<Mod, ''>>;
+export type ContentfulPalvelut = ContentfulItem<TypePalvelut<Mod, ''>>;
+export type ContentfulPuu = ContentfulItem<TypePuu<Mod, ''>>;
+export type ContentfulSivu = ContentfulItem<TypeSivu<Mod, ''>>;
+export type ContentfulSivuKooste = ContentfulItem<TypeSivuKooste<Mod, ''>>;
+export type ContentfulUutinen = ContentfulItem<TypeUutinen<Mod, ''>>;
+export type ContentfulUutiset = ContentfulItem<TypeUutiset<Mod, ''>>;
+export type ContentfulValikko = ContentfulItem<TypeValikko<Mod, ''>>;
+export type ContentfulValikot = ContentfulItem<TypeValikot<Mod, ''>>;
 
 export type CfRecord<T> = Record<string, T>;
 
@@ -104,6 +120,7 @@ export type ContentfulData = {
   esittely: CfRecord<ContentfulEsittely>;
   footer: CfRecord<ContentfulFooter>;
   info: CfRecord<ContentfulInfo>;
+  infoGrid: CfRecord<ContentfulInfoGrid>;
   infoYhteishaku: CfRecord<ContentfulInfoYhteishaku>;
   kortit: CfRecord<ContentfulKortit>;
   kortti: CfRecord<ContentfulKortti>;
@@ -119,6 +136,8 @@ export type ContentfulData = {
   valikko: CfRecord<ContentfulValikko>;
   valikot: CfRecord<ContentfulValikot>;
 };
+
+type ContentTypeId = keyof ContentfulData;
 
 export type ContentfulManifestData = Record<
   keyof ContentfulData,

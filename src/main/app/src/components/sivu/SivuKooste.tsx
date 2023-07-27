@@ -6,12 +6,15 @@ import { InfoCardGrid } from '#/src/components/common/InfoCardGrid';
 import { InfoGrid } from '#/src/components/common/InfoGrid';
 import { Tree } from '#/src/components/common/Tree';
 import { useContentful } from '#/src/hooks/useContentful';
+import { CfRecord, ContentfulLink, ContentfulUutinen } from '#/src/types/ContentfulTypes';
 
 import { Sisalto } from './Sisalto';
 
-// TODO: Mikä tämä komponentti on? Kovakoodattuja käännöksiä, testitekstillä
-const testiTeksti = `Ammatillisia tutkintoja ovat ammatilliset perustutkinnot, ammattitutkinnot ja erikoisammattitutkinnot.  Tässä osiossa kerrotaan yleisesti opinnoista ja tutkinnon suorittamisesta.`;
-const uutisHelper = (data, noPics, greenTitle) => {
+const uutisHelper = (
+  data?: CfRecord<ContentfulUutinen>,
+  showImages: boolean = false,
+  greenTitle: boolean = false
+) => {
   if (!data) {
     return;
   }
@@ -19,24 +22,19 @@ const uutisHelper = (data, noPics, greenTitle) => {
     .slice(0, 3)
     .map((e) => ({
       title: e.name,
-      text: testiTeksti,
+      text: e.content,
       titleColor: greenTitle ? 'primary' : undefined,
-      image: noPics
-        ? undefined
-        : {
-            url: 'http://images.ctfassets.net/4h0h2z8iv5uv/3p31bFzEUEkxtE2fAT7NQY/f2ebe5602b3890d45afd22a4b0fadc17/Screenshot_2019-10-01_at_10.09.36.png',
-            title: e.name,
-          },
+      image: showImages ? e.image : undefined,
     }));
 };
 
 // TODO: module on keyword eikä se saisi olla muuttujannimi
-const Module = ({ module }) => {
+const Module = ({ module }: { module: ContentfulLink }) => {
   const { data } = useContentful();
   if (module.type === 'infoGrid') {
-    const { data: infoGridData, id } = data.infoGrid[module.id];
+    const { data: infoGridData } = data.infoGrid[module.id];
     const gridData = infoGridData ? JSON.parse(infoGridData) : [];
-    return <InfoGrid id={id} gridData={gridData} />;
+    return <InfoGrid gridData={gridData} />;
   } else if (module.type === 'uutiset') {
     const { name, id, showImage, greenText } = data.uutiset[module.id];
 
@@ -44,7 +42,7 @@ const Module = ({ module }) => {
       <InfoCardGrid
         id={id}
         title={name}
-        cards={uutisHelper(data.uutinen, showImage === 'false', greenText === 'true')}
+        cards={uutisHelper(data.uutinen, showImage === 'true', greenText === 'true')}
       />
     );
   } else if (module.type === 'puu') {
@@ -55,8 +53,8 @@ const Module = ({ module }) => {
       <Tree
         id={id}
         title={name}
-        cardsLeft={left.map(({ id: leftId }) => lehti[leftId])}
-        cardsRight={right.map(({ id: rightId }) => lehti[rightId])}
+        cardsLeft={left?.map((leftLink) => lehti[leftLink?.id])}
+        cardsRight={right?.map((rightLink) => lehti[rightLink?.id])}
       />
     );
   } else if (module.type === 'content') {
@@ -71,20 +69,23 @@ const Module = ({ module }) => {
   }
 };
 
-export const SivuKooste = ({ id }) => {
+export const SivuKooste = ({ id }: { id: string }) => {
   const { data } = useContentful();
   const pageId = id;
-  const pads = {
-    padding: '25px 90px',
-  };
   const kooste = data.sivuKooste[pageId] || {};
 
   return (
-    <main id="main-content" className="center-content" style={pads}>
+    <main
+      id="main-content"
+      className="center-content"
+      style={{
+        padding: '25px 90px',
+      }}>
       <Box display="flex" flexDirection="column" alignItems="center">
         <Typography variant="h1">{kooste.name}</Typography>
+        {/* kooste.modules.type tulee stringinä, mutta oikeasti pitäisi oikeasti olla rajattu tunnetuksi type:ksi kuten ContentfulLink:ssä */}
         {(kooste.modules || []).map((module, index) => (
-          <Module module={module} key={`module-${index}`} />
+          <Module module={module as ContentfulLink} key={`module-${index}`} />
         ))}
       </Box>
     </main>

@@ -22,18 +22,14 @@ const StyledAccordion = withStyles({
   expanded: {},
 })(MuiAccordion);
 
-const Summary = ({ children }) => {
+export const Summary = ({ children }: React.PropsWithChildren) => {
   return (
-    <AccordionSummary
-      elevation={0}
-      expandIcon={<ExpandMoreIcon />}
-      aria-controls="panel1a-content">
+    <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content">
       <Typography>{children}</Typography>
     </AccordionSummary>
   );
 };
-const Accordion = ({ children }) => {
-  return <StyledAccordion elevation={0}>{children}</StyledAccordion>;
-};
 
-export { Summary, Accordion };
+export const Accordion = ({ children }: React.PropsWithChildren) => {
+  return children ? <StyledAccordion elevation={0}>{children}</StyledAccordion> : null;
+};

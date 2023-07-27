@@ -46,12 +46,12 @@ const Root = styled('div')({
   },
 });
 
-export const Sivu = ({ id }) => {
+export const Sivu = ({ id }: { id: string }) => {
   const { data, murupolku } = useContentful();
 
   const { hash } = useLocation();
 
-  const rootRef = useRef(null);
+  const rootRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
     const el = hash === '#' ? null : document.getElementById(hash.substring(1));
