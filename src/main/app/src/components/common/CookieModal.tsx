@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { colors } from '#/src/colors';
 import { KonfoCheckbox } from '#/src/components/common/Checkbox';
 import { useContentful } from '#/src/hooks/useContentful';
+import { getOne } from '#/src/tools/getOne';
 
 const PREFIX = 'CookieModal';
 
@@ -105,15 +106,13 @@ const StyledModal = styled(Modal)(({ theme }) => ({
 
 const mandatoryCookieName = 'oph-mandatory-cookies-accepted';
 
-const single = (entry) => Object.values(entry || [])[0] || {};
-
 export const CookieModal = () => {
   const { t } = useTranslation();
 
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [fullCookieInfoOpen, setFullCookieInfoOpen] = useState(false);
-  const [cookiesAccepted, setCookiesAccepted] = useState(
-    Cookies.get(mandatoryCookieName)
+  const [cookiesAccepted, setCookiesAccepted] = useState<boolean>(
+    Boolean(Cookies.get(mandatoryCookieName))
   );
 
   const [statisticCookiesAccepted, setStatisticCookiesAccepted] = useState(false);
@@ -121,28 +120,28 @@ export const CookieModal = () => {
 
   const { data, isLoading } = useContentful();
 
-  const contentfulTexts = single(data.cookieModalText);
+  const contentfulTexts = getOne(data.cookieModalText);
 
   const fields = {
-    shortContent: contentfulTexts['shortContent'] || '',
-    fullContent: contentfulTexts['fullContent'] || '',
-    heading: contentfulTexts['heading'] || t('cookieModal.heading'),
-    expandLinkText: contentfulTexts['expandLinkText'] || '',
+    shortContent: contentfulTexts?.['shortContent'] ?? '',
+    fullContent: contentfulTexts?.['fullContent'] ?? '',
+    heading: contentfulTexts?.['heading'] ?? t('cookieModal.heading'),
+    expandLinkText: contentfulTexts?.['expandLinkText'] ?? '',
     settingsButtonText:
-      contentfulTexts['settingsButtonText'] || t('cookieModal.settings'),
+      contentfulTexts?.['settingsButtonText'] ?? t('cookieModal.settings'),
     settingsButtonCloseText:
-      contentfulTexts['settingsButtonCloseText'] || t('cookieModal.settings'),
-    acceptButtonText: contentfulTexts['acceptButtonText'] || t('cookieModal.accept'),
-    settingsHeaderText: contentfulTexts['settingsHeaderText'] || '',
+      contentfulTexts?.['settingsButtonCloseText'] ?? t('cookieModal.settings'),
+    acceptButtonText: contentfulTexts?.['acceptButtonText'] ?? t('cookieModal.accept'),
+    settingsHeaderText: contentfulTexts?.['settingsHeaderText'] ?? '',
     settingsAcceptMandatoryText:
-      contentfulTexts['settingsAcceptMandatoryText'] || t('cookieModal.mandatory'),
+      contentfulTexts?.['settingsAcceptMandatoryText'] ?? t('cookieModal.mandatory'),
     settingsAcceptStatisticText:
-      contentfulTexts['settingsAcceptStatisticText'] || t('cookieModal.statistic'),
+      contentfulTexts?.['settingsAcceptStatisticText'] ?? t('cookieModal.statistic'),
     settingsAcceptMarketingText:
-      contentfulTexts['settingsAcceptMarketingText'] || t('cookieModal.marketing'),
+      contentfulTexts?.['settingsAcceptMarketingText'] ?? t('cookieModal.marketing'),
   };
 
-  function handleAcceptCookies(e) {
+  const handleAcceptCookies: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
     Cookies.set(mandatoryCookieName, 'true', {
       expires: 1800,
@@ -161,7 +160,7 @@ export const CookieModal = () => {
       });
     }
     setCookiesAccepted(true);
-  }
+  };
 
   const openSettings = (
     <div id="cookie-modal-settings" className={classes.settings}>
