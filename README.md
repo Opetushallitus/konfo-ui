@@ -74,12 +74,13 @@ Yksikkötestit nimetään päätteellä `.test.js` tai `.test.ts` ja ne luodaan 
 ## Contentful ja TS-tyypitysten generointi
 
 Konfo-UI lataa sisältöjä Contentful-sisällönhallintajärjestelmästä. Jotta Contentfulin rajapintojen palauttamaa dataa on helpompaa käsitellä konfo-ui:ssa, on niille generoitu TypeScript-tyypitykset käyttäen [cf-content-types-generator](https://github.com/contentful-userland/cf-content-types-generator)-työkalua.
-Jos Contentful-sisällön tyypit (content types) muuttuvat, täytyy TS-tyypitykset luoda uudelleen. Etsi AWS:n Secrets Managerista utility-tililtä salaisuus nimellä "Contentful_management_api_token". Kopioi sieltä löytyvät salaisuudet itsellesi `src/main/app/src/.env.local`-tiedostoon näin:
+Jos Contentful-sisällön tyypit (content types) muuttuvat, täytyy TS-tyypitykset luoda uudelleen. Etsi AWS:n Secrets Managerista utility-tililtä salaisuus nimellä "Contentful_management_api_token". Lisää seuraavanlaiset rivit `src/main/app/src/.env.local`-tiedostoon:
 
     CONTENTFUL_SPACE_ID=xxxxxxx
     CONTENTFUL_MANAGEMENT_API_TOKEN=xxxxx-xxxxxxxxxxxxxxxx-xxxxxxxx
+    CONTENTFUL_ENVIRONMENT_ID=testi
 
-Korvaa "xxx"-kohdat oikeilla salaisuuksilla. Vaihtoehtoisesti "space id" löytyy myös suoraan Contentfulista ja voit generoida oman "management API" tokenin Contentfulissa ja käyttää sitä. Kehittäjän Contentful tunnukset löytyvät myös AWS:n Secrets Managerista.
+Korvaa "xxx"-kohdat oikeilla AWS:stä löytyvillä salaisuuksilla. Environment id on "testi" tai "master" (tuotantoympäristö). Vaihtoehtoisesti "space id" löytyy myös suoraan Contentfulista ja voit generoida oman "management API" tokenin Contentfulissa ja käyttää sitä. Kehittäjän Contentful tunnukset löytyvät myös AWS:n Secrets Managerista.
 
 Kun salaisuudet ovat paikallaan, luo tyypitykset npm-skriptillä:
 
