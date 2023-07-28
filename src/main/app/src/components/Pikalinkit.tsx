@@ -1,17 +1,8 @@
 import React from 'react';
 
-import {
-  Box,
-  Grid,
-  Link,
-  Paper,
-  SvgIconProps,
-  useMediaQuery,
-  useTheme,
-} from '@mui/material';
+import { Box, Grid, Link, Paper, useMediaQuery, useTheme } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Markdown from 'markdown-to-jsx';
-import SVG from 'react-inlinesvg';
 
 import { colors } from '#/src/colors';
 import {
@@ -21,26 +12,8 @@ import {
 } from '#/src/types/ContentfulTypes';
 
 import { Heading, HeadingBoundary } from './Heading';
+import { InlineSvgIcon } from './InlineSvgIcon';
 import { WithSideMargins } from './WithSideMargins';
-
-type InlineSvgIconProps = {
-  src: string;
-} & SvgIconProps;
-
-export const InlineSvgIcon = ({ src }: InlineSvgIconProps) => {
-  return (
-    <Box sx={{ fontSize: '1.4em', paddingTop: '.125em' }}>
-      <SVG
-        style={{ position: 'relative' }}
-        fontSize="inherit"
-        fill="currentColor"
-        width="1em"
-        height="1em"
-        src={src}
-      />
-    </Box>
-  );
-};
 
 const StyledList = styled('ul')({
   listStyleType: 'none',
@@ -61,6 +34,7 @@ const ListItemWithChevron = ({ children }: React.PropsWithChildren) => (
     <InlineSvgIcon
       src="/konfo/icons/material/outlined/chevron_right.svg"
       color="primary"
+      sx={{ marginTop: '.3rem' }}
     />
     {children}
   </StyledLI>
@@ -81,7 +55,7 @@ const PikalinkkiGroup = (group: ContentfulContent) => {
           marginBottom: '0.6rem',
         }}>
         {iconURL && <InlineSvgIcon src={iconURL} />}
-        <Box ml={1} pt={isSM ? '0.3rem' : '0.4rem'}>
+        <Box ml={1} pt={isSM ? '.15rem' : '.2rem'}>
           {name}
         </Box>
       </Heading>
