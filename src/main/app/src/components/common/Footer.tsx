@@ -36,7 +36,7 @@ const classes = {
 
 const Root = styled('footer')({
   marginTop: theme.spacing(8),
-  marginBottom: theme.spacing(7),
+  marginBottom: theme.spacing(12),
   lineHeight: '21px',
   [`& .${classes.hr}`]: {
     backgroundColor: colors.white,
