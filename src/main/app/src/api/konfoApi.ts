@@ -201,7 +201,6 @@ function reduceToKeyValue(contentfulRes: Array<GenericContentfulItem> = []) {
       if (value.slug) {
         res[value.slug] = value;
       }
-      // lehti.json:ssa on "sivu"-kenttä
       if (value.sivu?.id) {
         res[value.sivu.id] = value;
       }

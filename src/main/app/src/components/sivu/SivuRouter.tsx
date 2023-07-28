@@ -11,7 +11,6 @@ import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { useContentful } from '#/src/hooks/useContentful';
 
 import { Sivu } from './Sivu';
-import { SivuKooste } from './SivuKooste';
 
 const PREFIX = 'SivuRouter';
 
@@ -70,7 +69,7 @@ const StyledNotFound = styled(NotFound)({
 export const SivuRouter = () => {
   const { id: slug, lng: lngParam } = useParams();
   const { data, slugsToIds, isLoading } = useContentful();
-  const { sivu, sivuKooste } = data;
+  const { sivu } = data;
 
   if (isLoading) {
     return <LoadingCircle />;
@@ -80,8 +79,6 @@ export const SivuRouter = () => {
     if (idInfo?.language === lngParam) {
       if (sivu[slug]) {
         return <Sivu id={slug} />;
-      } else if (sivuKooste[slug]) {
-        return <SivuKooste id={slug} />;
       } else {
         return <StyledNotFound loading={isLoading} />;
       }

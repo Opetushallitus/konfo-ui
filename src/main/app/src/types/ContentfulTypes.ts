@@ -13,18 +13,14 @@ import {
   TypeCookieModalText,
   TypeFooter,
   TypeInfo,
-  TypeInfoGrid,
   TypeInfoYhteishaku,
   TypeKortit,
   TypeKortti,
-  TypeLehti,
   TypeOhjeetJaTuki,
   TypePalvelu,
   TypePalvelut,
   TypePikalinkit,
-  TypePuu,
   TypeSivu,
-  TypeSivuKooste,
   TypeUutinen,
   TypeUutiset,
   TypeValikko,
@@ -94,18 +90,14 @@ export type ContentfulContent = ContentfulItem<TypeContent<Mod, ''>>;
 export type ContentfulCookieModalTex = ContentfulItem<TypeCookieModalText<Mod, ''>>;
 export type ContentfulFooter = ContentfulItem<TypeFooter<Mod, ''>>;
 export type ContentfulInfo = ContentfulItem<TypeInfo<Mod, ''>>;
-export type ContentfulInfoGrid = ContentfulItem<TypeInfoGrid<Mod, ''>>;
 export type ContentfulInfoYhteishaku = ContentfulItem<TypeInfoYhteishaku<Mod, ''>>;
 export type ContentfulKortit = ContentfulItem<TypeKortit<Mod, ''>>;
 export type ContentfulKortti = ContentfulItem<TypeKortti<Mod, ''>>;
-export type ContentfulLehti = ContentfulItem<TypeLehti<Mod, ''>>;
 export type ContentfulOhjeetJaTuki = ContentfulItem<TypeOhjeetJaTuki<Mod, ''>>;
 export type ContentfulPalvelu = ContentfulItem<TypePalvelu<Mod, ''>>;
 export type ContentfulPalvelut = ContentfulItem<TypePalvelut<Mod, ''>>;
 export type ContentfulPikalinkit = ContentfulItem<TypePikalinkit<Mod, ''>>;
-export type ContentfulPuu = ContentfulItem<TypePuu<Mod, ''>>;
 export type ContentfulSivu = ContentfulItem<TypeSivu<Mod, ''>>;
-export type ContentfulSivuKooste = ContentfulItem<TypeSivuKooste<Mod, ''>>;
 export type ContentfulUutinen = ContentfulItem<TypeUutinen<Mod, ''>>;
 export type ContentfulUutiset = ContentfulItem<TypeUutiset<Mod, ''>>;
 export type ContentfulValikko = ContentfulItem<TypeValikko<Mod, ''>>;
@@ -119,18 +111,14 @@ export type ContentfulData = {
   cookieModalText: CfRecord<ContentfulCookieModalTex>;
   footer: CfRecord<ContentfulFooter>;
   info: CfRecord<ContentfulInfo>;
-  infoGrid: CfRecord<ContentfulInfoGrid>;
   infoYhteishaku: CfRecord<ContentfulInfoYhteishaku>;
   kortit: CfRecord<ContentfulKortit>;
   kortti: CfRecord<ContentfulKortti>;
-  lehti: CfRecord<ContentfulLehti>;
   ohjeetJaTuki: CfRecord<ContentfulOhjeetJaTuki>;
   palvelu: CfRecord<ContentfulPalvelu>;
   palvelut: CfRecord<ContentfulPalvelut>;
   pikalinkit: CfRecord<ContentfulPikalinkit>;
-  puu: CfRecord<ContentfulPuu>;
   sivu: CfRecord<ContentfulSivu>;
-  sivuKooste: CfRecord<ContentfulSivuKooste>;
   uutinen: CfRecord<ContentfulUutinen>;
   uutiset: CfRecord<ContentfulUutiset>;
   valikko: CfRecord<ContentfulValikko>;

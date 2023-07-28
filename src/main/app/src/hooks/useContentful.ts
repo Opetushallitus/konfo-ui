@@ -16,18 +16,14 @@ const initialContentfulData: ContentfulData = {
   cookieModalText: {},
   footer: {},
   info: {},
-  infoGrid: {},
   infoYhteishaku: {},
   kortit: {},
   kortti: {},
-  lehti: {},
   ohjeetJaTuki: {},
   palvelu: {},
   palvelut: {},
   pikalinkit: {},
-  puu: {},
   sivu: {},
-  sivuKooste: {},
   uutinen: {},
   uutiset: {},
   valikko: {},
@@ -38,8 +34,8 @@ const assetUrl = (url?: string) =>
   url && `${urls.url('konfo-backend.content', '')}${url}`;
 
 const findParent = (id: string, cData: ContentfulData): Array<CommonContentfulFields> => {
-  const { valikko, sivu, sivuKooste } = cData;
-  const childId = (sivu[id] || sivuKooste[id] || {}).id || id;
+  const { valikko, sivu } = cData;
+  const childId = sivu[id]?.id || id;
   const parentId = findKey(valikko, (item) => {
     return find(item.linkki, (i) => i?.id === childId);
   });
@@ -55,7 +51,7 @@ const useForwardTo = (contentfulData?: ContentfulData) => {
   function forwardTo(id: string, defaultValue?: string): string;
   function forwardTo(id: string, defaultValue: null): string | null;
   function forwardTo(id: string, defaultValue: string | null = '/sivu/poistettu') {
-    const sivu = contentfulData?.sivu[id] || contentfulData?.sivuKooste[id];
+    const sivu = contentfulData?.sivu[id];
     return sivu ? `/sivu/${sivu?.slug ?? id}` : defaultValue;
   }
   return useCallback(forwardTo, [contentfulData]);
@@ -79,8 +75,8 @@ export const useContentful = () => {
   const murupolku = useCallback(
     (pageId: string) => {
       if (contentfulData) {
-        const { sivu, sivuKooste } = contentfulData;
-        const page = sivu[pageId] || sivuKooste[pageId];
+        const { sivu } = contentfulData;
+        const page = sivu[pageId];
 
         const breadcrumb = page ? findParent(pageId, contentfulData).concat([page]) : [];
         return breadcrumb.map((b) => ({

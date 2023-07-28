@@ -1,10 +1,9 @@
 import type { ChainModifiers, Entry, EntryFieldTypes, EntrySkeletonType, LocaleCode } from "contentful";
 import type { TypeSivuSkeleton } from "./TypeSivu";
-import type { TypeSivuKoosteSkeleton } from "./TypeSivuKooste";
 
 export interface TypePalveluFields {
     name?: EntryFieldTypes.Symbol;
-    linkki: EntryFieldTypes.EntryLink<TypeSivuKoosteSkeleton | TypeSivuSkeleton>;
+    linkki: EntryFieldTypes.EntryLink<TypeSivuSkeleton>;
     color: EntryFieldTypes.Symbol<"polku" | "sininen">;
     image: EntryFieldTypes.AssetLink;
     content?: EntryFieldTypes.Text;
