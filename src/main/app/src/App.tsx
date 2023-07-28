@@ -332,8 +332,10 @@ export const App = () => {
               <Route path="/:lng/*" element={<TranslatedRoutes />} />
               <Route path="*" element={<TranslatedRoutes />} />
             </Routes>
-            <Palvelut />
-            <Footer />
+            <HeadingBoundary>
+              <Palvelut />
+              <Footer />
+            </HeadingBoundary>
           </HeadingBoundary>
         </main>
       </Box>

@@ -16,6 +16,7 @@ import { getOne } from '#/src/tools/getOne';
 import { ContentSection } from './ContentSection';
 import { Gap } from './Gap';
 import { useSearch } from './haku/hakutulosHooks';
+import { HeadingBoundary } from './Heading';
 import { Jumpotron } from './Jumpotron';
 import { Kortti } from './kortti/Kortti';
 import { Pikalinkit } from './Pikalinkit';
@@ -83,7 +84,7 @@ export const Etusivu = () => {
       {isLoading ? (
         <LoadingCircle />
       ) : (
-        <>
+        <HeadingBoundary>
           <WithSideMargins>
             <SectionGap />
             <Grid container spacing={3}>
@@ -137,7 +138,7 @@ export const Etusivu = () => {
               <SectionGap />
             </ContentSection>
           </WithSideMargins>
-        </>
+        </HeadingBoundary>
       )}
     </Root>
   );
