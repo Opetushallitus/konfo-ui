@@ -13,16 +13,15 @@ import { styled } from '@mui/material/styles';
 import Markdown from 'markdown-to-jsx';
 import SVG from 'react-inlinesvg';
 
+import { colors } from '#/src/colors';
 import {
   CfRecord,
   ContentfulContent,
   ContentfulPikalinkit,
 } from '#/src/types/ContentfulTypes';
 
-import { Gap } from './Gap';
 import { Heading, HeadingBoundary } from './Heading';
 import { WithSideMargins } from './WithSideMargins';
-import { colors } from '../colors';
 
 type InlineSvgIconProps = {
   src: string;
@@ -30,9 +29,9 @@ type InlineSvgIconProps = {
 
 export const InlineSvgIcon = ({ src }: InlineSvgIconProps) => {
   return (
-    <Box sx={{ display: 'inline', fontSize: '1.4em', alignSelf: 'center' }}>
+    <Box sx={{ fontSize: '1.4em', paddingTop: '.125em' }}>
       <SVG
-        style={{ position: 'relative', top: '.125em' }}
+        style={{ position: 'relative' }}
         fontSize="inherit"
         fill="currentColor"
         width="1em"
@@ -54,16 +53,15 @@ const StyledLI = styled('li')({
   color: colors.brandGreen,
   display: 'flex',
   alignItems: 'flex-start',
+  lineHeight: '2rem',
 });
 
 const ListItemWithChevron = ({ children }: React.PropsWithChildren) => (
-  <StyledLI>
-    <Box sx={{ display: 'inline-flex', alignItems: 'flex-end' }}>
-      <InlineSvgIcon
-        src="/konfo/icons/material/outlined/chevron_right.svg"
-        color="primary"
-      />
-    </Box>
+  <StyledLI sx={{ display: 'flex', alignItems: 'flex-start' }}>
+    <InlineSvgIcon
+      src="/konfo/icons/material/outlined/chevron_right.svg"
+      color="primary"
+    />
     {children}
   </StyledLI>
 );
@@ -71,28 +69,33 @@ const ListItemWithChevron = ({ children }: React.PropsWithChildren) => (
 const PikalinkkiGroup = (group: ContentfulContent) => {
   const { name, content, iconURL } = group;
   const theme = useTheme();
-  const isXS = useMediaQuery(theme.breakpoints.down('sm'));
-  const fontSize = isXS ? '14px' : '16px';
+  const isSM = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <Grid item xs={12} sm={6} md={4} sx={{ fontSize }}>
+    <Grid item xs={12} sm={6} md={4}>
       <Heading
+        variant={isSM ? 'h4' : 'h3'}
         sx={{
-          display: 'inline-flex',
-          alignItems: 'flex-end',
-          fontSize: '1.5em',
+          display: 'flex',
+          alignItems: 'flex-start',
           marginBottom: '0.6rem',
         }}>
         {iconURL && <InlineSvgIcon src={iconURL} />}
-        <Gap inline x=".4em" />
-        {name}
+        <Box ml={1} pt={isSM ? '0.3rem' : '0.4rem'}>
+          {name}
+        </Box>
       </Heading>
       {content && (
-        <Box sx={{ marginLeft: '2.3em', fontSize: '1rem' }}>
+        <Box ml={isSM ? '2rem' : '2.7rem'}>
           <Markdown
             options={{
               overrides: {
-                a: Link,
+                a: {
+                  component: Link,
+                  props: {
+                    underline: 'hover',
+                  },
+                },
                 ul: StyledList,
                 li: ListItemWithChevron,
               },
