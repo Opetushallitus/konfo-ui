@@ -1,8 +1,5 @@
 import React from 'react';
 
-import AppsIcon from '@mui/icons-material/Apps';
-import CloseIcon from '@mui/icons-material/Close';
-import MenuIcon from '@mui/icons-material/Menu';
 import {
   AppBar,
   Box,
@@ -27,6 +24,7 @@ import { theme } from '#/src/theme';
 import { getLanguage } from '#/src/tools/localization';
 
 import { LanguageDropDown } from './LanguageDropDown';
+import { MaterialIcon } from './MaterialIcon';
 
 const PREFIX = 'Header';
 
@@ -149,7 +147,7 @@ export const Header = ({
             edge="start"
             className={classes.menuButton}>
             <Box className={classes.menuBox}>
-              {isOpen ? <CloseIcon /> : <MenuIcon />}
+              {isOpen ? <MaterialIcon name="close" /> : <MaterialIcon name="menu" />}
               <Typography className={classes.menuText}>{t('valikko')}</Typography>
             </Box>
           </IconButton>
@@ -170,7 +168,7 @@ export const Header = ({
                 href={urls.url('oma-opintopolku')}
                 className={classes.omaOpintopolkuLink}
                 target="_blank">
-                <AppsIcon className={classes.omaOpintopolkuIcon} />
+                <MaterialIcon name="apps" className={classes.omaOpintopolkuIcon} />
                 <Typography className={classes.omaOpintopolkuText}>
                   {t('oma-opintopolku')}
                 </Typography>

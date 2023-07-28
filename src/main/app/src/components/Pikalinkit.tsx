@@ -11,8 +11,8 @@ import {
   ContentfulPikalinkit,
 } from '#/src/types/ContentfulTypes';
 
+import { InlineSvgIcon } from './common/InlineSvgIcon';
 import { Heading, HeadingBoundary } from './Heading';
-import { InlineSvgIcon } from './InlineSvgIcon';
 import { WithSideMargins } from './WithSideMargins';
 
 const StyledList = styled('ul')({
@@ -34,7 +34,7 @@ const ListItemWithChevron = ({ children }: React.PropsWithChildren) => (
     <InlineSvgIcon
       src="/konfo/icons/material/outlined/chevron_right.svg"
       color="primary"
-      sx={{ marginTop: '.3rem' }}
+      sx={{ fontSize: '1.4em', marginTop: '.3rem' }}
     />
     {children}
   </StyledLI>
@@ -54,7 +54,7 @@ const PikalinkkiGroup = (group: ContentfulContent) => {
           alignItems: 'flex-start',
           marginBottom: '0.6rem',
         }}>
-        {iconURL && <InlineSvgIcon src={iconURL} />}
+        {iconURL && <InlineSvgIcon sx={{ fontSize: '1.4em' }} src={iconURL} />}
         <Box ml={1} pt={isSM ? '.15rem' : '.2rem'}>
           {name}
         </Box>

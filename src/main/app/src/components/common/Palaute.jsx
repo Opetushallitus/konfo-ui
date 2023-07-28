@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 
-import CloseIcon from '@mui/icons-material/Close';
-import Star from '@mui/icons-material/Star';
 import {
   Box,
   Typography,
@@ -17,6 +15,8 @@ import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
 import { sendPalaute } from '#/src/api/konfoApi';
+
+import { MaterialIcon } from './MaterialIcon';
 
 const PREFIX = 'Palaute';
 
@@ -109,7 +109,7 @@ export const Palaute = (props) => {
     const handlePalauteChange = (p) => setState({ ...state, palaute: p });
 
     return (
-      <React.Fragment>
+      <>
         <DialogContent>
           <DialogTitle disableTypography>
             <Box mt={1}>
@@ -118,7 +118,7 @@ export const Palaute = (props) => {
               </Typography>
             </Box>
             <IconButton aria-label="close" className={classes.closeButton} onClick={hide}>
-              <CloseIcon />
+              <MaterialIcon name="star" />
             </IconButton>
           </DialogTitle>
           <div className={classes.stars}>
@@ -138,23 +138,21 @@ export const Palaute = (props) => {
                   onMouseLeave={() => handleArvosanaHoverChange(null)}
                   onClick={(e) => handleArvosanaChange(e, star)}
                   component="span">
-                  <Star />
+                  <MaterialIcon name="star" />
                 </IconButton>
               );
             })}
           </div>
           {state.arvosana ? (
-            <React.Fragment>
-              <div className="palaute-form-comment">
-                <TextareaAutosize
-                  aria-label={t('palaute.kommentti')}
-                  placeholder={t('palaute.kommentti')}
-                  rowsMin={5}
-                  className={classes.textarea}
-                  onChange={(e) => handlePalauteChange(e.target.value)}
-                />
-              </div>
-            </React.Fragment>
+            <div className="palaute-form-comment">
+              <TextareaAutosize
+                aria-label={t('palaute.kommentti')}
+                placeholder={t('palaute.kommentti')}
+                rowsMin={5}
+                className={classes.textarea}
+                onChange={(e) => handlePalauteChange(e.target.value)}
+              />
+            </div>
           ) : null}
         </DialogContent>
         <DialogActions>
@@ -171,13 +169,13 @@ export const Palaute = (props) => {
             {t('palaute.lähetä')}
           </Button>
         </DialogActions>
-      </React.Fragment>
+      </>
     );
   };
 
   const KiitosPalautteesta = () => {
     return (
-      <React.Fragment>
+      <>
         <DialogTitle disableTypography>
           <Box mt={1}>
             <Typography align="center" variant="h1" component="h2">
@@ -197,7 +195,7 @@ export const Palaute = (props) => {
             {t('palaute.palaa')}
           </Button>
         </DialogActions>
-      </React.Fragment>
+      </>
     );
   };
 

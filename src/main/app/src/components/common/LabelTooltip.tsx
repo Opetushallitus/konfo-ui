@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 
-import CloseIcon from '@mui/icons-material/Close';
-import InfoOutlined from '@mui/icons-material/InfoOutlined';
 import { Backdrop, IconButton, Tooltip } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
+
+import { MaterialIcon } from './MaterialIcon';
 
 const PREFIX = 'LabelTooltip';
 
@@ -78,7 +78,7 @@ export const LabelTooltip = ({ title, sx = {} }: Props) => {
               className={classes.closeIcon}
               style={{ padding: 0, minHeight: 0, minWidth: 0 }}
               onClick={handleClose}>
-              <CloseIcon />
+              <MaterialIcon name="close" />
             </IconButton>
           </>
         }>
@@ -86,7 +86,7 @@ export const LabelTooltip = ({ title, sx = {} }: Props) => {
           aria-label={t('nayta-lisatiedot')}
           style={{ padding: 0, minHeight: 0, minWidth: 0 }}
           onClick={handleClick}>
-          <InfoOutlined />
+          <MaterialIcon name="info" />
         </IconButton>
       </Tooltip>
     </Root>

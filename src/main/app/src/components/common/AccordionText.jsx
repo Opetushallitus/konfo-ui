@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 
-import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
-import ArrowDropUp from '@mui/icons-material/ArrowDropUp';
 import { Collapse, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 import { colors } from '#/src/colors';
 import { sanitizedHTMLParser } from '#/src/tools/utils';
+
+import { MaterialIcon } from './MaterialIcon';
 
 const PREFIX = 'AccordionText';
 
@@ -40,9 +40,9 @@ export const AccordionText = ({ text, title }) => {
         role={'button'}>
         {title}
         {isOpen ? (
-          <ArrowDropUp className={classes.icon} />
+          <MaterialIcon name="arrow_drop_up" className={classes.icon} />
         ) : (
-          <ArrowDropDown className={classes.icon} />
+          <MaterialIcon name="arrow_drop_down" className={classes.icon} />
         )}
       </Typography>
       <Collapse in={isOpen} timeout="auto" unmountOnExit>

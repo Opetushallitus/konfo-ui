@@ -1,8 +1,9 @@
 import React from 'react';
 
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { Link, LinkProps } from '@mui/material';
 import { styled } from '@mui/material/styles';
+
+import { MaterialIcon } from './MaterialIcon';
 const PREFIX = 'ExternalLink';
 
 const classes = {
@@ -21,7 +22,7 @@ export const ExternalLink = ({ children, ...props }: LinkProps) => {
   return (
     <StyledLink target="_blank" variant="body1" {...props}>
       {children}
-      <OpenInNewIcon className={classes.externalLinkIcon} />
+      <MaterialIcon name="open_in_new" />
     </StyledLink>
   );
 };

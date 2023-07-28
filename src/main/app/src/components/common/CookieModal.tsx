@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 
-import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
-import ArrowDropUp from '@mui/icons-material/ArrowDropUp';
 import { Button, Typography, ButtonGroup, Divider, Modal } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Cookies from 'js-cookie';
@@ -12,6 +10,8 @@ import { colors } from '#/src/colors';
 import { KonfoCheckbox } from '#/src/components/common/Checkbox';
 import { useContentful } from '#/src/hooks/useContentful';
 import { getOne } from '#/src/tools/getOne';
+
+import { MaterialIcon } from './MaterialIcon';
 
 const PREFIX = 'CookieModal';
 
@@ -201,9 +201,9 @@ export const CookieModal = () => {
   );
 
   const expandIcon = fullCookieInfoOpen ? (
-    <ArrowDropUp className={classes.icon} />
+    <MaterialIcon name="arrow_drop_up" className={classes.icon} />
   ) : (
-    <ArrowDropDown className={classes.icon} />
+    <MaterialIcon name="arrow_drop_down" className={classes.icon} />
   );
 
   return (

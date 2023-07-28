@@ -1,6 +1,5 @@
 import React, { useState, useCallback, SyntheticEvent } from 'react';
 
-import SearchIcon from '@mui/icons-material/Search';
 import {
   Button,
   Grid,
@@ -26,6 +25,7 @@ import { useContentful } from '#/src/hooks/useContentful';
 import { useUrlParams } from '#/src/tools/useUrlParams';
 import { ContentfulAsset, ContentfulSivu } from '#/src/types/ContentfulTypes';
 
+import { MaterialIcon } from './common/MaterialIcon';
 import { Preview } from './Preview';
 import { ReactiveBorder } from './ReactiveBorder';
 
@@ -195,7 +195,7 @@ export const Sisaltohaku = () => {
               color="primary"
               className={classes.iconButton}
               aria-label={t('sidebar.etsi-tietoa-opintopolusta')}>
-              <SearchIcon />
+              <MaterialIcon name="search" />
             </Button>
           </Paper>
         </Grid>

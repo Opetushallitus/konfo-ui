@@ -1,5 +1,3 @@
-import DirectionsOutlinedIcon from '@mui/icons-material/DirectionsOutlined';
-import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
 import {
   Hidden,
   Paper,
@@ -18,6 +16,8 @@ import { AdditionalInfoWithIcon } from '#/src/components/common/AdditionalInfoWi
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
 import { KOULUTUS_TYYPPI } from '#/src/constants';
 import { sanitizedHTMLParser } from '#/src/tools/utils';
+
+import { MaterialIcon } from './MaterialIcon';
 
 const PREFIX = 'EntiteettiKortti';
 
@@ -198,14 +198,14 @@ export const EntiteettiKortti = ({
           {erityisopetusHeaderText && (
             <AdditionalInfoWithIcon
               translationKey={erityisopetusHeaderText}
-              icon={<DirectionsOutlinedIcon />}
+              icon={<MaterialIcon name="directions" variant="outlined" />}
             />
           )}
 
           {jarjestaaUrheilijanAmmKoulutusta && (
             <AdditionalInfoWithIcon
               translationKey="haku.urheilijan-amm-koulutus"
-              icon={<SportsSoccerIcon />}
+              icon={<MaterialIcon name="sports_soccer" />}
             />
           )}
 

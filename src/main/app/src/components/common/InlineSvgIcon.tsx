@@ -7,16 +7,9 @@ type InlineSvgIconProps = {
   src: string;
 } & SvgIconProps;
 
-export const InlineSvgIcon = ({ src, sx, ...rest }: InlineSvgIconProps) => {
+export const InlineSvgIcon = ({ src, ...rest }: InlineSvgIconProps) => {
   return (
-    <SvgIcon
-      sx={[
-        {
-          fontSize: '1.4em',
-        },
-        ...(Array.isArray(sx) ? sx : [sx]),
-      ]}
-      {...rest}>
+    <SvgIcon {...rest}>
       <SVG fontSize="inherit" fill="currentColor" src={src} />
     </SvgIcon>
   );

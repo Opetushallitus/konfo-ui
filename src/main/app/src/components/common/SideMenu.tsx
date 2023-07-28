@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 
-import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined';
-import SearchIcon from '@mui/icons-material/Search';
 import {
   Drawer,
   Paper,
@@ -26,6 +24,8 @@ import { SIDEMENU_WIDTH } from '#/src/constants';
 import { useContentful } from '#/src/hooks/useContentful';
 import { getHeaderHeight, styled } from '#/src/theme';
 import { getOne } from '#/src/tools/getOne';
+
+import { MaterialIcon } from './MaterialIcon';
 
 const PREFIX = 'SideMenu';
 
@@ -172,7 +172,7 @@ export const SideMenu = (props: {
               href={urls.url('oma-opintopolku')}
               className={classes.omaOpintopolkuLink}
               target="_blank">
-              <AppsOutlinedIcon className={classes.omaOpintopolkuIcon} />
+              <MaterialIcon name="apps" className={classes.omaOpintopolkuIcon} />
               <Typography className={classes.omaOpintopolkuText}>
                 {t('oma-opintopolku')}
               </Typography>
@@ -204,7 +204,7 @@ export const SideMenu = (props: {
             color="primary"
             className={classes.iconButton}
             aria-label={t('sidebar.etsi-tietoa-opintopolusta')}>
-            <SearchIcon />
+            <MaterialIcon name="search" />
           </Button>
         </Paper>
       </div>

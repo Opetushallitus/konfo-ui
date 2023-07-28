@@ -1,6 +1,5 @@
 import React from 'react';
 
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { Grid, Icon, Typography, Paper } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
@@ -9,6 +8,8 @@ import { useNavigate } from 'react-router-dom';
 import { colors } from '#/src/colors';
 import { useContentful } from '#/src/hooks/useContentful';
 import { ContentfulAsset, ContentfulLink } from '#/src/types/ContentfulTypes';
+
+import { MaterialIcon } from './MaterialIcon';
 
 const PREFIX = 'LinkCard';
 
@@ -75,7 +76,7 @@ export const LinkCard = (props: {
           </Typography>
         </Grid>
         <Grid item xs={1}>
-          <ArrowForwardIosIcon />
+          <MaterialIcon name="chevron_right" />
         </Grid>
       </Grid>
     </StyledPaper>
