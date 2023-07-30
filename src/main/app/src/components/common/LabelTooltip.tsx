@@ -5,8 +5,7 @@ import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
-
-import { MaterialIcon } from './MaterialIcon';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 
 const PREFIX = 'LabelTooltip';
 
@@ -78,7 +77,7 @@ export const LabelTooltip = ({ title, sx = {} }: Props) => {
               className={classes.closeIcon}
               style={{ padding: 0, minHeight: 0, minWidth: 0 }}
               onClick={handleClose}>
-              <MaterialIcon name="close" />
+              <MaterialIcon icon="close" />
             </IconButton>
           </>
         }>
@@ -86,7 +85,7 @@ export const LabelTooltip = ({ title, sx = {} }: Props) => {
           aria-label={t('nayta-lisatiedot')}
           style={{ padding: 0, minHeight: 0, minWidth: 0 }}
           onClick={handleClick}>
-          <MaterialIcon name="info" />
+          <MaterialIcon icon="info" />
         </IconButton>
       </Tooltip>
     </Root>

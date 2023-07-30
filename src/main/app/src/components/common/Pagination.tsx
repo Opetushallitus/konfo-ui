@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react';
 
-import { ChevronLeftOutlined, ChevronRightOutlined } from '@mui/icons-material';
 import { Box, CssBaseline } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { MuiFlatPagination } from '#/src/components/MuiFlatPagination';
 
 const PREFIX = 'Pagination';
@@ -84,8 +84,8 @@ export const Pagination = ({
         otherPageColor="secondary"
         currentPageColor="primary"
         size="small"
-        previousPageLabel={<ChevronLeftOutlined />}
-        nextPageLabel={<ChevronRightOutlined />}
+        previousPageLabel={<MaterialIcon icon="chevron_left" />}
+        nextPageLabel={<MaterialIcon icon="chevron_right" />}
       />
     </StyledBox>
   ) : null;

@@ -1,9 +1,9 @@
 import React from 'react';
 
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { Link } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { parseUrl } from '#/src/tools/utils';
 
 const PREFIX = 'LinkOrYoutube';
@@ -78,7 +78,7 @@ export const LinkOrYoutube = ({
         href={href}
         underline="always">
         {children}
-        <OpenInNewIcon />
+        <MaterialIcon icon="open_in_new" />
       </StyledLink>
     );
   }

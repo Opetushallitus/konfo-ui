@@ -1,7 +1,3 @@
-import {
-  OpenInNew as OpenInNewIcon,
-  SportsSoccer as SportsSoccerIcon,
-} from '@mui/icons-material';
 import { Box, Button, Typography } from '@mui/material';
 import { isEmpty, size } from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -12,6 +8,7 @@ import { ContentWrapper } from '#/src/components/common/ContentWrapper';
 import { HtmlTextBox } from '#/src/components/common/HtmlTextBox';
 import { InfoBanner } from '#/src/components/common/InfoBanner';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { Murupolku } from '#/src/components/common/Murupolku';
 import { PageSection } from '#/src/components/common/PageSection';
 import { TeemakuvaImage } from '#/src/components/common/TeemakuvaImage';
@@ -112,7 +109,7 @@ export const OppilaitosPage = (props) => {
             <InfoBanner
               heading={t('oppilaitos.jarjestaa-urheilijan-amm-koulutusta-otsikko')}
               bodytext={t('oppilaitos.jarjestaa-urheilijan-amm-koulutusta-teksti')}
-              icon={<SportsSoccerIcon />}
+              icon={<MaterialIcon icon="sports_soccer" />}
             />
           )}
           <Box mt={7.5}>
@@ -146,7 +143,7 @@ export const OppilaitosPage = (props) => {
               {isEmpty(entity.metadata.wwwSivu.nimi)
                 ? t('oppilaitos.oppilaitoksen-www-sivut')
                 : localize(entity.metadata.wwwSivu)}
-              <OpenInNewIcon fontSize="small" />
+              <MaterialIcon icon="open_in_new" fontSize="small" />
             </Button>
           )}
           {esittelyHtml && (

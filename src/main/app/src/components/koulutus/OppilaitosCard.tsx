@@ -1,6 +1,5 @@
 import React from 'react';
 
-import PublicIcon from '@mui/icons-material/Public';
 import { Grid, Paper, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
@@ -8,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { educationTypeColorCode } from '#/src/colors';
 import { OppilaitosKorttiLogo } from '#/src/components/common/KorttiLogo';
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 
 const PREFIX = 'OppilaitosCard';
 
@@ -92,7 +92,7 @@ export const OppilaitosCard = ({
               justifyContent="center"
               wrap="nowrap">
               <Grid item className={classes.iconContainer}>
-                <PublicIcon className={classes.icon} />
+                <MaterialIcon icon="public" className={classes.icon} />
               </Grid>
               <Grid item>
                 <Typography variant="body1" noWrap>

@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import { Grid, Typography, ButtonGroup, Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 
 import { useSearchSortOrder } from '../hakutulosHooks';
 
@@ -84,7 +84,11 @@ export const MobileToggleOrderByButtonMenu = () => {
           <SortOrderButton
             isActive={sort === 'name'}
             onClick={sort === 'name' ? toggleNameSortOrder : toggleToNameSort}
-            endIcon={sortOrder === 'name_desc' ? <ExpandLess /> : <ExpandMore />}>
+            endIcon={
+              <MaterialIcon
+                icon={sortOrder === 'name_desc' ? 'expand_less' : 'expand_more'}
+              />
+            }>
             {sortOrder === 'name_desc'
               ? t('haku.jarjesta_mobiili_aakkoset_o_a')
               : t('haku.jarjesta_mobiili_aakkoset_a_o')}

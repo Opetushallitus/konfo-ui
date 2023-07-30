@@ -5,8 +5,7 @@ import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
-
-import { MaterialIcon } from './MaterialIcon';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 
 const PREFIX = 'ErrorMessage';
 
@@ -61,7 +60,7 @@ export const ErrorMessage = ({ onRetry = () => {} }: { onRetry?: () => void }) =
           <Grid container spacing={4} direction="column" alignItems="center">
             <Grid item>
               <Avatar classes={{ root: classes.avatarRoot }}>
-                <MaterialIcon name="error_outline" />
+                <MaterialIcon icon="error_outline" />
               </Avatar>
             </Grid>
             <Grid item>

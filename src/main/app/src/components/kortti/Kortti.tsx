@@ -1,11 +1,11 @@
 import React from 'react';
 
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Grid, Card, CardContent, CardMedia, Link } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import clsx from 'clsx';
 
 import { colors } from '#/src/colors';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { useContentful } from '#/src/hooks/useContentful';
 
 const PREFIX = 'Kortti';
@@ -84,7 +84,7 @@ export const Kortti = ({ id }: { id: string }) => {
             .filter(Boolean)
             .map((page) => (
               <div className={classes.link} key={page.id}>
-                <ChevronRightIcon />
+                <MaterialIcon icon="chevron_right" />
                 <Link className={classes.linkElement} href={forwardTo(page.id)}>
                   {page.name}
                 </Link>

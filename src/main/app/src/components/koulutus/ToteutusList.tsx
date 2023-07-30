@@ -1,8 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react';
 
-import EuroSymbolIcon from '@mui/icons-material/EuroSymbol';
-import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
-import PublicIcon from '@mui/icons-material/Public';
 import { Box, Grid, Hidden, Typography } from '@mui/material';
 import { mapValues, size, some } from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -10,6 +7,7 @@ import { match } from 'ts-pattern';
 
 import { EntiteettiKortti } from '#/src/components/common/EntiteettiKortti';
 import { OppilaitosKorttiLogo } from '#/src/components/common/KorttiLogo';
+import { createMaterialIcon } from '#/src/components/common/MaterialIcon';
 import { PageSection } from '#/src/components/common/PageSection';
 import { Pagination } from '#/src/components/common/Pagination';
 import { QueryResultWrapper } from '#/src/components/common/QueryResultWrapper';
@@ -296,20 +294,20 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                         localizeArrayToCommaSeparated(toteutus.kunnat, {
                           sorted: true,
                         }),
-                        PublicIcon,
+                        createMaterialIcon('public'),
                       ],
                       [
                         localizeArrayToCommaSeparated(toteutus.opetusajat, {
                           sorted: true,
                         }),
-                        HourglassEmptyIcon,
+                        createMaterialIcon('hourglass_empty'),
                       ],
                       [
                         getLocalizedMaksullisuus(
                           toteutus.maksullisuustyyppi,
                           toteutus.maksunMaara
                         ),
-                        EuroSymbolIcon,
+                        createMaterialIcon('euro_symbol'),
                       ],
                       [
                         toteutus.hakuAuki ? (

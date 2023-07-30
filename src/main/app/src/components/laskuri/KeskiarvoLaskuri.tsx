@@ -5,11 +5,11 @@ import { matches } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
+import { LabelTooltip } from '#/src/components/common/LabelTooltip';
 
 import { SuorittanutCheckbox } from './common/SuorittanutCheckbox';
 import { isValidKeskiarvo, Keskiarvot } from './Keskiarvo';
 import { LocalStorageUtil, AVERAGE_STORE_KEY } from './LocalStorageUtil';
-import { LabelTooltip } from '../common/LabelTooltip';
 
 const PREFIX = 'keskiarvo__laskuri__';
 

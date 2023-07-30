@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 
-import { DeleteOutlined } from '@mui/icons-material';
 import {
   styled,
   InputLabel,
@@ -14,6 +13,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { Kouluaine } from '#/src/components/laskuri/aine/Kouluaine';
 import { isEligiblePainokerroin } from '#/src/components/laskuri/Keskiarvo';
 
@@ -153,7 +153,7 @@ export const PainokerroinInput = ({ labelId, kouluaine, updatePainokerroin }: Pr
                 className={classes.delete}
                 onClick={removePainokerroin}
                 aria-label={t('pistelaskuri.aine.removepainokerroin')}>
-                <DeleteOutlined />
+                <MaterialIcon icon="delete" variant="outlined" />
               </IconButton>
             </InputContainer>
           </InputLabel>

@@ -1,8 +1,9 @@
 import React from 'react';
 
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Accordion as MuiAccordion, AccordionSummary, Typography } from '@mui/material';
 import { withStyles } from '@mui/styles';
+
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 
 const StyledAccordion = withStyles({
   root: {
@@ -24,7 +25,9 @@ const StyledAccordion = withStyles({
 
 export const Summary = ({ children }: React.PropsWithChildren) => {
   return (
-    <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content">
+    <AccordionSummary
+      expandIcon={<MaterialIcon icon="expand_more" />}
+      aria-controls="panel1a-content">
       <Typography>{children}</Typography>
     </AccordionSummary>
   );

@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { DeleteOutlined } from '@mui/icons-material';
 import {
   styled,
   Select,
@@ -15,6 +14,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 
 import { ARVOSANA_VALUES } from './Kouluaine';
 
@@ -134,7 +134,7 @@ export const ValinnainenArvosana = ({
             className={classes.gradeDelete}
             onClick={removeValinnaisaine}
             aria-label={t('pistelaskuri.aine.removevalinnainen')}>
-            <DeleteOutlined />
+            <MaterialIcon icon="delete" variant="outlined" />
           </IconButton>
         </SelectContainer>
       </InputLabel>

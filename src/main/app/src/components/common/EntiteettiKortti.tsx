@@ -5,7 +5,7 @@ import {
   useMediaQuery,
   useTheme,
   Box,
-  SvgIcon,
+  SvgIconProps,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { truncate, trim, isEmpty, isUndefined } from 'lodash';
@@ -14,10 +14,9 @@ import { useTranslation } from 'react-i18next';
 import { colors, educationTypeColorCode } from '#/src/colors';
 import { AdditionalInfoWithIcon } from '#/src/components/common/AdditionalInfoWithIcon';
 import { LocalizedLink } from '#/src/components/common/LocalizedLink';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { KOULUTUS_TYYPPI } from '#/src/constants';
 import { sanitizedHTMLParser } from '#/src/tools/utils';
-
-import { MaterialIcon } from './MaterialIcon';
 
 const PREFIX = 'EntiteettiKortti';
 
@@ -101,7 +100,10 @@ const StyledLocalizedLink = styled(LocalizedLink, {
 }));
 
 // TODO: Jostain syystä TS:n labeled tuples ei toiminut, e.g. IconComponent: (...props: any) => JSX.Element
-type IconText = [JSX.Element | string, typeof SvgIcon | undefined];
+type IconText = [
+  JSX.Element | string,
+  ((props: SvgIconProps) => JSX.Element) | undefined,
+];
 
 type StyledLocalizedLinkProps = {
   isSmall?: boolean;
@@ -198,14 +200,14 @@ export const EntiteettiKortti = ({
           {erityisopetusHeaderText && (
             <AdditionalInfoWithIcon
               translationKey={erityisopetusHeaderText}
-              icon={<MaterialIcon name="directions" variant="outlined" />}
+              icon={<MaterialIcon icon="directions" variant="outlined" />}
             />
           )}
 
           {jarjestaaUrheilijanAmmKoulutusta && (
             <AdditionalInfoWithIcon
               translationKey="haku.urheilijan-amm-koulutus"
-              icon={<MaterialIcon name="sports_soccer" />}
+              icon={<MaterialIcon icon="sports_soccer" />}
             />
           )}
 

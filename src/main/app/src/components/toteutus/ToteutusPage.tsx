@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
 
-import DirectionsOutlinedIcon from '@mui/icons-material/DirectionsOutlined';
 import { Box, Grid, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { some, isEmpty, uniq } from 'lodash';
@@ -16,6 +15,7 @@ import { HtmlTextBox } from '#/src/components/common/HtmlTextBox';
 import { InfoBanner } from '#/src/components/common/InfoBanner';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { Murupolku } from '#/src/components/common/Murupolku';
 import { PageSection } from '#/src/components/common/PageSection';
 import { TeemakuvaImage } from '#/src/components/common/TeemakuvaImage';
@@ -191,7 +191,7 @@ export const ToteutusPage = () => {
           <InfoBanner
             heading={erityisopetusHeading}
             bodytext={erityisopetusText}
-            icon={<DirectionsOutlinedIcon />}
+            icon={<MaterialIcon icon="directions" variant="outlined" />}
           />
         )}
         <Asiasanat toteutus={toteutus} />

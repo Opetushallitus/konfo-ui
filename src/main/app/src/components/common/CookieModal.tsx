@@ -8,10 +8,9 @@ import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 import { KonfoCheckbox } from '#/src/components/common/Checkbox';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { useContentful } from '#/src/hooks/useContentful';
 import { getOne } from '#/src/tools/getOne';
-
-import { MaterialIcon } from './MaterialIcon';
 
 const PREFIX = 'CookieModal';
 
@@ -201,9 +200,9 @@ export const CookieModal = () => {
   );
 
   const expandIcon = fullCookieInfoOpen ? (
-    <MaterialIcon name="arrow_drop_up" className={classes.icon} />
+    <MaterialIcon icon="arrow_drop_up" className={classes.icon} />
   ) : (
-    <MaterialIcon name="arrow_drop_down" className={classes.icon} />
+    <MaterialIcon icon="arrow_drop_down" className={classes.icon} />
   );
 
   return (

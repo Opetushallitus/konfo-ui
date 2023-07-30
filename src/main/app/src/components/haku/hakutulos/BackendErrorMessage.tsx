@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { ErrorOutline } from '@mui/icons-material';
 import { Avatar, Button, Grid, Link, Paper, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 
 const PREFIX = 'BackendErrorMessage';
 
@@ -64,7 +64,7 @@ export const BackendErrorMessage = () => {
           <Grid container spacing={4} direction="column" alignItems="center">
             <Grid item>
               <Avatar classes={{ root: classes.avatarRoot }}>
-                <ErrorOutline fontSize="large" />
+                <MaterialIcon icon="error_outline" fontSize="large" />
               </Avatar>
             </Grid>
             <Grid item>

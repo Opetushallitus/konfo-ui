@@ -18,14 +18,13 @@ import { useNavigate } from 'react-router-dom';
 import { colors } from '#/src/colors';
 import { LanguageTab } from '#/src/components/common/LanguageTab';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { Murupolku } from '#/src/components/common/Murupolku';
 import { SidebarValikko } from '#/src/components/common/SidebarValikko';
 import { SIDEMENU_WIDTH } from '#/src/constants';
 import { useContentful } from '#/src/hooks/useContentful';
 import { getHeaderHeight, styled } from '#/src/theme';
 import { getOne } from '#/src/tools/getOne';
-
-import { MaterialIcon } from './MaterialIcon';
 
 const PREFIX = 'SideMenu';
 
@@ -172,7 +171,7 @@ export const SideMenu = (props: {
               href={urls.url('oma-opintopolku')}
               className={classes.omaOpintopolkuLink}
               target="_blank">
-              <MaterialIcon name="apps" className={classes.omaOpintopolkuIcon} />
+              <MaterialIcon icon="apps" className={classes.omaOpintopolkuIcon} />
               <Typography className={classes.omaOpintopolkuText}>
                 {t('oma-opintopolku')}
               </Typography>
@@ -204,7 +203,7 @@ export const SideMenu = (props: {
             color="primary"
             className={classes.iconButton}
             aria-label={t('sidebar.etsi-tietoa-opintopolusta')}>
-            <MaterialIcon name="search" />
+            <MaterialIcon icon="search" />
           </Button>
         </Paper>
       </div>

@@ -1,7 +1,15 @@
 import React, { useEffect, useLayoutEffect } from 'react';
 
-import { ExpandMore } from '@mui/icons-material';
-import { Box, Grid, MenuItem, Paper, Select, Typography, useTheme } from '@mui/material';
+import {
+  Box,
+  Grid,
+  MenuItem,
+  Paper,
+  Select,
+  SvgIconProps,
+  Typography,
+  useTheme,
+} from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
@@ -9,6 +17,7 @@ import { useParams } from 'react-router-dom';
 import { useMeasure, useWindowSize } from 'react-use';
 
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { Murupolku } from '#/src/components/common/Murupolku';
 import { Pagination } from '#/src/components/common/Pagination';
 import { pageSizeArray, pageSortArray } from '#/src/constants';
@@ -144,6 +153,10 @@ const useContentWidth = () => {
 
   return Math.round(windowWidth - sideMenuWidth);
 };
+
+const ExpandMore = (props: SvgIconProps) => (
+  <MaterialIcon icon="expand_more" {...props} />
+);
 
 const useSyncHakutulosWidth = () => {
   const [hakutulosRef, { width: realHakutulosWidth }] = useMeasure();

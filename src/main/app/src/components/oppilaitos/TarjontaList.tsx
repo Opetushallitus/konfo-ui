@@ -1,8 +1,5 @@
 import React from 'react';
 
-import EuroSymbolIcon from '@mui/icons-material/EuroSymbol';
-import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
-import PublicIcon from '@mui/icons-material/Public';
 import { Typography, Box } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
@@ -12,6 +9,7 @@ import {
   LoadingCircle,
   OverlayLoadingCircle,
 } from '#/src/components/common/LoadingCircle';
+import { createMaterialIcon } from '#/src/components/common/MaterialIcon';
 import { PageSection } from '#/src/components/common/PageSection';
 import { Pagination } from '#/src/components/common/Pagination';
 
@@ -21,6 +19,10 @@ type Props = {
   oid: string;
   isOppilaitosOsa: boolean;
 };
+
+const PublicIcon = createMaterialIcon('public');
+const HourglassIcon = createMaterialIcon('hourglass_empty');
+const EuroSymbolIcon = createMaterialIcon('euro_symbol');
 
 export const TarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
   const { t } = useTranslation();
@@ -67,7 +69,7 @@ export const TarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
                     }
                     iconTexts={[
                       [toteutus?.locations, PublicIcon],
-                      [toteutus?.opetustapa, HourglassEmptyIcon],
+                      [toteutus?.opetustapa, HourglassIcon],
                       [toteutus?.price, EuroSymbolIcon],
                     ]}
                   />

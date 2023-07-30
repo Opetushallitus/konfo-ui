@@ -1,6 +1,5 @@
 import React, { useMemo, useState } from 'react';
 
-import { HomeWorkOutlined } from '@mui/icons-material';
 import {
   Box,
   InputBase,
@@ -19,6 +18,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { match } from 'ts-pattern';
 
 import { colors } from '#/src/colors';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { useAutocompleteOptions } from '#/src/hooks/useAutocompleteOptions';
 import { theme } from '#/src/theme';
 import { AutocompleteOption } from '#/src/types/common';
@@ -42,7 +42,7 @@ const createRenderOption = (t: TFunction) => {
             const tarjoajatText = getToteutustenTarjoajat(t, k.toteutustenTarjoajat);
             return tarjoajatText ? (
               <Box display="flex" alignItems="center" flexDirection="row">
-                <HomeWorkOutlined />
+                <MaterialIcon variant="outlined" icon="home_work" />
                 <Typography pl={1} variant="body2">
                   {tarjoajatText}
                 </Typography>

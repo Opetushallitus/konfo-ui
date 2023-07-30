@@ -116,7 +116,7 @@ const TutkinnonOsat = ({ koulutus }) => {
                     tutkinnonosaViite
                   )}>
                   {t('koulutus.eperuste-linkki')}
-                  <MaterialIcon name="open_in_new" />
+                  <MaterialIcon icon="open_in_new" />
                 </MuiLink>
               </>
             ),

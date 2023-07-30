@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
 
-import PublicIcon from '@mui/icons-material/Public';
 import { Button, Grid, Paper, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
@@ -8,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { colors } from '#/src/colors';
 import { AccordionText } from '#/src/components/common/AccordionText';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { PageSection } from '#/src/components/common/PageSection';
 import { localize } from '#/src/tools/localization';
 import { useOsoitteet } from '#/src/tools/useOppilaitosOsoite';
@@ -168,7 +168,7 @@ export const ToteutusHakuMuu = ({ toteutus }: Props) => {
             )}
             {yhteystiedot?.map((osoite, index) => (
               <Grid key={index} container item direction="row" wrap="nowrap">
-                <PublicIcon style={{ marginRight: '10px' }} />
+                <MaterialIcon icon="public" sx={{ marginRight: '10px' }} />
                 <Typography variant="body1">{osoite}</Typography>
               </Grid>
             ))}

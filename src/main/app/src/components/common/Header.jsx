@@ -20,11 +20,11 @@ import { ReactComponent as OPOLogoFI } from '#/src/assets/images/opintopolku_log
 import { ReactComponent as OPOLogoSV } from '#/src/assets/images/opintopolku_logo_header_sv.svg';
 import { colors } from '#/src/colors';
 import { BetaBanner } from '#/src/components/common/BetaBanner';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { theme } from '#/src/theme';
 import { getLanguage } from '#/src/tools/localization';
 
 import { LanguageDropDown } from './LanguageDropDown';
-import { MaterialIcon } from './MaterialIcon';
 
 const PREFIX = 'Header';
 
@@ -147,7 +147,7 @@ export const Header = ({
             edge="start"
             className={classes.menuButton}>
             <Box className={classes.menuBox}>
-              {isOpen ? <MaterialIcon name="close" /> : <MaterialIcon name="menu" />}
+              {isOpen ? <MaterialIcon icon="close" /> : <MaterialIcon icon="menu" />}
               <Typography className={classes.menuText}>{t('valikko')}</Typography>
             </Box>
           </IconButton>
@@ -168,7 +168,7 @@ export const Header = ({
                 href={urls.url('oma-opintopolku')}
                 className={classes.omaOpintopolkuLink}
                 target="_blank">
-                <MaterialIcon name="apps" className={classes.omaOpintopolkuIcon} />
+                <MaterialIcon icon="apps" className={classes.omaOpintopolkuIcon} />
                 <Typography className={classes.omaOpintopolkuText}>
                   {t('oma-opintopolku')}
                 </Typography>

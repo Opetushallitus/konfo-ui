@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { ExpandMore } from '@mui/icons-material';
 import { ButtonGroup, Button, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
@@ -11,6 +10,7 @@ import {
   SuodatinAccordionDetails,
   SuodatinAccordionSummary,
 } from '#/src/components/common/Filter/CustomizedMuiComponents';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 
 import { useSearch } from '../hakutulosHooks';
 
@@ -53,7 +53,7 @@ export const MobileToggleKoulutusOppilaitos = () => {
 
   return (
     <StyledSuodatinAccordion style={{ boxShadow: 'none' }} defaultExpanded elevation={0}>
-      <SuodatinAccordionSummary expandIcon={<ExpandMore />}>
+      <SuodatinAccordionSummary expandIcon={<MaterialIcon icon="expand_more" />}>
         <Typography variant="subtitle1">{t('haku.kategoria')}</Typography>
       </SuodatinAccordionSummary>
       <SuodatinAccordionDetails>

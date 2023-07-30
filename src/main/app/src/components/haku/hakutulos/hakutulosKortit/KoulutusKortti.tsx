@@ -1,16 +1,11 @@
 import React from 'react';
 
-import {
-  SchoolOutlined,
-  ExtensionOutlined,
-  TimelapseOutlined,
-  HomeWorkOutlined,
-} from '@mui/icons-material';
 import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { EntiteettiKortti } from '#/src/components/common/EntiteettiKortti';
 import { KoulutusKorttiLogo } from '#/src/components/common/KorttiLogo';
+import { createMaterialIcon } from '#/src/components/common/MaterialIcon';
 import { Koulutustyyppi } from '#/src/constants';
 import { useVisibleKoulutustyyppi } from '#/src/hooks/useVisibleKoulutustyyppi';
 import { localize } from '#/src/tools/localization';
@@ -72,11 +67,14 @@ export const KoulutusKortti = ({ koulutus, isSmall }: Props) => {
       kuvaus={kuvausText}
       iconTexts={[
         isEmpty(tutkintonimikkeetText)
-          ? [koulutustyyppiText, ExtensionOutlined]
-          : [tutkintonimikkeetText, SchoolOutlined],
-        [getLocalizedKoulutusLaajuus(koulutus), TimelapseOutlined],
+          ? [koulutustyyppiText, createMaterialIcon('extension', 'outlined')]
+          : [tutkintonimikkeetText, createMaterialIcon('school', 'outlined')],
+        [
+          getLocalizedKoulutusLaajuus(koulutus),
+          createMaterialIcon('timelapse', 'outlined'),
+        ],
         toteutustenTarjoajatText
-          ? [toteutustenTarjoajatText, HomeWorkOutlined]
+          ? [toteutustenTarjoajatText, createMaterialIcon('home_work', 'outlined')]
           : undefined,
       ]}
       isSmall={isSmall}

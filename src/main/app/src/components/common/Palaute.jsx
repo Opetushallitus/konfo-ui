@@ -15,8 +15,7 @@ import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
 import { sendPalaute } from '#/src/api/konfoApi';
-
-import { MaterialIcon } from './MaterialIcon';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 
 const PREFIX = 'Palaute';
 
@@ -118,7 +117,7 @@ export const Palaute = (props) => {
               </Typography>
             </Box>
             <IconButton aria-label="close" className={classes.closeButton} onClick={hide}>
-              <MaterialIcon name="star" />
+              <MaterialIcon icon="star" />
             </IconButton>
           </DialogTitle>
           <div className={classes.stars}>
@@ -138,7 +137,7 @@ export const Palaute = (props) => {
                   onMouseLeave={() => handleArvosanaHoverChange(null)}
                   onClick={(e) => handleArvosanaChange(e, star)}
                   component="span">
-                  <MaterialIcon name="star" />
+                  <MaterialIcon icon="star" />
                 </IconButton>
               );
             })}

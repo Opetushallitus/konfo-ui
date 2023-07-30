@@ -10,8 +10,7 @@ import {
 import { styled } from '@mui/material/styles';
 
 import { colors } from '#/src/colors';
-
-import { MaterialIcon } from './MaterialIcon';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 
 const PREFIX = 'Accordion';
 
@@ -95,7 +94,7 @@ export const Accordion = ({
               expanded: classes.expanded,
             }}
             className={classes.summary}
-            expandIcon={<MaterialIcon name="expand_more" />}
+            expandIcon={<MaterialIcon icon="expand_more" />}
             aria-controls={`panel${i}a-content`}
             id={`panel${i}a-header`}>
             <Typography className={classes.heading}>{item.title}</Typography>
