@@ -63,7 +63,6 @@ import {
   getHakuParams,
   createHakuUrl,
 } from '#/src/store/reducers/hakutulosSliceSelector';
-// eslint-disable-next-line import/order
 import {
   isRajainActive,
   getRajainValueInUIFormat,
