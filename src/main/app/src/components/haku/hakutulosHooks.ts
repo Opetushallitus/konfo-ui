@@ -63,13 +63,9 @@ import {
   getHakuParams,
   createHakuUrl,
 } from '#/src/store/reducers/hakutulosSliceSelector';
-import {
-  isRajainActive,
-  getRajainValueInUIFormat,
-  filterType,
-} from '#/src/tools/filters';
+import { isRajainActive, getRajainValueInUIFormat } from '#/src/tools/filters';
 import { ReduxTodo, ValueOf } from '#/src/types/common';
-import { RajainType } from '#/src/types/SuodatinTypes';
+import { isCompositeRajainId } from '#/src/types/SuodatinTypes';
 
 type Pagination = {
   size?: number;
@@ -305,10 +301,11 @@ export const useFilterProps = (id: ValueOf<typeof FILTER_TYPES>) => {
 
 export const useSelectedFilters = (availableFilters: any, checkedFilters: any) => {
   const selectedFiltersWithAlakoodit = useMemo(() => {
-    const compositeFilters = keys(availableFilters).filter(
-      (f) => filterType(f) === RajainType.COMPOSITE
-    );
-    const compositeFlattened: any = {};
+    const compositeFilters = keys(availableFilters).filter((k) => isCompositeRajainId(k));
+    const compositeFlattened: Record<
+      string,
+      Array<string> | boolean | Record<string, number>
+    > = {};
     forEach(compositeFilters, (v) => {
       for (const subKey in availableFilters[v]) {
         compositeFlattened[subKey] = availableFilters[v][subKey];
@@ -318,6 +315,7 @@ export const useSelectedFilters = (availableFilters: any, checkedFilters: any) =
       ...omit(availableFilters, compositeFilters),
       ...compositeFlattened,
     };
+
     return flow(
       (vals) =>
         pickBy(vals, (v, k) =>

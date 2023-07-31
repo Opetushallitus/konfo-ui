@@ -5,23 +5,27 @@ import { match } from 'ts-pattern';
 
 import { Filter } from '#/src/components/common/Filter';
 import { FILTER_TYPES } from '#/src/constants';
-import { RajainUIItem, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
+import { RajainItem, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
+
+const isChecked = (rajainItem: RajainItem) => match(rajainItem)
+    .with({ checked: true }, () => true)
+    .otherwise(() => false);
 
 export const TyoelamaJaTaydennyskoulutuksetSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
 
   const { rajainValues = [], setFilters } = props;
 
-  const handleCheck = (item: RajainUIItem) =>
+  const handleCheck = (item: RajainItem) =>
     match(item.rajainId)
       .with(FILTER_TYPES.JOTPA, () => {
-        setFilters({ jotpa: !item.checked });
+        setFilters({ jotpa: !isChecked(item) });
       })
       .with(FILTER_TYPES.TYOVOIMAKOULUTUS, () =>
-        setFilters({ tyovoimakoulutus: !item.checked })
+        setFilters({ tyovoimakoulutus: !isChecked(item) })
       )
       .with(FILTER_TYPES.TAYDENNYSKOULUTUS, () => {
-        setFilters({ taydennyskoulutus: !item.checked });
+        setFilters({ taydennyskoulutus: !isChecked(item) });
       })
       .run();
 

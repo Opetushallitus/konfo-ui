@@ -6,15 +6,15 @@ import List from '@mui/material/List';
 import { TFunction } from 'i18next';
 import { ceil, range, isEqual } from 'lodash';
 import { useTranslation } from 'react-i18next';
+import { P, match } from 'ts-pattern';
 
 import { useConfig } from '#/src/config';
 import { FILTER_TYPES } from '#/src/constants';
 import { getStateChangesForCheckboxRajaimet } from '#/src/tools/filters';
 import {
   SuodatinComponentProps,
-  NumberRangeRajainItem,
-  RajainUIItem,
   RajainItem,
+  NumberRangeRajainId,
 } from '#/src/types/SuodatinTypes';
 
 import { FilterCheckbox } from '../../common/Filter';
@@ -59,20 +59,28 @@ const marks = (upperLimit: number) => {
   return marx;
 };
 
-const checkboxRajain = (rajainValues: Array<RajainItem>, id: string): RajainUIItem =>
-  (rajainValues.find((r) => r.id === id) || {
+const checkboxRajain = (rajainValues: Array<RajainItem>, id: string): RajainItem =>
+  rajainValues.find((r) => r.id === id) || {
     rajainId: 'maksullisuustyyppi',
     id,
     count: 0,
     checked: false,
-  }) as RajainUIItem;
+  };
 
-const getNumberRangeRajain = (rajainValues: Array<RajainItem>, rajainId: string) =>
-  (rajainValues.find((r) => r.rajainId === rajainId) || {
+const getNumberRangeRajain = (
+  rajainValues: Array<RajainItem>,
+  rajainId: NumberRangeRajainId
+) =>
+  rajainValues.find((r) => r.rajainId === rajainId) || {
     rajainId,
     id: rajainId,
     count: 0,
-  }) as NumberRangeRajainItem;
+  };
+
+const isChecked = (rajainItem: RajainItem) =>
+  match(rajainItem)
+    .with({ checked: true }, () => true)
+    .otherwise(() => false);
 
 type NumberRangeValues = {
   undefinedValue: Array<number>;
@@ -80,16 +88,27 @@ type NumberRangeValues = {
 };
 
 const numberRangeValues = (
-  numberRangeRajain: NumberRangeRajainItem,
+  numberRangeRajain: RajainItem,
   defaultUpperLimit: number
 ): NumberRangeValues => {
-  const undefinedValue = [0, numberRangeRajain?.upperLimit || defaultUpperLimit];
+  const { upperLimit, min, max } = match(numberRangeRajain)
+    .with(
+      {
+        upperLimit: P.optional(P.number),
+        min: P.optional(P.number),
+        max: P.optional(P.number),
+      },
+      (v) => ({
+        upperLimit: v.upperLimit,
+        min: v.min,
+        max: v.max,
+      })
+    )
+    .run();
+  const undefinedValue = [0, upperLimit || defaultUpperLimit];
   return {
     undefinedValue,
-    numberRangeValues: [
-      numberRangeRajain?.min || undefinedValue[0],
-      numberRangeRajain?.max || undefinedValue[1],
-    ],
+    numberRangeValues: [min || undefinedValue[0], max || undefinedValue[1]],
   };
 };
 const labelText = (val: number) => (val > 0 ? `${val}€` : '0');
@@ -107,7 +126,7 @@ const maksullisuustyyppiSetDisabled = (
   rajainValues: Array<RajainItem>,
   newRajainValues: Array<string>,
   tyyppi: string
-) => checkboxRajain(rajainValues, tyyppi).checked && !newRajainValues.includes(tyyppi);
+) => isChecked(checkboxRajain(rajainValues, tyyppi)) && !newRajainValues.includes(tyyppi);
 
 const maksullisuustyyppiRajainItems = (rajainValues: Array<RajainItem>) =>
   ['maksuton', 'maksullinen', 'lukuvuosimaksu'].map((tyyppi) =>
@@ -120,8 +139,8 @@ const headerContent = (
   lukuvuosimaksu: NumberRangeValues,
   t: TFunction
 ) => {
-  const selectedRajainItems = maksullisuustyyppiRajainItems(rajainValues).filter(
-    (v) => v.checked
+  const selectedRajainItems = maksullisuustyyppiRajainItems(rajainValues).filter((v) =>
+    isChecked(v)
   );
   const contentString = selectedRajainItems
     .map((item) => {
@@ -139,7 +158,7 @@ const headerContent = (
           )
             ? ''
             : rangeText(lukuvuosimaksu.numberRangeValues);
-          addInfo = checkboxRajain(rajainValues, 'apuraha').checked
+          addInfo = isChecked(checkboxRajain(rajainValues, 'apuraha'))
             ? `${addInfo} + ${t('haku.apuraha')}`
             : addInfo;
           break;
@@ -154,7 +173,7 @@ const headerContent = (
 
 const maksullisuustyyppiChanges = (
   rajainValues: Array<RajainItem>,
-  rajainItem: RajainUIItem
+  rajainItem: RajainItem
 ) => {
   let changes = getStateChangesForCheckboxRajaimet(
     maksullisuustyyppiRajainItems(rajainValues)
@@ -204,7 +223,7 @@ export const MaksullisuusSuodatin = ({
         : rangeRajainObject('lukuvuosimaksunmaara', maksuRange)
     );
 
-  const handleMaksullisuustyyppiCheck = (item: RajainUIItem) =>
+  const handleMaksullisuustyyppiCheck = (item: RajainItem) =>
     setFilters(maksullisuustyyppiChanges(rajainValues, item));
 
   const maksunmaaraValues = useMemo(
@@ -267,7 +286,7 @@ export const MaksullisuusSuodatin = ({
                 marks={marks(undefinedMaksunmaara[1])}
                 labelFormatter={labelText}
                 onRangeCommit={setMaksuRange}
-                disabled={!checkboxRajain(rajainValues, 'maksullinen').checked}
+                disabled={!isChecked(checkboxRajain(rajainValues, 'maksullinen'))}
               />
               <FilterCheckbox
                 value={checkboxRajain(rajainValues, 'lukuvuosimaksu')}
@@ -281,18 +300,18 @@ export const MaksullisuusSuodatin = ({
                 marks={marks(undefinedLukuvuosimaksu[1])}
                 labelFormatter={labelText}
                 onRangeCommit={setLukuvuosiMaksuRange}
-                disabled={!checkboxRajain(rajainValues, 'lukuvuosimaksu').checked}
+                disabled={!isChecked(checkboxRajain(rajainValues, 'lukuvuosimaksu'))}
               />
               <FilterCheckbox
                 key={FILTER_TYPES.APURAHA}
                 value={checkboxRajain(rajainValues, 'apuraha')}
-                handleCheck={(item: RajainUIItem) =>
+                handleCheck={(item: RajainItem) =>
                   setFilters({
-                    apuraha: !item.checked,
+                    apuraha: !isChecked(item),
                   })
                 }
                 isCountVisible={false}
-                disabled={!checkboxRajain(rajainValues, 'lukuvuosimaksu').checked}
+                disabled={!isChecked(checkboxRajain(rajainValues, 'lukuvuosimaksu'))}
               />
             </List>
           </Grid>

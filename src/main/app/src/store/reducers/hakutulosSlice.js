@@ -209,7 +209,7 @@ const minmaxParams = (allParams) =>
   Object.keys(allParams).filter((k) => k.endsWith('_min') || k.endsWith('_max'));
 const groupMinMaxParams = (params) => {
   const groupedParamNames = groupBy(minmaxParams(params), (param) => param.split('_')[0]);
-  return mapValues(groupedParamNames, (val, _key) =>
+  return mapValues(groupedParamNames, (val) =>
     reduce(
       val,
       (obj, param) => {

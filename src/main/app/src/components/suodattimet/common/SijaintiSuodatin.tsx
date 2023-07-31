@@ -9,7 +9,7 @@ import { getStateChangesForCheckboxRajaimet } from '#/src/tools/filters';
 import { localize } from '#/src/tools/localization';
 import {
   CheckboxRajainItem,
-  RajainUIItem,
+  RajainItem,
   SuodatinComponentProps,
 } from '#/src/types/SuodatinTypes';
 
@@ -23,7 +23,7 @@ export const SijaintiSuodatin = (props: SuodatinComponentProps) => {
     setFilters,
     loading,
   } = props;
-  const handleCheck = (item: RajainUIItem) => {
+  const handleCheck = (item: RajainItem) => {
     const changes = getStateChangesForCheckboxRajaimet(
       kuntaRajainValues.concat(maakuntaRajainValues)
     )(item);

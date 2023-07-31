@@ -12,7 +12,7 @@ import {
   ListItemIcon,
   Typography,
 } from '@mui/material';
-import { isEmpty } from 'lodash';
+import { find } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import Select, {
   components,
@@ -21,12 +21,13 @@ import Select, {
   OptionProps as RSOptionProps,
   DropdownIndicatorProps as RSDropdownIndicatorProps,
 } from 'react-select';
+import { P, match } from 'ts-pattern';
 
 import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { useConfig } from '#/src/config';
 import { localize, localizeIfNimiObject } from '#/src/tools/localization';
-import { RajainUIItem, RajainItem } from '#/src/types/SuodatinTypes';
+import { RajainItem, isCheckboxRajainId } from '#/src/types/SuodatinTypes';
 
 import {
   SuodatinAccordion,
@@ -102,10 +103,36 @@ const Option = React.forwardRef(
   }
 );
 
+const checkboxValuePattern = {
+  count: P.number,
+  id: P.string,
+  nimi: P.optional(P._),
+  checked: P.boolean,
+};
+
+const alakoodit = (rajainItem: RajainItem) =>
+  match(rajainItem)
+    .with(
+      {
+        alakoodit: P.select(
+          P.array({ ...checkboxValuePattern, rajainId: P.when(isCheckboxRajainId) })
+        ),
+      },
+      (koodit) =>
+        koodit.map((alakoodi) => ({
+          count: alakoodi.count,
+          rajainId: alakoodi.rajainId,
+          id: alakoodi.id,
+          nimi: alakoodi.nimi,
+          checked: alakoodi.checked,
+        }))
+    )
+    .otherwise(() => []);
+
 type CheckboxProps = {
-  value: RajainUIItem;
+  value: RajainItem;
   isCountVisible?: boolean;
-  handleCheck: (v: RajainUIItem) => void;
+  handleCheck: (v: RajainItem) => void;
   indented?: boolean;
   expandButton?: JSX.Element;
   disabled?: boolean;
@@ -120,7 +147,14 @@ export const FilterCheckbox = ({
   disabled,
 }: CheckboxProps) => {
   const { t } = useTranslation();
-  const { count, id, nimi, checked } = value;
+  const { count, id, nimi, checked } = match(value)
+    .with(checkboxValuePattern, (v) => ({
+      count: v.count,
+      id: v.id,
+      nimi: v.nimi,
+      checked: v.checked,
+    }))
+    .run();
   const labelId = `filter-list-label-${id}`;
 
   return (
@@ -171,8 +205,8 @@ const FilterCheckboxGroup = ({
   value,
 }: {
   defaultExpandAlakoodit: boolean;
-  handleCheck: (v: RajainUIItem) => void;
-  value: RajainUIItem;
+  handleCheck: (v: RajainItem) => void;
+  value: RajainItem;
   isCountVisible?: boolean;
 }) => {
   const { t } = useTranslation();
@@ -202,10 +236,10 @@ const FilterCheckboxGroup = ({
         }
       />
       {isOpen &&
-        value.alakoodit?.map((v) => (
+        alakoodit(value).map((v) => (
           <FilterCheckbox
             key={v.id}
-            value={{ ...v, alakoodit: [] }}
+            value={{ ...v }}
             handleCheck={handleCheck}
             indented
             isCountVisible={isCountVisible}
@@ -237,17 +271,6 @@ type Props = {
   setFilters: (value: any) => void;
   isCountVisible?: boolean;
 };
-
-const uiValues = (items: Array<RajainItem>): Array<RajainUIItem> =>
-  items.map((v: any) => ({
-    id: v.id,
-    rajainId: v.rajainId,
-    count: v.count,
-    checked: v.checked || false,
-    nimi: v.nimi,
-    hidden: v.hidden,
-    alakoodit: v.alakoodit?.map((a: any) => ({ ...a })) || [],
-  }));
 
 // NOTE: Do *not* put redux code here, this component is used both with and without
 export const Filter = ({
@@ -290,7 +313,7 @@ export const Filter = ({
         <SuodatinAccordionSummary expandIcon={<MaterialIcon icon="expand_more" />}>
           <SummaryContent
             filterName={usedName}
-            values={uiValues(rajainValues)}
+            values={rajainValues}
             displaySelected={displaySelected}
           />
         </SuodatinAccordionSummary>
@@ -329,24 +352,31 @@ export const Filter = ({
           )}
           <Grid item>
             <List style={{ width: '100%' }}>
-              {uiValues(rajainValues)
-                .filter((v) => !v.hidden)
+              {rajainValues
+                .filter((v) =>
+                  match(v)
+                    .with(
+                      { checked: P.boolean, hidden: P.optional(P.not(true)) },
+                      () => true
+                    )
+                    .otherwise(() => false)
+                )
                 .map((value, i) => {
                   if (expandValues && hideRest && i >= HIDE_NOT_EXPANDED_AMOUNT) {
                     return null;
                   }
 
-                  return isEmpty(value.alakoodit) ? (
-                    <FilterCheckbox
+                  return alakoodit(value).length > 0 ? (
+                    <FilterCheckboxGroup
                       key={value.id}
+                      defaultExpandAlakoodit={defaultExpandAlakoodit}
                       value={value}
                       handleCheck={handleCheck}
                       isCountVisible={isCountVisible}
                     />
                   ) : (
-                    <FilterCheckboxGroup
+                    <FilterCheckbox
                       key={value.id}
-                      defaultExpandAlakoodit={defaultExpandAlakoodit}
                       value={value}
                       handleCheck={handleCheck}
                       isCountVisible={isCountVisible}

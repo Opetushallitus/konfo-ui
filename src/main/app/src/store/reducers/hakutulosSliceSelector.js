@@ -370,9 +370,5 @@ export const getInitialCheckedToteutusFilters = createSelector(
       'osaamisala',
       'koulutuksenkestokuukausina',
       'alkamiskausi',
-      'maksullisuustyyppi',
-      'maksunmaara',
-      'lukuvuosimaksunmaara',
-      'apuraha',
     ])
 );

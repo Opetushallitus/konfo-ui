@@ -1,9 +1,9 @@
 import React, { useCallback, useMemo, useState } from 'react';
 
 import { Box, Grid, Hidden, Typography } from '@mui/material';
-import { mapValues, size, some } from 'lodash';
+import { mapValues, size } from 'lodash';
 import { useTranslation } from 'react-i18next';
-import { match } from 'ts-pattern';
+import { P, match } from 'ts-pattern';
 
 import { EntiteettiKortti } from '#/src/components/common/EntiteettiKortti';
 import { OppilaitosKorttiLogo } from '#/src/components/common/KorttiLogo';
@@ -84,11 +84,18 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
 
   const allSelectedFilters = useSelectedFilters(sortedFilters, filters);
 
-  const someSelected = some(filters, (v) => (Array.isArray(v) ? v.length > 0 : v));
+  const someSelected = allSelectedFilters.flat.length > 0;
 
   const handleFiltersClear = useCallback(() => {
-    const usedFilters = mapValues(filters, (v) => (Array.isArray(v) ? [] : false));
-
+    const usedFilters = mapValues(filters, (v, k) =>
+      match(v)
+        .with(P.array(P._), () => [])
+        .with({ [`${k}_min`]: P.number, [`${k}_max`]: P.number }, () => ({
+          [`${k}_min`]: 0,
+          [`${k}_max`]: 0,
+        }))
+        .otherwise(() => false)
+    );
     setFilters(usedFilters);
   }, [filters, setFilters]);
 

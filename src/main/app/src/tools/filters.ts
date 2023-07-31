@@ -1,17 +1,19 @@
 import { sortBy, toPairs, some, ceil } from 'lodash';
+import { match, P } from 'ts-pattern';
 
 import { FILTER_TYPES, YHTEISHAKU_KOODI_URI } from '#/src/constants';
 import {
-  BOOLEAN_RAJAIN_IDS,
-  NUMBER_RANGE_RAJAIN_IDS,
-  COMPOSITE_RAJAIN_IDS,
   REPLACED_RAJAIN_IDS,
   LINKED_IDS,
-  BooleanRajainItem,
-  CheckboxRajainItem,
-  RajainType,
-  RajainUIItem,
+  isBooleanRajainId,
   RajainItem,
+  isNumberRangeRajainId,
+  NumberRangeRajainId,
+  isCompositeRajainId,
+  isCheckboxRajainId,
+  CheckboxRajainId,
+  NumberRangeRajainItem,
+  CheckboxRajainBase,
 } from '#/src/types/SuodatinTypes';
 
 export const sortValues = <T>(filterObj: Record<string, T>) =>
@@ -25,24 +27,11 @@ export const isRajainActive = (rajain: any) =>
   rajain.min !== undefined ||
   rajain.max !== undefined;
 
-export const filterType = (filterId: string) => {
-  if (BOOLEAN_RAJAIN_IDS.includes(filterId)) {
-    return RajainType.BOOLEAN;
-  }
-  if (NUMBER_RANGE_RAJAIN_IDS.includes(filterId)) {
-    return RajainType.NUMBER_RANGE;
-  }
-  if (COMPOSITE_RAJAIN_IDS.includes(filterId)) {
-    return RajainType.COMPOSITE;
-  }
-  return RajainType.CHECKBOX;
-};
-
 const getRajainAlakoodit = (
   alakoodit: Record<string, any>,
   alakooditSetInUI: Record<string, any>,
-  rajainId: string
-) => {
+  rajainId: CheckboxRajainId
+): Array<CheckboxRajainBase> => {
   return sortValues(alakoodit)?.map((alakoodi) => ({
     ...alakoodi,
     checked: some(alakooditSetInUI, (checkedId) => checkedId === alakoodi.id),
@@ -51,11 +40,11 @@ const getRajainAlakoodit = (
 };
 
 const numberRangeRajain = (
-  rajainId: string,
+  rajainId: NumberRangeRajainId,
   count: number,
   upperLimit: number,
-  minmax: any
-) => {
+  minmax: Record<string, number>
+): NumberRangeRajainItem => {
   const defaultValue = {
     id: rajainId,
     rajainId,
@@ -63,8 +52,11 @@ const numberRangeRajain = (
     upperLimit,
   };
 
-  const min = minmax[rajainId + '_min'] || 0;
-  const max = minmax[rajainId + '_max'];
+  let min = minmax?.[rajainId + '_min'];
+  const max = minmax?.[rajainId + '_max'];
+  if (min === undefined && max !== undefined) {
+    min = 0;
+  }
   return min !== undefined && max !== undefined
     ? {
         ...defaultValue,
@@ -90,41 +82,35 @@ export const getRajainValueInUIFormat = (
 
   const rajainValue = allRajainValuesSetInUI[rajainId];
 
-  let returnValues: Array<RajainItem> = [];
-
-  switch (filterType(rajainId)) {
-    case RajainType.BOOLEAN:
-      returnValues = [
-        {
-          id: rajainId,
-          rajainId: rajainId,
-          count: rajainCount.count,
-          checked: Boolean(rajainValue),
-        },
-      ];
-      break;
-    case RajainType.NUMBER_RANGE: {
+  const returnValues = match(rajainId)
+    .with(P.when(isBooleanRajainId), (booleanRajainId) => [
+      {
+        id: rajainId,
+        rajainId: booleanRajainId,
+        count: rajainCount.count,
+        checked: Boolean(rajainValue),
+        linkedIds: [],
+      },
+    ])
+    .with(P.when(isNumberRangeRajainId), (numberRangeRajainId) => [
       // NumberRange -tyyppisissä rajaimissa min- ja max -parametrit on automaattisesti nimetty
       // <rajainId>_min ja <rajainId>_max
-      returnValues = [
-        numberRangeRajain(
-          rajainId,
-          rajainCount.count,
-          ceil(rajainCount.max),
-          allRajainValuesSetInUI[rajainId]
-        ),
-      ];
-      break;
-    }
-    case RajainType.COMPOSITE:
-      returnValues = Object.keys(rajainCount).flatMap((key: string) =>
+      numberRangeRajain(
+        numberRangeRajainId,
+        rajainCount.count,
+        ceil(rajainCount.max),
+        allRajainValuesSetInUI[rajainId]
+      ),
+    ])
+    .with(P.when(isCompositeRajainId), () =>
+      Object.keys(rajainCount).flatMap((key: string) =>
         getRajainValueInUIFormat(rajainCount, allRajainValuesSetInUI, key)
-      );
-      break;
-    default:
-      returnValues = Object.keys(rajainCount).map((key: string) => ({
+      )
+    )
+    .with(P.when(isCheckboxRajainId), (checkboxRajainId) =>
+      Object.keys(rajainCount).map((key: string) => ({
         id: key,
-        rajainId: rajainId,
+        rajainId: checkboxRajainId,
         ...rajainCount[key],
         checked: some(rajainValue, (checkedId) => checkedId === key),
         alakoodit:
@@ -134,10 +120,14 @@ export const getRajainValueInUIFormat = (
                 allRajainValuesSetInUI[FILTER_TYPES.YHTEISHAKU],
                 FILTER_TYPES.YHTEISHAKU
               )
-            : getRajainAlakoodit(rajainCount[key].alakoodit, rajainValue, rajainId),
-      }));
-      break;
-  }
+            : getRajainAlakoodit(
+                rajainCount[key].alakoodit,
+                rajainValue,
+                checkboxRajainId
+              ),
+      }))
+    )
+    .run();
   return returnValues.map((val) => {
     val.linkedIds = LINKED_IDS[val.id];
     return val;
@@ -162,10 +152,41 @@ const removeIfExists = (
     ? (retVal[rajainId] = retVal[rajainId].filter((v) => v !== id))
     : retVal;
 
+const checkboxRajainPattern = {
+  rajainId: P.when(isCheckboxRajainId),
+  id: P.string,
+  checked: P.boolean,
+};
+
+const pickAlakoodit = (rajainItem: RajainItem) =>
+  match(rajainItem)
+    .with({ alakoodit: P.select(P.array(checkboxRajainPattern)) }, (koodit) => koodit)
+    .otherwise(() => []);
+
+const isChecked = (rajainItem: RajainItem) =>
+  match(rajainItem)
+    .with({ checked: true }, () => true)
+    .otherwise(() => false);
+
+// match -> with sopivalla patternilla osaa muuntaa RajainItemin CheckboxRajainItemiksi
+// Ensin valitaan filterillä listalta kaikki Checkbox -tyyppiset (jotka ovat varmasti muunnettavissa),
+// match heittää poikkeuksen ellei annettu arvo ole muunnettavissa.
+const pickCheckboxRajainItems = (anyRajainItems: Array<RajainItem>) =>
+  anyRajainItems
+    .filter((v) =>
+      match(v)
+        .with({ rajainId: P.when(isCheckboxRajainId) }, () => true)
+        .otherwise(() => false)
+    )
+    .map((v) =>
+      match(v)
+        .with(checkboxRajainPattern, (item) => item)
+        .run()
+    );
+
 export const getStateChangesForCheckboxRajaimet =
-  (rajainValuesRaw: Array<RajainItem>) =>
-  (checkedRajainItem: CheckboxRajainItem | RajainUIItem) => {
-    const rajainValues = rajainValuesRaw as Array<CheckboxRajainItem>;
+  (rajainValuesRaw: Array<RajainItem>) => (checkedRajainItem: RajainItem) => {
+    const rajainValues = pickCheckboxRajainItems(rajainValuesRaw);
     const allCheckedValues = rajainValues
       .map((v) => [v, ...(v.alakoodit ?? [])])
       .flat()
@@ -175,25 +196,25 @@ export const getStateChangesForCheckboxRajaimet =
         {} as Record<string, Array<string>>
       );
 
-    const koodiFn = checkedRajainItem.checked ? removeIfExists : addIfNotExists;
+    const koodiFn = isChecked(checkedRajainItem) ? removeIfExists : addIfNotExists;
 
     koodiFn(allCheckedValues, checkedRajainItem.rajainId, checkedRajainItem.id);
 
     const isYlakoodi = rajainValues.some((v) => v.id === checkedRajainItem.id);
     if (isYlakoodi) {
       // Jos koodilla oli alakoodeja, täytyy ne myös poistaa / lisätä
-      checkedRajainItem.alakoodit?.forEach((alakoodi) =>
+      pickAlakoodit(checkedRajainItem).forEach((alakoodi) =>
         koodiFn(allCheckedValues, alakoodi.rajainId, alakoodi.id)
       );
       return allCheckedValues;
     } else {
       // Koodi oli alakoodi -> Etsitään yläkoodi ja muut alakoodit
-      const ylakoodi = rajainValues.find(
-        (v) => v.alakoodit?.some((alakoodi) => alakoodi.id === checkedRajainItem.id)
+      const ylakoodi = rajainValues.find((v) =>
+        pickAlakoodit(v).some((alakoodi) => alakoodi.id === checkedRajainItem.id)
       )!;
 
       // Jos alakoodivalinnan jälkeen kaikki alakoodit on valittu, myös yläkoodikin täytyy asettaa valituksi
-      const allAlakooditWillBeSelected = ylakoodi.alakoodit!.every((v) =>
+      const allAlakooditWillBeSelected = pickAlakoodit(ylakoodi)!.every((v) =>
         v.id === checkedRajainItem.id ? !v.checked : v.checked
       );
 
@@ -205,19 +226,15 @@ export const getStateChangesForCheckboxRajaimet =
   };
 
 export const getFilterStateChangesForDelete =
-  (values: Array<RajainItem>) => (item: RajainItem) => {
-    switch (filterType(item.rajainId)) {
-      case RajainType.BOOLEAN:
-        return { [item.rajainId]: !(item as BooleanRajainItem).checked };
-      case RajainType.NUMBER_RANGE:
-        return {
-          [item.rajainId]: { [`${item.rajainId}_min`]: 0, [`${item.rajainId}_max`]: 0 },
-        };
-      default:
-        return getStateChangesForCheckboxRajaimet(
-          values.filter(
-            (v) => filterType(v.rajainId) === RajainType.CHECKBOX
-          ) as Array<CheckboxRajainItem>
-        )(item as CheckboxRajainItem);
-    }
-  };
+  (values: Array<RajainItem>) => (item: RajainItem) =>
+    match(item)
+      .with({ rajainId: P.when(isBooleanRajainId) }, () => ({
+        [item.rajainId]: !isChecked(item),
+      }))
+      .with({ rajainId: P.when(isNumberRangeRajainId) }, () => ({
+        [item.rajainId]: { [`${item.rajainId}_min`]: 0, [`${item.rajainId}_max`]: 0 },
+      }))
+      .with({ rajainId: P.when(isCheckboxRajainId) }, () =>
+        getStateChangesForCheckboxRajaimet(values)(item)
+      )
+      .run();

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Filter } from '#/src/components/common/Filter';
 import { getStateChangesForCheckboxRajaimet } from '#/src/tools/filters';
-import { RajainUIItem, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
+import { RajainItem, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 
 // NOTE: Hakutapa sisältää hakukaynnissa ja yhteishaku suodattimet -> tämä komponentti hoitaa yhdistelylogiikan
 export const HakutapaSuodatin = (props: SuodatinComponentProps) => {
@@ -12,7 +12,7 @@ export const HakutapaSuodatin = (props: SuodatinComponentProps) => {
 
   const { rajainValues = [], setFilters } = props;
 
-  const handleCheck = (item: RajainUIItem) => {
+  const handleCheck = (item: RajainItem) => {
     const changes = getStateChangesForCheckboxRajaimet(rajainValues)(item);
     setFilters(changes);
   };

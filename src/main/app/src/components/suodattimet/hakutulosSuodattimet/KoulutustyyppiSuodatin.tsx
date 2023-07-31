@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { colors } from '#/src/colors';
 import { Filter } from '#/src/components/common/Filter';
 import { getStateChangesForCheckboxRajaimet } from '#/src/tools/filters';
-import { RajainUIItem, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
+import { RajainItem, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 
 const classes = {
   noBoxShadow: 'noBoxShadow',
@@ -54,7 +54,7 @@ export const KoulutustyyppiSuodatin = (props: SuodatinComponentProps) => {
     [isMuuSelected, muuRajainValues, rajainValues]
   );
 
-  const handleCheck = (item: RajainUIItem) => {
+  const handleCheck = (item: RajainItem) => {
     const changes = getStateChangesForCheckboxRajaimet(
       isMuuSelected ? muuRajainValues : rajainValues
     )(item);

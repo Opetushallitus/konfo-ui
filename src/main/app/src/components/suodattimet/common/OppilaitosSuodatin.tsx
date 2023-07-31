@@ -9,7 +9,7 @@ import { getStateChangesForCheckboxRajaimet } from '#/src/tools/filters';
 import { getLanguage, localize } from '#/src/tools/localization';
 import {
   CheckboxRajainItem,
-  RajainUIItem,
+  RajainItem,
   SuodatinComponentProps,
 } from '#/src/types/SuodatinTypes';
 
@@ -17,7 +17,7 @@ export const OppilaitosSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
   const { rajainValues = [], ...rest } = props;
 
-  const handleCheck = (item: RajainUIItem) => {
+  const handleCheck = (item: RajainItem) => {
     const changes = getStateChangesForCheckboxRajaimet(rajainValues)(item);
     props.setFilters(changes);
   };

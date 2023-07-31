@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { getFilterStateChangesForDelete } from '#/src/tools/filters';
 import { localize } from '#/src/tools/localization';
-import { RajainBase, RajainItem } from '#/src/types/SuodatinTypes';
+import { RajainItem } from '#/src/types/SuodatinTypes';
 
 type ChosenFiltersProps = {
   filters: Array<RajainItem>;
@@ -73,7 +73,7 @@ export const SuodatinValinnat = ({
 }: any) => {
   const { flat, withAlakoodit } = allSelectedFilters;
 
-  const getHandleDelete = (item: RajainBase) => () => {
+  const getHandleDelete = (item: RajainItem) => () => {
     const linkedRajaimet = item.linkedIds
       ? withAlakoodit.filter((v: any) => item.linkedIds?.includes(v.id))
       : [];
