@@ -31,15 +31,13 @@ export const TyoelamaJaTaydennyskoulutuksetSuodatin = (props: SuodatinComponentP
       .run();
 
   return (
-    <>
-      <Filter
-        {...props}
-        testId="tyoelama-ja-taydennyskoulutukset-filter"
-        name={t('haku.tyoelama-ja-taydennyskoulutukset')}
-        rajainValues={rajainValues}
-        handleCheck={handleCheck}
-        displaySelected
-      />
-    </>
+    <Filter
+      {...props}
+      testId="tyoelama-ja-taydennyskoulutukset-filter"
+      name={t('haku.tyoelama-ja-taydennyskoulutukset')}
+      rajainValues={rajainValues}
+      handleCheck={handleCheck}
+      displaySelected
+    />
   );
 };

@@ -54,7 +54,7 @@ const resolveSliderMarks = (upperLimit: number) => {
 
 const marks = (upperLimit: number) => {
   const valueSeq = resolveSliderMarks(upperLimit);
-  const marx = valueSeq.map((val) => ({ value: val, label: `${val}€` }));
+  const marx = valueSeq.map((val) => ({ value: val, label: `${val / 1000}k€` }));
   marx[0].label = '';
   return marx;
 };
@@ -268,7 +268,7 @@ export const MaksullisuusSuodatin = ({
       <SuodatinAccordionDetails {...(summaryHidden && { style: { padding: 0 } })}>
         <Grid container direction="column" wrap="nowrap">
           <Grid item>
-            <List style={{ width: '100%' }}>
+            <List sx={{ width: '100%' }}>
               <FilterCheckbox
                 value={checkboxRajain(rajainValues, 'maksuton')}
                 handleCheck={handleMaksullisuustyyppiCheck}
@@ -279,29 +279,32 @@ export const MaksullisuusSuodatin = ({
                 handleCheck={handleMaksullisuustyyppiCheck}
                 isCountVisible={isCountVisible}
               />
-              <NumberRangeSlider
-                values={maksunmaaraRangeValues}
-                min={undefinedMaksunmaara[0]}
-                max={undefinedMaksunmaara[1]}
-                marks={marks(undefinedMaksunmaara[1])}
-                labelFormatter={labelText}
-                onRangeCommit={setMaksuRange}
-                disabled={!isChecked(checkboxRajain(rajainValues, 'maksullinen'))}
-              />
+              {isChecked(checkboxRajain(rajainValues, 'maksullinen')) && (
+                <NumberRangeSlider
+                  values={maksunmaaraRangeValues}
+                  min={undefinedMaksunmaara[0]}
+                  max={undefinedMaksunmaara[1]}
+                  marks={marks(undefinedMaksunmaara[1])}
+                  labelFormatter={labelText}
+                  onRangeCommit={setMaksuRange}
+                  disabled={!isChecked(checkboxRajain(rajainValues, 'maksullinen'))}
+                />
+              )}
               <FilterCheckbox
                 value={checkboxRajain(rajainValues, 'lukuvuosimaksu')}
                 handleCheck={handleMaksullisuustyyppiCheck}
                 isCountVisible={isCountVisible}
               />
-              <NumberRangeSlider
-                values={lukuvuosimaksuRangeValues}
-                min={undefinedLukuvuosimaksu[0]}
-                max={undefinedLukuvuosimaksu[1]}
-                marks={marks(undefinedLukuvuosimaksu[1])}
-                labelFormatter={labelText}
-                onRangeCommit={setLukuvuosiMaksuRange}
-                disabled={!isChecked(checkboxRajain(rajainValues, 'lukuvuosimaksu'))}
-              />
+              {isChecked(checkboxRajain(rajainValues, 'lukuvuosimaksu')) && (
+                <NumberRangeSlider
+                  values={lukuvuosimaksuRangeValues}
+                  min={undefinedLukuvuosimaksu[0]}
+                  max={undefinedLukuvuosimaksu[1]}
+                  marks={marks(undefinedLukuvuosimaksu[1])}
+                  labelFormatter={labelText}
+                  onRangeCommit={setLukuvuosiMaksuRange}
+                />
+              )}
               <FilterCheckbox
                 key={FILTER_TYPES.APURAHA}
                 value={checkboxRajain(rajainValues, 'apuraha')}
