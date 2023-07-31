@@ -39,9 +39,12 @@ export interface RajainBase {
   nimi?: Translateable;
 }
 
-export interface CheckboxRajainItem extends RajainBase {
+export interface CheckboxRajainBase extends RajainBase {
   checked: boolean;
-  alakoodit?: Array<Omit<CheckboxRajainItem, 'alakoodit'>>;
+}
+
+export interface CheckboxRajainItem extends CheckboxRajainBase {
+  alakoodit?: Array<CheckboxRajainBase>;
 }
 
 export interface NumberRangeRajainItem extends RajainBase {
@@ -53,24 +56,22 @@ export interface BooleanRajainItem extends RajainBase {
   checked: boolean;
 }
 
-export interface CompositeRajainValue extends RajainBase {
-  rajainValues: Array<RajainBase>;
-}
+export const EMPTY_RAJAIN = { rajainId: '', id: '', count: 0 };
 
-export const BOOLEAN_FILTER_IDS: Array<string> = [
+export const BOOLEAN_RAJAIN_IDS: Array<string> = [
   FILTER_TYPES.HAKUKAYNNISSA,
   FILTER_TYPES.JOTPA,
   FILTER_TYPES.TYOVOIMAKOULUTUS,
   FILTER_TYPES.TAYDENNYSKOULUTUS,
 ];
 
-export const NUMBER_RANGE_FILTER_IDS: Array<string> = [
+export const NUMBER_RANGE_RAJAIN_IDS: Array<string> = [
   FILTER_TYPES.KOULUTUKSENKESTOKUUKAUSINA,
 ];
 
-export const COMPOSITE_FILTER_IDS: Array<string> = [];
+export const COMPOSITE_RAJAIN_IDS: Array<string> = [FILTER_TYPES.MAKSULLISUUS];
 
-export const REPLACED_FILTER_IDS = {
+export const REPLACED_RAJAIN_IDS = {
   [FILTER_TYPES.YHTEISHAKU]: FILTER_TYPES.HAKUTAPA,
 };
 
@@ -87,13 +88,10 @@ export interface RajainUIItem extends RajainUIBaseItem {
   alakoodit?: Array<RajainUIBaseItem>;
 }
 
-export type FilterValue = {
+export type RajainBackendItem = {
   id: string;
   filterId: string;
-  checked: boolean;
   count: number;
   nimi?: Translateable;
-  alakoodit?: Array<Omit<FilterValue, 'alakoodit'>>;
   hidden?: boolean; // Jotkut rajaimet eivät näytä kaikkia arvoja kerralla (koulutustyyppi), mutta kaikki arvot tarvitaan
-  anyValue?: any;
 };

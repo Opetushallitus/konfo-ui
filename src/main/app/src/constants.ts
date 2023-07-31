@@ -23,6 +23,13 @@ export const FILTER_TYPES = {
   LUKIOLINJATERITYINENKOULUTUSTEHTAVA: 'lukiolinjaterityinenkoulutustehtava',
   OSAAMISALA: 'osaamisala',
   KOULUTUKSENKESTOKUUKAUSINA: 'koulutuksenkestokuukausina',
+  MAKSULLISUUS: 'maksullisuus',
+  MAKSUTON: 'maksuton',
+  MAKSULLINEN: 'maksullinen',
+  MAKSUNMAARA: 'maksunmaara',
+  LUKUVUOSIMAKSU: 'lukuvuosimaksu',
+  LUKUVUOSIMAKSUNMAARA: 'lukuvuosimaksunmaara',
+  APURAHA: 'apuraha',
   SIJAINTI: 'sijainti', // TODO: Poista tämä kun konfo-backend ei enää käytä sijaintirajainta vaan kunta + maakunta
   ALKAMISKAUSI: 'alkamiskausi',
 } as const;

@@ -30,8 +30,8 @@ const numberRangeRajain = (minmax: Array<number>) => ({
 const UNDEFINED = numberRangeRajain([0, 72]);
 
 const numberValues = (rajainValues: Array<RajainItem>) => {
-  const range = (nth(rajainValues, 0) as NumberRangeRajainItem) || UNDEFINED;
-  return [range.min || UNDEFINED.min, range.max || UNDEFINED.max];
+  const range = nth(rajainValues, 0) as NumberRangeRajainItem;
+  return [range?.min || UNDEFINED.min, range?.max || UNDEFINED.max];
 };
 
 export const KoulutuksenKestoSuodatin = ({

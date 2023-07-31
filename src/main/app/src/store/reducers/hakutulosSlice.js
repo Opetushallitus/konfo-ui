@@ -42,6 +42,14 @@ const INITIAL_FILTERS = {
   osaamisala: [],
   opetusaika: [],
   koulutuksenkestokuukausina: [],
+  maksuton: false,
+  maksullinen: false,
+  maksunmaara_min: 0,
+  maksunmaara_max: 0,
+  lukuvuosimaksu: false,
+  lukuvuosimaksunmaara_min: 0,
+  lukuvuosimaksunmaara_max: 0,
+  apuraha: false,
   alkamiskausi: [],
 };
 
@@ -137,16 +145,14 @@ export const hakutulosSlice = createSlice({
               state.kunta = valueList.filter((v) => v.startsWith('kunta'));
               break;
             case FILTER_TYPES.HAKUKAYNNISSA:
-              state.hakukaynnissa = value === 'true';
-              break;
             case FILTER_TYPES.JOTPA:
-              state.jotpa = value === 'true';
-              break;
             case FILTER_TYPES.TYOVOIMAKOULUTUS:
-              state.tyovoimakoulutus = value === 'true';
-              break;
             case FILTER_TYPES.TAYDENNYSKOULUTUS:
-              state.taydennyskoulutus = value === 'true';
+            case FILTER_TYPES.MAKSUTON:
+            case FILTER_TYPES.MAKSULLINEN:
+            case FILTER_TYPES.LUKUVUOSIMAKSU:
+            case FILTER_TYPES.APURAHA:
+              setBooleanValueToState(state, key, value);
               break;
             default:
               state[key] = valueList;
@@ -187,3 +193,5 @@ const getCleanUrlSearch = (search, apiRequestParams) =>
       ? join(sortBy(split(value, ',')), ',')
       : value
   );
+
+const setBooleanValueToState = (state, key, value) => (state[key] = value === 'true');

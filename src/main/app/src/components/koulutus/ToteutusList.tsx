@@ -29,7 +29,7 @@ import {
   localizeArrayToCommaSeparated,
 } from '#/src/tools/localization';
 import { getLocalizedOpintojenLaajuus } from '#/src/tools/utils';
-import { FilterValue } from '#/src/types/SuodatinTypes';
+import { RajainBackendItem } from '#/src/types/SuodatinTypes';
 import { Jarjestaja } from '#/src/types/ToteutusTypes';
 
 import { useKoulutusJarjestajat } from './hooks';
@@ -50,7 +50,7 @@ type JarjestajaData = {
   total: number;
   jarjestajat: Array<Jarjestaja>;
   loading: boolean;
-  sortedFilters: Record<string, Record<string, FilterValue>>;
+  sortedFilters: Record<string, Record<string, RajainBackendItem>>;
 };
 
 const SuodatinGridItem: React.FC<React.PropsWithChildren> = ({ children }) => {

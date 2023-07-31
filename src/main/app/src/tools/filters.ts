@@ -2,10 +2,10 @@ import { sortBy, toPairs, get, some, toInteger, nth } from 'lodash';
 
 import { FILTER_TYPES, YHTEISHAKU_KOODI_URI } from '#/src/constants';
 import {
-  BOOLEAN_FILTER_IDS,
-  NUMBER_RANGE_FILTER_IDS,
-  COMPOSITE_FILTER_IDS,
-  REPLACED_FILTER_IDS,
+  BOOLEAN_RAJAIN_IDS,
+  NUMBER_RANGE_RAJAIN_IDS,
+  COMPOSITE_RAJAIN_IDS,
+  REPLACED_RAJAIN_IDS,
   BooleanRajainItem,
   CheckboxRajainItem,
   RajainType,
@@ -23,20 +23,20 @@ export const isRajainActive = (rajain: any) =>
   (rajain.checked !== undefined && rajain.checked === true) || rajain.min !== undefined;
 
 export const filterType = (filterId: string) => {
-  if (BOOLEAN_FILTER_IDS.includes(filterId)) {
+  if (BOOLEAN_RAJAIN_IDS.includes(filterId)) {
     return RajainType.BOOLEAN;
   }
-  if (NUMBER_RANGE_FILTER_IDS.includes(filterId)) {
+  if (NUMBER_RANGE_RAJAIN_IDS.includes(filterId)) {
     return RajainType.NUMBER_RANGE;
   }
-  if (COMPOSITE_FILTER_IDS.includes(filterId)) {
+  if (COMPOSITE_RAJAIN_IDS.includes(filterId)) {
     return RajainType.COMPOSITE;
   }
   return RajainType.CHECKBOX;
 };
 
-export const replaceBackendOriginatedFilterIdAsNeeded = (filterId: string) =>
-  get(REPLACED_FILTER_IDS, filterId, filterId);
+export const replaceBackendOriginatedRajainIdAsNeeded = (filterId: string) =>
+  get(REPLACED_RAJAIN_IDS, filterId, filterId);
 
 const getRajainAlakoodit = (
   alakoodit: Record<string, any>,
@@ -51,38 +51,42 @@ const getRajainAlakoodit = (
 };
 
 export const getRajainValueInUIFormat = (
-  filtersFromBackend: Record<string, any> | undefined,
-  allValuesSetInUI: Record<string, any>,
-  originalFilterId: string
+  rajainCountsFromBackend: Record<string, any> | undefined,
+  allRajainValuesSetInUI: Record<string, any>,
+  originalRajainId: string
 ): Array<RajainItem> => {
-  const filterId = replaceBackendOriginatedFilterIdAsNeeded(originalFilterId);
+  const rajainId = replaceBackendOriginatedRajainIdAsNeeded(originalRajainId);
 
-  const filter = filtersFromBackend?.[filterId];
-  if (!filter) {
+  const rajainCount = rajainCountsFromBackend?.[rajainId];
+  if (!rajainCount) {
     return [];
   }
 
-  const filterValue = allValuesSetInUI[filterId];
+  const rajainValue = allRajainValuesSetInUI[rajainId];
 
-  let rajainValues: Array<RajainItem> = [];
+  let returnValues: Array<RajainItem> = [];
 
-  switch (filterType(filterId)) {
+  switch (filterType(rajainId)) {
     case RajainType.BOOLEAN:
-      rajainValues = [
+      returnValues = [
         {
-          id: filterId,
-          rajainId: filterId,
-          count: filter.count,
-          checked: Boolean(filterValue),
+          id: rajainId,
+          rajainId: rajainId,
+          count: rajainCount.count,
+          checked: Boolean(rajainValue),
         },
       ];
       break;
     case RajainType.NUMBER_RANGE: {
-      const rajainValueEmpty = { id: filterId, rajainId: filterId, count: filter.count };
+      const rajainValueEmpty = {
+        id: rajainId,
+        rajainId: rajainId,
+        count: rajainCount.count,
+      };
       const asInt = (v: any) => toInteger(v);
-      const firstNumberValue = nth(filterValue, 0);
-      const secondNumberValue = nth(filterValue, 1);
-      rajainValues = [
+      const firstNumberValue = nth(rajainValue, 0);
+      const secondNumberValue = nth(rajainValue, 1);
+      returnValues = [
         firstNumberValue !== undefined && secondNumberValue !== undefined
           ? {
               ...rajainValueEmpty,
@@ -94,25 +98,28 @@ export const getRajainValueInUIFormat = (
       break;
     }
     case RajainType.COMPOSITE:
+      returnValues = Object.keys(rajainCount).flatMap((key: string) =>
+        getRajainValueInUIFormat(rajainCount, allRajainValuesSetInUI, key)
+      );
       break;
     default:
-      rajainValues = Object.keys(filter).map((key: string) => ({
+      returnValues = Object.keys(rajainCount).map((key: string) => ({
         id: key,
-        rajainId: filterId,
-        ...filter[key],
-        checked: some(filterValue, (checkedId) => checkedId === key),
+        rajainId: rajainId,
+        ...rajainCount[key],
+        checked: some(rajainValue, (checkedId) => checkedId === key),
         alakoodit:
           key === YHTEISHAKU_KOODI_URI
             ? getRajainAlakoodit(
-                filtersFromBackend[FILTER_TYPES.YHTEISHAKU],
-                allValuesSetInUI[FILTER_TYPES.YHTEISHAKU],
+                rajainCountsFromBackend[FILTER_TYPES.YHTEISHAKU],
+                allRajainValuesSetInUI[FILTER_TYPES.YHTEISHAKU],
                 FILTER_TYPES.YHTEISHAKU
               )
-            : getRajainAlakoodit(filter[key].alakoodit, filterValue, filterId),
+            : getRajainAlakoodit(rajainCount[key].alakoodit, rajainValue, rajainId),
       }));
       break;
   }
-  return rajainValues;
+  return returnValues;
 };
 
 const addIfNotExists = (

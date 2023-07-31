@@ -5,8 +5,9 @@ import Grid from '@mui/material/Grid';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import { isEqual } from 'lodash';
+import { match } from 'ts-pattern';
 
-import { getStateChangesForCheckboxRajaimet } from '#/src/tools/filters';
+import { FILTER_TYPES } from '#/src/constants';
 import {
   SuodatinComponentProps,
   NumberRangeRajainItem,
@@ -23,12 +24,13 @@ import {
 
 type SliderProps = {
   value: NumberRangeRajainItem;
-  setRange: (range: Array<number>) => void;
+  handleRangeChange: (range: Array<number>) => void;
+  disabled?: boolean;
 };
 
 const UNDEFINED_SUMMA = [0, 1000];
 
-const SummaSlider = ({ value, setRange }: SliderProps) => {
+const SummaSlider = ({ value, handleRangeChange, disabled }: SliderProps) => {
   const [showSliderInternalValues, setShowSliderInternalValues] =
     useState<boolean>(false);
 
@@ -53,9 +55,9 @@ const SummaSlider = ({ value, setRange }: SliderProps) => {
     const rangeValue = rangeValuesRaw as Array<number>;
     setShowSliderInternalValues(true);
     setSliderInternalValues(rangeValue);
-    // setShowSliderInternalValues(false);
+    setShowSliderInternalValues(false);
     const returnValue = isEqual(UNDEFINED_SUMMA, rangeValue) ? [] : rangeValue;
-    setRange(returnValue);
+    handleRangeChange(returnValue);
   };
 
   const numberValues = (val: NumberRangeRajainItem) => [
@@ -66,6 +68,7 @@ const SummaSlider = ({ value, setRange }: SliderProps) => {
 
   return (
     <SuodatinSlider
+      disabled={disabled}
       value={showSliderInternalValues ? sliderInternalValues : numberValues(value)}
       min={UNDEFINED_SUMMA[0]}
       max={UNDEFINED_SUMMA[1]}
@@ -86,13 +89,41 @@ export const MaksullisuusSuodatin = ({
   elevation,
   expanded,
   rajainValues = [],
+  setFilters,
 }: SuodatinComponentProps) => {
+  const getBooleanRajain = (rajainId: string): RajainUIItem =>
+    (rajainValues.find((r) => r.rajainId === rajainId) || {
+      rajainId,
+      id: rajainId,
+      count: 0,
+      checked: false,
+    }) as RajainUIItem;
+  const getNumberRangeRajain = (rajainId: string) =>
+    (rajainValues.find((r) => r.rajainId === rajainId) || {
+      rajainId,
+      id: rajainId,
+      count: 0,
+    }) as NumberRangeRajainItem;
+
   const setMaksuRange = (_range: Array<number>) => {};
   const setLukuvuosiMaksuRange = (_range: Array<number>) => {};
-  const handleCheck = (item: RajainUIItem) => {
-    getStateChangesForCheckboxRajaimet(rajainValues)(item);
-    //setFilters(changes);
-  };
+  const handleCheck = (item: RajainUIItem) =>
+    match(item.rajainId)
+      .with(FILTER_TYPES.MAKSUTON, () => setFilters({ maksuton: !item.checked }))
+      .with(FILTER_TYPES.MAKSULLINEN, () => {
+        const newRajainValues =
+          !item.checked === false ? { maksunmaara_min: -1, maksunmaara_max: -1 } : {};
+        setFilters(Object.assign(newRajainValues, { maksullinen: !item.checked }));
+      })
+      .with(FILTER_TYPES.LUKUVUOSIMAKSU, () => {
+        const newRajainValues =
+          !item.checked === false
+            ? { lukuvuosimaksunmaara_min: -1, lukuvuosimaksunmaara_max: -1 }
+            : {};
+        setFilters(Object.assign(newRajainValues, { lukuvuosimaksu: !item.checked }));
+      })
+      .with(FILTER_TYPES.APURAHA, () => setFilters({ apuraha: !item.checked }))
+      .run();
 
   return (
     <SuodatinAccordion elevation={elevation} defaultExpanded={expanded} square>
@@ -115,52 +146,39 @@ export const MaksullisuusSuodatin = ({
           <Grid item>
             <List style={{ width: '100%' }}>
               <FilterCheckbox
-                value={{
-                  id: 'eimaksullinen',
-                  rajainId: 'eimaksullinen',
-                  count: 0,
-                  checked: false,
-                }}
+                key={FILTER_TYPES.MAKSUTON}
+                value={getBooleanRajain(FILTER_TYPES.MAKSUTON)}
                 handleCheck={handleCheck}
                 isCountVisible={true}
               />
               <FilterCheckbox
-                value={{
-                  id: 'maksullinen',
-                  rajainId: 'maksullinen',
-                  count: 0,
-                  checked: false,
-                }}
+                key={FILTER_TYPES.MAKSULLINEN}
+                value={getBooleanRajain(FILTER_TYPES.MAKSULLINEN)}
                 handleCheck={handleCheck}
                 isCountVisible={true}
               />
               <SummaSlider
-                value={{ id: '', rajainId: '', count: 0, min: 100, max: 700 }}
-                setRange={setMaksuRange}
+                value={getNumberRangeRajain(FILTER_TYPES.MAKSUNMAARA)}
+                handleRangeChange={setMaksuRange}
+                disabled={!getBooleanRajain(FILTER_TYPES.MAKSULLINEN).checked}
               />
               <FilterCheckbox
-                value={{
-                  id: 'lukukausimaksu',
-                  rajainId: 'lukukausimaksu',
-                  count: 0,
-                  checked: false,
-                }}
+                key={FILTER_TYPES.LUKUVUOSIMAKSU}
+                value={getBooleanRajain(FILTER_TYPES.LUKUVUOSIMAKSU)}
                 handleCheck={handleCheck}
                 isCountVisible={true}
               />
               <SummaSlider
-                value={{ id: '', rajainId: '', count: 0, min: 100, max: 700 }}
-                setRange={setLukuvuosiMaksuRange}
+                value={getNumberRangeRajain(FILTER_TYPES.LUKUVUOSIMAKSUNMAARA)}
+                handleRangeChange={setLukuvuosiMaksuRange}
+                disabled={!getBooleanRajain(FILTER_TYPES.LUKUVUOSIMAKSU).checked}
               />
               <FilterCheckbox
-                value={{
-                  id: 'onkoapuraha',
-                  rajainId: 'onkoapuraha',
-                  count: 0,
-                  checked: false,
-                }}
+                key={FILTER_TYPES.APURAHA}
+                value={getBooleanRajain(FILTER_TYPES.APURAHA)}
                 handleCheck={handleCheck}
                 isCountVisible={true}
+                disabled={!getBooleanRajain(FILTER_TYPES.LUKUVUOSIMAKSU).checked}
               />
             </List>
           </Grid>

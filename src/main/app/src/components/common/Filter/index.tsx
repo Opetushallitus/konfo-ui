@@ -108,6 +108,7 @@ type CheckboxProps = {
   handleCheck: (v: RajainUIItem) => void;
   indented?: boolean;
   expandButton?: JSX.Element;
+  disabled?: boolean;
 };
 
 export const FilterCheckbox = ({
@@ -116,6 +117,7 @@ export const FilterCheckbox = ({
   isCountVisible,
   value,
   expandButton,
+  disabled,
 }: CheckboxProps) => {
   const { t } = useTranslation();
   const { count, id, nimi, checked } = value;
@@ -127,6 +129,7 @@ export const FilterCheckbox = ({
         dense
         disableGutters
         onClick={() => handleCheck(value)}
+        disabled={disabled}
         sx={{
           marginLeft: indented ? 2 : 0,
         }}>

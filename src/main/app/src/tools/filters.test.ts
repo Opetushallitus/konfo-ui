@@ -10,18 +10,18 @@ const fpSet = (x: Record<string, any>, path: string, value: any) =>
 
 // prettier-ignore
 const baseValues = [
-  { id: 'a1', filterId: 'a', checked: false, count: 0 },
-  { id: 'a2', filterId: 'a', checked: false, count: 0,
+  { id: 'a1', rajainId: 'a', checked: false, count: 0 },
+  { id: 'a2', rajainId: 'a', checked: false, count: 0,
     alakoodit: [
-      { id: 'a2.1', filterId: 'a', checked: false, count: 0 },
-      { id: 'a2.2', filterId: 'a', checked: false, count: 0 },
+      { id: 'a2.1', rajainId: 'a', checked: false, count: 0 },
+      { id: 'a2.2', rajainId: 'a', checked: false, count: 0 },
     ],
   },
   // NOTE: Suodatinkoodihierarkiassa voi olla eri suodattimien arvoja sekaisin ylä + alakoodeina
-  { id: 'b1', filterId: 'b', checked: false, count: 0,
+  { id: 'b1', rajainId: 'b', checked: false, count: 0,
     alakoodit: [
-      { id: 'c2.1', filterId: 'c', checked: false, count: 0 },
-      { id: 'c2.2', filterId: 'c', checked: false, count: 0 },
+      { id: 'c2.1', rajainId: 'c', checked: false, count: 0 },
+      { id: 'c2.2', rajainId: 'c', checked: false, count: 0 },
     ],
   },
 ];
