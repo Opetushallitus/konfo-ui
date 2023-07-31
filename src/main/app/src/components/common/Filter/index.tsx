@@ -26,7 +26,13 @@ import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { useConfig } from '#/src/config';
 import { localize, localizeIfNimiObject } from '#/src/tools/localization';
-import { FilterValue, FilterValues } from '#/src/types/SuodatinTypes';
+import {
+  RajainValue,
+  RajainUIItem,
+  CheckboxRajainItem,
+  BooleanRajainItem,
+  NumberRangeRajainItem,
+} from '#/src/types/SuodatinTypes';
 
 import {
   SuodatinAccordion,
@@ -34,6 +40,7 @@ import {
   SuodatinAccordionSummary,
   SuodatinListItemText,
 } from './CustomizedMuiComponents';
+import { isIndeterminate } from './isIndeterminate';
 import { SummaryContent } from './SummaryContent';
 import { KonfoCheckbox } from '../Checkbox';
 
@@ -102,9 +109,9 @@ const Option = React.forwardRef(
 );
 
 type CheckboxProps = {
-  value: FilterValue;
+  value: RajainUIItem;
   isCountVisible?: boolean;
-  handleCheck: (v: FilterValue) => void;
+  handleCheck: (v: RajainUIItem) => void;
   indented?: boolean;
   expandButton?: JSX.Element;
 };
@@ -167,8 +174,8 @@ const FilterCheckboxGroup = ({
   value,
 }: {
   defaultExpandAlakoodit: boolean;
-  handleCheck: (v: FilterValue) => void;
-  value: FilterValue;
+  handleCheck: (v: RajainUIItem) => void;
+  value: RajainUIItem;
   isCountVisible?: boolean;
 }) => {
   const { t } = useTranslation();
@@ -201,7 +208,7 @@ const FilterCheckboxGroup = ({
         value.alakoodit?.map((v) => (
           <FilterCheckbox
             key={v.id}
-            value={v}
+            value={{ ...v, alakoodit: [] }}
             handleCheck={handleCheck}
             indented
             isCountVisible={isCountVisible}
@@ -223,7 +230,7 @@ type Props = {
   shadow?: boolean;
   onFocus?: () => void;
   onHide?: () => void;
-  values: FilterValues;
+  rajainValue: RajainValue;
   handleCheck: (value: any) => void;
   options?: OptionsType;
   optionsLoading?: boolean;
@@ -234,8 +241,18 @@ type Props = {
   isCountVisible?: boolean;
 };
 
-const isIndeterminate = (v: FilterValue) =>
-  !v.checked && Boolean(v.alakoodit?.some((alakoodi) => alakoodi.checked));
+const uiValues = (
+  items: Array<CheckboxRajainItem | BooleanRajainItem | NumberRangeRajainItem>
+): Array<RajainUIItem> =>
+  items.map((v: any) => ({
+    id: v.id,
+    rajainId: v.rajainId,
+    count: v.count,
+    checked: v.checked || false,
+    nimi: v.nimi,
+    hidden: v.hidden,
+    alakoodit: v.alakoodit?.map((a: any) => ({ ...a })) || [],
+  }));
 
 // NOTE: Do *not* put redux code here, this component is used both with and without
 export const Filter = ({
@@ -248,7 +265,7 @@ export const Filter = ({
   // TODO: Liikaa boolean propseja -> huono komponenttirajapinta
   displaySelected = false,
   summaryHidden = false,
-  values,
+  rajainValue,
   handleCheck,
   options,
   optionsLoading,
@@ -262,14 +279,16 @@ export const Filter = ({
 }: Props) => {
   const { t } = useTranslation();
   const [hideRest, setHideRest] = useState(expandValues);
-  const usedName = [name, values?.length === 0 && '(0)'].filter(Boolean).join(' ');
+  const usedName = [name, rajainValue.values?.length === 0 && '(0)']
+    .filter(Boolean)
+    .join(' ');
 
   const config = useConfig();
   const isCountVisible = isCountVisibleProp && config?.naytaFiltterienHakutulosLuvut;
 
   return (
     <SuodatinAccordion
-      disabled={values?.length === 0}
+      disabled={rajainValue.values?.length === 0}
       data-testid={testId}
       elevation={elevation}
       defaultExpanded={expanded}
@@ -278,7 +297,7 @@ export const Filter = ({
         <SuodatinAccordionSummary expandIcon={<MaterialIcon icon="expand_more" />}>
           <SummaryContent
             filterName={usedName}
-            values={values}
+            values={uiValues(rajainValue.values)}
             displaySelected={displaySelected}
           />
         </SuodatinAccordionSummary>
@@ -286,7 +305,7 @@ export const Filter = ({
       <SuodatinAccordionDetails {...(summaryHidden && { style: { padding: 0 } })}>
         <Grid container direction="column" wrap="nowrap">
           {additionalContent}
-          {options && values.length > HIDE_NOT_EXPANDED_AMOUNT && (
+          {options && rajainValue.values.length > HIDE_NOT_EXPANDED_AMOUNT && (
             <Grid item style={{ padding: '20px 0', zIndex: 2 }}>
               <Select
                 components={{ DropdownIndicator, LoadingIndicator, Option }}
@@ -317,7 +336,7 @@ export const Filter = ({
           )}
           <Grid item>
             <List style={{ width: '100%' }}>
-              {values
+              {uiValues(rajainValue.values)
                 .filter((v) => !v.hidden)
                 .map((value, i) => {
                   if (expandValues && hideRest && i >= HIDE_NOT_EXPANDED_AMOUNT) {
@@ -343,7 +362,7 @@ export const Filter = ({
                 })}
             </List>
           </Grid>
-          {expandValues && values.length > HIDE_NOT_EXPANDED_AMOUNT && (
+          {expandValues && rajainValue.values.length > HIDE_NOT_EXPANDED_AMOUNT && (
             <Button
               color="secondary"
               size="small"

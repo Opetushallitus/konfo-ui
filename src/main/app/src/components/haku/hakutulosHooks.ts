@@ -50,7 +50,6 @@ import {
   getHakuParams,
   createHakuUrl,
 } from '#/src/store/reducers/hakutulosSliceSelector';
-import { getFilterWithChecked, sortValues } from '#/src/tools/filters';
 import { ReduxTodo, ValueOf } from '#/src/types/common';
 
 type Pagination = {
@@ -58,6 +57,7 @@ type Pagination = {
   total?: number;
   offset?: number;
 };
+import { isRajainActive, getRajainValueInUIFormat } from '#/src/tools/filters';
 
 const createSearchQueryHook =
   (key: string, fn: (x: any, signal: any) => any, defaultOptions: any = {}) =>
@@ -280,7 +280,7 @@ export const useFilterProps = (id: ValueOf<typeof FILTER_TYPES>) => {
   const allFilters = useSelector(getFilters);
 
   return useMemo(
-    () => sortValues(getFilterWithChecked(usedFilters, allFilters, id)),
+    () => getRajainValueInUIFormat(usedFilters, allFilters, id),
     [usedFilters, allFilters, id]
   );
 };
@@ -294,7 +294,7 @@ export const useSelectedFilters = (availableFilters: any, checkedFilters: any) =
         (ks) =>
           map(ks, (filterId) =>
             Object.values(
-              getFilterWithChecked(availableFilters, checkedFilters, filterId)
+              getRajainValueInUIFormat(availableFilters, checkedFilters, filterId).values
             )
           ),
         flatten,
@@ -308,7 +308,7 @@ export const useSelectedFilters = (availableFilters: any, checkedFilters: any) =
       selectedFiltersWithAlakoodit
         .map((v: any) => [v, ...(v.alakoodit || [])])
         .flat()
-        .filter((v: any) => v.checked),
+        .filter((v: any) => isRajainActive(v)),
     [selectedFiltersWithAlakoodit]
   ); // Alakoodilistoissa voi olla valitsemattomia koodeja
 

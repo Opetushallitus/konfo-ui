@@ -6,14 +6,14 @@ import { inRange, size, flatten } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { localize } from '#/src/tools/localization';
-import { FilterValue } from '#/src/types/SuodatinTypes';
+import { RajainUIItem } from '#/src/types/SuodatinTypes';
 
 import { SuodatinMobileChip } from './CustomizedMuiComponents';
 
 const MAX_CHARS_BEFORE_CHIP_TO_NUMBER = 24;
 
 type Props = {
-  values: Array<FilterValue>;
+  values: Array<RajainUIItem>;
   filterName: ReturnType<TFunction>;
   displaySelected?: boolean;
 };
@@ -25,7 +25,9 @@ export const SummaryContent = ({ values, filterName, displaySelected }: Props) =
   const { t } = useTranslation();
   const selectedValues = useMemo(
     () =>
-      flatten(values?.map((v) => [v, ...(v.alakoodit || [])])).filter((v) => v.checked),
+      flatten(values?.map((v: RajainUIItem) => [v, ...(v.alakoodit || [])])).filter(
+        (v: RajainUIItem) => v.checked
+      ),
     [values]
   );
   const selectedFiltersStr = selectedValues

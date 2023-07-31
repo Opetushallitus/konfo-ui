@@ -5,18 +5,33 @@ import { useTranslation } from 'react-i18next';
 
 import { Filter } from '#/src/components/common/Filter';
 import { useConfig } from '#/src/config';
-import { getFilterStateChanges } from '#/src/tools/filters';
+import { getStateChangesForCheckboxRajaimet } from '#/src/tools/filters';
 import { localize } from '#/src/tools/localization';
-import { FilterValue, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
+import {
+  CheckboxRajainItem,
+  RajainType,
+  RajainUIItem,
+  RajainValue,
+  SuodatinComponentProps,
+} from '#/src/types/SuodatinTypes';
 
 import { useSearch } from '../../haku/hakutulosHooks';
 
+const checkboxRajainItems = (rajainValue?: RajainValue) =>
+  (rajainValue?.values || []) as Array<CheckboxRajainItem>;
+
 export const SijaintiSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
-  const { kuntaValues = [], maakuntaValues = [], setFilters, loading } = props;
+  const { kuntaRajainValue, maakuntaRajainValue, setFilters, loading } = props;
+  const sijaintiRajainValue = {
+    rajainType: RajainType.CHECKBOX,
+    values: checkboxRajainItems(kuntaRajainValue).concat(
+      checkboxRajainItems(maakuntaRajainValue)
+    ),
+  };
 
-  const handleCheck = (item: FilterValue) => {
-    const changes = getFilterStateChanges(kuntaValues.concat(maakuntaValues))(item);
+  const handleCheck = (item: RajainUIItem) => {
+    const changes = getStateChangesForCheckboxRajaimet(sijaintiRajainValue, item);
     setFilters(changes);
   };
 
@@ -28,7 +43,7 @@ export const SijaintiSuodatin = (props: SuodatinComponentProps) => {
   const naytaFiltterienHakutulosLuvut = config.naytaFiltterienHakutulosLuvut;
 
   const groupedSijainnit = useMemo(() => {
-    const getSelectOption = (value: FilterValue, isMaakunta: boolean) => ({
+    const getSelectOption = (value: CheckboxRajainItem, isMaakunta: boolean) => ({
       ...value,
       label: naytaFiltterienHakutulosLuvut
         ? `${localize(value)} (${value.count})`
@@ -41,26 +56,35 @@ export const SijaintiSuodatin = (props: SuodatinComponentProps) => {
     return [
       {
         label: t('haku.kaupungit-tai-kunnat'),
-        options: sortBy(kuntaValues.map((v) => getSelectOption(v, false), 'label')),
+        options: sortBy(
+          checkboxRajainItems(kuntaRajainValue).map(
+            (v) => getSelectOption(v, false),
+            'label'
+          )
+        ),
       },
       {
         label: t('haku.maakunnat'),
         options: sortBy(
-          maakuntaValues.map((v) => getSelectOption(v, true)),
+          checkboxRajainItems(maakuntaRajainValue).map((v) => getSelectOption(v, true)),
           'label'
         ),
       },
     ];
-  }, [kuntaValues, maakuntaValues, t, naytaFiltterienHakutulosLuvut]);
+  }, [kuntaRajainValue, maakuntaRajainValue, t, naytaFiltterienHakutulosLuvut]);
 
-  const usedValues = useMemo(
-    () =>
-      maakuntaValues
+  const usedRajainValue = useMemo(
+    () => ({
+      rajainType: RajainType.CHECKBOX,
+      values: checkboxRajainItems(maakuntaRajainValue)
         .concat(
-          kuntaValues.filter((k) => k.checked).map((v) => ({ ...v, hidden: false }))
+          checkboxRajainItems(kuntaRajainValue)
+            .filter((k) => k.checked)
+            .map((v) => ({ ...v, hidden: false }))
         )
         .sort((a, b) => Number(b.checked) - Number(a.checked)),
-    [maakuntaValues, kuntaValues]
+    }),
+    [maakuntaRajainValue, kuntaRajainValue]
   );
 
   return (
@@ -70,7 +94,7 @@ export const SijaintiSuodatin = (props: SuodatinComponentProps) => {
       optionsLoading={optionsLoading || loading}
       selectPlaceholder={t('haku.etsi-paikkakunta-tai-alue')}
       name={t('haku.sijainti')}
-      values={usedValues}
+      rajainValue={usedRajainValue}
       handleCheck={handleCheck}
       expandValues
       displaySelected

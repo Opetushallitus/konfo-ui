@@ -6,11 +6,11 @@ import { useTranslation } from 'react-i18next';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { getFilterStateChangesForDelete } from '#/src/tools/filters';
 import { localize } from '#/src/tools/localization';
-import { FilterValue } from '#/src/types/SuodatinTypes';
+import { RajainBase, RajainItem } from '#/src/types/SuodatinTypes';
 
 type ChosenFiltersProps = {
-  filters: Array<FilterValue>;
-  getHandleDelete: (entry: FilterValue) => VoidFunction;
+  filters: Array<RajainItem>;
+  getHandleDelete: (entry: RajainItem) => VoidFunction;
   handleClearFilters: VoidFunction;
 };
 
@@ -73,8 +73,8 @@ export const SuodatinValinnat = ({
 }: any) => {
   const { flat, withAlakoodit } = allSelectedFilters;
 
-  const getHandleDelete = (item: FilterValue) => () => {
-    const changes = getFilterStateChangesForDelete(withAlakoodit)(item);
+  const getHandleDelete = (item: RajainBase) => () => {
+    const changes = getFilterStateChangesForDelete(withAlakoodit, item);
     setFilters(changes);
   };
 

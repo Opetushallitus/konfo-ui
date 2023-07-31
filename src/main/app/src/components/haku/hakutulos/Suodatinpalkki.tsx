@@ -41,75 +41,75 @@ export const Suodatinpalkki = () => {
       <KoulutustyyppiSuodatin
         expanded
         elevation={2}
-        values={useFilterProps(FILTER_TYPES.KOULUTUSTYYPPI)}
-        muuValues={useFilterProps(FILTER_TYPES.KOULUTUSTYYPPI_MUU)}
+        rajainValue={useFilterProps(FILTER_TYPES.KOULUTUSTYYPPI)}
+        muuRajainValue={useFilterProps(FILTER_TYPES.KOULUTUSTYYPPI_MUU)}
         setFilters={setFilters}
       />
       <OpetuskieliSuodatin
         expanded
         elevation={2}
-        values={useFilterProps(FILTER_TYPES.OPETUSKIELI)}
+        rajainValue={useFilterProps(FILTER_TYPES.OPETUSKIELI)}
         setFilters={setFilters}
       />
       <OpetusaikaSuodatin
         expanded
         elevation={2}
-        values={useFilterProps(FILTER_TYPES.OPETUSAIKA)}
+        rajainValue={useFilterProps(FILTER_TYPES.OPETUSAIKA)}
         setFilters={setFilters}
       />
       <SijaintiSuodatin
         expanded
         elevation={2}
-        kuntaValues={useFilterProps(FILTER_TYPES.KUNTA)}
-        maakuntaValues={useFilterProps(FILTER_TYPES.MAAKUNTA)}
+        kuntaRajainValue={useFilterProps(FILTER_TYPES.KUNTA)}
+        maakuntaRajainValue={useFilterProps(FILTER_TYPES.MAAKUNTA)}
         setFilters={setFilters}
       />
       <PohjakoulutusvaatimusSuodatin
         expanded
         elevation={2}
-        values={useFilterProps(FILTER_TYPES.POHJAKOULUTUSVAATIMUS)}
+        rajainValue={useFilterProps(FILTER_TYPES.POHJAKOULUTUSVAATIMUS)}
         setFilters={setFilters}
       />
       <HakuKaynnissaSuodatin
         expanded
         elevation={2}
-        values={useFilterProps(FILTER_TYPES.HAKUKAYNNISSA)}
+        rajainValue={useFilterProps(FILTER_TYPES.HAKUKAYNNISSA)}
         setFilters={setFilters}
       />
       <TyoelamaJaTaydennyskoulutuksetSuodatin
         expanded
         elevation={2}
-        values={useTyoelamaSuodatinValues()}
+        rajainValue={useTyoelamaSuodatinValues()}
         setFilters={setFilters}
       />
       <HakutapaSuodatin
         expanded
         elevation={2}
-        values={useFilterProps(FILTER_TYPES.HAKUTAPA)}
+        rajainValue={useFilterProps(FILTER_TYPES.HAKUTAPA)}
         setFilters={setFilters}
       />
       <ValintatapaSuodatin
         expanded
         elevation={2}
-        values={useFilterProps(FILTER_TYPES.VALINTATAPA)}
+        rajainValue={useFilterProps(FILTER_TYPES.VALINTATAPA)}
         setFilters={setFilters}
       />
       <KoulutusalaSuodatin
         expanded
         elevation={2}
-        values={useFilterProps(FILTER_TYPES.KOULUTUSALA)}
+        rajainValue={useFilterProps(FILTER_TYPES.KOULUTUSALA)}
         setFilters={setFilters}
       />
       <OpetustapaSuodatin
         expanded={false}
         elevation={2}
-        values={useFilterProps(FILTER_TYPES.OPETUSTAPA)}
+        rajainValue={useFilterProps(FILTER_TYPES.OPETUSTAPA)}
         setFilters={setFilters}
       />
       <KoulutuksenKestoSuodatin
         expanded
         elevation={2}
-        values={useFilterProps(FILTER_TYPES.KOULUTUKSENKESTOKUUKAUSINA)}
+        rajainValue={useFilterProps(FILTER_TYPES.KOULUTUKSENKESTOKUUKAUSINA)}
         setFilters={setFilters}
       />
       <AlkamiskausiSuodatin

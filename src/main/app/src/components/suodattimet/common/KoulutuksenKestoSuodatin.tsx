@@ -2,11 +2,16 @@ import React from 'react';
 
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import { toInteger, nth, isEqual } from 'lodash';
+import { nth, isEqual } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
-import { FilterValues, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
+import {
+  EMPTY_RAJAIN,
+  NumberRangeRajainItem,
+  RajainValue,
+  SuodatinComponentProps,
+} from '#/src/types/SuodatinTypes';
 
 import {
   SuodatinAccordion,
@@ -15,11 +20,19 @@ import {
   SuodatinSlider,
 } from '../../common/Filter/CustomizedMuiComponents';
 
-const numberValues = (filterValues: FilterValues | undefined) => {
-  const anyValue = nth(filterValues, 0)?.anyValue;
-  const firstNumVal = anyValue && anyValue.length > 0 ? toInteger(anyValue[0]) : 0;
-  const secondNumVal = anyValue && anyValue.length > 1 ? toInteger(anyValue[1]) : 72;
-  return [Math.min(firstNumVal, secondNumVal), Math.max(firstNumVal, secondNumVal)];
+const numberRangeRajain = (minmax: Array<number>) => ({
+  id: '',
+  rajainId: '',
+  count: 0,
+  min: minmax[0],
+  max: minmax[1],
+});
+
+const UNDEFINED = numberRangeRajain([0, 72]);
+
+const numberValues = (rajainValue: RajainValue) => {
+  const range = (nth(rajainValue?.values, 0) as NumberRangeRajainItem) || UNDEFINED;
+  return [range.min || UNDEFINED.min, range.max || UNDEFINED.max];
 };
 
 export const KoulutuksenKestoSuodatin = ({
@@ -27,7 +40,7 @@ export const KoulutuksenKestoSuodatin = ({
   displaySelected = true,
   elevation = 0,
   expanded,
-  values,
+  rajainValue = EMPTY_RAJAIN,
   setFilters,
 }: SuodatinComponentProps) => {
   const { t } = useTranslation();
@@ -39,7 +52,8 @@ export const KoulutuksenKestoSuodatin = ({
     React.useState<boolean>(false);
 
   const [sliderInternalValues, setSliderInternalValues] = React.useState<Array<number>>([
-    0, 72,
+    UNDEFINED.min,
+    UNDEFINED.max,
   ]);
 
   const marks = [
@@ -52,10 +66,6 @@ export const KoulutuksenKestoSuodatin = ({
     { value: 72, label: yearsAbbr(6) },
   ];
 
-  const sliderValues = showSliderInternalValues
-    ? sliderInternalValues
-    : numberValues(values);
-
   const handleSliderValueChange = (
     _e: Event,
     newValue: number | Array<number>,
@@ -67,12 +77,15 @@ export const KoulutuksenKestoSuodatin = ({
 
   const handleSliderValueCommit = (
     _e: React.SyntheticEvent | Event,
-    rangeValues: any
+    rangeValuesRaw: number | Array<number>
   ) => {
-    const min = toInteger(nth(rangeValues, 0));
-    const max = toInteger(nth(rangeValues, 1));
+    const rangeValue = rangeValuesRaw as Array<number>;
+    setShowSliderInternalValues(true);
+    setSliderInternalValues(rangeValue);
     setShowSliderInternalValues(false);
-    const valueRange = min !== 0 || max !== 72 ? [min, max] : [];
+    const valueRange = isEqual(UNDEFINED, numberRangeRajain(rangeValue))
+      ? []
+      : rangeValue;
     setFilters({ koulutuksenkestokuukausina: valueRange });
   };
 
@@ -93,8 +106,8 @@ export const KoulutuksenKestoSuodatin = ({
   };
 
   const rangeHeader = () => {
-    const rangeValues = numberValues(values);
-    return isEqual(rangeValues, [0, 72])
+    const rangeValues = numberValues(rajainValue);
+    return isEqual(UNDEFINED, numberRangeRajain(rangeValues))
       ? ''
       : `${valueText(rangeValues[0])} - ${valueText(rangeValues[1])}`;
   };
@@ -121,7 +134,11 @@ export const KoulutuksenKestoSuodatin = ({
         <Grid container direction="column" wrap="nowrap">
           <Grid item sx={{ mx: 1 }}>
             <SuodatinSlider
-              value={sliderValues}
+              value={
+                showSliderInternalValues
+                  ? sliderInternalValues
+                  : numberValues(rajainValue)
+              }
               min={0}
               max={72}
               marks={marks}

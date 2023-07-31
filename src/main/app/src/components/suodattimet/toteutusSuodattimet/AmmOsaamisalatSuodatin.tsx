@@ -5,18 +5,26 @@ import { useTranslation } from 'react-i18next';
 
 import { Filter } from '#/src/components/common/Filter';
 import { useConfig } from '#/src/config';
-import { getFilterStateChanges } from '#/src/tools/filters';
+import { getStateChangesForCheckboxRajaimet } from '#/src/tools/filters';
 import { localize } from '#/src/tools/localization';
-import { FilterValue, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
+import {
+  CheckboxRajainItem,
+  EMPTY_RAJAIN,
+  RajainType,
+  RajainUIItem,
+  SuodatinComponentProps,
+} from '#/src/types/SuodatinTypes';
 
 export const AmmOsaamisalatSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
-  const { values = [], ...rest } = props;
+  const { rajainValue = EMPTY_RAJAIN, ...rest } = props;
 
-  const filteredValues = values.filter((v) => v?.count > 0 || v.checked);
+  const filteredValues = (rajainValue.values as Array<CheckboxRajainItem>).filter(
+    (v) => v?.count > 0 || v.checked
+  );
 
-  const handleCheck = (item: FilterValue) => {
-    const changes = getFilterStateChanges(values)(item);
+  const handleCheck = (item: RajainUIItem) => {
+    const changes = getStateChangesForCheckboxRajaimet(rajainValue, item);
     props.setFilters(changes);
   };
 
@@ -24,7 +32,7 @@ export const AmmOsaamisalatSuodatin = (props: SuodatinComponentProps) => {
   const naytaFiltterienHakutulosLuvut = config.naytaFiltterienHakutulosLuvut;
 
   const options = useMemo(() => {
-    const getSelectOption = (value: FilterValue) => ({
+    const getSelectOption = (value: CheckboxRajainItem) => ({
       ...value,
       label: naytaFiltterienHakutulosLuvut
         ? `${localize(value)} (${value.count})`
@@ -44,15 +52,18 @@ export const AmmOsaamisalatSuodatin = (props: SuodatinComponentProps) => {
     ];
   }, [filteredValues, t, naytaFiltterienHakutulosLuvut]);
 
-  const usedValues = useMemo(
-    () => filteredValues.sort((a, b) => Number(b.checked) - Number(a.checked)),
+  const usedRajainValue = useMemo(
+    () => ({
+      rajainType: RajainType.CHECKBOX,
+      values: filteredValues.sort((a, b) => Number(b.checked) - Number(a.checked)),
+    }),
     [filteredValues]
   );
 
   return (
     <Filter
       name={t('haku.amm-osaamisalat')}
-      values={usedValues}
+      rajainValue={usedRajainValue}
       handleCheck={handleCheck}
       options={options}
       expandValues

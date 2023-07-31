@@ -13,7 +13,8 @@ import { PohjakoulutusvaatimusSuodatin } from '#/src/components/suodattimet/comm
 import { SijaintiSuodatin } from '#/src/components/suodattimet/common/SijaintiSuodatin';
 import { ValintatapaSuodatin } from '#/src/components/suodattimet/common/ValintatapaSuodatin';
 import { KOULUTUS_TYYPPI, KORKEAKOULU_KOULUTUSTYYPIT } from '#/src/constants';
-import { FilterValue } from '#/src/types/SuodatinTypes';
+import { isRajainActive } from '#/src/tools/filters';
+import { RajainValue } from '#/src/types/SuodatinTypes';
 
 import { AmmOsaamisalatSuodatin } from './AmmOsaamisalatSuodatin';
 import { LukiolinjatSuodatin } from './LukiolinjatSuodatin';
@@ -24,7 +25,7 @@ import { OpetusaikaSuodatin } from '../common/OpetusaikaSuodatin';
 
 type Props = {
   koulutustyyppi: string;
-  values: Record<string, Array<FilterValue>>;
+  values: any;
   rajainCount: number;
   hitCount: number;
   loading: boolean;
@@ -69,34 +70,34 @@ export const MobileFiltersOnTopMenu = ({
         resultCount={hitCount}>
         <OpetuskieliSuodatin
           expanded={false}
-          values={values.opetuskieli}
+          rajainValue={values.opetuskieli}
           setFilters={setFilters}
         />
         <Divider />
         <OpetusaikaSuodatin
           expanded={false}
-          values={values.opetusaika}
+          rajainValue={values.opetusaika}
           setFilters={setFilters}
         />
         <Divider />
         <SijaintiSuodatin
           expanded={false}
-          maakuntaValues={values.maakunta}
-          kuntaValues={values.kunta}
+          maakuntaRajainValue={values.maakunta}
+          kuntaRajainValue={values.kunta}
           loading={loading}
           setFilters={setFilters}
         />
         <Divider />
         <PohjakoulutusvaatimusSuodatin
           expanded={false}
-          values={values.pohjakoulutusvaatimus}
+          rajainValue={values.pohjakoulutusvaatimus}
           setFilters={setFilters}
         />
         <Divider />
         {values.hakukaynnissa && (
           <HakuKaynnissaSuodatin
             expanded={false}
-            values={values.hakukaynnissa}
+            rajainValue={values.hakukaynnissa}
             setFilters={setFilters}
           />
         )}
@@ -104,7 +105,7 @@ export const MobileFiltersOnTopMenu = ({
         {values.hakutapa && (
           <HakutapaSuodatin
             expanded={false}
-            values={values.hakutapa}
+            rajainValue={values.hakutapa}
             setFilters={setFilters}
           />
         )}
@@ -113,7 +114,7 @@ export const MobileFiltersOnTopMenu = ({
           <>
             <ValintatapaSuodatin
               expanded={false}
-              values={values.valintatapa}
+              rajainValue={values.valintatapa}
               setFilters={setFilters}
             />
             <Divider />
@@ -124,14 +125,14 @@ export const MobileFiltersOnTopMenu = ({
             <LukiolinjatSuodatin
               name="lukiopainotukset"
               expanded={false}
-              values={values.lukiopainotukset}
+              rajainValue={values.lukiopainotukset}
               setFilters={setFilters}
             />
             <Divider />
             <LukiolinjatSuodatin
               name="lukiolinjat_er"
               expanded={false}
-              values={values.lukiolinjaterityinenkoulutustehtava}
+              rajainValue={values.lukiolinjaterityinenkoulutustehtava}
               setFilters={setFilters}
             />
             <Divider />
@@ -141,7 +142,7 @@ export const MobileFiltersOnTopMenu = ({
           <>
             <AmmOsaamisalatSuodatin
               expanded={false}
-              values={values.osaamisala}
+              rajainValue={values.osaamisala}
               setFilters={setFilters}
             />
             <Divider />
@@ -149,13 +150,13 @@ export const MobileFiltersOnTopMenu = ({
         )}
         <OpetustapaSuodatin
           expanded={false}
-          values={values.opetustapa}
+          rajainValue={values.opetustapa}
           setFilters={setFilters}
         />
         <Divider />
         <KoulutuksenKestoSuodatin
           expanded={false}
-          values={values.koulutuksenkestokuukausina}
+          rajainValue={values.koulutuksenkestokuukausina}
           setFilters={setFilters}
         />
         <Divider />

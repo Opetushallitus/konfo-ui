@@ -5,8 +5,13 @@ import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 import { Filter } from '#/src/components/common/Filter';
-import { getFilterStateChanges } from '#/src/tools/filters';
-import { FilterValue, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
+import { getStateChangesForCheckboxRajaimet } from '#/src/tools/filters';
+import {
+  EMPTY_RAJAIN,
+  RajainType,
+  RajainUIItem,
+  SuodatinComponentProps,
+} from '#/src/types/SuodatinTypes';
 
 const classes = {
   noBoxShadow: 'noBoxShadow',
@@ -44,19 +49,24 @@ export const KoulutustyyppiSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
 
   const [isMuuSelected, setIsMuuSelected] = useState(false);
-  const { values = [], muuValues = [], setFilters } = props;
+  const { rajainValue = EMPTY_RAJAIN, muuRajainValue = EMPTY_RAJAIN, setFilters } = props;
 
-  const filterValues = useMemo(
-    () => [
-      ...values.map((v) => ({ ...v, hidden: isMuuSelected })),
-      ...muuValues.map((v) => ({ ...v, hidden: !isMuuSelected })),
-    ],
-    [isMuuSelected, muuValues, values]
+  const combinedRajainValue = useMemo(
+    () => ({
+      rajainType: RajainType.CHECKBOX,
+      values: [
+        ...rajainValue.values.map((v) => ({ ...v, hidden: isMuuSelected })),
+        ...muuRajainValue.values.map((v) => ({ ...v, hidden: !isMuuSelected })),
+      ],
+    }),
+    [isMuuSelected, muuRajainValue, rajainValue]
   );
 
-  const getChanges = getFilterStateChanges(isMuuSelected ? muuValues : values);
-  const handleCheck = (item: FilterValue) => {
-    const changes = getChanges(item);
+  const handleCheck = (item: RajainUIItem) => {
+    const changes = getStateChangesForCheckboxRajaimet(
+      isMuuSelected ? muuRajainValue : rajainValue,
+      item
+    );
     setFilters(changes);
   };
 
@@ -67,7 +77,7 @@ export const KoulutustyyppiSuodatin = (props: SuodatinComponentProps) => {
         {...props}
         testId="koulutustyyppi-filter"
         name={t('haku.koulutustyyppi')}
-        values={filterValues}
+        rajainValue={combinedRajainValue}
         handleCheck={handleCheck}
         additionalContent={
           <Grid item style={{ padding: '20px 0' }}>
