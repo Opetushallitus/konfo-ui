@@ -35,6 +35,7 @@ const classes = {
 const StyledLocalizedLink = styled(LocalizedLink, {
   shouldForwardProp: (prop: string) => !['isSmall', 'wrapIconTexts'].includes(prop),
 })<StyledLocalizedLinkProps>(({ theme, isSmall, wrapIconTexts }) => ({
+  display: 'flex',
   [`& .${classes.paperRoot}`]: {
     width: '100%',
     marginBottom: theme.spacing(1.5),
