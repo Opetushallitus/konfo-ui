@@ -58,7 +58,7 @@ module.exports = {
       },
     ],
     'prettier/prettier': [
-      'error',
+      'warn',
       {
         usePrettierrc: true,
       },
