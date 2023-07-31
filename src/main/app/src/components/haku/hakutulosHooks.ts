@@ -308,7 +308,7 @@ export const useSelectedFilters = (availableFilters: any, checkedFilters: any) =
     const compositeFilters = keys(availableFilters).filter(
       (f) => filterType(f) === RajainType.COMPOSITE
     );
-    const compositeFlattened = Object.assign({});
+    const compositeFlattened = {};
     forEach(compositeFilters, (v) => {
       for (const subKey in availableFilters[v]) {
         compositeFlattened[subKey] = availableFilters[v][subKey];
