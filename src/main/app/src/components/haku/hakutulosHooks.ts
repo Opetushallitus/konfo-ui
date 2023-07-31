@@ -361,8 +361,7 @@ export const useAllSelectedFilters = () => {
 
   const allCheckedValues = useSelector(getFilters, isEqual);
 
-  const retVal = useSelectedFilters(koulutusFilters, allCheckedValues);
-  return retVal;
+  return useSelectedFilters(koulutusFilters, allCheckedValues);
 };
 
 const useDispatchCb = (fn: (x: any) => any, options: { syncUrl?: boolean } = {}) => {
