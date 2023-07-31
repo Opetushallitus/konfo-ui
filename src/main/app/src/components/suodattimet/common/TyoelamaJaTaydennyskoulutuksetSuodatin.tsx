@@ -5,16 +5,12 @@ import { match } from 'ts-pattern';
 
 import { Filter } from '#/src/components/common/Filter';
 import { FILTER_TYPES } from '#/src/constants';
-import {
-  EMPTY_RAJAIN,
-  RajainUIItem,
-  SuodatinComponentProps,
-} from '#/src/types/SuodatinTypes';
+import { RajainUIItem, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 
 export const TyoelamaJaTaydennyskoulutuksetSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
 
-  const { rajainValue = EMPTY_RAJAIN, setFilters } = props;
+  const { rajainValues = [], setFilters } = props;
 
   const handleCheck = (item: RajainUIItem) =>
     match(item.rajainId)
@@ -35,7 +31,7 @@ export const TyoelamaJaTaydennyskoulutuksetSuodatin = (props: SuodatinComponentP
         {...props}
         testId="tyoelama-ja-taydennyskoulutukset-filter"
         name={t('haku.tyoelama-ja-taydennyskoulutukset')}
-        rajainValue={rajainValue}
+        rajainValues={rajainValues}
         handleCheck={handleCheck}
         displaySelected
       />

@@ -6,12 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { colors } from '#/src/colors';
 import { Filter } from '#/src/components/common/Filter';
 import { getStateChangesForCheckboxRajaimet } from '#/src/tools/filters';
-import {
-  EMPTY_RAJAIN,
-  RajainType,
-  RajainUIItem,
-  SuodatinComponentProps,
-} from '#/src/types/SuodatinTypes';
+import { RajainUIItem, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 
 const classes = {
   noBoxShadow: 'noBoxShadow',
@@ -49,24 +44,20 @@ export const KoulutustyyppiSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
 
   const [isMuuSelected, setIsMuuSelected] = useState(false);
-  const { rajainValue = EMPTY_RAJAIN, muuRajainValue = EMPTY_RAJAIN, setFilters } = props;
+  const { rajainValues = [], muuRajainValues = [], setFilters } = props;
 
-  const combinedRajainValue = useMemo(
-    () => ({
-      rajainType: RajainType.CHECKBOX,
-      values: [
-        ...rajainValue.values.map((v) => ({ ...v, hidden: isMuuSelected })),
-        ...muuRajainValue.values.map((v) => ({ ...v, hidden: !isMuuSelected })),
-      ],
-    }),
-    [isMuuSelected, muuRajainValue, rajainValue]
+  const combinedRajainValues = useMemo(
+    () => [
+      ...rajainValues.map((v) => ({ ...v, hidden: isMuuSelected })),
+      ...muuRajainValues.map((v) => ({ ...v, hidden: !isMuuSelected })),
+    ],
+    [isMuuSelected, muuRajainValues, rajainValues]
   );
 
   const handleCheck = (item: RajainUIItem) => {
     const changes = getStateChangesForCheckboxRajaimet(
-      isMuuSelected ? muuRajainValue : rajainValue,
-      item
-    );
+      isMuuSelected ? muuRajainValues : rajainValues
+    )(item);
     setFilters(changes);
   };
 
@@ -77,7 +68,7 @@ export const KoulutustyyppiSuodatin = (props: SuodatinComponentProps) => {
         {...props}
         testId="koulutustyyppi-filter"
         name={t('haku.koulutustyyppi')}
-        rajainValue={combinedRajainValue}
+        rajainValues={combinedRajainValues}
         handleCheck={handleCheck}
         additionalContent={
           <Grid item style={{ padding: '20px 0' }}>

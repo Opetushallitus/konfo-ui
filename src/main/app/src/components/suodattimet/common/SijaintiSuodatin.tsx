@@ -9,29 +9,24 @@ import { getStateChangesForCheckboxRajaimet } from '#/src/tools/filters';
 import { localize } from '#/src/tools/localization';
 import {
   CheckboxRajainItem,
-  RajainType,
   RajainUIItem,
-  RajainValue,
   SuodatinComponentProps,
 } from '#/src/types/SuodatinTypes';
 
 import { useSearch } from '../../haku/hakutulosHooks';
 
-const checkboxRajainItems = (rajainValue?: RajainValue) =>
-  (rajainValue?.values || []) as Array<CheckboxRajainItem>;
-
 export const SijaintiSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
-  const { kuntaRajainValue, maakuntaRajainValue, setFilters, loading } = props;
-  const sijaintiRajainValue = {
-    rajainType: RajainType.CHECKBOX,
-    values: checkboxRajainItems(kuntaRajainValue).concat(
-      checkboxRajainItems(maakuntaRajainValue)
-    ),
-  };
-
+  const {
+    kuntaRajainValues = [],
+    maakuntaRajainValues = [],
+    setFilters,
+    loading,
+  } = props;
   const handleCheck = (item: RajainUIItem) => {
-    const changes = getStateChangesForCheckboxRajaimet(sijaintiRajainValue, item);
+    const changes = getStateChangesForCheckboxRajaimet(
+      kuntaRajainValues.concat(maakuntaRajainValues)
+    )(item);
     setFilters(changes);
   };
 
@@ -56,35 +51,26 @@ export const SijaintiSuodatin = (props: SuodatinComponentProps) => {
     return [
       {
         label: t('haku.kaupungit-tai-kunnat'),
-        options: sortBy(
-          checkboxRajainItems(kuntaRajainValue).map(
-            (v) => getSelectOption(v, false),
-            'label'
-          )
-        ),
+        options: sortBy(kuntaRajainValues.map((v) => getSelectOption(v, false), 'label')),
       },
       {
         label: t('haku.maakunnat'),
         options: sortBy(
-          checkboxRajainItems(maakuntaRajainValue).map((v) => getSelectOption(v, true)),
+          maakuntaRajainValues.map((v) => getSelectOption(v, true)),
           'label'
         ),
       },
     ];
-  }, [kuntaRajainValue, maakuntaRajainValue, t, naytaFiltterienHakutulosLuvut]);
+  }, [kuntaRajainValues, maakuntaRajainValues, t, naytaFiltterienHakutulosLuvut]);
 
-  const usedRajainValue = useMemo(
-    () => ({
-      rajainType: RajainType.CHECKBOX,
-      values: checkboxRajainItems(maakuntaRajainValue)
+  const usedRajainValues = useMemo(
+    () =>
+      maakuntaRajainValues
         .concat(
-          checkboxRajainItems(kuntaRajainValue)
-            .filter((k) => k.checked)
-            .map((v) => ({ ...v, hidden: false }))
+          kuntaRajainValues.filter((k) => k.checked).map((v) => ({ ...v, hidden: false }))
         )
         .sort((a, b) => Number(b.checked) - Number(a.checked)),
-    }),
-    [maakuntaRajainValue, kuntaRajainValue]
+    [maakuntaRajainValues, kuntaRajainValues]
   );
 
   return (
@@ -94,7 +80,7 @@ export const SijaintiSuodatin = (props: SuodatinComponentProps) => {
       optionsLoading={optionsLoading || loading}
       selectPlaceholder={t('haku.etsi-paikkakunta-tai-alue')}
       name={t('haku.sijainti')}
-      rajainValue={usedRajainValue}
+      rajainValues={usedRajainValues}
       handleCheck={handleCheck}
       expandValues
       displaySelected

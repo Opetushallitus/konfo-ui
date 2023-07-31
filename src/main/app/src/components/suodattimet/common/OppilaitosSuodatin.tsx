@@ -9,18 +9,16 @@ import { getStateChangesForCheckboxRajaimet } from '#/src/tools/filters';
 import { getLanguage, localize } from '#/src/tools/localization';
 import {
   CheckboxRajainItem,
-  EMPTY_RAJAIN,
-  RajainType,
   RajainUIItem,
   SuodatinComponentProps,
 } from '#/src/types/SuodatinTypes';
 
 export const OppilaitosSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
-  const { rajainValue = EMPTY_RAJAIN, ...rest } = props;
+  const { rajainValues = [], ...rest } = props;
 
   const handleCheck = (item: RajainUIItem) => {
-    const changes = getStateChangesForCheckboxRajaimet(rajainValue, item);
+    const changes = getStateChangesForCheckboxRajaimet(rajainValues)(item);
     props.setFilters(changes);
   };
 
@@ -41,27 +39,23 @@ export const OppilaitosSuodatin = (props: SuodatinComponentProps) => {
       {
         label: t('haku.oppilaitos'),
         options: sortBy(
-          (rajainValue.values as Array<CheckboxRajainItem>).map((v) =>
-            getSelectOption(v)
-          ),
+          (rajainValues as Array<CheckboxRajainItem>).map((v) => getSelectOption(v)),
           'label'
         ),
       },
     ];
-  }, [rajainValue, t, naytaFiltterienHakutulosLuvut]);
+  }, [rajainValues, t, naytaFiltterienHakutulosLuvut]);
 
   const language = getLanguage();
 
-  const usedRajainValue = useMemo(
-    () => ({
-      rajainType: RajainType.CHECKBOX,
-      values: (rajainValue.values as Array<CheckboxRajainItem>).sort(
+  const usedRajainValues = useMemo(
+    () =>
+      (rajainValues as Array<CheckboxRajainItem>).sort(
         (a, b) =>
           Number(b.checked) - Number(a.checked) ||
           localize(a.nimi).localeCompare(localize(b.nimi), language)
       ),
-    }),
-    [rajainValue, language]
+    [rajainValues, language]
   );
 
   return (
@@ -69,7 +63,7 @@ export const OppilaitosSuodatin = (props: SuodatinComponentProps) => {
       name={t('haku.oppilaitos')}
       selectPlaceholder={t('haku.etsi-oppilaitos')}
       testId="oppilaitos-filter"
-      rajainValue={usedRajainValue}
+      rajainValues={usedRajainValues}
       handleCheck={handleCheck}
       options={options}
       expandValues

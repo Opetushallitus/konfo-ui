@@ -26,13 +26,7 @@ import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { useConfig } from '#/src/config';
 import { localize, localizeIfNimiObject } from '#/src/tools/localization';
-import {
-  RajainValue,
-  RajainUIItem,
-  CheckboxRajainItem,
-  BooleanRajainItem,
-  NumberRangeRajainItem,
-} from '#/src/types/SuodatinTypes';
+import { RajainUIItem, RajainItem } from '#/src/types/SuodatinTypes';
 
 import {
   SuodatinAccordion,
@@ -116,7 +110,7 @@ type CheckboxProps = {
   expandButton?: JSX.Element;
 };
 
-const FilterCheckbox = ({
+export const FilterCheckbox = ({
   handleCheck,
   indented,
   isCountVisible,
@@ -230,7 +224,7 @@ type Props = {
   shadow?: boolean;
   onFocus?: () => void;
   onHide?: () => void;
-  rajainValue: RajainValue;
+  rajainValues: Array<RajainItem>;
   handleCheck: (value: any) => void;
   options?: OptionsType;
   optionsLoading?: boolean;
@@ -241,9 +235,7 @@ type Props = {
   isCountVisible?: boolean;
 };
 
-const uiValues = (
-  items: Array<CheckboxRajainItem | BooleanRajainItem | NumberRangeRajainItem>
-): Array<RajainUIItem> =>
+const uiValues = (items: Array<RajainItem>): Array<RajainUIItem> =>
   items.map((v: any) => ({
     id: v.id,
     rajainId: v.rajainId,
@@ -265,7 +257,7 @@ export const Filter = ({
   // TODO: Liikaa boolean propseja -> huono komponenttirajapinta
   displaySelected = false,
   summaryHidden = false,
-  rajainValue,
+  rajainValues,
   handleCheck,
   options,
   optionsLoading,
@@ -279,16 +271,14 @@ export const Filter = ({
 }: Props) => {
   const { t } = useTranslation();
   const [hideRest, setHideRest] = useState(expandValues);
-  const usedName = [name, rajainValue.values?.length === 0 && '(0)']
-    .filter(Boolean)
-    .join(' ');
+  const usedName = [name, rajainValues.length === 0 && '(0)'].filter(Boolean).join(' ');
 
   const config = useConfig();
   const isCountVisible = isCountVisibleProp && config?.naytaFiltterienHakutulosLuvut;
 
   return (
     <SuodatinAccordion
-      disabled={rajainValue.values?.length === 0}
+      disabled={rajainValues.length === 0}
       data-testid={testId}
       elevation={elevation}
       defaultExpanded={expanded}
@@ -297,7 +287,7 @@ export const Filter = ({
         <SuodatinAccordionSummary expandIcon={<MaterialIcon icon="expand_more" />}>
           <SummaryContent
             filterName={usedName}
-            values={uiValues(rajainValue.values)}
+            values={uiValues(rajainValues)}
             displaySelected={displaySelected}
           />
         </SuodatinAccordionSummary>
@@ -305,7 +295,7 @@ export const Filter = ({
       <SuodatinAccordionDetails {...(summaryHidden && { style: { padding: 0 } })}>
         <Grid container direction="column" wrap="nowrap">
           {additionalContent}
-          {options && rajainValue.values.length > HIDE_NOT_EXPANDED_AMOUNT && (
+          {options && rajainValues.length > HIDE_NOT_EXPANDED_AMOUNT && (
             <Grid item style={{ padding: '20px 0', zIndex: 2 }}>
               <Select
                 components={{ DropdownIndicator, LoadingIndicator, Option }}
@@ -336,7 +326,7 @@ export const Filter = ({
           )}
           <Grid item>
             <List style={{ width: '100%' }}>
-              {uiValues(rajainValue.values)
+              {uiValues(rajainValues)
                 .filter((v) => !v.hidden)
                 .map((value, i) => {
                   if (expandValues && hideRest && i >= HIDE_NOT_EXPANDED_AMOUNT) {
@@ -362,7 +352,7 @@ export const Filter = ({
                 })}
             </List>
           </Grid>
-          {expandValues && rajainValue.values.length > HIDE_NOT_EXPANDED_AMOUNT && (
+          {expandValues && rajainValues.length > HIDE_NOT_EXPANDED_AMOUNT && (
             <Button
               color="secondary"
               size="small"

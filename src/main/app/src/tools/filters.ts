@@ -7,11 +7,9 @@ import {
   COMPOSITE_FILTER_IDS,
   REPLACED_FILTER_IDS,
   BooleanRajainItem,
-  RajainValue,
   CheckboxRajainItem,
   RajainType,
   RajainUIItem,
-  EMPTY_RAJAIN,
   RajainItem,
 } from '#/src/types/SuodatinTypes';
 
@@ -56,12 +54,12 @@ export const getRajainValueInUIFormat = (
   filtersFromBackend: Record<string, any> | undefined,
   allValuesSetInUI: Record<string, any>,
   originalFilterId: string
-): RajainValue => {
+): Array<RajainItem> => {
   const filterId = replaceBackendOriginatedFilterIdAsNeeded(originalFilterId);
 
   const filter = filtersFromBackend?.[filterId];
   if (!filter) {
-    return EMPTY_RAJAIN;
+    return [];
   }
 
   const filterValue = allValuesSetInUI[filterId];
@@ -114,9 +112,7 @@ export const getRajainValueInUIFormat = (
       }));
       break;
   }
-  return {
-    values: rajainValues,
-  };
+  return rajainValues;
 };
 
 const addIfNotExists = (
@@ -137,66 +133,62 @@ const removeIfExists = (
     ? (retVal[rajainId] = retVal[rajainId].filter((v) => v !== id))
     : retVal;
 
-export const getStateChangesForCheckboxRajaimet = (
-  rajainValue: RajainValue,
-  checkedRajainItem: CheckboxRajainItem | RajainUIItem
-) => {
-  const rajainValues = rajainValue.values as Array<CheckboxRajainItem>;
-  const allCheckedValues = rajainValues
-    .map((v) => [v, ...(v.alakoodit ?? [])])
-    .flat()
-    .reduce(
-      (a, { checked, rajainId, id }) =>
-        checked ? { ...a, [rajainId]: (a[rajainId] || []).concat(id) } : a,
-      {} as Record<string, Array<string>>
-    );
-
-  const koodiFn = checkedRajainItem.checked ? removeIfExists : addIfNotExists;
-
-  koodiFn(allCheckedValues, checkedRajainItem.rajainId, checkedRajainItem.id);
-
-  const isYlakoodi = rajainValues.some((v) => v.id === checkedRajainItem.id);
-  if (isYlakoodi) {
-    // Jos koodilla oli alakoodeja, täytyy ne myös poistaa / lisätä
-    checkedRajainItem.alakoodit?.forEach((alakoodi) =>
-      koodiFn(allCheckedValues, alakoodi.rajainId, alakoodi.id)
-    );
-    return allCheckedValues;
-  } else {
-    // Koodi oli alakoodi -> Etsitään yläkoodi ja muut alakoodit
-    const ylakoodi = rajainValues.find(
-      (v) => v.alakoodit?.some((alakoodi) => alakoodi.id === checkedRajainItem.id)
-    )!;
-
-    // Jos alakoodivalinnan jälkeen kaikki alakoodit on valittu, myös yläkoodikin täytyy asettaa valituksi
-    const allAlakooditWillBeSelected = ylakoodi.alakoodit!.every((v) =>
-      v.id === checkedRajainItem.id ? !v.checked : v.checked
-    );
-
-    const ylakoodiFn = allAlakooditWillBeSelected ? addIfNotExists : removeIfExists;
-    ylakoodiFn(allCheckedValues, ylakoodi.rajainId, ylakoodi.id);
-  }
-
-  return allCheckedValues;
-};
-
-export const getFilterStateChangesForDelete = (
-  values: Array<RajainItem>,
-  item: RajainItem
-) => {
-  switch (filterType(item.rajainId)) {
-    case RajainType.BOOLEAN:
-      return { [item.rajainId]: !(item as BooleanRajainItem).checked };
-    case RajainType.NUMBER_RANGE:
-      return { [item.rajainId]: [] };
-    default: {
-      const checkboxValues = values.filter(
-        (v) => filterType(v.rajainId) === RajainType.CHECKBOX
-      ) as Array<CheckboxRajainItem>;
-      return getStateChangesForCheckboxRajaimet(
-        { values: checkboxValues },
-        item as CheckboxRajainItem
+export const getStateChangesForCheckboxRajaimet =
+  (rajainValuesRaw: Array<RajainItem>) =>
+  (checkedRajainItem: CheckboxRajainItem | RajainUIItem) => {
+    const rajainValues = rajainValuesRaw as Array<CheckboxRajainItem>;
+    const allCheckedValues = rajainValues
+      .map((v) => [v, ...(v.alakoodit ?? [])])
+      .flat()
+      .reduce(
+        (a, { checked, rajainId, id }) =>
+          checked ? { ...a, [rajainId]: (a[rajainId] || []).concat(id) } : a,
+        {} as Record<string, Array<string>>
       );
+
+    const koodiFn = checkedRajainItem.checked ? removeIfExists : addIfNotExists;
+
+    koodiFn(allCheckedValues, checkedRajainItem.rajainId, checkedRajainItem.id);
+
+    const isYlakoodi = rajainValues.some((v) => v.id === checkedRajainItem.id);
+    if (isYlakoodi) {
+      // Jos koodilla oli alakoodeja, täytyy ne myös poistaa / lisätä
+      checkedRajainItem.alakoodit?.forEach((alakoodi) =>
+        koodiFn(allCheckedValues, alakoodi.rajainId, alakoodi.id)
+      );
+      return allCheckedValues;
+    } else {
+      // Koodi oli alakoodi -> Etsitään yläkoodi ja muut alakoodit
+      const ylakoodi = rajainValues.find(
+        (v) => v.alakoodit?.some((alakoodi) => alakoodi.id === checkedRajainItem.id)
+      )!;
+
+      // Jos alakoodivalinnan jälkeen kaikki alakoodit on valittu, myös yläkoodikin täytyy asettaa valituksi
+      const allAlakooditWillBeSelected = ylakoodi.alakoodit!.every((v) =>
+        v.id === checkedRajainItem.id ? !v.checked : v.checked
+      );
+
+      const ylakoodiFn = allAlakooditWillBeSelected ? addIfNotExists : removeIfExists;
+      ylakoodiFn(allCheckedValues, ylakoodi.rajainId, ylakoodi.id);
     }
-  }
-};
+
+    return allCheckedValues;
+  };
+
+export const getFilterStateChangesForDelete =
+  (values: Array<RajainItem>) => (item: RajainItem) => {
+    switch (filterType(item.rajainId)) {
+      case RajainType.BOOLEAN:
+        return { [item.rajainId]: !(item as BooleanRajainItem).checked };
+      case RajainType.NUMBER_RANGE:
+        return { [item.rajainId]: [] };
+      default: {
+        const checkboxValues = values.filter(
+          (v) => filterType(v.rajainId) === RajainType.CHECKBOX
+        ) as Array<CheckboxRajainItem>;
+        return getStateChangesForCheckboxRajaimet(checkboxValues)(
+          item as CheckboxRajainItem
+        );
+      }
+    }
+  };

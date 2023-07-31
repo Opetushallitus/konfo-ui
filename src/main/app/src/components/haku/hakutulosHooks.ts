@@ -294,7 +294,7 @@ export const useSelectedFilters = (availableFilters: any, checkedFilters: any) =
         (ks) =>
           map(ks, (filterId) =>
             Object.values(
-              getRajainValueInUIFormat(availableFilters, checkedFilters, filterId).values
+              getRajainValueInUIFormat(availableFilters, checkedFilters, filterId)
             )
           ),
         flatten,

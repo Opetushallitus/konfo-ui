@@ -9,22 +9,20 @@ import { getStateChangesForCheckboxRajaimet } from '#/src/tools/filters';
 import { localize } from '#/src/tools/localization';
 import {
   CheckboxRajainItem,
-  EMPTY_RAJAIN,
-  RajainType,
   RajainUIItem,
   SuodatinComponentProps,
 } from '#/src/types/SuodatinTypes';
 
 export const AmmOsaamisalatSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
-  const { rajainValue = EMPTY_RAJAIN, ...rest } = props;
+  const { rajainValues = [], ...rest } = props;
 
-  const filteredValues = (rajainValue.values as Array<CheckboxRajainItem>).filter(
+  const filteredValues = (rajainValues as Array<CheckboxRajainItem>).filter(
     (v) => v?.count > 0 || v.checked
   );
 
   const handleCheck = (item: RajainUIItem) => {
-    const changes = getStateChangesForCheckboxRajaimet(rajainValue, item);
+    const changes = getStateChangesForCheckboxRajaimet(rajainValues)(item);
     props.setFilters(changes);
   };
 
@@ -52,18 +50,15 @@ export const AmmOsaamisalatSuodatin = (props: SuodatinComponentProps) => {
     ];
   }, [filteredValues, t, naytaFiltterienHakutulosLuvut]);
 
-  const usedRajainValue = useMemo(
-    () => ({
-      rajainType: RajainType.CHECKBOX,
-      values: filteredValues.sort((a, b) => Number(b.checked) - Number(a.checked)),
-    }),
+  const usedRajainValues = useMemo(
+    () => filteredValues.sort((a, b) => Number(b.checked) - Number(a.checked)),
     [filteredValues]
   );
 
   return (
     <Filter
       name={t('haku.amm-osaamisalat')}
-      rajainValue={usedRajainValue}
+      rajainValues={usedRajainValues}
       handleCheck={handleCheck}
       options={options}
       expandValues

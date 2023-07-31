@@ -13,8 +13,6 @@ import { PohjakoulutusvaatimusSuodatin } from '#/src/components/suodattimet/comm
 import { SijaintiSuodatin } from '#/src/components/suodattimet/common/SijaintiSuodatin';
 import { ValintatapaSuodatin } from '#/src/components/suodattimet/common/ValintatapaSuodatin';
 import { KOULUTUS_TYYPPI, KORKEAKOULU_KOULUTUSTYYPIT } from '#/src/constants';
-import { isRajainActive } from '#/src/tools/filters';
-import { RajainValue } from '#/src/types/SuodatinTypes';
 
 import { AmmOsaamisalatSuodatin } from './AmmOsaamisalatSuodatin';
 import { LukiolinjatSuodatin } from './LukiolinjatSuodatin';
@@ -70,34 +68,34 @@ export const MobileFiltersOnTopMenu = ({
         resultCount={hitCount}>
         <OpetuskieliSuodatin
           expanded={false}
-          rajainValue={values.opetuskieli}
+          rajainValues={values.opetuskieli}
           setFilters={setFilters}
         />
         <Divider />
         <OpetusaikaSuodatin
           expanded={false}
-          rajainValue={values.opetusaika}
+          rajainValues={values.opetusaika}
           setFilters={setFilters}
         />
         <Divider />
         <SijaintiSuodatin
           expanded={false}
-          maakuntaRajainValue={values.maakunta}
-          kuntaRajainValue={values.kunta}
+          maakuntaRajainValues={values.maakunta}
+          kuntaRajainValues={values.kunta}
           loading={loading}
           setFilters={setFilters}
         />
         <Divider />
         <PohjakoulutusvaatimusSuodatin
           expanded={false}
-          rajainValue={values.pohjakoulutusvaatimus}
+          rajainValues={values.pohjakoulutusvaatimus}
           setFilters={setFilters}
         />
         <Divider />
         {values.hakukaynnissa && (
           <HakuKaynnissaSuodatin
             expanded={false}
-            rajainValue={values.hakukaynnissa}
+            rajainValues={values.hakukaynnissa}
             setFilters={setFilters}
           />
         )}
@@ -105,7 +103,7 @@ export const MobileFiltersOnTopMenu = ({
         {values.hakutapa && (
           <HakutapaSuodatin
             expanded={false}
-            rajainValue={values.hakutapa}
+            rajainValues={values.hakutapa}
             setFilters={setFilters}
           />
         )}
@@ -114,7 +112,7 @@ export const MobileFiltersOnTopMenu = ({
           <>
             <ValintatapaSuodatin
               expanded={false}
-              rajainValue={values.valintatapa}
+              rajainValues={values.valintatapa}
               setFilters={setFilters}
             />
             <Divider />
@@ -125,14 +123,14 @@ export const MobileFiltersOnTopMenu = ({
             <LukiolinjatSuodatin
               name="lukiopainotukset"
               expanded={false}
-              rajainValue={values.lukiopainotukset}
+              rajainValues={values.lukiopainotukset}
               setFilters={setFilters}
             />
             <Divider />
             <LukiolinjatSuodatin
               name="lukiolinjat_er"
               expanded={false}
-              rajainValue={values.lukiolinjaterityinenkoulutustehtava}
+              rajainValues={values.lukiolinjaterityinenkoulutustehtava}
               setFilters={setFilters}
             />
             <Divider />
@@ -142,7 +140,7 @@ export const MobileFiltersOnTopMenu = ({
           <>
             <AmmOsaamisalatSuodatin
               expanded={false}
-              rajainValue={values.osaamisala}
+              rajainValues={values.osaamisala}
               setFilters={setFilters}
             />
             <Divider />
@@ -150,13 +148,13 @@ export const MobileFiltersOnTopMenu = ({
         )}
         <OpetustapaSuodatin
           expanded={false}
-          rajainValue={values.opetustapa}
+          rajainValues={values.opetustapa}
           setFilters={setFilters}
         />
         <Divider />
         <KoulutuksenKestoSuodatin
           expanded={false}
-          rajainValue={values.koulutuksenkestokuukausina}
+          rajainValues={values.koulutuksenkestokuukausina}
           setFilters={setFilters}
         />
         <Divider />

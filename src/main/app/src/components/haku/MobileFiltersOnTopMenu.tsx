@@ -8,6 +8,7 @@ import { MobileRajainDrawer } from '#/src/components/common/MobileRajainDrawer';
 import { TyoelamaJaTaydennyskoulutuksetSuodatin } from '#/src/components/suodattimet/common/TyoelamaJaTaydennyskoulutuksetSuodatin';
 import { FILTER_TYPES } from '#/src/constants';
 import { useIsAtEtusivu } from '#/src/store/reducers/appSlice';
+import { CheckboxRajainItem } from '#/src/types/SuodatinTypes';
 
 import { MobileResultsPerPageExpansionMenu } from './hakutulos/MobileResultsPerPageExpansionMenu';
 import { MobileToggleKoulutusOppilaitos } from './hakutulos/MobileToggleKoulutusOppilaitos';
@@ -84,79 +85,91 @@ export const MobileFiltersOnTopMenu = ({
         <KoulutustyyppiSuodatin
           expanded={false}
           displaySelected
-          values={useFilterProps(FILTER_TYPES.KOULUTUSTYYPPI)}
-          muuValues={useFilterProps(FILTER_TYPES.KOULUTUSTYYPPI_MUU)}
+          rajainValues={useFilterProps(FILTER_TYPES.KOULUTUSTYYPPI)}
+          muuRajainValues={
+            useFilterProps(FILTER_TYPES.KOULUTUSTYYPPI_MUU) as Array<CheckboxRajainItem>
+          }
           setFilters={setFilters}
         />
         <Divider />
         <OpetuskieliSuodatin
           expanded={false}
           displaySelected
-          values={useFilterProps(FILTER_TYPES.OPETUSKIELI)}
+          rajainValues={useFilterProps(FILTER_TYPES.OPETUSKIELI)}
           setFilters={setFilters}
         />
         <Divider />
         <OpetusaikaSuodatin
           expanded={false}
           displaySelected
-          values={useFilterProps(FILTER_TYPES.OPETUSAIKA)}
+          rajainValues={useFilterProps(FILTER_TYPES.OPETUSAIKA)}
           setFilters={setFilters}
         />
         <Divider />
         <SijaintiSuodatin
           expanded={false}
           displaySelected
-          kuntaValues={useFilterProps(FILTER_TYPES.KUNTA)}
-          maakuntaValues={useFilterProps(FILTER_TYPES.MAAKUNTA)}
+          kuntaRajainValues={
+            useFilterProps(FILTER_TYPES.KUNTA) as Array<CheckboxRajainItem>
+          }
+          maakuntaRajainValues={
+            useFilterProps(FILTER_TYPES.MAAKUNTA) as Array<CheckboxRajainItem>
+          }
           setFilters={setFilters}
         />
         <Divider />
         <PohjakoulutusvaatimusSuodatin
           expanded={false}
           displaySelected
-          values={useFilterProps(FILTER_TYPES.POHJAKOULUTUSVAATIMUS)}
+          rajainValues={useFilterProps(FILTER_TYPES.POHJAKOULUTUSVAATIMUS)}
           setFilters={setFilters}
         />
         <Divider />
         <HakuKaynnissaSuodatin
           expanded={false}
           displaySelected
-          values={useFilterProps(FILTER_TYPES.HAKUKAYNNISSA)}
+          rajainValues={useFilterProps(FILTER_TYPES.HAKUKAYNNISSA)}
           setFilters={setFilters}
         />
         <Divider />
         <TyoelamaJaTaydennyskoulutuksetSuodatin
           expanded={false}
           displaySelected
-          values={useTyoelamaSuodatinValues()}
+          rajainValues={useTyoelamaSuodatinValues()}
           setFilters={setFilters}
         />
         <Divider />
         <HakutapaSuodatin
           expanded={false}
           displaySelected
-          values={useFilterProps(FILTER_TYPES.HAKUTAPA)}
+          rajainValues={useFilterProps(FILTER_TYPES.HAKUTAPA)}
           setFilters={setFilters}
         />
         <Divider />
         <ValintatapaSuodatin
           expanded={false}
           displaySelected
-          values={useFilterProps(FILTER_TYPES.VALINTATAPA)}
+          rajainValues={useFilterProps(FILTER_TYPES.VALINTATAPA)}
           setFilters={setFilters}
         />
         <Divider />
         <KoulutusalaSuodatin
           expanded={false}
           displaySelected
-          values={useFilterProps(FILTER_TYPES.KOULUTUSALA)}
+          rajainValues={useFilterProps(FILTER_TYPES.KOULUTUSALA)}
           setFilters={setFilters}
         />
         <Divider />
         <OpetustapaSuodatin
           expanded={false}
           displaySelected
-          values={useFilterProps(FILTER_TYPES.OPETUSTAPA)}
+          rajainValues={useFilterProps(FILTER_TYPES.OPETUSTAPA)}
+          setFilters={setFilters}
+        />
+        <KoulutuksenKestoSuodatin
+          expanded={false}
+          displaySelected
+          rajainValues={useFilterProps(FILTER_TYPES.KOULUTUKSENKESTOKUUKAUSINA)}
           setFilters={setFilters}
         />
         <Divider />

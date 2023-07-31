@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -7,9 +7,8 @@ import { useTranslation } from 'react-i18next';
 
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import {
-  EMPTY_RAJAIN,
   NumberRangeRajainItem,
-  RajainValue,
+  RajainItem,
   SuodatinComponentProps,
 } from '#/src/types/SuodatinTypes';
 
@@ -30,8 +29,8 @@ const numberRangeRajain = (minmax: Array<number>) => ({
 
 const UNDEFINED = numberRangeRajain([0, 72]);
 
-const numberValues = (rajainValue: RajainValue) => {
-  const range = (nth(rajainValue?.values, 0) as NumberRangeRajainItem) || UNDEFINED;
+const numberValues = (rajainValues: Array<RajainItem>) => {
+  const range = (nth(rajainValues, 0) as NumberRangeRajainItem) || UNDEFINED;
   return [range.min || UNDEFINED.min, range.max || UNDEFINED.max];
 };
 
@@ -40,7 +39,7 @@ export const KoulutuksenKestoSuodatin = ({
   displaySelected = true,
   elevation = 0,
   expanded,
-  rajainValue = EMPTY_RAJAIN,
+  rajainValues = [],
   setFilters,
 }: SuodatinComponentProps) => {
   const { t } = useTranslation();
@@ -49,9 +48,9 @@ export const KoulutuksenKestoSuodatin = ({
   const monthsAbbr = (months: number) => `${months}${t('haku.lyhenne-kuukausi')}`;
 
   const [showSliderInternalValues, setShowSliderInternalValues] =
-    React.useState<boolean>(false);
+    useState<boolean>(false);
 
-  const [sliderInternalValues, setSliderInternalValues] = React.useState<Array<number>>([
+  const [sliderInternalValues, setSliderInternalValues] = useState<Array<number>>([
     UNDEFINED.min,
     UNDEFINED.max,
   ]);
@@ -106,7 +105,7 @@ export const KoulutuksenKestoSuodatin = ({
   };
 
   const rangeHeader = () => {
-    const rangeValues = numberValues(rajainValue);
+    const rangeValues = numberValues(rajainValues);
     return isEqual(UNDEFINED, numberRangeRajain(rangeValues))
       ? ''
       : `${valueText(rangeValues[0])} - ${valueText(rangeValues[1])}`;
@@ -137,10 +136,10 @@ export const KoulutuksenKestoSuodatin = ({
               value={
                 showSliderInternalValues
                   ? sliderInternalValues
-                  : numberValues(rajainValue)
+                  : numberValues(rajainValues)
               }
-              min={0}
-              max={72}
+              min={UNDEFINED.min}
+              max={UNDEFINED.max}
               marks={marks}
               step={1}
               valueLabelDisplay="auto"

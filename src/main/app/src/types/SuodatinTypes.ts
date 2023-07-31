@@ -11,12 +11,11 @@ export type SuodatinComponentProps = {
   shadow?: boolean;
   onFocus?: () => void;
   onHide?: () => void;
-  rajainValue?: RajainValue;
-  maakuntaRajainValue?: RajainValue;
-  kuntaRajainValue?: RajainValue;
-  hakukaynnissaRajainValue?: RajainValue;
-  hakutapaRajainValue?: RajainValue;
-  muuRajainValue?: RajainValue;
+  rajainValues?: Array<RajainItem>;
+  maakuntaRajainValues?: Array<CheckboxRajainItem>;
+  kuntaRajainValues?: Array<CheckboxRajainItem>;
+  hakutapaRajainValues?: Array<CheckboxRajainItem>;
+  muuRajainValues?: Array<CheckboxRajainItem>;
   loading?: boolean;
   setFilters: (value: any) => void;
   name?: string;
@@ -31,9 +30,6 @@ export enum RajainType {
 }
 
 export type RajainItem = CheckboxRajainItem | BooleanRajainItem | NumberRangeRajainItem;
-export interface RajainValue {
-  values: Array<RajainItem>;
-}
 
 export interface RajainBase {
   id: string;
@@ -47,8 +43,6 @@ export interface CheckboxRajainItem extends RajainBase {
   checked: boolean;
   alakoodit?: Array<Omit<CheckboxRajainItem, 'alakoodit'>>;
 }
-
-export const EMPTY_RAJAIN = { values: [] };
 
 export interface NumberRangeRajainItem extends RajainBase {
   min?: number;
