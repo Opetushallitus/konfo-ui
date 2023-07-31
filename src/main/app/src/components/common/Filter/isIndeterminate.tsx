@@ -1,6 +1,7 @@
-import { RajainItem } from '#/src/types/SuodatinTypes';
 import { find } from 'lodash';
 import { P, match } from 'ts-pattern';
+
+import { RajainItem } from '#/src/types/SuodatinTypes';
 
 export const isIndeterminate = (v: RajainItem): boolean =>
   match(v)

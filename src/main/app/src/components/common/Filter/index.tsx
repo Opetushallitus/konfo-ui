@@ -12,7 +12,6 @@ import {
   ListItemIcon,
   Typography,
 } from '@mui/material';
-import { find } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import Select, {
   components,

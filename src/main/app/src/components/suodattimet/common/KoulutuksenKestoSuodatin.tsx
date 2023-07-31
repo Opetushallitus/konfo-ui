@@ -16,7 +16,7 @@ import {
 } from '../../common/Filter/CustomizedMuiComponents';
 import { NumberRangeSlider } from '../../common/Filter/NumberRangeSlider';
 
-export enum UnitOfMeasure {
+enum UnitOfMeasure {
   MONTH = 1,
   HALF_YEAR = 6,
   YEAR = 12,
@@ -31,7 +31,7 @@ const DEFAULT_UPPERLIMIT = 72;
 // Jos kuukausien määrä alle 18, lasketaan merkit suoraan kuukausina. Jos määrä välillä
 // 18 ja 36, lasketaan merkit vuoden puolikkaina. Muuten merkit lasketaan vuosina.
 // Viimeisenä merkkinä on aina kuukausien maksimimäärä.
-export const resolveSliderMarks = (upperLimit: number, unitOfMeasure: UnitOfMeasure) => {
+const resolveSliderMarks = (upperLimit: number, unitOfMeasure: UnitOfMeasure) => {
   const monthsInMaxNbrOfSteps = unitOfMeasure * MAX_NUMBER_OF_MARKS;
   const stepLength = ceil(upperLimit / monthsInMaxNbrOfSteps) * unitOfMeasure;
   const remainder = upperLimit % stepLength;

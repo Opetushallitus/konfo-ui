@@ -7,7 +7,8 @@ import { Filter } from '#/src/components/common/Filter';
 import { FILTER_TYPES } from '#/src/constants';
 import { RajainItem, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 
-const isChecked = (rajainItem: RajainItem) => match(rajainItem)
+const isChecked = (rajainItem: RajainItem) =>
+  match(rajainItem)
     .with({ checked: true }, () => true)
     .otherwise(() => false);
 
