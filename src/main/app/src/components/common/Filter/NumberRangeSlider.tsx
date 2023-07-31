@@ -37,17 +37,9 @@ export const NumberRangeSlider = ({
     onRangeCommit(sortBy(value as Array<number>));
   };
 
-  const [sliderKey, setSliderKey] = useState(valueToKey(values as Array<number>));
-
-  useEffect(() => {
-    if (!isEqual(sliderKey, valueToKey(values as Array<number>))) {
-      setSliderKey(valueToKey(values as Array<number>));
-    }
-  }, [sliderKey, values]);
-
   return (
     <SuodatinSlider
-      key={sliderKey}
+      key={valueToKey(values as Array<number>)}
       disabled={disabled}
       defaultValue={values}
       min={min}
