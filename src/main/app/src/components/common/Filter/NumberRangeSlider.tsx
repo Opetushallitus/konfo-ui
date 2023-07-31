@@ -1,6 +1,4 @@
-import { useEffect, useState } from 'react';
-
-import { sortBy, isEqual } from 'lodash';
+import { sortBy, castArray } from 'lodash';
 
 import { SuodatinSlider } from './CustomizedMuiComponents';
 
@@ -10,7 +8,7 @@ type SliderMark = {
 };
 
 type SliderProps = {
-  values: number | Array<number>;
+  values: Array<number>;
   marks: Array<SliderMark>;
   min: number;
   max: number;
@@ -34,12 +32,12 @@ export const NumberRangeSlider = ({
     _e: React.SyntheticEvent | Event,
     value: number | Array<number>
   ) => {
-    onRangeCommit(sortBy(value as Array<number>));
+    onRangeCommit(sortBy(Array.isArray(value) ? value : castArray(value)));
   };
 
   return (
     <SuodatinSlider
-      key={valueToKey(values as Array<number>)}
+      key={valueToKey(values)}
       disabled={disabled}
       defaultValue={values}
       min={min}

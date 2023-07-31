@@ -9,15 +9,15 @@ import {
   flatten,
   size,
   isEqual,
-  isObject,
-  some,
   keys,
   omit,
   forEach,
+  some,
 } from 'lodash';
 import { useQuery } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { match, P } from 'ts-pattern';
 
 import {
   searchKoulutukset,
@@ -308,7 +308,7 @@ export const useSelectedFilters = (availableFilters: any, checkedFilters: any) =
     const compositeFilters = keys(availableFilters).filter(
       (f) => filterType(f) === RajainType.COMPOSITE
     );
-    const compositeFlattened = {};
+    const compositeFlattened: any = {};
     forEach(compositeFilters, (v) => {
       for (const subKey in availableFilters[v]) {
         compositeFlattened[subKey] = availableFilters[v][subKey];
@@ -320,12 +320,18 @@ export const useSelectedFilters = (availableFilters: any, checkedFilters: any) =
     };
     return flow(
       (vals) =>
-        pickBy(vals, (v) =>
-          Array.isArray(v)
-            ? v.length > 0
-            : isObject(v)
-            ? some(Object.values(v), (val) => val > 0)
-            : v === true
+        pickBy(vals, (v, k) =>
+          match(v)
+            .with(P.array(P.string), (arr) => arr.length > 0)
+            .with(
+              {
+                [`${k}_min`]: P.number,
+                [`${k}_max`]: P.number,
+              },
+              (obj) => some(Object.values(obj), (nbr) => nbr > 0)
+            )
+            .with({ [`${k}_max`]: P.select(P.number) }, (nbr) => nbr > 0)
+            .otherwise((bool) => bool === true)
         ),
       Object.keys,
       (ks) =>

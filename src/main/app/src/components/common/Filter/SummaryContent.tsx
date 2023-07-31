@@ -33,9 +33,7 @@ export const SummaryContent = ({
   const { t } = useTranslation();
   const selectedValues = useMemo(
     () =>
-      flatten(values?.map((v: RajainUIItem) => [v, ...(v.alakoodit || [])])).filter(
-        (v: RajainUIItem) => v.checked
-      ),
+      flatten(values?.map((v) => [v, ...(v.alakoodit || [])])).filter((v) => v.checked),
     [values]
   );
   const selectedFiltersStr =

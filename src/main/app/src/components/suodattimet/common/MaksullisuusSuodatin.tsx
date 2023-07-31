@@ -125,22 +125,27 @@ const headerContent = (
   );
   const contentString = selectedRajainItems
     .map((item) => {
-      let addInfo =
-        item.id === 'maksullinen'
-          ? isEqual(maksunmaara.numberRangeValues, maksunmaara.undefinedValue)
+      let addInfo = '';
+      switch (item.id) {
+        case 'maksullinen':
+          addInfo = isEqual(maksunmaara.numberRangeValues, maksunmaara.undefinedValue)
             ? ''
-            : rangeText(maksunmaara.numberRangeValues)
-          : '';
-      addInfo =
-        item.id === 'lukuvuosimaksu'
-          ? isEqual(lukuvuosimaksu.numberRangeValues, lukuvuosimaksu.undefinedValue)
+            : rangeText(maksunmaara.numberRangeValues);
+          break;
+        case 'lukuvuosimaksu':
+          addInfo = isEqual(
+            lukuvuosimaksu.numberRangeValues,
+            lukuvuosimaksu.undefinedValue
+          )
             ? ''
-            : rangeText(lukuvuosimaksu.numberRangeValues)
-          : addInfo;
-      addInfo =
-        item.id === 'lukuvuosimaksu' && checkboxRajain(rajainValues, 'apuraha').checked
-          ? `${addInfo} + ${t('haku.apuraha')}`
-          : addInfo;
+            : rangeText(lukuvuosimaksu.numberRangeValues);
+          addInfo = checkboxRajain(rajainValues, 'apuraha').checked
+            ? `${addInfo} + ${t('haku.apuraha')}`
+            : addInfo;
+          break;
+        default:
+          break;
+      }
       return `${t(`haku.${item.id}`)}${addInfo}`;
     })
     .join(',');
