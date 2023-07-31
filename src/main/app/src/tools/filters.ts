@@ -1,4 +1,4 @@
-import { sortBy, toPairs, get, some, toInteger, nth } from 'lodash';
+import { sortBy, toPairs, get, some, ceil } from 'lodash';
 
 import { FILTER_TYPES, YHTEISHAKU_KOODI_URI } from '#/src/constants';
 import {
@@ -50,6 +50,30 @@ const getRajainAlakoodit = (
   }));
 };
 
+const numberRangeRajain = (
+  rajainId: string,
+  count: number,
+  upperLimit: number,
+  minmax: any
+) => {
+  const defaultValue = {
+    id: rajainId,
+    rajainId,
+    count,
+    upperLimit,
+  };
+
+  const min = minmax[rajainId + '_min'];
+  const max = minmax[rajainId + '_max'];
+  return min !== undefined && max !== undefined
+    ? {
+        ...defaultValue,
+        min,
+        max,
+      }
+    : defaultValue;
+};
+
 export const getRajainValueInUIFormat = (
   rajainCountsFromBackend: Record<string, any> | undefined,
   allRajainValuesSetInUI: Record<string, any>,
@@ -78,22 +102,15 @@ export const getRajainValueInUIFormat = (
       ];
       break;
     case RajainType.NUMBER_RANGE: {
-      const rajainValueEmpty = {
-        id: rajainId,
-        rajainId: rajainId,
-        count: rajainCount.count,
-      };
-      const asInt = (v: any) => toInteger(v);
-      const firstNumberValue = nth(rajainValue, 0);
-      const secondNumberValue = nth(rajainValue, 1);
+      // NumberRange -tyyppisissä rajaimissa min- ja max -parametrit on automaattisesti nimetty
+      // <rajainId>_min ja <rajainId>_max
       returnValues = [
-        firstNumberValue !== undefined && secondNumberValue !== undefined
-          ? {
-              ...rajainValueEmpty,
-              min: Math.min(asInt(firstNumberValue), asInt(secondNumberValue)),
-              max: Math.max(asInt(firstNumberValue), asInt(secondNumberValue)),
-            }
-          : rajainValueEmpty,
+        numberRangeRajain(
+          rajainId,
+          rajainCount.count,
+          ceil(rajainCount.max),
+          allRajainValuesSetInUI[rajainId]
+        ),
       ];
       break;
     }
@@ -188,14 +205,12 @@ export const getFilterStateChangesForDelete =
       case RajainType.BOOLEAN:
         return { [item.rajainId]: !(item as BooleanRajainItem).checked };
       case RajainType.NUMBER_RANGE:
-        return { [item.rajainId]: [] };
-      default: {
-        const checkboxValues = values.filter(
-          (v) => filterType(v.rajainId) === RajainType.CHECKBOX
-        ) as Array<CheckboxRajainItem>;
-        return getStateChangesForCheckboxRajaimet(checkboxValues)(
-          item as CheckboxRajainItem
-        );
-      }
+        return { [item.rajainId]: {} };
+      default:
+        return getStateChangesForCheckboxRajaimet(
+          values.filter(
+            (v) => filterType(v.rajainId) === RajainType.CHECKBOX
+          ) as Array<CheckboxRajainItem>
+        )(item as CheckboxRajainItem);
     }
   };

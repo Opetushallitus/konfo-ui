@@ -50,23 +50,25 @@ export interface CheckboxRajainItem extends CheckboxRajainBase {
 export interface NumberRangeRajainItem extends RajainBase {
   min?: number;
   max?: number;
+  upperLimit?: number;
 }
 
 export interface BooleanRajainItem extends RajainBase {
   checked: boolean;
 }
 
-export const EMPTY_RAJAIN = { rajainId: '', id: '', count: 0 };
-
 export const BOOLEAN_RAJAIN_IDS: Array<string> = [
   FILTER_TYPES.HAKUKAYNNISSA,
   FILTER_TYPES.JOTPA,
   FILTER_TYPES.TYOVOIMAKOULUTUS,
   FILTER_TYPES.TAYDENNYSKOULUTUS,
+  FILTER_TYPES.APURAHA,
 ];
 
 export const NUMBER_RANGE_RAJAIN_IDS: Array<string> = [
   FILTER_TYPES.KOULUTUKSENKESTOKUUKAUSINA,
+  FILTER_TYPES.MAKSUNMAARA,
+  FILTER_TYPES.LUKUVUOSIMAKSUNMAARA,
 ];
 
 export const COMPOSITE_RAJAIN_IDS: Array<string> = [FILTER_TYPES.MAKSULLISUUS];

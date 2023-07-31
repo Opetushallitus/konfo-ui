@@ -41,14 +41,10 @@ const INITIAL_FILTERS = {
   lukiolinjaterityinenkoulutustehtava: [],
   osaamisala: [],
   opetusaika: [],
-  koulutuksenkestokuukausina: [],
-  maksuton: false,
-  maksullinen: false,
-  maksunmaara_min: 0,
-  maksunmaara_max: 0,
-  lukuvuosimaksu: false,
-  lukuvuosimaksunmaara_min: 0,
-  lukuvuosimaksunmaara_max: 0,
+  koulutuksenkestokuukausina: {},
+  maksullisuustyyppi: [],
+  maksunmaara: {},
+  lukuvuosimaksunmaara_min: {},
   apuraha: false,
   alkamiskausi: [],
 };
@@ -148,9 +144,6 @@ export const hakutulosSlice = createSlice({
             case FILTER_TYPES.JOTPA:
             case FILTER_TYPES.TYOVOIMAKOULUTUS:
             case FILTER_TYPES.TAYDENNYSKOULUTUS:
-            case FILTER_TYPES.MAKSUTON:
-            case FILTER_TYPES.MAKSULLINEN:
-            case FILTER_TYPES.LUKUVUOSIMAKSU:
             case FILTER_TYPES.APURAHA:
               setBooleanValueToState(state, key, value);
               break;

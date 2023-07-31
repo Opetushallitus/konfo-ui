@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
 
 import { debounce } from '@mui/material';
-import { flow, pickBy, map, uniqBy, flatten, size, isEqual } from 'lodash';
+import { flow, pickBy, map, uniqBy, flatten, size, isEqual, isObject } from 'lodash';
 import { useQuery } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -50,6 +50,8 @@ import {
   getHakuParams,
   createHakuUrl,
 } from '#/src/store/reducers/hakutulosSliceSelector';
+// eslint-disable-next-line import/order
+import { isRajainActive, getRajainValueInUIFormat } from '#/src/tools/filters';
 import { ReduxTodo, ValueOf } from '#/src/types/common';
 
 type Pagination = {
@@ -57,7 +59,6 @@ type Pagination = {
   total?: number;
   offset?: number;
 };
-import { isRajainActive, getRajainValueInUIFormat } from '#/src/tools/filters';
 
 const createSearchQueryHook =
   (key: string, fn: (x: any, signal: any) => any, defaultOptions: any = {}) =>
@@ -289,7 +290,14 @@ export const useSelectedFilters = (availableFilters: any, checkedFilters: any) =
   const selectedFiltersWithAlakoodit = useMemo(
     () =>
       flow(
-        (vals) => pickBy(vals, (v) => (Array.isArray(v) ? v.length > 0 : v)),
+        (vals) =>
+          pickBy(vals, (v) =>
+            Array.isArray(v)
+              ? v.length > 0
+              : isObject(v)
+              ? Object.keys(v).length > 0
+              : v === true
+          ),
         Object.keys,
         (ks) =>
           map(ks, (filterId) =>
@@ -324,7 +332,8 @@ export const useAllSelectedFilters = () => {
 
   const allCheckedValues = useSelector(getFilters, isEqual);
 
-  return useSelectedFilters(koulutusFilters, allCheckedValues);
+  const retVal = useSelectedFilters(koulutusFilters, allCheckedValues);
+  return retVal;
 };
 
 const useDispatchCb = (fn: (x: any) => any, options: { syncUrl?: boolean } = {}) => {

@@ -5,13 +5,14 @@ import Grid from '@mui/material/Grid';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import { isEqual } from 'lodash';
-import { match } from 'ts-pattern';
 
+import { useConfig } from '#/src/config';
 import { FILTER_TYPES } from '#/src/constants';
 import {
   SuodatinComponentProps,
   NumberRangeRajainItem,
   RajainUIItem,
+  RajainItem,
 } from '#/src/types/SuodatinTypes';
 
 import { FilterCheckbox } from '../../common/Filter';
@@ -83,21 +84,25 @@ const SummaSlider = ({ value, handleRangeChange, disabled }: SliderProps) => {
   );
 };
 
+const checkboxRajain = (rajainValues: Array<RajainItem>, id: string): RajainUIItem =>
+  (rajainValues.find((r) => r.id === id) || {
+    rajainId: 'maksullisuustyyppi',
+    id,
+    count: 0,
+    checked: false,
+  }) as RajainUIItem;
+
 export const MaksullisuusSuodatin = ({
   summaryHidden,
   displaySelected = true,
   elevation,
   expanded,
   rajainValues = [],
-  setFilters,
-}: SuodatinComponentProps) => {
-  const getBooleanRajain = (rajainId: string): RajainUIItem =>
-    (rajainValues.find((r) => r.rajainId === rajainId) || {
-      rajainId,
-      id: rajainId,
-      count: 0,
-      checked: false,
-    }) as RajainUIItem;
+}: //setFilters,
+SuodatinComponentProps) => {
+  const config = useConfig();
+  const isCountVisible = config?.naytaFiltterienHakutulosLuvut;
+
   const getNumberRangeRajain = (rajainId: string) =>
     (rajainValues.find((r) => r.rajainId === rajainId) || {
       rajainId,
@@ -107,8 +112,9 @@ export const MaksullisuusSuodatin = ({
 
   const setMaksuRange = (_range: Array<number>) => {};
   const setLukuvuosiMaksuRange = (_range: Array<number>) => {};
-  const handleCheck = (item: RajainUIItem) =>
-    match(item.rajainId)
+  const handleCheck = (_item: RajainUIItem) => {};
+  /*
+      match(item.rajainId)
       .with(FILTER_TYPES.MAKSUTON, () => setFilters({ maksuton: !item.checked }))
       .with(FILTER_TYPES.MAKSULLINEN, () => {
         const newRajainValues =
@@ -124,6 +130,7 @@ export const MaksullisuusSuodatin = ({
       })
       .with(FILTER_TYPES.APURAHA, () => setFilters({ apuraha: !item.checked }))
       .run();
+*/
 
   return (
     <SuodatinAccordion elevation={elevation} defaultExpanded={expanded} square>
@@ -146,39 +153,36 @@ export const MaksullisuusSuodatin = ({
           <Grid item>
             <List style={{ width: '100%' }}>
               <FilterCheckbox
-                key={FILTER_TYPES.MAKSUTON}
-                value={getBooleanRajain(FILTER_TYPES.MAKSUTON)}
+                value={checkboxRajain(rajainValues, 'maksuton')}
                 handleCheck={handleCheck}
-                isCountVisible={true}
+                isCountVisible={isCountVisible}
               />
               <FilterCheckbox
-                key={FILTER_TYPES.MAKSULLINEN}
-                value={getBooleanRajain(FILTER_TYPES.MAKSULLINEN)}
+                value={checkboxRajain(rajainValues, 'maksullinen')}
                 handleCheck={handleCheck}
-                isCountVisible={true}
+                isCountVisible={isCountVisible}
               />
               <SummaSlider
                 value={getNumberRangeRajain(FILTER_TYPES.MAKSUNMAARA)}
                 handleRangeChange={setMaksuRange}
-                disabled={!getBooleanRajain(FILTER_TYPES.MAKSULLINEN).checked}
+                disabled={!checkboxRajain(rajainValues, 'maksullinen').checked}
               />
               <FilterCheckbox
-                key={FILTER_TYPES.LUKUVUOSIMAKSU}
-                value={getBooleanRajain(FILTER_TYPES.LUKUVUOSIMAKSU)}
+                value={checkboxRajain(rajainValues, 'lukuvuosimaksu')}
                 handleCheck={handleCheck}
-                isCountVisible={true}
+                isCountVisible={isCountVisible}
               />
               <SummaSlider
                 value={getNumberRangeRajain(FILTER_TYPES.LUKUVUOSIMAKSUNMAARA)}
                 handleRangeChange={setLukuvuosiMaksuRange}
-                disabled={!getBooleanRajain(FILTER_TYPES.LUKUVUOSIMAKSU).checked}
+                disabled={!checkboxRajain(rajainValues, 'lukuvuosimaksu').checked}
               />
               <FilterCheckbox
                 key={FILTER_TYPES.APURAHA}
-                value={getBooleanRajain(FILTER_TYPES.APURAHA)}
+                value={checkboxRajain(rajainValues, 'apuraha')}
                 handleCheck={handleCheck}
-                isCountVisible={true}
-                disabled={!getBooleanRajain(FILTER_TYPES.LUKUVUOSIMAKSU).checked}
+                isCountVisible={false}
+                disabled={!checkboxRajain(rajainValues, 'lukuvuosimaksu').checked}
               />
             </List>
           </Grid>

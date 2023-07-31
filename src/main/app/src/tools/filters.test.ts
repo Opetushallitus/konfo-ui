@@ -2,6 +2,7 @@ import produce from 'immer';
 import { set, flow } from 'lodash';
 
 import { getStateChangesForCheckboxRajaimet } from './filters';
+import { CheckboxRajainItem } from '../types/SuodatinTypes';
 
 const fpSet = (x: Record<string, any>, path: string, value: any) =>
   produce(x, (draft) => {
@@ -24,7 +25,7 @@ const baseValues = [
       { id: 'c2.2', rajainId: 'c', checked: false, count: 0 },
     ],
   },
-];
+] as Array<CheckboxRajainItem>;
 
 describe('hakutulosSuodattimet utils', () => {
   test.each([
@@ -58,6 +59,10 @@ describe('hakutulosSuodattimet utils', () => {
       { a: ['a2.2', 'a2.1', 'a2'] },
     ],
   ])('getStateChangesForCheckboxRajaimet', (values, item, expected) => {
-    expect(getStateChangesForCheckboxRajaimet(values)(item)).toEqual(expected);
+    expect(
+      getStateChangesForCheckboxRajaimet(values as Array<CheckboxRajainItem>)(
+        item as CheckboxRajainItem
+      )
+    ).toEqual(expected);
   });
 });

@@ -48,7 +48,9 @@ export const HakupalkkiFilters = () => {
       <Suodatin id="koulutustyyppi" header={t('haku.koulutustyyppi')}>
         <KoulutustyyppiSuodatin
           rajainValues={useFilterProps(FILTER_TYPES.KOULUTUSTYYPPI)}
-          muuRajainValues={useFilterProps(FILTER_TYPES.KOULUTUSTYYPPI_MUU)}
+          muuRajainValues={
+            useFilterProps(FILTER_TYPES.KOULUTUSTYYPPI_MUU) as Array<CheckboxRajainItem>
+          }
           setFilters={setFilters}
           expanded={true}
           summaryHidden={true}
@@ -75,8 +77,12 @@ export const HakupalkkiFilters = () => {
       <Divider orientation="vertical" flexItem />
       <Suodatin id="sijainti" header={t('haku.sijainti')}>
         <SijaintiSuodatin
-          kuntaRajainValues={useFilterProps(FILTER_TYPES.KUNTA)}
-          maakuntaRajainValues={useFilterProps(FILTER_TYPES.MAAKUNTA)}
+          kuntaRajainValues={
+            useFilterProps(FILTER_TYPES.KUNTA) as Array<CheckboxRajainItem>
+          }
+          maakuntaRajainValues={
+            useFilterProps(FILTER_TYPES.MAAKUNTA) as Array<CheckboxRajainItem>
+          }
           setFilters={setFilters}
           expanded={true}
           summaryHidden={true}
@@ -167,11 +173,11 @@ export const HakupalkkiFilters = () => {
       </Suodatin>
       <Divider orientation="vertical" flexItem />
       <Suodatin id="maksullisuus" header={t('maksullisuus')}>
-          <MaksullisuusSuodatin
-            setFilters={setFilters}
-            expanded={true}
-            summaryHidden={true}
-          />
+        <MaksullisuusSuodatin
+          setFilters={setFilters}
+          expanded={true}
+          summaryHidden={true}
+        />
       </Suodatin>
     </StyledBox>
   );

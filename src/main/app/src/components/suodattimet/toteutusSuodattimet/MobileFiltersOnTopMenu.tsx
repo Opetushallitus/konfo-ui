@@ -160,7 +160,7 @@ export const MobileFiltersOnTopMenu = ({
         <Divider />
         <AlkamiskausiSuodatin
           expanded={false}
-          values={values.alkamiskausi}
+          rajainValues={values.alkamiskausi}
           setFilters={setFilters}
         />
         <Divider />

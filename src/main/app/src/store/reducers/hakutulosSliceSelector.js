@@ -1,5 +1,5 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { pick, some, size as _size, sortBy, concat } from 'lodash';
+import { pick, some, size as _size, sortBy, concat, keys, includes } from 'lodash';
 import qs from 'query-string';
 
 import { FILTER_TYPES_ARR } from '#/src/constants';
@@ -36,20 +36,16 @@ const getHakukaynnissa = (state) => state.hakutulos.hakukaynnissa;
 const getHakutapa = (state) => state.hakutulos.hakutapa;
 const getYhteishaku = (state) => state.hakutulos.yhteishaku;
 const getPohjakoulutusvaatimus = (state) => state.hakutulos.pohjakoulutusvaatimus;
+
 const getJotpa = (state) => state.hakutulos.jotpa;
-
 const getTyovoimakoulutus = (state) => state.hakutulos.tyovoimakoulutus;
-
 const getTaydennyskoulutus = (state) => state.hakutulos.taydennyskoulutus;
 
 const getAlkamiskausi = (state) => state.hakutulos.alkamiskausi;
-const getMaksuton = (state) => state.hakutulos.maksuton;
-const getMaksullinen = (state) => state.hakutulos.maksullinen;
-const getMaksunmaaraMin = (state) => state.hakutulos.maksunmaara_min;
-const getMaksunmaaraMax = (state) => state.hakutulos.maksunmaara_max;
-const getLukuvuosimaksu = (state) => state.hakutulos.lukuvuosimaksu;
-const getLukuvuosimaksunmaaraMin = (state) => state.hakutulos.lukuvuosimaksunmaara_min;
-const getLukuvuosimaksunmaaraMax = (state) => state.hakutulos.lukuvuosimaksunmaara_max;
+
+const getMaksullisuustyyppi = (state) => state.hakutulos.maksullisuustyyppi;
+const getMaksunmaara = (state) => state.hakutulos.maksunmaara;
+const getLukuvuosimaksunmaara = (state) => state.hakutulos.lukuvuosimaksunmaara;
 const getApuraha = (state) => state.hakutulos.apuraha;
 
 const getHakutulos = (state) => state.hakutulos;
@@ -101,13 +97,9 @@ export const getIsAnyFilterSelected = createSelector(
     getTaydennyskoulutus,
     getKoulutuksenKestoKuukausina,
     getAlkamiskausi,
-    getMaksuton,
-    getMaksullinen,
-    getMaksunmaaraMin,
-    getMaksunmaaraMax,
-    getLukuvuosimaksu,
-    getLukuvuosimaksunmaaraMin,
-    getLukuvuosimaksunmaaraMax,
+    getMaksullisuustyyppi,
+    getMaksunmaara,
+    getLukuvuosimaksunmaara,
     getApuraha,
   ],
   (
@@ -129,13 +121,9 @@ export const getIsAnyFilterSelected = createSelector(
     taydennyskoulutus,
     koulutuksenkestokuukausina,
     alkamiskausi,
-    maksuton,
-    maksullinen,
-    maksunmaara_min,
-    maksunmaara_max,
-    lukuvuosimaksu,
-    lukuvuosimaksunmaara_min,
-    lukuvuosimaksunmaara_max,
+    maksullisuustyyppi,
+    maksunmaara,
+    lukuvuosimaksunmaara,
     apuraha
   ) => {
     return (
@@ -143,13 +131,6 @@ export const getIsAnyFilterSelected = createSelector(
       jotpa ||
       tyovoimakoulutus ||
       taydennyskoulutus ||
-      maksuton ||
-      maksullinen ||
-      maksunmaara_min > -1 ||
-      maksunmaara_max > -1 ||
-      lukuvuosimaksu ||
-      lukuvuosimaksunmaara_min > -1 ||
-      lukuvuosimaksunmaara_max > -1 ||
       apuraha ||
       some(
         [
@@ -165,10 +146,14 @@ export const getIsAnyFilterSelected = createSelector(
           hakutapa,
           yhteishaku,
           pohjakoulutusvaatimus,
-          koulutuksenkestokuukausina,
           alkamiskausi,
+          maksullisuustyyppi,
         ],
         (filterArr) => _size(filterArr) > 0
+      ) ||
+      some(
+        [koulutuksenkestokuukausina, maksunmaara, lukuvuosimaksunmaara],
+        (obj) => _size(keys(obj)) > 0
       )
     );
   }
@@ -201,13 +186,9 @@ export const getAPIRequestParams = createSelector(
     getTaydennyskoulutus,
     getKoulutuksenKestoKuukausina,
     getAlkamiskausi,
-    getMaksuton,
-    getMaksullinen,
-    getMaksunmaaraMin,
-    getMaksunmaaraMax,
-    getLukuvuosimaksu,
-    getLukuvuosimaksunmaaraMin,
-    getLukuvuosimaksunmaaraMax,
+    getMaksullisuustyyppi,
+    getMaksunmaara,
+    getLukuvuosimaksunmaara,
     getApuraha,
   ],
   (
@@ -233,13 +214,9 @@ export const getAPIRequestParams = createSelector(
     taydennyskoulutus,
     koulutuksenkestokuukausina,
     alkamiskausi,
-    maksuton,
-    maksullinen,
-    maksunmaara_min,
-    maksunmaara_max,
-    lukuvuosimaksu,
-    lukuvuosimaksunmaara_min,
-    lukuvuosimaksunmaara_max,
+    maksullisuustyyppi,
+    maksunmaara,
+    lukuvuosimaksunmaara,
     apuraha
   ) => ({
     keyword,
@@ -258,18 +235,14 @@ export const getAPIRequestParams = createSelector(
     jotpa,
     tyovoimakoulutus,
     taydennyskoulutus,
-    maksuton,
-    maksullinen,
-    maksunmaara_min,
-    maksunmaara_max,
-    lukuvuosimaksu,
-    lukuvuosimaksunmaara_min,
-    lukuvuosimaksunmaara_max,
+    ...koulutuksenkestokuukausina,
+    ...maksunmaara,
+    ...lukuvuosimaksunmaara,
     apuraha,
     yhteishaku: getCheckedFiltersIdsStr(yhteishaku),
     pohjakoulutusvaatimus: getCheckedFiltersIdsStr(pohjakoulutusvaatimus),
-    koulutuksenkestokuukausina: getCheckedFiltersIdsStr(koulutuksenkestokuukausina),
     alkamiskausi: getCheckedFiltersIdsStr(alkamiskausi),
+    maksullisuustyyppi: getCheckedFiltersIdsStr(maksullisuustyyppi),
   })
 );
 
@@ -293,13 +266,9 @@ export const getAutocompleteRequestParams = createSelector(
     getTaydennyskoulutus,
     getKoulutuksenKestoKuukausina,
     getAlkamiskausi,
-    getMaksuton,
-    getMaksullinen,
-    getMaksunmaaraMin,
-    getMaksunmaaraMax,
-    getLukuvuosimaksu,
-    getLukuvuosimaksunmaaraMin,
-    getLukuvuosimaksunmaaraMax,
+    getMaksullisuustyyppi,
+    getMaksunmaara,
+    getLukuvuosimaksunmaara,
     getApuraha,
   ],
   (
@@ -321,13 +290,9 @@ export const getAutocompleteRequestParams = createSelector(
     taydennyskoulutus,
     koulutuksenkestokuukausina,
     alkamiskausi,
-    maksuton,
-    maksullinen,
-    maksunmaara_min,
-    maksunmaara_max,
-    lukuvuosimaksu,
-    lukuvuosimaksunmaara_min,
-    lukuvuosimaksunmaara_max,
+    maksullisuustyyppi,
+    maksunmaara,
+    lukuvuosimaksunmaara,
     apuraha
   ) => ({
     opetusaika: getCheckedFiltersIdsStr(opetusaika),
@@ -342,24 +307,32 @@ export const getAutocompleteRequestParams = createSelector(
     jotpa,
     tyovoimakoulutus,
     taydennyskoulutus,
-    maksuton,
-    maksullinen,
-    maksunmaara_min,
-    maksunmaara_max,
-    lukuvuosimaksu,
-    lukuvuosimaksunmaara_min,
-    lukuvuosimaksunmaara_max,
+    ...koulutuksenkestokuukausina,
+    ...maksunmaara,
+    ...lukuvuosimaksunmaara,
     apuraha,
     yhteishaku: getCheckedFiltersIdsStr(yhteishaku),
     pohjakoulutusvaatimus: getCheckedFiltersIdsStr(pohjakoulutusvaatimus),
-    koulutuksenkestokuukausina: getCheckedFiltersIdsStr(koulutuksenkestokuukausina),
     alkamiskausi: getCheckedFiltersIdsStr(alkamiskausi),
+    maksullisuustyyppi: getCheckedFiltersIdsStr(maksullisuustyyppi),
   })
 );
 
 export const getHakuParams = createSelector([getAPIRequestParams], (apiRequestParams) => {
+  const minMaxParams = keys(apiRequestParams).filter(
+    (param) =>
+      (param.endsWith('_min') || param.endsWith('_max')) &&
+      includes(FILTER_TYPES_ARR, param.split('_')[0])
+  );
   const hakuParams = cleanRequestParams(
-    pick(apiRequestParams, ['order', 'sort', 'size', 'tab', ...FILTER_TYPES_ARR])
+    pick(apiRequestParams, [
+      'order',
+      'sort',
+      'size',
+      'tab',
+      ...FILTER_TYPES_ARR,
+      ...minMaxParams,
+    ])
   );
 
   const hakuParamsStr = qs.stringify(hakuParams, { arrayFormat: 'comma' });
@@ -398,13 +371,9 @@ export const getInitialCheckedToteutusFilters = createSelector(
       'osaamisala',
       'koulutuksenkestokuukausina',
       'alkamiskausi',
-      'maksuton',
-      'maksullinen',
-      'maksunmaara_min',
-      'maksunmaara_max',
-      'lukuvuosimaksu',
-      'lukuvuosimaksunmaara_min',
-      'lukuvuosimaksunmaara_max',
+      'maksullisuustyyppi',
+      'maksunmaara',
+      'lukuvuosimaksunmaara',
       'apuraha',
     ])
 );

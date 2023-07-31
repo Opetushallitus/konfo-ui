@@ -173,17 +173,10 @@ export const MobileFiltersOnTopMenu = ({
           setFilters={setFilters}
         />
         <Divider />
-        <KoulutuksenKestoSuodatin
-          expanded={false}
-          displaySelected
-          values={useFilterProps(FILTER_TYPES.KOULUTUKSENKESTOKUUKAUSINA)}
-          setFilters={setFilters}
-        />
-        <Divider />
         <AlkamiskausiSuodatin
           expanded={false}
           displaySelected
-          values={useFilterProps(FILTER_TYPES.ALKAMISKAUSI)}
+          rajainValues={useFilterProps(FILTER_TYPES.ALKAMISKAUSI)}
           setFilters={setFilters}
         />
         <Divider />
