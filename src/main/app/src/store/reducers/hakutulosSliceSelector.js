@@ -151,9 +151,8 @@ export const getIsAnyFilterSelected = createSelector(
         ],
         (filterArr) => _size(filterArr) > 0
       ) ||
-      some(
-        [koulutuksenkestokuukausina, maksunmaara, lukuvuosimaksunmaara],
-        (obj) => _size(keys(obj)) > 0
+      some([koulutuksenkestokuukausina, maksunmaara, lukuvuosimaksunmaara], (obj) =>
+        some(Object.values(obj), (val) => val > 0)
       )
     );
   }

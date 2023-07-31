@@ -13,15 +13,23 @@ import { SuodatinMobileChip } from './CustomizedMuiComponents';
 const MAX_CHARS_BEFORE_CHIP_TO_NUMBER = 24;
 
 type Props = {
-  values: Array<RajainUIItem>;
   filterName: ReturnType<TFunction>;
+  values?: Array<RajainUIItem>;
+  contentString?: string;
+  numberOfItems?: number;
   displaySelected?: boolean;
 };
 
 const stringTooLongForChip = (name: string) =>
   !inRange(size(name), 0, MAX_CHARS_BEFORE_CHIP_TO_NUMBER);
 
-export const SummaryContent = ({ values, filterName, displaySelected }: Props) => {
+export const SummaryContent = ({
+  filterName,
+  values,
+  contentString,
+  numberOfItems,
+  displaySelected,
+}: Props) => {
   const { t } = useTranslation();
   const selectedValues = useMemo(
     () =>
@@ -30,10 +38,13 @@ export const SummaryContent = ({ values, filterName, displaySelected }: Props) =
       ),
     [values]
   );
-  const selectedFiltersStr = selectedValues
-    .map((v) => localize(v) || t(`haku.${v.id}`)) // Kaikille suodattimille ei tule backendista käännöksiä
-    .join(', ');
+  const selectedFiltersStr =
+    contentString ||
+    selectedValues
+      .map((v) => localize(v) || t(`haku.${v.id}`)) // Kaikille suodattimille ei tule backendista käännöksiä
+      .join(', ');
 
+  const chipLabel = numberOfItems || selectedValues.length;
   return (
     <Grid container justifyContent="space-between" alignItems="center" wrap="nowrap">
       <Grid item style={{ paddingRight: '8px' }}>
@@ -42,7 +53,7 @@ export const SummaryContent = ({ values, filterName, displaySelected }: Props) =
       {displaySelected && (
         <Grid item>
           {stringTooLongForChip(selectedFiltersStr) ? (
-            <SuodatinMobileChip label={selectedValues.length} />
+            <SuodatinMobileChip label={chipLabel} />
           ) : (
             selectedFiltersStr
           )}

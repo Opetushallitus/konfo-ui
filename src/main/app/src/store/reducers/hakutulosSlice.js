@@ -7,9 +7,12 @@ import {
   intersection,
   mapValues,
   pick,
+  omit,
   includes,
   join,
   sortBy,
+  groupBy,
+  reduce,
 } from 'lodash';
 
 import {
@@ -41,10 +44,19 @@ const INITIAL_FILTERS = {
   lukiolinjaterityinenkoulutustehtava: [],
   osaamisala: [],
   opetusaika: [],
-  koulutuksenkestokuukausina: {},
+  koulutuksenkestokuukausina: {
+    koulutuksenkestokuukausina_min: 0,
+    koulutuksenkestokuukausina_max: 0,
+  },
   maksullisuustyyppi: [],
-  maksunmaara: {},
-  lukuvuosimaksunmaara_min: {},
+  maksunmaara: {
+    maksunmaara_min: 0,
+    maksunmaara_max: 0,
+  },
+  lukuvuosimaksunmaara: {
+    lukuvuosimaksunmaara_min: 0,
+    lukuvuosimaksunmaara_max: 0,
+  },
   apuraha: false,
   alkamiskausi: [],
 };
@@ -118,7 +130,8 @@ export const hakutulosSlice = createSlice({
       state.selectedTab = params?.tab ?? 'koulutus';
 
       if (!isMatch(apiRequestParams, cleanedParams)) {
-        forEach(cleanedParams, (value, key) => {
+        const minmaxParamsGrouped = groupMinMaxParams(cleanedParams);
+        forEach(omit(cleanedParams, minmaxParams(cleanedParams)), (value, key) => {
           const valueList = split(value, ',');
           switch (key) {
             case 'keyword':
@@ -151,6 +164,9 @@ export const hakutulosSlice = createSlice({
               state[key] = valueList;
               break;
           }
+        });
+        forEach(minmaxParamsGrouped, (value, key) => {
+          state[key] = value;
         });
       }
     },
@@ -188,3 +204,19 @@ const getCleanUrlSearch = (search, apiRequestParams) =>
   );
 
 const setBooleanValueToState = (state, key, value) => (state[key] = value === 'true');
+
+const minmaxParams = (allParams) =>
+  Object.keys(allParams).filter((k) => k.endsWith('_min') || k.endsWith('_max'));
+const groupMinMaxParams = (params) => {
+  const groupedParamNames = groupBy(minmaxParams(params), (param) => param.split('_')[0]);
+  return mapValues(groupedParamNames, (val, _key) =>
+    reduce(
+      val,
+      (obj, param) => {
+        obj[param] = params[param];
+        return obj;
+      },
+      {}
+    )
+  );
+};

@@ -74,7 +74,17 @@ export const SuodatinValinnat = ({
   const { flat, withAlakoodit } = allSelectedFilters;
 
   const getHandleDelete = (item: RajainBase) => () => {
-    const changes = getFilterStateChangesForDelete(withAlakoodit)(item);
+    const linkedRajaimet = item.linkedIds
+      ? withAlakoodit.filter((v: any) => item.linkedIds?.includes(v.id))
+      : [];
+    let changes = getFilterStateChangesForDelete(withAlakoodit)(item);
+    linkedRajaimet.forEach(
+      (rajain: any) =>
+        (changes = Object.assign(
+          changes,
+          getFilterStateChangesForDelete(withAlakoodit)(rajain)
+        ))
+    );
     setFilters(changes);
   };
 

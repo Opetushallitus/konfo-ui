@@ -174,6 +174,7 @@ export const HakupalkkiFilters = () => {
       <Divider orientation="vertical" flexItem />
       <Suodatin id="maksullisuus" header={t('maksullisuus')}>
         <MaksullisuusSuodatin
+          rajainValues={useFilterProps(FILTER_TYPES.MAKSULLISUUS)}
           setFilters={setFilters}
           expanded={true}
           summaryHidden={true}

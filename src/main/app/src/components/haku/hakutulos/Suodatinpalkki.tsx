@@ -126,7 +126,12 @@ export const Suodatinpalkki = () => {
         rajainValues={useFilterProps(FILTER_TYPES.ALKAMISKAUSI)}
         setFilters={setFilters}
       />
-      <MaksullisuusSuodatin expanded elevation={2} setFilters={setFilters} />
+      <MaksullisuusSuodatin
+        expanded
+        elevation={2}
+        rajainValues={useFilterProps(FILTER_TYPES.MAKSULLISUUS)}
+        setFilters={setFilters}
+      />
     </StyledGrid>
   );
 };

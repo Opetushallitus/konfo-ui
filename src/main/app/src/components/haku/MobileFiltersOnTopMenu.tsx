@@ -18,6 +18,7 @@ import { AlkamiskausiSuodatin } from '../suodattimet/common/AlkamiskausiSuodatin
 import { HakuKaynnissaSuodatin } from '../suodattimet/common/HakuKaynnissaSuodatin';
 import { HakutapaSuodatin } from '../suodattimet/common/HakutapaSuodatin';
 import { KoulutuksenKestoSuodatin } from '../suodattimet/common/KoulutuksenKestoSuodatin';
+import { MaksullisuusSuodatin } from '../suodattimet/common/MaksullisuusSuodatin';
 import { OpetusaikaSuodatin } from '../suodattimet/common/OpetusaikaSuodatin';
 import { OpetuskieliSuodatin } from '../suodattimet/common/OpetusKieliSuodatin';
 import { OpetustapaSuodatin } from '../suodattimet/common/OpetustapaSuodatin';
@@ -166,6 +167,7 @@ export const MobileFiltersOnTopMenu = ({
           rajainValues={useFilterProps(FILTER_TYPES.OPETUSTAPA)}
           setFilters={setFilters}
         />
+        <Divider />
         <KoulutuksenKestoSuodatin
           expanded={false}
           displaySelected
@@ -177,6 +179,13 @@ export const MobileFiltersOnTopMenu = ({
           expanded={false}
           displaySelected
           rajainValues={useFilterProps(FILTER_TYPES.ALKAMISKAUSI)}
+          setFilters={setFilters}
+        />
+        <Divider />
+        <MaksullisuusSuodatin
+          expanded={false}
+          displaySelected
+          rajainValues={useFilterProps(FILTER_TYPES.MAKSULLISUUS)}
           setFilters={setFilters}
         />
         <Divider />

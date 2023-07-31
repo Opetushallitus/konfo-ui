@@ -1,7 +1,20 @@
 import { useCallback, useMemo, useState } from 'react';
 
 import { debounce } from '@mui/material';
-import { flow, pickBy, map, uniqBy, flatten, size, isEqual, isObject } from 'lodash';
+import {
+  flow,
+  pickBy,
+  map,
+  uniqBy,
+  flatten,
+  size,
+  isEqual,
+  isObject,
+  some,
+  keys,
+  omit,
+  forEach,
+} from 'lodash';
 import { useQuery } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -51,8 +64,13 @@ import {
   createHakuUrl,
 } from '#/src/store/reducers/hakutulosSliceSelector';
 // eslint-disable-next-line import/order
-import { isRajainActive, getRajainValueInUIFormat } from '#/src/tools/filters';
+import {
+  isRajainActive,
+  getRajainValueInUIFormat,
+  filterType,
+} from '#/src/tools/filters';
 import { ReduxTodo, ValueOf } from '#/src/types/common';
+import { RajainType } from '#/src/types/SuodatinTypes';
 
 type Pagination = {
   size?: number;
@@ -287,29 +305,40 @@ export const useFilterProps = (id: ValueOf<typeof FILTER_TYPES>) => {
 };
 
 export const useSelectedFilters = (availableFilters: any, checkedFilters: any) => {
-  const selectedFiltersWithAlakoodit = useMemo(
-    () =>
-      flow(
-        (vals) =>
-          pickBy(vals, (v) =>
-            Array.isArray(v)
-              ? v.length > 0
-              : isObject(v)
-              ? Object.keys(v).length > 0
-              : v === true
-          ),
-        Object.keys,
-        (ks) =>
-          map(ks, (filterId) =>
-            Object.values(
-              getRajainValueInUIFormat(availableFilters, checkedFilters, filterId)
-            )
-          ),
-        flatten,
-        (flatted) => uniqBy(flatted, 'id')
-      )(checkedFilters),
-    [availableFilters, checkedFilters]
-  );
+  const selectedFiltersWithAlakoodit = useMemo(() => {
+    const compositeFilters = keys(availableFilters).filter(
+      (f) => filterType(f) === RajainType.COMPOSITE
+    );
+    const compositeFlattened = Object.assign({});
+    forEach(compositeFilters, (v) => {
+      for (const subKey in availableFilters[v]) {
+        compositeFlattened[subKey] = availableFilters[v][subKey];
+      }
+    });
+    const withCompositeFlattened = {
+      ...omit(availableFilters, compositeFilters),
+      ...compositeFlattened,
+    };
+    return flow(
+      (vals) =>
+        pickBy(vals, (v) =>
+          Array.isArray(v)
+            ? v.length > 0
+            : isObject(v)
+            ? some(Object.values(v), (val) => val > 0)
+            : v === true
+        ),
+      Object.keys,
+      (ks) =>
+        map(ks, (filterId) =>
+          Object.values(
+            getRajainValueInUIFormat(withCompositeFlattened, checkedFilters, filterId)
+          )
+        ),
+      flatten,
+      (flatted) => uniqBy(flatted, 'id')
+    )(checkedFilters);
+  }, [availableFilters, checkedFilters]);
 
   const selectedFiltersFlatList = useMemo(
     () =>

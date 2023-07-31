@@ -37,6 +37,7 @@ export interface RajainBase {
   count: number;
   hidden?: boolean;
   nimi?: Translateable;
+  linkedIds?: Array<string>;
 }
 
 export interface CheckboxRajainBase extends RajainBase {
@@ -73,8 +74,13 @@ export const NUMBER_RANGE_RAJAIN_IDS: Array<string> = [
 
 export const COMPOSITE_RAJAIN_IDS: Array<string> = [FILTER_TYPES.MAKSULLISUUS];
 
-export const REPLACED_RAJAIN_IDS = {
+export const REPLACED_RAJAIN_IDS: Record<string, string> = {
   [FILTER_TYPES.YHTEISHAKU]: FILTER_TYPES.HAKUTAPA,
+};
+
+export const LINKED_IDS: Record<string, Array<string>> = {
+  maksullinen: [FILTER_TYPES.MAKSUNMAARA],
+  lukuvuosimaksu: [FILTER_TYPES.LUKUVUOSIMAKSUNMAARA, FILTER_TYPES.APURAHA],
 };
 
 export interface RajainUIBaseItem {

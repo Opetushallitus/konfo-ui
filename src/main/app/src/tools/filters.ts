@@ -1,4 +1,4 @@
-import { sortBy, toPairs, get, some, ceil } from 'lodash';
+import { sortBy, toPairs, some, ceil } from 'lodash';
 
 import { FILTER_TYPES, YHTEISHAKU_KOODI_URI } from '#/src/constants';
 import {
@@ -6,6 +6,7 @@ import {
   NUMBER_RANGE_RAJAIN_IDS,
   COMPOSITE_RAJAIN_IDS,
   REPLACED_RAJAIN_IDS,
+  LINKED_IDS,
   BooleanRajainItem,
   CheckboxRajainItem,
   RajainType,
@@ -20,7 +21,9 @@ export const sortValues = <T>(filterObj: Record<string, T>) =>
   );
 
 export const isRajainActive = (rajain: any) =>
-  (rajain.checked !== undefined && rajain.checked === true) || rajain.min !== undefined;
+  (rajain.checked !== undefined && rajain.checked === true) ||
+  rajain.min !== undefined ||
+  rajain.max !== undefined;
 
 export const filterType = (filterId: string) => {
   if (BOOLEAN_RAJAIN_IDS.includes(filterId)) {
@@ -34,9 +37,6 @@ export const filterType = (filterId: string) => {
   }
   return RajainType.CHECKBOX;
 };
-
-export const replaceBackendOriginatedRajainIdAsNeeded = (filterId: string) =>
-  get(REPLACED_RAJAIN_IDS, filterId, filterId);
 
 const getRajainAlakoodit = (
   alakoodit: Record<string, any>,
@@ -63,7 +63,7 @@ const numberRangeRajain = (
     upperLimit,
   };
 
-  const min = minmax[rajainId + '_min'];
+  const min = minmax[rajainId + '_min'] || 0;
   const max = minmax[rajainId + '_max'];
   return min !== undefined && max !== undefined
     ? {
@@ -79,7 +79,9 @@ export const getRajainValueInUIFormat = (
   allRajainValuesSetInUI: Record<string, any>,
   originalRajainId: string
 ): Array<RajainItem> => {
-  const rajainId = replaceBackendOriginatedRajainIdAsNeeded(originalRajainId);
+  const rajainId = REPLACED_RAJAIN_IDS[originalRajainId]
+    ? REPLACED_RAJAIN_IDS[originalRajainId]
+    : originalRajainId;
 
   const rajainCount = rajainCountsFromBackend?.[rajainId];
   if (!rajainCount) {
@@ -136,7 +138,10 @@ export const getRajainValueInUIFormat = (
       }));
       break;
   }
-  return returnValues;
+  return returnValues.map((val) => {
+    val.linkedIds = LINKED_IDS[val.id];
+    return val;
+  });
 };
 
 const addIfNotExists = (
@@ -205,7 +210,9 @@ export const getFilterStateChangesForDelete =
       case RajainType.BOOLEAN:
         return { [item.rajainId]: !(item as BooleanRajainItem).checked };
       case RajainType.NUMBER_RANGE:
-        return { [item.rajainId]: {} };
+        return {
+          [item.rajainId]: { [`${item.rajainId}_min`]: 0, [`${item.rajainId}_max`]: 0 },
+        };
       default:
         return getStateChangesForCheckboxRajaimet(
           values.filter(
