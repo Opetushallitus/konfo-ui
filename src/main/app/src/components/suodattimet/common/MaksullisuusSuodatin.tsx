@@ -10,7 +10,7 @@ import { P, match } from 'ts-pattern';
 
 import { useConfig } from '#/src/config';
 import { FILTER_TYPES } from '#/src/constants';
-import { getStateChangesForCheckboxRajaimet } from '#/src/tools/filters';
+import { getStateChangesForCheckboxRajaimet, isChecked } from '#/src/tools/filters';
 import {
   SuodatinComponentProps,
   RajainItem,
@@ -76,11 +76,6 @@ const getNumberRangeRajain = (
     id: rajainId,
     count: 0,
   };
-
-const isChecked = (rajainItem: RajainItem) =>
-  match(rajainItem)
-    .with({ checked: true }, () => true)
-    .otherwise(() => false);
 
 type NumberRangeValues = {
   undefinedValue: Array<number>;

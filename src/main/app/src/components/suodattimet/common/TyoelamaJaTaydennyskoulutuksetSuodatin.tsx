@@ -5,12 +5,8 @@ import { match } from 'ts-pattern';
 
 import { Filter } from '#/src/components/common/Filter';
 import { FILTER_TYPES } from '#/src/constants';
+import { isChecked } from '#/src/tools/filters';
 import { RajainItem, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
-
-const isChecked = (rajainItem: RajainItem) =>
-  match(rajainItem)
-    .with({ checked: true }, () => true)
-    .otherwise(() => false);
 
 export const TyoelamaJaTaydennyskoulutuksetSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();

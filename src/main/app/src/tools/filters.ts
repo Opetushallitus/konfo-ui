@@ -163,7 +163,7 @@ const pickAlakoodit = (rajainItem: RajainItem) =>
     .with({ alakoodit: P.select(P.array(checkboxRajainPattern)) }, (koodit) => koodit)
     .otherwise(() => []);
 
-const isChecked = (rajainItem: RajainItem) =>
+export const isChecked = (rajainItem: RajainItem) =>
   match(rajainItem)
     .with({ checked: true }, () => true)
     .otherwise(() => false);
