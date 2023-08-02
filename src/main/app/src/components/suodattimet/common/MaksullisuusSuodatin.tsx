@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 
 import ExpandMore from '@mui/icons-material/ExpandMore';
+import { Box } from '@mui/material';
 import List from '@mui/material/List';
 import { isEqual } from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -155,7 +156,6 @@ const MaksullisuusRangeSlider = ({
     rajainName,
     rajainValues
   );
-
   const setMaksuRange = (maksuRange: Array<number>) =>
     setFilters(
       rangeRajainObject(
@@ -164,16 +164,19 @@ const MaksullisuusRangeSlider = ({
       )
     );
 
-  return (
-    <NumberRangeSlider
-      values={numberRangeValues}
-      min={undefinedValue[0]}
-      max={undefinedValue[1]}
-      marks={marks(undefinedValue[1])}
-      labelFormatter={labelText}
-      onRangeCommit={setMaksuRange}
-      disabled={undefinedValue?.[1] === 0}
-    />
+  // Näytetään slider vain, jos sille on tullut konfo-backendiltä jokin järkevä yläraja (oletus nolla)
+  // Nolla tarkoittaa ettei dataa ei ole saatu ladattua, tai rajaimen millekään arvolle ei ole olemassa yhtään tulosta.
+  return undefinedValue?.[1] === 0 ? null : (
+    <Box mr={2} ml={1}>
+      <NumberRangeSlider
+        values={numberRangeValues}
+        min={undefinedValue[0]}
+        max={undefinedValue[1]}
+        marks={marks(undefinedValue[1])}
+        labelFormatter={labelText}
+        onRangeCommit={setMaksuRange}
+      />
+    </Box>
   );
 };
 

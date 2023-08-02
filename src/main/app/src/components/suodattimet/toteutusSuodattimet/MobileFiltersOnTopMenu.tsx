@@ -19,6 +19,7 @@ import { LukiolinjatSuodatin } from './LukiolinjatSuodatin';
 import { MobileRajainDrawer } from '../../common/MobileRajainDrawer';
 import { AlkamiskausiSuodatin } from '../common/AlkamiskausiSuodatin';
 import { KoulutuksenKestoSuodatin } from '../common/KoulutuksenKestoSuodatin';
+import { MaksullisuusSuodatin } from '../common/MaksullisuusSuodatin';
 import { OpetusaikaSuodatin } from '../common/OpetusaikaSuodatin';
 
 type Props = {
@@ -161,6 +162,12 @@ export const MobileFiltersOnTopMenu = ({
         <AlkamiskausiSuodatin
           expanded={false}
           rajainValues={values.alkamiskausi}
+          setFilters={setFilters}
+        />
+        <Divider />
+        <MaksullisuusSuodatin
+          expanded={false}
+          rajainValues={values.maksullisuus}
           setFilters={setFilters}
         />
         <Divider />

@@ -348,27 +348,32 @@ export const createHakuUrl = (keyword, hakuParams, lng) =>
     arrayFormat: 'comma',
   })}`;
 
+export const TOTEUTUS_FILTER_NAMES = [
+  'opetusaika',
+  'opetuskieli',
+  'maakunta',
+  'kunta',
+  'opetustapa',
+  'hakukaynnissa',
+  'jotpa',
+  'tyovoimakoulutus',
+  'taydennyskoulutus',
+  'hakutapa',
+  'yhteishaku',
+  'pohjakoulutusvaatimus',
+  'valintatapa',
+  'lukiopainotukset',
+  'lukiolinjaterityinenkoulutustehtava',
+  'osaamisala',
+  'koulutuksenkestokuukausina',
+  'alkamiskausi',
+  'maksullisuus',
+  'maksullisuustyyppi',
+  'maksunmaara',
+  'lukuvuosimaksunmaara',
+];
+
 export const getInitialCheckedToteutusFilters = createSelector(
   [getFilters],
-  (checkedValues) =>
-    pick(checkedValues, [
-      'opetusaika',
-      'opetuskieli',
-      'maakunta',
-      'kunta',
-      'opetustapa',
-      'hakukaynnissa',
-      'jotpa',
-      'tyovoimakoulutus',
-      'taydennyskoulutus',
-      'hakutapa',
-      'yhteishaku',
-      'pohjakoulutusvaatimus',
-      'valintatapa',
-      'lukiopainotukset',
-      'lukiolinjaterityinenkoulutustehtava',
-      'osaamisala',
-      'koulutuksenkestokuukausina',
-      'alkamiskausi',
-    ])
+  (checkedValues) => pick(checkedValues, TOTEUTUS_FILTER_NAMES)
 );

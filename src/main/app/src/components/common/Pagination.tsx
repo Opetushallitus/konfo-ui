@@ -47,7 +47,7 @@ type PaginationType = { size: number; offset: number };
 
 type Props = {
   total: number;
-  pagination: PaginationType;
+  pagination?: PaginationType;
   setPagination: (p: PaginationType) => void;
   scrollTargetId?: string;
 };
@@ -58,7 +58,7 @@ export const Pagination = ({
   setPagination,
   scrollTargetId,
 }: Props) => {
-  const { size, offset } = pagination;
+  const { size = 0, offset = 0 } = pagination ?? {};
 
   const handleClick = useCallback(
     (_ev: unknown, newOffset: number) => {

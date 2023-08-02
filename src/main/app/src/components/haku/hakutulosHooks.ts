@@ -97,15 +97,14 @@ const useOppilaitosSearch = createSearchQueryHook(
   }
 );
 
-const useAutoCompleteQuery = (requestParams: any) => {
-  return useQuery(
+const useAutoCompleteQuery = (requestParams: any) =>
+  useQuery(
     ['autoCompleteSearch', requestParams],
     () => autoCompleteSearch(requestParams),
     {
       enabled: size(requestParams.searchPhrase) >= 3,
     }
   );
-};
 
 export const useAutoComplete = () => {
   const autoCompleteRequestParams = useSelector(getAutocompleteRequestParams);
@@ -133,8 +132,6 @@ export const useAutoComplete = () => {
     [setSearchPhraseDebounced, isFetching, data, status]
   );
 };
-
-export const useSearchOperations = () => {};
 
 const isOnPageWithHaku = (currentPage: string) => ['', 'haku'].includes(currentPage);
 

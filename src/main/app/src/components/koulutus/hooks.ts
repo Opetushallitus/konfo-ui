@@ -13,6 +13,7 @@ import {
 } from '#/src/api/konfoApi';
 import { KOULUTUS_TYYPPI } from '#/src/constants';
 import { usePreviousNonEmpty } from '#/src/hooks';
+import { RootState } from '#/src/store';
 import { usePreviousPage } from '#/src/store/reducers/appSlice';
 import { getInitialCheckedToteutusFilters } from '#/src/store/reducers/hakutulosSliceSelector';
 import {
@@ -138,8 +139,10 @@ export const useKoulutusJarjestajat = ({
 }: UseKoulutusJarjestajatProps) => {
   const dispatch = useDispatch();
 
-  const requestProps = useSelector(selectJarjestajatQuery(isTuleva));
-  const { pagination = {}, filters = {} } = requestProps;
+  const requestProps = useSelector((state: RootState) =>
+    selectJarjestajatQuery(state, isTuleva)
+  );
+  const { pagination, filters } = requestProps;
   const previousFilters = usePreviousNonEmpty(filters);
 
   // NOTE: Tämä haetaan vain kerran alkuarvoja varten + Haetaan järjestäjätulokset hakusivulta periytyneillä rajaimilla

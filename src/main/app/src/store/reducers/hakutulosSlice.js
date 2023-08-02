@@ -24,7 +24,7 @@ import { getLanguage } from '#/src/tools/localization';
 
 import { getAPIRequestParams, getHakuUrl } from './hakutulosSliceSelector';
 
-const INITIAL_FILTERS = {
+export const HAKU_INITIAL_FILTERS = {
   koulutustyyppi: [],
   'koulutustyyppi-muu': [],
   koulutusala: [],
@@ -74,7 +74,7 @@ export const initialState = {
 
   // Persistoidut suodatinvalinnat, listoja valituista koodiarvoista (+ kaksi boolean rajainta)
   keyword: '',
-  ...INITIAL_FILTERS,
+  ...HAKU_INITIAL_FILTERS,
 };
 
 export const hakutulosSlice = createSlice({
@@ -96,7 +96,7 @@ export const hakutulosSlice = createSlice({
       state.oppilaitosOffset = 0;
     },
     clearSelectedFilters: (state) => {
-      Object.assign(state, INITIAL_FILTERS);
+      Object.assign(state, HAKU_INITIAL_FILTERS);
       resetPagination(state);
     },
     setSize: (state, { payload }) => {
