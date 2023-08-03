@@ -257,33 +257,41 @@ const LukuvuosimaksuInputs = ({
   rajainValues = [],
   setFilters,
   isCountVisible,
-}: InputsSectionProps) => (
-  <>
-    <FilterCheckbox
-      value={getCheckboxRajain(rajainValues, 'lukuvuosimaksu')}
-      handleCheck={(item) => setFilters(maksullisuustyyppiChanges(rajainValues, item))}
-      isCountVisible={isCountVisible}
-    />
-    {isChecked(getCheckboxRajain(rajainValues, 'lukuvuosimaksu')) && (
-      <MaksullisuusRangeSlider
-        rajainName="lukuvuosimaksunmaara"
-        rajainValues={rajainValues}
-        setFilters={setFilters}
+}: InputsSectionProps) => {
+  const { t } = useTranslation();
+  return (
+    <>
+      <Box>
+        <FilterCheckbox
+          value={getCheckboxRajain(rajainValues, 'lukuvuosimaksu')}
+          handleCheck={(item) =>
+            setFilters(maksullisuustyyppiChanges(rajainValues, item))
+          }
+          isCountVisible={isCountVisible}
+          additionalInfo={t('haku.lukuvuosimaksu-tooltip')}
+        />
+      </Box>
+      {isChecked(getCheckboxRajain(rajainValues, 'lukuvuosimaksu')) && (
+        <MaksullisuusRangeSlider
+          rajainName="lukuvuosimaksunmaara"
+          rajainValues={rajainValues}
+          setFilters={setFilters}
+        />
+      )}
+      <FilterCheckbox
+        key={FILTER_TYPES.APURAHA}
+        value={getCheckboxRajain(rajainValues, 'apuraha')}
+        handleCheck={(item: RajainItem) =>
+          setFilters({
+            apuraha: !isChecked(item),
+          })
+        }
+        isCountVisible={false}
+        disabled={!isChecked(getCheckboxRajain(rajainValues, 'lukuvuosimaksu'))}
       />
-    )}
-    <FilterCheckbox
-      key={FILTER_TYPES.APURAHA}
-      value={getCheckboxRajain(rajainValues, 'apuraha')}
-      handleCheck={(item: RajainItem) =>
-        setFilters({
-          apuraha: !isChecked(item),
-        })
-      }
-      isCountVisible={false}
-      disabled={!isChecked(getCheckboxRajain(rajainValues, 'lukuvuosimaksu'))}
-    />
-  </>
-);
+    </>
+  );
+};
 
 export const MaksullisuusSuodatin = ({
   summaryHidden,

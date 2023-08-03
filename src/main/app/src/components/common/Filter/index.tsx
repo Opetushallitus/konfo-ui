@@ -37,6 +37,7 @@ import {
 import { isIndeterminate } from './isIndeterminate';
 import { SummaryContent } from './SummaryContent';
 import { KonfoCheckbox } from '../Checkbox';
+import { LabelTooltip } from '../LabelTooltip';
 
 const HIDE_NOT_EXPANDED_AMOUNT = 5;
 
@@ -135,6 +136,7 @@ type CheckboxProps = {
   indented?: boolean;
   expandButton?: JSX.Element;
   disabled?: boolean;
+  additionalInfo?: string;
 };
 
 export const FilterCheckbox = ({
@@ -144,6 +146,7 @@ export const FilterCheckbox = ({
   value,
   expandButton,
   disabled,
+  additionalInfo,
 }: CheckboxProps) => {
   const { t } = useTranslation();
   const { count, id, nimi, checked } = match(value)
@@ -188,6 +191,11 @@ export const FilterCheckbox = ({
             </Typography>
           }
         />
+        {additionalInfo && (
+          <Box paddingLeft={1}>
+            <LabelTooltip title={additionalInfo} />
+          </Box>
+        )}
         <Box paddingLeft={1}>{expandButton}</Box>
         {isCountVisible && (
           <Typography marginLeft={1} variant="body2">{`(${count})`}</Typography>

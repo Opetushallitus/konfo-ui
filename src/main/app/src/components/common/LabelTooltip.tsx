@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import InfoOutlined from '@mui/icons-material/InfoOutlined';
 import { Backdrop, IconButton, Tooltip } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
@@ -21,10 +22,19 @@ const Root = styled('div')(() => ({
     zIndex: 999,
   },
 
-  [`& .${classes.closeIcon}`]: { position: 'absolute', top: '5px', right: '5px' },
+  [`& .${classes.closeIcon}`]: {
+    position: 'absolute',
+    top: '5px',
+    right: '5px',
+    padding: 0,
+    minHeight: 0,
+    minWidth: 0,
+  },
 
   [`& .${classes.tooltip}`]: {
     backgroundColor: colors.white,
+    cursor: 'auto',
+    userSelect: 'all',
     color: colors.black,
     paddingLeft: '16px',
     paddingRight: '35px', // Bigger to make space for close button
@@ -42,24 +52,27 @@ type Props = {
 
 export const LabelTooltip = ({ title, sx = {} }: Props) => {
   const { t } = useTranslation();
-
   const [open, setOpen] = useState(false);
-  const handleClick = () => {
-    setOpen((isOpen) => !isOpen);
-  };
-  const handleClose = () => {
+  const handleClose = (e: React.SyntheticEvent<Element, Event> | Event) => {
+    e.stopPropagation();
     setOpen(false);
   };
 
   return (
     <Root>
-      <Backdrop className={classes.backDrop} open={open} onClick={handleClose} />
+      <Backdrop
+        className={classes.backDrop}
+        open={open}
+        onClick={handleClose}
+        sx={{ cursor: 'auto' }}
+      />
       <Tooltip
         sx={sx}
         open={open}
         onClose={handleClose}
         PopperProps={{
           disablePortal: true,
+          onClick: (e) => e.stopPropagation(),
         }}
         disableFocusListener
         disableHoverListener
@@ -75,7 +88,6 @@ export const LabelTooltip = ({ title, sx = {} }: Props) => {
             <IconButton
               aria-label={t('sulje')}
               className={classes.closeIcon}
-              style={{ padding: 0, minHeight: 0, minWidth: 0 }}
               onClick={handleClose}>
               <MaterialIcon icon="close" />
             </IconButton>
@@ -83,9 +95,13 @@ export const LabelTooltip = ({ title, sx = {} }: Props) => {
         }>
         <IconButton
           aria-label={t('nayta-lisatiedot')}
-          style={{ padding: 0, minHeight: 0, minWidth: 0 }}
-          onClick={handleClick}>
-          <MaterialIcon icon="info" />
+          sx={{ padding: 0, minHeight: 0, minWidth: 0 }}
+          onClick={(e) => {
+            e.stopPropagation();
+            setOpen((isOpen) => !isOpen);
+          }}
+          onFocus={(e) => e.stopPropagation()}>
+          <InfoOutlined />
         </IconButton>
       </Tooltip>
     </Root>

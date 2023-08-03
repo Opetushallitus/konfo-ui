@@ -296,7 +296,8 @@
     "lyhenne-vuosi": "v",
     "lyhenne-kuukausi": "kk",
     "muu-amm-tutkinto": "Muu ammatillinen",
-    "alkamiskausi": "Alkamiskausi"
+    "alkamiskausi": "Alkamiskausi",
+    "lukuvuosimaksu-tooltip": "Korkeakoulujen lukuvuosimaksut EU-ETA-alueen ulkopuolisille"
   },
   "navigaatio": {
     "edellinen": "Edellinen",
