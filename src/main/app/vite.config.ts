@@ -24,6 +24,7 @@ export default defineConfig(({ mode }) => {
     base: '/konfo',
     build: {
       outDir: 'build',
+      sourcemap: true,
       target: browserslistToEsbuild(),
       rollupOptions: {
         output: {
@@ -64,6 +65,9 @@ export default defineConfig(({ mode }) => {
               typescript: true,
               eslint: {
                 lintCommand: 'eslint "./src/**/*.{js,jsx,ts,tsx}"',
+              },
+              overlay: {
+                initialIsOpen: false,
               },
             }),
           ]
