@@ -1,9 +1,10 @@
 import { styled } from '@mui/material/styles';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
-import { HashLink as Link } from 'react-router-hash-link';
 
 import { colors } from '#/src/colors';
+
+import { SmartLink } from '../common/SmartLink';
 const PREFIX = 'TableOfContents';
 
 const classes = {
@@ -35,13 +36,12 @@ const HeadingLevelToComponent = ({
   const { t } = useTranslation();
   const value = children;
   return (
-    <Link
+    <SmartLink
       className={classes.link}
       aria-label={t('ankkurilinkki') + ' ' + value}
-      to={`#${id}`}
-      scroll={(el) => el.scrollIntoView({ behavior: 'smooth', block: 'start' })}>
+      href={`#${id}`}>
       {value}
-    </Link>
+    </SmartLink>
   );
 };
 

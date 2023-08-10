@@ -13,8 +13,8 @@ import { useTranslation } from 'react-i18next';
 
 import { colors, educationTypeColorCode } from '#/src/colors';
 import { AdditionalInfoWithIcon } from '#/src/components/common/AdditionalInfoWithIcon';
-import { LocalizedLink } from '#/src/components/common/LocalizedLink';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { SmartLink } from '#/src/components/common/SmartLink';
 import { KOULUTUS_TYYPPI } from '#/src/constants';
 import { sanitizedHTMLParser } from '#/src/tools/utils';
 
@@ -32,9 +32,9 @@ const classes = {
   heading: `${PREFIX}-heading`,
 };
 
-const StyledLocalizedLink = styled(LocalizedLink, {
+const StyledSmartLink = styled(SmartLink, {
   shouldForwardProp: (prop: string) => !['isSmall', 'wrapIconTexts'].includes(prop),
-})<StyledLocalizedLinkProps>(({ theme, isSmall, wrapIconTexts }) => ({
+})<StyledSmartLinkProps>(({ theme, isSmall, wrapIconTexts }) => ({
   display: 'flex',
   [`& .${classes.paperRoot}`]: {
     width: '100%',
@@ -106,7 +106,7 @@ type IconText = [
   ((props: SvgIconProps) => JSX.Element) | undefined,
 ];
 
-type StyledLocalizedLinkProps = {
+type StyledSmartLinkProps = {
   isSmall?: boolean;
   wrapIconTexts?: boolean;
 };
@@ -160,7 +160,7 @@ export const EntiteettiKortti = ({
   }
 
   return (
-    <StyledLocalizedLink href={to} wrapIconTexts={wrapIconTexts} isSmall={isSmall}>
+    <StyledSmartLink href={to} wrapIconTexts={wrapIconTexts} isSmall={isSmall}>
       <Paper
         data-testid={header}
         classes={{ root: classes.paperRoot }}
@@ -260,6 +260,6 @@ export const EntiteettiKortti = ({
           )}
         </Box>
       </Paper>
-    </StyledLocalizedLink>
+    </StyledSmartLink>
   );
 };

@@ -3,7 +3,7 @@ import { createStyled } from '@mui/system';
 import createBreakpoints from '@mui/system/createTheme/createBreakpoints';
 
 import { colors } from './colors';
-import { LocalizedLink } from './components/common/LocalizedLink';
+import { SmartLink } from './components/common/SmartLink';
 
 // Material UI theme customization
 // Learn more: https://mui.com/material-ui/customization/theming/
@@ -142,7 +142,7 @@ export const theme = createTheme({
     },
     MuiButtonBase: {
       defaultProps: {
-        LinkComponent: LocalizedLink,
+        LinkComponent: SmartLink,
       },
     },
     MuiFormLabel: {
@@ -208,7 +208,7 @@ export const theme = createTheme({
     },
     MuiLink: {
       defaultProps: {
-        component: LocalizedLink,
+        component: SmartLink,
       },
       styleOverrides: {
         root: {
