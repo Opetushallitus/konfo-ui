@@ -26,6 +26,7 @@ export default defineConfig(({ mode }) => {
     build: {
       outDir: 'build',
       target: browserslistToEsbuild(),
+      sourcemap: true,
       rollupOptions: {
         output: {
           manualChunks: (id) => {
