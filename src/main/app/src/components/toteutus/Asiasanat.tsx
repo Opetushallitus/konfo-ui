@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Box, Grid } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-import { LocalizedLink } from '#/src/components/common/LocalizedLink';
+import { SmartLink } from '#/src/components/common/SmartLink';
 import { TextButton } from '#/src/components/common/TextButton';
 import { TextWithBackground } from '#/src/components/common/TextWithBackground';
 
@@ -67,9 +67,9 @@ const AsiasanatExpander = ({
       <Grid alignItems="center" justifyContent="center" container spacing={1}>
         {visibleAsiasanat.map((asiasana: string) => (
           <Grid item key={asiasana}>
-            <LocalizedLink href={`/haku/${asiasana}`} target="_blank" rel="noopener">
+            <SmartLink href={`/haku/${asiasana}`} target="_blank" rel="noopener">
               <TextWithBackground>{asiasana}</TextWithBackground>
-            </LocalizedLink>
+            </SmartLink>
           </Grid>
         ))}
       </Grid>

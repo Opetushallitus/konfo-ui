@@ -6,7 +6,6 @@ import { some, isEmpty, uniq } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { HashLink } from 'react-router-hash-link';
 
 import { Accordion } from '#/src/components/common/Accordion';
 import { ContentWrapper } from '#/src/components/common/ContentWrapper';
@@ -227,14 +226,7 @@ export const ToteutusPage = () => {
                 ? t('toteutus.katso-hakeutumisen-ohjeet')
                 : t('toteutus.katso-ilmoittautumisen-ohjeet')
             }
-            link={
-              <HashLink
-                to="#haut"
-                aria-label="anchor"
-                smooth
-                style={{ textDecoration: 'none' }}
-              />
-            }
+            href="#haut"
             buttonText={
               hasAnyHakukohde
                 ? t('toteutus.nayta-hakukohteet')

@@ -5,6 +5,7 @@ import { styled } from '@mui/material/styles';
 
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { MuiFlatPagination } from '#/src/components/MuiFlatPagination';
+import { scrollToId } from '#/src/tools/utils';
 
 const PREFIX = 'Pagination';
 
@@ -61,9 +62,7 @@ export const Pagination = ({
 
   const handleClick = useCallback(
     (_ev: unknown, newOffset: number) => {
-      if (scrollTargetId) {
-        document.getElementById(scrollTargetId)?.scrollIntoView();
-      }
+      scrollToId(scrollTargetId, { behavior: 'instant' });
       setPagination({
         offset: newOffset,
         size,

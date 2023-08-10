@@ -6,8 +6,8 @@ import { useTranslation } from 'react-i18next';
 
 import { educationTypeColorCode } from '#/src/colors';
 import { OppilaitosKorttiLogo } from '#/src/components/common/KorttiLogo';
-import { LocalizedLink } from '#/src/components/common/LocalizedLink';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { SmartLink } from '#/src/components/common/SmartLink';
 
 const PREFIX = 'OppilaitosCard';
 
@@ -66,7 +66,7 @@ export const OppilaitosCard = ({
 
   return (
     <StyledGrid item xs={12} sm={6} md={4} tyyppi={tyyppi}>
-      <LocalizedLink href={`/oppilaitos/${oppilaitosOid}`}>
+      <SmartLink href={`/oppilaitos/${oppilaitosOid}`}>
         <Paper className={classes.paper}>
           <Grid
             container
@@ -102,7 +102,7 @@ export const OppilaitosCard = ({
             </Grid>
           </Grid>
         </Paper>
-      </LocalizedLink>
+      </SmartLink>
     </StyledGrid>
   );
 };

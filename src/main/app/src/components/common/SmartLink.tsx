@@ -17,7 +17,7 @@ const UnstyledRouterLink = styled(RouterLink)({
   cursor: 'pointer',
 });
 
-export const LocalizedLink = React.forwardRef<HTMLAnchorElement, Props>(
+export const SmartLink = React.forwardRef<HTMLAnchorElement, Props>(
   ({ href, ...rest }, ref) => {
     const { i18n } = useTranslation();
     const currentLng = i18n.language;

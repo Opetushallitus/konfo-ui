@@ -18,9 +18,9 @@ import { useNavigate } from 'react-router-dom';
 
 import koulutusPlaceholderImg from '#/src/assets/images/Opolkuhts.png';
 import { colors } from '#/src/colors';
-import { LocalizedLink } from '#/src/components/common/LocalizedLink';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { Murupolku } from '#/src/components/common/Murupolku';
+import { SmartLink } from '#/src/components/common/SmartLink';
 import { MuiFlatPagination } from '#/src/components/MuiFlatPagination';
 import { useContentful } from '#/src/hooks/useContentful';
 import { useUrlParams } from '#/src/tools/useUrlParams';
@@ -79,7 +79,7 @@ const Result = ({ id, url, image, sivu, assetUrl }: ResultProps) => {
 
   return (
     <Grid item xs={12} key={id}>
-      <LocalizedLink href={url}>
+      <SmartLink href={url}>
         <Card
           classes={{
             root: classes.root,
@@ -105,7 +105,7 @@ const Result = ({ id, url, image, sivu, assetUrl }: ResultProps) => {
             />
           )}
         </Card>
-      </LocalizedLink>
+      </SmartLink>
     </Grid>
   );
 };

@@ -1,12 +1,12 @@
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 
 import { Grid } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { useLocation } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
 import { Murupolku } from '#/src/components/common/Murupolku';
 import { useContentful } from '#/src/hooks/useContentful';
+import { useScrollToHash } from '#/src/hooks/useScrollToHash';
 
 import { Sisalto } from './Sisalto';
 import { TableOfContents } from './TableOfContents';
@@ -49,23 +49,15 @@ const Root = styled('div')({
 export const Sivu = ({ id }: { id: string }) => {
   const { data, murupolku } = useContentful();
 
-  const { hash } = useLocation();
-
   const rootRef = useRef<HTMLDivElement>(null);
-
-  useLayoutEffect(() => {
-    const el = hash === '#' ? null : document.getElementById(hash.substring(1));
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }, [hash]);
-
   const pageId = id;
   const { sivu } = data;
   const page = sivu[pageId];
 
   const { content, description, name } = page;
   const tableOfContents = page.tableOfContents === 'true';
+
+  useScrollToHash();
 
   return (
     <Root ref={rootRef} className={classes.component}>
