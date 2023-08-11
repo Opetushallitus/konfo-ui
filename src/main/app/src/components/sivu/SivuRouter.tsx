@@ -9,6 +9,7 @@ import { useParams, Navigate } from 'react-router-dom';
 import { colors } from '#/src/colors';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { useContentful } from '#/src/hooks/useContentful';
+import { SlugIdData, SlugsToIds } from '#/src/types/common';
 
 import { Sivu } from './Sivu';
 
@@ -66,6 +67,51 @@ const StyledNotFound = styled(NotFound)({
   },
 });
 
+/* Resolve new slug via id in case language is changed. Also tries to handle language changes
+ * from fi/sv space to en space via optional Contentful field englishPageVersionId */
+const resolveNewSlug = (
+  slugsToIds: SlugsToIds,
+  idInfo: SlugIdData,
+  lngParam: string
+): string | undefined => {
+  const defaultSpaceLanguages = ['fi', 'sv'];
+  const idLng = idInfo?.language;
+
+  if (!idLng) {
+    return undefined;
+  }
+
+  // Navigating from fi->sv or sv->fi
+  if (defaultSpaceLanguages.includes(idLng) && defaultSpaceLanguages.includes(lngParam)) {
+    return findKey(
+      slugsToIds,
+      (slugInfo) => slugInfo.id === idInfo?.id && slugInfo?.language === lngParam
+    );
+  }
+  // Navigating from fi/sv -> en
+  else if (
+    defaultSpaceLanguages.includes(idLng) &&
+    lngParam === 'en' &&
+    idInfo?.englishPageVersionId
+  ) {
+    return findKey(
+      slugsToIds,
+      (slugInfo) =>
+        slugInfo.id === idInfo?.englishPageVersionId && slugInfo?.language === lngParam
+    );
+  }
+  // Navigating from en -> fi/sv
+  else if (idLng === 'en' && defaultSpaceLanguages.includes(lngParam)) {
+    return findKey(
+      slugsToIds,
+      (slugInfo) =>
+        slugInfo.englishPageVersionId === idInfo?.id && slugInfo?.language === lngParam
+    );
+  } else {
+    return undefined;
+  }
+};
+
 export const SivuRouter = () => {
   const { id: slug, lng: lngParam } = useParams();
   const { data, slugsToIds, isLoading } = useContentful();
@@ -74,7 +120,7 @@ export const SivuRouter = () => {
   if (isLoading) {
     return <LoadingCircle />;
   }
-  if (slug) {
+  if (slug && lngParam) {
     const idInfo = slugsToIds?.[slug];
     if (idInfo?.language === lngParam) {
       if (sivu[slug]) {
@@ -83,10 +129,7 @@ export const SivuRouter = () => {
         return <StyledNotFound loading={isLoading} />;
       }
     } else {
-      const newSlug = findKey(
-        slugsToIds,
-        (slugInfo) => slugInfo.id === idInfo?.id && slugInfo?.language === lngParam
-      );
+      const newSlug = resolveNewSlug(slugsToIds, idInfo, lngParam);
       if (newSlug) {
         return <Navigate to={`/${lngParam}/sivu/${newSlug}`} replace />;
       }
