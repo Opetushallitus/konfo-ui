@@ -79,7 +79,7 @@ export const SivuRouter = () => {
   if (idInfo?.language === lngParam) {
     if (sivu[slug]) {
       return <Sivu id={slug} />;
-    } else if (sivuKooste[slug]) {
+    } else if (sivuKooste?.[slug]) {
       return <SivuKooste id={slug} />;
     } else {
       return <StyledNotFound loading={isLoading} />;

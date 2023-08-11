@@ -35,7 +35,7 @@ const assetUrl = (url?: string) =>
 
 const findParent = (id: string, cData: ContentfulData): Array<ContentfulItem> => {
   const { valikko, sivu, sivuKooste } = cData;
-  const childId = (sivu[id] || sivuKooste[id] || {}).id || id;
+  const childId = (sivu[id] || sivuKooste?.[id] || {}).id || id;
   const parentId = findKey(valikko, (item) => {
     return find(item.linkki, (i) => i.id === childId);
   });
@@ -62,7 +62,7 @@ export const useContentful = () => {
 
   const forwardTo = useCallback(
     (id: string, nullIfUnvailable?: boolean) => {
-      const sivu = contentfulData?.sivu[id] || contentfulData?.sivuKooste[id];
+      const sivu = contentfulData?.sivu[id] || contentfulData?.sivuKooste?.[id];
       return sivu
         ? `/sivu/${sivu.slug || id}`
         : nullIfUnvailable
