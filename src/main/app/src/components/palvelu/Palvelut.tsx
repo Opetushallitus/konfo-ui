@@ -1,14 +1,14 @@
 import React from 'react';
 
-import { Grid } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { useContentful } from '#/src/hooks/useContentful';
+import { usePageSectionGap } from '#/src/hooks/usePageSectionGap';
 import { getOne } from '#/src/tools/getOne';
 
 import { Palvelu } from './Palvelu';
 import { ContentSection } from '../ContentSection';
-import { WithSideMargins } from '../WithSideMargins';
 
 type RiviProps = { otsikko: string; kortit?: Array<{ id: string }> };
 
@@ -38,15 +38,12 @@ export const Palvelut = () => {
   const palveluKortit = getOne(palvelut)?.linkit ?? [];
   const ohjeetJaTukiKortit = getOne(ohjeetJaTuki)?.linkit ?? [];
 
+  const pageSectionGap = usePageSectionGap();
+
   return (
-    <WithSideMargins>
-      <Grid container>
-        <Rivi otsikko={t('palvelut.otsikko-muut-palvelut')} kortit={palveluKortit} />
-        <Rivi
-          otsikko={t('palvelut.otsikko-ohjeet-ja-tuki')}
-          kortit={ohjeetJaTukiKortit}
-        />
-      </Grid>
-    </WithSideMargins>
+    <Box mt={pageSectionGap}>
+      <Rivi otsikko={t('palvelut.otsikko-muut-palvelut')} kortit={palveluKortit} />
+      <Rivi otsikko={t('palvelut.otsikko-ohjeet-ja-tuki')} kortit={ohjeetJaTukiKortit} />
+    </Box>
   );
 };
