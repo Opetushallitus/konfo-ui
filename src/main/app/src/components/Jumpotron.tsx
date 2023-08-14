@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 import Image from '#/src/assets/images/o-EDUCATION-facebook.jpg';
 import { colors } from '#/src/colors';
+import { usePageSectionGap } from '#/src/hooks/usePageSectionGap';
 
 import { Hakupalkki } from './haku/Hakupalkki';
 import { useSearch } from './haku/hakutulosHooks';
@@ -15,7 +16,7 @@ import { RajaaPopoverButton, RajaimetPopover } from './haku/RajaimetPopover';
 import { OutlinedInvertedButton } from './OutlinedInvertedButton';
 import { ReactiveBorder } from './ReactiveBorder';
 
-const Root = styled('div', { name: 'JumpotronRoot' })({
+const Root = styled(Box, { name: 'JumpotronRoot' })({
   backgroundImage: `url(${Image})`,
   backgroundRepeat: 'no-repeat',
   backgroundSize: 'cover',
@@ -75,8 +76,10 @@ export const Jumpotron = () => {
 
   const koulutusFilters = koulutusData?.filters;
 
+  const pageSectionGap = usePageSectionGap();
+
   return (
-    <Root>
+    <Root mb={pageSectionGap}>
       <Grid container direction="row" justifyContent="flex-start" alignItems="center">
         <Grid item xs={12} sm={12} md={10} lg={8}>
           <ReactiveBorder>
