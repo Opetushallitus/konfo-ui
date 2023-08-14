@@ -12,6 +12,7 @@ import {
   LanguageCode,
   TODOType,
   RequestParams,
+  SlugsToIds,
 } from '#/src/types/common';
 import {
   ContentfulData,
@@ -229,13 +230,12 @@ export const getContentfulData = (
     })
   ).then((all) => {
     const contentfulData: ContentfulData = Object.assign({}, ...all);
-    const slugsToIds: Record<string, { language: LanguageCode; id: string }> =
-      Object.fromEntries(
-        Object.values(contentfulData?.sivu ?? {}).map((sivu) => [
-          sivu.slug!,
-          { language: lang, id: sivu.id },
-        ])
-      );
+    const slugsToIds: SlugsToIds = Object.fromEntries(
+      Object.values(contentfulData?.sivu ?? {}).map((sivu) => [
+        sivu.slug!,
+        { language: lang, id: sivu.id, englishPageVersionId: sivu.englishPageVersionId },
+      ])
+    );
     return { contentfulData, slugsToIds };
   });
 };
