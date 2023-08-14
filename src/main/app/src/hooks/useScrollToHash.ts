@@ -14,7 +14,6 @@ export const useScrollToHash = () => {
       lastHash.current = hash.slice(1); // safe hash for further use after navigation
     }
     if (lastHash.current) {
-      console.log({ hash, c: lastHash.current });
       scrollToId(lastHash.current);
       lastHash.current = '';
     }
