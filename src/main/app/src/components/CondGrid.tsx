@@ -1,14 +1,15 @@
 import React from 'react';
 
 import { Grid, GridProps } from '@mui/material';
+import { isEmpty } from 'lodash';
 
 export const CondGrid = ({
   children,
   ...props
 }: { children?: React.ReactNode } & Omit<GridProps, 'children'>) => {
-  return children ? (
+  return isEmpty(children) ? null : (
     <Grid container {...props}>
-      {React.Children.map(children, (item) => (item ? <Grid item>{item}</Grid> : null))}
+      {children}
     </Grid>
-  ) : null;
+  );
 };

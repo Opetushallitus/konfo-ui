@@ -81,7 +81,7 @@ export const Etusivu = () => {
         <LoadingCircle />
       ) : (
         <HeadingBoundary>
-          <CondGrid rowSpacing={pageSectionGap}>
+          <CondGrid container rowSpacing={pageSectionGap}>
             <CondGrid item spacing={3}>
               {yhteishakuInfos.map(({ id }) => (
                 <YhteishakuKortti id={id} key={id} n={yhteishakuInfos.length} />
@@ -98,33 +98,39 @@ export const Etusivu = () => {
                 </Grid>
               ))}
             </CondGrid>
-            <Pikalinkit pikalinkit={pikalinkitData} content={content} />
-            <ContentSection heading={t('oikopolut')}>
-              <CondGrid spacing={3}>
-                {/* Kortit-sisältötyyppi kuvaa korttilistauksen etusivulla, joten niitä on aina vain yksi */}
-                {getOne(kortit)?.kortit?.map((k) => <Kortti id={k?.id} key={k?.id} />)}
-              </CondGrid>
-            </ContentSection>
-            <ContentSection heading={t('ajankohtaista-ja-uutisia')}>
-              <Grid container spacing={3}>
-                <Uutiset uutiset={showMore ? take(uutislinkit, 3) : uutislinkit} />
-              </Grid>
-              {showMore ? (
-                <Grid
-                  container
-                  direction="row"
-                  justifyContent="center"
-                  alignItems="center">
-                  <Button
-                    className={classes.showMore}
-                    variant="contained"
-                    onClick={() => setShowMore(false)}
-                    color="primary">
-                    {t('näytä-kaikki')}
-                  </Button>
+            <CondGrid item>
+              <Pikalinkit pikalinkit={pikalinkitData} content={content} />
+            </CondGrid>
+            <CondGrid item>
+              <ContentSection heading={t('oikopolut')}>
+                <CondGrid container spacing={3}>
+                  {/* Kortit-sisältötyyppi kuvaa korttilistauksen etusivulla, joten niitä on aina vain yksi */}
+                  {getOne(kortit)?.kortit?.map((k) => <Kortti key={k?.id} id={k?.id} />)}
+                </CondGrid>
+              </ContentSection>
+            </CondGrid>
+            <CondGrid item>
+              <ContentSection heading={t('ajankohtaista-ja-uutisia')}>
+                <Grid container spacing={3}>
+                  <Uutiset uutiset={showMore ? take(uutislinkit, 3) : uutislinkit} />
                 </Grid>
-              ) : null}
-            </ContentSection>
+                {showMore ? (
+                  <Grid
+                    container
+                    direction="row"
+                    justifyContent="center"
+                    alignItems="center">
+                    <Button
+                      className={classes.showMore}
+                      variant="contained"
+                      onClick={() => setShowMore(false)}
+                      color="primary">
+                      {t('näytä-kaikki')}
+                    </Button>
+                  </Grid>
+                ) : null}
+              </ContentSection>
+            </CondGrid>
           </CondGrid>
         </HeadingBoundary>
       )}
