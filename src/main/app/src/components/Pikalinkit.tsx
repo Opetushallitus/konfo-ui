@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Box, Grid, Link, Paper, useMediaQuery, useTheme } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { size } from 'lodash';
 import Markdown from 'markdown-to-jsx';
 
 import { colors } from '#/src/colors';
@@ -12,8 +13,8 @@ import {
 } from '#/src/types/ContentfulTypes';
 
 import { InlineSvgIcon } from './common/InlineSvgIcon';
-import { Heading, HeadingBoundary } from './Heading';
-import { WithSideMargins } from './WithSideMargins';
+import { ContentSection } from './ContentSection';
+import { Heading } from './Heading';
 
 const StyledList = styled('ul')({
   listStyleType: 'none',
@@ -95,19 +96,16 @@ export const Pikalinkit = ({
   pikalinkit?: ContentfulPikalinkit;
   content: CfRecord<ContentfulContent>;
 }) => {
-  return (
+  return size(pikalinkit?.osiot) > 0 ? (
     <PikalinkitPaper elevation={0}>
-      <WithSideMargins>
-        <Heading variant="h1">{pikalinkit?.name}</Heading>
-        <HeadingBoundary>
-          <Grid spacing={3} container>
-            {pikalinkit?.osiot?.map((osio) => {
-              const linkkiOsio = content[osio?.id];
-              return <PikalinkkiGroup key={linkkiOsio?.name} {...linkkiOsio} />;
-            })}
-          </Grid>
-        </HeadingBoundary>
-      </WithSideMargins>
+      <ContentSection heading={pikalinkit?.name}>
+        <Grid spacing={3} container>
+          {pikalinkit?.osiot?.map((osio) => {
+            const linkkiOsio = content[osio?.id];
+            return <PikalinkkiGroup key={linkkiOsio?.name} {...linkkiOsio} />;
+          })}
+        </Grid>
+      </ContentSection>
     </PikalinkitPaper>
-  );
+  ) : null;
 };

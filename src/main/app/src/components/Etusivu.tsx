@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-import { Button, Grid, Paper } from '@mui/material';
+import { Box, Button, Grid, Paper } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { size, take, isEqual } from 'lodash';
+import { size, take, sortBy, isEqual } from 'lodash';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
 import { useEffectOnce } from 'react-use';
@@ -11,10 +11,11 @@ import { colors } from '#/src/colors';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { YhteishakuKortti } from '#/src/components/kortti/YhteishakuKortti';
 import { useContentful } from '#/src/hooks/useContentful';
+import { usePageSectionGap } from '#/src/hooks/usePageSectionGap';
 import { getOne } from '#/src/tools/getOne';
 
+import { CondGrid } from './CondGrid';
 import { ContentSection } from './ContentSection';
-import { Gap } from './Gap';
 import { Hairiotiedote } from './Hairiotiedote';
 import { useSearch } from './haku/hakutulosHooks';
 import { HeadingBoundary } from './Heading';
@@ -22,7 +23,6 @@ import { Jumpotron } from './Jumpotron';
 import { Kortti } from './kortti/Kortti';
 import { Pikalinkit } from './Pikalinkit';
 import { Uutiset } from './uutinen/Uutiset';
-import { WithSideMargins } from './WithSideMargins';
 
 const PREFIX = 'Etusivu';
 
@@ -33,7 +33,7 @@ const classes = {
   showMore: `${PREFIX}-showMore`,
 };
 
-const Root = styled('div')({
+const Root = styled(Box)({
   [`& .${classes.info}`]: {
     backgroundColor: colors.grey,
     borderRadius: 2,
@@ -50,8 +50,6 @@ const Root = styled('div')({
     textTransform: 'none',
   },
 });
-
-const SectionGap = () => <Gap y={6} />;
 
 export const Etusivu = () => {
   const { t } = useTranslation();
@@ -71,11 +69,7 @@ export const Etusivu = () => {
 
   const infos = Object.values(infoData || {});
 
-  const yhteishakuInfos = Object.values(infoYhteishaku || {});
-
-  yhteishakuInfos.sort((a, b) => {
-    return (a?.order || 99) - (b?.order || 99);
-  });
+  const yhteishakuInfos = sortBy(Object.values(infoYhteishaku || {}), 'order');
 
   const uutislinkit = uutiset?.['etusivun-uutiset']?.linkit ?? [];
 
@@ -88,6 +82,8 @@ export const Etusivu = () => {
   });
   const pikalinkitData = getOne(pikalinkit);
   const hairiotiedoteData = getOne(hairiotiedote);
+
+  const pageSectionGap = usePageSectionGap();
 
   return (
     <Root>
@@ -102,15 +98,13 @@ export const Etusivu = () => {
         <LoadingCircle />
       ) : (
         <HeadingBoundary>
-          <WithSideMargins>
-            <SectionGap />
-            <Grid container spacing={3}>
+          <CondGrid container rowSpacing={pageSectionGap}>
+            <CondGrid item spacing={3}>
               {yhteishakuInfos.map(({ id }) => (
                 <YhteishakuKortti id={id} key={id} n={yhteishakuInfos.length} />
               ))}
-            </Grid>
-            <Gap y={3} />
-            <Grid container>
+            </CondGrid>
+            <CondGrid container item>
               {infos.map((info) => (
                 <Grid item xs={12} key={info.id}>
                   <Paper className={classes.info} elevation={0}>
@@ -120,41 +114,41 @@ export const Etusivu = () => {
                   </Paper>
                 </Grid>
               ))}
-            </Grid>
-          </WithSideMargins>
-          <SectionGap />
-          <Pikalinkit pikalinkit={pikalinkitData} content={content} />
-          <SectionGap />
-          <WithSideMargins>
-            <ContentSection heading={t('oikopolut')}>
-              <Grid container spacing={3}>
-                {/* Kortit-sisältötyyppi kuvaa korttilistauksen etusivulla, joten niitä on aina vain yksi */}
-                {getOne(kortit)?.kortit?.map((k) => <Kortti id={k?.id} key={k?.id} />)}
-              </Grid>
-            </ContentSection>
-            <SectionGap />
-            <ContentSection heading={t('ajankohtaista-ja-uutisia')}>
-              <Grid container spacing={3}>
-                <Uutiset uutiset={showMore ? take(uutislinkit, 3) : uutislinkit} />
-              </Grid>
-              {showMore ? (
-                <Grid
-                  container
-                  direction="row"
-                  justifyContent="center"
-                  alignItems="center">
-                  <Button
-                    className={classes.showMore}
-                    variant="contained"
-                    onClick={() => setShowMore(false)}
-                    color="primary">
-                    {t('näytä-kaikki')}
-                  </Button>
+            </CondGrid>
+            <CondGrid item>
+              <Pikalinkit pikalinkit={pikalinkitData} content={content} />
+            </CondGrid>
+            <CondGrid item>
+              <ContentSection heading={t('oikopolut')}>
+                <CondGrid container spacing={3}>
+                  {/* Kortit-sisältötyyppi kuvaa korttilistauksen etusivulla, joten niitä on aina vain yksi */}
+                  {getOne(kortit)?.kortit?.map((k) => <Kortti key={k?.id} id={k?.id} />)}
+                </CondGrid>
+              </ContentSection>
+            </CondGrid>
+            <CondGrid item>
+              <ContentSection heading={t('ajankohtaista-ja-uutisia')}>
+                <Grid container spacing={3}>
+                  <Uutiset uutiset={showMore ? take(uutislinkit, 3) : uutislinkit} />
                 </Grid>
-              ) : null}
-              <SectionGap />
-            </ContentSection>
-          </WithSideMargins>
+                {showMore ? (
+                  <Grid
+                    container
+                    direction="row"
+                    justifyContent="center"
+                    alignItems="center">
+                    <Button
+                      className={classes.showMore}
+                      variant="contained"
+                      onClick={() => setShowMore(false)}
+                      color="primary">
+                      {t('näytä-kaikki')}
+                    </Button>
+                  </Grid>
+                ) : null}
+              </ContentSection>
+            </CondGrid>
+          </CondGrid>
         </HeadingBoundary>
       )}
     </Root>

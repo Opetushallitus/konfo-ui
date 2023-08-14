@@ -1,21 +1,28 @@
 import React from 'react';
 
-import { Box, BoxProps, TypographyVariant } from '@mui/material';
+import { BoxProps, TypographyVariant } from '@mui/material';
 
-import { Heading } from './Heading';
+import { Heading, HeadingBoundary } from './Heading';
+import { WithSideMargins } from './WithSideMargins';
 
 export const ContentSection = ({
   heading,
   children,
   variant = 'h1',
 }: {
-  heading: string;
+  heading?: string;
   variant?: TypographyVariant;
 } & BoxProps) => {
   return (
-    <Box>
-      <Heading variant={variant}>{heading}</Heading>
-      {children}
-    </Box>
+    <WithSideMargins>
+      {heading && children ? (
+        <>
+          <Heading variant={variant}>{heading}</Heading>
+          <HeadingBoundary>{children}</HeadingBoundary>
+        </>
+      ) : (
+        children
+      )}
+    </WithSideMargins>
   );
 };
