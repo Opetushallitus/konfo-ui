@@ -87,6 +87,7 @@ const PikalinkitPaper = styled(Paper)({
   backgroundColor: colors.grey,
   borderRadius: 0,
   padding: '20px 0',
+  width: '100%',
 });
 
 export const Pikalinkit = ({

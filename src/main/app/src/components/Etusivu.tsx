@@ -81,22 +81,32 @@ export const Etusivu = () => {
         <LoadingCircle />
       ) : (
         <HeadingBoundary>
-          <CondGrid container rowSpacing={pageSectionGap}>
-            <CondGrid item spacing={3}>
-              {yhteishakuInfos.map(({ id }) => (
-                <YhteishakuKortti id={id} key={id} n={yhteishakuInfos.length} />
-              ))}
+          <CondGrid
+            container
+            rowSpacing={pageSectionGap}
+            direction="column"
+            alignItems="stretch">
+            <CondGrid item>
+              <ContentSection>
+                <CondGrid container item spacing={3}>
+                  {yhteishakuInfos.map(({ id }) => (
+                    <YhteishakuKortti id={id} key={id} n={yhteishakuInfos.length} />
+                  ))}
+                </CondGrid>
+              </ContentSection>
             </CondGrid>
-            <CondGrid container item>
-              {infos.map((info) => (
-                <Grid item xs={12} key={info.id}>
-                  <Paper className={classes.info} elevation={0}>
-                    <span className="notification-content">
-                      {info?.content && <Markdown>{info.content}</Markdown>}
-                    </span>
-                  </Paper>
-                </Grid>
-              ))}
+            <CondGrid item>
+              <ContentSection>
+                {infos.map((info) => (
+                  <Grid item xs={12} key={info.id}>
+                    <Paper className={classes.info} elevation={0}>
+                      <span className="notification-content">
+                        {info?.content && <Markdown>{info.content}</Markdown>}
+                      </span>
+                    </Paper>
+                  </Grid>
+                ))}
+              </ContentSection>
             </CondGrid>
             <CondGrid item>
               <Pikalinkit pikalinkit={pikalinkitData} content={content} />
