@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { Button, Grid, Paper } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { size, take } from 'lodash';
+import { size, take, isEqual } from 'lodash';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
 import { useEffectOnce } from 'react-use';
@@ -15,6 +15,7 @@ import { getOne } from '#/src/tools/getOne';
 
 import { ContentSection } from './ContentSection';
 import { Gap } from './Gap';
+import { Hairiotiedote } from './Hairiotiedote';
 import { useSearch } from './haku/hakutulosHooks';
 import { HeadingBoundary } from './Heading';
 import { Jumpotron } from './Jumpotron';
@@ -54,10 +55,19 @@ const SectionGap = () => <Gap y={6} />;
 
 export const Etusivu = () => {
   const { t } = useTranslation();
+  const [hairioTiedoteOpen, setHairiotiedoteOpen] = useState(true);
 
   const { clearFilters, setKeyword } = useSearch();
   const { data, isLoading } = useContentful();
-  const { info: infoData, uutiset, kortit, infoYhteishaku, pikalinkit, content } = data;
+  const {
+    info: infoData,
+    uutiset,
+    kortit,
+    infoYhteishaku,
+    pikalinkit,
+    hairiotiedote,
+    content,
+  } = data;
 
   const infos = Object.values(infoData || {});
 
@@ -77,9 +87,16 @@ export const Etusivu = () => {
     clearFilters();
   });
   const pikalinkitData = getOne(pikalinkit);
+  const hairiotiedoteData = getOne(hairiotiedote);
 
   return (
     <Root>
+      {isEqual(hairiotiedoteData?.showAlert, 'true') && hairioTiedoteOpen ? (
+        <Hairiotiedote
+          hairiotiedote={hairiotiedoteData}
+          setHairiotiedoteOpen={() => setHairiotiedoteOpen(false)}
+        />
+      ) : null}
       <Jumpotron />
       {isLoading ? (
         <LoadingCircle />
