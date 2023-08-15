@@ -14,26 +14,23 @@ export const Hairiotiedote = ({
   const { t } = useTranslation();
   const [hairioTiedoteOpen, setHairiotiedoteOpen] = useState(true);
 
-  if (hairiotiedote && hairioTiedoteOpen) {
-    return (
-      <Alert
-        severity={`${hairiotiedote?.alertType ?? 'error'}`}
-        onClose={() => setHairiotiedoteOpen(false)}>
-        {hairiotiedote?.alertText}
-        {hairiotiedote?.linkkiLisatietoja && (
-          <>
-            <span> {t('hairiotiedote.lisatietoja')} </span>
-            <Link
-              color="inherit"
-              target="_blank"
-              rel="noopener"
-              href={hairiotiedote.linkkiLisatietoja}>
-              {hairiotiedote.linkkiLisatietoja}
-            </Link>
-          </>
-        )}
-      </Alert>
-    );
-  }
-  return null;
+  return hairiotiedote && hairioTiedoteOpen ? (
+    <Alert
+      severity={`${hairiotiedote?.alertType ?? 'error'}`}
+      onClose={() => setHairiotiedoteOpen(false)}>
+      {hairiotiedote?.alertText}
+      {hairiotiedote?.linkkiLisatietoja && (
+        <>
+          <span> {t('hairiotiedote.lisatietoja')} </span>
+          <Link
+            color="inherit"
+            target="_blank"
+            rel="noopener"
+            href={hairiotiedote.linkkiLisatietoja}>
+            {hairiotiedote.linkkiLisatietoja}
+          </Link>
+        </>
+      )}
+    </Alert>
+  ) : null;
 };
