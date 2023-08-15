@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { Box, Button, Grid, Paper } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { size, sortBy, take } from 'lodash';
+import { isEmpty, size, sortBy, take } from 'lodash';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
 import { useEffectOnce } from 'react-use';
@@ -88,29 +88,33 @@ export const Etusivu = () => {
             direction="column"
             alignItems="stretch">
             <CondGrid item>
-              <ContentSection>
-                <CondGrid container item spacing={3}>
-                  {yhteishakuInfos.map(({ id }) => (
-                    <YhteishakuKortti id={id} key={id} n={yhteishakuInfos.length} />
-                  ))}
-                </CondGrid>
-              </ContentSection>
+              {!isEmpty(yhteishakuInfos) && (
+                <ContentSection>
+                  <CondGrid container item spacing={3}>
+                    {yhteishakuInfos.map(({ id }) => (
+                      <YhteishakuKortti id={id} key={id} n={yhteishakuInfos.length} />
+                    ))}
+                  </CondGrid>
+                </ContentSection>
+              )}
             </CondGrid>
-            <CondGrid item>
-              <ContentSection>
-                <CondGrid container direction="column" rowSpacing={3}>
-                  {infos.map((info) =>
-                    info?.content ? (
-                      <CondGrid item xs={12} key={info.id}>
-                        <Paper className={classes.info} elevation={0}>
-                          <Markdown>{info.content}</Markdown>
-                        </Paper>
-                      </CondGrid>
-                    ) : null
-                  )}
-                </CondGrid>
-              </ContentSection>
-            </CondGrid>
+            {!isEmpty(infos) && (
+              <CondGrid item>
+                <ContentSection>
+                  <CondGrid container direction="column" rowSpacing={3}>
+                    {infos.map((info) =>
+                      info?.content ? (
+                        <CondGrid item xs={12} key={info.id}>
+                          <Paper className={classes.info} elevation={0}>
+                            <Markdown>{info.content}</Markdown>
+                          </Paper>
+                        </CondGrid>
+                      ) : null
+                    )}
+                  </CondGrid>
+                </ContentSection>
+              </CondGrid>
+            )}
             <CondGrid item>
               <Pikalinkit pikalinkit={pikalinkitData} content={content} />
             </CondGrid>
