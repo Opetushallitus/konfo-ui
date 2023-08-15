@@ -37,6 +37,7 @@ const Root = styled(Box)({
     backgroundColor: colors.grey,
     borderRadius: 2,
     padding: '25px 20px',
+    width: '100%',
   },
   [`& .${classes.header}`]: {
     fontSize: '28px',
@@ -97,15 +98,17 @@ export const Etusivu = () => {
             </CondGrid>
             <CondGrid item>
               <ContentSection>
-                {infos.map((info) => (
-                  <Grid item xs={12} key={info.id}>
-                    <Paper className={classes.info} elevation={0}>
-                      <span className="notification-content">
-                        {info?.content && <Markdown>{info.content}</Markdown>}
-                      </span>
-                    </Paper>
-                  </Grid>
-                ))}
+                <CondGrid container direction="column" rowSpacing={3}>
+                  {infos.map((info) =>
+                    info?.content ? (
+                      <CondGrid item xs={12} key={info.id}>
+                        <Paper className={classes.info} elevation={0}>
+                          <Markdown>{info.content}</Markdown>
+                        </Paper>
+                      </CondGrid>
+                    ) : null
+                  )}
+                </CondGrid>
               </ContentSection>
             </CondGrid>
             <CondGrid item>
