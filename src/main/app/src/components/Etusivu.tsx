@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { Box, Button, Grid, Paper } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { size, take, sortBy, isEqual } from 'lodash';
+import { size, take, sortBy } from 'lodash';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
 import { useEffectOnce } from 'react-use';
@@ -53,7 +53,6 @@ const Root = styled(Box)({
 
 export const Etusivu = () => {
   const { t } = useTranslation();
-  const [hairioTiedoteOpen, setHairiotiedoteOpen] = useState(true);
 
   const { clearFilters, setKeyword } = useSearch();
   const { data, isLoading } = useContentful();
@@ -87,12 +86,7 @@ export const Etusivu = () => {
 
   return (
     <Root>
-      {isEqual(hairiotiedoteData?.showAlert, 'true') && hairioTiedoteOpen ? (
-        <Hairiotiedote
-          hairiotiedote={hairiotiedoteData}
-          setHairiotiedoteOpen={() => setHairiotiedoteOpen(false)}
-        />
-      ) : null}
+      <Hairiotiedote hairiotiedote={hairiotiedoteData} />
       <Jumpotron />
       {isLoading ? (
         <LoadingCircle />

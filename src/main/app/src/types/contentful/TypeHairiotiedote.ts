@@ -1,7 +1,6 @@
 import type { ChainModifiers, Entry, EntryFieldTypes, EntrySkeletonType, LocaleCode } from "contentful";
 
 export interface TypeHairiotiedoteFields {
-    showAlert: EntryFieldTypes.Boolean;
     alertText: EntryFieldTypes.Symbol;
     alertType: EntryFieldTypes.Symbol<"error" | "info" | "success" | "warning">;
     linkkiLisatietoja?: EntryFieldTypes.Symbol;
