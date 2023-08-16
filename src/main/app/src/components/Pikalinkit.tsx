@@ -84,7 +84,7 @@ const PikalinkkiGroup = (group: ContentfulContent) => {
 };
 
 const PikalinkitPaper = styled(Paper)({
-  backgroundColor: colors.grey,
+  backgroundColor: colors.white,
   borderRadius: 0,
   padding: '20px 0',
   width: '100%',
