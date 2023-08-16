@@ -10,11 +10,10 @@ import { Spacer } from './Spacer';
 type Props = React.PropsWithChildren<
   {
     heading: string | JSX.Element;
-    headingId?: string;
   } & BoxProps
 >;
 
-export const PageSection = ({ heading, headingId, children, ...props }: Props) => {
+export const PageSection = ({ heading, children, ...props }: Props) => {
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <Box
@@ -25,7 +24,7 @@ export const PageSection = ({ heading, headingId, children, ...props }: Props) =
       mt={isSmall ? 4 : 8}
       {...props}>
       {isString(heading) ? (
-        <Typography id={headingId} variant="h2" sx={{ textAlign: 'center' }}>
+        <Typography variant="h2" sx={{ textAlign: 'center' }}>
           {heading}
         </Typography>
       ) : (
