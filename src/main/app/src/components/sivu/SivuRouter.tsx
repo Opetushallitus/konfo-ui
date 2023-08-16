@@ -2,13 +2,13 @@ import React from 'react';
 
 import { Grid, Link } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { findKey } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useParams, Navigate } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { useContentful } from '#/src/hooks/useContentful';
+import { resolveNewSlug } from '#/src/tools/slugUtils';
 
 import { Sivu } from './Sivu';
 
@@ -74,7 +74,7 @@ export const SivuRouter = () => {
   if (isLoading) {
     return <LoadingCircle />;
   }
-  if (slug) {
+  if (slug && lngParam) {
     const idInfo = slugsToIds?.[slug];
     if (idInfo?.language === lngParam) {
       if (sivu[slug]) {
@@ -83,10 +83,7 @@ export const SivuRouter = () => {
         return <StyledNotFound loading={isLoading} />;
       }
     } else {
-      const newSlug = findKey(
-        slugsToIds,
-        (slugInfo) => slugInfo.id === idInfo?.id && slugInfo?.language === lngParam
-      );
+      const newSlug = resolveNewSlug(slugsToIds, idInfo, lngParam);
       if (newSlug) {
         return <Navigate to={`/${lngParam}/sivu/${newSlug}`} replace />;
       }

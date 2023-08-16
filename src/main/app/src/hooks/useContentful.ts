@@ -4,7 +4,7 @@ import { findKey, find, isEmpty } from 'lodash';
 import { urls } from 'oph-urls-js';
 
 import { getContentfulData, getContentfulManifest } from '#/src/api/konfoApi';
-import { LanguageCode } from '#/src/types/common';
+import { LanguageCode, SlugsToIds } from '#/src/types/common';
 import { CommonContentfulFields, ContentfulData } from '#/src/types/ContentfulTypes';
 
 import { useLanguageState, usePreviousNonEmpty } from './index';
@@ -91,7 +91,7 @@ export const useContentful = () => {
 
   const oldSlugsToIds = usePreviousNonEmpty(newSlugsToIds);
 
-  const slugsToIds: Record<string, { language: LanguageCode; id: string }> = useMemo(
+  const slugsToIds: SlugsToIds = useMemo(
     () => ({ ...(oldSlugsToIds ?? {}), ...(newSlugsToIds ?? {}) }),
     [oldSlugsToIds, newSlugsToIds]
   );
