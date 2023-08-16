@@ -1,11 +1,10 @@
 import React from 'react';
 
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import { Button, Link, useMediaQuery } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 import { colors } from '#/src/colors';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { useSideMenu } from '#/src/hooks';
 import { theme } from '#/src/theme';
 
@@ -126,7 +125,13 @@ export const MurupolkuFragment = ({
 
   return (
     <Root isLast={isLast} link={link} isHome={isHome}>
-      {!isHome && <ArrowForwardIosIcon aria-hidden="true" className={classes.arrow} />}
+      {!isHome && (
+        <MaterialIcon
+          icon="arrow_forward_ios"
+          aria-hidden="true"
+          className={classes.arrow}
+        />
+      )}
       {isCollapsedPart ? (
         <Button className={classes.collapsedPart} onClick={openDrawer}>
           {normalizedName}
@@ -138,7 +143,14 @@ export const MurupolkuFragment = ({
           title={normalizedName}
           onClick={closeDrawer}
           aria-current={isLast ? 'location' : undefined}>
-          {isHome && <HomeOutlinedIcon aria-hidden="true" className={classes.home} />}
+          {isHome && (
+            <MaterialIcon
+              icon="home"
+              variant="outlined"
+              aria-hidden="true"
+              className={classes.home}
+            />
+          )}
           {shortenedName}
         </Link>
       )}

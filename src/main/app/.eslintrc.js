@@ -21,7 +21,7 @@ module.exports = {
   root: true,
   rules: {
     'react-refresh/only-export-components': [
-      'warn',
+      'error',
       {
         allowConstantExport: true,
         checkJS: true,
@@ -33,11 +33,11 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-inferrable-types': 'off',
     '@typescript-eslint/no-non-null-assertion': 'off',
-    'react/jsx-uses-react': ['warn'],
+    'react/jsx-uses-react': 'error',
     'no-restricted-imports': ['error', 'lodash/fp', 'lodash-fp/*'],
-    '@typescript-eslint/no-shadow': ['warn'],
+    '@typescript-eslint/no-shadow': 'error',
     '@typescript-eslint/no-unused-vars': [
-      'warn',
+      'error',
       {
         argsIgnorePattern: '^_',
       },
@@ -52,7 +52,7 @@ module.exports = {
       },
     ],
     '@typescript-eslint/array-type': [
-      'warn',
+      'error',
       {
         default: 'generic',
       },
@@ -63,10 +63,11 @@ module.exports = {
         usePrettierrc: true,
       },
     ],
-    'import/no-duplicates': ['warn'],
+    'import/no-default-export': 'error',
+    'import/no-duplicates': 'error',
     'import/no-anonymous-default-export': 'off',
     'import/order': [
-      'warn',
+      'error',
       {
         groups: ['builtin', 'external', 'internal'],
         pathGroups: [
@@ -98,11 +99,17 @@ module.exports = {
     'lodash/prefer-immutable-method': 'off',
     'lodash/prefer-includes': 'off',
     'lodash/path-style': ['error', 'as-needed'],
-    'no-negated-condition': ['warn'],
-    'no-implicit-coercion': ['warn'],
-    'no-var': ['warn'],
+    'no-negated-condition': 'error',
+    'no-implicit-coercion': 'error',
+    'no-var': 'error',
   },
   overrides: [
+    {
+      files: '*.config.ts',
+      rules: {
+        'import/no-default-export': 'off',
+      },
+    },
     {
       files: './playwright/*.ts',
       extends: 'plugin:playwright/recommended',
@@ -113,7 +120,7 @@ module.exports = {
       },
       rules: {
         'playwright/expect-expect': 'off',
-        '@typescript-eslint/no-floating-promises': ['error'],
+        '@typescript-eslint/no-floating-promises': 'error',
       },
     },
   ],

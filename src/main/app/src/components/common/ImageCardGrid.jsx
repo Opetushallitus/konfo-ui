@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Grid, useTheme, useMediaQuery, Link } from '@mui/material';
 
-import ImageCardWithText from '#/src/components/common/ImageCardWithText';
+import { ImageCardWithText } from '#/src/components/common/ImageCardWithText';
 
 export const ImageCardGrid = (props) => {
   const { cards, cardIsLink } = props;

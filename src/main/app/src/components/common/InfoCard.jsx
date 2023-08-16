@@ -37,7 +37,7 @@ const StyledCard = styled(Card)({
   },
 });
 
-const InfoCard = (props) => {
+export const InfoCard = (props) => {
   const { image, title, text, buttonText } = props;
 
   return (
@@ -68,4 +68,3 @@ const InfoCard = (props) => {
     </StyledCard>
   );
 };
-export default InfoCard;

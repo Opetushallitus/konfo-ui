@@ -4,40 +4,40 @@ import { findKey, find, isEmpty } from 'lodash';
 import { urls } from 'oph-urls-js';
 
 import { getContentfulData, getContentfulManifest } from '#/src/api/konfoApi';
+import { LanguageCode } from '#/src/types/common';
+import { CommonContentfulFields, ContentfulData } from '#/src/types/ContentfulTypes';
 
 import { useLanguageState, usePreviousNonEmpty } from './index';
 import { useQueryOnce } from './useQueryOnce';
-import { LanguageCode } from '../types/common';
-import { ContentfulData, ContentfulItem } from '../types/ContentfulTypes';
 
 const initialContentfulData: ContentfulData = {
-  kortit: {},
-  sivu: {},
-  info: {},
   asset: {},
-  footer: {},
-  sivuKooste: {},
   content: {},
-  palvelut: {},
-  valikot: {},
-  ohjeetJaTuki: {},
-  uutiset: {},
   cookieModalText: {},
+  footer: {},
+  info: {},
   infoYhteishaku: {},
-  valikko: {},
+  kortit: {},
+  kortti: {},
+  ohjeetJaTuki: {},
   palvelu: {},
+  palvelut: {},
+  pikalinkit: {},
+  sivu: {},
   uutinen: {},
-  lehti: {},
+  uutiset: {},
+  valikko: {},
+  valikot: {},
 };
 
 const assetUrl = (url?: string) =>
   url && `${urls.url('konfo-backend.content', '')}${url}`;
 
-const findParent = (id: string, cData: ContentfulData): Array<ContentfulItem> => {
-  const { valikko, sivu, sivuKooste } = cData;
-  const childId = (sivu[id] || sivuKooste[id] || {}).id || id;
+const findParent = (id: string, cData: ContentfulData): Array<CommonContentfulFields> => {
+  const { valikko, sivu } = cData;
+  const childId = sivu[id]?.id || id;
   const parentId = findKey(valikko, (item) => {
-    return find(item.linkki, (i) => i.id === childId);
+    return find(item.linkki, (i) => i?.id === childId);
   });
   if (parentId) {
     const parentItem = valikko[parentId];
@@ -45,6 +45,16 @@ const findParent = (id: string, cData: ContentfulData): Array<ContentfulItem> =>
   } else {
     return [];
   }
+};
+
+const useForwardTo = (contentfulData?: ContentfulData) => {
+  function forwardTo(id: string, defaultValue?: string): string;
+  function forwardTo(id: string, defaultValue: null): string | null;
+  function forwardTo(id: string, defaultValue: string | null = '/sivu/poistettu') {
+    const sivu = contentfulData?.sivu[id];
+    return sivu ? `/sivu/${sivu?.slug ?? id}` : defaultValue;
+  }
+  return useCallback(forwardTo, [contentfulData]);
 };
 
 export const useContentful = () => {
@@ -60,28 +70,18 @@ export const useContentful = () => {
 
   const { contentfulData, slugsToIds: newSlugsToIds } = data ?? {};
 
-  const forwardTo = useCallback(
-    (id: string, nullIfUnvailable?: boolean) => {
-      const sivu = contentfulData?.sivu[id] || contentfulData?.sivuKooste[id];
-      return sivu
-        ? `/sivu/${sivu.slug || id}`
-        : nullIfUnvailable
-        ? null
-        : `/sivu/poistettu`;
-    },
-    [contentfulData]
-  );
+  const forwardTo = useForwardTo(contentfulData);
 
   const murupolku = useCallback(
     (pageId: string) => {
       if (contentfulData) {
-        const { sivu, sivuKooste } = contentfulData;
-        const page = sivu[pageId] || sivuKooste[pageId];
+        const { sivu } = contentfulData;
+        const page = sivu[pageId];
 
         const breadcrumb = page ? findParent(pageId, contentfulData).concat([page]) : [];
         return breadcrumb.map((b) => ({
           name: b.name,
-          link: forwardTo(b.id, true),
+          link: forwardTo(b.id, null),
         }));
       }
       return [];
@@ -91,7 +91,7 @@ export const useContentful = () => {
 
   const oldSlugsToIds = usePreviousNonEmpty(newSlugsToIds);
 
-  const slugsToIds = useMemo(
+  const slugsToIds: Record<string, { language: LanguageCode; id: string }> = useMemo(
     () => ({ ...(oldSlugsToIds ?? {}), ...(newSlugsToIds ?? {}) }),
     [oldSlugsToIds, newSlugsToIds]
   );

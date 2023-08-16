@@ -1,13 +1,12 @@
 import React from 'react';
 
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
-import CloseIcon from '@mui/icons-material/Close';
 import { IconButton, Typography, Box, Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { urls } from 'oph-urls-js';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 
 const PREFIX = 'BetaBanner';
 
@@ -54,7 +53,7 @@ const LinkToOldOpintopolku = () => {
       href={urls.url(`konfo-backend.old-oppija-${i18n.language}`)}
       color="primary">
       {t('beta-banner.siirry')}
-      <ArrowRightAltIcon />
+      <MaterialIcon icon="arrow_right_alt" />
     </Button>
   );
 };
@@ -67,12 +66,12 @@ const CloseBanner = ({ onClose }) => {
       size="small"
       color="inherit"
       onClick={onClose}>
-      <CloseIcon />
+      <MaterialIcon icon="close" />
     </IconButton>
   );
 };
 
-const BetaBanner = (props) => {
+export const BetaBanner = (props) => {
   return (
     <StyledBox
       display="flex"
@@ -93,5 +92,3 @@ const BetaBanner = (props) => {
     </StyledBox>
   );
 };
-
-export default BetaBanner;

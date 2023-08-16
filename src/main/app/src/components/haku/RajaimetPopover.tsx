@@ -1,4 +1,3 @@
-import { ExpandMoreOutlined, ExpandLessOutlined } from '@mui/icons-material';
 import {
   Box,
   Button,
@@ -11,6 +10,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 
 import { HakupalkkiFilters } from './HakupalkkiFilters';
 
@@ -61,9 +61,6 @@ export const RajaaPopoverButton = ({
   isLoading: boolean;
   setAnchorEl: (el: HTMLButtonElement) => void;
 }) => {
-  const ExpandIcon = () =>
-    isPopoverOpen ? <ExpandLessOutlined /> : <ExpandMoreOutlined />;
-
   const { t } = useTranslation();
 
   const handleDesktopBtnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -88,7 +85,11 @@ export const RajaaPopoverButton = ({
         <Button
           aria-describedby={POPOVER_ID}
           endIcon={
-            isLoading ? <CircularProgress size={25} color="inherit" /> : <ExpandIcon />
+            isLoading ? (
+              <CircularProgress size={25} color="inherit" />
+            ) : (
+              <MaterialIcon icon={isPopoverOpen ? 'expand_less' : 'expand_more'} />
+            )
           }
           onClick={handleDesktopBtnClick}
           sx={{

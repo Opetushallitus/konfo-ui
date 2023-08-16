@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { OpenInNew } from '@mui/icons-material';
 import {
   Box,
   Typography,
@@ -13,6 +12,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { useLaskuriHakukohde } from '#/src/store/reducers/pistelaskuriSlice';
 
 import { kopioiKouluaineetPainokertoimilla, Kouluaineet } from './aine/Kouluaine';
@@ -107,7 +107,7 @@ const LinkToValintaPerusteet = () => {
       sx={{ fontSize: '0.875rem' }}
       href="/sivu/perusopetuksen-jalkeisen-koulutuksen-yhteishaun-valintaperusteet"
       title={t('pistelaskuri.valintaperusteet.linkki')}>
-      <OpenInNew className={classes.linkIcon} />
+      <MaterialIcon icon="open_in_new" className={classes.linkIcon} />
       {t('pistelaskuri.valintaperusteet.linkki')}
     </Link>
   );

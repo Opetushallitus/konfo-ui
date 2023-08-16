@@ -1,10 +1,10 @@
 import React from 'react';
 
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Typography, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 import { colors } from '#/src/colors';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 
 const PREFIX = 'ImageCardWithText';
 
@@ -48,7 +48,7 @@ const Root = styled('div')(({ theme }) => ({
   },
 }));
 
-const ImageCardWithText = (props) => {
+export const ImageCardWithText = (props) => {
   const { image, cardText } = props;
   return (
     <Root className={classes.root}>
@@ -57,10 +57,11 @@ const ImageCardWithText = (props) => {
         <Typography variant="body1" className={classes.text}>
           {cardText}
         </Typography>
-        <ChevronRightIcon className={`${classes.text} ${classes.icon}`} />
+        <MaterialIcon
+          name="chevron_right"
+          className={`${classes.text} ${classes.icon}`}
+        />
       </Box>
     </Root>
   );
 };
-
-export default ImageCardWithText;

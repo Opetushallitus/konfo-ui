@@ -1,11 +1,11 @@
 import React from 'react';
 
-import ExpandMore from '@mui/icons-material/ExpandMore';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { toInteger, nth, isEqual } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { FilterValues, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 
 import {
@@ -102,7 +102,7 @@ export const KoulutuksenKestoSuodatin = ({
   return (
     <SuodatinAccordion elevation={elevation} defaultExpanded={expanded} square>
       {!summaryHidden && (
-        <SuodatinAccordionSummary expandIcon={<ExpandMore />}>
+        <SuodatinAccordionSummary expandIcon={<MaterialIcon icon="expand_more" />}>
           <Grid
             container
             justifyContent="space-between"

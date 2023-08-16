@@ -5,7 +5,7 @@ import { isString } from 'lodash';
 
 import { theme } from '#/src/theme';
 
-import Spacer from './Spacer';
+import { Spacer } from './Spacer';
 
 type Props = React.PropsWithChildren<
   {

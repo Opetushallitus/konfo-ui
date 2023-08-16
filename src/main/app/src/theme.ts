@@ -1,8 +1,9 @@
-import { LinkProps, createTheme } from '@mui/material';
+import { createTheme } from '@mui/material';
+import { createStyled } from '@mui/system';
 import createBreakpoints from '@mui/system/createTheme/createBreakpoints';
 
 import { colors } from './colors';
-import { LocalizedLink } from './components/common/LocalizedLink';
+import { SmartLink } from './components/common/SmartLink';
 
 // Material UI theme customization
 // Learn more: https://mui.com/material-ui/customization/theming/
@@ -141,7 +142,7 @@ export const theme = createTheme({
     },
     MuiButtonBase: {
       defaultProps: {
-        LinkComponent: LocalizedLink,
+        LinkComponent: SmartLink,
       },
     },
     MuiFormLabel: {
@@ -207,8 +208,8 @@ export const theme = createTheme({
     },
     MuiLink: {
       defaultProps: {
-        component: LocalizedLink,
-      } as LinkProps, // https://mui.com/material-ui/guides/routing/#global-theme-link
+        component: SmartLink,
+      },
       styleOverrides: {
         root: {
           cursor: 'pointer',
@@ -246,3 +247,5 @@ export function getHeaderHeight(themeProp: typeof theme) {
   return ({ betaBannerVisible = false }) =>
     themeProp.headerHeight + (betaBannerVisible ? themeProp.betaBannerHeight : 0);
 }
+
+export const styled = createStyled({ defaultTheme: theme });

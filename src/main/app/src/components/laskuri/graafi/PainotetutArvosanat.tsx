@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
-import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import { Box, styled, Typography, List, ListItem, Button } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { translate } from '#/src/tools/localization';
 import { formatDouble } from '#/src/tools/utils';
 import { PainotettuArvosana } from '#/src/types/HakukohdeTypes';
@@ -56,7 +56,7 @@ export const PainotetutArvosanat = ({ painotetutArvosanat }: Props) => {
       {painotetutArvosanat.length > MAX_ITEMS_TO_ALWAYS_SHOW && (
         <Button
           color="secondary"
-          endIcon={hideRest ? <ExpandMore /> : <ExpandLess />}
+          endIcon={<MaterialIcon icon={hideRest ? 'expand_more' : 'expand_less'} />}
           fullWidth
           onClick={() => setHideRest(!hideRest)}>
           {hideRest ? t('haku.näytä_lisää') : t('haku.näytä_vähemmän')}

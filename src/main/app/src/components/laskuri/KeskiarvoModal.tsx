@@ -1,6 +1,5 @@
 import React, { useRef } from 'react';
 
-import { Close } from '@mui/icons-material';
 import {
   Box,
   Dialog,
@@ -13,6 +12,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { Pistelaskuri } from '#/src/components/laskuri/Pistelaskuri';
 
 import { HakupisteLaskelma } from './Keskiarvo';
@@ -83,7 +83,7 @@ export const KeskiArvoModal = ({ open = false, closeFn, updateTulos, tulos }: Pr
           aria-label={t('sulje')}
           className={classes.closeIcon}
           onClick={closeFn}>
-          <Close />
+          <MaterialIcon icon="close" />
         </IconButton>
       </Box>
     </StyledDialog>

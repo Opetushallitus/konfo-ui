@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { Clear } from '@mui/icons-material';
 import { Button, Chip, Grid } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { getFilterStateChangesForDelete } from '#/src/tools/filters';
 import { localize } from '#/src/tools/localization';
 import { FilterValue } from '#/src/types/SuodatinTypes';
@@ -50,7 +50,7 @@ export const ChipList = ({
       <Grid item>
         <Button
           size="small"
-          startIcon={<Clear />}
+          startIcon={<MaterialIcon icon="clear" />}
           sx={{
             fontWeight: 600,
             fontSize: 14,

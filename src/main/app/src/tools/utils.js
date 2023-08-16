@@ -78,12 +78,17 @@ export const sanitizedHTMLParser = (html, ...rest) =>
 
 export const toId = kebabCase;
 
-export const scrollIntoView = (element) => {
-  element?.scrollIntoView({
+export const scrollIntoView = (
+  element,
+  options = {
     behavior: 'smooth',
-    block: 'start',
-  });
+  }
+) => {
+  element?.scrollIntoView(options);
 };
+
+export const scrollToId = (id, options) =>
+  scrollIntoView(document.getElementById(id), options);
 
 export const consoleWarning = (...props) => {
   if (!isPlaywright) {

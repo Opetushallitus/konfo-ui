@@ -1,10 +1,11 @@
 import React, { useCallback } from 'react';
 
-import { ChevronLeftOutlined, ChevronRightOutlined } from '@mui/icons-material';
 import { Box, CssBaseline } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-import MuiFlatPagination from '#/src/components/pagination';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MuiFlatPagination } from '#/src/components/MuiFlatPagination';
+import { scrollToId } from '#/src/tools/utils';
 
 const PREFIX = 'Pagination';
 
@@ -61,9 +62,7 @@ export const Pagination = ({
 
   const handleClick = useCallback(
     (_ev: unknown, newOffset: number) => {
-      if (scrollTargetId) {
-        document.getElementById(scrollTargetId)?.scrollIntoView();
-      }
+      scrollToId(scrollTargetId, { behavior: 'instant' });
       setPagination({
         offset: newOffset,
         size,
@@ -84,8 +83,8 @@ export const Pagination = ({
         otherPageColor="secondary"
         currentPageColor="primary"
         size="small"
-        previousPageLabel={<ChevronLeftOutlined />}
-        nextPageLabel={<ChevronRightOutlined />}
+        previousPageLabel={<MaterialIcon icon="chevron_left" />}
+        nextPageLabel={<MaterialIcon icon="chevron_right" />}
       />
     </StyledBox>
   ) : null;

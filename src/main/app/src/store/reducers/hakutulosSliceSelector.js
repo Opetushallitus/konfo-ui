@@ -44,7 +44,11 @@ const getTaydennyskoulutus = (state) => state.hakutulos.taydennyskoulutus;
 
 const getAlkamiskausi = (state) => state.hakutulos.alkamiskausi;
 
-export const getFilters = (state) => pick(state.hakutulos, FILTER_TYPES_ARR);
+const getHakutulos = (state) => state.hakutulos;
+
+export const getFilters = createSelector(getHakutulos, (hakutulos) =>
+  pick(hakutulos, FILTER_TYPES_ARR)
+);
 
 export const getSelectedTab = (state) => state.hakutulos.selectedTab;
 

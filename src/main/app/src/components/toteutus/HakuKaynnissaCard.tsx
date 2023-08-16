@@ -22,11 +22,11 @@ const StyledCard = styled(Card)({
 type Props = {
   title: string;
   text: string;
-  link: React.ReactElement;
+  href: string;
   buttonText: string;
 };
 
-export const HakuKaynnissaCard = ({ title, text, link, buttonText }: Props) => {
+export const HakuKaynnissaCard = ({ title, text, href, buttonText }: Props) => {
   return (
     <StyledCard className={classes.card} elevation={2}>
       <CardContent className={classes.gridWrapper}>
@@ -40,15 +40,11 @@ export const HakuKaynnissaCard = ({ title, text, link, buttonText }: Props) => {
         </Grid>
       </CardContent>
       <CardActions>
-        {React.cloneElement(link, {
-          children: (
-            <Button variant="contained" size="large" color="primary">
-              <Typography className={classes.buttonText} variant="body1">
-                {buttonText}
-              </Typography>
-            </Button>
-          ),
-        })}
+        <Button href={href} variant="contained" size="large" color="primary">
+          <Typography className={classes.buttonText} variant="body1">
+            {buttonText}
+          </Typography>
+        </Button>
       </CardActions>
     </StyledCard>
   );

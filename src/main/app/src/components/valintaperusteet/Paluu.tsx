@@ -1,9 +1,10 @@
 import React from 'react';
 
-import ArrowBackIos from '@mui/icons-material/ArrowBackIos';
 import { Link } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
+
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 
 const PREFIX = 'Paluu';
 
@@ -33,7 +34,7 @@ export const Paluu = ({ paluuLinkki }: Props) => {
         color="secondary"
         aria-label={t('lomake.palaa-esittelyyn')}
         href={paluuLinkki}>
-        <ArrowBackIos className={classes.arrow} />
+        <MaterialIcon icon="arrow_back_ios" className={classes.arrow} />
         {t('lomake.palaa-esittelyyn')}
       </Link>
     </Root>

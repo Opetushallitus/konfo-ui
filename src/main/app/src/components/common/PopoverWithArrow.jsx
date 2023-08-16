@@ -59,7 +59,7 @@ const StyledPopover = styled(Popover)((props) => ({
   },
 }));
 
-const PopoverWithArrow = ({ anchorEl, content, marginTop, onClose, open }) => {
+export const PopoverWithArrow = ({ anchorEl, content, marginTop, onClose, open }) => {
   return (
     <StyledPopover
       classes={{ paper: classes.popoverPaper, root: classes.popoverRoot }}
@@ -84,5 +84,3 @@ const PopoverWithArrow = ({ anchorEl, content, marginTop, onClose, open }) => {
     </StyledPopover>
   );
 };
-
-export default PopoverWithArrow;

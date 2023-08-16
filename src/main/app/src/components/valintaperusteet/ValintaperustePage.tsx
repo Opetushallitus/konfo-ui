@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 
 import { Grid } from '@mui/material';
 import { styled } from '@mui/material/styles';
@@ -6,15 +6,15 @@ import produce from 'immer';
 import { isEmpty, isNumber, concat } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
-import Murupolku from '#/src/components/common/Murupolku';
+import { Murupolku } from '#/src/components/common/Murupolku';
 import { Heading } from '#/src/components/Heading';
+import { useScrollToHash } from '#/src/hooks/useScrollToHash';
 import { NotFound } from '#/src/NotFound';
 import { getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
 import { localize } from '#/src/tools/localization';
-import { scrollIntoView } from '#/src/tools/utils';
 
 import { AlinHyvaksyttyKeskiarvo } from './AlinHyvaksyttyKeskiarvo';
 import { Hakukelpoisuus } from './Hakukelpoisuus';
@@ -89,14 +89,7 @@ const ValintaperusteContent = ({
     hakukohde?.metadata?.hakukohteenLinja?.alinHyvaksyttyKeskiarvo;
   const alinHyvaksyttyKeskiarvoVisible = isNumber(alinHyvaksyttyKeskiarvo);
 
-  const { hash } = useLocation();
-
-  useEffect(() => {
-    const el = hash ? document.getElementById(hash.substring(1)) : null;
-    if (el) {
-      scrollIntoView(el);
-    }
-  }, [hash]);
+  useScrollToHash();
 
   return (
     <React.Fragment>

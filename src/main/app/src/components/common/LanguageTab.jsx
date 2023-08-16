@@ -7,7 +7,7 @@ import { LANG_NAME_BY_CODE } from '#/src/constants';
 import { useLanguageState } from '#/src/hooks';
 import { supportedLanguages } from '#/src/tools/i18n';
 
-const LanguageTab = () => {
+export const LanguageTab = () => {
   const { t } = useTranslation();
   const [language, setLanguage] = useLanguageState();
   const handleChange = (event, newValue) => {
@@ -30,5 +30,3 @@ const LanguageTab = () => {
     </Tabs>
   );
 };
-
-export default LanguageTab;

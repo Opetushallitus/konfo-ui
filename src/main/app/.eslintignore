@@ -3,3 +3,5 @@ node_modules/
 rpc-client.js
 playwright/fixtures
 playwright/mocks
+test-server.js
+src/types/contentful/**

@@ -1,6 +1,5 @@
 import React from 'react';
 
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
   Accordion as MuiAccordion,
   AccordionSummary,
@@ -11,6 +10,7 @@ import {
 import { styled } from '@mui/material/styles';
 
 import { colors } from '#/src/colors';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 
 const PREFIX = 'Accordion';
 
@@ -94,7 +94,7 @@ export const Accordion = ({
               expanded: classes.expanded,
             }}
             className={classes.summary}
-            expandIcon={<ExpandMoreIcon />}
+            expandIcon={<MaterialIcon icon="expand_more" />}
             aria-controls={`panel${i}a-content`}
             id={`panel${i}a-header`}>
             <Typography className={classes.heading}>{item.title}</Typography>

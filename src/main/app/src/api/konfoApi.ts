@@ -15,8 +15,8 @@ import {
 } from '#/src/types/common';
 import {
   ContentfulData,
-  ContentfulItem,
   ContentfulManifestData,
+  GenericContentfulItem,
 } from '#/src/types/ContentfulTypes';
 
 type RequestConfig = AxiosRequestConfig<RequestParams>;
@@ -191,23 +191,22 @@ export const getContentfulManifest = async () =>
     )
   )?.data;
 
-function reduceToKeyValue(contentfulRes: Array<ContentfulItem> = []) {
+function reduceToKeyValue(contentfulRes: Array<GenericContentfulItem> = []) {
   return contentfulRes.reduce(
     (res, value) => {
       res[value.id] = value;
-      if (value.url) {
+      if (value?.url) {
         res[value.url] = value;
       }
       if (value.slug) {
         res[value.slug] = value;
       }
-      // lehti.json:ssa on "sivu"-kenttä
       if (value.sivu?.id) {
         res[value.sivu.id] = value;
       }
       return res;
     },
-    {} as Record<string, ContentfulItem>
+    {} as Record<string, GenericContentfulItem>
   );
 }
 
@@ -224,7 +223,7 @@ export const getContentfulData = (
         return null;
       }
       const url: string = urls.url('konfo-backend.content', '') + v[lang];
-      return axios.get<Array<ContentfulItem>>(url).then((res) => {
+      return axios.get<Array<GenericContentfulItem>>(url).then((res) => {
         return { [key]: reduceToKeyValue(res?.data) };
       });
     })

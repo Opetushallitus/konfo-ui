@@ -11,7 +11,7 @@ import { useIsFetching } from 'react-query';
 import { Navigate, Routes, Route, useLocation, useParams } from 'react-router-dom';
 
 import { CookieModal } from '#/src/components/common/CookieModal';
-import SiteImprove from '#/src/components/common/SiteImprove';
+import { SiteImprove } from '#/src/components/common/SiteImprove';
 import { HeadingBoundary } from '#/src/components/Heading';
 import { useSideMenu } from '#/src/hooks';
 import { NotFound } from '#/src/NotFound';
@@ -19,7 +19,7 @@ import { supportedLanguages } from '#/src/tools/i18n';
 import { getLanguage } from '#/src/tools/localization';
 
 import { Draft } from './components/common/Draft';
-import Footer from './components/common/Footer';
+import { Footer } from './components/common/Footer';
 import { Header } from './components/common/Header';
 import { SideMenu } from './components/common/SideMenu';
 import { SkipToContent } from './components/common/SkipToContent';
@@ -332,8 +332,10 @@ export const App = () => {
               <Route path="/:lng/*" element={<TranslatedRoutes />} />
               <Route path="*" element={<TranslatedRoutes />} />
             </Routes>
-            <Palvelut />
-            <Footer />
+            <HeadingBoundary>
+              <Palvelut />
+              <Footer />
+            </HeadingBoundary>
           </HeadingBoundary>
         </main>
       </Box>

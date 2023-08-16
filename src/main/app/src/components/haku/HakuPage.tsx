@@ -1,7 +1,15 @@
 import React, { useEffect, useLayoutEffect } from 'react';
 
-import { ExpandMore } from '@mui/icons-material';
-import { Box, Grid, MenuItem, Paper, Select, Typography, useTheme } from '@mui/material';
+import {
+  Box,
+  Grid,
+  MenuItem,
+  Paper,
+  Select,
+  SvgIconProps,
+  Typography,
+  useTheme,
+} from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
@@ -9,7 +17,8 @@ import { useParams } from 'react-router-dom';
 import { useMeasure, useWindowSize } from 'react-use';
 
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
-import Murupolku from '#/src/components/common/Murupolku';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { Murupolku } from '#/src/components/common/Murupolku';
 import { Pagination } from '#/src/components/common/Pagination';
 import { pageSizeArray, pageSortArray } from '#/src/constants';
 import { useSideMenu } from '#/src/hooks';
@@ -41,7 +50,7 @@ const classes = {
   murupolkuContainer: `${PREFIX}-murupolkuContainer`,
 };
 
-const StyledGrid = styled(Grid)(({ theme }) => ({
+const StyledGrid = styled(Box)(({ theme }) => ({
   maxWidth: 1600,
   margin: 'auto',
   [`& .${classes.toggleWrapper}`]: {
@@ -145,6 +154,10 @@ const useContentWidth = () => {
   return Math.round(windowWidth - sideMenuWidth);
 };
 
+const ExpandMore = (props: SvgIconProps) => (
+  <MaterialIcon icon="expand_more" {...props} />
+);
+
 const useSyncHakutulosWidth = () => {
   const [hakutulosRef, { width: realHakutulosWidth }] = useMeasure();
 
@@ -185,7 +198,7 @@ export const HakuPage = () => {
   const isContentMdUp = contentWidth >= theme.breakpoints.values['md'];
 
   return (
-    <StyledGrid className={classes.hakutulosSisalto} container>
+    <StyledGrid className={classes.hakutulosSisalto}>
       <Paper classes={{ root: classes.paperRoot }} id={scrollTargetId}>
         <h1 style={{ display: 'none' }}>{t('haku.otsikko')}</h1>
         <Grid
@@ -198,6 +211,7 @@ export const HakuPage = () => {
         </Grid>
         <Grid
           container
+          item
           alignItems="flex-end"
           spacing={2}
           style={{ marginBottom: theme.spacing(2) }}>
@@ -209,8 +223,8 @@ export const HakuPage = () => {
             </Grid>
           )}
           <Grid
-            item
             container
+            item
             lg={9}
             md={8}
             sm={12}
@@ -274,27 +288,23 @@ export const HakuPage = () => {
         <Grid item container spacing={2} wrap="nowrap">
           {isContentMdUp ? <Suodatinpalkki /> : <MobileFiltersOnTopMenu />}
           <Grid item container direction="column" xs ref={hakutulosRef as any}>
-            <Grid item>
-              {isHakutulosSmUp && isAnyFilterSelected && <RajainValinnat />}
-              {isFetching && <LoadingCircle />}
-              {!isFetching && status === 'error' && <BackendErrorMessage />}
-              {!isFetching && status === 'success' && (
-                <HakutulosResults
-                  keyword={keyword}
-                  selectedTab={selectedTab}
-                  koulutusHits={koulutusData?.hits}
-                  oppilaitosHits={oppilaitosData?.hits}
-                />
-              )}
-            </Grid>
-            <Grid item>
-              <Pagination
-                total={pagination.total}
-                pagination={pagination}
-                setPagination={setPagination}
-                scrollTargetId={scrollTargetId}
+            {isHakutulosSmUp && isAnyFilterSelected && <RajainValinnat />}
+            {isFetching && <LoadingCircle />}
+            {!isFetching && status === 'error' && <BackendErrorMessage />}
+            {!isFetching && status === 'success' && (
+              <HakutulosResults
+                keyword={keyword}
+                selectedTab={selectedTab}
+                koulutusHits={koulutusData?.hits}
+                oppilaitosHits={oppilaitosData?.hits}
               />
-            </Grid>
+            )}
+            <Pagination
+              total={pagination.total}
+              pagination={pagination}
+              setPagination={setPagination}
+              scrollTargetId={scrollTargetId}
+            />
           </Grid>
         </Grid>
       </Paper>

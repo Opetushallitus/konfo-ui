@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
-import LanguageIcon from '@mui/icons-material/Language';
 import { Select, MenuItem, InputBase, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Cookies from 'js-cookie';
 import { useTranslation } from 'react-i18next';
 
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { LANG_NAME_BY_CODE } from '#/src/constants';
 import { useLanguageState } from '#/src/hooks';
 import { supportedLanguages } from '#/src/tools/i18n';
@@ -35,7 +35,8 @@ export const LanguageDropDown = () => {
   };
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
-      <LanguageIcon
+      <MaterialIcon
+        icon="language"
         onClick={isOpen ? handleClose : handleOpen}
         sx={{ cursor: 'pointer', marginRight: '9px' }}
       />

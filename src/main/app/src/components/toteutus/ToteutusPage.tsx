@@ -1,24 +1,23 @@
 import React, { useMemo } from 'react';
 
-import DirectionsOutlinedIcon from '@mui/icons-material/DirectionsOutlined';
 import { Box, Grid, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { some, isEmpty, uniq } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { HashLink } from 'react-router-hash-link';
 
 import { Accordion } from '#/src/components/common/Accordion';
-import ContentWrapper from '#/src/components/common/ContentWrapper';
+import { ContentWrapper } from '#/src/components/common/ContentWrapper';
 import { ExternalLink } from '#/src/components/common/ExternalLink';
-import HtmlTextBox from '#/src/components/common/HtmlTextBox';
+import { HtmlTextBox } from '#/src/components/common/HtmlTextBox';
 import { InfoBanner } from '#/src/components/common/InfoBanner';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
-import Murupolku from '#/src/components/common/Murupolku';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { Murupolku } from '#/src/components/common/Murupolku';
 import { PageSection } from '#/src/components/common/PageSection';
-import TeemakuvaImage from '#/src/components/common/TeemakuvaImage';
+import { TeemakuvaImage } from '#/src/components/common/TeemakuvaImage';
 import { Heading } from '#/src/components/Heading';
 import { useOppilaitokset } from '#/src/components/oppilaitos/hooks';
 import { KOULUTUS_TYYPPI } from '#/src/constants';
@@ -191,7 +190,7 @@ export const ToteutusPage = () => {
           <InfoBanner
             heading={erityisopetusHeading}
             bodytext={erityisopetusText}
-            icon={<DirectionsOutlinedIcon />}
+            icon={<MaterialIcon icon="directions" variant="outlined" />}
           />
         )}
         <Asiasanat toteutus={toteutus} />
@@ -227,14 +226,7 @@ export const ToteutusPage = () => {
                 ? t('toteutus.katso-hakeutumisen-ohjeet')
                 : t('toteutus.katso-ilmoittautumisen-ohjeet')
             }
-            link={
-              <HashLink
-                to="#haut"
-                aria-label="anchor"
-                smooth
-                style={{ textDecoration: 'none' }}
-              />
-            }
+            href="#haut"
             buttonText={
               hasAnyHakukohde
                 ? t('toteutus.nayta-hakukohteet')

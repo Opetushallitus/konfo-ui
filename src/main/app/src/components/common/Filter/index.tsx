@@ -1,12 +1,6 @@
 import React, { useState } from 'react';
 
 import {
-  ExpandLess,
-  ExpandMore,
-  IndeterminateCheckBoxOutlined,
-  SearchOutlined,
-} from '@mui/icons-material';
-import {
   Box,
   Button,
   CircularProgress,
@@ -29,6 +23,7 @@ import Select, {
 } from 'react-select';
 
 import { colors } from '#/src/colors';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { useConfig } from '#/src/config';
 import { localize, localizeIfNimiObject } from '#/src/tools/localization';
 import { FilterValue, FilterValues } from '#/src/types/SuodatinTypes';
@@ -75,7 +70,7 @@ type DropdownIndicatorProps = RSDropdownIndicatorProps<
 >;
 const DropdownIndicator = (props: DropdownIndicatorProps) => (
   <components.DropdownIndicator {...props}>
-    <SearchOutlined />
+    <MaterialIcon icon="search" />
   </components.DropdownIndicator>
 );
 
@@ -138,7 +133,9 @@ const FilterCheckbox = ({
           <KonfoCheckbox
             edge="start"
             checked={checked}
-            indeterminateIcon={<IndeterminateCheckBoxOutlined />}
+            indeterminateIcon={
+              <MaterialIcon variant="outlined" icon="indeterminate_check_box" />
+            }
             indeterminate={isIndeterminate(value)}
             tabIndex={-1}
             disableRipple
@@ -196,7 +193,7 @@ const FilterCheckboxGroup = ({
               e.stopPropagation();
             }}
             data-testid={`show-more-${value.id}`}>
-            {isOpen ? <ExpandLess /> : <ExpandMore />}
+            <MaterialIcon icon={isOpen ? 'expand_less' : 'expand_more'} />
           </IconButton>
         }
       />
@@ -278,7 +275,7 @@ export const Filter = ({
       defaultExpanded={expanded}
       square>
       {!summaryHidden && (
-        <SuodatinAccordionSummary expandIcon={<ExpandMore />}>
+        <SuodatinAccordionSummary expandIcon={<MaterialIcon icon="expand_more" />}>
           <SummaryContent
             filterName={usedName}
             values={values}
@@ -353,7 +350,7 @@ export const Filter = ({
               sx={{
                 fontSize: 14,
               }}
-              endIcon={hideRest ? <ExpandMore /> : <ExpandLess />}
+              endIcon={<MaterialIcon icon={hideRest ? 'expand_more' : 'expand_less'} />}
               fullWidth
               onClick={() => setHideRest(!hideRest)}>
               {hideRest ? t('haku.näytä_lisää') : t('haku.näytä_vähemmän')}

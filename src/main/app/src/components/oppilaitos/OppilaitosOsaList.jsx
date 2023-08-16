@@ -4,7 +4,7 @@ import { Box, Typography, useTheme, useMediaQuery } from '@mui/material';
 
 import DefaultHeroImage from '#/src/assets/images/herokuva_default.png';
 import { ImageCardGrid } from '#/src/components/common/ImageCardGrid';
-import Spacer from '#/src/components/common/Spacer';
+import { Spacer } from '#/src/components/common/Spacer';
 
 const formToimipisteenNimi = (osa, oppilaitosOsat) => {
   if (osa.parentToimipisteOid) {
@@ -15,7 +15,7 @@ const formToimipisteenNimi = (osa, oppilaitosOsat) => {
   return osa.nimi;
 };
 
-const OppilaitosOsaList = (props) => {
+export const OppilaitosOsaList = (props) => {
   const { oppilaitosOsat, title } = props;
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -36,5 +36,3 @@ const OppilaitosOsaList = (props) => {
     </Box>
   );
 };
-
-export default OppilaitosOsaList;

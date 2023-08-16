@@ -11,6 +11,7 @@ test.each([
   ['fi/asdf', 'fi', '/fi/asdf'],
   ['https://opintopolku.fi/konfo/fi/asdf', 'fi', 'https://opintopolku.fi/konfo/fi/asdf'],
   ['https://opintopolku.fi/asdf', 'fi', 'https://opintopolku.fi/asdf'],
+  ['#asdf', 'fi', '#asdf'],
 ])('localizeHref', (input: string, lng: string, output: string) => {
   expect(localizeHref(input, lng)).toEqual(output);
 });

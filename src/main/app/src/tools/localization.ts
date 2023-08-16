@@ -4,7 +4,7 @@ import { MAKSULLISUUSTYYPPI } from '#/src/constants';
 import { Koodi, Translateable } from '#/src/types/common';
 import { Maksullisuustyyppi } from '#/src/types/ToteutusTypes';
 
-import i18n from './i18n';
+import { i18n } from './i18n';
 import { koodiUriToPostinumero } from './utils';
 
 const lng = (nimi: any, lang: 'fi' | 'en' | 'sv') =>

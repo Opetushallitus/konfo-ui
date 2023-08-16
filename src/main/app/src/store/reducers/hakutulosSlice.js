@@ -61,7 +61,7 @@ export const initialState = {
   ...INITIAL_FILTERS,
 };
 
-const hakutulosSlice = createSlice({
+export const hakutulosSlice = createSlice({
   name: 'hakutulos',
   initialState,
   reducers: {
@@ -172,8 +172,6 @@ export const {
   setOppilaitosOffset,
   urlParamsChanged,
 } = hakutulosSlice.actions;
-
-export default hakutulosSlice.reducer;
 
 export const navigateToHaku =
   ({ navigate }) =>

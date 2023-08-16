@@ -1,6 +1,5 @@
 import React from 'react';
 
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { Link } from '@mui/material';
 import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -9,6 +8,7 @@ import { useQuery } from 'react-query';
 import { getToteutusOsaamisalaKuvaus } from '#/src/api/konfoApi';
 import { Accordion } from '#/src/components/common/Accordion';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { PageSection } from '#/src/components/common/PageSection';
 import { localize } from '#/src/tools/localization';
 import { sanitizedHTMLParser } from '#/src/tools/utils';
@@ -79,7 +79,7 @@ export const Osaamisalat = ({
                       rel="noopener"
                       href={localize(osaamisala?.linkki)}>
                       {localize(osaamisala?.otsikko)}
-                      <OpenInNewIcon fontSize="small" />
+                      <MaterialIcon icon="open_in_new" fontSize="small" />
                     </Link>
                   )}
                 </>

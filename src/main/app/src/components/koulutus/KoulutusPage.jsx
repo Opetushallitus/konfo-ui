@@ -1,6 +1,5 @@
 import React from 'react';
 
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { Box, Link as MuiLink, Typography } from '@mui/material';
 import { head, isEmpty } from 'lodash';
 import { urls } from 'oph-urls-js';
@@ -9,13 +8,14 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import { Accordion } from '#/src/components/common/Accordion';
-import ContentWrapper from '#/src/components/common/ContentWrapper';
+import { ContentWrapper } from '#/src/components/common/ContentWrapper';
 import { ExternalLink } from '#/src/components/common/ExternalLink';
-import HtmlTextBox from '#/src/components/common/HtmlTextBox';
+import { HtmlTextBox } from '#/src/components/common/HtmlTextBox';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
-import Murupolku from '#/src/components/common/Murupolku';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { Murupolku } from '#/src/components/common/Murupolku';
 import { PageSection } from '#/src/components/common/PageSection';
-import TeemakuvaImage from '#/src/components/common/TeemakuvaImage';
+import { TeemakuvaImage } from '#/src/components/common/TeemakuvaImage';
 import { NotFound } from '#/src/NotFound';
 import { getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
 import { getLanguage, localize } from '#/src/tools/localization';
@@ -116,7 +116,7 @@ const TutkinnonOsat = ({ koulutus }) => {
                     tutkinnonosaViite
                   )}>
                   {t('koulutus.eperuste-linkki')}
-                  <OpenInNewIcon />
+                  <MaterialIcon icon="open_in_new" />
                 </MuiLink>
               </>
             ),

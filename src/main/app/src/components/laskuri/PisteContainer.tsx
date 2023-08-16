@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
-import { InfoOutlined } from '@mui/icons-material';
 import { Box, styled, Typography, Button, Hidden } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { educationTypeColorCode, colors } from '#/src/colors';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { PageSection } from '#/src/components/common/PageSection';
 import { Hakutieto } from '#/src/types/ToteutusTypes';
 
@@ -109,11 +109,11 @@ export const PisteContainer = ({ hakutiedot, isLukio }: Props) => {
     <StyledPageSection heading={t('pistelaskuri.graafi.heading')}>
       <Box className={classes.infoBox}>
         <Hidden smDown>
-          <InfoOutlined className={classes.infoIcon} />
+          <MaterialIcon icon="info" variant="outlined" className={classes.infoIcon} />
         </Hidden>
         <Typography variant="body1">
           <Hidden smUp>
-            <InfoOutlined className={classes.infoIcon} />
+            <MaterialIcon icon="info" variant="outlined" className={classes.infoIcon} />
           </Hidden>
           {t('pistelaskuri.graafi.info')}
           <span style={{ fontWeight: 600 }}>

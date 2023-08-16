@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { DeleteOutlined } from '@mui/icons-material';
 import {
   styled,
   Select,
@@ -13,6 +12,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 
 import { ARVOSANA_VALUES, Kouluaine, Kieliaine } from './Kouluaine';
 const PREFIX = 'kouluaine__';
@@ -126,7 +126,7 @@ export const KouluaineSelect = ({
           className={classes.poistakieli}
           onClick={removeLisaKieli}
           aria-label={t('pistelaskuri.aine.removekieli')}>
-          <DeleteOutlined />
+          <MaterialIcon icon="delete" variant="outlined" />
         </IconButton>
       )}
     </AineSelectControl>

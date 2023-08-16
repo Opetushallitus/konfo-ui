@@ -1,4 +1,4 @@
-import i18n from 'i18next';
+import i18next from 'i18next';
 import Backend from 'i18next-http-backend';
 import { initReactI18next } from 'react-i18next';
 
@@ -9,7 +9,7 @@ export const defaultLanguage = 'fi';
 
 // TODO: Promise returned by i18n.init should reject when translations cannot be loaded!
 export const configureI18n = () =>
-  i18n
+  i18next
     .use(Backend)
     .use(initReactI18next)
     .init({
@@ -38,4 +38,4 @@ export const configureI18n = () =>
       returnNull: false,
     });
 
-export default i18n;
+export const i18n = i18next;

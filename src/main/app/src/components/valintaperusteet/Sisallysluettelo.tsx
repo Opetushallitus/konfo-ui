@@ -3,10 +3,11 @@ import React from 'react';
 import { Grid } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
-import { HashLink as Link } from 'react-router-hash-link';
 
 import { colors } from '#/src/colors';
-import { scrollIntoView, toId } from '#/src/tools/utils';
+import { toId } from '#/src/tools/utils';
+
+import { SmartLink } from '../common/SmartLink';
 
 const PREFIX = 'Sisallysluettelo';
 
@@ -80,14 +81,13 @@ export const Sisallysluettelo = (props: Props) => {
       className={classes.toc}>
       <Grid item xs={10}>
         {visibleIds.map((name, i) => (
-          <Link
+          <SmartLink
             key={`${name}-${i}`}
             className={classes.link}
             aria-label={name}
-            to={`#${toId(name)}`}
-            scroll={(el: HTMLElement) => scrollIntoView(el)}>
+            href={`#${toId(name)}`}>
             {name}
-          </Link>
+          </SmartLink>
         ))}
       </Grid>
     </StyledGrid>
