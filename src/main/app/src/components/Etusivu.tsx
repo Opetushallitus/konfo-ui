@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { Box, Button, Grid, Paper } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { isEmpty, size, sortBy, take } from 'lodash';
+import { size, sortBy, take } from 'lodash';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
 import { useEffectOnce } from 'react-use';
@@ -16,6 +16,7 @@ import { getOne } from '#/src/tools/getOne';
 
 import { CondGrid } from './CondGrid';
 import { ContentSection } from './ContentSection';
+import { Hairiotiedote } from './Hairiotiedote';
 import { useSearch } from './haku/hakutulosHooks';
 import { HeadingBoundary } from './Heading';
 import { Jumpotron } from './Jumpotron';
@@ -56,7 +57,15 @@ export const Etusivu = () => {
 
   const { clearFilters, setKeyword } = useSearch();
   const { data, isLoading } = useContentful();
-  const { info: infoData, uutiset, kortit, infoYhteishaku, pikalinkit, content } = data;
+  const {
+    info: infoData,
+    uutiset,
+    kortit,
+    infoYhteishaku,
+    pikalinkit,
+    hairiotiedote,
+    content,
+  } = data;
 
   const infos = Object.values(infoData || {});
 
@@ -77,49 +86,35 @@ export const Etusivu = () => {
     clearFilters();
   });
   const pikalinkitData = getOne(pikalinkit);
+  const hairiotiedoteData = getOne(hairiotiedote);
 
   const pageSectionGap = usePageSectionGap();
 
   return (
     <Root>
+      <Hairiotiedote hairiotiedote={hairiotiedoteData} />
       <Jumpotron />
       {isLoading ? (
         <LoadingCircle />
       ) : (
         <HeadingBoundary>
-          <CondGrid
-            container
-            rowSpacing={pageSectionGap}
-            direction="column"
-            alignItems="stretch">
-            <CondGrid item>
-              {!isEmpty(yhteishakuInfos) && (
-                <ContentSection>
-                  <CondGrid container item spacing={3}>
-                    {yhteishakuInfos.map(({ id }) => (
-                      <YhteishakuKortti id={id} key={id} n={yhteishakuInfos.length} />
-                    ))}
-                  </CondGrid>
-                </ContentSection>
-              )}
+          <CondGrid container rowSpacing={pageSectionGap}>
+            <CondGrid item spacing={3}>
+              {yhteishakuInfos.map(({ id }) => (
+                <YhteishakuKortti id={id} key={id} n={yhteishakuInfos.length} />
+              ))}
             </CondGrid>
-            {!isEmpty(infos) && (
-              <CondGrid item>
-                <ContentSection>
-                  <CondGrid container direction="column" rowSpacing={3}>
-                    {infos.map((info) =>
-                      info?.content ? (
-                        <CondGrid item xs={12} key={info.id}>
-                          <Paper className={classes.info} elevation={0}>
-                            <Markdown>{info.content}</Markdown>
-                          </Paper>
-                        </CondGrid>
-                      ) : null
-                    )}
-                  </CondGrid>
-                </ContentSection>
-              </CondGrid>
-            )}
+            <CondGrid container item>
+              {infos.map((info) => (
+                <Grid item xs={12} key={info.id}>
+                  <Paper className={classes.info} elevation={0}>
+                    <span className="notification-content">
+                      {info?.content && <Markdown>{info.content}</Markdown>}
+                    </span>
+                  </Paper>
+                </Grid>
+              ))}
+            </CondGrid>
             <CondGrid item>
               <Pikalinkit pikalinkit={pikalinkitData} content={content} />
             </CondGrid>
