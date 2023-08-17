@@ -291,6 +291,11 @@
     "muu-amm-tutkinto": "Muu ammatillinen",
     "alkamiskausi": "Alkamiskausi"
   },
+  "ohjaava-haku": {
+    "aloita-kysely": "Käynnistä kysely",
+    "info-text": "Ei hätää, vastaa ensin muutamaan helppoon kysymykseen. Saat vastaustesi perusteella sinulle valikoidut hakuehdot ja ehdotuksena niihin soveltuvat koulutuspaikat ja oppilaitokset.",
+    "otsikko": "En tiedä mitä haluaisin opiskella"
+  },
   "navigaatio": {
     "edellinen": "Edellinen",
     "etsintä-tulos": "Etsinnän tulos",

@@ -27,7 +27,10 @@ import { Etusivu } from './components/Etusivu';
 import { HakuPage } from './components/haku/HakuPage';
 import { Hakupalkki } from './components/haku/Hakupalkki';
 import { KoulutusPage } from './components/koulutus/KoulutusPage';
+import { OhjaavaHaku } from './components/ohjaava-haku';
+import { Kysymys } from './components/ohjaava-haku/Kysymys';
 import { OppilaitosPage } from './components/oppilaitos/OppilaitosPage';
+import { OutlinedButton } from './components/OutlinedButton';
 import { PalautePopup } from './components/palaute/PalautePopup';
 import { Palvelut } from './components/palvelu/Palvelut';
 import { ReactiveBorder } from './components/ReactiveBorder';
@@ -99,13 +102,26 @@ const Root = styled('div')(
   })
 );
 
-const KoulutusHakuBar = () => (
-  <div style={{ margin: 'auto', maxWidth: '1600px' }}>
-    <ReactiveBorder>
-      <Hakupalkki />
-    </ReactiveBorder>
-  </div>
-);
+const OhjaavaHakuLink = () => {
+  const { t } = useTranslation();
+
+  return (
+    <OutlinedButton href="/ohjaava-haku" color="primary" sx={{ marginTop: 1 }}>
+      {t('ohjaava-haku.minne-hakisin')}
+    </OutlinedButton>
+  );
+};
+
+const KoulutusHakuBar = () => {
+  return (
+    <div style={{ margin: 'auto', maxWidth: '1600px' }}>
+      <ReactiveBorder>
+        <Hakupalkki />
+        <OhjaavaHakuLink />
+      </ReactiveBorder>
+    </div>
+  );
+};
 
 const TranslatedRoutes = () => {
   const { i18n } = useTranslation();
@@ -218,6 +234,22 @@ const TranslatedRoutes = () => {
           </>
         }
       />
+      <Route
+        path="ohjaava-haku"
+        element={
+          <>
+            <OhjaavaHaku />
+          </>
+        }
+      />
+      <Route
+        path="ohjaava-haku/:kysymysId"
+        element={
+          <>
+            <Kysymys />
+          </>
+        }
+      />
       <Route path="*" element={<NotFound />} />
     </Routes>
   ) : (
@@ -261,6 +293,7 @@ type TitleObject = {
 };
 
 export const App = () => {
+  console.log({ theme });
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
   const [betaBanner, setBetaBanner] = useState(false);
   const [titleObj, setTitleObj] = useState<TitleObject>();
