@@ -1,17 +1,22 @@
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
+import { match } from 'ts-pattern';
 
 import { Filter } from '#/src/components/common/Filter';
-import { FilterValue, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
+import { RajainItem, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 
 export const HakuKaynnissaSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
 
-  const { values = [], setFilters } = props;
+  const { rajainValues = [], setFilters } = props;
 
-  const handleCheck = (item: FilterValue) => {
-    setFilters({ hakukaynnissa: !item.checked });
+  const handleCheck = (item: RajainItem) => {
+    setFilters({
+      hakukaynnissa: match(item)
+        .with({ checked: true }, () => false)
+        .otherwise(() => true),
+    });
   };
 
   return (
@@ -19,7 +24,7 @@ export const HakuKaynnissaSuodatin = (props: SuodatinComponentProps) => {
       {...props}
       testId="hakukaynnissa-filter"
       name={t('haku.hakukaynnissa-otsikko')}
-      values={values}
+      rajainValues={rajainValues}
       handleCheck={handleCheck}
       displaySelected
     />

@@ -5,44 +5,35 @@ import { match } from 'ts-pattern';
 
 import { Filter } from '#/src/components/common/Filter';
 import { FILTER_TYPES } from '#/src/constants';
-import {
-  FilterValue,
-  FilterValues,
-  SuodatinComponentProps,
-} from '#/src/types/SuodatinTypes';
+import { isChecked } from '#/src/tools/filters';
+import { RajainItem, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 
-type Props = Omit<SuodatinComponentProps, 'values'> & {
-  values: FilterValues;
-};
-
-export const TyoelamaJaTaydennyskoulutuksetSuodatin = (props: Props) => {
+export const TyoelamaJaTaydennyskoulutuksetSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
 
-  const { values, setFilters } = props;
+  const { rajainValues = [], setFilters } = props;
 
-  const handleCheck = (item: FilterValue) =>
-    match(item.filterId)
+  const handleCheck = (item: RajainItem) =>
+    match(item.rajainId)
       .with(FILTER_TYPES.JOTPA, () => {
-        setFilters({ jotpa: !item.checked });
+        setFilters({ jotpa: !isChecked(item) });
       })
       .with(FILTER_TYPES.TYOVOIMAKOULUTUS, () =>
-        setFilters({ tyovoimakoulutus: !item.checked })
+        setFilters({ tyovoimakoulutus: !isChecked(item) })
       )
       .with(FILTER_TYPES.TAYDENNYSKOULUTUS, () => {
-        setFilters({ taydennyskoulutus: !item.checked });
+        setFilters({ taydennyskoulutus: !isChecked(item) });
       })
       .run();
 
   return (
-    <>
-      <Filter
-        {...props}
-        testId="tyoelama-ja-taydennyskoulutukset-filter"
-        name={t('haku.tyoelama-ja-taydennyskoulutukset')}
-        values={values}
-        handleCheck={handleCheck}
-        displaySelected
-      />
-    </>
+    <Filter
+      {...props}
+      testId="tyoelama-ja-taydennyskoulutukset-filter"
+      name={t('haku.tyoelama-ja-taydennyskoulutukset')}
+      rajainValues={rajainValues}
+      handleCheck={handleCheck}
+      displaySelected
+    />
   );
 };

@@ -7,9 +7,12 @@ import {
   intersection,
   mapValues,
   pick,
+  omit,
   includes,
   join,
   sortBy,
+  groupBy,
+  reduce,
 } from 'lodash';
 
 import {
@@ -21,7 +24,7 @@ import { getLanguage } from '#/src/tools/localization';
 
 import { getAPIRequestParams, getHakuUrl } from './hakutulosSliceSelector';
 
-const INITIAL_FILTERS = {
+export const HAKU_INITIAL_FILTERS = {
   koulutustyyppi: [],
   'koulutustyyppi-muu': [],
   koulutusala: [],
@@ -41,7 +44,20 @@ const INITIAL_FILTERS = {
   lukiolinjaterityinenkoulutustehtava: [],
   osaamisala: [],
   opetusaika: [],
-  koulutuksenkestokuukausina: [],
+  koulutuksenkestokuukausina: {
+    koulutuksenkestokuukausina_min: 0,
+    koulutuksenkestokuukausina_max: 0,
+  },
+  maksullisuustyyppi: [],
+  maksunmaara: {
+    maksunmaara_min: 0,
+    maksunmaara_max: 0,
+  },
+  lukuvuosimaksunmaara: {
+    lukuvuosimaksunmaara_min: 0,
+    lukuvuosimaksunmaara_max: 0,
+  },
+  apuraha: false,
   alkamiskausi: [],
 };
 
@@ -58,7 +74,7 @@ export const initialState = {
 
   // Persistoidut suodatinvalinnat, listoja valituista koodiarvoista (+ kaksi boolean rajainta)
   keyword: '',
-  ...INITIAL_FILTERS,
+  ...HAKU_INITIAL_FILTERS,
 };
 
 export const hakutulosSlice = createSlice({
@@ -80,7 +96,7 @@ export const hakutulosSlice = createSlice({
       state.oppilaitosOffset = 0;
     },
     clearSelectedFilters: (state) => {
-      Object.assign(state, INITIAL_FILTERS);
+      Object.assign(state, HAKU_INITIAL_FILTERS);
       resetPagination(state);
     },
     setSize: (state, { payload }) => {
@@ -114,7 +130,8 @@ export const hakutulosSlice = createSlice({
       state.selectedTab = params?.tab ?? 'koulutus';
 
       if (!isMatch(apiRequestParams, cleanedParams)) {
-        forEach(cleanedParams, (value, key) => {
+        const minmaxParamsGrouped = groupMinMaxParams(cleanedParams);
+        forEach(omit(cleanedParams, minmaxParams(cleanedParams)), (value, key) => {
           const valueList = split(value, ',');
           switch (key) {
             case 'keyword':
@@ -137,21 +154,19 @@ export const hakutulosSlice = createSlice({
               state.kunta = valueList.filter((v) => v.startsWith('kunta'));
               break;
             case FILTER_TYPES.HAKUKAYNNISSA:
-              state.hakukaynnissa = value === 'true';
-              break;
             case FILTER_TYPES.JOTPA:
-              state.jotpa = value === 'true';
-              break;
             case FILTER_TYPES.TYOVOIMAKOULUTUS:
-              state.tyovoimakoulutus = value === 'true';
-              break;
             case FILTER_TYPES.TAYDENNYSKOULUTUS:
-              state.taydennyskoulutus = value === 'true';
+            case FILTER_TYPES.APURAHA:
+              setBooleanValueToState(state, key, value);
               break;
             default:
               state[key] = valueList;
               break;
           }
+        });
+        forEach(minmaxParamsGrouped, (value, key) => {
+          state[key] = value;
         });
       }
     },
@@ -187,3 +202,21 @@ const getCleanUrlSearch = (search, apiRequestParams) =>
       ? join(sortBy(split(value, ',')), ',')
       : value
   );
+
+const setBooleanValueToState = (state, key, value) => (state[key] = value === 'true');
+
+const minmaxParams = (allParams) =>
+  Object.keys(allParams).filter((k) => k.endsWith('_min') || k.endsWith('_max'));
+const groupMinMaxParams = (params) => {
+  const groupedParamNames = groupBy(minmaxParams(params), (param) => param.split('_')[0]);
+  return mapValues(groupedParamNames, (val) =>
+    reduce(
+      val,
+      (obj, param) => {
+        obj[param] = params[param];
+        return obj;
+      },
+      {}
+    )
+  );
+};

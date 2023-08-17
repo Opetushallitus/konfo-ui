@@ -5,8 +5,8 @@ import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 import { Filter } from '#/src/components/common/Filter';
-import { getFilterStateChanges } from '#/src/tools/filters';
-import { FilterValue, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
+import { getStateChangesForCheckboxRajaimet } from '#/src/tools/filters';
+import { RajainItem, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 
 const classes = {
   noBoxShadow: 'noBoxShadow',
@@ -44,19 +44,20 @@ export const KoulutustyyppiSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
 
   const [isMuuSelected, setIsMuuSelected] = useState(false);
-  const { values = [], muuValues = [], setFilters } = props;
+  const { rajainValues = [], muuRajainValues = [], setFilters } = props;
 
-  const filterValues = useMemo(
+  const combinedRajainValues = useMemo(
     () => [
-      ...values.map((v) => ({ ...v, hidden: isMuuSelected })),
-      ...muuValues.map((v) => ({ ...v, hidden: !isMuuSelected })),
+      ...rajainValues.map((v) => ({ ...v, hidden: isMuuSelected })),
+      ...muuRajainValues.map((v) => ({ ...v, hidden: !isMuuSelected })),
     ],
-    [isMuuSelected, muuValues, values]
+    [isMuuSelected, muuRajainValues, rajainValues]
   );
 
-  const getChanges = getFilterStateChanges(isMuuSelected ? muuValues : values);
-  const handleCheck = (item: FilterValue) => {
-    const changes = getChanges(item);
+  const handleCheck = (item: RajainItem) => {
+    const changes = getStateChangesForCheckboxRajaimet(
+      isMuuSelected ? muuRajainValues : rajainValues
+    )(item);
     setFilters(changes);
   };
 
@@ -67,7 +68,7 @@ export const KoulutustyyppiSuodatin = (props: SuodatinComponentProps) => {
         {...props}
         testId="koulutustyyppi-filter"
         name={t('haku.koulutustyyppi')}
-        values={filterValues}
+        rajainValues={combinedRajainValues}
         handleCheck={handleCheck}
         additionalContent={
           <Grid item style={{ padding: '20px 0' }}>

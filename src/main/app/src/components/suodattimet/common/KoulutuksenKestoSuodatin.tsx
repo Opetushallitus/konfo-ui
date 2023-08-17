@@ -2,24 +2,88 @@ import React from 'react';
 
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import { toInteger, nth, isEqual } from 'lodash';
+import { TFunction } from 'i18next';
+import { isEqual, ceil, range, round } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
-import { FilterValues, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
+import { NumberRangeRajainItem, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 
 import {
   SuodatinAccordion,
   SuodatinAccordionDetails,
   SuodatinAccordionSummary,
-  SuodatinSlider,
 } from '../../common/Filter/CustomizedMuiComponents';
+import { NumberRangeSlider } from '../../common/Filter/NumberRangeSlider';
 
-const numberValues = (filterValues: FilterValues | undefined) => {
-  const anyValue = nth(filterValues, 0)?.anyValue;
-  const firstNumVal = anyValue && anyValue.length > 0 ? toInteger(anyValue[0]) : 0;
-  const secondNumVal = anyValue && anyValue.length > 1 ? toInteger(anyValue[1]) : 72;
-  return [Math.min(firstNumVal, secondNumVal), Math.max(firstNumVal, secondNumVal)];
+enum UnitOfMeasure {
+  MONTH = 1,
+  HALF_YEAR = 6,
+  YEAR = 12,
+}
+
+const MAX_NUMBER_OF_MARKS = 6;
+const MIN_MONTHS_TO_USE_HALFYEARS = 18;
+const MIN_MONTHS_TO_USE_YEARS = 36;
+const DEFAULT_UPPERLIMIT = 72;
+
+// Sliderin merkit päätellään kuukausien maksimimäärästä, siten että merkkejä maksimissaan kuusi.
+// Jos kuukausien määrä alle 18, lasketaan merkit suoraan kuukausina. Jos määrä välillä
+// 18 ja 36, lasketaan merkit vuoden puolikkaina. Muuten merkit lasketaan vuosina.
+// Viimeisenä merkkinä on aina kuukausien maksimimäärä.
+const resolveSliderMarks = (upperLimit: number, unitOfMeasure: UnitOfMeasure) => {
+  const monthsInMaxNbrOfSteps = unitOfMeasure * MAX_NUMBER_OF_MARKS;
+  const stepLength = ceil(upperLimit / monthsInMaxNbrOfSteps) * unitOfMeasure;
+  const remainder = upperLimit % stepLength;
+  return remainder > 0
+    ? range(0, upperLimit, stepLength).concat([upperLimit])
+    : range(0, upperLimit + 1, stepLength);
+};
+
+const yearsAbbr = (years: number, t: TFunction) => `${years}${t('haku.lyhenne-vuosi')}`;
+const monthsAbbr = (months: number, t: TFunction) =>
+  `${months}${t('haku.lyhenne-kuukausi')}`;
+
+const rangeText = (val: number, t: TFunction) => {
+  if (val === 0) {
+    return '0';
+  } else if (val > 11) {
+    const months = val % 12;
+    const years = (val - months) / 12;
+    if (months === 0) {
+      return yearsAbbr(years, t);
+    } else {
+      return `${yearsAbbr(years, t)} ${monthsAbbr(months, t)}`;
+    }
+  } else {
+    return monthsAbbr(val, t);
+  }
+};
+
+const marks = (upperLimit: number, t: TFunction) => {
+  const unitOfMeasure =
+    upperLimit >= MIN_MONTHS_TO_USE_HALFYEARS
+      ? upperLimit >= MIN_MONTHS_TO_USE_YEARS
+        ? UnitOfMeasure.YEAR
+        : UnitOfMeasure.HALF_YEAR
+      : UnitOfMeasure.MONTH;
+
+  const valueSeq = resolveSliderMarks(upperLimit, unitOfMeasure);
+
+  const label = (numberOfMonths: number) => {
+    switch (unitOfMeasure) {
+      case UnitOfMeasure.YEAR:
+        return yearsAbbr(round(numberOfMonths / 12, 0), t);
+      case UnitOfMeasure.HALF_YEAR:
+        return yearsAbbr(round(numberOfMonths / 12, 1), t);
+      default:
+        return monthsAbbr(numberOfMonths, t);
+    }
+  };
+  const marx = valueSeq.map((val) => ({ value: val, label: label(val) }));
+  marx[0].label = '';
+  marx[marx.length - 1].label = rangeText(upperLimit, t);
+  return marx;
 };
 
 export const KoulutuksenKestoSuodatin = ({
@@ -27,77 +91,42 @@ export const KoulutuksenKestoSuodatin = ({
   displaySelected = true,
   elevation = 0,
   expanded,
-  values,
+  rajainValues = [],
   setFilters,
 }: SuodatinComponentProps) => {
   const { t } = useTranslation();
-
-  const yearsAbbr = (years: number) => `${years}${t('haku.lyhenne-vuosi')}`;
-  const monthsAbbr = (months: number) => `${months}${t('haku.lyhenne-kuukausi')}`;
-
-  const [showSliderInternalValues, setShowSliderInternalValues] =
-    React.useState<boolean>(false);
-
-  const [sliderInternalValues, setSliderInternalValues] = React.useState<Array<number>>([
-    0, 72,
-  ]);
-
-  const marks = [
-    { value: 0, label: '' },
-    { value: 12, label: yearsAbbr(1) },
-    { value: 24, label: yearsAbbr(2) },
-    { value: 36, label: yearsAbbr(3) },
-    { value: 48, label: yearsAbbr(4) },
-    { value: 60, label: yearsAbbr(5) },
-    { value: 72, label: yearsAbbr(6) },
+  const rajainValueItem = rajainValues?.[0] as NumberRangeRajainItem;
+  const undefinedRajainValues = [0, rajainValueItem?.upperLimit || DEFAULT_UPPERLIMIT];
+  const rangeValues = [
+    rajainValueItem?.min || undefinedRajainValues[0],
+    rajainValueItem?.max || undefinedRajainValues[1],
   ];
 
-  const sliderValues = showSliderInternalValues
-    ? sliderInternalValues
-    : numberValues(values);
-
-  const handleSliderValueChange = (
-    _e: Event,
-    newValue: number | Array<number>,
-    _activeThumb: number
-  ) => {
-    setShowSliderInternalValues(true);
-    setSliderInternalValues(newValue as Array<number>);
-  };
-
-  const handleSliderValueCommit = (
-    _e: React.SyntheticEvent | Event,
-    rangeValues: any
-  ) => {
-    const min = toInteger(nth(rangeValues, 0));
-    const max = toInteger(nth(rangeValues, 1));
-    setShowSliderInternalValues(false);
-    const valueRange = min !== 0 || max !== 72 ? [min, max] : [];
-    setFilters({ koulutuksenkestokuukausina: valueRange });
-  };
-
-  const valueText = (val: number) => {
-    if (val === 0) {
-      return '0';
-    } else if (val > 11) {
-      const months = val % 12;
-      const years = (val - months) / 12;
-      if (months === 0) {
-        return yearsAbbr(years);
-      } else {
-        return `${yearsAbbr(years)} ${monthsAbbr(months)}`;
-      }
+  const handleSliderValueCommit = (newValues: Array<number>) => {
+    if (isEqual(undefinedRajainValues, newValues)) {
+      setFilters({
+        koulutuksenkestokuukausina: {
+          koulutuksenkestokuukausina_min: 0,
+          koulutuksenkestokuukausina_max: 0,
+        },
+      });
     } else {
-      return monthsAbbr(val);
+      setFilters({
+        koulutuksenkestokuukausina: {
+          koulutuksenkestokuukausina_min: newValues[0],
+          koulutuksenkestokuukausina_max: newValues[1],
+        },
+      });
     }
   };
 
   const rangeHeader = () => {
-    const rangeValues = numberValues(values);
-    return isEqual(rangeValues, [0, 72])
+    return isEqual(undefinedRajainValues, rangeValues)
       ? ''
-      : `${valueText(rangeValues[0])} - ${valueText(rangeValues[1])}`;
+      : `${rangeText(rangeValues[0], t)} - ${rangeText(rangeValues[1], t)}`;
   };
+
+  const labelFormatter = (val: number) => rangeText(val, t);
 
   return (
     <SuodatinAccordion elevation={elevation} defaultExpanded={expanded} square>
@@ -113,23 +142,20 @@ export const KoulutuksenKestoSuodatin = ({
                 {t('haku.koulutuksenkestokuukausina')}
               </Typography>
             </Grid>
-            {displaySelected && <Grid item>{rangeHeader()}</Grid>}
+            {displaySelected && <span>{rangeHeader()}</span>}
           </Grid>
         </SuodatinAccordionSummary>
       )}
       <SuodatinAccordionDetails {...(summaryHidden && { style: { padding: 0 } })}>
         <Grid container direction="column" wrap="nowrap">
           <Grid item sx={{ mx: 1 }}>
-            <SuodatinSlider
-              value={sliderValues}
-              min={0}
-              max={72}
-              marks={marks}
-              step={1}
-              valueLabelDisplay="auto"
-              valueLabelFormat={valueText}
-              onChange={handleSliderValueChange}
-              onChangeCommitted={handleSliderValueCommit}
+            <NumberRangeSlider
+              values={rangeValues}
+              min={undefinedRajainValues[0]}
+              max={undefinedRajainValues[1]}
+              marks={marks(undefinedRajainValues[1], t)}
+              labelFormatter={labelFormatter}
+              onRangeCommit={handleSliderValueCommit}
             />
           </Grid>
         </Grid>

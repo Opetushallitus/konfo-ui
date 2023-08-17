@@ -206,6 +206,13 @@
     "lukiolinjat_er": "Lukiolinjat (erityinen koulutustehtävä)",
     "maakunnat": "Maakunnat",
     "maisteri": "Maisteritutkinto",
+    "maksullisuus": "Maksullisuus",
+    "maksuton": "Maksuton",
+    "maksullinen": "Maksullinen",
+    "maksunmaara": "Maksun määrä",
+    "lukuvuosimaksu": "Lukuvuosimaksu",
+    "lukuvuosimaksunmaara": "Lukuvuosimaksun määrä",
+    "apuraha": "Apuraha",
     "muut": "Muut",
     "näytä": "Näytä",
     "näytä_lisää": "Näytä lisää",
@@ -289,7 +296,8 @@
     "lyhenne-vuosi": "v",
     "lyhenne-kuukausi": "kk",
     "muu-amm-tutkinto": "Muu ammatillinen",
-    "alkamiskausi": "Alkamiskausi"
+    "alkamiskausi": "Alkamiskausi",
+    "lukuvuosimaksu-tooltip": "Korkeakoulujen lukuvuosimaksut EU-ETA-alueen ulkopuolisille"
   },
   "navigaatio": {
     "edellinen": "Edellinen",
