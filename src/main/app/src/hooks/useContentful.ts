@@ -54,7 +54,7 @@ const useForwardTo = (contentfulData?: ContentfulData) => {
     const sivu = contentfulData?.sivu[id];
     return sivu ? `/sivu/${sivu?.slug ?? id}` : defaultValue;
   }
-  return useCallback(forwardTo, [contentfulData]);
+  return useCallback(forwardTo, [forwardTo]);
 };
 
 export const useContentful = () => {
