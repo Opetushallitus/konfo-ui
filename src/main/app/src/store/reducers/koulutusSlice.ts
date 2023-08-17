@@ -27,7 +27,7 @@ export const initialState = {
   },
 };
 
-const koulutusSlice = createSlice({
+export const koulutusSlice = createSlice({
   name: 'koulutus',
   initialState,
   reducers: {
