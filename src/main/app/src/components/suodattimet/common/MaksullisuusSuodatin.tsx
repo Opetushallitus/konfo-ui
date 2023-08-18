@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
 
-import ExpandMore from '@mui/icons-material/ExpandMore';
 import { Box } from '@mui/material';
 import List from '@mui/material/List';
 import { isEqual } from 'lodash';
@@ -15,6 +14,7 @@ import {
 } from '#/src/components/common/Filter/CustomizedMuiComponents';
 import { NumberRangeSlider } from '#/src/components/common/Filter/NumberRangeSlider';
 import { SummaryContent } from '#/src/components/common/Filter/SummaryContent';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { useConfig } from '#/src/config';
 import { FILTER_TYPES } from '#/src/constants';
 import { getStateChangesForCheckboxRajaimet, isChecked } from '#/src/tools/filters';
@@ -217,7 +217,7 @@ const MaksullisuusSummary = ({
   );
 
   return (
-    <SuodatinAccordionSummary expandIcon={<ExpandMore />}>
+    <SuodatinAccordionSummary expandIcon={<MaterialIcon icon="expand_more" />}>
       <SummaryContent
         filterName={t('haku.maksullisuus')}
         contentString={contentString}
