@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-import InfoOutlined from '@mui/icons-material/InfoOutlined';
 import { Backdrop, IconButton, Tooltip } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
@@ -101,7 +100,7 @@ export const LabelTooltip = ({ title, sx = {} }: Props) => {
             setOpen((isOpen) => !isOpen);
           }}
           onFocus={(e) => e.stopPropagation()}>
-          <InfoOutlined />
+          <MaterialIcon icon="info" variant="outlined" />
         </IconButton>
       </Tooltip>
     </Root>
