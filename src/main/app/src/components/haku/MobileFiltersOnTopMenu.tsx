@@ -87,9 +87,6 @@ export const MobileFiltersOnTopMenu = ({
           expanded={false}
           displaySelected
           rajainValues={useFilterProps(FILTER_TYPES.KOULUTUSTYYPPI)}
-          muuRajainValues={
-            useFilterProps(FILTER_TYPES.KOULUTUSTYYPPI_MUU) as Array<CheckboxRajainItem>
-          }
           setFilters={setFilters}
         />
         <Divider />

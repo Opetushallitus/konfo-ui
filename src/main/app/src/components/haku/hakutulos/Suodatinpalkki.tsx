@@ -44,9 +44,6 @@ export const Suodatinpalkki = () => {
         expanded
         elevation={2}
         rajainValues={useFilterProps(FILTER_TYPES.KOULUTUSTYYPPI)}
-        muuRajainValues={
-          useFilterProps(FILTER_TYPES.KOULUTUSTYYPPI_MUU) as Array<CheckboxRajainItem>
-        }
         setFilters={setFilters}
       />
       <OpetuskieliSuodatin

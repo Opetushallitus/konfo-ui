@@ -3,8 +3,6 @@ import {
   forEach,
   isMatch,
   split,
-  without,
-  intersection,
   mapValues,
   pick,
   omit,
@@ -15,18 +13,13 @@ import {
   reduce,
 } from 'lodash';
 
-import {
-  FILTER_TYPES,
-  FILTER_TYPES_ARR_FOR_KONFO_BACKEND,
-  KOULUTUS_TYYPPI_MUU_ARR,
-} from '#/src/constants';
+import { FILTER_TYPES, FILTER_TYPES_ARR_FOR_KONFO_BACKEND } from '#/src/constants';
 import { getLanguage } from '#/src/tools/localization';
 
 import { getAPIRequestParams, getHakuUrl } from './hakutulosSliceSelector';
 
 export const HAKU_INITIAL_FILTERS = {
   koulutustyyppi: [],
-  'koulutustyyppi-muu': [],
   koulutusala: [],
   opetuskieli: [],
   valintatapa: [],
@@ -139,15 +132,6 @@ export const hakutulosSlice = createSlice({
             case 'order':
             case 'sort':
               state[key] = value;
-              break;
-            // TODO: Olisi parempi jos backend lähettäisi ja vastaanottaisi nämä yhtenäisesti,
-            // Nyt on lähtiessä koulutustyyppi vs. paluupostina tulee koulutustyyppi JA koulutustyyppi-muu
-            case FILTER_TYPES.KOULUTUSTYYPPI:
-              state.koulutustyyppi = without(valueList, ...KOULUTUS_TYYPPI_MUU_ARR);
-              state['koulutustyyppi-muu'] = intersection(
-                valueList,
-                KOULUTUS_TYYPPI_MUU_ARR
-              );
               break;
             case FILTER_TYPES.SIJAINTI:
               state.maakunta = valueList.filter((v) => v.startsWith('maakunta'));

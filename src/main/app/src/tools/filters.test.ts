@@ -11,7 +11,7 @@ const fpSet = (x: Record<string, any>, path: string, value: any) =>
   });
 
 const a = FILTER_TYPES.KOULUTUSTYYPPI;
-const b = FILTER_TYPES.KOULUTUSTYYPPI_MUU;
+const b = FILTER_TYPES.OPETUSKIELI;
 const c = FILTER_TYPES.KOULUTUSALA;
 
 // prettier-ignore
