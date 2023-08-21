@@ -128,14 +128,7 @@ export const KeskiarvoLaskuri = ({
         container
         justifyContent="space-evenly"
         columns={{ xs: 1, sm: 1, md: 1, lg: 1, xl: embedded ? 10 : 3 }}>
-        <Grid
-          item
-          xs={1}
-          sm={1}
-          md={1}
-          lg={1}
-          xl={embedded ? 3 : 1}
-          className={classes.inputContainer}>
+        <Grid item xs={1} xl={embedded ? 3 : 1} className={classes.inputContainer}>
           <InputLabel>
             <Typography sx={{ fontWeight: '600' }}>
               {t('pistelaskuri.ka-lukuaineet')}
@@ -163,9 +156,6 @@ export const KeskiarvoLaskuri = ({
           className={classes.inputContainer}
           item
           xs={1}
-          sm={1}
-          md={1}
-          lg={1}
           xl={embedded ? 4 : 1}
           sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
           <InputLabel>
@@ -194,14 +184,7 @@ export const KeskiarvoLaskuri = ({
             </Typography>
           )}
         </Grid>
-        <Grid
-          item
-          xs={1}
-          sm={1}
-          md={1}
-          lg={1}
-          xl={embedded ? 3 : 1}
-          className={classes.inputContainer}>
+        <Grid item xs={1} xl={embedded ? 3 : 1} className={classes.inputContainer}>
           <InputLabel>
             <Typography sx={{ fontWeight: '600' }}>
               {t('pistelaskuri.ka-kaikki')}
