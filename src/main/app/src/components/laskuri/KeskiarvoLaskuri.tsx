@@ -127,7 +127,7 @@ export const KeskiarvoLaskuri = ({
       <Grid
         container
         justifyContent="space-evenly"
-        columns={{ xs: 1, sm: 1, md: 1, lg: 1, xl: embedded ? 10 : 3 }}>
+        columns={{ xs: 1, xl: embedded ? 10 : 3 }}>
         <Grid item xs={1} xl={embedded ? 3 : 1} className={classes.inputContainer}>
           <InputLabel>
             <Typography sx={{ fontWeight: '600' }}>
