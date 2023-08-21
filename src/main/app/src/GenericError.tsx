@@ -23,7 +23,7 @@ const buttonText: Translation = {
   en: 'Return to home page',
 };
 
-const GenericError = () => {
+export const GenericError = () => {
   const getLang = (): string => {
     const location = window.location;
     const lang = location.pathname.match(/^\/(.*?)(\/|$)/)?.[1];
@@ -45,5 +45,3 @@ const GenericError = () => {
     </div>
   );
 };
-
-export default GenericError;

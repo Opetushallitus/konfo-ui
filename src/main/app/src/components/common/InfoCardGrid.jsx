@@ -3,8 +3,8 @@ import React from 'react';
 import { Grid, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-import InfoCard from './InfoCard';
-import Spacer from './Spacer';
+import { InfoCard } from './InfoCard';
+import { Spacer } from './Spacer';
 
 const PREFIX = 'InfoCardGrid';
 
@@ -16,7 +16,7 @@ const StyledGrid = styled(Grid)({
   width: '100%',
 });
 
-const InfoCardGrid = (props) => {
+export const InfoCardGrid = (props) => {
   const { cards, title } = props;
 
   return (
@@ -37,5 +37,3 @@ const InfoCardGrid = (props) => {
     </StyledGrid>
   );
 };
-
-export default InfoCardGrid;

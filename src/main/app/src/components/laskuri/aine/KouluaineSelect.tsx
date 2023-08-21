@@ -1,24 +1,20 @@
 import React from 'react';
 
-import { DeleteOutlined } from '@mui/icons-material';
 import {
   styled,
   Select,
-  InputLabel,
   FormControl,
   MenuItem,
   SelectChangeEvent,
   IconButton,
   Input,
-  Typography,
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 
-import { KieliSelect } from './KieliSelect';
-import { ARVOSANA_VALUES, Kouluaine, Kieliaine, isKieliaine } from './Kouluaine';
-import { LabelTooltip } from '../../common/LabelTooltip';
+import { ARVOSANA_VALUES, Kouluaine, Kieliaine } from './Kouluaine';
 const PREFIX = 'kouluaine__';
 
 const classes = {
@@ -26,48 +22,23 @@ const classes = {
   optionDisabled: `${PREFIX}option--disabled`,
   headerContainer: `${PREFIX}headerContainer`,
   header: `${PREFIX}header`,
-  gradeControl: `${PREFIX}gradecontrol`,
-  gradeLabel: `${PREFIX}gradelabel`,
-  gradeLabelContainer: `${PREFIX}gradelabelcontainer`,
   gradeSelect: `${PREFIX}gradeselect`,
   poistakieli: `${PREFIX}poistakieli`,
 };
 
-const formGridArea = (isKieli: boolean, isLisaKieli: boolean): string => {
-  if (isKieli && isLisaKieli) {
-    return `"header header"
-            "label label"
-            "select kieli"`;
-  } else if (isKieli) {
-    return `"header header"
-            "label label"
-            "select select"`;
-  } else if (isLisaKieli) {
-    return `"label label"
-            "select kieli"`;
-  } else {
-    return `"label label"
-            "select select"`;
-  }
-};
-
 const AineSelectControl = styled(FormControl, {
-  shouldForwardProp: (prop) => prop !== 'isLisakieli' && prop !== 'isKieli',
-})<{ isLisakieli: boolean; isKieli: boolean }>(({ theme, isLisakieli, isKieli }) => ({
-  display: 'grid',
-  gridTemplateAreas: formGridArea(isKieli, isLisakieli),
-  alignItems: 'center',
-  alignContent: 'center',
-  justifyContent: 'start',
-  justifyItems: 'start',
-  rowGap: '7px',
+  shouldForwardProp: (prop) => prop !== 'isLisaKieli',
+})<{ isLisaKieli: boolean }>(({ theme, isLisaKieli }) => ({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'start',
+  rowGap: '0.5rem',
   columnGap: '2px',
+  marginBottom: '27px',
   [theme.breakpoints.down('sm')]: {
-    gridTemplateColumns: '7fr 1fr',
     width: '100%',
-    justifyItems: 'stretch',
+    marginBottom: 0,
   },
-
   [`& .${classes.input}`]: {
     border: `1px solid ${colors.lightGrey}`,
     padding: '0 0.5rem',
@@ -81,10 +52,10 @@ const AineSelectControl = styled(FormControl, {
     maxWidth: '100%',
     [theme.breakpoints.down('sm')]: {
       width: '100%',
+      marginRight: isLisaKieli ? 0 : '2.7rem',
     },
   },
   [`& .${classes.headerContainer}`]: {
-    gridArea: 'header',
     [`.${classes.header}`]: {
       fontWeight: 600,
       display: 'flex',
@@ -94,33 +65,7 @@ const AineSelectControl = styled(FormControl, {
   [`& .${classes.optionDisabled}`]: {
     color: colors.lightGrey,
   },
-  [`& .${classes.gradeLabelContainer}`]: {
-    gridArea: 'label',
-    display: 'flex',
-    alignItems: 'center',
-    columnGap: '2px',
-    [theme.breakpoints.down('sm')]: {
-      width: '100%',
-    },
-  },
-  [`& .${classes.gradeLabel}`]: {
-    overflow: 'unset',
-    textOverflow: 'unset',
-    overflowWrap: 'normal',
-    whiteSpace: 'break-spaces',
-    position: 'relative',
-    transformOrigin: 'left',
-    transform: 'none',
-    fontSize: '1rem',
-    fontWeight: isKieli ? 'normal' : 600,
-    maxWidth: '12rem',
-    lineHeight: '1.6rem',
-  },
-  [`& .${classes.gradeSelect}`]: {
-    gridArea: 'select',
-  },
   [`& .${classes.poistakieli}`]: {
-    gridArea: 'kieli',
     color: colors.brandGreen,
     padding: '0.3rem 0.6rem',
     svg: {
@@ -133,7 +78,6 @@ const AineSelectControl = styled(FormControl, {
 type Props = {
   aine: Kouluaine | Kieliaine;
   updateArvosana: (arvosana: number) => void;
-  updateKieli: (koodiUri: string) => void;
   isLisaKieli?: boolean;
   removeLisaKieli?: () => void;
 };
@@ -141,7 +85,6 @@ type Props = {
 export const KouluaineSelect = ({
   aine,
   updateArvosana,
-  updateKieli,
   isLisaKieli = false,
   removeLisaKieli = () => {},
 }: Props) => {
@@ -154,27 +97,9 @@ export const KouluaineSelect = ({
 
   return (
     <AineSelectControl
-      isKieli={isKieliaine(aine)}
-      isLisakieli={isLisaKieli}
+      isLisaKieli={isLisaKieli}
       variant="standard"
-      sx={{ minWidth: 220 }}
-      className={classes.gradeControl}>
-      {isKieliaine(aine) && (
-        <div className={classes.headerContainer}>
-          <Typography className={classes.header}>
-            {t(aine.nimi)}
-            <LabelTooltip
-              title={t(aine.kuvaus)}
-              sx={{ marginLeft: '3px', color: colors.brandGreen }}></LabelTooltip>
-          </Typography>
-          <KieliSelect aine={aine} updateKieli={updateKieli} />
-        </div>
-      )}
-      <div className={classes.gradeLabelContainer}>
-        <InputLabel id={labelId} className={classes.gradeLabel}>
-          {t(isKieliaine(aine) ? t('pistelaskuri.aine.arvosana') : aine.nimi)}
-        </InputLabel>
-      </div>
+      sx={{ minWidth: 220 }}>
       <Select
         labelId={labelId}
         value={String(aine.arvosana)}
@@ -201,7 +126,7 @@ export const KouluaineSelect = ({
           className={classes.poistakieli}
           onClick={removeLisaKieli}
           aria-label={t('pistelaskuri.aine.removekieli')}>
-          <DeleteOutlined />
+          <MaterialIcon icon="delete" variant="outlined" />
         </IconButton>
       )}
     </AineSelectControl>

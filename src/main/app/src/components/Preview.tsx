@@ -5,9 +5,9 @@ import removeMd from 'remove-markdown';
 
 const AT_LEAST_AMOUNT = 200;
 
-export const Preview = ({ markdown }: { markdown: string }) => {
+export const Preview = ({ markdown }: { markdown?: string }) => {
   const textAsSentences = removeMd(markdown).match(/[^.!?]+[.!?]+/g);
-  return (
+  return markdown ? (
     <p>
       {textAsSentences.reduce((paragraph: string, sentence: string) => {
         return paragraph.length < AT_LEAST_AMOUNT &&
@@ -16,5 +16,5 @@ export const Preview = ({ markdown }: { markdown: string }) => {
           : paragraph;
       }, '')}
     </p>
-  );
+  ) : null;
 };

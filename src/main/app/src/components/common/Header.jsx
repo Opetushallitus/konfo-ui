@@ -1,8 +1,5 @@
 import React from 'react';
 
-import AppsIcon from '@mui/icons-material/Apps';
-import CloseIcon from '@mui/icons-material/Close';
-import MenuIcon from '@mui/icons-material/Menu';
 import {
   AppBar,
   Box,
@@ -17,14 +14,13 @@ import Link from '@mui/material/Link';
 import { styled } from '@mui/material/styles';
 import { urls } from 'oph-urls-js';
 import { useTranslation } from 'react-i18next';
-import { Link as RouterLink } from 'react-router-dom';
 
 import { ReactComponent as OPOLogoEN } from '#/src/assets/images/opintopolku_logo_header_en.svg';
 import { ReactComponent as OPOLogoFI } from '#/src/assets/images/opintopolku_logo_header_fi.svg';
 import { ReactComponent as OPOLogoSV } from '#/src/assets/images/opintopolku_logo_header_sv.svg';
 import { colors } from '#/src/colors';
-import BetaBanner from '#/src/components/common/BetaBanner';
-import { LocalizedLink } from '#/src/components/common/LocalizedLink';
+import { BetaBanner } from '#/src/components/common/BetaBanner';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { theme } from '#/src/theme';
 import { getLanguage } from '#/src/tools/localization';
 
@@ -151,17 +147,13 @@ export const Header = ({
             edge="start"
             className={classes.menuButton}>
             <Box className={classes.menuBox}>
-              {isOpen ? <CloseIcon /> : <MenuIcon />}
+              {isOpen ? <MaterialIcon icon="close" /> : <MaterialIcon icon="menu" />}
               <Typography className={classes.menuText}>{t('valikko')}</Typography>
             </Box>
           </IconButton>
-          <LocalizedLink
-            component={RouterLink}
-            to="/"
-            title={t('header.siirry-etusivulle')}
-            onClick={refreshSideMenu}>
+          <Link href="/" title={t('header.siirry-etusivulle')} onClick={refreshSideMenu}>
             <OpintopolkuHeaderLogo focusable="false" aria-hidden="true" height="26px" />
-          </LocalizedLink>
+          </Link>
           {showTestiLabel && (
             <Chip
               className={classes.testi}
@@ -176,7 +168,7 @@ export const Header = ({
                 href={urls.url('oma-opintopolku')}
                 className={classes.omaOpintopolkuLink}
                 target="_blank">
-                <AppsIcon className={classes.omaOpintopolkuIcon} />
+                <MaterialIcon icon="apps" className={classes.omaOpintopolkuIcon} />
                 <Typography className={classes.omaOpintopolkuText}>
                   {t('oma-opintopolku')}
                 </Typography>

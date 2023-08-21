@@ -1,6 +1,5 @@
 import React, { useMemo, useState } from 'react';
 
-import { HomeWorkOutlined } from '@mui/icons-material';
 import {
   Box,
   InputBase,
@@ -19,17 +18,18 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { match } from 'ts-pattern';
 
 import { colors } from '#/src/colors';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { useAutocompleteOptions } from '#/src/hooks/useAutocompleteOptions';
 import { theme } from '#/src/theme';
 import { AutocompleteOption } from '#/src/types/common';
 
-import { getToteutustenTarjoajat } from './hakutulos/hakutulosKortit/KoulutusKortti';
+import { getToteutustenTarjoajat } from './hakutulos/hakutulosKortit/getToteutustenTarjoajat';
 import { useAutoComplete } from './hakutulosHooks';
 import { SearchButton } from './SearchButton';
 
 const checkIsKeywordValid = (word: string) => size(word) === 0 || size(word) > 2;
 
-export const createRenderOption = (t: TFunction) => {
+const createRenderOption = (t: TFunction) => {
   return function KonfoAutocompleteOption(
     props: React.HTMLAttributes<HTMLLIElement>,
     option: AutocompleteOption
@@ -42,7 +42,7 @@ export const createRenderOption = (t: TFunction) => {
             const tarjoajatText = getToteutustenTarjoajat(t, k.toteutustenTarjoajat);
             return tarjoajatText ? (
               <Box display="flex" alignItems="center" flexDirection="row">
-                <HomeWorkOutlined />
+                <MaterialIcon variant="outlined" icon="home_work" />
                 <Typography pl={1} variant="body2">
                   {tarjoajatText}
                 </Typography>
@@ -55,7 +55,7 @@ export const createRenderOption = (t: TFunction) => {
   };
 };
 
-export const createRenderInput = (t: TFunction) => {
+const createRenderInput = (t: TFunction) => {
   return function KonfoAutocompleteInput(params: AutocompleteRenderInputParams) {
     const { InputProps } = params;
     const rest = omit(params, ['InputProps', 'InputLabelProps']);

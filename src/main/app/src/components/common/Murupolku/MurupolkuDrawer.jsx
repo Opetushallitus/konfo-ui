@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { Close } from '@mui/icons-material';
 import { Box, Drawer, Grid, IconButton, Toolbar, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 
 import { MurupolkuFragment } from './MurupolkuFragment';
 
@@ -66,7 +66,7 @@ export const MurupolkuDrawer = ({ path, onClose, isOpen }) => {
             wrap="nowrap">
             <Grid item>
               <IconButton color="inherit" onClick={onClose}>
-                <Close />
+                <MaterialIcon icon="close" />
               </IconButton>
             </Grid>
             <Grid item>
@@ -80,7 +80,7 @@ export const MurupolkuDrawer = ({ path, onClose, isOpen }) => {
         <Box className={classes.drawerContainer}>
           {path.map(({ name, link, isHome }, index) => (
             <Box
-              key={`${name} ${index}`}
+              key={`${name} ${link}`}
               className={classes.drawerItemWrapper}
               style={{ textIndent: `${index * FRAGMENT_INDENT_STEP}px` }}>
               <MurupolkuFragment

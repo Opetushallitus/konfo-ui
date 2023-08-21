@@ -1,16 +1,16 @@
 import React from 'react';
 
-import { Clear } from '@mui/icons-material';
 import { Button, Chip, Grid } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { getFilterStateChangesForDelete } from '#/src/tools/filters';
 import { localize } from '#/src/tools/localization';
-import { FilterValue } from '#/src/types/SuodatinTypes';
+import { RajainItem } from '#/src/types/SuodatinTypes';
 
 type ChosenFiltersProps = {
-  filters: Array<FilterValue>;
-  getHandleDelete: (entry: FilterValue) => VoidFunction;
+  filters: Array<RajainItem>;
+  getHandleDelete: (entry: RajainItem) => VoidFunction;
   handleClearFilters: VoidFunction;
 };
 
@@ -50,7 +50,7 @@ export const ChipList = ({
       <Grid item>
         <Button
           size="small"
-          startIcon={<Clear />}
+          startIcon={<MaterialIcon icon="clear" />}
           sx={{
             fontWeight: 600,
             fontSize: 14,
@@ -73,8 +73,18 @@ export const SuodatinValinnat = ({
 }: any) => {
   const { flat, withAlakoodit } = allSelectedFilters;
 
-  const getHandleDelete = (item: FilterValue) => () => {
-    const changes = getFilterStateChangesForDelete(withAlakoodit)(item);
+  const getHandleDelete = (item: RajainItem) => () => {
+    const linkedRajaimet = item.linkedIds
+      ? withAlakoodit.filter((v: any) => item.linkedIds?.includes(v.id))
+      : [];
+    let changes = getFilterStateChangesForDelete(withAlakoodit)(item);
+    linkedRajaimet.forEach(
+      (rajain: any) =>
+        (changes = Object.assign(
+          changes,
+          getFilterStateChangesForDelete(withAlakoodit)(rajain)
+        ))
+    );
     setFilters(changes);
   };
 

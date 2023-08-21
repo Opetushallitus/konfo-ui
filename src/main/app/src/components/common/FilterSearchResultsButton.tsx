@@ -1,9 +1,8 @@
 import React from 'react';
 
-import { FilterList } from '@mui/icons-material';
 import { Badge, Button, ButtonProps } from '@mui/material';
-import { useTranslation } from 'react-i18next';
 
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { useSideMenu } from '#/src/hooks';
 import { useHakutulosWidth } from '#/src/store/reducers/appSlice';
 
@@ -11,14 +10,13 @@ export const FilterSearchResultsButton = ({
   inline = false,
   textColor,
   chosenFilterCount,
+  children,
   ...rest
 }: {
   textColor?: string;
   chosenFilterCount?: number;
   inline?: boolean;
 } & ButtonProps) => {
-  const { t } = useTranslation();
-
   const { width: sideMenuWidth } = useSideMenu();
   const [hakutulosWidth] = useHakutulosWidth();
 
@@ -41,11 +39,11 @@ export const FilterSearchResultsButton = ({
       variant={inline ? 'text' : 'contained'}
       endIcon={
         <Badge color="error" badgeContent={chosenFilterCount}>
-          <FilterList />
+          <MaterialIcon icon="filter_list" />
         </Badge>
       }
       {...rest}>
-      {t('haku.rajaa-tuloksia')}
+      {children}
     </Button>
   );
 };

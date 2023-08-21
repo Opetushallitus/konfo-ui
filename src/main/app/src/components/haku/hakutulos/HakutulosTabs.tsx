@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { SchoolOutlined, HomeWorkOutlined } from '@mui/icons-material';
 import { Tabs, Tab, useTheme } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { useHakutulosWidth } from '#/src/store/reducers/appSlice';
 
 import { useSearch } from '../hakutulosHooks';
@@ -74,7 +74,13 @@ export const HakutulosTabs = () => {
       }}>
       <Tab
         value="koulutus"
-        icon={<SchoolOutlined className={classes.tabIconMargin} />}
+        icon={
+          <MaterialIcon
+            icon="school"
+            variant="outlined"
+            className={classes.tabIconMargin}
+          />
+        }
         classes={{
           wrapped: classes.tabWrapper,
           labelIcon: classes.tabLabelIcon,
@@ -84,7 +90,13 @@ export const HakutulosTabs = () => {
       />
       <Tab
         value="oppilaitos"
-        icon={<HomeWorkOutlined className={classes.tabIconMargin} />}
+        icon={
+          <MaterialIcon
+            variant="outlined"
+            icon="home_work"
+            className={classes.tabIconMargin}
+          />
+        }
         classes={{
           wrapped: classes.tabWrapper,
           labelIcon: classes.tabLabelIcon,

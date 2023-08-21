@@ -21,7 +21,7 @@ const StyledCard = styled(Card)(() => ({
   },
 }));
 
-const TeemakuvaImage = ({ imgUrl, altText }) => {
+export const TeemakuvaImage = ({ imgUrl, altText }) => {
   return (
     <StyledCard className={classes.card} elevation={1}>
       <CardMedia
@@ -35,5 +35,3 @@ const TeemakuvaImage = ({ imgUrl, altText }) => {
     </StyledCard>
   );
 };
-
-export default TeemakuvaImage;

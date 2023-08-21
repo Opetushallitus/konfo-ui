@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 import { Box, Typography, styled, Button } from '@mui/material';
 import { isEqual } from 'lodash';
@@ -17,9 +17,11 @@ const PREFIX = 'keskiarvo__ainelaskuri__';
 const classes = {
   input: `${PREFIX}input`,
   error: `${PREFIX}error`,
+  changeCalcButton: `${PREFIX}changecalcbutton`,
 };
 
 const LaskuriContainer = styled(Box)(() => ({
+  width: '100%',
   [`& .${classes.input}`]: {
     border: `1px solid ${colors.lightGrey}`,
     padding: '0 0.5rem',
@@ -34,6 +36,12 @@ const LaskuriContainer = styled(Box)(() => ({
     color: colors.red,
     maxWidth: '60%',
   },
+  [`& .${classes.changeCalcButton}`]: {
+    marginTop: '1rem',
+    border: `2px solid ${colors.brandGreen}`,
+    color: colors.brandGreen,
+    fontWeight: 600,
+  },
   button: {
     fontSize: '1rem',
     fontWeight: 'semibold',
@@ -43,28 +51,29 @@ const LaskuriContainer = styled(Box)(() => ({
 type Props = {
   changeCalculator: (value: boolean) => void;
   updateKouluaineetToCalculate: (kouluaineet: Kouluaineet) => void;
+  kouluaineet: Kouluaineet;
+  embedded: boolean;
 };
 
 export const KeskiarvoAineLaskuri = ({
   changeCalculator,
   updateKouluaineetToCalculate,
+  kouluaineet,
+  embedded,
 }: Props) => {
   const { t } = useTranslation();
-  const [kouluaineet, setKouluaineet] = useState<Kouluaineet>(new Kouluaineet());
 
   useEffect(() => {
     const savedResult = LocalStorageUtil.load(KOULUAINE_STORE_KEY);
     if (savedResult) {
-      setKouluaineet(savedResult as Kouluaineet);
       updateKouluaineetToCalculate(savedResult as Kouluaineet);
     } else {
-      setKouluaineet(new Kouluaineet());
+      updateKouluaineetToCalculate(new Kouluaineet());
     }
   }, [updateKouluaineetToCalculate]);
 
   const updateKouluaineFromChild = (assigner: (aineet: Kouluaineet) => Kouluaineet) => {
     const aineet = assigner(kouluaineet);
-    setKouluaineet(aineet);
     if (!isEqual(kouluaineet, new Kouluaineet())) {
       LocalStorageUtil.save(KOULUAINE_STORE_KEY, aineet);
     }
@@ -78,7 +87,7 @@ export const KeskiarvoAineLaskuri = ({
         ? createKieliaine(nimi, lukiokoodi, description)
         : createKouluaine(nimi, lukiokoodi)
     );
-    setKouluaineet(aineet);
+    updateKouluaineetToCalculate(aineet);
   };
 
   const removeKieli = (index: number) => {
@@ -86,7 +95,6 @@ export const KeskiarvoAineLaskuri = ({
     aineet.lisakielet = aineet.lisakielet.filter(
       (val: Kouluaine, id: number) => id !== index
     );
-    setKouluaineet(aineet);
     updateKouluaineetToCalculate(aineet);
     LocalStorageUtil.save(KOULUAINE_STORE_KEY, aineet);
   };
@@ -96,14 +104,9 @@ export const KeskiarvoAineLaskuri = ({
       <Typography variant="h3" sx={{ fontSize: '1.625rem' }}>
         {t('pistelaskuri.aine.heading')}
       </Typography>
-      <Typography sx={{ marginBottom: '1.375rem' }}>
-        {t('pistelaskuri.aine.vaihdalaskin-1')}
-        <Button
-          onClick={() => changeCalculator(true)}
-          sx={{ padding: 0, verticalAlign: 'unset' }}>
-          {t('pistelaskuri.aine.vaihdalaskin-2')}
-        </Button>
-      </Typography>
+      <Button className={classes.changeCalcButton} onClick={() => changeCalculator(true)}>
+        {t('pistelaskuri.aine.vaihdalaskin')}
+      </Button>
       <SuorittanutCheckbox
         suorittanut={kouluaineet.suorittanut}
         toggleSuorittanut={() =>
@@ -125,6 +128,7 @@ export const KeskiarvoAineLaskuri = ({
           }
           aine={kieliaine}
           key={`kieliaine-${kieliaine.nimi}-${index}`}
+          embedded={embedded}
         />
       ))}
       <AddKieliInput addKieli={addKieli}>
@@ -140,6 +144,7 @@ export const KeskiarvoAineLaskuri = ({
             key={`lisakieliaine-${kieliaine.nimi}-${index}`}
             isLisaKieli={true}
             removeLisaKieli={() => removeKieli(index)}
+            embedded={embedded}
           />
         ))}
       </AddKieliInput>
@@ -153,6 +158,7 @@ export const KeskiarvoAineLaskuri = ({
           }
           aine={lukuaine}
           key={`lukuaine-${lukuaine.nimi}-${index}`}
+          embedded={embedded}
         />
       ))}
       <Typography variant="h4" sx={{ margin: '2rem 0 1.375rem', fontSize: '1.25rem' }}>
@@ -168,6 +174,7 @@ export const KeskiarvoAineLaskuri = ({
           }
           aine={taitoaine}
           key={`taitoaine-${taitoaine.nimi}-${index}`}
+          embedded={embedded}
         />
       ))}
     </LaskuriContainer>

@@ -1,43 +1,17 @@
 import React from 'react';
 
-import {
-  ExtensionOutlined,
-  LineStyle,
-  SchoolOutlined,
-  TimelapseOutlined,
-  LabelOutlined,
-  Class,
-} from '@mui/icons-material';
-import { styled } from '@mui/material/styles';
+import { Box } from '@mui/material';
 import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { ExternalLink } from '#/src/components/common/ExternalLink';
 import { InfoGrid } from '#/src/components/common/InfoGrid';
+import { InfoGridIcon } from '#/src/components/common/InfoGridIcon';
 import { Koulutustyyppi } from '#/src/constants';
 import { useVisibleKoulutustyyppi } from '#/src/hooks/useVisibleKoulutustyyppi';
 import { localize, localizeArrayToCommaSeparated } from '#/src/tools/localization';
 import { getLocalizedKoulutusLaajuus } from '#/src/tools/utils';
 import { Koodi, Translateable } from '#/src/types/common';
-
-const PREFIX = 'KoulutusInfoGrid';
-
-const classes = {
-  koulutusInfoGridIcon: `${PREFIX}-koulutusInfoGridIcon`,
-  koulutuksenTasoTooltip: `${PREFIX}-koulutuksenTasoTooltip`,
-};
-
-const Root = styled('div')(({ theme }) => ({
-  width: '100%',
-  [`& .${classes.koulutusInfoGridIcon}`]: {
-    color: theme.palette.primary.main,
-  },
-
-  [`& .${classes.koulutuksenTasoTooltip}`]: {
-    ...theme.typography.body1,
-    margin: '5px 5px 5px 5px',
-  },
-}));
 
 type Koulutus = {
   tutkintonimikkeet: Array<Translateable>;
@@ -72,7 +46,7 @@ export const KoulutusInfoGrid = ({ koulutus }: Props) => {
 
   if (!isEmpty(tutkintonimikkeet)) {
     perustiedotData.push({
-      icon: <SchoolOutlined className={classes.koulutusInfoGridIcon} />,
+      icon: <InfoGridIcon icon="school" variant="outlined" />,
       title: t('koulutus.tutkintonimikkeet'),
       text: tutkintonimikkeet
         ? tutkintonimikkeet.map((nimikeObj) => localize(nimikeObj)).join('\n')
@@ -87,13 +61,13 @@ export const KoulutusInfoGrid = ({ koulutus }: Props) => {
 
   perustiedotData.push(
     {
-      icon: <ExtensionOutlined className={classes.koulutusInfoGridIcon} />,
+      icon: <InfoGridIcon icon="extension" variant="outlined" />,
       title: t('koulutus.koulutustyyppi'),
       text: koulutustyyppiString,
       testid: 'koulutustyyppi',
     },
     {
-      icon: <TimelapseOutlined className={classes.koulutusInfoGridIcon} />,
+      icon: <InfoGridIcon icon="timelapse" variant="outlined" />,
       title: t('koulutus.koulutuksen-laajuus'),
       text: laajuus,
       testid: 'opintojenLaajuus',
@@ -104,7 +78,7 @@ export const KoulutusInfoGrid = ({ koulutus }: Props) => {
 
   if (!isEmpty(opinnonTyyppiText)) {
     perustiedotData.push({
-      icon: <Class className={classes.koulutusInfoGridIcon} />,
+      icon: <InfoGridIcon icon="class" />,
       title: t('koulutus.opinnonTyyppi'),
       text: opinnonTyyppiText,
     });
@@ -112,7 +86,7 @@ export const KoulutusInfoGrid = ({ koulutus }: Props) => {
 
   if (!isEmpty(tunniste)) {
     perustiedotData.push({
-      icon: <LabelOutlined className={classes.koulutusInfoGridIcon} />,
+      icon: <InfoGridIcon icon="label" variant="outlined" />,
       title: t('koulutus.tunniste'),
       text: tunniste,
     });
@@ -135,24 +109,20 @@ export const KoulutusInfoGrid = ({ koulutus }: Props) => {
   const koulutuksenTasot = [eqfString, nqfString].filter(Boolean).join('\n');
   if (koulutuksenTasot) {
     perustiedotData.push({
-      icon: <LineStyle className={classes.koulutusInfoGridIcon} />,
+      icon: <InfoGridIcon icon="line_style" />,
       title: t('koulutus.koulutuksen-tasot.otsikko'),
       text: koulutuksenTasot,
       testid: 'koulutuksenTasot',
       modalText: (
-        <div className={classes.koulutuksenTasoTooltip}>
+        <Box sx={{ margin: '5px' }}>
           {t('koulutus.koulutuksen-tasot.tooltip.teksti')}{' '}
           <ExternalLink href={t('koulutus.koulutuksen-tasot.tooltip.linkki.url')}>
             {t('koulutus.koulutuksen-tasot.tooltip.linkki.teksti')}
           </ExternalLink>
-        </div>
+        </Box>
       ),
     });
   }
 
-  return (
-    <Root>
-      <InfoGrid gridData={perustiedotData} />
-    </Root>
-  );
+  return <InfoGrid gridData={perustiedotData} />;
 };

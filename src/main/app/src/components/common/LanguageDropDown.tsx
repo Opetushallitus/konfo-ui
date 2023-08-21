@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
-import LanguageIcon from '@mui/icons-material/Language';
 import { Select, MenuItem, InputBase, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Cookies from 'js-cookie';
 import { useTranslation } from 'react-i18next';
 
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { LANG_NAME_BY_CODE } from '#/src/constants';
 import { useLanguageState } from '#/src/hooks';
 import { supportedLanguages } from '#/src/tools/i18n';
@@ -13,6 +13,16 @@ import { supportedLanguages } from '#/src/tools/i18n';
 const CustomInput = styled(InputBase)({
   color: 'white',
   fontSize: 'small',
+
+  // Roll focus indicator back to browser UA stylesheet values
+  div: {
+    ':focus-visible': {
+      outlineColor: '-webkit-focus-ring-color',
+      outlineStyle: 'auto',
+      outlineWidth: 'thin',
+      outline: 'revert',
+    },
+  },
 });
 
 export const LanguageDropDown = () => {
@@ -35,7 +45,8 @@ export const LanguageDropDown = () => {
   };
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
-      <LanguageIcon
+      <MaterialIcon
+        icon="language"
         onClick={isOpen ? handleClose : handleOpen}
         sx={{ cursor: 'pointer', marginRight: '9px' }}
       />
@@ -54,7 +65,7 @@ export const LanguageDropDown = () => {
         onOpen={handleOpen}
         onChange={handleChange}
         renderValue={(value) => value?.toUpperCase()}
-        input={<CustomInput />}>
+        input={<CustomInput aria-label={t('opintopolku.valitsekieli')} />}>
         {supportedLanguages.map((langCode) => (
           <MenuItem key={langCode} value={langCode}>
             {t(`kielivalinta.${(LANG_NAME_BY_CODE as any)[langCode]}`)}

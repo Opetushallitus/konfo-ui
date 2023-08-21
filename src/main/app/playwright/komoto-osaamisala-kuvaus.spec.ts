@@ -4,8 +4,8 @@ import { mocksFromFile, setupCommonTest } from './test-tools';
 
 test.describe('Osaamisalan kuvaus KOMOTO', () => {
   test.beforeEach(async ({ page, context, baseURL }) => {
-    setupCommonTest({ page, context, baseURL });
-    mocksFromFile(page, 'komoto-osaamisala-kuvaus.mocks.json');
+    await setupCommonTest({ page, context, baseURL });
+    await mocksFromFile(page, 'komoto-osaamisala-kuvaus.mocks.json');
   });
   test('KOMOTO includes osaamisala description', async ({ page }) => {
     await page.goto('/konfo/fi/toteutus/1.2.246.562.17.00000000000000000437');

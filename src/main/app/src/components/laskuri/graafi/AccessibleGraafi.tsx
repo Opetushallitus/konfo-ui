@@ -51,7 +51,7 @@ const tulosToText = (
 ) =>
   isLukio
     ? t('pistelaskuri.graafi.saavutettavuus.ka', {
-        keskiarvo: formatDouble(tulos.keskiarvo),
+        keskiarvo: formatDouble(tulos.keskiarvoPainotettu),
       })
     : t('pistelaskuri.graafi.saavutettavuus.pisteet', {
         tulos: tulos.pisteet + ENSISIJAINEN_SCORE_BONUS,

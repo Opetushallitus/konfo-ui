@@ -1,10 +1,23 @@
 import { useCallback, useMemo, useState } from 'react';
 
 import { debounce } from '@mui/material';
-import { flow, pickBy, map, uniqBy, flatten, size, isEqual } from 'lodash';
+import {
+  flow,
+  pickBy,
+  map,
+  uniqBy,
+  flatten,
+  size,
+  isEqual,
+  keys,
+  omit,
+  forEach,
+  some,
+} from 'lodash';
 import { useQuery } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { match, P } from 'ts-pattern';
 
 import {
   searchKoulutukset,
@@ -14,7 +27,7 @@ import {
 import {
   getCombinedQueryIsFetching,
   getCombinedQueryStatus,
-} from '#/src/components/common/QueryResultWrapper';
+} from '#/src/components/common/QueryResultWrapper/queryResultUtils';
 import { FILTER_TYPES } from '#/src/constants';
 import { useLanguageState } from '#/src/hooks';
 import { useCurrentPage } from '#/src/store/reducers/appSlice';
@@ -50,8 +63,9 @@ import {
   getHakuParams,
   createHakuUrl,
 } from '#/src/store/reducers/hakutulosSliceSelector';
-import { getFilterWithChecked, sortValues } from '#/src/tools/filters';
+import { isRajainActive, getRajainValueInUIFormat } from '#/src/tools/filters';
 import { ReduxTodo, ValueOf } from '#/src/types/common';
+import { isCompositeRajainId } from '#/src/types/SuodatinTypes';
 
 type Pagination = {
   size?: number;
@@ -83,15 +97,14 @@ const useOppilaitosSearch = createSearchQueryHook(
   }
 );
 
-const useAutoCompleteQuery = (requestParams: any) => {
-  return useQuery(
+const useAutoCompleteQuery = (requestParams: any) =>
+  useQuery(
     ['autoCompleteSearch', requestParams],
     () => autoCompleteSearch(requestParams),
     {
       enabled: size(requestParams.searchPhrase) >= 3,
     }
   );
-};
 
 export const useAutoComplete = () => {
   const autoCompleteRequestParams = useSelector(getAutocompleteRequestParams);
@@ -119,8 +132,6 @@ export const useAutoComplete = () => {
     [setSearchPhraseDebounced, isFetching, data, status]
   );
 };
-
-export const useSearchOperations = () => {};
 
 const isOnPageWithHaku = (currentPage: string) => ['', 'haku'].includes(currentPage);
 
@@ -280,35 +291,61 @@ export const useFilterProps = (id: ValueOf<typeof FILTER_TYPES>) => {
   const allFilters = useSelector(getFilters);
 
   return useMemo(
-    () => sortValues(getFilterWithChecked(usedFilters, allFilters, id)),
+    () => getRajainValueInUIFormat(usedFilters, allFilters, id),
     [usedFilters, allFilters, id]
   );
 };
 
 export const useSelectedFilters = (availableFilters: any, checkedFilters: any) => {
-  const selectedFiltersWithAlakoodit = useMemo(
-    () =>
-      flow(
-        (vals) => pickBy(vals, (v) => (Array.isArray(v) ? v.length > 0 : v)),
-        Object.keys,
-        (ks) =>
-          map(ks, (filterId) =>
-            Object.values(
-              getFilterWithChecked(availableFilters, checkedFilters, filterId)
+  const selectedFiltersWithAlakoodit = useMemo(() => {
+    const compositeFilters = keys(availableFilters).filter((k) => isCompositeRajainId(k));
+    const compositeFlattened: Record<
+      string,
+      Array<string> | boolean | Record<string, number>
+    > = {};
+    forEach(compositeFilters, (v) => {
+      for (const subKey in availableFilters[v]) {
+        compositeFlattened[subKey] = availableFilters[v][subKey];
+      }
+    });
+    const withCompositeFlattened = {
+      ...omit(availableFilters, compositeFilters),
+      ...compositeFlattened,
+    };
+
+    return flow(
+      (vals) =>
+        pickBy(vals, (v, k) =>
+          match(v)
+            .with(P.array(P.string), (arr) => arr.length > 0)
+            .with(
+              {
+                [`${k}_min`]: P.number,
+                [`${k}_max`]: P.number,
+              },
+              (obj) => some(Object.values(obj), (nbr) => nbr > 0)
             )
-          ),
-        flatten,
-        (flatted) => uniqBy(flatted, 'id')
-      )(checkedFilters),
-    [availableFilters, checkedFilters]
-  );
+            .with({ [`${k}_max`]: P.select(P.number) }, (nbr) => nbr > 0)
+            .otherwise((bool) => bool === true)
+        ),
+      Object.keys,
+      (ks) =>
+        map(ks, (filterId) =>
+          Object.values(
+            getRajainValueInUIFormat(withCompositeFlattened, checkedFilters, filterId)
+          )
+        ),
+      flatten,
+      (flatted) => uniqBy(flatted, 'id')
+    )(checkedFilters);
+  }, [availableFilters, checkedFilters]);
 
   const selectedFiltersFlatList = useMemo(
     () =>
       selectedFiltersWithAlakoodit
         .map((v: any) => [v, ...(v.alakoodit || [])])
         .flat()
-        .filter((v: any) => v.checked),
+        .filter((v: any) => isRajainActive(v)),
     [selectedFiltersWithAlakoodit]
   ); // Alakoodilistoissa voi olla valitsemattomia koodeja
 

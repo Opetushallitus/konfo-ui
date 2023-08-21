@@ -4,6 +4,7 @@ import { Box, Container, useMediaQuery, useTheme } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 import { colors } from '#/src/colors';
+import { useScrollToHash } from '#/src/hooks/useScrollToHash';
 
 const PREFIX = 'ContentWrapper';
 
@@ -18,14 +19,15 @@ const StyledContainer = styled(Container, {
 
   backgroundColor: colors.white,
   maxWidth: '1600px',
-  '& a': {
+  '& a[!class]': {
     color: colors.brandGreen,
     textDecoration: 'underline',
   },
 }));
 
-const ContentWrapper = (props) => {
+export const ContentWrapper = (props) => {
   const theme = useTheme();
+  useScrollToHash();
 
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
@@ -46,5 +48,3 @@ const ContentWrapper = (props) => {
     </StyledContainer>
   );
 };
-
-export default ContentWrapper;

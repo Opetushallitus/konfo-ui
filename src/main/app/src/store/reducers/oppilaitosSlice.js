@@ -8,7 +8,7 @@ export const initialState = {
   order: 'asc',
 };
 
-const oppilaitosSlice = createSlice({
+export const oppilaitosSlice = createSlice({
   name: 'oppilaitos',
   initialState,
   reducers: {
@@ -33,5 +33,3 @@ const oppilaitosSlice = createSlice({
 
 export const { setTarjontaPagination, setTulevaTarjontaPagination, resetPagination } =
   oppilaitosSlice.actions;
-
-export default oppilaitosSlice.reducer;

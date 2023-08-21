@@ -3,6 +3,7 @@ import React from 'react';
 import { Grid, Button, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
 
 const PREFIX = 'NotFound';
 
@@ -18,6 +19,7 @@ const Root = styled('div')({
 
 export const NotFound = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   return (
     <Root className={classes.component}>
@@ -36,7 +38,7 @@ export const NotFound = () => {
           <Typography variant="h1" component="h1">
             {t('ei-loydy.sivua-ei-löytynyt')}
           </Typography>
-          <Typography variant={'body1'} paragraph>
+          <Typography variant="body1" paragraph>
             {t('ei-loydy.linkki-on-virheellinen')}
           </Typography>
         </Grid>
@@ -52,7 +54,7 @@ export const NotFound = () => {
                 variant="contained"
                 aria-label={t('ei-loydy.etusivulle')}
                 color="primary"
-                href={'/konfo'}>
+                href="/">
                 {t('ei-loydy.etusivulle')}
               </Button>
             </Grid>
@@ -61,7 +63,7 @@ export const NotFound = () => {
                 variant="outlined"
                 color="primary"
                 aria-label={t('ei-loydy.takaisin')}
-                onClick={() => window.history.back()}>
+                onClick={() => navigate(-1)}>
                 {t('ei-loydy.takaisin')}
               </Button>
             </Grid>

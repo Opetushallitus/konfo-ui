@@ -1,12 +1,8 @@
-import {
-  SchoolOutlined,
-  PublicOutlined,
-  LocalLibraryOutlined,
-} from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 
 import { EntiteettiKortti } from '#/src/components/common/EntiteettiKortti';
 import { OppilaitosKorttiLogo } from '#/src/components/common/KorttiLogo';
+import { createMaterialIcon } from '#/src/components/common/MaterialIcon';
 import { localize, localizeArrayToCommaSeparated } from '#/src/tools/localization';
 import { Koodi, Translateable } from '#/src/types/common';
 
@@ -50,7 +46,7 @@ export const OppilaitosKortti = ({ oppilaitos, isSmall }: Props) => {
               t('haku.tutkintoon-johtava-koulutus-maara', {
                 count: tutkintoonJohtavat,
               }),
-              SchoolOutlined,
+              createMaterialIcon('school', 'outlined'),
             ]
           : undefined,
         tutkintoonJohtamattomat
@@ -58,10 +54,10 @@ export const OppilaitosKortti = ({ oppilaitos, isSmall }: Props) => {
               t('haku.tutkintoon-johtamaton-koulutus-maara', {
                 count: tutkintoonJohtamattomat,
               }),
-              LocalLibraryOutlined,
+              createMaterialIcon('local_library', 'outlined'),
             ]
           : undefined,
-        [paikkakunnatStr, PublicOutlined],
+        [paikkakunnatStr, createMaterialIcon('public', 'outlined')],
       ]}
       isSmall={isSmall}
     />

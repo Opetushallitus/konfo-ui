@@ -1,5 +1,3 @@
-import DirectionsOutlinedIcon from '@mui/icons-material/DirectionsOutlined';
-import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
 import {
   Hidden,
   Paper,
@@ -7,16 +5,16 @@ import {
   useMediaQuery,
   useTheme,
   Box,
-  SvgIcon,
+  SvgIconProps,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { truncate, trim, isEmpty, isUndefined } from 'lodash';
 import { useTranslation } from 'react-i18next';
-import { Link as RouterLink } from 'react-router-dom';
 
 import { colors, educationTypeColorCode } from '#/src/colors';
 import { AdditionalInfoWithIcon } from '#/src/components/common/AdditionalInfoWithIcon';
-import { LocalizedLink } from '#/src/components/common/LocalizedLink';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { SmartLink } from '#/src/components/common/SmartLink';
 import { KOULUTUS_TYYPPI } from '#/src/constants';
 import { sanitizedHTMLParser } from '#/src/tools/utils';
 
@@ -34,9 +32,10 @@ const classes = {
   heading: `${PREFIX}-heading`,
 };
 
-const StyledLocalizedLink = styled(LocalizedLink, {
+const StyledSmartLink = styled(SmartLink, {
   shouldForwardProp: (prop: string) => !['isSmall', 'wrapIconTexts'].includes(prop),
-})<StyledLocalizedLinkProps>(({ theme, isSmall, wrapIconTexts }) => ({
+})<StyledSmartLinkProps>(({ theme, isSmall, wrapIconTexts }) => ({
+  display: 'flex',
   [`& .${classes.paperRoot}`]: {
     width: '100%',
     marginBottom: theme.spacing(1.5),
@@ -102,9 +101,12 @@ const StyledLocalizedLink = styled(LocalizedLink, {
 }));
 
 // TODO: Jostain syystä TS:n labeled tuples ei toiminut, e.g. IconComponent: (...props: any) => JSX.Element
-type IconText = [JSX.Element | string, typeof SvgIcon | undefined];
+type IconText = [
+  JSX.Element | string,
+  ((props: SvgIconProps) => JSX.Element) | undefined,
+];
 
-type StyledLocalizedLinkProps = {
+type StyledSmartLinkProps = {
   isSmall?: boolean;
   wrapIconTexts?: boolean;
 };
@@ -158,12 +160,7 @@ export const EntiteettiKortti = ({
   }
 
   return (
-    <StyledLocalizedLink
-      underline="none"
-      component={RouterLink}
-      to={to}
-      wrapIconTexts={wrapIconTexts}
-      isSmall={isSmall}>
+    <StyledSmartLink href={to} wrapIconTexts={wrapIconTexts} isSmall={isSmall}>
       <Paper
         data-testid={header}
         classes={{ root: classes.paperRoot }}
@@ -204,14 +201,14 @@ export const EntiteettiKortti = ({
           {erityisopetusHeaderText && (
             <AdditionalInfoWithIcon
               translationKey={erityisopetusHeaderText}
-              icon={<DirectionsOutlinedIcon />}
+              icon={<MaterialIcon icon="directions" variant="outlined" />}
             />
           )}
 
           {jarjestaaUrheilijanAmmKoulutusta && (
             <AdditionalInfoWithIcon
               translationKey="haku.urheilijan-amm-koulutus"
-              icon={<SportsSoccerIcon />}
+              icon={<MaterialIcon icon="sports_soccer" />}
             />
           )}
 
@@ -263,6 +260,6 @@ export const EntiteettiKortti = ({
           )}
         </Box>
       </Paper>
-    </StyledLocalizedLink>
+    </StyledSmartLink>
   );
 };

@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 
-import CloseIcon from '@mui/icons-material/Close';
-import SentimentSatisfied from '@mui/icons-material/SentimentSatisfied';
 import { Fab, IconButton } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
-import Palaute from '#/src/components/common/Palaute';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { Palaute } from '#/src/components/common/Palaute';
 
 const PREFIX = 'PalautePopup';
 
@@ -73,7 +72,7 @@ export const PalautePopup = () => {
                 aria-label={t('palaute.sulje')}
                 className={classes.closeButton}
                 onClick={() => setShow(false)}>
-                <CloseIcon />
+                <MaterialIcon icon="close" />
               </IconButton>
             ) : null}
             {t('palaute.anna-palautetta')}
@@ -86,7 +85,7 @@ export const PalautePopup = () => {
           onClick={() => setShow(true)}
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}>
-          <SentimentSatisfied className={classes.popup} />
+          <MaterialIcon icon="sentiment_satisfied" className={classes.popup} />
         </Fab>
       </div>
       {show ? <Palaute open={true} hide={() => setShow(false)} /> : null}

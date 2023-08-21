@@ -1,8 +1,6 @@
-import React from 'react';
-
 import { styled } from '@mui/material/styles';
 
-const Root = styled('div')(({ theme }) => ({
+export const ReactiveBorder = styled('div')(({ theme }) => ({
   margin: 2, // NOTE: This is a fast fix for Grid containers with negative margins inside this component
   paddingTop: 25,
   paddingBottom: 25,
@@ -23,7 +21,3 @@ const Root = styled('div')(({ theme }) => ({
     paddingRight: 90,
   },
 }));
-
-export const ReactiveBorder = ({ children }: React.PropsWithChildren) => (
-  <Root>{children}</Root>
-);

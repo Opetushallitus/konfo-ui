@@ -1,15 +1,13 @@
 import React, { useCallback, useMemo, useState } from 'react';
 
-import EuroSymbolIcon from '@mui/icons-material/EuroSymbol';
-import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
-import PublicIcon from '@mui/icons-material/Public';
 import { Box, Grid, Hidden, Typography } from '@mui/material';
-import { mapValues, size, some } from 'lodash';
+import { mapValues, size } from 'lodash';
 import { useTranslation } from 'react-i18next';
-import { match } from 'ts-pattern';
+import { P, match } from 'ts-pattern';
 
 import { EntiteettiKortti } from '#/src/components/common/EntiteettiKortti';
 import { OppilaitosKorttiLogo } from '#/src/components/common/KorttiLogo';
+import { createMaterialIcon } from '#/src/components/common/MaterialIcon';
 import { PageSection } from '#/src/components/common/PageSection';
 import { Pagination } from '#/src/components/common/Pagination';
 import { QueryResultWrapper } from '#/src/components/common/QueryResultWrapper';
@@ -24,20 +22,21 @@ import { SijaintiSuodatin } from '#/src/components/suodattimet/common/SijaintiSu
 import { ValintatapaSuodatin } from '#/src/components/suodattimet/common/ValintatapaSuodatin';
 import { AmmOsaamisalatSuodatin } from '#/src/components/suodattimet/toteutusSuodattimet/AmmOsaamisalatSuodatin';
 import { KOULUTUS_TYYPPI, KORKEAKOULU_KOULUTUSTYYPIT } from '#/src/constants';
-import { getFilterWithChecked, sortValues } from '#/src/tools/filters';
+import { getRajainValueInUIFormat } from '#/src/tools/filters';
 import {
   localize,
   getLocalizedMaksullisuus,
   localizeArrayToCommaSeparated,
 } from '#/src/tools/localization';
 import { getLocalizedOpintojenLaajuus } from '#/src/tools/utils';
-import { FilterValue } from '#/src/types/SuodatinTypes';
+import { RajainBackendItem } from '#/src/types/SuodatinTypes';
 import { Jarjestaja } from '#/src/types/ToteutusTypes';
 
 import { useKoulutusJarjestajat } from './hooks';
 import { useSelectedFilters } from '../haku/hakutulosHooks';
 import { AlkamiskausiSuodatin } from '../suodattimet/common/AlkamiskausiSuodatin';
 import { KoulutuksenKestoSuodatin } from '../suodattimet/common/KoulutuksenKestoSuodatin';
+import { MaksullisuusSuodatin } from '../suodattimet/common/MaksullisuusSuodatin';
 import { OpetusaikaSuodatin } from '../suodattimet/common/OpetusaikaSuodatin';
 import { SuodatinValinnat } from '../suodattimet/hakutulosSuodattimet/SuodatinValinnat';
 import { LukiolinjatSuodatin } from '../suodattimet/toteutusSuodattimet/LukiolinjatSuodatin';
@@ -52,7 +51,7 @@ type JarjestajaData = {
   total: number;
   jarjestajat: Array<Jarjestaja>;
   loading: boolean;
-  sortedFilters: Record<string, Record<string, FilterValue>>;
+  sortedFilters: Record<string, Record<string, RajainBackendItem>>;
 };
 
 const SuodatinGridItem: React.FC<React.PropsWithChildren> = ({ children }) => {
@@ -79,18 +78,25 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
   const usedValues: any = useMemo(
     () =>
       mapValues(sortedFilters, (_value, key: string) =>
-        sortValues(getFilterWithChecked(sortedFilters, filters, key))
+        getRajainValueInUIFormat(sortedFilters, filters, key)
       ),
     [sortedFilters, filters]
   );
 
   const allSelectedFilters = useSelectedFilters(sortedFilters, filters);
 
-  const someSelected = some(filters, (v) => (Array.isArray(v) ? v.length > 0 : v));
+  const someSelected = allSelectedFilters.flat.length > 0;
 
   const handleFiltersClear = useCallback(() => {
-    const usedFilters = mapValues(filters, (v) => (Array.isArray(v) ? [] : false));
-
+    const usedFilters = mapValues(filters, (v, k) =>
+      match(v)
+        .with(P.array(P._), () => [])
+        .with({ [`${k}_min`]: P.number, [`${k}_max`]: P.number }, () => ({
+          [`${k}_min`]: 0,
+          [`${k}_max`]: 0,
+        }))
+        .otherwise(() => false)
+    );
     setFilters(usedFilters);
   }, [filters, setFilters]);
 
@@ -130,7 +136,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
               <SuodatinGridItem>
                 <OpetuskieliSuodatin
                   elevation={2}
-                  values={usedValues.opetuskieli}
+                  rajainValues={usedValues.opetuskieli}
                   setFilters={setFilters}
                 />
               </SuodatinGridItem>
@@ -138,8 +144,8 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                 <SijaintiSuodatin
                   elevation={2}
                   loading={isLoading}
-                  maakuntaValues={usedValues.maakunta}
-                  kuntaValues={usedValues.kunta}
+                  maakuntaRajainValues={usedValues.maakunta}
+                  kuntaRajainValues={usedValues.kunta}
                   onFocus={() => {
                     setPreventClicks(true);
                   }}
@@ -152,56 +158,63 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
               <SuodatinGridItem>
                 <PohjakoulutusvaatimusSuodatin
                   elevation={2}
-                  values={usedValues.pohjakoulutusvaatimus}
+                  rajainValues={usedValues.pohjakoulutusvaatimus}
                   setFilters={setFilters}
                 />
               </SuodatinGridItem>
               <SuodatinGridItem>
                 <HakuKaynnissaSuodatin
                   elevation={2}
-                  values={usedValues.hakukaynnissa}
+                  rajainValues={usedValues.hakukaynnissa}
                   setFilters={setFilters}
                 />
               </SuodatinGridItem>
               <SuodatinGridItem>
                 <HakutapaSuodatin
                   elevation={2}
-                  values={usedValues.hakutapa}
+                  rajainValues={usedValues.hakutapa}
                   setFilters={setFilters}
                 />
               </SuodatinGridItem>
               <SuodatinGridItem>
                 <OpetustapaSuodatin
                   elevation={2}
-                  values={usedValues.opetustapa}
+                  rajainValues={usedValues.opetustapa}
                   setFilters={setFilters}
                 />
               </SuodatinGridItem>
               <SuodatinGridItem>
                 <OppilaitosSuodatin
                   elevation={2}
-                  values={usedValues.oppilaitos}
+                  rajainValues={usedValues.oppilaitos}
                   setFilters={setFilters}
                 />
               </SuodatinGridItem>
               <SuodatinGridItem>
                 <OpetusaikaSuodatin
                   elevation={2}
-                  values={usedValues.opetusaika}
+                  rajainValues={usedValues.opetusaika}
                   setFilters={setFilters}
                 />
               </SuodatinGridItem>
               <SuodatinGridItem>
                 <KoulutuksenKestoSuodatin
                   elevation={2}
-                  values={usedValues.koulutuksenkestokuukausina}
+                  rajainValues={usedValues.koulutuksenkestokuukausina}
                   setFilters={setFilters}
                 />
               </SuodatinGridItem>
               <SuodatinGridItem>
                 <AlkamiskausiSuodatin
                   elevation={2}
-                  values={usedValues.alkamiskausi}
+                  rajainValues={usedValues.alkamiskausi}
+                  setFilters={setFilters}
+                />
+              </SuodatinGridItem>
+              <SuodatinGridItem>
+                <MaksullisuusSuodatin
+                  elevation={2}
+                  rajainValues={usedValues.maksullisuus}
                   setFilters={setFilters}
                 />
               </SuodatinGridItem>
@@ -209,7 +222,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                 <SuodatinGridItem>
                   <ValintatapaSuodatin
                     elevation={2}
-                    values={usedValues.valintatapa}
+                    rajainValues={usedValues.valintatapa}
                     setFilters={setFilters}
                   />
                 </SuodatinGridItem>
@@ -220,7 +233,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                     <LukiolinjatSuodatin
                       name="lukiopainotukset"
                       elevation={2}
-                      values={usedValues.lukiopainotukset}
+                      rajainValues={usedValues.lukiopainotukset}
                       setFilters={setFilters}
                     />
                   </SuodatinGridItem>
@@ -228,7 +241,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                     <LukiolinjatSuodatin
                       name="lukiolinjat_er"
                       elevation={2}
-                      values={usedValues.lukiolinjaterityinenkoulutustehtava}
+                      rajainValues={usedValues.lukiolinjaterityinenkoulutustehtava}
                       setFilters={setFilters}
                     />
                   </SuodatinGridItem>
@@ -238,7 +251,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                 <SuodatinGridItem>
                   <AmmOsaamisalatSuodatin
                     elevation={2}
-                    values={usedValues.osaamisala}
+                    rajainValues={usedValues.osaamisala}
                     setFilters={setFilters}
                   />
                 </SuodatinGridItem>
@@ -296,20 +309,20 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                         localizeArrayToCommaSeparated(toteutus.kunnat, {
                           sorted: true,
                         }),
-                        PublicIcon,
+                        createMaterialIcon('public'),
                       ],
                       [
                         localizeArrayToCommaSeparated(toteutus.opetusajat, {
                           sorted: true,
                         }),
-                        HourglassEmptyIcon,
+                        createMaterialIcon('hourglass_empty'),
                       ],
                       [
                         getLocalizedMaksullisuus(
                           toteutus.maksullisuustyyppi,
                           toteutus.maksunMaara
                         ),
-                        EuroSymbolIcon,
+                        createMaterialIcon('euro_symbol'),
                       ],
                       [
                         toteutus.hakuAuki ? (

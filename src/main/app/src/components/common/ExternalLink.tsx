@@ -1,29 +1,19 @@
 import React from 'react';
 
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import { Link, LinkBaseProps } from '@mui/material';
-import { styled } from '@mui/material/styles';
-const PREFIX = 'ExternalLink';
+import { Link, LinkProps } from '@mui/material';
 
-const classes = {
-  externalLinkIcon: `${PREFIX}-externalLinkIcon`,
-};
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 
-const StyledLink = styled(Link)({
-  [`& .${classes.externalLinkIcon}`]: {
-    verticalAlign: 'middle',
-    marginLeft: '5px',
-    marginBottom: '1px',
-  },
-});
-
-export {};
-
-export const ExternalLink = ({ children, ...props }: LinkBaseProps) => {
-  return (
-    <StyledLink target="_blank" variant="body1" {...props}>
-      {children}
-      <OpenInNewIcon className={classes.externalLinkIcon} />
-    </StyledLink>
-  );
-};
+export const ExternalLink = ({ children, ...props }: LinkProps) => (
+  <Link target="_blank" variant="body1" {...props}>
+    {children}
+    <MaterialIcon
+      icon="open_in_new"
+      sx={{
+        verticalAlign: 'middle',
+        marginLeft: '5px',
+        marginBottom: '1px',
+      }}
+    />
+  </Link>
+);

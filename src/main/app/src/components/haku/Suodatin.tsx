@@ -1,11 +1,11 @@
 import React, { useRef, useState } from 'react';
 
-import { ExpandLessOutlined, ExpandMoreOutlined } from '@mui/icons-material';
 import { Typography, Box, Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
-import PopoverWithArrow from '#/src/components/common/PopoverWithArrow';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { PopoverWithArrow } from '#/src/components/common/PopoverWithArrow';
 
 const PREFIX = 'Suodatin';
 
@@ -51,15 +51,13 @@ export const Suodatin = ({ id, children, header }: Props) => {
   const anchorRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
 
-  const ExpandIcon = () => (isOpen ? <ExpandLessOutlined /> : <ExpandMoreOutlined />);
-
   return (
     <StyledBox className={classes.item}>
       <Typography className={classes.header} variant="h5">
         {header}
       </Typography>
       <Button
-        endIcon={<ExpandIcon />}
+        endIcon={<MaterialIcon icon={isOpen ? 'expand_less' : 'expand_more'} />}
         onClick={() => setIsOpen(true)}
         ref={anchorRef}
         aria-label={t('haku.valitse')}

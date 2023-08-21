@@ -36,4 +36,3 @@ export const SiteImprove = (props) => {
   }, [previousLocation, currentLocation, titleObj, langCookie, isAtEtusivu]);
   return null;
 };
-export default SiteImprove;

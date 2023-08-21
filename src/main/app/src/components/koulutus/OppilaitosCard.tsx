@@ -1,14 +1,13 @@
 import React from 'react';
 
-import PublicIcon from '@mui/icons-material/Public';
 import { Grid, Paper, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
-import { Link as RouterLink } from 'react-router-dom';
 
 import { educationTypeColorCode } from '#/src/colors';
 import { OppilaitosKorttiLogo } from '#/src/components/common/KorttiLogo';
-import { LocalizedLink } from '#/src/components/common/LocalizedLink';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { SmartLink } from '#/src/components/common/SmartLink';
 
 const PREFIX = 'OppilaitosCard';
 
@@ -67,10 +66,7 @@ export const OppilaitosCard = ({
 
   return (
     <StyledGrid item xs={12} sm={6} md={4} tyyppi={tyyppi}>
-      <LocalizedLink
-        underline="none"
-        component={RouterLink}
-        to={`/oppilaitos/${oppilaitosOid}`}>
+      <SmartLink href={`/oppilaitos/${oppilaitosOid}`}>
         <Paper className={classes.paper}>
           <Grid
             container
@@ -96,7 +92,7 @@ export const OppilaitosCard = ({
               justifyContent="center"
               wrap="nowrap">
               <Grid item className={classes.iconContainer}>
-                <PublicIcon className={classes.icon} />
+                <MaterialIcon icon="public" className={classes.icon} />
               </Grid>
               <Grid item>
                 <Typography variant="body1" noWrap>
@@ -106,7 +102,7 @@ export const OppilaitosCard = ({
             </Grid>
           </Grid>
         </Paper>
-      </LocalizedLink>
+      </SmartLink>
     </StyledGrid>
   );
 };

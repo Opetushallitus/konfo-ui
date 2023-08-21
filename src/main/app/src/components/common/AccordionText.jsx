@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
 
-import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
-import ArrowDropUp from '@mui/icons-material/ArrowDropUp';
 import { Collapse, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 import { colors } from '#/src/colors';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { sanitizedHTMLParser } from '#/src/tools/utils';
 
 const PREFIX = 'AccordionText';
 
 const classes = {
   heading: `${PREFIX}-heading`,
-  icon: `${PREFIX}-icon`,
 };
 
 const Root = styled('div')(() => ({
@@ -20,10 +18,6 @@ const Root = styled('div')(() => ({
     fontWeight: 700,
     color: colors.brandGreen,
     cursor: 'pointer',
-  },
-
-  [`& .${classes.icon}`]: {
-    position: 'absolute',
   },
 }));
 
@@ -37,13 +31,12 @@ export const AccordionText = ({ text, title }) => {
         className={classes.heading}
         onClick={handleChange}
         aria-expanded={isOpen}
-        role={'button'}>
+        role="button">
         {title}
-        {isOpen ? (
-          <ArrowDropUp className={classes.icon} />
-        ) : (
-          <ArrowDropDown className={classes.icon} />
-        )}
+        <MaterialIcon
+          position="absolute"
+          icon={isOpen ? 'arrow_drop_up' : 'arrow_drop_down'}
+        />
       </Typography>
       <Collapse in={isOpen} timeout="auto" unmountOnExit>
         <Typography variant="body1" component="div">

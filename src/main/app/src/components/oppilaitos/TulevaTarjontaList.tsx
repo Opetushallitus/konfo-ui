@@ -1,10 +1,5 @@
 import React from 'react';
 
-import {
-  SchoolOutlined,
-  TimelapseOutlined,
-  ExtensionOutlined,
-} from '@mui/icons-material';
 import { Typography, Box } from '@mui/material';
 import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -15,6 +10,7 @@ import {
   LoadingCircle,
   OverlayLoadingCircle,
 } from '#/src/components/common/LoadingCircle';
+import { createMaterialIcon } from '#/src/components/common/MaterialIcon';
 import { PageSection } from '#/src/components/common/PageSection';
 import { Pagination } from '#/src/components/common/Pagination';
 
@@ -33,6 +29,10 @@ type Props = {
   oid: string;
   isOppilaitosOsa: boolean;
 };
+
+const SchoolIcon = createMaterialIcon('school', 'outlined');
+const ExtensionIcon = createMaterialIcon('extension', 'outlined');
+const TimelapseIcon = createMaterialIcon('timelapse', 'outlined');
 
 export const TulevaTarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
   const { t } = useTranslation();
@@ -72,9 +72,9 @@ export const TulevaTarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
                     to={`/koulutus/${kts?.koulutusOid}`}
                     header={kts?.koulutusName}
                     iconTexts={[
-                      [kts?.tutkintonimikkeet, SchoolOutlined],
-                      [kts?.koulutustyypit, ExtensionOutlined],
-                      [kts?.opintojenlaajuus, TimelapseOutlined],
+                      [kts?.tutkintonimikkeet, SchoolIcon],
+                      [kts?.koulutustyypit, ExtensionIcon],
+                      [kts?.opintojenlaajuus, TimelapseIcon],
                     ]}
                   />
                 </Box>

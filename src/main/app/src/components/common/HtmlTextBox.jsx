@@ -22,7 +22,7 @@ const StyledPageSection = styled(PageSection)(({ theme }) => ({
   [`& .${classes.textArea}`]: {
     margin: '60px auto',
     width: '63%',
-    '& a': {
+    '& a[!class]': {
       color: colors.brandGreen,
       textDecoration: 'underline',
     },
@@ -44,7 +44,7 @@ const Ellipsis = ({ onShowMore }) => {
   );
 };
 
-const HtmlTextBox = (props) => {
+export const HtmlTextBox = (props) => {
   const { heading, html, additionalContent, ...rest } = props;
 
   const [isExpanded, setIsExpanded] = useState(false);
@@ -73,5 +73,3 @@ const HtmlTextBox = (props) => {
     </StyledPageSection>
   );
 };
-
-export default HtmlTextBox;

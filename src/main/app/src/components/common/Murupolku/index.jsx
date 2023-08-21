@@ -50,7 +50,7 @@ const useCollapsingPath = (path) => {
   }
 };
 
-const Murupolku = ({ path }) => {
+export const Murupolku = ({ path }) => {
   const { t } = useTranslation();
 
   const homePart = { name: t('etusivu'), link: '/', isHome: true };
@@ -65,7 +65,7 @@ const Murupolku = ({ path }) => {
       <ol className={classes.breadcrumb}>
         {collapsingPath.map(({ name, link, isCollapsedPart, isHome }, index) => {
           return (
-            <li key={`${name} ${index}`} className={classes.item}>
+            <li key={`${name} ${link}`} className={classes.item}>
               <MurupolkuFragment
                 name={name}
                 link={link}
@@ -86,5 +86,3 @@ const Murupolku = ({ path }) => {
     </Root>
   );
 };
-
-export default Murupolku;

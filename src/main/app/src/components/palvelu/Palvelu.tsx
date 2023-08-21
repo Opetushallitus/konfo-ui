@@ -101,21 +101,23 @@ export const Palvelu = ({ id }: { id: string }) => {
           title={palvelu.name}
           subheader=""
         />
-        <CardContent className={classes.content}>
-          <Markdown
-            options={{
-              overrides: {
-                p: {
-                  component: Paragraph,
+        {palvelu.content && (
+          <CardContent className={classes.content}>
+            <Markdown
+              options={{
+                overrides: {
+                  p: {
+                    component: Paragraph,
+                  },
+                  span: {
+                    component: Paragraph,
+                  },
                 },
-                span: {
-                  component: Paragraph,
-                },
-              },
-            }}>
-            {palvelu.content}
-          </Markdown>
-        </CardContent>
+              }}>
+              {palvelu.content}
+            </Markdown>
+          </CardContent>
+        )}
       </Card>
     </StyledGrid>
   );

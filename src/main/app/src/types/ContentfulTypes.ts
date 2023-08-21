@@ -1,161 +1,133 @@
-import { LanguageCode } from './common';
+import {
+  Asset,
+  ChainModifiers,
+  Entry,
+  EntrySkeletonType,
+  EntryFieldTypes,
+  LocaleCode,
+} from 'contentful';
 
-// TODO: Tyypitysten geenrointi contentfulista tämän avulla: https://www.npmjs.com/package/contentful-typescript-codegen
+import { LanguageCode, Translateable } from './common';
+import {
+  TypeContent,
+  TypeCookieModalText,
+  TypeFooter,
+  TypeInfo,
+  TypeInfoYhteishaku,
+  TypeKortit,
+  TypeKortti,
+  TypeOhjeetJaTuki,
+  TypePalvelu,
+  TypePalvelut,
+  TypePikalinkit,
+  TypeSivu,
+  TypeUutinen,
+  TypeUutiset,
+  TypeValikko,
+  TypeValikot,
+} from './contentful';
 
-export type MinimalContentfulItem = {
-  id: string;
-  name: string;
-  type: string;
-};
-
-export type ContentfulItem = {
+export type CommonContentfulFields = {
   id: string;
   name: string;
   type: string;
   created: string;
   updated: string;
+  formatoituUpdated: Translateable;
+  formatoituCreated: Translateable;
+};
+
+export type GenericContentfulItem = CommonContentfulFields & {
   slug?: string;
   url?: string;
-  sivu?: MinimalContentfulItem;
+  sivu?: ContentfulEntryLink<TypeSivu<Mod, ''>>;
 };
 
-export type ValikkoContentfulItem = ContentfulItem & {
-  linkki: Array<MinimalContentfulItem>;
+export type ContentfulLink<Type extends string = ContentTypeId> = {
+  id: string;
+  type: Type;
+  name: string;
 };
 
-export type LehtiContentfulItem = ContentfulItem & {
-  sivu: MinimalContentfulItem;
-  icon: MinimalContentfulItem & {
-    url: string;
-  };
-};
-
-// TODO: Tarkka tyypitys puuttuu, ei tietoa millaista dataa on
-export type Info = Record<
-  string,
-  {
-    id: string;
-    linkki?: { id: string };
-    content: string;
-  }
+type ContentfulEntryLink<E extends Entry> = ContentfulLink<
+  E['sys']['contentType']['sys']['id']
 >;
 
-export type InfoYhteishaku = Record<
-  string,
-  {
-    id: string;
-    otsikko: string;
-    kuvaus: string;
-    nimi: string;
-    color: string;
-    tekstiHakulomakkeelle?: string;
-    linkkiHakulomakkeelle?: string;
-    tekstiOhjeisiin?: string;
-    linkkiOhjeisiin?: string;
-    tekstiHakutuloksiin?: string;
-    linkkiHakutuloksiin?: string;
-    order?: number;
-  }
->;
-
-export type Kortit = Record<
-  string,
-  ContentfulItem & {
-    kortit: Array<MinimalContentfulItem>;
-  }
->;
-
-type Image = MinimalContentfulItem & {
-  url: string;
+export type ContentfulAsset = CommonContentfulFields & {
+  type: 'asset';
   description: string;
+  original: string;
+  url: string;
 };
 
-export type Uutiset = Record<
-  string,
-  ContentfulItem & {
-    slug: string;
-    linkit: Array<MinimalContentfulItem>;
-  }
->;
+// JSON-objektit ja totuusarvot tulee stringeinä
+type FieldsModVal<T> = T extends EntryFieldTypes.Object['data']
+  ? 'string'
+  : T extends boolean
+  ? 'true' | 'false'
+  : T extends Asset
+  ? ContentfulAsset
+  : T extends Entry
+  ? ContentfulEntryLink<T>
+  : T extends Array<infer E>
+  ? E extends Entry
+    ? Array<ContentfulEntryLink<E>>
+    : Array<ContentfulLink>
+  : T;
 
-export type ContentfulValikko = Record<string, ValikkoContentfulItem>;
+type FieldsMod<F extends EntrySkeletonType['fields']> = {
+  [P in keyof F]: FieldsModVal<F[P]>;
+};
 
-export type Palvelu = Record<
-  string,
-  ContentfulItem & {
-    image: Image;
-    color: string;
-    linkki: MinimalContentfulItem;
-    content: string;
-  }
->;
+type ContentfulItem<C extends Entry<EntrySkeletonType, ChainModifiers, LocaleCode>> =
+  CommonContentfulFields & {
+    type: C['sys']['contentType']['sys']['id'];
+  } & FieldsMod<C['fields']>;
 
-type Asset = Record<
-  string,
-  ContentfulItem & {
-    url: string;
-    description: string;
-    original: string;
-    linkki: MinimalContentfulItem;
-  }
->;
+type Mod = 'WITHOUT_UNRESOLVABLE_LINKS';
 
-type Sivu = Record<
-  string,
-  ContentfulItem & {
-    slug: string;
-    content: string;
-  }
->;
+export type ContentfulContent = ContentfulItem<TypeContent<Mod, ''>>;
+export type ContentfulCookieModalTex = ContentfulItem<TypeCookieModalText<Mod, ''>>;
+export type ContentfulFooter = ContentfulItem<TypeFooter<Mod, ''>>;
+export type ContentfulInfo = ContentfulItem<TypeInfo<Mod, ''>>;
+export type ContentfulInfoYhteishaku = ContentfulItem<TypeInfoYhteishaku<Mod, ''>>;
+export type ContentfulKortit = ContentfulItem<TypeKortit<Mod, ''>>;
+export type ContentfulKortti = ContentfulItem<TypeKortti<Mod, ''>>;
+export type ContentfulOhjeetJaTuki = ContentfulItem<TypeOhjeetJaTuki<Mod, ''>>;
+export type ContentfulPalvelu = ContentfulItem<TypePalvelu<Mod, ''>>;
+export type ContentfulPalvelut = ContentfulItem<TypePalvelut<Mod, ''>>;
+export type ContentfulPikalinkit = ContentfulItem<TypePikalinkit<Mod, ''>>;
+export type ContentfulSivu = ContentfulItem<TypeSivu<Mod, ''>>;
+export type ContentfulUutinen = ContentfulItem<TypeUutinen<Mod, ''>>;
+export type ContentfulUutiset = ContentfulItem<TypeUutiset<Mod, ''>>;
+export type ContentfulValikko = ContentfulItem<TypeValikko<Mod, ''>>;
+export type ContentfulValikot = ContentfulItem<TypeValikot<Mod, ''>>;
 
-type Uutinen = Record<
-  string,
-  ContentfulItem & {
-    content: string;
-    sivu: MinimalContentfulItem;
-    image: Image;
-    sideContent?: string;
-    description?: string;
-  }
->;
-
-type Lehti = Record<string, LehtiContentfulItem>;
-
-type CookieModal = Record<
-  string,
-  ContentfulItem & {
-    settingsHeaderText: string;
-    shortContent: string;
-    settingsAcceptStatisticText: string;
-    settingsButtonCloseText: string;
-    heading: string;
-    fullContent: string;
-    acceptButtonText: string;
-    expandLinkText: string;
-    settingsAcceptMarketingText: string;
-    settingsAcceptMandatoryText: string;
-    settingsButtonText: string;
-  }
->;
+export type CfRecord<T> = Record<string, T>;
 
 export type ContentfulData = {
-  valikko: ContentfulValikko;
-  info: Info;
-  uutiset: Uutiset;
-  kortit: Kortit;
-  infoYhteishaku: InfoYhteishaku;
-  palvelu: Palvelu;
-  asset: Asset;
-  sivu: Sivu;
-  uutinen: Uutinen;
-  sivuKooste: Record<string, ContentfulItem>;
-  lehti: Lehti;
-  ohjeetJaTuki: Record<string, ContentfulItem>;
-  palvelut: Record<string, ContentfulItem>;
-  footer: Record<string, ContentfulItem>;
-  content: Record<string, ContentfulItem & { content: string }>;
-  valikot: Record<string, ContentfulItem & { valikot: Array<MinimalContentfulItem> }>;
-  cookieModalText: CookieModal;
+  asset: CfRecord<ContentfulAsset>;
+  content: CfRecord<ContentfulContent>;
+  cookieModalText: CfRecord<ContentfulCookieModalTex>;
+  footer: CfRecord<ContentfulFooter>;
+  info: CfRecord<ContentfulInfo>;
+  infoYhteishaku: CfRecord<ContentfulInfoYhteishaku>;
+  kortit: CfRecord<ContentfulKortit>;
+  kortti: CfRecord<ContentfulKortti>;
+  ohjeetJaTuki: CfRecord<ContentfulOhjeetJaTuki>;
+  palvelu: CfRecord<ContentfulPalvelu>;
+  palvelut: CfRecord<ContentfulPalvelut>;
+  pikalinkit: CfRecord<ContentfulPikalinkit>;
+  sivu: CfRecord<ContentfulSivu>;
+  uutinen: CfRecord<ContentfulUutinen>;
+  uutiset: CfRecord<ContentfulUutiset>;
+  valikko: CfRecord<ContentfulValikko>;
+  valikot: CfRecord<ContentfulValikot>;
 };
 
-export type ContentfulManifestData = Record<string, Record<LanguageCode, string>>;
+type ContentTypeId = keyof ContentfulData;
+
+export type ContentfulManifestData = Record<
+  keyof ContentfulData,
+  Record<LanguageCode, string>
+>;

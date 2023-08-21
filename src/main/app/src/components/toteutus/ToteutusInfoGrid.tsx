@@ -1,20 +1,11 @@
 import React from 'react';
 
-import { Class, ExtensionOutlined, LabelOutlined } from '@mui/icons-material';
-import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
-import ColorLensIcon from '@mui/icons-material/ColorLens';
-import EuroIcon from '@mui/icons-material/Euro';
-import FlagOutlinedIcon from '@mui/icons-material/FlagOutlined';
-import HourglassEmptyOutlinedIcon from '@mui/icons-material/HourglassEmptyOutlined';
-import MenuBookIcon from '@mui/icons-material/MenuBook';
-import ScheduleIcon from '@mui/icons-material/Schedule';
-import TimelapseIcon from '@mui/icons-material/Timelapse';
-import { styled } from '@mui/material/styles';
 import { TFunction } from 'i18next';
 import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { InfoGrid } from '#/src/components/common/InfoGrid';
+import { InfoGridIcon } from '#/src/components/common/InfoGridIcon';
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
 import { Koulutustyyppi, NDASH, MAKSULLISUUSTYYPPI } from '#/src/constants';
 import { useVisibleKoulutustyyppi } from '#/src/hooks/useVisibleKoulutustyyppi';
@@ -23,19 +14,6 @@ import { Koodi, Translateable } from '#/src/types/common';
 import { Opetus, Yksikko } from '#/src/types/ToteutusTypes';
 
 import { formatAloitus } from './utils';
-
-const PREFIX = 'ToteutusInfoGrid';
-
-const classes = {
-  koulutusInfoGridIcon: `${PREFIX}-koulutusInfoGridIcon`,
-};
-
-const Root = styled('div')(({ theme }) => ({
-  width: '100%',
-  [`& .${classes.koulutusInfoGridIcon}`]: {
-    color: theme.palette.primary.main,
-  },
-}));
 
 const getYksikkoSymbol = (yksikko?: Yksikko) => {
   switch (yksikko) {
@@ -130,13 +108,13 @@ export const ToteutusInfoGrid = ({
 
   perustiedotData.push(
     {
-      icon: <ExtensionOutlined className={classes.koulutusInfoGridIcon} />,
+      icon: <InfoGridIcon icon="extension" variant="outlined" />,
       title: t('koulutus.koulutustyyppi'),
       text: koulutustyyppiText,
       testid: 'koulutustyyppi',
     },
     {
-      icon: <ChatBubbleOutlineIcon className={classes.koulutusInfoGridIcon} />,
+      icon: <InfoGridIcon icon="chat_bubble_outline" />,
       title: t('toteutus.opetuskieli'),
       text: kieliString,
       modalText: !isEmpty(opetus.opetuskieletKuvaus) && (
@@ -144,7 +122,7 @@ export const ToteutusInfoGrid = ({
       ),
     },
     {
-      icon: <TimelapseIcon className={classes.koulutusInfoGridIcon} />,
+      icon: <InfoGridIcon icon="timelapse" />,
       title: t('koulutus.koulutuksen-laajuus'),
       text: laajuus,
     }
@@ -154,14 +132,14 @@ export const ToteutusInfoGrid = ({
 
   if (!isEmpty(taiteenalaString)) {
     perustiedotData.push({
-      icon: <ColorLensIcon className={classes.koulutusInfoGridIcon} />,
+      icon: <InfoGridIcon icon="color_lens" />,
       title: t('toteutus.taiteenala'),
       text: taiteenalaString,
     });
   }
 
   perustiedotData.push({
-    icon: <ScheduleIcon className={classes.koulutusInfoGridIcon} />,
+    icon: <InfoGridIcon icon="schedule" />,
     title: t('koulutus.suunniteltu-kesto'),
     text: kestoString,
     modalText: !isEmpty(opetus.suunniteltuKestoKuvaus) && (
@@ -175,7 +153,7 @@ export const ToteutusInfoGrid = ({
 
   if (alkaaText) {
     perustiedotData.push({
-      icon: <FlagOutlinedIcon className={classes.koulutusInfoGridIcon} />,
+      icon: <InfoGridIcon icon="flag" variant="outlined" />,
       title: t('toteutus.koulutus-alkaa'),
       text: alkaaText,
       modalText: !isEmpty(alkaaModalText) && (
@@ -186,7 +164,7 @@ export const ToteutusInfoGrid = ({
 
   if (paattyyText) {
     perustiedotData.push({
-      icon: <FlagOutlinedIcon className={classes.koulutusInfoGridIcon} />,
+      icon: <InfoGridIcon icon="flag" variant="outlined" />,
       title: t('toteutus.koulutus-paattyy'),
       text: paattyyText,
     });
@@ -194,7 +172,7 @@ export const ToteutusInfoGrid = ({
 
   perustiedotData.push(
     {
-      icon: <HourglassEmptyOutlinedIcon className={classes.koulutusInfoGridIcon} />,
+      icon: <InfoGridIcon icon="hourglass_empty" variant="outlined" />,
       title: t('toteutus.opetusaika'),
       text: opetusAikaString,
       modalText: !isEmpty(opetus.opetusaikaKuvaus) && (
@@ -202,7 +180,7 @@ export const ToteutusInfoGrid = ({
       ),
     },
     {
-      icon: <MenuBookIcon className={classes.koulutusInfoGridIcon} />,
+      icon: <InfoGridIcon icon="menu_book" />,
       title: t('toteutus.opetustapa'),
       text: opetustapaString,
       modalText: !isEmpty(opetus.opetustapaKuvaus) && (
@@ -210,7 +188,7 @@ export const ToteutusInfoGrid = ({
       ),
     },
     {
-      icon: <EuroIcon className={classes.koulutusInfoGridIcon} />,
+      icon: <InfoGridIcon icon="euro_symbol" />,
       title:
         opetus?.maksullisuustyyppi === MAKSULLISUUSTYYPPI.LUKUVUOSIMAKSU
           ? t('toteutus.lukuvuosimaksu')
@@ -237,7 +215,7 @@ export const ToteutusInfoGrid = ({
 
   if (!isEmpty(opinnonTyyppiText)) {
     perustiedotData.push({
-      icon: <Class className={classes.koulutusInfoGridIcon} />,
+      icon: <InfoGridIcon icon="class" />,
       title: t('koulutus.opinnonTyyppi'),
       text: opinnonTyyppiText,
     });
@@ -245,15 +223,11 @@ export const ToteutusInfoGrid = ({
 
   if (!isEmpty(tunniste)) {
     perustiedotData.push({
-      icon: <LabelOutlined className={classes.koulutusInfoGridIcon} />,
+      icon: <InfoGridIcon icon="label" variant="outlined" />,
       title: t('koulutus.tunniste'),
       text: tunniste,
     });
   }
 
-  return (
-    <Root>
-      <InfoGrid gridData={perustiedotData} />
-    </Root>
-  );
+  return <InfoGrid gridData={perustiedotData} />;
 };

@@ -71,5 +71,3 @@ export const useHakutulosWidth = () => {
 
   return [width, (newWidth) => dispatch(setHakutulosWidth(newWidth))];
 };
-
-export default appSlice.reducer;
