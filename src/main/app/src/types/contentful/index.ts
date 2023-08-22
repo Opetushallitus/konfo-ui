@@ -2,6 +2,7 @@ export type { TypeContent, TypeContentFields, TypeContentSkeleton } from "./Type
 export type { TypeCookieModalText, TypeCookieModalTextFields, TypeCookieModalTextSkeleton } from "./TypeCookieModalText";
 export type { TypeFooter, TypeFooterFields, TypeFooterSkeleton } from "./TypeFooter";
 export type { TypeHairiotiedote, TypeHairiotiedoteFields, TypeHairiotiedoteSkeleton } from "./TypeHairiotiedote";
+export type { TypeHairiotiedotteet, TypeHairiotiedotteetFields, TypeHairiotiedotteetSkeleton } from "./TypeHairiotiedotteet";
 export type { TypeInfo, TypeInfoFields, TypeInfoSkeleton } from "./TypeInfo";
 export type { TypeInfoYhteishaku, TypeInfoYhteishakuFields, TypeInfoYhteishakuSkeleton } from "./TypeInfoYhteishaku";
 export type { TypeKortit, TypeKortitFields, TypeKortitSkeleton } from "./TypeKortit";

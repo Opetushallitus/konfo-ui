@@ -16,7 +16,6 @@ import { getOne } from '#/src/tools/getOne';
 
 import { CondGrid } from './CondGrid';
 import { ContentSection } from './ContentSection';
-import { Hairiotiedote } from './Hairiotiedote';
 import { useSearch } from './haku/hakutulosHooks';
 import { HeadingBoundary } from './Heading';
 import { Jumpotron } from './Jumpotron';
@@ -56,15 +55,7 @@ export const Etusivu = () => {
 
   const { clearFilters, setKeyword } = useSearch();
   const { data, isLoading } = useContentful();
-  const {
-    info: infoData,
-    uutiset,
-    kortit,
-    infoYhteishaku,
-    pikalinkit,
-    hairiotiedote,
-    content,
-  } = data;
+  const { info: infoData, uutiset, kortit, infoYhteishaku, pikalinkit, content } = data;
 
   const infos = Object.values(infoData || {});
 
@@ -80,13 +71,11 @@ export const Etusivu = () => {
     clearFilters();
   });
   const pikalinkitData = getOne(pikalinkit);
-  const hairiotiedoteData = getOne(hairiotiedote);
 
   const pageSectionGap = usePageSectionGap();
 
   return (
     <Root>
-      <Hairiotiedote hairiotiedote={hairiotiedoteData} />
       <Jumpotron />
       {isLoading ? (
         <LoadingCircle />
