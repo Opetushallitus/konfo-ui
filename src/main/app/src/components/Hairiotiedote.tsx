@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import { Alert, Link, Stack } from '@mui/material';
 import { filter, includes, size } from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -10,17 +8,15 @@ import { getOne } from '#/src/tools/getOne';
 import { ContentfulHairiotiedote } from '#/src/types/ContentfulTypes';
 
 const HairiotiedoteViesti = (viesti: ContentfulHairiotiedote) => {
-  const [hairioTiedoteOpen, setHairiotiedoteOpen] = useState(true);
   const [closedHairiotiedotteetIds, setClosedHairiotiedotteetIds] =
     useClosedHairioTiedotteet();
   const { alertType, linkkiLisatietoja, name, id } = viesti;
   const { t } = useTranslation();
-  function handleClose() {
-    setHairiotiedoteOpen(false);
-    setClosedHairiotiedotteetIds([...closedHairiotiedotteetIds, id]);
-  }
-  return hairioTiedoteOpen ? (
-    <Alert severity={`${alertType ?? 'error'}`} onClose={handleClose}>
+
+  return (
+    <Alert
+      severity={`${alertType ?? 'error'}`}
+      onClose={() => setClosedHairiotiedotteetIds([...closedHairiotiedotteetIds, id])}>
       {name}
       {linkkiLisatietoja && (
         <>
@@ -31,7 +27,7 @@ const HairiotiedoteViesti = (viesti: ContentfulHairiotiedote) => {
         </>
       )}
     </Alert>
-  ) : null;
+  );
 };
 
 export const Hairiotiedote = () => {
