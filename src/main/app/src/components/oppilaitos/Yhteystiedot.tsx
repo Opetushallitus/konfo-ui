@@ -13,6 +13,8 @@ import { byLocaleCompare, toId } from '#/src/tools/utils';
 import { Yhteystiedot as YhteystiedotType } from '#/src/types/common';
 import { Organisaatio } from '#/src/types/ToteutusTypes';
 
+import { SomeRow, Some } from './SomeYhteysTiedot';
+
 const PREFIX = 'Yhteystiedot';
 
 const classes = {
@@ -37,7 +39,7 @@ const StyledBox = styled(Box)(() => ({
 }));
 
 const parseYhteystieto =
-  () =>
+  (some?: Some) =>
   ({
     nimi,
     kayntiosoite: kayntiosoiteProp,
@@ -54,6 +56,7 @@ const parseYhteystieto =
       puhelinnumero: localize(puhelinnumero),
       oskariOsoite: localize(kayntiosoiteProp?.osoite),
       oskariPostitoimipaikka: localize(kayntiosoiteProp?.postinumero),
+      somekanavat: some,
     };
   };
 
@@ -78,6 +81,7 @@ export type Props = {
   hakijapalveluidenYhteystiedot?: YhteystiedotType;
   organisaatioidenYhteystiedot?: Array<YhteystiedotType>;
   matchTarjoajat?: boolean;
+  some?: Some;
 };
 
 export const Yhteystiedot = ({
@@ -88,6 +92,7 @@ export const Yhteystiedot = ({
   hakijapalveluidenYhteystiedot,
   organisaatioidenYhteystiedot,
   matchTarjoajat = true,
+  some,
 }: Props) => {
   const { t } = useTranslation();
   const theme = useTheme();
@@ -103,7 +108,7 @@ export const Yhteystiedot = ({
           tarjoajat?.some((ta) => obj?.nimi?.fi === ta?.nimi?.fi || obj?.oid === ta?.oid)
       )
       .filter(Boolean)
-      .map(parseYhteystieto())
+      .map(parseYhteystieto(some))
       .sort(byLocaleCompare('nimi'));
 
     if (Array.isArray(hakijapalveluidenYhteystiedot)) {
@@ -125,6 +130,7 @@ export const Yhteystiedot = ({
     yhteystiedot,
     tarjoajat,
     matchTarjoajat,
+    some,
   ]);
 
   return (
@@ -150,6 +156,7 @@ export const Yhteystiedot = ({
             postiosoite,
             puhelinnumero,
             sahkoposti,
+            somekanavat,
           },
           i
         ) => (
@@ -186,6 +193,7 @@ export const Yhteystiedot = ({
                     text={puhelinnumero}
                   />
                 )}
+                {somekanavat && <SomeRow some={somekanavat} />}
               </Paper>
             </Grid>
             {oskariOsoite && oskariPostitoimipaikka && (
