@@ -8,7 +8,7 @@ import FacebookIcon from '#/src/assets/images/somelogos/some_facebook.svg';
 import InstagramIcon from '#/src/assets/images/somelogos/some_instagram.svg';
 import LinkedInIcon from '#/src/assets/images/somelogos/some_linkedin.svg';
 import SnapChatIcon from '#/src/assets/images/somelogos/some_snapchat.svg';
-import TwitterIcon from '#/src/assets/images/somelogos/some_twitter.svg';
+import TwitterIcon from '#/src/assets/images/somelogos/some_x.svg';
 import YoutubeIcon from '#/src/assets/images/somelogos/some_youtube.svg';
 import { localize } from '#/src/tools/localization';
 import { Translateable } from '#/src/types/common';
@@ -34,13 +34,16 @@ const SomeIconLookupTable: Record<string, string> = {
   sosiaalinenmedia_8: SnapChatIcon,
 };
 
+const BLOG_KEY = 'sosiaalinenmedia_5';
+
 export const SomeRow = ({ some }: { some: Some }) => (
-  <Grid container spacing={1} alignItems="flex-start">
+  <Grid container spacing={1} alignItems="flex-start" sx={{ marginTop: '0.4rem' }}>
     {some &&
       Object.entries(some)
-        .filter(([someKey]) => someKey !== 'sosiaalinenmedia_5')
+        .filter(([someKey]) => someKey !== BLOG_KEY)
+        .sort(([keyA], [keyB]) => (keyA > keyB ? 1 : -1))
         .map(([someKey, someUrl]: Array<string>) => (
-          <Grid item sm={1} key={`some-${someKey}`}>
+          <Grid item sm={1.5} key={`some-${someKey}`}>
             <Link href={someUrl} target="_blank">
               <Icon sx={{ width: '2em', height: '2em' }}>
                 <img src={SomeIconLookupTable[someKey]} />
@@ -62,7 +65,7 @@ export const BlogAndWebsite = ({
   const hasBlogi = some?.sosiaalinenmedia_5 && some.sosiaalinenmedia_5.length > 0;
 
   return (
-    <Grid container alignItems="flex-start">
+    <Grid container alignItems="flex-start" sx={{ marginTop: '0.4rem' }}>
       {hasBlogi && (
         <ExternalLinkButton href={some.sosiaalinenmedia_5} sx={{ marginRight: '1rem' }}>
           {t('oppilaitos.blogi')}
