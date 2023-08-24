@@ -10,10 +10,10 @@ import { OskariKartta } from '#/src/components/common/OskariKartta';
 import { Spacer } from '#/src/components/common/Spacer';
 import { localize } from '#/src/tools/localization';
 import { byLocaleCompare, toId } from '#/src/tools/utils';
-import { Yhteystiedot as YhteystiedotType } from '#/src/types/common';
+import { Translateable, Yhteystiedot as YhteystiedotType } from '#/src/types/common';
 import { Organisaatio } from '#/src/types/ToteutusTypes';
 
-import { SomeRow, Some } from './SomeYhteysTiedot';
+import { SomeRow, Some, BlogAndWebsite } from './SomeYhteysTiedot';
 
 const PREFIX = 'Yhteystiedot';
 
@@ -39,7 +39,7 @@ const StyledBox = styled(Box)(() => ({
 }));
 
 const parseYhteystieto =
-  (some?: Some) =>
+  (some?: Some, wwwSivu?: { nimi: Translateable; url: string }) =>
   ({
     nimi,
     kayntiosoite: kayntiosoiteProp,
@@ -57,6 +57,7 @@ const parseYhteystieto =
       oskariOsoite: localize(kayntiosoiteProp?.osoite),
       oskariPostitoimipaikka: localize(kayntiosoiteProp?.postinumero),
       somekanavat: some,
+      verkkoSivu: wwwSivu,
     };
   };
 
@@ -82,6 +83,7 @@ export type Props = {
   organisaatioidenYhteystiedot?: Array<YhteystiedotType>;
   matchTarjoajat?: boolean;
   some?: Some;
+  wwwSivu?: { nimi: Translateable; url: string };
 };
 
 export const Yhteystiedot = ({
@@ -93,6 +95,7 @@ export const Yhteystiedot = ({
   organisaatioidenYhteystiedot,
   matchTarjoajat = true,
   some,
+  wwwSivu,
 }: Props) => {
   const { t } = useTranslation();
   const theme = useTheme();
@@ -108,7 +111,7 @@ export const Yhteystiedot = ({
           tarjoajat?.some((ta) => obj?.nimi?.fi === ta?.nimi?.fi || obj?.oid === ta?.oid)
       )
       .filter(Boolean)
-      .map(parseYhteystieto(some))
+      .map(parseYhteystieto(some, wwwSivu))
       .sort(byLocaleCompare('nimi'));
 
     if (Array.isArray(hakijapalveluidenYhteystiedot)) {
@@ -131,6 +134,7 @@ export const Yhteystiedot = ({
     tarjoajat,
     matchTarjoajat,
     some,
+    wwwSivu,
   ]);
 
   return (
@@ -157,6 +161,7 @@ export const Yhteystiedot = ({
             puhelinnumero,
             sahkoposti,
             somekanavat,
+            verkkoSivu,
           },
           i
         ) => (
@@ -194,6 +199,9 @@ export const Yhteystiedot = ({
                   />
                 )}
                 {somekanavat && <SomeRow some={somekanavat} />}
+                {(somekanavat || verkkoSivu) && (
+                  <BlogAndWebsite some={somekanavat} wwwSivu={verkkoSivu} />
+                )}
               </Paper>
             </Grid>
             {oskariOsoite && oskariPostitoimipaikka && (
