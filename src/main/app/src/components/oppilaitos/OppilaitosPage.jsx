@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { isEmpty, size } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -26,6 +26,7 @@ import { TarjontaList } from './TarjontaList';
 import { TietoaOpiskelusta } from './TietoaOpiskelusta';
 import { TulevaTarjontaList } from './TulevaTarjontaList';
 import { Yhteystiedot } from './Yhteystiedot';
+import { ExternalLinkButton } from '../common/ExternalLinkButton';
 
 const PREFIX = 'OppilaitosPage';
 
@@ -133,18 +134,14 @@ export const OppilaitosPage = (props) => {
             />
           </PageSection>
           {entity?.metadata?.wwwSivu && (
-            <Button
+            <ExternalLinkButton
               className={classes.button}
               target="_blank"
-              href={localize(entity.metadata.wwwSivu?.url)}
-              variant="contained"
-              size="medium"
-              color="primary">
+              href={localize(entity.metadata.wwwSivu?.url)}>
               {isEmpty(entity.metadata.wwwSivu.nimi)
                 ? t('oppilaitos.oppilaitoksen-www-sivut')
                 : localize(entity.metadata.wwwSivu)}
-              <MaterialIcon icon="open_in_new" fontSize="small" />
-            </Button>
+            </ExternalLinkButton>
           )}
           {esittelyHtml && (
             <HtmlTextBox heading={t('oppilaitos.esittely')} html={esittelyHtml} />
