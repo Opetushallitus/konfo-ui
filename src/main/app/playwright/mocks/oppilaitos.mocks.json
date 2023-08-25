@@ -1,0 +1,65 @@
+[
+  {
+    "method": "GET",
+    "url": "http://localhost:3005/konfo-backend/oppilaitos/1.2.246.562.10.56753942459",
+    "response": {
+      "body": {
+        "organisaatiotyyppi":[{"koodiUri":"organisaatiotyyppi_02","nimi":{"sv":"Läroanstalt","fi":"Oppilaitos"}}],
+        "osat":[],
+        "metadata":{
+          "esittely":{
+            "en":"<p>At Aalto University you can creatively combine fields from art, technology and business. You will find a comprehensive selection of bachelor's, master's and doctoral programmes from three different fields. We also know that world-class education is only part of the study experience. We offer students an international environment, a lively community around them and a variety of opportunities to participate in student activities.Do you want to create a sustainable future by developing solutions to the world's great challenges? Aalto gives you the tools to build a better future!</p>",
+            "fi":"<p>Aalto-yliopistossa voit yhdistellä luovasti ja koota oman näköisen kokonaisuuden taiteen, tekniikan ja talouden aloilta. Aallosta löydät kattavan valikoiman kandidaatti, maisteri- ja tohtoriohjelmia  kolmelta eri alalta. Tiedämme myös, että maailmanluokan koulutus on vain osa opiskelukokemusta. Tarjoamme opiskelijoille kansainvälisen toimintaympäristön, ympärille aktiivisen yhteisön ja erilaisia mahdollisuuksia osallistua opiskelijatoimintaan.Haluatko luoda kestävää tulevaisuutta kehittämällä ratkaisuja maailman suuriin haasteisiin? Aallosta saat työkalut paremman tulevaisuuden rakentamiseen!</p>",
+            "sv":"<p>Vid Aalto-universitetet kan du kreativt kombinera och sammanställa en egen helhet från konst-, teknik- och ekonomibranschen. Vid Aalto hittar du ett omfattande utbud av kandidat, magister- och doktorprogram inom tre olika branscher. Vi vet också att en utbildning i världsklass endast är en del av studieerfarenheten. Vi erbjuder våra studerande en internationell miljö i en aktiv gemenskap och olika möjligheter att delta i studentaktiviteter.</p><p>Vill du skapa en hållbar framtid genom att utveckla lösningar på världens stora utmaningar? Aalto ger dig verktyg för att bygga en bättre framtid!</p>"},
+          "kampuksia":2,
+          "some":{
+            "sosiaalinenmedia_5":"https://blogs.aalto.fi/",
+            "sosiaalinenmedia_3":"https://www.linkedin.com/school/aalto-university/",
+            "sosiaalinenmedia_4":"https://twitter.com/aaltouniversity",
+            "sosiaalinenmedia_8":"https://www.aalto.fi/snapchat",
+            "sosiaalinenmedia_1":"https://facebook.com/aaltouniversity",
+            "sosiaalinenmedia_7":"https://www.youtube.com/user/aaltouniversity",
+            "sosiaalinenmedia_6":"https://instagram.com/aaltouniversity"
+          },
+          "isMuokkaajaOphVirkailija":true,
+          "opiskelijoita":18000,
+          "korkeakouluja":6,
+          "yhteystiedot":[{
+              "nimi":{"fi":"Aalto-yliopisto","sv":"Aalto-universitetet","en":"Aalto University"},
+              "sahkoposti":{"fi":"hakija-21977636@oph.fi","en":"hakija-26263386@oph.fi","sv":"hakija-39742217@oph.fi"},
+              "puhelinnumero":{"fi":"050 4973301","en":"050 46475461","sv":"050 29371761"},
+              "postiosoite":{"osoite":{"fi":"Hankalankuja 127","en":"Ronkelinraitti 440","sv":"Horontaipaleenpolku 221"},"postinumero":null},
+              "kayntiosoite":{"osoite":{"fi":"Junttilantie 575","sv":"Hankalankuja 710"},"postinumero":{"koodiUri":"posti_02150","nimi":{"sv":"ESBO","fi":"ESPOO"}}},
+              "postiosoiteStr":{"fi":"Hankalankuja 127, 00076 Aalto","en":"Ronkelinraitti 440,  ","sv":"Horontaipaleenpolku 221, 00076 Aalto"},
+              "kayntiosoiteStr":{"fi":"Junttilantie 575,  ","sv":"Hankalankuja 710, 02150 Esbo"}
+            }],
+          "hakijapalveluidenYhteystiedot":{
+            "nimi":{"en":"Aalto University Admission Services","fi":"Aalto-yliopiston hakijapalvelut","sv":"Aalto-universitetets ansökningsservice"},
+            "postiosoite":{"osoite":{"en":"PB 11110","fi":"PL 11110","sv":"PB 11110"},"postinumero":{"koodiUri":"posti_00076#2","nimi":{"fi":"AALTO","sv":"AALTO"}}},
+            "kayntiosoite":{"osoite":{"en":"Otakaari 1 (room Y199a, Starting Point)","fi":"Otakaari 1 (huone Y199a, Starting Point)","sv":"Otakaari 1 (rum Y199a, Starting Point)"},"postinumero":{"koodiUri":"posti_02150#2","nimi":{"sv":"ESBO","fi":"ESPOO"}}},
+            "puhelinnumero":{"en":"+358 2944 29290","fi":"02944 29290","sv":"02944 29290"},
+            "sahkoposti":{"en":"admissions@aalto.fi","fi":"hakijapalvelut@aalto.fi","sv":"ansokningsservice@aalto.fi"},
+            "postiosoiteStr":{"en":"PB 11110, 00076 Aalto","fi":"PL 11110, 00076 Aalto","sv":"PB 11110, 00076 Aalto"},
+            "kayntiosoiteStr":{"en":"Otakaari 1 (room Y199a, Starting Point), 02150 Espoo","fi":"Otakaari 1 (huone Y199a, Starting Point), 02150 Espoo","sv":"Otakaari 1 (rum Y199a, Starting Point), 02150 Esbo"}
+          },
+          "tietoaOpiskelusta":[],
+          "wwwSivu":{
+            "nimi":{"en":"Aalto University","fi":"Aalto-yliopisto","sv":"Aalto-universitetet"},
+            "url":{"en":"https://www.aalto.fi/en/","fi":"https://www.aalto.fi/fi/","sv":"https://www.aalto.fi/sv/"}
+          },
+          "jarjestaaUrheilijanAmmKoulutusta":false
+        },
+        "nimi":{"fi":"Aalto-yliopisto","sv":"Aalto-universitetet","en":"Aalto University"},
+        "oid":"1.2.246.562.10.56753942459",
+        "oppilaitostyyppi":{"koodiUri":"oppilaitostyyppi_42#1","nimi":{"en":"Universities","sv":"Universitet","fi":"Yliopistot"}},
+        "status":"AKTIIVINEN",
+        "koulutusohjelmatLkm":{"kaikki":311,"tutkintoonJohtavat":144,"eiTutkintoonJohtavat":167},
+        "timestamp":1692910949632,
+        "jarjestaaUrheilijanAmmKoulutusta":false,
+        "opetuskieli":[{"koodiUri":"oppilaitoksenopetuskieli_2#2","nimi":{"sv":"svenska","fi":"ruotsi","en":"Swedish"}},{"koodiUri":"oppilaitoksenopetuskieli_1#2","nimi":{"sv":"finska","fi":"suomi","en":"Finnish"}},{"koodiUri":"oppilaitoksenopetuskieli_4#2","nimi":{"en":"English","sv":"engelska","fi":"englanti"}}],
+        "kotipaikka":{"koodiUri":"kunta_091","nimi":{"fi":"Helsinki","sv":"Helsingfors"}}
+      },
+      "status": 200
+    }
+  }
+]

@@ -37,16 +37,24 @@ const SomeIconLookupTable: Record<string, string> = {
 const BLOG_KEY = 'sosiaalinenmedia_5';
 
 export const SomeRow = ({ some }: { some: Some }) => (
-  <Grid container spacing={1} alignItems="flex-start" sx={{ marginTop: '0.4rem' }}>
+  <Grid
+    container
+    spacing={1}
+    alignItems="flex-start"
+    sx={{ marginTop: '0.3rem' }}
+    data-testid="some-links">
     {some &&
       Object.entries(some)
         .filter(([someKey]) => someKey !== BLOG_KEY)
         .sort(([keyA], [keyB]) => (keyA > keyB ? 1 : -1))
         .map(([someKey, someUrl]: Array<string>) => (
-          <Grid item sm={1.5} key={`some-${someKey}`}>
+          <Grid item sm={1.6} key={`some-${someKey}`}>
             <Link href={someUrl} target="_blank">
               <Icon sx={{ width: '2em', height: '2em' }}>
-                <img src={SomeIconLookupTable[someKey]} />
+                <img
+                  src={SomeIconLookupTable[someKey]}
+                  style={{ width: '95%', height: '95%' }}
+                />
               </Icon>
             </Link>
           </Grid>
@@ -65,7 +73,7 @@ export const BlogAndWebsite = ({
   const hasBlogi = some?.sosiaalinenmedia_5 && some.sosiaalinenmedia_5.length > 0;
 
   return (
-    <Grid container spacing={1} alignItems="flex-start" sx={{ marginTop: '0.4rem' }}>
+    <Grid container spacing={1} alignItems="flex-start" sx={{ marginTop: '0.3rem' }}>
       {hasBlogi && (
         <Grid item sm={5.5}>
           <ExternalLinkButton href={some.sosiaalinenmedia_5}>
