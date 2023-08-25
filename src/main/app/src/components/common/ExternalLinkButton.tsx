@@ -1,27 +1,31 @@
 import React from 'react';
 
-import { Button, ButtonProps } from '@mui/material';
+import { Button, SxProps } from '@mui/material';
 import { castArray } from 'lodash';
 
 import { MaterialIcon } from './MaterialIcon';
 
-export const ExternalLinkButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ sx, ...props }, ref) => (
-    <Button
-      {...props}
-      ref={ref}
-      variant="contained"
-      color="primary"
-      size="medium"
-      rel="noopener noreferrer"
-      sx={[
-        {
-          fontWeight: 600,
-        },
-        ...castArray(sx).filter(Boolean),
-      ]}>
-      {props.children}
-      <MaterialIcon icon="open_in_new" fontSize="small" sx={{ marginLeft: '0.4rem' }} />
-    </Button>
-  )
+type ExternalButtonProps = {
+  sx?: SxProps;
+  children: React.ReactNode;
+  href: string;
+};
+
+export const ExternalLinkButton = ({ sx, children, href }: ExternalButtonProps) => (
+  <Button
+    variant="contained"
+    color="primary"
+    size="medium"
+    rel="noopener noreferrer"
+    href={href}
+    target="_blank"
+    sx={[
+      {
+        fontWeight: 600,
+      },
+      ...castArray(sx).filter(Boolean),
+    ]}>
+    {children}
+    <MaterialIcon icon="open_in_new" fontSize="small" sx={{ marginLeft: '0.4rem' }} />
+  </Button>
 );

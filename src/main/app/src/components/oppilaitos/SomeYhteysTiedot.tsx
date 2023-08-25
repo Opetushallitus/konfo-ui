@@ -65,18 +65,22 @@ export const BlogAndWebsite = ({
   const hasBlogi = some?.sosiaalinenmedia_5 && some.sosiaalinenmedia_5.length > 0;
 
   return (
-    <Grid container alignItems="flex-start" sx={{ marginTop: '0.4rem' }}>
+    <Grid container spacing={1} alignItems="flex-start" sx={{ marginTop: '0.4rem' }}>
       {hasBlogi && (
-        <ExternalLinkButton href={some.sosiaalinenmedia_5} sx={{ marginRight: '1rem' }}>
-          {t('oppilaitos.blogi')}
-        </ExternalLinkButton>
+        <Grid item sm={5.5}>
+          <ExternalLinkButton href={some.sosiaalinenmedia_5}>
+            {t('oppilaitos.blogi')}
+          </ExternalLinkButton>
+        </Grid>
       )}
       {wwwSivu && (
-        <ExternalLinkButton href={localize(wwwSivu?.url)}>
-          {isEmpty(wwwSivu.nimi)
-            ? t('oppilaitos.oppilaitoksen-www-sivut')
-            : localize(wwwSivu)}
-        </ExternalLinkButton>
+        <Grid item sm={5.5}>
+          <ExternalLinkButton href={localize(wwwSivu?.url)}>
+            {isEmpty(wwwSivu.nimi)
+              ? t('oppilaitos.oppilaitoksen-www-sivut')
+              : localize(wwwSivu)}
+          </ExternalLinkButton>
+        </Grid>
       )}
     </Grid>
   );
