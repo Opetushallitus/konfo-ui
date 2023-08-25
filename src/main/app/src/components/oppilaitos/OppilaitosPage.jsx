@@ -33,7 +33,6 @@ const PREFIX = 'OppilaitosPage';
 const classes = {
   title: `${PREFIX}-title`,
   alatText: `${PREFIX}-alatText`,
-  button: `${PREFIX}-button`,
 };
 
 const AdditionalStylesFn = ({ theme }) => ({
@@ -42,11 +41,6 @@ const AdditionalStylesFn = ({ theme }) => ({
   [`& .${classes.alatText}`]: {
     ...theme.typography.body1,
     fontSize: '1.25rem',
-  },
-
-  [`& .${classes.button}`]: {
-    marginTop: 20,
-    fontWeight: 600,
   },
 });
 
@@ -135,8 +129,7 @@ export const OppilaitosPage = (props) => {
           </PageSection>
           {entity?.metadata?.wwwSivu && (
             <ExternalLinkButton
-              className={classes.button}
-              target="_blank"
+              sx={{ marginTop: '20px' }}
               href={localize(entity.metadata.wwwSivu?.url)}>
               {isEmpty(entity.metadata.wwwSivu.nimi)
                 ? t('oppilaitos.oppilaitoksen-www-sivut')
