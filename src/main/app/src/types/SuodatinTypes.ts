@@ -109,6 +109,9 @@ export const LINKED_IDS: Record<string, Array<string>> = {
   lukuvuosimaksu: [FILTER_TYPES.LUKUVUOSIMAKSUNMAARA, FILTER_TYPES.APURAHA],
 };
 
+export const ORDER_TO_BE_RETAINED_RAJAINIDS: Array<CheckboxRajainId> = [
+  FILTER_TYPES.KOULUTUSTYYPPI,
+];
 export type RajainBackendItem = {
   id: string;
   filterId: string;
