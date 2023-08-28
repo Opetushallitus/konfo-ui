@@ -12,6 +12,7 @@ import SnapChatIcon from '#/src/assets/images/somelogos/some_snapchat.svg';
 import TwitterIcon from '#/src/assets/images/somelogos/some_x.svg';
 import YoutubeIcon from '#/src/assets/images/somelogos/some_youtube.svg';
 import { colors } from '#/src/colors';
+import { theme as CustomTheme } from '#/src/theme';
 import { localize } from '#/src/tools/localization';
 import { Translateable } from '#/src/types/common';
 
@@ -44,10 +45,12 @@ const PREFIX = 'some';
 const classes = {
   container: `${PREFIX}-container`,
   placeHolder: `${PREFIX}-placeholder`,
+  iconLinkContainer: `${PREFIX}-icon-container`,
   icon: `${PREFIX}-icon`,
+  iconImage: `${PREFIX}-icon-image`,
 };
 
-const StyledGrid = styled(Grid)(() => ({
+const StyledGrid = styled(Grid)(({ theme }: { theme: typeof CustomTheme }) => ({
   marginTop: '0.3rem',
 
   [`& .${classes.placeHolder}`]: {
@@ -57,14 +60,29 @@ const StyledGrid = styled(Grid)(() => ({
     marginTop: '4px',
     paddingLeft: '2px',
     borderRadius: '5px',
+    '&:hover, &:focus-within': {
+      transition: theme.transitions.create(['filter'], {
+        duration: theme.transitions.duration.standard,
+      }),
+      filter: 'grayscale(1)',
+    },
   },
-
-  [`& .${classes.icon}`]: {
-    width: '2em',
-    height: '2em',
-    img: {
-      width: '95%',
-      height: '95%',
+  [`& .${classes.iconLinkContainer}`]: {
+    [`& .${classes.icon}`]: {
+      width: '2em',
+      height: '2em',
+      [`& .${classes.iconImage}`]: {
+        width: '95%',
+        height: '95%',
+      },
+    },
+    '&:hover, &:focus-within': {
+      [`& .${classes.iconImage}`]: {
+        transition: theme.transitions.create(['filter'], {
+          duration: theme.transitions.duration.standard,
+        }),
+        filter: 'grayscale(0.5) invert(70%)',
+      },
     },
   },
 }));
@@ -79,9 +97,13 @@ const SomeIconWithLink = ({ someKey, someUrl }: { someKey: string; someUrl: stri
       </Link>
     </Box>
   ) : (
-    <Link href={someUrl} target="_blank">
+    <Link
+      href={someUrl}
+      target="_blank"
+      className={classes.iconLinkContainer}
+      title={someUrl}>
       <Icon className={classes.icon}>
-        <img src={SomeIconLookupTable[someKey]} />
+        <img className={classes.iconImage} src={SomeIconLookupTable[someKey]} />
       </Icon>
     </Link>
   );
@@ -103,13 +125,6 @@ export const SomeRow = ({ some }: { some: Some }) => (
             <SomeIconWithLink someKey={someKey} someUrl={someUrl} />
           </Grid>
         ))}
-    {/*          <Grid item sm={1.6} key={`some-`}>
-          <Box className={classes.placeHolder}>
-            <Link href={''} target="_blank">
-              <MaterialIcon icon="groups" fontSize="large" htmlColor='white'/>
-            </Link>
-          </Box>
-        </Grid> */}
   </StyledGrid>
 );
 
