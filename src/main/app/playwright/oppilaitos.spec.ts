@@ -34,5 +34,10 @@ test.describe('oppilaitos', () => {
     await verifySomeLink(4, 'https://instagram.com/aaltouniversity');
     await verifySomeLink(5, 'https://www.youtube.com/user/aaltouniversity');
     await verifySomeLink(6, 'https://www.aalto.fi/snapchat');
+    await verifySomeLink(7, 'https://footube.com');
+    await expect(page.getByRole('link', { name: 'Oppilaitoksen blogi' })).toBeVisible();
+    await expect(
+      page.getByRole('link', { name: 'Aalto-yliopisto' }).nth(2)
+    ).toBeVisible();
   });
 });
