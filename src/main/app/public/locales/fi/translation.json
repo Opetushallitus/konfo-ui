@@ -294,7 +294,17 @@
   "ohjaava-haku": {
     "aloita-kysely": "Käynnistä kysely",
     "info-text": "Ei hätää, vastaa ensin muutamaan helppoon kysymykseen. Saat vastaustesi perusteella sinulle valikoidut hakuehdot ja ehdotuksena niihin soveltuvat koulutuspaikat ja oppilaitokset.",
-    "otsikko": "En tiedä mitä haluaisin opiskella"
+    "katso-tulokset": "Katso tulokset",
+    "kysymykset": {
+      "opetusaika": "Milloin voit opiskella?",
+      "opetusaikakk_1": "Haluan opiskella päivisin.",
+      "opetusaikakk_2": "Minulla on paremmin aikaa iltaisin.",
+      "opetusaikakk_3": "Toivon että voisin opiskella viikonloppuisin.",
+      "opetusaikakk_4": "Yhdistetty päivä- ja iltaopetus sopii minulle.",
+      "opetusaikakk_5": "En halua sitoa opiskeluani mihinkään tiettyyn ajankohtaan."
+    },
+    "otsikko": "En tiedä mitä haluaisin opiskella",
+    "seuraava-kysymys": "Seuraava kysymys"
   },
   "navigaatio": {
     "edellinen": "Edellinen",

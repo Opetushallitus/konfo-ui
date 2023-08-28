@@ -27,8 +27,7 @@ import { Etusivu } from './components/Etusivu';
 import { HakuPage } from './components/haku/HakuPage';
 import { Hakupalkki } from './components/haku/Hakupalkki';
 import { KoulutusPage } from './components/koulutus/KoulutusPage';
-import { OhjaavaHaku } from './components/ohjaava-haku';
-import { Kysymys } from './components/ohjaava-haku/Kysymys';
+import { OhjaavaHaku } from './components/ohjaava-haku/OhjaavaHakuPage';
 import { OppilaitosPage } from './components/oppilaitos/OppilaitosPage';
 import { OutlinedButton } from './components/OutlinedButton';
 import { PalautePopup } from './components/palaute/PalautePopup';
@@ -107,7 +106,7 @@ const OhjaavaHakuLink = () => {
 
   return (
     <OutlinedButton href="/ohjaava-haku" color="primary" sx={{ marginTop: 1 }}>
-      {t('ohjaava-haku.minne-hakisin')}
+      {t('ohjaava-haku.otsikko')}
     </OutlinedButton>
   );
 };
@@ -242,14 +241,6 @@ const TranslatedRoutes = () => {
           </>
         }
       />
-      <Route
-        path="ohjaava-haku/:kysymysId"
-        element={
-          <>
-            <Kysymys />
-          </>
-        }
-      />
       <Route path="*" element={<NotFound />} />
     </Routes>
   ) : (
@@ -293,7 +284,6 @@ type TitleObject = {
 };
 
 export const App = () => {
-  console.log({ theme });
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
   const [betaBanner, setBetaBanner] = useState(false);
   const [titleObj, setTitleObj] = useState<TitleObject>();

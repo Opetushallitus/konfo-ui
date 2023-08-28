@@ -122,7 +122,8 @@ export const useAutoComplete = () => {
 
 export const useSearchOperations = () => {};
 
-const isOnPageWithHaku = (currentPage: string) => ['', 'haku'].includes(currentPage);
+const isOnPageWithHaku = (currentPage: string) =>
+  ['', 'haku', 'ohjaava-haku'].includes(currentPage);
 
 export const useSearch = () => {
   const keyword = useSelector(getKeyword);
