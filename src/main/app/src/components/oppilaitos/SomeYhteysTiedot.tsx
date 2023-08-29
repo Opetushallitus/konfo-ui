@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { Grid, Link, Icon, Box } from '@mui/material';
-import { styled } from '@mui/styles';
 import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
@@ -12,7 +11,7 @@ import SnapChatIcon from '#/src/assets/images/somelogos/some_snapchat.svg';
 import TwitterIcon from '#/src/assets/images/somelogos/some_x.svg';
 import YoutubeIcon from '#/src/assets/images/somelogos/some_youtube.svg';
 import { colors } from '#/src/colors';
-import { theme as CustomTheme } from '#/src/theme';
+import { styled } from '#/src/theme';
 import { localize } from '#/src/tools/localization';
 import { Translateable } from '#/src/types/common';
 
@@ -50,7 +49,7 @@ const classes = {
   iconImage: `${PREFIX}-icon-image`,
 };
 
-const StyledGrid = styled(Grid)(({ theme }: { theme: typeof CustomTheme }) => ({
+const StyledGrid = styled(Grid)(({ theme }) => ({
   marginTop: '0.3rem',
 
   [`& .${classes.placeHolder}`]: {
