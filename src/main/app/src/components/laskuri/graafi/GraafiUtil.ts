@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 
-import { Datum } from 'victory';
-
+import { colors } from '#/src/colors';
 import { formatDouble } from '#/src/tools/utils';
 import { Hakukohde, PisteHistoria } from '#/src/types/HakukohdeTypes';
 
@@ -30,12 +29,13 @@ export const graafiYearModifier = (
 };
 
 export type PisteData = {
-  data: Array<Datum>;
-  years: Array<number>;
-  labels: Array<string>;
+  pisteet: number;
+  pisteetLabel: any;
+  vuosi: number;
+  pistetyyppi: string;
 };
 
-export const usePisteHistoria = (hakukohde: Hakukohde): PisteData => {
+export const usePisteHistoria = (hakukohde: Hakukohde): Array<PisteData> => {
   return useMemo(() => {
     const data =
       hakukohde?.metadata?.pistehistoria
@@ -43,12 +43,28 @@ export const usePisteHistoria = (hakukohde: Hakukohde): PisteData => {
           (historia: PisteHistoria) => Number.parseInt(historia.vuosi) >= GRAAFI_MIN_YEAR
         )
         .map((historia: PisteHistoria) => {
-          return { x: Number.parseInt(historia.vuosi), y: historia.pisteet };
+          return {
+            pisteet: historia.pisteet,
+            pisteetLabel: formatDouble(historia.pisteet),
+            vuosi: Number.parseInt(historia.vuosi),
+            pistetyyppi: historia.valintatapajonoTyyppi?.koodiUri,
+          } as PisteData;
         })
-        .sort((a, b) => b.x - a.x)
+        .sort((a, b) => b.vuosi - a.vuosi)
         .slice(0, MAX_ITEMS) || [];
-    const years = data.map((datum: Datum) => datum.x);
-    const labels = data.map((datum: Datum) => formatDouble(datum.y));
-    return { data, years, labels };
+    return data;
   }, [hakukohde]);
+};
+
+export const getStyleByPistetyyppi = (pistetyyppi: string): string => {
+  switch (pistetyyppi) {
+    case 'valintatapajono_yp':
+      return colors.yhteispisteetPink;
+    case 'valintatapajono_kp':
+      return colors.koepisteetBlue;
+    case 'valintatapajono_tv':
+      return colors.verminal;
+    default:
+      return colors.darkGrey; // valintatapajono_m tai tieto puuttuu
+  }
 };
