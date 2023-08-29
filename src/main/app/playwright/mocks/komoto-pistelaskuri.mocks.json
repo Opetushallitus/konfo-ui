@@ -490,7 +490,15 @@
                       "vuosi": "2018",
                       "valintatapajonoOid": "15204349710893872952965419072834",
                       "hakukohdeOid": "1.2.246.562.20.25631786289",
-                      "hakuOid": "1.2.246.562.29.55739081531"
+                      "hakuOid": "1.2.246.562.29.55739081531",
+                      "valintatapajonoTyyppi": {
+                        "koodiUri": "valintatapajono_tv",
+                        "nimi": {
+                          "sv": "Provpoäng",
+                          "en": "Exam score",
+                          "fi": "Koepisteet"
+                        }
+                      }
                     },
                     {
                       "tarjoaja": "1.2.246.562.10.50460470417",
@@ -502,7 +510,15 @@
                       "vuosi": "2022",
                       "valintatapajonoOid": "1649413967221888534857780379884",
                       "hakukohdeOid": "1.2.246.562.20.00000000000000008445",
-                      "hakuOid": "1.2.246.562.29.00000000000000005368"
+                      "hakuOid": "1.2.246.562.29.00000000000000005368",
+                      "valintatapajonoTyyppi": {
+                        "koodiUri": "valintatapajono_tv",
+                        "nimi": {
+                          "sv": "Provpoäng",
+                          "en": "Exam score",
+                          "fi": "Koepisteet"
+                        }
+                      }
                     }
                   ]
                 },
