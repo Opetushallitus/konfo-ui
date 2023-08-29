@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   getOppilaitos,
   getOppilaitosOsa,
-  getOppilaitosOsaTarjonta,
   getOppilaitosTarjonta,
 } from '#/src/api/konfoApi';
 import {
@@ -158,11 +157,7 @@ const selectTulevaTarjonta = (tulevaTarjonta: any) => {
   return { values: localizedTulevaTarjonta, total };
 };
 
-export const usePaginatedTarjonta = ({
-  oid,
-  isOppilaitosOsa,
-  isTuleva,
-}: UsePaginatedTarjontaProps) => {
+export const usePaginatedTarjonta = ({ oid, isTuleva }: UsePaginatedTarjontaProps) => {
   const dispatch = useDispatch();
 
   // Reset pagination when oid changes (which means that another oppilaitos-page was opened)
@@ -184,10 +179,7 @@ export const usePaginatedTarjonta = ({
 
   const result = useQuery(
     ['getPaginatedTarjonta', fetchProps],
-    () =>
-      isOppilaitosOsa
-        ? getOppilaitosOsaTarjonta(fetchProps)
-        : getOppilaitosTarjonta(fetchProps),
+    () => getOppilaitosTarjonta(fetchProps),
     {
       enabled: Boolean(oid),
       keepPreviousData: true,
