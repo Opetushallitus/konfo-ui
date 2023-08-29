@@ -4,6 +4,7 @@ import { Button, Grid, styled } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { FILTER_TYPES } from '#/src/constants';
 
 import { useFilterProps, useSearch } from '../../components/haku/hakutulosHooks';
@@ -71,6 +72,8 @@ export const Kysymys = ({
     goToSearchPage();
   };
 
+  const isSelected = (id: string) => selectedRajainValues.includes(id);
+
   return (
     <Root>
       <Grid container width="100%" alignItems="start">
@@ -81,10 +84,13 @@ export const Kysymys = ({
           {filterProps.map(({ id }) => {
             return (
               <Button
+                {...(isSelected(id) && {
+                  startIcon: <MaterialIcon icon="check" />,
+                })}
                 key={id}
                 onClick={() => toggleRajainValue(id)}
                 className="question__option"
-                {...(selectedRajainValues.includes(id) && { 'data-selected': true })}>
+                {...(isSelected(id) && { 'data-selected': true })}>
                 {t(`ohjaava-haku.kysymykset.${id}`)}
               </Button>
             );
