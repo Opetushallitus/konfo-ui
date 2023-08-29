@@ -19,10 +19,11 @@ import { Hakukohde } from '#/src/types/HakukohdeTypes';
 import {
   GRAAFI_MAX_YEAR,
   GRAAFI_MIN_YEAR,
-  usePisteHistoria,
-  PisteData,
   graafiYearModifier,
   GraafiBoundary,
+  PisteData,
+  usePisteHistoria,
+  getStyleByPistetyyppi,
 } from './GraafiUtil';
 import { HakupisteLaskelma, ENSISIJAINEN_SCORE_BONUS } from '../Keskiarvo';
 
@@ -33,14 +34,15 @@ type Props = {
 };
 
 const PisteGraafiLukio = ({ hakukohde, tulos }: Props) => {
-  const { data, years, labels }: PisteData = usePisteHistoria(hakukohde);
+  const data: Array<PisteData> = usePisteHistoria(hakukohde);
+  const years = data.map((datum) => datum.vuosi);
   const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
 
   const DEFAULT_MAX = 10;
 
   const maxY = (datas: Array<Datum>): number => {
-    const highestScore = datas.map((datum) => datum.y).sort((a, b) => b - a)[0];
+    const highestScore = datas.map((datum) => datum.pisteet).sort((a, b) => b - a)[0];
     return Math.max(DEFAULT_MAX, highestScore);
   };
 
@@ -80,11 +82,13 @@ const PisteGraafiLukio = ({ hakukohde, tulos }: Props) => {
           <VictoryBar
             data={data}
             style={{
-              data: { fill: colors.verminal },
+              data: { fill: ({ datum }) => getStyleByPistetyyppi(datum.pistetyyppi) },
               labels: { fontSize: isSmall ? 32 : 14 },
             }}
             barWidth={isSmall ? 74 : 52}
-            labels={labels}
+            labels={data.map((datum) => datum.pisteetLabel)}
+            x="vuosi"
+            y="pisteet"
           />
           {tulos && (
             <VictoryLine
@@ -113,7 +117,8 @@ const PisteGraafiLukio = ({ hakukohde, tulos }: Props) => {
 };
 
 const PisteGraafiAmmatillinen = ({ hakukohde, tulos }: Props) => {
-  const { data, years, labels }: PisteData = usePisteHistoria(hakukohde);
+  const data: Array<PisteData> = usePisteHistoria(hakukohde);
+  const years = data.map((datum) => datum.vuosi);
   const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -153,11 +158,13 @@ const PisteGraafiAmmatillinen = ({ hakukohde, tulos }: Props) => {
           <VictoryBar
             data={data}
             style={{
-              data: { fill: colors.verminal },
+              data: { fill: ({ datum }) => getStyleByPistetyyppi(datum.pistetyyppi) },
               labels: { fontSize: isSmall ? 32 : 14 },
             }}
             barWidth={52}
-            labels={labels}
+            labels={data.map((datum) => datum.pisteetLabel)}
+            x="vuosi"
+            y="pisteet"
           />
           {tulos && (
             <VictoryLine
