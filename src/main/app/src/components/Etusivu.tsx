@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import { Box, Button, Grid, Paper } from '@mui/material';
 import { styled } from '@mui/material/styles';
@@ -62,14 +62,17 @@ export const Etusivu = () => {
 
   const yhteishakuInfos = sortBy(Object.values(infoYhteishaku || {}), 'order');
 
-  const uutislinkit = uutiset?.['etusivun-uutiset']?.linkit ?? [];
+  const uutislinkit = useMemo(
+    () => uutiset?.['etusivun-uutiset']?.linkit ?? [],
+    [uutiset]
+  );
   const [showMore, setShowMore] = useState(true);
 
   useEffect(() => {
     if (!isLoading) {
       setShowMore(size(uutislinkit) > 3);
     }
-  }, [isLoading]);
+  }, [isLoading, uutislinkit]);
 
   useEffectOnce(() => {
     // NOTE: Tyhjätään aina kaikki hakutulosvalinnat kun saavutaan etusivulle

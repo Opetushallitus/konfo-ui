@@ -12,7 +12,6 @@ import {
   ListItemIcon,
   Typography,
 } from '@mui/material';
-import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import Select, {
   components,
@@ -21,12 +20,13 @@ import Select, {
   OptionProps as RSOptionProps,
   DropdownIndicatorProps as RSDropdownIndicatorProps,
 } from 'react-select';
+import { P, match } from 'ts-pattern';
 
 import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { useConfig } from '#/src/config';
 import { localize, localizeIfNimiObject } from '#/src/tools/localization';
-import { FilterValue, FilterValues } from '#/src/types/SuodatinTypes';
+import { RajainItem, isCheckboxRajainId } from '#/src/types/SuodatinTypes';
 
 import {
   SuodatinAccordion,
@@ -34,8 +34,10 @@ import {
   SuodatinAccordionSummary,
   SuodatinListItemText,
 } from './CustomizedMuiComponents';
+import { isIndeterminate } from './isIndeterminate';
 import { SummaryContent } from './SummaryContent';
 import { KonfoCheckbox } from '../Checkbox';
+import { LabelTooltip } from '../LabelTooltip';
 
 const HIDE_NOT_EXPANDED_AMOUNT = 5;
 
@@ -101,23 +103,60 @@ const Option = React.forwardRef(
   }
 );
 
-type CheckboxProps = {
-  value: FilterValue;
-  isCountVisible?: boolean;
-  handleCheck: (v: FilterValue) => void;
-  indented?: boolean;
-  expandButton?: JSX.Element;
+const checkboxValuePattern = {
+  count: P.number,
+  id: P.string,
+  nimi: P.optional(P._),
+  checked: P.boolean,
 };
 
-const FilterCheckbox = ({
+const alakoodit = (rajainItem: RajainItem) =>
+  match(rajainItem)
+    .with(
+      {
+        alakoodit: P.select(
+          P.array({ ...checkboxValuePattern, rajainId: P.when(isCheckboxRajainId) })
+        ),
+      },
+      (koodit) =>
+        koodit.map((alakoodi) => ({
+          count: alakoodi.count,
+          rajainId: alakoodi.rajainId,
+          id: alakoodi.id,
+          nimi: alakoodi.nimi,
+          checked: alakoodi.checked,
+        }))
+    )
+    .otherwise(() => []);
+
+type CheckboxProps = {
+  value: RajainItem;
+  isCountVisible?: boolean;
+  handleCheck: (v: RajainItem) => void;
+  indented?: boolean;
+  expandButton?: JSX.Element;
+  disabled?: boolean;
+  additionalInfo?: string;
+};
+
+export const FilterCheckbox = ({
   handleCheck,
   indented,
   isCountVisible,
   value,
   expandButton,
+  disabled,
+  additionalInfo,
 }: CheckboxProps) => {
   const { t } = useTranslation();
-  const { count, id, nimi, checked } = value;
+  const { count, id, nimi, checked } = match(value)
+    .with(checkboxValuePattern, (v) => ({
+      count: v.count,
+      id: v.id,
+      nimi: v.nimi,
+      checked: v.checked,
+    }))
+    .run();
   const labelId = `filter-list-label-${id}`;
 
   return (
@@ -126,6 +165,7 @@ const FilterCheckbox = ({
         dense
         disableGutters
         onClick={() => handleCheck(value)}
+        disabled={disabled}
         sx={{
           marginLeft: indented ? 2 : 0,
         }}>
@@ -151,6 +191,11 @@ const FilterCheckbox = ({
             </Typography>
           }
         />
+        {additionalInfo && (
+          <Box paddingLeft={1}>
+            <LabelTooltip title={additionalInfo} />
+          </Box>
+        )}
         <Box paddingLeft={1}>{expandButton}</Box>
         {isCountVisible && (
           <Typography marginLeft={1} variant="body2">{`(${count})`}</Typography>
@@ -167,8 +212,8 @@ const FilterCheckboxGroup = ({
   value,
 }: {
   defaultExpandAlakoodit: boolean;
-  handleCheck: (v: FilterValue) => void;
-  value: FilterValue;
+  handleCheck: (v: RajainItem) => void;
+  value: RajainItem;
   isCountVisible?: boolean;
 }) => {
   const { t } = useTranslation();
@@ -198,10 +243,10 @@ const FilterCheckboxGroup = ({
         }
       />
       {isOpen &&
-        value.alakoodit?.map((v) => (
+        alakoodit(value).map((v) => (
           <FilterCheckbox
             key={v.id}
-            value={v}
+            value={{ ...v }}
             handleCheck={handleCheck}
             indented
             isCountVisible={isCountVisible}
@@ -223,7 +268,7 @@ type Props = {
   shadow?: boolean;
   onFocus?: () => void;
   onHide?: () => void;
-  values: FilterValues;
+  rajainValues: Array<RajainItem>;
   handleCheck: (value: any) => void;
   options?: OptionsType;
   optionsLoading?: boolean;
@@ -233,9 +278,6 @@ type Props = {
   setFilters: (value: any) => void;
   isCountVisible?: boolean;
 };
-
-const isIndeterminate = (v: FilterValue) =>
-  !v.checked && Boolean(v.alakoodit?.some((alakoodi) => alakoodi.checked));
 
 // NOTE: Do *not* put redux code here, this component is used both with and without
 export const Filter = ({
@@ -248,7 +290,7 @@ export const Filter = ({
   // TODO: Liikaa boolean propseja -> huono komponenttirajapinta
   displaySelected = false,
   summaryHidden = false,
-  values,
+  rajainValues,
   handleCheck,
   options,
   optionsLoading,
@@ -262,14 +304,14 @@ export const Filter = ({
 }: Props) => {
   const { t } = useTranslation();
   const [hideRest, setHideRest] = useState(expandValues);
-  const usedName = [name, values?.length === 0 && '(0)'].filter(Boolean).join(' ');
+  const usedName = [name, rajainValues.length === 0 && '(0)'].filter(Boolean).join(' ');
 
   const config = useConfig();
   const isCountVisible = isCountVisibleProp && config?.naytaFiltterienHakutulosLuvut;
 
   return (
     <SuodatinAccordion
-      disabled={values?.length === 0}
+      disabled={rajainValues.length === 0}
       data-testid={testId}
       elevation={elevation}
       defaultExpanded={expanded}
@@ -278,7 +320,7 @@ export const Filter = ({
         <SuodatinAccordionSummary expandIcon={<MaterialIcon icon="expand_more" />}>
           <SummaryContent
             filterName={usedName}
-            values={values}
+            values={rajainValues}
             displaySelected={displaySelected}
           />
         </SuodatinAccordionSummary>
@@ -286,7 +328,7 @@ export const Filter = ({
       <SuodatinAccordionDetails {...(summaryHidden && { style: { padding: 0 } })}>
         <Grid container direction="column" wrap="nowrap">
           {additionalContent}
-          {options && values.length > HIDE_NOT_EXPANDED_AMOUNT && (
+          {options && rajainValues.length > HIDE_NOT_EXPANDED_AMOUNT && (
             <Grid item style={{ padding: '20px 0', zIndex: 2 }}>
               <Select
                 components={{ DropdownIndicator, LoadingIndicator, Option }}
@@ -317,24 +359,31 @@ export const Filter = ({
           )}
           <Grid item>
             <List style={{ width: '100%' }}>
-              {values
-                .filter((v) => !v.hidden)
+              {rajainValues
+                .filter((v) =>
+                  match(v)
+                    .with(
+                      { checked: P.boolean, hidden: P.optional(P.not(true)) },
+                      () => true
+                    )
+                    .otherwise(() => false)
+                )
                 .map((value, i) => {
                   if (expandValues && hideRest && i >= HIDE_NOT_EXPANDED_AMOUNT) {
                     return null;
                   }
 
-                  return isEmpty(value.alakoodit) ? (
-                    <FilterCheckbox
+                  return alakoodit(value).length > 0 ? (
+                    <FilterCheckboxGroup
                       key={value.id}
+                      defaultExpandAlakoodit={defaultExpandAlakoodit}
                       value={value}
                       handleCheck={handleCheck}
                       isCountVisible={isCountVisible}
                     />
                   ) : (
-                    <FilterCheckboxGroup
+                    <FilterCheckbox
                       key={value.id}
-                      defaultExpandAlakoodit={defaultExpandAlakoodit}
                       value={value}
                       handleCheck={handleCheck}
                       isCountVisible={isCountVisible}
@@ -343,7 +392,7 @@ export const Filter = ({
                 })}
             </List>
           </Grid>
-          {expandValues && values.length > HIDE_NOT_EXPANDED_AMOUNT && (
+          {expandValues && rajainValues.length > HIDE_NOT_EXPANDED_AMOUNT && (
             <Button
               color="secondary"
               size="small"

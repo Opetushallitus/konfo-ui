@@ -1,7 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { merge } from 'lodash';
+import { createSelector, createSlice } from '@reduxjs/toolkit';
+import { merge, pick } from 'lodash';
 
+import { RootState } from '#/src/store';
 import { getPaginationPage } from '#/src/tools/utils';
+
+import { HAKU_INITIAL_FILTERS } from './hakutulosSlice';
+import { TOTEUTUS_FILTER_NAMES } from './hakutulosSliceSelector';
 
 const initialPagination = {
   size: 5,
@@ -10,13 +14,13 @@ const initialPagination = {
 
 export const initialState = {
   tulevatJarjestajat: {
-    filters: {},
+    filters: pick(HAKU_INITIAL_FILTERS, TOTEUTUS_FILTER_NAMES),
     pagination: {
       ...initialPagination,
     },
   },
   jarjestajat: {
-    filters: {},
+    filters: pick(HAKU_INITIAL_FILTERS, TOTEUTUS_FILTER_NAMES),
     pagination: {
       ...initialPagination,
     },
@@ -62,26 +66,31 @@ export const {
   resetJarjestajatPaging,
   setTulevatJarjestajatFilters,
   setTulevatJarjestajatPaging,
-  resetJarjestajatQuery,
-  resetTulevatJarjestajatQuery,
-  selectTulevatJarjestajatQuery,
   resetTulevatJarjestajatPaging,
 } = koulutusSlice.actions;
 
-const withPage = (pagination) => ({
-  ...pagination,
-  page: getPaginationPage({
-    offset: pagination.offset,
-    size: pagination.size,
-  }),
-});
+const selectKoulutusJarjestajat = (state: RootState) => state?.koulutus?.jarjestajat;
+const selectKoulutusTulevatJarjestajat = (state: RootState) =>
+  state?.koulutus?.tulevatJarjestajat;
 
-export const selectJarjestajatQuery = (isTuleva) => (state) => {
-  const jarjestajat = isTuleva
-    ? state?.koulutus?.tulevatJarjestajat
-    : state?.koulutus?.jarjestajat;
-  return {
-    ...jarjestajat,
-    pagination: withPage(jarjestajat.pagination),
-  };
-};
+export const selectJarjestajatQuery = createSelector(
+  [
+    selectKoulutusJarjestajat,
+    selectKoulutusTulevatJarjestajat,
+    (_state: RootState, isTuleva: boolean) => isTuleva,
+  ],
+  (jarjestajat, tulevatJarjestajat, isTuleva) => {
+    const selectedJarjestajat = isTuleva ? tulevatJarjestajat : jarjestajat;
+    const { pagination } = selectedJarjestajat;
+    return {
+      ...selectedJarjestajat,
+      pagination: {
+        ...pagination,
+        page: getPaginationPage({
+          offset: pagination.offset,
+          size: pagination.size,
+        }),
+      },
+    };
+  }
+);

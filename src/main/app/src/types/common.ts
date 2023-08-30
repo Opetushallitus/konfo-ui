@@ -77,3 +77,10 @@ export type AutocompleteResult = {
 export type RequestParams = Record<string, any>;
 
 export type ReduxTodo = any;
+
+export type SlugIdData = {
+  language: LanguageCode;
+  id: string;
+  englishPageVersionId?: string;
+};
+export type SlugsToIds = Record<string, SlugIdData>;

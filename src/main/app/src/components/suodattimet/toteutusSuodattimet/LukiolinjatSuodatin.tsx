@@ -5,18 +5,24 @@ import { useTranslation } from 'react-i18next';
 
 import { Filter } from '#/src/components/common/Filter';
 import { useConfig } from '#/src/config';
-import { getFilterStateChanges } from '#/src/tools/filters';
+import { getStateChangesForCheckboxRajaimet } from '#/src/tools/filters';
 import { localize } from '#/src/tools/localization';
-import { FilterValue, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
+import {
+  CheckboxRajainItem,
+  RajainItem,
+  SuodatinComponentProps,
+} from '#/src/types/SuodatinTypes';
 
 export const LukiolinjatSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
-  const { name, values = [], ...rest } = props;
+  const { name, rajainValues = [], ...rest } = props;
 
-  const filteredValues = values.filter((v) => v?.count > 0 || v.checked);
+  const filteredValues = (rajainValues as Array<CheckboxRajainItem>).filter(
+    (v) => v?.count > 0 || v.checked
+  );
 
-  const handleCheck = (item: FilterValue) => {
-    const changes = getFilterStateChanges(filteredValues)(item);
+  const handleCheck = (item: RajainItem) => {
+    const changes = getStateChangesForCheckboxRajaimet(filteredValues)(item);
     props.setFilters(changes);
   };
 
@@ -24,7 +30,7 @@ export const LukiolinjatSuodatin = (props: SuodatinComponentProps) => {
   const naytaFiltterienHakutulosLuvut = config.naytaFiltterienHakutulosLuvut;
 
   const options = useMemo(() => {
-    const getSelectOption = (value: FilterValue) => ({
+    const getSelectOption = (value: CheckboxRajainItem) => ({
       ...value,
       label: naytaFiltterienHakutulosLuvut
         ? `${localize(value)} (${value.count})`
@@ -44,7 +50,7 @@ export const LukiolinjatSuodatin = (props: SuodatinComponentProps) => {
     ];
   }, [filteredValues, t, name, naytaFiltterienHakutulosLuvut]);
 
-  const usedValues = useMemo(
+  const usedRajainValues = useMemo(
     () => filteredValues.sort((a, b) => Number(b.checked) - Number(a.checked)),
     [filteredValues]
   );
@@ -52,7 +58,7 @@ export const LukiolinjatSuodatin = (props: SuodatinComponentProps) => {
   return (
     <Filter
       name={t(`haku.${name}`)}
-      values={usedValues}
+      rajainValues={usedRajainValues}
       options={options}
       handleCheck={handleCheck}
       expandValues

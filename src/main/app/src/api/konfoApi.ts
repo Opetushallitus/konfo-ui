@@ -12,6 +12,7 @@ import {
   LanguageCode,
   TODOType,
   RequestParams,
+  SlugsToIds,
 } from '#/src/types/common';
 import {
   ContentfulData,
@@ -91,17 +92,6 @@ export const getOppilaitosTarjonta = ({
   requestParams: RequestParams;
 }) =>
   get(urls.url('konfo-backend.oppilaitos.tarjonta', oid), {
-    params: cleanRequestParams(requestParams),
-  });
-
-export const getOppilaitosOsaTarjonta = ({
-  oid,
-  requestParams,
-}: {
-  oid: string;
-  requestParams: RequestParams;
-}) =>
-  get(urls.url('konfo-backend.oppilaitosOsa.tarjonta', oid), {
     params: cleanRequestParams(requestParams),
   });
 
@@ -229,13 +219,12 @@ export const getContentfulData = (
     })
   ).then((all) => {
     const contentfulData: ContentfulData = Object.assign({}, ...all);
-    const slugsToIds: Record<string, { language: LanguageCode; id: string }> =
-      Object.fromEntries(
-        Object.values(contentfulData?.sivu ?? {}).map((sivu) => [
-          sivu.slug!,
-          { language: lang, id: sivu.id },
-        ])
-      );
+    const slugsToIds: SlugsToIds = Object.fromEntries(
+      Object.values(contentfulData?.sivu ?? {}).map((sivu) => [
+        sivu.slug!,
+        { language: lang, id: sivu.id, englishPageVersionId: sivu.englishPageVersionId },
+      ])
+    );
     return { contentfulData, slugsToIds };
   });
 };

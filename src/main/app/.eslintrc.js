@@ -12,6 +12,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'prettier',
     'plugin:lodash/recommended',
+    'plugin:react-hooks/recommended',
   ],
   plugins: ['@typescript-eslint', 'prettier', 'lodash', 'import', 'react-refresh'],
   env: {

@@ -7,6 +7,7 @@ export interface TypeSivuFields {
     description?: EntryFieldTypes.Symbol;
     content?: EntryFieldTypes.Text;
     sdgContentCategory?: EntryFieldTypes.Symbol;
+    englishPageVersionId?: EntryFieldTypes.Symbol;
 }
 
 export type TypeSivuSkeleton = EntrySkeletonType<TypeSivuFields, "sivu">;

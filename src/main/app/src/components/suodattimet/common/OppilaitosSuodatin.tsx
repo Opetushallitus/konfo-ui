@@ -5,16 +5,20 @@ import { useTranslation } from 'react-i18next';
 
 import { Filter } from '#/src/components/common/Filter';
 import { useConfig } from '#/src/config';
-import { getFilterStateChanges } from '#/src/tools/filters';
+import { getStateChangesForCheckboxRajaimet } from '#/src/tools/filters';
 import { getLanguage, localize } from '#/src/tools/localization';
-import { FilterValue, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
+import {
+  CheckboxRajainItem,
+  RajainItem,
+  SuodatinComponentProps,
+} from '#/src/types/SuodatinTypes';
 
 export const OppilaitosSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
-  const { values = [], ...rest } = props;
+  const { rajainValues = [], ...rest } = props;
 
-  const handleCheck = (item: FilterValue) => {
-    const changes = getFilterStateChanges(values)(item);
+  const handleCheck = (item: RajainItem) => {
+    const changes = getStateChangesForCheckboxRajaimet(rajainValues)(item);
     props.setFilters(changes);
   };
 
@@ -22,7 +26,7 @@ export const OppilaitosSuodatin = (props: SuodatinComponentProps) => {
   const naytaFiltterienHakutulosLuvut = config.naytaFiltterienHakutulosLuvut;
 
   const options = useMemo(() => {
-    const getSelectOption = (value: FilterValue) => ({
+    const getSelectOption = (value: CheckboxRajainItem) => ({
       ...value,
       label: naytaFiltterienHakutulosLuvut
         ? `${localize(value)} (${value.count})`
@@ -35,23 +39,23 @@ export const OppilaitosSuodatin = (props: SuodatinComponentProps) => {
       {
         label: t('haku.oppilaitos'),
         options: sortBy(
-          values.map((v) => getSelectOption(v)),
+          (rajainValues as Array<CheckboxRajainItem>).map((v) => getSelectOption(v)),
           'label'
         ),
       },
     ];
-  }, [values, t, naytaFiltterienHakutulosLuvut]);
+  }, [rajainValues, t, naytaFiltterienHakutulosLuvut]);
 
   const language = getLanguage();
 
-  const usedValues = useMemo(
+  const usedRajainValues = useMemo(
     () =>
-      values.sort(
+      (rajainValues as Array<CheckboxRajainItem>).sort(
         (a, b) =>
           Number(b.checked) - Number(a.checked) ||
           localize(a.nimi).localeCompare(localize(b.nimi), language)
       ),
-    [values, language]
+    [rajainValues, language]
   );
 
   return (
@@ -59,7 +63,7 @@ export const OppilaitosSuodatin = (props: SuodatinComponentProps) => {
       name={t('haku.oppilaitos')}
       selectPlaceholder={t('haku.etsi-oppilaitos')}
       testId="oppilaitos-filter"
-      values={usedValues}
+      rajainValues={usedRajainValues}
       handleCheck={handleCheck}
       options={options}
       expandValues
