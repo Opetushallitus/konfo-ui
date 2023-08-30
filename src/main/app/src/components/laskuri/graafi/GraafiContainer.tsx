@@ -21,6 +21,7 @@ import { Hakukohde } from '#/src/types/HakukohdeTypes';
 import { Hakutieto } from '#/src/types/ToteutusTypes';
 
 import { AccessibleGraafi } from './AccessibleGraafi';
+import { getStyleByPistetyyppi } from './GraafiUtil';
 import { PainotetutArvosanat } from './PainotetutArvosanat';
 import { PisteGraafi } from './PisteGraafi';
 import { Kouluaineet, kopioiKouluaineetPainokertoimilla } from '../aine/Kouluaine';
@@ -163,6 +164,27 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
     setHakukohde(uusiHakukohde);
   };
 
+  const getTextKeyByPistetyyppi = (pistetyyppi: string): string => {
+    switch (pistetyyppi) {
+      case 'valintatapajono_yp':
+        return ` (${t('pistelaskuri.graafi.yhteispisteet')})`;
+      case 'valintatapajono_kp':
+        return ` (${t('pistelaskuri.graafi.koepisteet')})`;
+      case 'valintatapajono_tv':
+        return ` (${t('pistelaskuri.graafi.todistusvalinta')})`;
+      default:
+        return ''; // valintatapajono_m tai tieto puuttuu
+    }
+  };
+
+  const getUniquePistetyypit = () => {
+    const pistetyypit = hakukohde?.metadata?.pistehistoria?.map(
+      (pistehistoria) => pistehistoria.valintatapajonoTyyppi
+    );
+    const uniikitPistetyypit = new Set(pistetyypit);
+    return Array.from(uniikitPistetyypit);
+  };
+
   return (
     <StyledBox>
       <FormControl variant="standard" className={classes.hakukohdeControl}>
@@ -198,14 +220,30 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
               isLukio={isLukio}
             />
             <Box className={classes.legend} aria-hidden={true}>
-              <Typography sx={{ fontSize: '0.875rem' }}>
-                <Box className={classes.legendScores} />
-                {t(
-                  isLukio
-                    ? 'pistelaskuri.graafi.alin-keskiarvo'
-                    : 'pistelaskuri.graafi.alin-pisteet'
-                )}
-              </Typography>
+              {getUniquePistetyypit().map((valintatapajonoTyyppi) => (
+                <>
+                  <Typography sx={{ fontSize: '0.875rem' }}>
+                    <Box
+                      sx={{
+                        width: '12px',
+                        height: '12px',
+                        marginLeft: '24px',
+                        marginRight: '6px',
+                        verticalAlign: 'middle',
+                        display: 'inline-block',
+                        backgroundColor: getStyleByPistetyyppi(
+                          valintatapajonoTyyppi?.koodiUri
+                        ),
+                      }}
+                    />
+                    {isLukio
+                      ? t('pistelaskuri.graafi.alin-keskiarvo')
+                      : t('pistelaskuri.graafi.alin-pisteet') +
+                        getTextKeyByPistetyyppi(valintatapajonoTyyppi?.koodiUri)}
+                  </Typography>
+                </>
+              ))}
+
               {tulos && (
                 <Typography sx={{ fontSize: '0.875rem' }}>
                   <Box className={classes.legendScore} />

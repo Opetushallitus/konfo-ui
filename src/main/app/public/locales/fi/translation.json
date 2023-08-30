@@ -672,6 +672,9 @@
       "alin-keskiarvo": "sisäänpääsyn alin keskiarvo tai pistemäärä",
       "pisteesi": "arvioitu pistemääräsi",
       "alin-pisteet": "sisäänpääsyn alin pistemäärä",
+      "todistusvalinta": "valintapisteet",
+      "yhteispisteet": "valintapisteet ja pääsykoe",
+      "koepisteet": "pääsykoe",
       "poista": "Poista tietosi",
       "saavutettavuus": {
         "saate": "Sisäänpääsyn alin pisteraja on ollut kohteelle {{kohde}}",
