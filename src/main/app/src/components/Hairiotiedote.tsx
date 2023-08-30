@@ -15,17 +15,20 @@ const HairiotiedoteViesti = (viesti: ContentfulHairiotiedote) => {
 
   return (
     <Alert
+      closeText={t('sulje')}
       severity={`${alertType ?? 'error'}`}
       onClose={() => setClosedHairiotiedotteetIds([...closedHairiotiedotteetIds, id])}>
-      {name}
-      {linkkiLisatietoja && (
-        <>
-          <span> {t('hairiotiedote.lisatietoja')} </span>
-          <Link color="inherit" target="_blank" rel="noopener" href={linkkiLisatietoja}>
-            {linkkiLisatietoja}
-          </Link>
-        </>
-      )}
+      <strong>
+        {name}
+        {linkkiLisatietoja && (
+          <>
+            <span> {t('hairiotiedote.lisatietoja')} </span>
+            <Link color="inherit" target="_blank" rel="noopener" href={linkkiLisatietoja}>
+              {linkkiLisatietoja}
+            </Link>
+          </>
+        )}
+      </strong>
     </Alert>
   );
 };
