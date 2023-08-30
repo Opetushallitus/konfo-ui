@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button, Grid, styled } from '@mui/material';
+import { Button, Grid, Typography, styled } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
@@ -11,7 +11,7 @@ import {
   useRajainOptionsForKysymys,
   useSearch,
 } from '../../components/haku/hakutulosHooks';
-import { Heading } from '../Heading';
+import { Heading, HeadingBoundary } from '../Heading';
 
 const Root = styled('div')`
   & .question {
@@ -68,6 +68,7 @@ export const Kysymys = ({
 
   const kysymysId = kysymys.id;
   const kysymysTitle = t(`ohjaava-haku.kysymykset.${kysymysId}.otsikko`);
+  const kysymysInfo = t(`ohjaava-haku.kysymykset.info-text`);
   const isFirstKysymys = currentKysymysIndex === 0;
   const isLastKysymys = currentKysymysIndex === lastKysymysIndex;
 
@@ -88,56 +89,61 @@ export const Kysymys = ({
 
   return (
     <Root>
-      <Grid container width="100%" alignItems="start">
-        <Grid item xs={12}>
-          <Heading>{kysymysTitle}</Heading>
-        </Grid>
-        <Grid item className="question">
-          {rajainOptions.map(({ id, filterId }) => {
-            const isRajainSelected = isSelected(filterId, id);
-            return (
+      <HeadingBoundary>
+        <Grid container width="100%" alignItems="start">
+          <Grid item xs={12}>
+            <Heading variant="h2">{kysymysTitle}</Heading>
+          </Grid>
+          <Grid item xs={12} marginBottom="2rem">
+            <Typography>{kysymysInfo}</Typography>
+          </Grid>
+          <Grid item className="question">
+            {rajainOptions.map(({ id, filterId }) => {
+              const isRajainSelected = isSelected(filterId, id);
+              return (
+                <Button
+                  {...(isRajainSelected && {
+                    startIcon: <MaterialIcon icon="check" />,
+                  })}
+                  key={id}
+                  onClick={() => toggleAllSelectedRajainValues(id, filterId)}
+                  className="question__option"
+                  {...(isRajainSelected && { 'data-selected': true })}>
+                  {t(`ohjaava-haku.kysymykset.${filterId}.vaihtoehdot.${id}`)}
+                </Button>
+              );
+            })}
+          </Grid>
+          <Grid item xs={12}>
+            {!isFirstKysymys && (
               <Button
-                {...(isRajainSelected && {
-                  startIcon: <MaterialIcon icon="check" />,
-                })}
-                key={id}
-                onClick={() => toggleAllSelectedRajainValues(id, filterId)}
-                className="question__option"
-                {...(isRajainSelected && { 'data-selected': true })}>
-                {t(`ohjaava-haku.kysymykset.${filterId}.vaihtoehdot.${id}`)}
+                onClick={() => setCurrentKysymysIndex(currentKysymysIndex - 1)}
+                variant="outlined"
+                color="primary">
+                {t('ohjaava-haku.edellinen')}
               </Button>
-            );
-          })}
-        </Grid>
-        <Grid item xs={12}>
-          {!isFirstKysymys && (
-            <Button
-              onClick={() => setCurrentKysymysIndex(currentKysymysIndex - 1)}
-              variant="outlined"
-              color="primary">
-              {t('ohjaava-haku.edellinen')}
-            </Button>
-          )}
-          {isLastKysymys ? (
-            <Button onClick={handleClick} variant="contained" color="primary">
-              {t('ohjaava-haku.katso-tulokset')}
-            </Button>
-          ) : (
-            <Button onClick={handleClick} variant="text" color="primary">
-              {t('ohjaava-haku.katso-tulokset')}
-            </Button>
-          )}
+            )}
+            {isLastKysymys ? (
+              <Button onClick={handleClick} variant="contained" color="primary">
+                {t('ohjaava-haku.katso-tulokset')}
+              </Button>
+            ) : (
+              <Button onClick={handleClick} variant="text" color="primary">
+                {t('ohjaava-haku.katso-tulokset')}
+              </Button>
+            )}
 
-          {!isLastKysymys && (
-            <Button
-              onClick={() => setCurrentKysymysIndex(currentKysymysIndex + 1)}
-              variant="contained"
-              color="primary">
-              {t('ohjaava-haku.seuraava-kysymys')}
-            </Button>
-          )}
+            {!isLastKysymys && (
+              <Button
+                onClick={() => setCurrentKysymysIndex(currentKysymysIndex + 1)}
+                variant="contained"
+                color="primary">
+                {t('ohjaava-haku.seuraava')}
+              </Button>
+            )}
+          </Grid>
         </Grid>
-      </Grid>
+      </HeadingBoundary>
     </Root>
   );
 };

@@ -293,9 +293,11 @@
   },
   "ohjaava-haku": {
     "aloita-kysely": "Käynnistä kysely",
+    "edellinen": "Edellinen kysymys",
     "info-text": "Ei hätää, vastaa ensin muutamaan helppoon kysymykseen. Saat vastaustesi perusteella sinulle valikoidut hakuehdot ja ehdotuksena niihin soveltuvat koulutuspaikat ja oppilaitokset.",
     "katso-tulokset": "Katso tulokset",
     "kysymykset": {
+      "info-text": "Valitse niin monta vaihtoehtoa kuin haluat. Voit myös ohittaa kysymyksen ja siirtyä seuraavaan.",
       "opetusaika": {
         "otsikko": "Milloin voit opiskella?",
         "vaihtoehdot": {
@@ -319,7 +321,7 @@
       }
     },
     "otsikko": "En tiedä mitä haluaisin opiskella",
-    "seuraava-kysymys": "Seuraava kysymys"
+    "seuraava": "Seuraava kysymys"
   },
   "navigaatio": {
     "edellinen": "Edellinen",
