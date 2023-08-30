@@ -86,6 +86,18 @@ export const getFilterWithChecked = (
   }));
 };
 
+export const getRajainOptions = (
+  filters: Record<string, any> | undefined,
+  filterId: string
+) => {
+  const filter = filters?.[filterId];
+  return mapValues(filter, (v, id) => ({
+    ...v,
+    id,
+    filterId,
+  }));
+};
+
 const addIfNotExists = (
   retVal: Record<string, Array<string>>,
   { filterId, id }: FilterValue

@@ -27,6 +27,8 @@ export const FILTER_TYPES = {
   ALKAMISKAUSI: 'alkamiskausi',
 } as const;
 
+export type FilterKey = keyof typeof FILTER_TYPES;
+
 export const FILTER_TYPES_ARR = Object.values(FILTER_TYPES);
 
 // TODO: konfo-backend haluaa turhaan kunta + maakunta rajaimet yhtenä könttinä (sijainti), se pitäisi purkaa sieltä

@@ -50,7 +50,7 @@ import {
   getHakuParams,
   createHakuUrl,
 } from '#/src/store/reducers/hakutulosSliceSelector';
-import { getFilterWithChecked, sortValues } from '#/src/tools/filters';
+import { getFilterWithChecked, sortValues, getRajainOptions } from '#/src/tools/filters';
 import { ReduxTodo, ValueOf } from '#/src/types/common';
 
 type Pagination = {
@@ -284,6 +284,12 @@ export const useFilterProps = (id: ValueOf<typeof FILTER_TYPES>) => {
     () => sortValues(getFilterWithChecked(usedFilters, allFilters, id)),
     [usedFilters, allFilters, id]
   );
+};
+
+export const useRajainOptionsForKysymys = (rajainId: ValueOf<typeof FILTER_TYPES>) => {
+  const { koulutusData } = useSearch();
+  const filters = koulutusData?.filters;
+  return sortValues(getRajainOptions(filters, rajainId));
 };
 
 export const useSelectedFilters = (availableFilters: any, checkedFilters: any) => {

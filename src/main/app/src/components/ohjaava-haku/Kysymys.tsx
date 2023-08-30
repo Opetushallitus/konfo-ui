@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Button, Grid, styled } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
-import { FILTER_TYPES } from '#/src/constants';
+import { FILTER_TYPES, FilterKey } from '#/src/constants';
 
-import { useFilterProps, useSearch } from '../../components/haku/hakutulosHooks';
+import {
+  useRajainOptionsForKysymys,
+  useSearch,
+} from '../../components/haku/hakutulosHooks';
 import { Heading } from '../Heading';
 
 const Root = styled('div')`
@@ -39,11 +42,17 @@ type Kysymys = {
   id: string;
 };
 
+export type Rajain = {
+  [rajainId: string]: Array<string>;
+};
+
 type KysymysProps = {
   kysymys: Kysymys;
   currentKysymysIndex: number;
   setCurrentKysymysIndex: (index: number) => void;
   lastKysymysIndex: number;
+  toggleAllSelectedRajainValues: (rajainId: string, filterId: string) => void;
+  allSelectedRajainValues: Rajain;
 };
 
 export const Kysymys = ({
@@ -51,28 +60,31 @@ export const Kysymys = ({
   currentKysymysIndex,
   setCurrentKysymysIndex,
   lastKysymysIndex,
+  toggleAllSelectedRajainValues,
+  allSelectedRajainValues,
 }: KysymysProps) => {
   const { t } = useTranslation();
-  const kysymysTitle = t(`ohjaava-haku.kysymykset.${kysymys.id}`);
-  const isLastKysymys = currentKysymysIndex === lastKysymysIndex;
   const { goToSearchPage, setFilters } = useSearch();
-  const filterProps = useFilterProps(FILTER_TYPES.OPETUSAIKA);
-  const [selectedRajainValues, setSelectedRajainValues] = useState<Array<string>>([]);
-  const toggleRajainValue = (id: string) => {
-    if (selectedRajainValues.includes(id)) {
-      setSelectedRajainValues(selectedRajainValues.filter((v) => v !== id));
-    } else {
-      setSelectedRajainValues([...selectedRajainValues, id]);
-    }
-  };
+
+  const kysymysId = kysymys.id;
+  const kysymysTitle = t(`ohjaava-haku.kysymykset.${kysymysId}.otsikko`);
+  const isFirstKysymys = currentKysymysIndex === 0;
+  const isLastKysymys = currentKysymysIndex === lastKysymysIndex;
+
+  const rajainOptions = useRajainOptionsForKysymys(
+    FILTER_TYPES[kysymysId.toUpperCase() as FilterKey]
+  );
 
   const handleClick = () => {
-    const filterId = filterProps[0].filterId;
-    setFilters({ [filterId]: selectedRajainValues });
+    setFilters(allSelectedRajainValues);
     goToSearchPage();
   };
 
-  const isSelected = (id: string) => selectedRajainValues.includes(id);
+  const isSelected = (filterId: string, id: string) => {
+    return (
+      allSelectedRajainValues[filterId] && allSelectedRajainValues[filterId].includes(id)
+    );
+  };
 
   return (
     <Root>
@@ -80,28 +92,43 @@ export const Kysymys = ({
         <Grid item xs={12}>
           <Heading>{kysymysTitle}</Heading>
         </Grid>
-        <div className="question">
-          {filterProps.map(({ id }) => {
+        <Grid item className="question">
+          {rajainOptions.map(({ id, filterId }) => {
+            const isRajainSelected = isSelected(filterId, id);
             return (
               <Button
-                {...(isSelected(id) && {
+                {...(isRajainSelected && {
                   startIcon: <MaterialIcon icon="check" />,
                 })}
                 key={id}
-                onClick={() => toggleRajainValue(id)}
+                onClick={() => toggleAllSelectedRajainValues(id, filterId)}
                 className="question__option"
-                {...(isSelected(id) && { 'data-selected': true })}>
-                {t(`ohjaava-haku.kysymykset.${id}`)}
+                {...(isRajainSelected && { 'data-selected': true })}>
+                {t(`ohjaava-haku.kysymykset.${filterId}.vaihtoehdot.${id}`)}
               </Button>
             );
           })}
-        </div>
+        </Grid>
         <Grid item xs={12}>
+          {!isFirstKysymys && (
+            <Button
+              onClick={() => setCurrentKysymysIndex(currentKysymysIndex - 1)}
+              variant="outlined"
+              color="primary">
+              {t('ohjaava-haku.edellinen')}
+            </Button>
+          )}
           {isLastKysymys ? (
             <Button onClick={handleClick} variant="contained" color="primary">
               {t('ohjaava-haku.katso-tulokset')}
             </Button>
           ) : (
+            <Button onClick={handleClick} variant="text" color="primary">
+              {t('ohjaava-haku.katso-tulokset')}
+            </Button>
+          )}
+
+          {!isLastKysymys && (
             <Button
               onClick={() => setCurrentKysymysIndex(currentKysymysIndex + 1)}
               variant="contained"

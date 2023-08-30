@@ -9,7 +9,8 @@ import { ContentWrapper } from '#/src/components/common/ContentWrapper';
 import { Murupolku } from '#/src/components/common/Murupolku';
 import { useSearch } from '#/src/components/haku/hakutulosHooks';
 import { Heading, HeadingBoundary } from '#/src/components/Heading';
-import { Kysymys } from '#/src/components/ohjaava-haku/Kysymys';
+import { Kysymys, Rajain } from '#/src/components/ohjaava-haku/Kysymys';
+import { getChangedRajaimet } from '#/src/components/ohjaava-haku/utils';
 import { getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
 import { toId } from '#/src/tools/utils';
 
@@ -17,6 +18,12 @@ export const OhjaavaHaku = () => {
   const { t } = useTranslation();
   const hakuUrl = useSelector(getHakuUrl);
   const { clearFilters } = useSearch();
+  const [allSelectedRajainValues, setAllSelectedRajainValues] = useState<Rajain>({});
+
+  const toggleAllRajainValue = (id: string, filterId: string) => {
+    setAllSelectedRajainValues(getChangedRajaimet(allSelectedRajainValues, filterId, id));
+  };
+
   const ohjaavaHakuTitle = t('ohjaava-haku.otsikko');
   const [isStartOfKysely, setStartOfKysely] = useState(true);
   const [currentKysymysIndex, setCurrentKysymysIndex] = useState(0);
@@ -68,6 +75,8 @@ export const OhjaavaHaku = () => {
               currentKysymysIndex={currentKysymysIndex}
               setCurrentKysymysIndex={setCurrentKysymysIndex}
               lastKysymysIndex={lastKysymysIndex}
+              toggleAllSelectedRajainValues={toggleAllRajainValue}
+              allSelectedRajainValues={allSelectedRajainValues}
             />
           </Box>
         )}
