@@ -13,8 +13,9 @@ import YoutubeIcon from '#/src/assets/images/somelogos/some_youtube.svg';
 import { colors } from '#/src/colors';
 import { styled } from '#/src/theme';
 import { localize } from '#/src/tools/localization';
-import { Translateable } from '#/src/types/common';
+import { Koodi, Translateable } from '#/src/types/common';
 
+import { useSomeKoodit } from './hooks';
 import { AccessibleInvisibleText } from '../common/accessibility/AccessibleInvisibleText';
 import { ExternalLinkButton } from '../common/ExternalLinkButton';
 import { MaterialIcon } from '../common/MaterialIcon';
@@ -87,19 +88,27 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   },
 }));
 
-const SomeIconWithLink = ({ someKey, someUrl }: { someKey: string; someUrl: string }) => {
+const SomeIconWithLink = ({
+  someKey,
+  someUrl,
+  someText,
+}: {
+  someKey: string;
+  someUrl: string;
+  someText: string;
+}) => {
   const useDefault = !SomeIconLookupTable[someKey];
 
   return useDefault ? (
     <Box className={classes.placeHolder}>
-      <Link href={someUrl} target="_blank" title={someUrl}>
+      <Link href={someUrl} target="_blank" title={someText}>
         <MaterialIcon
           icon="groups"
           fontSize="large"
           htmlColor="white"
           aria-hidden="true"
         />
-        <AccessibleInvisibleText text={someUrl} />
+        <AccessibleInvisibleText text={someText} />
       </Link>
     </Box>
   ) : (
@@ -107,37 +116,50 @@ const SomeIconWithLink = ({ someKey, someUrl }: { someKey: string; someUrl: stri
       href={someUrl}
       target="_blank"
       className={classes.iconLinkContainer}
-      title={someUrl}>
-      <Icon className={classes.icon}>
+      title={someText}>
+      <Icon className={classes.icon} aria-hidden="true">
         <img
           className={classes.iconImage}
           src={SomeIconLookupTable[someKey]}
           aria-hidden="true"
         />
       </Icon>
-      <AccessibleInvisibleText text={someUrl} />
+      <AccessibleInvisibleText text={someText} />
     </Link>
   );
 };
 
-export const SomeRow = ({ some }: { some: Some }) => (
-  <StyledGrid
-    className={classes.container}
-    container
-    spacing={1}
-    alignItems="flex-start"
-    data-testid="some-links">
-    {some &&
-      Object.entries(some)
-        .filter(([someKey]) => someKey !== BLOG_KEY)
-        .sort(([keyA], [keyB]) => (keyA > keyB ? 1 : -1))
-        .map(([someKey, someUrl]: Array<string>) => (
-          <Grid item sm={1.6} key={`some-${someKey}`}>
-            <SomeIconWithLink someKey={someKey} someUrl={someUrl} />
-          </Grid>
-        ))}
-  </StyledGrid>
-);
+export const SomeRow = ({ some }: { some: Some }) => {
+  const koodiData = useSomeKoodit();
+
+  const getSomeText = (someKey: string, someUrl: string): string => {
+    const someKoodi = koodiData?.find((koodi: Koodi) => koodi.koodiUri === someKey);
+    return someKoodi ? localize(someKoodi.nimi) : someUrl;
+  };
+
+  return (
+    <StyledGrid
+      className={classes.container}
+      container
+      spacing={1}
+      alignItems="flex-start"
+      data-testid="some-links">
+      {some &&
+        Object.entries(some)
+          .filter(([someKey]) => someKey !== BLOG_KEY)
+          .sort(([keyA], [keyB]) => (keyA > keyB ? 1 : -1))
+          .map(([someKey, someUrl]: Array<string>) => (
+            <Grid item sm={1.6} key={`some-${someKey}`}>
+              <SomeIconWithLink
+                someKey={someKey}
+                someUrl={someUrl}
+                someText={getSomeText(someKey, someUrl)}
+              />
+            </Grid>
+          ))}
+    </StyledGrid>
+  );
+};
 
 export const BlogAndWebsite = ({
   some,
