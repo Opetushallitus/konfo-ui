@@ -15,6 +15,7 @@ import { styled } from '#/src/theme';
 import { localize } from '#/src/tools/localization';
 import { Translateable } from '#/src/types/common';
 
+import { AccessibleInvisibleText } from '../common/accessibility/AccessibleInvisibleText';
 import { ExternalLinkButton } from '../common/ExternalLinkButton';
 import { MaterialIcon } from '../common/MaterialIcon';
 
@@ -91,8 +92,14 @@ const SomeIconWithLink = ({ someKey, someUrl }: { someKey: string; someUrl: stri
 
   return useDefault ? (
     <Box className={classes.placeHolder}>
-      <Link href={someUrl} target="_blank">
-        <MaterialIcon icon="groups" fontSize="large" htmlColor="white" />
+      <Link href={someUrl} target="_blank" title={someUrl}>
+        <MaterialIcon
+          icon="groups"
+          fontSize="large"
+          htmlColor="white"
+          aria-hidden="true"
+        />
+        <AccessibleInvisibleText text={someUrl} />
       </Link>
     </Box>
   ) : (
@@ -102,8 +109,13 @@ const SomeIconWithLink = ({ someKey, someUrl }: { someKey: string; someUrl: stri
       className={classes.iconLinkContainer}
       title={someUrl}>
       <Icon className={classes.icon}>
-        <img className={classes.iconImage} src={SomeIconLookupTable[someKey]} />
+        <img
+          className={classes.iconImage}
+          src={SomeIconLookupTable[someKey]}
+          aria-hidden="true"
+        />
       </Icon>
+      <AccessibleInvisibleText text={someUrl} />
     </Link>
   );
 };
