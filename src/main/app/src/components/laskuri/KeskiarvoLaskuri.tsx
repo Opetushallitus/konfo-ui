@@ -27,7 +27,7 @@ const LaskuriContainer = styled(Box, {
     ['&:last-of-type label']: {
       overflow: 'visible',
     },
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('xl')]: {
       marginTop: '1.5rem',
       '&:first-of-type': {
         marginTop: 0,
