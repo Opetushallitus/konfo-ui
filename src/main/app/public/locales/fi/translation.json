@@ -330,6 +330,9 @@
       },
       "pohjakoulutusvaatimus": {
         "otsikko": "Mikä on koulutustaustasi?"
+      },
+      "alkamiskausi": {
+        "otsikko": "Milloin haluaisit aloittaa opiskelun?"
       }
     },
     "otsikko": "En tiedä mitä haluaisin opiskella",

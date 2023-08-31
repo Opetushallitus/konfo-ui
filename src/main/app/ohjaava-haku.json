@@ -2,6 +2,14 @@
   "kysymykset": [
     { "id": "opetusaika" },
     { "id": "opetustapa" },
-    { "id": "pohjakoulutusvaatimus", "rajainOptionTextFromRajain": true }
+    {
+      "id": "pohjakoulutusvaatimus",
+      "rajainOptionTextFromRajain": true
+    },
+    {
+      "id": "alkamiskausi",
+      "rajainOptionTextFromRajain": true,
+      "rajainOptionsToBeRemoved": ["henkilokohtainen"]
+    }
   ]
 }
