@@ -5,6 +5,7 @@ import { useQueries, useQuery } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
+  getKoodistonKoodit,
   getOppilaitos,
   getOppilaitosOsa,
   getOppilaitosOsaTarjonta,
@@ -25,6 +26,7 @@ import {
   getLocalizedMaksullisuus,
 } from '#/src/tools/localization';
 import { getLocalizedOpintojenLaajuus } from '#/src/tools/utils';
+import { Koodi } from '#/src/types/common';
 import { Organisaatio } from '#/src/types/ToteutusTypes';
 
 const removeOppilaitosName = (osaName: string, oppilaitosName: string) =>
@@ -211,4 +213,15 @@ export const usePaginatedTarjonta = ({
     }),
     [result, paginationProps, isTuleva, dispatch]
   );
+};
+
+export const useSomeKoodit = () => {
+  const { data } = useQuery<Array<Koodi>>(
+    ['getKoodistonKoodit'],
+    () => getKoodistonKoodit('sosiaalinenmedia'),
+    { staleTime: Infinity }
+  );
+  return useMemo(() => {
+    return data;
+  }, [data]);
 };
