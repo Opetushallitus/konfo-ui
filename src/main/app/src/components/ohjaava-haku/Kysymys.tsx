@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { FILTER_TYPES, FilterKey } from '#/src/constants';
+import { localize } from '#/src/tools/localization';
 
 import {
   useRajainOptionsForKysymys,
@@ -40,6 +41,7 @@ const Root = styled('div')`
 
 type Kysymys = {
   id: string;
+  rajainOptionTextFromRajain?: boolean;
 };
 
 export type Rajain = {
@@ -75,6 +77,7 @@ export const Kysymys = ({
   const rajainOptions = useRajainOptionsForKysymys(
     FILTER_TYPES[kysymysId.toUpperCase() as FilterKey]
   );
+  const { rajainOptionTextFromRajain } = kysymys;
 
   const handleClick = () => {
     setFilters(allSelectedRajainValues);
@@ -98,7 +101,7 @@ export const Kysymys = ({
             <Typography>{kysymysInfo}</Typography>
           </Grid>
           <Grid item className="question">
-            {rajainOptions.map(({ id, filterId }) => {
+            {rajainOptions.map(({ id, filterId, nimi }) => {
               const isRajainSelected = isSelected(filterId, id);
               return (
                 <Button
@@ -109,7 +112,9 @@ export const Kysymys = ({
                   onClick={() => toggleAllSelectedRajainValues(id, filterId)}
                   className="question__option"
                   {...(isRajainSelected && { 'data-selected': true })}>
-                  {t(`ohjaava-haku.kysymykset.${filterId}.vaihtoehdot.${id}`)}
+                  {rajainOptionTextFromRajain
+                    ? localize(nimi)
+                    : t(`ohjaava-haku.kysymykset.${filterId}.vaihtoehdot.${id}`)}
                 </Button>
               );
             })}

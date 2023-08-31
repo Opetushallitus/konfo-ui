@@ -138,8 +138,6 @@ export const useAutoComplete = () => {
   );
 };
 
-export const useSearchOperations = () => {};
-
 const isOnPageWithHaku = (currentPage: string) =>
   ['', 'haku', 'ohjaava-haku'].includes(currentPage);
 

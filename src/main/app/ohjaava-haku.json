@@ -1,1 +1,7 @@
-{ "kysymykset": [{ "id": "opetusaika" }, { "id": "opetustapa" }] }
+{
+  "kysymykset": [
+    { "id": "opetusaika" },
+    { "id": "opetustapa" },
+    { "id": "pohjakoulutusvaatimus", "rajainOptionTextFromRajain": true }
+  ]
+}

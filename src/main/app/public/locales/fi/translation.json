@@ -327,6 +327,9 @@
           "opetuspaikkakk_5": "Haluan opiskella itsenäisesti, en tarvitse ohjausta.",
           "opetuspaikkakk_6": "Oppisopimus kiinnostaa minua."
         }
+      },
+      "pohjakoulutusvaatimus": {
+        "otsikko": "Mikä on koulutustaustasi?"
       }
     },
     "otsikko": "En tiedä mitä haluaisin opiskella",
