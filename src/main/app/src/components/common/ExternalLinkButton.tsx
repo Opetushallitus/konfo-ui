@@ -18,6 +18,7 @@ export const ExternalLinkButton = ({ sx, children, href }: ExternalButtonProps) 
     size="medium"
     rel="noopener noreferrer"
     href={href}
+    aria-label={href}
     target="_blank"
     sx={[
       {
@@ -26,6 +27,11 @@ export const ExternalLinkButton = ({ sx, children, href }: ExternalButtonProps) 
       ...castArray(sx).filter(Boolean),
     ]}>
     {children}
-    <MaterialIcon icon="open_in_new" fontSize="small" sx={{ marginLeft: '0.4rem' }} />
+    <MaterialIcon
+      icon="open_in_new"
+      fontSize="small"
+      sx={{ marginLeft: '0.4rem' }}
+      aria-hidden="true"
+    />
   </Button>
 );
