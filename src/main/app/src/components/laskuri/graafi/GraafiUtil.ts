@@ -68,3 +68,18 @@ export const getStyleByPistetyyppi = (pistetyyppi: string): string => {
       return colors.darkGrey; // valintatapajono_m tai tieto puuttuu
   }
 };
+
+export const getUniquePistetyypit = (hakukohde: Hakukohde) => {
+  const pistetyypit = hakukohde?.metadata?.pistehistoria?.map(
+    (pistehistoria) => pistehistoria?.valintatapajonoTyyppi?.koodiUri
+  );
+  const uniikitPistetyypit = new Set(pistetyypit);
+  return Array.from(uniikitPistetyypit);
+};
+
+export const containsOnlyTodistusvalinta = (hakukohde: Hakukohde) => {
+  return (
+    getUniquePistetyypit(hakukohde).length == 1 &&
+    getUniquePistetyypit(hakukohde).includes('valintatapajono_tv')
+  );
+};
