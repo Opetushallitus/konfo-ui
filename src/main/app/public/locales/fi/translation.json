@@ -307,6 +307,12 @@
     "katso-tulokset": "Katso tulokset",
     "kysymykset": {
       "info-text": "Valitse niin monta vaihtoehtoa kuin haluat. Voit myös ohittaa kysymyksen ja siirtyä seuraavaan.",
+      "alkamiskausi": {
+        "otsikko": "Milloin haluaisit aloittaa opiskelun?"
+      },
+      "koulutusala": {
+        "otsikko": "Mitkä aihealueet kiinnostavat?"
+      },
       "opetusaika": {
         "otsikko": "Milloin voit opiskella?",
         "vaihtoehdot": {
@@ -330,9 +336,6 @@
       },
       "pohjakoulutusvaatimus": {
         "otsikko": "Mikä on koulutustaustasi?"
-      },
-      "alkamiskausi": {
-        "otsikko": "Milloin haluaisit aloittaa opiskelun?"
       }
     },
     "otsikko": "En tiedä mitä haluaisin opiskella",

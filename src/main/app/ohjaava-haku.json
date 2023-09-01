@@ -10,6 +10,10 @@
       "id": "alkamiskausi",
       "rajainOptionTextFromRajain": true,
       "rajainOptionsToBeRemoved": ["henkilokohtainen"]
+    },
+    {
+      "id": "koulutusala",
+      "rajainOptionTextFromRajain": true
     }
   ]
 }
