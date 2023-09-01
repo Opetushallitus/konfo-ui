@@ -70,15 +70,17 @@ export const LinkOrYoutube = ({
       </div>
     );
   } else {
+    const absolute = href.startsWith('http://') || href.startsWith('https://');
+
     return (
       <StyledLink
-        target="_blank"
+        target={absolute ? '_blank' : '_self'}
         rel="noopener"
         {...props}
         href={href}
         underline="always">
         {children}
-        <MaterialIcon icon="open_in_new" />
+        {absolute && <MaterialIcon icon="open_in_new" />}
       </StyledLink>
     );
   }

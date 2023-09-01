@@ -95,17 +95,6 @@ export const getOppilaitosTarjonta = ({
     params: cleanRequestParams(requestParams),
   });
 
-export const getOppilaitosOsaTarjonta = ({
-  oid,
-  requestParams,
-}: {
-  oid: string;
-  requestParams: RequestParams;
-}) =>
-  get(urls.url('konfo-backend.oppilaitosOsa.tarjonta', oid), {
-    params: cleanRequestParams(requestParams),
-  });
-
 export const getToteutus = createEntityGetter<TODOType>('toteutus');
 
 export const getToteutusOsaamisalaKuvaus = ({

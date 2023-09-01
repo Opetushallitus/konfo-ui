@@ -23,8 +23,6 @@ const development = {
   'konfo-backend.palaute': '/konfo-backend/palaute',
   'konfo-backend.koulutus.jarjestajat': '/konfo-backend/search/koulutus/$1/jarjestajat',
   'konfo-backend.oppilaitos.tarjonta': '/konfo-backend/search/oppilaitos/$1/tarjonta',
-  'konfo-backend.oppilaitosOsa.tarjonta':
-    '/konfo-backend/search/oppilaitoksen-osa/$1/tarjonta',
   'konfo-backend.hakukohde': '/konfo-backend/hakukohde/$1',
   'konfo-backend.koodisto.koodit': '/konfo-backend/koodisto/$1/koodit',
   'konfo-backend.haku.demo': '/konfo-backend/haku/$1/demo',
