@@ -42,9 +42,19 @@ export type Hakuaika = {
   formatoituPaattyy: FormatoituAikaleima;
 };
 
+export type ValintatapajonoTyyppi = {
+  koodiUri: string;
+  nimi: {
+    sv: string;
+    en: string;
+    fi: string;
+  };
+};
+
 export type PisteHistoria = {
   pisteet: number;
   vuosi: string;
+  valintatapajonoTyyppi: ValintatapajonoTyyppi | null;
 };
 
 export type Metadata = {
