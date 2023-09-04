@@ -186,7 +186,8 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
             <PisteGraafi
               hakukohde={hakukohde}
               tulos={calculatedTulos}
-              isLukio={isTodistusvalinta}
+              isLukio={isLukio}
+              isTodistusvalinta={isTodistusvalinta}
             />
             <Box className={classes.legend} aria-hidden={true}>
               {getUniquePistetyypit(hakukohde).map((valintatapajonoTyyppi) => (
@@ -203,10 +204,10 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
                         backgroundColor: getStyleByPistetyyppi(valintatapajonoTyyppi),
                       }}
                     />
-                    {isTodistusvalinta
+                    {isLukio
                       ? t('pistelaskuri.graafi.alin-keskiarvo')
                       : t('pistelaskuri.graafi.alin-pisteet') +
-                        getPistetyyppiText(valintatapajonoTyyppi)}
+                        getPistetyyppiText(valintatapajonoTyyppi, t)}
                   </Typography>
                 </>
               ))}
@@ -225,7 +226,7 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
                     }}
                   />
                   {t(
-                    isTodistusvalinta
+                    isLukio
                       ? 'pistelaskuri.graafi.keskiarvosi'
                       : 'pistelaskuri.graafi.pisteesi'
                   )}

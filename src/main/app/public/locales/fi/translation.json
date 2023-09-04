@@ -674,7 +674,7 @@
         "saate": "Sisäänpääsyn alin pisteraja on ollut kohteelle {{kohde}}",
         "pisteet": "Arvioitu pistemääräsi on {{tulos}}",
         "ka": "Arvioitu keskiarvosi on {{keskiarvo}}",
-        "vuosipiste": "Vuonna {{vuosi}}: {{pisteet}} pistettä.",
+        "vuosipiste": "Vuonna {{vuosi}}: {{pisteet}} pistettä",
         "vuosika": "Vuonna {{vuosi}}: {{pisteet}} keskiarvolla."
       },
       "hakukohde": {
