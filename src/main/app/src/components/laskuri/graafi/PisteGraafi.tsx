@@ -27,6 +27,37 @@ import {
 } from './GraafiUtil';
 import { HakupisteLaskelma, ENSISIJAINEN_SCORE_BONUS } from '../Keskiarvo';
 
+type LukiopisteProps = {
+  tulos: HakupisteLaskelma;
+  years: Array<number>;
+};
+
+const Lukiopistelaskelma = ({ tulos, years, ...props }: LukiopisteProps) => {
+  const theme = useTheme();
+  const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
+  return (
+    <VictoryLine
+      {...props}
+      style={{
+        data: { stroke: colors.sunglow, strokeWidth: 3 },
+        labels: { fontSize: isSmall ? 32 : 14 },
+      }}
+      data={[
+        {
+          x: GRAAFI_MIN_YEAR + graafiYearModifier(years, GraafiBoundary.MIN),
+          y: tulos.keskiarvoPainotettu,
+        },
+        {
+          x: GRAAFI_MAX_YEAR + graafiYearModifier(years, GraafiBoundary.MAX),
+          y: tulos.keskiarvoPainotettu,
+        },
+      ]}
+      labels={['', formatDouble(tulos.keskiarvoPainotettu)]}
+      labelComponent={<VictoryLabel renderInPortal dx={isSmall ? -25 : -15} />}
+    />
+  );
+};
+
 type Props = {
   hakukohde: Hakukohde;
   tulos: HakupisteLaskelma | null;
@@ -91,26 +122,7 @@ const PisteGraafiKouluarvosanat = ({ hakukohde, tulos }: Props) => {
             x="vuosi"
             y="pisteet"
           />
-          {tulos && (
-            <VictoryLine
-              style={{
-                data: { stroke: colors.sunglow, strokeWidth: 3 },
-                labels: { fontSize: isSmall ? 32 : 14 },
-              }}
-              data={[
-                {
-                  x: GRAAFI_MIN_YEAR + graafiYearModifier(years, GraafiBoundary.MIN),
-                  y: tulos.keskiarvoPainotettu,
-                },
-                {
-                  x: GRAAFI_MAX_YEAR + graafiYearModifier(years, GraafiBoundary.MAX),
-                  y: tulos.keskiarvoPainotettu,
-                },
-              ]}
-              labels={['', formatDouble(tulos.keskiarvoPainotettu)]}
-              labelComponent={<VictoryLabel renderInPortal dx={isSmall ? -25 : -15} />}
-            />
-          )}
+          {tulos && <Lukiopistelaskelma tulos={tulos} years={years} />}
         </VictoryGroup>
       </VictoryChart>
     </Box>
@@ -169,24 +181,7 @@ const PisteGraafiAmmatillinenJaPaasykoe = ({ hakukohde, tulos, isLukio }: Props)
           />
           {tulos &&
             (isLukio ? (
-              <VictoryLine
-                style={{
-                  data: { stroke: colors.sunglow, strokeWidth: 3 },
-                  labels: { fontSize: isSmall ? 32 : 14 },
-                }}
-                data={[
-                  {
-                    x: GRAAFI_MIN_YEAR + graafiYearModifier(years, GraafiBoundary.MIN),
-                    y: tulos.keskiarvoPainotettu,
-                  },
-                  {
-                    x: GRAAFI_MAX_YEAR + graafiYearModifier(years, GraafiBoundary.MAX),
-                    y: tulos.keskiarvoPainotettu,
-                  },
-                ]}
-                labels={['', formatDouble(tulos.keskiarvoPainotettu)]}
-                labelComponent={<VictoryLabel renderInPortal dx={isSmall ? -25 : -15} />}
-              />
+              <Lukiopistelaskelma tulos={tulos} years={years} />
             ) : (
               <VictoryLine
                 style={{
