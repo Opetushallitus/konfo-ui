@@ -1,5 +1,7 @@
 import { useMemo } from 'react';
 
+import { useTranslation } from 'react-i18next';
+
 import { colors } from '#/src/colors';
 import { formatDouble } from '#/src/tools/utils';
 import { Hakukohde, PisteHistoria } from '#/src/types/HakukohdeTypes';
@@ -56,7 +58,7 @@ export const usePisteHistoria = (hakukohde: Hakukohde): Array<PisteData> => {
   }, [hakukohde]);
 };
 
-export const getStyleByPistetyyppi = (pistetyyppi: string): string => {
+export const getStyleByPistetyyppi = (pistetyyppi: string | undefined): string => {
   switch (pistetyyppi) {
     case 'valintatapajono_yp':
       return colors.yhteispisteetPink;
@@ -74,6 +76,10 @@ export const getUniquePistetyypit = (hakukohde: Hakukohde) => {
     (pistehistoria) => pistehistoria?.valintatapajonoTyyppi?.koodiUri
   );
   const uniikitPistetyypit = new Set(pistetyypit);
+  // jos on sekä 'muu' että tyhjä, ei listata niitä erikseen
+  if (uniikitPistetyypit.has(undefined) && uniikitPistetyypit.has('valintatapajono_m')) {
+    uniikitPistetyypit.delete(undefined);
+  }
   return Array.from(uniikitPistetyypit);
 };
 
@@ -82,4 +88,18 @@ export const containsOnlyTodistusvalinta = (hakukohde: Hakukohde) => {
     getUniquePistetyypit(hakukohde).length == 1 &&
     getUniquePistetyypit(hakukohde).includes('valintatapajono_tv')
   );
+};
+
+export const getPistetyyppiText = (pistetyyppi: string | undefined): string => {
+  const { t } = useTranslation();
+  switch (pistetyyppi) {
+    case 'valintatapajono_yp':
+      return ` (${t('pistelaskuri.graafi.yhteispisteet')})`;
+    case 'valintatapajono_kp':
+      return ` (${t('pistelaskuri.graafi.koepisteet')})`;
+    case 'valintatapajono_tv':
+      return ` (${t('pistelaskuri.graafi.todistusvalinta')})`;
+    default:
+      return ''; // valintatapajono_m tai tieto puuttuu
+  }
 };
