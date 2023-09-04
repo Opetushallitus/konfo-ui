@@ -47,7 +47,9 @@ const hakukohdeToPisterajat = (
         : t('pistelaskuri.graafi.saavutettavuus.vuosipiste', {
             vuosi: historia.vuosi,
             pisteet: formatDouble(historia.pisteet),
-          }) + getPistetyyppiText(historia.valintatapajonoTyyppi?.koodiUri)
+          }) +
+          getPistetyyppiText(historia.valintatapajonoTyyppi?.koodiUri, t) +
+          '.'
     );
   return join(pisterajat, ' ');
 };

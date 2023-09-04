@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { useTranslation } from 'react-i18next';
+import { TFunction } from 'i18next';
 
 import { colors } from '#/src/colors';
 import { formatDouble } from '#/src/tools/utils';
@@ -90,8 +90,10 @@ export const containsOnlyTodistusvalinta = (hakukohde: Hakukohde) => {
   );
 };
 
-export const getPistetyyppiText = (pistetyyppi: string | undefined): string => {
-  const { t } = useTranslation();
+export const getPistetyyppiText = (
+  pistetyyppi: string | undefined,
+  t: TFunction
+): string => {
   switch (pistetyyppi) {
     case 'valintatapajono_yp':
       return ` (${t('pistelaskuri.graafi.yhteispisteet')})`;
