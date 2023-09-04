@@ -24,6 +24,7 @@ import { AccessibleGraafi } from './AccessibleGraafi';
 import {
   containsOnlyTodistusvalinta,
   getStyleByPistetyyppi,
+  getPistetyyppiText,
   getUniquePistetyypit,
 } from './GraafiUtil';
 import { PainotetutArvosanat } from './PainotetutArvosanat';
@@ -153,19 +154,6 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
     setHakukohde(uusiHakukohde);
   };
 
-  const getTextKeyByPistetyyppi = (pistetyyppi: string): string => {
-    switch (pistetyyppi) {
-      case 'valintatapajono_yp':
-        return ` (${t('pistelaskuri.graafi.yhteispisteet')})`;
-      case 'valintatapajono_kp':
-        return ` (${t('pistelaskuri.graafi.koepisteet')})`;
-      case 'valintatapajono_tv':
-        return ` (${t('pistelaskuri.graafi.todistusvalinta')})`;
-      default:
-        return ''; // valintatapajono_m tai tieto puuttuu
-    }
-  };
-
   return (
     <StyledBox>
       <FormControl variant="standard" className={classes.hakukohdeControl}>
@@ -218,7 +206,7 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
                     {isTodistusvalinta
                       ? t('pistelaskuri.graafi.alin-keskiarvo')
                       : t('pistelaskuri.graafi.alin-pisteet') +
-                        getTextKeyByPistetyyppi(valintatapajonoTyyppi)}
+                        getPistetyyppiText(valintatapajonoTyyppi)}
                   </Typography>
                 </>
               ))}

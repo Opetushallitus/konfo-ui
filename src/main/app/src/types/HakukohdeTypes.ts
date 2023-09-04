@@ -54,7 +54,7 @@ export type ValintatapajonoTyyppi = {
 export type PisteHistoria = {
   pisteet: number;
   vuosi: string;
-  valintatapajonoTyyppi: ValintatapajonoTyyppi;
+  valintatapajonoTyyppi: ValintatapajonoTyyppi | null;
 };
 
 export type Metadata = {

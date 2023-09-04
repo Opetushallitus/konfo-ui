@@ -10,7 +10,12 @@ import { localize } from '#/src/tools/localization';
 import { formatDouble } from '#/src/tools/utils';
 import { Hakukohde, PisteHistoria } from '#/src/types/HakukohdeTypes';
 
-import { GRAAFI_MIN_YEAR, MAX_ITEMS } from './GraafiUtil';
+import {
+  GRAAFI_MIN_YEAR,
+  MAX_ITEMS,
+  containsOnlyTodistusvalinta,
+  getPistetyyppiText,
+} from './GraafiUtil';
 import { HakupisteLaskelma, ENSISIJAINEN_SCORE_BONUS } from '../Keskiarvo';
 
 type Props = {
@@ -34,12 +39,15 @@ const hakukohdeToPisterajat = (
     )
     .slice(0, MAX_ITEMS)
     .map((historia: PisteHistoria) =>
-      t(
-        isLukio
-          ? 'pistelaskuri.graafi.saavutettavuus.vuosika'
-          : 'pistelaskuri.graafi.saavutettavuus.vuosipiste',
-        { vuosi: historia.vuosi, pisteet: formatDouble(historia.pisteet) }
-      )
+      isLukio && containsOnlyTodistusvalinta(hakukohde)
+        ? t('pistelaskuri.graafi.saavutettavuus.vuosika', {
+            vuosi: historia.vuosi,
+            pisteet: formatDouble(historia.pisteet),
+          })
+        : t('pistelaskuri.graafi.saavutettavuus.vuosipiste', {
+            vuosi: historia.vuosi,
+            pisteet: formatDouble(historia.pisteet),
+          }) + getPistetyyppiText(historia.valintatapajonoTyyppi?.koodiUri)
     );
   return join(pisterajat, ' ');
 };
