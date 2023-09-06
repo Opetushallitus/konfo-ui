@@ -5,7 +5,6 @@ export const TOISEN_ASTEEN_YHTEISHAUN_KOHDEJOUKKO = 'haunkohdejoukko_11';
 export const FILTER_TYPES = {
   KOULUTUSALA: 'koulutusala',
   KOULUTUSTYYPPI: 'koulutustyyppi',
-  KOULUTUSTYYPPI_MUU: 'koulutustyyppi-muu',
   OPETUSKIELI: 'opetuskieli',
   OPETUSAIKA: 'opetusaika',
   KUNTA: 'kunta',
@@ -93,37 +92,6 @@ export enum KOULUTUS_TYYPPI {
   ERIKOISLAAKARI = 'erikoislaakari',
   MUU = 'muu',
 }
-
-// Jotta hakurajainvalinta näkyy Muut koulutustyypit -valikossa ja toimii oikein,
-// koulutustyyppi tulee lisätä tähän objektiin.
-export const KOULUTUS_TYYPPI_MUU = {
-  AMK_MUU: 'amk-muu',
-  AMMATILLINEN_OPETTAJA_ERITYISOPETTAJA_JA_OPOKOULUTUS: 'amm-ope-erityisope-ja-opo',
-  AIKUISTEN_PERUSOPETUS: 'aikuisten-perusopetus',
-  OPETTAJIEN_PEDAGOGISET_OPINNOT: 'ope-pedag-opinnot',
-  AMM_OSAAMISALA: 'amm-osaamisala',
-  AMM_TUTKINNON_OSA: 'amm-tutkinnon-osa',
-  ERIKOISLAAKARI: 'erikoislaakari',
-  KK_MUU: 'kk-muu',
-  KK_OPINTOJAKSO_NORMAL: 'kk-opintojakso-normal',
-  KK_OPINTOJAKSO_AVOIN: 'kk-opintojakso-avoin',
-  KK_OPINTOKOKONAISUUS_NORMAL: 'kk-opintokokonaisuus-normal',
-  KK_OPINTOKOKONAISUUS_AVOIN: 'kk-opintokokonaisuus-avoin',
-  ERIKOISTUMISKOULUTUS: 'erikoistumiskoulutus',
-  MUU_AMMATILLINEN_KOULUTUS: 'amm-muu',
-  MUUT_AMMATILLISET: 'muut-ammatilliset',
-  TAITEEN_PERUSOPETUS: 'taiteen-perusopetus',
-  TELMA: 'telma',
-  TUVA: 'tuva',
-  TUVA_NORMAL: 'tuva-normal',
-  TUVA_ERITYISOPETUS: 'tuva-erityisopetus',
-  VAPAA_SIVISTYSTYO: 'vapaa-sivistystyo',
-  VAPAA_SIVISTYSTYO_OPISTOVUOSI: 'vapaa-sivistystyo-opistovuosi',
-  VAPAA_SIVISTYSTYO_MUU: 'vapaa-sivistystyo-muu',
-  MUU: 'muu',
-} as const;
-
-export const KOULUTUS_TYYPPI_MUU_ARR = Object.values(KOULUTUS_TYYPPI_MUU);
 
 export type Koulutustyyppi = (typeof KOULUTUS_TYYPPI)[keyof typeof KOULUTUS_TYYPPI];
 

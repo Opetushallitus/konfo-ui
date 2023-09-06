@@ -18,8 +18,6 @@ const getOpetusaika = (state) => state.hakutulos.opetusaika;
 
 const getKoulutustyyppi = (state) => state.hakutulos.koulutustyyppi;
 
-const getKoulutustyyppiMuu = (state) => state.hakutulos['koulutustyyppi-muu'];
-
 const getKoulutusala = (state) => state.hakutulos.koulutusala;
 
 const getKunta = (state) => state.hakutulos.kunta;
@@ -82,7 +80,6 @@ export const getIsAnyFilterSelected = createSelector(
     getOpetuskieli,
     getOpetusaika,
     getKoulutustyyppi,
-    getKoulutustyyppiMuu,
     getKoulutusala,
     getKunta,
     getMaakunta,
@@ -106,7 +103,6 @@ export const getIsAnyFilterSelected = createSelector(
     opetuskieli,
     opetusaika,
     koulutustyyppi,
-    koulutustyyppiMuu,
     koulutusala,
     kunta,
     maakunta,
@@ -137,7 +133,6 @@ export const getIsAnyFilterSelected = createSelector(
           opetusaika,
           opetuskieli,
           koulutustyyppi,
-          koulutustyyppiMuu,
           koulutusala,
           kunta,
           maakunta,
@@ -170,7 +165,6 @@ export const getAPIRequestParams = createSelector(
     getOpetuskieli,
     getOpetusaika,
     getKoulutustyyppi,
-    getKoulutustyyppiMuu,
     getKoulutusala,
     getKunta,
     getMaakunta,
@@ -198,7 +192,6 @@ export const getAPIRequestParams = createSelector(
     opetuskieli,
     opetusaika,
     koulutustyyppi,
-    koulutustyyppiMuu,
     koulutusala,
     kunta,
     maakunta,
@@ -223,7 +216,7 @@ export const getAPIRequestParams = createSelector(
     sort,
     size,
     opetuskieli: getCheckedFiltersIdsStr(opetuskieli),
-    koulutustyyppi: getCheckedFiltersIdsStr(concat(koulutustyyppi, koulutustyyppiMuu)),
+    koulutustyyppi: getCheckedFiltersIdsStr(koulutustyyppi),
     opetusaika: getCheckedFiltersIdsStr(opetusaika),
     koulutusala: getCheckedFiltersIdsStr(koulutusala),
     sijainti: getCheckedFiltersIdsStr(concat(kunta, maakunta)),
@@ -250,7 +243,6 @@ export const getAutocompleteRequestParams = createSelector(
     getOpetusaika,
     getOpetuskieli,
     getKoulutustyyppi,
-    getKoulutustyyppiMuu,
     getKoulutusala,
     getKunta,
     getMaakunta,
@@ -274,7 +266,6 @@ export const getAutocompleteRequestParams = createSelector(
     opetusaika,
     opetuskieli,
     koulutustyyppi,
-    koulutustyyppiMuu,
     koulutusala,
     kunta,
     maakunta,
@@ -296,7 +287,7 @@ export const getAutocompleteRequestParams = createSelector(
   ) => ({
     opetusaika: getCheckedFiltersIdsStr(opetusaika),
     opetuskieli: getCheckedFiltersIdsStr(opetuskieli),
-    koulutustyyppi: getCheckedFiltersIdsStr(concat(koulutustyyppi, koulutustyyppiMuu)),
+    koulutustyyppi: getCheckedFiltersIdsStr(koulutustyyppi),
     koulutusala: getCheckedFiltersIdsStr(koulutusala),
     sijainti: getCheckedFiltersIdsStr(concat(kunta, maakunta)),
     opetustapa: getCheckedFiltersIdsStr(opetustapa),

@@ -5,6 +5,7 @@ import { FILTER_TYPES, YHTEISHAKU_KOODI_URI } from '#/src/constants';
 import {
   REPLACED_RAJAIN_IDS,
   LINKED_IDS,
+  ORDER_TO_BE_RETAINED_RAJAINIDS,
   isBooleanRajainId,
   RajainItem,
   isNumberRangeRajainId,
@@ -32,7 +33,10 @@ const getRajainAlakoodit = (
   alakooditSetInUI: Record<string, any>,
   rajainId: CheckboxRajainId
 ): Array<CheckboxRajainBase> => {
-  return sortValues(alakoodit)?.map((alakoodi) => ({
+  const alakoodiArray = ORDER_TO_BE_RETAINED_RAJAINIDS.includes(rajainId)
+    ? toPairs(alakoodit).map(([id, values]) => ({ id, ...values }))
+    : sortValues(alakoodit);
+  return alakoodiArray?.map((alakoodi) => ({
     ...alakoodi,
     checked: some(alakooditSetInUI, (checkedId) => checkedId === alakoodi.id),
     rajainId: rajainId,

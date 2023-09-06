@@ -48,9 +48,6 @@ export const HakupalkkiFilters = () => {
       <Suodatin id="koulutustyyppi" header={t('haku.koulutustyyppi')}>
         <KoulutustyyppiSuodatin
           rajainValues={useFilterProps(FILTER_TYPES.KOULUTUSTYYPPI)}
-          muuRajainValues={
-            useFilterProps(FILTER_TYPES.KOULUTUSTYYPPI_MUU) as Array<CheckboxRajainItem>
-          }
           setFilters={setFilters}
           expanded={true}
           summaryHidden={true}

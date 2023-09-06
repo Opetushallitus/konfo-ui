@@ -15,7 +15,6 @@ export type SuodatinComponentProps = {
   maakuntaRajainValues?: Array<CheckboxRajainItem>;
   kuntaRajainValues?: Array<CheckboxRajainItem>;
   hakutapaRajainValues?: Array<CheckboxRajainItem>;
-  muuRajainValues?: Array<CheckboxRajainItem>;
   loading?: boolean;
   setFilters: (value: any) => void;
   name?: string;
@@ -79,7 +78,6 @@ export const isNumberRangeRajainId = (rajainId: any): rajainId is NumberRangeRaj
 
 const CHECKBOX_RAJAIN_IDS = [
   FILTER_TYPES.KOULUTUSTYYPPI,
-  FILTER_TYPES.KOULUTUSTYYPPI_MUU,
   FILTER_TYPES.KOULUTUSALA,
   FILTER_TYPES.OPETUSKIELI,
   FILTER_TYPES.OPETUSAIKA,
@@ -111,6 +109,9 @@ export const LINKED_IDS: Record<string, Array<string>> = {
   lukuvuosimaksu: [FILTER_TYPES.LUKUVUOSIMAKSUNMAARA, FILTER_TYPES.APURAHA],
 };
 
+export const ORDER_TO_BE_RETAINED_RAJAINIDS: Array<CheckboxRajainId> = [
+  FILTER_TYPES.KOULUTUSTYYPPI,
+];
 export type RajainBackendItem = {
   id: string;
   filterId: string;
