@@ -6,13 +6,12 @@ import { t } from 'i18next';
 import { FilterSearchResultsButton } from '#/src/components/common/FilterSearchResultsButton';
 import { MobileRajainDrawer } from '#/src/components/common/MobileRajainDrawer';
 import { TyoelamaJaTaydennyskoulutuksetSuodatin } from '#/src/components/suodattimet/common/TyoelamaJaTaydennyskoulutuksetSuodatin';
-import { FILTER_TYPES } from '#/src/constants';
 import { useIsAtEtusivu } from '#/src/store/reducers/appSlice';
 
 import { MobileResultsPerPageExpansionMenu } from './hakutulos/MobileResultsPerPageExpansionMenu';
 import { MobileToggleKoulutusOppilaitos } from './hakutulos/MobileToggleKoulutusOppilaitos';
 import { MobileToggleOrderByButtonMenu } from './hakutulos/MobileToggleOrderByButtonMenu';
-import { useAllSelectedFilters, useFilterProps, useSearch } from './hakutulosHooks';
+import { useAllSelectedFilters, useSearch } from './hakutulosHooks';
 import { AlkamiskausiSuodatin } from '../suodattimet/common/AlkamiskausiSuodatin';
 import { HakuKaynnissaSuodatin } from '../suodattimet/common/HakuKaynnissaSuodatin';
 import { HakutapaSuodatin } from '../suodattimet/common/HakutapaSuodatin';
@@ -190,7 +189,8 @@ export const MobileFiltersOnTopMenu = ({
         <MaksullisuusSuodatin
           expanded={false}
           displaySelected
-          rajainValues={useFilterProps(FILTER_TYPES.MAKSULLISUUS)}
+          rajainOptions={rajainOptions}
+          rajainUIValues={rajainValues}
           setFilters={setFilters}
         />
         <Divider />

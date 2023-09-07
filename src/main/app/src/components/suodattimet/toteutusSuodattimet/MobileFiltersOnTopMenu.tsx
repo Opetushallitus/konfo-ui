@@ -193,7 +193,8 @@ export const MobileFiltersOnTopMenu = ({
         <Divider />
         <MaksullisuusSuodatin
           expanded={false}
-          rajainValues={values.maksullisuus}
+          rajainUIValues={rajainValues}
+          rajainOptions={rajainOptions}
           setFilters={setFilters}
         />
         <Divider />

@@ -3,7 +3,7 @@ import React from 'react';
 import { Box, Divider } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-import { useFilterProps, useSearch } from '#/src/components/haku/hakutulosHooks';
+import { useSearch } from '#/src/components/haku/hakutulosHooks';
 import { HakuKaynnissaSuodatin } from '#/src/components/suodattimet/common/HakuKaynnissaSuodatin';
 import { HakutapaSuodatin } from '#/src/components/suodattimet/common/HakutapaSuodatin';
 import { OpetuskieliSuodatin } from '#/src/components/suodattimet/common/OpetusKieliSuodatin';
@@ -14,7 +14,6 @@ import { TyoelamaJaTaydennyskoulutuksetSuodatin } from '#/src/components/suodatt
 import { ValintatapaSuodatin } from '#/src/components/suodattimet/common/ValintatapaSuodatin';
 import { KoulutusalaSuodatin } from '#/src/components/suodattimet/hakutulosSuodattimet/KoulutusalaSuodatin';
 import { KoulutustyyppiSuodatin } from '#/src/components/suodattimet/hakutulosSuodattimet/KoulutustyyppiSuodatin';
-import { FILTER_TYPES } from '#/src/constants';
 
 import { Suodatin } from './Suodatin';
 import { AlkamiskausiSuodatin } from '../suodattimet/common/AlkamiskausiSuodatin';
@@ -162,7 +161,8 @@ export const HakupalkkiFilters = () => {
       <Divider orientation="vertical" flexItem />
       <Suodatin id="maksullisuus" header={t('maksullisuus')}>
         <MaksullisuusSuodatin
-          rajainValues={useFilterProps(FILTER_TYPES.MAKSULLISUUS)}
+          rajainOptions={rajainOptions}
+          rajainUIValues={rajainValues}
           setFilters={setFilters}
           expanded={true}
           summaryHidden={true}

@@ -3,8 +3,7 @@ import React from 'react';
 import { Grid } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-import { useFilterProps, useSearch } from '#/src/components/haku/hakutulosHooks';
-import { FILTER_TYPES } from '#/src/constants';
+import { useSearch } from '#/src/components/haku/hakutulosHooks';
 
 import { AlkamiskausiSuodatin } from '../../suodattimet/common/AlkamiskausiSuodatin';
 import { HakuKaynnissaSuodatin } from '../../suodattimet/common/HakuKaynnissaSuodatin';
@@ -132,7 +131,8 @@ export const Suodatinpalkki = () => {
       <MaksullisuusSuodatin
         expanded
         elevation={2}
-        rajainValues={useFilterProps(FILTER_TYPES.MAKSULLISUUS)}
+        rajainUIValues={rajainValues}
+        rajainOptions={rajainOptions}
         setFilters={setFilters}
       />
     </StyledGrid>

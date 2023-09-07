@@ -17,7 +17,11 @@ import { SummaryContent } from '#/src/components/common/Filter/SummaryContent';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { useConfig } from '#/src/config';
 import { FILTER_TYPES } from '#/src/constants';
-import { getStateChangesForCheckboxRajaimet, isChecked } from '#/src/tools/filters';
+import {
+  getStateChangesForCheckboxRajaimet,
+  isChecked,
+  useRajainItems,
+} from '#/src/tools/filters';
 import {
   SuodatinComponentProps,
   RajainItem,
@@ -298,11 +302,19 @@ export const MaksullisuusSuodatin = ({
   displaySelected = true,
   elevation = 0,
   expanded,
-  rajainValues = [],
+  rajainOptions,
+  rajainUIValues,
   setFilters,
-}: SuodatinComponentProps) => {
+}: Omit<SuodatinComponentProps, 'rajainValues'>) => {
   const config = useConfig();
   const isCountVisible = config?.naytaFiltterienHakutulosLuvut;
+
+  const rajainValues = useRajainItems(
+    rajainOptions,
+    rajainUIValues,
+    FILTER_TYPES.MAKSULLISUUS
+  );
+
   return (
     <SuodatinAccordion elevation={elevation} defaultExpanded={expanded} square>
       {!summaryHidden && (
