@@ -17,7 +17,7 @@ import { toId } from '#/src/tools/utils';
 export const OhjaavaHaku = () => {
   const { t } = useTranslation();
   const hakuUrl = useSelector(getHakuUrl);
-  const { clearFilters } = useSearch();
+  const { clearRajainValues } = useSearch();
   const [allSelectedRajainValues, setAllSelectedRajainValues] = useState<Rajain>({});
 
   const toggleAllRajainValue = (id: string, filterId: string) => {
@@ -33,7 +33,7 @@ export const OhjaavaHaku = () => {
 
   const handleClick = () => {
     setStartOfKysely(false);
-    clearFilters();
+    clearRajainValues();
   };
 
   return (

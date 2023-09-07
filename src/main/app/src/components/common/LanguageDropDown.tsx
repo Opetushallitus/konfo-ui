@@ -1,13 +1,13 @@
 import { useState } from 'react';
 
 import { Select, MenuItem, InputBase, Box } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import Cookies from 'js-cookie';
 import { useTranslation } from 'react-i18next';
 
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { LANG_NAME_BY_CODE } from '#/src/constants';
 import { useLanguageState } from '#/src/hooks';
+import { styled } from '#/src/theme';
 import { supportedLanguages } from '#/src/tools/i18n';
 
 const CustomInput = styled(InputBase)({

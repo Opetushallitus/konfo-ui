@@ -1,13 +1,13 @@
 import React, { useMemo } from 'react';
 
 import { Card, CardContent, CardMedia, Grid } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
 import { useContentful } from '#/src/hooks/useContentful';
+import { styled } from '#/src/theme';
 import { formatDateString } from '#/src/tools/utils';
 import {
   CfRecord,

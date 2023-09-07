@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {
-  styled,
   Select,
   InputLabel,
   FormControl,
@@ -15,6 +14,7 @@ import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { styled } from '#/src/theme';
 
 import { ARVOSANA_VALUES } from './Kouluaine';
 

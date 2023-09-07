@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 
 import { useTheme, useMediaQuery } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { head, last } from 'lodash';
 import { useTranslation } from 'react-i18next';
+
+import { styled } from '#/src/theme';
 
 import { MurupolkuDrawer } from './MurupolkuDrawer';
 import { MurupolkuFragment } from './MurupolkuFragment';

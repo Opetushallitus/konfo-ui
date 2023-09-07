@@ -1,13 +1,13 @@
 import React from 'react';
 
 import { Grid, Link } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 import { useParams, Navigate } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { useContentful } from '#/src/hooks/useContentful';
+import { styled } from '#/src/theme';
 import { resolveNewSlug } from '#/src/tools/slugUtils';
 
 import { Sivu } from './Sivu';

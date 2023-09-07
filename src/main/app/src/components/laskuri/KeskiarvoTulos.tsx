@@ -1,19 +1,12 @@
 import React from 'react';
 
-import {
-  Box,
-  Typography,
-  styled,
-  Paper,
-  Link,
-  useTheme,
-  useMediaQuery,
-} from '@mui/material';
+import { Box, Typography, Paper, Link, useTheme, useMediaQuery } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { useLaskuriHakukohde } from '#/src/store/reducers/pistelaskuriSlice';
+import { styled } from '#/src/theme';
 
 import { kopioiKouluaineetPainokertoimilla, Kouluaineet } from './aine/Kouluaine';
 import {

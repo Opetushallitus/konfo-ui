@@ -1,9 +1,10 @@
 import React from 'react';
 
-import { FormControl, FormControlLabel, styled } from '@mui/material';
+import { FormControl, FormControlLabel } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-import { KonfoCheckbox } from '../../common/Checkbox';
+import { KonfoCheckbox } from '#/src/components/common/KonfoCheckbox';
+import { styled } from '#/src/theme';
 
 const SuorittanutControl = styled(FormControl)(() => ({
   width: '100%',

@@ -35,7 +35,27 @@ module.exports = {
     '@typescript-eslint/no-inferrable-types': 'off',
     '@typescript-eslint/no-non-null-assertion': 'off',
     'react/jsx-uses-react': 'error',
-    'no-restricted-imports': ['error', 'lodash/fp', 'lodash-fp/*'],
+    'no-restricted-imports': [
+      'error',
+      {
+        paths: [
+          'lodash/fp',
+          'lodash-fp/*',
+          '@mui/styles',
+          {
+            name: '@emotion/styled',
+            message: 'Please use "import { styled } from \'#/src/theme\'"',
+          },
+        ],
+        patterns: [
+          {
+            group: ['@mui/*'],
+            importNames: ['styled'],
+            message: 'Please use "import { styled } from \'#/src/theme\'"',
+          },
+        ],
+      },
+    ],
     '@typescript-eslint/no-shadow': 'error',
     '@typescript-eslint/no-unused-vars': [
       'error',

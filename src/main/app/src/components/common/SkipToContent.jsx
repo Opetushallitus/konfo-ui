@@ -1,8 +1,8 @@
 import { Link } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
+import { styled } from '#/src/theme';
 
 const SkipLink = styled(Link)({
   position: 'absolute',

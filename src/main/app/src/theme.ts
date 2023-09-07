@@ -240,6 +240,11 @@ export const theme = createTheme({
         },
       },
     },
+    MuiAccordion: {
+      defaultProps: {
+        disableGutters: true,
+      },
+    },
   },
 });
 

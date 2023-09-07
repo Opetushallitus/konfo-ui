@@ -2,79 +2,81 @@ import { createSelector } from '@reduxjs/toolkit';
 import { pick, some, size as _size, sortBy, concat, keys, includes } from 'lodash';
 import qs from 'query-string';
 
-import { FILTER_TYPES_ARR } from '#/src/constants';
+import { RAJAIN_TYPES_ARR } from '#/src/constants';
+import { RootState } from '#/src/store';
 import { cleanRequestParams, getPaginationPage } from '#/src/tools/utils';
 
 // State data getters
-export const getKeyword = (state) => state.hakutulos.keyword;
+export const getKeyword = (state: RootState) => state.hakutulos.keyword;
 
-export const getKoulutusOffset = (state) => state.hakutulos.koulutusOffset;
+export const getKoulutusOffset = (state: RootState) => state.hakutulos.koulutusOffset;
 
-export const getOppilaitosOffset = (state) => state.hakutulos.oppilaitosOffset;
+export const getOppilaitosOffset = (state: RootState) => state.hakutulos.oppilaitosOffset;
 
-const getOpetuskieli = (state) => state.hakutulos.opetuskieli;
+const getOpetuskieli = (state: RootState) => state.hakutulos.opetuskieli;
 
-const getOpetusaika = (state) => state.hakutulos.opetusaika;
+const getOpetusaika = (state: RootState) => state.hakutulos.opetusaika;
 
-const getKoulutustyyppi = (state) => state.hakutulos.koulutustyyppi;
+const getKoulutustyyppi = (state: RootState) => state.hakutulos.koulutustyyppi;
 
-const getKoulutustyyppiMuu = (state) => state.hakutulos['koulutustyyppi-muu'];
+const getKoulutusala = (state: RootState) => state.hakutulos.koulutusala;
 
-const getKoulutusala = (state) => state.hakutulos.koulutusala;
+const getKunta = (state: RootState) => state.hakutulos.kunta;
 
-const getKunta = (state) => state.hakutulos.kunta;
+const getMaakunta = (state: RootState) => state.hakutulos.maakunta;
 
-const getMaakunta = (state) => state.hakutulos.maakunta;
+const getOpetustapa = (state: RootState) => state.hakutulos.opetustapa;
 
-const getOpetustapa = (state) => state.hakutulos.opetustapa;
-
-const getKoulutuksenKestoKuukausina = (state) =>
+const getKoulutuksenKestoKuukausina = (state: RootState) =>
   state.hakutulos.koulutuksenkestokuukausina;
 
-const getValintatapa = (state) => state.hakutulos.valintatapa;
-const getHakukaynnissa = (state) => state.hakutulos.hakukaynnissa;
-const getHakutapa = (state) => state.hakutulos.hakutapa;
-const getYhteishaku = (state) => state.hakutulos.yhteishaku;
-const getPohjakoulutusvaatimus = (state) => state.hakutulos.pohjakoulutusvaatimus;
+const getValintatapa = (state: RootState) => state.hakutulos.valintatapa;
+const getHakukaynnissa = (state: RootState) => state.hakutulos.hakukaynnissa;
+const getHakutapa = (state: RootState) => state.hakutulos.hakutapa;
+const getYhteishaku = (state: RootState) => state.hakutulos.yhteishaku;
+const getPohjakoulutusvaatimus = (state: RootState) =>
+  state.hakutulos.pohjakoulutusvaatimus;
 
-const getJotpa = (state) => state.hakutulos.jotpa;
-const getTyovoimakoulutus = (state) => state.hakutulos.tyovoimakoulutus;
-const getTaydennyskoulutus = (state) => state.hakutulos.taydennyskoulutus;
+const getJotpa = (state: RootState) => state.hakutulos.jotpa;
+const getTyovoimakoulutus = (state: RootState) => state.hakutulos.tyovoimakoulutus;
+const getTaydennyskoulutus = (state: RootState) => state.hakutulos.taydennyskoulutus;
 
-const getAlkamiskausi = (state) => state.hakutulos.alkamiskausi;
+const getAlkamiskausi = (state: RootState) => state.hakutulos.alkamiskausi;
 
-const getMaksullisuustyyppi = (state) => state.hakutulos.maksullisuustyyppi;
-const getMaksunmaara = (state) => state.hakutulos.maksunmaara;
-const getLukuvuosimaksunmaara = (state) => state.hakutulos.lukuvuosimaksunmaara;
-const getApuraha = (state) => state.hakutulos.apuraha;
+const getMaksullisuustyyppi = (state: RootState) => state.hakutulos.maksullisuustyyppi;
+const getMaksunmaara = (state: RootState) => state.hakutulos.maksunmaara;
+const getLukuvuosimaksunmaara = (state: RootState) =>
+  state.hakutulos.lukuvuosimaksunmaara;
+const getApuraha = (state: RootState) => state.hakutulos.apuraha;
 
-const getHakutulos = (state) => state.hakutulos;
+const getHakutulos = (state: RootState) => state.hakutulos;
 
-export const getFilters = createSelector(getHakutulos, (hakutulos) =>
-  pick(hakutulos, FILTER_TYPES_ARR)
+export const getRajainValues = createSelector(getHakutulos, (hakutulos) =>
+  pick(hakutulos, RAJAIN_TYPES_ARR)
 );
 
-export const getSelectedTab = (state) => state.hakutulos.selectedTab;
+export const getSelectedTab = (state: RootState) => state.hakutulos.selectedTab;
 
-export const getSize = (state) => state.hakutulos.size;
+export const getSize = (state: RootState) => state.hakutulos.size;
 
-export const getKoulutusPage = (state) =>
+export const getKoulutusPage = (state: RootState) =>
   getPaginationPage({
     offset: state.hakutulos.koulutusOffset,
     size: state.hakutulos.size,
   });
 
-export const getOppilaitosPage = (state) =>
+export const getOppilaitosPage = (state: RootState) =>
   getPaginationPage({
     offset: state.hakutulos.oppilaitosOffset,
     size: state.hakutulos.size,
   });
 
-export const getOrder = (state) => state.hakutulos.order;
+export const getOrder = (state: RootState) => state.hakutulos.order;
 
-export const getSort = (state) => state.hakutulos.sort;
+export const getSort = (state: RootState) => state.hakutulos.sort;
 
-export const getSortOrder = (state) => state.hakutulos.sort + '_' + state.hakutulos.order;
+export const getSortOrder = (state: RootState) =>
+  state.hakutulos.sort + '_' + state.hakutulos.order;
 
 //Selectors
 export const getIsAnyFilterSelected = createSelector(
@@ -82,7 +84,6 @@ export const getIsAnyFilterSelected = createSelector(
     getOpetuskieli,
     getOpetusaika,
     getKoulutustyyppi,
-    getKoulutustyyppiMuu,
     getKoulutusala,
     getKunta,
     getMaakunta,
@@ -106,7 +107,6 @@ export const getIsAnyFilterSelected = createSelector(
     opetuskieli,
     opetusaika,
     koulutustyyppi,
-    koulutustyyppiMuu,
     koulutusala,
     kunta,
     maakunta,
@@ -137,7 +137,6 @@ export const getIsAnyFilterSelected = createSelector(
           opetusaika,
           opetuskieli,
           koulutustyyppi,
-          koulutustyyppiMuu,
           koulutusala,
           kunta,
           maakunta,
@@ -158,7 +157,7 @@ export const getIsAnyFilterSelected = createSelector(
   }
 );
 
-const getCheckedFiltersIdsStr = (checkedfiltersArr) =>
+const getCheckedFiltersIdsStr = (checkedfiltersArr: Array<string>) =>
   checkedfiltersArr ? sortBy(checkedfiltersArr)?.join(',') ?? '' : '';
 
 export const getAPIRequestParams = createSelector(
@@ -170,7 +169,6 @@ export const getAPIRequestParams = createSelector(
     getOpetuskieli,
     getOpetusaika,
     getKoulutustyyppi,
-    getKoulutustyyppiMuu,
     getKoulutusala,
     getKunta,
     getMaakunta,
@@ -198,7 +196,6 @@ export const getAPIRequestParams = createSelector(
     opetuskieli,
     opetusaika,
     koulutustyyppi,
-    koulutustyyppiMuu,
     koulutusala,
     kunta,
     maakunta,
@@ -223,7 +220,7 @@ export const getAPIRequestParams = createSelector(
     sort,
     size,
     opetuskieli: getCheckedFiltersIdsStr(opetuskieli),
-    koulutustyyppi: getCheckedFiltersIdsStr(concat(koulutustyyppi, koulutustyyppiMuu)),
+    koulutustyyppi: getCheckedFiltersIdsStr(koulutustyyppi),
     opetusaika: getCheckedFiltersIdsStr(opetusaika),
     koulutusala: getCheckedFiltersIdsStr(koulutusala),
     sijainti: getCheckedFiltersIdsStr(concat(kunta, maakunta)),
@@ -250,7 +247,6 @@ export const getAutocompleteRequestParams = createSelector(
     getOpetusaika,
     getOpetuskieli,
     getKoulutustyyppi,
-    getKoulutustyyppiMuu,
     getKoulutusala,
     getKunta,
     getMaakunta,
@@ -274,7 +270,6 @@ export const getAutocompleteRequestParams = createSelector(
     opetusaika,
     opetuskieli,
     koulutustyyppi,
-    koulutustyyppiMuu,
     koulutusala,
     kunta,
     maakunta,
@@ -296,7 +291,7 @@ export const getAutocompleteRequestParams = createSelector(
   ) => ({
     opetusaika: getCheckedFiltersIdsStr(opetusaika),
     opetuskieli: getCheckedFiltersIdsStr(opetuskieli),
-    koulutustyyppi: getCheckedFiltersIdsStr(concat(koulutustyyppi, koulutustyyppiMuu)),
+    koulutustyyppi: getCheckedFiltersIdsStr(koulutustyyppi),
     koulutusala: getCheckedFiltersIdsStr(koulutusala),
     sijainti: getCheckedFiltersIdsStr(concat(kunta, maakunta)),
     opetustapa: getCheckedFiltersIdsStr(opetustapa),
@@ -321,7 +316,7 @@ export const getHakuParams = createSelector([getAPIRequestParams], (apiRequestPa
   const minMaxParams = keys(apiRequestParams).filter(
     (param) =>
       (param.endsWith('_min') || param.endsWith('_max')) &&
-      includes(FILTER_TYPES_ARR, param.split('_')[0])
+      includes(RAJAIN_TYPES_ARR, param.split('_')[0])
   );
   const hakuParams = cleanRequestParams(
     pick(apiRequestParams, [
@@ -329,7 +324,7 @@ export const getHakuParams = createSelector([getAPIRequestParams], (apiRequestPa
       'sort',
       'size',
       'tab',
-      ...FILTER_TYPES_ARR,
+      ...RAJAIN_TYPES_ARR,
       ...minMaxParams,
     ])
   );
@@ -343,12 +338,16 @@ export const getHakuUrl = createSelector(
   (keyword, { hakuParamsStr }) => `/haku${keyword ? '/' + keyword : ''}?${hakuParamsStr}`
 );
 
-export const createHakuUrl = (keyword, hakuParams, lng) =>
+export const createHakuUrl = (
+  keyword: string,
+  hakuParams: Record<string, any>,
+  lng: string
+) =>
   `/${lng}/haku${keyword ? '/' + keyword : ''}?${qs.stringify(hakuParams, {
     arrayFormat: 'comma',
   })}`;
 
-export const TOTEUTUS_FILTER_NAMES = [
+export const TOTEUTUS_RAJAIN_NAMES = [
   'opetusaika',
   'opetuskieli',
   'maakunta',
@@ -373,7 +372,7 @@ export const TOTEUTUS_FILTER_NAMES = [
   'lukuvuosimaksunmaara',
 ];
 
-export const getInitialCheckedToteutusFilters = createSelector(
-  [getFilters],
-  (checkedValues) => pick(checkedValues, TOTEUTUS_FILTER_NAMES)
+export const getInitialToteutusRajainValues = createSelector(
+  [getRajainValues],
+  (checkedValues) => pick(checkedValues, TOTEUTUS_RAJAIN_NAMES)
 );

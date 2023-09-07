@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
 import { Collapse, Typography } from '@mui/material';
-import { styled } from '@mui/material/styles';
 
 import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { styled } from '#/src/theme';
 import { sanitizedHTMLParser } from '#/src/tools/utils';
 
 const PREFIX = 'AccordionText';

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { Box, styled, SelectChangeEvent, Typography } from '@mui/material';
+import { Box, SelectChangeEvent, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
@@ -8,6 +8,7 @@ import { LabelTooltip } from '#/src/components/common/LabelTooltip';
 import { KieliSelect } from '#/src/components/laskuri/aine/KieliSelect';
 import { PainokerroinInput } from '#/src/components/laskuri/aine/PainokerroinInput';
 import { ValinnaisetArvosanat } from '#/src/components/laskuri/aine/ValinnaisetArvosanat';
+import { styled } from '#/src/theme';
 
 import { Kouluaine, Kieliaine, isKieliaine } from './Kouluaine';
 import { KouluaineSelect } from './KouluaineSelect';

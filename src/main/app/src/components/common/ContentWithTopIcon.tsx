@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { Avatar, Box } from '@mui/material';
-import { styled } from '@mui/material/styles';
 
 import { colors, educationTypeColorCode } from '#/src/colors';
+import { styled } from '#/src/theme';
 
 const PREFIX = 'ContentWithTopIcon';
 

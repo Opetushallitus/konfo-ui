@@ -1,12 +1,12 @@
 import React, { useRef } from 'react';
 
 import { Grid } from '@mui/material';
-import { styled } from '@mui/material/styles';
 
 import { colors } from '#/src/colors';
 import { Murupolku } from '#/src/components/common/Murupolku';
 import { useContentful } from '#/src/hooks/useContentful';
 import { useScrollToHash } from '#/src/hooks/useScrollToHash';
+import { styled } from '#/src/theme';
 
 import { Sisalto } from './Sisalto';
 import { TableOfContents } from './TableOfContents';

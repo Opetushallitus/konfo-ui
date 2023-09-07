@@ -1,12 +1,13 @@
 import React from 'react';
 
-import { Button, Grid, Typography, styled } from '@mui/material';
+import { Button, Grid, Typography } from '@mui/material';
 import { some } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
-import { FILTER_TYPES, FilterKey } from '#/src/constants';
+import { RAJAIN_TYPES, FilterKey } from '#/src/constants';
+import { styled } from '#/src/theme';
 import { localize } from '#/src/tools/localization';
 
 import {
@@ -68,7 +69,7 @@ export const Kysymys = ({
   allSelectedRajainValues,
 }: KysymysProps) => {
   const { t } = useTranslation();
-  const { goToSearchPage, setFilters } = useSearch();
+  const { goToSearchPage, setRajainValues } = useSearch();
 
   const kysymysId = kysymys.id;
   const kysymysTitle = t(`ohjaava-haku.kysymykset.${kysymysId}.otsikko`);
@@ -77,7 +78,7 @@ export const Kysymys = ({
   const isLastKysymys = currentKysymysIndex === lastKysymysIndex;
 
   const rajainOptionsFromKonfoBackend = useRajainOptionsForKysymys(
-    FILTER_TYPES[kysymysId.toUpperCase() as FilterKey]
+    RAJAIN_TYPES[kysymysId.toUpperCase() as FilterKey]
   );
   const { rajainOptionTextFromRajain } = kysymys;
   const rajainOptionsToShow = rajainOptionsFromKonfoBackend.filter(({ id }) => {
@@ -87,7 +88,7 @@ export const Kysymys = ({
   });
 
   const handleClick = () => {
-    setFilters(allSelectedRajainValues);
+    setRajainValues(allSelectedRajainValues);
     goToSearchPage();
   };
 

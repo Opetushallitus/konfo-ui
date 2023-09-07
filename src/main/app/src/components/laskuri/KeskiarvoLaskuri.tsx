@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 
-import { Box, Typography, styled, Input, InputLabel, Grid, Button } from '@mui/material';
+import { Box, Typography, Input, InputLabel, Grid, Button } from '@mui/material';
 import { matches } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 import { LabelTooltip } from '#/src/components/common/LabelTooltip';
+import { styled } from '#/src/theme';
 
 import { SuorittanutCheckbox } from './common/SuorittanutCheckbox';
 import { isValidKeskiarvo, Keskiarvot } from './Keskiarvo';
@@ -27,7 +28,7 @@ const LaskuriContainer = styled(Box, {
     ['&:last-of-type label']: {
       overflow: 'visible',
     },
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('xl')]: {
       marginTop: '1.5rem',
       '&:first-of-type': {
         marginTop: 0,
@@ -127,8 +128,8 @@ export const KeskiarvoLaskuri = ({
       <Grid
         container
         justifyContent="space-evenly"
-        columns={{ xs: 1, sm: 1, md: embedded ? 10 : 3 }}>
-        <Grid item xs={1} sm={1} md={embedded ? 3 : 1} className={classes.inputContainer}>
+        columns={{ xs: 1, xl: embedded ? 10 : 3 }}>
+        <Grid item xs={1} xl={embedded ? 3 : 1} className={classes.inputContainer}>
           <InputLabel>
             <Typography sx={{ fontWeight: '600' }}>
               {t('pistelaskuri.ka-lukuaineet')}
@@ -156,8 +157,7 @@ export const KeskiarvoLaskuri = ({
           className={classes.inputContainer}
           item
           xs={1}
-          sm={1}
-          md={embedded ? 4 : 1}
+          xl={embedded ? 4 : 1}
           sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
           <InputLabel>
             <Typography sx={{ fontWeight: '600' }}>
@@ -185,7 +185,7 @@ export const KeskiarvoLaskuri = ({
             </Typography>
           )}
         </Grid>
-        <Grid item xs={1} sm={1} md={embedded ? 3 : 1} className={classes.inputContainer}>
+        <Grid item xs={1} xl={embedded ? 3 : 1} className={classes.inputContainer}>
           <InputLabel>
             <Typography sx={{ fontWeight: '600' }}>
               {t('pistelaskuri.ka-kaikki')}

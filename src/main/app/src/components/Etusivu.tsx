@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 
 import { Box, Button, Grid, Paper } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { isEmpty, size, sortBy, take } from 'lodash';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
@@ -12,6 +11,7 @@ import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { YhteishakuKortti } from '#/src/components/kortti/YhteishakuKortti';
 import { useContentful } from '#/src/hooks/useContentful';
 import { usePageSectionGap } from '#/src/hooks/usePageSectionGap';
+import { styled } from '#/src/theme';
 import { getOne } from '#/src/tools/getOne';
 
 import { CondGrid } from './CondGrid';
@@ -54,7 +54,7 @@ const Root = styled(Box)({
 export const Etusivu = () => {
   const { t } = useTranslation();
 
-  const { clearFilters, setKeyword } = useSearch();
+  const { clearRajainValues, setKeyword } = useSearch();
   const { data, isLoading } = useContentful();
   const { info: infoData, uutiset, kortit, infoYhteishaku, pikalinkit, content } = data;
 
@@ -77,7 +77,7 @@ export const Etusivu = () => {
   useEffectOnce(() => {
     // NOTE: Tyhjätään aina kaikki hakutulosvalinnat kun saavutaan etusivulle
     setKeyword('');
-    clearFilters();
+    clearRajainValues();
   });
   const pikalinkitData = getOne(pikalinkit);
 

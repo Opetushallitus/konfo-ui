@@ -8,7 +8,8 @@ import {
   CardContent,
   CardActions,
 } from '@mui/material';
-import { styled } from '@mui/material/styles';
+
+import { styled } from '#/src/theme';
 
 const PREFIX = 'InfoCard';
 

@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { PropTypes, StandardProps, Button, Theme, ButtonProps } from '@mui/material';
+// eslint-disable-next-line no-restricted-imports
 import { WithStyles, withStyles, createStyles } from '@mui/styles';
 import clsx from 'clsx';
 

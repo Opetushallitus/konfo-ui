@@ -63,56 +63,6 @@ test.describe('Haku', () => {
     );
   });
 
-  test("Koulutustyyppi switching between 'Tutkintoon johtavat' and 'Muut'", async ({
-    page,
-  }) => {
-    await page.route(
-      '/konfo-backend/search/koulutukset**',
-      fixtureFromFile('search-koulutukset-auto.json')
-    );
-
-    const koulutustyyppiFilter = page.getByTestId('koulutustyyppi-filter');
-    const tutkintoonJohtavatBtn = koulutustyyppiFilter.getByRole('button', {
-      name: /Tutkintoon johtavat/i,
-    });
-    const muutBtn = koulutustyyppiFilter.getByRole('button', { name: /Muut/i });
-    const ammatillinenKoulutusChk = koulutustyyppiFilter.getByRole('checkbox', {
-      name: /Ammatillinen koulutus/,
-    });
-    const ammatillinenPerustutkintoChk = koulutustyyppiFilter.getByRole('checkbox', {
-      name: 'Ammatillinen perustutkinto',
-      exact: true,
-    });
-    const erikoisammattitutkintoChk = koulutustyyppiFilter.getByRole('checkbox', {
-      name: /Erikoisammattitutkinto/i,
-    });
-    const tutkinnonOsaChk = koulutustyyppiFilter.getByRole('checkbox', {
-      name: /Tutkinnon osa/i,
-    });
-    const osaamisalaChk = koulutustyyppiFilter.getByRole('checkbox', {
-      name: /Osaamisala/i,
-    });
-    const ammMuuChk = koulutustyyppiFilter.getByRole('checkbox', {
-      name: /Muu ammatillinen koulutus/i,
-    });
-    const telmaChk = koulutustyyppiFilter.getByRole('checkbox', { name: /TELMA/ });
-
-    await expect(ammatillinenKoulutusChk).toBeVisible();
-    await expect(ammatillinenPerustutkintoChk).toBeVisible();
-    await expect(erikoisammattitutkintoChk).toBeVisible();
-    await expect(tutkintoonJohtavatBtn).toHaveAttribute('aria-selected', 'true');
-    await expect(muutBtn).toHaveAttribute('aria-selected', 'false');
-    await muutBtn.click();
-    await expect(muutBtn).toHaveAttribute('aria-selected', 'true');
-    await expect(tutkintoonJohtavatBtn).toHaveAttribute('aria-selected', 'false');
-    await expect(tutkinnonOsaChk).toBeVisible();
-    await expect(osaamisalaChk).toBeVisible();
-    await expect(ammMuuChk).toBeVisible();
-    await expect(telmaChk).toBeVisible();
-    await expect(ammatillinenPerustutkintoChk).toBeHidden();
-    await expect(erikoisammattitutkintoChk).toBeHidden();
-  });
-
   test('Koulutustyyppi checkboxes should work hierarchically', async ({ page }) => {
     test.slow();
     await page.route(
@@ -122,19 +72,20 @@ test.describe('Haku', () => {
 
     const koulutustyyppiFilter = page.getByTestId('koulutustyyppi-filter');
     const amkCheckbox = koulutustyyppiFilter.getByRole('checkbox', {
-      name: 'AMK (korkeakoulutus)',
+      name: 'Ammattikorkeakoulujen koulutukset',
       exact: true,
     });
     const ylempiAmkCheckbox = koulutustyyppiFilter.getByRole('checkbox', {
-      name: 'Ylempi AMK',
+      name: /Ylemmät AMK-tutkinnot/i,
       exact: true,
     });
 
     const alempiAmkCheckbox = koulutustyyppiFilter.getByRole('checkbox', {
-      name: 'AMK - tutkinto',
+      name: 'AMK-tutkinnot',
       exact: true,
     });
 
+    await koulutustyyppiFilter.getByTestId('show-more-amk').click();
     await amkCheckbox.check();
     await expect(ylempiAmkCheckbox).toBeChecked();
     await expect(alempiAmkCheckbox).toBeChecked();
@@ -190,7 +141,9 @@ test.describe('Haku', () => {
       name: /Yhteispisteet/i,
     });
 
-    await expect(page.getByRole('button', { name: 'Valintatapa' })).toBeVisible();
+    const valintatapaButton = page.getByRole('button', { name: 'Valintatapa' });
+    await expect(valintatapaButton).toBeVisible();
+    await valintatapaButton.click();
     await koepisteetChk.click();
     await expect(koepisteetChk).toBeChecked();
     await koepisteetChk.click();
@@ -230,7 +183,10 @@ test.describe('Haku', () => {
     const jatkuvaHakuChk = hakutapaFilter.getByRole('checkbox', {
       name: /Jatkuva haku/i,
     });
-    await expect(page.getByText('Hakutapa')).toBeVisible();
+
+    const hakutapaButton = page.getByRole('button', { name: 'Hakutapa' });
+    await expect(hakutapaButton).toBeVisible();
+    await hakutapaButton.click();
     await jatkuvaHakuChk.click();
     await expect(jatkuvaHakuChk).toBeChecked();
     await jatkuvaHakuChk.click();
@@ -256,7 +212,9 @@ test.describe('Haku', () => {
     const lukioChk = pohjakoulutusVaatimusFilter.getByRole('checkbox', {
       name: /Lukio/i,
     });
-    await expect(page.getByText('Koulutustausta')).toBeVisible();
+    const koulutustaustaButton = page.getByRole('button', { name: 'Koulutustausta' });
+    await expect(koulutustaustaButton).toBeVisible();
+    await koulutustaustaButton.click();
 
     await ammatillinenPerustutkintoChk.click();
     await expect(ammatillinenPerustutkintoChk).toBeChecked();

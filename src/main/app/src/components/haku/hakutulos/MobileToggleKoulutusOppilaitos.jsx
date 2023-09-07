@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { ButtonGroup, Button, Typography } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
@@ -11,6 +10,7 @@ import {
   SuodatinAccordionSummary,
 } from '#/src/components/common/Filter/CustomizedMuiComponents';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { styled } from '#/src/theme';
 
 import { useSearch } from '../hakutulosHooks';
 

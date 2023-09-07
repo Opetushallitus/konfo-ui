@@ -1,8 +1,7 @@
 import React from 'react';
 
-import { styled } from '@mui/material/styles';
-
 import { colors } from '#/src/colors';
+import { styled } from '#/src/theme';
 
 const PREFIX = 'IconBackground';
 

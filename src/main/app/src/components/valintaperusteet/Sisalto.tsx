@@ -11,11 +11,11 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
+import { styled } from '#/src/theme';
 import { localize } from '#/src/tools/localization';
 
 import { tagHeaders } from './tagHeaders';

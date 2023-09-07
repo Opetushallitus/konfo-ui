@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { Link } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { styled } from '#/src/theme';
 
 const PREFIX = 'Paluu';
 

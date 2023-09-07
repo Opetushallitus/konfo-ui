@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
 
 import { Button, Grid, Paper, Typography } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
@@ -9,6 +8,7 @@ import { AccordionText } from '#/src/components/common/AccordionText';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { PageSection } from '#/src/components/common/PageSection';
+import { styled } from '#/src/theme';
 import { localize } from '#/src/tools/localization';
 import { useOsoitteet } from '#/src/tools/useOppilaitosOsoite';
 import { formatDateString } from '#/src/tools/utils';

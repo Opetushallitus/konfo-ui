@@ -1,12 +1,11 @@
 import React from 'react';
 
 import { Button, Link, useMediaQuery } from '@mui/material';
-import { styled } from '@mui/material/styles';
 
 import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { useSideMenu } from '#/src/hooks';
-import { theme } from '#/src/theme';
+import { styled, theme } from '#/src/theme';
 
 const PREFIX = 'MurupolkuFragment';
 

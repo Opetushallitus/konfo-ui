@@ -5,26 +5,28 @@ import { useTranslation } from 'react-i18next';
 
 import { Filter } from '#/src/components/common/Filter';
 import { useConfig } from '#/src/config';
-import { getStateChangesForCheckboxRajaimet } from '#/src/tools/filters';
+import { RAJAIN_TYPES } from '#/src/constants';
+import { useRajainItems } from '#/src/tools/filters';
 import { localize } from '#/src/tools/localization';
-import {
-  CheckboxRajainItem,
-  RajainItem,
-  SuodatinComponentProps,
-} from '#/src/types/SuodatinTypes';
+import { CheckboxRajainItem, RajainComponentProps } from '#/src/types/SuodatinTypes';
 
-export const AmmOsaamisalatSuodatin = (props: SuodatinComponentProps) => {
+import { useCheckboxRajainOnChange } from '../common/useCheckboxRajainOnChange';
+
+export const AmmOsaamisalatSuodatin = (props: RajainComponentProps) => {
   const { t } = useTranslation();
-  const { rajainValues = [], ...rest } = props;
+  const { setRajainValues, rajainValues, rajainOptions, ...rest } = props;
 
-  const filteredValues = (rajainValues as Array<CheckboxRajainItem>).filter(
+  const rajainItems = useRajainItems(
+    rajainOptions,
+    rajainValues,
+    RAJAIN_TYPES.OSAAMISALA
+  );
+
+  const filteredValues = (rajainItems as Array<CheckboxRajainItem>).filter(
     (v) => v?.count > 0 || v.checked
   );
 
-  const handleCheck = (item: RajainItem) => {
-    const changes = getStateChangesForCheckboxRajaimet(rajainValues)(item);
-    props.setFilters(changes);
-  };
+  const onItemChange = useCheckboxRajainOnChange(rajainItems, setRajainValues);
 
   const config = useConfig();
   const naytaFiltterienHakutulosLuvut = config.naytaFiltterienHakutulosLuvut;
@@ -57,13 +59,13 @@ export const AmmOsaamisalatSuodatin = (props: SuodatinComponentProps) => {
 
   return (
     <Filter
+      {...rest}
       name={t('haku.amm-osaamisalat')}
-      rajainValues={usedRajainValues}
-      handleCheck={handleCheck}
+      rajainItems={usedRajainValues}
+      onItemChange={onItemChange}
       options={options}
       expandValues
       displaySelected
-      {...rest}
     />
   );
 };

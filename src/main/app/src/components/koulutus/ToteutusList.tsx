@@ -1,9 +1,9 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useState } from 'react';
 
 import { Box, Grid, Hidden, Typography } from '@mui/material';
-import { mapValues, size } from 'lodash';
+import { size } from 'lodash';
 import { useTranslation } from 'react-i18next';
-import { P, match } from 'ts-pattern';
+import { match } from 'ts-pattern';
 
 import { EntiteettiKortti } from '#/src/components/common/EntiteettiKortti';
 import { OppilaitosKorttiLogo } from '#/src/components/common/KorttiLogo';
@@ -12,34 +12,20 @@ import { PageSection } from '#/src/components/common/PageSection';
 import { Pagination } from '#/src/components/common/Pagination';
 import { QueryResultWrapper } from '#/src/components/common/QueryResultWrapper';
 import { TextWithBackground } from '#/src/components/common/TextWithBackground';
-import { HakuKaynnissaSuodatin } from '#/src/components/suodattimet/common/HakuKaynnissaSuodatin';
-import { HakutapaSuodatin } from '#/src/components/suodattimet/common/HakutapaSuodatin';
-import { OpetuskieliSuodatin } from '#/src/components/suodattimet/common/OpetusKieliSuodatin';
-import { OpetustapaSuodatin } from '#/src/components/suodattimet/common/OpetustapaSuodatin';
-import { OppilaitosSuodatin } from '#/src/components/suodattimet/common/OppilaitosSuodatin';
-import { PohjakoulutusvaatimusSuodatin } from '#/src/components/suodattimet/common/PohjakoulutusvaatimusSuodatin';
-import { SijaintiSuodatin } from '#/src/components/suodattimet/common/SijaintiSuodatin';
-import { ValintatapaSuodatin } from '#/src/components/suodattimet/common/ValintatapaSuodatin';
-import { AmmOsaamisalatSuodatin } from '#/src/components/suodattimet/toteutusSuodattimet/AmmOsaamisalatSuodatin';
-import { KOULUTUS_TYYPPI, KORKEAKOULU_KOULUTUSTYYPIT } from '#/src/constants';
-import { getRajainValueInUIFormat } from '#/src/tools/filters';
+import { KOULUTUS_TYYPPI } from '#/src/constants';
 import {
   localize,
   getLocalizedMaksullisuus,
   localizeArrayToCommaSeparated,
 } from '#/src/tools/localization';
 import { getLocalizedOpintojenLaajuus } from '#/src/tools/utils';
-import { RajainBackendItem } from '#/src/types/SuodatinTypes';
+import { RajainName, TODOType } from '#/src/types/common';
 import { Jarjestaja } from '#/src/types/ToteutusTypes';
 
 import { useKoulutusJarjestajat } from './hooks';
+import { useToteutusRajainOrder } from './useToteutusRajainOrder';
 import { useSelectedFilters } from '../haku/hakutulosHooks';
-import { AlkamiskausiSuodatin } from '../suodattimet/common/AlkamiskausiSuodatin';
-import { KoulutuksenKestoSuodatin } from '../suodattimet/common/KoulutuksenKestoSuodatin';
-import { MaksullisuusSuodatin } from '../suodattimet/common/MaksullisuusSuodatin';
-import { OpetusaikaSuodatin } from '../suodattimet/common/OpetusaikaSuodatin';
 import { SuodatinValinnat } from '../suodattimet/hakutulosSuodattimet/SuodatinValinnat';
-import { LukiolinjatSuodatin } from '../suodattimet/toteutusSuodattimet/LukiolinjatSuodatin';
 import { MobileFiltersOnTopMenu } from '../suodattimet/toteutusSuodattimet/MobileFiltersOnTopMenu';
 
 type Props = {
@@ -47,11 +33,13 @@ type Props = {
   koulutustyyppi: string;
 };
 
+export type RajainOptions = Record<string, Record<string, TODOType>>;
+
 type JarjestajaData = {
   total: number;
   jarjestajat: Array<Jarjestaja>;
   loading: boolean;
-  sortedFilters: Record<string, Record<string, RajainBackendItem>>;
+  rajainOptions: Record<RajainName, any>;
 };
 
 const SuodatinGridItem: React.FC<React.PropsWithChildren> = ({ children }) => {
@@ -62,49 +50,49 @@ const SuodatinGridItem: React.FC<React.PropsWithChildren> = ({ children }) => {
   );
 };
 
+const getRajainProps = ({
+  id,
+  setPreventClicks,
+}: {
+  id: string;
+  setPreventClicks: React.Dispatch<React.SetStateAction<boolean>>;
+}) =>
+  match(id)
+    .with('sijainti', () => ({
+      onFocus: () => setPreventClicks(true),
+      onHide: () => setPreventClicks(false),
+    }))
+    .otherwise(() => ({}));
+
 export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
   const { t } = useTranslation();
 
-  // TODO: filters todella hämmentävä nimi tässä
-  const { queryResult, setFilters, setPagination, pagination, filters } =
-    useKoulutusJarjestajat({
-      oid,
-    });
+  const {
+    queryResult,
+    rajainValues,
+    setRajainValues,
+    pagination,
+    setPagination,
+    clearRajainValues,
+  } = useKoulutusJarjestajat({
+    oid,
+  });
 
   const { data = {}, isLoading } = queryResult;
 
-  const { sortedFilters, jarjestajat, total } = data as JarjestajaData;
+  const { rajainOptions, jarjestajat, total } = data as JarjestajaData;
 
-  const usedValues: any = useMemo(
-    () =>
-      mapValues(sortedFilters, (_value, key: string) =>
-        getRajainValueInUIFormat(sortedFilters, filters, key)
-      ),
-    [sortedFilters, filters]
-  );
-
-  const allSelectedFilters = useSelectedFilters(sortedFilters, filters);
+  const allSelectedFilters = useSelectedFilters(rajainOptions, rajainValues);
 
   const someSelected = allSelectedFilters.flat.length > 0;
-
-  const handleFiltersClear = useCallback(() => {
-    const usedFilters = mapValues(filters, (v, k) =>
-      match(v)
-        .with(P.array(P._), () => [])
-        .with({ [`${k}_min`]: P.number, [`${k}_max`]: P.number }, () => ({
-          [`${k}_min`]: 0,
-          [`${k}_max`]: 0,
-        }))
-        .otherwise(() => false)
-    );
-    setFilters(usedFilters);
-  }, [filters, setFilters]);
 
   const someValuesToShow = isLoading || jarjestajat?.length > 0;
 
   const scrollTargetId = 'toteutus-list';
 
   const [preventClicks, setPreventClicks] = useState(false);
+
+  const rajainOrder = useToteutusRajainOrder({ koulutustyyppi });
 
   return (
     <Box>
@@ -116,12 +104,12 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
         }>
         <>
           <Hidden mdDown>
-            {size(allSelectedFilters?.flat) > 0 && (
+            {someSelected && (
               <div>
                 <SuodatinValinnat
                   allSelectedFilters={allSelectedFilters}
-                  setFilters={setFilters}
-                  clearFilters={handleFiltersClear}
+                  setRajainValues={setRajainValues}
+                  clearRajainValues={clearRajainValues}
                 />
               </div>
             )}
@@ -133,140 +121,34 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
               mb={2}
               spacing={2}
               sm={10}>
-              <SuodatinGridItem>
-                <OpetuskieliSuodatin
-                  elevation={2}
-                  rajainValues={usedValues.opetuskieli}
-                  setFilters={setFilters}
-                />
-              </SuodatinGridItem>
-              <SuodatinGridItem>
-                <SijaintiSuodatin
-                  elevation={2}
-                  loading={isLoading}
-                  maakuntaRajainValues={usedValues.maakunta}
-                  kuntaRajainValues={usedValues.kunta}
-                  onFocus={() => {
-                    setPreventClicks(true);
-                  }}
-                  onHide={() => {
-                    setPreventClicks(false);
-                  }}
-                  setFilters={setFilters}
-                />
-              </SuodatinGridItem>
-              <SuodatinGridItem>
-                <PohjakoulutusvaatimusSuodatin
-                  elevation={2}
-                  rajainValues={usedValues.pohjakoulutusvaatimus}
-                  setFilters={setFilters}
-                />
-              </SuodatinGridItem>
-              <SuodatinGridItem>
-                <HakuKaynnissaSuodatin
-                  elevation={2}
-                  rajainValues={usedValues.hakukaynnissa}
-                  setFilters={setFilters}
-                />
-              </SuodatinGridItem>
-              <SuodatinGridItem>
-                <HakutapaSuodatin
-                  elevation={2}
-                  rajainValues={usedValues.hakutapa}
-                  setFilters={setFilters}
-                />
-              </SuodatinGridItem>
-              <SuodatinGridItem>
-                <OpetustapaSuodatin
-                  elevation={2}
-                  rajainValues={usedValues.opetustapa}
-                  setFilters={setFilters}
-                />
-              </SuodatinGridItem>
-              <SuodatinGridItem>
-                <OppilaitosSuodatin
-                  elevation={2}
-                  rajainValues={usedValues.oppilaitos}
-                  setFilters={setFilters}
-                />
-              </SuodatinGridItem>
-              <SuodatinGridItem>
-                <OpetusaikaSuodatin
-                  elevation={2}
-                  rajainValues={usedValues.opetusaika}
-                  setFilters={setFilters}
-                />
-              </SuodatinGridItem>
-              <SuodatinGridItem>
-                <KoulutuksenKestoSuodatin
-                  elevation={2}
-                  rajainValues={usedValues.koulutuksenkestokuukausina}
-                  setFilters={setFilters}
-                />
-              </SuodatinGridItem>
-              <SuodatinGridItem>
-                <AlkamiskausiSuodatin
-                  elevation={2}
-                  rajainValues={usedValues.alkamiskausi}
-                  setFilters={setFilters}
-                />
-              </SuodatinGridItem>
-              <SuodatinGridItem>
-                <MaksullisuusSuodatin
-                  elevation={2}
-                  rajainValues={usedValues.maksullisuus}
-                  setFilters={setFilters}
-                />
-              </SuodatinGridItem>
-              {KORKEAKOULU_KOULUTUSTYYPIT.includes(koulutustyyppi as KOULUTUS_TYYPPI) && (
-                <SuodatinGridItem>
-                  <ValintatapaSuodatin
-                    elevation={2}
-                    rajainValues={usedValues.valintatapa}
-                    setFilters={setFilters}
-                  />
-                </SuodatinGridItem>
-              )}
-              {koulutustyyppi === KOULUTUS_TYYPPI.LUKIOKOULUTUS && (
-                <>
-                  <SuodatinGridItem>
-                    <LukiolinjatSuodatin
-                      name="lukiopainotukset"
+              {rajainOrder.map(({ Component, props, id }) => {
+                const customProps = getRajainProps({ id, setPreventClicks });
+                return (
+                  <SuodatinGridItem key={id}>
+                    <Component
                       elevation={2}
-                      rajainValues={usedValues.lukiopainotukset}
-                      setFilters={setFilters}
+                      rajainOptions={rajainOptions}
+                      rajainValues={rajainValues}
+                      setRajainValues={setRajainValues}
+                      loading={isLoading}
+                      {...props}
+                      {...customProps}
                     />
                   </SuodatinGridItem>
-                  <SuodatinGridItem>
-                    <LukiolinjatSuodatin
-                      name="lukiolinjat_er"
-                      elevation={2}
-                      rajainValues={usedValues.lukiolinjaterityinenkoulutustehtava}
-                      setFilters={setFilters}
-                    />
-                  </SuodatinGridItem>
-                </>
-              )}
-              {koulutustyyppi === KOULUTUS_TYYPPI.AMM && (
-                <SuodatinGridItem>
-                  <AmmOsaamisalatSuodatin
-                    elevation={2}
-                    rajainValues={usedValues.osaamisala}
-                    setFilters={setFilters}
-                  />
-                </SuodatinGridItem>
-              )}
+                );
+              })}
             </Grid>
           </Hidden>
           <Hidden mdUp>
             <MobileFiltersOnTopMenu
               koulutustyyppi={koulutustyyppi}
               rajainCount={size(allSelectedFilters?.flat)}
-              values={usedValues}
               loading={isLoading}
               hitCount={total}
-              clearChosenFilters={handleFiltersClear}
-              setFilters={setFilters}
+              clearFilterValues={clearRajainValues}
+              setRajainValues={setRajainValues}
+              rajainValues={rajainValues}
+              rajainOptions={rajainOptions}
             />
           </Hidden>
         </>

@@ -1,8 +1,8 @@
-import { styled } from '@mui/material/styles';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
+import { styled } from '#/src/theme';
 
 import { SmartLink } from '../common/SmartLink';
 const PREFIX = 'TableOfContents';

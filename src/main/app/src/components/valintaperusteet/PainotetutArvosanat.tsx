@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { Box, Divider, Grid } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
 import { Heading, HeadingBoundary } from '#/src/components/Heading';
+import { styled } from '#/src/theme';
 import { localize } from '#/src/tools/localization';
 import { formatDouble, toId } from '#/src/tools/utils';
 import { PainotettuArvosana, KoodiUrit } from '#/src/types/HakukohdeTypes';

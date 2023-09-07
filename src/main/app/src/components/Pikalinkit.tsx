@@ -1,11 +1,11 @@
 import React from 'react';
 
 import { Box, Grid, Link, Paper, useMediaQuery, useTheme } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { size } from 'lodash';
 import Markdown from 'markdown-to-jsx';
 
 import { colors } from '#/src/colors';
+import { styled } from '#/src/theme';
 import {
   CfRecord,
   ContentfulContent,

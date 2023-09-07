@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
 
 import { Grid } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import produce from 'immer';
 import { isEmpty, isNumber, concat } from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -14,6 +13,7 @@ import { Heading } from '#/src/components/Heading';
 import { useScrollToHash } from '#/src/hooks/useScrollToHash';
 import { NotFound } from '#/src/NotFound';
 import { getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
+import { styled } from '#/src/theme';
 import { localize } from '#/src/tools/localization';
 
 import { AlinHyvaksyttyKeskiarvo } from './AlinHyvaksyttyKeskiarvo';

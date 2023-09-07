@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 
 import { Button, Typography, ButtonGroup, Divider, Modal } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import Cookies from 'js-cookie';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
-import { KonfoCheckbox } from '#/src/components/common/Checkbox';
+import { KonfoCheckbox } from '#/src/components/common/KonfoCheckbox';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { useContentful } from '#/src/hooks/useContentful';
+import { styled } from '#/src/theme';
 import { getOne } from '#/src/tools/getOne';
 
 const PREFIX = 'CookieModal';

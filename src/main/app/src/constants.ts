@@ -2,10 +2,9 @@ export const YHTEISHAKU_KOODI_URI = 'hakutapa_01';
 
 export const TOISEN_ASTEEN_YHTEISHAUN_KOHDEJOUKKO = 'haunkohdejoukko_11';
 
-export const FILTER_TYPES = {
+export const RAJAIN_TYPES = {
   KOULUTUSALA: 'koulutusala',
   KOULUTUSTYYPPI: 'koulutustyyppi',
-  KOULUTUSTYYPPI_MUU: 'koulutustyyppi-muu',
   OPETUSKIELI: 'opetuskieli',
   OPETUSAIKA: 'opetusaika',
   KUNTA: 'kunta',
@@ -30,15 +29,16 @@ export const FILTER_TYPES = {
   APURAHA: 'apuraha',
   SIJAINTI: 'sijainti', // TODO: Poista tämä kun konfo-backend ei enää käytä sijaintirajainta vaan kunta + maakunta
   ALKAMISKAUSI: 'alkamiskausi',
+  OPPILAITOS: 'oppilaitos',
 } as const;
 
-export type FilterKey = keyof typeof FILTER_TYPES;
+export type FilterKey = keyof typeof RAJAIN_TYPES;
 
-export const FILTER_TYPES_ARR = Object.values(FILTER_TYPES);
+export const RAJAIN_TYPES_ARR = Object.values(RAJAIN_TYPES);
 
 // TODO: konfo-backend haluaa turhaan kunta + maakunta rajaimet yhtenä könttinä (sijainti), se pitäisi purkaa sieltä
 // Tämän voi poistaa sitten kun konfo-backend ottaa vastaan maakunta + kunta rajaimet
-export const FILTER_TYPES_ARR_FOR_KONFO_BACKEND = [
+export const RAJAIN_TYPES_ARR_FOR_KONFO_BACKEND = [
   'opetuskieli',
   'koulutusala',
   'koulutustyyppi',
@@ -96,37 +96,6 @@ export enum KOULUTUS_TYYPPI {
   MUU = 'muu',
 }
 
-// Jotta hakurajainvalinta näkyy Muut koulutustyypit -valikossa ja toimii oikein,
-// koulutustyyppi tulee lisätä tähän objektiin.
-export const KOULUTUS_TYYPPI_MUU = {
-  AMK_MUU: 'amk-muu',
-  AMMATILLINEN_OPETTAJA_ERITYISOPETTAJA_JA_OPOKOULUTUS: 'amm-ope-erityisope-ja-opo',
-  AIKUISTEN_PERUSOPETUS: 'aikuisten-perusopetus',
-  OPETTAJIEN_PEDAGOGISET_OPINNOT: 'ope-pedag-opinnot',
-  AMM_OSAAMISALA: 'amm-osaamisala',
-  AMM_TUTKINNON_OSA: 'amm-tutkinnon-osa',
-  ERIKOISLAAKARI: 'erikoislaakari',
-  KK_MUU: 'kk-muu',
-  KK_OPINTOJAKSO_NORMAL: 'kk-opintojakso-normal',
-  KK_OPINTOJAKSO_AVOIN: 'kk-opintojakso-avoin',
-  KK_OPINTOKOKONAISUUS_NORMAL: 'kk-opintokokonaisuus-normal',
-  KK_OPINTOKOKONAISUUS_AVOIN: 'kk-opintokokonaisuus-avoin',
-  ERIKOISTUMISKOULUTUS: 'erikoistumiskoulutus',
-  MUU_AMMATILLINEN_KOULUTUS: 'amm-muu',
-  MUUT_AMMATILLISET: 'muut-ammatilliset',
-  TAITEEN_PERUSOPETUS: 'taiteen-perusopetus',
-  TELMA: 'telma',
-  TUVA: 'tuva',
-  TUVA_NORMAL: 'tuva-normal',
-  TUVA_ERITYISOPETUS: 'tuva-erityisopetus',
-  VAPAA_SIVISTYSTYO: 'vapaa-sivistystyo',
-  VAPAA_SIVISTYSTYO_OPISTOVUOSI: 'vapaa-sivistystyo-opistovuosi',
-  VAPAA_SIVISTYSTYO_MUU: 'vapaa-sivistystyo-muu',
-  MUU: 'muu',
-} as const;
-
-export const KOULUTUS_TYYPPI_MUU_ARR = Object.values(KOULUTUS_TYYPPI_MUU);
-
 export type Koulutustyyppi = (typeof KOULUTUS_TYYPPI)[keyof typeof KOULUTUS_TYYPPI];
 
 export const TUTKINTOON_JOHTAVAT_KORKEAKOULU_KOULUTUSTYYPIT = [
@@ -157,8 +126,8 @@ export enum Hakulomaketyyppi {
 }
 
 // Search related
-export const pageSizeArray = [5, 10, 20, 30, 50];
-export const pageSortArray = ['score_desc', 'name_asc', 'name_desc'];
+export const PAGE_SIZE_OPTIONS = [5, 10, 20, 30, 50];
+export const PAGE_SORT_OPTIONS = ['score_desc', 'name_asc', 'name_desc'];
 
 export enum Alkamiskausityyppi {
   TARKKA_ALKAMISAJANKOHTA = 'tarkka alkamisajankohta',

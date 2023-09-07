@@ -1,25 +1,30 @@
-import React from 'react';
-
 import { useTranslation } from 'react-i18next';
 
 import { Filter } from '#/src/components/common/Filter';
-import { getStateChangesForCheckboxRajaimet } from '#/src/tools/filters';
-import { RajainItem, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
+import { RAJAIN_TYPES } from '#/src/constants';
+import { useRajainItems } from '#/src/tools/filters';
+import { RajainComponentProps } from '#/src/types/SuodatinTypes';
 
-export const OpetusaikaSuodatin = (props: SuodatinComponentProps) => {
+import { useCheckboxRajainOnChange } from './useCheckboxRajainOnChange';
+
+export const OpetusaikaSuodatin = (props: RajainComponentProps) => {
   const { t } = useTranslation();
-  const { rajainValues = [], setFilters } = props;
+  const { setRajainValues, rajainValues, rajainOptions } = props;
 
-  const handleCheck = (item: RajainItem) => {
-    const changes = getStateChangesForCheckboxRajaimet(rajainValues)(item);
-    setFilters(changes);
-  };
+  const rajainItems = useRajainItems(
+    rajainOptions,
+    rajainValues,
+    RAJAIN_TYPES.OPETUSAIKA
+  );
+
+  const onItemChange = useCheckboxRajainOnChange(rajainItems, setRajainValues);
+
   return (
     <Filter
       {...props}
       name={t('haku.opetusaika')}
-      rajainValues={rajainValues}
-      handleCheck={handleCheck}
+      rajainItems={rajainItems}
+      onItemChange={onItemChange}
       displaySelected
     />
   );

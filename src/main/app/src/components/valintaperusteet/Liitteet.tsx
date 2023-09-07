@@ -1,5 +1,4 @@
 import { Box, Card, CardContent, Divider, Grid, Typography } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { isEmpty, groupBy, map } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
@@ -8,6 +7,7 @@ import { ExternalLink } from '#/src/components/common/ExternalLink';
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
 import { createMaterialIcon } from '#/src/components/common/MaterialIcon';
 import { Heading, HeadingBoundary } from '#/src/components/Heading';
+import { styled } from '#/src/theme';
 import { localize, localizeOsoite } from '#/src/tools/localization';
 import { useOsoitteet } from '#/src/tools/useOppilaitosOsoite';
 import { formatDateString, toId } from '#/src/tools/utils';

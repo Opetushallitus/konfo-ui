@@ -1,10 +1,13 @@
-import { mapValues, sortBy, toPairs, some, ceil } from 'lodash';
+import { useMemo } from 'react';
+
+import { sortBy, toPairs, some, ceil, mapValues, castArray } from 'lodash';
 import { match, P } from 'ts-pattern';
 
-import { FILTER_TYPES, YHTEISHAKU_KOODI_URI } from '#/src/constants';
+import { RAJAIN_TYPES, YHTEISHAKU_KOODI_URI } from '#/src/constants';
 import {
   REPLACED_RAJAIN_IDS,
   LINKED_IDS,
+  ORDER_TO_BE_RETAINED_RAJAINIDS,
   isBooleanRajainId,
   RajainItem,
   isNumberRangeRajainId,
@@ -15,6 +18,9 @@ import {
   NumberRangeRajainItem,
   CheckboxRajainBase,
 } from '#/src/types/SuodatinTypes';
+
+import { RajainValues } from '../store/reducers/hakutulosSlice';
+import { RajainName } from '../types/common';
 
 export const sortValues = <T>(filterObj: Record<string, T>) =>
   sortBy(
@@ -29,10 +35,13 @@ export const isRajainActive = (rajain: any) =>
 
 const getRajainAlakoodit = (
   alakoodit: Record<string, any>,
-  alakooditSetInUI: Record<string, any>,
+  alakooditSetInUI: Record<string, any> | undefined,
   rajainId: CheckboxRajainId
 ): Array<CheckboxRajainBase> => {
-  return sortValues(alakoodit)?.map((alakoodi) => ({
+  const alakoodiArray = ORDER_TO_BE_RETAINED_RAJAINIDS.includes(rajainId)
+    ? toPairs(alakoodit).map(([id, values]) => ({ id, ...values }))
+    : sortValues(alakoodit);
+  return alakoodiArray?.map((alakoodi) => ({
     ...alakoodi,
     checked: some(alakooditSetInUI, (checkedId) => checkedId === alakoodi.id),
     rajainId: rajainId,
@@ -55,7 +64,7 @@ const numberRangeRajain = (
   rajainId: NumberRangeRajainId,
   count: number,
   upperLimit: number,
-  minmax: Record<string, number>
+  minmax?: Record<string, number>
 ): NumberRangeRajainItem => {
   const defaultValue = {
     id: rajainId,
@@ -78,21 +87,30 @@ const numberRangeRajain = (
     : defaultValue;
 };
 
+export const getAllRajainValuesInUIFormat = (
+  rajainCountsFromBackend: Record<RajainName, any> | undefined,
+  allRajainValuesSetInUI: Partial<RajainValues>
+) =>
+  mapValues(rajainCountsFromBackend, (_, key) =>
+    getRajainValueInUIFormat(
+      rajainCountsFromBackend,
+      allRajainValuesSetInUI,
+      key as RajainName
+    )
+  );
+
 export const getRajainValueInUIFormat = (
-  rajainCountsFromBackend: Record<string, any> | undefined,
-  allRajainValuesSetInUI: Record<string, any>,
-  originalRajainId: string
+  rajainCountsFromBackend: Record<RajainName, any> | undefined,
+  allRajainValuesSetInUI: Partial<RajainValues> | undefined,
+  originalRajainId: RajainName
 ): Array<RajainItem> => {
-  const rajainId = REPLACED_RAJAIN_IDS[originalRajainId]
-    ? REPLACED_RAJAIN_IDS[originalRajainId]
-    : originalRajainId;
+  const rajainId: RajainName =
+    REPLACED_RAJAIN_IDS?.[originalRajainId] ?? originalRajainId;
 
   const rajainCount = rajainCountsFromBackend?.[rajainId];
   if (!rajainCount) {
     return [];
   }
-
-  const rajainValue = allRajainValuesSetInUI[rajainId];
 
   const returnValues = match(rajainId)
     .with(P.when(isBooleanRajainId), (booleanRajainId) => [
@@ -100,7 +118,7 @@ export const getRajainValueInUIFormat = (
         id: rajainId,
         rajainId: booleanRajainId,
         count: rajainCount.count,
-        checked: Boolean(rajainValue),
+        checked: Boolean(allRajainValuesSetInUI?.[booleanRajainId]),
         linkedIds: [],
       },
     ])
@@ -111,16 +129,17 @@ export const getRajainValueInUIFormat = (
         numberRangeRajainId,
         rajainCount.count,
         ceil(rajainCount.max),
-        allRajainValuesSetInUI[rajainId]
+        allRajainValuesSetInUI?.[numberRangeRajainId]
       ),
     ])
     .with(P.when(isCompositeRajainId), () =>
       Object.keys(rajainCount).flatMap((key: string) =>
-        getRajainValueInUIFormat(rajainCount, allRajainValuesSetInUI, key)
+        getRajainValueInUIFormat(rajainCount, allRajainValuesSetInUI, key as RajainName)
       )
     )
-    .with(P.when(isCheckboxRajainId), (checkboxRajainId) =>
-      Object.keys(rajainCount).map((key: string) => ({
+    .with(P.when(isCheckboxRajainId), (checkboxRajainId) => {
+      const rajainValue = allRajainValuesSetInUI?.[checkboxRajainId];
+      return Object.keys(rajainCount).map((key: string) => ({
         id: key,
         rajainId: checkboxRajainId,
         ...rajainCount[key],
@@ -128,22 +147,36 @@ export const getRajainValueInUIFormat = (
         alakoodit:
           key === YHTEISHAKU_KOODI_URI
             ? getRajainAlakoodit(
-                rajainCountsFromBackend[FILTER_TYPES.YHTEISHAKU],
-                allRajainValuesSetInUI[FILTER_TYPES.YHTEISHAKU],
-                FILTER_TYPES.YHTEISHAKU
+                rajainCountsFromBackend[RAJAIN_TYPES.YHTEISHAKU],
+                allRajainValuesSetInUI?.[RAJAIN_TYPES.YHTEISHAKU],
+                RAJAIN_TYPES.YHTEISHAKU
               )
             : getRajainAlakoodit(
                 rajainCount[key].alakoodit,
                 rajainValue,
                 checkboxRajainId
               ),
-      }))
-    )
+      }));
+    })
     .run();
   return returnValues.map((val) => {
     val.linkedIds = LINKED_IDS[val.id];
     return val;
   });
+};
+
+export const useRajainItems = (
+  rajainOptions: Record<RajainName, any> | undefined,
+  rajainValues: Partial<RajainValues> | undefined,
+  rajainId: RajainName | Array<RajainName>
+) => {
+  return useMemo(
+    () =>
+      castArray(rajainId).flatMap((id) =>
+        getRajainValueInUIFormat(rajainOptions, rajainValues, id)
+      ),
+    [rajainOptions, rajainValues, rajainId]
+  );
 };
 
 const addIfNotExists = (

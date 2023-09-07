@@ -2,28 +2,41 @@ import React, { useMemo } from 'react';
 
 import { sortBy } from 'lodash';
 import { useTranslation } from 'react-i18next';
+import { match } from 'ts-pattern';
 
 import { Filter } from '#/src/components/common/Filter';
 import { useConfig } from '#/src/config';
-import { getStateChangesForCheckboxRajaimet } from '#/src/tools/filters';
+import { RAJAIN_TYPES } from '#/src/constants';
+import { getStateChangesForCheckboxRajaimet, useRajainItems } from '#/src/tools/filters';
 import { localize } from '#/src/tools/localization';
 import {
   CheckboxRajainItem,
   RajainItem,
-  SuodatinComponentProps,
+  RajainComponentProps,
 } from '#/src/types/SuodatinTypes';
 
-export const LukiolinjatSuodatin = (props: SuodatinComponentProps) => {
+export const LukiolinjatSuodatin = (
+  props: RajainComponentProps & {
+    name: 'lukiolinjat_er' | 'lukiopainotukset';
+  }
+) => {
   const { t } = useTranslation();
-  const { name, rajainValues = [], ...rest } = props;
+  const { name, rajainValues, rajainOptions, ...rest } = props;
 
-  const filteredValues = (rajainValues as Array<CheckboxRajainItem>).filter(
+  const rajainType = match(name)
+    .with('lukiolinjat_er', () => RAJAIN_TYPES.LUKIOLINJATERITYINENKOULUTUSTEHTAVA)
+    .with('lukiopainotukset', () => RAJAIN_TYPES.LUKIOPAINOTUKSET)
+    .run();
+
+  const rajainItems = useRajainItems(rajainOptions, rajainValues, rajainType);
+
+  const filteredValues = (rajainItems as Array<CheckboxRajainItem>).filter(
     (v) => v?.count > 0 || v.checked
   );
 
-  const handleCheck = (item: RajainItem) => {
+  const onItemChange = (item: RajainItem) => {
     const changes = getStateChangesForCheckboxRajaimet(filteredValues)(item);
-    props.setFilters(changes);
+    props.setRajainValues(changes);
   };
 
   const config = useConfig();
@@ -57,13 +70,13 @@ export const LukiolinjatSuodatin = (props: SuodatinComponentProps) => {
 
   return (
     <Filter
+      {...rest}
       name={t(`haku.${name}`)}
-      rajainValues={usedRajainValues}
+      rajainItems={usedRajainValues}
       options={options}
-      handleCheck={handleCheck}
+      onItemChange={onItemChange}
       expandValues
       displaySelected
-      {...rest}
     />
   );
 };

@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { Grid } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
+import { styled } from '#/src/theme';
 import { toId } from '#/src/tools/utils';
 
 import { SmartLink } from '../common/SmartLink';

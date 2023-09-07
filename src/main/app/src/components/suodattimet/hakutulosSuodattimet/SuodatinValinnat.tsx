@@ -6,12 +6,12 @@ import { useTranslation } from 'react-i18next';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { getFilterStateChangesForDelete } from '#/src/tools/filters';
 import { localize } from '#/src/tools/localization';
-import { RajainItem } from '#/src/types/SuodatinTypes';
+import { RajainItem, SetRajainValues } from '#/src/types/SuodatinTypes';
 
 type ChosenFiltersProps = {
   filters: Array<RajainItem>;
-  getHandleDelete: (entry: RajainItem) => VoidFunction;
-  handleClearFilters: VoidFunction;
+  getHandleDelete: (entry: RajainItem) => () => void;
+  handleClearFilters: () => void;
 };
 
 export const ChipList = ({
@@ -68,9 +68,13 @@ export const ChipList = ({
 
 export const SuodatinValinnat = ({
   allSelectedFilters,
-  setFilters,
-  clearFilters,
-}: any) => {
+  setRajainValues,
+  clearRajainValues,
+}: {
+  allSelectedFilters: any;
+  setRajainValues: SetRajainValues;
+  clearRajainValues: () => void;
+}) => {
   const { flat, withAlakoodit } = allSelectedFilters;
 
   const getHandleDelete = (item: RajainItem) => () => {
@@ -85,14 +89,14 @@ export const SuodatinValinnat = ({
           getFilterStateChangesForDelete(withAlakoodit)(rajain)
         ))
     );
-    setFilters(changes);
+    setRajainValues(changes);
   };
 
   return (
     <ChipList
       filters={flat}
       getHandleDelete={getHandleDelete}
-      handleClearFilters={clearFilters}
+      handleClearFilters={clearRajainValues}
     />
   );
 };

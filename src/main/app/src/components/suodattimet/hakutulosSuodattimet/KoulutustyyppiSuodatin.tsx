@@ -1,12 +1,15 @@
-import React, { useMemo, useState } from 'react';
+import React from 'react';
 
-import { Button, ButtonGroup, Grid, styled } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 import { Filter } from '#/src/components/common/Filter';
-import { getStateChangesForCheckboxRajaimet } from '#/src/tools/filters';
-import { RajainItem, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
+import { RAJAIN_TYPES } from '#/src/constants';
+import { styled } from '#/src/theme';
+import { useRajainItems } from '#/src/tools/filters';
+import { RajainComponentProps } from '#/src/types/SuodatinTypes';
+
+import { useCheckboxRajainOnChange } from '../common/useCheckboxRajainOnChange';
 
 const classes = {
   noBoxShadow: 'noBoxShadow',
@@ -40,60 +43,28 @@ const Root = styled('div')({
   },
 });
 
-export const KoulutustyyppiSuodatin = (props: SuodatinComponentProps) => {
+export const KoulutustyyppiSuodatin = (props: RajainComponentProps) => {
   const { t } = useTranslation();
 
-  const [isMuuSelected, setIsMuuSelected] = useState(false);
-  const { rajainValues = [], muuRajainValues = [], setFilters } = props;
+  const { setRajainValues, rajainOptions, rajainValues } = props;
 
-  const combinedRajainValues = useMemo(
-    () => [
-      ...rajainValues.map((v) => ({ ...v, hidden: isMuuSelected })),
-      ...muuRajainValues.map((v) => ({ ...v, hidden: !isMuuSelected })),
-    ],
-    [isMuuSelected, muuRajainValues, rajainValues]
+  const rajainItems = useRajainItems(
+    rajainOptions,
+    rajainValues,
+    RAJAIN_TYPES.KOULUTUSTYYPPI
   );
 
-  const handleCheck = (item: RajainItem) => {
-    const changes = getStateChangesForCheckboxRajaimet(
-      isMuuSelected ? muuRajainValues : rajainValues
-    )(item);
-    setFilters(changes);
-  };
+  const onItemChange = useCheckboxRajainOnChange(rajainItems, setRajainValues);
 
   return (
     <Root>
       <Filter
-        defaultExpandAlakoodit={true}
         {...props}
         testId="koulutustyyppi-filter"
         name={t('haku.koulutustyyppi')}
-        rajainValues={combinedRajainValues}
-        handleCheck={handleCheck}
-        additionalContent={
-          <Grid item style={{ padding: '20px 0' }}>
-            {/* TODO erillinen common component tästä */}
-            <ButtonGroup fullWidth>
-              <Button
-                style={{ minWidth: '155px' }}
-                className={isMuuSelected ? classes.buttonInactive : classes.buttonActive}
-                classes={{ root: classes.buttonRoot, text: classes.buttonLabelTruncated }}
-                aria-selected={!isMuuSelected}
-                onClick={() => setIsMuuSelected(false)}
-                variant="outlined">
-                {t('haku.tutkintoon-johtavat')}
-              </Button>
-              <Button
-                className={isMuuSelected ? classes.buttonActive : classes.buttonInactive}
-                classes={{ root: classes.buttonRoot, text: classes.buttonLabelTruncated }}
-                aria-selected={isMuuSelected}
-                onClick={() => setIsMuuSelected(true)}
-                variant="outlined">
-                {t('haku.muut')}
-              </Button>
-            </ButtonGroup>
-          </Grid>
-        }
+        rajainItems={rajainItems}
+        onItemChange={onItemChange}
+        displaySelected
       />
     </Root>
   );

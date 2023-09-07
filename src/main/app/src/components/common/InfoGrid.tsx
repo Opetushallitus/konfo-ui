@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { Grid, Icon, Paper, Typography } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import clsx from 'clsx';
 import { isString } from 'lodash';
 
@@ -15,6 +14,7 @@ import TutkintoNimikeIcon from '#/src/assets/images/tutkintonimike.svg';
 import TutkintoonHakeminenIcon from '#/src/assets/images/tutkintoon_hakeminen.svg';
 import { colors, educationTypeColorCode } from '#/src/colors';
 import { LabelTooltip } from '#/src/components/common/LabelTooltip';
+import { styled } from '#/src/theme';
 import { toId } from '#/src/tools/utils';
 
 const PREFIX = 'InfoGrid';

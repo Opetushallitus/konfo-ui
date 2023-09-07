@@ -5,7 +5,7 @@ import { toString, min, max } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { SuodatinSlider } from '#/src/components/common/Filter/CustomizedMuiComponents';
-import { pageSizeArray } from '#/src/constants';
+import { PAGE_SIZE_OPTIONS } from '#/src/constants';
 
 import { useSearch } from '../hakutulosHooks';
 
@@ -13,7 +13,7 @@ export const MobileResultsPerPageExpansionMenu = () => {
   const { t } = useTranslation();
   const { pagination, setPagination, resetPagination } = useSearch();
   const size = pagination.size;
-  const marks = pageSizeArray.map((_size) => ({
+  const marks = PAGE_SIZE_OPTIONS.map((_size) => ({
     value: _size,
     label: toString(_size),
   }));
@@ -39,8 +39,8 @@ export const MobileResultsPerPageExpansionMenu = () => {
         <SuodatinSlider
           value={size}
           track={false}
-          min={min(pageSizeArray)}
-          max={max(pageSizeArray)}
+          min={min(PAGE_SIZE_OPTIONS)}
+          max={max(PAGE_SIZE_OPTIONS)}
           marks={marks}
           step={null}
           getAriaValueText={(value) => value}

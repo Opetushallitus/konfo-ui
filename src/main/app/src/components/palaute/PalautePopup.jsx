@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 
 import { Fab, IconButton } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { Palaute } from '#/src/components/common/Palaute';
+import { styled } from '#/src/theme';
 
 const PREFIX = 'PalautePopup';
 

@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { Card, CardMedia } from '@mui/material';
-import { styled } from '@mui/material/styles';
 
 import DefaultHeroImage from '#/src/assets/images/herokuva_default.png';
+import { styled } from '#/src/theme';
 
 const PREFIX = 'TeemakuvaImage';
 

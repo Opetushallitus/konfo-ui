@@ -11,7 +11,6 @@ import {
   Typography,
 } from '@mui/material';
 import Link from '@mui/material/Link';
-import { styled } from '@mui/material/styles';
 import { urls } from 'oph-urls-js';
 import { useTranslation } from 'react-i18next';
 
@@ -21,7 +20,7 @@ import { ReactComponent as OPOLogoSV } from '#/src/assets/images/opintopolku_log
 import { colors } from '#/src/colors';
 import { BetaBanner } from '#/src/components/common/BetaBanner';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
-import { theme } from '#/src/theme';
+import { styled, theme } from '#/src/theme';
 import { getLanguage } from '#/src/tools/localization';
 
 import { LanguageDropDown } from './LanguageDropDown';

@@ -1,11 +1,11 @@
 import React, { useRef, useState } from 'react';
 
 import { Typography, Box, Button } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { PopoverWithArrow } from '#/src/components/common/PopoverWithArrow';
+import { styled } from '#/src/theme';
 
 const PREFIX = 'Suodatin';
 
