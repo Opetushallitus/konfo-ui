@@ -152,7 +152,8 @@ export const HakupalkkiFilters = () => {
       <Divider orientation="vertical" flexItem />
       <Suodatin id="alkamiskausi" header={t('haku.alkamiskausi')}>
         <AlkamiskausiSuodatin
-          rajainValues={useFilterProps(FILTER_TYPES.ALKAMISKAUSI)}
+          rajainOptions={rajainOptions}
+          rajainUIValues={rajainValues}
           setFilters={setFilters}
           expanded={true}
           summaryHidden={true}

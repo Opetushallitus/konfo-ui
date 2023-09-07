@@ -185,7 +185,8 @@ export const MobileFiltersOnTopMenu = ({
         <Divider />
         <AlkamiskausiSuodatin
           expanded={false}
-          rajainValues={values.alkamiskausi}
+          rajainUIValues={rajainValues}
+          rajainOptions={rajainOptions}
           setFilters={setFilters}
         />
         <Divider />

@@ -125,7 +125,8 @@ export const Suodatinpalkki = () => {
       <AlkamiskausiSuodatin
         expanded
         elevation={2}
-        rajainValues={useFilterProps(FILTER_TYPES.ALKAMISKAUSI)}
+        rajainUIValues={rajainValues}
+        rajainOptions={rajainOptions}
         setFilters={setFilters}
       />
       <MaksullisuusSuodatin
