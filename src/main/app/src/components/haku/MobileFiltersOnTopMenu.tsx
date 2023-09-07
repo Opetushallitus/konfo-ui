@@ -88,7 +88,8 @@ export const MobileFiltersOnTopMenu = ({
         <KoulutustyyppiSuodatin
           expanded={false}
           displaySelected
-          rajainValues={useFilterProps(FILTER_TYPES.KOULUTUSTYYPPI)}
+          rajainOptions={rajainOptions}
+          rajainUIValues={rajainValues as any}
           setFilters={setFilters}
         />
         <Divider />

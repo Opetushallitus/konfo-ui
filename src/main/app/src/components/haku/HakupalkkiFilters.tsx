@@ -32,7 +32,8 @@ export const HakupalkkiFilters = () => {
     <Box display="flex" flexWrap="wrap" padding="10px" justifyContent="center">
       <Suodatin id="koulutustyyppi" header={t('haku.koulutustyyppi')}>
         <KoulutustyyppiSuodatin
-          rajainValues={useFilterProps(FILTER_TYPES.KOULUTUSTYYPPI)}
+          rajainOptions={rajainOptions}
+          rajainUIValues={rajainValues as any}
           setFilters={setFilters}
           expanded={true}
           summaryHidden={true}

@@ -43,7 +43,8 @@ export const Suodatinpalkki = () => {
       <KoulutustyyppiSuodatin
         expanded
         elevation={2}
-        rajainValues={useFilterProps(FILTER_TYPES.KOULUTUSTYYPPI)}
+        rajainUIValues={rajainValues as any}
+        rajainOptions={rajainOptions}
         setFilters={setFilters}
       />
       <OpetuskieliSuodatin
