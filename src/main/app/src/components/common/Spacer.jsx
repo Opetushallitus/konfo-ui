@@ -1,6 +1,5 @@
-import { styled } from '@mui/material/styles';
-
 import { colors } from '#/src/colors';
+import { styled } from '#/src/theme';
 
 export const Spacer = styled('div')({
   height: '4px',

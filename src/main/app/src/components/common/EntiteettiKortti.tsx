@@ -7,7 +7,6 @@ import {
   Box,
   SvgIconProps,
 } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { truncate, trim, isEmpty, isUndefined } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
@@ -16,6 +15,7 @@ import { AdditionalInfoWithIcon } from '#/src/components/common/AdditionalInfoWi
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { SmartLink } from '#/src/components/common/SmartLink';
 import { KOULUTUS_TYYPPI } from '#/src/constants';
+import { styled } from '#/src/theme';
 import { sanitizedHTMLParser } from '#/src/tools/utils';
 
 const PREFIX = 'EntiteettiKortti';

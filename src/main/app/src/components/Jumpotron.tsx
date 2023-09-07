@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 
 import { Grid, Box, Hidden, Paper, useMediaQuery, Link } from '@mui/material';
-import { useTheme, styled } from '@mui/system';
+import { useTheme } from '@mui/system';
 import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import Image from '#/src/assets/images/o-EDUCATION-facebook.jpg';
 import { colors } from '#/src/colors';
 import { usePageSectionGap } from '#/src/hooks/usePageSectionGap';
+import { styled } from '#/src/theme';
 
 import { Hakupalkki } from './haku/Hakupalkki';
 import { useSearch } from './haku/hakutulosHooks';

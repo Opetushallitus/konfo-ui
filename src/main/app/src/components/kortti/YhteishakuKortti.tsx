@@ -1,12 +1,12 @@
 import React from 'react';
 
 import { Grid, Card, CardContent, Paper, Button } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import clsx from 'clsx';
 import Markdown from 'markdown-to-jsx';
 
 import { colors } from '#/src/colors';
 import { useContentful } from '#/src/hooks/useContentful';
+import { styled } from '#/src/theme';
 
 const PREFIX = 'YhteishakuKortti';
 

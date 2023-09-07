@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { styled } from '@mui/material/styles';
-
+import { styled } from '#/src/theme';
 import { localize } from '#/src/tools/localization';
 import { sanitizedHTMLParser } from '#/src/tools/utils';
 import { Translateable } from '#/src/types/common';

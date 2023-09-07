@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 
-import { Box, styled, Typography, List, ListItem, Button } from '@mui/material';
+import { Box, Typography, List, ListItem, Button } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { styled } from '#/src/theme';
 import { translate } from '#/src/tools/localization';
 import { formatDouble } from '#/src/tools/utils';
 import { PainotettuArvosana } from '#/src/types/HakukohdeTypes';

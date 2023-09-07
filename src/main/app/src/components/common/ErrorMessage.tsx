@@ -1,11 +1,11 @@
 import React from 'react';
 
 import { Avatar, Button, Grid, Paper, Typography } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { styled } from '#/src/theme';
 
 const PREFIX = 'ErrorMessage';
 

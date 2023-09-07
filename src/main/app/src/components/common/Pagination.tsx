@@ -1,10 +1,10 @@
 import React, { useCallback } from 'react';
 
 import { Box, CssBaseline } from '@mui/material';
-import { styled } from '@mui/material/styles';
 
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { MuiFlatPagination } from '#/src/components/MuiFlatPagination';
+import { styled } from '#/src/theme';
 import { scrollToId } from '#/src/tools/utils';
 
 const PREFIX = 'Pagination';

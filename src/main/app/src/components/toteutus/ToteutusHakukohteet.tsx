@@ -9,7 +9,6 @@ import {
   Paper,
   Typography,
 } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { isEmpty, sortBy, toPairs, some, every, map, get, find } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
@@ -20,6 +19,7 @@ import { MaterialIcon, createMaterialIcon } from '#/src/components/common/Materi
 import { PageSection } from '#/src/components/common/PageSection';
 import { useDemoLinks } from '#/src/components/toteutus/hooks';
 import { Hakulomaketyyppi } from '#/src/constants';
+import { styled } from '#/src/theme';
 import { localize } from '#/src/tools/localization';
 import { useOsoitteet } from '#/src/tools/useOppilaitosOsoite';
 import { useUrlParams } from '#/src/tools/useUrlParams';

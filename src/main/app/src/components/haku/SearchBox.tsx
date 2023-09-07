@@ -10,7 +10,6 @@ import {
   Tooltip,
   Autocomplete,
 } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { TFunction } from 'i18next';
 import { identity, isString, omit, size } from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -20,7 +19,7 @@ import { match } from 'ts-pattern';
 import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { useAutocompleteOptions } from '#/src/hooks/useAutocompleteOptions';
-import { theme } from '#/src/theme';
+import { styled, theme } from '#/src/theme';
 import { AutocompleteOption } from '#/src/types/common';
 
 import { getToteutustenTarjoajat } from './hakutulos/hakutulosKortit/getToteutustenTarjoajat';

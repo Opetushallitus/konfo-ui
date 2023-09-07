@@ -1,12 +1,15 @@
 import React from 'react';
 
-import { styled } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 import { Filter } from '#/src/components/common/Filter';
-import { getStateChangesForCheckboxRajaimet } from '#/src/tools/filters';
-import { RajainItem, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
+import { RAJAIN_TYPES } from '#/src/constants';
+import { styled } from '#/src/theme';
+import { useRajainItems } from '#/src/tools/filters';
+import { RajainComponentProps } from '#/src/types/SuodatinTypes';
+
+import { useCheckboxRajainOnChange } from '../common/useCheckboxRajainOnChange';
 
 const classes = {
   noBoxShadow: 'noBoxShadow',
@@ -40,15 +43,18 @@ const Root = styled('div')({
   },
 });
 
-export const KoulutustyyppiSuodatin = (props: SuodatinComponentProps) => {
+export const KoulutustyyppiSuodatin = (props: RajainComponentProps) => {
   const { t } = useTranslation();
 
-  const { rajainValues = [], setFilters } = props;
+  const { setRajainValues, rajainOptions, rajainValues } = props;
 
-  const handleCheck = (item: RajainItem) => {
-    const changes = getStateChangesForCheckboxRajaimet(rajainValues)(item);
-    setFilters(changes);
-  };
+  const rajainItems = useRajainItems(
+    rajainOptions,
+    rajainValues,
+    RAJAIN_TYPES.KOULUTUSTYYPPI
+  );
+
+  const onItemChange = useCheckboxRajainOnChange(rajainItems, setRajainValues);
 
   return (
     <Root>
@@ -56,8 +62,8 @@ export const KoulutustyyppiSuodatin = (props: SuodatinComponentProps) => {
         {...props}
         testId="koulutustyyppi-filter"
         name={t('haku.koulutustyyppi')}
-        rajainValues={rajainValues}
-        handleCheck={handleCheck}
+        rajainItems={rajainItems}
+        onItemChange={onItemChange}
         displaySelected
       />
     </Root>

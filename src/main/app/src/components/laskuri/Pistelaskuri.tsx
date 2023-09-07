@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
 
-import { Box, Button, styled } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
+import { styled } from '#/src/theme';
 import { scrollIntoView } from '#/src/tools/utils';
 
 import { KeskiarvoAineLaskuri } from './aine/KeskiarvoAineLaskuri';

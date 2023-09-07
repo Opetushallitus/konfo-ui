@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { Card, CardMedia } from '@mui/material';
-import { styled } from '@mui/material/styles';
 
 import { useContentful } from '#/src/hooks/useContentful';
+import { styled } from '#/src/theme';
 
 const PREFIX = 'ImageComponent';
 

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
-import { Box, styled, Typography, Button, Hidden } from '@mui/material';
+import { Box, Typography, Button, Hidden } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { educationTypeColorCode, colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { PageSection } from '#/src/components/common/PageSection';
+import { styled } from '#/src/theme';
 import { Hakutieto } from '#/src/types/ToteutusTypes';
 
 import { GraafiContainer } from './graafi/GraafiContainer';

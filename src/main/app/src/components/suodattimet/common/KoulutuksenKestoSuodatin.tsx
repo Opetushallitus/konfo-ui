@@ -6,15 +6,16 @@ import { TFunction } from 'i18next';
 import { isEqual, ceil, range, round } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
-import { NumberRangeRajainItem, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
-
 import {
   SuodatinAccordion,
   SuodatinAccordionDetails,
   SuodatinAccordionSummary,
-} from '../../common/Filter/CustomizedMuiComponents';
-import { NumberRangeSlider } from '../../common/Filter/NumberRangeSlider';
+} from '#/src/components/common/Filter/CustomizedMuiComponents';
+import { NumberRangeSlider } from '#/src/components/common/Filter/NumberRangeSlider';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { RAJAIN_TYPES } from '#/src/constants';
+import { useRajainItems } from '#/src/tools/filters';
+import { NumberRangeRajainItem, RajainComponentProps } from '#/src/types/SuodatinTypes';
 
 enum UnitOfMeasure {
   MONTH = 1,
@@ -91,27 +92,35 @@ export const KoulutuksenKestoSuodatin = ({
   displaySelected = true,
   elevation = 0,
   expanded,
-  rajainValues = [],
-  setFilters,
-}: SuodatinComponentProps) => {
+  rajainValues,
+  rajainOptions,
+  setRajainValues,
+}: RajainComponentProps) => {
   const { t } = useTranslation();
-  const rajainValueItem = rajainValues?.[0] as NumberRangeRajainItem;
-  const undefinedRajainValues = [0, rajainValueItem?.upperLimit || DEFAULT_UPPERLIMIT];
+
+  const rajainItems = useRajainItems(
+    rajainOptions,
+    rajainValues,
+    RAJAIN_TYPES.KOULUTUKSENKESTOKUUKAUSINA
+  );
+
+  const rajainItem = rajainItems?.[0] as NumberRangeRajainItem;
+  const undefinedRajainValues = [0, rajainItem?.upperLimit || DEFAULT_UPPERLIMIT];
   const rangeValues = [
-    rajainValueItem?.min || undefinedRajainValues[0],
-    rajainValueItem?.max || undefinedRajainValues[1],
+    rajainItem?.min || undefinedRajainValues[0],
+    rajainItem?.max || undefinedRajainValues[1],
   ];
 
   const handleSliderValueCommit = (newValues: Array<number>) => {
     if (isEqual(undefinedRajainValues, newValues)) {
-      setFilters({
+      setRajainValues({
         koulutuksenkestokuukausina: {
           koulutuksenkestokuukausina_min: 0,
           koulutuksenkestokuukausina_max: 0,
         },
       });
     } else {
-      setFilters({
+      setRajainValues({
         koulutuksenkestokuukausina: {
           koulutuksenkestokuukausina_min: newValues[0],
           koulutuksenkestokuukausina_max: newValues[1],

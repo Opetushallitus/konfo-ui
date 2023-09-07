@@ -1,7 +1,8 @@
 import React, { useRef } from 'react';
 
 import { Backdrop, Box, CircularProgress } from '@mui/material';
-import { styled } from '@mui/material/styles';
+
+import { styled } from '#/src/theme';
 
 const CIRCLE_MIN_HEIGHT = 100;
 

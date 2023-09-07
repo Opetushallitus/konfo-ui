@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {
-  styled,
   Select,
   FormControl,
   MenuItem,
@@ -13,6 +12,7 @@ import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { styled } from '#/src/theme';
 
 import { ARVOSANA_VALUES, Kouluaine, Kieliaine } from './Kouluaine';
 const PREFIX = 'kouluaine__';

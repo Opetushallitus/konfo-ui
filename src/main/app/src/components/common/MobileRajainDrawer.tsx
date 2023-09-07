@@ -21,7 +21,7 @@ type Props = React.PropsWithChildren<{
   isOpen: boolean;
   toggleOpen: () => void;
   showResults: () => void;
-  clearRajainSelection: () => void;
+  clearRajainValues: () => void;
   rajainCount: number;
   resultCount: number;
 }>;
@@ -30,7 +30,7 @@ export const MobileRajainDrawer = ({
   isOpen,
   toggleOpen,
   showResults,
-  clearRajainSelection,
+  clearRajainValues,
   rajainCount,
   resultCount,
   children,
@@ -76,7 +76,7 @@ export const MobileRajainDrawer = ({
                     fontWeight: 600,
                     whiteSpace: 'nowrap',
                   }}
-                  onClick={clearRajainSelection}>
+                  onClick={clearRajainValues}>
                   {t('haku.poista-valitut')}
                 </Button>
               )}

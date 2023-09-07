@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
 
 import { Box, Grid, Typography } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { some, isEmpty, uniq } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -24,6 +23,7 @@ import { KOULUTUS_TYYPPI } from '#/src/constants';
 import { useSideMenu } from '#/src/hooks';
 import { NotFound } from '#/src/NotFound';
 import { getHakuParams, getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
+import { styled } from '#/src/theme';
 import { localize, localizeLukiolinja } from '#/src/tools/localization';
 import { useUrlParams } from '#/src/tools/useUrlParams';
 import { getLocalizedOpintojenLaajuus, sanitizedHTMLParser } from '#/src/tools/utils';

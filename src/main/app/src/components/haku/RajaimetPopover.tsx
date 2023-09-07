@@ -1,16 +1,9 @@
-import {
-  Box,
-  Button,
-  CircularProgress,
-  Divider,
-  Hidden,
-  Popover,
-  styled,
-} from '@mui/material';
+import { Box, Button, CircularProgress, Divider, Hidden, Popover } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { styled } from '#/src/theme';
 
 import { HakupalkkiFilters } from './HakupalkkiFilters';
 

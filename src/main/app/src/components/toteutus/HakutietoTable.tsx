@@ -1,11 +1,11 @@
 import React from 'react';
 
 import { Grid, GridSize, Typography } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { isEmpty } from 'lodash';
 
 import { LabelTooltip } from '#/src/components/common/LabelTooltip';
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
+import { styled } from '#/src/theme';
 import { Translateable } from '#/src/types/common';
 
 const PREFIX = 'HakutietoTable';

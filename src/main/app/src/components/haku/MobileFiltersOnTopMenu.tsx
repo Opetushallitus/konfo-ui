@@ -5,29 +5,13 @@ import { t } from 'i18next';
 
 import { FilterSearchResultsButton } from '#/src/components/common/FilterSearchResultsButton';
 import { MobileRajainDrawer } from '#/src/components/common/MobileRajainDrawer';
-import { TyoelamaJaTaydennyskoulutuksetSuodatin } from '#/src/components/suodattimet/common/TyoelamaJaTaydennyskoulutuksetSuodatin';
-import { FILTER_TYPES } from '#/src/constants';
 import { useIsAtEtusivu } from '#/src/store/reducers/appSlice';
-import { CheckboxRajainItem } from '#/src/types/SuodatinTypes';
 
+import { HAKU_RAJAIMET_ORDER } from './hakutulos/HAKU_RAJAIMET_ORDER';
 import { MobileResultsPerPageExpansionMenu } from './hakutulos/MobileResultsPerPageExpansionMenu';
 import { MobileToggleKoulutusOppilaitos } from './hakutulos/MobileToggleKoulutusOppilaitos';
 import { MobileToggleOrderByButtonMenu } from './hakutulos/MobileToggleOrderByButtonMenu';
-import { useAllSelectedFilters, useFilterProps, useSearch } from './hakutulosHooks';
-import { AlkamiskausiSuodatin } from '../suodattimet/common/AlkamiskausiSuodatin';
-import { HakuKaynnissaSuodatin } from '../suodattimet/common/HakuKaynnissaSuodatin';
-import { HakutapaSuodatin } from '../suodattimet/common/HakutapaSuodatin';
-import { KoulutuksenKestoSuodatin } from '../suodattimet/common/KoulutuksenKestoSuodatin';
-import { MaksullisuusSuodatin } from '../suodattimet/common/MaksullisuusSuodatin';
-import { OpetusaikaSuodatin } from '../suodattimet/common/OpetusaikaSuodatin';
-import { OpetuskieliSuodatin } from '../suodattimet/common/OpetusKieliSuodatin';
-import { OpetustapaSuodatin } from '../suodattimet/common/OpetustapaSuodatin';
-import { PohjakoulutusvaatimusSuodatin } from '../suodattimet/common/PohjakoulutusvaatimusSuodatin';
-import { SijaintiSuodatin } from '../suodattimet/common/SijaintiSuodatin';
-import { useTyoelamaSuodatinValues } from '../suodattimet/common/useTyoelamaSuodatinValues';
-import { ValintatapaSuodatin } from '../suodattimet/common/ValintatapaSuodatin';
-import { KoulutusalaSuodatin } from '../suodattimet/hakutulosSuodattimet/KoulutusalaSuodatin';
-import { KoulutustyyppiSuodatin } from '../suodattimet/hakutulosSuodattimet/KoulutustyyppiSuodatin';
+import { useAllSelectedFilters, useSearch } from './hakutulosHooks';
 
 export const MobileFiltersOnTopMenu = ({
   isButtonInline = false,
@@ -40,9 +24,11 @@ export const MobileFiltersOnTopMenu = ({
     koulutusData,
     oppilaitosData,
     selectedTab,
-    clearFilters,
+    clearRajainValues,
     goToSearchPage,
-    setFilters,
+    setRajainValues,
+    rajainOptions,
+    rajainValues,
   } = useSearch();
 
   const hitCount = useMemo(
@@ -53,141 +39,58 @@ export const MobileFiltersOnTopMenu = ({
   const { flat: allSelectedFilters } = useAllSelectedFilters();
   const rajainCount = allSelectedFilters?.length ?? 0;
 
-  const [showFilters, setShowFilters] = useState(false);
-  const onToggleShowFilters = useCallback(() => setShowFilters((s) => !s), []);
+  const [isDrawerOpen, setDrawerOpen] = useState(false);
+  const onToggleDrawer = useCallback(() => setDrawerOpen((s) => !s), []);
 
   const onShowResults = useCallback(() => {
     if (isAtEtusivu) {
       goToSearchPage();
     }
-    onToggleShowFilters();
-  }, [isAtEtusivu, goToSearchPage, onToggleShowFilters]);
+    onToggleDrawer();
+  }, [isAtEtusivu, goToSearchPage, onToggleDrawer]);
 
   return (
     <>
-      {!showFilters && (
+      {!isDrawerOpen && (
         <FilterSearchResultsButton
           inline={isButtonInline}
           textColor="white"
-          chosenFilterCount={rajainCount}
-          onClick={onToggleShowFilters}>
+          selectedRajainCount={rajainCount}
+          onClick={onToggleDrawer}>
           {isAtEtusivu ? t('haku.rajaa') : t('haku.rajaa-tuloksia')}
         </FilterSearchResultsButton>
       )}
       <MobileRajainDrawer
-        isOpen={showFilters}
-        toggleOpen={onToggleShowFilters}
+        isOpen={isDrawerOpen}
+        toggleOpen={onToggleDrawer}
         showResults={onShowResults}
-        clearRajainSelection={clearFilters}
+        clearRajainValues={clearRajainValues}
         rajainCount={rajainCount}
         resultCount={hitCount}>
-        {isAtEtusivu && <MobileToggleKoulutusOppilaitos />}
-        {isAtEtusivu && <Divider />}
-        <KoulutustyyppiSuodatin
-          expanded={false}
-          displaySelected
-          rajainValues={useFilterProps(FILTER_TYPES.KOULUTUSTYYPPI)}
-          setFilters={setFilters}
-        />
-        <Divider />
-        <OpetuskieliSuodatin
-          expanded={false}
-          displaySelected
-          rajainValues={useFilterProps(FILTER_TYPES.OPETUSKIELI)}
-          setFilters={setFilters}
-        />
-        <Divider />
-        <OpetusaikaSuodatin
-          expanded={false}
-          displaySelected
-          rajainValues={useFilterProps(FILTER_TYPES.OPETUSAIKA)}
-          setFilters={setFilters}
-        />
-        <Divider />
-        <SijaintiSuodatin
-          expanded={false}
-          displaySelected
-          kuntaRajainValues={
-            useFilterProps(FILTER_TYPES.KUNTA) as Array<CheckboxRajainItem>
-          }
-          maakuntaRajainValues={
-            useFilterProps(FILTER_TYPES.MAAKUNTA) as Array<CheckboxRajainItem>
-          }
-          setFilters={setFilters}
-        />
-        <Divider />
-        <PohjakoulutusvaatimusSuodatin
-          expanded={false}
-          displaySelected
-          rajainValues={useFilterProps(FILTER_TYPES.POHJAKOULUTUSVAATIMUS)}
-          setFilters={setFilters}
-        />
-        <Divider />
-        <HakuKaynnissaSuodatin
-          expanded={false}
-          displaySelected
-          rajainValues={useFilterProps(FILTER_TYPES.HAKUKAYNNISSA)}
-          setFilters={setFilters}
-        />
-        <Divider />
-        <TyoelamaJaTaydennyskoulutuksetSuodatin
-          expanded={false}
-          displaySelected
-          rajainValues={useTyoelamaSuodatinValues()}
-          setFilters={setFilters}
-        />
-        <Divider />
-        <HakutapaSuodatin
-          expanded={false}
-          displaySelected
-          rajainValues={useFilterProps(FILTER_TYPES.HAKUTAPA)}
-          setFilters={setFilters}
-        />
-        <Divider />
-        <ValintatapaSuodatin
-          expanded={false}
-          displaySelected
-          rajainValues={useFilterProps(FILTER_TYPES.VALINTATAPA)}
-          setFilters={setFilters}
-        />
-        <Divider />
-        <KoulutusalaSuodatin
-          expanded={false}
-          displaySelected
-          rajainValues={useFilterProps(FILTER_TYPES.KOULUTUSALA)}
-          setFilters={setFilters}
-        />
-        <Divider />
-        <OpetustapaSuodatin
-          expanded={false}
-          displaySelected
-          rajainValues={useFilterProps(FILTER_TYPES.OPETUSTAPA)}
-          setFilters={setFilters}
-        />
-        <Divider />
-        <KoulutuksenKestoSuodatin
-          expanded={false}
-          displaySelected
-          rajainValues={useFilterProps(FILTER_TYPES.KOULUTUKSENKESTOKUUKAUSINA)}
-          setFilters={setFilters}
-        />
-        <Divider />
-        <AlkamiskausiSuodatin
-          expanded={false}
-          displaySelected
-          rajainValues={useFilterProps(FILTER_TYPES.ALKAMISKAUSI)}
-          setFilters={setFilters}
-        />
-        <Divider />
-        <MaksullisuusSuodatin
-          expanded={false}
-          displaySelected
-          rajainValues={useFilterProps(FILTER_TYPES.MAKSULLISUUS)}
-          setFilters={setFilters}
-        />
-        <Divider />
-        {!isAtEtusivu && <MobileToggleOrderByButtonMenu />}
-        {!isAtEtusivu && <MobileResultsPerPageExpansionMenu />}
+        {isAtEtusivu && (
+          <>
+            <MobileToggleKoulutusOppilaitos />
+            <Divider />
+          </>
+        )}
+        {HAKU_RAJAIMET_ORDER.map(({ id, Component }) => (
+          <React.Fragment key={id}>
+            <Component
+              expanded={false}
+              displaySelected
+              rajainOptions={rajainOptions}
+              rajainValues={rajainValues}
+              setRajainValues={setRajainValues}
+            />
+            <Divider />
+          </React.Fragment>
+        ))}
+        {!isAtEtusivu && (
+          <>
+            <MobileToggleOrderByButtonMenu />
+            <MobileResultsPerPageExpansionMenu />
+          </>
+        )}
       </MobileRajainDrawer>
     </>
   );

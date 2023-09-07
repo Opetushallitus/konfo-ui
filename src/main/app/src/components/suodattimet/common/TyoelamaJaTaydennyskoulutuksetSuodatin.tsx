@@ -4,35 +4,47 @@ import { useTranslation } from 'react-i18next';
 import { match } from 'ts-pattern';
 
 import { Filter } from '#/src/components/common/Filter';
-import { FILTER_TYPES } from '#/src/constants';
-import { isChecked } from '#/src/tools/filters';
-import { RajainItem, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
+import { RAJAIN_TYPES } from '#/src/constants';
+import { isChecked, useRajainItems } from '#/src/tools/filters';
+import { RajainItem, RajainComponentProps } from '#/src/types/SuodatinTypes';
 
-export const TyoelamaJaTaydennyskoulutuksetSuodatin = (props: SuodatinComponentProps) => {
+const TYOELAMA_JA_TAYDENNYSKOULUTUS_FILTER_TYPES = [
+  RAJAIN_TYPES.JOTPA,
+  RAJAIN_TYPES.TYOVOIMAKOULUTUS,
+  RAJAIN_TYPES.TAYDENNYSKOULUTUS,
+];
+
+export const TyoelamaJaTaydennyskoulutuksetSuodatin = (props: RajainComponentProps) => {
   const { t } = useTranslation();
 
-  const { rajainValues = [], setFilters } = props;
+  const { rajainValues, rajainOptions, setRajainValues } = props;
 
-  const handleCheck = (item: RajainItem) =>
+  const rajainItems = useRajainItems(
+    rajainOptions,
+    rajainValues,
+    TYOELAMA_JA_TAYDENNYSKOULUTUS_FILTER_TYPES
+  );
+
+  const onItemChange = (item: RajainItem) =>
     match(item.rajainId)
-      .with(FILTER_TYPES.JOTPA, () => {
-        setFilters({ jotpa: !isChecked(item) });
+      .with(RAJAIN_TYPES.JOTPA, () => {
+        setRajainValues({ jotpa: !isChecked(item) });
       })
-      .with(FILTER_TYPES.TYOVOIMAKOULUTUS, () =>
-        setFilters({ tyovoimakoulutus: !isChecked(item) })
+      .with(RAJAIN_TYPES.TYOVOIMAKOULUTUS, () =>
+        setRajainValues({ tyovoimakoulutus: !isChecked(item) })
       )
-      .with(FILTER_TYPES.TAYDENNYSKOULUTUS, () => {
-        setFilters({ taydennyskoulutus: !isChecked(item) });
+      .with(RAJAIN_TYPES.TAYDENNYSKOULUTUS, () => {
+        setRajainValues({ taydennyskoulutus: !isChecked(item) });
       })
       .run();
 
   return (
     <Filter
       {...props}
-      testId="tyoelama-ja-taydennyskoulutukset-filter"
+      testId="tyoelama-ja-taydennyskoulutukset"
       name={t('haku.tyoelama-ja-taydennyskoulutukset')}
-      rajainValues={rajainValues}
-      handleCheck={handleCheck}
+      rajainItems={rajainItems}
+      onItemChange={onItemChange}
       displaySelected
     />
   );

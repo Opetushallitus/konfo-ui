@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { Avatar, Box, Card, CardContent, CardHeader, Grid } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import clsx from 'clsx';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
@@ -9,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
 import { useContentful } from '#/src/hooks/useContentful';
+import { styled } from '#/src/theme';
 
 const PREFIX = 'Palvelu';
 

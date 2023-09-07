@@ -1,13 +1,13 @@
 import React from 'react';
 
 import { Grid, Paper, Typography } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
 import { educationTypeColorCode } from '#/src/colors';
 import { OppilaitosKorttiLogo } from '#/src/components/common/KorttiLogo';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { SmartLink } from '#/src/components/common/SmartLink';
+import { styled } from '#/src/theme';
 
 const PREFIX = 'OppilaitosCard';
 

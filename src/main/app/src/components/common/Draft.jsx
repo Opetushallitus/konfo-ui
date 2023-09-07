@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
+import { styled } from '#/src/theme';
 import { useUrlParams } from '#/src/tools/useUrlParams';
 
 const PREFIX = 'Draft';

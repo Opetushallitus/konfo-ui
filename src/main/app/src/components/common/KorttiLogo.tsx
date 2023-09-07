@@ -1,9 +1,8 @@
 import React from 'react';
 
-import { styled } from '@mui/material/styles';
-
 import oppilaitos_img from '#/src/assets/images/logo-oppilaitos.png';
 import koulutus_img from '#/src/assets/images/Opolkuhts.png';
+import { styled } from '#/src/theme';
 
 const PREFIX = 'KoulutusKorttiLogo';
 

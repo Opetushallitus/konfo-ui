@@ -1,8 +1,11 @@
-import { Translateable } from '#/src/types/common';
+import { RajainName, Translateable } from '#/src/types/common';
 
-import { FILTER_TYPES } from '../constants';
+import { RAJAIN_TYPES } from '../constants';
+import { RajainValues } from '../store/reducers/hakutulosSlice';
 
-export type SuodatinComponentProps = {
+export type SetRajainValues = (value: Partial<RajainValues>) => void;
+
+export type RajainComponentProps = {
   expanded?: boolean;
   elevation?: number;
   displaySelected?: boolean;
@@ -11,13 +14,11 @@ export type SuodatinComponentProps = {
   shadow?: boolean;
   onFocus?: () => void;
   onHide?: () => void;
-  rajainValues?: Array<RajainItem>;
-  maakuntaRajainValues?: Array<CheckboxRajainItem>;
-  kuntaRajainValues?: Array<CheckboxRajainItem>;
-  hakutapaRajainValues?: Array<CheckboxRajainItem>;
   loading?: boolean;
-  setFilters: (value: any) => void;
+  setRajainValues: SetRajainValues;
   name?: string;
+  rajainOptions: Record<RajainName, any>; // backendin palauttama "filters", eli valittavissa olevat rajaimet ja niiden lukumäärät
+  rajainValues: Partial<RajainValues>; // kaikkien rajainten valitut arvot
 };
 
 export type RajainItem = CheckboxRajainItem | BooleanRajainItem | NumberRangeRajainItem;
@@ -51,66 +52,70 @@ export interface BooleanRajainItem extends RajainBase {
   checked: boolean;
 }
 
-const COMPOSITE_RAJAIN_IDS = [FILTER_TYPES.MAKSULLISUUS] as const;
+const COMPOSITE_RAJAIN_IDS = [RAJAIN_TYPES.MAKSULLISUUS] as const;
 export type CompositeRajainId = (typeof COMPOSITE_RAJAIN_IDS)[number];
 export const isCompositeRajainId = (rajainId: any): rajainId is CompositeRajainId =>
   COMPOSITE_RAJAIN_IDS.includes(rajainId);
 
 const BOOLEAN_RAJAIN_IDS = [
-  FILTER_TYPES.HAKUKAYNNISSA,
-  FILTER_TYPES.JOTPA,
-  FILTER_TYPES.TYOVOIMAKOULUTUS,
-  FILTER_TYPES.TAYDENNYSKOULUTUS,
-  FILTER_TYPES.APURAHA,
+  RAJAIN_TYPES.HAKUKAYNNISSA,
+  RAJAIN_TYPES.JOTPA,
+  RAJAIN_TYPES.TYOVOIMAKOULUTUS,
+  RAJAIN_TYPES.TAYDENNYSKOULUTUS,
+  RAJAIN_TYPES.APURAHA,
 ] as const;
+
 export type BooleanRajainId = (typeof BOOLEAN_RAJAIN_IDS)[number];
 export const isBooleanRajainId = (rajainId: any): rajainId is BooleanRajainId =>
   BOOLEAN_RAJAIN_IDS.includes(rajainId);
 
 const NUMBER_RANGE_RAJAIN_IDS = [
-  FILTER_TYPES.KOULUTUKSENKESTOKUUKAUSINA,
-  FILTER_TYPES.MAKSUNMAARA,
-  FILTER_TYPES.LUKUVUOSIMAKSUNMAARA,
+  RAJAIN_TYPES.KOULUTUKSENKESTOKUUKAUSINA,
+  RAJAIN_TYPES.MAKSUNMAARA,
+  RAJAIN_TYPES.LUKUVUOSIMAKSUNMAARA,
 ] as const;
+
 export type NumberRangeRajainId = (typeof NUMBER_RANGE_RAJAIN_IDS)[number];
 export const isNumberRangeRajainId = (rajainId: any): rajainId is NumberRangeRajainId =>
   NUMBER_RANGE_RAJAIN_IDS.includes(rajainId);
 
 const CHECKBOX_RAJAIN_IDS = [
-  FILTER_TYPES.KOULUTUSTYYPPI,
-  FILTER_TYPES.KOULUTUSALA,
-  FILTER_TYPES.OPETUSKIELI,
-  FILTER_TYPES.OPETUSAIKA,
-  FILTER_TYPES.OPETUSTAPA,
-  FILTER_TYPES.KUNTA,
-  FILTER_TYPES.MAAKUNTA,
-  FILTER_TYPES.SIJAINTI,
-  FILTER_TYPES.VALINTATAPA,
-  FILTER_TYPES.HAKUTAPA,
-  FILTER_TYPES.YHTEISHAKU,
-  FILTER_TYPES.POHJAKOULUTUSVAATIMUS,
-  FILTER_TYPES.LUKIOPAINOTUKSET,
-  FILTER_TYPES.LUKIOLINJATERITYINENKOULUTUSTEHTAVA,
-  FILTER_TYPES.OSAAMISALA,
-  FILTER_TYPES.MAKSULLISUUSTYYPPI,
-  FILTER_TYPES.ALKAMISKAUSI,
-  'oppilaitos',
+  RAJAIN_TYPES.KOULUTUSTYYPPI,
+  RAJAIN_TYPES.KOULUTUSALA,
+  RAJAIN_TYPES.OPETUSKIELI,
+  RAJAIN_TYPES.OPETUSAIKA,
+  RAJAIN_TYPES.OPETUSTAPA,
+  RAJAIN_TYPES.KUNTA,
+  RAJAIN_TYPES.MAAKUNTA,
+  RAJAIN_TYPES.SIJAINTI,
+  RAJAIN_TYPES.VALINTATAPA,
+  RAJAIN_TYPES.HAKUTAPA,
+  RAJAIN_TYPES.YHTEISHAKU,
+  RAJAIN_TYPES.POHJAKOULUTUSVAATIMUS,
+  RAJAIN_TYPES.LUKIOPAINOTUKSET,
+  RAJAIN_TYPES.LUKIOLINJATERITYINENKOULUTUSTEHTAVA,
+  RAJAIN_TYPES.OSAAMISALA,
+  RAJAIN_TYPES.MAKSULLISUUSTYYPPI,
+  RAJAIN_TYPES.ALKAMISKAUSI,
+  RAJAIN_TYPES.OPPILAITOS,
 ] as const;
+
 export type CheckboxRajainId = (typeof CHECKBOX_RAJAIN_IDS)[number];
+
 export const isCheckboxRajainId = (rajainId: any): rajainId is CheckboxRajainId =>
   CHECKBOX_RAJAIN_IDS.includes(rajainId);
 
-export const REPLACED_RAJAIN_IDS: Record<string, string> = {
-  [FILTER_TYPES.YHTEISHAKU]: FILTER_TYPES.HAKUTAPA,
+export const REPLACED_RAJAIN_IDS: any = {
+  [RAJAIN_TYPES.YHTEISHAKU]: RAJAIN_TYPES.HAKUTAPA,
 };
 
 export const LINKED_IDS: Record<string, Array<string>> = {
-  maksullinen: [FILTER_TYPES.MAKSUNMAARA],
-  lukuvuosimaksu: [FILTER_TYPES.LUKUVUOSIMAKSUNMAARA, FILTER_TYPES.APURAHA],
+  maksullinen: [RAJAIN_TYPES.MAKSUNMAARA],
+  lukuvuosimaksu: [RAJAIN_TYPES.LUKUVUOSIMAKSUNMAARA, RAJAIN_TYPES.APURAHA],
 };
 
 export const ORDER_TO_BE_RETAINED_RAJAINIDS: Array<CheckboxRajainId> = [
-  FILTER_TYPES.KOULUTUSTYYPPI,
+  RAJAIN_TYPES.KOULUTUSTYYPPI,
 ];
 export type RajainBackendItem = {
   id: string;

@@ -2,7 +2,6 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { set, uniq, omit, mapValues, forEach } from 'lodash';
 import { useQuery } from 'react-query';
-import { useDispatch, useSelector } from 'react-redux';
 import { P, match } from 'ts-pattern';
 
 import {
@@ -12,18 +11,17 @@ import {
   getKoulutusKuvaus,
 } from '#/src/api/konfoApi';
 import { KOULUTUS_TYYPPI } from '#/src/constants';
-import { usePreviousNonEmpty } from '#/src/hooks';
+import { useAppDispatch, useAppSelector } from '#/src/hooks/reduxHooks';
 import { RootState } from '#/src/store';
 import { usePreviousPage } from '#/src/store/reducers/appSlice';
-import { getInitialCheckedToteutusFilters } from '#/src/store/reducers/hakutulosSliceSelector';
+import { RajainValues } from '#/src/store/reducers/hakutulosSlice';
+import { getInitialToteutusRajainValues } from '#/src/store/reducers/hakutulosSliceSelector';
 import {
-  resetJarjestajatPaging,
-  setJarjestajatFilters,
-  setTulevatJarjestajatFilters,
+  setJarjestajatRajainValues,
   selectJarjestajatQuery,
   setJarjestajatPaging,
-  setTulevatJarjestajatPaging,
-  resetTulevatJarjestajatPaging,
+  clearJarjestajatRajainValues,
+  Pagination,
 } from '#/src/store/reducers/koulutusSlice';
 import { isNumberRangeRajainId } from '#/src/types/SuodatinTypes';
 
@@ -124,7 +122,7 @@ const selectJarjestajat = (data: any) => {
   return {
     total: data?.total,
     jarjestajat: data?.hits,
-    sortedFilters: data?.filters || {},
+    rajainOptions: data?.filters || {},
   };
 };
 
@@ -137,42 +135,35 @@ export const useKoulutusJarjestajat = ({
   oid,
   isTuleva = false,
 }: UseKoulutusJarjestajatProps) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const requestProps = useSelector((state: RootState) =>
+  const requestProps = useAppSelector((state: RootState) =>
     selectJarjestajatQuery(state, isTuleva)
   );
-  const { pagination, filters } = requestProps;
-  const previousFilters = usePreviousNonEmpty(filters);
+  const { pagination, rajainValues } = requestProps;
 
   // NOTE: Tämä haetaan vain kerran alkuarvoja varten + Haetaan järjestäjätulokset hakusivulta periytyneillä rajaimilla
-  const initialCheckedFilters = useSelector<any, Record<string, Array<string>>>(
-    getInitialCheckedToteutusFilters
-  );
+  const initialRajainValues = useAppSelector(getInitialToteutusRajainValues);
 
   const setPagination = useCallback(
-    (newPaging: any) => {
-      dispatch(
-        isTuleva
-          ? setTulevatJarjestajatPaging(newPaging)
-          : setJarjestajatPaging(newPaging)
-      );
+    (newPaging: Pagination) => {
+      dispatch(setJarjestajatPaging({ isTuleva, pagination: newPaging }));
     },
     [isTuleva, dispatch]
   );
 
-  const setFilters = useCallback(
-    (newFilters: any) => {
-      dispatch(
-        isTuleva
-          ? setTulevatJarjestajatFilters(newFilters)
-          : setJarjestajatFilters(newFilters)
-      );
+  const setRajainValues = useCallback(
+    (newValues: Partial<RajainValues>) => {
+      dispatch(setJarjestajatRajainValues({ isTuleva, rajainValues: newValues }));
     },
     [isTuleva, dispatch]
   );
 
-  const [initialValues] = useState(initialCheckedFilters);
+  const clearRajainValues = useCallback(() => {
+    dispatch(clearJarjestajatRajainValues({ isTuleva }));
+  }, [isTuleva, dispatch]);
+
+  const [initialValues] = useState(initialRajainValues);
 
   const previousPage = usePreviousPage();
 
@@ -180,11 +171,11 @@ export const useKoulutusJarjestajat = ({
 
   useEffect(() => {
     if (previousPage === 'haku' && !hasSetInitialFilters.current) {
-      setFilters(initialValues);
+      setRajainValues(initialValues);
       setPagination({ offset: 0 });
       hasSetInitialFilters.current = true;
     }
-  }, [oid, setFilters, initialValues, previousPage, setPagination]);
+  }, [oid, setRajainValues, initialValues, previousPage, setPagination]);
 
   const createQueryParams = (
     values: Record<string, Array<string> | boolean | Record<string, number>>
@@ -223,19 +214,12 @@ export const useKoulutusJarjestajat = ({
     );
   };
 
-  // Jos filtterit muuttuu, resetoi sivutus
-  useEffect(() => {
-    if (filters !== previousFilters && previousFilters !== undefined) {
-      dispatch(isTuleva ? resetTulevatJarjestajatPaging() : resetJarjestajatPaging());
-    }
-  }, [dispatch, filters, previousFilters, isTuleva]);
-
   const fetchProps = {
     oid,
     requestParams: {
       tuleva: isTuleva,
       ...pagination,
-      ...createQueryParams(filters),
+      ...createQueryParams(rajainValues),
     },
   };
 
@@ -254,11 +238,20 @@ export const useKoulutusJarjestajat = ({
     () => ({
       queryResult: result,
       queryOptions: requestProps,
-      filters,
+      rajainValues: rajainValues,
       pagination,
       setPagination,
-      setFilters,
+      setRajainValues,
+      clearRajainValues,
     }),
-    [filters, setFilters, result, requestProps, pagination, setPagination]
+    [
+      rajainValues,
+      setRajainValues,
+      result,
+      requestProps,
+      pagination,
+      setPagination,
+      clearRajainValues,
+    ]
   );
 };

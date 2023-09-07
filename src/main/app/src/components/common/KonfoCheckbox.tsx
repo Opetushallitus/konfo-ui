@@ -1,6 +1,7 @@
 import { Checkbox } from '@mui/material';
-import { styled } from '@mui/material/styles';
+
+import { styled } from '#/src/theme';
 
 export const KonfoCheckbox = styled(Checkbox)({
-  padding: '0 9px 0 9px',
+  padding: '0 9px',
 });

@@ -1,12 +1,12 @@
 import React from 'react';
 
 import { IconButton, Typography, Box, Button } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { urls } from 'oph-urls-js';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { styled } from '#/src/theme';
 
 const PREFIX = 'BetaBanner';
 

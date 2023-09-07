@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { Link } from '@mui/material';
-import { styled } from '@mui/material/styles';
 
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { styled } from '#/src/theme';
 import { parseUrl } from '#/src/tools/utils';
 
 const PREFIX = 'LinkOrYoutube';

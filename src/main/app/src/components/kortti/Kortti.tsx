@@ -1,12 +1,12 @@
 import React from 'react';
 
 import { Grid, Card, CardContent, CardMedia, Link } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import clsx from 'clsx';
 
 import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { useContentful } from '#/src/hooks/useContentful';
+import { styled } from '#/src/theme';
 
 const PREFIX = 'Kortti';
 

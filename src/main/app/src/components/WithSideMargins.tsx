@@ -1,4 +1,4 @@
-import { styled } from '@mui/material/styles';
+import { styled } from '#/src/theme';
 
 export const WithSideMargins = styled('div')(({ theme }) => ({
   paddingLeft: 10,

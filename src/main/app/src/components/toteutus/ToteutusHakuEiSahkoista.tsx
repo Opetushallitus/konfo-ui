@@ -1,13 +1,13 @@
 import React from 'react';
 
 import { Grid, Paper, Typography } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 import { IconBackground } from '#/src/components/common/IconBackground';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { PageSection } from '#/src/components/common/PageSection';
+import { styled } from '#/src/theme';
 import { localize } from '#/src/tools/localization';
 import { sanitizedHTMLParser } from '#/src/tools/utils';
 import { Toteutus } from '#/src/types/ToteutusTypes';
