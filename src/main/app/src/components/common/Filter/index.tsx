@@ -144,6 +144,12 @@ type CheckboxProps = {
   additionalInfo?: string;
 };
 
+const useTooltipDefaultTranslation = (id: string) => {
+  const { t, i18n } = useTranslation();
+  const translationKey = `haku.${id}-tooltip`;
+  return i18n.exists(translationKey) ? t(translationKey) : null;
+};
+
 export const FilterCheckbox = ({
   onChange,
   indented,
@@ -153,7 +159,6 @@ export const FilterCheckbox = ({
   disabled,
   additionalInfo,
 }: CheckboxProps) => {
-  const { t } = useTranslation();
   const { count, id, nimi, checked } = match(value)
     .with(checkboxValuePattern, (v) => ({
       count: v.count,
@@ -163,6 +168,11 @@ export const FilterCheckbox = ({
     }))
     .run();
   const labelId = `filter-list-label-${id}`;
+
+  const { t } = useTranslation();
+
+  const defaultTooltipText = useTooltipDefaultTranslation(id);
+  const tooltipText = additionalInfo ?? defaultTooltipText;
 
   return (
     <ListItem key={id} disablePadding>
@@ -196,9 +206,9 @@ export const FilterCheckbox = ({
             </Typography>
           }
         />
-        {additionalInfo && (
+        {tooltipText && (
           <Box paddingLeft={1}>
-            <LabelTooltip title={additionalInfo} />
+            <LabelTooltip title={tooltipText} />
           </Box>
         )}
         <Box paddingLeft={1}>{expandButton}</Box>

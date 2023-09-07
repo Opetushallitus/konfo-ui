@@ -266,7 +266,6 @@ const LukuvuosimaksuInputs = ({
   setRajainValues,
   isCountVisible,
 }: InputsSectionProps) => {
-  const { t } = useTranslation();
   return (
     <>
       <Box>
@@ -276,7 +275,6 @@ const LukuvuosimaksuInputs = ({
             setRajainValues(maksullisuustyyppiChanges(rajainItems, item))
           }
           isCountVisible={isCountVisible}
-          additionalInfo={t('haku.lukuvuosimaksu-tooltip')}
         />
       </Box>
       {isChecked(getCheckboxRajain(rajainItems, 'lukuvuosimaksu')) && (
