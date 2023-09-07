@@ -25,8 +25,12 @@ export const useToteutusRajainOrder = ({
 }) => {
   return [
     {
-      id: 'opetuskieli',
-      Component: OpetuskieliSuodatin,
+      id: 'hakukaynnissa',
+      Component: HakuKaynnissaSuodatin,
+    },
+    {
+      id: 'alkamiskausi',
+      Component: AlkamiskausiSuodatin,
     },
     {
       id: 'opetusaika',
@@ -37,16 +41,32 @@ export const useToteutusRajainOrder = ({
       Component: SijaintiSuodatin,
     },
     {
+      id: 'koulutuksenkesto',
+      Component: KoulutuksenKestoSuodatin,
+    },
+    {
+      id: 'maksullisuus',
+      Component: MaksullisuusSuodatin,
+    },
+    {
+      id: 'opetuskieli',
+      Component: OpetuskieliSuodatin,
+    },
+    {
+      id: 'opetustapa',
+      Component: OpetustapaSuodatin,
+    },
+    {
       id: 'pohjakoulutusvaatimus',
       Component: PohjakoulutusvaatimusSuodatin,
     },
     {
-      id: 'hakukaynnissa',
-      Component: HakuKaynnissaSuodatin, // TODO: Piilossa, jos ei valittu?
+      id: 'hakutapa',
+      Component: HakutapaSuodatin,
     },
     {
-      id: 'hakutapa',
-      Component: HakutapaSuodatin, // TODO: Piilossa, jos ei valittu?
+      id: 'oppilaitos',
+      Component: OppilaitosSuodatin,
     },
     includes(KORKEAKOULU_KOULUTUSTYYPIT, koulutustyyppi) && {
       id: 'valintatapa',
@@ -70,27 +90,7 @@ export const useToteutusRajainOrder = ({
       id: 'osaamisala',
       Component: AmmOsaamisalatSuodatin,
     },
-    {
-      id: 'opetustapa',
-      Component: OpetustapaSuodatin,
-    },
-    {
-      id: 'oppilaitos',
-      Component: OppilaitosSuodatin,
-    },
-    {
-      id: 'koulutuksenkesto',
-      Component: KoulutuksenKestoSuodatin,
-    },
-    {
-      id: 'alkamiskausi',
-      Component: AlkamiskausiSuodatin,
-    },
-    {
-      id: 'maksullisuus',
-      Component: MaksullisuusSuodatin,
-    },
-  ].filter((x) => x !== false) as Array<{
+  ].filter(Boolean) as Array<{
     id: string;
     Component: (props: RajainComponentProps) => JSX.Element;
     props?: RajainComponentProps;
