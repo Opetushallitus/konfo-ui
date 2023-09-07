@@ -105,7 +105,8 @@ export const MobileFiltersOnTopMenu = ({
         {values.hakukaynnissa && (
           <HakuKaynnissaSuodatin
             expanded={false}
-            rajainValues={values.hakukaynnissa}
+            rajainUIValues={rajainValues}
+            rajainOptions={rajainOptions}
             setFilters={setFilters}
           />
         )}

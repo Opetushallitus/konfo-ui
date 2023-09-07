@@ -127,7 +127,8 @@ export const MobileFiltersOnTopMenu = ({
         <HakuKaynnissaSuodatin
           expanded={false}
           displaySelected
-          rajainValues={useFilterProps(FILTER_TYPES.HAKUKAYNNISSA)}
+          rajainOptions={rajainOptions}
+          rajainUIValues={rajainValues as any}
           setFilters={setFilters}
         />
         <Divider />

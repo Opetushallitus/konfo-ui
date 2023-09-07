@@ -77,7 +77,8 @@ export const Suodatinpalkki = () => {
       <HakuKaynnissaSuodatin
         expanded
         elevation={2}
-        rajainValues={useFilterProps(FILTER_TYPES.HAKUKAYNNISSA)}
+        rajainUIValues={rajainValues as any}
+        rajainOptions={rajainOptions}
         setFilters={setFilters}
       />
       <TyoelamaJaTaydennyskoulutuksetSuodatin
