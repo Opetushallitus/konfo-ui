@@ -119,7 +119,8 @@ export const MobileFiltersOnTopMenu = ({
         <PohjakoulutusvaatimusSuodatin
           expanded={false}
           displaySelected
-          rajainValues={useFilterProps(FILTER_TYPES.POHJAKOULUTUSVAATIMUS)}
+          rajainOptions={rajainOptions}
+          rajainUIValues={rajainValues as any}
           setFilters={setFilters}
         />
         <Divider />

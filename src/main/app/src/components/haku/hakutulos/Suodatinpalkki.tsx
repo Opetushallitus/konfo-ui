@@ -70,7 +70,8 @@ export const Suodatinpalkki = () => {
       <PohjakoulutusvaatimusSuodatin
         expanded
         elevation={2}
-        rajainValues={useFilterProps(FILTER_TYPES.POHJAKOULUTUSVAATIMUS)}
+        rajainUIValues={rajainValues as any}
+        rajainOptions={rajainOptions}
         setFilters={setFilters}
       />
       <HakuKaynnissaSuodatin

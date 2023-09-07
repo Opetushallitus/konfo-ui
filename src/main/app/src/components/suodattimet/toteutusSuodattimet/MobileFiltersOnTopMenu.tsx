@@ -97,7 +97,8 @@ export const MobileFiltersOnTopMenu = ({
         <Divider />
         <PohjakoulutusvaatimusSuodatin
           expanded={false}
-          rajainValues={values.pohjakoulutusvaatimus}
+          rajainUIValues={rajainValues}
+          rajainOptions={rajainOptions}
           setFilters={setFilters}
         />
         <Divider />
