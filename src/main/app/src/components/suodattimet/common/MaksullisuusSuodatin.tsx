@@ -23,7 +23,7 @@ import {
   useRajainItems,
 } from '#/src/tools/filters';
 import {
-  SuodatinComponentProps,
+  RajainComponentProps,
   RajainItem,
   NumberRangeRajainId,
 } from '#/src/types/SuodatinTypes';
@@ -153,7 +153,7 @@ const MaksullisuusRangeSlider = ({
   rajainName,
   rajainItems = [],
   setFilters,
-}: Pick<SuodatinComponentProps, 'setFilters'> & {
+}: Pick<RajainComponentProps, 'setFilters'> & {
   rajainItems?: Array<RajainItem>;
   rajainName: MaksunMaaraRajainName;
 }) => {
@@ -188,7 +188,7 @@ const MaksullisuusRangeSlider = ({
 const MaksullisuusSummary = ({
   rajainItems = [],
   displaySelected,
-}: Pick<SuodatinComponentProps, 'displaySelected'> & {
+}: Pick<RajainComponentProps, 'displaySelected'> & {
   rajainItems?: Array<RajainItem>;
 }) => {
   const { t } = useTranslation();
@@ -235,7 +235,7 @@ const MaksullisuusSummary = ({
   );
 };
 
-type InputsSectionProps = Pick<SuodatinComponentProps, 'setFilters'> & {
+type InputsSectionProps = Pick<RajainComponentProps, 'setFilters'> & {
   rajainItems?: Array<RajainItem>;
   isCountVisible?: boolean;
 };
@@ -307,7 +307,7 @@ export const MaksullisuusSuodatin = ({
   rajainOptions,
   rajainValues,
   setFilters,
-}: SuodatinComponentProps) => {
+}: RajainComponentProps) => {
   const config = useConfig();
   const isCountVisible = config?.naytaFiltterienHakutulosLuvut;
 

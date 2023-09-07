@@ -8,11 +8,11 @@ import { useConfig } from '#/src/config';
 import { FILTER_TYPES } from '#/src/constants';
 import { useRajainItems } from '#/src/tools/filters';
 import { localize } from '#/src/tools/localization';
-import { CheckboxRajainItem, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
+import { CheckboxRajainItem, RajainComponentProps } from '#/src/types/SuodatinTypes';
 
 import { useCheckboxRajainOnChange } from '../common/useCheckboxRajainOnChange';
 
-export const AmmOsaamisalatSuodatin = (props: SuodatinComponentProps) => {
+export const AmmOsaamisalatSuodatin = (props: RajainComponentProps) => {
   const { t } = useTranslation();
   const { setFilters, rajainValues, rajainOptions, ...rest } = props;
 

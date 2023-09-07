@@ -8,11 +8,11 @@ import { useConfig } from '#/src/config';
 import { FILTER_TYPES } from '#/src/constants';
 import { useRajainItems } from '#/src/tools/filters';
 import { getLanguage, localize } from '#/src/tools/localization';
-import { CheckboxRajainItem, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
+import { CheckboxRajainItem, RajainComponentProps } from '#/src/types/SuodatinTypes';
 
 import { useCheckboxRajainOnChange } from './useCheckboxRajainOnChange';
 
-export const OppilaitosSuodatin = (props: SuodatinComponentProps) => {
+export const OppilaitosSuodatin = (props: RajainComponentProps) => {
   const { t } = useTranslation();
   const { setFilters, rajainOptions, rajainValues, ...rest } = props;
 

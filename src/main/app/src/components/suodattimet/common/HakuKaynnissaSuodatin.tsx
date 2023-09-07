@@ -6,9 +6,9 @@ import { match } from 'ts-pattern';
 import { Filter } from '#/src/components/common/Filter';
 import { FILTER_TYPES } from '#/src/constants';
 import { useRajainItems } from '#/src/tools/filters';
-import { RajainItem, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
+import { RajainItem, RajainComponentProps } from '#/src/types/SuodatinTypes';
 
-export const HakuKaynnissaSuodatin = (props: SuodatinComponentProps) => {
+export const HakuKaynnissaSuodatin = (props: RajainComponentProps) => {
   const { t } = useTranslation();
 
   const { rajainValues, rajainOptions, setFilters } = props;

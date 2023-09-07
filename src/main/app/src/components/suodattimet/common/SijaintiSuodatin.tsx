@@ -11,12 +11,12 @@ import { localize } from '#/src/tools/localization';
 import {
   CheckboxRajainItem,
   RajainItem,
-  SuodatinComponentProps,
+  RajainComponentProps,
 } from '#/src/types/SuodatinTypes';
 
 import { useSearch } from '../../haku/hakutulosHooks';
 
-export const SijaintiSuodatin = (props: SuodatinComponentProps) => {
+export const SijaintiSuodatin = (props: RajainComponentProps) => {
   const { t } = useTranslation();
   const { rajainValues, rajainOptions, setFilters, loading } = props;
 

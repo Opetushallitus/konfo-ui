@@ -6,7 +6,7 @@ import { match } from 'ts-pattern';
 import { Filter } from '#/src/components/common/Filter';
 import { FILTER_TYPES } from '#/src/constants';
 import { isChecked, useRajainItems } from '#/src/tools/filters';
-import { RajainItem, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
+import { RajainItem, RajainComponentProps } from '#/src/types/SuodatinTypes';
 
 const TYOELAMA_JA_TAYDENNYSKOULUTUS_FILTER_TYPES = [
   FILTER_TYPES.JOTPA,
@@ -14,7 +14,7 @@ const TYOELAMA_JA_TAYDENNYSKOULUTUS_FILTER_TYPES = [
   FILTER_TYPES.TAYDENNYSKOULUTUS,
 ];
 
-export const TyoelamaJaTaydennyskoulutuksetSuodatin = (props: SuodatinComponentProps) => {
+export const TyoelamaJaTaydennyskoulutuksetSuodatin = (props: RajainComponentProps) => {
   const { t } = useTranslation();
 
   const { rajainValues, rajainOptions, setFilters } = props;

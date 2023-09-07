@@ -7,7 +7,7 @@ import { colors } from '#/src/colors';
 import { Filter } from '#/src/components/common/Filter';
 import { FILTER_TYPES } from '#/src/constants';
 import { useRajainItems } from '#/src/tools/filters';
-import { SuodatinComponentProps } from '#/src/types/SuodatinTypes';
+import { RajainComponentProps } from '#/src/types/SuodatinTypes';
 
 import { useCheckboxRajainOnChange } from '../common/useCheckboxRajainOnChange';
 
@@ -43,7 +43,7 @@ const Root = styled('div')({
   },
 });
 
-export const KoulutustyyppiSuodatin = (props: SuodatinComponentProps) => {
+export const KoulutustyyppiSuodatin = (props: RajainComponentProps) => {
   const { t } = useTranslation();
 
   const { setFilters, rajainOptions, rajainValues } = props;

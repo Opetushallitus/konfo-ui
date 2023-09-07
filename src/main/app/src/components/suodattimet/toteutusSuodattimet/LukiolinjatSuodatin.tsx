@@ -12,11 +12,11 @@ import { localize } from '#/src/tools/localization';
 import {
   CheckboxRajainItem,
   RajainItem,
-  SuodatinComponentProps,
+  RajainComponentProps,
 } from '#/src/types/SuodatinTypes';
 
 export const LukiolinjatSuodatin = (
-  props: SuodatinComponentProps & {
+  props: RajainComponentProps & {
     name: 'lukiolinjat_er' | 'lukiopainotukset';
   }
 ) => {

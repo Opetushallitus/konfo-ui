@@ -3,7 +3,7 @@ import { RajainName, Translateable } from '#/src/types/common';
 import { FILTER_TYPES } from '../constants';
 import { RajainValues } from '../store/reducers/hakutulosSlice';
 
-export type SuodatinComponentProps = {
+export type RajainComponentProps = {
   expanded?: boolean;
   elevation?: number;
   displaySelected?: boolean;
@@ -16,8 +16,8 @@ export type SuodatinComponentProps = {
   setFilters: (value: any) => void;
   name?: string;
   // uudet kentät, jotta rajain-komponentti voi itse muodostaa arvonsa
-  rajainOptions?: Record<RajainName, any>; // backendin palauttama "filters", eli valittavissa olevat rajaimet ja niiden lukumäärät
-  rajainValues?: Partial<RajainValues>; // kaikkien rajainten valitut arvot
+  rajainOptions: Record<RajainName, any>; // backendin palauttama "filters", eli valittavissa olevat rajaimet ja niiden lukumäärät
+  rajainValues: Partial<RajainValues>; // kaikkien rajainten valitut arvot
 };
 
 export type RajainItem = CheckboxRajainItem | BooleanRajainItem | NumberRangeRajainItem;

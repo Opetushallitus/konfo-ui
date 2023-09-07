@@ -5,34 +5,19 @@ import { t } from 'i18next';
 
 import { colors } from '#/src/colors';
 import { FilterSearchResultsButton } from '#/src/components/common/FilterSearchResultsButton';
-import { HakuKaynnissaSuodatin } from '#/src/components/suodattimet/common/HakuKaynnissaSuodatin';
-import { HakutapaSuodatin } from '#/src/components/suodattimet/common/HakutapaSuodatin';
-import { OpetuskieliSuodatin } from '#/src/components/suodattimet/common/OpetusKieliSuodatin';
-import { OpetustapaSuodatin } from '#/src/components/suodattimet/common/OpetustapaSuodatin';
-import { PohjakoulutusvaatimusSuodatin } from '#/src/components/suodattimet/common/PohjakoulutusvaatimusSuodatin';
-import { SijaintiSuodatin } from '#/src/components/suodattimet/common/SijaintiSuodatin';
-import { ValintatapaSuodatin } from '#/src/components/suodattimet/common/ValintatapaSuodatin';
-import { KOULUTUS_TYYPPI, KORKEAKOULU_KOULUTUSTYYPIT } from '#/src/constants';
 import { RajainValues } from '#/src/store/reducers/hakutulosSlice';
 import { RajainName } from '#/src/types/common';
 
-import { AmmOsaamisalatSuodatin } from './AmmOsaamisalatSuodatin';
-import { LukiolinjatSuodatin } from './LukiolinjatSuodatin';
 import { MobileRajainDrawer } from '../../common/MobileRajainDrawer';
-import { AlkamiskausiSuodatin } from '../common/AlkamiskausiSuodatin';
-import { KoulutuksenKestoSuodatin } from '../common/KoulutuksenKestoSuodatin';
-import { MaksullisuusSuodatin } from '../common/MaksullisuusSuodatin';
-import { OpetusaikaSuodatin } from '../common/OpetusaikaSuodatin';
-import { OppilaitosSuodatin } from '../common/OppilaitosSuodatin';
+import { useToteutusRajainOrder } from '../../koulutus/useToteutusRajainOrder';
 
 type Props = {
   koulutustyyppi: string;
-  values: any;
   rajainCount: number;
   hitCount: number;
   loading: boolean;
   clearChosenFilters: VoidFunction;
-  setFilters: (value: any) => void;
+  setFilters: (value: Partial<RajainValues>) => void;
   rajainValues: Partial<RajainValues>;
   rajainOptions: Record<RajainName, any>;
 };
@@ -40,7 +25,6 @@ type Props = {
 export const MobileFiltersOnTopMenu = ({
   koulutustyyppi,
   rajainCount,
-  values,
   hitCount,
   loading,
   clearChosenFilters,
@@ -54,8 +38,10 @@ export const MobileFiltersOnTopMenu = ({
     [showFilters]
   );
 
+  const rajainOrder = useToteutusRajainOrder({ koulutustyyppi });
+
   return (
-    <React.Fragment>
+    <>
       {!showFilters && (
         <Box marginBottom={1}>
           <FilterSearchResultsButton
@@ -74,131 +60,23 @@ export const MobileFiltersOnTopMenu = ({
         clearRajainSelection={clearChosenFilters}
         rajainCount={rajainCount}
         resultCount={hitCount}>
-        <OpetuskieliSuodatin
-          expanded={false}
-          rajainValues={rajainValues}
-          rajainOptions={rajainOptions}
-          setFilters={setFilters}
-        />
-        <Divider />
-        <OpetusaikaSuodatin
-          expanded={false}
-          rajainValues={rajainValues}
-          rajainOptions={rajainOptions}
-          setFilters={setFilters}
-        />
-        <Divider />
-        <SijaintiSuodatin
-          expanded={false}
-          rajainValues={rajainValues}
-          rajainOptions={rajainOptions}
-          loading={loading}
-          setFilters={setFilters}
-        />
-        <Divider />
-        <PohjakoulutusvaatimusSuodatin
-          expanded={false}
-          rajainValues={rajainValues}
-          rajainOptions={rajainOptions}
-          setFilters={setFilters}
-        />
-        <Divider />
-        {values.hakukaynnissa && (
-          <HakuKaynnissaSuodatin
-            expanded={false}
-            rajainValues={rajainValues}
-            rajainOptions={rajainOptions}
-            setFilters={setFilters}
-          />
-        )}
-        <Divider />
-        {values.hakutapa && (
-          <HakutapaSuodatin
-            expanded={false}
-            rajainValues={rajainValues}
-            rajainOptions={rajainOptions}
-            setFilters={setFilters}
-          />
-        )}
-        <Divider />
-        {KORKEAKOULU_KOULUTUSTYYPIT.includes(koulutustyyppi as KOULUTUS_TYYPPI) && (
-          <>
-            <ValintatapaSuodatin
-              expanded={false}
-              rajainValues={rajainValues}
-              rajainOptions={rajainOptions}
-              setFilters={setFilters}
-            />
-            <Divider />
-          </>
-        )}
-        {koulutustyyppi === KOULUTUS_TYYPPI.LUKIOKOULUTUS && (
-          <>
-            <LukiolinjatSuodatin
-              name="lukiopainotukset"
-              expanded={false}
-              rajainValues={rajainValues}
-              rajainOptions={rajainOptions}
-              setFilters={setFilters}
-            />
-            <Divider />
-            <LukiolinjatSuodatin
-              name="lukiolinjat_er"
-              expanded={false}
-              rajainValues={rajainValues}
-              rajainOptions={rajainOptions}
-              setFilters={setFilters}
-            />
-            <Divider />
-          </>
-        )}
-        {koulutustyyppi === KOULUTUS_TYYPPI.AMM && (
-          <>
-            <AmmOsaamisalatSuodatin
-              expanded={false}
-              rajainValues={rajainValues}
-              rajainOptions={rajainOptions}
-              setFilters={setFilters}
-            />
-            <Divider />
-          </>
-        )}
-        <OpetustapaSuodatin
-          expanded={false}
-          rajainValues={rajainValues}
-          rajainOptions={rajainOptions}
-          setFilters={setFilters}
-        />
-        <Divider />
-        <OppilaitosSuodatin
-          expanded={false}
-          rajainValues={rajainValues}
-          rajainOptions={rajainOptions}
-          setFilters={setFilters}
-        />
-        <Divider />
-        <KoulutuksenKestoSuodatin
-          expanded={false}
-          rajainValues={rajainValues}
-          rajainOptions={rajainOptions}
-          setFilters={setFilters}
-        />
-        <Divider />
-        <AlkamiskausiSuodatin
-          expanded={false}
-          rajainValues={rajainValues}
-          rajainOptions={rajainOptions}
-          setFilters={setFilters}
-        />
-        <Divider />
-        <MaksullisuusSuodatin
-          expanded={false}
-          rajainValues={rajainValues}
-          rajainOptions={rajainOptions}
-          setFilters={setFilters}
-        />
-        <Divider />
+        {rajainOrder.map(({ id, Component, props }) => {
+          return (
+            <>
+              <Component
+                key={id}
+                expanded={false}
+                rajainValues={rajainValues}
+                rajainOptions={rajainOptions}
+                setFilters={setFilters}
+                loading={loading}
+                {...props}
+              />
+              <Divider />
+            </>
+          );
+        })}
       </MobileRajainDrawer>
-    </React.Fragment>
+    </>
   );
 };

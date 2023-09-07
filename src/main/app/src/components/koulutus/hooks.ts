@@ -143,8 +143,8 @@ export const useKoulutusJarjestajat = ({
   const requestProps = useSelector((state: RootState) =>
     selectJarjestajatQuery(state, isTuleva)
   );
-  const { pagination, filters } = requestProps;
-  const previousFilters = usePreviousNonEmpty(filters);
+  const { pagination, filters: rajainValues } = requestProps;
+  const previousFilters = usePreviousNonEmpty(rajainValues);
 
   // NOTE: Tämä haetaan vain kerran alkuarvoja varten + Haetaan järjestäjätulokset hakusivulta periytyneillä rajaimilla
   const initialCheckedFilters = useAppSelector(getInitialCheckedToteutusFilters);
@@ -160,7 +160,7 @@ export const useKoulutusJarjestajat = ({
     [isTuleva, dispatch]
   );
 
-  const setFilters = useCallback(
+  const setRajainValues = useCallback(
     (newFilters: any) => {
       dispatch(
         isTuleva
@@ -179,11 +179,11 @@ export const useKoulutusJarjestajat = ({
 
   useEffect(() => {
     if (previousPage === 'haku' && !hasSetInitialFilters.current) {
-      setFilters(initialValues);
+      setRajainValues(initialValues);
       setPagination({ offset: 0 });
       hasSetInitialFilters.current = true;
     }
-  }, [oid, setFilters, initialValues, previousPage, setPagination]);
+  }, [oid, setRajainValues, initialValues, previousPage, setPagination]);
 
   const createQueryParams = (
     values: Record<string, Array<string> | boolean | Record<string, number>>
@@ -224,17 +224,17 @@ export const useKoulutusJarjestajat = ({
 
   // Jos filtterit muuttuu, resetoi sivutus
   useEffect(() => {
-    if (filters !== previousFilters && previousFilters !== undefined) {
+    if (rajainValues !== previousFilters && previousFilters !== undefined) {
       dispatch(isTuleva ? resetTulevatJarjestajatPaging() : resetJarjestajatPaging());
     }
-  }, [dispatch, filters, previousFilters, isTuleva]);
+  }, [dispatch, rajainValues, previousFilters, isTuleva]);
 
   const fetchProps = {
     oid,
     requestParams: {
       tuleva: isTuleva,
       ...pagination,
-      ...createQueryParams(filters),
+      ...createQueryParams(rajainValues),
     },
   };
 
@@ -253,11 +253,11 @@ export const useKoulutusJarjestajat = ({
     () => ({
       queryResult: result,
       queryOptions: requestProps,
-      filters,
+      rajainValues: rajainValues,
       pagination,
       setPagination,
-      setFilters,
+      setRajainValues,
     }),
-    [filters, setFilters, result, requestProps, pagination, setPagination]
+    [rajainValues, setRajainValues, result, requestProps, pagination, setPagination]
   );
 };

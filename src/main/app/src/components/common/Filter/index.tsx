@@ -25,6 +25,7 @@ import { P, match } from 'ts-pattern';
 import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { useConfig } from '#/src/config';
+import { RajainValues } from '#/src/store/reducers/hakutulosSlice';
 import { localize, localizeIfNimiObject } from '#/src/tools/localization';
 import { RajainItem, isCheckboxRajainId } from '#/src/types/SuodatinTypes';
 
@@ -275,7 +276,7 @@ type Props = {
   selectPlaceholder?: string;
   additionalContent?: JSX.Element;
   isHaku?: boolean;
-  setFilters: (value: any) => void;
+  setFilters: (value: Partial<RajainValues>) => void;
   isCountVisible?: boolean;
 };
 

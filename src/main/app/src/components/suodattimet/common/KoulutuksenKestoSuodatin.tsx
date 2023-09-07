@@ -15,7 +15,7 @@ import { NumberRangeSlider } from '#/src/components/common/Filter/NumberRangeSli
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { FILTER_TYPES } from '#/src/constants';
 import { useRajainItems } from '#/src/tools/filters';
-import { NumberRangeRajainItem, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
+import { NumberRangeRajainItem, RajainComponentProps } from '#/src/types/SuodatinTypes';
 
 enum UnitOfMeasure {
   MONTH = 1,
@@ -95,7 +95,7 @@ export const KoulutuksenKestoSuodatin = ({
   rajainValues,
   rajainOptions,
   setFilters,
-}: SuodatinComponentProps) => {
+}: RajainComponentProps) => {
   const { t } = useTranslation();
 
   const rajainItems = useRajainItems(
