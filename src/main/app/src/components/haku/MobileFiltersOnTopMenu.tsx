@@ -43,6 +43,8 @@ export const MobileFiltersOnTopMenu = ({
     clearFilters,
     goToSearchPage,
     setFilters,
+    rajainOptions,
+    rajainValues,
   } = useSearch();
 
   const hitCount = useMemo(
@@ -100,7 +102,8 @@ export const MobileFiltersOnTopMenu = ({
         <OpetusaikaSuodatin
           expanded={false}
           displaySelected
-          rajainValues={useFilterProps(FILTER_TYPES.OPETUSAIKA)}
+          rajainOptions={rajainOptions}
+          rajainUIValues={rajainValues as any}
           setFilters={setFilters}
         />
         <Divider />

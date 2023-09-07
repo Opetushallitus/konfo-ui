@@ -225,4 +225,9 @@ const tryCatch = (fn, defaultValue) => {
   }
 };
 
+export const safeParseNumber = (num) => {
+  const n = Number(num);
+  return isNaN(n) ? undefined : n;
+};
+
 export const parseUrl = (url) => tryCatch(() => new URL(url));

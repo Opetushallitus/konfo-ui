@@ -70,7 +70,7 @@ export const HakutulosTabs = () => {
       indicatorColor="primary"
       textColor="primary"
       onChange={(_e, newSelectedTab: string) => {
-        setSelectedTab(newSelectedTab);
+        setSelectedTab(newSelectedTab as any);
       }}>
       <Tab
         value="koulutus"

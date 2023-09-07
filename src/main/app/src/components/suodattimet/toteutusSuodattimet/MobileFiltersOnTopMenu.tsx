@@ -13,6 +13,8 @@ import { PohjakoulutusvaatimusSuodatin } from '#/src/components/suodattimet/comm
 import { SijaintiSuodatin } from '#/src/components/suodattimet/common/SijaintiSuodatin';
 import { ValintatapaSuodatin } from '#/src/components/suodattimet/common/ValintatapaSuodatin';
 import { KOULUTUS_TYYPPI, KORKEAKOULU_KOULUTUSTYYPIT } from '#/src/constants';
+import { RajainValues } from '#/src/store/reducers/hakutulosSlice';
+import { RajainName } from '#/src/types/common';
 
 import { AmmOsaamisalatSuodatin } from './AmmOsaamisalatSuodatin';
 import { LukiolinjatSuodatin } from './LukiolinjatSuodatin';
@@ -30,6 +32,8 @@ type Props = {
   loading: boolean;
   clearChosenFilters: VoidFunction;
   setFilters: (value: any) => void;
+  rajainValues: Partial<RajainValues>;
+  rajainOptions: Record<RajainName, any>;
 };
 
 export const MobileFiltersOnTopMenu = ({
@@ -40,6 +44,8 @@ export const MobileFiltersOnTopMenu = ({
   loading,
   clearChosenFilters,
   setFilters,
+  rajainValues,
+  rajainOptions,
 }: Props) => {
   const [showFilters, setShowFilters] = useState(false);
   const toggleShowFilters = useCallback(
@@ -75,7 +81,8 @@ export const MobileFiltersOnTopMenu = ({
         <Divider />
         <OpetusaikaSuodatin
           expanded={false}
-          rajainValues={values.opetusaika}
+          rajainUIValues={rajainValues}
+          rajainOptions={rajainOptions}
           setFilters={setFilters}
         />
         <Divider />

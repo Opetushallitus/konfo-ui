@@ -36,7 +36,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
 }));
 
 export const Suodatinpalkki = () => {
-  const { setFilters } = useSearch();
+  const { setFilters, rajainValues, rajainOptions } = useSearch();
 
   return (
     <StyledGrid item lg={3} md={4} className={classes.rajaaTuloksia}>
@@ -55,7 +55,8 @@ export const Suodatinpalkki = () => {
       <OpetusaikaSuodatin
         expanded
         elevation={2}
-        rajainValues={useFilterProps(FILTER_TYPES.OPETUSAIKA)}
+        rajainUIValues={rajainValues as any}
+        rajainOptions={rajainOptions}
         setFilters={setFilters}
       />
       <SijaintiSuodatin

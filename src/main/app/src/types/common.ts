@@ -1,4 +1,4 @@
-import { Alkamiskausityyppi } from '#/src/constants';
+import { Alkamiskausityyppi, FILTER_TYPES } from '#/src/constants';
 import { FormatoituAikaleima } from '#/src/types/HakukohdeTypes';
 
 export const LANGUAGES = ['fi', 'sv', 'en'] as const;
@@ -84,3 +84,5 @@ export type SlugIdData = {
   englishPageVersionId?: string;
 };
 export type SlugsToIds = Record<string, SlugIdData>;
+
+export type RajainName = ValueOf<typeof FILTER_TYPES>;

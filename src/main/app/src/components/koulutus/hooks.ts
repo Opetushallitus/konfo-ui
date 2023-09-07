@@ -13,6 +13,7 @@ import {
 } from '#/src/api/konfoApi';
 import { KOULUTUS_TYYPPI } from '#/src/constants';
 import { usePreviousNonEmpty } from '#/src/hooks';
+import { useAppSelector } from '#/src/hooks/reduxHooks';
 import { RootState } from '#/src/store';
 import { usePreviousPage } from '#/src/store/reducers/appSlice';
 import { getInitialCheckedToteutusFilters } from '#/src/store/reducers/hakutulosSliceSelector';
@@ -146,9 +147,7 @@ export const useKoulutusJarjestajat = ({
   const previousFilters = usePreviousNonEmpty(filters);
 
   // NOTE: Tämä haetaan vain kerran alkuarvoja varten + Haetaan järjestäjätulokset hakusivulta periytyneillä rajaimilla
-  const initialCheckedFilters = useSelector<any, Record<string, Array<string>>>(
-    getInitialCheckedToteutusFilters
-  );
+  const initialCheckedFilters = useAppSelector(getInitialCheckedToteutusFilters);
 
   const setPagination = useCallback(
     (newPaging: any) => {

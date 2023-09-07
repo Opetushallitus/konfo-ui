@@ -1,6 +1,7 @@
-import { Translateable } from '#/src/types/common';
+import { RajainName, Translateable } from '#/src/types/common';
 
 import { FILTER_TYPES } from '../constants';
+import { RajainValues } from '../store/reducers/hakutulosSlice';
 
 export type SuodatinComponentProps = {
   expanded?: boolean;
@@ -18,6 +19,9 @@ export type SuodatinComponentProps = {
   loading?: boolean;
   setFilters: (value: any) => void;
   name?: string;
+  // uudet kentät, jotta rajain-komponentti voi itse muodostaa arvonsa
+  rajainOptions?: Record<RajainName, any>; // backendin palauttama "filters", eli valittavissa olevat rajaimet ja niiden lukumäärät
+  rajainUIValues?: Partial<RajainValues>; // kaikkien rajainten valitut arvot
 };
 
 export type RajainItem = CheckboxRajainItem | BooleanRajainItem | NumberRangeRajainItem;
@@ -63,6 +67,7 @@ const BOOLEAN_RAJAIN_IDS = [
   FILTER_TYPES.TAYDENNYSKOULUTUS,
   FILTER_TYPES.APURAHA,
 ] as const;
+
 export type BooleanRajainId = (typeof BOOLEAN_RAJAIN_IDS)[number];
 export const isBooleanRajainId = (rajainId: any): rajainId is BooleanRajainId =>
   BOOLEAN_RAJAIN_IDS.includes(rajainId);
@@ -72,6 +77,7 @@ const NUMBER_RANGE_RAJAIN_IDS = [
   FILTER_TYPES.MAKSUNMAARA,
   FILTER_TYPES.LUKUVUOSIMAKSUNMAARA,
 ] as const;
+
 export type NumberRangeRajainId = (typeof NUMBER_RANGE_RAJAIN_IDS)[number];
 export const isNumberRangeRajainId = (rajainId: any): rajainId is NumberRangeRajainId =>
   NUMBER_RANGE_RAJAIN_IDS.includes(rajainId);
@@ -96,11 +102,13 @@ const CHECKBOX_RAJAIN_IDS = [
   FILTER_TYPES.ALKAMISKAUSI,
   'oppilaitos',
 ] as const;
+
 export type CheckboxRajainId = (typeof CHECKBOX_RAJAIN_IDS)[number];
+
 export const isCheckboxRajainId = (rajainId: any): rajainId is CheckboxRajainId =>
   CHECKBOX_RAJAIN_IDS.includes(rajainId);
 
-export const REPLACED_RAJAIN_IDS: Record<string, string> = {
+export const REPLACED_RAJAIN_IDS: any = {
   [FILTER_TYPES.YHTEISHAKU]: FILTER_TYPES.HAKUTAPA,
 };
 

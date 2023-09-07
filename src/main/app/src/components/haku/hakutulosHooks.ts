@@ -30,6 +30,7 @@ import {
 } from '#/src/components/common/QueryResultWrapper/queryResultUtils';
 import { FILTER_TYPES } from '#/src/constants';
 import { useLanguageState } from '#/src/hooks';
+import { useAppDispatch, useAppSelector } from '#/src/hooks/reduxHooks';
 import { useCurrentPage } from '#/src/store/reducers/appSlice';
 import {
   setKoulutusOffset,
@@ -64,7 +65,7 @@ import {
   createHakuUrl,
 } from '#/src/store/reducers/hakutulosSliceSelector';
 import { isRajainActive, getRajainValueInUIFormat } from '#/src/tools/filters';
-import { ReduxTodo, ValueOf } from '#/src/types/common';
+import { RajainName, ReduxTodo, ValueOf } from '#/src/types/common';
 import { isCompositeRajainId } from '#/src/types/SuodatinTypes';
 
 type Pagination = {
@@ -261,6 +262,11 @@ export const useSearch = () => {
     [dispatch, goToSearchPage, currentPage]
   );
 
+  const rajainOptions =
+    selectedTab === 'koulutus' ? koulutusData?.filters : oppilaitosData?.filters;
+
+  const rajainValues = useSelector(getFilters);
+
   return {
     keyword,
     setKeyword: setKeywordCb,
@@ -277,6 +283,8 @@ export const useSearch = () => {
     selectedTab,
     setSelectedTab: setSearchTab,
     goToSearchPage,
+    rajainOptions,
+    rajainValues,
   };
 };
 
@@ -288,7 +296,7 @@ export const useFilterProps = (id: ValueOf<typeof FILTER_TYPES>) => {
   const usedFilters =
     selectedTab === 'koulutus' ? koulutusData?.filters : oppilaitosData?.filters;
 
-  const allFilters = useSelector(getFilters);
+  const allFilters = useAppSelector(getFilters);
 
   return useMemo(
     () => getRajainValueInUIFormat(usedFilters, allFilters, id),
@@ -329,10 +337,14 @@ export const useSelectedFilters = (availableFilters: any, checkedFilters: any) =
             .otherwise((bool) => bool === true)
         ),
       Object.keys,
-      (ks) =>
+      (ks: Array<RajainName>) =>
         map(ks, (filterId) =>
           Object.values(
-            getRajainValueInUIFormat(withCompositeFlattened, checkedFilters, filterId)
+            getRajainValueInUIFormat(
+              withCompositeFlattened as any,
+              checkedFilters,
+              filterId
+            )
           )
         ),
       flatten,
@@ -365,14 +377,14 @@ export const useAllSelectedFilters = () => {
 };
 
 const useDispatchCb = (fn: (x: any) => any, options: { syncUrl?: boolean } = {}) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const currentPage = useCurrentPage();
   const navigate = useNavigate();
   return useCallback(
     (props: unknown) => {
       dispatch(fn(props));
       if (options?.syncUrl && currentPage === 'haku') {
-        dispatch(navigateToHaku({ navigate }) as ReduxTodo);
+        dispatch(navigateToHaku({ navigate }));
       }
     },
     [dispatch, fn, currentPage, options, navigate]
@@ -400,10 +412,10 @@ export const useSearchSortOrder = () => {
 
 export const useSearchTab = () => {
   const searchTab = useSelector(getSelectedTab);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const setSearchTab = useCallback(
-    (tab: string) => dispatch(setSelectedTab({ newSelectedTab: tab })),
+    (tab: 'koulutus' | 'oppilaitos') => dispatch(setSelectedTab({ newSelectedTab: tab })),
     [dispatch]
   );
 
@@ -413,8 +425,8 @@ export const useSearchTab = () => {
   };
 };
 
-export const useHakuUrl = (keyword: string, tab: string) => {
-  const { hakuParams } = useSelector(getHakuParams);
+export const useHakuUrl = (keyword: string, tab: 'koulutus' | 'oppilaitos') => {
+  const { hakuParams } = useAppSelector(getHakuParams);
   const [lng] = useLanguageState();
 
   return createHakuUrl(keyword, { ...hakuParams, tab }, lng as string);

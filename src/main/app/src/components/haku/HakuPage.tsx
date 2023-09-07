@@ -25,6 +25,7 @@ import { useSideMenu } from '#/src/hooks';
 import { useHakutulosWidth } from '#/src/store/reducers/appSlice';
 import { urlParamsChanged } from '#/src/store/reducers/hakutulosSlice';
 import { useUrlParams } from '#/src/tools/useUrlParams';
+import { safeParseNumber } from '#/src/tools/utils';
 
 import { BackendErrorMessage } from './hakutulos/BackendErrorMessage';
 import { HakutulosResults } from './hakutulos/HakutulosResults';
@@ -248,7 +249,9 @@ export const HakuPage = () => {
                   }}
                   variant="standard"
                   value={pagination.size}
-                  onChange={(e) => setPagination({ size: e.target.value })}>
+                  onChange={(e) =>
+                    setPagination({ size: safeParseNumber(e.target.value) })
+                  }>
                   {pageSizeArray.map((size) => (
                     <MenuItem
                       key={size}

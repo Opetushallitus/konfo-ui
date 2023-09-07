@@ -29,6 +29,7 @@ export const FILTER_TYPES = {
   APURAHA: 'apuraha',
   SIJAINTI: 'sijainti', // TODO: Poista tämä kun konfo-backend ei enää käytä sijaintirajainta vaan kunta + maakunta
   ALKAMISKAUSI: 'alkamiskausi',
+  OPPILAITOS: 'oppilaitos', // FIXME: Poista tämä
 } as const;
 
 export const FILTER_TYPES_ARR = Object.values(FILTER_TYPES);

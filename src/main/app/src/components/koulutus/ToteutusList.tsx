@@ -22,13 +22,14 @@ import { SijaintiSuodatin } from '#/src/components/suodattimet/common/SijaintiSu
 import { ValintatapaSuodatin } from '#/src/components/suodattimet/common/ValintatapaSuodatin';
 import { AmmOsaamisalatSuodatin } from '#/src/components/suodattimet/toteutusSuodattimet/AmmOsaamisalatSuodatin';
 import { KOULUTUS_TYYPPI, KORKEAKOULU_KOULUTUSTYYPIT } from '#/src/constants';
-import { getRajainValueInUIFormat } from '#/src/tools/filters';
+import { getAllRajainValuesInUIFormat } from '#/src/tools/filters';
 import {
   localize,
   getLocalizedMaksullisuus,
   localizeArrayToCommaSeparated,
 } from '#/src/tools/localization';
 import { getLocalizedOpintojenLaajuus } from '#/src/tools/utils';
+import { RajainName } from '#/src/types/common';
 import { RajainBackendItem } from '#/src/types/SuodatinTypes';
 import { Jarjestaja } from '#/src/types/ToteutusTypes';
 
@@ -47,11 +48,13 @@ type Props = {
   koulutustyyppi: string;
 };
 
+export type RajainCounts = Record<string, Record<string, RajainBackendItem>>;
+
 type JarjestajaData = {
   total: number;
   jarjestajat: Array<Jarjestaja>;
   loading: boolean;
-  sortedFilters: Record<string, Record<string, RajainBackendItem>>;
+  sortedFilters: Record<RajainName, any>;
 };
 
 const SuodatinGridItem: React.FC<React.PropsWithChildren> = ({ children }) => {
@@ -65,7 +68,7 @@ const SuodatinGridItem: React.FC<React.PropsWithChildren> = ({ children }) => {
 export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
   const { t } = useTranslation();
 
-  // TODO: filters todella hämmentävä nimi tässä
+  // TODO: filters todella hämmentävä nimi tässä, pitäisi olla selectedRajainValues tms.
   const { queryResult, setFilters, setPagination, pagination, filters } =
     useKoulutusJarjestajat({
       oid,
@@ -75,11 +78,8 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
 
   const { sortedFilters, jarjestajat, total } = data as JarjestajaData;
 
-  const usedValues: any = useMemo(
-    () =>
-      mapValues(sortedFilters, (_value, key: string) =>
-        getRajainValueInUIFormat(sortedFilters, filters, key)
-      ),
+  const usedValues = useMemo(
+    () => getAllRajainValuesInUIFormat(sortedFilters, filters),
     [sortedFilters, filters]
   );
 
@@ -144,8 +144,8 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                 <SijaintiSuodatin
                   elevation={2}
                   loading={isLoading}
-                  maakuntaRajainValues={usedValues.maakunta}
-                  kuntaRajainValues={usedValues.kunta}
+                  maakuntaRajainValues={usedValues.maakunta as any}
+                  kuntaRajainValues={usedValues.kunta as any}
                   onFocus={() => {
                     setPreventClicks(true);
                   }}
@@ -186,14 +186,15 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
               <SuodatinGridItem>
                 <OppilaitosSuodatin
                   elevation={2}
-                  rajainValues={usedValues.oppilaitos}
+                  rajainValues={usedValues?.oppilaitos}
                   setFilters={setFilters}
                 />
               </SuodatinGridItem>
               <SuodatinGridItem>
                 <OpetusaikaSuodatin
                   elevation={2}
-                  rajainValues={usedValues.opetusaika}
+                  rajainOptions={sortedFilters}
+                  rajainUIValues={filters as any}
                   setFilters={setFilters}
                 />
               </SuodatinGridItem>
@@ -267,6 +268,8 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
               hitCount={total}
               clearChosenFilters={handleFiltersClear}
               setFilters={setFilters}
+              rajainValues={filters}
+              rajainOptions={sortedFilters}
             />
           </Hidden>
         </>

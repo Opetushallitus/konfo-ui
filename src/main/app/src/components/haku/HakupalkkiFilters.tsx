@@ -26,7 +26,7 @@ import { useTyoelamaSuodatinValues } from '../suodattimet/common/useTyoelamaSuod
 
 export const HakupalkkiFilters = () => {
   const { t } = useTranslation();
-  const { setFilters } = useSearch();
+  const { setFilters, rajainValues, rajainOptions } = useSearch();
 
   return (
     <Box display="flex" flexWrap="wrap" padding="10px" justifyContent="center">
@@ -50,7 +50,8 @@ export const HakupalkkiFilters = () => {
       <Divider orientation="vertical" flexItem />
       <Suodatin id="opetuskieli" header={t('haku.opetusaika')}>
         <OpetusaikaSuodatin
-          rajainValues={useFilterProps(FILTER_TYPES.OPETUSAIKA)}
+          rajainOptions={rajainOptions}
+          rajainUIValues={rajainValues as any}
           setFilters={setFilters}
           expanded={true}
           summaryHidden={true}

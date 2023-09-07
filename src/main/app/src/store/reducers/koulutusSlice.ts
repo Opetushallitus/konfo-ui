@@ -4,7 +4,7 @@ import { merge, pick } from 'lodash';
 import { RootState } from '#/src/store';
 import { getPaginationPage } from '#/src/tools/utils';
 
-import { HAKU_INITIAL_FILTERS } from './hakutulosSlice';
+import { HAKU_RAJAIMET_INITIAL } from './hakutulosSlice';
 import { TOTEUTUS_FILTER_NAMES } from './hakutulosSliceSelector';
 
 const initialPagination = {
@@ -14,13 +14,13 @@ const initialPagination = {
 
 export const initialState = {
   tulevatJarjestajat: {
-    filters: pick(HAKU_INITIAL_FILTERS, TOTEUTUS_FILTER_NAMES),
+    filters: pick(HAKU_RAJAIMET_INITIAL, TOTEUTUS_FILTER_NAMES),
     pagination: {
       ...initialPagination,
     },
   },
   jarjestajat: {
-    filters: pick(HAKU_INITIAL_FILTERS, TOTEUTUS_FILTER_NAMES),
+    filters: pick(HAKU_RAJAIMET_INITIAL, TOTEUTUS_FILTER_NAMES),
     pagination: {
       ...initialPagination,
     },
