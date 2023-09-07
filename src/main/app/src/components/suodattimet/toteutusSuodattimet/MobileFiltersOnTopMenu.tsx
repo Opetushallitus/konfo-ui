@@ -23,6 +23,7 @@ import { AlkamiskausiSuodatin } from '../common/AlkamiskausiSuodatin';
 import { KoulutuksenKestoSuodatin } from '../common/KoulutuksenKestoSuodatin';
 import { MaksullisuusSuodatin } from '../common/MaksullisuusSuodatin';
 import { OpetusaikaSuodatin } from '../common/OpetusaikaSuodatin';
+import { OppilaitosSuodatin } from '../common/OppilaitosSuodatin';
 
 type Props = {
   koulutustyyppi: string;
@@ -162,6 +163,13 @@ export const MobileFiltersOnTopMenu = ({
           </>
         )}
         <OpetustapaSuodatin
+          expanded={false}
+          rajainUIValues={rajainValues}
+          rajainOptions={rajainOptions}
+          setFilters={setFilters}
+        />
+        <Divider />
+        <OppilaitosSuodatin
           expanded={false}
           rajainUIValues={rajainValues}
           rajainOptions={rajainOptions}

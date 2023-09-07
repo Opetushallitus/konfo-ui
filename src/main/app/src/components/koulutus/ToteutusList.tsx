@@ -191,7 +191,8 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
               <SuodatinGridItem>
                 <OppilaitosSuodatin
                   elevation={2}
-                  rajainValues={usedValues?.oppilaitos}
+                  rajainOptions={sortedFilters}
+                  rajainUIValues={filters}
                   setFilters={setFilters}
                 />
               </SuodatinGridItem>
