@@ -41,84 +41,85 @@ export const Suodatinpalkki = () => {
       <KoulutustyyppiSuodatin
         expanded
         elevation={2}
-        rajainUIValues={rajainValues as any}
+        rajainUIValues={rajainValues}
         rajainOptions={rajainOptions}
         setFilters={setFilters}
       />
       <OpetuskieliSuodatin
         expanded
         elevation={2}
-        rajainUIValues={rajainValues as any}
+        rajainUIValues={rajainValues}
         rajainOptions={rajainOptions}
         setFilters={setFilters}
       />
       <OpetusaikaSuodatin
         expanded
         elevation={2}
-        rajainUIValues={rajainValues as any}
+        rajainUIValues={rajainValues}
         rajainOptions={rajainOptions}
         setFilters={setFilters}
       />
       <SijaintiSuodatin
         expanded
         elevation={2}
-        rajainUIValues={rajainValues as any}
+        rajainUIValues={rajainValues}
         rajainOptions={rajainOptions}
         setFilters={setFilters}
       />
       <PohjakoulutusvaatimusSuodatin
         expanded
         elevation={2}
-        rajainUIValues={rajainValues as any}
+        rajainUIValues={rajainValues}
         rajainOptions={rajainOptions}
         setFilters={setFilters}
       />
       <HakuKaynnissaSuodatin
         expanded
         elevation={2}
-        rajainUIValues={rajainValues as any}
+        rajainUIValues={rajainValues}
         rajainOptions={rajainOptions}
         setFilters={setFilters}
       />
       <TyoelamaJaTaydennyskoulutuksetSuodatin
         expanded
         elevation={2}
-        rajainUIValues={rajainValues as any}
+        rajainUIValues={rajainValues}
         rajainOptions={rajainOptions}
         setFilters={setFilters}
       />
       <HakutapaSuodatin
         expanded
         elevation={2}
-        rajainUIValues={rajainValues as any}
+        rajainUIValues={rajainValues}
         rajainOptions={rajainOptions}
         setFilters={setFilters}
       />
       <ValintatapaSuodatin
         expanded
         elevation={2}
-        rajainUIValues={rajainValues as any}
+        rajainUIValues={rajainValues}
         rajainOptions={rajainOptions}
         setFilters={setFilters}
       />
       <KoulutusalaSuodatin
         expanded
         elevation={2}
-        rajainUIValues={rajainValues as any}
+        rajainUIValues={rajainValues}
         rajainOptions={rajainOptions}
         setFilters={setFilters}
       />
       <OpetustapaSuodatin
         expanded={false}
         elevation={2}
-        rajainUIValues={rajainValues as any}
+        rajainUIValues={rajainValues}
         rajainOptions={rajainOptions}
         setFilters={setFilters}
       />
       <KoulutuksenKestoSuodatin
         expanded
         elevation={2}
-        rajainValues={useFilterProps(FILTER_TYPES.KOULUTUKSENKESTOKUUKAUSINA)}
+        rajainUIValues={rajainValues}
+        rajainOptions={rajainOptions}
         setFilters={setFilters}
       />
       <AlkamiskausiSuodatin

@@ -6,15 +6,16 @@ import { TFunction } from 'i18next';
 import { isEqual, ceil, range, round } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
-import { NumberRangeRajainItem, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
-
 import {
   SuodatinAccordion,
   SuodatinAccordionDetails,
   SuodatinAccordionSummary,
-} from '../../common/Filter/CustomizedMuiComponents';
-import { NumberRangeSlider } from '../../common/Filter/NumberRangeSlider';
+} from '#/src/components/common/Filter/CustomizedMuiComponents';
+import { NumberRangeSlider } from '#/src/components/common/Filter/NumberRangeSlider';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { FILTER_TYPES } from '#/src/constants';
+import { useRajainItems } from '#/src/tools/filters';
+import { NumberRangeRajainItem, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 
 enum UnitOfMeasure {
   MONTH = 1,
@@ -91,15 +92,23 @@ export const KoulutuksenKestoSuodatin = ({
   displaySelected = true,
   elevation = 0,
   expanded,
-  rajainValues = [],
+  rajainUIValues,
+  rajainOptions,
   setFilters,
-}: SuodatinComponentProps) => {
+}: Omit<SuodatinComponentProps, 'rajainValues'>) => {
   const { t } = useTranslation();
-  const rajainValueItem = rajainValues?.[0] as NumberRangeRajainItem;
-  const undefinedRajainValues = [0, rajainValueItem?.upperLimit || DEFAULT_UPPERLIMIT];
+
+  const rajainItems = useRajainItems(
+    rajainOptions,
+    rajainUIValues,
+    FILTER_TYPES.KOULUTUKSENKESTOKUUKAUSINA
+  );
+
+  const rajainItem = rajainItems?.[0] as NumberRangeRajainItem;
+  const undefinedRajainValues = [0, rajainItem?.upperLimit || DEFAULT_UPPERLIMIT];
   const rangeValues = [
-    rajainValueItem?.min || undefinedRajainValues[0],
-    rajainValueItem?.max || undefinedRajainValues[1],
+    rajainItem?.min || undefinedRajainValues[0],
+    rajainItem?.max || undefinedRajainValues[1],
   ];
 
   const handleSliderValueCommit = (newValues: Array<number>) => {

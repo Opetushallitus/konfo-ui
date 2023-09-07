@@ -178,7 +178,8 @@ export const MobileFiltersOnTopMenu = ({
         <Divider />
         <KoulutuksenKestoSuodatin
           expanded={false}
-          rajainValues={values.koulutuksenkestokuukausina}
+          rajainUIValues={rajainValues}
+          rajainOptions={rajainOptions}
           setFilters={setFilters}
         />
         <Divider />
