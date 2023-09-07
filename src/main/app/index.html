@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fi">
+<html lang="fi" translate="no">
   <head>
     <meta charset="utf-8" />
     <meta
@@ -62,23 +62,21 @@
     </script>
     <script>
       var siteDomain = document.domain;
+      var documentUrl = document.URL;
       var matomoSiteUrl;
-      switch (siteDomain) {
-        case "opintopolku.fi":
-          matomoSiteUrl = "https://analytiikka.ahtp.fi/";
-          break;
-        case "studieinfo.fi":
-          document.documentElement.setAttribute('lang', 'sv');
-          matomoSiteUrl = "https://analytiikka.ahtp.fi/";
-          break;
-        case "studyinfo.fi":
-          document.documentElement.setAttribute('lang', 'en');
-          matomoSiteUrl = "https://analytiikka.ahtp.fi/";
-          break;
-        default:
-          matomoSiteUrl = "https://keha-matomo-sdg-qa-qa.azurewebsites.net/"; // Testi
+      
+      if (documentUrl.includes("/konfo/sv/")) {
+        document.documentElement.setAttribute('lang', 'sv');
+      } else if (documentUrl.includes("/konfo/en/")) {
+        document.documentElement.setAttribute('lang', 'en');
       }
-      console.log("matomoSiteUrl: " + matomoSiteUrl);
+
+      if (siteDomain === "opintopolku.fi") {
+        matomoSiteUrl = "https://analytiikka.ahtp.fi/";
+      } else {
+        matomoSiteUrl = "https://keha-matomo-sdg-qa-qa.azurewebsites.net/"; // Testi
+      }
+
       var cookieconsentSettings = {
         // Urls where matomo files can be found on the (matomo) server.
         matomoSiteUrl: matomoSiteUrl,
