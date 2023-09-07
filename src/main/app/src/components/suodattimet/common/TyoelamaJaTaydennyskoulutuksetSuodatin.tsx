@@ -5,13 +5,27 @@ import { match } from 'ts-pattern';
 
 import { Filter } from '#/src/components/common/Filter';
 import { FILTER_TYPES } from '#/src/constants';
-import { isChecked } from '#/src/tools/filters';
+import { isChecked, useRajainItems } from '#/src/tools/filters';
 import { RajainItem, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 
-export const TyoelamaJaTaydennyskoulutuksetSuodatin = (props: SuodatinComponentProps) => {
+const TYOELAMA_JA_TAYDENNYSKOULUTUS_FILTER_TYPES = [
+  FILTER_TYPES.JOTPA,
+  FILTER_TYPES.TYOVOIMAKOULUTUS,
+  FILTER_TYPES.TAYDENNYSKOULUTUS,
+];
+
+export const TyoelamaJaTaydennyskoulutuksetSuodatin = (
+  props: Omit<SuodatinComponentProps, 'rajainValues'>
+) => {
   const { t } = useTranslation();
 
-  const { rajainValues = [], setFilters } = props;
+  const { rajainUIValues, rajainOptions, setFilters } = props;
+
+  const rajainItems = useRajainItems(
+    rajainOptions,
+    rajainUIValues,
+    TYOELAMA_JA_TAYDENNYSKOULUTUS_FILTER_TYPES
+  );
 
   const handleCheck = (item: RajainItem) =>
     match(item.rajainId)
@@ -31,7 +45,7 @@ export const TyoelamaJaTaydennyskoulutuksetSuodatin = (props: SuodatinComponentP
       {...props}
       testId="tyoelama-ja-taydennyskoulutukset-filter"
       name={t('haku.tyoelama-ja-taydennyskoulutukset')}
-      rajainValues={rajainValues}
+      rajainValues={rajainItems}
       handleCheck={handleCheck}
       displaySelected
     />

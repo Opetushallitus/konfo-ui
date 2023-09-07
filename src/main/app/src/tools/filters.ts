@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { sortBy, toPairs, some, ceil, mapValues } from 'lodash';
+import { sortBy, toPairs, some, ceil, mapValues, castArray } from 'lodash';
 import { match, P } from 'ts-pattern';
 
 import { FILTER_TYPES, YHTEISHAKU_KOODI_URI } from '#/src/constants';
@@ -156,10 +156,13 @@ export const getRajainValueInUIFormat = (
 export const useRajainItems = (
   rajainOptions: Record<RajainName, any> | undefined,
   rajainValues: Partial<RajainValues> | undefined,
-  rajainId: RajainName
+  rajainId: RajainName | Array<RajainName>
 ) => {
   return useMemo(
-    () => getRajainValueInUIFormat(rajainOptions, rajainValues, rajainId),
+    () =>
+      castArray(rajainId).flatMap((id) =>
+        getRajainValueInUIFormat(rajainOptions, rajainValues, id)
+      ),
     [rajainOptions, rajainValues, rajainId]
   );
 };

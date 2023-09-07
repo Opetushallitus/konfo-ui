@@ -23,7 +23,6 @@ import { OpetuskieliSuodatin } from '../suodattimet/common/OpetusKieliSuodatin';
 import { OpetustapaSuodatin } from '../suodattimet/common/OpetustapaSuodatin';
 import { PohjakoulutusvaatimusSuodatin } from '../suodattimet/common/PohjakoulutusvaatimusSuodatin';
 import { SijaintiSuodatin } from '../suodattimet/common/SijaintiSuodatin';
-import { useTyoelamaSuodatinValues } from '../suodattimet/common/useTyoelamaSuodatinValues';
 import { ValintatapaSuodatin } from '../suodattimet/common/ValintatapaSuodatin';
 import { KoulutusalaSuodatin } from '../suodattimet/hakutulosSuodattimet/KoulutusalaSuodatin';
 import { KoulutustyyppiSuodatin } from '../suodattimet/hakutulosSuodattimet/KoulutustyyppiSuodatin';
@@ -135,7 +134,8 @@ export const MobileFiltersOnTopMenu = ({
         <TyoelamaJaTaydennyskoulutuksetSuodatin
           expanded={false}
           displaySelected
-          rajainValues={useTyoelamaSuodatinValues()}
+          rajainOptions={rajainOptions}
+          rajainUIValues={rajainValues as any}
           setFilters={setFilters}
         />
         <Divider />

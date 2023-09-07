@@ -21,7 +21,6 @@ import { AlkamiskausiSuodatin } from '../suodattimet/common/AlkamiskausiSuodatin
 import { KoulutuksenKestoSuodatin } from '../suodattimet/common/KoulutuksenKestoSuodatin';
 import { MaksullisuusSuodatin } from '../suodattimet/common/MaksullisuusSuodatin';
 import { OpetusaikaSuodatin } from '../suodattimet/common/OpetusaikaSuodatin';
-import { useTyoelamaSuodatinValues } from '../suodattimet/common/useTyoelamaSuodatinValues';
 
 export const HakupalkkiFilters = () => {
   const { t } = useTranslation();
@@ -93,7 +92,8 @@ export const HakupalkkiFilters = () => {
         id="tyoelama-ja-taydennyskoulutukset-filter"
         header={t('haku.tyoelama-ja-taydennyskoulutukset')}>
         <TyoelamaJaTaydennyskoulutuksetSuodatin
-          rajainValues={useTyoelamaSuodatinValues()}
+          rajainOptions={rajainOptions}
+          rajainUIValues={rajainValues as any}
           setFilters={setFilters}
           expanded={true}
           summaryHidden={true}

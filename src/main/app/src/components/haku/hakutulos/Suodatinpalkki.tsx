@@ -17,7 +17,6 @@ import { OpetustapaSuodatin } from '../../suodattimet/common/OpetustapaSuodatin'
 import { PohjakoulutusvaatimusSuodatin } from '../../suodattimet/common/PohjakoulutusvaatimusSuodatin';
 import { SijaintiSuodatin } from '../../suodattimet/common/SijaintiSuodatin';
 import { TyoelamaJaTaydennyskoulutuksetSuodatin } from '../../suodattimet/common/TyoelamaJaTaydennyskoulutuksetSuodatin';
-import { useTyoelamaSuodatinValues } from '../../suodattimet/common/useTyoelamaSuodatinValues';
 import { ValintatapaSuodatin } from '../../suodattimet/common/ValintatapaSuodatin';
 import { KoulutusalaSuodatin } from '../../suodattimet/hakutulosSuodattimet/KoulutusalaSuodatin';
 import { KoulutustyyppiSuodatin } from '../../suodattimet/hakutulosSuodattimet/KoulutustyyppiSuodatin';
@@ -84,7 +83,8 @@ export const Suodatinpalkki = () => {
       <TyoelamaJaTaydennyskoulutuksetSuodatin
         expanded
         elevation={2}
-        rajainValues={useTyoelamaSuodatinValues()}
+        rajainUIValues={rajainValues as any}
+        rajainOptions={rajainOptions}
         setFilters={setFilters}
       />
       <HakutapaSuodatin
