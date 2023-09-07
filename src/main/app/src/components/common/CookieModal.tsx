@@ -1,13 +1,21 @@
 import React, { useState } from 'react';
 
-import { Button, Typography, ButtonGroup, Divider, Modal } from '@mui/material';
+import { ArrowDropDown, ArrowDropUp } from '@mui/icons-material';
+import {
+  Button,
+  Checkbox,
+  Typography,
+  ButtonGroup,
+  Divider,
+  Modal,
+  FormControlLabel,
+  FormGroup,
+} from '@mui/material';
 import Cookies from 'js-cookie';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
-import { KonfoCheckbox } from '#/src/components/common/KonfoCheckbox';
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { useContentful } from '#/src/hooks/useContentful';
 import { styled } from '#/src/theme';
 import { getOne } from '#/src/tools/getOne';
@@ -102,7 +110,10 @@ const StyledModal = styled(Modal)(({ theme }) => ({
     fontSize: '1.5em',
   },
 }));
-
+const StyledCheckbox = styled(Checkbox)({
+  padding: '0 9px 0 9px',
+  marginLeft: 0,
+});
 const mandatoryCookieName = 'oph-mandatory-cookies-accepted';
 
 export const CookieModal = () => {
@@ -126,6 +137,7 @@ export const CookieModal = () => {
     fullContent: contentfulTexts?.['fullContent'] ?? '',
     heading: contentfulTexts?.['heading'] ?? t('cookieModal.heading'),
     expandLinkText: contentfulTexts?.['expandLinkText'] ?? '',
+    collapseLinkText: contentfulTexts?.['collapseLinkText'] ?? '',
     settingsButtonText:
       contentfulTexts?.['settingsButtonText'] ?? t('cookieModal.settings'),
     settingsButtonCloseText:
@@ -167,42 +179,42 @@ export const CookieModal = () => {
       <Typography variant="h3" className={classes.settingsHeader}>
         {fields.settingsHeaderText}
       </Typography>
-      <div>
-        <KonfoCheckbox
-          id="mandatoryCookies"
-          className={classes.settingsCheckbox}
-          checked
-          disabled
+      <FormGroup>
+        <FormControlLabel
+          label={fields.settingsAcceptMandatoryText}
+          control={
+            <StyledCheckbox
+              id="mandatoryCookies"
+              className={classes.settingsCheckbox}
+              checked
+              disabled
+            />
+          }
         />
-        <label htmlFor="mandatoryCookies">{fields.settingsAcceptMandatoryText}</label>
-      </div>
-      <div>
-        <KonfoCheckbox
-          id="statisticCookies"
-          className={classes.settingsCheckbox}
-          checked={statisticCookiesAccepted}
-          disableRipple
-          onClick={() => setStatisticCookiesAccepted(!statisticCookiesAccepted)}
+        <FormControlLabel
+          label={fields.settingsAcceptStatisticText}
+          control={
+            <StyledCheckbox
+              id="statisticCookies"
+              className={classes.settingsCheckbox}
+              checked={statisticCookiesAccepted}
+              onClick={() => setStatisticCookiesAccepted(!statisticCookiesAccepted)}
+            />
+          }
         />
-        <label htmlFor="statisticCookies">{fields.settingsAcceptStatisticText}</label>
-      </div>
-      <div>
-        <KonfoCheckbox
-          id="marketingCookies"
-          className={classes.settingsCheckbox}
-          checked={marketingCookiesAccepted}
-          disableRipple
-          onClick={() => setMarketingCookiesAccepted(!marketingCookiesAccepted)}
+        <FormControlLabel
+          label={fields.settingsAcceptMarketingText}
+          control={
+            <StyledCheckbox
+              id="marketingCookies"
+              className={classes.settingsCheckbox}
+              checked={marketingCookiesAccepted}
+              onClick={() => setMarketingCookiesAccepted(!marketingCookiesAccepted)}
+            />
+          }
         />
-        <label htmlFor="marketingCookies">{fields.settingsAcceptMarketingText}</label>
-      </div>
+      </FormGroup>
     </div>
-  );
-
-  const expandIcon = fullCookieInfoOpen ? (
-    <MaterialIcon icon="arrow_drop_up" className={classes.icon} />
-  ) : (
-    <MaterialIcon icon="arrow_drop_down" className={classes.icon} />
   );
 
   return (
@@ -217,14 +229,17 @@ export const CookieModal = () => {
         <Typography variant="body1" className={classes.modalText}>
           {fields.shortContent}
         </Typography>
-        <div
+        <Button
+          sx={{ whiteSpace: 'nowrap', width: 'fit-contect' }}
+          variant="text"
           id="cookie-text-expand-link"
+          endIcon={fullCookieInfoOpen ? <ArrowDropUp /> : <ArrowDropDown />}
           className={classes.textExpandLink}
           onClick={() => setFullCookieInfoOpen(!fullCookieInfoOpen)}>
           <Typography variant="body1" className={classes.textExpandLink}>
-            {fields.expandLinkText} {expandIcon}
+            {fullCookieInfoOpen ? fields.collapseLinkText : fields.expandLinkText}
           </Typography>
-        </div>
+        </Button>
         {fullCookieInfoOpen ? (
           <Typography
             variant="body1"
@@ -236,6 +251,7 @@ export const CookieModal = () => {
         {settingsOpen ? openSettings : null}
         <ButtonGroup className={classes.buttons} orientation="horizontal" color="primary">
           <Button
+            sx={{ fontWeight: 'bold' }}
             variant="outlined"
             size="large"
             color="primary"
@@ -243,6 +259,7 @@ export const CookieModal = () => {
             {settingsOpen ? fields.settingsButtonCloseText : fields.settingsButtonText}
           </Button>
           <Button
+            sx={{ fontWeight: 'bold' }}
             variant="contained"
             size="large"
             color="primary"
