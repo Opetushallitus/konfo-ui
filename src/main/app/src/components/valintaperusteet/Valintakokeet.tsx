@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { Box, Card, CardContent, Divider, Grid, Typography } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
@@ -9,6 +8,7 @@ import { colors } from '#/src/colors';
 import { Accordion } from '#/src/components/common/Accordion';
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
 import { Heading, HeadingBoundary } from '#/src/components/Heading';
+import { styled } from '#/src/theme';
 import { localize, localizeOsoite } from '#/src/tools/localization';
 import { formatDateString, toId } from '#/src/tools/utils';
 import { Koodi, Translateable } from '#/src/types/common';

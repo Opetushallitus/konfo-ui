@@ -3,7 +3,6 @@ import React from 'react';
 import { Link, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import { styled } from '@mui/material/styles';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
 
@@ -15,7 +14,7 @@ import OPOLogoFooterSV from '#/src/assets/images/OPO_Logo_Footer_ruotsi.svg';
 import { colors } from '#/src/colors';
 import { ImageComponent } from '#/src/components/sivu/ImageComponent';
 import { useContentful } from '#/src/hooks/useContentful';
-import { theme } from '#/src/theme';
+import { styled, theme } from '#/src/theme';
 import { getOne } from '#/src/tools/getOne';
 import { getLanguage } from '#/src/tools/localization';
 

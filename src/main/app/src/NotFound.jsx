@@ -1,9 +1,10 @@
 import React from 'react';
 
 import { Grid, Button, Typography } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
+
+import { styled } from '#/src/theme';
 
 const PREFIX = 'NotFound';
 

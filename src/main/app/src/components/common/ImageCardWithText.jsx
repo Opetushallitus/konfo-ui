@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { Typography, Box } from '@mui/material';
-import { styled } from '@mui/material/styles';
 
 import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { styled } from '#/src/theme';
 
 const PREFIX = 'ImageCardWithText';
 

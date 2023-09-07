@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 import {
   Box,
-  styled,
   Typography,
   Select,
   FormControl,
@@ -16,6 +15,7 @@ import { useDispatch } from 'react-redux';
 import { colors } from '#/src/colors';
 import { YHTEISHAKU_KOODI_URI } from '#/src/constants';
 import { setHakukohde as setHk } from '#/src/store/reducers/pistelaskuriSlice';
+import { styled } from '#/src/theme';
 import { localize } from '#/src/tools/localization';
 import { Hakukohde } from '#/src/types/HakukohdeTypes';
 import { Hakutieto } from '#/src/types/ToteutusTypes';

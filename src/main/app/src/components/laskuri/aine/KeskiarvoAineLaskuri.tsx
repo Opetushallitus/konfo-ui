@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 
-import { Box, Typography, styled, Button } from '@mui/material';
+import { Box, Typography, Button } from '@mui/material';
 import { isEqual } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
+import { styled } from '#/src/theme';
 
 import { AddKieliInput } from './AddKieliInput';
 import { Kouluaineet, Kouluaine, createKieliaine, createKouluaine } from './Kouluaine';

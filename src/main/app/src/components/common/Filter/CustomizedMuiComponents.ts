@@ -1,94 +1,63 @@
 import {
-  Checkbox,
   Chip,
   Accordion,
   AccordionSummary,
   AccordionDetails,
-  ListItemText,
   Slider,
 } from '@mui/material';
-import { withStyles } from '@mui/styles';
 
 import { colors } from '#/src/colors';
+import { styled } from '#/src/theme';
 
-export const KonfoCheckbox = withStyles({
-  root: {
-    padding: '0 9px 0 9px',
+export const SuodatinAccordion = styled(Accordion)({
+  // Piilotetaan default väliviiva (koska sitä ei saa pysymään näkyvissä -> korvattu Dividerilla)
+  '&:before': {
+    visibility: 'hidden',
   },
-})(Checkbox);
-
-export const SuodatinAccordion = withStyles((theme) => ({
-  root: () => ({
-    // Piilotetaan default väliviiva (koska sitä ei saa pysymään näkyvissä -> korvattu Dividerilla)
-    '&:before': {
-      visibility: 'hidden',
-    },
-  }),
-  disabled: {
+  '&.Mui-disabled': {
     // NOTE: Jostain syystä root.disabled yliajaa tämän tärkeysjärjestyksessä -> important
     backgroundColor: colors.white + ' !important',
   },
-  // Mobiilirajainlistoissa ei haluta käyttää default marginia
-  expanded: {
-    [theme.breakpoints.down('md')]: {
-      margin: '0 0 16px 0 !important',
-    },
-  },
-}))(Accordion);
+});
 
-export const SuodatinAccordionSummary = withStyles((theme) => ({
-  root: {
-    minHeight: '56px !important',
-    [theme.breakpoints.down('md')]: {
-      padding: '0 !important',
-    },
+export const SuodatinAccordionSummary = styled(AccordionSummary)(({ theme }) => ({
+  minHeight: '56px !important',
+  [theme.breakpoints.down('md')]: {
+    padding: '0 !important',
   },
-  content: {
+  '.MuiAccordionSummary-content': {
     margin: '0 !important',
   },
-}))(AccordionSummary);
+}));
 
-export const SuodatinAccordionDetails = withStyles((theme) => ({
-  root: {
-    [theme.breakpoints.up('md')]: {
-      padding: '0 24px 16px 24px',
-    },
-    [theme.breakpoints.down('md')]: {
-      padding: '0 !important',
-    },
+export const SuodatinAccordionDetails = styled(AccordionDetails)(({ theme }) => ({
+  [theme.breakpoints.up('md')]: {
+    padding: '0 24px 16px 24px',
   },
-}))(AccordionDetails);
+  [theme.breakpoints.down('md')]: {
+    padding: '0 !important',
+  },
+}));
 
-export const SuodatinListItemText = withStyles({
-  primary: {
-    fontSize: 14,
-    color: colors.darkGrey,
-  },
-})(ListItemText);
+export const SuodatinMobileChip = styled(Chip)({
+  borderRadius: 2,
+  color: colors.white,
+  backgroundColor: colors.brandGreen,
+  height: 28,
+  fontSize: '0.9rem',
+  cursor: 'pointer',
+  fontWeight: 600,
+});
 
-export const SuodatinMobileChip = withStyles({
-  root: {
-    borderRadius: 2,
-    color: colors.white,
-    backgroundColor: colors.brandGreen,
-    height: 28,
-    fontSize: '0.9rem',
-    cursor: 'pointer',
-  },
-  label: {
-    fontWeight: 600,
-  },
-})(Chip);
-
-export const SuodatinSlider = withStyles({
-  markLabelActive: {
+export const SuodatinSlider = styled(Slider)({
+  '.MuiSlider-markLabelActive': {
     color: colors.brandGreen,
     fontWeight: 700,
   },
-  thumb: {
+  '.MuiSlider-thumb': {
     transition: 'none',
   },
-  track: {
+  '.MuiSlider-track': {
     transition: 'none',
   },
-})(Slider);
+});

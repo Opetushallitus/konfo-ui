@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { Box, Container, useMediaQuery, useTheme } from '@mui/material';
-import { styled } from '@mui/material/styles';
 
 import { colors } from '#/src/colors';
 import { useScrollToHash } from '#/src/hooks/useScrollToHash';
+import { styled } from '#/src/theme';
 
 const PREFIX = 'ContentWrapper';
 

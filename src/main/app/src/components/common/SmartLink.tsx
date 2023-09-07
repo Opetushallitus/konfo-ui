@@ -1,5 +1,9 @@
 import React from 'react';
 
+// Muna-kana-ongelma: Tätä komponenttia käytetään theme.ts:ssä, missä määritellään myös oma
+// styled-funktio, joka tarvitsee CustomTheme-tyypin. Ei siis voida importoida omaa
+// styled-funktiota tässä.
+// eslint-disable-next-line no-restricted-imports
 import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, LinkProps as RouterLinkProps } from 'react-router-dom';

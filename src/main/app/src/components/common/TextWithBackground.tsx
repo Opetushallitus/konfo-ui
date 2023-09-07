@@ -1,9 +1,9 @@
 import React from 'react';
 
 import Box from '@mui/material/Box';
-import { styled } from '@mui/material/styles';
 
 import { colors } from '#/src/colors';
+import { styled } from '#/src/theme';
 
 const PREFIX = 'TextWithBackground';
 

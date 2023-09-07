@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { Box, Typography, styled, useTheme, useMediaQuery } from '@mui/material';
+import { Box, Typography, useTheme, useMediaQuery } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { VictoryContainer } from 'victory-core';
 import { VictoryPie } from 'victory-pie';
 
 import { colors } from '#/src/colors';
+import { styled } from '#/src/theme';
 import { formatDouble } from '#/src/tools/utils';
 
 import { ENSISIJAINEN_SCORE_BONUS, Osalasku } from './Keskiarvo';

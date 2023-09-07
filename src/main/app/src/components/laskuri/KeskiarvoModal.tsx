@@ -3,7 +3,6 @@ import React, { useRef } from 'react';
 import {
   Box,
   Dialog,
-  styled,
   Typography,
   IconButton,
   useMediaQuery,
@@ -14,6 +13,7 @@ import { useTranslation } from 'react-i18next';
 import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { Pistelaskuri } from '#/src/components/laskuri/Pistelaskuri';
+import { styled } from '#/src/theme';
 
 import { HakupisteLaskelma } from './Keskiarvo';
 

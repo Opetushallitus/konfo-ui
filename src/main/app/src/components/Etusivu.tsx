@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 
 import { Box, Button, Grid, Paper } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { isEmpty, size, sortBy, take } from 'lodash';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
@@ -12,6 +11,7 @@ import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { YhteishakuKortti } from '#/src/components/kortti/YhteishakuKortti';
 import { useContentful } from '#/src/hooks/useContentful';
 import { usePageSectionGap } from '#/src/hooks/usePageSectionGap';
+import { styled } from '#/src/theme';
 import { getOne } from '#/src/tools/getOne';
 
 import { CondGrid } from './CondGrid';

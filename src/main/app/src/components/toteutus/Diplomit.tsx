@@ -1,13 +1,13 @@
 import React from 'react';
 
 import { Typography } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { map, isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { Accordion } from '#/src/components/common/Accordion';
 import { ExternalLink } from '#/src/components/common/ExternalLink';
 import { PageSection } from '#/src/components/common/PageSection';
+import { styled } from '#/src/theme';
 import { localize } from '#/src/tools/localization';
 import { Translateable } from '#/src/types/common';
 import { Lukiodiplomi } from '#/src/types/ToteutusTypes';

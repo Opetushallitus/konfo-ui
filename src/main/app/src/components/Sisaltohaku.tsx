@@ -11,7 +11,6 @@ import {
   Typography,
   Link,
 } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { isEmpty, trim } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -23,6 +22,7 @@ import { Murupolku } from '#/src/components/common/Murupolku';
 import { SmartLink } from '#/src/components/common/SmartLink';
 import { MuiFlatPagination } from '#/src/components/MuiFlatPagination';
 import { useContentful } from '#/src/hooks/useContentful';
+import { styled } from '#/src/theme';
 import { useUrlParams } from '#/src/tools/useUrlParams';
 import { ContentfulAsset, ContentfulSivu } from '#/src/types/ContentfulTypes';
 

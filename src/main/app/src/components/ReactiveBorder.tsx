@@ -1,4 +1,4 @@
-import { styled } from '@mui/material/styles';
+import { styled } from '#/src/theme';
 
 export const ReactiveBorder = styled('div')(({ theme }) => ({
   margin: 2, // NOTE: This is a fast fix for Grid containers with negative margins inside this component

@@ -1,11 +1,11 @@
 import React from 'react';
 
 import { Tabs, Tab, useTheme } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { useHakutulosWidth } from '#/src/store/reducers/appSlice';
+import { styled } from '#/src/theme';
 
 import { useSearch } from '../hakutulosHooks';
 

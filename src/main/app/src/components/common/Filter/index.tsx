@@ -10,6 +10,7 @@ import {
   ListItem,
   ListItemButton,
   ListItemIcon,
+  ListItemText,
   Typography,
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
@@ -33,11 +34,10 @@ import {
   SuodatinAccordion,
   SuodatinAccordionDetails,
   SuodatinAccordionSummary,
-  SuodatinListItemText,
 } from './CustomizedMuiComponents';
 import { isIndeterminate } from './isIndeterminate';
 import { SummaryContent } from './SummaryContent';
-import { KonfoCheckbox } from '../Checkbox';
+import { KonfoCheckbox } from '../KonfoCheckbox';
 import { LabelTooltip } from '../LabelTooltip';
 
 const HIDE_NOT_EXPANDED_AMOUNT = 5;
@@ -197,13 +197,13 @@ export const FilterCheckbox = ({
             inputProps={{ 'aria-labelledby': labelId }}
           />
         </ListItemIcon>
-        <SuodatinListItemText
+        <ListItemText
           id={labelId}
+          sx={{ wordWrap: 'break-word' }}
+          primaryTypographyProps={{ variant: 'body2' }}
           primary={
             // Kaikille suodattimille ei tule backendista käännöksiä
-            <Typography style={{ wordWrap: 'break-word' }} variant="body2">
-              {localize(nimi) || t(`haku.${id}`)}
-            </Typography>
+            localize(nimi) || t(`haku.${id}`)
           }
         />
         {tooltipText && (

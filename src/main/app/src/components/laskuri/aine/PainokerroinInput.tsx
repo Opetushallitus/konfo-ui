@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
 import {
-  styled,
   InputLabel,
   FormControl,
   IconButton,
@@ -16,6 +15,7 @@ import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { Kouluaine } from '#/src/components/laskuri/aine/Kouluaine';
 import { isEligiblePainokerroin } from '#/src/components/laskuri/Keskiarvo';
+import { styled } from '#/src/theme';
 
 const PREFIX = 'keskiarvo__ainelaskuri__painokerroin__';
 

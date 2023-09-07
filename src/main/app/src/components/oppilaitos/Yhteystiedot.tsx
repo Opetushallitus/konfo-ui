@@ -1,13 +1,13 @@
 import React, { useMemo } from 'react';
 
 import { Box, Grid, Paper, Typography, useMediaQuery, useTheme } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { hasIn } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 import { OskariKartta } from '#/src/components/common/OskariKartta';
 import { Spacer } from '#/src/components/common/Spacer';
+import { styled } from '#/src/theme';
 import { localize } from '#/src/tools/localization';
 import { byLocaleCompare, toId } from '#/src/tools/utils';
 import { Yhteystiedot as YhteystiedotType } from '#/src/types/common';

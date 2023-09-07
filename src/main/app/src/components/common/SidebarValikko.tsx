@@ -7,7 +7,6 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,6 +14,7 @@ import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { useSideMenu } from '#/src/hooks';
 import { useContentful } from '#/src/hooks/useContentful';
+import { styled } from '#/src/theme';
 import { ContentfulLink, ContentfulValikko } from '#/src/types/ContentfulTypes';
 
 const PREFIX = 'SidebarValikko';

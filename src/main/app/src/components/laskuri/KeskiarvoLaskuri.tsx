@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 
-import { Box, Typography, styled, Input, InputLabel, Grid, Button } from '@mui/material';
+import { Box, Typography, Input, InputLabel, Grid, Button } from '@mui/material';
 import { matches } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 import { LabelTooltip } from '#/src/components/common/LabelTooltip';
+import { styled } from '#/src/theme';
 
 import { SuorittanutCheckbox } from './common/SuorittanutCheckbox';
 import { isValidKeskiarvo, Keskiarvot } from './Keskiarvo';

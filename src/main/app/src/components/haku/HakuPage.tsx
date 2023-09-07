@@ -10,7 +10,6 @@ import {
   Typography,
   useTheme,
 } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -24,6 +23,7 @@ import { PAGE_SIZE_OPTIONS, PAGE_SORT_OPTIONS } from '#/src/constants';
 import { useSideMenu } from '#/src/hooks';
 import { useHakutulosWidth } from '#/src/store/reducers/appSlice';
 import { urlParamsChanged } from '#/src/store/reducers/hakutulosSlice';
+import { styled } from '#/src/theme';
 import { useUrlParams } from '#/src/tools/useUrlParams';
 import { safeParseNumber } from '#/src/tools/utils';
 

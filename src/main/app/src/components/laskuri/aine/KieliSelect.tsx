@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {
-  styled,
   Select,
   InputLabel,
   FormControl,
@@ -12,6 +11,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
+import { styled } from '#/src/theme';
 import { translate } from '#/src/tools/localization';
 import { Koodi } from '#/src/types/common';
 

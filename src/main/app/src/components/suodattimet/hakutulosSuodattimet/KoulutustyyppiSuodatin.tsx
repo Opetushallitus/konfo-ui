@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { styled } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 import { Filter } from '#/src/components/common/Filter';
 import { RAJAIN_TYPES } from '#/src/constants';
+import { styled } from '#/src/theme';
 import { useRajainItems } from '#/src/tools/filters';
 import { RajainComponentProps } from '#/src/types/SuodatinTypes';
 

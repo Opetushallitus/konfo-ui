@@ -1,12 +1,12 @@
 import React from 'react';
 
 import { Box } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { isEmpty, every, size } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { ColoredPaperContent } from '#/src/components/common/ColoredPaperContent';
 import { PageSection } from '#/src/components/common/PageSection';
+import { styled } from '#/src/theme';
 import { localizeArrayToCommaSeparated } from '#/src/tools/localization';
 import { Kielivalikoima } from '#/src/types/ToteutusTypes';
 

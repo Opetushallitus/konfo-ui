@@ -1,7 +1,8 @@
 import React from 'react';
 
 import { Grid, Typography } from '@mui/material';
-import { styled } from '@mui/material/styles';
+
+import { styled } from '#/src/theme';
 
 import { InfoCard } from './InfoCard';
 import { Spacer } from './Spacer';

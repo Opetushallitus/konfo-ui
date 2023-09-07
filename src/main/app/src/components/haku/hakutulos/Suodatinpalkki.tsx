@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { Grid } from '@mui/material';
-import { styled } from '@mui/material/styles';
 
 import { useSearch } from '#/src/components/haku/hakutulosHooks';
+import { styled } from '#/src/theme';
 
 import { HAKU_RAJAIMET_ORDER } from './HAKU_RAJAIMET_ORDER';
 

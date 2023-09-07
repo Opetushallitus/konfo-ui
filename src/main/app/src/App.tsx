@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 
 import { useMediaQuery, Box } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { visuallyHidden } from '@mui/utils';
 import clsx from 'clsx';
 import Cookies from 'js-cookie';
@@ -15,6 +14,7 @@ import { SiteImprove } from '#/src/components/common/SiteImprove';
 import { HeadingBoundary } from '#/src/components/Heading';
 import { useSideMenu } from '#/src/hooks';
 import { NotFound } from '#/src/NotFound';
+import { styled } from '#/src/theme';
 import { supportedLanguages } from '#/src/tools/i18n';
 import { getLanguage } from '#/src/tools/localization';
 

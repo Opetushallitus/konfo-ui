@@ -1,9 +1,10 @@
 import React from 'react';
 
-import { styled, Button, SelectChangeEvent, Box } from '@mui/material';
+import { Button, SelectChangeEvent, Box } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { ValinnainenArvosana } from '#/src/components/laskuri/aine/ValinnainenArvosana';
+import { styled } from '#/src/theme';
 
 const MAX_VALINNAISET_ARVOSANAT = 3;
 
