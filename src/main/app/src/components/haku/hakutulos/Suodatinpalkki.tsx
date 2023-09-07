@@ -97,7 +97,8 @@ export const Suodatinpalkki = () => {
       <ValintatapaSuodatin
         expanded
         elevation={2}
-        rajainValues={useFilterProps(FILTER_TYPES.VALINTATAPA)}
+        rajainUIValues={rajainValues as any}
+        rajainOptions={rajainOptions}
         setFilters={setFilters}
       />
       <KoulutusalaSuodatin

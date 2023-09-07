@@ -150,7 +150,8 @@ export const MobileFiltersOnTopMenu = ({
         <ValintatapaSuodatin
           expanded={false}
           displaySelected
-          rajainValues={useFilterProps(FILTER_TYPES.VALINTATAPA)}
+          rajainOptions={rajainOptions}
+          rajainUIValues={rajainValues as any}
           setFilters={setFilters}
         />
         <Divider />

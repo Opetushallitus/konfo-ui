@@ -3,24 +3,32 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Filter } from '#/src/components/common/Filter';
-import { getStateChangesForCheckboxRajaimet } from '#/src/tools/filters';
-import { RajainItem, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
+import { FILTER_TYPES } from '#/src/constants';
+import { useRajainItems } from '#/src/tools/filters';
+import { SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 
-export const ValintatapaSuodatin = (props: SuodatinComponentProps) => {
+import { useCheckboxRajainOnChange } from './useCheckboxRajainOnChange';
+
+export const ValintatapaSuodatin = (
+  props: Omit<SuodatinComponentProps, 'rajainValues'>
+) => {
   const { t } = useTranslation();
-  const { rajainValues = [], setFilters } = props;
+  const { rajainOptions, rajainUIValues, setFilters } = props;
 
-  const handleCheck = (item: RajainItem) => {
-    const changes = getStateChangesForCheckboxRajaimet(rajainValues)(item);
-    setFilters(changes);
-  };
+  const rajainItems = useRajainItems(
+    rajainOptions,
+    rajainUIValues,
+    FILTER_TYPES.VALINTATAPA
+  );
+
+  const handleCheck = useCheckboxRajainOnChange(rajainItems, setFilters);
 
   return (
     <Filter
       {...props}
       testId="valintatapa-filter"
       name={t('haku.valintatapa')}
-      rajainValues={rajainValues}
+      rajainValues={rajainItems}
       handleCheck={handleCheck}
       displaySelected
     />
