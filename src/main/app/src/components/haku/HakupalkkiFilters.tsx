@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { Box, Divider } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
 import { useFilterProps, useSearch } from '#/src/components/haku/hakutulosHooks';
@@ -25,26 +24,12 @@ import { MaksullisuusSuodatin } from '../suodattimet/common/MaksullisuusSuodatin
 import { OpetusaikaSuodatin } from '../suodattimet/common/OpetusaikaSuodatin';
 import { useTyoelamaSuodatinValues } from '../suodattimet/common/useTyoelamaSuodatinValues';
 
-const PREFIX = 'HakupalkkiFilters';
-
-const classes = {
-  container: `${PREFIX}-container`,
-};
-
-const StyledBox = styled(Box)(() => ({
-  padding: '10px',
-}));
-
 export const HakupalkkiFilters = () => {
   const { t } = useTranslation();
   const { setFilters } = useSearch();
 
   return (
-    <StyledBox
-      display="flex"
-      flexWrap="wrap"
-      justifyContent="center"
-      className={classes.container}>
+    <Box display="flex" flexWrap="wrap" padding="10px" justifyContent="center">
       <Suodatin id="koulutustyyppi" header={t('haku.koulutustyyppi')}>
         <KoulutustyyppiSuodatin
           rajainValues={useFilterProps(FILTER_TYPES.KOULUTUSTYYPPI)}
@@ -177,6 +162,6 @@ export const HakupalkkiFilters = () => {
           summaryHidden={true}
         />
       </Suodatin>
-    </StyledBox>
+    </Box>
   );
 };
