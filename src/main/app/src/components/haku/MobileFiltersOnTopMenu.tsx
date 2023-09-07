@@ -158,7 +158,8 @@ export const MobileFiltersOnTopMenu = ({
         <KoulutusalaSuodatin
           expanded={false}
           displaySelected
-          rajainValues={useFilterProps(FILTER_TYPES.KOULUTUSALA)}
+          rajainOptions={rajainOptions}
+          rajainUIValues={rajainValues as any}
           setFilters={setFilters}
         />
         <Divider />
