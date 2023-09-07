@@ -41,7 +41,7 @@ export const TyoelamaJaTaydennyskoulutuksetSuodatin = (props: SuodatinComponentP
   return (
     <Filter
       {...props}
-      testId="tyoelama-ja-taydennyskoulutukset-filter"
+      testId="tyoelama-ja-taydennyskoulutukset"
       name={t('haku.tyoelama-ja-taydennyskoulutukset')}
       rajainValues={rajainItems}
       handleCheck={handleCheck}
