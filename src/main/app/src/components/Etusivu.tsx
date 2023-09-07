@@ -54,7 +54,7 @@ const Root = styled(Box)({
 export const Etusivu = () => {
   const { t } = useTranslation();
 
-  const { clearFilters, setKeyword } = useSearch();
+  const { clearRajainValues, setKeyword } = useSearch();
   const { data, isLoading } = useContentful();
   const { info: infoData, uutiset, kortit, infoYhteishaku, pikalinkit, content } = data;
 
@@ -77,7 +77,7 @@ export const Etusivu = () => {
   useEffectOnce(() => {
     // NOTE: Tyhjätään aina kaikki hakutulosvalinnat kun saavutaan etusivulle
     setKeyword('');
-    clearFilters();
+    clearRajainValues();
   });
   const pikalinkitData = getOne(pikalinkit);
 

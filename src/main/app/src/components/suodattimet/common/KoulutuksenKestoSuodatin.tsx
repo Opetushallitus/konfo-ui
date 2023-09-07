@@ -94,7 +94,7 @@ export const KoulutuksenKestoSuodatin = ({
   expanded,
   rajainValues,
   rajainOptions,
-  setFilters,
+  setRajainValues,
 }: RajainComponentProps) => {
   const { t } = useTranslation();
 
@@ -113,14 +113,14 @@ export const KoulutuksenKestoSuodatin = ({
 
   const handleSliderValueCommit = (newValues: Array<number>) => {
     if (isEqual(undefinedRajainValues, newValues)) {
-      setFilters({
+      setRajainValues({
         koulutuksenkestokuukausina: {
           koulutuksenkestokuukausina_min: 0,
           koulutuksenkestokuukausina_max: 0,
         },
       });
     } else {
-      setFilters({
+      setRajainValues({
         koulutuksenkestokuukausina: {
           koulutuksenkestokuukausina_min: newValues[0],
           koulutuksenkestokuukausina_max: newValues[1],

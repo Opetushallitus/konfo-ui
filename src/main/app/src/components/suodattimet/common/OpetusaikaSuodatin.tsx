@@ -9,7 +9,7 @@ import { useCheckboxRajainOnChange } from './useCheckboxRajainOnChange';
 
 export const OpetusaikaSuodatin = (props: RajainComponentProps) => {
   const { t } = useTranslation();
-  const { setFilters, rajainValues, rajainOptions } = props;
+  const { setRajainValues, rajainValues, rajainOptions } = props;
 
   const rajainItems = useRajainItems(
     rajainOptions,
@@ -17,14 +17,14 @@ export const OpetusaikaSuodatin = (props: RajainComponentProps) => {
     FILTER_TYPES.OPETUSAIKA
   );
 
-  const handleCheck = useCheckboxRajainOnChange(rajainItems, setFilters);
+  const onItemChange = useCheckboxRajainOnChange(rajainItems, setRajainValues);
 
   return (
     <Filter
       {...props}
       name={t('haku.opetusaika')}
-      rajainValues={rajainItems}
-      handleCheck={handleCheck}
+      rajainItems={rajainItems}
+      onItemChange={onItemChange}
       displaySelected
     />
   );

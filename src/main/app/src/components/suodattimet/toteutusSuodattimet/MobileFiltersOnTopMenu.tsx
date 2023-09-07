@@ -7,6 +7,7 @@ import { colors } from '#/src/colors';
 import { FilterSearchResultsButton } from '#/src/components/common/FilterSearchResultsButton';
 import { RajainValues } from '#/src/store/reducers/hakutulosSlice';
 import { RajainName } from '#/src/types/common';
+import { SetRajainValues } from '#/src/types/SuodatinTypes';
 
 import { MobileRajainDrawer } from '../../common/MobileRajainDrawer';
 import { useToteutusRajainOrder } from '../../koulutus/useToteutusRajainOrder';
@@ -16,8 +17,8 @@ type Props = {
   rajainCount: number;
   hitCount: number;
   loading: boolean;
-  clearChosenFilters: VoidFunction;
-  setFilters: (value: Partial<RajainValues>) => void;
+  clearFilterValues: () => void;
+  setRajainValues: SetRajainValues;
   rajainValues: Partial<RajainValues>;
   rajainOptions: Record<RajainName, any>;
 };
@@ -27,53 +28,50 @@ export const MobileFiltersOnTopMenu = ({
   rajainCount,
   hitCount,
   loading,
-  clearChosenFilters,
-  setFilters,
+  clearFilterValues,
+  setRajainValues,
   rajainValues,
   rajainOptions,
 }: Props) => {
-  const [showFilters, setShowFilters] = useState(false);
-  const toggleShowFilters = useCallback(
-    () => setShowFilters(!showFilters),
-    [showFilters]
-  );
+  const [isDrawerOpen, setDrawerOpen] = useState(false);
+  const onToggleDrawer = useCallback(() => setDrawerOpen(!isDrawerOpen), [isDrawerOpen]);
 
   const rajainOrder = useToteutusRajainOrder({ koulutustyyppi });
 
   return (
     <>
-      {!showFilters && (
+      {!isDrawerOpen && (
         <Box marginBottom={1}>
           <FilterSearchResultsButton
             inline={true}
             textColor={colors.brandGreen}
-            chosenFilterCount={rajainCount}
-            onClick={toggleShowFilters}>
+            selectedRajainCount={rajainCount}
+            onClick={onToggleDrawer}>
             {t('haku.rajaa-tuloksia')}
           </FilterSearchResultsButton>
         </Box>
       )}
       <MobileRajainDrawer
-        isOpen={showFilters}
-        toggleOpen={toggleShowFilters}
-        showResults={toggleShowFilters}
-        clearRajainSelection={clearChosenFilters}
+        isOpen={isDrawerOpen}
+        toggleOpen={onToggleDrawer}
+        showResults={onToggleDrawer}
+        clearRajainValues={clearFilterValues}
         rajainCount={rajainCount}
         resultCount={hitCount}>
         {rajainOrder.map(({ id, Component, props }) => {
           return (
-            <>
+            <React.Fragment key={id}>
               <Component
                 key={id}
                 expanded={false}
                 rajainValues={rajainValues}
                 rajainOptions={rajainOptions}
-                setFilters={setFilters}
+                setRajainValues={setRajainValues}
                 loading={loading}
                 {...props}
               />
               <Divider />
-            </>
+            </React.Fragment>
           );
         })}
       </MobileRajainDrawer>

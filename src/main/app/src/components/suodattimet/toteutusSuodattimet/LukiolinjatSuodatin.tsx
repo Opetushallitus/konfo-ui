@@ -34,9 +34,9 @@ export const LukiolinjatSuodatin = (
     (v) => v?.count > 0 || v.checked
   );
 
-  const handleCheck = (item: RajainItem) => {
+  const onItemChange = (item: RajainItem) => {
     const changes = getStateChangesForCheckboxRajaimet(filteredValues)(item);
-    props.setFilters(changes);
+    props.setRajainValues(changes);
   };
 
   const config = useConfig();
@@ -70,13 +70,13 @@ export const LukiolinjatSuodatin = (
 
   return (
     <Filter
+      {...rest}
       name={t(`haku.${name}`)}
-      rajainValues={usedRajainValues}
+      rajainItems={usedRajainValues}
       options={options}
-      handleCheck={handleCheck}
+      onItemChange={onItemChange}
       expandValues
       displaySelected
-      {...rest}
     />
   );
 };

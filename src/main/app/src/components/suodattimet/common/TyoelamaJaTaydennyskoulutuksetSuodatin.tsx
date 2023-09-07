@@ -17,7 +17,7 @@ const TYOELAMA_JA_TAYDENNYSKOULUTUS_FILTER_TYPES = [
 export const TyoelamaJaTaydennyskoulutuksetSuodatin = (props: RajainComponentProps) => {
   const { t } = useTranslation();
 
-  const { rajainValues, rajainOptions, setFilters } = props;
+  const { rajainValues, rajainOptions, setRajainValues } = props;
 
   const rajainItems = useRajainItems(
     rajainOptions,
@@ -25,16 +25,16 @@ export const TyoelamaJaTaydennyskoulutuksetSuodatin = (props: RajainComponentPro
     TYOELAMA_JA_TAYDENNYSKOULUTUS_FILTER_TYPES
   );
 
-  const handleCheck = (item: RajainItem) =>
+  const onItemChange = (item: RajainItem) =>
     match(item.rajainId)
       .with(FILTER_TYPES.JOTPA, () => {
-        setFilters({ jotpa: !isChecked(item) });
+        setRajainValues({ jotpa: !isChecked(item) });
       })
       .with(FILTER_TYPES.TYOVOIMAKOULUTUS, () =>
-        setFilters({ tyovoimakoulutus: !isChecked(item) })
+        setRajainValues({ tyovoimakoulutus: !isChecked(item) })
       )
       .with(FILTER_TYPES.TAYDENNYSKOULUTUS, () => {
-        setFilters({ taydennyskoulutus: !isChecked(item) });
+        setRajainValues({ taydennyskoulutus: !isChecked(item) });
       })
       .run();
 
@@ -43,8 +43,8 @@ export const TyoelamaJaTaydennyskoulutuksetSuodatin = (props: RajainComponentPro
       {...props}
       testId="tyoelama-ja-taydennyskoulutukset"
       name={t('haku.tyoelama-ja-taydennyskoulutukset')}
-      rajainValues={rajainItems}
-      handleCheck={handleCheck}
+      rajainItems={rajainItems}
+      onItemChange={onItemChange}
       displaySelected
     />
   );

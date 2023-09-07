@@ -14,7 +14,7 @@ import { useCheckboxRajainOnChange } from './useCheckboxRajainOnChange';
 
 export const OppilaitosSuodatin = (props: RajainComponentProps) => {
   const { t } = useTranslation();
-  const { setFilters, rajainOptions, rajainValues, ...rest } = props;
+  const { setRajainValues, rajainOptions, rajainValues, ...rest } = props;
 
   const rajainItems = useRajainItems(
     rajainOptions,
@@ -22,7 +22,7 @@ export const OppilaitosSuodatin = (props: RajainComponentProps) => {
     FILTER_TYPES.OPPILAITOS
   );
 
-  const handleCheck = useCheckboxRajainOnChange(rajainItems, setFilters);
+  const onItemChange = useCheckboxRajainOnChange(rajainItems, setRajainValues);
 
   const config = useConfig();
   const naytaFiltterienHakutulosLuvut = config.naytaFiltterienHakutulosLuvut;
@@ -62,16 +62,14 @@ export const OppilaitosSuodatin = (props: RajainComponentProps) => {
 
   return (
     <Filter
+      {...rest}
       name={t('haku.oppilaitos')}
       selectPlaceholder={t('haku.etsi-oppilaitos')}
-      testId="oppilaitos-filter"
-      rajainValues={usedRajainItems}
-      handleCheck={handleCheck}
+      rajainItems={usedRajainItems}
+      onItemChange={onItemChange}
       options={options}
       expandValues
       displaySelected
-      setFilters={setFilters}
-      {...rest}
     />
   );
 };

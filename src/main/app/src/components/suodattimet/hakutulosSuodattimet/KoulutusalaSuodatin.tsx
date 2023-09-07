@@ -11,7 +11,7 @@ import { useCheckboxRajainOnChange } from '../common/useCheckboxRajainOnChange';
 
 export const KoulutusalaSuodatin = (props: RajainComponentProps) => {
   const { t } = useTranslation();
-  const { rajainOptions, rajainValues, setFilters } = props;
+  const { rajainOptions, rajainValues, setRajainValues } = props;
 
   const rajainItems = useRajainItems(
     rajainOptions,
@@ -19,15 +19,15 @@ export const KoulutusalaSuodatin = (props: RajainComponentProps) => {
     FILTER_TYPES.KOULUTUSALA
   );
 
-  const handleCheck = useCheckboxRajainOnChange(rajainItems, setFilters);
+  const onItemChange = useCheckboxRajainOnChange(rajainItems, setRajainValues);
 
   return (
     <Filter
       {...props}
       testId="koulutusalat-filter"
       name={t('haku.koulutusalat')}
-      rajainValues={rajainItems}
-      handleCheck={handleCheck}
+      rajainItems={rajainItems}
+      onItemChange={onItemChange}
     />
   );
 };

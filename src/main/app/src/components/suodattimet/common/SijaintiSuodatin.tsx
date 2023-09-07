@@ -18,7 +18,7 @@ import { useSearch } from '../../haku/hakutulosHooks';
 
 export const SijaintiSuodatin = (props: RajainComponentProps) => {
   const { t } = useTranslation();
-  const { rajainValues, rajainOptions, setFilters, loading } = props;
+  const { rajainValues, rajainOptions, setRajainValues, loading } = props;
 
   const kuntaRajainValues = useRajainItems(
     rajainOptions,
@@ -32,11 +32,11 @@ export const SijaintiSuodatin = (props: RajainComponentProps) => {
     FILTER_TYPES.MAAKUNTA
   ) as Array<CheckboxRajainItem>;
 
-  const handleCheck = (item: RajainItem) => {
+  const onItemChange = (item: RajainItem) => {
     const changes = getStateChangesForCheckboxRajaimet(
       kuntaRajainValues.concat(maakuntaRajainValues)
     )(item);
-    setFilters(changes);
+    setRajainValues(changes);
   };
 
   const { isFetching } = useSearch();
@@ -89,8 +89,8 @@ export const SijaintiSuodatin = (props: RajainComponentProps) => {
       optionsLoading={optionsLoading || loading}
       selectPlaceholder={t('haku.etsi-paikkakunta-tai-alue')}
       name={t('haku.sijainti')}
-      rajainValues={usedRajainValues}
-      handleCheck={handleCheck}
+      rajainItems={usedRajainValues}
+      onItemChange={onItemChange}
       expandValues
       displaySelected
     />

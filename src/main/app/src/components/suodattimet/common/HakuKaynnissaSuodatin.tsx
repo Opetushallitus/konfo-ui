@@ -11,7 +11,7 @@ import { RajainItem, RajainComponentProps } from '#/src/types/SuodatinTypes';
 export const HakuKaynnissaSuodatin = (props: RajainComponentProps) => {
   const { t } = useTranslation();
 
-  const { rajainValues, rajainOptions, setFilters } = props;
+  const { rajainValues, rajainOptions, setRajainValues } = props;
 
   const rajainItems = useRajainItems(
     rajainOptions,
@@ -19,8 +19,8 @@ export const HakuKaynnissaSuodatin = (props: RajainComponentProps) => {
     FILTER_TYPES.HAKUKAYNNISSA
   );
 
-  const handleCheck = (item: RajainItem) => {
-    setFilters({
+  const onItemChange = (item: RajainItem) => {
+    setRajainValues({
       hakukaynnissa: match(item)
         .with({ checked: true }, () => false)
         .otherwise(() => true),
@@ -32,8 +32,8 @@ export const HakuKaynnissaSuodatin = (props: RajainComponentProps) => {
       {...props}
       testId="hakukaynnissa-filter"
       name={t('haku.hakukaynnissa-otsikko')}
-      rajainValues={rajainItems}
-      handleCheck={handleCheck}
+      rajainItems={rajainItems}
+      onItemChange={onItemChange}
       displaySelected
     />
   );

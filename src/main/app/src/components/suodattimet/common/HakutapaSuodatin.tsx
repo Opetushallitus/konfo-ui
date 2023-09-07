@@ -13,19 +13,19 @@ import { useCheckboxRajainOnChange } from './useCheckboxRajainOnChange';
 export const HakutapaSuodatin = (props: RajainComponentProps) => {
   const { t } = useTranslation();
 
-  const { setFilters, rajainOptions, rajainValues } = props;
+  const { setRajainValues, rajainOptions, rajainValues } = props;
 
   const rajainItems = useRajainItems(rajainOptions, rajainValues, FILTER_TYPES.HAKUTAPA);
 
-  const handleCheck = useCheckboxRajainOnChange(rajainItems, setFilters);
+  const onItemChange = useCheckboxRajainOnChange(rajainItems, setRajainValues);
 
   return (
     <Filter
       {...props}
       testId="hakutapa-filter"
       name={t('haku.hakutapa')}
-      rajainValues={rajainItems}
-      handleCheck={handleCheck}
+      rajainItems={rajainItems}
+      onItemChange={onItemChange}
       displaySelected
     />
   );

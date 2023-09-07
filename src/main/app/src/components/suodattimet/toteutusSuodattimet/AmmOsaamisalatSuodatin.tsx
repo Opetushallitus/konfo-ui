@@ -14,7 +14,7 @@ import { useCheckboxRajainOnChange } from '../common/useCheckboxRajainOnChange';
 
 export const AmmOsaamisalatSuodatin = (props: RajainComponentProps) => {
   const { t } = useTranslation();
-  const { setFilters, rajainValues, rajainOptions, ...rest } = props;
+  const { setRajainValues, rajainValues, rajainOptions, ...rest } = props;
 
   const rajainItems = useRajainItems(
     rajainOptions,
@@ -26,7 +26,7 @@ export const AmmOsaamisalatSuodatin = (props: RajainComponentProps) => {
     (v) => v?.count > 0 || v.checked
   );
 
-  const handleCheck = useCheckboxRajainOnChange(rajainItems, setFilters);
+  const onItemChange = useCheckboxRajainOnChange(rajainItems, setRajainValues);
 
   const config = useConfig();
   const naytaFiltterienHakutulosLuvut = config.naytaFiltterienHakutulosLuvut;
@@ -59,14 +59,13 @@ export const AmmOsaamisalatSuodatin = (props: RajainComponentProps) => {
 
   return (
     <Filter
+      {...rest}
       name={t('haku.amm-osaamisalat')}
-      rajainValues={usedRajainValues}
-      handleCheck={handleCheck}
+      rajainItems={usedRajainValues}
+      onItemChange={onItemChange}
       options={options}
       expandValues
       displaySelected
-      setFilters={setFilters}
-      {...rest}
     />
   );
 };

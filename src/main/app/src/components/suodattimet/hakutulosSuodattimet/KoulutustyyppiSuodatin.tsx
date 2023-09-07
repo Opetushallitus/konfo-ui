@@ -46,7 +46,7 @@ const Root = styled('div')({
 export const KoulutustyyppiSuodatin = (props: RajainComponentProps) => {
   const { t } = useTranslation();
 
-  const { setFilters, rajainOptions, rajainValues } = props;
+  const { setRajainValues, rajainOptions, rajainValues } = props;
 
   const rajainItems = useRajainItems(
     rajainOptions,
@@ -54,7 +54,7 @@ export const KoulutustyyppiSuodatin = (props: RajainComponentProps) => {
     FILTER_TYPES.KOULUTUSTYYPPI
   );
 
-  const handleCheck = useCheckboxRajainOnChange(rajainItems, setFilters);
+  const onItemChange = useCheckboxRajainOnChange(rajainItems, setRajainValues);
 
   return (
     <Root>
@@ -62,8 +62,8 @@ export const KoulutustyyppiSuodatin = (props: RajainComponentProps) => {
         {...props}
         testId="koulutustyyppi-filter"
         name={t('haku.koulutustyyppi')}
-        rajainValues={rajainItems}
-        handleCheck={handleCheck}
+        rajainItems={rajainItems}
+        onItemChange={onItemChange}
         displaySelected
       />
     </Root>

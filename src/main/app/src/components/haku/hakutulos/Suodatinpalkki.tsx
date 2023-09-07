@@ -14,18 +14,18 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
 }));
 
 export const Suodatinpalkki = () => {
-  const { setFilters, rajainValues, rajainOptions } = useSearch();
+  const { setRajainValues, rajainValues, rajainOptions } = useSearch();
 
   return (
     <StyledGrid item lg={3} md={4}>
-      {HAKU_RAJAIMET_ORDER.map(({ Component }, index) => (
+      {HAKU_RAJAIMET_ORDER.map(({ id, Component }, index) => (
         <Component
-          key={Component.name}
+          key={id}
           expanded={index < 2}
           elevation={2}
           rajainOptions={rajainOptions}
           rajainValues={rajainValues}
-          setFilters={setFilters}
+          setRajainValues={setRajainValues}
         />
       ))}
     </StyledGrid>

@@ -11,7 +11,7 @@ import { useCheckboxRajainOnChange } from './useCheckboxRajainOnChange';
 
 export const PohjakoulutusvaatimusSuodatin = (props: RajainComponentProps) => {
   const { t } = useTranslation();
-  const { rajainOptions, rajainValues, setFilters } = props;
+  const { rajainOptions, rajainValues, setRajainValues } = props;
 
   const rajainItems = useRajainItems(
     rajainOptions,
@@ -19,15 +19,15 @@ export const PohjakoulutusvaatimusSuodatin = (props: RajainComponentProps) => {
     FILTER_TYPES.POHJAKOULUTUSVAATIMUS
   );
 
-  const handleCheck = useCheckboxRajainOnChange(rajainItems, setFilters);
+  const onItemChange = useCheckboxRajainOnChange(rajainItems, setRajainValues);
 
   return (
     <Filter
       {...props}
       testId="pohjakoulutusvaatimus-filter"
       name={t('haku.pohjakoulutusvaatimus')}
-      rajainValues={rajainItems}
-      handleCheck={handleCheck}
+      rajainItems={rajainItems}
+      onItemChange={onItemChange}
       displaySelected
     />
   );

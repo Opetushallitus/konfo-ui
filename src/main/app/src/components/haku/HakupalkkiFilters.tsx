@@ -22,19 +22,19 @@ const getRajainProps = ({ id, t }: { id: string; t: TFunction }) =>
 
 export const HakupalkkiFilters = () => {
   const { t } = useTranslation();
-  const { setFilters, rajainValues, rajainOptions } = useSearch();
+  const { setRajainValues, rajainValues, rajainOptions } = useSearch();
 
   return (
     <Box display="flex" flexWrap="wrap" padding="10px" justifyContent="center">
       {HAKU_RAJAIMET_ORDER.map(({ id, Component }, index) => {
         const { header } = getRajainProps({ id, t });
         return (
-          <>
-            <Suodatin id={id} key={id} header={header}>
+          <React.Fragment key={id}>
+            <Suodatin id={id} header={header}>
               <Component
                 rajainOptions={rajainOptions}
                 rajainValues={rajainValues}
-                setFilters={setFilters}
+                setRajainValues={setRajainValues}
                 expanded={true}
                 summaryHidden={true}
               />
@@ -42,7 +42,7 @@ export const HakupalkkiFilters = () => {
             {index < HAKU_RAJAIMET_ORDER.length - 1 ? (
               <Divider orientation="vertical" flexItem />
             ) : null}
-          </>
+          </React.Fragment>
         );
       })}
     </Box>

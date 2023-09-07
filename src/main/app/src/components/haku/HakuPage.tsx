@@ -137,13 +137,13 @@ const getPageSortTranslationKey = (sort: string) => {
 
 const RajainValinnat = () => {
   const allSelectedFilters = useAllSelectedFilters();
-  const { setFilters, clearFilters } = useSearch();
+  const { setRajainValues, clearRajainValues } = useSearch();
 
   return (
     <SuodatinValinnat
       allSelectedFilters={allSelectedFilters}
-      setFilters={setFilters}
-      clearFilters={clearFilters}
+      setRajainValues={setRajainValues}
+      clearRajainValues={clearRajainValues}
     />
   );
 };
@@ -180,7 +180,7 @@ export const HakuPage = () => {
     selectedTab,
     status,
     keyword,
-    isAnyFilterSelected,
+    isAnyRajainSelected,
     pagination,
     setPagination,
     koulutusData,
@@ -291,7 +291,7 @@ export const HakuPage = () => {
         <Grid item container spacing={2} wrap="nowrap">
           {isContentMdUp ? <Suodatinpalkki /> : <MobileFiltersOnTopMenu />}
           <Grid item container direction="column" xs ref={hakutulosRef as any}>
-            {isHakutulosSmUp && isAnyFilterSelected && <RajainValinnat />}
+            {isHakutulosSmUp && isAnyRajainSelected && <RajainValinnat />}
             {isFetching && <LoadingCircle />}
             {!isFetching && status === 'error' && <BackendErrorMessage />}
             {!isFetching && status === 'success' && (

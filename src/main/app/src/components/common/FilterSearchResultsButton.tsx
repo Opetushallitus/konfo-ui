@@ -9,12 +9,12 @@ import { useHakutulosWidth } from '#/src/store/reducers/appSlice';
 export const FilterSearchResultsButton = ({
   inline = false,
   textColor,
-  chosenFilterCount,
+  selectedRajainCount,
   children,
   ...rest
 }: {
   textColor?: string;
-  chosenFilterCount?: number;
+  selectedRajainCount?: number;
   inline?: boolean;
 } & ButtonProps) => {
   const { width: sideMenuWidth } = useSideMenu();
@@ -38,7 +38,7 @@ export const FilterSearchResultsButton = ({
       }}
       variant={inline ? 'text' : 'contained'}
       endIcon={
-        <Badge color="error" badgeContent={chosenFilterCount}>
+        <Badge color="error" badgeContent={selectedRajainCount}>
           <MaterialIcon icon="filter_list" />
         </Badge>
       }

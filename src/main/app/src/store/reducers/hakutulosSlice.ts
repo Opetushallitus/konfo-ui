@@ -19,6 +19,7 @@ import {
   MAKSULLISUUSTYYPPI,
 } from '#/src/constants';
 import { getLanguage } from '#/src/tools/localization';
+import { TODOType } from '#/src/types/common';
 
 import { getAPIRequestParams, getHakuUrl } from './hakutulosSliceSelector';
 
@@ -41,13 +42,13 @@ export type RajainValues = {
   maakunta: Array<string>;
   opetustapa: Array<string>;
   pohjakoulutusvaatimus: Array<string>;
-  lukiopainotukset: Array<string>;
-  lukiolinjaterityinenkoulutustehtava: Array<string>;
+  lukiopainotukset: Array<string>; // Vain lukio-toteutusten haussa
+  lukiolinjaterityinenkoulutustehtava: Array<string>; // Vain lukio-toteutusten haussa
   osaamisala: Array<string>;
   opetusaika: Array<string>;
   maksullisuus: Array<string>;
-  sijainti: Array<string>; // FIXME: Tätä ei pitäisi olla täällä!
-  oppilaitos: Array<string>; // FIXME: Tätä ei pitäisi olla täällä!
+  sijainti: Array<string>;
+  oppilaitos: Array<string>; // Vain toteutusten haussa
   koulutuksenkestokuukausina: RangeRajainValue<'koulutuksenkestokuukausina'>;
   maksullisuustyyppi: Array<MAKSULLISUUSTYYPPI>;
   maksunmaara: RangeRajainValue<'maksunmaara'>;
@@ -121,8 +122,6 @@ export const HAKUTULOS_INITIAL: HakutulosSlice = {
   ...HAKU_RAJAIMET_INITIAL,
 };
 
-type TODO = any;
-
 export const hakutulosSlice = createSlice({
   name: 'hakutulos',
   initialState: HAKUTULOS_INITIAL,
@@ -176,7 +175,7 @@ export const hakutulosSlice = createSlice({
     urlParamsChanged(state, { payload }) {
       const { keyword, search } = payload;
       const params = { keyword, ...search };
-      const apiRequestParams = getAPIRequestParams({ hakutulos: state } as TODO);
+      const apiRequestParams = getAPIRequestParams({ hakutulos: state } as TODOType);
       const cleanedParams = getCleanUrlSearch(params, apiRequestParams);
 
       state.selectedTab = params?.tab ?? 'koulutus';
@@ -229,24 +228,24 @@ export const {
 } = hakutulosSlice.actions;
 
 export const navigateToHaku =
-  ({ navigate }: TODO) =>
-  (_dispatch: TODO, getState: TODO) => {
+  ({ navigate }: TODOType) =>
+  (_dispatch: TODOType, getState: TODOType) => {
     const state = getState();
     const url = getHakuUrl(state);
     navigate('/' + getLanguage() + url);
   };
 
-const getCleanUrlSearch = (search: TODO, apiRequestParams: TODO) =>
+const getCleanUrlSearch = (search: TODOType, apiRequestParams: TODOType) =>
   mapValues(pick(search, Object.keys(apiRequestParams ?? {})), (value, key) =>
     includes(FILTER_TYPES_ARR_FOR_KONFO_BACKEND, key)
       ? join(sortBy(split(value, ',')), ',')
       : value
   );
 
-const minmaxParams = (allParams: TODO) =>
+const minmaxParams = (allParams: TODOType) =>
   Object.keys(allParams).filter((k) => k.endsWith('_min') || k.endsWith('_max'));
 
-const groupMinMaxParams = (params: TODO) => {
+const groupMinMaxParams = (params: TODOType) => {
   const groupedParamNames = groupBy(minmaxParams(params), (param) => param.split('_')[0]);
   return mapValues(groupedParamNames, (val) =>
     reduce(
@@ -255,7 +254,7 @@ const groupMinMaxParams = (params: TODO) => {
         obj[param] = params[param];
         return obj;
       },
-      {} as TODO
+      {} as TODOType
     )
   );
 };

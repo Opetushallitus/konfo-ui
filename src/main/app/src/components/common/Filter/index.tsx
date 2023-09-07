@@ -25,8 +25,8 @@ import { P, match } from 'ts-pattern';
 import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { useConfig } from '#/src/config';
-import { RajainValues } from '#/src/store/reducers/hakutulosSlice';
 import { localize, localizeIfNimiObject } from '#/src/tools/localization';
+import { TODOType } from '#/src/types/common';
 import { RajainItem, isCheckboxRajainId } from '#/src/types/SuodatinTypes';
 
 import {
@@ -42,7 +42,11 @@ import { LabelTooltip } from '../LabelTooltip';
 
 const HIDE_NOT_EXPANDED_AMOUNT = 5;
 
-type OptionType = { label: string; checked?: boolean; id?: string };
+type OptionType = {
+  label: string;
+  checked?: boolean;
+  id?: string;
+};
 
 type OptionsType = Array<OptionType>;
 
@@ -133,7 +137,7 @@ const alakoodit = (rajainItem: RajainItem) =>
 type CheckboxProps = {
   value: RajainItem;
   isCountVisible?: boolean;
-  handleCheck: (v: RajainItem) => void;
+  onChange: (v: RajainItem) => void;
   indented?: boolean;
   expandButton?: JSX.Element;
   disabled?: boolean;
@@ -141,7 +145,7 @@ type CheckboxProps = {
 };
 
 export const FilterCheckbox = ({
-  handleCheck,
+  onChange,
   indented,
   isCountVisible,
   value,
@@ -165,7 +169,7 @@ export const FilterCheckbox = ({
       <ListItemButton
         dense
         disableGutters
-        onClick={() => handleCheck(value)}
+        onClick={() => onChange(value)}
         disabled={disabled}
         sx={{
           marginLeft: indented ? 2 : 0,
@@ -209,11 +213,11 @@ export const FilterCheckbox = ({
 const FilterCheckboxGroup = ({
   defaultExpandAlakoodit,
   isCountVisible,
-  handleCheck,
+  onChange,
   value,
 }: {
   defaultExpandAlakoodit: boolean;
-  handleCheck: (v: RajainItem) => void;
+  onChange: (v: RajainItem) => void;
   value: RajainItem;
   isCountVisible?: boolean;
 }) => {
@@ -228,7 +232,7 @@ const FilterCheckboxGroup = ({
     <>
       <FilterCheckbox
         value={value}
-        handleCheck={handleCheck}
+        onChange={onChange}
         isCountVisible={isCountVisible}
         expandButton={
           <IconButton
@@ -248,7 +252,7 @@ const FilterCheckboxGroup = ({
           <FilterCheckbox
             key={v.id}
             value={{ ...v }}
-            handleCheck={handleCheck}
+            onChange={onChange}
             indented
             isCountVisible={isCountVisible}
           />
@@ -266,17 +270,14 @@ type Props = {
   summaryHidden?: boolean;
   expandValues?: boolean;
   defaultExpandAlakoodit?: boolean;
-  shadow?: boolean;
   onFocus?: () => void;
   onHide?: () => void;
-  rajainValues: Array<RajainItem>;
-  handleCheck: (value: any) => void;
+  rajainItems: Array<RajainItem>;
+  onItemChange: (value: TODOType) => void;
   options?: OptionsType;
   optionsLoading?: boolean;
   selectPlaceholder?: string;
   additionalContent?: JSX.Element;
-  isHaku?: boolean;
-  setFilters: (value: Partial<RajainValues>) => void;
   isCountVisible?: boolean;
 };
 
@@ -291,8 +292,8 @@ export const Filter = ({
   // TODO: Liikaa boolean propseja -> huono komponenttirajapinta
   displaySelected = false,
   summaryHidden = false,
-  rajainValues,
-  handleCheck,
+  rajainItems,
+  onItemChange,
   options,
   optionsLoading,
   selectPlaceholder,
@@ -305,14 +306,14 @@ export const Filter = ({
 }: Props) => {
   const { t } = useTranslation();
   const [hideRest, setHideRest] = useState(expandValues);
-  const usedName = [name, rajainValues.length === 0 && '(0)'].filter(Boolean).join(' ');
+  const usedName = [name, rajainItems.length === 0 && '(0)'].filter(Boolean).join(' ');
 
   const config = useConfig();
   const isCountVisible = isCountVisibleProp && config?.naytaFiltterienHakutulosLuvut;
 
   return (
     <SuodatinAccordion
-      disabled={rajainValues.length === 0}
+      disabled={rajainItems.length === 0}
       data-testid={testId}
       elevation={elevation}
       defaultExpanded={expanded}
@@ -321,7 +322,7 @@ export const Filter = ({
         <SuodatinAccordionSummary expandIcon={<MaterialIcon icon="expand_more" />}>
           <SummaryContent
             filterName={usedName}
-            values={rajainValues}
+            values={rajainItems}
             displaySelected={displaySelected}
           />
         </SuodatinAccordionSummary>
@@ -329,7 +330,7 @@ export const Filter = ({
       <SuodatinAccordionDetails {...(summaryHidden && { style: { padding: 0 } })}>
         <Grid container direction="column" wrap="nowrap">
           {additionalContent}
-          {options && rajainValues.length > HIDE_NOT_EXPANDED_AMOUNT && (
+          {options && rajainItems.length > HIDE_NOT_EXPANDED_AMOUNT && (
             <Grid item style={{ padding: '20px 0', zIndex: 2 }}>
               <Select
                 components={{ DropdownIndicator, LoadingIndicator, Option }}
@@ -341,7 +342,11 @@ export const Filter = ({
                 className="basic-multi-select"
                 classNamePrefix="select"
                 placeholder={selectPlaceholder || t('haku.etsi')}
-                onChange={handleCheck}
+                onChange={(item) => {
+                  if (item) {
+                    onItemChange(item);
+                  }
+                }}
                 onFocus={onFocus}
                 onMenuClose={onHide}
                 onMenuOpen={onFocus}
@@ -360,7 +365,7 @@ export const Filter = ({
           )}
           <Grid item>
             <List style={{ width: '100%' }}>
-              {rajainValues
+              {rajainItems
                 .filter((v) =>
                   match(v)
                     .with(
@@ -379,21 +384,21 @@ export const Filter = ({
                       key={value.id}
                       defaultExpandAlakoodit={defaultExpandAlakoodit}
                       value={value}
-                      handleCheck={handleCheck}
+                      onChange={onItemChange}
                       isCountVisible={isCountVisible}
                     />
                   ) : (
                     <FilterCheckbox
                       key={value.id}
                       value={value}
-                      handleCheck={handleCheck}
+                      onChange={onItemChange}
                       isCountVisible={isCountVisible}
                     />
                   );
                 })}
             </List>
           </Grid>
-          {expandValues && rajainValues.length > HIDE_NOT_EXPANDED_AMOUNT && (
+          {expandValues && rajainItems.length > HIDE_NOT_EXPANDED_AMOUNT && (
             <Button
               color="secondary"
               size="small"

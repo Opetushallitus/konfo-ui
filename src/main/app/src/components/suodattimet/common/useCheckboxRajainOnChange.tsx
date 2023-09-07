@@ -1,15 +1,15 @@
 import { useCallback } from 'react';
 
 import { getStateChangesForCheckboxRajaimet } from '#/src/tools/filters';
-import { RajainItem } from '#/src/types/SuodatinTypes';
+import { RajainItem, SetRajainValues } from '#/src/types/SuodatinTypes';
 
 export const useCheckboxRajainOnChange = (
   rajainItems: Array<RajainItem>,
-  setFilters: (rajainValues: Record<string, Array<string>>) => void
+  setRajainValues: SetRajainValues
 ) =>
   useCallback(
     (item: RajainItem) => {
-      setFilters(getStateChangesForCheckboxRajaimet(rajainItems)(item));
+      setRajainValues(getStateChangesForCheckboxRajaimet(rajainItems)(item));
     },
-    [rajainItems, setFilters]
+    [rajainItems, setRajainValues]
   );

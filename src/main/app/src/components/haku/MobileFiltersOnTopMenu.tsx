@@ -24,9 +24,9 @@ export const MobileFiltersOnTopMenu = ({
     koulutusData,
     oppilaitosData,
     selectedTab,
-    clearFilters,
+    clearRajainValues,
     goToSearchPage,
-    setFilters,
+    setRajainValues,
     rajainOptions,
     rajainValues,
   } = useSearch();
@@ -39,32 +39,32 @@ export const MobileFiltersOnTopMenu = ({
   const { flat: allSelectedFilters } = useAllSelectedFilters();
   const rajainCount = allSelectedFilters?.length ?? 0;
 
-  const [showFilters, setShowFilters] = useState(false);
-  const onToggleShowFilters = useCallback(() => setShowFilters((s) => !s), []);
+  const [isDrawerOpen, setDrawerOpen] = useState(false);
+  const onToggleDrawer = useCallback(() => setDrawerOpen((s) => !s), []);
 
   const onShowResults = useCallback(() => {
     if (isAtEtusivu) {
       goToSearchPage();
     }
-    onToggleShowFilters();
-  }, [isAtEtusivu, goToSearchPage, onToggleShowFilters]);
+    onToggleDrawer();
+  }, [isAtEtusivu, goToSearchPage, onToggleDrawer]);
 
   return (
     <>
-      {!showFilters && (
+      {!isDrawerOpen && (
         <FilterSearchResultsButton
           inline={isButtonInline}
           textColor="white"
-          chosenFilterCount={rajainCount}
-          onClick={onToggleShowFilters}>
+          selectedRajainCount={rajainCount}
+          onClick={onToggleDrawer}>
           {isAtEtusivu ? t('haku.rajaa') : t('haku.rajaa-tuloksia')}
         </FilterSearchResultsButton>
       )}
       <MobileRajainDrawer
-        isOpen={showFilters}
-        toggleOpen={onToggleShowFilters}
+        isOpen={isDrawerOpen}
+        toggleOpen={onToggleDrawer}
         showResults={onShowResults}
-        clearRajainSelection={clearFilters}
+        clearRajainValues={clearRajainValues}
         rajainCount={rajainCount}
         resultCount={hitCount}>
         {isAtEtusivu && (
@@ -73,17 +73,17 @@ export const MobileFiltersOnTopMenu = ({
             <Divider />
           </>
         )}
-        {HAKU_RAJAIMET_ORDER.map(({ Component }) => (
-          <>
+        {HAKU_RAJAIMET_ORDER.map(({ id, Component }) => (
+          <React.Fragment key={id}>
             <Component
               expanded={false}
               displaySelected
               rajainOptions={rajainOptions}
               rajainValues={rajainValues}
-              setFilters={setFilters}
+              setRajainValues={setRajainValues}
             />
             <Divider />
-          </>
+          </React.Fragment>
         ))}
         {!isAtEtusivu && (
           <>

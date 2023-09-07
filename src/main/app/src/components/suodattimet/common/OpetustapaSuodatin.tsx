@@ -11,7 +11,7 @@ import { useCheckboxRajainOnChange } from './useCheckboxRajainOnChange';
 
 export const OpetustapaSuodatin = (props: RajainComponentProps) => {
   const { t } = useTranslation();
-  const { setFilters, rajainOptions, rajainValues } = props;
+  const { setRajainValues, rajainOptions, rajainValues } = props;
 
   const rajainItems = useRajainItems(
     rajainOptions,
@@ -19,15 +19,15 @@ export const OpetustapaSuodatin = (props: RajainComponentProps) => {
     FILTER_TYPES.OPETUSTAPA
   );
 
-  const handleCheck = useCheckboxRajainOnChange(rajainItems, setFilters);
+  const onItemChange = useCheckboxRajainOnChange(rajainItems, setRajainValues);
 
   return (
     <Filter
       {...props}
       testId="opetustapa-filter"
       name={t('haku.opetustapa')}
-      rajainValues={rajainItems}
-      handleCheck={handleCheck}
+      rajainItems={rajainItems}
+      onItemChange={onItemChange}
       displaySelected
     />
   );

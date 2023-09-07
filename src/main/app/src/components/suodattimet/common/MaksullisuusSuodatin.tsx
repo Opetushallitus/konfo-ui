@@ -152,8 +152,8 @@ const useNumberRangeValues = (
 const MaksullisuusRangeSlider = ({
   rajainName,
   rajainItems = [],
-  setFilters,
-}: Pick<RajainComponentProps, 'setFilters'> & {
+  setRajainValues,
+}: Pick<RajainComponentProps, 'setRajainValues'> & {
   rajainItems?: Array<RajainItem>;
   rajainName: MaksunMaaraRajainName;
 }) => {
@@ -162,7 +162,7 @@ const MaksullisuusRangeSlider = ({
     rajainItems
   );
   const setMaksuRange = (maksuRange: Array<number>) =>
-    setFilters(
+    setRajainValues(
       rangeRajainObject(
         rajainName,
         isEqual(maksuRange, undefinedValue) ? undefinedValue : maksuRange
@@ -235,26 +235,26 @@ const MaksullisuusSummary = ({
   );
 };
 
-type InputsSectionProps = Pick<RajainComponentProps, 'setFilters'> & {
+type InputsSectionProps = Pick<RajainComponentProps, 'setRajainValues'> & {
   rajainItems?: Array<RajainItem>;
   isCountVisible?: boolean;
 };
 
 const MaksullinenInputs = ({
   rajainItems = [],
-  setFilters,
+  setRajainValues,
   isCountVisible,
 }: InputsSectionProps) => (
   <>
     <FilterCheckbox
       value={getCheckboxRajain(rajainItems, 'maksullinen')}
-      handleCheck={(item) => setFilters(maksullisuustyyppiChanges(rajainItems, item))}
+      onChange={(item) => setRajainValues(maksullisuustyyppiChanges(rajainItems, item))}
       isCountVisible={isCountVisible}
     />
     {isChecked(getCheckboxRajain(rajainItems, 'maksullinen')) && (
       <MaksullisuusRangeSlider
         rajainName="maksunmaara"
-        setFilters={setFilters}
+        setRajainValues={setRajainValues}
         rajainItems={rajainItems}
       />
     )}
@@ -263,7 +263,7 @@ const MaksullinenInputs = ({
 
 const LukuvuosimaksuInputs = ({
   rajainItems = [],
-  setFilters,
+  setRajainValues,
   isCountVisible,
 }: InputsSectionProps) => {
   const { t } = useTranslation();
@@ -272,7 +272,9 @@ const LukuvuosimaksuInputs = ({
       <Box>
         <FilterCheckbox
           value={getCheckboxRajain(rajainItems, 'lukuvuosimaksu')}
-          handleCheck={(item) => setFilters(maksullisuustyyppiChanges(rajainItems, item))}
+          onChange={(item) =>
+            setRajainValues(maksullisuustyyppiChanges(rajainItems, item))
+          }
           isCountVisible={isCountVisible}
           additionalInfo={t('haku.lukuvuosimaksu-tooltip')}
         />
@@ -281,14 +283,14 @@ const LukuvuosimaksuInputs = ({
         <MaksullisuusRangeSlider
           rajainName="lukuvuosimaksunmaara"
           rajainItems={rajainItems}
-          setFilters={setFilters}
+          setRajainValues={setRajainValues}
         />
       )}
       <FilterCheckbox
         key={FILTER_TYPES.APURAHA}
         value={getCheckboxRajain(rajainItems, 'apuraha')}
-        handleCheck={(item: RajainItem) =>
-          setFilters({
+        onChange={(item: RajainItem) =>
+          setRajainValues({
             apuraha: !isChecked(item),
           })
         }
@@ -306,7 +308,7 @@ export const MaksullisuusSuodatin = ({
   expanded,
   rajainOptions,
   rajainValues,
-  setFilters,
+  setRajainValues,
 }: RajainComponentProps) => {
   const config = useConfig();
   const isCountVisible = config?.naytaFiltterienHakutulosLuvut;
@@ -329,19 +331,19 @@ export const MaksullisuusSuodatin = ({
         <List sx={{ width: '100%' }}>
           <FilterCheckbox
             value={getCheckboxRajain(rajainItems, 'maksuton')}
-            handleCheck={(item) =>
-              setFilters(maksullisuustyyppiChanges(rajainItems, item))
+            onChange={(item) =>
+              setRajainValues(maksullisuustyyppiChanges(rajainItems, item))
             }
             isCountVisible={isCountVisible}
           />
           <MaksullinenInputs
             rajainItems={rajainItems}
-            setFilters={setFilters}
+            setRajainValues={setRajainValues}
             isCountVisible={isCountVisible}
           />
           <LukuvuosimaksuInputs
             rajainItems={rajainItems}
-            setFilters={setFilters}
+            setRajainValues={setRajainValues}
             isCountVisible={isCountVisible}
           />
         </List>

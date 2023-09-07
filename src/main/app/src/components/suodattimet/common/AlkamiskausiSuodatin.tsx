@@ -11,7 +11,7 @@ import { useCheckboxRajainOnChange } from './useCheckboxRajainOnChange';
 
 export const AlkamiskausiSuodatin = (props: RajainComponentProps) => {
   const { t } = useTranslation();
-  const { setFilters, rajainOptions, rajainValues } = props;
+  const { setRajainValues, rajainOptions, rajainValues } = props;
 
   const rajainItems = useRajainItems(
     rajainOptions,
@@ -19,14 +19,14 @@ export const AlkamiskausiSuodatin = (props: RajainComponentProps) => {
     FILTER_TYPES.ALKAMISKAUSI
   );
 
-  const handleCheck = useCheckboxRajainOnChange(rajainItems, setFilters);
+  const onItemChange = useCheckboxRajainOnChange(rajainItems, setRajainValues);
 
   return (
     <Filter
       {...props}
       name={t('haku.alkamiskausi')}
-      rajainValues={rajainItems}
-      handleCheck={handleCheck}
+      rajainItems={rajainItems}
+      onItemChange={onItemChange}
       displaySelected
     />
   );

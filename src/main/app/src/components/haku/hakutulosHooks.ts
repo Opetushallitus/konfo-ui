@@ -137,7 +137,7 @@ const isOnPageWithHaku = (currentPage: string) => ['', 'haku'].includes(currentP
 
 export const useSearch = () => {
   const keyword = useSelector(getKeyword);
-  const isAnyFilterSelected = useSelector(getIsAnyFilterSelected);
+  const isAnyRajainSelected = useSelector(getIsAnyFilterSelected);
   const pageSize = useSelector(getSize);
   const koulutusOffset = useSelector(getKoulutusOffset);
   const oppilaitosOffset = useSelector(getOppilaitosOffset);
@@ -236,7 +236,7 @@ export const useSearch = () => {
     [dispatch, selectedTab, currentPage, goToSearchPage]
   );
 
-  const clearFilters = useCallback(() => {
+  const clearRajainValues = useCallback(() => {
     dispatch(clearSelectedFilters());
     dispatch(resetPagination());
     if (currentPage === 'haku') {
@@ -251,7 +251,7 @@ export const useSearch = () => {
     [dispatch]
   );
 
-  const setFilters = useCallback(
+  const setRajainValues = useCallback(
     (changes: any) => {
       dispatch(setFilterSelectedValues(changes));
       if (currentPage === 'haku') {
@@ -270,15 +270,15 @@ export const useSearch = () => {
     keyword,
     setKeyword: setKeywordCb,
     isFetching,
-    isAnyFilterSelected,
+    isAnyRajainSelected,
     status,
     koulutusData,
     oppilaitosData,
     pagination,
     setPagination,
     resetPagination: resetPaginationCb,
-    setFilters,
-    clearFilters,
+    setRajainValues,
+    clearRajainValues,
     selectedTab,
     setSelectedTab: setSearchTab,
     goToSearchPage,

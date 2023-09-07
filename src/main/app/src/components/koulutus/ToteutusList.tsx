@@ -116,8 +116,8 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
               <div>
                 <SuodatinValinnat
                   allSelectedFilters={allSelectedFilters}
-                  setFilters={setRajainValues}
-                  clearFilters={handleFiltersClear}
+                  setRajainValues={setRajainValues}
+                  clearRajainValues={handleFiltersClear}
                 />
               </div>
             )}
@@ -137,7 +137,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                       elevation={2}
                       rajainOptions={sortedFilters}
                       rajainValues={rajainValues}
-                      setFilters={setRajainValues}
+                      setRajainValues={setRajainValues}
                       loading={isLoading}
                       {...props}
                       {...customProps}
@@ -153,8 +153,8 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
               rajainCount={size(allSelectedFilters?.flat)}
               loading={isLoading}
               hitCount={total}
-              clearChosenFilters={handleFiltersClear}
-              setFilters={setRajainValues}
+              clearFilterValues={handleFiltersClear}
+              setRajainValues={setRajainValues}
               rajainValues={rajainValues}
               rajainOptions={sortedFilters}
             />
