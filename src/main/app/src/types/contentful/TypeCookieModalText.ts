@@ -3,6 +3,7 @@ import type { ChainModifiers, Entry, EntryFieldTypes, EntrySkeletonType, LocaleC
 export interface TypeCookieModalTextFields {
     heading?: EntryFieldTypes.Symbol;
     expandLinkText?: EntryFieldTypes.Symbol;
+    collapseLinkText?: EntryFieldTypes.Symbol;
     shortContent?: EntryFieldTypes.Text;
     fullContent?: EntryFieldTypes.Text;
     acceptButtonText?: EntryFieldTypes.Symbol;
