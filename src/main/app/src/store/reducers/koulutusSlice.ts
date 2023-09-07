@@ -1,16 +1,18 @@
-import { createSelector, createSlice } from '@reduxjs/toolkit';
-import { merge, pick } from 'lodash';
+import { PayloadAction, createSelector, createSlice } from '@reduxjs/toolkit';
+import { isEqual, merge, pick } from 'lodash';
 
 import { RootState } from '#/src/store';
 import { getPaginationPage } from '#/src/tools/utils';
 
-import { HAKU_RAJAIMET_INITIAL } from './hakutulosSlice';
+import { HAKU_RAJAIMET_INITIAL, RajainValues } from './hakutulosSlice';
 import { TOTEUTUS_RAJAIN_NAMES } from './hakutulosSliceSelector';
 
 const initialPagination = {
   size: 5,
   offset: 0,
 };
+
+export type Pagination = Partial<typeof initialPagination>;
 
 export const initialState = {
   tulevatJarjestajat: {
@@ -31,37 +33,41 @@ export const koulutusSlice = createSlice({
   name: 'koulutus',
   initialState,
   reducers: {
-    setJarjestajatRajainValues(state, action) {
-      if (action.payload) {
-        Object.assign(state.jarjestajat.rajainValues, action.payload);
+    setJarjestajatRajainValues(
+      state,
+      {
+        payload,
+      }: PayloadAction<{ isTuleva: boolean; rajainValues?: Partial<RajainValues> }>
+    ) {
+      const jarjestajat = payload.isTuleva ? state.tulevatJarjestajat : state.jarjestajat;
+      if (payload.rajainValues) {
+        const newRajainValues = Object.assign(
+          {},
+          jarjestajat.rajainValues,
+          payload.rajainValues
+        );
+        // Resetoidaan sivutus, jos rajaimet muuttuu
+        if (!isEqual(jarjestajat.rajainValues, newRajainValues)) {
+          state.jarjestajat.pagination.offset = 0;
+        }
+        jarjestajat.rajainValues = newRajainValues;
       }
     },
-    setJarjestajatPaging(state, action) {
-      if (action.payload) {
-        merge(state.jarjestajat.pagination, action.payload);
+    setJarjestajatPaging(
+      state,
+      { payload }: PayloadAction<{ isTuleva: boolean; pagination: Pagination }>
+    ) {
+      if (payload.pagination) {
+        const jarjestajatKey = payload.isTuleva ? 'tulevatJarjestajat' : 'jarjestajat';
+        merge(state[jarjestajatKey].pagination, payload.pagination);
       }
     },
-    setTulevatJarjestajatPaging(state, action) {
-      if (action.payload) {
-        merge(state.tulevatJarjestajat.pagination, action.payload);
-      }
-    },
-    setTulevatJarjestajatRajainValues(state, action) {
-      if (action.payload) {
-        Object.assign(state.tulevatJarjestajat.rajainValues, action.payload);
-      }
-    },
-    clearJarjestajatRajainValues(state) {
-      Object.assign(state.jarjestajat, initialState.jarjestajat);
-    },
-    clearTulevatJarjestajatRajainValues(state) {
-      Object.assign(state.tulevatJarjestajat, initialState.tulevatJarjestajat);
-    },
-    resetJarjestajatPaging(state) {
-      state.jarjestajat.pagination.offset = 0;
-    },
-    resetTulevatJarjestajatPaging(state) {
-      state.tulevatJarjestajat.pagination.offset = 0;
+    clearJarjestajatRajainValues(
+      state,
+      { payload }: PayloadAction<{ isTuleva: boolean }>
+    ) {
+      const jarjestajatKey = payload.isTuleva ? 'tulevatJarjestajat' : 'jarjestajat';
+      Object.assign(state[jarjestajatKey], initialState[jarjestajatKey]);
     },
   },
 });
@@ -69,12 +75,7 @@ export const koulutusSlice = createSlice({
 export const {
   setJarjestajatRajainValues,
   setJarjestajatPaging,
-  resetJarjestajatPaging,
-  setTulevatJarjestajatRajainValues,
-  setTulevatJarjestajatPaging,
-  resetTulevatJarjestajatPaging,
   clearJarjestajatRajainValues,
-  clearTulevatJarjestajatRajainValues,
 } = koulutusSlice.actions;
 
 const selectKoulutusJarjestajat = (state: RootState) => state?.koulutus?.jarjestajat;

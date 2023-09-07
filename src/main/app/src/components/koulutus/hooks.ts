@@ -11,22 +11,17 @@ import {
   getKoulutusKuvaus,
 } from '#/src/api/konfoApi';
 import { KOULUTUS_TYYPPI } from '#/src/constants';
-import { usePreviousNonEmpty } from '#/src/hooks';
 import { useAppDispatch, useAppSelector } from '#/src/hooks/reduxHooks';
 import { RootState } from '#/src/store';
 import { usePreviousPage } from '#/src/store/reducers/appSlice';
 import { RajainValues } from '#/src/store/reducers/hakutulosSlice';
 import { getInitialToteutusRajainValues } from '#/src/store/reducers/hakutulosSliceSelector';
 import {
-  resetJarjestajatPaging,
   setJarjestajatRajainValues,
-  setTulevatJarjestajatRajainValues,
   selectJarjestajatQuery,
   setJarjestajatPaging,
-  setTulevatJarjestajatPaging,
-  resetTulevatJarjestajatPaging,
-  clearTulevatJarjestajatRajainValues,
   clearJarjestajatRajainValues,
+  Pagination,
 } from '#/src/store/reducers/koulutusSlice';
 import { isNumberRangeRajainId } from '#/src/types/SuodatinTypes';
 
@@ -146,37 +141,26 @@ export const useKoulutusJarjestajat = ({
     selectJarjestajatQuery(state, isTuleva)
   );
   const { pagination, rajainValues } = requestProps;
-  const previousRajainValues = usePreviousNonEmpty(rajainValues);
 
   // NOTE: Tämä haetaan vain kerran alkuarvoja varten + Haetaan järjestäjätulokset hakusivulta periytyneillä rajaimilla
   const initialRajainValues = useAppSelector(getInitialToteutusRajainValues);
 
   const setPagination = useCallback(
-    (newPaging: any) => {
-      dispatch(
-        isTuleva
-          ? setTulevatJarjestajatPaging(newPaging)
-          : setJarjestajatPaging(newPaging)
-      );
+    (newPaging: Pagination) => {
+      dispatch(setJarjestajatPaging({ isTuleva, pagination: newPaging }));
     },
     [isTuleva, dispatch]
   );
 
   const setRajainValues = useCallback(
     (newValues: Partial<RajainValues>) => {
-      dispatch(
-        isTuleva
-          ? setTulevatJarjestajatRajainValues(newValues)
-          : setJarjestajatRajainValues(newValues)
-      );
+      dispatch(setJarjestajatRajainValues({ isTuleva, rajainValues: newValues }));
     },
     [isTuleva, dispatch]
   );
 
   const clearRajainValues = useCallback(() => {
-    dispatch(
-      isTuleva ? clearTulevatJarjestajatRajainValues() : clearJarjestajatRajainValues()
-    );
+    dispatch(clearJarjestajatRajainValues({ isTuleva }));
   }, [isTuleva, dispatch]);
 
   const [initialValues] = useState(initialRajainValues);
@@ -229,13 +213,6 @@ export const useKoulutusJarjestajat = ({
         .otherwise(() => v!.toString())
     );
   };
-
-  // Jos rajainten arvot muuttuu, resetoi sivutus
-  useEffect(() => {
-    if (rajainValues !== previousRajainValues && previousRajainValues !== undefined) {
-      dispatch(isTuleva ? resetTulevatJarjestajatPaging() : resetJarjestajatPaging());
-    }
-  }, [dispatch, rajainValues, previousRajainValues, isTuleva]);
 
   const fetchProps = {
     oid,
