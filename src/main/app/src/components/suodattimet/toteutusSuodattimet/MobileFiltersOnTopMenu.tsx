@@ -136,14 +136,16 @@ export const MobileFiltersOnTopMenu = ({
             <LukiolinjatSuodatin
               name="lukiopainotukset"
               expanded={false}
-              rajainValues={values.lukiopainotukset}
+              rajainUIValues={rajainValues}
+              rajainOptions={rajainOptions}
               setFilters={setFilters}
             />
             <Divider />
             <LukiolinjatSuodatin
               name="lukiolinjat_er"
               expanded={false}
-              rajainValues={values.lukiolinjaterityinenkoulutustehtava}
+              rajainUIValues={rajainValues}
+              rajainOptions={rajainOptions}
               setFilters={setFilters}
             />
             <Divider />

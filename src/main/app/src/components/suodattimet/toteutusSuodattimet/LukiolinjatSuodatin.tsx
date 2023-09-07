@@ -2,10 +2,12 @@ import React, { useMemo } from 'react';
 
 import { sortBy } from 'lodash';
 import { useTranslation } from 'react-i18next';
+import { match } from 'ts-pattern';
 
 import { Filter } from '#/src/components/common/Filter';
 import { useConfig } from '#/src/config';
-import { getStateChangesForCheckboxRajaimet } from '#/src/tools/filters';
+import { FILTER_TYPES } from '#/src/constants';
+import { getStateChangesForCheckboxRajaimet, useRajainItems } from '#/src/tools/filters';
 import { localize } from '#/src/tools/localization';
 import {
   CheckboxRajainItem,
@@ -13,11 +15,22 @@ import {
   SuodatinComponentProps,
 } from '#/src/types/SuodatinTypes';
 
-export const LukiolinjatSuodatin = (props: SuodatinComponentProps) => {
+export const LukiolinjatSuodatin = (
+  props: Omit<SuodatinComponentProps, 'rajainValues'> & {
+    name: 'lukiolinjat_er' | 'lukiopainotukset';
+  }
+) => {
   const { t } = useTranslation();
-  const { name, rajainValues = [], ...rest } = props;
+  const { name, rajainUIValues, rajainOptions, ...rest } = props;
 
-  const filteredValues = (rajainValues as Array<CheckboxRajainItem>).filter(
+  const rajainType = match(name)
+    .with('lukiolinjat_er', () => FILTER_TYPES.LUKIOLINJATERITYINENKOULUTUSTEHTAVA)
+    .with('lukiopainotukset', () => FILTER_TYPES.LUKIOPAINOTUKSET)
+    .run();
+
+  const rajainItems = useRajainItems(rajainOptions, rajainUIValues, rajainType);
+
+  const filteredValues = (rajainItems as Array<CheckboxRajainItem>).filter(
     (v) => v?.count > 0 || v.checked
   );
 
