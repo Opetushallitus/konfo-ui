@@ -5,7 +5,8 @@ import { useTranslation } from 'react-i18next';
 
 import { Filter } from '#/src/components/common/Filter';
 import { useConfig } from '#/src/config';
-import { getStateChangesForCheckboxRajaimet } from '#/src/tools/filters';
+import { FILTER_TYPES } from '#/src/constants';
+import { getStateChangesForCheckboxRajaimet, useRajainItems } from '#/src/tools/filters';
 import { localize } from '#/src/tools/localization';
 import {
   CheckboxRajainItem,
@@ -15,14 +16,27 @@ import {
 
 import { useSearch } from '../../haku/hakutulosHooks';
 
-export const SijaintiSuodatin = (props: SuodatinComponentProps) => {
+export const SijaintiSuodatin = (
+  props: Omit<
+    SuodatinComponentProps,
+    'rajainValues' | 'kuntaRajainValues' | 'maakuntaRajainValues'
+  >
+) => {
   const { t } = useTranslation();
-  const {
-    kuntaRajainValues = [],
-    maakuntaRajainValues = [],
-    setFilters,
-    loading,
-  } = props;
+  const { rajainUIValues, rajainOptions, setFilters, loading } = props;
+
+  const kuntaRajainValues = useRajainItems(
+    rajainOptions,
+    rajainUIValues,
+    FILTER_TYPES.KUNTA
+  ) as Array<CheckboxRajainItem>;
+
+  const maakuntaRajainValues = useRajainItems(
+    rajainOptions,
+    rajainUIValues,
+    FILTER_TYPES.MAAKUNTA
+  ) as Array<CheckboxRajainItem>;
+
   const handleCheck = (item: RajainItem) => {
     const changes = getStateChangesForCheckboxRajaimet(
       kuntaRajainValues.concat(maakuntaRajainValues)

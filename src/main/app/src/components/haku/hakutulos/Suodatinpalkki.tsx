@@ -5,7 +5,6 @@ import { styled } from '@mui/material/styles';
 
 import { useFilterProps, useSearch } from '#/src/components/haku/hakutulosHooks';
 import { FILTER_TYPES } from '#/src/constants';
-import { CheckboxRajainItem } from '#/src/types/SuodatinTypes';
 
 import { AlkamiskausiSuodatin } from '../../suodattimet/common/AlkamiskausiSuodatin';
 import { HakuKaynnissaSuodatin } from '../../suodattimet/common/HakuKaynnissaSuodatin';
@@ -64,12 +63,8 @@ export const Suodatinpalkki = () => {
       <SijaintiSuodatin
         expanded
         elevation={2}
-        kuntaRajainValues={
-          useFilterProps(FILTER_TYPES.KUNTA) as Array<CheckboxRajainItem>
-        }
-        maakuntaRajainValues={
-          useFilterProps(FILTER_TYPES.MAAKUNTA) as Array<CheckboxRajainItem>
-        }
+        rajainUIValues={rajainValues as any}
+        rajainOptions={rajainOptions}
         setFilters={setFilters}
       />
       <PohjakoulutusvaatimusSuodatin

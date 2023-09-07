@@ -15,7 +15,6 @@ import { ValintatapaSuodatin } from '#/src/components/suodattimet/common/Valinta
 import { KoulutusalaSuodatin } from '#/src/components/suodattimet/hakutulosSuodattimet/KoulutusalaSuodatin';
 import { KoulutustyyppiSuodatin } from '#/src/components/suodattimet/hakutulosSuodattimet/KoulutustyyppiSuodatin';
 import { FILTER_TYPES } from '#/src/constants';
-import { CheckboxRajainItem } from '#/src/types/SuodatinTypes';
 
 import { Suodatin } from './Suodatin';
 import { AlkamiskausiSuodatin } from '../suodattimet/common/AlkamiskausiSuodatin';
@@ -62,12 +61,8 @@ export const HakupalkkiFilters = () => {
       <Divider orientation="vertical" flexItem />
       <Suodatin id="sijainti" header={t('haku.sijainti')}>
         <SijaintiSuodatin
-          kuntaRajainValues={
-            useFilterProps(FILTER_TYPES.KUNTA) as Array<CheckboxRajainItem>
-          }
-          maakuntaRajainValues={
-            useFilterProps(FILTER_TYPES.MAAKUNTA) as Array<CheckboxRajainItem>
-          }
+          rajainOptions={rajainOptions}
+          rajainUIValues={rajainValues as any}
           setFilters={setFilters}
           expanded={true}
           summaryHidden={true}

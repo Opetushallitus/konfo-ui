@@ -145,8 +145,8 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                 <SijaintiSuodatin
                   elevation={2}
                   loading={isLoading}
-                  maakuntaRajainValues={usedValues.maakunta as any}
-                  kuntaRajainValues={usedValues.kunta as any}
+                  rajainOptions={sortedFilters}
+                  rajainUIValues={filters as any}
                   onFocus={() => {
                     setPreventClicks(true);
                   }}

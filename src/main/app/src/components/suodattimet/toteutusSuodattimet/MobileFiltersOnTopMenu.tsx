@@ -89,8 +89,8 @@ export const MobileFiltersOnTopMenu = ({
         <Divider />
         <SijaintiSuodatin
           expanded={false}
-          maakuntaRajainValues={values.maakunta}
-          kuntaRajainValues={values.kunta}
+          rajainUIValues={rajainValues}
+          rajainOptions={rajainOptions}
           loading={loading}
           setFilters={setFilters}
         />

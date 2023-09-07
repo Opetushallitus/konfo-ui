@@ -8,7 +8,6 @@ import { MobileRajainDrawer } from '#/src/components/common/MobileRajainDrawer';
 import { TyoelamaJaTaydennyskoulutuksetSuodatin } from '#/src/components/suodattimet/common/TyoelamaJaTaydennyskoulutuksetSuodatin';
 import { FILTER_TYPES } from '#/src/constants';
 import { useIsAtEtusivu } from '#/src/store/reducers/appSlice';
-import { CheckboxRajainItem } from '#/src/types/SuodatinTypes';
 
 import { MobileResultsPerPageExpansionMenu } from './hakutulos/MobileResultsPerPageExpansionMenu';
 import { MobileToggleKoulutusOppilaitos } from './hakutulos/MobileToggleKoulutusOppilaitos';
@@ -112,12 +111,8 @@ export const MobileFiltersOnTopMenu = ({
         <SijaintiSuodatin
           expanded={false}
           displaySelected
-          kuntaRajainValues={
-            useFilterProps(FILTER_TYPES.KUNTA) as Array<CheckboxRajainItem>
-          }
-          maakuntaRajainValues={
-            useFilterProps(FILTER_TYPES.MAAKUNTA) as Array<CheckboxRajainItem>
-          }
+          rajainOptions={rajainOptions}
+          rajainUIValues={rajainValues as any}
           setFilters={setFilters}
         />
         <Divider />
