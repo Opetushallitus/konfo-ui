@@ -141,7 +141,9 @@ test.describe('Haku', () => {
       name: /Yhteispisteet/i,
     });
 
-    await expect(page.getByRole('button', { name: 'Valintatapa' })).toBeVisible();
+    const valintatapaButton = page.getByRole('button', { name: 'Valintatapa' });
+    await expect(valintatapaButton).toBeVisible();
+    await valintatapaButton.click();
     await koepisteetChk.click();
     await expect(koepisteetChk).toBeChecked();
     await koepisteetChk.click();
@@ -181,7 +183,10 @@ test.describe('Haku', () => {
     const jatkuvaHakuChk = hakutapaFilter.getByRole('checkbox', {
       name: /Jatkuva haku/i,
     });
-    await expect(page.getByText('Hakutapa')).toBeVisible();
+
+    const hakutapaButton = page.getByRole('button', { name: 'Hakutapa' });
+    await expect(hakutapaButton).toBeVisible();
+    await hakutapaButton.click();
     await jatkuvaHakuChk.click();
     await expect(jatkuvaHakuChk).toBeChecked();
     await jatkuvaHakuChk.click();
@@ -207,7 +212,9 @@ test.describe('Haku', () => {
     const lukioChk = pohjakoulutusVaatimusFilter.getByRole('checkbox', {
       name: /Lukio/i,
     });
-    await expect(page.getByText('Koulutustausta')).toBeVisible();
+    const koulutustaustaButton = page.getByRole('button', { name: 'Koulutustausta' });
+    await expect(koulutustaustaButton).toBeVisible();
+    await koulutustaustaButton.click();
 
     await ammatillinenPerustutkintoChk.click();
     await expect(ammatillinenPerustutkintoChk).toBeChecked();
