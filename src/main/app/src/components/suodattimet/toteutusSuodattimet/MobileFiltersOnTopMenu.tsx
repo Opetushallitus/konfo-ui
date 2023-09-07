@@ -114,7 +114,8 @@ export const MobileFiltersOnTopMenu = ({
         {values.hakutapa && (
           <HakutapaSuodatin
             expanded={false}
-            rajainValues={values.hakutapa}
+            rajainUIValues={rajainValues}
+            rajainOptions={rajainOptions}
             setFilters={setFilters}
           />
         )}

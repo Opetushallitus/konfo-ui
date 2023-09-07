@@ -102,7 +102,8 @@ export const HakupalkkiFilters = () => {
       <Divider orientation="vertical" flexItem />
       <Suodatin id="hakutapa" header={t('haku.hakutapa')}>
         <HakutapaSuodatin
-          rajainValues={useFilterProps(FILTER_TYPES.HAKUTAPA)}
+          rajainOptions={rajainOptions}
+          rajainUIValues={rajainValues as any}
           setFilters={setFilters}
           expanded={true}
           summaryHidden={true}

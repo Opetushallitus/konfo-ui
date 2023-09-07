@@ -90,7 +90,8 @@ export const Suodatinpalkki = () => {
       <HakutapaSuodatin
         expanded
         elevation={2}
-        rajainValues={useFilterProps(FILTER_TYPES.HAKUTAPA)}
+        rajainUIValues={rajainValues as any}
+        rajainOptions={rajainOptions}
         setFilters={setFilters}
       />
       <ValintatapaSuodatin

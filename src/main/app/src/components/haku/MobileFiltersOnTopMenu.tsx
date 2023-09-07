@@ -142,7 +142,8 @@ export const MobileFiltersOnTopMenu = ({
         <HakutapaSuodatin
           expanded={false}
           displaySelected
-          rajainValues={useFilterProps(FILTER_TYPES.HAKUTAPA)}
+          rajainOptions={rajainOptions}
+          rajainUIValues={rajainValues as any}
           setFilters={setFilters}
         />
         <Divider />
