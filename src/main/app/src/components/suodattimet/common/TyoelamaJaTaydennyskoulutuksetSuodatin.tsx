@@ -4,14 +4,14 @@ import { useTranslation } from 'react-i18next';
 import { match } from 'ts-pattern';
 
 import { Filter } from '#/src/components/common/Filter';
-import { FILTER_TYPES } from '#/src/constants';
+import { RAJAIN_TYPES } from '#/src/constants';
 import { isChecked, useRajainItems } from '#/src/tools/filters';
 import { RajainItem, RajainComponentProps } from '#/src/types/SuodatinTypes';
 
 const TYOELAMA_JA_TAYDENNYSKOULUTUS_FILTER_TYPES = [
-  FILTER_TYPES.JOTPA,
-  FILTER_TYPES.TYOVOIMAKOULUTUS,
-  FILTER_TYPES.TAYDENNYSKOULUTUS,
+  RAJAIN_TYPES.JOTPA,
+  RAJAIN_TYPES.TYOVOIMAKOULUTUS,
+  RAJAIN_TYPES.TAYDENNYSKOULUTUS,
 ];
 
 export const TyoelamaJaTaydennyskoulutuksetSuodatin = (props: RajainComponentProps) => {
@@ -27,13 +27,13 @@ export const TyoelamaJaTaydennyskoulutuksetSuodatin = (props: RajainComponentPro
 
   const onItemChange = (item: RajainItem) =>
     match(item.rajainId)
-      .with(FILTER_TYPES.JOTPA, () => {
+      .with(RAJAIN_TYPES.JOTPA, () => {
         setRajainValues({ jotpa: !isChecked(item) });
       })
-      .with(FILTER_TYPES.TYOVOIMAKOULUTUS, () =>
+      .with(RAJAIN_TYPES.TYOVOIMAKOULUTUS, () =>
         setRajainValues({ tyovoimakoulutus: !isChecked(item) })
       )
-      .with(FILTER_TYPES.TAYDENNYSKOULUTUS, () => {
+      .with(RAJAIN_TYPES.TAYDENNYSKOULUTUS, () => {
         setRajainValues({ taydennyskoulutus: !isChecked(item) });
       })
       .run();

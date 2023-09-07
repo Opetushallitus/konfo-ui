@@ -2,7 +2,7 @@ export const YHTEISHAKU_KOODI_URI = 'hakutapa_01';
 
 export const TOISEN_ASTEEN_YHTEISHAUN_KOHDEJOUKKO = 'haunkohdejoukko_11';
 
-export const FILTER_TYPES = {
+export const RAJAIN_TYPES = {
   KOULUTUSALA: 'koulutusala',
   KOULUTUSTYYPPI: 'koulutustyyppi',
   OPETUSKIELI: 'opetuskieli',
@@ -29,14 +29,14 @@ export const FILTER_TYPES = {
   APURAHA: 'apuraha',
   SIJAINTI: 'sijainti', // TODO: Poista tämä kun konfo-backend ei enää käytä sijaintirajainta vaan kunta + maakunta
   ALKAMISKAUSI: 'alkamiskausi',
-  OPPILAITOS: 'oppilaitos', // FIXME: Poista tämä
+  OPPILAITOS: 'oppilaitos',
 } as const;
 
-export const FILTER_TYPES_ARR = Object.values(FILTER_TYPES);
+export const RAJAIN_TYPES_ARR = Object.values(RAJAIN_TYPES);
 
 // TODO: konfo-backend haluaa turhaan kunta + maakunta rajaimet yhtenä könttinä (sijainti), se pitäisi purkaa sieltä
 // Tämän voi poistaa sitten kun konfo-backend ottaa vastaan maakunta + kunta rajaimet
-export const FILTER_TYPES_ARR_FOR_KONFO_BACKEND = [
+export const RAJAIN_TYPES_ARR_FOR_KONFO_BACKEND = [
   'opetuskieli',
   'koulutusala',
   'koulutustyyppi',
@@ -124,8 +124,8 @@ export enum Hakulomaketyyppi {
 }
 
 // Search related
-export const pageSizeArray = [5, 10, 20, 30, 50];
-export const pageSortArray = ['score_desc', 'name_asc', 'name_desc'];
+export const PAGE_SIZE_OPTIONS = [5, 10, 20, 30, 50];
+export const PAGE_SORT_OPTIONS = ['score_desc', 'name_asc', 'name_desc'];
 
 export enum Alkamiskausityyppi {
   TARKKA_ALKAMISAJANKOHTA = 'tarkka alkamisajankohta',

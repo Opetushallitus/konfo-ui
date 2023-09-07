@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { match } from 'ts-pattern';
 
 import { Filter } from '#/src/components/common/Filter';
-import { FILTER_TYPES } from '#/src/constants';
+import { RAJAIN_TYPES } from '#/src/constants';
 import { useRajainItems } from '#/src/tools/filters';
 import { RajainItem, RajainComponentProps } from '#/src/types/SuodatinTypes';
 
@@ -16,7 +16,7 @@ export const HakuKaynnissaSuodatin = (props: RajainComponentProps) => {
   const rajainItems = useRajainItems(
     rajainOptions,
     rajainValues,
-    FILTER_TYPES.HAKUKAYNNISSA
+    RAJAIN_TYPES.HAKUKAYNNISSA
   );
 
   const onItemChange = (item: RajainItem) => {

@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Filter } from '#/src/components/common/Filter';
 import { useConfig } from '#/src/config';
-import { FILTER_TYPES } from '#/src/constants';
+import { RAJAIN_TYPES } from '#/src/constants';
 import { useRajainItems } from '#/src/tools/filters';
 import { localize } from '#/src/tools/localization';
 import { CheckboxRajainItem, RajainComponentProps } from '#/src/types/SuodatinTypes';
@@ -19,7 +19,7 @@ export const AmmOsaamisalatSuodatin = (props: RajainComponentProps) => {
   const rajainItems = useRajainItems(
     rajainOptions,
     rajainValues,
-    FILTER_TYPES.OSAAMISALA
+    RAJAIN_TYPES.OSAAMISALA
   );
 
   const filteredValues = (rajainItems as Array<CheckboxRajainItem>).filter(

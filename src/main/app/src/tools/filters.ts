@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { sortBy, toPairs, some, ceil, mapValues, castArray } from 'lodash';
 import { match, P } from 'ts-pattern';
 
-import { FILTER_TYPES, YHTEISHAKU_KOODI_URI } from '#/src/constants';
+import { RAJAIN_TYPES, YHTEISHAKU_KOODI_URI } from '#/src/constants';
 import {
   REPLACED_RAJAIN_IDS,
   LINKED_IDS,
@@ -135,9 +135,9 @@ export const getRajainValueInUIFormat = (
         alakoodit:
           key === YHTEISHAKU_KOODI_URI
             ? getRajainAlakoodit(
-                rajainCountsFromBackend[FILTER_TYPES.YHTEISHAKU],
-                allRajainValuesSetInUI?.[FILTER_TYPES.YHTEISHAKU],
-                FILTER_TYPES.YHTEISHAKU
+                rajainCountsFromBackend[RAJAIN_TYPES.YHTEISHAKU],
+                allRajainValuesSetInUI?.[RAJAIN_TYPES.YHTEISHAKU],
+                RAJAIN_TYPES.YHTEISHAKU
               )
             : getRajainAlakoodit(
                 rajainCount[key].alakoodit,

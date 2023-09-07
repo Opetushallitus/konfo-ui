@@ -2,7 +2,7 @@ import produce from 'immer';
 import { set, flow } from 'lodash';
 
 import { getStateChangesForCheckboxRajaimet } from './filters';
-import { FILTER_TYPES } from '../constants';
+import { RAJAIN_TYPES } from '../constants';
 import { CheckboxRajainItem } from '../types/SuodatinTypes';
 
 const fpSet = (x: Record<string, any>, path: string, value: any) =>
@@ -10,9 +10,9 @@ const fpSet = (x: Record<string, any>, path: string, value: any) =>
     set(draft, path, value);
   });
 
-const a = FILTER_TYPES.KOULUTUSTYYPPI;
-const b = FILTER_TYPES.OPETUSKIELI;
-const c = FILTER_TYPES.KOULUTUSALA;
+const a = RAJAIN_TYPES.KOULUTUSTYYPPI;
+const b = RAJAIN_TYPES.OPETUSKIELI;
+const c = RAJAIN_TYPES.KOULUTUSALA;
 
 // prettier-ignore
 const baseValues: Array<CheckboxRajainItem> = [

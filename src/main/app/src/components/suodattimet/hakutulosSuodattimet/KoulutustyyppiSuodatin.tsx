@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 import { Filter } from '#/src/components/common/Filter';
-import { FILTER_TYPES } from '#/src/constants';
+import { RAJAIN_TYPES } from '#/src/constants';
 import { useRajainItems } from '#/src/tools/filters';
 import { RajainComponentProps } from '#/src/types/SuodatinTypes';
 
@@ -51,7 +51,7 @@ export const KoulutustyyppiSuodatin = (props: RajainComponentProps) => {
   const rajainItems = useRajainItems(
     rajainOptions,
     rajainValues,
-    FILTER_TYPES.KOULUTUSTYYPPI
+    RAJAIN_TYPES.KOULUTUSTYYPPI
   );
 
   const onItemChange = useCheckboxRajainOnChange(rajainItems, setRajainValues);

@@ -13,7 +13,7 @@ import {
 } from '#/src/components/common/Filter/CustomizedMuiComponents';
 import { NumberRangeSlider } from '#/src/components/common/Filter/NumberRangeSlider';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
-import { FILTER_TYPES } from '#/src/constants';
+import { RAJAIN_TYPES } from '#/src/constants';
 import { useRajainItems } from '#/src/tools/filters';
 import { NumberRangeRajainItem, RajainComponentProps } from '#/src/types/SuodatinTypes';
 
@@ -101,7 +101,7 @@ export const KoulutuksenKestoSuodatin = ({
   const rajainItems = useRajainItems(
     rajainOptions,
     rajainValues,
-    FILTER_TYPES.KOULUTUKSENKESTOKUUKAUSINA
+    RAJAIN_TYPES.KOULUTUKSENKESTOKUUKAUSINA
   );
 
   const rajainItem = rajainItems?.[0] as NumberRangeRajainItem;

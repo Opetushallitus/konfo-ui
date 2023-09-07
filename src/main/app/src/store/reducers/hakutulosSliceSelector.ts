@@ -2,7 +2,7 @@ import { createSelector } from '@reduxjs/toolkit';
 import { pick, some, size as _size, sortBy, concat, keys, includes } from 'lodash';
 import qs from 'query-string';
 
-import { FILTER_TYPES_ARR } from '#/src/constants';
+import { RAJAIN_TYPES_ARR } from '#/src/constants';
 import { RootState } from '#/src/store';
 import { cleanRequestParams, getPaginationPage } from '#/src/tools/utils';
 
@@ -51,8 +51,8 @@ const getApuraha = (state: RootState) => state.hakutulos.apuraha;
 
 const getHakutulos = (state: RootState) => state.hakutulos;
 
-export const getFilters = createSelector(getHakutulos, (hakutulos) =>
-  pick(hakutulos, FILTER_TYPES_ARR)
+export const getRajainValues = createSelector(getHakutulos, (hakutulos) =>
+  pick(hakutulos, RAJAIN_TYPES_ARR)
 );
 
 export const getSelectedTab = (state: RootState) => state.hakutulos.selectedTab;
@@ -316,7 +316,7 @@ export const getHakuParams = createSelector([getAPIRequestParams], (apiRequestPa
   const minMaxParams = keys(apiRequestParams).filter(
     (param) =>
       (param.endsWith('_min') || param.endsWith('_max')) &&
-      includes(FILTER_TYPES_ARR, param.split('_')[0])
+      includes(RAJAIN_TYPES_ARR, param.split('_')[0])
   );
   const hakuParams = cleanRequestParams(
     pick(apiRequestParams, [
@@ -324,7 +324,7 @@ export const getHakuParams = createSelector([getAPIRequestParams], (apiRequestPa
       'sort',
       'size',
       'tab',
-      ...FILTER_TYPES_ARR,
+      ...RAJAIN_TYPES_ARR,
       ...minMaxParams,
     ])
   );
@@ -347,7 +347,7 @@ export const createHakuUrl = (
     arrayFormat: 'comma',
   })}`;
 
-export const TOTEUTUS_FILTER_NAMES = [
+export const TOTEUTUS_RAJAIN_NAMES = [
   'opetusaika',
   'opetuskieli',
   'maakunta',
@@ -372,7 +372,7 @@ export const TOTEUTUS_FILTER_NAMES = [
   'lukuvuosimaksunmaara',
 ];
 
-export const getInitialCheckedToteutusFilters = createSelector(
-  [getFilters],
-  (checkedValues) => pick(checkedValues, TOTEUTUS_FILTER_NAMES)
+export const getInitialToteutusRajainValues = createSelector(
+  [getRajainValues],
+  (checkedValues) => pick(checkedValues, TOTEUTUS_RAJAIN_NAMES)
 );

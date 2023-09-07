@@ -37,17 +37,18 @@ import {
   setSize,
   setSortOrder,
   setSelectedTab,
-  setFilterSelectedValues,
+  setRajainValues as setReduxRajainValues,
   navigateToHaku,
   resetPagination,
   setSort,
   setOrder,
-  clearSelectedFilters,
+  clearRajainValues as clearReduxRajainValues,
   setKeyword,
+  RajainValues,
 } from '#/src/store/reducers/hakutulosSlice';
 import {
   getAPIRequestParams,
-  getFilters,
+  getRajainValues,
   getIsAnyFilterSelected,
   getKeyword,
   getKoulutusOffset,
@@ -66,6 +67,8 @@ import {
 import { isRajainActive, getRajainValueInUIFormat } from '#/src/tools/filters';
 import { RajainName, ReduxTodo } from '#/src/types/common';
 import { isCompositeRajainId } from '#/src/types/SuodatinTypes';
+
+import { RajainOptions } from '../koulutus/ToteutusList';
 
 type Pagination = {
   size?: number;
@@ -237,7 +240,7 @@ export const useSearch = () => {
   );
 
   const clearRajainValues = useCallback(() => {
-    dispatch(clearSelectedFilters());
+    dispatch(clearReduxRajainValues());
     dispatch(resetPagination());
     if (currentPage === 'haku') {
       goToSearchPage();
@@ -253,7 +256,7 @@ export const useSearch = () => {
 
   const setRajainValues = useCallback(
     (changes: any) => {
-      dispatch(setFilterSelectedValues(changes));
+      dispatch(setReduxRajainValues(changes));
       if (currentPage === 'haku') {
         goToSearchPage();
       }
@@ -264,7 +267,7 @@ export const useSearch = () => {
   const rajainOptions =
     selectedTab === 'koulutus' ? koulutusData?.filters : oppilaitosData?.filters;
 
-  const rajainValues = useSelector(getFilters);
+  const rajainValues = useSelector(getRajainValues);
 
   return {
     keyword,
@@ -287,20 +290,23 @@ export const useSearch = () => {
   };
 };
 
-export const useSelectedFilters = (availableFilters: any, checkedFilters: any) => {
+export const useSelectedFilters = (
+  rajainOptions: RajainOptions,
+  rajainValues: Partial<RajainValues>
+) => {
   const selectedFiltersWithAlakoodit = useMemo(() => {
-    const compositeFilters = keys(availableFilters).filter((k) => isCompositeRajainId(k));
+    const compositeFilters = keys(rajainOptions).filter((k) => isCompositeRajainId(k));
     const compositeFlattened: Record<
       string,
       Array<string> | boolean | Record<string, number>
     > = {};
     forEach(compositeFilters, (v) => {
-      for (const subKey in availableFilters[v]) {
-        compositeFlattened[subKey] = availableFilters[v][subKey];
+      for (const subKey in rajainOptions[v]) {
+        compositeFlattened[subKey] = rajainOptions[v][subKey];
       }
     });
     const withCompositeFlattened = {
-      ...omit(availableFilters, compositeFilters),
+      ...omit(rajainOptions, compositeFilters),
       ...compositeFlattened,
     };
 
@@ -325,15 +331,15 @@ export const useSelectedFilters = (availableFilters: any, checkedFilters: any) =
           Object.values(
             getRajainValueInUIFormat(
               withCompositeFlattened as any,
-              checkedFilters,
+              rajainValues,
               filterId
             )
           )
         ),
       flatten,
       (flatted) => uniqBy(flatted, 'id')
-    )(checkedFilters);
-  }, [availableFilters, checkedFilters]);
+    )(rajainValues);
+  }, [rajainOptions, rajainValues]);
 
   const selectedFiltersFlatList = useMemo(
     () =>
@@ -352,11 +358,11 @@ export const useSelectedFilters = (availableFilters: any, checkedFilters: any) =
 
 export const useAllSelectedFilters = () => {
   const { koulutusData } = useSearch();
-  const koulutusFilters = koulutusData.filters;
+  const koulutusRajainOptions = koulutusData.filters;
 
-  const allCheckedValues = useSelector(getFilters, isEqual);
+  const rajainValues = useSelector(getRajainValues, isEqual);
 
-  return useSelectedFilters(koulutusFilters, allCheckedValues);
+  return useSelectedFilters(koulutusRajainOptions, rajainValues);
 };
 
 const useDispatchCb = (fn: (x: any) => any, options: { syncUrl?: boolean } = {}) => {

@@ -16,7 +16,7 @@ import { NumberRangeSlider } from '#/src/components/common/Filter/NumberRangeSli
 import { SummaryContent } from '#/src/components/common/Filter/SummaryContent';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { useConfig } from '#/src/config';
-import { FILTER_TYPES } from '#/src/constants';
+import { RAJAIN_TYPES } from '#/src/constants';
 import {
   getStateChangesForCheckboxRajaimet,
   isChecked,
@@ -192,9 +192,9 @@ const MaksullisuusSummary = ({
   rajainItems?: Array<RajainItem>;
 }) => {
   const { t } = useTranslation();
-  const maksunmaara = useNumberRangeValues(FILTER_TYPES.MAKSUNMAARA, rajainItems);
+  const maksunmaara = useNumberRangeValues(RAJAIN_TYPES.MAKSUNMAARA, rajainItems);
   const lukuvuosimaksu = useNumberRangeValues(
-    FILTER_TYPES.LUKUVUOSIMAKSUNMAARA,
+    RAJAIN_TYPES.LUKUVUOSIMAKSUNMAARA,
     rajainItems
   );
 
@@ -285,7 +285,7 @@ const LukuvuosimaksuInputs = ({
         />
       )}
       <FilterCheckbox
-        key={FILTER_TYPES.APURAHA}
+        key={RAJAIN_TYPES.APURAHA}
         value={getCheckboxRajain(rajainItems, 'apuraha')}
         onChange={(item: RajainItem) =>
           setRajainValues({
@@ -314,7 +314,7 @@ export const MaksullisuusSuodatin = ({
   const rajainItems = useRajainItems(
     rajainOptions,
     rajainValues,
-    FILTER_TYPES.MAKSULLISUUS
+    RAJAIN_TYPES.MAKSULLISUUS
   );
 
   return (

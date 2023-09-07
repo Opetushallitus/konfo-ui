@@ -14,8 +14,8 @@ import {
 } from 'lodash';
 
 import {
-  FILTER_TYPES,
-  FILTER_TYPES_ARR_FOR_KONFO_BACKEND,
+  RAJAIN_TYPES,
+  RAJAIN_TYPES_ARR_FOR_KONFO_BACKEND,
   MAKSULLISUUSTYYPPI,
 } from '#/src/constants';
 import { getLanguage } from '#/src/tools/localization';
@@ -135,7 +135,7 @@ export const hakutulosSlice = createSlice({
     ) => {
       state.selectedTab = payload.newSelectedTab;
     },
-    setFilterSelectedValues: (
+    setRajainValues: (
       state,
       { payload: newValues }: PayloadAction<Partial<RajainValues>>
     ) => {
@@ -146,7 +146,7 @@ export const hakutulosSlice = createSlice({
       state.koulutusOffset = 0;
       state.oppilaitosOffset = 0;
     },
-    clearSelectedFilters: (state) => {
+    clearRajainValues: (state) => {
       Object.assign(state, HAKU_RAJAIMET_INITIAL);
       resetPagination();
     },
@@ -190,15 +190,15 @@ export const hakutulosSlice = createSlice({
             case 'sort':
               state[key] = value;
               break;
-            case FILTER_TYPES.SIJAINTI:
+            case RAJAIN_TYPES.SIJAINTI:
               state.maakunta = valueList.filter((v) => v.startsWith('maakunta'));
               state.kunta = valueList.filter((v) => v.startsWith('kunta'));
               break;
-            case FILTER_TYPES.HAKUKAYNNISSA:
-            case FILTER_TYPES.JOTPA:
-            case FILTER_TYPES.TYOVOIMAKOULUTUS:
-            case FILTER_TYPES.TAYDENNYSKOULUTUS:
-            case FILTER_TYPES.APURAHA:
+            case RAJAIN_TYPES.HAKUKAYNNISSA:
+            case RAJAIN_TYPES.JOTPA:
+            case RAJAIN_TYPES.TYOVOIMAKOULUTUS:
+            case RAJAIN_TYPES.TAYDENNYSKOULUTUS:
+            case RAJAIN_TYPES.APURAHA:
               Object.assign(state, { key: value === 'true' });
               break;
             default:
@@ -215,9 +215,9 @@ export const hakutulosSlice = createSlice({
 export const {
   setKeyword,
   setSelectedTab,
-  setFilterSelectedValues,
+  setRajainValues,
   resetPagination,
-  clearSelectedFilters,
+  clearRajainValues,
   setOrder,
   setSort,
   setSortOrder,
@@ -237,7 +237,7 @@ export const navigateToHaku =
 
 const getCleanUrlSearch = (search: TODOType, apiRequestParams: TODOType) =>
   mapValues(pick(search, Object.keys(apiRequestParams ?? {})), (value, key) =>
-    includes(FILTER_TYPES_ARR_FOR_KONFO_BACKEND, key)
+    includes(RAJAIN_TYPES_ARR_FOR_KONFO_BACKEND, key)
       ? join(sortBy(split(value, ',')), ',')
       : value
   );

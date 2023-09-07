@@ -20,7 +20,7 @@ import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { Murupolku } from '#/src/components/common/Murupolku';
 import { Pagination } from '#/src/components/common/Pagination';
-import { pageSizeArray, pageSortArray } from '#/src/constants';
+import { PAGE_SIZE_OPTIONS, PAGE_SORT_OPTIONS } from '#/src/constants';
 import { useSideMenu } from '#/src/hooks';
 import { useHakutulosWidth } from '#/src/store/reducers/appSlice';
 import { urlParamsChanged } from '#/src/store/reducers/hakutulosSlice';
@@ -252,7 +252,7 @@ export const HakuPage = () => {
                   onChange={(e) =>
                     setPagination({ size: safeParseNumber(e.target.value) })
                   }>
-                  {pageSizeArray.map((size) => (
+                  {PAGE_SIZE_OPTIONS.map((size) => (
                     <MenuItem
                       key={size}
                       classes={{ root: classes.menuItemRoot }}
@@ -275,7 +275,7 @@ export const HakuPage = () => {
                   variant="standard"
                   value={sortOrder}
                   onChange={(e) => setSortOrder(e.target.value)}>
-                  {pageSortArray.map((sort) => (
+                  {PAGE_SORT_OPTIONS.map((sort) => (
                     <MenuItem
                       key={sort}
                       classes={{ root: classes.menuItemRoot }}

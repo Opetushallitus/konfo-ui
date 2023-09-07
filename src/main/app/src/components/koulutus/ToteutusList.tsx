@@ -1,9 +1,9 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 
 import { Box, Grid, Hidden, Typography } from '@mui/material';
-import { mapValues, size } from 'lodash';
+import { size } from 'lodash';
 import { useTranslation } from 'react-i18next';
-import { P, match } from 'ts-pattern';
+import { match } from 'ts-pattern';
 
 import { EntiteettiKortti } from '#/src/components/common/EntiteettiKortti';
 import { OppilaitosKorttiLogo } from '#/src/components/common/KorttiLogo';
@@ -19,8 +19,7 @@ import {
   localizeArrayToCommaSeparated,
 } from '#/src/tools/localization';
 import { getLocalizedOpintojenLaajuus } from '#/src/tools/utils';
-import { RajainName } from '#/src/types/common';
-import { RajainBackendItem } from '#/src/types/SuodatinTypes';
+import { RajainName, TODOType } from '#/src/types/common';
 import { Jarjestaja } from '#/src/types/ToteutusTypes';
 
 import { useKoulutusJarjestajat } from './hooks';
@@ -34,13 +33,13 @@ type Props = {
   koulutustyyppi: string;
 };
 
-export type RajainOptions = Record<string, Record<string, RajainBackendItem>>;
+export type RajainOptions = Record<string, Record<string, TODOType>>;
 
 type JarjestajaData = {
   total: number;
   jarjestajat: Array<Jarjestaja>;
   loading: boolean;
-  sortedFilters: Record<RajainName, any>;
+  rajainOptions: Record<RajainName, any>;
 };
 
 const SuodatinGridItem: React.FC<React.PropsWithChildren> = ({ children }) => {
@@ -68,31 +67,24 @@ const getRajainProps = ({
 export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
   const { t } = useTranslation();
 
-  const { queryResult, rajainValues, setRajainValues, pagination, setPagination } =
-    useKoulutusJarjestajat({
-      oid,
-    });
+  const {
+    queryResult,
+    rajainValues,
+    setRajainValues,
+    pagination,
+    setPagination,
+    clearRajainValues,
+  } = useKoulutusJarjestajat({
+    oid,
+  });
 
   const { data = {}, isLoading } = queryResult;
 
-  const { sortedFilters, jarjestajat, total } = data as JarjestajaData;
+  const { rajainOptions, jarjestajat, total } = data as JarjestajaData;
 
-  const allSelectedFilters = useSelectedFilters(sortedFilters, rajainValues);
+  const allSelectedFilters = useSelectedFilters(rajainOptions, rajainValues);
 
   const someSelected = allSelectedFilters.flat.length > 0;
-
-  const handleFiltersClear = useCallback(() => {
-    const usedFilters = mapValues(rajainValues, (v, k) =>
-      match(v)
-        .with(P.array(P._), () => [])
-        .with({ [`${k}_min`]: P.number, [`${k}_max`]: P.number }, () => ({
-          [`${k}_min`]: 0,
-          [`${k}_max`]: 0,
-        }))
-        .otherwise(() => false)
-    );
-    setRajainValues(usedFilters);
-  }, [rajainValues, setRajainValues]);
 
   const someValuesToShow = isLoading || jarjestajat?.length > 0;
 
@@ -117,7 +109,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                 <SuodatinValinnat
                   allSelectedFilters={allSelectedFilters}
                   setRajainValues={setRajainValues}
-                  clearRajainValues={handleFiltersClear}
+                  clearRajainValues={clearRajainValues}
                 />
               </div>
             )}
@@ -135,7 +127,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                   <SuodatinGridItem key={id}>
                     <Component
                       elevation={2}
-                      rajainOptions={sortedFilters}
+                      rajainOptions={rajainOptions}
                       rajainValues={rajainValues}
                       setRajainValues={setRajainValues}
                       loading={isLoading}
@@ -153,10 +145,10 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
               rajainCount={size(allSelectedFilters?.flat)}
               loading={isLoading}
               hitCount={total}
-              clearFilterValues={handleFiltersClear}
+              clearFilterValues={clearRajainValues}
               setRajainValues={setRajainValues}
               rajainValues={rajainValues}
-              rajainOptions={sortedFilters}
+              rajainOptions={rajainOptions}
             />
           </Hidden>
         </>

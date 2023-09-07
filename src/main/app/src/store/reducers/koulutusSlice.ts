@@ -5,7 +5,7 @@ import { RootState } from '#/src/store';
 import { getPaginationPage } from '#/src/tools/utils';
 
 import { HAKU_RAJAIMET_INITIAL } from './hakutulosSlice';
-import { TOTEUTUS_FILTER_NAMES } from './hakutulosSliceSelector';
+import { TOTEUTUS_RAJAIN_NAMES } from './hakutulosSliceSelector';
 
 const initialPagination = {
   size: 5,
@@ -14,13 +14,13 @@ const initialPagination = {
 
 export const initialState = {
   tulevatJarjestajat: {
-    filters: pick(HAKU_RAJAIMET_INITIAL, TOTEUTUS_FILTER_NAMES),
+    rajainValues: pick(HAKU_RAJAIMET_INITIAL, TOTEUTUS_RAJAIN_NAMES),
     pagination: {
       ...initialPagination,
     },
   },
   jarjestajat: {
-    filters: pick(HAKU_RAJAIMET_INITIAL, TOTEUTUS_FILTER_NAMES),
+    rajainValues: pick(HAKU_RAJAIMET_INITIAL, TOTEUTUS_RAJAIN_NAMES),
     pagination: {
       ...initialPagination,
     },
@@ -31,9 +31,9 @@ export const koulutusSlice = createSlice({
   name: 'koulutus',
   initialState,
   reducers: {
-    setJarjestajatFilters(state, action) {
+    setJarjestajatRajainValues(state, action) {
       if (action.payload) {
-        Object.assign(state.jarjestajat.filters, action.payload);
+        Object.assign(state.jarjestajat.rajainValues, action.payload);
       }
     },
     setJarjestajatPaging(state, action) {
@@ -46,10 +46,16 @@ export const koulutusSlice = createSlice({
         merge(state.tulevatJarjestajat.pagination, action.payload);
       }
     },
-    setTulevatJarjestajatFilters(state, action) {
+    setTulevatJarjestajatRajainValues(state, action) {
       if (action.payload) {
-        Object.assign(state.tulevatJarjestajat.filters, action.payload);
+        Object.assign(state.tulevatJarjestajat.rajainValues, action.payload);
       }
+    },
+    clearJarjestajatRajainValues(state) {
+      Object.assign(state.jarjestajat, initialState.jarjestajat);
+    },
+    clearTulevatJarjestajatRajainValues(state) {
+      Object.assign(state.tulevatJarjestajat, initialState.tulevatJarjestajat);
     },
     resetJarjestajatPaging(state) {
       state.jarjestajat.pagination.offset = 0;
@@ -61,12 +67,14 @@ export const koulutusSlice = createSlice({
 });
 
 export const {
-  setJarjestajatFilters,
+  setJarjestajatRajainValues,
   setJarjestajatPaging,
   resetJarjestajatPaging,
-  setTulevatJarjestajatFilters,
+  setTulevatJarjestajatRajainValues,
   setTulevatJarjestajatPaging,
   resetTulevatJarjestajatPaging,
+  clearJarjestajatRajainValues,
+  clearTulevatJarjestajatRajainValues,
 } = koulutusSlice.actions;
 
 const selectKoulutusJarjestajat = (state: RootState) => state?.koulutus?.jarjestajat;

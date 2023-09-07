@@ -6,7 +6,7 @@ import { match } from 'ts-pattern';
 
 import { Filter } from '#/src/components/common/Filter';
 import { useConfig } from '#/src/config';
-import { FILTER_TYPES } from '#/src/constants';
+import { RAJAIN_TYPES } from '#/src/constants';
 import { getStateChangesForCheckboxRajaimet, useRajainItems } from '#/src/tools/filters';
 import { localize } from '#/src/tools/localization';
 import {
@@ -24,8 +24,8 @@ export const LukiolinjatSuodatin = (
   const { name, rajainValues, rajainOptions, ...rest } = props;
 
   const rajainType = match(name)
-    .with('lukiolinjat_er', () => FILTER_TYPES.LUKIOLINJATERITYINENKOULUTUSTEHTAVA)
-    .with('lukiopainotukset', () => FILTER_TYPES.LUKIOPAINOTUKSET)
+    .with('lukiolinjat_er', () => RAJAIN_TYPES.LUKIOLINJATERITYINENKOULUTUSTEHTAVA)
+    .with('lukiopainotukset', () => RAJAIN_TYPES.LUKIOPAINOTUKSET)
     .run();
 
   const rajainItems = useRajainItems(rajainOptions, rajainValues, rajainType);

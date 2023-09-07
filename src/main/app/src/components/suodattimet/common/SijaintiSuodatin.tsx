@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Filter } from '#/src/components/common/Filter';
 import { useConfig } from '#/src/config';
-import { FILTER_TYPES } from '#/src/constants';
+import { RAJAIN_TYPES } from '#/src/constants';
 import { getStateChangesForCheckboxRajaimet, useRajainItems } from '#/src/tools/filters';
 import { localize } from '#/src/tools/localization';
 import {
@@ -23,13 +23,13 @@ export const SijaintiSuodatin = (props: RajainComponentProps) => {
   const kuntaRajainValues = useRajainItems(
     rajainOptions,
     rajainValues,
-    FILTER_TYPES.KUNTA
+    RAJAIN_TYPES.KUNTA
   ) as Array<CheckboxRajainItem>;
 
   const maakuntaRajainValues = useRajainItems(
     rajainOptions,
     rajainValues,
-    FILTER_TYPES.MAAKUNTA
+    RAJAIN_TYPES.MAAKUNTA
   ) as Array<CheckboxRajainItem>;
 
   const onItemChange = (item: RajainItem) => {
