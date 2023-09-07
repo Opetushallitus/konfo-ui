@@ -49,7 +49,8 @@ export const Suodatinpalkki = () => {
       <OpetuskieliSuodatin
         expanded
         elevation={2}
-        rajainValues={useFilterProps(FILTER_TYPES.OPETUSKIELI)}
+        rajainUIValues={rajainValues as any}
+        rajainOptions={rajainOptions}
         setFilters={setFilters}
       />
       <OpetusaikaSuodatin

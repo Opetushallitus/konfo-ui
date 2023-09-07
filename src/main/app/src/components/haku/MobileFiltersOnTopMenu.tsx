@@ -95,7 +95,8 @@ export const MobileFiltersOnTopMenu = ({
         <OpetuskieliSuodatin
           expanded={false}
           displaySelected
-          rajainValues={useFilterProps(FILTER_TYPES.OPETUSKIELI)}
+          rajainOptions={rajainOptions}
+          rajainUIValues={rajainValues as any}
           setFilters={setFilters}
         />
         <Divider />

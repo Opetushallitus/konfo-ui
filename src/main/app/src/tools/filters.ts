@@ -89,7 +89,7 @@ export const getAllRajainValuesInUIFormat = (
 
 export const getRajainValueInUIFormat = (
   rajainCountsFromBackend: Record<RajainName, any> | undefined,
-  allRajainValuesSetInUI: Partial<RajainValues>,
+  allRajainValuesSetInUI: Partial<RajainValues> | undefined,
   originalRajainId: RajainName
 ): Array<RajainItem> => {
   const rajainId: RajainName =
@@ -106,7 +106,7 @@ export const getRajainValueInUIFormat = (
         id: rajainId,
         rajainId: booleanRajainId,
         count: rajainCount.count,
-        checked: Boolean(allRajainValuesSetInUI[booleanRajainId]),
+        checked: Boolean(allRajainValuesSetInUI?.[booleanRajainId]),
         linkedIds: [],
       },
     ])
@@ -117,7 +117,7 @@ export const getRajainValueInUIFormat = (
         numberRangeRajainId,
         rajainCount.count,
         ceil(rajainCount.max),
-        allRajainValuesSetInUI[numberRangeRajainId]
+        allRajainValuesSetInUI?.[numberRangeRajainId]
       ),
     ])
     .with(P.when(isCompositeRajainId), () =>
@@ -126,7 +126,7 @@ export const getRajainValueInUIFormat = (
       )
     )
     .with(P.when(isCheckboxRajainId), (checkboxRajainId) => {
-      const rajainValue = allRajainValuesSetInUI[checkboxRajainId];
+      const rajainValue = allRajainValuesSetInUI?.[checkboxRajainId];
       return Object.keys(rajainCount).map((key: string) => ({
         id: key,
         rajainId: checkboxRajainId,
@@ -136,7 +136,7 @@ export const getRajainValueInUIFormat = (
           key === YHTEISHAKU_KOODI_URI
             ? getRajainAlakoodit(
                 rajainCountsFromBackend[FILTER_TYPES.YHTEISHAKU],
-                allRajainValuesSetInUI[FILTER_TYPES.YHTEISHAKU],
+                allRajainValuesSetInUI?.[FILTER_TYPES.YHTEISHAKU],
                 FILTER_TYPES.YHTEISHAKU
               )
             : getRajainAlakoodit(
@@ -155,7 +155,7 @@ export const getRajainValueInUIFormat = (
 
 export const useRajainItems = (
   rajainOptions: Record<RajainName, any> | undefined,
-  rajainValues: Partial<RajainValues>,
+  rajainValues: Partial<RajainValues> | undefined,
   rajainId: RajainName
 ) => {
   return useMemo(

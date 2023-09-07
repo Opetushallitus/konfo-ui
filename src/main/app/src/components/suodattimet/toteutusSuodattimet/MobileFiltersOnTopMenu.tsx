@@ -75,7 +75,8 @@ export const MobileFiltersOnTopMenu = ({
         resultCount={hitCount}>
         <OpetuskieliSuodatin
           expanded={false}
-          rajainValues={values.opetuskieli}
+          rajainUIValues={rajainValues}
+          rajainOptions={rajainOptions}
           setFilters={setFilters}
         />
         <Divider />
