@@ -161,7 +161,8 @@ export const MobileFiltersOnTopMenu = ({
         )}
         <OpetustapaSuodatin
           expanded={false}
-          rajainValues={values.opetustapa}
+          rajainUIValues={rajainValues}
+          rajainOptions={rajainOptions}
           setFilters={setFilters}
         />
         <Divider />

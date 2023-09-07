@@ -111,7 +111,8 @@ export const Suodatinpalkki = () => {
       <OpetustapaSuodatin
         expanded={false}
         elevation={2}
-        rajainValues={useFilterProps(FILTER_TYPES.OPETUSTAPA)}
+        rajainUIValues={rajainValues as any}
+        rajainOptions={rajainOptions}
         setFilters={setFilters}
       />
       <KoulutuksenKestoSuodatin

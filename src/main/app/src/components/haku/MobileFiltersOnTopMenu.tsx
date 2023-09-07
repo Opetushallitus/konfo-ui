@@ -166,7 +166,8 @@ export const MobileFiltersOnTopMenu = ({
         <OpetustapaSuodatin
           expanded={false}
           displaySelected
-          rajainValues={useFilterProps(FILTER_TYPES.OPETUSTAPA)}
+          rajainOptions={rajainOptions}
+          rajainUIValues={rajainValues as any}
           setFilters={setFilters}
         />
         <Divider />

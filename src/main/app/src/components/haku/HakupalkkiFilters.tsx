@@ -132,7 +132,8 @@ export const HakupalkkiFilters = () => {
       <Divider orientation="vertical" flexItem />
       <Suodatin id="opetustapa" header={t('haku.opetustapa')}>
         <OpetustapaSuodatin
-          rajainValues={useFilterProps(FILTER_TYPES.OPETUSTAPA)}
+          rajainOptions={rajainOptions}
+          rajainUIValues={rajainValues as any}
           setFilters={setFilters}
           expanded={true}
           summaryHidden={true}
