@@ -156,7 +156,8 @@ export const MobileFiltersOnTopMenu = ({
           <>
             <AmmOsaamisalatSuodatin
               expanded={false}
-              rajainValues={values.osaamisala}
+              rajainUIValues={rajainValues}
+              rajainOptions={rajainOptions}
               setFilters={setFilters}
             />
             <Divider />

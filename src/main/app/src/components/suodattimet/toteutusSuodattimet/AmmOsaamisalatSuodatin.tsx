@@ -5,26 +5,30 @@ import { useTranslation } from 'react-i18next';
 
 import { Filter } from '#/src/components/common/Filter';
 import { useConfig } from '#/src/config';
-import { getStateChangesForCheckboxRajaimet } from '#/src/tools/filters';
+import { FILTER_TYPES } from '#/src/constants';
+import { useRajainItems } from '#/src/tools/filters';
 import { localize } from '#/src/tools/localization';
-import {
-  CheckboxRajainItem,
-  RajainItem,
-  SuodatinComponentProps,
-} from '#/src/types/SuodatinTypes';
+import { CheckboxRajainItem, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 
-export const AmmOsaamisalatSuodatin = (props: SuodatinComponentProps) => {
+import { useCheckboxRajainOnChange } from '../common/useCheckboxRajainOnChange';
+
+export const AmmOsaamisalatSuodatin = (
+  props: Omit<SuodatinComponentProps, 'rajainValues'>
+) => {
   const { t } = useTranslation();
-  const { rajainValues = [], ...rest } = props;
+  const { setFilters, rajainUIValues, rajainOptions, ...rest } = props;
 
-  const filteredValues = (rajainValues as Array<CheckboxRajainItem>).filter(
+  const rajainItems = useRajainItems(
+    rajainOptions,
+    rajainUIValues,
+    FILTER_TYPES.OSAAMISALA
+  );
+
+  const filteredValues = (rajainItems as Array<CheckboxRajainItem>).filter(
     (v) => v?.count > 0 || v.checked
   );
 
-  const handleCheck = (item: RajainItem) => {
-    const changes = getStateChangesForCheckboxRajaimet(rajainValues)(item);
-    props.setFilters(changes);
-  };
+  const handleCheck = useCheckboxRajainOnChange(rajainItems, setFilters);
 
   const config = useConfig();
   const naytaFiltterienHakutulosLuvut = config.naytaFiltterienHakutulosLuvut;
@@ -63,6 +67,7 @@ export const AmmOsaamisalatSuodatin = (props: SuodatinComponentProps) => {
       options={options}
       expandValues
       displaySelected
+      setFilters={setFilters}
       {...rest}
     />
   );
