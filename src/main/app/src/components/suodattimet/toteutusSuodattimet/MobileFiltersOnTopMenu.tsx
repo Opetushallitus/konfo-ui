@@ -76,21 +76,21 @@ export const MobileFiltersOnTopMenu = ({
         resultCount={hitCount}>
         <OpetuskieliSuodatin
           expanded={false}
-          rajainUIValues={rajainValues}
+          rajainValues={rajainValues}
           rajainOptions={rajainOptions}
           setFilters={setFilters}
         />
         <Divider />
         <OpetusaikaSuodatin
           expanded={false}
-          rajainUIValues={rajainValues}
+          rajainValues={rajainValues}
           rajainOptions={rajainOptions}
           setFilters={setFilters}
         />
         <Divider />
         <SijaintiSuodatin
           expanded={false}
-          rajainUIValues={rajainValues}
+          rajainValues={rajainValues}
           rajainOptions={rajainOptions}
           loading={loading}
           setFilters={setFilters}
@@ -98,7 +98,7 @@ export const MobileFiltersOnTopMenu = ({
         <Divider />
         <PohjakoulutusvaatimusSuodatin
           expanded={false}
-          rajainUIValues={rajainValues}
+          rajainValues={rajainValues}
           rajainOptions={rajainOptions}
           setFilters={setFilters}
         />
@@ -106,7 +106,7 @@ export const MobileFiltersOnTopMenu = ({
         {values.hakukaynnissa && (
           <HakuKaynnissaSuodatin
             expanded={false}
-            rajainUIValues={rajainValues}
+            rajainValues={rajainValues}
             rajainOptions={rajainOptions}
             setFilters={setFilters}
           />
@@ -115,7 +115,7 @@ export const MobileFiltersOnTopMenu = ({
         {values.hakutapa && (
           <HakutapaSuodatin
             expanded={false}
-            rajainUIValues={rajainValues}
+            rajainValues={rajainValues}
             rajainOptions={rajainOptions}
             setFilters={setFilters}
           />
@@ -125,7 +125,7 @@ export const MobileFiltersOnTopMenu = ({
           <>
             <ValintatapaSuodatin
               expanded={false}
-              rajainUIValues={rajainValues}
+              rajainValues={rajainValues}
               rajainOptions={rajainOptions}
               setFilters={setFilters}
             />
@@ -137,7 +137,7 @@ export const MobileFiltersOnTopMenu = ({
             <LukiolinjatSuodatin
               name="lukiopainotukset"
               expanded={false}
-              rajainUIValues={rajainValues}
+              rajainValues={rajainValues}
               rajainOptions={rajainOptions}
               setFilters={setFilters}
             />
@@ -145,7 +145,7 @@ export const MobileFiltersOnTopMenu = ({
             <LukiolinjatSuodatin
               name="lukiolinjat_er"
               expanded={false}
-              rajainUIValues={rajainValues}
+              rajainValues={rajainValues}
               rajainOptions={rajainOptions}
               setFilters={setFilters}
             />
@@ -156,7 +156,7 @@ export const MobileFiltersOnTopMenu = ({
           <>
             <AmmOsaamisalatSuodatin
               expanded={false}
-              rajainUIValues={rajainValues}
+              rajainValues={rajainValues}
               rajainOptions={rajainOptions}
               setFilters={setFilters}
             />
@@ -165,35 +165,35 @@ export const MobileFiltersOnTopMenu = ({
         )}
         <OpetustapaSuodatin
           expanded={false}
-          rajainUIValues={rajainValues}
+          rajainValues={rajainValues}
           rajainOptions={rajainOptions}
           setFilters={setFilters}
         />
         <Divider />
         <OppilaitosSuodatin
           expanded={false}
-          rajainUIValues={rajainValues}
+          rajainValues={rajainValues}
           rajainOptions={rajainOptions}
           setFilters={setFilters}
         />
         <Divider />
         <KoulutuksenKestoSuodatin
           expanded={false}
-          rajainUIValues={rajainValues}
+          rajainValues={rajainValues}
           rajainOptions={rajainOptions}
           setFilters={setFilters}
         />
         <Divider />
         <AlkamiskausiSuodatin
           expanded={false}
-          rajainUIValues={rajainValues}
+          rajainValues={rajainValues}
           rajainOptions={rajainOptions}
           setFilters={setFilters}
         />
         <Divider />
         <MaksullisuusSuodatin
           expanded={false}
-          rajainUIValues={rajainValues}
+          rajainValues={rajainValues}
           rajainOptions={rajainOptions}
           setFilters={setFilters}
         />

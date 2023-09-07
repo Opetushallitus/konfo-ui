@@ -7,15 +7,13 @@ import { SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 
 import { useCheckboxRajainOnChange } from './useCheckboxRajainOnChange';
 
-export const OpetusaikaSuodatin = (
-  props: Omit<SuodatinComponentProps, 'rajainValues'>
-) => {
+export const OpetusaikaSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
-  const { setFilters, rajainUIValues, rajainOptions } = props;
+  const { setFilters, rajainValues, rajainOptions } = props;
 
   const rajainItems = useRajainItems(
     rajainOptions,
-    rajainUIValues,
+    rajainValues,
     FILTER_TYPES.OPETUSAIKA
   );
 

@@ -14,16 +14,14 @@ const TYOELAMA_JA_TAYDENNYSKOULUTUS_FILTER_TYPES = [
   FILTER_TYPES.TAYDENNYSKOULUTUS,
 ];
 
-export const TyoelamaJaTaydennyskoulutuksetSuodatin = (
-  props: Omit<SuodatinComponentProps, 'rajainValues'>
-) => {
+export const TyoelamaJaTaydennyskoulutuksetSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
 
-  const { rajainUIValues, rajainOptions, setFilters } = props;
+  const { rajainValues, rajainOptions, setFilters } = props;
 
   const rajainItems = useRajainItems(
     rajainOptions,
-    rajainUIValues,
+    rajainValues,
     TYOELAMA_JA_TAYDENNYSKOULUTUS_FILTER_TYPES
   );
 

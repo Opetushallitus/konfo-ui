@@ -32,8 +32,8 @@ import { marks } from './maksullisuusRajainUtils';
 
 type MaksunMaaraRajainName = 'maksunmaara' | 'lukuvuosimaksunmaara';
 
-const getCheckboxRajain = (rajainValues: Array<RajainItem>, id: string): RajainItem =>
-  rajainValues.find((r) => r.id === id) ?? {
+const getCheckboxRajain = (rajainItems: Array<RajainItem>, id: string): RajainItem =>
+  rajainItems.find((r) => r.id === id) ?? {
     rajainId: 'maksullisuustyyppi',
     id,
     count: 0,
@@ -41,10 +41,10 @@ const getCheckboxRajain = (rajainValues: Array<RajainItem>, id: string): RajainI
   };
 
 const getNumberRangeRajain = (
-  rajainValues: Array<RajainItem>,
+  rajainItems: Array<RajainItem>,
   rajainId: NumberRangeRajainId
 ) =>
-  rajainValues?.find((r) => r.rajainId === rajainId) ?? {
+  rajainItems?.find((r) => r.rajainId === rajainId) ?? {
     rajainId,
     id: rajainId,
     count: 0,
@@ -80,23 +80,23 @@ const getNumberRangeValues = (
   };
 };
 
-const rangeRajainObject = (rajainName: string, rajainValues: Array<number>) => ({
+const rangeRajainObject = (rajainName: string, rangeValues: Array<number>) => ({
   [rajainName]: {
-    [`${rajainName}_min`]: rajainValues[0],
-    [`${rajainName}_max`]: rajainValues[1],
+    [`${rajainName}_min`]: rangeValues[0],
+    [`${rajainName}_max`]: rangeValues[1],
   },
 });
 
 const maksullisuustyyppiSetDisabled = (
-  rajainValues: Array<RajainItem>,
+  rajainItems: Array<RajainItem>,
   newRajainValues: Array<string>,
   tyyppi: string
 ) =>
-  isChecked(getCheckboxRajain(rajainValues, tyyppi)) && !newRajainValues.includes(tyyppi);
+  isChecked(getCheckboxRajain(rajainItems, tyyppi)) && !newRajainValues.includes(tyyppi);
 
-const maksullisuustyyppiRajainItems = (rajainValues: Array<RajainItem>) =>
+const maksullisuustyyppiRajainItems = (rajainItems: Array<RajainItem>) =>
   ['maksuton', 'maksullinen', 'lukuvuosimaksu'].map((tyyppi) =>
-    getCheckboxRajain(rajainValues, tyyppi)
+    getCheckboxRajain(rajainItems, tyyppi)
   );
 
 const labelText = (val: number) => (val > 0 ? `${val}€` : '0');
@@ -114,21 +114,21 @@ const rangeText = (v: NumberRangeValues) =>
     );
 
 const maksullisuustyyppiChanges = (
-  rajainValues: Array<RajainItem>,
+  rajainItems: Array<RajainItem>,
   rajainItem: RajainItem
 ) => {
   let changes = getStateChangesForCheckboxRajaimet(
-    maksullisuustyyppiRajainItems(rajainValues)
+    maksullisuustyyppiRajainItems(rajainItems)
   )(rajainItem);
 
   if (
-    maksullisuustyyppiSetDisabled(rajainValues, changes.maksullisuustyyppi, 'maksullinen')
+    maksullisuustyyppiSetDisabled(rajainItems, changes.maksullisuustyyppi, 'maksullinen')
   ) {
     changes = Object.assign(changes, rangeRajainObject('maksunmaara', [0, 0]));
   }
   if (
     maksullisuustyyppiSetDisabled(
-      rajainValues,
+      rajainItems,
       changes.maksullisuustyyppi,
       'lukuvuosimaksu'
     )
@@ -142,23 +142,24 @@ const maksullisuustyyppiChanges = (
 
 const useNumberRangeValues = (
   rajainName: MaksunMaaraRajainName,
-  rajainValues: Array<RajainItem>
+  rajainItems: Array<RajainItem>
 ) =>
   useMemo(
-    () => getNumberRangeValues(getNumberRangeRajain(rajainValues, rajainName)),
-    [rajainValues, rajainName]
+    () => getNumberRangeValues(getNumberRangeRajain(rajainItems, rajainName)),
+    [rajainItems, rajainName]
   );
 
 const MaksullisuusRangeSlider = ({
   rajainName,
-  rajainValues = [],
+  rajainItems = [],
   setFilters,
-}: Pick<SuodatinComponentProps, 'rajainValues' | 'setFilters'> & {
+}: Pick<SuodatinComponentProps, 'setFilters'> & {
+  rajainItems?: Array<RajainItem>;
   rajainName: MaksunMaaraRajainName;
 }) => {
   const { undefinedValue, numberRangeValues } = useNumberRangeValues(
     rajainName,
-    rajainValues
+    rajainItems
   );
   const setMaksuRange = (maksuRange: Array<number>) =>
     setFilters(
@@ -185,18 +186,20 @@ const MaksullisuusRangeSlider = ({
 };
 
 const MaksullisuusSummary = ({
-  rajainValues = [],
+  rajainItems = [],
   displaySelected,
-}: Pick<SuodatinComponentProps, 'rajainValues' | 'displaySelected'>) => {
+}: Pick<SuodatinComponentProps, 'displaySelected'> & {
+  rajainItems?: Array<RajainItem>;
+}) => {
   const { t } = useTranslation();
-  const maksunmaara = useNumberRangeValues(FILTER_TYPES.MAKSUNMAARA, rajainValues);
+  const maksunmaara = useNumberRangeValues(FILTER_TYPES.MAKSUNMAARA, rajainItems);
   const lukuvuosimaksu = useNumberRangeValues(
     FILTER_TYPES.LUKUVUOSIMAKSUNMAARA,
-    rajainValues
+    rajainItems
   );
 
   const selectedRajainItems =
-    maksullisuustyyppiRajainItems(rajainValues).filter(isChecked);
+    maksullisuustyyppiRajainItems(rajainItems).filter(isChecked);
 
   const contentString = useMemo(
     () =>
@@ -210,14 +213,14 @@ const MaksullisuusSummary = ({
                 { id: 'lukuvuosimaksu' },
                 () =>
                   rangeText(lukuvuosimaksu) +
-                  (isChecked(getCheckboxRajain(rajainValues, 'apuraha'))
+                  (isChecked(getCheckboxRajain(rajainItems, 'apuraha'))
                     ? t('haku.apuraha')
                     : '')
               )
               .otherwise(() => '')
         )
         .join(','),
-    [selectedRajainItems, maksunmaara, lukuvuosimaksu, rajainValues, t]
+    [selectedRajainItems, maksunmaara, lukuvuosimaksu, rajainItems, t]
   );
 
   return (
@@ -232,33 +235,34 @@ const MaksullisuusSummary = ({
   );
 };
 
-type InputsSectionProps = Pick<SuodatinComponentProps, 'rajainValues' | 'setFilters'> & {
+type InputsSectionProps = Pick<SuodatinComponentProps, 'setFilters'> & {
+  rajainItems?: Array<RajainItem>;
   isCountVisible?: boolean;
 };
 
 const MaksullinenInputs = ({
-  rajainValues = [],
+  rajainItems = [],
   setFilters,
   isCountVisible,
 }: InputsSectionProps) => (
   <>
     <FilterCheckbox
-      value={getCheckboxRajain(rajainValues, 'maksullinen')}
-      handleCheck={(item) => setFilters(maksullisuustyyppiChanges(rajainValues, item))}
+      value={getCheckboxRajain(rajainItems, 'maksullinen')}
+      handleCheck={(item) => setFilters(maksullisuustyyppiChanges(rajainItems, item))}
       isCountVisible={isCountVisible}
     />
-    {isChecked(getCheckboxRajain(rajainValues, 'maksullinen')) && (
+    {isChecked(getCheckboxRajain(rajainItems, 'maksullinen')) && (
       <MaksullisuusRangeSlider
         rajainName="maksunmaara"
         setFilters={setFilters}
-        rajainValues={rajainValues}
+        rajainItems={rajainItems}
       />
     )}
   </>
 );
 
 const LukuvuosimaksuInputs = ({
-  rajainValues = [],
+  rajainItems = [],
   setFilters,
   isCountVisible,
 }: InputsSectionProps) => {
@@ -267,31 +271,29 @@ const LukuvuosimaksuInputs = ({
     <>
       <Box>
         <FilterCheckbox
-          value={getCheckboxRajain(rajainValues, 'lukuvuosimaksu')}
-          handleCheck={(item) =>
-            setFilters(maksullisuustyyppiChanges(rajainValues, item))
-          }
+          value={getCheckboxRajain(rajainItems, 'lukuvuosimaksu')}
+          handleCheck={(item) => setFilters(maksullisuustyyppiChanges(rajainItems, item))}
           isCountVisible={isCountVisible}
           additionalInfo={t('haku.lukuvuosimaksu-tooltip')}
         />
       </Box>
-      {isChecked(getCheckboxRajain(rajainValues, 'lukuvuosimaksu')) && (
+      {isChecked(getCheckboxRajain(rajainItems, 'lukuvuosimaksu')) && (
         <MaksullisuusRangeSlider
           rajainName="lukuvuosimaksunmaara"
-          rajainValues={rajainValues}
+          rajainItems={rajainItems}
           setFilters={setFilters}
         />
       )}
       <FilterCheckbox
         key={FILTER_TYPES.APURAHA}
-        value={getCheckboxRajain(rajainValues, 'apuraha')}
+        value={getCheckboxRajain(rajainItems, 'apuraha')}
         handleCheck={(item: RajainItem) =>
           setFilters({
             apuraha: !isChecked(item),
           })
         }
         isCountVisible={false}
-        disabled={!isChecked(getCheckboxRajain(rajainValues, 'lukuvuosimaksu'))}
+        disabled={!isChecked(getCheckboxRajain(rajainItems, 'lukuvuosimaksu'))}
       />
     </>
   );
@@ -303,15 +305,15 @@ export const MaksullisuusSuodatin = ({
   elevation = 0,
   expanded,
   rajainOptions,
-  rajainUIValues,
+  rajainValues,
   setFilters,
-}: Omit<SuodatinComponentProps, 'rajainValues'>) => {
+}: SuodatinComponentProps) => {
   const config = useConfig();
   const isCountVisible = config?.naytaFiltterienHakutulosLuvut;
 
-  const rajainValues = useRajainItems(
+  const rajainItems = useRajainItems(
     rajainOptions,
-    rajainUIValues,
+    rajainValues,
     FILTER_TYPES.MAKSULLISUUS
   );
 
@@ -319,26 +321,26 @@ export const MaksullisuusSuodatin = ({
     <SuodatinAccordion elevation={elevation} defaultExpanded={expanded} square>
       {!summaryHidden && (
         <MaksullisuusSummary
-          rajainValues={rajainValues}
+          rajainItems={rajainItems}
           displaySelected={displaySelected}
         />
       )}
       <SuodatinAccordionDetails {...(summaryHidden && { style: { padding: 0 } })}>
         <List sx={{ width: '100%' }}>
           <FilterCheckbox
-            value={getCheckboxRajain(rajainValues, 'maksuton')}
+            value={getCheckboxRajain(rajainItems, 'maksuton')}
             handleCheck={(item) =>
-              setFilters(maksullisuustyyppiChanges(rajainValues, item))
+              setFilters(maksullisuustyyppiChanges(rajainItems, item))
             }
             isCountVisible={isCountVisible}
           />
           <MaksullinenInputs
-            rajainValues={rajainValues}
+            rajainItems={rajainItems}
             setFilters={setFilters}
             isCountVisible={isCountVisible}
           />
           <LukuvuosimaksuInputs
-            rajainValues={rajainValues}
+            rajainItems={rajainItems}
             setFilters={setFilters}
             isCountVisible={isCountVisible}
           />

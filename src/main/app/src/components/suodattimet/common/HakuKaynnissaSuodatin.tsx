@@ -8,16 +8,14 @@ import { FILTER_TYPES } from '#/src/constants';
 import { useRajainItems } from '#/src/tools/filters';
 import { RajainItem, SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 
-export const HakuKaynnissaSuodatin = (
-  props: Omit<SuodatinComponentProps, 'rajainValues'>
-) => {
+export const HakuKaynnissaSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
 
-  const { rajainUIValues, rajainOptions, setFilters } = props;
+  const { rajainValues, rajainOptions, setFilters } = props;
 
   const rajainItems = useRajainItems(
     rajainOptions,
-    rajainUIValues,
+    rajainValues,
     FILTER_TYPES.HAKUKAYNNISSA
   );
 

@@ -10,16 +10,12 @@ import { SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 import { useCheckboxRajainOnChange } from './useCheckboxRajainOnChange';
 
 // NOTE: Hakutapa sisältää hakukaynnissa ja yhteishaku suodattimet -> tämä komponentti hoitaa yhdistelylogiikan
-export const HakutapaSuodatin = (props: Omit<SuodatinComponentProps, 'rajainValues'>) => {
+export const HakutapaSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
 
-  const { setFilters, rajainOptions, rajainUIValues } = props;
+  const { setFilters, rajainOptions, rajainValues } = props;
 
-  const rajainItems = useRajainItems(
-    rajainOptions,
-    rajainUIValues,
-    FILTER_TYPES.HAKUTAPA
-  );
+  const rajainItems = useRajainItems(rajainOptions, rajainValues, FILTER_TYPES.HAKUTAPA);
 
   const handleCheck = useCheckboxRajainOnChange(rajainItems, setFilters);
 

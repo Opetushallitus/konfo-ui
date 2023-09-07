@@ -9,15 +9,13 @@ import { SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 
 import { useCheckboxRajainOnChange } from './useCheckboxRajainOnChange';
 
-export const ValintatapaSuodatin = (
-  props: Omit<SuodatinComponentProps, 'rajainValues'>
-) => {
+export const ValintatapaSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
-  const { rajainOptions, rajainUIValues, setFilters } = props;
+  const { rajainOptions, rajainValues, setFilters } = props;
 
   const rajainItems = useRajainItems(
     rajainOptions,
-    rajainUIValues,
+    rajainValues,
     FILTER_TYPES.VALINTATAPA
   );
 

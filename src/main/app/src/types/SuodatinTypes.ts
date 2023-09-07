@@ -12,16 +12,12 @@ export type SuodatinComponentProps = {
   shadow?: boolean;
   onFocus?: () => void;
   onHide?: () => void;
-  rajainValues?: Array<RajainItem>;
-  maakuntaRajainValues?: Array<CheckboxRajainItem>;
-  kuntaRajainValues?: Array<CheckboxRajainItem>;
-  hakutapaRajainValues?: Array<CheckboxRajainItem>;
   loading?: boolean;
   setFilters: (value: any) => void;
   name?: string;
   // uudet kentät, jotta rajain-komponentti voi itse muodostaa arvonsa
   rajainOptions?: Record<RajainName, any>; // backendin palauttama "filters", eli valittavissa olevat rajaimet ja niiden lukumäärät
-  rajainUIValues?: Partial<RajainValues>; // kaikkien rajainten valitut arvot
+  rajainValues?: Partial<RajainValues>; // kaikkien rajainten valitut arvot
 };
 
 export type RajainItem = CheckboxRajainItem | BooleanRajainItem | NumberRangeRajainItem;

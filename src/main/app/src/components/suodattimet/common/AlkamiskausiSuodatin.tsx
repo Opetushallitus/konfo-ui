@@ -9,15 +9,13 @@ import { SuodatinComponentProps } from '#/src/types/SuodatinTypes';
 
 import { useCheckboxRajainOnChange } from './useCheckboxRajainOnChange';
 
-export const AlkamiskausiSuodatin = (
-  props: Omit<SuodatinComponentProps, 'rajainValues'>
-) => {
+export const AlkamiskausiSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
-  const { setFilters, rajainOptions, rajainUIValues } = props;
+  const { setFilters, rajainOptions, rajainValues } = props;
 
   const rajainItems = useRajainItems(
     rajainOptions,
-    rajainUIValues,
+    rajainValues,
     FILTER_TYPES.ALKAMISKAUSI
   );
 

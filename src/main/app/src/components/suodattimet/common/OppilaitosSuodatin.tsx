@@ -12,15 +12,13 @@ import { CheckboxRajainItem, SuodatinComponentProps } from '#/src/types/Suodatin
 
 import { useCheckboxRajainOnChange } from './useCheckboxRajainOnChange';
 
-export const OppilaitosSuodatin = (
-  props: Omit<SuodatinComponentProps, 'rajainValues'>
-) => {
+export const OppilaitosSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
-  const { setFilters, rajainOptions, rajainUIValues, ...rest } = props;
+  const { setFilters, rajainOptions, rajainValues, ...rest } = props;
 
   const rajainItems = useRajainItems(
     rajainOptions,
-    rajainUIValues,
+    rajainValues,
     FILTER_TYPES.OPPILAITOS
   );
 

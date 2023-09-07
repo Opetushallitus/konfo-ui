@@ -16,19 +16,19 @@ import {
 } from '#/src/types/SuodatinTypes';
 
 export const LukiolinjatSuodatin = (
-  props: Omit<SuodatinComponentProps, 'rajainValues'> & {
+  props: SuodatinComponentProps & {
     name: 'lukiolinjat_er' | 'lukiopainotukset';
   }
 ) => {
   const { t } = useTranslation();
-  const { name, rajainUIValues, rajainOptions, ...rest } = props;
+  const { name, rajainValues, rajainOptions, ...rest } = props;
 
   const rajainType = match(name)
     .with('lukiolinjat_er', () => FILTER_TYPES.LUKIOLINJATERITYINENKOULUTUSTEHTAVA)
     .with('lukiopainotukset', () => FILTER_TYPES.LUKIOPAINOTUKSET)
     .run();
 
-  const rajainItems = useRajainItems(rajainOptions, rajainUIValues, rajainType);
+  const rajainItems = useRajainItems(rajainOptions, rajainValues, rajainType);
 
   const filteredValues = (rajainItems as Array<CheckboxRajainItem>).filter(
     (v) => v?.count > 0 || v.checked

@@ -30,7 +30,7 @@ export const HakupalkkiFilters = () => {
       <Suodatin id="koulutustyyppi" header={t('haku.koulutustyyppi')}>
         <KoulutustyyppiSuodatin
           rajainOptions={rajainOptions}
-          rajainUIValues={rajainValues}
+          rajainValues={rajainValues}
           setFilters={setFilters}
           expanded={true}
           summaryHidden={true}
@@ -40,7 +40,7 @@ export const HakupalkkiFilters = () => {
       <Suodatin id="opetuskieli" header={t('haku.opetuskieli')}>
         <OpetuskieliSuodatin
           rajainOptions={rajainOptions}
-          rajainUIValues={rajainValues}
+          rajainValues={rajainValues}
           setFilters={setFilters}
           expanded={true}
           summaryHidden={true}
@@ -50,7 +50,7 @@ export const HakupalkkiFilters = () => {
       <Suodatin id="opetuskieli" header={t('haku.opetusaika')}>
         <OpetusaikaSuodatin
           rajainOptions={rajainOptions}
-          rajainUIValues={rajainValues}
+          rajainValues={rajainValues}
           setFilters={setFilters}
           expanded={true}
           summaryHidden={true}
@@ -60,7 +60,7 @@ export const HakupalkkiFilters = () => {
       <Suodatin id="sijainti" header={t('haku.sijainti')}>
         <SijaintiSuodatin
           rajainOptions={rajainOptions}
-          rajainUIValues={rajainValues}
+          rajainValues={rajainValues}
           setFilters={setFilters}
           expanded={true}
           summaryHidden={true}
@@ -70,7 +70,7 @@ export const HakupalkkiFilters = () => {
       <Suodatin id="pohjakoulutusvaatimus" header={t('haku.pohjakoulutusvaatimus')}>
         <PohjakoulutusvaatimusSuodatin
           rajainOptions={rajainOptions}
-          rajainUIValues={rajainValues}
+          rajainValues={rajainValues}
           setFilters={setFilters}
           expanded={true}
           summaryHidden={true}
@@ -80,7 +80,7 @@ export const HakupalkkiFilters = () => {
       <Suodatin id="hakukaynnissa" header={t('haku.hakukaynnissa-otsikko')}>
         <HakuKaynnissaSuodatin
           rajainOptions={rajainOptions}
-          rajainUIValues={rajainValues}
+          rajainValues={rajainValues}
           setFilters={setFilters}
           expanded={true}
           summaryHidden={true}
@@ -92,7 +92,7 @@ export const HakupalkkiFilters = () => {
         header={t('haku.tyoelama-ja-taydennyskoulutukset')}>
         <TyoelamaJaTaydennyskoulutuksetSuodatin
           rajainOptions={rajainOptions}
-          rajainUIValues={rajainValues}
+          rajainValues={rajainValues}
           setFilters={setFilters}
           expanded={true}
           summaryHidden={true}
@@ -102,7 +102,7 @@ export const HakupalkkiFilters = () => {
       <Suodatin id="hakutapa" header={t('haku.hakutapa')}>
         <HakutapaSuodatin
           rajainOptions={rajainOptions}
-          rajainUIValues={rajainValues}
+          rajainValues={rajainValues}
           setFilters={setFilters}
           expanded={true}
           summaryHidden={true}
@@ -112,7 +112,7 @@ export const HakupalkkiFilters = () => {
       <Suodatin id="valintatapa" header={t('haku.valintatapa')}>
         <ValintatapaSuodatin
           rajainOptions={rajainOptions}
-          rajainUIValues={rajainValues}
+          rajainValues={rajainValues}
           setFilters={setFilters}
           expanded={true}
           summaryHidden={true}
@@ -122,7 +122,7 @@ export const HakupalkkiFilters = () => {
       <Suodatin id="koulutusala" header={t('haku.koulutusalat')}>
         <KoulutusalaSuodatin
           rajainOptions={rajainOptions}
-          rajainUIValues={rajainValues}
+          rajainValues={rajainValues}
           setFilters={setFilters}
           expanded={true}
           summaryHidden={true}
@@ -132,7 +132,7 @@ export const HakupalkkiFilters = () => {
       <Suodatin id="opetustapa" header={t('haku.opetustapa')}>
         <OpetustapaSuodatin
           rajainOptions={rajainOptions}
-          rajainUIValues={rajainValues}
+          rajainValues={rajainValues}
           setFilters={setFilters}
           expanded={true}
           summaryHidden={true}
@@ -143,7 +143,7 @@ export const HakupalkkiFilters = () => {
         <KoulutuksenKestoSuodatin
           setFilters={setFilters}
           rajainOptions={rajainOptions}
-          rajainUIValues={rajainValues}
+          rajainValues={rajainValues}
           expanded={true}
           summaryHidden={true}
         />
@@ -152,7 +152,7 @@ export const HakupalkkiFilters = () => {
       <Suodatin id="alkamiskausi" header={t('haku.alkamiskausi')}>
         <AlkamiskausiSuodatin
           rajainOptions={rajainOptions}
-          rajainUIValues={rajainValues}
+          rajainValues={rajainValues}
           setFilters={setFilters}
           expanded={true}
           summaryHidden={true}
@@ -162,7 +162,7 @@ export const HakupalkkiFilters = () => {
       <Suodatin id="maksullisuus" header={t('maksullisuus')}>
         <MaksullisuusSuodatin
           rajainOptions={rajainOptions}
-          rajainUIValues={rajainValues}
+          rajainValues={rajainValues}
           setFilters={setFilters}
           expanded={true}
           summaryHidden={true}

@@ -86,7 +86,7 @@ export const MobileFiltersOnTopMenu = ({
           expanded={false}
           displaySelected
           rajainOptions={rajainOptions}
-          rajainUIValues={rajainValues}
+          rajainValues={rajainValues}
           setFilters={setFilters}
         />
         <Divider />
@@ -94,7 +94,7 @@ export const MobileFiltersOnTopMenu = ({
           expanded={false}
           displaySelected
           rajainOptions={rajainOptions}
-          rajainUIValues={rajainValues}
+          rajainValues={rajainValues}
           setFilters={setFilters}
         />
         <Divider />
@@ -102,7 +102,7 @@ export const MobileFiltersOnTopMenu = ({
           expanded={false}
           displaySelected
           rajainOptions={rajainOptions}
-          rajainUIValues={rajainValues}
+          rajainValues={rajainValues}
           setFilters={setFilters}
         />
         <Divider />
@@ -110,7 +110,7 @@ export const MobileFiltersOnTopMenu = ({
           expanded={false}
           displaySelected
           rajainOptions={rajainOptions}
-          rajainUIValues={rajainValues}
+          rajainValues={rajainValues}
           setFilters={setFilters}
         />
         <Divider />
@@ -118,7 +118,7 @@ export const MobileFiltersOnTopMenu = ({
           expanded={false}
           displaySelected
           rajainOptions={rajainOptions}
-          rajainUIValues={rajainValues}
+          rajainValues={rajainValues}
           setFilters={setFilters}
         />
         <Divider />
@@ -126,7 +126,7 @@ export const MobileFiltersOnTopMenu = ({
           expanded={false}
           displaySelected
           rajainOptions={rajainOptions}
-          rajainUIValues={rajainValues}
+          rajainValues={rajainValues}
           setFilters={setFilters}
         />
         <Divider />
@@ -134,7 +134,7 @@ export const MobileFiltersOnTopMenu = ({
           expanded={false}
           displaySelected
           rajainOptions={rajainOptions}
-          rajainUIValues={rajainValues}
+          rajainValues={rajainValues}
           setFilters={setFilters}
         />
         <Divider />
@@ -142,7 +142,7 @@ export const MobileFiltersOnTopMenu = ({
           expanded={false}
           displaySelected
           rajainOptions={rajainOptions}
-          rajainUIValues={rajainValues}
+          rajainValues={rajainValues}
           setFilters={setFilters}
         />
         <Divider />
@@ -150,7 +150,7 @@ export const MobileFiltersOnTopMenu = ({
           expanded={false}
           displaySelected
           rajainOptions={rajainOptions}
-          rajainUIValues={rajainValues}
+          rajainValues={rajainValues}
           setFilters={setFilters}
         />
         <Divider />
@@ -158,7 +158,7 @@ export const MobileFiltersOnTopMenu = ({
           expanded={false}
           displaySelected
           rajainOptions={rajainOptions}
-          rajainUIValues={rajainValues}
+          rajainValues={rajainValues}
           setFilters={setFilters}
         />
         <Divider />
@@ -166,7 +166,7 @@ export const MobileFiltersOnTopMenu = ({
           expanded={false}
           displaySelected
           rajainOptions={rajainOptions}
-          rajainUIValues={rajainValues}
+          rajainValues={rajainValues}
           setFilters={setFilters}
         />
         <Divider />
@@ -174,7 +174,7 @@ export const MobileFiltersOnTopMenu = ({
           expanded={false}
           displaySelected
           rajainOptions={rajainOptions}
-          rajainUIValues={rajainValues}
+          rajainValues={rajainValues}
           setFilters={setFilters}
         />
         <Divider />
@@ -182,7 +182,7 @@ export const MobileFiltersOnTopMenu = ({
           expanded={false}
           displaySelected
           rajainOptions={rajainOptions}
-          rajainUIValues={rajainValues}
+          rajainValues={rajainValues}
           setFilters={setFilters}
         />
         <Divider />
@@ -190,7 +190,7 @@ export const MobileFiltersOnTopMenu = ({
           expanded={false}
           displaySelected
           rajainOptions={rajainOptions}
-          rajainUIValues={rajainValues}
+          rajainValues={rajainValues}
           setFilters={setFilters}
         />
         <Divider />

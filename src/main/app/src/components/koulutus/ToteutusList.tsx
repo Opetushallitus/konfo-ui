@@ -137,7 +137,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                 <OpetuskieliSuodatin
                   elevation={2}
                   rajainOptions={sortedFilters}
-                  rajainUIValues={filters}
+                  rajainValues={filters}
                   setFilters={setFilters}
                 />
               </SuodatinGridItem>
@@ -146,7 +146,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                   elevation={2}
                   loading={isLoading}
                   rajainOptions={sortedFilters}
-                  rajainUIValues={filters}
+                  rajainValues={filters}
                   onFocus={() => {
                     setPreventClicks(true);
                   }}
@@ -160,7 +160,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                 <PohjakoulutusvaatimusSuodatin
                   elevation={2}
                   rajainOptions={sortedFilters}
-                  rajainUIValues={filters}
+                  rajainValues={filters}
                   setFilters={setFilters}
                 />
               </SuodatinGridItem>
@@ -168,7 +168,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                 <HakuKaynnissaSuodatin
                   elevation={2}
                   rajainOptions={sortedFilters}
-                  rajainUIValues={filters}
+                  rajainValues={filters}
                   setFilters={setFilters}
                 />
               </SuodatinGridItem>
@@ -176,7 +176,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                 <HakutapaSuodatin
                   elevation={2}
                   rajainOptions={sortedFilters}
-                  rajainUIValues={filters}
+                  rajainValues={filters}
                   setFilters={setFilters}
                 />
               </SuodatinGridItem>
@@ -184,7 +184,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                 <OpetustapaSuodatin
                   elevation={2}
                   rajainOptions={sortedFilters}
-                  rajainUIValues={filters}
+                  rajainValues={filters}
                   setFilters={setFilters}
                 />
               </SuodatinGridItem>
@@ -192,7 +192,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                 <OppilaitosSuodatin
                   elevation={2}
                   rajainOptions={sortedFilters}
-                  rajainUIValues={filters}
+                  rajainValues={filters}
                   setFilters={setFilters}
                 />
               </SuodatinGridItem>
@@ -200,7 +200,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                 <OpetusaikaSuodatin
                   elevation={2}
                   rajainOptions={sortedFilters}
-                  rajainUIValues={filters}
+                  rajainValues={filters}
                   setFilters={setFilters}
                 />
               </SuodatinGridItem>
@@ -208,7 +208,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                 <KoulutuksenKestoSuodatin
                   elevation={2}
                   rajainOptions={sortedFilters}
-                  rajainUIValues={filters}
+                  rajainValues={filters}
                   setFilters={setFilters}
                 />
               </SuodatinGridItem>
@@ -216,7 +216,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                 <AlkamiskausiSuodatin
                   elevation={2}
                   rajainOptions={sortedFilters}
-                  rajainUIValues={filters}
+                  rajainValues={filters}
                   setFilters={setFilters}
                 />
               </SuodatinGridItem>
@@ -224,7 +224,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                 <MaksullisuusSuodatin
                   elevation={2}
                   rajainOptions={sortedFilters}
-                  rajainUIValues={filters}
+                  rajainValues={filters}
                   setFilters={setFilters}
                 />
               </SuodatinGridItem>
@@ -233,7 +233,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                   <ValintatapaSuodatin
                     elevation={2}
                     rajainOptions={sortedFilters}
-                    rajainUIValues={filters}
+                    rajainValues={filters}
                     setFilters={setFilters}
                   />
                 </SuodatinGridItem>
@@ -245,7 +245,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                       name="lukiopainotukset"
                       elevation={2}
                       rajainOptions={sortedFilters}
-                      rajainUIValues={filters}
+                      rajainValues={filters}
                       setFilters={setFilters}
                     />
                   </SuodatinGridItem>
@@ -254,7 +254,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                       name="lukiolinjat_er"
                       elevation={2}
                       rajainOptions={sortedFilters}
-                      rajainUIValues={filters}
+                      rajainValues={filters}
                       setFilters={setFilters}
                     />
                   </SuodatinGridItem>
@@ -265,7 +265,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                   <AmmOsaamisalatSuodatin
                     elevation={2}
                     rajainOptions={sortedFilters}
-                    rajainUIValues={filters}
+                    rajainValues={filters}
                     setFilters={setFilters}
                   />
                 </SuodatinGridItem>

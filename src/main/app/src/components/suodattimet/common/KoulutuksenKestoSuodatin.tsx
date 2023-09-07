@@ -92,15 +92,15 @@ export const KoulutuksenKestoSuodatin = ({
   displaySelected = true,
   elevation = 0,
   expanded,
-  rajainUIValues,
+  rajainValues,
   rajainOptions,
   setFilters,
-}: Omit<SuodatinComponentProps, 'rajainValues'>) => {
+}: SuodatinComponentProps) => {
   const { t } = useTranslation();
 
   const rajainItems = useRajainItems(
     rajainOptions,
-    rajainUIValues,
+    rajainValues,
     FILTER_TYPES.KOULUTUKSENKESTOKUUKAUSINA
   );
 

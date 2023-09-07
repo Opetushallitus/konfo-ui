@@ -43,16 +43,14 @@ const Root = styled('div')({
   },
 });
 
-export const KoulutustyyppiSuodatin = (
-  props: Omit<SuodatinComponentProps, 'rajainValues'>
-) => {
+export const KoulutustyyppiSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
 
-  const { setFilters, rajainOptions, rajainUIValues } = props;
+  const { setFilters, rajainOptions, rajainValues } = props;
 
   const rajainItems = useRajainItems(
     rajainOptions,
-    rajainUIValues,
+    rajainValues,
     FILTER_TYPES.KOULUTUSTYYPPI
   );
 

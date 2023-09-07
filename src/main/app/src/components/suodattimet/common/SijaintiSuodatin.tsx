@@ -16,24 +16,19 @@ import {
 
 import { useSearch } from '../../haku/hakutulosHooks';
 
-export const SijaintiSuodatin = (
-  props: Omit<
-    SuodatinComponentProps,
-    'rajainValues' | 'kuntaRajainValues' | 'maakuntaRajainValues'
-  >
-) => {
+export const SijaintiSuodatin = (props: SuodatinComponentProps) => {
   const { t } = useTranslation();
-  const { rajainUIValues, rajainOptions, setFilters, loading } = props;
+  const { rajainValues, rajainOptions, setFilters, loading } = props;
 
   const kuntaRajainValues = useRajainItems(
     rajainOptions,
-    rajainUIValues,
+    rajainValues,
     FILTER_TYPES.KUNTA
   ) as Array<CheckboxRajainItem>;
 
   const maakuntaRajainValues = useRajainItems(
     rajainOptions,
-    rajainUIValues,
+    rajainValues,
     FILTER_TYPES.MAAKUNTA
   ) as Array<CheckboxRajainItem>;
 
