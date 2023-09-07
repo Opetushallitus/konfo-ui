@@ -19,8 +19,12 @@ export const HAKU_RAJAIMET_ORDER = [
     Component: KoulutustyyppiSuodatin,
   },
   {
-    id: 'opetuskieli',
-    Component: OpetuskieliSuodatin,
+    id: 'hakukaynnissa',
+    Component: HakuKaynnissaSuodatin,
+  },
+  {
+    id: 'alkamiskausi',
+    Component: AlkamiskausiSuodatin,
   },
   {
     id: 'opetusaika',
@@ -31,12 +35,28 @@ export const HAKU_RAJAIMET_ORDER = [
     Component: SijaintiSuodatin,
   },
   {
-    id: 'pohjakoulutusvaatimus',
-    Component: PohjakoulutusvaatimusSuodatin,
+    id: 'koulutuksenkesto',
+    Component: KoulutuksenKestoSuodatin,
   },
   {
-    id: 'hakukaynnissa',
-    Component: HakuKaynnissaSuodatin,
+    id: 'koulutusala',
+    Component: KoulutusalaSuodatin,
+  },
+  {
+    id: 'maksullisuus',
+    Component: MaksullisuusSuodatin,
+  },
+  {
+    id: 'opetuskieli',
+    Component: OpetuskieliSuodatin,
+  },
+  {
+    id: 'opetustapa',
+    Component: OpetustapaSuodatin,
+  },
+  {
+    id: 'pohjakoulutusvaatimus',
+    Component: PohjakoulutusvaatimusSuodatin,
   },
   {
     id: 'tyoelama-ja-taydennyskoulutukset',
@@ -49,25 +69,5 @@ export const HAKU_RAJAIMET_ORDER = [
   {
     id: 'valintatapa',
     Component: ValintatapaSuodatin,
-  },
-  {
-    id: 'koulutusala',
-    Component: KoulutusalaSuodatin,
-  },
-  {
-    id: 'opetustapa',
-    Component: OpetustapaSuodatin,
-  },
-  {
-    id: 'koulutuksenkesto',
-    Component: KoulutuksenKestoSuodatin,
-  },
-  {
-    id: 'alkamiskausi',
-    Component: AlkamiskausiSuodatin,
-  },
-  {
-    id: 'maksullisuus',
-    Component: MaksullisuusSuodatin,
   },
 ];
