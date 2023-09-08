@@ -1,5 +1,6 @@
-import { Alert, Link, Stack } from '@mui/material';
+import { Alert, Stack } from '@mui/material';
 import { filter, includes, size } from 'lodash';
+import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
 
 import { useContentful } from '#/src/hooks/useContentful';
@@ -10,7 +11,7 @@ import { ContentfulHairiotiedote } from '#/src/types/ContentfulTypes';
 const HairiotiedoteViesti = (viesti: ContentfulHairiotiedote) => {
   const [closedHairiotiedotteetIds, setClosedHairiotiedotteetIds] =
     useClosedHairioTiedotteet();
-  const { alertType, linkkiLisatietoja, name, id } = viesti;
+  const { alertType, hairionKuvaus, id } = viesti;
   const { t } = useTranslation();
 
   return (
@@ -18,17 +19,7 @@ const HairiotiedoteViesti = (viesti: ContentfulHairiotiedote) => {
       closeText={t('sulje')}
       severity={`${alertType ?? 'error'}`}
       onClose={() => setClosedHairiotiedotteetIds([...closedHairiotiedotteetIds, id])}>
-      <strong>
-        {name}
-        {linkkiLisatietoja && (
-          <>
-            <span> {t('hairiotiedote.lisatietoja')} </span>
-            <Link color="inherit" target="_blank" rel="noopener" href={linkkiLisatietoja}>
-              {linkkiLisatietoja}
-            </Link>
-          </>
-        )}
-      </strong>
+      <Markdown>{hairionKuvaus}</Markdown>
     </Alert>
   );
 };
