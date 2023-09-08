@@ -313,10 +313,15 @@ export const useFilterProps = (id: ValueOf<typeof RAJAIN_TYPES>) => {
   );
 };
 
-export const useRajainOptionsForKysymys = (rajainId: ValueOf<typeof RAJAIN_TYPES>) => {
+export const useRajainOptionsForKysymys = (
+  rajainId: ValueOf<typeof RAJAIN_TYPES>,
+  isRajainWithRange: boolean = false
+) => {
   const { koulutusData } = useSearch();
   const filters = koulutusData?.filters;
-  return sortValues(getRajainOptions(filters, rajainId));
+  return isRajainWithRange
+    ? { [rajainId]: filters?.[rajainId] }
+    : sortValues(getRajainOptions(filters, rajainId));
 };
 
 export const useSelectedFilters = (

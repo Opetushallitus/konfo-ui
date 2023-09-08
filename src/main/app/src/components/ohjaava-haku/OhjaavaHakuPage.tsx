@@ -20,8 +20,18 @@ export const OhjaavaHaku = () => {
   const { clearRajainValues } = useSearch();
   const [allSelectedRajainValues, setAllSelectedRajainValues] = useState<Rajain>({});
 
-  const toggleAllRajainValue = (id: string, filterId: string) => {
-    setAllSelectedRajainValues(getChangedRajaimet(allSelectedRajainValues, filterId, id));
+  const toggleAllRajainValues = (id: string, rajainId: string) => {
+    setAllSelectedRajainValues(getChangedRajaimet(allSelectedRajainValues, rajainId, id));
+  };
+
+  const handleSliderValueCommit = (newValues: Array<number>) => {
+    setAllSelectedRajainValues({
+      ...allSelectedRajainValues,
+      koulutuksenkestokuukausina: {
+        koulutuksenkestokuukausina_min: newValues[0],
+        koulutuksenkestokuukausina_max: newValues[1],
+      },
+    });
   };
 
   const ohjaavaHakuTitle = t('ohjaava-haku.otsikko');
@@ -75,8 +85,9 @@ export const OhjaavaHaku = () => {
               currentKysymysIndex={currentKysymysIndex}
               setCurrentKysymysIndex={setCurrentKysymysIndex}
               lastKysymysIndex={lastKysymysIndex}
-              toggleAllSelectedRajainValues={toggleAllRajainValue}
+              toggleAllSelectedRajainValues={toggleAllRajainValues}
               allSelectedRajainValues={allSelectedRajainValues}
+              handleSliderValueCommit={handleSliderValueCommit}
             />
           </Box>
         )}

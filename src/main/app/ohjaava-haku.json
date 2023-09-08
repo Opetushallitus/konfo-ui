@@ -1,6 +1,10 @@
 {
   "kysymykset": [
     { "id": "opetusaika" },
+    {
+      "id": "koulutuksenkestokuukausina",
+      "isRajainWithRange": true
+    },
     { "id": "opetustapa" },
     {
       "id": "pohjakoulutusvaatimus",

@@ -15,7 +15,11 @@ import { NumberRangeSlider } from '#/src/components/common/Filter/NumberRangeSli
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { RAJAIN_TYPES } from '#/src/constants';
 import { useRajainItems } from '#/src/tools/filters';
-import { NumberRangeRajainItem, RajainComponentProps } from '#/src/types/SuodatinTypes';
+import {
+  RajainItem,
+  NumberRangeRajainItem,
+  RajainComponentProps,
+} from '#/src/types/SuodatinTypes';
 
 enum UnitOfMeasure {
   MONTH = 1,
@@ -135,8 +139,6 @@ export const KoulutuksenKestoSuodatin = ({
       : `${rangeText(rangeValues[0], t)} - ${rangeText(rangeValues[1], t)}`;
   };
 
-  const labelFormatter = (val: number) => rangeText(val, t);
-
   return (
     <SuodatinAccordion elevation={elevation} defaultExpanded={expanded} square>
       {!summaryHidden && (
@@ -156,19 +158,44 @@ export const KoulutuksenKestoSuodatin = ({
         </SuodatinAccordionSummary>
       )}
       <SuodatinAccordionDetails {...(summaryHidden && { style: { padding: 0 } })}>
-        <Grid container direction="column" wrap="nowrap">
-          <Grid item sx={{ mx: 1 }}>
-            <NumberRangeSlider
-              values={rangeValues}
-              min={undefinedRajainValues[0]}
-              max={undefinedRajainValues[1]}
-              marks={marks(undefinedRajainValues[1], t)}
-              labelFormatter={labelFormatter}
-              onRangeCommit={handleSliderValueCommit}
-            />
-          </Grid>
-        </Grid>
+        <KoulutuksenKestoSlider
+          rajainItems={rajainItems}
+          handleSliderValueCommit={handleSliderValueCommit}
+        />
       </SuodatinAccordionDetails>
     </SuodatinAccordion>
+  );
+};
+
+export const KoulutuksenKestoSlider = ({
+  rajainItems,
+  handleSliderValueCommit,
+}: {
+  rajainItems: Array<RajainItem>;
+  handleSliderValueCommit: (value: Array<number>) => void;
+}) => {
+  const { t } = useTranslation();
+
+  const rajainItem = rajainItems?.[0] as NumberRangeRajainItem;
+  const undefinedRajainValues = [0, rajainItem?.upperLimit || DEFAULT_UPPERLIMIT];
+  const rangeValues = [
+    rajainItem?.min || undefinedRajainValues[0],
+    rajainItem?.max || undefinedRajainValues[1],
+  ];
+
+  const labelFormatter = (val: number) => rangeText(val, t);
+  return (
+    <Grid container direction="column" wrap="nowrap">
+      <Grid item sx={{ mx: 1 }}>
+        <NumberRangeSlider
+          values={rangeValues}
+          min={undefinedRajainValues[0]}
+          max={undefinedRajainValues[1]}
+          marks={marks(undefinedRajainValues[1], t)}
+          labelFormatter={labelFormatter}
+          onRangeCommit={handleSliderValueCommit}
+        />
+      </Grid>
+    </Grid>
   );
 };

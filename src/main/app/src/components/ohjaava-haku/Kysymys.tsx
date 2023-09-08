@@ -6,14 +6,13 @@ import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { KoulutuksenKestoSlider } from '#/src/components/suodattimet/common/KoulutuksenKestoSuodatin';
 import { RAJAIN_TYPES, FilterKey } from '#/src/constants';
 import { styled } from '#/src/theme';
+import { useRajainItems } from '#/src/tools/filters';
 import { localize } from '#/src/tools/localization';
 
-import {
-  useRajainOptionsForKysymys,
-  useSearch,
-} from '../../components/haku/hakutulosHooks';
+import { useSearch } from '../../components/haku/hakutulosHooks';
 import { Heading, HeadingBoundary } from '../Heading';
 
 const Root = styled('div')`
@@ -45,10 +44,13 @@ type Kysymys = {
   id: string;
   rajainOptionTextFromRajain?: boolean;
   rajainOptionsToBeRemoved?: Array<string>;
+  isRajainWithRange?: boolean;
 };
 
 export type Rajain = {
-  [rajainId: string]: Array<string>;
+  [rajainId: string]:
+    | Array<string>
+    | { koulutuksenkestokuukausina_min: number; koulutuksenkestokuukausina_max: number };
 };
 
 type KysymysProps = {
@@ -56,8 +58,9 @@ type KysymysProps = {
   currentKysymysIndex: number;
   setCurrentKysymysIndex: (index: number) => void;
   lastKysymysIndex: number;
-  toggleAllSelectedRajainValues: (rajainId: string, filterId: string) => void;
+  toggleAllSelectedRajainValues: (id: string, rajainId: string) => void;
   allSelectedRajainValues: Rajain;
+  handleSliderValueCommit: (value: Array<number>) => void;
 };
 
 export const Kysymys = ({
@@ -67,35 +70,34 @@ export const Kysymys = ({
   lastKysymysIndex,
   toggleAllSelectedRajainValues,
   allSelectedRajainValues,
+  handleSliderValueCommit,
 }: KysymysProps) => {
   const { t } = useTranslation();
-  const { goToSearchPage, setRajainValues } = useSearch();
 
-  const kysymysId = kysymys.id;
+  const { goToSearchPage, setRajainValues, rajainValues, rajainOptions } = useSearch();
+  const { id: kysymysId, rajainOptionTextFromRajain, isRajainWithRange } = kysymys;
   const kysymysTitle = t(`ohjaava-haku.kysymykset.${kysymysId}.otsikko`);
   const kysymysInfo = t(`ohjaava-haku.kysymykset.info-text`);
   const isFirstKysymys = currentKysymysIndex === 0;
   const isLastKysymys = currentKysymysIndex === lastKysymysIndex;
 
-  const rajainOptionsFromKonfoBackend = useRajainOptionsForKysymys(
+  const rajainItems = useRajainItems(
+    rajainOptions,
+    rajainValues,
     RAJAIN_TYPES[kysymysId.toUpperCase() as FilterKey]
   );
-  const { rajainOptionTextFromRajain } = kysymys;
-  const rajainOptionsToShow = rajainOptionsFromKonfoBackend.filter(({ id }) => {
-    return !some(kysymys.rajainOptionsToBeRemoved, (rajain) => {
-      return rajain === id;
-    });
-  });
+
+  const rajainOptionsToShow = isRajainWithRange
+    ? rajainItems
+    : rajainItems?.filter(({ id }) => {
+        return !some(kysymys.rajainOptionsToBeRemoved, (rajain) => {
+          return rajain === id;
+        });
+      });
 
   const handleClick = () => {
     setRajainValues(allSelectedRajainValues);
     goToSearchPage();
-  };
-
-  const isSelected = (filterId: string, id: string) => {
-    return (
-      allSelectedRajainValues[filterId] && allSelectedRajainValues[filterId].includes(id)
-    );
   };
 
   return (
@@ -108,25 +110,36 @@ export const Kysymys = ({
           <Grid item xs={12} marginBottom="2rem">
             <Typography>{kysymysInfo}</Typography>
           </Grid>
-          <Grid item className="question">
-            {rajainOptionsToShow.map(({ id, filterId, nimi }) => {
-              const isRajainSelected = isSelected(filterId, id);
-              return (
-                <Button
-                  {...(isRajainSelected && {
-                    startIcon: <MaterialIcon icon="check" />,
-                  })}
-                  key={id}
-                  onClick={() => toggleAllSelectedRajainValues(id, filterId)}
-                  className="question__option"
-                  {...(isRajainSelected && { 'data-selected': true })}>
-                  {rajainOptionTextFromRajain
-                    ? localize(nimi)
-                    : t(`ohjaava-haku.kysymykset.${filterId}.vaihtoehdot.${id}`)}
-                </Button>
-              );
-            })}
-          </Grid>
+          {isRajainWithRange ? (
+            <KoulutuksenKestoSlider
+              rajainItems={rajainItems}
+              handleSliderValueCommit={handleSliderValueCommit}
+            />
+          ) : (
+            <Grid item className="question">
+              {rajainOptionsToShow.map(({ id, rajainId, nimi }) => {
+                const selectedRajainItems = allSelectedRajainValues[
+                  rajainId
+                ] as Array<string>;
+                const isRajainSelected =
+                  selectedRajainItems && selectedRajainItems.includes(id);
+                return (
+                  <Button
+                    {...(isRajainSelected && {
+                      startIcon: <MaterialIcon icon="check" />,
+                    })}
+                    key={id}
+                    onClick={() => toggleAllSelectedRajainValues(id, rajainId)}
+                    className="question__option"
+                    {...(isRajainSelected && { 'data-selected': true })}>
+                    {rajainOptionTextFromRajain
+                      ? localize(nimi)
+                      : t(`ohjaava-haku.kysymykset.${rajainId}.vaihtoehdot.${id}`)}
+                  </Button>
+                );
+              })}
+            </Grid>
+          )}
           <Grid item xs={12}>
             {!isFirstKysymys && (
               <Button

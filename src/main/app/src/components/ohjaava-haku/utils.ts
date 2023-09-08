@@ -7,7 +7,7 @@ export const getChangedRajaimet = (
   rajainId: string,
   rajainValue: string
 ) => {
-  const rajainValues = selectedRajainValues[rajainId];
+  const rajainValues = selectedRajainValues[rajainId] as Array<string>;
   if (isUndefined(rajainValues)) {
     return { ...selectedRajainValues, [rajainId]: [rajainValue] };
   } else {
