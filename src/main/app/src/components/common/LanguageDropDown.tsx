@@ -5,10 +5,9 @@ import Cookies from 'js-cookie';
 import { useTranslation } from 'react-i18next';
 
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
-import { LANG_NAME_BY_CODE } from '#/src/constants';
+import { LANG_NAME_Code_ISOCode } from '#/src/constants';
 import { useLanguageState } from '#/src/hooks';
 import { styled } from '#/src/theme';
-import { supportedLanguages } from '#/src/tools/i18n';
 
 const CustomInput = styled(InputBase)({
   color: 'white',
@@ -66,9 +65,9 @@ export const LanguageDropDown = () => {
         onChange={handleChange}
         renderValue={(value) => value?.toUpperCase()}
         input={<CustomInput aria-label={t('opintopolku.valitsekieli')} />}>
-        {supportedLanguages.map((langCode) => (
-          <MenuItem key={langCode} value={langCode}>
-            {t(`kielivalinta.${(LANG_NAME_BY_CODE as any)[langCode]}`)}
+        {LANG_NAME_Code_ISOCode.map((langCode) => (
+          <MenuItem key={langCode.code} value={langCode.code} lang={langCode.ISOCode}>
+            {t(`kielivalinta.${langCode.ISOCode}`)}
           </MenuItem>
         ))}
       </Select>
