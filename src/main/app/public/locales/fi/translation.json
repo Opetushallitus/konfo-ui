@@ -92,7 +92,10 @@
   "kielivalinta": {
     "suomi": "Suomeksi",
     "ruotsi": "På svenska",
-    "englanti": "In English"
+    "englanti": "In English",
+    "fi": "Vaihda kieleksi suomi",
+    "sv-FI": "Byt språk till svenska",
+    "en-US": "Switch language to English"
   },
   "uutinen": {
     "kategoria": "Uutinen"

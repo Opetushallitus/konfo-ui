@@ -16,7 +16,6 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
-import { LanguageTab } from '#/src/components/common/LanguageTab';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { Murupolku } from '#/src/components/common/Murupolku';
@@ -166,7 +165,6 @@ export const SideMenu = (props: {
       <div className={classes.inputBackground}>
         <Hidden smUp>
           <Box mb={2}>
-            <LanguageTab />
             <Link
               href={urls.url('oma-opintopolku')}
               className={classes.omaOpintopolkuLink}
