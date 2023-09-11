@@ -161,8 +161,8 @@ export const Header = ({
               label={testiLabel}
             />
           )}
-          <Hidden smDown>
-            <Box display="flex" className={classes.languageSelector}>
+          <Box display="flex" className={classes.languageSelector}>
+            <Hidden smDown>
               <Link
                 href={urls.url('oma-opintopolku')}
                 className={classes.omaOpintopolkuLink}
@@ -172,9 +172,9 @@ export const Header = ({
                   {t('oma-opintopolku')}
                 </Typography>
               </Link>
-              <LanguageDropDown />
-            </Box>
-          </Hidden>
+            </Hidden>
+            <LanguageDropDown />
+          </Box>
         </Toolbar>
       </StyledAppBar>
     </>

@@ -67,6 +67,24 @@ export const LANG_NAME_BY_CODE = {
   en: 'englanti',
 } as const;
 
+export const LANG_NAME_Code_ISOCode = [
+  {
+    name: 'suomi',
+    code: 'fi',
+    ISOCode: 'fi',
+  },
+  {
+    name: 'ruotsi',
+    code: 'sv',
+    ISOCode: 'sv-FI',
+  },
+  {
+    name: 'englanti',
+    code: 'en',
+    ISOCode: 'en-US',
+  },
+];
+
 export enum KOULUTUS_TYYPPI {
   AMM = 'amm',
   AMM_TUTKINNON_OSA = 'amm-tutkinnon-osa',
