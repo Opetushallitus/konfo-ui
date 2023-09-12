@@ -10,8 +10,10 @@ import { Spacer } from '#/src/components/common/Spacer';
 import { styled } from '#/src/theme';
 import { localize } from '#/src/tools/localization';
 import { byLocaleCompare, toId } from '#/src/tools/utils';
-import { Yhteystiedot as YhteystiedotType } from '#/src/types/common';
+import { Translateable, Yhteystiedot as YhteystiedotType } from '#/src/types/common';
 import { Organisaatio } from '#/src/types/ToteutusTypes';
+
+import { SomeRow, Some, BlogAndWebsite } from './SomeYhteysTiedot';
 
 const PREFIX = 'Yhteystiedot';
 
@@ -37,7 +39,7 @@ const StyledBox = styled(Box)(() => ({
 }));
 
 const parseYhteystieto =
-  () =>
+  (some?: Some, wwwSivu?: { nimi: Translateable; url: string }) =>
   ({
     nimi,
     kayntiosoite: kayntiosoiteProp,
@@ -54,6 +56,8 @@ const parseYhteystieto =
       puhelinnumero: localize(puhelinnumero),
       oskariOsoite: localize(kayntiosoiteProp?.osoite),
       oskariPostitoimipaikka: localize(kayntiosoiteProp?.postinumero),
+      somekanavat: some,
+      verkkoSivu: wwwSivu,
     };
   };
 
@@ -78,6 +82,8 @@ export type Props = {
   hakijapalveluidenYhteystiedot?: YhteystiedotType;
   organisaatioidenYhteystiedot?: Array<YhteystiedotType>;
   matchTarjoajat?: boolean;
+  some?: Some;
+  wwwSivu?: { nimi: Translateable; url: string };
 };
 
 export const Yhteystiedot = ({
@@ -88,6 +94,8 @@ export const Yhteystiedot = ({
   hakijapalveluidenYhteystiedot,
   organisaatioidenYhteystiedot,
   matchTarjoajat = true,
+  some,
+  wwwSivu,
 }: Props) => {
   const { t } = useTranslation();
   const theme = useTheme();
@@ -103,7 +111,7 @@ export const Yhteystiedot = ({
           tarjoajat?.some((ta) => obj?.nimi?.fi === ta?.nimi?.fi || obj?.oid === ta?.oid)
       )
       .filter(Boolean)
-      .map(parseYhteystieto())
+      .map(parseYhteystieto(some, wwwSivu))
       .sort(byLocaleCompare('nimi'));
 
     if (Array.isArray(hakijapalveluidenYhteystiedot)) {
@@ -125,6 +133,8 @@ export const Yhteystiedot = ({
     yhteystiedot,
     tarjoajat,
     matchTarjoajat,
+    some,
+    wwwSivu,
   ]);
 
   return (
@@ -150,6 +160,8 @@ export const Yhteystiedot = ({
             postiosoite,
             puhelinnumero,
             sahkoposti,
+            somekanavat,
+            verkkoSivu,
           },
           i
         ) => (
@@ -185,6 +197,10 @@ export const Yhteystiedot = ({
                     title={t('oppilaitos.puhelinnumero:')}
                     text={puhelinnumero}
                   />
+                )}
+                {somekanavat && <SomeRow some={somekanavat} />}
+                {(somekanavat || verkkoSivu) && (
+                  <BlogAndWebsite some={somekanavat} wwwSivu={verkkoSivu} />
                 )}
               </Paper>
             </Grid>
