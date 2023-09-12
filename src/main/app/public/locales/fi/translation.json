@@ -91,8 +91,8 @@
     "ruotsi": "På svenska",
     "englanti": "In English",
     "fi": "Vaihda kieleksi suomi",
-    "sv-FI": "Byt språk till svenska",
-    "en-US": "Switch language to English"
+    "sv": "Byt språk till svenska",
+    "en": "Switch language to English"
   },
   "uutinen": {
     "kategoria": "Uutinen"
