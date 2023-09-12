@@ -67,7 +67,7 @@ export const LanguageDropDown = () => {
         input={<CustomInput aria-label={t('opintopolku.valitsekieli')} />}>
         {LANG_NAME_Code_ISOCode.map((langCode) => (
           <MenuItem key={langCode.code} value={langCode.code} lang={langCode.ISOCode}>
-            {t(`kielivalinta.${langCode.ISOCode}`)}
+            {t(`kielivalinta.${langCode.code}`)}
           </MenuItem>
         ))}
       </Select>
