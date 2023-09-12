@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Box, Grid, Input } from '@mui/material';
+import { Box, Grid, OutlinedInput } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { TFunction } from 'i18next';
 import { isEqual, ceil, range, round } from 'lodash';
@@ -19,7 +19,7 @@ import {
   getChangedKestoInMonths,
   getYearsAndMonthsFromRangeValue,
 } from '#/src/components/ohjaava-haku/utils';
-import { RAJAIN_TYPES } from '#/src/constants';
+import { NDASH, RAJAIN_TYPES } from '#/src/constants';
 import { styled } from '#/src/theme';
 import { useRajainItems } from '#/src/tools/filters';
 import {
@@ -178,16 +178,32 @@ export const KoulutuksenKestoSuodatin = ({
 const PREFIX = 'ohjaava-haku__';
 
 const classes = {
+  root: `${PREFIX}root`,
   input: `${PREFIX}input`,
+  inputContainer: `${PREFIX}input-container`,
   lyhenne: `${PREFIX}lyhenne`,
+  ndash: `${PREFIX}ndash`,
 };
 
 const Root = styled('div')`
+  & .${classes.root} {
+    display: flex;
+  }
   & .${classes.input} {
-    max-width: 20%;
+    display: flex;
+    gap: 0.5rem;
+  }
+  & .${classes.inputContainer} {
+    display: flex;
+    gap: 1.5rem;
   }
   & .${classes.lyhenne} {
-    margin-right: 1rem;
+    align-self: center;
+  }
+  & .${classes.ndash} {
+    display: flex;
+    justify-content: center;
+    align-items: end;
   }
 `;
 
@@ -213,6 +229,24 @@ const KoulutuksenKestoSlider = ({
         onRangeCommit={handleSliderValueCommit}
       />
     </Grid>
+  );
+};
+
+const KoulutuksenKestoInput = ({
+  id,
+  value,
+  handleInputValueChange,
+}: {
+  id: string;
+  value: string;
+  handleInputValueChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}) => {
+  const { t } = useTranslation();
+  return (
+    <Box className={classes.input}>
+      <OutlinedInput id={id} value={value} onChange={handleInputValueChange} />
+      <Typography className={classes.lyhenne}>{t('haku.lyhenne-vuosi')}</Typography>
+    </Box>
   );
 };
 
@@ -294,57 +328,51 @@ export const KoulutuksenKesto = ({
   };
 
   return (
-    <Root>
+    <Root className={classes.root}>
       <Grid container direction="column" wrap="nowrap">
-        <Grid container direction="row" wrap="nowrap">
-          <Grid item container direction="column" wrap="nowrap">
+        <Grid
+          item
+          container
+          direction="row"
+          wrap="nowrap"
+          className={classes.inputContainer}>
+          <Grid item container direction="column" wrap="nowrap" xs={3}>
             <Typography sx={{ fontWeight: '600' }}>
               {t('ohjaava-haku.kysymykset.koulutuksen-kesto.opiskelen-vahintaan')}
             </Typography>
-            <Box display="flex">
-              <Input
+            <Box className={classes.inputContainer}>
+              <KoulutuksenKestoInput
                 id="vahintaan-vuosi"
-                className={classes.input}
                 value={vahintaan[0]}
-                onChange={handleInputValueChange}
+                handleInputValueChange={handleInputValueChange}
               />
-              <Typography className={classes.lyhenne}>
-                {t('haku.lyhenne-vuosi')}
-              </Typography>
-              <Input
+              <KoulutuksenKestoInput
                 id="vahintaan-kk"
-                className={classes.input}
                 value={vahintaan[1]}
-                onChange={handleInputValueChange}
+                handleInputValueChange={handleInputValueChange}
               />
-              <Typography className={classes.lyhenne}>
-                {t('haku.lyhenne-kuukausi')}
-              </Typography>
             </Box>
           </Grid>
-          <Grid item container direction="column" wrap="nowrap">
+          <Grid item className={classes.ndash}>
+            <Typography sx={{ fontSize: '1.5rem', marginBottom: '0.75rem' }}>
+              {NDASH}
+            </Typography>
+          </Grid>
+          <Grid item container direction="column" wrap="nowrap" xs={3}>
             <Typography sx={{ fontWeight: '600' }}>
               {t('ohjaava-haku.kysymykset.koulutuksen-kesto.opiskelen-enintaan')}
             </Typography>
-            <Box display="flex">
-              <Input
+            <Box display="flex" className={classes.inputContainer}>
+              <KoulutuksenKestoInput
                 id="enintaan-vuosi"
-                className={classes.input}
                 value={enintaan[0]}
-                onChange={handleInputValueChange}
+                handleInputValueChange={handleInputValueChange}
               />
-              <Typography className={classes.lyhenne}>
-                {t('haku.lyhenne-vuosi')}
-              </Typography>
-              <Input
+              <KoulutuksenKestoInput
                 id="enintaan-kk"
-                className={classes.input}
                 value={enintaan[1]}
-                onChange={handleInputValueChange}
+                handleInputValueChange={handleInputValueChange}
               />
-              <Typography className={classes.lyhenne}>
-                {t('haku.lyhenne-kuukausi')}
-              </Typography>
             </Box>
           </Grid>
         </Grid>
