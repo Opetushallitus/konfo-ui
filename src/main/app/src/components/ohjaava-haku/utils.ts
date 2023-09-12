@@ -25,3 +25,9 @@ export const getChangedKestoInMonths = (vuodet: string, months: string) => {
   const kk = isFinite(kuukaudetInt) ? kuukaudetInt : 0;
   return vuodetKk + kk;
 };
+
+export const getYearsAndMonthsFromRangeValue = (rangeValue: number) => {
+  const years = Math.floor(rangeValue / 12);
+  const months = rangeValue % 12;
+  return [years.toString(), months.toString()];
+};

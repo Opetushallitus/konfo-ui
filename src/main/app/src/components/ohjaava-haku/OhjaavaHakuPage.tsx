@@ -24,16 +24,6 @@ export const OhjaavaHaku = () => {
     setAllSelectedRajainValues(getChangedRajaimet(allSelectedRajainValues, rajainId, id));
   };
 
-  const handleSliderValueCommit = (newValues: Array<number>) => {
-    setAllSelectedRajainValues({
-      ...allSelectedRajainValues,
-      koulutuksenkestokuukausina: {
-        koulutuksenkestokuukausina_min: newValues[0],
-        koulutuksenkestokuukausina_max: newValues[1],
-      },
-    });
-  };
-
   const ohjaavaHakuTitle = t('ohjaava-haku.otsikko');
   const [isStartOfKysely, setStartOfKysely] = useState(true);
   const [currentKysymysIndex, setCurrentKysymysIndex] = useState(0);
@@ -87,7 +77,7 @@ export const OhjaavaHaku = () => {
               lastKysymysIndex={lastKysymysIndex}
               toggleAllSelectedRajainValues={toggleAllRajainValues}
               allSelectedRajainValues={allSelectedRajainValues}
-              handleSliderValueCommit={handleSliderValueCommit}
+              setAllSelectedRajainValues={setAllSelectedRajainValues}
             />
           </Box>
         )}

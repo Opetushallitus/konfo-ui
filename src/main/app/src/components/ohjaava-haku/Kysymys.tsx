@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
-import { KoulutuksenKestoSlider } from '#/src/components/suodattimet/common/KoulutuksenKestoSuodatin';
+import { KoulutuksenKesto } from '#/src/components/suodattimet/common/KoulutuksenKestoSuodatin';
 import { RAJAIN_TYPES, FilterKey } from '#/src/constants';
 import { styled } from '#/src/theme';
 import { useRajainItems } from '#/src/tools/filters';
@@ -60,7 +60,7 @@ type KysymysProps = {
   lastKysymysIndex: number;
   toggleAllSelectedRajainValues: (id: string, rajainId: string) => void;
   allSelectedRajainValues: Rajain;
-  handleSliderValueCommit: (value: Array<number>) => void;
+  setAllSelectedRajainValues: (val: Rajain) => void;
 };
 
 export const Kysymys = ({
@@ -70,7 +70,7 @@ export const Kysymys = ({
   lastKysymysIndex,
   toggleAllSelectedRajainValues,
   allSelectedRajainValues,
-  handleSliderValueCommit,
+  setAllSelectedRajainValues,
 }: KysymysProps) => {
   const { t } = useTranslation();
 
@@ -111,9 +111,10 @@ export const Kysymys = ({
             <Typography>{kysymysInfo}</Typography>
           </Grid>
           {isRajainWithRange ? (
-            <KoulutuksenKestoSlider
+            <KoulutuksenKesto
               rajainItems={rajainItems}
-              handleSliderValueCommit={handleSliderValueCommit}
+              allSelectedRajainValues={allSelectedRajainValues}
+              setAllSelectedRajainValues={setAllSelectedRajainValues}
             />
           ) : (
             <Grid item className="question">

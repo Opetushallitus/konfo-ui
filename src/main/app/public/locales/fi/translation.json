@@ -338,6 +338,10 @@
       },
       "pohjakoulutusvaatimus": {
         "otsikko": "Mikä on koulutustaustasi?"
+      },
+      "koulutuksen-kesto": {
+        "opiskelen-vahintaan": "Opiskelen vähintään",
+        "opiskelen-enintaan": "Opiskelen enintään"
       }
     },
     "otsikko": "En tiedä mitä haluaisin opiskella",

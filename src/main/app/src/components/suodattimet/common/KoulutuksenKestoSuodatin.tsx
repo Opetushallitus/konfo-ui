@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import Grid from '@mui/material/Grid';
+import { Box, Grid, Input } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { TFunction } from 'i18next';
 import { isEqual, ceil, range, round } from 'lodash';
 import { useTranslation } from 'react-i18next';
+import { match } from 'ts-pattern';
 
 import {
   SuodatinAccordion,
@@ -13,7 +14,13 @@ import {
 } from '#/src/components/common/Filter/CustomizedMuiComponents';
 import { NumberRangeSlider } from '#/src/components/common/Filter/NumberRangeSlider';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { Rajain } from '#/src/components/ohjaava-haku/Kysymys';
+import {
+  getChangedKestoInMonths,
+  getYearsAndMonthsFromRangeValue,
+} from '#/src/components/ohjaava-haku/utils';
 import { RAJAIN_TYPES } from '#/src/constants';
+import { styled } from '#/src/theme';
 import { useRajainItems } from '#/src/tools/filters';
 import {
   RajainItem,
@@ -159,7 +166,8 @@ export const KoulutuksenKestoSuodatin = ({
       )}
       <SuodatinAccordionDetails {...(summaryHidden && { style: { padding: 0 } })}>
         <KoulutuksenKestoSlider
-          rajainItems={rajainItems}
+          rangeValues={rangeValues}
+          undefinedRajainValues={undefinedRajainValues}
           handleSliderValueCommit={handleSliderValueCommit}
         />
       </SuodatinAccordionDetails>
@@ -167,35 +175,185 @@ export const KoulutuksenKestoSuodatin = ({
   );
 };
 
-export const KoulutuksenKestoSlider = ({
-  rajainItems,
+const PREFIX = 'ohjaava-haku__';
+
+const classes = {
+  input: `${PREFIX}input`,
+  lyhenne: `${PREFIX}lyhenne`,
+};
+
+const Root = styled('div')`
+  & .${classes.input} {
+    max-width: 20%;
+  }
+  & .${classes.lyhenne} {
+    margin-right: 1rem;
+  }
+`;
+
+const KoulutuksenKestoSlider = ({
+  rangeValues,
+  undefinedRajainValues,
   handleSliderValueCommit,
 }: {
+  rangeValues: Array<number>;
+  undefinedRajainValues: Array<number>;
+  handleSliderValueCommit: (val: Array<number>) => void;
+}) => {
+  const { t } = useTranslation();
+  const labelFormatter = (val: number) => rangeText(val, t);
+  return (
+    <Grid item sx={{ mx: 1 }}>
+      <NumberRangeSlider
+        values={rangeValues}
+        min={undefinedRajainValues[0]}
+        max={undefinedRajainValues[1]}
+        marks={marks(undefinedRajainValues[1], t)}
+        labelFormatter={labelFormatter}
+        onRangeCommit={handleSliderValueCommit}
+      />
+    </Grid>
+  );
+};
+
+export const KoulutuksenKesto = ({
+  rajainItems,
+  allSelectedRajainValues,
+  setAllSelectedRajainValues,
+}: {
   rajainItems: Array<RajainItem>;
-  handleSliderValueCommit: (value: Array<number>) => void;
+  allSelectedRajainValues: Rajain;
+  setAllSelectedRajainValues: (val: Rajain) => void;
 }) => {
   const { t } = useTranslation();
 
   const rajainItem = rajainItems?.[0] as NumberRangeRajainItem;
   const undefinedRajainValues = [0, rajainItem?.upperLimit || DEFAULT_UPPERLIMIT];
-  const rangeValues = [
-    rajainItem?.min || undefinedRajainValues[0],
-    rajainItem?.max || undefinedRajainValues[1],
-  ];
 
-  const labelFormatter = (val: number) => rangeText(val, t);
+  const initialEnintaan = rajainItem?.max || undefinedRajainValues[1];
+  const initialEnintaanV = Math.floor(initialEnintaan / 12);
+  const initialEnintaanKk = initialEnintaan % 12;
+  const [rangeValues, setRangeValues] = useState([
+    rajainItem?.min || undefinedRajainValues[0],
+    initialEnintaan,
+  ]);
+
+  const [vahintaan, setVahintaan] = useState(['0', '0']);
+  const [enintaan, setEnintaan] = useState([
+    initialEnintaanV.toString(),
+    initialEnintaanKk.toString(),
+  ]);
+
+  const handleSliderValueCommit = (newValues: Array<number>) => {
+    setVahintaan(getYearsAndMonthsFromRangeValue(newValues[0]));
+    setEnintaan(getYearsAndMonthsFromRangeValue(newValues[1]));
+    setRangeValues(newValues);
+    setAllSelectedRajainValues({
+      ...allSelectedRajainValues,
+      koulutuksenkestokuukausina: {
+        koulutuksenkestokuukausina_min: newValues[0],
+        koulutuksenkestokuukausina_max: newValues[1],
+      },
+    });
+  };
+
+  const handleInputValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const changedValue = event.target.value;
+
+    const newValues = match(event.target.id)
+      .with('vahintaan-vuosi', () => {
+        setVahintaan([changedValue, vahintaan[1]]);
+        const kestoInMonths = getChangedKestoInMonths(changedValue, vahintaan[1]);
+        return [kestoInMonths, rangeValues[1]];
+      })
+      .with('vahintaan-kk', () => {
+        setVahintaan([vahintaan[0], changedValue]);
+        const kestoInMonths = getChangedKestoInMonths(vahintaan[0], changedValue);
+        return [kestoInMonths, rangeValues[1]];
+      })
+      .with('enintaan-vuosi', () => {
+        setEnintaan([changedValue, enintaan[1]]);
+        const kestoInMonths = getChangedKestoInMonths(changedValue, enintaan[1]);
+        return [rangeValues[0], kestoInMonths];
+      })
+      .with('enintaan-kk', () => {
+        setEnintaan([enintaan[0], changedValue]);
+        const kestoInMonths = getChangedKestoInMonths(enintaan[0], changedValue);
+        return [rangeValues[0], kestoInMonths];
+      })
+      .otherwise(() => rangeValues);
+
+    setRangeValues(newValues);
+    setAllSelectedRajainValues({
+      ...allSelectedRajainValues,
+      koulutuksenkestokuukausina: {
+        koulutuksenkestokuukausina_min: newValues[0],
+        koulutuksenkestokuukausina_max: newValues[1],
+      },
+    });
+  };
+
   return (
-    <Grid container direction="column" wrap="nowrap">
-      <Grid item sx={{ mx: 1 }}>
-        <NumberRangeSlider
-          values={rangeValues}
-          min={undefinedRajainValues[0]}
-          max={undefinedRajainValues[1]}
-          marks={marks(undefinedRajainValues[1], t)}
-          labelFormatter={labelFormatter}
-          onRangeCommit={handleSliderValueCommit}
+    <Root>
+      <Grid container direction="column" wrap="nowrap">
+        <Grid container direction="row" wrap="nowrap">
+          <Grid item container direction="column" wrap="nowrap">
+            <Typography sx={{ fontWeight: '600' }}>
+              {t('ohjaava-haku.kysymykset.koulutuksen-kesto.opiskelen-vahintaan')}
+            </Typography>
+            <Box display="flex">
+              <Input
+                id="vahintaan-vuosi"
+                className={classes.input}
+                value={vahintaan[0]}
+                onChange={handleInputValueChange}
+              />
+              <Typography className={classes.lyhenne}>
+                {t('haku.lyhenne-vuosi')}
+              </Typography>
+              <Input
+                id="vahintaan-kk"
+                className={classes.input}
+                value={vahintaan[1]}
+                onChange={handleInputValueChange}
+              />
+              <Typography className={classes.lyhenne}>
+                {t('haku.lyhenne-kuukausi')}
+              </Typography>
+            </Box>
+          </Grid>
+          <Grid item container direction="column" wrap="nowrap">
+            <Typography sx={{ fontWeight: '600' }}>
+              {t('ohjaava-haku.kysymykset.koulutuksen-kesto.opiskelen-enintaan')}
+            </Typography>
+            <Box display="flex">
+              <Input
+                id="enintaan-vuosi"
+                className={classes.input}
+                value={enintaan[0]}
+                onChange={handleInputValueChange}
+              />
+              <Typography className={classes.lyhenne}>
+                {t('haku.lyhenne-vuosi')}
+              </Typography>
+              <Input
+                id="enintaan-kk"
+                className={classes.input}
+                value={enintaan[1]}
+                onChange={handleInputValueChange}
+              />
+              <Typography className={classes.lyhenne}>
+                {t('haku.lyhenne-kuukausi')}
+              </Typography>
+            </Box>
+          </Grid>
+        </Grid>
+        <KoulutuksenKestoSlider
+          rangeValues={rangeValues}
+          undefinedRajainValues={undefinedRajainValues}
+          handleSliderValueCommit={handleSliderValueCommit}
         />
       </Grid>
-    </Grid>
+    </Root>
   );
 };

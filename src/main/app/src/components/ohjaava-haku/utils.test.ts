@@ -1,4 +1,8 @@
-import { getChangedRajaimet, getChangedKestoInMonths } from './utils';
+import {
+  getChangedRajaimet,
+  getChangedKestoInMonths,
+  getYearsAndMonthsFromRangeValue,
+} from './utils';
 
 describe('getChangedRajaimet', () => {
   test('adds one rajain in selected rajaimet', () => {
@@ -97,5 +101,23 @@ describe('getChangedKestoInMonths', () => {
 
   test('returns 29 when given decimal "2.2" for years and decimal "5.6" for months', () => {
     expect(getChangedKestoInMonths('2.2', '5.6')).toEqual(29);
+  });
+});
+
+describe('getYearsAndMonthsFromRangeValues', () => {
+  test('returns ["0", "0"] when range value is 0', () => {
+    expect(getYearsAndMonthsFromRangeValue(0)).toEqual(['0', '0']);
+  });
+
+  test('returns "1" for years and "0" for months when range value is 12', () => {
+    expect(getYearsAndMonthsFromRangeValue(12)).toEqual(['1', '0']);
+  });
+
+  test('returns "1" for years and "2" for months when range value is 14', () => {
+    expect(getYearsAndMonthsFromRangeValue(14)).toEqual(['1', '2']);
+  });
+
+  test('returns "0" for years and "2" for months when range value is 2', () => {
+    expect(getYearsAndMonthsFromRangeValue(2)).toEqual(['0', '2']);
   });
 });
