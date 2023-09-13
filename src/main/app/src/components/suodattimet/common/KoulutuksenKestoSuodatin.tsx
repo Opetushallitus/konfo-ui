@@ -242,16 +242,20 @@ const KoulutuksenKestoInput = ({
   id,
   value,
   handleInputValueChange,
+  timePeriod,
 }: {
   id: string;
   value: string;
   handleInputValueChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  timePeriod: string;
 }) => {
   const { t } = useTranslation();
   return (
     <Box className={classes.input}>
       <OutlinedInput id={id} value={value} onChange={handleInputValueChange} />
-      <Typography className={classes.lyhenne}>{t('haku.lyhenne-vuosi')}</Typography>
+      <Typography className={classes.lyhenne}>
+        {t(`haku.lyhenne-${timePeriod}`)}
+      </Typography>
     </Box>
   );
 };
@@ -358,11 +362,13 @@ export const KoulutuksenKesto = ({
                 id="vahintaan-vuosi"
                 value={vahintaan[0]}
                 handleInputValueChange={handleInputValueChange}
+                timePeriod="vuosi"
               />
               <KoulutuksenKestoInput
                 id="vahintaan-kk"
                 value={vahintaan[1]}
                 handleInputValueChange={handleInputValueChange}
+                timePeriod="kuukausi"
               />
             </Box>
           </Grid>
@@ -380,11 +386,13 @@ export const KoulutuksenKesto = ({
                 id="enintaan-vuosi"
                 value={enintaan[0]}
                 handleInputValueChange={handleInputValueChange}
+                timePeriod="vuosi"
               />
               <KoulutuksenKestoInput
                 id="enintaan-kk"
                 value={enintaan[1]}
                 handleInputValueChange={handleInputValueChange}
+                timePeriod="kuukausi"
               />
             </Box>
           </Grid>
