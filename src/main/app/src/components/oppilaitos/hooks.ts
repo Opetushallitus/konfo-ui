@@ -63,7 +63,9 @@ const handleOppilaitosData = (
       tietoaOpiskelusta: entity?.metadata?.tietoaOpiskelusta ?? [],
       kotipaikat:
         data?.osat?.length > 0
-          ? data?.osat?.map((osa: any) => osa?.kotipaikka)
+          ? data?.osat
+              ?.filter((osa: any) => osa?.status === data?.status)
+              .map((osa: any) => osa?.kotipaikka)
           : [data?.kotipaikka],
     },
     ...rest,
