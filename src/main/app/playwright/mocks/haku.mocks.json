@@ -5518,7 +5518,7 @@
     }
   },
   {
-    "url": "http://localhost:3005/konfo-backend/search/koulutukset?lng=fi&page=1&keyword=Jalkojenhoidon+osaamisala&order=desc&sort=score&size=20",
+    "url": "http://localhost:3005/konfo-backend/search/koulutukset?keyword=Jalkojenhoidon%20osaamisala&lng=fi&order=desc&page=1&size=20&sort=score",
     "response": {
       "body": {
         "total": 1,
@@ -10690,7 +10690,7 @@
     }
   },
   {
-    "url": "http://localhost:3005/konfo-backend/search/oppilaitokset?lng=fi&page=1&keyword=Jalkojenhoidon+osaamisala&order=desc&sort=score&size=20",
+    "url": "http://localhost:3005/konfo-backend/search/oppilaitokset?keyword=Jalkojenhoidon%20osaamisala&lng=fi&order=desc&page=1&size=20&sort=score",
     "response": {
       "body": {
         "total": 1,
@@ -15862,7 +15862,7 @@
   },
   {
     "method": "GET",
-    "url": "http://localhost:3005/konfo-backend/search/koulutukset?lng=fi&page=1&keyword=Hevosten+hyvinvoinnista+huolehtiminen&order=desc&sort=score&size=20",
+    "url": "http://localhost:3005/konfo-backend/search/koulutukset?keyword=Hevosten%20hyvinvoinnista%20huolehtiminen&lng=fi&order=desc&page=1&size=20&sort=score",
     "response": {
       "body": {
         "total": 2,
@@ -21153,7 +21153,7 @@
   },
   {
     "method": "GET",
-    "url": "http://localhost:3005/konfo-backend/search/oppilaitokset?lng=fi&page=1&keyword=Hevosten+hyvinvoinnista+huolehtiminen&order=desc&sort=score&size=20",
+    "url": "http://localhost:3005/konfo-backend/search/oppilaitokset?keyword=Hevosten%20hyvinvoinnista%20huolehtiminen&lng=fi&order=desc&page=1&size=20&sort=score",
     "response": {
       "body": {
         "total": 2,

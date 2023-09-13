@@ -1,34 +1,19 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import {
-  forEach,
-  isMatch,
-  split,
-  mapValues,
-  pick,
-  omit,
-  includes,
-  join,
-  sortBy,
-  groupBy,
-  reduce,
-} from 'lodash';
+import { forEach, split, mapValues, omit, groupBy, reduce, includes, noop } from 'lodash';
+import { match } from 'ts-pattern';
 
-import {
-  RAJAIN_TYPES,
-  RAJAIN_TYPES_ARR_FOR_KONFO_BACKEND,
-  MAKSULLISUUSTYYPPI,
-} from '#/src/constants';
+import { RAJAIN_TYPES, MAKSULLISUUSTYYPPI } from '#/src/constants';
 import { getLanguage } from '#/src/tools/localization';
-import { TODOType } from '#/src/types/common';
+import { KonfoKoulutustyyppi, TODOType } from '#/src/types/common';
 
-import { getAPIRequestParams, getHakuUrl } from './hakutulosSliceSelector';
+import { getHakuUrl } from './hakutulosSliceSelector';
 
 export type RangeRajainValue<ID extends string> = {
   [id in `${ID}_max` | `${ID}_min`]: number;
 };
 
 export type RajainValues = {
-  koulutustyyppi: Array<string>;
+  koulutustyyppi: Array<KonfoKoulutustyyppi>;
   koulutusala: Array<string>;
   opetuskieli: Array<string>;
   valintatapa: Array<string>;
@@ -55,6 +40,7 @@ export type RajainValues = {
   lukuvuosimaksunmaara: RangeRajainValue<'lukuvuosimaksunmaara'>;
   apuraha: boolean;
   alkamiskausi: Array<string>;
+  hakualkaapaivissa: Array<string>;
 };
 
 export const HAKU_RAJAIMET_INITIAL = {
@@ -94,6 +80,7 @@ export const HAKU_RAJAIMET_INITIAL = {
   apuraha: false,
   alkamiskausi: [],
   sijainti: [],
+  hakualkaapaivissa: [],
 };
 
 type HakutulosSlice = {
@@ -175,39 +162,38 @@ export const hakutulosSlice = createSlice({
     urlParamsChanged(state, { payload }) {
       const { keyword, search } = payload;
       const params = { keyword, ...search };
-      const apiRequestParams = getAPIRequestParams({ hakutulos: state } as TODOType);
-      const cleanedParams = getCleanUrlSearch(params, apiRequestParams);
 
       state.selectedTab = params?.tab ?? 'koulutus';
 
-      if (!isMatch(apiRequestParams, cleanedParams)) {
-        forEach(omit(cleanedParams, minmaxParams(cleanedParams)), (value, key) => {
-          const valueList = split(value, ',');
-          switch (key) {
-            case 'keyword':
-            case 'size':
-            case 'order':
-            case 'sort':
-              state[key] = value;
-              break;
-            case RAJAIN_TYPES.SIJAINTI:
-              state.maakunta = valueList.filter((v) => v.startsWith('maakunta'));
-              state.kunta = valueList.filter((v) => v.startsWith('kunta'));
-              break;
-            case RAJAIN_TYPES.HAKUKAYNNISSA:
-            case RAJAIN_TYPES.JOTPA:
-            case RAJAIN_TYPES.TYOVOIMAKOULUTUS:
-            case RAJAIN_TYPES.TAYDENNYSKOULUTUS:
-            case RAJAIN_TYPES.APURAHA:
+      forEach(omit(params, minmaxParams(params)), (value, key) => {
+        const valueList = split(value, ',');
+        match(key)
+          .with('keyword', 'size', 'order', 'sort', () => {
+            Object.assign(state, { [key]: value });
+          })
+          .with(RAJAIN_TYPES.SIJAINTI, () => {
+            state.maakunta = valueList.filter((v) => v.startsWith('maakunta'));
+            state.kunta = valueList.filter((v) => v.startsWith('kunta'));
+          })
+          .with(
+            RAJAIN_TYPES.HAKUKAYNNISSA,
+            RAJAIN_TYPES.JOTPA,
+            RAJAIN_TYPES.TYOVOIMAKOULUTUS,
+            RAJAIN_TYPES.TAYDENNYSKOULUTUS,
+            RAJAIN_TYPES.APURAHA,
+            () => {
               Object.assign(state, { [key]: value === 'true' });
-              break;
-            default:
+            }
+          )
+          .when(
+            () => includes(Object.values(RAJAIN_TYPES), key),
+            () => {
               Object.assign(state, { [key]: valueList });
-              break;
-          }
-        });
-        Object.assign(state, groupMinMaxParams(cleanedParams));
-      }
+            }
+          )
+          .otherwise(noop);
+      });
+      Object.assign(state, groupMinMaxParams(params));
     },
   },
 });
@@ -234,13 +220,6 @@ export const navigateToHaku =
     const url = getHakuUrl(state);
     navigate('/' + getLanguage() + url);
   };
-
-const getCleanUrlSearch = (search: TODOType, apiRequestParams: TODOType) =>
-  mapValues(pick(search, Object.keys(apiRequestParams ?? {})), (value, key) =>
-    includes(RAJAIN_TYPES_ARR_FOR_KONFO_BACKEND, key)
-      ? join(sortBy(split(value, ',')), ',')
-      : value
-  );
 
 const minmaxParams = (allParams: TODOType) =>
   Object.keys(allParams).filter((k) => k.endsWith('_min') || k.endsWith('_max'));

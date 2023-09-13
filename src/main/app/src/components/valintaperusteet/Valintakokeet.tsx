@@ -109,7 +109,7 @@ type Tilaisuus = {
 
 type Props = {
   valintakokeet: Array<{
-    nimi: string;
+    nimi: Translateable;
     tyyppi: Koodi;
     tilaisuudet: Array<Tilaisuus>;
     metadata: {

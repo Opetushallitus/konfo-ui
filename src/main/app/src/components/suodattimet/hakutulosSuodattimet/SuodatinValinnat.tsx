@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { getFilterStateChangesForDelete } from '#/src/tools/filters';
-import { localize } from '#/src/tools/localization';
+import { translateRajainItem } from '#/src/tools/localization';
 import { RajainItem, SetRajainValues } from '#/src/types/SuodatinTypes';
 
 type ChosenFiltersProps = {
@@ -42,7 +42,7 @@ export const ChipList = ({
               fontWeight: 600,
             }}
             // NOTE: Some filters are not koodisto values and must be translated
-            label={localize(entry) || t(`haku.${entry.id}`)}
+            label={translateRajainItem(entry, t)}
             onDelete={getHandleDelete(entry)}
           />
         ))}
