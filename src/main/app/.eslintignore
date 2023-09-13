@@ -5,3 +5,4 @@ playwright/fixtures
 playwright/mocks
 test-server.js
 src/types/contentful/**
+konfo-backend.d.ts
