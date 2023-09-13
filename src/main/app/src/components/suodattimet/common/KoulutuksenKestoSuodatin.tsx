@@ -3,10 +3,11 @@ import React, { useState } from 'react';
 import { Box, Grid, OutlinedInput } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { TFunction } from 'i18next';
-import { isEqual, ceil, range, round } from 'lodash';
+import { isEmpty, isEqual, ceil, range, round } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { match } from 'ts-pattern';
 
+import { colors } from '#/src/colors';
 import {
   SuodatinAccordion,
   SuodatinAccordionDetails,
@@ -183,6 +184,7 @@ const classes = {
   inputContainer: `${PREFIX}input-container`,
   lyhenne: `${PREFIX}lyhenne`,
   ndash: `${PREFIX}ndash`,
+  error: `${PREFIX}error`,
 };
 
 const Root = styled('div')`
@@ -204,6 +206,10 @@ const Root = styled('div')`
     display: flex;
     justify-content: center;
     align-items: end;
+  }
+  & .${classes.error} {
+    color: ${colors.red};
+    margin-top: 1rem;
   }
 `;
 
@@ -254,10 +260,14 @@ export const KoulutuksenKesto = ({
   rajainItems,
   allSelectedRajainValues,
   setAllSelectedRajainValues,
+  setErrorKey,
+  errorKey,
 }: {
   rajainItems: Array<RajainItem>;
   allSelectedRajainValues: Rajain;
   setAllSelectedRajainValues: (val: Rajain) => void;
+  setErrorKey: (errorKey: string) => void;
+  errorKey: string;
 }) => {
   const { t } = useTranslation();
 
@@ -317,6 +327,9 @@ export const KoulutuksenKesto = ({
       })
       .otherwise(() => rangeValues);
 
+    newValues[0] > newValues[1]
+      ? setErrorKey('vahintaan-suurempi-kuin-enintaan')
+      : setErrorKey('');
     setRangeValues(newValues);
     setAllSelectedRajainValues({
       ...allSelectedRajainValues,
@@ -376,6 +389,11 @@ export const KoulutuksenKesto = ({
             </Box>
           </Grid>
         </Grid>
+        {!isEmpty(errorKey) && (
+          <Typography className={classes.error}>
+            {t(`ohjaava-haku.error.${errorKey}`)}
+          </Typography>
+        )}
         <KoulutuksenKestoSlider
           rangeValues={rangeValues}
           undefinedRajainValues={undefinedRajainValues}
