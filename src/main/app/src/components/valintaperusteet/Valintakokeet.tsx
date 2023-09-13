@@ -10,7 +10,7 @@ import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
 import { Heading, HeadingBoundary } from '#/src/components/Heading';
 import { styled } from '#/src/theme';
 import { localize, localizeOsoite } from '#/src/tools/localization';
-import { formatDateString, toId } from '#/src/tools/utils';
+import { toId } from '#/src/tools/utils';
 import { Koodi, Translateable } from '#/src/types/common';
 import { FormatoituAikaleima } from '#/src/types/HakukohdeTypes';
 
@@ -56,7 +56,7 @@ const TilaisuusComponent = ({
             <Heading className={classes.valintakoeSubHeader} variant="h5">
               {t('valintaperuste.alkaa')}
             </Heading>
-            <Typography variant="body1">{formatDateString(formatoituAlkaa)}</Typography>
+            <Typography variant="body1">{localize(formatoituAlkaa)}</Typography>
           </Box>
         </Grid>
         <Grid item xs={6}>
@@ -64,7 +64,7 @@ const TilaisuusComponent = ({
             <Heading className={classes.valintakoeSubHeader} variant="h5">
               {t('valintaperuste.paattyy')}
             </Heading>
-            <Typography variant="body1">{formatDateString(formatoituPaattyy)}</Typography>
+            <Typography variant="body1">{localize(formatoituPaattyy)}</Typography>
           </Box>
         </Grid>
         {postinumero ? (
