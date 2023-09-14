@@ -1,12 +1,23 @@
 import DOMPurify from 'dompurify';
-import parseHtmlToReact from 'html-react-parser';
-import { pickBy, capitalize, trim, isEmpty, isString, find, kebabCase } from 'lodash';
+import parseHtmlToReact, { HTMLReactParserOptions } from 'html-react-parser';
+import {
+  pickBy,
+  capitalize,
+  trim,
+  isEmpty,
+  isString,
+  find,
+  kebabCase,
+  merge,
+} from 'lodash';
 
 import { NDASH } from '#/src/constants';
 
 import { getLanguage, getTranslationForKey, localize } from './localization';
+import { Pagination } from '../store/reducers/koulutusSlice';
+import { Koodi, TODOType, Translateable } from '../types/common';
 
-DOMPurify.addHook('afterSanitizeAttributes', function (node) {
+DOMPurify.addHook('afterSanitizeAttributes', (node) => {
   // set all elements owning target to target=_blank
   if ('target' in node) {
     node.setAttribute('target', '_blank');
@@ -14,16 +25,24 @@ DOMPurify.addHook('afterSanitizeAttributes', function (node) {
   }
 });
 
-export const sanitizeHTML = (html) => DOMPurify.sanitize(html);
+export const sanitizeHTML = (html: string) => DOMPurify.sanitize(html);
 
 // Filters all untruthy values, we do not want false or 0 values sent
-export const cleanRequestParams = (params) => pickBy(params, Boolean);
+export const cleanRequestParams = (params?: Record<string, any>) =>
+  params ? pickBy(params, Boolean) : {};
 
-export const koodiUriToPostinumero = (str = '') => {
-  return str.match(/^posti_(\d+)/)?.[1] ?? '';
+export const koodiUriToPostinumero = (str: string) => {
+  return str?.match(/^posti_(\d+)/)?.[1] ?? '';
 };
 
-export const parseOsoiteData = (osoiteData) => {
+export const parseOsoiteData = (osoiteData: {
+  postiosoite: {
+    osoite: Translateable;
+    postinumero: Koodi;
+  };
+  sahkoposti?: string;
+  nimi?: string;
+}) => {
   const postiosoite = osoiteData?.postiosoite ?? {};
   const osoite = localize(postiosoite.osoite);
   const postinumero = koodiUriToPostinumero(postiosoite.postinumero?.koodiUri);
@@ -38,7 +57,7 @@ export const parseOsoiteData = (osoiteData) => {
   return { nimi, osoite, postinumero, postitoimipaikka, sahkoposti, yhteystiedot };
 };
 
-export const getSearchAddress = (postitoimipaikka = '', osoite = '') => {
+export const getSearchAddress = (postitoimipaikka: string = '', osoite: string = '') => {
   // 'PL 123, osoite 123' <- we need to remove any PL (postilokero) parts for map searches
   const usedOsoite = osoite
     .split(',')
@@ -46,7 +65,10 @@ export const getSearchAddress = (postitoimipaikka = '', osoite = '') => {
     .map((s) => s.trim())
     .join(', ');
   const fullAddress = [postitoimipaikka, usedOsoite].filter(Boolean).join(' ');
-  const withoutNumbers = fullAddress.split(' ').filter(isNaN).join(' ');
+  const withoutNumbers = fullAddress
+    .split(' ')
+    .filter((_) => isNaN(Number(_)))
+    .join(' ');
 
   // This cuts the string after any words + single number e.g. 'Paikkakunta Osoite 123 this is cut'
   // TODO: Is this really necessary
@@ -54,7 +76,7 @@ export const getSearchAddress = (postitoimipaikka = '', osoite = '') => {
   const coreAddress = fullAddress.match(regexp)?.[0];
 
   if (!coreAddress) {
-    consoleWarning('Warning: returning null for core address, input: ' + fullAddress);
+    console.warn('Warning: returning null for core address, input: ' + fullAddress);
   }
   return {
     address: coreAddress || postitoimipaikka,
@@ -62,45 +84,29 @@ export const getSearchAddress = (postitoimipaikka = '', osoite = '') => {
   };
 };
 
-export function formatDateString(d) {
-  if (!d) {
-    return '';
-  }
+export const formatDateRange = (start: Translateable, end?: Translateable) =>
+  `${localize(start)} ${NDASH} ${end ? localize(end) : ''}`;
 
-  return d[getLanguage()] || '';
-}
-
-export const formatDateRange = (start, end) =>
-  `${formatDateString(start)} ${NDASH} ${end ? formatDateString(end) : ''}`;
-
-export const sanitizedHTMLParser = (html, ...rest) =>
-  parseHtmlToReact(sanitizeHTML(html), ...rest);
+export const sanitizedHTMLParser = (html: string, options?: HTMLReactParserOptions) =>
+  parseHtmlToReact(sanitizeHTML(html), options);
 
 export const toId = kebabCase;
 
 export const scrollIntoView = (
-  element,
-  options = {
-    behavior: 'smooth',
-  }
+  element?: Element | null,
+  options?: ScrollIntoViewOptions
 ) => {
-  element?.scrollIntoView(options);
+  element?.scrollIntoView(merge({ behavior: 'smooth' }, options));
 };
 
-export const scrollToId = (id, options) =>
-  scrollIntoView(document.getElementById(id), options);
-
-export const consoleWarning = (...props) => {
-  if (!isPlaywright) {
-    console.warn(...props);
-  }
-};
+export const scrollToId = (id?: string, options?: ScrollIntoViewOptions) =>
+  scrollIntoView(id ? document.getElementById(id) : null, options);
 
 function getFormattedOpintojenLaajuus(
-  opintojenLaajuusNumero,
-  opintojenLaajuusYksikko,
-  opintojenLaajuusMin,
-  opintojenLaajuusMax
+  opintojenLaajuusNumero: string,
+  opintojenLaajuusYksikko: string,
+  opintojenLaajuusMin?: string,
+  opintojenLaajuusMax?: string
 ) {
   const usedOpintojenLaajuusNumero =
     !isEmpty(opintojenLaajuusMin) && opintojenLaajuusMin === opintojenLaajuusMax
@@ -109,7 +115,7 @@ function getFormattedOpintojenLaajuus(
 
   let opintojenLaajuus;
   if (usedOpintojenLaajuusNumero) {
-    const includesYksikko = /\D+$/.test(usedOpintojenLaajuusNumero);
+    const includesYksikko = /\D$/.test(usedOpintojenLaajuusNumero);
 
     if (includesYksikko) {
       opintojenLaajuus = usedOpintojenLaajuusNumero;
@@ -135,13 +141,14 @@ function getFormattedOpintojenLaajuus(
   return opintojenLaajuus;
 }
 
-function getLocalizedKoulutusOpintojenLaajuus(koulutus) {
+function getLocalizedKoulutusOpintojenLaajuus(koulutus: TODOType) {
   const tutkinnonOsat = koulutus?.tutkinnonOsat || [];
 
   let opintojenLaajuusNumero =
     (koulutus?.opintojenLaajuus && localize(koulutus?.opintojenLaajuus)) ||
     formatDouble(koulutus?.opintojenLaajuusNumero) ||
-    (tutkinnonOsat && tutkinnonOsat.map((k) => k?.opintojenLaajuusNumero).join(' + '));
+    (tutkinnonOsat &&
+      tutkinnonOsat.map((k: TODOType) => k?.opintojenLaajuusNumero).join(' + '));
 
   if (isString(opintojenLaajuusNumero)) {
     opintojenLaajuusNumero = opintojenLaajuusNumero.split('+').map(trim).join(' + ');
@@ -164,14 +171,14 @@ function getLocalizedKoulutusOpintojenLaajuus(koulutus) {
   );
 }
 
-export function getLocalizedKoulutusLaajuus(koulutus) {
+export function getLocalizedKoulutusLaajuus(koulutus: TODOType) {
   return (
     getLocalizedKoulutusOpintojenLaajuus(koulutus) ||
     getTranslationForKey('koulutus.ei-laajuutta')
   );
 }
 
-export function getLocalizedOpintojenLaajuus(toteutus, koulutus) {
+export function getLocalizedOpintojenLaajuus(toteutus: TODOType, koulutus?: TODOType) {
   const laajuusNumero = formatDouble(
     toteutus?.metadata?.opintojenLaajuusNumero || toteutus?.opintojenLaajuusNumero
   );
@@ -197,15 +204,15 @@ export function getLocalizedOpintojenLaajuus(toteutus, koulutus) {
   );
 }
 
-export function byLocaleCompare(prop) {
-  return function (a, b) {
-    return a[prop].toString().localeCompare(b[prop], getLanguage());
+export function byLocaleCompare<T extends string>(prop: T) {
+  return function <X extends { [P in T]: number | string }>(a: X, b: X) {
+    return a[prop].toString().localeCompare(b[prop].toString(), getLanguage());
   };
 }
 
-export const condArray = (cond, item) => (cond ? [item] : []);
+export const condArray = <T>(cond: boolean, item: T) => (cond ? [item] : []);
 
-export const formatDouble = (number, fixed) =>
+export const formatDouble = (number: number, fixed?: number) =>
   (fixed === undefined ? number : number?.toFixed(fixed))?.toString().replace('.', ',');
 
 export const isPlaywright = Boolean(localStorage.getItem('isPlaywright'));
@@ -214,10 +221,10 @@ export const isDev = import.meta.env.MODE === 'development';
 
 export const isProd = import.meta.env.MODE === 'production';
 
-export const getPaginationPage = ({ offset, size }) =>
-  1 + (size ? Math.round(offset / size) : 0);
+export const getPaginationPage = ({ offset, size }: Pagination) =>
+  1 + (size ? Math.round(offset ?? 0 / size) : 0);
 
-const tryCatch = (fn, defaultValue) => {
+const tryCatch = <T>(fn: () => T, defaultValue?: T) => {
   try {
     return fn();
   } catch (e) {
@@ -225,9 +232,9 @@ const tryCatch = (fn, defaultValue) => {
   }
 };
 
-export const safeParseNumber = (num) => {
+export const safeParseNumber = (num?: string | number) => {
   const n = Number(num);
   return isNaN(n) ? undefined : n;
 };
 
-export const parseUrl = (url) => tryCatch(() => new URL(url));
+export const parseUrl = (url: string) => tryCatch(() => new URL(url));

@@ -6,7 +6,7 @@ import { inRange, size } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { P, match } from 'ts-pattern';
 
-import { localize } from '#/src/tools/localization';
+import { translateRajainItem } from '#/src/tools/localization';
 import { RajainItem } from '#/src/types/SuodatinTypes';
 
 import { SuodatinMobileChip } from './CustomizedMuiComponents';
@@ -41,6 +41,7 @@ const pickValues = (rajainItems: Array<RajainItem>) => {
     ),
   ].flat();
 };
+
 export const SummaryContent = ({
   filterName,
   values,
@@ -51,10 +52,7 @@ export const SummaryContent = ({
   const { t } = useTranslation();
   const selectedValues = useMemo(() => pickValues(values || []), [values]);
   const selectedFiltersStr =
-    contentString ||
-    selectedValues
-      .map((v) => localize(v) || t(`haku.${v.id}`)) // Kaikille suodattimille ei tule backendista käännöksiä
-      .join(', ');
+    contentString || selectedValues.map((v) => translateRajainItem(v, t)).join(', ');
 
   const chipLabel = numberOfItems || selectedValues.length;
   return (

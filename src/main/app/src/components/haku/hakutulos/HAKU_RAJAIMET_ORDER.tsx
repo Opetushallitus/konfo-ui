@@ -1,5 +1,5 @@
 import { AlkamiskausiSuodatin } from '../../suodattimet/common/AlkamiskausiSuodatin';
-import { HakuKaynnissaSuodatin } from '../../suodattimet/common/HakuKaynnissaSuodatin';
+import { HakuaikaRajain } from '../../suodattimet/common/HakuaikaRajain';
 import { HakutapaSuodatin } from '../../suodattimet/common/HakutapaSuodatin';
 import { KoulutuksenKestoSuodatin } from '../../suodattimet/common/KoulutuksenKestoSuodatin';
 import { MaksullisuusSuodatin } from '../../suodattimet/common/MaksullisuusSuodatin';
@@ -19,8 +19,8 @@ export const HAKU_RAJAIMET_ORDER = [
     Component: KoulutustyyppiSuodatin,
   },
   {
-    id: 'hakukaynnissa',
-    Component: HakuKaynnissaSuodatin,
+    id: 'hakuaika',
+    Component: HakuaikaRajain,
   },
   {
     id: 'alkamiskausi',

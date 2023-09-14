@@ -135,7 +135,7 @@ export type Opintojakso = {
   nimi: Translateable;
   oid: string;
   metadata: {
-    kuvaus: string;
+    kuvaus: Translateable;
     opintojenLaajuusNumero: number;
     opintojenLaajuusyksikko: { koodiUri: string; nimi: Translateable };
   };
@@ -190,7 +190,7 @@ export type Jarjestaja = {
   oppilaitosOid: string;
   oppilaitosTila: string; // TODO: string union type, e.g. "julkaistu" | jne
   toteutusOid: string;
-  toteutusNimi: string;
+  toteutusNimi: Translateable;
   tutkintonimikkeet: TODOType;
   jarjestaaUrheilijanAmmKoulutusta: boolean;
   ammatillinenPerustutkintoErityisopetuksena: boolean;

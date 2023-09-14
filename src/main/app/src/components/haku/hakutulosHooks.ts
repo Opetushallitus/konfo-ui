@@ -13,8 +13,9 @@ import {
   omit,
   forEach,
   some,
+  merge,
 } from 'lodash';
-import { useQuery } from 'react-query';
+import { useQuery, UseQueryOptions } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { match, P } from 'ts-pattern';
@@ -47,7 +48,6 @@ import {
   RajainValues,
 } from '#/src/store/reducers/hakutulosSlice';
 import {
-  getAPIRequestParams,
   getRajainValues,
   getIsAnyFilterSelected,
   getKeyword,
@@ -60,12 +60,13 @@ import {
   getSize,
   getSort,
   getSortOrder,
-  getAutocompleteRequestParams,
   getHakuParams,
   createHakuUrl,
+  getRajainParams,
+  getSearchRequestParams,
 } from '#/src/store/reducers/hakutulosSliceSelector';
 import { isRajainActive, getRajainValueInUIFormat } from '#/src/tools/filters';
-import { RajainName, ReduxTodo } from '#/src/types/common';
+import { RajainName, ReduxTodo, TODOType } from '#/src/types/common';
 import { isCompositeRajainId } from '#/src/types/SuodatinTypes';
 
 import { RajainOptions } from '../koulutus/ToteutusList';
@@ -77,12 +78,17 @@ type Pagination = {
 };
 
 const createSearchQueryHook =
-  (key: string, fn: (x: any, signal: any) => any, defaultOptions: any = {}) =>
-  (requestParams: any, options: any = {}) =>
-    useQuery([key, requestParams], ({ signal }) => fn(requestParams, signal), {
-      ...defaultOptions,
-      ...options,
-    });
+  <T>(
+    key: string,
+    fn: (params: T, signal?: AbortSignal) => any,
+    defaultOptions: UseQueryOptions<TODOType> = {}
+  ) =>
+  (requestParams: T, options: UseQueryOptions<TODOType> = {}) =>
+    useQuery<T, unknown, TODOType>(
+      [key, requestParams],
+      ({ signal }) => fn(requestParams, signal),
+      merge({}, defaultOptions, options)
+    );
 
 const useKoulutusSearch = createSearchQueryHook('searchKoulutukset', searchKoulutukset, {
   keepPreviousData: true,
@@ -110,13 +116,13 @@ const useAutoCompleteQuery = (requestParams: any) =>
   );
 
 export const useAutoComplete = () => {
-  const autoCompleteRequestParams = useSelector(getAutocompleteRequestParams);
+  const rajainParams = useSelector(getRajainParams);
   const keyword = useSelector(getKeyword);
 
   const [searchPhrase, setSearchPhrase] = useState<string>(() => keyword);
 
   const { data, isFetching, status } = useAutoCompleteQuery({
-    ...autoCompleteRequestParams,
+    ...rajainParams,
     searchPhrase,
   });
 
@@ -139,13 +145,13 @@ export const useAutoComplete = () => {
 const isOnPageWithHaku = (currentPage: string) => ['', 'haku'].includes(currentPage);
 
 export const useSearch = () => {
-  const keyword = useSelector(getKeyword);
   const isAnyRajainSelected = useSelector(getIsAnyFilterSelected);
   const pageSize = useSelector(getSize);
   const koulutusOffset = useSelector(getKoulutusOffset);
   const oppilaitosOffset = useSelector(getOppilaitosOffset);
 
-  const requestParams = useSelector(getAPIRequestParams);
+  const requestParams = useSelector(getSearchRequestParams);
+  const { keyword } = requestParams;
 
   const koulutusPage = useSelector(getKoulutusPage);
   const oppilaitosPage = useSelector(getOppilaitosPage);
