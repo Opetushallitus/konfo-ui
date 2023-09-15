@@ -238,3 +238,10 @@ export const safeParseNumber = (num?: string | number) => {
 };
 
 export const parseUrl = (url: string) => tryCatch(() => new URL(url));
+
+const defaultCompareFn = <T>(a: T, b: T) => (a < b ? -1 : 1);
+
+export const sortArray = <T>(
+  arr: Array<T>,
+  compareFn: (a: T, b: T) => number = defaultCompareFn<T>
+) => arr.sort(compareFn);
