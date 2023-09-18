@@ -172,7 +172,9 @@ export const KoulutuksenKesto = ({
           className={classes.inputContainer}>
           <Grid item container direction="column" wrap="nowrap" xs={3}>
             <Typography sx={{ fontWeight: '600' }}>
-              {t('ohjaava-haku.kysymykset.koulutuksen-kesto.opiskelen-vahintaan')}
+              {t(
+                'ohjaava-haku.kysymykset.koulutuksenkestokuukausina.opiskelen-vahintaan'
+              )}
             </Typography>
             <Box className={classes.inputContainer}>
               <KoulutuksenKestoInput
@@ -196,7 +198,7 @@ export const KoulutuksenKesto = ({
           </Grid>
           <Grid item container direction="column" wrap="nowrap" xs={3}>
             <Typography sx={{ fontWeight: '600' }}>
-              {t('ohjaava-haku.kysymykset.koulutuksen-kesto.opiskelen-enintaan')}
+              {t('ohjaava-haku.kysymykset.koulutuksenkestokuukausina.opiskelen-enintaan')}
             </Typography>
             <Box display="flex" className={classes.inputContainer}>
               <KoulutuksenKestoInput
