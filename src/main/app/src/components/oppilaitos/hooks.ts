@@ -206,7 +206,7 @@ export const usePaginatedTarjonta = ({ oid, isTuleva }: UsePaginatedTarjontaProp
 
 export const useSomeKoodit = () => {
   const { data } = useQuery<Array<Koodi>>(
-    ['getKoodistonKoodit'],
+    ['getKoodistonKooditSome'],
     () => getKoodistonKoodit('sosiaalinenmedia'),
     { staleTime: Infinity }
   );
