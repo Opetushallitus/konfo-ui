@@ -4,7 +4,6 @@ on:
   schedule:
     - cron: '0 6 * * *'
   workflow_dispatch:
-  pull_request:
 
 env:
   SPACE_ID_FI_SV: ${{ secrets.CONTENTFUL_SPACE_ID_FI_SV }}
@@ -24,4 +23,4 @@ jobs:
       - name: Install contentful-cli
         run: npm install -g contentful-cli
       - name: Check integrity of ContentTypes
-        run: ./contentfulIntegrityCheck.sh
+        run: node contentfulIntegrityCheck.js
