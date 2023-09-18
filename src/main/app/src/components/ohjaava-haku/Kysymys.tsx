@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
-import { KoulutuksenKesto } from '#/src/components/suodattimet/common/KoulutuksenKestoSuodatin';
+import { KoulutuksenKesto } from '#/src/components/ohjaava-haku/KoulutuksenKesto';
 import { RAJAIN_TYPES, FilterKey } from '#/src/constants';
 import { styled } from '#/src/theme';
 import { useRajainItems } from '#/src/tools/filters';
