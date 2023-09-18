@@ -65,12 +65,7 @@ import {
   getHakuParams,
   createHakuUrl,
 } from '#/src/store/reducers/hakutulosSliceSelector';
-import {
-  sortValues,
-  getRajainOptions,
-  isRajainActive,
-  getRajainValueInUIFormat,
-} from '#/src/tools/filters';
+import { isRajainActive, getRajainValueInUIFormat } from '#/src/tools/filters';
 import { RajainName, ReduxTodo, ValueOf } from '#/src/types/common';
 import { isCompositeRajainId } from '#/src/types/SuodatinTypes';
 
@@ -311,17 +306,6 @@ export const useFilterProps = (id: ValueOf<typeof RAJAIN_TYPES>) => {
     () => getRajainValueInUIFormat(usedFilters, allFilters, id),
     [usedFilters, allFilters, id]
   );
-};
-
-export const useRajainOptionsForKysymys = (
-  rajainId: ValueOf<typeof RAJAIN_TYPES>,
-  isRajainWithRange: boolean = false
-) => {
-  const { koulutusData } = useSearch();
-  const filters = koulutusData?.filters;
-  return isRajainWithRange
-    ? { [rajainId]: filters?.[rajainId] }
-    : sortValues(getRajainOptions(filters, rajainId));
 };
 
 export const useSelectedFilters = (
