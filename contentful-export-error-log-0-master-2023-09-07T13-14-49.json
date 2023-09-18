@@ -1,0 +1,35 @@
+[
+  {
+    "ts": "2023-09-07T10:14:49.924Z",
+    "level": "error",
+    "error": {
+      "originalError": {
+        "name": "NotFound",
+        "message": "{\n  \"status\": 404,\n  \"statusText\": \"Not Found\",\n  \"message\": \"The resource could not be found.\",\n  \"details\": {\n    \"type\": \"Space\",\n    \"id\": \"0\"\n  },\n  \"request\": {\n    \"url\": \"/spaces/0\",\n    \"headers\": {\n      \"Accept\": \"application/json, text/plain, */*\",\n      \"Content-Type\": \"application/vnd.contentful.management.v1+json\",\n      \"X-Contentful-User-Agent\": \"app contentful.cli/2.8.3; feature space-export; sdk contentful-management.js/0.0.0-determined-by-semantic-release; platform node.js/v14.19.3; os macOS/v14.19.3;\",\n      \"CF-Sequence\": \"8d1cf5cd-5225-42a4-a10e-f5b9c013137a\",\n      \"Authorization\": \"Bearer ...3f0is\",\n      \"User-Agent\": \"axios/1.4.0\",\n      \"Accept-Encoding\": \"gzip, compress, deflate, br\"\n    },\n    \"method\": \"get\"\n  },\n  \"requestId\": \"ea0adb94-247c-439e-ae5f-f5e431c22e92\"\n}"
+      },
+      "data": {
+        "status": 404,
+        "statusText": "Not Found",
+        "message": "The resource could not be found.",
+        "details": {
+          "type": "Space",
+          "id": "0"
+        },
+        "request": {
+          "url": "/spaces/0",
+          "headers": {
+            "Accept": "application/json, text/plain, */*",
+            "Content-Type": "application/vnd.contentful.management.v1+json",
+            "X-Contentful-User-Agent": "app contentful.cli/2.8.3; feature space-export; sdk contentful-management.js/0.0.0-determined-by-semantic-release; platform node.js/v14.19.3; os macOS/v14.19.3;",
+            "CF-Sequence": "8d1cf5cd-5225-42a4-a10e-f5b9c013137a",
+            "Authorization": "Bearer ...3f0is",
+            "User-Agent": "axios/1.4.0",
+            "Accept-Encoding": "gzip, compress, deflate, br"
+          },
+          "method": "get"
+        },
+        "requestId": "ea0adb94-247c-439e-ae5f-f5e431c22e92"
+      }
+    }
+  }
+]

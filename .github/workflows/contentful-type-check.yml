@@ -1,0 +1,26 @@
+name: contentful-type-check
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+env:
+  SPACE_ID_FI_SV: ${{ secrets.CONTENTFUL_SPACE_ID_FI_SV }}
+  SPACE_ID_EN: ${{ secrets.CONTENTFUL_SPACE_ID_EN }}
+  MANAGEMENT_TOKEN: ${{ secrets.CONTENTFUL_MANAGEMENT_TOKEN }}
+
+jobs:
+  contentful-integrity:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./scripts
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      - name: Install contentful-cli
+        run: npm install -g contentful-cli
+      - name: Check integrity of ContentTypes
+        run: ./contentfulIntegrityCheck.sh
