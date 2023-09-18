@@ -83,7 +83,6 @@ const spaceIdEN = process.env.SPACE_ID_EN;
 const diff = {fi: compareTypes(spaceIdFI), en: compareTypes(spaceIdEN)};
 
 if (Object.keys(diff.fi).length > 0 || Object.keys(diff.en).length > 0) {
-  core.warning('Differences in content types');
+  core.setFailed('Differences in content types');
   core.info(JSON.stringify(diff, undefined, 2));
-  //core.setFailed('Differences in content types');
 }
