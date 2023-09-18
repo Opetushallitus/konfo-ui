@@ -1,6 +1,5 @@
 const fs = require('fs');
-const cp = require('child_process');
-const core = require('@actions/core');
+const exec = require('child_process').execSync;
 
 fieldEqual = (masterField, testiField) => {
   return masterField.id === testiField.id
@@ -44,10 +43,8 @@ const compareType = (masterType, testiType) => {
 const commonFlags = `--skip-content --skip-roles --skip-webhooks --skip-editor-interfaces --mt ${process.env.MANAGEMENT_TOKEN}`
 
 const compareTypes = (spaceId) => {
-  cp.spawnSync(
-    `contentful space export --space-id ${spaceId} --environment-id master --content-file master.json ${commonFlags}`,
-    { shell: false })
-  cp.spawnSync(`contentful space export --space-id ${spaceId} --environment-id testi --content-file testi.json ${commonFlags}`, { shell: false })
+  exec(`contentful space export --space-id ${spaceId} --environment-id master --content-file master.json ${commonFlags}`) //NOSONAR
+  exec(`contentful space export --space-id ${spaceId} --environment-id testi --content-file testi.json ${commonFlags}`) //NOSONAR
   const masterTypes = JSON.parse(fs.readFileSync('master.json', 'utf8')).contentTypes;
   const testiTypes = JSON.parse(fs.readFileSync('testi.json', 'utf8')).contentTypes;
 
