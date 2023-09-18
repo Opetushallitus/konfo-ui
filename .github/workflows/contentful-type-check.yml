@@ -20,7 +20,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
-      - name: Install contentful-cli
-        run: npm install -g contentful-cli
+      - name: Install dependencies
+        run: |
+          npm install -g contentful-cli
+          npm install @actions/core
       - name: Check integrity of ContentTypes
         run: node contentfulIntegrityCheck.js

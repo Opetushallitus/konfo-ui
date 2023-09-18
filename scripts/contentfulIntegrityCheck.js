@@ -1,5 +1,6 @@
 const fs = require('fs');
-const exec = require('child_process').execSync;
+const cp = require('child_process');
+const core = require('@actions/core');
 
 fieldEqual = (masterField, testiField) => {
   return masterField.id === testiField.id
@@ -43,8 +44,10 @@ const compareType = (masterType, testiType) => {
 const commonFlags = `--skip-content --skip-roles --skip-webhooks --skip-editor-interfaces --mt ${process.env.MANAGEMENT_TOKEN}`
 
 const compareTypes = (spaceId) => {
-  exec(`contentful space export --space-id ${spaceId} --environment-id master --content-file master.json ${commonFlags}`)
-  exec(`contentful space export --space-id ${spaceId} --environment-id testi --content-file testi.json ${commonFlags}`)
+  cp.spawnSync(
+    `contentful space export --space-id ${spaceId} --environment-id master --content-file master.json ${commonFlags}`,
+    { shell: false })
+  cp.spawnSync(`contentful space export --space-id ${spaceId} --environment-id testi --content-file testi.json ${commonFlags}`, { shell: false })
   const masterTypes = JSON.parse(fs.readFileSync('master.json', 'utf8')).contentTypes;
   const testiTypes = JSON.parse(fs.readFileSync('testi.json', 'utf8')).contentTypes;
 
@@ -82,6 +85,7 @@ const spaceIdEN = process.env.SPACE_ID_EN;
 const diff = {fi: compareTypes(spaceIdFI), en: compareTypes(spaceIdEN)};
 
 if (Object.keys(diff.fi).length > 0 || Object.keys(diff.en).length > 0) {
-  exec('echo "::warning::Differences in content types"');
-  console.log(JSON.stringify(diff, undefined, 2));
+  core.warning('Differences in content types');
+  core.info(JSON.stringify(diff, undefined, 2));
+  core.setFailed('Differences in content types');
 }
