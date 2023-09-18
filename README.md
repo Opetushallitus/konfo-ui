@@ -5,6 +5,8 @@ Juurihakemiston Spring Boot -kääre tarjoilee SPA:n ympäristökohtaisten asetu
 
 [![Konfo-ui](https://github.com/Opetushallitus/konfo-ui/actions/workflows/build.yml/badge.svg)](https://github.com/Opetushallitus/konfo-ui/actions/workflows/build.yml)
 
+[![Contentful content type check](https://github.com/Opetushallitus/konfo-ui/actions/workflows/contentful-type-check.yml/badge.svg)](https://github.com/Opetushallitus/konfo-ui/actions/workflows/contentful-type-check.yml)
+
 ## Esivaatimukset
 
 Asenna koneellesi esim NVM:ää käyttäen:
