@@ -46,6 +46,8 @@ const classes = {
   hakukohdeSelect: `${PREFIX}hakukohdeselect`,
   hakukohdeInput: `${PREFIX}hakukohdeinput`,
   legend: `${PREFIX}legend`,
+  pistetyyppiText: `${PREFIX}pistetyyppitext`,
+  pistetyyppiBox: `${PREFIX}pistetyyppibox`,
 };
 
 const StyledBox = styled(Box)(({ theme }) => ({
@@ -192,9 +194,13 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
             <Box className={classes.legend} aria-hidden={true}>
               {getUniquePistetyypit(hakukohde).map((valintatapajonoTyyppi) => (
                 <>
-                  <Typography sx={{ fontSize: '0.875rem' }}>
+                  <Typography
+                    className={classes.pistetyyppiText}
+                    sx={{ fontSize: '0.875rem' }}>
                     <Box
+                      className={classes.pistetyyppiBox}
                       sx={{
+                        justifyContent: 'center',
                         width: '12px',
                         height: '12px',
                         marginLeft: '24px',
