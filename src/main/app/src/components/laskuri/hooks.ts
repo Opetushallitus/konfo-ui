@@ -8,7 +8,7 @@ import { Koodi } from '#/src/types/common';
 
 export const useKieliKoodit = () => {
   const { data } = useQuery<Array<Koodi>>(
-    ['getKoodistonKoodit'],
+    ['getKoodistonKooditKielivalikoima'],
     () => getKoodistonKoodit('kielivalikoima'),
     { staleTime: Infinity }
   );
