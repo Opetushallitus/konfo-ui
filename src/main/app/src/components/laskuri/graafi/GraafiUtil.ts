@@ -107,18 +107,16 @@ export const getPistetyyppiText = (
 };
 
 export const getLukioPisteText = (
-  isTodistusvalinta: boolean,
   pistetyyppi: string | undefined,
   t: TFunction
 ): string => {
-  if (isTodistusvalinta) {
-    return t('pistelaskuri.graafi.alin-keskiarvo'); // tässä ei tarvitse erikseen mainita pistetyyppiä
-  }
   switch (pistetyyppi) {
     case 'valintatapajono_yp':
       return `${t('pistelaskuri.graafi.alin-pisteet')} (${t(
         'pistelaskuri.graafi.yhteispisteet-lukio'
       )})`;
+    case 'valintatapajono_tv':
+      return t('pistelaskuri.graafi.alin-keskiarvo');
     default:
       return t('pistelaskuri.graafi.alin-pisteet'); // lukiossa ei pitäisi olla muita valintajonotyyppejä
   }

@@ -212,7 +212,7 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
                       }}
                     />
                     {isLukio
-                      ? getLukioPisteText(isTodistusvalinta, valintatapajonoTyyppi, t)
+                      ? getLukioPisteText(valintatapajonoTyyppi, t)
                       : t('pistelaskuri.graafi.alin-pisteet') +
                         getPistetyyppiText(valintatapajonoTyyppi, t)}
                   </Typography>
