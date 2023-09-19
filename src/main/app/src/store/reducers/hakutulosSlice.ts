@@ -4,6 +4,7 @@ import { match } from 'ts-pattern';
 
 import { RAJAIN_TYPES, MAKSULLISUUSTYYPPI } from '#/src/constants';
 import { getLanguage } from '#/src/tools/localization';
+import { sortArray } from '#/src/tools/utils';
 import { KonfoKoulutustyyppi, TODOType } from '#/src/types/common';
 
 import { getHakuUrl } from './hakutulosSliceSelector';
@@ -115,7 +116,7 @@ const setWhenChanged = (state: any, key: string, value: any) => {
   }
 };
 
-const getParamValueList = (value?: string) => split(value, ',').sort();
+const getParamValueList = (value?: string) => sortArray(split(value, ','));
 
 export const hakutulosSlice = createSlice({
   name: 'hakutulos',
@@ -136,7 +137,7 @@ export const hakutulosSlice = createSlice({
     ) => {
       Object.assign(
         state,
-        mapValues(newValues, (v) => (Array.isArray(v) ? v.sort() : v))
+        mapValues(newValues, (v) => (Array.isArray(v) ? sortArray(v) : v))
       );
       resetPagination();
     },
