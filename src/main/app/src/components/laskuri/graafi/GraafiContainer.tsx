@@ -26,6 +26,7 @@ import {
   getStyleByPistetyyppi,
   getPistetyyppiText,
   getUniquePistetyypit,
+  getLukioPisteText,
 } from './GraafiUtil';
 import { PainotetutArvosanat } from './PainotetutArvosanat';
 import { PisteGraafi } from './PisteGraafi';
@@ -211,7 +212,7 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
                       }}
                     />
                     {isLukio
-                      ? t('pistelaskuri.graafi.alin-keskiarvo')
+                      ? getLukioPisteText(isTodistusvalinta, valintatapajonoTyyppi, t)
                       : t('pistelaskuri.graafi.alin-pisteet') +
                         getPistetyyppiText(valintatapajonoTyyppi, t)}
                   </Typography>
