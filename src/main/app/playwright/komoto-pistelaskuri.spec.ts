@@ -19,6 +19,13 @@ test.describe('Pistelaskuri KOMOTO', () => {
     await expect(page.locator('#mui-component-select-hakukohde-select')).toHaveText(
       /^Lukion yleislinja/
     );
+    await expect(page.locator('.graafi__container__pistetyyppitext')).toHaveText(
+      /^sisäänpääsyn alin keskiarvo tai pistemäärä/
+    );
+    await expect(page.locator('.graafi__container__pistetyyppibox')).toHaveCSS(
+      'background-color',
+      'rgb(91, 202, 19)'
+    );
   });
 
   test('Shows keskiarvo dialog', async ({ page }) => {
