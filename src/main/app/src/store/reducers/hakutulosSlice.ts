@@ -199,10 +199,10 @@ export const hakutulosSlice = createSlice({
             case RAJAIN_TYPES.TYOVOIMAKOULUTUS:
             case RAJAIN_TYPES.TAYDENNYSKOULUTUS:
             case RAJAIN_TYPES.APURAHA:
-              Object.assign(state, { key: value === 'true' });
+              Object.assign(state, { [key]: value === 'true' });
               break;
             default:
-              Object.assign(state, { key, valueList });
+              Object.assign(state, { [key]: valueList });
               break;
           }
         });

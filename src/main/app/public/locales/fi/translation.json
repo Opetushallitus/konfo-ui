@@ -3,6 +3,9 @@
     "title": "Opintopolun uudesta beta-versiosta löydät tietoa jatkuvan haun ammatillisista koulutuksista.",
     "siirry": "Siirry vanhaan Opintopolkuun"
   },
+  "hairiotiedote": {
+    "lisatietoja": "Lisätietoja:"
+  },
   "cookieModal": {
     "accept": "Hyväksy",
     "settings": "Asetukset",
@@ -369,6 +372,7 @@
     "opiskelojoita": "Opiskelijoita:",
     "oppilaitoksen-tietoja-ei-loydetty": "Oppilaitoksen tietoja ei löydetty",
     "oppilaitoksen-www-sivut": "Oppilaitoksen www-sivut",
+    "blogi": "Oppilaitoksen blogi",
     "paikkakunta": "Paikkakunta:",
     "opetuskielet": "Opetuskielet:",
     "toimipisteita": "Toimipisteitä:",
