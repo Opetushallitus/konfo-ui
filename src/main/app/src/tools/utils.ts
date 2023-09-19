@@ -222,7 +222,7 @@ export const isDev = import.meta.env.MODE === 'development';
 export const isProd = import.meta.env.MODE === 'production';
 
 export const getPaginationPage = ({ offset, size }: Pagination) =>
-  1 + (size ? Math.round(offset ?? 0 / size) : 0);
+  1 + (size ? Math.round((offset ?? 0) / size) : 0);
 
 const tryCatch = <T>(fn: () => T, defaultValue?: T) => {
   try {
