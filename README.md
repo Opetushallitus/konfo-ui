@@ -88,6 +88,10 @@ Kun salaisuudet ovat paikallaan, luo tyypitykset npm-skriptillä:
 
     npm run contentful:typegen
 
+Contentfulin tyyppien yhteneväisyys testi ja master ympäristöissä tarkistetaan ajastetulla GitHub Actionilla kerran päivässä. Tarkistuksen voi käynnistää myös käsin GitHubin Actions sivulta.
+
+Tarkan raportin löytää contentful-type-check actionin workflow runs historiasta.
+
 ## Spring boot (erikoistapaukset)
 
 **Huom** lokaalidevauksessa ei todennäköisesti tarvitse koskaan käynnistää spring boottia, mutta tässä on ohjeet siihen mikäli tällainen tarve tulee.
