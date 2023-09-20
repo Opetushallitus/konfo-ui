@@ -24,6 +24,7 @@ import { Header } from './components/common/Header';
 import { SideMenu } from './components/common/SideMenu';
 import { SkipToContent } from './components/common/SkipToContent';
 import { Etusivu } from './components/Etusivu';
+import { Hairiotiedote } from './components/Hairiotiedote';
 import { HakuPage } from './components/haku/HakuPage';
 import { Hakupalkki } from './components/haku/Hakupalkki';
 import { KoulutusPage } from './components/koulutus/KoulutusPage';
@@ -150,12 +151,29 @@ const TranslatedRoutes = () => {
 
   return isSupportedLanguageSelected ? (
     <Routes>
-      <Route path="/" element={<Etusivu />} />
-      <Route path="sisaltohaku/" element={<Sisaltohaku />} />
+      <Route
+        path="/"
+        element={
+          <>
+            <Hairiotiedote />
+            <Etusivu />
+          </>
+        }
+      />
+      <Route
+        path="sisaltohaku/"
+        element={
+          <>
+            <Hairiotiedote />
+            <Sisaltohaku />
+          </>
+        }
+      />
       <Route
         path="haku/:keyword/*"
         element={
           <>
+            <Hairiotiedote />
             <KoulutusHakuBar />
             <HakuPage />
           </>
@@ -165,6 +183,7 @@ const TranslatedRoutes = () => {
         path="haku/*"
         element={
           <>
+            <Hairiotiedote />
             <KoulutusHakuBar />
             <HakuPage />
           </>
@@ -174,6 +193,7 @@ const TranslatedRoutes = () => {
         path="koulutus/:oid"
         element={
           <>
+            <Hairiotiedote />
             <KoulutusHakuBar />
             <KoulutusPage />
           </>
@@ -183,6 +203,7 @@ const TranslatedRoutes = () => {
         path="oppilaitos/:oid"
         element={
           <>
+            <Hairiotiedote />
             <KoulutusHakuBar />
             <OppilaitosPage />
           </>
@@ -192,6 +213,7 @@ const TranslatedRoutes = () => {
         path="oppilaitososa/:oid"
         element={
           <>
+            <Hairiotiedote />
             <KoulutusHakuBar />
             <OppilaitosPage oppilaitosOsa />
           </>
@@ -201,6 +223,7 @@ const TranslatedRoutes = () => {
         path="toteutus/:oid"
         element={
           <>
+            <Hairiotiedote />
             <KoulutusHakuBar />
             <ToteutusPage />
           </>
@@ -210,6 +233,7 @@ const TranslatedRoutes = () => {
         path="sivu/:id"
         element={
           <>
+            <Hairiotiedote />
             <KoulutusHakuBar />
             <SivuRouter />
           </>
@@ -219,6 +243,7 @@ const TranslatedRoutes = () => {
         path="hakukohde/:hakukohdeOid/valintaperuste"
         element={
           <>
+            <Hairiotiedote />
             <KoulutusHakuBar />
             <ValintaperustePage />
           </>
@@ -228,6 +253,7 @@ const TranslatedRoutes = () => {
         path="valintaperuste/:valintaperusteId"
         element={
           <>
+            <Hairiotiedote />
             <KoulutusHakuBar />
             <ValintaperustePreviewPage />
           </>

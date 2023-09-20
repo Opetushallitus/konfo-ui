@@ -28,6 +28,8 @@ const initialContentfulData: ContentfulData = {
   uutiset: {},
   valikko: {},
   valikot: {},
+  hairiotiedote: {},
+  hairiotiedotteet: {},
 };
 
 const assetUrl = (url?: string) =>

@@ -24,6 +24,7 @@ export const appSlice = createSlice({
     previousPage: undefined,
     currentSiteImproveUrl: undefined,
     previousSiteImproveUrl: undefined,
+    closedHairiotiedotteetIds: [],
   },
   reducers: {
     setHakutulosWidth: (state, action) => {
@@ -44,6 +45,9 @@ export const appSlice = createSlice({
         state.currentSiteImproveUrl = newSiteImproveLocation;
       }
     },
+    setClosedHairiotiedotteetIds: (state, action) => {
+      state.closedHairiotiedotteetIds = action.payload;
+    },
   },
 });
 
@@ -63,7 +67,24 @@ export const useCurrentSiteImproveLocation = () =>
 
 export const useIsAtEtusivu = () => useCurrentPage() === '';
 
-export const { setMenuState, locationChanged, setHakutulosWidth } = appSlice.actions;
+export const {
+  setMenuState,
+  locationChanged,
+  setHakutulosWidth,
+  setClosedHairiotiedotteetIds,
+} = appSlice.actions;
+
+export const useClosedHairioTiedotteet = () => {
+  const closedHairiotiedotteetIds = useSelector(
+    (state) => state.app.closedHairiotiedotteetIds
+  );
+  const dispatch = useDispatch();
+  return [
+    closedHairiotiedotteetIds,
+    (newClosedHairiotiedotteetIds) =>
+      dispatch(setClosedHairiotiedotteetIds(newClosedHairiotiedotteetIds)),
+  ];
+};
 
 export const useHakutulosWidth = () => {
   const width = useSelector((state) => state.app.hakutulosWidth);
