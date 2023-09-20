@@ -3,21 +3,22 @@
     { "id": "opetusaika" },
     {
       "id": "koulutuksenkestokuukausina",
-      "isRajainWithRange": true
+      "isCustomComponent": true
     },
     { "id": "opetustapa" },
+    { "id": "maksullisuus", "isCustomComponent": true },
+    {
+      "id": "koulutusala",
+      "isRajainOptionTextFromRajain": true
+    },
     {
       "id": "pohjakoulutusvaatimus",
-      "rajainOptionTextFromRajain": true
+      "isRajainOptionTextFromRajain": true
     },
     {
       "id": "alkamiskausi",
-      "rajainOptionTextFromRajain": true,
+      "isRajainOptionTextFromRajain": true,
       "rajainOptionsToBeRemoved": ["henkilokohtainen"]
-    },
-    {
-      "id": "koulutusala",
-      "rajainOptionTextFromRajain": true
     }
   ]
 }

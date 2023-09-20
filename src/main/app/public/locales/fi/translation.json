@@ -318,6 +318,18 @@
       "koulutusala": {
         "otsikko": "Mitkä aihealueet kiinnostavat?"
       },
+      "maksullisuus": {
+        "otsikko": "Oletko valmis maksamaan koulutuksesta?"
+      },
+      "maksullisuustyyppi": {
+        "vahintaan": "Maksan vähintään",
+        "enintaan": "Maksan enintään",
+        "vaihtoehdot": {
+          "maksuton": "En halua maksaa koulutuksesta.",
+          "maksullinen": "Olen valmis maksamaan koulutuksesta.",
+          "lukuvuosimaksu": "Tulen EU:n ulkopuolelta ja voin maksaa lukuvuosimaksun."
+        }
+      },
       "opetusaika": {
         "otsikko": "Milloin voit opiskella?",
         "vaihtoehdot": {

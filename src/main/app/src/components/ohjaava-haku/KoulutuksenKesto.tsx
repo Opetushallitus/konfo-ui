@@ -58,20 +58,17 @@ export const KoulutuksenKestoInput = ({
   id,
   value,
   handleInputValueChange,
-  timePeriod,
+  unitComponent,
 }: {
   id: string;
   value: string;
   handleInputValueChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  timePeriod?: string;
+  unitComponent: React.ReactNode;
 }) => {
-  const { t } = useTranslation();
   return (
     <Box className={classes.input}>
       <OutlinedInput id={id} value={value} onChange={handleInputValueChange} />
-      <Typography className={classes.lyhenne}>
-        {t(`haku.lyhenne-${timePeriod}`)}
-      </Typography>
+      {unitComponent}
     </Box>
   );
 };
@@ -91,7 +88,6 @@ export const KoulutuksenKesto = ({
 }) => {
   const { t } = useTranslation();
 
-  console.log({ rajainItems });
   const rajainItem = rajainItems?.[0] as NumberRangeRajainItem;
   const undefinedRajainValues = [0, rajainItem?.upperLimit || DEFAULT_UPPERLIMIT];
 
@@ -161,6 +157,10 @@ export const KoulutuksenKesto = ({
     });
   };
 
+  const unitComponent = (id: string) => (
+    <Typography className={classes.lyhenne}>{t(`haku.lyhenne-${id}`)}</Typography>
+  );
+
   return (
     <Root className={classes.root}>
       <Grid container direction="column" wrap="nowrap">
@@ -181,13 +181,13 @@ export const KoulutuksenKesto = ({
                 id="vahintaan-vuosi"
                 value={vahintaan[0]}
                 handleInputValueChange={handleInputValueChange}
-                timePeriod="vuosi"
+                unitComponent={unitComponent('vuosi')}
               />
               <KoulutuksenKestoInput
                 id="vahintaan-kk"
                 value={vahintaan[1]}
                 handleInputValueChange={handleInputValueChange}
-                timePeriod="kuukausi"
+                unitComponent={unitComponent('kuukausi')}
               />
             </Box>
           </Grid>
@@ -205,13 +205,13 @@ export const KoulutuksenKesto = ({
                 id="enintaan-vuosi"
                 value={enintaan[0]}
                 handleInputValueChange={handleInputValueChange}
-                timePeriod="vuosi"
+                unitComponent={unitComponent('vuosi')}
               />
               <KoulutuksenKestoInput
                 id="enintaan-kk"
                 value={enintaan[1]}
                 handleInputValueChange={handleInputValueChange}
-                timePeriod="kuukausi"
+                unitComponent={unitComponent('kuukausi')}
               />
             </Box>
           </Grid>

@@ -1,7 +1,10 @@
+import { RajainItem } from '#/src/types/SuodatinTypes';
+
 import {
   getChangedRajaimet,
   getChangedKestoInMonths,
   getYearsAndMonthsFromRangeValue,
+  combineMaksunMaaraWithMaksullisuustyyppi,
 } from './utils';
 
 describe('getChangedRajaimet', () => {
@@ -119,5 +122,184 @@ describe('getYearsAndMonthsFromRangeValues', () => {
 
   test('returns "0" for years and "2" for months when range value is 2', () => {
     expect(getYearsAndMonthsFromRangeValue(2)).toEqual(['0', '2']);
+  });
+});
+
+describe('combineMaksunMaaraWithMaksullisuustyyppi', () => {
+  test('returns maksuton without maksun määrä', () => {
+    const rajainItems = [
+      {
+        id: 'maksuton',
+        rajainId: 'maksullisuustyyppi',
+        count: 1867,
+        checked: false,
+        alakoodit: [],
+      },
+    ] as Array<RajainItem>;
+
+    const result = [
+      {
+        id: 'maksuton',
+        rajainId: 'maksullisuustyyppi',
+        count: 1867,
+        checked: false,
+        alakoodit: [],
+      },
+    ];
+    expect(combineMaksunMaaraWithMaksullisuustyyppi(rajainItems)).toEqual(result);
+  });
+
+  test('returns maksuton without maksun määrä and maksullinen with maksun määrä', () => {
+    const rajainItems = [
+      {
+        id: 'maksuton',
+        rajainId: 'maksullisuustyyppi',
+        count: 1867,
+        checked: false,
+        alakoodit: [],
+      },
+      {
+        id: 'maksullinen',
+        rajainId: 'maksullisuustyyppi',
+        count: 2484,
+        checked: false,
+        alakoodit: [],
+        linkedIds: ['maksunmaara'],
+      },
+      {
+        id: 'maksunmaara',
+        rajainId: 'maksunmaara',
+        count: 2484,
+        upperLimit: 21000,
+        min: 0,
+        max: 0,
+      },
+    ] as Array<RajainItem>;
+
+    const result = [
+      {
+        id: 'maksuton',
+        rajainId: 'maksullisuustyyppi',
+        count: 1867,
+        checked: false,
+        alakoodit: [],
+      },
+      {
+        id: 'maksullinen',
+        rajainId: 'maksullisuustyyppi',
+        count: 2484,
+        checked: false,
+        alakoodit: [],
+        linkedIds: ['maksunmaara'],
+        linkedRajainItems: [
+          {
+            id: 'maksunmaara',
+            rajainId: 'maksunmaara',
+            count: 2484,
+            upperLimit: 21000,
+            min: 0,
+            max: 0,
+          },
+        ],
+      },
+    ];
+    expect(combineMaksunMaaraWithMaksullisuustyyppi(rajainItems)).toEqual(result);
+  });
+
+  test('combines maksullinen with maksunmaara and lukuvuosimaksu with lukuvuosimaksunmaara', () => {
+    const rajainItems = [
+      {
+        id: 'maksuton',
+        rajainId: 'maksullisuustyyppi',
+        count: 1867,
+        checked: false,
+        alakoodit: [],
+      },
+      {
+        id: 'maksullinen',
+        rajainId: 'maksullisuustyyppi',
+        count: 2484,
+        checked: false,
+        alakoodit: [],
+        linkedIds: ['maksunmaara'],
+      },
+      {
+        id: 'lukuvuosimaksu',
+        rajainId: 'maksullisuustyyppi',
+        count: 485,
+        checked: false,
+        alakoodit: [],
+        linkedIds: ['lukuvuosimaksunmaara', 'apuraha'],
+      },
+      {
+        id: 'maksunmaara',
+        rajainId: 'maksunmaara',
+        count: 2484,
+        upperLimit: 21000,
+        min: 0,
+        max: 0,
+      },
+      {
+        id: 'lukuvuosimaksunmaara',
+        rajainId: 'lukuvuosimaksunmaara',
+        count: 485,
+        upperLimit: 18000,
+        min: 0,
+        max: 0,
+      },
+      {
+        id: 'apuraha',
+        rajainId: 'apuraha',
+        count: 485,
+        checked: false,
+      },
+    ] as Array<RajainItem>;
+
+    const result = [
+      {
+        id: 'maksuton',
+        rajainId: 'maksullisuustyyppi',
+        count: 1867,
+        checked: false,
+        alakoodit: [],
+      },
+      {
+        id: 'maksullinen',
+        rajainId: 'maksullisuustyyppi',
+        count: 2484,
+        checked: false,
+        alakoodit: [],
+        linkedIds: ['maksunmaara'],
+        linkedRajainItems: [
+          {
+            id: 'maksunmaara',
+            rajainId: 'maksunmaara',
+            count: 2484,
+            upperLimit: 21000,
+            min: 0,
+            max: 0,
+          },
+        ],
+      },
+      {
+        id: 'lukuvuosimaksu',
+        rajainId: 'maksullisuustyyppi',
+        count: 485,
+        checked: false,
+        alakoodit: [],
+        linkedIds: ['lukuvuosimaksunmaara', 'apuraha'],
+        linkedRajainItems: [
+          {
+            id: 'lukuvuosimaksunmaara',
+            rajainId: 'lukuvuosimaksunmaara',
+            count: 485,
+            upperLimit: 18000,
+            min: 0,
+            max: 0,
+          },
+        ],
+      },
+    ];
+    expect(combineMaksunMaaraWithMaksullisuustyyppi(rajainItems)).toEqual(result);
   });
 });

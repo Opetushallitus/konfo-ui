@@ -29,6 +29,7 @@ export interface RajainBase {
   hidden?: boolean;
   nimi?: Translateable;
   linkedIds?: Array<string>;
+  linkedRajainItems?: Array<RajainItem>;
 }
 
 export interface CheckboxRajainBase extends RajainBase {
