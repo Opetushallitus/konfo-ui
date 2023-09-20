@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 
-import { Box, Grid, OutlinedInput, Typography } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { match } from 'ts-pattern';
 
 import { colors } from '#/src/colors';
+import { MaksunMaaraInput } from '#/src/components/ohjaava-haku/common/MaksunMaaraInput';
 import { Rajain } from '#/src/components/ohjaava-haku/Kysymys';
 import {
   getChangedKestoInMonths,
@@ -53,25 +54,6 @@ const Root = styled('div')`
     margin-top: 1rem;
   }
 `;
-
-export const KoulutuksenKestoInput = ({
-  id,
-  value,
-  handleInputValueChange,
-  unitComponent,
-}: {
-  id: string;
-  value: string;
-  handleInputValueChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  unitComponent: React.ReactNode;
-}) => {
-  return (
-    <Box className={classes.input}>
-      <OutlinedInput id={id} value={value} onChange={handleInputValueChange} />
-      {unitComponent}
-    </Box>
-  );
-};
 
 export const KoulutuksenKesto = ({
   rajainItems,
@@ -177,13 +159,13 @@ export const KoulutuksenKesto = ({
               )}
             </Typography>
             <Box className={classes.inputContainer}>
-              <KoulutuksenKestoInput
+              <MaksunMaaraInput
                 id="vahintaan-vuosi"
                 value={vahintaan[0]}
                 handleInputValueChange={handleInputValueChange}
                 unitComponent={unitComponent('vuosi')}
               />
-              <KoulutuksenKestoInput
+              <MaksunMaaraInput
                 id="vahintaan-kk"
                 value={vahintaan[1]}
                 handleInputValueChange={handleInputValueChange}
@@ -201,13 +183,13 @@ export const KoulutuksenKesto = ({
               {t('ohjaava-haku.kysymykset.koulutuksenkestokuukausina.opiskelen-enintaan')}
             </Typography>
             <Box display="flex" className={classes.inputContainer}>
-              <KoulutuksenKestoInput
+              <MaksunMaaraInput
                 id="enintaan-vuosi"
                 value={enintaan[0]}
                 handleInputValueChange={handleInputValueChange}
                 unitComponent={unitComponent('vuosi')}
               />
-              <KoulutuksenKestoInput
+              <MaksunMaaraInput
                 id="enintaan-kk"
                 value={enintaan[1]}
                 handleInputValueChange={handleInputValueChange}

@@ -8,7 +8,7 @@ import { match } from 'ts-pattern';
 import { colors } from '#/src/colors';
 import { NumberRangeSlider } from '#/src/components/common/Filter/NumberRangeSlider';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
-import { KoulutuksenKestoInput } from '#/src/components/ohjaava-haku/KoulutuksenKesto';
+import { MaksunMaaraInput } from '#/src/components/ohjaava-haku/common/MaksunMaaraInput';
 import { Rajain, RajainOption } from '#/src/components/ohjaava-haku/Kysymys';
 import { combineMaksunMaaraWithMaksullisuustyyppi } from '#/src/components/ohjaava-haku/utils';
 import { marks } from '#/src/components/suodattimet/common/maksullisuusRajainUtils';
@@ -185,7 +185,7 @@ const MaksullisuusInput = ({
             <Typography sx={{ fontWeight: '600' }}>
               {t('ohjaava-haku.kysymykset.maksullisuustyyppi.vahintaan')}
             </Typography>
-            <KoulutuksenKestoInput
+            <MaksunMaaraInput
               id="vahintaan"
               value={vahintaan}
               handleInputValueChange={handleInputValueChange}
@@ -201,7 +201,7 @@ const MaksullisuusInput = ({
             <Typography sx={{ fontWeight: '600' }}>
               {t('ohjaava-haku.kysymykset.maksullisuustyyppi.enintaan')}
             </Typography>
-            <KoulutuksenKestoInput
+            <MaksunMaaraInput
               id="enintaan"
               value={enintaan}
               handleInputValueChange={handleInputValueChange}
