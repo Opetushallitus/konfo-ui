@@ -5,7 +5,6 @@ import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { match } from 'ts-pattern';
 
-import { colors } from '#/src/colors';
 import { MaksunMaaraInput } from '#/src/components/ohjaava-haku/common/MaksunMaaraInput';
 import { Rajain } from '#/src/components/ohjaava-haku/Kysymys';
 import {
@@ -14,46 +13,11 @@ import {
 } from '#/src/components/ohjaava-haku/utils';
 import { KoulutuksenKestoSlider } from '#/src/components/suodattimet/common/KoulutuksenKestoSuodatin';
 import { NDASH } from '#/src/constants';
-import { styled } from '#/src/theme';
 import { RajainItem, NumberRangeRajainItem } from '#/src/types/SuodatinTypes';
 
+import { classes } from './StyledRoot';
+
 const DEFAULT_UPPERLIMIT = 72;
-const PREFIX = 'ohjaava-haku__';
-
-const classes = {
-  root: `${PREFIX}root`,
-  input: `${PREFIX}input`,
-  inputContainer: `${PREFIX}input-container`,
-  lyhenne: `${PREFIX}lyhenne`,
-  ndash: `${PREFIX}ndash`,
-  error: `${PREFIX}error`,
-};
-
-const Root = styled('div')`
-  & .${classes.root} {
-    display: flex;
-  }
-  & .${classes.input} {
-    display: flex;
-    gap: 0.5rem;
-  }
-  & .${classes.inputContainer} {
-    display: flex;
-    gap: 1.5rem;
-  }
-  & .${classes.lyhenne} {
-    align-self: center;
-  }
-  & .${classes.ndash} {
-    display: flex;
-    justify-content: center;
-    align-items: end;
-  }
-  & .${classes.error} {
-    color: ${colors.red};
-    margin-top: 1rem;
-  }
-`;
 
 export const KoulutuksenKesto = ({
   rajainItems,
@@ -144,71 +108,65 @@ export const KoulutuksenKesto = ({
   );
 
   return (
-    <Root className={classes.root}>
-      <Grid container direction="column" wrap="nowrap">
-        <Grid
-          item
-          container
-          direction="row"
-          wrap="nowrap"
-          className={classes.inputContainer}>
-          <Grid item container direction="column" wrap="nowrap" xs={3}>
-            <Typography sx={{ fontWeight: '600' }}>
-              {t(
-                'ohjaava-haku.kysymykset.koulutuksenkestokuukausina.opiskelen-vahintaan'
-              )}
-            </Typography>
-            <Box className={classes.inputContainer}>
-              <MaksunMaaraInput
-                id="vahintaan-vuosi"
-                value={vahintaan[0]}
-                handleInputValueChange={handleInputValueChange}
-                unitComponent={unitComponent('vuosi')}
-              />
-              <MaksunMaaraInput
-                id="vahintaan-kk"
-                value={vahintaan[1]}
-                handleInputValueChange={handleInputValueChange}
-                unitComponent={unitComponent('kuukausi')}
-              />
-            </Box>
-          </Grid>
-          <Grid item className={classes.ndash}>
-            <Typography sx={{ fontSize: '1.5rem', marginBottom: '0.75rem' }}>
-              {NDASH}
-            </Typography>
-          </Grid>
-          <Grid item container direction="column" wrap="nowrap" xs={3}>
-            <Typography sx={{ fontWeight: '600' }}>
-              {t('ohjaava-haku.kysymykset.koulutuksenkestokuukausina.opiskelen-enintaan')}
-            </Typography>
-            <Box display="flex" className={classes.inputContainer}>
-              <MaksunMaaraInput
-                id="enintaan-vuosi"
-                value={enintaan[0]}
-                handleInputValueChange={handleInputValueChange}
-                unitComponent={unitComponent('vuosi')}
-              />
-              <MaksunMaaraInput
-                id="enintaan-kk"
-                value={enintaan[1]}
-                handleInputValueChange={handleInputValueChange}
-                unitComponent={unitComponent('kuukausi')}
-              />
-            </Box>
-          </Grid>
-        </Grid>
-        {!isEmpty(errorKey) && (
-          <Typography className={classes.error}>
-            {t(`ohjaava-haku.error.${errorKey}`)}
+    <Grid container direction="column" wrap="nowrap">
+      <Grid
+        item
+        container
+        direction="row"
+        wrap="nowrap"
+        className={classes.inputContainer}>
+        <Grid item container direction="column" wrap="nowrap" xs={3}>
+          <Typography className={classes.inputLabel}>
+            {t('ohjaava-haku.kysymykset.koulutuksenkestokuukausina.opiskelen-vahintaan')}
           </Typography>
-        )}
-        <KoulutuksenKestoSlider
-          rangeValues={rangeValues}
-          undefinedRajainValues={undefinedRajainValues}
-          handleSliderValueCommit={handleSliderValueCommit}
-        />
+          <Box className={classes.inputContainer}>
+            <MaksunMaaraInput
+              id="vahintaan-vuosi"
+              value={vahintaan[0]}
+              handleInputValueChange={handleInputValueChange}
+              unitComponent={unitComponent('vuosi')}
+            />
+            <MaksunMaaraInput
+              id="vahintaan-kk"
+              value={vahintaan[1]}
+              handleInputValueChange={handleInputValueChange}
+              unitComponent={unitComponent('kuukausi')}
+            />
+          </Box>
+        </Grid>
+        <Grid item className={classes.ndashContainer}>
+          <Typography className={classes.ndash}>{NDASH}</Typography>
+        </Grid>
+        <Grid item container direction="column" wrap="nowrap" xs={3}>
+          <Typography className={classes.inputLabel}>
+            {t('ohjaava-haku.kysymykset.koulutuksenkestokuukausina.opiskelen-enintaan')}
+          </Typography>
+          <Box className={classes.inputContainer}>
+            <MaksunMaaraInput
+              id="enintaan-vuosi"
+              value={enintaan[0]}
+              handleInputValueChange={handleInputValueChange}
+              unitComponent={unitComponent('vuosi')}
+            />
+            <MaksunMaaraInput
+              id="enintaan-kk"
+              value={enintaan[1]}
+              handleInputValueChange={handleInputValueChange}
+              unitComponent={unitComponent('kuukausi')}
+            />
+          </Box>
+        </Grid>
       </Grid>
-    </Root>
+      {!isEmpty(errorKey) && (
+        <Typography className={classes.error}>
+          {t(`ohjaava-haku.error.${errorKey}`)}
+        </Typography>
+      )}
+      <KoulutuksenKestoSlider
+        rangeValues={rangeValues}
+        undefinedRajainValues={undefinedRajainValues}
+        handleSliderValueCommit={handleSliderValueCommit}
+      />
+    </Grid>
   );
 };

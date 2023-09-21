@@ -4,43 +4,17 @@ import { Button, Grid, Typography } from '@mui/material';
 import { isEmpty, some } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
-import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { KoulutuksenKesto } from '#/src/components/ohjaava-haku/KoulutuksenKesto';
 import { Maksullisuus } from '#/src/components/ohjaava-haku/Maksullisuus';
 import { RAJAIN_TYPES, FilterKey } from '#/src/constants';
-import { styled } from '#/src/theme';
 import { useRajainItems } from '#/src/tools/filters';
 import { localize } from '#/src/tools/localization';
 import { Translateable } from '#/src/types/common';
 
+import { classes, StyledRoot } from './StyledRoot';
 import { useSearch } from '../../components/haku/hakutulosHooks';
 import { Heading, HeadingBoundary } from '../Heading';
-
-const Root = styled('div')`
-  & .question {
-   display: flex;
-   flex-direction: column;
-   gap: 0.75rem;
-   margin-bottom: 1rem;
-
-   &__option {
-     justify-content: start;
-     background-color: #e3ecdd;
-     color: ${colors.black};
-     padding-left: 1rem;
-     padding-right: 1rem;
-
-     &:hover {
-       background-color: #a5c291;
-     }
-
-     &[data-selected] {
-       background-color: ${colors.brandGreen};
-       color: ${colors.white};
-     }
-  }
-`;
 
 type Kysymys = {
   id: string;
@@ -81,7 +55,7 @@ export const RajainOption = ({
       })}
       key={id}
       onClick={() => toggleAllSelectedRajainValues(id, rajainId)}
-      className="question__option"
+      className={classes.question__option}
       {...(isRajainSelected && { 'data-selected': true })}>
       {isRajainOptionTextFromRajain
         ? localize(nimi)
@@ -137,9 +111,9 @@ export const Kysymys = ({
   };
 
   return (
-    <Root>
+    <StyledRoot>
       <HeadingBoundary>
-        <Grid container width="100%" alignItems="start">
+        <Grid container>
           <Grid item xs={12}>
             <Heading variant="h2">{kysymysTitle}</Heading>
           </Grid>
@@ -164,7 +138,7 @@ export const Kysymys = ({
               errorKey={errorKey}
             />
           ) : (
-            <Grid item className="question">
+            <Grid item className={classes.question}>
               {rajainOptionsToShow.map(({ id, rajainId, nimi }) => {
                 const selectedRajainItems = allSelectedRajainValues[
                   rajainId
@@ -217,6 +191,6 @@ export const Kysymys = ({
           </Grid>
         </Grid>
       </HeadingBoundary>
-    </Root>
+    </StyledRoot>
   );
 };

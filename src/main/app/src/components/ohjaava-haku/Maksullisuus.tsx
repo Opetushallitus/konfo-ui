@@ -5,7 +5,6 @@ import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { match } from 'ts-pattern';
 
-import { colors } from '#/src/colors';
 import { NumberRangeSlider } from '#/src/components/common/Filter/NumberRangeSlider';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { MaksunMaaraInput } from '#/src/components/ohjaava-haku/common/MaksunMaaraInput';
@@ -13,47 +12,11 @@ import { Rajain, RajainOption } from '#/src/components/ohjaava-haku/Kysymys';
 import { combineMaksunMaaraWithMaksullisuustyyppi } from '#/src/components/ohjaava-haku/utils';
 import { marks } from '#/src/components/suodattimet/common/maksullisuusRajainUtils';
 import { NDASH } from '#/src/constants';
-import { styled } from '#/src/theme';
 import { NumberRangeRajainItem, RajainItem } from '#/src/types/SuodatinTypes';
 
+import { classes } from './StyledRoot';
+
 const DEFAULT_UPPERLIMIT = 20000;
-
-const PREFIX = 'ohjaava-haku__';
-
-const classes = {
-  root: `${PREFIX}root`,
-  input: `${PREFIX}input`,
-  inputContainer: `${PREFIX}input-container`,
-  lyhenne: `${PREFIX}lyhenne`,
-  ndash: `${PREFIX}ndash`,
-  error: `${PREFIX}error`,
-};
-
-const Root = styled('div')`
-  & .${classes.root} {
-    display: flex;
-  }
-  & .${classes.input} {
-    display: flex;
-    gap: 0.5rem;
-  }
-  & .${classes.inputContainer} {
-    display: flex;
-    gap: 1.5rem;
-  }
-  & .${classes.lyhenne} {
-    align-self: center;
-  }
-  & .${classes.ndash} {
-    display: flex;
-    justify-content: center;
-    align-items: end;
-  }
-  & .${classes.error} {
-    color: ${colors.red};
-    margin-top: 1rem;
-  }
-`;
 
 const MaksullisuusRangeSlider = ({
   rangeValues,
@@ -172,57 +135,54 @@ const MaksullisuusInput = ({
   const unitComponent = () => (
     <MaterialIcon className={classes.lyhenne} icon="euro_symbol" fontSize="small" />
   );
+
   return (
-    <Root className={classes.root}>
-      <Grid container direction="column" wrap="nowrap">
-        <Grid
-          item
-          container
-          direction="row"
-          wrap="nowrap"
-          className={classes.inputContainer}>
-          <Grid item container direction="column" wrap="nowrap" xs={3}>
-            <Typography sx={{ fontWeight: '600' }}>
-              {t('ohjaava-haku.kysymykset.maksullisuustyyppi.vahintaan')}
-            </Typography>
-            <MaksunMaaraInput
-              id="vahintaan"
-              value={vahintaan}
-              handleInputValueChange={handleInputValueChange}
-              unitComponent={unitComponent()}
-            />
-          </Grid>
-          <Grid item className={classes.ndash}>
-            <Typography sx={{ fontSize: '1.5rem', marginBottom: '0.75rem' }}>
-              {NDASH}
-            </Typography>
-          </Grid>
-          <Grid item container direction="column" wrap="nowrap" xs={3}>
-            <Typography sx={{ fontWeight: '600' }}>
-              {t('ohjaava-haku.kysymykset.maksullisuustyyppi.enintaan')}
-            </Typography>
-            <MaksunMaaraInput
-              id="enintaan"
-              value={enintaan}
-              handleInputValueChange={handleInputValueChange}
-              unitComponent={unitComponent()}
-            />
-          </Grid>
-        </Grid>
-        {!isEmpty(errorKey) && (
-          <Typography className={classes.error}>
-            {t(`ohjaava-haku.error.${errorKey}`)}
+    <Grid container direction="column" wrap="nowrap" className="question__option">
+      <Grid
+        item
+        container
+        direction="row"
+        wrap="nowrap"
+        className={classes.inputContainer}>
+        <Grid item container direction="column" wrap="nowrap" xs={3}>
+          <Typography className={classes.inputLabel}>
+            {t('ohjaava-haku.kysymykset.maksullisuustyyppi.vahintaan')}
           </Typography>
-        )}
-        <Grid item sx={{ mx: 1 }}>
-          <MaksullisuusRangeSlider
-            rangeValues={rangeValues}
-            undefinedRajainValues={undefinedRajainValues}
-            handleSliderValueCommit={handleSliderValueCommit}
+          <MaksunMaaraInput
+            id="vahintaan"
+            value={vahintaan}
+            handleInputValueChange={handleInputValueChange}
+            unitComponent={unitComponent()}
+          />
+        </Grid>
+        <Grid item className={classes.ndashContainer}>
+          <Typography className={classes.ndash}>{NDASH}</Typography>
+        </Grid>
+        <Grid item container direction="column" wrap="nowrap" xs={3}>
+          <Typography className={classes.inputLabel}>
+            {t('ohjaava-haku.kysymykset.maksullisuustyyppi.enintaan')}
+          </Typography>
+          <MaksunMaaraInput
+            id="enintaan"
+            value={enintaan}
+            handleInputValueChange={handleInputValueChange}
+            unitComponent={unitComponent()}
           />
         </Grid>
       </Grid>
-    </Root>
+      {!isEmpty(errorKey) && (
+        <Typography className={classes.error}>
+          {t(`ohjaava-haku.error.${errorKey}`)}
+        </Typography>
+      )}
+      <Grid item sx={{ mx: 1 }}>
+        <MaksullisuusRangeSlider
+          rangeValues={rangeValues}
+          undefinedRajainValues={undefinedRajainValues}
+          handleSliderValueCommit={handleSliderValueCommit}
+        />
+      </Grid>
+    </Grid>
   );
 };
 
@@ -245,7 +205,7 @@ export const Maksullisuus = ({
     combineMaksunMaaraWithMaksullisuustyyppi(rajainItems);
 
   return (
-    <Grid item className="question">
+    <Grid item className={classes.question}>
       {maksullisuustyyppiRajainItems.map(({ id, rajainId, linkedRajainItems }) => {
         const selectedRajainItems = allSelectedRajainValues[rajainId] as Array<string>;
         const isRajainSelected = selectedRajainItems && selectedRajainItems.includes(id);
