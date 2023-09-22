@@ -72,9 +72,14 @@ export const getStyleByPistetyyppi = (pistetyyppi: string | undefined): string =
 };
 
 export const getUniquePistetyypit = (hakukohde: Hakukohde) => {
-  const pistetyypit = hakukohde?.metadata?.pistehistoria?.map(
-    (pistehistoria) => pistehistoria?.valintatapajonoTyyppi?.koodiUri
-  );
+  // huomioidaan vaan graafilla näkyvät vuodet
+  const pistetyypit = hakukohde?.metadata?.pistehistoria
+    ?.filter(
+      (historia: PisteHistoria) => Number.parseInt(historia.vuosi) >= GRAAFI_MIN_YEAR
+    )
+    .sort((a, b) => Number.parseInt(b.vuosi) - Number.parseInt(a.vuosi))
+    .slice(0, MAX_ITEMS)
+    .map((pistehistoria) => pistehistoria?.valintatapajonoTyyppi?.koodiUri);
   const uniikitPistetyypit = new Set(pistetyypit);
   // jos on sekä 'muu' että tyhjä, ei listata niitä erikseen
   if (uniikitPistetyypit.has(undefined) && uniikitPistetyypit.has('valintatapajono_m')) {
