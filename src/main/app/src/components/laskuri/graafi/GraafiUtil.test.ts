@@ -299,5 +299,25 @@ describe('GraafiUtil', () => {
       expect(pistehistoriaAllTypesWithNull.length).toEqual(6);
       expect(pistetyypit.length).toEqual(4);
     });
+    it('counts only shown years', () => {
+      const pistehistoriaSameTypesWithOlderDifferentType = [
+        pistehistoriaYhteispisteet,
+        { ...pistehistoriaYhteispisteet, vuosi: '2022' },
+        { ...pistehistoriaYhteispisteet, vuosi: '2021' },
+        { ...pistehistoriaYhteispisteet, vuosi: '2020' },
+        { ...pistehistoriaYhteispisteet, vuosi: '2019' },
+        pistehistoriaTodistusvalinta,
+      ];
+      const pistetyypit = getUniquePistetyypit({
+        ...blankHakukohde,
+        metadata: {
+          ...blankHakukohde.metadata,
+          pistehistoria: pistehistoriaSameTypesWithOlderDifferentType,
+        },
+      });
+      expect(pistehistoriaSameTypesWithOlderDifferentType.length).toEqual(6);
+      expect(pistetyypit.length).toEqual(1);
+      expect(pistetyypit[0]).toEqual('valintatapajono_yp');
+    });
   });
 });
