@@ -12,11 +12,11 @@ import { useRajainItems } from '#/src/tools/filters';
 import { localize } from '#/src/tools/localization';
 import { Translateable } from '#/src/types/common';
 
-import { classes, StyledRoot } from './StyledRoot';
+import { classes } from './StyledRoot';
 import { useSearch } from '../../components/haku/hakutulosHooks';
 import { Heading, HeadingBoundary } from '../Heading';
 
-type Kysymys = {
+export type Kysymys = {
   id: string;
   isRajainOptionTextFromRajain?: boolean;
   rajainOptionsToBeRemoved?: Array<string>;
@@ -66,6 +66,7 @@ export const RajainOption = ({
 
 type KysymysProps = {
   kysymys: Kysymys;
+  kysymykset: Array<Kysymys>;
   currentKysymysIndex: number;
   setCurrentKysymysIndex: (index: number) => void;
   lastKysymysIndex: number;
@@ -111,15 +112,15 @@ export const Kysymys = ({
   };
 
   return (
-    <StyledRoot>
-      <HeadingBoundary>
-        <Grid container>
-          <Grid item xs={12}>
-            <Heading variant="h2">{kysymysTitle}</Heading>
-          </Grid>
-          <Grid item xs={12} marginBottom="2rem">
-            <Typography>{kysymysInfo}</Typography>
-          </Grid>
+    <HeadingBoundary>
+      <Grid container className={classes.question__container}>
+        <Grid item xs={12}>
+          <Heading variant="h2">{kysymysTitle}</Heading>
+        </Grid>
+        <Grid item xs={12} marginBottom="2rem">
+          <Typography>{kysymysInfo}</Typography>
+        </Grid>
+        <Grid container item>
           {isCustomComponent && kysymysId == 'koulutuksenkestokuukausina' ? (
             <KoulutuksenKesto
               rajainItems={rajainItems}
@@ -159,38 +160,38 @@ export const Kysymys = ({
               })}
             </Grid>
           )}
-          <Grid item xs={12}>
-            {!isFirstKysymys && (
-              <Button
-                onClick={() => setCurrentKysymysIndex(currentKysymysIndex - 1)}
-                variant="outlined"
-                color="primary"
-                {...(!isEmpty(errorKey) && { disabled: true })}>
-                {t('ohjaava-haku.edellinen')}
-              </Button>
-            )}
-            {
-              <Button
-                onClick={handleClick}
-                color="primary"
-                {...(isLastKysymys ? { variant: 'contained' } : { variant: 'text' })}
-                {...(!isEmpty(errorKey) && { disabled: true })}>
-                {t('ohjaava-haku.katso-tulokset')}
-              </Button>
-            }
-
-            {!isLastKysymys && (
-              <Button
-                onClick={() => setCurrentKysymysIndex(currentKysymysIndex + 1)}
-                variant="contained"
-                color="primary"
-                {...(!isEmpty(errorKey) && { disabled: true })}>
-                {t('ohjaava-haku.seuraava')}
-              </Button>
-            )}
-          </Grid>
         </Grid>
-      </HeadingBoundary>
-    </StyledRoot>
+        <Grid item xs={12}>
+          {!isFirstKysymys && (
+            <Button
+              onClick={() => setCurrentKysymysIndex(currentKysymysIndex - 1)}
+              variant="outlined"
+              color="primary"
+              {...(!isEmpty(errorKey) && { disabled: true })}>
+              {t('ohjaava-haku.edellinen')}
+            </Button>
+          )}
+          {
+            <Button
+              onClick={handleClick}
+              color="primary"
+              {...(isLastKysymys ? { variant: 'contained' } : { variant: 'text' })}
+              {...(!isEmpty(errorKey) && { disabled: true })}>
+              {t('ohjaava-haku.katso-tulokset')}
+            </Button>
+          }
+
+          {!isLastKysymys && (
+            <Button
+              onClick={() => setCurrentKysymysIndex(currentKysymysIndex + 1)}
+              variant="contained"
+              color="primary"
+              {...(!isEmpty(errorKey) && { disabled: true })}>
+              {t('ohjaava-haku.seuraava')}
+            </Button>
+          )}
+        </Grid>
+      </Grid>
+    </HeadingBoundary>
   );
 };

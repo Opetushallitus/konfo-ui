@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, Grid, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
@@ -13,6 +13,9 @@ import { Kysymys, Rajain } from '#/src/components/ohjaava-haku/Kysymys';
 import { getChangedRajaimet } from '#/src/components/ohjaava-haku/utils';
 import { getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
 import { toId } from '#/src/tools/utils';
+
+import { KysymysMurupolku } from './KysymysMurupolku';
+import { StyledRoot } from './StyledRoot';
 
 export const OhjaavaHaku = () => {
   const { t } = useTranslation();
@@ -38,50 +41,60 @@ export const OhjaavaHaku = () => {
 
   return (
     <ContentWrapper>
-      <Box width="100%" alignItems="start">
-        <Box>
-          <Murupolku
-            path={[
-              { name: t('haku.otsikko'), link: hakuUrl },
-              { name: ohjaavaHakuTitle },
-            ]}
-          />
-        </Box>
-        {isStartOfKysely ? (
+      <StyledRoot>
+        <Box width="100%" alignItems="start">
           <Box>
-            <HeadingBoundary>
-              <Heading
-                id={toId(t(ohjaavaHakuTitle))}
-                variant="h2"
-                sx={{ marginTop: '1.5rem', marginBottom: '1.5rem' }}>
-                {ohjaavaHakuTitle}
-              </Heading>
-            </HeadingBoundary>
-            <Typography sx={{ marginBottom: '1.5rem' }}>
-              {t('ohjaava-haku.info-text')}
-            </Typography>
-            <Button
-              onClick={handleClick}
-              variant="contained"
-              color="primary"
-              sx={{ marginBottom: '30%' }}>
-              {t('ohjaava-haku.aloita-kysely')}
-            </Button>
-          </Box>
-        ) : (
-          <Box>
-            <Kysymys
-              kysymys={currentKysymys}
-              currentKysymysIndex={currentKysymysIndex}
-              setCurrentKysymysIndex={setCurrentKysymysIndex}
-              lastKysymysIndex={lastKysymysIndex}
-              toggleAllSelectedRajainValues={toggleAllRajainValues}
-              allSelectedRajainValues={allSelectedRajainValues}
-              setAllSelectedRajainValues={setAllSelectedRajainValues}
+            <Murupolku
+              path={[
+                { name: t('haku.otsikko'), link: hakuUrl },
+                { name: ohjaavaHakuTitle },
+              ]}
             />
           </Box>
-        )}
-      </Box>
+          {isStartOfKysely ? (
+            <Box>
+              <HeadingBoundary>
+                <Heading
+                  id={toId(t(ohjaavaHakuTitle))}
+                  variant="h2"
+                  sx={{ marginTop: '1.5rem', marginBottom: '1.5rem' }}>
+                  {ohjaavaHakuTitle}
+                </Heading>
+              </HeadingBoundary>
+              <Typography sx={{ marginBottom: '1.5rem' }}>
+                {t('ohjaava-haku.info-text')}
+              </Typography>
+              <Button
+                onClick={handleClick}
+                variant="contained"
+                color="primary"
+                sx={{ marginBottom: '30%' }}>
+                {t('ohjaava-haku.aloita-kysely')}
+              </Button>
+            </Box>
+          ) : (
+            <Grid item container direction="row" wrap="nowrap">
+              <KysymysMurupolku
+                kysymykset={kysymykset}
+                currentKysymysIndex={currentKysymysIndex}
+                setCurrentKysymysIndex={setCurrentKysymysIndex}
+              />
+              <Grid item container>
+                <Kysymys
+                  kysymys={currentKysymys}
+                  kysymykset={kysymykset}
+                  currentKysymysIndex={currentKysymysIndex}
+                  setCurrentKysymysIndex={setCurrentKysymysIndex}
+                  lastKysymysIndex={lastKysymysIndex}
+                  toggleAllSelectedRajainValues={toggleAllRajainValues}
+                  allSelectedRajainValues={allSelectedRajainValues}
+                  setAllSelectedRajainValues={setAllSelectedRajainValues}
+                />
+              </Grid>
+            </Grid>
+          )}
+        </Box>
+      </StyledRoot>
     </ContentWrapper>
   );
 };
