@@ -110,6 +110,16 @@ export const Kysymys = ({
     });
   });
 
+  const moveToNextQuestion = () => {
+    setCurrentKysymysIndex(currentKysymysIndex + 1);
+    window.scrollTo(0, 0);
+  };
+
+  const moveToPreviousQuestion = () => {
+    setCurrentKysymysIndex(currentKysymysIndex - 1);
+    window.scrollTo(0, 0);
+  };
+
   const handleClick = () => {
     setRajainValues(allSelectedRajainValues);
     goToSearchPage();
@@ -173,7 +183,7 @@ export const Kysymys = ({
           <Grid item xs={12} className={classes.question__buttonContainer__mobile}>
             {!isLastKysymys && (
               <Button
-                onClick={() => setCurrentKysymysIndex(currentKysymysIndex + 1)}
+                onClick={moveToNextQuestion}
                 variant="contained"
                 color="primary"
                 {...(!isEmpty(errorKey) && { disabled: true })}>
@@ -182,7 +192,7 @@ export const Kysymys = ({
             )}
             {!isFirstKysymys && (
               <Button
-                onClick={() => setCurrentKysymysIndex(currentKysymysIndex - 1)}
+                onClick={moveToPreviousQuestion}
                 variant="outlined"
                 color="primary"
                 {...(!isEmpty(errorKey) && { disabled: true })}>
@@ -203,7 +213,7 @@ export const Kysymys = ({
           <Grid item xs={12}>
             {!isFirstKysymys && (
               <Button
-                onClick={() => setCurrentKysymysIndex(currentKysymysIndex - 1)}
+                onClick={moveToPreviousQuestion}
                 variant="outlined"
                 color="primary"
                 {...(!isEmpty(errorKey) && { disabled: true })}>
@@ -222,7 +232,7 @@ export const Kysymys = ({
 
             {!isLastKysymys && (
               <Button
-                onClick={() => setCurrentKysymysIndex(currentKysymysIndex + 1)}
+                onClick={moveToNextQuestion}
                 variant="contained"
                 color="primary"
                 {...(!isEmpty(errorKey) && { disabled: true })}>
