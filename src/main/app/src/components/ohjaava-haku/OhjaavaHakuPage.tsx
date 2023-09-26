@@ -14,7 +14,7 @@ import { getChangedRajaimet } from '#/src/components/ohjaava-haku/utils';
 import { getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
 import { toId } from '#/src/tools/utils';
 
-import { KysymysMurupolku } from './KysymysMurupolku';
+import { ProgressSivupalkki } from './ProgressSivupalkki';
 import { classes, StyledRoot } from './StyledRoot';
 
 export const OhjaavaHaku = () => {
@@ -75,7 +75,7 @@ export const OhjaavaHaku = () => {
           </Box>
         ) : (
           <Box className={classes.container}>
-            <KysymysMurupolku
+            <ProgressSivupalkki
               kysymykset={kysymykset}
               currentKysymysIndex={currentKysymysIndex}
               setCurrentKysymysIndex={setCurrentKysymysIndex}

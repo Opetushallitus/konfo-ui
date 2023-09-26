@@ -18,9 +18,9 @@ export const classes = {
   ndash: `${PREFIX}ndash`,
   ndashContainer: `${PREFIX}ndashContainer`,
   error: `${PREFIX}error`,
-  kysymysMurupolku: `${PREFIX}kysymysMurupolku`,
-  kysymysMurupolku__button: `${PREFIX}kysymysMurupolku__button`,
-  kysymysMurupolku__button__icon: `${PREFIX}kysymysMurupolku__button__icon`,
+  progressSivupalkki: `${PREFIX}progressSivupalkki`,
+  progressSivupalkki__button: `${PREFIX}progressSivupalkki__button`,
+  progressSivupalkki__button__icon: `${PREFIX}progressSivupalkki__button__icon`,
 };
 
 export const StyledRoot = styled(Box)(({ theme }) => {
@@ -97,7 +97,7 @@ export const StyledRoot = styled(Box)(({ theme }) => {
     margin-top: 1rem;
   }
 
-  & .${classes.kysymysMurupolku} {
+  & .${classes.progressSivupalkki} {
     display: flex;
     gap: 0.2rem;
     margin-bottom: 1rem;

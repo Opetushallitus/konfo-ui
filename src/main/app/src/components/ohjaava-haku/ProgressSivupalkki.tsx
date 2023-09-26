@@ -8,7 +8,7 @@ import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { Kysymys } from './Kysymys';
 import { classes } from './StyledRoot';
 
-export const KysymysMurupolku = ({
+export const ProgressSivupalkki = ({
   kysymykset,
   currentKysymysIndex,
   setCurrentKysymysIndex,
@@ -27,7 +27,7 @@ export const KysymysMurupolku = ({
   return (
     <>
       {isMobile ? (
-        <Grid item className={classes.kysymysMurupolku}>
+        <Grid item className={classes.progressSivupalkki}>
           {progress}
         </Grid>
       ) : (
@@ -36,7 +36,7 @@ export const KysymysMurupolku = ({
           item
           direction="column"
           xs={3}
-          className={classes.kysymysMurupolku}>
+          className={classes.progressSivupalkki}>
           {kysymykset.map((kysymys, i) => {
             const kysymysId = kysymys.id;
             const isCurrentKysymys = i === currentKysymysIndex;
@@ -46,14 +46,14 @@ export const KysymysMurupolku = ({
                 variant={isPastKysymys || isCurrentKysymys ? 'contained' : 'outlined'}
                 disableElevation
                 color="primary"
-                className={classes.kysymysMurupolku__button}
+                className={classes.progressSivupalkki__button}
                 key={kysymysId}
                 onClick={() => setCurrentKysymysIndex(i)}
                 {...(isPastKysymys && {
                   endIcon: (
                     <MaterialIcon
                       icon="check"
-                      className={classes.kysymysMurupolku__button__icon}
+                      className={classes.progressSivupalkki__button__icon}
                     />
                   ),
                   'data-past': true,
