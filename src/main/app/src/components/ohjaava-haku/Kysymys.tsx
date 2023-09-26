@@ -4,6 +4,7 @@ import { Button, Grid, Typography } from '@mui/material';
 import { isEmpty, some } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
+import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { KoulutuksenKesto } from '#/src/components/ohjaava-haku/KoulutuksenKesto';
 import { Maksullisuus } from '#/src/components/ohjaava-haku/Maksullisuus';
@@ -88,7 +89,8 @@ export const Kysymys = ({
 }: KysymysProps) => {
   const { t } = useTranslation();
 
-  const { goToSearchPage, setRajainValues, rajainValues, rajainOptions } = useSearch();
+  const { goToSearchPage, setRajainValues, rajainValues, rajainOptions, isFetching } =
+    useSearch();
   const { id: kysymysId, isRajainOptionTextFromRajain, isCustomComponent } = kysymys;
   const kysymysTitle = t(`ohjaava-haku.kysymykset.${kysymysId}.otsikko`);
   const kysymysInfo = t(`ohjaava-haku.kysymykset.info-text`);
@@ -123,7 +125,11 @@ export const Kysymys = ({
           <Typography>{kysymysInfo}</Typography>
         </Grid>
         <Grid container item>
-          {isCustomComponent && kysymysId == 'koulutuksenkestokuukausina' ? (
+          {isFetching ? (
+            <Grid item sx={{ margin: 'auto' }}>
+              <LoadingCircle />
+            </Grid>
+          ) : isCustomComponent && kysymysId == 'koulutuksenkestokuukausina' ? (
             <KoulutuksenKesto
               rajainItems={rajainItems}
               allSelectedRajainValues={allSelectedRajainValues}
