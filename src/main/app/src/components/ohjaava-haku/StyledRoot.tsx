@@ -94,7 +94,6 @@ export const StyledRoot = styled(Box)(({ theme }) => {
 
   & .${classes.error} {
     color: ${colors.red};
-    margin-top: 1rem;
   }
 
   & .${classes.progressSivupalkki} {
