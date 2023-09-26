@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { Box, Button, Typography, useTheme, useMediaQuery } from '@mui/material';
+import { has } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
@@ -21,20 +22,26 @@ export const OhjaavaHaku = () => {
   const { t } = useTranslation();
   const hakuUrl = useSelector(getHakuUrl);
   const theme = useTheme();
-  const { clearRajainValues } = useSearch();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const ohjaavaHakuTitle = t('ohjaava-haku.otsikko');
+
+  const { clearRajainValues, rajainValues } = useSearch();
   const [allSelectedRajainValues, setAllSelectedRajainValues] = useState<Rajain>({});
 
   const toggleAllRajainValues = (id: string, rajainId: string) => {
     setAllSelectedRajainValues(getChangedRajaimet(allSelectedRajainValues, rajainId, id));
   };
 
-  const ohjaavaHakuTitle = t('ohjaava-haku.otsikko');
   const [isStartOfKysely, setStartOfKysely] = useState(true);
   const [currentKysymysIndex, setCurrentKysymysIndex] = useState(0);
-  const lastKysymysIndex = specs.kysymykset.length - 1;
+
   const kysymykset = specs.kysymykset;
-  const currentKysymys = kysymykset[currentKysymysIndex];
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const kysymyksetWithoutInvalidOptions = kysymykset.filter(({ id }) => {
+    return has(rajainValues, id);
+  });
+
+  const lastKysymysIndex = kysymyksetWithoutInvalidOptions.length - 1;
+  const currentKysymys = kysymyksetWithoutInvalidOptions[currentKysymysIndex];
 
   const handleClick = () => {
     setStartOfKysely(false);
@@ -76,14 +83,14 @@ export const OhjaavaHaku = () => {
         ) : (
           <Box className={classes.container}>
             <ProgressSivupalkki
-              kysymykset={kysymykset}
+              kysymykset={kysymyksetWithoutInvalidOptions}
               currentKysymysIndex={currentKysymysIndex}
               setCurrentKysymysIndex={setCurrentKysymysIndex}
               isMobile={isMobile}
             />
             <Kysymys
               kysymys={currentKysymys}
-              kysymykset={kysymykset}
+              kysymykset={kysymyksetWithoutInvalidOptions}
               currentKysymysIndex={currentKysymysIndex}
               setCurrentKysymysIndex={setCurrentKysymysIndex}
               lastKysymysIndex={lastKysymysIndex}
