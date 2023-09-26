@@ -5,6 +5,8 @@ Juurihakemiston Spring Boot -kääre tarjoilee SPA:n ympäristökohtaisten asetu
 
 [![Konfo-ui](https://github.com/Opetushallitus/konfo-ui/actions/workflows/build.yml/badge.svg)](https://github.com/Opetushallitus/konfo-ui/actions/workflows/build.yml)
 
+[![Contentful content type check](https://github.com/Opetushallitus/konfo-ui/actions/workflows/contentful-type-check.yml/badge.svg)](https://github.com/Opetushallitus/konfo-ui/actions/workflows/contentful-type-check.yml)
+
 ## Esivaatimukset
 
 Asenna koneellesi esim NVM:ää käyttäen:
@@ -85,6 +87,10 @@ Korvaa "xxx"-kohdat oikeilla AWS:stä löytyvillä salaisuuksilla. Environment i
 Kun salaisuudet ovat paikallaan, luo tyypitykset npm-skriptillä:
 
     npm run contentful:typegen
+
+Contentfulin tyyppien yhteneväisyys testi ja master ympäristöissä tarkistetaan ajastetulla GitHub Actionilla kerran päivässä. Tarkistuksen voi käynnistää myös käsin GitHubin Actions sivulta.
+
+Tarkan raportin löytää contentful-type-check actionin workflow runs historiasta.
 
 ## Spring boot (erikoistapaukset)
 
