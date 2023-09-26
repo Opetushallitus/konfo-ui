@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Box, Button, Grid, Typography } from '@mui/material';
+import { Box, Button, Typography, useTheme, useMediaQuery } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
@@ -15,11 +15,12 @@ import { getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
 import { toId } from '#/src/tools/utils';
 
 import { KysymysMurupolku } from './KysymysMurupolku';
-import { StyledRoot } from './StyledRoot';
+import { classes, StyledRoot } from './StyledRoot';
 
 export const OhjaavaHaku = () => {
   const { t } = useTranslation();
   const hakuUrl = useSelector(getHakuUrl);
+  const theme = useTheme();
   const { clearRajainValues } = useSearch();
   const [allSelectedRajainValues, setAllSelectedRajainValues] = useState<Rajain>({});
 
@@ -33,6 +34,7 @@ export const OhjaavaHaku = () => {
   const lastKysymysIndex = specs.kysymykset.length - 1;
   const kysymykset = specs.kysymykset;
   const currentKysymys = kysymykset[currentKysymysIndex];
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleClick = () => {
     setStartOfKysely(false);
@@ -42,58 +44,56 @@ export const OhjaavaHaku = () => {
   return (
     <ContentWrapper>
       <StyledRoot>
-        <Box width="100%" alignItems="start">
+        <Box>
+          <Murupolku
+            path={[
+              { name: t('haku.otsikko'), link: hakuUrl },
+              { name: ohjaavaHakuTitle },
+            ]}
+          />
+        </Box>
+        {isStartOfKysely ? (
           <Box>
-            <Murupolku
-              path={[
-                { name: t('haku.otsikko'), link: hakuUrl },
-                { name: ohjaavaHakuTitle },
-              ]}
+            <HeadingBoundary>
+              <Heading
+                id={toId(t(ohjaavaHakuTitle))}
+                variant="h2"
+                sx={{ marginTop: '1.5rem', marginBottom: '1.5rem' }}>
+                {ohjaavaHakuTitle}
+              </Heading>
+            </HeadingBoundary>
+            <Typography sx={{ marginBottom: '1.5rem' }}>
+              {t('ohjaava-haku.info-text')}
+            </Typography>
+            <Button
+              onClick={handleClick}
+              variant="contained"
+              color="primary"
+              sx={{ marginBottom: '30%' }}>
+              {t('ohjaava-haku.aloita-kysely')}
+            </Button>
+          </Box>
+        ) : (
+          <Box className={classes.container}>
+            <KysymysMurupolku
+              kysymykset={kysymykset}
+              currentKysymysIndex={currentKysymysIndex}
+              setCurrentKysymysIndex={setCurrentKysymysIndex}
+              isMobile={isMobile}
+            />
+            <Kysymys
+              kysymys={currentKysymys}
+              kysymykset={kysymykset}
+              currentKysymysIndex={currentKysymysIndex}
+              setCurrentKysymysIndex={setCurrentKysymysIndex}
+              lastKysymysIndex={lastKysymysIndex}
+              toggleAllSelectedRajainValues={toggleAllRajainValues}
+              allSelectedRajainValues={allSelectedRajainValues}
+              setAllSelectedRajainValues={setAllSelectedRajainValues}
+              isMobile={isMobile}
             />
           </Box>
-          {isStartOfKysely ? (
-            <Box>
-              <HeadingBoundary>
-                <Heading
-                  id={toId(t(ohjaavaHakuTitle))}
-                  variant="h2"
-                  sx={{ marginTop: '1.5rem', marginBottom: '1.5rem' }}>
-                  {ohjaavaHakuTitle}
-                </Heading>
-              </HeadingBoundary>
-              <Typography sx={{ marginBottom: '1.5rem' }}>
-                {t('ohjaava-haku.info-text')}
-              </Typography>
-              <Button
-                onClick={handleClick}
-                variant="contained"
-                color="primary"
-                sx={{ marginBottom: '30%' }}>
-                {t('ohjaava-haku.aloita-kysely')}
-              </Button>
-            </Box>
-          ) : (
-            <Grid item container direction="row" wrap="nowrap">
-              <KysymysMurupolku
-                kysymykset={kysymykset}
-                currentKysymysIndex={currentKysymysIndex}
-                setCurrentKysymysIndex={setCurrentKysymysIndex}
-              />
-              <Grid item container>
-                <Kysymys
-                  kysymys={currentKysymys}
-                  kysymykset={kysymykset}
-                  currentKysymysIndex={currentKysymysIndex}
-                  setCurrentKysymysIndex={setCurrentKysymysIndex}
-                  lastKysymysIndex={lastKysymysIndex}
-                  toggleAllSelectedRajainValues={toggleAllRajainValues}
-                  allSelectedRajainValues={allSelectedRajainValues}
-                  setAllSelectedRajainValues={setAllSelectedRajainValues}
-                />
-              </Grid>
-            </Grid>
-          )}
-        </Box>
+        )}
       </StyledRoot>
     </ContentWrapper>
   );

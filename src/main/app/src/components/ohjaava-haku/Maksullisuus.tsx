@@ -137,14 +137,20 @@ const MaksullisuusInput = ({
   );
 
   return (
-    <Grid container direction="column" wrap="nowrap" className="question__option">
+    <Grid container direction="column" wrap="nowrap">
       <Grid
         item
         container
         direction="row"
         wrap="nowrap"
         className={classes.inputContainer}>
-        <Grid item container direction="column" wrap="nowrap" xs={3}>
+        <Grid
+          item
+          container
+          direction="column"
+          wrap="nowrap"
+          xs={3}
+          className={classes.innerInputContainer}>
           <Typography className={classes.inputLabel}>
             {t('ohjaava-haku.kysymykset.maksullisuustyyppi.vahintaan')}
           </Typography>
@@ -158,7 +164,13 @@ const MaksullisuusInput = ({
         <Grid item className={classes.ndashContainer}>
           <Typography className={classes.ndash}>{NDASH}</Typography>
         </Grid>
-        <Grid item container direction="column" wrap="nowrap" xs={3}>
+        <Grid
+          item
+          container
+          direction="column"
+          wrap="nowrap"
+          xs={3}
+          className={classes.innerInputContainer}>
           <Typography className={classes.inputLabel}>
             {t('ohjaava-haku.kysymykset.maksullisuustyyppi.enintaan')}
           </Typography>

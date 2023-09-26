@@ -115,11 +115,17 @@ export const KoulutuksenKesto = ({
         direction="row"
         wrap="nowrap"
         className={classes.inputContainer}>
-        <Grid item container direction="column" wrap="nowrap" xs={3}>
+        <Grid
+          item
+          container
+          direction="column"
+          wrap="nowrap"
+          xs={3}
+          className={classes.innerInputContainer}>
           <Typography className={classes.inputLabel}>
             {t('ohjaava-haku.kysymykset.koulutuksenkestokuukausina.opiskelen-vahintaan')}
           </Typography>
-          <Box className={classes.inputContainer}>
+          <Box className={classes.innerInputContainer}>
             <MaksunMaaraInput
               id="vahintaan-vuosi"
               value={vahintaan[0]}
@@ -137,11 +143,17 @@ export const KoulutuksenKesto = ({
         <Grid item className={classes.ndashContainer}>
           <Typography className={classes.ndash}>{NDASH}</Typography>
         </Grid>
-        <Grid item container direction="column" wrap="nowrap" xs={3}>
+        <Grid
+          item
+          container
+          direction="column"
+          wrap="nowrap"
+          xs={3}
+          className={classes.innerInputContainer}>
           <Typography className={classes.inputLabel}>
             {t('ohjaava-haku.kysymykset.koulutuksenkestokuukausina.opiskelen-enintaan')}
           </Typography>
-          <Box className={classes.inputContainer}>
+          <Box className={classes.innerInputContainer}>
             <MaksunMaaraInput
               id="enintaan-vuosi"
               value={enintaan[0]}
