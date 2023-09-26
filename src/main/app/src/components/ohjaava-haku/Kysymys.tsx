@@ -179,68 +179,38 @@ export const Kysymys = ({
             </Grid>
           )}
         </Grid>
-        {isMobile ? (
-          <Grid item xs={12} className={classes.question__buttonContainer__mobile}>
-            {!isLastKysymys && (
-              <Button
-                onClick={moveToNextQuestion}
-                variant="contained"
-                color="primary"
-                {...(!isEmpty(errorKey) && { disabled: true })}>
-                {t('ohjaava-haku.seuraava')}
-              </Button>
-            )}
-            {!isFirstKysymys && (
-              <Button
-                onClick={moveToPreviousQuestion}
-                variant="outlined"
-                color="primary"
-                {...(!isEmpty(errorKey) && { disabled: true })}>
-                {t('ohjaava-haku.edellinen')}
-              </Button>
-            )}
-            {
-              <Button
-                onClick={handleClick}
-                color="primary"
-                {...(isLastKysymys ? { variant: 'contained' } : { variant: 'text' })}
-                {...(!isEmpty(errorKey) && { disabled: true })}>
-                {t('ohjaava-haku.katso-tulokset')}
-              </Button>
-            }
-          </Grid>
-        ) : (
-          <Grid item xs={12}>
-            {!isFirstKysymys && (
-              <Button
-                onClick={moveToPreviousQuestion}
-                variant="outlined"
-                color="primary"
-                {...(!isEmpty(errorKey) && { disabled: true })}>
-                {t('ohjaava-haku.edellinen')}
-              </Button>
-            )}
-            {
-              <Button
-                onClick={handleClick}
-                color="primary"
-                {...(isLastKysymys ? { variant: 'contained' } : { variant: 'text' })}
-                {...(!isEmpty(errorKey) && { disabled: true })}>
-                {t('ohjaava-haku.katso-tulokset')}
-              </Button>
-            }
-
-            {!isLastKysymys && (
-              <Button
-                onClick={moveToNextQuestion}
-                variant="contained"
-                color="primary"
-                {...(!isEmpty(errorKey) && { disabled: true })}>
-                {t('ohjaava-haku.seuraava')}
-              </Button>
-            )}
-          </Grid>
-        )}
+        <Grid item xs={12} className={classes.buttonContainer}>
+          {!isLastKysymys && (
+            <Button
+              className={classes.buttonContainer__next}
+              onClick={moveToNextQuestion}
+              variant="contained"
+              color="primary"
+              {...(!isEmpty(errorKey) && { disabled: true })}>
+              {t('ohjaava-haku.seuraava')}
+            </Button>
+          )}
+          {!isFirstKysymys && (
+            <Button
+              className={classes.buttonContainer__previous}
+              onClick={moveToPreviousQuestion}
+              variant="outlined"
+              color="primary"
+              {...(!isEmpty(errorKey) && { disabled: true })}>
+              {t('ohjaava-haku.edellinen')}
+            </Button>
+          )}
+          {
+            <Button
+              className={classes.buttonContainer__results}
+              onClick={handleClick}
+              color="primary"
+              {...(isLastKysymys ? { variant: 'contained' } : { variant: 'text' })}
+              {...(!isEmpty(errorKey) && { disabled: true })}>
+              {t('ohjaava-haku.katso-tulokset')}
+            </Button>
+          }
+        </Grid>
       </Grid>
     </HeadingBoundary>
   );

@@ -9,8 +9,11 @@ export const classes = {
   container: `${PREFIX}container`,
   question: `${PREFIX}question`,
   question__container: `${PREFIX}question__container`,
-  question__buttonContainer__mobile: `${PREFIX}question__buttonContainer__mobile`,
   question__option: `${PREFIX}question__option`,
+  buttonContainer: `${PREFIX}buttonContainer`,
+  buttonContainer__previous: `${PREFIX}buttonContainer__previous`,
+  buttonContainer__next: `${PREFIX}buttonContainer__next`,
+  buttonContainer__results: `${PREFIX}buttonContainer__results`,
   inputContainer: `${PREFIX}input-container`,
   innerInputContainer: `${PREFIX}inner-input-container`,
   inputLabel: `${PREFIX}input-label`,
@@ -36,15 +39,6 @@ export const StyledRoot = styled(Box)(({ theme }) => {
     width: 100%;
     margin-bottom: 1rem;
 
-    &__buttonContainer {
-      &__mobile {
-        display: flex;
-        flex-direction: column;
-        margin: 1rem 0;
-        gap: 0.5rem;
-      }
-    }
-
     &__container {
       margin: 0 2rem;
     }
@@ -65,6 +59,28 @@ export const StyledRoot = styled(Box)(({ theme }) => {
         background-color: ${colors.brandGreen};
         color: ${colors.white};
       }
+    }
+  }
+
+  & .${classes.buttonContainer} {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-rows: auto;
+    grid-template-areas:
+      "previous . results next";
+
+    &__previous {
+      grid-area: previous;
+      font-weight: bold;
+    }
+
+    &__next {
+      grid-area: next;
+    }
+
+    &__results {
+      grid-area: results;
+      font-weight: bold;
     }
   }
 
@@ -177,6 +193,21 @@ export const StyledRoot = styled(Box)(({ theme }) => {
       max-width: none;
       flex-basis: content;
     }
-  }
+
+    & .${classes.buttonContainer} {
+      display: grid;
+      grid-template-columns: 25% 25% 25% 25%;
+      grid-template-rows: auto;
+      grid-template-areas:
+        "next next next next"
+        "previous previous previous previous"
+        "results results results results";
+     gap: 0.5rem;
+     margin: 1rem 0;
+
+     &__previous {
+       width: 100%;
+     }
+   }
 `;
 });
