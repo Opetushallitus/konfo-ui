@@ -7,7 +7,7 @@ import { RajainItem } from '#/src/types/SuodatinTypes';
 import { Maksullisuustyyppi } from '#/src/types/ToteutusTypes';
 
 import { i18n } from './i18n';
-import { koodiUriToPostinumero } from './utils';
+import { koodiUriToPostinumero, sortArray } from './utils';
 
 const lng = (nimi: any, lang: 'fi' | 'en' | 'sv') =>
   nimi?.['kieli_' + lang] || nimi?.[lang] || false;
@@ -36,7 +36,7 @@ export const localizeArrayToCommaSeparated = (
   flow(
     (x) => map(x, flow(localize, trim)),
     (x) => filter(x, (item) => !isEmpty(item)),
-    (x) => (sorted ? x.sort() : x),
+    (x) => (sorted ? sortArray(x) : x),
     uniq,
     (x) => x?.join(', '),
     (v) => (isEmpty(v) ? '' : v)
