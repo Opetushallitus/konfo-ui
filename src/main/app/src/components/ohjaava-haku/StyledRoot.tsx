@@ -40,6 +40,7 @@ export const StyledRoot = styled(Box)(({ theme }) => {
     margin-bottom: 1rem;
 
     &__container {
+      max-width: 75%;
       margin: 0 2rem;
     }
 
@@ -49,7 +50,6 @@ export const StyledRoot = styled(Box)(({ theme }) => {
       color: ${colors.black};
       padding-left: 1rem;
       padding-right: 1rem;
-      width: 60%;
 
       &:hover {
         background-color: #a5c291;
@@ -63,6 +63,7 @@ export const StyledRoot = styled(Box)(({ theme }) => {
   }
 
   & .${classes.buttonContainer} {
+    margin: 1rem 0;
     display: grid;
     grid-template-columns: 25% 25% 25% 25%;
     grid-template-rows: auto;
@@ -116,8 +117,10 @@ export const StyledRoot = styled(Box)(({ theme }) => {
     display: flex;
     gap: 0.2rem;
     margin-bottom: 1rem;
+    max-width: 25%;
 
     &__button {
+      max-width: 100%;
       font-size: 0.75rem;
       line-height: 1rem;
       color: ${colors.black};
@@ -149,13 +152,6 @@ export const StyledRoot = styled(Box)(({ theme }) => {
   }
 
   /* Breakpoints */
-  ${theme.breakpoints.down('lg')} {
-    & .${classes.question} {
-      &__option {
-        width: 80%;
-      }
-    }
-  }
 
   ${theme.breakpoints.down('md')} {
     & .${classes.inputContainer} .${classes.innerInputContainer} {
@@ -164,10 +160,6 @@ export const StyledRoot = styled(Box)(({ theme }) => {
     }
 
     & .${classes.question} {
-      &__option {
-        width: 80%;
-      }
-
       &__container {
         margin: 0 1rem;
       }
@@ -185,6 +177,7 @@ export const StyledRoot = styled(Box)(({ theme }) => {
       }
 
       &__container {
+        max-width: 100%;
         margin: 0;
       }
     }
@@ -202,12 +195,12 @@ export const StyledRoot = styled(Box)(({ theme }) => {
         "next next next next"
         "previous previous previous previous"
         "results results results results";
-     gap: 0.5rem;
-     margin: 1rem 0;
+      gap: 0.5rem;
+      margin: 1rem 0;
 
-     &__previous {
-       width: 100%;
-     }
+      &__previous {
+        width: 100%;
+      }
    }
 `;
 });

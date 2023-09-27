@@ -127,7 +127,7 @@ export const Kysymys = ({
 
   return (
     <HeadingBoundary>
-      <Grid container className={classes.question__container}>
+      <Grid container item className={classes.question__container}>
         <Grid item xs={12}>
           <Heading variant={isMobile ? 'h3' : 'h2'}>{kysymysTitle}</Heading>
         </Grid>

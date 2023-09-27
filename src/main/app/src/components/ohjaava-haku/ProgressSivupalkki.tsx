@@ -31,12 +31,7 @@ export const ProgressSivupalkki = ({
           {progress}
         </Grid>
       ) : (
-        <Grid
-          container
-          item
-          direction="column"
-          xs={3}
-          className={classes.progressSivupalkki}>
+        <Grid container item direction="column" className={classes.progressSivupalkki}>
           {kysymykset.map((kysymys, i) => {
             const kysymysId = kysymys.id;
             const isCurrentKysymys = i === currentKysymysIndex;
