@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { HTMLReactParserOptions } from 'html-react-parser';
+
 import { styled } from '#/src/theme';
 import { localize } from '#/src/tools/localization';
 import { sanitizedHTMLParser } from '#/src/tools/utils';
@@ -27,7 +29,7 @@ const Root = styled('div')<StylesProps>(({ theme, noMargin }) => ({
 
 type Props = {
   data?: Translateable | { nimi: Translateable };
-  transform?: (node: React.ReactNode) => any;
+  transform?: HTMLReactParserOptions['transform'];
   defaultValue?: string;
   noWrapper?: boolean;
   noMargin?: boolean;

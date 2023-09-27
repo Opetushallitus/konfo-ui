@@ -10,7 +10,7 @@ import { Heading, HeadingBoundary } from '#/src/components/Heading';
 import { styled } from '#/src/theme';
 import { localize, localizeOsoite } from '#/src/tools/localization';
 import { useOsoitteet } from '#/src/tools/useOppilaitosOsoite';
-import { formatDateString, toId } from '#/src/tools/utils';
+import { toId } from '#/src/tools/utils';
 import { Yhteystiedot } from '#/src/types/common';
 import { Hakukohde, Liite, FormatoituAikaleima } from '#/src/types/HakukohdeTypes';
 
@@ -184,9 +184,7 @@ const LiiteCard = ({
                   <Heading variant="h5">
                     {t('valintaperuste.toimitettava-viimeistään')}
                   </Heading>
-                  <Typography variant="body1">
-                    {formatDateString(toimitusaika)}
-                  </Typography>
+                  <Typography variant="body1">{localize(toimitusaika)}</Typography>
                 </Box>
               </Grid>
             </StyledGrid>
