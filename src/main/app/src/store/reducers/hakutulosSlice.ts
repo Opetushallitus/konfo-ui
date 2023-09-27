@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { forEach, split, mapValues, omit, groupBy, reduce, includes, noop } from 'lodash';
+import { forEach, split, mapValues, includes, noop, isEqual } from 'lodash';
 import { match } from 'ts-pattern';
 
 import { RAJAIN_TYPES, MAKSULLISUUSTYYPPI } from '#/src/constants';
@@ -109,6 +109,14 @@ export const HAKUTULOS_INITIAL: HakutulosSlice = {
   ...HAKU_RAJAIMET_INITIAL,
 };
 
+const setWhenChanged = (state: any, key: string, value: any) => {
+  if (!isEqual(state[key], value)) {
+    state[key] = value;
+  }
+};
+
+const getParamValueList = (value?: string) => split(value, ',').sort();
+
 export const hakutulosSlice = createSlice({
   name: 'hakutulos',
   initialState: HAKUTULOS_INITIAL,
@@ -126,7 +134,10 @@ export const hakutulosSlice = createSlice({
       state,
       { payload: newValues }: PayloadAction<Partial<RajainValues>>
     ) => {
-      Object.assign(state, newValues);
+      Object.assign(
+        state,
+        mapValues(newValues, (v) => (Array.isArray(v) ? v.sort() : v))
+      );
       resetPagination();
     },
     resetPagination: (state) => {
@@ -165,15 +176,23 @@ export const hakutulosSlice = createSlice({
 
       state.selectedTab = params?.tab ?? 'koulutus';
 
-      forEach(omit(params, minmaxParams(params)), (value, key) => {
-        const valueList = split(value, ',');
+      forEach(params, (value, key) => {
         match(key)
           .with('keyword', 'size', 'order', 'sort', () => {
             Object.assign(state, { [key]: value });
           })
           .with(RAJAIN_TYPES.SIJAINTI, () => {
-            state.maakunta = valueList.filter((v) => v.startsWith('maakunta'));
-            state.kunta = valueList.filter((v) => v.startsWith('kunta'));
+            const valueList = getParamValueList(value);
+            setWhenChanged(
+              state,
+              'maakunta',
+              valueList.filter((v) => v.startsWith('maakunta'))
+            );
+            setWhenChanged(
+              state,
+              'kunta',
+              valueList.filter((v) => v.startsWith('kunta'))
+            );
           })
           .with(
             RAJAIN_TYPES.HAKUKAYNNISSA,
@@ -185,15 +204,33 @@ export const hakutulosSlice = createSlice({
               Object.assign(state, { [key]: value === 'true' });
             }
           )
+          .with(
+            'lukuvuosimaksunmaara_min',
+            'lukuvuosimaksunmaara_max',
+            'maksunmaara_min',
+            'maksunmaara_max',
+            'koulutuksenkestokuukausina_min',
+            'koulutuksenkestokuukausina_max',
+            () => {
+              const rajainKey = key.split('_')?.[0];
+              const minKey = `${rajainKey}_min`;
+              const maxKey = `${rajainKey}_max`;
+
+              setWhenChanged(state, rajainKey, {
+                [minKey]: params[minKey],
+                [maxKey]: params[maxKey],
+              });
+            }
+          )
           .when(
             () => includes(Object.values(RAJAIN_TYPES), key),
             () => {
-              Object.assign(state, { [key]: valueList });
+              const valueList = getParamValueList(value);
+              setWhenChanged(state, key, valueList);
             }
           )
           .otherwise(noop);
       });
-      Object.assign(state, groupMinMaxParams(params));
     },
   },
 });
@@ -220,20 +257,3 @@ export const navigateToHaku =
     const url = getHakuUrl(state);
     navigate('/' + getLanguage() + url);
   };
-
-const minmaxParams = (allParams: TODOType) =>
-  Object.keys(allParams).filter((k) => k.endsWith('_min') || k.endsWith('_max'));
-
-const groupMinMaxParams = (params: TODOType) => {
-  const groupedParamNames = groupBy(minmaxParams(params), (param) => param.split('_')[0]);
-  return mapValues(groupedParamNames, (val) =>
-    reduce(
-      val,
-      (obj, param) => {
-        obj[param] = params[param];
-        return obj;
-      },
-      {} as TODOType
-    )
-  );
-};
