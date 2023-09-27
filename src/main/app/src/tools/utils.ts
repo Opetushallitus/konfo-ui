@@ -115,7 +115,7 @@ function getFormattedOpintojenLaajuus(
 
   let opintojenLaajuus;
   if (usedOpintojenLaajuusNumero) {
-    const includesYksikko = /\D+$/.test(usedOpintojenLaajuusNumero);
+    const includesYksikko = /\D$/.test(usedOpintojenLaajuusNumero);
 
     if (includesYksikko) {
       opintojenLaajuus = usedOpintojenLaajuusNumero;
