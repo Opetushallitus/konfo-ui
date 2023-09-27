@@ -1,6 +1,8 @@
 import { Alkamiskausityyppi, RAJAIN_TYPES } from '#/src/constants';
 import { FormatoituAikaleima } from '#/src/types/HakukohdeTypes';
 
+import { components, paths } from './konfo-backend';
+
 export const LANGUAGES = ['fi', 'sv', 'en'] as const;
 
 export type LanguageCode = (typeof LANGUAGES)[number];
@@ -45,7 +47,7 @@ declare module '@mui/system/createTheme/createBreakpoints' {
 
 export type ToteutustenTarjoajat = {
   count: number;
-  nimi?: Translateable | null;
+  nimi?: Translateable;
 };
 
 export type AutocompleteOption =
@@ -86,3 +88,6 @@ export type SlugIdData = {
 export type SlugsToIds = Record<string, SlugIdData>;
 
 export type RajainName = ValueOf<typeof RAJAIN_TYPES>;
+
+export type SearchParams = paths['/search/koulutukset']['get']['parameters']['query'];
+export type KonfoKoulutustyyppi = components['schemas']['KonfoKoulutustyyppi'];

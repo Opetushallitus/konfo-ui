@@ -589,7 +589,7 @@ export interface paths {
            *   "amm-osaamisala"
            * ]
            */
-          koulutustyyppi?: string[];
+          koulutustyyppi?: components["schemas"]["KonfoKoulutustyyppi"][];
           /**
            * @description Pilkulla eroteltuna kuntien ja maakuntien koodeja (koodistot "kunta" ja "maakunta")
            * @example [
@@ -675,7 +675,7 @@ export interface paths {
            * ]
            */
           valintatapa?: string[];
-          /** @description Haetaanko koulutukset, joilla on haku käynnissä? */
+          /** @description Palautetaan koulutukset, joiden haku on käynissä */
           hakukaynnissa?: boolean;
           /** @description Haetaanko koulutuksia, joilla on JOTPA-rahoitus? */
           jotpa?: boolean;
@@ -707,13 +707,15 @@ export interface paths {
            */
           pohjakoulutusvaatimus?: string[];
           /**
-           * @description Pilkulla eroteltuna alkamiskausi-tunnisteita (merkkijono). Validit arvot ovat muotoa "<vuosi>-kevat/syksy" (esim. esim. "2022-kevat") tai "henkilokohtainen" )
+           * @description Pilkulla eroteltuna alkamiskausi-tunnisteita (merkkijono). Validit arvot ovat muotoa "<vuosi>-kevat/syksy" (esim. esim. "2022-kevat") tai "henkilokohtainen"
            * @example [
            *   "henkilokohtainen",
            *   "2022-kevat"
            * ]
            */
           alkamiskausi?: string[];
+          /** @description Palautetaan koulutukset, joiden hakuaika alkaa x vuorokauden sisällä. */
+          hakualkaapaivissa?: number;
         };
       };
       responses: {
@@ -837,7 +839,7 @@ export interface paths {
            * ]
            */
           valintatapa?: string[];
-          /** @description Haetaanko koulutukset, joilla on haku käynnissä? */
+          /** @description Palautetaan koulutukset, joiden haku on käynissä */
           hakukaynnissa?: boolean;
           /** @description Haetaanko koulutuksia, joilla on JOTPA-rahoitus? */
           jotpa?: boolean;
@@ -878,13 +880,15 @@ export interface paths {
            */
           oppilaitos?: string[];
           /**
-           * @description Pilkulla eroteltuna alkamiskausi-tunnisteita (merkkijono). Validit arvot ovat muotoa "<vuosi>-kevat/syksy" (esim. esim. "2022-kevat") tai "henkilokohtainen" )
+           * @description Pilkulla eroteltuna alkamiskausi-tunnisteita (merkkijono). Validit arvot ovat muotoa "<vuosi>-kevat/syksy" (esim. esim. "2022-kevat") tai "henkilokohtainen"
            * @example [
            *   "henkilokohtainen",
            *   "2022-kevat"
            * ]
            */
           alkamiskausi?: string[];
+          /** @description Palautetaan koulutukset, joiden hakuaika alkaa x vuorokauden sisällä. */
+          hakualkaapaivissa?: number;
         };
         path: {
           /**
@@ -946,7 +950,7 @@ export interface paths {
            *   "amm-osaamisala"
            * ]
            */
-          koulutustyyppi?: string[];
+          koulutustyyppi?: components["schemas"]["KonfoKoulutustyyppi"][];
           /**
            * @description Pilkulla eroteltuna kuntien ja maakuntien koodeja (koodistot "kunta" ja "maakunta")
            * @example [
@@ -1032,7 +1036,7 @@ export interface paths {
            * ]
            */
           valintatapa?: string[];
-          /** @description Haetaanko koulutukset, joilla on haku käynnissä? */
+          /** @description Palautetaan koulutukset, joiden haku on käynissä */
           hakukaynnissa?: boolean;
           /** @description Haetaanko koulutuksia, joilla on JOTPA-rahoitus? */
           jotpa?: boolean;
@@ -1064,13 +1068,15 @@ export interface paths {
            */
           pohjakoulutusvaatimus?: string[];
           /**
-           * @description Pilkulla eroteltuna alkamiskausi-tunnisteita (merkkijono). Validit arvot ovat muotoa "<vuosi>-kevat/syksy" (esim. esim. "2022-kevat") tai "henkilokohtainen" )
+           * @description Pilkulla eroteltuna alkamiskausi-tunnisteita (merkkijono). Validit arvot ovat muotoa "<vuosi>-kevat/syksy" (esim. esim. "2022-kevat") tai "henkilokohtainen"
            * @example [
            *   "henkilokohtainen",
            *   "2022-kevat"
            * ]
            */
           alkamiskausi?: string[];
+          /** @description Palautetaan koulutukset, joiden hakuaika alkaa x vuorokauden sisällä. */
+          hakualkaapaivissa?: number;
         };
       };
       responses: {
@@ -1120,7 +1126,7 @@ export interface paths {
            *   "amm-osaamisala"
            * ]
            */
-          koulutustyyppi?: string[];
+          koulutustyyppi?: components["schemas"]["KonfoKoulutustyyppi"][];
           /**
            * @description Pilkulla eroteltuna kuntien ja maakuntien koodeja (koodistot "kunta" ja "maakunta")
            * @example [
@@ -1171,6 +1177,8 @@ export interface paths {
            * @example 100
            */
           koulutuksenkestokuukausina_max?: number;
+          /** @description Palautetaan koulutukset, joiden hakuaika alkaa x vuorokauden sisällä. */
+          hakualkaapaivissa?: number;
         };
         path: {
           /**
@@ -1275,7 +1283,7 @@ export interface paths {
            *   "amm-osaamisala"
            * ]
            */
-          koulutustyyppi?: string[];
+          koulutustyyppi?: components["schemas"]["KonfoKoulutustyyppi"][];
           /**
            * @description Pilkulla eroteltuna kuntien ja maakuntien koodeja (koodistot "kunta" ja "maakunta")
            * @example [
@@ -1324,7 +1332,7 @@ export interface paths {
            * ]
            */
           valintatapa?: string[];
-          /** @description Haetaanko koulutukset, joilla on haku käynnissä? */
+          /** @description Palautetaan koulutukset, joiden haku on käynissä */
           hakukaynnissa?: boolean;
           /** @description Haetaanko koulutuksia, joilla on JOTPA-rahoitus? */
           jotpa?: boolean;
@@ -1366,7 +1374,7 @@ export interface paths {
            */
           koulutuksenkestokuukausina_max?: number;
           /**
-           * @description Pilkulla eroteltuna alkamiskausi-tunnisteita (merkkijono). Validit arvot ovat muotoa "<vuosi>-kevat/syksy" (esim. esim. "2022-kevat") tai "henkilokohtainen" )
+           * @description Pilkulla eroteltuna alkamiskausi-tunnisteita (merkkijono). Validit arvot ovat muotoa "<vuosi>-kevat/syksy" (esim. esim. "2022-kevat") tai "henkilokohtainen"
            * @example [
            *   "henkilokohtainen",
            *   "2022-kevat"
@@ -1400,6 +1408,8 @@ export interface paths {
           lukuvuosimaksunmaara_max?: number;
           /** @description Haetaanko koulutuksia, joilla on käytössä apuraha? Käytetään vain jos maksullisuustyypiksi valittu "lukuvuosimaksu" */
           apuraha?: boolean;
+          /** @description Palautetaan koulutukset, joiden hakuaika alkaa x vuorokauden sisällä. */
+          hakualkaapaivissa?: number;
         };
       };
       responses: {
@@ -1711,6 +1721,16 @@ export interface components {
       /** @description Stack trace */
       stack?: string;
     };
+    /**
+     * @description Koulutuksen tyyppi
+     * @enum {string}
+     */
+    KoutaKoulutustyyppi: "amm" | "yo" | "amk" | "amm-ope-erityisope-ja-opo" | "ope-pedag-opinnot" | "kk-opintojakso" | "kk-opintokokonaisuus" | "erikoislaakari" | "erikoistumiskoulutus" | "lk" | "telma" | "tuva" | "vapaa-sivistystyo-opistovuosi" | "vapaa-sivistystyo-muu" | "muu" | "amm-osaamisala" | "amm-tutkinnon-osa" | "amm-muu" | "aikuisten-perusopetus" | "taiteen-perusopetus";
+    /**
+     * @description Koulutuksen tyyppi
+     * @enum {string}
+     */
+    KonfoKoulutustyyppi: "aikuisten-perusopetus" | "taiteen-perusopetus" | "vaativan-tuen-koulutukset" | "koulutustyyppi_4" | "tuva-erityisopetus" | "valmentavat-koulutukset" | "tuva-normal" | "telma" | "vapaa-sivistystyo-opistovuosi" | "amm" | "koulutustyyppi_26" | "koulutustyyppi_11" | "koulutustyyppi_12" | "muu-amm-tutkinto" | "amm-osaamisala" | "amm-tutkinnon-osa" | "amm-muu" | "lk" | "amk" | "amk-alempi" | "amk-ylempi" | "amm-ope-erityisope-ja-opo" | "amk-opintojakso-avoin" | "amk-opintojakso" | "amk-opintokokonaisuus-avoin" | "amk-opintokokonaisuus" | "amk-erikoistumiskoulutus" | "yo" | "kandi" | "kandi-ja-maisteri" | "maisteri" | "tohtori" | "yo-opintojakso-avoin" | "yo-opintojakso" | "yo-opintokokonaisuus" | "yo-opintokokonaisuus-avoin" | "ope-pedag-opinnot" | "erikoislaakari" | "yo-erikoistumiskoulutus" | "vapaa-sivistystyo-muu" | "muu";
     /** @enum {string} */
     Kieli: "fi" | "sv" | "en";
     Kuvaus: {
@@ -2186,12 +2206,7 @@ export interface components {
       oid?: string;
       /** @description Onko koulutus tutkintoon johtavaa */
       johtaaTutkintoon?: boolean;
-      /**
-       * @description Koulutuksen tyyppi. Sallitut arvot: 'amm' (ammatillinen), 'yo' (yliopisto), 'lk' (lukio), 'amk' (ammattikorkea), 'muu' (muu koulutus)
-       * @example amm
-       * @enum {string}
-       */
-      koulutustyyppi?: "amm" | "yo" | "amk" | "lk" | "erikoislaakari" | "kk-opintojakso" | "kk-opintokokonaisuus" | "muu";
+      koulutustyyppi?: components["schemas"]["KoutaKoulutustyyppi"];
       /** @description Koulutusten koodi URIt ja nimet */
       koulutukset?: components["schemas"]["KoulutusKoodi"][];
       /**
@@ -2906,12 +2921,7 @@ export interface components {
        * @enum {string}
        */
       tila?: "julkaistu";
-      /**
-       * @description Minkä tyyppisille koulutuksille valintaperustekuvaus on tarkoitettu käytettäväksi?
-       * @example amm
-       * @enum {string}
-       */
-      koulutustyyppi?: "amm" | "yo" | "amk" | "lk" | "muu";
+      koulutustyyppi?: components["schemas"]["KoutaKoulutustyyppi"];
       /** @description Valintaperustekuvaukseen liittyvä hakutapa */
       hakutapa?: components["schemas"]["Hakutapa"];
       /** @description Valintaperustekuvaukseen liittyvä kohdejoukko. Valintaperusteen ja siihen hakukohteen kautta liittyvän haun kohdejoukon tulee olla sama */
@@ -3028,12 +3038,7 @@ export interface components {
        * @example ea596a9c-5940-497e-b5b7-aded3a2352a7
        */
       id?: string;
-      /**
-       * @description Minkä tyyppisiin koulutuksiin SORA-kuvaus liittyy
-       * @example amm
-       * @enum {string}
-       */
-      koulutustyyppi?: "amm" | "yo" | "amk" | "lk" | "muu";
+      koulutustyyppi?: components["schemas"]["KoutaKoulutustyyppi"];
       /**
        * @description SORA-kuvauksen julkaisutila. Aina julkaistu.
        * @example julkaistu
@@ -3084,12 +3089,7 @@ export interface components {
        * ]
        */
       kielivalinta?: components["schemas"]["Kieli"][];
-      /**
-       * @description Koulutuksen tyyppi. Sallitut arvot: 'amm' (ammatillinen), 'yo' (yliopisto), 'lk' (lukio), 'amk' (ammattikorkea), 'muu' (muu koulutus)
-       * @example amm
-       * @enum {string}
-       */
-      koulutustyyppi?: "amm" | "yo" | "amk" | "lk" | "muu";
+      koulutustyyppi?: components["schemas"]["KoutaKoulutustyyppi"];
       /** @description Koulutusten koodi URIt ja nimet */
       koulutukset?: components["schemas"]["KoulutusKoodi"][];
       /** @description Koulutuksen kuvausteksti eri kielillä. Kielet on määritetty koulutuksen kielivalinnassa. */

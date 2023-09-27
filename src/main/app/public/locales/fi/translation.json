@@ -303,7 +303,11 @@
     "lyhenne-vuosi": "v",
     "lyhenne-kuukausi": "kk",
     "alkamiskausi": "Alkamiskausi",
-    "lukuvuosimaksu-tooltip": "Korkeakoulujen lukuvuosimaksut EU-ETA-alueen ulkopuolisille"
+    "lukuvuosimaksu-tooltip": "Korkeakoulujen lukuvuosimaksut EU-ETA-alueen ulkopuolisille",
+    "hakualkaapaivissa": {
+      "30": "Haku alkaa kuukauden kuluessa"
+    },
+    "hakuaika": "Hakuaika"
   },
   "navigaatio": {
     "edellinen": "Edellinen",
@@ -417,6 +421,7 @@
     "tyyppi-erikoislaakari": "Erikoislaakari",
     "tyyppi-muu": "Muu koulutus",
     "tyyppi-lk": "Lukio",
+    "tyyppi-erikoistumiskoulutus": "Erikoistumiskoulutukset",
     "tarjonta": "Tutustu tarjontaan",
     "haku-kaynnissa": "Haku käynnissä",
     "katso-jarjestavat": "Katso koulutusta järjestävät oppilaitokset.",

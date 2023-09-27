@@ -1,7 +1,9 @@
+import { TFunction } from 'i18next';
 import { isString, flow, map, filter, isEmpty, trim, uniq } from 'lodash';
 
 import { MAKSULLISUUSTYYPPI } from '#/src/constants';
 import { Koodi, Translateable } from '#/src/types/common';
+import { RajainItem } from '#/src/types/SuodatinTypes';
 import { Maksullisuustyyppi } from '#/src/types/ToteutusTypes';
 
 import { i18n } from './i18n';
@@ -73,3 +75,6 @@ export const getLocalizedMaksullisuus = (
 
 export const localizeLukiolinja = (koodi: Koodi) =>
   localize(koodi)?.match(/^(.+?)(\s+\(.+\))?\s*$/)?.[1];
+
+export const translateRajainItem = (item: RajainItem, t: TFunction) =>
+  localize(item) || t([`haku.${item.id}`, `haku.${item.rajainId}.${item.id}`]); // Kaikille suodattimille ei tule backendista käännöksiä
