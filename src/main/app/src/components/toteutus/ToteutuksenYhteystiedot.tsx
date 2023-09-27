@@ -56,10 +56,18 @@ export const ToteutuksenYhteystiedot = ({
   const filteredOrganisaatioYhteystiedot = useMemo(
     () =>
       oppilaitokset
-        .filter((v) => hasYhteystiedot(v.data.oppilaitoksenOsa?.metadata))
-        .flatMap((v) =>
-          v.data.oppilaitoksenOsa.metadata.yhteystiedot.map((y: typeof Yhteystiedot) =>
-            Object.assign({ oid: v.data.oppilaitoksenOsa.organisaatio?.oid }, y)
+        .flatMap((oppilaitos) => oppilaitos.data.oppilaitosOsat)
+        .flat()
+        .filter((oppilaitoksenOsa) =>
+          hasYhteystiedot(oppilaitoksenOsa.oppilaitoksenOsa?.metadata)
+        )
+        .flatMap((oppilaitoksenOsa) =>
+          oppilaitoksenOsa.oppilaitoksenOsa.metadata.yhteystiedot.map(
+            (y: typeof Yhteystiedot) =>
+              Object.assign(
+                { oid: oppilaitoksenOsa.oppilaitoksenOsa.organisaatio?.oid },
+                y
+              )
           )
         ),
     [oppilaitokset]
