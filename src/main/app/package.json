@@ -98,7 +98,7 @@
     "lint-staged": "^13.2.3",
     "prettier": "^3.0.0",
     "start-server-and-test": "^2.0.0",
-    "typescript": "^5.0",
+    "typescript": "5.1",
     "vite": "^4.4.7",
     "vite-bundle-visualizer": "^0.8.0",
     "vite-plugin-checker": "^0.6.1",
