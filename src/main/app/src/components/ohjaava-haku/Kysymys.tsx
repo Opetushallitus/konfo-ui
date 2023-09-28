@@ -21,7 +21,6 @@ export type Kysymys = {
   id: string;
   isRajainOptionTextFromRajain?: boolean;
   rajainOptionsToBeRemoved?: Array<string>;
-  isCustomComponent?: boolean;
 };
 
 export type Rajain = {
@@ -89,7 +88,7 @@ export const Kysymys = ({
 
   const { goToSearchPage, setRajainValues, rajainValues, rajainOptions, isFetching } =
     useSearch();
-  const { id: kysymysId, isRajainOptionTextFromRajain, isCustomComponent } = kysymys;
+  const { id: kysymysId, isRajainOptionTextFromRajain } = kysymys;
   const kysymysTitle = t(`ohjaava-haku.kysymykset.${kysymysId}.otsikko`);
   const kysymysInfo = t(`ohjaava-haku.kysymykset.info-text`);
   const isFirstKysymys = currentKysymysIndex === 0;
@@ -137,7 +136,7 @@ export const Kysymys = ({
             <Grid item sx={{ margin: 'auto' }}>
               <LoadingCircle />
             </Grid>
-          ) : isCustomComponent && kysymysId == 'koulutuksenkestokuukausina' ? (
+          ) : kysymysId == 'koulutuksenkestokuukausina' ? (
             <KoulutuksenKesto
               rajainItems={rajainItems}
               allSelectedRajainValues={allSelectedRajainValues}
@@ -145,7 +144,7 @@ export const Kysymys = ({
               setErrorKey={setErrorKey}
               errorKey={errorKey}
             />
-          ) : isCustomComponent && kysymysId == 'maksullisuus' ? (
+          ) : kysymysId == 'maksullisuus' ? (
             <Maksullisuus
               rajainItems={rajainItems}
               allSelectedRajainValues={allSelectedRajainValues}

@@ -1,12 +1,9 @@
 {
   "kysymykset": [
     { "id": "opetusaika" },
-    {
-      "id": "koulutuksenkestokuukausina",
-      "isCustomComponent": true
-    },
+    { "id": "koulutuksenkestokuukausina" },
     { "id": "opetustapa" },
-    { "id": "maksullisuus", "isCustomComponent": true },
+    { "id": "maksullisuus" },
     {
       "id": "koulutusala",
       "isRajainOptionTextFromRajain": true
