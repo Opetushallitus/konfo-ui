@@ -104,7 +104,9 @@ export const KoulutuksenKesto = ({
   };
 
   const unitComponent = (id: string) => (
-    <Typography className={classes.lyhenne}>{t(`haku.lyhenne-${id}`)}</Typography>
+    <Typography className={classes.question__lyhenne}>
+      {t(`haku.lyhenne-${id}`)}
+    </Typography>
   );
 
   return (
@@ -114,18 +116,18 @@ export const KoulutuksenKesto = ({
         container
         direction="row"
         wrap="nowrap"
-        className={classes.inputContainer}>
+        className={classes.question__inputContainer}>
         <Grid
           item
           container
           direction="column"
           wrap="nowrap"
           xs={3}
-          className={classes.innerInputContainer}>
-          <Typography className={classes.inputLabel}>
+          className={classes.question__inputFieldContainer}>
+          <Typography className={classes.question__inputLabel}>
             {t('ohjaava-haku.kysymykset.koulutuksenkestokuukausina.opiskelen-vahintaan')}
           </Typography>
-          <Box className={classes.innerInputContainer}>
+          <Box className={classes.question__inputFieldContainer}>
             <MaksunMaaraInput
               id="vahintaan-vuosi"
               value={vahintaan[0]}
@@ -140,8 +142,8 @@ export const KoulutuksenKesto = ({
             />
           </Box>
         </Grid>
-        <Grid item className={classes.ndashContainer}>
-          <Typography className={classes.ndash}>{NDASH}</Typography>
+        <Grid item className={classes.question__ndashContainer}>
+          <Typography className={classes.question__ndash}>{NDASH}</Typography>
         </Grid>
         <Grid
           item
@@ -149,11 +151,11 @@ export const KoulutuksenKesto = ({
           direction="column"
           wrap="nowrap"
           xs={3}
-          className={classes.innerInputContainer}>
-          <Typography className={classes.inputLabel}>
+          className={classes.question__inputFieldContainer}>
+          <Typography className={classes.question__inputLabel}>
             {t('ohjaava-haku.kysymykset.koulutuksenkestokuukausina.opiskelen-enintaan')}
           </Typography>
-          <Box className={classes.innerInputContainer}>
+          <Box className={classes.question__inputFieldContainer}>
             <MaksunMaaraInput
               id="enintaan-vuosi"
               value={enintaan[0]}

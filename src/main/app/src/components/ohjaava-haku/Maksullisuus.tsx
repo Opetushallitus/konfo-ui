@@ -133,7 +133,11 @@ const MaksullisuusInput = ({
   };
 
   const unitComponent = () => (
-    <MaterialIcon className={classes.lyhenne} icon="euro_symbol" fontSize="small" />
+    <MaterialIcon
+      className={classes.question__lyhenne}
+      icon="euro_symbol"
+      fontSize="small"
+    />
   );
 
   return (
@@ -143,15 +147,15 @@ const MaksullisuusInput = ({
         container
         direction="row"
         wrap="nowrap"
-        className={classes.inputContainer}>
+        className={classes.question__inputContainer}>
         <Grid
           item
           container
           direction="column"
           wrap="nowrap"
           xs={3}
-          className={classes.innerInputContainer}>
-          <Typography className={classes.inputLabel}>
+          className={classes.question__inputFieldContainer}>
+          <Typography className={classes.question__inputLabel}>
             {t('ohjaava-haku.kysymykset.maksullisuustyyppi.vahintaan')}
           </Typography>
           <MaksunMaaraInput
@@ -161,8 +165,8 @@ const MaksullisuusInput = ({
             unitComponent={unitComponent()}
           />
         </Grid>
-        <Grid item className={classes.ndashContainer}>
-          <Typography className={classes.ndash}>{NDASH}</Typography>
+        <Grid item className={classes.question__ndashContainer}>
+          <Typography className={classes.question__ndash}>{NDASH}</Typography>
         </Grid>
         <Grid
           item
@@ -170,8 +174,8 @@ const MaksullisuusInput = ({
           direction="column"
           wrap="nowrap"
           xs={3}
-          className={classes.innerInputContainer}>
-          <Typography className={classes.inputLabel}>
+          className={classes.question__inputFieldContainer}>
+          <Typography className={classes.question__inputLabel}>
             {t('ohjaava-haku.kysymykset.maksullisuustyyppi.enintaan')}
           </Typography>
           <MaksunMaaraInput

@@ -7,23 +7,23 @@ const PREFIX = 'ohjaava-haku__';
 
 export const classes = {
   container: `${PREFIX}container`,
+  questionContainer: `${PREFIX}question-container`,
   question: `${PREFIX}question`,
-  question__container: `${PREFIX}question__container`,
   question__option: `${PREFIX}question__option`,
+  question__inputContainer: `${PREFIX}question__input-container`,
+  question__inputFieldContainer: `${PREFIX}question__input-field-container`,
+  question__inputLabel: `${PREFIX}question__input-label`,
+  question__lyhenne: `${PREFIX}question__lyhenne`,
+  question__ndash: `${PREFIX}question__ndash`,
+  question__ndashContainer: `${PREFIX}question__ndash-container`,
   buttonContainer: `${PREFIX}buttonContainer`,
   buttonContainer__previous: `${PREFIX}buttonContainer__previous`,
   buttonContainer__next: `${PREFIX}buttonContainer__next`,
   buttonContainer__results: `${PREFIX}buttonContainer__results`,
-  inputContainer: `${PREFIX}input-container`,
-  innerInputContainer: `${PREFIX}inner-input-container`,
-  inputLabel: `${PREFIX}input-label`,
-  lyhenne: `${PREFIX}lyhenne`,
-  ndash: `${PREFIX}ndash`,
-  ndashContainer: `${PREFIX}ndashContainer`,
   error: `${PREFIX}error`,
   progressSivupalkki: `${PREFIX}progressSivupalkki`,
   progressSivupalkki__button: `${PREFIX}progressSivupalkki__button`,
-  progressSivupalkki__button__icon: `${PREFIX}progressSivupalkki__button__icon`,
+  progressSivupalkki__buttonIcon: `${PREFIX}progressSivupalkki__button-icon`,
 };
 
 export const StyledRoot = styled(Box)(({ theme }) => {
@@ -32,17 +32,22 @@ export const StyledRoot = styled(Box)(({ theme }) => {
   flex-direction: column;
   width: 100%;
 
+  & .${classes.container} {
+    display: flex;
+    flex-direction: row;
+  }
+
+  & .${classes.questionContainer} {
+      max-width: 75%;
+      margin: 0 2rem;
+  }
+
   & .${classes.question} {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
     width: 100%;
     margin-bottom: 1rem;
-
-    &__container {
-      max-width: 75%;
-      margin: 0 2rem;
-    }
 
     &__option {
       justify-content: start;
@@ -59,6 +64,37 @@ export const StyledRoot = styled(Box)(({ theme }) => {
         background-color: ${colors.brandGreen};
         color: ${colors.white};
       }
+    }
+
+    &__input-container {
+      display: flex;
+      gap: 1.5rem;
+      margin: 0.5rem 0;
+    }
+
+    &__input-field-container {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    &__input-label {
+      font-weight: 600;
+    }
+
+    &__lyhenne {
+      align-self: center;
+    }
+
+    &__ndash-container {
+      display: flex;
+      justify-content: center;
+      align-items: end;
+    }
+
+    &__ndash {
+      font-size: 1.5rem;
+      margin-bottom: 1.75rem;
     }
   }
 
@@ -83,30 +119,6 @@ export const StyledRoot = styled(Box)(({ theme }) => {
       grid-area: results;
       font-weight: bold;
     }
-  }
-
-  & .${classes.container} {
-    display: flex;
-    flex-direction: row;
-  }
-
-  & .${classes.inputLabel} {
-    font-weight: 600;
-  }
-
-  & .${classes.lyhenne} {
-    align-self: center;
-  }
-
-  & .${classes.ndashContainer} {
-    display: flex;
-    justify-content: center;
-    align-items: end;
-  }
-
-  & .${classes.ndash} {
-    font-size: 1.5rem;
-    margin-bottom: 1.75rem;
   }
 
   & .${classes.error} {
@@ -139,29 +151,18 @@ export const StyledRoot = styled(Box)(({ theme }) => {
     }
   }
 
-  & .${classes.inputContainer} {
-    display: flex;
-    gap: 1.5rem;
-    margin: 0.5rem 0;
-  }
-
-  & .${classes.innerInputContainer} {
-    display: flex;
-    gap: 0.5rem;
-    margin-bottom: 0.5rem;
-  }
 
   /* Breakpoints */
 
   ${theme.breakpoints.down('md')} {
-    & .${classes.inputContainer} .${classes.innerInputContainer} {
-      flex-basis: content;
-      min-width: 40%;
+    & .${classes.questionContainer} {
+      margin: 0 1rem;
     }
 
     & .${classes.question} {
-      &__container {
-        margin: 0 1rem;
+      &__input-container, &__input-field-container {
+        flex-basis: content;
+        min-width: 40%;
       }
     }
   }
@@ -171,24 +172,24 @@ export const StyledRoot = styled(Box)(({ theme }) => {
       flex-direction: column;
     }
 
+    & .${classes.questionContainer} {
+      max-width: 100%;
+      margin: 0;
+
+      h2 {
+        font-size: 1.75rem;
+      }
+    }
+
     & .${classes.question} {
       &__option {
         width: 100%;
       }
 
-      &__container {
-        max-width: 100%;
-        margin: 0;
-
-        h2 {
-          font-size: 1.75rem;
-        }
+      &__input-field-container {
+        max-width: none;
+        flex-basis: content;
       }
-    }
-
-    & .${classes.innerInputContainer} {
-      max-width: none;
-      flex-basis: content;
     }
 
     & .${classes.buttonContainer} {

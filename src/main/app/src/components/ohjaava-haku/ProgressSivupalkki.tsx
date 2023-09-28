@@ -32,10 +32,10 @@ export const ProgressSivupalkki = ({
         </Grid>
       ) : (
         <Grid container item direction="column" className={classes.progressSivupalkki}>
-          {kysymykset.map((kysymys, i) => {
+          {kysymykset.map((kysymys, index) => {
             const kysymysId = kysymys.id;
-            const isCurrentKysymys = i === currentKysymysIndex;
-            const isPastKysymys = i < currentKysymysIndex;
+            const isCurrentKysymys = index === currentKysymysIndex;
+            const isPastKysymys = index < currentKysymysIndex;
             return (
               <Button
                 variant={isPastKysymys || isCurrentKysymys ? 'contained' : 'outlined'}
@@ -43,12 +43,12 @@ export const ProgressSivupalkki = ({
                 color="primary"
                 className={classes.progressSivupalkki__button}
                 key={kysymysId}
-                onClick={() => setCurrentKysymysIndex(i)}
+                onClick={() => setCurrentKysymysIndex(index)}
                 {...(isPastKysymys && {
                   endIcon: (
                     <MaterialIcon
                       icon="check"
-                      className={classes.progressSivupalkki__button__icon}
+                      className={classes.progressSivupalkki__buttonIcon}
                     />
                   ),
                   'data-past': true,
