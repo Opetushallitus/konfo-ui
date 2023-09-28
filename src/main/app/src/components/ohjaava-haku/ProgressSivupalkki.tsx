@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button, Grid } from '@mui/material';
+import { Button, Grid, useMediaQuery, useTheme } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
@@ -12,14 +12,14 @@ export const ProgressSivupalkki = ({
   kysymykset,
   currentKysymysIndex,
   setCurrentKysymysIndex,
-  isMobile,
 }: {
   kysymykset: Array<Kysymys>;
   currentKysymysIndex: number;
   setCurrentKysymysIndex: (index: number) => void;
-  isMobile: boolean;
 }) => {
   const { t } = useTranslation();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const progress = `${t('ohjaava-haku.kysymys')} ${
     currentKysymysIndex + 1
   } / ${kysymykset?.length}`;
@@ -27,7 +27,7 @@ export const ProgressSivupalkki = ({
   return (
     <>
       {isMobile ? (
-        <Grid item className={classes.progressSivupalkki}>
+        <Grid item sx={{ marginBottom: '1rem' }}>
           {progress}
         </Grid>
       ) : (

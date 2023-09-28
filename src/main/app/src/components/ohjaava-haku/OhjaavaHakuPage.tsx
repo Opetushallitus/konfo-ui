@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Box, Button, Typography, useTheme, useMediaQuery } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import { has } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -21,9 +21,6 @@ import { classes, StyledRoot } from './StyledRoot';
 export const OhjaavaHaku = () => {
   const { t } = useTranslation();
   const hakuUrl = useSelector(getHakuUrl);
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const ohjaavaHakuTitle = t('ohjaava-haku.otsikko');
 
   const { clearRajainValues, rajainValues } = useSearch();
   const [allSelectedRajainValues, setAllSelectedRajainValues] = useState<Rajain>({});
@@ -48,6 +45,7 @@ export const OhjaavaHaku = () => {
     clearRajainValues();
   };
 
+  const ohjaavaHakuTitle = t('ohjaava-haku.otsikko');
   return (
     <ContentWrapper>
       <StyledRoot>
@@ -86,7 +84,6 @@ export const OhjaavaHaku = () => {
               kysymykset={kysymyksetWithoutInvalidOptions}
               currentKysymysIndex={currentKysymysIndex}
               setCurrentKysymysIndex={setCurrentKysymysIndex}
-              isMobile={isMobile}
             />
             <Kysymys
               kysymys={currentKysymys}
@@ -97,7 +94,6 @@ export const OhjaavaHaku = () => {
               toggleAllSelectedRajainValues={toggleAllRajainValues}
               allSelectedRajainValues={allSelectedRajainValues}
               setAllSelectedRajainValues={setAllSelectedRajainValues}
-              isMobile={isMobile}
             />
           </Box>
         )}

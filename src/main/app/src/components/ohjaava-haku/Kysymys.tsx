@@ -74,7 +74,6 @@ type KysymysProps = {
   toggleAllSelectedRajainValues: (id: string, rajainId: string) => void;
   allSelectedRajainValues: Rajain;
   setAllSelectedRajainValues: (val: Rajain) => void;
-  isMobile: boolean;
 };
 
 export const Kysymys = ({
@@ -85,7 +84,6 @@ export const Kysymys = ({
   toggleAllSelectedRajainValues,
   allSelectedRajainValues,
   setAllSelectedRajainValues,
-  isMobile,
 }: KysymysProps) => {
   const { t } = useTranslation();
 
@@ -129,7 +127,7 @@ export const Kysymys = ({
     <HeadingBoundary>
       <Grid container item className={classes.question__container}>
         <Grid item xs={12}>
-          <Heading variant={isMobile ? 'h3' : 'h2'}>{kysymysTitle}</Heading>
+          <Heading variant="h2">{kysymysTitle}</Heading>
         </Grid>
         <Grid item xs={12} marginBottom="1rem">
           <Typography>{kysymysInfo}</Typography>

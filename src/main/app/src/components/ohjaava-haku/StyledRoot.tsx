@@ -179,6 +179,10 @@ export const StyledRoot = styled(Box)(({ theme }) => {
       &__container {
         max-width: 100%;
         margin: 0;
+
+        h2 {
+          font-size: 1.75rem;
+        }
       }
     }
 
