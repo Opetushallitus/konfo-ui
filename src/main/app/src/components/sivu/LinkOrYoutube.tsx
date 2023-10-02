@@ -62,7 +62,7 @@ export const LinkOrYoutube = ({
             title={props.title || props.url || href}
             width="560"
             height="315"
-            src={`https://www.youtube.com/embed${(v && '/' + v) || url.pathname}`}
+            src={`https://www.youtube.com/embed${(v && '/' + v) || url?.pathname}`}
             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen={true}
           />

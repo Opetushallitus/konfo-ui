@@ -92,6 +92,16 @@ Contentfulin tyyppien yhteneväisyys testi ja master ympäristöissä tarkisteta
 
 Tarkan raportin löytää contentful-type-check actionin workflow runs historiasta.
 
+## Konfo-backend ja TS-tyypitysten generointi
+
+Konfo-backendin rajapintojen Swagger-määrittelystä luodut TS-tyypitykset löytyvät tiedostosta src/main/app/src/types/konfo-backend.d.ts. Tyypitykset saa generoitua uudelleen ajamalla src/main/app-kansiossa komennon:
+
+```
+npx openapi-typescript https://testiopintopolku.fi/konfo-backend/swagger.yaml -o ./src/types/konfo-backend.d.ts
+```
+
+Voit vaihtaa URL:n osoittamaan eri ympäristöön tai vaikka lokaalisti käynnissä olevaan konfo-backendiin.
+
 ## Spring boot (erikoistapaukset)
 
 **Huom** lokaalidevauksessa ei todennäköisesti tarvitse koskaan käynnistää spring boottia, mutta tässä on ohjeet siihen mikäli tällainen tarve tulee.
