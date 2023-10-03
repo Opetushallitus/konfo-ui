@@ -5,7 +5,8 @@ import { has } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
-import * as specs from '#/ohjaava-haku.json';
+import * as configProd from '#/ohjaava-haku.json';
+import * as configPlaywright from '#/playwright/ohjaava-haku-test-config.json';
 import { ContentWrapper } from '#/src/components/common/ContentWrapper';
 import { Murupolku } from '#/src/components/common/Murupolku';
 import { useSearch } from '#/src/components/haku/hakutulosHooks';
@@ -17,6 +18,19 @@ import { toId } from '#/src/tools/utils';
 
 import { ProgressSivupalkki } from './ProgressSivupalkki';
 import { classes, StyledRoot } from './StyledRoot';
+
+type Config = {
+  kysymykset: Array<ConfigItem>;
+};
+
+type ConfigItem = {
+  id: string;
+  isRajainOptionTextFromRajain?: boolean;
+  rajainOptionsToBeRemoved?: Array<string>;
+};
+
+const config: Config =
+  import.meta.env.VITE_PLAYWRIGHT === 'true' ? configPlaywright : configProd;
 
 export const OhjaavaHaku = () => {
   const { t } = useTranslation();
@@ -32,7 +46,7 @@ export const OhjaavaHaku = () => {
   const [isStartOfKysely, setStartOfKysely] = useState(true);
   const [currentKysymysIndex, setCurrentKysymysIndex] = useState(0);
 
-  const kysymykset = specs.kysymykset;
+  const kysymykset = config.kysymykset;
   const kysymyksetWithoutInvalidOptions = kysymykset.filter(({ id }) => {
     return has(rajainValues, id);
   });

@@ -1,0 +1,18 @@
+{
+  "kysymykset": [
+    {
+      "id": "opetusaika"
+    },
+    {
+      "id": "koulutuksenkestokuukausina"
+    },
+    {
+      "id": "maksullisuus"
+    },
+    {
+      "id": "alkamiskausi",
+      "isRajainOptionTextFromRajain": true,
+      "rajainOptionsToBeRemoved": ["henkilokohtainen"]
+    }
+  ]
+}

@@ -108,12 +108,12 @@ const MaksullisuusInput = ({
     const changedValueNumber = parseInt(changedValue);
 
     const newValues = match(event.target.id)
-      .with('vahintaan', () => {
+      .with(`${id}-vahintaan`, () => {
         const changed = isFinite(changedValueNumber) ? changedValueNumber : 0;
         setVahintaan(changedValue);
         return [changed, rangeValues[1]];
       })
-      .with('enintaan', () => {
+      .with(`${id}-enintaan`, () => {
         const changed = isFinite(changedValueNumber)
           ? changedValueNumber
           : initialEnintaan;
@@ -159,7 +159,7 @@ const MaksullisuusInput = ({
             {t('ohjaava-haku.kysymykset.maksullisuustyyppi.vahintaan')}
           </Typography>
           <MaksunMaaraInput
-            id="vahintaan"
+            id={`${id}-vahintaan`}
             value={vahintaan}
             handleInputValueChange={handleInputValueChange}
             unitComponent={unitComponent()}
@@ -179,7 +179,7 @@ const MaksullisuusInput = ({
             {t('ohjaava-haku.kysymykset.maksullisuustyyppi.enintaan')}
           </Typography>
           <MaksunMaaraInput
-            id="enintaan"
+            id={`${id}-enintaan`}
             value={enintaan}
             handleInputValueChange={handleInputValueChange}
             unitComponent={unitComponent()}

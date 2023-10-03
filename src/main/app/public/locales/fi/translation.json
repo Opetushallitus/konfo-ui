@@ -309,7 +309,7 @@
     "aloita-kysely": "Käynnistä kysely",
     "edellinen": "Edellinen kysymys",
     "error": {
-      "vahintaan-suurempi-kuin-enintaan": "Koulutuksen minimikeston tulee olla pienempi kuin maksimikesto."
+      "vahintaan-suurempi-kuin-enintaan": "Koulutuksen minimikeston tulee olla pienempi kuin maksimikeston."
     },
     "info-text": "Ei hätää, vastaa ensin muutamaan helppoon kysymykseen. Saat vastaustesi perusteella sinulle valikoidut hakuehdot ja ehdotuksena niihin soveltuvat koulutuspaikat ja oppilaitokset.",
     "katso-tulokset": "Katso tulokset",
