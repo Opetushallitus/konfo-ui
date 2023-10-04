@@ -25,6 +25,7 @@ import {
   usePisteHistoria,
   getStyleByPistetyyppi,
   containsOnlyKoepisteet,
+  containsOnlyYhteispisteet,
 } from './GraafiUtil';
 import { HakupisteLaskelma, ENSISIJAINEN_SCORE_BONUS } from '../Keskiarvo';
 
@@ -143,7 +144,10 @@ const PisteGraafiAmmatillinenJaPaasykoe = ({ hakukohde, tulos, isLukio }: Props)
     if (containsOnlyKoepisteet(hakukohde)) {
       return 10;
     }
-    return 32;
+    if (containsOnlyYhteispisteet(hakukohde)) {
+      return 40;
+    }
+    return 32; // ammatillinen todistusvalinta
   };
 
   const tickValues = (): Array<number> => {
@@ -152,6 +156,9 @@ const PisteGraafiAmmatillinenJaPaasykoe = ({ hakukohde, tulos, isLukio }: Props)
     }
     if (containsOnlyKoepisteet(hakukohde)) {
       return [0, 2, 4, 6, 8, 10];
+    }
+    if (containsOnlyYhteispisteet(hakukohde)) {
+      return [0, 8, 16, 24, 32, 40];
     }
     return [0, 8, 16, 24, 32];
   };
