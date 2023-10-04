@@ -145,7 +145,7 @@ const PisteGraafiAmmatillinenJaPaasykoe = ({ hakukohde, tulos, isLukio }: Props)
       return 10;
     }
     if (containsOnlyYhteispisteet(hakukohde)) {
-      return 40;
+      return 42;
     }
     return 32; // ammatillinen todistusvalinta
   };
@@ -158,7 +158,7 @@ const PisteGraafiAmmatillinenJaPaasykoe = ({ hakukohde, tulos, isLukio }: Props)
       return [0, 2, 4, 6, 8, 10];
     }
     if (containsOnlyYhteispisteet(hakukohde)) {
-      return [0, 8, 16, 24, 32, 40];
+      return [0, 7, 14, 21, 28, 35, 42];
     }
     return [0, 8, 16, 24, 32];
   };
