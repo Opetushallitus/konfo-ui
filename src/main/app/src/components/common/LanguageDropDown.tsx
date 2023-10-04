@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Select, MenuItem, InputBase, Box, Typography } from '@mui/material';
+import { Select, MenuItem, InputBase, Box } from '@mui/material';
 import Cookies from 'js-cookie';
 import { has } from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -33,6 +33,7 @@ export const LanguageDropDown = () => {
     setOpen(true);
   };
   const handleClose = (e: React.SyntheticEvent) => {
+    console.log(e.target);
     has(e.target, 'selected') && setOpen(false);
   };
   const handleChange = (event: any) => {
@@ -75,7 +76,7 @@ export const LanguageDropDown = () => {
             lang={langCode.ISOCode}
             aria-hidden={true}
             aria-label={t(`kielivalinta.${langCode.code}`)}>
-            <Typography>{t(`kielivalinta.header.${langCode.code}`)}</Typography>
+            {t(`kielivalinta.header.${langCode.code}`)}
           </MenuItem>
         ))}
       </Select>

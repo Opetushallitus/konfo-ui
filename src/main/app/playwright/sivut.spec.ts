@@ -18,8 +18,8 @@ test.describe('Sivut', () => {
         name: /paikan vastaanotto ja ilmoittautuminen korkeakouluun/i,
       })
     ).toBeVisible();
-    await page.getByRole('button', { name: /fi/i }).click();
-    await page.getByRole('option', { name: /Byt språk till svenska/i }).click();
+    await page.getByRole('button', { name: /suomi/i }).click();
+    await page.getByRole('option', { name: /Svenska/i, includeHidden: true }).click();
 
     await expect(
       page.getByRole('heading', {
