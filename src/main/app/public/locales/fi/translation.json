@@ -90,12 +90,18 @@
     "naytakaikki": "Näytä kaikki vaihtoehdot"
   },
   "kielivalinta": {
+    "valitse-kieli-taman-sivun-kieli-on_?": "Valitse kieli, tämän sivun kieli on suomi",
     "suomi": "Suomeksi",
     "ruotsi": "På svenska",
     "englanti": "In English",
     "fi": "Vaihda kieleksi suomi",
     "sv": "Byt språk till svenska",
-    "en": "Switch language to English"
+    "en": "Switch language to English",
+    "header": {
+      "fi": "Suomi",
+      "sv": "Svenska",
+      "en": "English"
+    }
   },
   "uutinen": {
     "kategoria": "Uutinen"

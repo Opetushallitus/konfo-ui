@@ -1,7 +1,8 @@
 import { useState } from 'react';
 
-import { Select, MenuItem, InputBase, Box } from '@mui/material';
+import { Select, MenuItem, InputBase, Box, Typography } from '@mui/material';
 import Cookies from 'js-cookie';
+import { has } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
@@ -31,8 +32,8 @@ export const LanguageDropDown = () => {
   const handleOpen = () => {
     setOpen(true);
   };
-  const handleClose = () => {
-    setOpen(false);
+  const handleClose = (e: React.SyntheticEvent) => {
+    has(e.target, 'selected') && setOpen(false);
   };
   const handleChange = (event: any) => {
     const selectedLanguage: string = event.target.value;
@@ -58,7 +59,9 @@ export const LanguageDropDown = () => {
         MenuProps={{
           disableScrollLock: true,
         }}
-        value={language}
+        aria-label={t('kielivalinta.valitse-kieli-taman-sivun-kieli-on_?')}
+        arria-hidden={true}
+        value={t(`kielivalinta.header.${language}`)}
         open={isOpen}
         onClose={handleClose}
         onOpen={handleOpen}
@@ -66,8 +69,13 @@ export const LanguageDropDown = () => {
         renderValue={(value) => value?.toUpperCase()}
         input={<CustomInput aria-label={t('opintopolku.valitsekieli')} />}>
         {LANG_NAME_Code_ISOCode.map((langCode) => (
-          <MenuItem key={langCode.code} value={langCode.code} lang={langCode.ISOCode}>
-            {t(`kielivalinta.${langCode.code}`)}
+          <MenuItem
+            key={langCode.code}
+            value={langCode.code}
+            lang={langCode.ISOCode}
+            aria-hidden={true}
+            aria-label={t(`kielivalinta.${langCode.code}`)}>
+            <Typography>{t(`kielivalinta.header.${langCode.code}`)}</Typography>
           </MenuItem>
         ))}
       </Select>
