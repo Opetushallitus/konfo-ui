@@ -176,7 +176,14 @@ export const Kysymys = ({
             </Grid>
           )}
         </Grid>
-        <Grid item xs={12} className={classes.buttonContainer}>
+        <Grid
+          item
+          xs={12}
+          className={
+            isLastKysymys
+              ? `${classes.buttonContainer} ${classes.buttonContainerLastKysymys}`
+              : classes.buttonContainer
+          }>
           {!isLastKysymys && (
             <Button
               className={classes.buttonContainer__next}

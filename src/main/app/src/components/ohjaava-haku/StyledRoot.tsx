@@ -17,6 +17,7 @@ export const classes = {
   question__ndash: `${PREFIX}question__ndash`,
   question__ndashContainer: `${PREFIX}question__ndash-container`,
   buttonContainer: `${PREFIX}buttonContainer`,
+  buttonContainerLastKysymys: `${PREFIX}buttonContainerLastKysymys`,
   buttonContainer__previous: `${PREFIX}buttonContainer__previous`,
   buttonContainer__next: `${PREFIX}buttonContainer__next`,
   buttonContainer__results: `${PREFIX}buttonContainer__results`,
@@ -59,10 +60,6 @@ export const StyledRoot = styled(Box)(({ theme }) => {
 
       &:hover {
         background-color: #a5c291;
-      }
-
-      &:focus, &:focus-visible {
-        border: solid ${colors.brandGreen};
       }
 
       &[data-selected] {
@@ -127,6 +124,13 @@ export const StyledRoot = styled(Box)(({ theme }) => {
     }
   }
 
+  & .${classes.buttonContainerLastKysymys} {
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-rows: auto;
+    grid-template-areas:
+      "previous . . results";
+  }
+
   & .${classes.error} {
     color: ${colors.red};
   }
@@ -142,10 +146,6 @@ export const StyledRoot = styled(Box)(({ theme }) => {
       font-size: 0.75rem;
       line-height: 1rem;
       color: ${colors.black};
-
-      &:focus, &:focus-visible {
-        border: solid ${colors.brandGreen};
-      }
 
       &[data-current] {
         background-color: ${colors.brightGreenBg};
