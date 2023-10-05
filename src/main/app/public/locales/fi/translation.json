@@ -300,6 +300,7 @@
     "nayta-kaikki-oppilaitos-hakutulokset": "Näytä {{count}} hakuehdoilla löytyvä oppilaitos",
     "nayta-kaikki-oppilaitos-hakutulokset_plural": "Näytä kaikki {{count}} hakuehdoilla löytyvää oppilaitosta",
     "koulutuksenkestokuukausina": "Koulutuksen kesto",
+    "koulutuksen-hinta": "Koulutuksen hinta",
     "lyhenne-vuosi": "v",
     "lyhenne-kuukausi": "kk",
     "alkamiskausi": "Alkamiskausi",

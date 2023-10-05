@@ -168,10 +168,12 @@ export const KoulutuksenKestoSlider = ({
   rangeValues,
   undefinedRajainValues,
   handleSliderValueCommit,
+  sliderLabel,
 }: {
   rangeValues: Array<number>;
   undefinedRajainValues: Array<number>;
   handleSliderValueCommit: (val: Array<number>) => void;
+  sliderLabel?: string;
 }) => {
   const { t } = useTranslation();
   const labelFormatter = (val: number) => rangeText(val, t);
@@ -184,6 +186,7 @@ export const KoulutuksenKestoSlider = ({
         marks={marks(undefinedRajainValues[1], t)}
         labelFormatter={labelFormatter}
         onRangeCommit={handleSliderValueCommit}
+        sliderLabel={sliderLabel}
       />
     </Grid>
   );

@@ -27,6 +27,7 @@ const MaksullisuusRangeSlider = ({
   undefinedRajainValues: Array<number>;
   handleSliderValueCommit: (val: Array<number>) => void;
 }) => {
+  const { t } = useTranslation();
   const labelText = (val: number) => (val > 0 ? `${val}€` : '0');
   // Näytetään slider vain, jos sille on tullut konfo-backendiltä jokin järkevä yläraja (oletus nolla)
   // Nolla tarkoittaa ettei dataa ei ole saatu ladattua, tai rajaimen millekään arvolle ei ole olemassa yhtään tulosta.
@@ -39,6 +40,7 @@ const MaksullisuusRangeSlider = ({
         marks={marks(undefinedRajainValues[1])}
         labelFormatter={labelText}
         onRangeCommit={handleSliderValueCommit}
+        sliderLabel={t('haku.koulutuksen-hinta')}
       />
     </Box>
   );

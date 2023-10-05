@@ -180,6 +180,7 @@ export const KoulutuksenKesto = ({
         rangeValues={rangeValues}
         undefinedRajainValues={undefinedRajainValues}
         handleSliderValueCommit={handleSliderValueCommit}
+        sliderLabel={t('haku.koulutuksenkestokuukausina')}
       />
     </Grid>
   );
