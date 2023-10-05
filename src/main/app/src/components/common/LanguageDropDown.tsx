@@ -33,7 +33,6 @@ export const LanguageDropDown = () => {
     setOpen(true);
   };
   const handleClose = (e: React.SyntheticEvent) => {
-    console.log(e.target);
     has(e.target, 'selected') && setOpen(false);
   };
   const handleChange = (event: any) => {
@@ -60,7 +59,7 @@ export const LanguageDropDown = () => {
         MenuProps={{
           disableScrollLock: true,
         }}
-        aria-label={t('kielivalinta.valitse-kieli-taman-sivun-kieli-on_?')}
+        aria-label={t('kielivalinta.valitse-kieli-taman-sivun-kieli-on')}
         arria-hidden={true}
         value={t(`kielivalinta.header.${language}`)}
         open={isOpen}
