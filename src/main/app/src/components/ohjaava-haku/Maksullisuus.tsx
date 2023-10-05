@@ -134,7 +134,7 @@ const MaksullisuusInput = ({
     });
   };
 
-  const unitComponent = () => (
+  const unit = () => (
     <MaterialIcon
       className={classes.question__lyhenne}
       icon="euro_symbol"
@@ -164,11 +164,12 @@ const MaksullisuusInput = ({
             id={`${id}-vahintaan`}
             value={vahintaan}
             handleInputValueChange={handleInputValueChange}
-            unitComponent={unitComponent()}
+            unitComponent={unit()}
+            inputLabel="euro"
           />
         </Grid>
         <Grid item className={classes.question__ndashContainer}>
-          <Typography className={classes.question__ndash}>{NDASH}</Typography>
+          <div className={classes.question__ndash}>{NDASH}</div>
         </Grid>
         <Grid
           item
@@ -184,7 +185,8 @@ const MaksullisuusInput = ({
             id={`${id}-enintaan`}
             value={enintaan}
             handleInputValueChange={handleInputValueChange}
-            unitComponent={unitComponent()}
+            unitComponent={unit()}
+            inputLabel="euro"
           />
         </Grid>
       </Grid>

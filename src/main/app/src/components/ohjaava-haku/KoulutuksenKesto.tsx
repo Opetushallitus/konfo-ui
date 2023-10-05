@@ -103,7 +103,7 @@ export const KoulutuksenKesto = ({
     });
   };
 
-  const unitComponent = (id: string) => (
+  const unit = (id: string) => (
     <Typography className={classes.question__lyhenne}>
       {t(`haku.lyhenne-${id}`)}
     </Typography>
@@ -132,18 +132,20 @@ export const KoulutuksenKesto = ({
               id="vahintaan-vuosi"
               value={vahintaan[0]}
               handleInputValueChange={handleInputValueChange}
-              unitComponent={unitComponent('vuosi')}
+              unitComponent={unit('vuosi')}
+              inputLabel="vuosi"
             />
             <MaksunMaaraInput
               id="vahintaan-kk"
               value={vahintaan[1]}
               handleInputValueChange={handleInputValueChange}
-              unitComponent={unitComponent('kuukausi')}
+              unitComponent={unit('kuukausi')}
+              inputLabel="kuukausi"
             />
           </Box>
         </Grid>
         <Grid item className={classes.question__ndashContainer}>
-          <Typography className={classes.question__ndash}>{NDASH}</Typography>
+          <div className={classes.question__ndash}>{NDASH}</div>
         </Grid>
         <Grid
           item
@@ -160,13 +162,15 @@ export const KoulutuksenKesto = ({
               id="enintaan-vuosi"
               value={enintaan[0]}
               handleInputValueChange={handleInputValueChange}
-              unitComponent={unitComponent('vuosi')}
+              unitComponent={unit('vuosi')}
+              inputLabel="vuosi"
             />
             <MaksunMaaraInput
               id="enintaan-kk"
               value={enintaan[1]}
               handleInputValueChange={handleInputValueChange}
-              unitComponent={unitComponent('kuukausi')}
+              unitComponent={unit('kuukausi')}
+              inputLabel="kuukausi"
             />
           </Box>
         </Grid>

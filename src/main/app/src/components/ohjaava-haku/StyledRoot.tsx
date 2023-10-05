@@ -38,8 +38,8 @@ export const StyledRoot = styled(Box)(({ theme }) => {
   }
 
   & .${classes.questionContainer} {
-      max-width: 75%;
-      margin: 0 2rem;
+    max-width: 75%;
+    margin: 0 2rem;
   }
 
   & .${classes.question} {
@@ -50,6 +50,7 @@ export const StyledRoot = styled(Box)(({ theme }) => {
     margin-bottom: 1rem;
 
     &__option {
+      width: 100%;
       justify-content: start;
       background-color: ${colors.lightGrayishGreenBg};
       color: ${colors.black};
@@ -58,6 +59,10 @@ export const StyledRoot = styled(Box)(({ theme }) => {
 
       &:hover {
         background-color: #a5c291;
+      }
+
+      &:focus, &:focus-visible {
+        border: solid ${colors.brandGreen};
       }
 
       &[data-selected] {
@@ -83,6 +88,7 @@ export const StyledRoot = styled(Box)(({ theme }) => {
     }
 
     &__lyhenne {
+      overflow: visible;
       align-self: center;
     }
 
@@ -136,6 +142,10 @@ export const StyledRoot = styled(Box)(({ theme }) => {
       font-size: 0.75rem;
       line-height: 1rem;
       color: ${colors.black};
+
+      &:focus, &:focus-visible {
+        border: solid ${colors.brandGreen};
+      }
 
       &[data-current] {
         background-color: ${colors.brightGreenBg};
