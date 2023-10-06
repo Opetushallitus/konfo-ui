@@ -315,7 +315,8 @@
     "info-text": "Ei hätää, vastaa ensin muutamaan helppoon kysymykseen. Saat vastaustesi perusteella sinulle valikoidut hakuehdot ja ehdotuksena niihin soveltuvat koulutuspaikat ja oppilaitokset.",
     "katso-tulokset": "Katso tulokset",
     "kysymykset": {
-      "info-text": "Valitse niin monta vaihtoehtoa kuin haluat. Voit myös ohittaa kysymyksen ja siirtyä seuraavaan.",
+      "info-text": "Voit myös ohittaa kysymyksen ja siirtyä seuraavaan.",
+      "info-text-for-options": "Valitse niin monta vaihtoehtoa kuin haluat. Voit myös ohittaa kysymyksen ja siirtyä seuraavaan.",
       "alkamiskausi": {
         "otsikko": "Milloin haluaisit aloittaa opiskelun?"
       },

@@ -64,6 +64,12 @@ export const RajainOption = ({
   );
 };
 
+export const KysymysInfoText = ({ kysymysInfo }: { kysymysInfo: string }) => (
+  <Grid item xs={12} marginBottom="1rem">
+    <Typography>{kysymysInfo}</Typography>
+  </Grid>
+);
+
 type KysymysProps = {
   kysymys: Kysymys;
   kysymykset: Array<Kysymys>;
@@ -90,7 +96,6 @@ export const Kysymys = ({
     useSearch();
   const { id: kysymysId, isRajainOptionTextFromRajain } = kysymys;
   const kysymysTitle = t(`ohjaava-haku.kysymykset.${kysymysId}.otsikko`);
-  const kysymysInfo = t(`ohjaava-haku.kysymykset.info-text`);
   const isFirstKysymys = currentKysymysIndex === 0;
   const isLastKysymys = currentKysymysIndex === lastKysymysIndex;
   const [errorKey, setErrorKey] = useState('');
@@ -128,51 +133,57 @@ export const Kysymys = ({
         <Grid item xs={12}>
           <Heading variant="h2">{kysymysTitle}</Heading>
         </Grid>
-        <Grid item xs={12} marginBottom="1rem">
-          <Typography>{kysymysInfo}</Typography>
-        </Grid>
         <Grid container item>
           {isFetching ? (
             <Grid item sx={{ margin: 'auto' }}>
               <LoadingCircle />
             </Grid>
-          ) : kysymysId == 'koulutuksenkestokuukausina' ? (
-            <KoulutuksenKesto
-              rajainItems={rajainItems}
-              allSelectedRajainValues={allSelectedRajainValues}
-              setAllSelectedRajainValues={setAllSelectedRajainValues}
-              setErrorKey={setErrorKey}
-              errorKey={errorKey}
-            />
-          ) : kysymysId == 'maksullisuus' ? (
-            <Maksullisuus
-              rajainItems={rajainItems}
-              allSelectedRajainValues={allSelectedRajainValues}
-              toggleAllSelectedRajainValues={toggleAllSelectedRajainValues}
-              setAllSelectedRajainValues={setAllSelectedRajainValues}
-              setErrorKey={setErrorKey}
-              errorKey={errorKey}
-            />
           ) : (
-            <Grid item className={classes.question}>
-              {rajainOptionsToShow.map(({ id, rajainId, nimi }) => {
-                const selectedRajainItems = allSelectedRajainValues[
-                  rajainId
-                ] as Array<string>;
-                const isRajainSelected =
-                  selectedRajainItems && selectedRajainItems.includes(id);
-                return (
-                  <RajainOption
-                    key={id}
-                    id={id}
-                    isRajainOptionTextFromRajain={isRajainOptionTextFromRajain}
-                    isRajainSelected={isRajainSelected}
-                    nimi={nimi}
-                    rajainId={rajainId}
-                    toggleAllSelectedRajainValues={toggleAllSelectedRajainValues}
+            <Grid item>
+              {kysymysId == 'koulutuksenkestokuukausina' ? (
+                <KoulutuksenKesto
+                  rajainItems={rajainItems}
+                  allSelectedRajainValues={allSelectedRajainValues}
+                  setAllSelectedRajainValues={setAllSelectedRajainValues}
+                  setErrorKey={setErrorKey}
+                  errorKey={errorKey}
+                />
+              ) : kysymysId == 'maksullisuus' ? (
+                <Maksullisuus
+                  rajainItems={rajainItems}
+                  allSelectedRajainValues={allSelectedRajainValues}
+                  toggleAllSelectedRajainValues={toggleAllSelectedRajainValues}
+                  setAllSelectedRajainValues={setAllSelectedRajainValues}
+                  setErrorKey={setErrorKey}
+                  errorKey={errorKey}
+                />
+              ) : (
+                <>
+                  <KysymysInfoText
+                    kysymysInfo={t(`ohjaava-haku.kysymykset.info-text-for-options`)}
                   />
-                );
-              })}
+                  <Grid item className={classes.question}>
+                    {rajainOptionsToShow.map(({ id, rajainId, nimi }) => {
+                      const selectedRajainItems = allSelectedRajainValues[
+                        rajainId
+                      ] as Array<string>;
+                      const isRajainSelected =
+                        selectedRajainItems && selectedRajainItems.includes(id);
+                      return (
+                        <RajainOption
+                          key={id}
+                          id={id}
+                          isRajainOptionTextFromRajain={isRajainOptionTextFromRajain}
+                          isRajainSelected={isRajainSelected}
+                          nimi={nimi}
+                          rajainId={rajainId}
+                          toggleAllSelectedRajainValues={toggleAllSelectedRajainValues}
+                        />
+                      );
+                    })}
+                  </Grid>
+                </>
+              )}
             </Grid>
           )}
         </Grid>

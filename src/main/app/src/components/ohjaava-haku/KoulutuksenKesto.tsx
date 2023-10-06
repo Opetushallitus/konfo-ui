@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { match } from 'ts-pattern';
 
 import { MaksunMaaraInput } from '#/src/components/ohjaava-haku/common/MaksunMaaraInput';
-import { Rajain } from '#/src/components/ohjaava-haku/Kysymys';
+import { KysymysInfoText, Rajain } from '#/src/components/ohjaava-haku/Kysymys';
 import {
   getChangedKestoInMonths,
   getYearsAndMonthsFromRangeValue,
@@ -111,6 +111,7 @@ export const KoulutuksenKesto = ({
 
   return (
     <Grid container direction="column" wrap="nowrap">
+      <KysymysInfoText kysymysInfo={t(`ohjaava-haku.kysymykset.info-text`)} />
       <Grid
         item
         container

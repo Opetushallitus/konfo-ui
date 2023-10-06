@@ -8,7 +8,11 @@ import { match } from 'ts-pattern';
 import { NumberRangeSlider } from '#/src/components/common/Filter/NumberRangeSlider';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { MaksunMaaraInput } from '#/src/components/ohjaava-haku/common/MaksunMaaraInput';
-import { Rajain, RajainOption } from '#/src/components/ohjaava-haku/Kysymys';
+import {
+  KysymysInfoText,
+  Rajain,
+  RajainOption,
+} from '#/src/components/ohjaava-haku/Kysymys';
 import { combineMaksunMaaraWithMaksullisuustyyppi } from '#/src/components/ohjaava-haku/utils';
 import { marks } from '#/src/components/suodattimet/common/maksullisuusRajainUtils';
 import { NDASH } from '#/src/constants';
@@ -221,11 +225,14 @@ export const Maksullisuus = ({
   setErrorKey: (errorKey: string) => void;
   errorKey: string;
 }) => {
+  const { t } = useTranslation();
+
   const maksullisuustyyppiRajainItems =
     combineMaksunMaaraWithMaksullisuustyyppi(rajainItems);
 
   return (
     <Grid item className={classes.question}>
+      <KysymysInfoText kysymysInfo={t(`ohjaava-haku.kysymykset.info-text-for-options`)} />
       {maksullisuustyyppiRajainItems.map(({ id, rajainId, linkedRajainItems }) => {
         const selectedRajainItems = allSelectedRajainValues[rajainId] as Array<string>;
         const isRajainSelected = selectedRajainItems && selectedRajainItems.includes(id);
