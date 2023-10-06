@@ -29,7 +29,6 @@ import {
   getCombinedQueryIsFetching,
   getCombinedQueryStatus,
 } from '#/src/components/common/QueryResultWrapper/queryResultUtils';
-import { RAJAIN_TYPES } from '#/src/constants';
 import { useLanguageState } from '#/src/hooks';
 import { useAppDispatch, useAppSelector } from '#/src/hooks/reduxHooks';
 import { useCurrentPage } from '#/src/store/reducers/appSlice';
@@ -67,7 +66,7 @@ import {
   getSearchRequestParams,
 } from '#/src/store/reducers/hakutulosSliceSelector';
 import { isRajainActive, getRajainValueInUIFormat } from '#/src/tools/filters';
-import { RajainName, ReduxTodo, TODOType, ValueOf } from '#/src/types/common';
+import { RajainName, ReduxTodo, TODOType } from '#/src/types/common';
 import { isCompositeRajainId } from '#/src/types/SuodatinTypes';
 
 import { RajainOptions } from '../koulutus/ToteutusList';
@@ -296,22 +295,6 @@ export const useSearch = () => {
     rajainOptions,
     rajainValues,
   };
-};
-
-export const useFilterProps = (id: ValueOf<typeof RAJAIN_TYPES>) => {
-  const { koulutusData, oppilaitosData } = useSearch();
-
-  const { searchTab: selectedTab } = useSearchTab();
-
-  const usedFilters =
-    selectedTab === 'koulutus' ? koulutusData?.filters : oppilaitosData?.filters;
-
-  const allFilters = useSelector(getRajainValues);
-
-  return useMemo(
-    () => getRajainValueInUIFormat(usedFilters, allFilters, id),
-    [usedFilters, allFilters, id]
-  );
 };
 
 export const useSelectedFilters = (
