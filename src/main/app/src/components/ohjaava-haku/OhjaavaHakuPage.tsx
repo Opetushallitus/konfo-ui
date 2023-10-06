@@ -11,7 +11,7 @@ import { ContentWrapper } from '#/src/components/common/ContentWrapper';
 import { Murupolku } from '#/src/components/common/Murupolku';
 import { useSearch } from '#/src/components/haku/hakutulosHooks';
 import { Heading, HeadingBoundary } from '#/src/components/Heading';
-import { Kysymys, Rajain } from '#/src/components/ohjaava-haku/Kysymys';
+import { Question, Rajain } from '#/src/components/ohjaava-haku/Question';
 import { getChangedRajaimet } from '#/src/components/ohjaava-haku/utils';
 import { getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
 import { toId } from '#/src/tools/utils';
@@ -44,15 +44,15 @@ export const OhjaavaHaku = () => {
   };
 
   const [isStartOfKysely, setStartOfKysely] = useState(true);
-  const [currentKysymysIndex, setCurrentKysymysIndex] = useState(0);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
-  const kysymykset = config.kysymykset;
-  const kysymyksetWithoutInvalidOptions = kysymykset.filter(({ id }) => {
+  const questions = config.kysymykset;
+  const questionsWithoutInvalidOptions = questions.filter(({ id }) => {
     return has(rajainValues, id);
   });
 
-  const lastKysymysIndex = kysymyksetWithoutInvalidOptions.length - 1;
-  const currentKysymys = kysymyksetWithoutInvalidOptions[currentKysymysIndex];
+  const lastQuestionIndex = questionsWithoutInvalidOptions.length - 1;
+  const currentQuestion = questionsWithoutInvalidOptions[currentQuestionIndex];
 
   const handleClick = () => {
     setStartOfKysely(false);
@@ -95,16 +95,15 @@ export const OhjaavaHaku = () => {
         ) : (
           <Box className={classes.container}>
             <ProgressSivupalkki
-              kysymykset={kysymyksetWithoutInvalidOptions}
-              currentKysymysIndex={currentKysymysIndex}
-              setCurrentKysymysIndex={setCurrentKysymysIndex}
+              questions={questionsWithoutInvalidOptions}
+              currentQuestionIndex={currentQuestionIndex}
+              setCurrentQuestionIndex={setCurrentQuestionIndex}
             />
-            <Kysymys
-              kysymys={currentKysymys}
-              kysymykset={kysymyksetWithoutInvalidOptions}
-              currentKysymysIndex={currentKysymysIndex}
-              setCurrentKysymysIndex={setCurrentKysymysIndex}
-              lastKysymysIndex={lastKysymysIndex}
+            <Question
+              question={currentQuestion}
+              currentQuestionIndex={currentQuestionIndex}
+              setCurrentQuestionIndex={setCurrentQuestionIndex}
+              lastQuestionIndex={lastQuestionIndex}
               toggleAllSelectedRajainValues={toggleAllRajainValues}
               allSelectedRajainValues={allSelectedRajainValues}
               setAllSelectedRajainValues={setAllSelectedRajainValues}

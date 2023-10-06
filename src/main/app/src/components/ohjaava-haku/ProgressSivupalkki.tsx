@@ -5,24 +5,24 @@ import { useTranslation } from 'react-i18next';
 
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 
-import { Kysymys } from './Kysymys';
+import { Question } from './Question';
 import { classes } from './StyledRoot';
 
 export const ProgressSivupalkki = ({
-  kysymykset,
-  currentKysymysIndex,
-  setCurrentKysymysIndex,
+  questions,
+  currentQuestionIndex,
+  setCurrentQuestionIndex,
 }: {
-  kysymykset: Array<Kysymys>;
-  currentKysymysIndex: number;
-  setCurrentKysymysIndex: (index: number) => void;
+  questions: Array<Question>;
+  currentQuestionIndex: number;
+  setCurrentQuestionIndex: (index: number) => void;
 }) => {
   const { t } = useTranslation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const progress = `${t('ohjaava-haku.kysymys')} ${
-    currentKysymysIndex + 1
-  } / ${kysymykset?.length}`;
+  const progress = `${t('ohjaava-haku.question')} ${
+    currentQuestionIndex + 1
+  } / ${questions?.length}`;
 
   return (
     <>
@@ -32,19 +32,19 @@ export const ProgressSivupalkki = ({
         </Grid>
       ) : (
         <Grid container item direction="column" className={classes.progressSivupalkki}>
-          {kysymykset.map((kysymys, index) => {
-            const kysymysId = kysymys.id;
-            const isCurrentKysymys = index === currentKysymysIndex;
-            const isPastKysymys = index < currentKysymysIndex;
+          {questions.map((question, index) => {
+            const questionId = question.id;
+            const isCurrentQuestion = index === currentQuestionIndex;
+            const isPastQuestion = index < currentQuestionIndex;
             return (
               <Button
-                variant={isPastKysymys || isCurrentKysymys ? 'contained' : 'outlined'}
+                variant={isPastQuestion || isCurrentQuestion ? 'contained' : 'outlined'}
                 disableElevation
                 color="primary"
                 className={classes.progressSivupalkki__button}
-                key={kysymysId}
-                onClick={() => setCurrentKysymysIndex(index)}
-                {...(isPastKysymys && {
+                key={questionId}
+                onClick={() => setCurrentQuestionIndex(index)}
+                {...(isPastQuestion && {
                   endIcon: (
                     <MaterialIcon
                       icon="check"
@@ -53,8 +53,8 @@ export const ProgressSivupalkki = ({
                   ),
                   'data-past': true,
                 })}
-                {...(isCurrentKysymys && { 'data-current': true })}>
-                {t(`ohjaava-haku.kysymykset.${kysymysId}.otsikko`)}
+                {...(isCurrentQuestion && { 'data-current': true })}>
+                {t(`ohjaava-haku.kysymykset.${questionId}.otsikko`)}
               </Button>
             );
           })}

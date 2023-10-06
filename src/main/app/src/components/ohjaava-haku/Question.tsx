@@ -17,7 +17,7 @@ import { classes } from './StyledRoot';
 import { useSearch } from '../../components/haku/hakutulosHooks';
 import { Heading, HeadingBoundary } from '../Heading';
 
-export type Kysymys = {
+export type Question = {
   id: string;
   isRajainOptionTextFromRajain?: boolean;
   rajainOptionsToBeRemoved?: Array<string>;
@@ -64,61 +64,60 @@ export const RajainOption = ({
   );
 };
 
-export const KysymysInfoText = ({ kysymysInfo }: { kysymysInfo: string }) => (
+export const QuestionInfoText = ({ questionInfo }: { questionInfo: string }) => (
   <Grid item xs={12} marginBottom="1rem">
-    <Typography>{kysymysInfo}</Typography>
+    <Typography>{questionInfo}</Typography>
   </Grid>
 );
 
-type KysymysProps = {
-  kysymys: Kysymys;
-  kysymykset: Array<Kysymys>;
-  currentKysymysIndex: number;
-  setCurrentKysymysIndex: (index: number) => void;
-  lastKysymysIndex: number;
+type QuestionProps = {
+  question: Question;
+  currentQuestionIndex: number;
+  setCurrentQuestionIndex: (index: number) => void;
+  lastQuestionIndex: number;
   toggleAllSelectedRajainValues: (id: string, rajainId: string) => void;
   allSelectedRajainValues: Rajain;
   setAllSelectedRajainValues: (val: Rajain) => void;
 };
 
-export const Kysymys = ({
-  kysymys,
-  currentKysymysIndex,
-  setCurrentKysymysIndex,
-  lastKysymysIndex,
+export const Question = ({
+  question,
+  currentQuestionIndex,
+  setCurrentQuestionIndex,
+  lastQuestionIndex,
   toggleAllSelectedRajainValues,
   allSelectedRajainValues,
   setAllSelectedRajainValues,
-}: KysymysProps) => {
+}: QuestionProps) => {
   const { t } = useTranslation();
 
   const { goToSearchPage, setRajainValues, rajainValues, rajainOptions, isFetching } =
     useSearch();
-  const { id: kysymysId, isRajainOptionTextFromRajain } = kysymys;
-  const kysymysTitle = t(`ohjaava-haku.kysymykset.${kysymysId}.otsikko`);
-  const isFirstKysymys = currentKysymysIndex === 0;
-  const isLastKysymys = currentKysymysIndex === lastKysymysIndex;
+  const { id: questionId, isRajainOptionTextFromRajain } = question;
+  const questionTitle = t(`ohjaava-haku.kysymykset.${questionId}.otsikko`);
+  const isFirstQuestion = currentQuestionIndex === 0;
+  const isLastQuestion = currentQuestionIndex === lastQuestionIndex;
   const [errorKey, setErrorKey] = useState('');
 
   const rajainItems = useRajainItems(
     rajainOptions,
     rajainValues,
-    RAJAIN_TYPES[kysymysId.toUpperCase() as FilterKey]
+    RAJAIN_TYPES[questionId.toUpperCase() as FilterKey]
   );
 
   const rajainOptionsToShow = rajainItems?.filter(({ id }) => {
-    return !some(kysymys.rajainOptionsToBeRemoved, (rajain) => {
+    return !some(question.rajainOptionsToBeRemoved, (rajain) => {
       return rajain === id;
     });
   });
 
   const moveToNextQuestion = () => {
-    setCurrentKysymysIndex(currentKysymysIndex + 1);
+    setCurrentQuestionIndex(currentQuestionIndex + 1);
     window.scrollTo(0, 0);
   };
 
   const moveToPreviousQuestion = () => {
-    setCurrentKysymysIndex(currentKysymysIndex - 1);
+    setCurrentQuestionIndex(currentQuestionIndex - 1);
     window.scrollTo(0, 0);
   };
 
@@ -131,7 +130,7 @@ export const Kysymys = ({
     <HeadingBoundary>
       <Grid container item className={classes.questionContainer}>
         <Grid item xs={12}>
-          <Heading variant="h2">{kysymysTitle}</Heading>
+          <Heading variant="h2">{questionTitle}</Heading>
         </Grid>
         <Grid container item>
           {isFetching ? (
@@ -140,7 +139,7 @@ export const Kysymys = ({
             </Grid>
           ) : (
             <Grid item>
-              {kysymysId == 'koulutuksenkestokuukausina' ? (
+              {questionId == 'koulutuksenkestokuukausina' ? (
                 <KoulutuksenKesto
                   rajainItems={rajainItems}
                   allSelectedRajainValues={allSelectedRajainValues}
@@ -148,7 +147,7 @@ export const Kysymys = ({
                   setErrorKey={setErrorKey}
                   errorKey={errorKey}
                 />
-              ) : kysymysId == 'maksullisuus' ? (
+              ) : questionId == 'maksullisuus' ? (
                 <Maksullisuus
                   rajainItems={rajainItems}
                   allSelectedRajainValues={allSelectedRajainValues}
@@ -159,8 +158,8 @@ export const Kysymys = ({
                 />
               ) : (
                 <>
-                  <KysymysInfoText
-                    kysymysInfo={t(`ohjaava-haku.kysymykset.info-text-for-options`)}
+                  <QuestionInfoText
+                    questionInfo={t(`ohjaava-haku.kysymykset.info-text-for-options`)}
                   />
                   <Grid item className={classes.question}>
                     {rajainOptionsToShow.map(({ id, rajainId, nimi }) => {
@@ -191,11 +190,11 @@ export const Kysymys = ({
           item
           xs={12}
           className={
-            isLastKysymys
-              ? `${classes.buttonContainer} ${classes.buttonContainerLastKysymys}`
+            isLastQuestion
+              ? `${classes.buttonContainer} ${classes.buttonContainerLastQuestion}`
               : classes.buttonContainer
           }>
-          {!isLastKysymys && (
+          {!isLastQuestion && (
             <Button
               className={classes.buttonContainer__next}
               onClick={moveToNextQuestion}
@@ -205,7 +204,7 @@ export const Kysymys = ({
               {t('ohjaava-haku.seuraava')}
             </Button>
           )}
-          {!isFirstKysymys && (
+          {!isFirstQuestion && (
             <Button
               className={classes.buttonContainer__previous}
               onClick={moveToPreviousQuestion}
@@ -220,7 +219,7 @@ export const Kysymys = ({
               className={classes.buttonContainer__results}
               onClick={handleClick}
               color="primary"
-              {...(isLastKysymys ? { variant: 'contained' } : { variant: 'text' })}
+              {...(isLastQuestion ? { variant: 'contained' } : { variant: 'text' })}
               {...(!isEmpty(errorKey) && { disabled: true })}>
               {t('ohjaava-haku.katso-tulokset')}
             </Button>

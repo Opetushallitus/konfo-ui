@@ -9,10 +9,10 @@ import { NumberRangeSlider } from '#/src/components/common/Filter/NumberRangeSli
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { InputWithUnit } from '#/src/components/ohjaava-haku/common/InputWithUnit';
 import {
-  KysymysInfoText,
+  QuestionInfoText,
   Rajain,
   RajainOption,
-} from '#/src/components/ohjaava-haku/Kysymys';
+} from '#/src/components/ohjaava-haku/Question';
 import { combineMaksunMaaraWithMaksullisuustyyppi } from '#/src/components/ohjaava-haku/utils';
 import { marks } from '#/src/components/suodattimet/common/maksullisuusRajainUtils';
 import { NDASH } from '#/src/constants';
@@ -232,7 +232,9 @@ export const Maksullisuus = ({
 
   return (
     <Grid item className={classes.question}>
-      <KysymysInfoText kysymysInfo={t(`ohjaava-haku.kysymykset.info-text-for-options`)} />
+      <QuestionInfoText
+        questionInfo={t(`ohjaava-haku.kysymykset.info-text-for-options`)}
+      />
       {maksullisuustyyppiRajainItems.map(({ id, rajainId, linkedRajainItems }) => {
         const selectedRajainItems = allSelectedRajainValues[rajainId] as Array<string>;
         const isRajainSelected = selectedRajainItems && selectedRajainItems.includes(id);

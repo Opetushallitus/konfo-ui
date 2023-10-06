@@ -17,7 +17,7 @@ export const classes = {
   question__ndash: `${PREFIX}question__ndash`,
   question__ndashContainer: `${PREFIX}question__ndash-container`,
   buttonContainer: `${PREFIX}buttonContainer`,
-  buttonContainerLastKysymys: `${PREFIX}buttonContainerLastKysymys`,
+  buttonContainerLastQuestion: `${PREFIX}buttonContainerLastQuestion`,
   buttonContainer__previous: `${PREFIX}buttonContainer__previous`,
   buttonContainer__next: `${PREFIX}buttonContainer__next`,
   buttonContainer__results: `${PREFIX}buttonContainer__results`,
@@ -124,7 +124,7 @@ export const StyledRoot = styled(Box)(({ theme }) => {
     }
   }
 
-  & .${classes.buttonContainerLastKysymys} {
+  & .${classes.buttonContainerLastQuestion} {
     grid-template-columns: 25% 25% 25% 25%;
     grid-template-rows: auto;
     grid-template-areas:

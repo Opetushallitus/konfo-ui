@@ -2,7 +2,7 @@ import { isUndefined } from 'lodash';
 
 import { RajainItem } from '#/src/types/SuodatinTypes';
 
-import { Rajain } from './Kysymys';
+import { Rajain } from './Question';
 
 export const getChangedRajaimet = (
   selectedRajainValues: Rajain,

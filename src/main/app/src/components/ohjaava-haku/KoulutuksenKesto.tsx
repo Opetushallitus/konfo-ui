@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { match } from 'ts-pattern';
 
 import { InputWithUnit } from '#/src/components/ohjaava-haku/common/InputWithUnit';
-import { KysymysInfoText, Rajain } from '#/src/components/ohjaava-haku/Kysymys';
+import { QuestionInfoText, Rajain } from '#/src/components/ohjaava-haku/Question';
 import {
   getChangedKestoInMonths,
   getYearsAndMonthsFromRangeValue,
@@ -111,7 +111,7 @@ export const KoulutuksenKesto = ({
 
   return (
     <Grid container direction="column" wrap="nowrap">
-      <KysymysInfoText kysymysInfo={t(`ohjaava-haku.kysymykset.info-text`)} />
+      <QuestionInfoText questionInfo={t(`ohjaava-haku.kysymykset.info-text`)} />
       <Grid
         item
         container
