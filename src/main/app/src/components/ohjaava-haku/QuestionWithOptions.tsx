@@ -27,7 +27,7 @@ export const QuestionWithOptions = ({
 }) => {
   const { t } = useTranslation();
 
-  const { rajainOptionsToBeRemoved, isRajainOptionTextFromRajain } = question;
+  const { rajainOptionsToBeRemoved, useRajainOptionNameFromRajain } = question;
   const rajainOptionsToShow = rajainItems?.filter(({ id }) => {
     return !some(rajainOptionsToBeRemoved, (rajain) => {
       return rajain === id;
@@ -48,7 +48,7 @@ export const QuestionWithOptions = ({
             <RajainOption
               key={id}
               id={id}
-              isRajainOptionTextFromRajain={isRajainOptionTextFromRajain}
+              useRajainOptionNameFromRajain={useRajainOptionNameFromRajain}
               isRajainSelected={isRajainSelected}
               nimi={nimi}
               rajainId={rajainId}

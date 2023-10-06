@@ -11,7 +11,7 @@
     },
     {
       "id": "alkamiskausi",
-      "isRajainOptionTextFromRajain": true,
+      "useRajainOptionNameFromRajain": true,
       "rajainOptionsToBeRemoved": ["henkilokohtainen"]
     }
   ]

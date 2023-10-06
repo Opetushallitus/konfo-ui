@@ -20,7 +20,7 @@ import { Heading, HeadingBoundary } from '../Heading';
 
 export type Question = {
   id: string;
-  isRajainOptionTextFromRajain?: boolean;
+  useRajainOptionNameFromRajain?: boolean;
   rajainOptionsToBeRemoved?: Array<string>;
 };
 
@@ -36,14 +36,14 @@ type RajainKey = keyof typeof RAJAIN_TYPES;
 
 export const RajainOption = ({
   id,
-  isRajainOptionTextFromRajain,
+  useRajainOptionNameFromRajain,
   isRajainSelected,
   nimi,
   rajainId,
   toggleAllSelectedRajainValues,
 }: {
   id: string;
-  isRajainOptionTextFromRajain?: boolean;
+  useRajainOptionNameFromRajain?: boolean;
   isRajainSelected?: boolean;
   nimi?: Translateable;
   rajainId: string;
@@ -60,7 +60,7 @@ export const RajainOption = ({
       onClick={() => toggleAllSelectedRajainValues(id, rajainId)}
       className={classes.question__option}
       {...(isRajainSelected && { 'data-selected': true })}>
-      {isRajainOptionTextFromRajain
+      {useRajainOptionNameFromRajain
         ? localize(nimi)
         : t(`ohjaava-haku.kysymykset.${rajainId}.vaihtoehdot.${id}`)}
     </Button>

@@ -25,7 +25,7 @@ type Config = {
 
 type ConfigItem = {
   id: string;
-  isRajainOptionTextFromRajain?: boolean;
+  useRajainOptionNameFromRajain?: boolean;
   rajainOptionsToBeRemoved?: Array<string>;
 };
 

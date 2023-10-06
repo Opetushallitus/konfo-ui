@@ -6,15 +6,15 @@
     { "id": "maksullisuus" },
     {
       "id": "koulutusala",
-      "isRajainOptionTextFromRajain": true
+      "useRajainOptionNameFromRajain": true
     },
     {
       "id": "pohjakoulutusvaatimus",
-      "isRajainOptionTextFromRajain": true
+      "useRajainOptionNameFromRajain": true
     },
     {
       "id": "alkamiskausi",
-      "isRajainOptionTextFromRajain": true,
+      "useRajainOptionNameFromRajain": true,
       "rajainOptionsToBeRemoved": ["henkilokohtainen"]
     }
   ]
