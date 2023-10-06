@@ -16,6 +16,7 @@ import { getToteutustenTarjoajat } from './getToteutustenTarjoajat';
 
 type Props = {
   koulutus: {
+    nimi?: Translateable;
     oid: string;
     kuvaus: Translateable;
     koulutustyyppi: Koulutustyyppi;

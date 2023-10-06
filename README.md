@@ -5,6 +5,8 @@ Juurihakemiston Spring Boot -kääre tarjoilee SPA:n ympäristökohtaisten asetu
 
 [![Konfo-ui](https://github.com/Opetushallitus/konfo-ui/actions/workflows/build.yml/badge.svg)](https://github.com/Opetushallitus/konfo-ui/actions/workflows/build.yml)
 
+[![Contentful content type check](https://github.com/Opetushallitus/konfo-ui/actions/workflows/contentful-type-check.yml/badge.svg)](https://github.com/Opetushallitus/konfo-ui/actions/workflows/contentful-type-check.yml)
+
 ## Esivaatimukset
 
 Asenna koneellesi esim NVM:ää käyttäen:
@@ -85,6 +87,20 @@ Korvaa "xxx"-kohdat oikeilla AWS:stä löytyvillä salaisuuksilla. Environment i
 Kun salaisuudet ovat paikallaan, luo tyypitykset npm-skriptillä:
 
     npm run contentful:typegen
+
+Contentfulin tyyppien yhteneväisyys testi ja master ympäristöissä tarkistetaan ajastetulla GitHub Actionilla kerran päivässä. Tarkistuksen voi käynnistää myös käsin GitHubin Actions sivulta.
+
+Tarkan raportin löytää contentful-type-check actionin workflow runs historiasta.
+
+## Konfo-backend ja TS-tyypitysten generointi
+
+Konfo-backendin rajapintojen Swagger-määrittelystä luodut TS-tyypitykset löytyvät tiedostosta src/main/app/src/types/konfo-backend.d.ts. Tyypitykset saa generoitua uudelleen ajamalla src/main/app-kansiossa komennon:
+
+```
+npx openapi-typescript https://testiopintopolku.fi/konfo-backend/swagger.yaml -o ./src/types/konfo-backend.d.ts
+```
+
+Voit vaihtaa URL:n osoittamaan eri ympäristöön tai vaikka lokaalisti käynnissä olevaan konfo-backendiin.
 
 ## Spring boot (erikoistapaukset)
 

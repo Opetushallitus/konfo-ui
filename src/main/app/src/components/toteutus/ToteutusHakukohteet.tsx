@@ -23,7 +23,7 @@ import { styled } from '#/src/theme';
 import { localize } from '#/src/tools/localization';
 import { useOsoitteet } from '#/src/tools/useOppilaitosOsoite';
 import { useUrlParams } from '#/src/tools/useUrlParams';
-import { formatDateString, formatDouble } from '#/src/tools/utils';
+import { formatDouble } from '#/src/tools/utils';
 import { Hakukohde } from '#/src/types/HakukohdeTypes';
 import { OppilaitosOsa, Toteutus } from '#/src/types/ToteutusTypes';
 
@@ -197,7 +197,7 @@ const HakuCardGrid = ({
                                   ? t('toteutus.ilmoittautuminen-alkaa:')
                                   : t('toteutus.haku-alkaa:'),
                               content: hakukohde.hakuajat.map((hakuaika) =>
-                                formatDateString(hakuaika.formatoituAlkaa)
+                                localize(hakuaika.formatoituAlkaa)
                               ),
                             },
                             anyHakuaikaPaattyy && {
@@ -209,7 +209,7 @@ const HakuCardGrid = ({
                               content: hakukohde.hakuajat.map(
                                 (hakuaika) =>
                                   hakuaika.paattyy
-                                    ? formatDateString(hakuaika.formatoituPaattyy)
+                                    ? localize(hakuaika.formatoituPaattyy)
                                     : '-' // This is needed for the alkuu & paattyy to be rendered on the same row
                               ),
                             },

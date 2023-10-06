@@ -490,7 +490,15 @@
                       "vuosi": "2018",
                       "valintatapajonoOid": "15204349710893872952965419072834",
                       "hakukohdeOid": "1.2.246.562.20.25631786289",
-                      "hakuOid": "1.2.246.562.29.55739081531"
+                      "hakuOid": "1.2.246.562.29.55739081531",
+                      "valintatapajonoTyyppi": {
+                        "koodiUri": "valintatapajono_tv",
+                        "nimi": {
+                          "sv": "Provpoäng",
+                          "en": "Exam score",
+                          "fi": "Koepisteet"
+                        }
+                      }
                     },
                     {
                       "tarjoaja": "1.2.246.562.10.50460470417",
@@ -502,7 +510,557 @@
                       "vuosi": "2022",
                       "valintatapajonoOid": "1649413967221888534857780379884",
                       "hakukohdeOid": "1.2.246.562.20.00000000000000008445",
-                      "hakuOid": "1.2.246.562.29.00000000000000005368"
+                      "hakuOid": "1.2.246.562.29.00000000000000005368",
+                      "valintatapajonoTyyppi": {
+                        "koodiUri": "valintatapajono_tv",
+                        "nimi": {
+                          "sv": "Provpoäng",
+                          "en": "Exam score",
+                          "fi": "Koepisteet"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "formatoituModified": {
+                  "fi": "14.10.2022 klo 10:52",
+                  "sv": "14.10.2022 kl. 10:52",
+                  "en": "Oct. 14, 2022 at 10:52 AM UTC+3"
+                },
+                "valintaperusteId": "a08fd02a-9c66-437d-99eb-3e2b9003b334"
+              }
+            ]
+          }
+        ],
+        "formatoituModified": {
+          "fi": "12.7.2022 klo 20:02",
+          "sv": "12.7.2022 kl. 20:02",
+          "en": "Jul. 12, 2022 at 08:02 PM UTC+3"
+        },
+        "koulutustyyppi": "lk"
+      }
+    }
+  },
+  {
+    "method": "GET",
+    "url": "http://localhost:3005/konfo-backend/toteutus/1.2.246.562.17.00000000000000005701",
+    "response": {
+      "status": 200,
+      "body": {
+        "tila": "julkaistu",
+        "kuuluuOpintokokonaisuuksiin": null,
+        "liitetytOpintojaksot": [],
+        "hakuAuki": null,
+        "oppilaitokset": ["1.2.246.562.10.54943480589"],
+        "teemakuva": "https://konfo-files.opintopolku.fi/toteutus-teemakuva/1.2.246.562.17.00000000000000005700/58b1edb5-409d-40d4-8cb1-a83a4a58bf72.jpg",
+        "koulutukset": [
+          {
+            "koodiUri": "koulutus_309902#7",
+            "nimi": { "sv": "Gymnasiets lärokurs", "fi": "Lukion oppimäärä" }
+          }
+        ],
+        "tarjoajat": [
+          {
+            "paikkakunta": {
+              "koodiUri": "kunta_005",
+              "nimi": { "fi": "Alajärvi", "sv": "Alajärvi" }
+            },
+            "nimi": {
+              "fi": "Alajärven lukio",
+              "sv": "Alajärven lukio",
+              "en": "Alajärven lukio"
+            },
+            "oid": "1.2.246.562.10.54943480589"
+          }
+        ],
+        "esikatselu": true,
+        "modified": "2022-07-12T20:02:10",
+        "koulutusOid": "1.2.246.562.13.00000000000000001022",
+        "nimi": {
+          "fi": "Lukio, 61 opintopistettä",
+          "sv": "Gymnasium, 61 studiepoäng",
+          "en": "Lukio, 61 credits"
+        },
+        "muokkaaja": {
+          "oid": "1.2.246.562.24.98478395032",
+          "nimi": "Anonymisoitu Virkailija"
+        },
+        "oid": "1.2.246.562.17.00000000000000005700",
+        "kielivalinta": ["fi", "en"],
+        "haut": [
+          "1.2.246.562.29.00000000000000021303",
+          "1.2.246.562.29.00000000000000005368"
+        ],
+        "koulutustyyppiPath": "lk",
+        "timestamp": 1670511433940,
+        "organisaatiot": ["1.2.246.562.10.54943480589"],
+        "organisaatio": {
+          "paikkakunta": {
+            "koodiUri": "kunta_005",
+            "nimi": { "fi": "Alajärvi", "sv": "Alajärvi" }
+          },
+          "nimi": {
+            "fi": "Alajärven lukio",
+            "sv": "Alajärven lukio",
+            "en": "Alajärven lukio"
+          },
+          "oid": "1.2.246.562.10.54943480589"
+        },
+        "metadata": {
+          "erityisetKoulutustehtavat": [],
+          "painotukset": [],
+          "kuvaus": {
+            "en": "<p>Our school has a general curriculum option and and an eSports option called KOVA academy.</p>",
+            "fi": "<p>Lukiossa toimii yleislinja ja esports-linja KOVA-akatemia.</p><p>Hakeminen KOVA-akatemiaan:</p><p>· Täytä hakemus oppilaitokseen opintopolussa yhteishaussa ja</p><p>· Täytä erillishakemus osoitteessa <a href=\"http://www.kovaakatemia.fi/\" rel=\"noopener noreferrer\" target=\"_blank\">www.kovaakatemia.fi</a></p><p>Tutustu esport-opintoihin osoitteessa <a href=\"http://www.kovaakatemia.fi/\" rel=\"noopener noreferrer\" target=\"_blank\">www.kovaakatemia.fi</a></p>"
+          },
+          "diplomit": [
+            {
+              "koodi": {
+                "koodiUri": "moduulikoodistolops2021_kuld2#1",
+                "nimi": {
+                  "fi": "Kuvataiteen lukiodiplomi ",
+                  "sv": "Gymnasiediplom i bildkonst"
+                }
+              },
+              "linkki": {},
+              "linkinAltTeksti": {},
+              "sisallot": [
+                {
+                  "fi": "perustuvat lukiodiplomille asetettuihin tavoitteisiin sekä valittuun tehtävään, näkökulmaan ja toteutustapaan",
+                  "sv": "utgår från målen som ställts upp för gymnasiediplomet samt den uppgift, det perspektiv och arbetssätt som den studerande valt"
+                },
+                {
+                  "fi": "muodostuvat teoksesta sekä työskentelyprosessia, itsearviointia sekä kuvataiteen ja muun visuaalisen kulttuurin tuntemusta kuvaavasta portfoliosta.",
+                  "sv": "omfattar verket och arbetsprocessen, självvärdering och en portfölj som beskriver den studerandes kunnande om bildkonst och övrig visuell kultur"
+                }
+              ],
+              "tavoitteetKohde": {
+                "fi": "Moduulin tavoitteena on, että opiskelija",
+                "sv": "Målen för modulen är att den studerande ska"
+              },
+              "tavoitteet": [
+                {
+                  "fi": "antaa erityisen näytön lukioaikaisesta osaamisestaan ja harrastuneisuudestaan kuvataiteessa",
+                  "sv": "genom en särskild prestation visa prov på sitt intresse för bildkonst och de ämneskunskaper och färdigheter som den studerande har utvecklat under gymnasiestudierna"
+                },
+                {
+                  "fi": "osoittaa kuvataiteen ja muun visuaalisen kulttuurin osaamistaan tuottamalla, tulkitsemalla ja arvottamalla monipuolisesti kuvia",
+                  "sv": "visar sitt kunnande inom bildkonst och annan visuell kultur genom att producera, tolka och värdera olika bilder på ett mångsidigt sätt"
+                },
+                {
+                  "fi": "osaa kertoa ja välittää lukiodiplomille asettamansa tavoitteet ja lähtökohdat",
+                  "sv": "kunna redogöra för och förmedla de mål och utgångspunkter som hen ställt upp för gymnasiediplomet"
+                },
+                {
+                  "fi": "osaa tuottaa taiteellisen ja visuaalisen kokonaisuuden, jonka sisällön tuottamisen ja esittämisen tavat tukevat toisiaan",
+                  "sv": "kunna producera en konstnärlig och visuell helhet där arbetssätten och hur innehållet presenteras stödjer och kompletterar varandra"
+                },
+                {
+                  "fi": "osoittaa kuvataiteen ja muun visuaalisen kulttuurin tuntemusta",
+                  "sv": "visa sitt kunnande inom bildkonst och övrig visuell kultur"
+                },
+                {
+                  "fi": "osaa arvioida työskentelyprosessia ja teosta oman oppimisen näkökulmasta.",
+                  "sv": "kunna utvärdera arbetsprocessen och verket med utgångspunkt i sitt eget lärande."
+                }
+              ]
+            },
+            {
+              "koodi": {
+                "koodiUri": "moduulikoodistolops2021_kald3#1",
+                "nimi": { "fi": "Käsityön lukiodiplomi ", "sv": "Gymnasiediplom i slöjd" }
+              },
+              "linkki": {},
+              "linkinAltTeksti": {},
+              "sisallot": [
+                {
+                  "fi": "perustuvat valittuun tehtävään, ideaan ja suunnittelu- ja valmistusprosessiin sekä niiden itsearviointiin",
+                  "sv": "utgår från den valda uppgiften och idén, från planerings- och arbetsprocessen och från självvärderingen av dessa"
+                },
+                {
+                  "fi": "muodostuvat käsityötuotteesta tai käsityöteoksesta sekä sen suunnittelu- ja valmistusprosessia ja itsearviointia kuvaavasta portfoliosta.",
+                  "sv": "omfattar en slöjdprodukt eller ett verk och en portfölj som beskriver planerings- och framställningsprocessen samt självvärderingen"
+                }
+              ],
+              "tavoitteetKohde": {
+                "fi": "Moduulin tavoitteena on, että opiskelija",
+                "sv": "Målen för modulen är att den studerande ska"
+              },
+              "tavoitteet": [
+                {
+                  "fi": "antaa erityisen näytön lukioaikaisesta osaamisestaan ja harrastuneisuudestaan käsityössä",
+                  "sv": "genom en särskild prestation visa prov på sitt intresse för slöjd och de ämneskunskaper och färdigheter som den studerande har utvecklat under gymnasiestudierna"
+                },
+                {
+                  "fi": "osoittaa osaamistaan laadukkaiden käsityötuotteiden omaehtoisessa suunnittelussa, valmistuksessa sekä oppimisensa arvioinnissa",
+                  "sv": "visa sin förmåga att självständigt planera och framställa slöjdprodukter av hög kvalitet samt bedöma sitt kunnande"
+                },
+                {
+                  "fi": "osoittaa hallitsevansa käsityöprosessiin sisältyvät tavoitteiden asettamisen, ideoinnin ja suunnittelun vaiheet ja vaatimukset",
+                  "sv": "visa att hen känner till och behärskar olika skeden och krav som är förknippade med arbetsprocessen i slöjd; att ställa upp mål, skapa en idé och planera"
+                },
+                {
+                  "fi": "hallitsee, seuraa ja arvioi käyttämiään resursseja, työskentelyään ja oppimisprosessiaan",
+                  "sv": "behärska, följa upp och utvärdera sitt arbete, sin lärprocess samt de resurser hen använder"
+                },
+                {
+                  "fi": "osaa ottaa tuotteessa tai teoksessa huomioon esteettisyyden, eettisyyden, omaehtoisuuden näkökulmat ja ekologisuuden vaatimukset",
+                  "sv": "i en självständigt planerad produkt kunna ta i beaktande estetiska och etiska aspekter samt ekologiska krav"
+                },
+                {
+                  "fi": "osaa ratkaista tuotteen tai teoksen toimivuuden, taloudellisuuden, ergonomisuuden, innovatiivisuuden ja teknisen toteutustavan vaatimukset käyttöympäristössään.",
+                  "sv": "kunna avgöra vilka krav som ställs på produkten eller verket i dess bruksmiljö vad gäller hur fungerande, ekonomisk, ergonomisk, innovativ och tekniskt utformad den är."
+                }
+              ]
+            },
+            {
+              "koodi": {
+                "koodiUri": "moduulikoodistolops2021_muld6#1",
+                "nimi": { "sv": "Gymnasiediplom i musik", "fi": "Musiikin lukiodiplomi " }
+              },
+              "linkki": {},
+              "linkinAltTeksti": {},
+              "sisallot": [
+                {
+                  "fi": "opiskelijan musiikillinen omaelämäkerta, musiikkiprojekti tai musiikillinen näytesalkku, yhteenveto ja arvioitsijoiden lausunto",
+                  "sv": "den studerandes musikaliska självbiografi, ett musikprojekt eller en musikportfölj, ett sammandrag och ett utlåtande av bedömarna"
+                },
+                {
+                  "fi": "erilaiset toteutustavat ja osa-alueet",
+                  "sv": "olika arbetssätt och delområden"
+                }
+              ],
+              "tavoitteetKohde": {
+                "fi": "Moduulin tavoitteena on, että opiskelija",
+                "sv": "Målen för modulen är att den studerande ska"
+              },
+              "tavoitteet": [
+                {
+                  "fi": "antaa lukioaikanaan näytön musiikillisesta erityisosaamisestaan ja erityisestä harrastuneisuudestaan musiikissa",
+                  "sv": "genom en särskild prestation visa prov på sitt intresse för musik och de ämneskunskaper och färdigheter som den studerande har utvecklat under gymnasiestudierna"
+                },
+                {
+                  "fi": "osoittaa musiikillista osaamistaan ja harrastuneisuuttaan valmistamalla musiikin taidollista ja tiedollista hallintaa osoittavan projektin tai kokoamalla näytesalkun lukioaikaisista musiikkiopinnoistaan ja  toiminnastaan.",
+                  "sv": "visa sitt musikaliska kunnande och intresse genom att förbereda ett projekt som påvisar kunskaper och färdigheter i musik eller genom att sammanställa en portfölj över sina musikstudier och sin musikaliska verksamhet under gymnasietiden."
+                }
+              ]
+            },
+            {
+              "koodi": {
+                "koodiUri": "moduulikoodistolops2021_lild4#1",
+                "nimi": {
+                  "fi": "Liikunnan lukiodiplomi ",
+                  "sv": "Gymnasiediplom i gymnastik"
+                }
+              },
+              "linkki": {},
+              "linkinAltTeksti": {},
+              "sisallot": [
+                {
+                  "fi": "muodostuvat liikuntakykyisyyden, liikuntatietojen, erityisosaamisen, harrastuneisuuden ja yhteistyötaitojen sekä portfolion muodossa tehtävän itsearvioinnin muodostamasta kokonaisuudesta.",
+                  "sv": "omfattar en helhet som innehåller delområdena fysisk prestationsförmåga, kunskap om gymnastik och idrott, specialkunnande, intresse och samarbetsförmåga samt självvärdering i form av en portfölj"
+                }
+              ],
+              "tavoitteetKohde": {
+                "fi": "Moduulin tavoitteena on, että opiskelija",
+                "sv": "Målen för modulen är att den studerande ska"
+              },
+              "tavoitteet": [
+                {
+                  "fi": "antaa erityisen näytön lukioaikaisesta osaamisestaan ja harrastuneisuudestaan liikunnassa",
+                  "sv": "genom en särskild prestation visa prov på sitt intresse för gymnastik och de ämneskunskaper och färdigheter som den studerande har utvecklat under gymnasiestudierna"
+                },
+                {
+                  "fi": "pohtii monipuolisesti liikunnan merkitystä elämässään samalla kehittäen fyysistä toimintakykyään, liikunnallista erityisosaamistaan, harrastuneisuuttaan ja yhteistyökykyjään.",
+                  "sv": "ska på ett mångsidigt sätt kunna reflektera över betydelsen av fysisk aktivitet i sitt liv och samtidigt utveckla sin fysiska funktionsförmåga, sitt fysiska specialkunnande och intresse samt sin samarbetsförmåga."
+                }
+              ]
+            }
+          ],
+          "kielivalikoima": {
+            "A1Kielet": [
+              {
+                "koodiUri": "kieli_en#1",
+                "nimi": { "en": "English", "sv": "engelska", "fi": "englanti" }
+              }
+            ],
+            "A2Kielet": [],
+            "B1Kielet": [
+              {
+                "koodiUri": "kieli_sv#1",
+                "nimi": { "fi": "ruotsi", "en": "Swedish", "sv": "svenska" }
+              }
+            ],
+            "B2Kielet": [
+              {
+                "koodiUri": "kieli_de#1",
+                "nimi": { "fi": "saksa", "en": "German", "sv": "tyska" }
+              },
+              {
+                "koodiUri": "kieli_ru#1",
+                "nimi": { "en": "Russian", "fi": "venäjä", "sv": "ryska" }
+              }
+            ],
+            "B3Kielet": [
+              {
+                "koodiUri": "kieli_de#1",
+                "nimi": { "fi": "saksa", "en": "German", "sv": "tyska" }
+              },
+              {
+                "koodiUri": "kieli_ru#1",
+                "nimi": { "en": "Russian", "fi": "venäjä", "sv": "ryska" }
+              },
+              {
+                "koodiUri": "kieli_fr#1",
+                "nimi": { "fi": "ranska", "en": "French", "sv": "franska" }
+              },
+              {
+                "koodiUri": "kieli_es#1",
+                "nimi": { "fi": "espanja", "en": "Spanish, Castilian", "sv": "spanska" }
+              },
+              {
+                "koodiUri": "kieli_ja#1",
+                "nimi": { "fi": "japani", "en": "Japanese", "sv": "japanska" }
+              }
+            ],
+            "aidinkielet": [],
+            "muutKielet": []
+          },
+          "ammattinimikkeet": [],
+          "asiasanat": [
+            { "kieli": "fi", "arvo": "yleislukio" },
+            { "kieli": "fi", "arvo": "esports" },
+            { "kieli": "fi", "arvo": "pesäpallo" },
+            { "kieli": "fi", "arvo": "jääkiekko" }
+          ],
+          "opetus": {
+            "maksullisuustyyppi": "maksuton",
+            "maksullisuusKuvaus": {
+              "en": "<p>The education is given free of charge.</p>",
+              "fi": "<p>Lukiokoulutus on ilmaista.</p>"
+            },
+            "suunniteltuKestoKuvaus": {
+              "en": "<p>The length of studies can vary from a shorter option to a longer option depending on your available time.</p>",
+              "fi": "<p>Lukion voi suorittaa myös lyhyemmässä tai pidemmässä ajassa.</p>"
+            },
+            "suunniteltuKestoVuodet": 3,
+            "onkoApuraha": false,
+            "lisatiedot": [],
+            "suunniteltuKestoKuukaudet": 0,
+            "opetustapaKuvaus": {
+              "en": "<p>Our education process uses contact teaching.</p>",
+              "fi": "<p>Opetus annetaan lähiopetuksena.</p>"
+            },
+            "opetuskieletKuvaus": {
+              "en": "<p>Teaching students is done by using Finnish.</p>",
+              "fi": "<p>Opetuskieli on suomi.</p>"
+            },
+            "opetustapa": [
+              {
+                "koodiUri": "opetuspaikkakk_1#1",
+                "nimi": {
+                  "fi": "Lähiopetus",
+                  "sv": "Närundervisning",
+                  "en": "Contact teaching"
+                }
+              }
+            ],
+            "opetusaikaKuvaus": {
+              "en": "<p>Teaching hours are between 8 a.m. and 4 p.m.</p>",
+              "fi": "<p>Opetus tapahtuu kello 8.00-16.00.</p>"
+            },
+            "opetuskieli": [
+              {
+                "koodiUri": "oppilaitoksenopetuskieli_1#2",
+                "nimi": { "sv": "finska", "fi": "suomi", "en": "Finnish" }
+              }
+            ],
+            "opetusaika": [
+              {
+                "koodiUri": "opetusaikakk_1#1",
+                "nimi": {
+                  "sv": "Dagundervisning",
+                  "en": "Day time teaching",
+                  "fi": "Päiväopetus"
+                }
+              }
+            ]
+          },
+          "yhteyshenkilot": [
+            {
+              "nimi": { "en": "Marko Timo", "fi": "Marko Timo" },
+              "titteli": { "en": "Principal", "fi": "Rehtori" },
+              "sahkoposti": {
+                "en": "marko.timo@alajarvi.fi",
+                "fi": "marko.timo@alajarvi.fi"
+              },
+              "puhelinnumero": { "en": "+358444659450", "fi": "62900" },
+              "wwwSivu": {
+                "en": "https://lukio.edualajarvi.fi/",
+                "fi": "https://lukio.edualajarvi.fi/"
+              }
+            }
+          ],
+          "yleislinja": true,
+          "tyyppi": "lk"
+        },
+        "hakutiedot": [
+          {
+            "hakuOid": "1.2.246.562.29.00000000000000021303",
+            "nimi": {
+              "en": "Joint application to upper secondary education and preparatory education 2023",
+              "fi": "Perusopetuksen jälkeisen koulutuksen yhteishaku 2023",
+              "sv": "Gemensam ansökan till utbildning efter den grundläggande utbildningen 2023"
+            },
+            "hakutapa": {
+              "koodiUri": "hakutapa_01#1",
+              "nimi": {
+                "fi": "Yhteishaku",
+                "sv": "Gemensam ansökan",
+                "en": "Joint application"
+              }
+            },
+            "koulutuksenAlkamiskausi": {
+              "alkamiskausityyppi": "alkamiskausi ja -vuosi",
+              "henkilokohtaisenSuunnitelmanLisatiedot": {},
+              "koulutuksenAlkamiskausi": {
+                "koodiUri": "kausi_s#1",
+                "nimi": { "sv": "Höst", "en": "Autumn", "fi": "Syksy" }
+              },
+              "koulutuksenAlkamisvuosi": "2023"
+            },
+            "kohdejoukko": {
+              "koodiUri": "haunkohdejoukko_11#1",
+              "nimi": {
+                "fi": "Perusopetuksen jälkeisen koulutuksen yhteishaku",
+                "sv": "Gemensam ansökan till utbildning efter grundläggande utbildning"
+              }
+            },
+            "hakukohteet": [
+              {
+                "tila": "julkaistu",
+                "hakulomakeKuvaus": {},
+                "pohjakoulutusvaatimusTarkenne": {},
+                "aloituspaikat": { "lukumaara": 108, "kuvaus": {} },
+                "hakulomaketyyppi": "ataru",
+                "pohjakoulutusvaatimus": [
+                  {
+                    "koodiUri": "pohjakoulutusvaatimuskouta_pk#1",
+                    "nimi": { "fi": "Peruskoulu", "sv": "Grundskola", "en": "Peruskoulu" }
+                  }
+                ],
+                "hakulomakeLinkki": {
+                  "fi": "https://untuvaopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000021958?lang=fi",
+                  "sv": "https://untuvaopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000021958?lang=sv",
+                  "en": "https://untuvaopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000021958?lang=en"
+                },
+                "koulutuksenAlkamiskausi": {
+                  "alkamiskausityyppi": "alkamiskausi ja -vuosi",
+                  "henkilokohtaisenSuunnitelmanLisatiedot": {},
+                  "koulutuksenAlkamiskausi": {
+                    "koodiUri": "kausi_s#1",
+                    "nimi": { "sv": "Höst", "en": "Autumn", "fi": "Syksy" }
+                  },
+                  "koulutuksenAlkamisvuosi": "2023"
+                },
+                "hakulomakeAtaruId": "b1646055-f5a4-428d-9ffa-838512e10a44",
+                "esikatselu": true,
+                "hasValintaperustekuvausData": false,
+                "modified": "2022-10-14T10:52:35",
+                "jarjestyspaikka": {
+                  "paikkakunta": {
+                    "koodiUri": "kunta_005",
+                    "nimi": { "fi": "Alajärvi", "sv": "Alajärvi" }
+                  },
+                  "nimi": {
+                    "fi": "Alajärven lukio",
+                    "sv": "Alajärven lukio",
+                    "en": "Alajärven lukio"
+                  },
+                  "oid": "1.2.246.562.10.50460470417",
+                  "jarjestaaUrheilijanAmmKoulutusta": false
+                },
+                "nimi": { "en": "Yleislinja", "fi": "Lukion yleislinja" },
+                "hakuajat": [
+                  {
+                    "alkaa": "2023-02-21T08:00",
+                    "paattyy": "2023-03-21T15:00",
+                    "formatoituPaattyy": {
+                      "fi": "21.3.2023 klo 15:00",
+                      "sv": "21.3.2023 kl. 15:00",
+                      "en": "Mar. 21, 2023 at 03:00 PM UTC+2"
+                    },
+                    "formatoituAlkaa": {
+                      "fi": "21.2.2023 klo 08:00",
+                      "sv": "21.2.2023 kl. 08:00",
+                      "en": "Feb. 21, 2023 at 08:00 AM UTC+2"
+                    },
+                    "hakuAuki": false,
+                    "hakuMennyt": false
+                  }
+                ],
+                "hakukohteenLinja": {
+                  "alinHyvaksyttyKeskiarvo": 7.0,
+                  "lisatietoa": {
+                    "en": "<p>7,0</p>",
+                    "fi": "<p>Jos haet myös KOVA-akatemiaan:</p><p>· Täytä hakemus oppilaitokseen opintopolussa yhteishaussa ja </p><p>· Täytä erillishakemus osoitteessa <a href=\"http://www.kovaakatemia.fi/\" rel=\"noopener noreferrer\" target=\"_blank\">www.kovaakatemia.fi</a></p><p></p><p></p>"
+                  },
+                  "painotetutArvosanat": []
+                },
+                "hakukohdeOid": "1.2.246.562.20.00000000000000021958",
+                "organisaatio": {
+                  "paikkakunta": {
+                    "koodiUri": "kunta_005",
+                    "nimi": { "fi": "Alajärvi", "sv": "Alajärvi" }
+                  },
+                  "nimi": {
+                    "fi": "Alajärven lukio",
+                    "sv": "Alajärven lukio",
+                    "en": "Alajärven lukio"
+                  },
+                  "oid": "1.2.246.562.10.54943480589"
+                },
+                "metadata": {
+                  "pistehistoria": [
+                    {
+                      "tarjoaja": "1.2.246.562.10.50460470417",
+                      "hakukohdekoodi": {
+                        "koodiUri": "hakukohteet_000",
+                        "nimi": { "sv": "Gymnasium", "fi": "Lukio" }
+                      },
+                      "pisteet": 12.00,
+                      "vuosi": "2018",
+                      "valintatapajonoOid": "15204349710893872952965419072836",
+                      "hakukohdeOid": "1.2.246.562.20.25631786289",
+                      "hakuOid": "1.2.246.562.29.55739081531",
+                      "valintatapajonoTyyppi": {
+                        "koodiUri": "valintatapajono_yp",
+                        "nimi": {
+                          "sv": "Totalpoäng",
+                          "en": "Total score",
+                          "fi": "Yhteispisteet"
+                        }
+                      }
+                    },
+                    {
+                      "tarjoaja": "1.2.246.562.10.50460470417",
+                      "hakukohdekoodi": {
+                        "koodiUri": "hakukohteet_000",
+                        "nimi": { "sv": "Gymnasium", "fi": "Lukio" }
+                      },
+                      "pisteet": 7.2,
+                      "vuosi": "2022",
+                      "valintatapajonoOid": "1649413967221888534857780379887",
+                      "hakukohdeOid": "1.2.246.562.20.00000000000000008445",
+                      "hakuOid": "1.2.246.562.29.00000000000000005368",
+                      "valintatapajonoTyyppi": {
+                        "koodiUri": "valintatapajono_yp",
+                        "nimi": {
+                          "sv": "Totalpoäng",
+                          "en": "Total score",
+                          "fi": "Yhteispisteet"
+                        }
+                      }
                     }
                   ]
                 },

@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { colors } from '#/src/colors';
 import { useContentful } from '#/src/hooks/useContentful';
 import { styled } from '#/src/theme';
-import { formatDateString } from '#/src/tools/utils';
+import { localize } from '#/src/tools/localization';
 import {
   CfRecord,
   ContentfulAsset,
@@ -109,7 +109,7 @@ export const Uutinen = ({ id }: { id: string }) => {
               {t('uutinen.kategoria')}
             </Grid>
             <Grid item xs={6} className={classes.pvm}>
-              {timestamp && formatDateString(timestamp)}
+              {timestamp && localize(timestamp)}
             </Grid>
           </Grid>
           <div className={classes.content}>

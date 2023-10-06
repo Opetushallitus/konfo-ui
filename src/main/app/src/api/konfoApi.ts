@@ -13,6 +13,7 @@ import {
   TODOType,
   RequestParams,
   SlugsToIds,
+  SearchParams,
 } from '#/src/types/common';
 import {
   ContentfulData,
@@ -26,6 +27,8 @@ const client = axios.create({
   headers: {
     'Caller-Id': '1.2.246.562.10.00000000001.konfoui',
   },
+  paramsSerializer: (params) =>
+    qs.stringify(params, { encode: false, arrayFormat: 'comma' }),
 });
 
 client.interceptors.request.use(
@@ -129,19 +132,19 @@ export const getKoodistonKoodit = async (koodisto: string) => {
 
 export const getValintaperuste = createEntityGetter('valintaperusteet');
 
-export const searchKoulutukset = (requestParams: RequestParams, signal?: AbortSignal) =>
+export const searchKoulutukset = (requestParams: SearchParams, signal?: AbortSignal) =>
   get(urls.url('konfo-backend.search.koulutukset'), {
     params: { lng: getLanguage(), ...cleanRequestParams(requestParams) },
     signal,
   });
 
-export const searchOppilaitokset = (requestParams: RequestParams, signal?: AbortSignal) =>
+export const searchOppilaitokset = (requestParams: SearchParams, signal?: AbortSignal) =>
   get(urls.url('konfo-backend.search.oppilaitokset'), {
     params: { lng: getLanguage(), ...cleanRequestParams(requestParams) },
     signal,
   });
 
-export const autoCompleteSearch = (requestParams: RequestParams) =>
+export const autoCompleteSearch = (requestParams: SearchParams) =>
   get<AutocompleteResult>(urls.url('konfo-backend.search.autocomplete'), {
     params: { lng: getLanguage(), ...cleanRequestParams(requestParams) },
   });

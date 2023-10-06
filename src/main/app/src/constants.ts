@@ -2,6 +2,7 @@ export const YHTEISHAKU_KOODI_URI = 'hakutapa_01';
 
 export const TOISEN_ASTEEN_YHTEISHAUN_KOHDEJOUKKO = 'haunkohdejoukko_11';
 
+// Sisäisesti tallennetut rajainten nimet. Eroavat joiltain osin konfo-backendille lähetettävistä rajaimista.
 export const RAJAIN_TYPES = {
   KOULUTUSALA: 'koulutusala',
   KOULUTUSTYYPPI: 'koulutustyyppi',
@@ -30,33 +31,10 @@ export const RAJAIN_TYPES = {
   SIJAINTI: 'sijainti', // TODO: Poista tämä kun konfo-backend ei enää käytä sijaintirajainta vaan kunta + maakunta
   ALKAMISKAUSI: 'alkamiskausi',
   OPPILAITOS: 'oppilaitos',
+  HAKUALKAAPAIVISSA: 'hakualkaapaivissa',
 } as const;
 
 export const RAJAIN_TYPES_ARR = Object.values(RAJAIN_TYPES);
-
-// TODO: konfo-backend haluaa turhaan kunta + maakunta rajaimet yhtenä könttinä (sijainti), se pitäisi purkaa sieltä
-// Tämän voi poistaa sitten kun konfo-backend ottaa vastaan maakunta + kunta rajaimet
-export const RAJAIN_TYPES_ARR_FOR_KONFO_BACKEND = [
-  'opetuskieli',
-  'koulutusala',
-  'koulutustyyppi',
-  'sijainti',
-  'opetustapa',
-  'opetusaika',
-  'valintatapa',
-  'hakukaynnissa',
-  'jotpa',
-  'tyovoimakoulutus',
-  'taydennyskoulutus',
-  'hakutapa',
-  'yhteishaku',
-  'pohjakoulutusvaatimus',
-  'lukiopainotukset',
-  'lukiolinjaterityinenkoulutustehtava',
-  'osaamisala',
-  'alkamiskausi',
-  'maksullisuustyyppi',
-] as const;
 
 export const SIDEMENU_WIDTH = 330;
 export const KEEP_VALIKKO_OPEN_WIDTH = 1366;

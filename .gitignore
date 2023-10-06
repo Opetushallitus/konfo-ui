@@ -33,3 +33,5 @@ target/
 src/main/app/.vscode/
 
 .cert/*
+
+scripts/*.json

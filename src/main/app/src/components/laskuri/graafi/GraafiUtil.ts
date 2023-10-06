@@ -1,7 +1,8 @@
 import { useMemo } from 'react';
 
-import { Datum } from 'victory';
+import { TFunction } from 'i18next';
 
+import { colors } from '#/src/colors';
 import { formatDouble } from '#/src/tools/utils';
 import { Hakukohde, PisteHistoria } from '#/src/types/HakukohdeTypes';
 
@@ -30,12 +31,13 @@ export const graafiYearModifier = (
 };
 
 export type PisteData = {
-  data: Array<Datum>;
-  years: Array<number>;
-  labels: Array<string>;
+  pisteet: number;
+  pisteetLabel: any;
+  vuosi: number;
+  pistetyyppi: string;
 };
 
-export const usePisteHistoria = (hakukohde: Hakukohde): PisteData => {
+export const usePisteHistoria = (hakukohde: Hakukohde): Array<PisteData> => {
   return useMemo(() => {
     const data =
       hakukohde?.metadata?.pistehistoria
@@ -43,12 +45,84 @@ export const usePisteHistoria = (hakukohde: Hakukohde): PisteData => {
           (historia: PisteHistoria) => Number.parseInt(historia.vuosi) >= GRAAFI_MIN_YEAR
         )
         .map((historia: PisteHistoria) => {
-          return { x: Number.parseInt(historia.vuosi), y: historia.pisteet };
+          return {
+            pisteet: historia.pisteet,
+            pisteetLabel: formatDouble(historia.pisteet),
+            vuosi: Number.parseInt(historia.vuosi),
+            pistetyyppi: historia.valintatapajonoTyyppi?.koodiUri,
+          } as PisteData;
         })
-        .sort((a, b) => b.x - a.x)
+        .sort((a, b) => b.vuosi - a.vuosi)
         .slice(0, MAX_ITEMS) || [];
-    const years = data.map((datum: Datum) => datum.x);
-    const labels = data.map((datum: Datum) => formatDouble(datum.y));
-    return { data, years, labels };
+    return data;
   }, [hakukohde]);
+};
+
+export const getStyleByPistetyyppi = (pistetyyppi: string | undefined): string => {
+  switch (pistetyyppi) {
+    case 'valintatapajono_yp':
+      return colors.yhteispisteetPink;
+    case 'valintatapajono_kp':
+      return colors.koepisteetBlue;
+    case 'valintatapajono_tv':
+      return colors.verminal;
+    default:
+      return colors.darkGrey; // valintatapajono_m tai tieto puuttuu
+  }
+};
+
+export const getUniquePistetyypit = (hakukohde: Hakukohde) => {
+  // huomioidaan vaan graafilla näkyvät vuodet
+  const pistetyypit = hakukohde?.metadata?.pistehistoria
+    ?.filter(
+      (historia: PisteHistoria) => Number.parseInt(historia.vuosi) >= GRAAFI_MIN_YEAR
+    )
+    .sort((a, b) => Number.parseInt(b.vuosi) - Number.parseInt(a.vuosi))
+    .slice(0, MAX_ITEMS)
+    .map((pistehistoria) => pistehistoria?.valintatapajonoTyyppi?.koodiUri);
+  const uniikitPistetyypit = new Set(pistetyypit);
+  // jos on sekä 'muu' että tyhjä, ei listata niitä erikseen
+  if (uniikitPistetyypit.has(undefined) && uniikitPistetyypit.has('valintatapajono_m')) {
+    uniikitPistetyypit.delete(undefined);
+  }
+  return Array.from(uniikitPistetyypit);
+};
+
+export const containsOnlyTodistusvalinta = (hakukohde: Hakukohde) => {
+  return (
+    getUniquePistetyypit(hakukohde).length == 1 &&
+    getUniquePistetyypit(hakukohde).includes('valintatapajono_tv')
+  );
+};
+
+export const getPistetyyppiText = (
+  pistetyyppi: string | undefined,
+  t: TFunction
+): string => {
+  switch (pistetyyppi) {
+    case 'valintatapajono_yp':
+      return ` (${t('pistelaskuri.graafi.yhteispisteet')})`;
+    case 'valintatapajono_kp':
+      return ` (${t('pistelaskuri.graafi.koepisteet')})`;
+    case 'valintatapajono_tv':
+      return ` (${t('pistelaskuri.graafi.todistusvalinta')})`;
+    default:
+      return ''; // valintatapajono_m tai tieto puuttuu
+  }
+};
+
+export const getLukioPisteText = (
+  pistetyyppi: string | undefined,
+  t: TFunction
+): string => {
+  switch (pistetyyppi) {
+    case 'valintatapajono_yp':
+      return `${t('pistelaskuri.graafi.alin-pisteet')} (${t(
+        'pistelaskuri.graafi.yhteispisteet-lukio'
+      )})`;
+    case 'valintatapajono_tv':
+      return t('pistelaskuri.graafi.alin-keskiarvo');
+    default:
+      return t('pistelaskuri.graafi.alin-pisteet'); // lukiossa ei pitäisi olla muita valintajonotyyppejä
+  }
 };

@@ -26,7 +26,7 @@ import { P, match } from 'ts-pattern';
 import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { useConfig } from '#/src/config';
-import { localize, localizeIfNimiObject } from '#/src/tools/localization';
+import { localizeIfNimiObject, translateRajainItem } from '#/src/tools/localization';
 import { TODOType } from '#/src/types/common';
 import { RajainItem, isCheckboxRajainId } from '#/src/types/SuodatinTypes';
 
@@ -159,14 +159,14 @@ export const FilterCheckbox = ({
   disabled,
   additionalInfo,
 }: CheckboxProps) => {
-  const { count, id, nimi, checked } = match(value)
+  const { count, id, checked } = match(value)
     .with(checkboxValuePattern, (v) => ({
       count: v.count,
       id: v.id,
-      nimi: v.nimi,
       checked: v.checked,
     }))
     .run();
+
   const labelId = `filter-list-label-${id}`;
 
   const { t } = useTranslation();
@@ -201,10 +201,7 @@ export const FilterCheckbox = ({
           id={labelId}
           sx={{ wordWrap: 'break-word' }}
           primaryTypographyProps={{ variant: 'body2' }}
-          primary={
-            // Kaikille suodattimille ei tule backendista käännöksiä
-            localize(nimi) || t(`haku.${id}`)
-          }
+          primary={translateRajainItem(value, t)}
         />
         {tooltipText && (
           <Box paddingLeft={1}>
