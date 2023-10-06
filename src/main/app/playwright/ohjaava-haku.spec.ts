@@ -120,7 +120,7 @@ test.describe('Ohjaava haku', () => {
     await page.getByRole('button', { name: 'Katso tulokset' }).click();
 
     await expect(page).toHaveURL(
-      'http://localhost:3005/konfo/fi/haku?alkamiskausi=2024-kevat&koulutuksenkestokuukausina_max=65&koulutuksenkestokuukausina_min=22&lukuvuosimaksunmaara_max=10000&lukuvuosimaksunmaara_min=1000&maksullisuustyyppi=lukuvuosimaksu%2Cmaksullinen&maksunmaara_max=10000&maksunmaara_min=1000&opetusaika=opetusaikakk_4&order=desc&size=20&sort=score'
+      'http://localhost:3005/konfo/fi/haku?alkamiskausi=2024-kevat&koulutuksenkestokuukausina_max=65&koulutuksenkestokuukausina_min=22&lukuvuosimaksunmaara_max=10000&lukuvuosimaksunmaara_min=1000&maksullisuustyyppi=lukuvuosimaksu,maksullinen&maksunmaara_max=10000&maksunmaara_min=1000&opetusaika=opetusaikakk_4&order=desc&size=20&sort=score'
     );
 
     await expect(page.getByTestId('chip-opetusaikakk_4')).toBeVisible();

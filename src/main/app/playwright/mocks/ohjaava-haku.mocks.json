@@ -1,6 +1,6 @@
 [
   {
-    "url": "http://localhost:3005/konfo-backend/search/koulutukset?lng=fi&page=1&order=desc&sort=score&size=20",
+    "url": "http://localhost:3005/konfo-backend/search/koulutukset?lng=fi&order=desc&page=1&size=20&sort=score",
     "method": "GET",
     "response": {
       "body": {
@@ -10667,7 +10667,7 @@
     }
   },
   {
-    "url": "http://localhost:3005/konfo-backend/search/koulutukset?lng=fi&page=1&order=desc&sort=score&size=20&opetusaika=opetusaikakk_4&koulutuksenkestokuukausina_min=22&koulutuksenkestokuukausina_max=65&maksunmaara_min=1000&maksunmaara_max=10000&lukuvuosimaksunmaara_min=1000&lukuvuosimaksunmaara_max=10000&alkamiskausi=2024-kevat&maksullisuustyyppi=lukuvuosimaksu,maksullinen",
+    "url": "http://localhost:3005/konfo-backend/search/koulutukset?alkamiskausi=2024-kevat&koulutuksenkestokuukausina_max=65&koulutuksenkestokuukausina_min=22&lng=fi&lukuvuosimaksunmaara_max=10000&lukuvuosimaksunmaara_min=1000&maksullisuustyyppi=lukuvuosimaksu,maksullinen&maksunmaara_max=10000&maksunmaara_min=1000&opetusaika=opetusaikakk_4&order=desc&page=1&size=20&sort=score",
     "method": "GET",
     "response": {
       "body": {
@@ -18268,7 +18268,7 @@
     }
   },
   {
-    "url": "http://localhost:3005/konfo-backend/search/oppilaitokset?lng=fi&page=1&order=desc&sort=score&size=20&opetusaika=opetusaikakk_4&koulutuksenkestokuukausina_min=22&koulutuksenkestokuukausina_max=65&maksunmaara_min=1000&maksunmaara_max=10000&lukuvuosimaksunmaara_min=1000&lukuvuosimaksunmaara_max=10000&alkamiskausi=2024-kevat&maksullisuustyyppi=lukuvuosimaksu,maksullinen",
+    "url": "http://localhost:3005/konfo-backend/search/oppilaitokset?alkamiskausi=2024-kevat&koulutuksenkestokuukausina_max=65&koulutuksenkestokuukausina_min=22&lng=fi&lukuvuosimaksunmaara_max=10000&lukuvuosimaksunmaara_min=1000&maksullisuustyyppi=lukuvuosimaksu,maksullinen&maksunmaara_max=10000&maksunmaara_min=1000&opetusaika=opetusaikakk_4&order=desc&page=1&size=20&sort=score",
     "method": "GET",
     "response": {
       "body": {
