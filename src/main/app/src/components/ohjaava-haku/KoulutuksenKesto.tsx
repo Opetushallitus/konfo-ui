@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Box, Grid, Typography } from '@mui/material';
-import { isEmpty } from 'lodash';
+import { isEmpty, isFinite } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { match } from 'ts-pattern';
 
@@ -38,18 +38,19 @@ export const KoulutuksenKesto = ({
   const undefinedRajainValues = [0, rajainItem?.upperLimit || DEFAULT_UPPERLIMIT];
 
   const initialEnintaan = rajainItem?.max || undefinedRajainValues[1];
-  const initialEnintaanV = Math.floor(initialEnintaan / 12);
-  const initialEnintaanKk = initialEnintaan % 12;
+  const initialEnintaanVStr = isFinite(initialEnintaan)
+    ? Math.floor(initialEnintaan / 12).toString()
+    : '';
+  const initialEnintaanKkStr = isFinite(initialEnintaan)
+    ? (initialEnintaan % 12).toString()
+    : '';
   const [rangeValues, setRangeValues] = useState([
     rajainItem?.min || undefinedRajainValues[0],
     initialEnintaan || undefinedRajainValues[1],
   ]);
 
   const [vahintaan, setVahintaan] = useState(['0', '0']);
-  const [enintaan, setEnintaan] = useState([
-    initialEnintaanV.toString(),
-    initialEnintaanKk.toString(),
-  ]);
+  const [enintaan, setEnintaan] = useState([initialEnintaanVStr, initialEnintaanKkStr]);
 
   const handleSliderValueCommit = (newValues: Array<number>) => {
     setVahintaan(getYearsAndMonthsFromRangeValue(newValues[0]));
