@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Button, Grid, Typography } from '@mui/material';
-import { isEmpty, some } from 'lodash';
+import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
@@ -13,6 +13,7 @@ import { useRajainItems } from '#/src/tools/filters';
 import { localize } from '#/src/tools/localization';
 import { Translateable } from '#/src/types/common';
 
+import { QuestionWithOptions } from './QuestionWithOptions';
 import { classes } from './StyledRoot';
 import { useSearch } from '../../components/haku/hakutulosHooks';
 import { Heading, HeadingBoundary } from '../Heading';
@@ -95,7 +96,7 @@ export const Question = ({
 
   const { goToSearchPage, setRajainValues, rajainValues, rajainOptions, isFetching } =
     useSearch();
-  const { id: questionId, isRajainOptionTextFromRajain } = question;
+  const { id: questionId } = question;
   const questionTitle = t(`ohjaava-haku.kysymykset.${questionId}.otsikko`);
   const isFirstQuestion = currentQuestionIndex === 0;
   const isLastQuestion = currentQuestionIndex === lastQuestionIndex;
@@ -106,12 +107,6 @@ export const Question = ({
     rajainValues,
     RAJAIN_TYPES[questionId.toUpperCase() as RajainKey]
   );
-
-  const rajainOptionsToShow = rajainItems?.filter(({ id }) => {
-    return !some(question.rajainOptionsToBeRemoved, (rajain) => {
-      return rajain === id;
-    });
-  });
 
   const moveToNextQuestion = () => {
     setCurrentQuestionIndex(currentQuestionIndex + 1);
@@ -159,31 +154,12 @@ export const Question = ({
                   errorKey={errorKey}
                 />
               ) : (
-                <>
-                  <QuestionInfoText
-                    questionInfo={t(`ohjaava-haku.kysymykset.info-text-for-options`)}
-                  />
-                  <Grid item className={classes.question}>
-                    {rajainOptionsToShow.map(({ id, rajainId, nimi }) => {
-                      const selectedRajainItems = allSelectedRajainValues[
-                        rajainId
-                      ] as Array<string>;
-                      const isRajainSelected =
-                        selectedRajainItems && selectedRajainItems.includes(id);
-                      return (
-                        <RajainOption
-                          key={id}
-                          id={id}
-                          isRajainOptionTextFromRajain={isRajainOptionTextFromRajain}
-                          isRajainSelected={isRajainSelected}
-                          nimi={nimi}
-                          rajainId={rajainId}
-                          toggleAllSelectedRajainValues={toggleAllSelectedRajainValues}
-                        />
-                      );
-                    })}
-                  </Grid>
-                </>
+                <QuestionWithOptions
+                  question={question}
+                  rajainItems={rajainItems}
+                  allSelectedRajainValues={allSelectedRajainValues}
+                  toggleAllSelectedRajainValues={toggleAllSelectedRajainValues}
+                />
               )}
             </Grid>
           )}
