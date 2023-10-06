@@ -32,8 +32,6 @@ export const RAJAIN_TYPES = {
   OPPILAITOS: 'oppilaitos',
 } as const;
 
-export type FilterKey = keyof typeof RAJAIN_TYPES;
-
 export const RAJAIN_TYPES_ARR = Object.values(RAJAIN_TYPES);
 
 // TODO: konfo-backend haluaa turhaan kunta + maakunta rajaimet yhtenä könttinä (sijainti), se pitäisi purkaa sieltä

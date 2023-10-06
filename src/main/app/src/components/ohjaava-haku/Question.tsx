@@ -8,7 +8,7 @@ import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { KoulutuksenKesto } from '#/src/components/ohjaava-haku/KoulutuksenKesto';
 import { Maksullisuus } from '#/src/components/ohjaava-haku/Maksullisuus';
-import { RAJAIN_TYPES, FilterKey } from '#/src/constants';
+import { RAJAIN_TYPES } from '#/src/constants';
 import { useRajainItems } from '#/src/tools/filters';
 import { localize } from '#/src/tools/localization';
 import { Translateable } from '#/src/types/common';
@@ -30,6 +30,8 @@ export type Rajain = {
     | { maksunmaara_min: number; maksunmaara_max: number }
     | { lukuvuosimaksunmaara_min: number; lukuvuosimaksunmaara_max: number };
 };
+
+type RajainKey = keyof typeof RAJAIN_TYPES;
 
 export const RajainOption = ({
   id,
@@ -102,7 +104,7 @@ export const Question = ({
   const rajainItems = useRajainItems(
     rajainOptions,
     rajainValues,
-    RAJAIN_TYPES[questionId.toUpperCase() as FilterKey]
+    RAJAIN_TYPES[questionId.toUpperCase() as RajainKey]
   );
 
   const rajainOptionsToShow = rajainItems?.filter(({ id }) => {
