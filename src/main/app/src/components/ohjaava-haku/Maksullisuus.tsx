@@ -7,7 +7,7 @@ import { match } from 'ts-pattern';
 
 import { NumberRangeSlider } from '#/src/components/common/Filter/NumberRangeSlider';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
-import { MaksunMaaraInput } from '#/src/components/ohjaava-haku/common/MaksunMaaraInput';
+import { InputWithUnit } from '#/src/components/ohjaava-haku/common/InputWithUnit';
 import {
   KysymysInfoText,
   Rajain,
@@ -164,7 +164,7 @@ const MaksullisuusInput = ({
           <Typography className={classes.question__inputLabel}>
             {t('ohjaava-haku.kysymykset.maksullisuustyyppi.vahintaan')}
           </Typography>
-          <MaksunMaaraInput
+          <InputWithUnit
             id={`${id}-vahintaan`}
             value={vahintaan}
             handleInputValueChange={handleInputValueChange}
@@ -185,7 +185,7 @@ const MaksullisuusInput = ({
           <Typography className={classes.question__inputLabel}>
             {t('ohjaava-haku.kysymykset.maksullisuustyyppi.enintaan')}
           </Typography>
-          <MaksunMaaraInput
+          <InputWithUnit
             id={`${id}-enintaan`}
             value={enintaan}
             handleInputValueChange={handleInputValueChange}

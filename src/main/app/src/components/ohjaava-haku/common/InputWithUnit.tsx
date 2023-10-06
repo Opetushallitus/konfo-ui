@@ -25,7 +25,7 @@ const UnitComponent = ({
   </InputLabel>
 );
 
-export const MaksunMaaraInput = ({
+export const InputWithUnit = ({
   id,
   value,
   handleInputValueChange,

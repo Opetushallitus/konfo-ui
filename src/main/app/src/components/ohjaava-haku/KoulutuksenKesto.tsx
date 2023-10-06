@@ -5,7 +5,7 @@ import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { match } from 'ts-pattern';
 
-import { MaksunMaaraInput } from '#/src/components/ohjaava-haku/common/MaksunMaaraInput';
+import { InputWithUnit } from '#/src/components/ohjaava-haku/common/InputWithUnit';
 import { KysymysInfoText, Rajain } from '#/src/components/ohjaava-haku/Kysymys';
 import {
   getChangedKestoInMonths,
@@ -129,14 +129,14 @@ export const KoulutuksenKesto = ({
             {t('ohjaava-haku.kysymykset.koulutuksenkestokuukausina.opiskelen-vahintaan')}
           </Typography>
           <Box className={classes.question__inputFieldContainer}>
-            <MaksunMaaraInput
+            <InputWithUnit
               id="vahintaan-vuosi"
               value={vahintaan[0]}
               handleInputValueChange={handleInputValueChange}
               unitComponent={unit('vuosi')}
               inputLabel="vuosi"
             />
-            <MaksunMaaraInput
+            <InputWithUnit
               id="vahintaan-kk"
               value={vahintaan[1]}
               handleInputValueChange={handleInputValueChange}
@@ -159,14 +159,14 @@ export const KoulutuksenKesto = ({
             {t('ohjaava-haku.kysymykset.koulutuksenkestokuukausina.opiskelen-enintaan')}
           </Typography>
           <Box className={classes.question__inputFieldContainer}>
-            <MaksunMaaraInput
+            <InputWithUnit
               id="enintaan-vuosi"
               value={enintaan[0]}
               handleInputValueChange={handleInputValueChange}
               unitComponent={unit('vuosi')}
               inputLabel="vuosi"
             />
-            <MaksunMaaraInput
+            <InputWithUnit
               id="enintaan-kk"
               value={enintaan[1]}
               handleInputValueChange={handleInputValueChange}
