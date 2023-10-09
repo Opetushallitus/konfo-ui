@@ -6,9 +6,9 @@
   "scripts": {
     "prepare": "cd ../../../ && husky install",
     "start": "vite dev",
-    "start:playwright": "cross-env VITE_PLAYWRIGHT=true vite dev",
+    "start:playwright": "vite dev",
     "build": "vite build",
-    "preview:watch": "cross-env VITE_PLAYWRIGHT=true vite build --watch & npm run serve:test",
+    "preview:watch": "vite build --watch & npm run serve:test",
     "test": "cross-env NODE_ENV=test vitest",
     "serve:test": "node test-server.js",
     "test:integration": "start-server-and-test serve:test http://localhost:3005/konfo playwright",

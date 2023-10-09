@@ -14,7 +14,7 @@ import { Heading, HeadingBoundary } from '#/src/components/Heading';
 import { Question, Rajain } from '#/src/components/ohjaava-haku/Question';
 import { getChangedRajaimet } from '#/src/components/ohjaava-haku/utils';
 import { getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
-import { toId } from '#/src/tools/utils';
+import { isPlaywright, toId } from '#/src/tools/utils';
 
 import { ProgressSivupalkki } from './ProgressSivupalkki';
 import { classes, StyledRoot } from './StyledRoot';
@@ -29,8 +29,7 @@ type ConfigItem = {
   rajainOptionsToBeRemoved?: Array<string>;
 };
 
-const config: Config =
-  import.meta.env.VITE_PLAYWRIGHT === 'true' ? configPlaywright : configProd;
+const config: Config = isPlaywright ? configPlaywright : configProd;
 
 export const OhjaavaHaku = () => {
   const { t } = useTranslation();

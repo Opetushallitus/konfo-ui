@@ -81,7 +81,7 @@ jobs:
           npm run lint
       - name: Run tests
         run: |
-          VITE_PLAYWRIGHT=true npm run build
+          npm run build
           npm run test:ci
 
   deploy-container:
