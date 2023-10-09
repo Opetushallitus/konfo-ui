@@ -74,7 +74,7 @@ export const OhjaavaHaku = () => {
           <Box>
             <HeadingBoundary>
               <Heading
-                id={toId(t(ohjaavaHakuTitle))}
+                id={toId(ohjaavaHakuTitle)}
                 variant="h2"
                 sx={{ marginTop: '1.5rem', marginBottom: '1.5rem' }}>
                 {ohjaavaHakuTitle}
