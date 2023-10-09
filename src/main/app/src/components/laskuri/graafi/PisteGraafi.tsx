@@ -24,6 +24,8 @@ import {
   PisteData,
   usePisteHistoria,
   getStyleByPistetyyppi,
+  containsOnlyKoepisteet,
+  containsOnlyYhteispisteet,
 } from './GraafiUtil';
 import { HakupisteLaskelma, ENSISIJAINEN_SCORE_BONUS } from '../Keskiarvo';
 
@@ -135,11 +137,37 @@ const PisteGraafiAmmatillinenJaPaasykoe = ({ hakukohde, tulos, isLukio }: Props)
   const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
 
+  const maxYPisteet = (): number => {
+    if (isLukio) {
+      return 20;
+    }
+    if (containsOnlyKoepisteet(hakukohde)) {
+      return 10;
+    }
+    if (containsOnlyYhteispisteet(hakukohde)) {
+      return 42;
+    }
+    return 32; // ammatillinen todistusvalinta
+  };
+
+  const tickValues = (): Array<number> => {
+    if (isLukio) {
+      return [0, 5, 10, 15, 20];
+    }
+    if (containsOnlyKoepisteet(hakukohde)) {
+      return [0, 2, 4, 6, 8, 10];
+    }
+    if (containsOnlyYhteispisteet(hakukohde)) {
+      return [0, 7, 14, 21, 28, 35, 42];
+    }
+    return [0, 8, 16, 24, 32];
+  };
+
   return (
     <Box aria-hidden={true}>
       <VictoryChart
         maxDomain={{
-          y: 32,
+          y: maxYPisteet(),
           x: GRAAFI_MAX_YEAR + graafiYearModifier(years, GraafiBoundary.MAX),
         }}
         minDomain={{
@@ -159,7 +187,7 @@ const PisteGraafiAmmatillinenJaPaasykoe = ({ hakukohde, tulos, isLukio }: Props)
         />
         <VictoryAxis
           dependentAxis
-          tickValues={[0, 8, 16, 24, 32]}
+          tickValues={tickValues()}
           style={{
             axis: { stroke: colors.invisible },
             ticks: { stroke: colors.invisible },
