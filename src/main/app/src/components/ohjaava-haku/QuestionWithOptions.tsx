@@ -35,7 +35,7 @@ export const QuestionWithOptions = ({
   });
 
   return (
-    <>
+    <Grid item container sx={{ width: '100%' }}>
       <QuestionInfoText
         questionInfo={t(`ohjaava-haku.kysymykset.info-text-for-options`)}
       />
@@ -57,6 +57,6 @@ export const QuestionWithOptions = ({
           );
         })}
       </Grid>
-    </>
+    </Grid>
   );
 };
