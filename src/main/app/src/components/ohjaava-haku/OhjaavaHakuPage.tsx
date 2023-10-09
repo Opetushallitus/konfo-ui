@@ -5,8 +5,8 @@ import { has } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
-import * as configProd from '#/ohjaava-haku.json';
-import * as configPlaywright from '#/playwright/ohjaava-haku-test-config.json';
+import configProd from '#/ohjaava-haku.json';
+import configPlaywright from '#/playwright/ohjaava-haku-test-config.json';
 import { ContentWrapper } from '#/src/components/common/ContentWrapper';
 import { Murupolku } from '#/src/components/common/Murupolku';
 import { useSearch } from '#/src/components/haku/hakutulosHooks';
