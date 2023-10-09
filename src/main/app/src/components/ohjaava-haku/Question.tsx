@@ -178,7 +178,7 @@ export const Question = ({
               onClick={moveToNextQuestion}
               variant="contained"
               color="primary"
-              {...(!isEmpty(errorKey) && { disabled: true })}>
+              disabled={!isEmpty(errorKey)}>
               {t('ohjaava-haku.seuraava')}
             </Button>
           )}
@@ -188,7 +188,7 @@ export const Question = ({
               onClick={moveToPreviousQuestion}
               variant="outlined"
               color="primary"
-              {...(!isEmpty(errorKey) && { disabled: true })}>
+              disabled={!isEmpty(errorKey)}>
               {t('ohjaava-haku.edellinen')}
             </Button>
           )}
@@ -197,8 +197,8 @@ export const Question = ({
               className={classes.buttonContainer__results}
               onClick={seeResults}
               color="primary"
-              {...(isLastQuestion ? { variant: 'contained' } : { variant: 'text' })}
-              {...(!isEmpty(errorKey) && { disabled: true })}>
+              variant={isLastQuestion ? 'contained' : 'text'}
+              disabled={!isEmpty(errorKey)}>
               {t('ohjaava-haku.katso-tulokset')}
             </Button>
           }
