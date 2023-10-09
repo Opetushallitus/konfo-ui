@@ -23,7 +23,7 @@ import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { styled, theme } from '#/src/theme';
 import { getLanguage } from '#/src/tools/localization';
 
-import { LanguageDropDown } from './LanguageDropDown';
+import { LanguagePopover } from './LanguagePopover';
 
 const PREFIX = 'Header';
 
@@ -173,7 +173,7 @@ export const Header = ({
                 </Typography>
               </Link>
             </Hidden>
-            <LanguageDropDown />
+            <LanguagePopover />
           </Box>
         </Toolbar>
       </StyledAppBar>

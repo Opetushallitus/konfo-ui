@@ -16,7 +16,7 @@ test.describe('Sivut (mobiili)', () => {
     );
     await page.getByRole('button', { name: /Avaa tai sulje valikko/i }).click();
     await page.getByRole('button', { name: /suomi/i }).click();
-    await page.getByRole('option', { name: /Svenska/i, includeHidden: true }).click();
+    await page.getByRole('link', { name: /Svenska/i, includeHidden: true }).click();
 
     await page.waitForURL(
       '**/sv/sivu/mottagande-av-studieplats-i-gemensam-ansoekan-och-anmaelning-till-hoegskolor'

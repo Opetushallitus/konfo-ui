@@ -19,7 +19,7 @@ test.describe('Sivut', () => {
       })
     ).toBeVisible();
     await page.getByRole('button', { name: /suomi/i }).click();
-    await page.getByRole('option', { name: /Svenska/i, includeHidden: true }).click();
+    await page.getByRole('link', { name: /Svenska/i, includeHidden: true }).click();
 
     await expect(
       page.getByRole('heading', {
