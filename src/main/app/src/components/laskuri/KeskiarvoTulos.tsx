@@ -173,7 +173,7 @@ export const KeskiarvoTulos = ({ tulos, embedded, kouluaineet }: Props) => {
     if (hakukohde) {
       const modifiedAineet = kopioiKouluaineetPainokertoimilla(
         kouluaineet,
-        hakukohde.hakukohteenLinja?.painotetutArvosanat || []
+        hakukohde.hakukohteenLinja?.painotetutArvosanatOppiaineittain || []
       );
       return lukuaineKeskiarvoPainotettu(modifiedAineet);
     }
