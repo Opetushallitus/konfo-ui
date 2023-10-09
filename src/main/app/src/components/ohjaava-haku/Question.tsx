@@ -118,7 +118,7 @@ export const Question = ({
     window.scrollTo(0, 0);
   };
 
-  const handleClick = () => {
+  const seeResults = () => {
     setRajainValues(allSelectedRajainValues);
     goToSearchPage();
   };
@@ -195,7 +195,7 @@ export const Question = ({
           {
             <Button
               className={classes.buttonContainer__results}
-              onClick={handleClick}
+              onClick={seeResults}
               color="primary"
               {...(isLastQuestion ? { variant: 'contained' } : { variant: 'text' })}
               {...(!isEmpty(errorKey) && { disabled: true })}>

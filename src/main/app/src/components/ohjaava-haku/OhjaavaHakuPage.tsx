@@ -54,7 +54,7 @@ export const OhjaavaHaku = () => {
   const lastQuestionIndex = questionsWithoutInvalidOptions.length - 1;
   const currentQuestion = questionsWithoutInvalidOptions[currentQuestionIndex];
 
-  const handleClick = () => {
+  const startQuestionnaire = () => {
     setStartOfKysely(false);
     clearRajainValues();
   };
@@ -85,7 +85,7 @@ export const OhjaavaHaku = () => {
               {t('ohjaava-haku.info-text')}
             </Typography>
             <Button
-              onClick={handleClick}
+              onClick={startQuestionnaire}
               variant="contained"
               color="primary"
               sx={{ marginBottom: '30%' }}>
