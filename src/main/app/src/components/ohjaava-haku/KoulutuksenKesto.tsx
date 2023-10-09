@@ -53,14 +53,16 @@ export const KoulutuksenKesto = ({
   const [enintaan, setEnintaan] = useState([initialEnintaanVStr, initialEnintaanKkStr]);
 
   const handleSliderValueCommit = (newValues: Array<number>) => {
-    setVahintaan(getYearsAndMonthsFromRangeValue(newValues[0]));
-    setEnintaan(getYearsAndMonthsFromRangeValue(newValues[1]));
+    const newMin = newValues[0];
+    const newMax = newValues[1];
+    setVahintaan(getYearsAndMonthsFromRangeValue(newMin));
+    setEnintaan(getYearsAndMonthsFromRangeValue(newMax));
     setRangeValues(newValues);
     setAllSelectedRajainValues({
       ...allSelectedRajainValues,
       koulutuksenkestokuukausina: {
-        koulutuksenkestokuukausina_min: newValues[0],
-        koulutuksenkestokuukausina_max: newValues[1],
+        koulutuksenkestokuukausina_min: newMin,
+        koulutuksenkestokuukausina_max: newMax,
       },
     });
   };
@@ -91,15 +93,15 @@ export const KoulutuksenKesto = ({
       })
       .otherwise(() => rangeValues);
 
-    newValues[0] > newValues[1]
-      ? setErrorKey('vahintaan-suurempi-kuin-enintaan')
-      : setErrorKey('');
+    const newMin = newValues[0];
+    const newMax = newValues[1];
+    newMin > newMax ? setErrorKey('vahintaan-suurempi-kuin-enintaan') : setErrorKey('');
     setRangeValues(newValues);
     setAllSelectedRajainValues({
       ...allSelectedRajainValues,
       koulutuksenkestokuukausina: {
-        koulutuksenkestokuukausina_min: newValues[0],
-        koulutuksenkestokuukausina_max: newValues[1],
+        koulutuksenkestokuukausina_min: newMin,
+        koulutuksenkestokuukausina_max: newMax,
       },
     });
   };

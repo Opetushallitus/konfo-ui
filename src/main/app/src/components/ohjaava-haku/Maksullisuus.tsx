@@ -33,8 +33,7 @@ const MaksullisuusRangeSlider = ({
 }) => {
   const { t } = useTranslation();
   const labelText = (val: number) => (val > 0 ? `${val}€` : '0');
-  // Näytetään slider vain, jos sille on tullut konfo-backendiltä jokin järkevä yläraja (oletus nolla)
-  // Nolla tarkoittaa ettei dataa ei ole saatu ladattua, tai rajaimen millekään arvolle ei ole olemassa yhtään tulosta.
+
   return undefinedRajainValues?.[1] === 0 ? null : (
     <Box mr={2} ml={1}>
       <NumberRangeSlider
@@ -80,20 +79,20 @@ const MaksullisuusInput = ({
   const [enintaan, setEnintaan] = useState(initialEnintaan.toString());
 
   const maksunMaara = (newValues: Array<number>): Rajain => {
-    const min = newValues[0];
-    const max = newValues[1];
+    const newMin = newValues[0];
+    const newMax = newValues[1];
     if (id === 'lukuvuosimaksu') {
       return {
         lukuvuosimaksunmaara: {
-          lukuvuosimaksunmaara_min: min,
-          lukuvuosimaksunmaara_max: max,
+          lukuvuosimaksunmaara_min: newMin,
+          lukuvuosimaksunmaara_max: newMax,
         },
       };
     } else {
       return {
         maksunmaara: {
-          maksunmaara_min: min,
-          maksunmaara_max: max,
+          maksunmaara_min: newMin,
+          maksunmaara_max: newMax,
         },
       };
     }
