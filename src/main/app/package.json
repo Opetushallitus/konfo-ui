@@ -6,7 +6,6 @@
   "scripts": {
     "prepare": "cd ../../../ && husky install",
     "start": "vite dev",
-    "start:playwright": "vite dev",
     "build": "vite build",
     "preview:watch": "vite build --watch & npm run serve:test",
     "test": "cross-env NODE_ENV=test vitest",
