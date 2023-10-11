@@ -1,21 +1,22 @@
 import React, { useState } from 'react';
 
 import { Button, Grid, Typography } from '@mui/material';
-import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
+import { colors } from '#/src/colors';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { KoulutuksenKesto } from '#/src/components/ohjaava-haku/KoulutuksenKesto';
 import { Maksullisuus } from '#/src/components/ohjaava-haku/Maksullisuus';
 import { useOhjaavaHakuContext } from '#/src/components/ohjaava-haku/OhjaavaHakuContext';
 import { RAJAIN_TYPES } from '#/src/constants';
+import { styled } from '#/src/theme';
 import { useRajainItems } from '#/src/tools/filters';
 import { localize } from '#/src/tools/localization';
 import { Translateable } from '#/src/types/common';
 
+import { NavigationButtons } from './NavigationButtons';
 import { QuestionWithOptions } from './QuestionWithOptions';
-import { classes } from './StyledRoot';
 import { useSearch } from '../../components/haku/hakutulosHooks';
 import { Heading, HeadingBoundary } from '../Heading';
 
@@ -35,6 +36,46 @@ export type Rajain = {
 
 type RajainKey = keyof typeof RAJAIN_TYPES;
 
+const QuestionContainer = styled(Grid)(({ theme }) => ({
+  maxWidth: '75%',
+  margin: '0 2rem',
+
+  [theme.breakpoints.down('md')]: {
+    margin: '0 1rem',
+  },
+
+  [theme.breakpoints.down('sm')]: {
+    maxWidth: '100%',
+    margin: 0,
+
+    h2: {
+      fontSize: '1.75rem',
+    },
+  },
+}));
+
+const OptionButton = styled(Button)(({ theme }) => ({
+  width: '100%',
+  justifyContent: 'start',
+  backgroundColor: colors.lightGrayishGreenBg,
+  color: colors.black,
+  paddingLeft: '1rem',
+  paddingLight: '1rem',
+
+  [theme.breakpoints.down('sm')]: {
+    width: '100%',
+  },
+
+  '&:hover': {
+    backgroundColor: '#a5c291',
+  },
+
+  '&[data-selected]': {
+    backgroundColor: colors.brandGreen,
+    color: colors.white,
+  },
+}));
+
 export const RajainOption = ({
   id,
   useRajainOptionNameFromRajain,
@@ -53,18 +94,17 @@ export const RajainOption = ({
   const { t } = useTranslation();
 
   return (
-    <Button
+    <OptionButton
       {...(isRajainSelected && {
         startIcon: <MaterialIcon icon="check" />,
       })}
       key={id}
       onClick={() => toggleAllSelectedRajainValues(id, rajainId)}
-      className={classes.question__option}
       {...(isRajainSelected && { 'data-selected': true })}>
       {useRajainOptionNameFromRajain
         ? localize(nimi)
         : t(`ohjaava-haku.kysymykset.${rajainId}.vaihtoehdot.${id}`)}
-    </Button>
+    </OptionButton>
   );
 };
 
@@ -77,21 +117,11 @@ export const QuestionInfoText = ({ questionInfo }: { questionInfo: string }) => 
 export const Question = () => {
   const { t } = useTranslation();
 
-  const {
-    question,
-    currentQuestionIndex,
-    setCurrentQuestionIndex,
-    lastQuestionIndex,
-    allSelectedRajainValues,
-  } = useOhjaavaHakuContext();
+  const { question } = useOhjaavaHakuContext();
 
-  const { goToSearchPage, setRajainValues, rajainValues, rajainOptions, isFetching } =
-    useSearch();
+  const { rajainValues, rajainOptions, isFetching } = useSearch();
   const { id: questionId } = question;
   const questionTitle = t(`ohjaava-haku.kysymykset.${questionId}.otsikko`);
-  const isFirstQuestion = currentQuestionIndex === 0;
-  const isLastQuestion = currentQuestionIndex === lastQuestionIndex;
-  const [errorKey, setErrorKey] = useState('');
 
   const rajainItems = useRajainItems(
     rajainOptions,
@@ -99,24 +129,11 @@ export const Question = () => {
     RAJAIN_TYPES[questionId.toUpperCase() as RajainKey]
   );
 
-  const moveToNextQuestion = () => {
-    setCurrentQuestionIndex(currentQuestionIndex + 1);
-    window.scrollTo(0, 0);
-  };
-
-  const moveToPreviousQuestion = () => {
-    setCurrentQuestionIndex(currentQuestionIndex - 1);
-    window.scrollTo(0, 0);
-  };
-
-  const seeResults = () => {
-    setRajainValues(allSelectedRajainValues);
-    goToSearchPage();
-  };
+  const [errorKey, setErrorKey] = useState('');
 
   return (
     <HeadingBoundary>
-      <Grid container item className={classes.questionContainer}>
+      <QuestionContainer container item>
         <Grid item xs={12}>
           <Heading variant="h2">{questionTitle}</Heading>
         </Grid>
@@ -145,46 +162,8 @@ export const Question = () => {
             </Grid>
           )}
         </Grid>
-        <Grid
-          item
-          xs={12}
-          className={
-            isLastQuestion
-              ? `${classes.buttonContainer} ${classes.buttonContainerLastQuestion}`
-              : classes.buttonContainer
-          }>
-          {!isLastQuestion && (
-            <Button
-              className={classes.buttonContainer__next}
-              onClick={moveToNextQuestion}
-              variant="contained"
-              color="primary"
-              disabled={!isEmpty(errorKey)}>
-              {t('ohjaava-haku.seuraava')}
-            </Button>
-          )}
-          {!isFirstQuestion && (
-            <Button
-              className={classes.buttonContainer__previous}
-              onClick={moveToPreviousQuestion}
-              variant="outlined"
-              color="primary"
-              disabled={!isEmpty(errorKey)}>
-              {t('ohjaava-haku.edellinen')}
-            </Button>
-          )}
-          {
-            <Button
-              className={classes.buttonContainer__results}
-              onClick={seeResults}
-              color="primary"
-              variant={isLastQuestion ? 'contained' : 'text'}
-              disabled={!isEmpty(errorKey)}>
-              {t('ohjaava-haku.katso-tulokset')}
-            </Button>
-          }
-        </Grid>
-      </Grid>
+        <NavigationButtons errorKey={errorKey} />
+      </QuestionContainer>
     </HeadingBoundary>
   );
 };

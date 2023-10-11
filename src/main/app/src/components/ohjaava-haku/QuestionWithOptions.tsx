@@ -8,7 +8,7 @@ import { useOhjaavaHakuContext } from '#/src/components/ohjaava-haku/OhjaavaHaku
 import { QuestionInfoText, RajainOption } from '#/src/components/ohjaava-haku/Question';
 import { RajainItem } from '#/src/types/SuodatinTypes';
 
-import { classes } from './StyledRoot';
+import { StyledQuestion } from './common/StyledQuestion';
 
 export const QuestionWithOptions = ({
   rajainItems,
@@ -32,7 +32,7 @@ export const QuestionWithOptions = ({
       <QuestionInfoText
         questionInfo={t(`ohjaava-haku.kysymykset.info-text-for-options`)}
       />
-      <Grid item className={classes.question}>
+      <StyledQuestion item>
         {rajainOptionsToShow?.map(({ id, rajainId, nimi }) => {
           const selectedRajainItems = allSelectedRajainValues[rajainId] as Array<string>;
           const isRajainSelected =
@@ -49,7 +49,7 @@ export const QuestionWithOptions = ({
             />
           );
         })}
-      </Grid>
+      </StyledQuestion>
     </Grid>
   );
 };

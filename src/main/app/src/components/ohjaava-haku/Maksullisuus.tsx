@@ -25,7 +25,7 @@ import { NumberRangeRajainItem, RajainItem } from '#/src/types/SuodatinTypes';
 import { CustomInputLabel } from './common/CustomInputLabel';
 import { Error } from './common/Error';
 import { Ndash } from './common/Ndash';
-import { classes } from './StyledRoot';
+import { StyledQuestion } from './common/StyledQuestion';
 
 const DEFAULT_UPPERLIMIT = 20000;
 
@@ -195,7 +195,7 @@ export const Maksullisuus = ({
     combineMaksunMaaraWithMaksullisuustyyppi(rajainItems);
 
   return (
-    <Grid item className={classes.question}>
+    <StyledQuestion item>
       <QuestionInfoText
         questionInfo={t(`ohjaava-haku.kysymykset.info-text-for-options`)}
       />
@@ -222,6 +222,6 @@ export const Maksullisuus = ({
           </Box>
         );
       })}
-    </Grid>
+    </StyledQuestion>
   );
 };

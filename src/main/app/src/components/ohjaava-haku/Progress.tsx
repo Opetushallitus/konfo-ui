@@ -3,30 +3,70 @@ import React from 'react';
 import { Button, Grid, useMediaQuery, useTheme } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
+import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { useOhjaavaHakuContext } from '#/src/components/ohjaava-haku/OhjaavaHakuContext';
+import { styled } from '#/src/theme';
 
 import { QuestionType } from './Question';
-import { classes } from './StyledRoot';
 
-export const ProgressSivupalkki = () => {
+const MobileProgressBar = ({ progress }: { progress: string }) => {
+  return (
+    <Grid item sx={{ marginBottom: '1rem' }}>
+      {progress}
+    </Grid>
+  );
+};
+
+const PREFIX = 'ohjaava-haku__';
+
+const classes = {
+  progressSivupalkki: `${PREFIX}progressSivupalkki`,
+  progressSivupalkkiButton: `${PREFIX}progressSivupalkki-button`,
+  progressSivupalkkiButtonIcon: `${PREFIX}progressSivupalkki-button-icon`,
+};
+
+const ProgressSivupalkki = styled(Grid)({
+  display: 'flex',
+  gap: '0.2rem',
+  marginBottom: '1rem',
+  maxWidth: '25%',
+  [`& .${classes.progressSivupalkkiButton}`]: {
+    maxWidth: '100%',
+    fontSize: '0.75rem',
+    lineHeight: '1rem',
+    color: colors.black,
+
+    [`&[data-current]`]: {
+      backgroundColor: colors.brightGreenBg,
+    },
+
+    [`&[data-past]`]: {
+      backgroundColor: colors.lightGrayishGreenBg,
+    },
+  },
+
+  [`& .${classes.progressSivupalkkiButtonIcon}`]: {
+    color: colors.brandGreen,
+  },
+});
+
+export const Progress = () => {
   const { questions, currentQuestionIndex, setCurrentQuestionIndex } =
     useOhjaavaHakuContext();
   const { t } = useTranslation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const progress = `${t('ohjaava-haku.question')} ${
+  const progressStr = `${t('ohjaava-haku.question')} ${
     currentQuestionIndex + 1
   } / ${questions?.length}`;
 
   return (
     <>
       {isMobile ? (
-        <Grid item sx={{ marginBottom: '1rem' }}>
-          {progress}
-        </Grid>
+        <MobileProgressBar progress={progressStr} />
       ) : (
-        <Grid container item direction="column" className={classes.progressSivupalkki}>
+        <ProgressSivupalkki container item direction="column">
           {questions.map((question: QuestionType, index: number) => {
             const questionId = question.id;
             const isCurrentQuestion = index === currentQuestionIndex;
@@ -36,14 +76,14 @@ export const ProgressSivupalkki = () => {
                 variant={isPastQuestion || isCurrentQuestion ? 'contained' : 'outlined'}
                 disableElevation
                 color="primary"
-                className={classes.progressSivupalkki__button}
+                className={classes.progressSivupalkkiButton}
                 key={questionId}
                 onClick={() => setCurrentQuestionIndex(index)}
                 {...(isPastQuestion && {
                   endIcon: (
                     <MaterialIcon
                       icon="check"
-                      className={classes.progressSivupalkki__buttonIcon}
+                      className={classes.progressSivupalkkiButtonIcon}
                     />
                   ),
                   'data-past': true,
@@ -53,7 +93,7 @@ export const ProgressSivupalkki = () => {
               </Button>
             );
           })}
-        </Grid>
+        </ProgressSivupalkki>
       )}
     </>
   );

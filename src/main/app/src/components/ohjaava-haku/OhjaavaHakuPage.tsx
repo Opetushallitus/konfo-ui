@@ -14,11 +14,11 @@ import { OhjaavaHakuContext } from '#/src/components/ohjaava-haku/OhjaavaHakuCon
 import { Question, Rajain } from '#/src/components/ohjaava-haku/Question';
 import { getChangedRajaimet } from '#/src/components/ohjaava-haku/utils';
 import { getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
+import { styled } from '#/src/theme';
 import { isPlaywright } from '#/src/tools/utils';
 
-import { ProgressSivupalkki } from './ProgressSivupalkki';
+import { Progress } from './Progress';
 import { StartComponent } from './StartComponent';
-import { classes, StyledRoot } from './StyledRoot';
 
 type Config = {
   kysymykset: Array<ConfigItem>;
@@ -31,6 +31,27 @@ type ConfigItem = {
 };
 
 const config: Config = isPlaywright ? configPlaywright : configProd;
+
+const PREFIX = 'ohjaava-haku__';
+
+const classes = {
+  container: `${PREFIX}container`,
+};
+
+export const StyledRoot = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
+
+  [`& .${classes.container}`]: {
+    display: 'flex',
+    flexDirection: 'row',
+
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+    },
+  },
+}));
 
 export const OhjaavaHaku = () => {
   const { t } = useTranslation();
@@ -87,7 +108,7 @@ export const OhjaavaHaku = () => {
             />
           ) : (
             <Box className={classes.container}>
-              <ProgressSivupalkki />
+              <Progress />
               <Question />
             </Box>
           )}
