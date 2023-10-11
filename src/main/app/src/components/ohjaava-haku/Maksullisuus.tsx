@@ -7,6 +7,10 @@ import { match } from 'ts-pattern';
 
 import { NumberRangeSlider } from '#/src/components/common/Filter/NumberRangeSlider';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import {
+  InputContainer,
+  InputFieldContainer,
+} from '#/src/components/ohjaava-haku/common/InputContainer';
 import { InputWithUnit } from '#/src/components/ohjaava-haku/common/InputWithUnit';
 import { useOhjaavaHakuContext } from '#/src/components/ohjaava-haku/OhjaavaHakuContext';
 import {
@@ -140,19 +144,8 @@ const MaksullisuusInput = ({
 
   return (
     <Grid container direction="column" wrap="nowrap">
-      <Grid
-        item
-        container
-        direction="row"
-        wrap="nowrap"
-        className={classes.question__inputContainer}>
-        <Grid
-          item
-          container
-          direction="column"
-          wrap="nowrap"
-          xs={3}
-          className={classes.question__inputFieldContainer}>
+      <InputContainer item container direction="row" wrap="nowrap">
+        <InputFieldContainer item container direction="column" wrap="nowrap" xs={3}>
           <CustomInputLabel translationKey="ohjaava-haku.kysymykset.maksullisuustyyppi.vahintaan" />
           <InputWithUnit
             id={`${id}-vahintaan`}
@@ -161,15 +154,9 @@ const MaksullisuusInput = ({
             unitComponent={unit()}
             inputLabel="euro"
           />
-        </Grid>
+        </InputFieldContainer>
         <Ndash />
-        <Grid
-          item
-          container
-          direction="column"
-          wrap="nowrap"
-          xs={3}
-          className={classes.question__inputFieldContainer}>
+        <InputFieldContainer item container direction="column" wrap="nowrap" xs={3}>
           <CustomInputLabel translationKey="ohjaava-haku.kysymykset.maksullisuustyyppi.enintaan" />
           <InputWithUnit
             id={`${id}-enintaan`}
@@ -178,8 +165,8 @@ const MaksullisuusInput = ({
             unitComponent={unit()}
             inputLabel="euro"
           />
-        </Grid>
-      </Grid>
+        </InputFieldContainer>
+      </InputContainer>
       {!isEmpty(errorKey) && (
         <Typography className={classes.error}>
           {t(`ohjaava-haku.error.${errorKey}`)}

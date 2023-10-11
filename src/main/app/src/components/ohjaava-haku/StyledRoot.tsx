@@ -10,7 +10,6 @@ export const classes = {
   questionContainer: `${PREFIX}question-container`,
   question: `${PREFIX}question`,
   question__option: `${PREFIX}question__option`,
-  question__inputContainer: `${PREFIX}question__input-container`,
   question__inputFieldContainer: `${PREFIX}question__input-field-container`,
   buttonContainer: `${PREFIX}buttonContainer`,
   buttonContainerLastQuestion: `${PREFIX}buttonContainerLastQuestion`,
@@ -62,18 +61,6 @@ export const StyledRoot = styled(Box)(({ theme }) => {
         background-color: ${colors.brandGreen};
         color: ${colors.white};
       }
-    }
-
-    &__input-container {
-      display: flex;
-      gap: 1.5rem;
-      margin: 0.5rem 0;
-    }
-
-    &__input-field-container {
-      display: flex;
-      gap: 0.5rem;
-      margin-bottom: 0.5rem;
     }
   }
 
@@ -144,13 +131,6 @@ export const StyledRoot = styled(Box)(({ theme }) => {
     & .${classes.questionContainer} {
       margin: 0 1rem;
     }
-
-    & .${classes.question} {
-      &__input-container, &__input-field-container {
-        flex-basis: content;
-        min-width: 40%;
-      }
-    }
   }
 
   ${theme.breakpoints.down('sm')} {
@@ -170,11 +150,6 @@ export const StyledRoot = styled(Box)(({ theme }) => {
     & .${classes.question} {
       &__option {
         width: 100%;
-      }
-
-      &__input-field-container {
-        max-width: none;
-        flex-basis: content;
       }
     }
 
