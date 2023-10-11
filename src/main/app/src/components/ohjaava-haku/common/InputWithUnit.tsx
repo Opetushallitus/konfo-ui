@@ -2,28 +2,7 @@ import React from 'react';
 
 import { Box, InputLabel, OutlinedInput } from '@mui/material';
 
-import { styled } from '#/src/theme';
-
 import { classes } from '../StyledRoot';
-
-const StyledBox = styled(Box)`
-  display: flex;
-  gap: 0.5rem;
-`;
-
-const UnitComponent = ({
-  id,
-  unitComponent,
-  label,
-}: {
-  id: string;
-  unitComponent: React.ReactNode;
-  label: string;
-}) => (
-  <InputLabel htmlFor={id} className={classes.question__lyhenne} aria-label={label}>
-    {unitComponent}
-  </InputLabel>
-);
 
 export const InputWithUnit = ({
   id,
@@ -39,9 +18,14 @@ export const InputWithUnit = ({
   inputLabel: string;
 }) => {
   return (
-    <StyledBox>
+    <Box display="flex" gap="0.5rem">
       <OutlinedInput id={id} value={value} onChange={handleInputValueChange} />
-      <UnitComponent id={id} unitComponent={unitComponent} label={inputLabel} />
-    </StyledBox>
+      <InputLabel
+        htmlFor={id}
+        className={classes.question__lyhenne}
+        aria-label={inputLabel}>
+        {unitComponent}
+      </InputLabel>
+    </Box>
   );
 };
