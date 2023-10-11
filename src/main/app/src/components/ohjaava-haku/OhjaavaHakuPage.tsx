@@ -39,11 +39,11 @@ export const OhjaavaHaku = () => {
   const { clearRajainValues, rajainValues } = useSearch();
   const [allSelectedRajainValues, setAllSelectedRajainValues] = useState<Rajain>({});
 
-  const toggleAllRajainValues = (id: string, rajainId: string) => {
+  const toggleAllSelectedRajainValues = (id: string, rajainId: string) => {
     setAllSelectedRajainValues(getChangedRajaimet(allSelectedRajainValues, rajainId, id));
   };
 
-  const [isStartOfKysely, setStartOfKysely] = useState(true);
+  const [isStartOfQuestionnaire, setStartOfQuestionnaire] = useState(true);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
   const questions = config.kysymykset;
@@ -55,13 +55,14 @@ export const OhjaavaHaku = () => {
   const currentQuestion = questionsWithoutInvalidOptions[currentQuestionIndex];
 
   const startQuestionnaire = () => {
-    setStartOfKysely(false);
+    setStartOfQuestionnaire(false);
     clearRajainValues();
   };
 
   const ohjaavaHakuTitle = t('ohjaava-haku.otsikko');
+
   const value = {
-    toggleAllSelectedRajainValues: toggleAllRajainValues,
+    toggleAllSelectedRajainValues,
     allSelectedRajainValues,
     setAllSelectedRajainValues,
     questions: questionsWithoutInvalidOptions,
@@ -71,6 +72,7 @@ export const OhjaavaHaku = () => {
     setCurrentQuestionIndex,
     lastQuestionIndex,
   };
+
   return (
     <OhjaavaHakuContext.Provider value={value}>
       <ContentWrapper>
@@ -83,7 +85,7 @@ export const OhjaavaHaku = () => {
               ]}
             />
           </Box>
-          {isStartOfKysely ? (
+          {isStartOfQuestionnaire ? (
             <Box>
               <HeadingBoundary>
                 <Heading
