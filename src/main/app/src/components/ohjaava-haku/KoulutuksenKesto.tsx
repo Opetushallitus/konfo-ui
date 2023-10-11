@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { match } from 'ts-pattern';
 
 import { CustomInputLabel } from '#/src/components/ohjaava-haku/common/CustomInputLabel';
+import { Error } from '#/src/components/ohjaava-haku/common/Error';
 import {
   InputContainer,
   InputFieldContainer,
@@ -20,8 +21,6 @@ import {
 } from '#/src/components/ohjaava-haku/utils';
 import { KoulutuksenKestoSlider } from '#/src/components/suodattimet/common/KoulutuksenKestoSuodatin';
 import { RajainItem, NumberRangeRajainItem } from '#/src/types/SuodatinTypes';
-
-import { classes } from './StyledRoot';
 
 const DEFAULT_UPPERLIMIT = 72;
 
@@ -155,11 +154,7 @@ export const KoulutuksenKesto = ({
           </InputFieldContainer>
         </InputFieldContainer>
       </InputContainer>
-      {!isEmpty(errorKey) && (
-        <Typography className={classes.error}>
-          {t(`ohjaava-haku.error.${errorKey}`)}
-        </Typography>
-      )}
+      {!isEmpty(errorKey) && <Error errorKey={errorKey} />}
       <KoulutuksenKestoSlider
         rangeValues={rangeValues}
         undefinedRajainValues={undefinedRajainValues}

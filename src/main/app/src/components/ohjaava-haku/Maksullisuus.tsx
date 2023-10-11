@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { match } from 'ts-pattern';
@@ -23,6 +23,7 @@ import { marks } from '#/src/components/suodattimet/common/maksullisuusRajainUti
 import { NumberRangeRajainItem, RajainItem } from '#/src/types/SuodatinTypes';
 
 import { CustomInputLabel } from './common/CustomInputLabel';
+import { Error } from './common/Error';
 import { Ndash } from './common/Ndash';
 import { classes } from './StyledRoot';
 
@@ -66,8 +67,6 @@ const MaksullisuusInput = ({
   setErrorKey: (errorKey: string) => void;
   errorKey: string;
 }) => {
-  const { t } = useTranslation();
-
   const { allSelectedRajainValues, setAllSelectedRajainValues } = useOhjaavaHakuContext();
   const rajainItem = rajainItems?.[0] as NumberRangeRajainItem;
   const undefinedRajainValues = [0, rajainItem?.upperLimit || DEFAULT_UPPERLIMIT];
@@ -167,11 +166,7 @@ const MaksullisuusInput = ({
           />
         </InputFieldContainer>
       </InputContainer>
-      {!isEmpty(errorKey) && (
-        <Typography className={classes.error}>
-          {t(`ohjaava-haku.error.${errorKey}`)}
-        </Typography>
-      )}
+      {!isEmpty(errorKey) && <Error errorKey={errorKey} />}
       <Grid item sx={{ mx: 1 }}>
         <MaksullisuusRangeSlider
           rangeValues={rangeValues}

@@ -10,13 +10,11 @@ export const classes = {
   questionContainer: `${PREFIX}question-container`,
   question: `${PREFIX}question`,
   question__option: `${PREFIX}question__option`,
-  question__inputFieldContainer: `${PREFIX}question__input-field-container`,
   buttonContainer: `${PREFIX}buttonContainer`,
   buttonContainerLastQuestion: `${PREFIX}buttonContainerLastQuestion`,
   buttonContainer__previous: `${PREFIX}buttonContainer__previous`,
   buttonContainer__next: `${PREFIX}buttonContainer__next`,
   buttonContainer__results: `${PREFIX}buttonContainer__results`,
-  error: `${PREFIX}error`,
   progressSivupalkki: `${PREFIX}progressSivupalkki`,
   progressSivupalkki__button: `${PREFIX}progressSivupalkki__button`,
   progressSivupalkki__buttonIcon: `${PREFIX}progressSivupalkki__button-icon`,
@@ -92,10 +90,6 @@ export const StyledRoot = styled(Box)(({ theme }) => {
     grid-template-rows: auto;
     grid-template-areas:
       "previous . . results";
-  }
-
-  & .${classes.error} {
-    color: ${colors.red};
   }
 
   & .${classes.progressSivupalkki} {
