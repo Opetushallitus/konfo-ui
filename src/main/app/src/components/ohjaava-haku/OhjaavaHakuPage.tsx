@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Box, Button, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { has } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -10,14 +10,14 @@ import configPlaywright from '#/playwright/ohjaava-haku-test-config.json';
 import { ContentWrapper } from '#/src/components/common/ContentWrapper';
 import { Murupolku } from '#/src/components/common/Murupolku';
 import { useSearch } from '#/src/components/haku/hakutulosHooks';
-import { Heading, HeadingBoundary } from '#/src/components/Heading';
 import { OhjaavaHakuContext } from '#/src/components/ohjaava-haku/OhjaavaHakuContext';
 import { Question, Rajain } from '#/src/components/ohjaava-haku/Question';
 import { getChangedRajaimet } from '#/src/components/ohjaava-haku/utils';
 import { getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
-import { isPlaywright, toId } from '#/src/tools/utils';
+import { isPlaywright } from '#/src/tools/utils';
 
 import { ProgressSivupalkki } from './ProgressSivupalkki';
+import { StartComponent } from './StartComponent';
 import { classes, StyledRoot } from './StyledRoot';
 
 type Config = {
@@ -36,7 +36,7 @@ export const OhjaavaHaku = () => {
   const { t } = useTranslation();
   const hakuUrl = useSelector(getHakuUrl);
 
-  const { clearRajainValues, rajainValues } = useSearch();
+  const { rajainValues } = useSearch();
   const [allSelectedRajainValues, setAllSelectedRajainValues] = useState<Rajain>({});
 
   const toggleAllSelectedRajainValues = (id: string, rajainId: string) => {
@@ -53,11 +53,6 @@ export const OhjaavaHaku = () => {
 
   const lastQuestionIndex = questionsWithoutInvalidOptions.length - 1;
   const currentQuestion = questionsWithoutInvalidOptions[currentQuestionIndex];
-
-  const startQuestionnaire = () => {
-    setStartOfQuestionnaire(false);
-    clearRajainValues();
-  };
 
   const ohjaavaHakuTitle = t('ohjaava-haku.otsikko');
 
@@ -86,26 +81,10 @@ export const OhjaavaHaku = () => {
             />
           </Box>
           {isStartOfQuestionnaire ? (
-            <Box>
-              <HeadingBoundary>
-                <Heading
-                  id={toId(ohjaavaHakuTitle)}
-                  variant="h2"
-                  sx={{ marginTop: '1.5rem', marginBottom: '1.5rem' }}>
-                  {ohjaavaHakuTitle}
-                </Heading>
-              </HeadingBoundary>
-              <Typography sx={{ marginBottom: '1.5rem' }}>
-                {t('ohjaava-haku.info-text')}
-              </Typography>
-              <Button
-                onClick={startQuestionnaire}
-                variant="contained"
-                color="primary"
-                sx={{ marginBottom: '30%' }}>
-                {t('ohjaava-haku.aloita-kysely')}
-              </Button>
-            </Box>
+            <StartComponent
+              ohjaavaHakuTitle={ohjaavaHakuTitle}
+              setStartOfQuestionnaire={setStartOfQuestionnaire}
+            />
           ) : (
             <Box className={classes.container}>
               <ProgressSivupalkki />
