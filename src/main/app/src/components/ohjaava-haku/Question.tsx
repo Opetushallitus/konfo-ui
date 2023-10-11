@@ -8,6 +8,7 @@ import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { KoulutuksenKesto } from '#/src/components/ohjaava-haku/KoulutuksenKesto';
 import { Maksullisuus } from '#/src/components/ohjaava-haku/Maksullisuus';
+import { useOhjaavaHakuContext } from '#/src/components/ohjaava-haku/OhjaavaHakuContext';
 import { RAJAIN_TYPES } from '#/src/constants';
 import { useRajainItems } from '#/src/tools/filters';
 import { localize } from '#/src/tools/localization';
@@ -18,7 +19,7 @@ import { classes } from './StyledRoot';
 import { useSearch } from '../../components/haku/hakutulosHooks';
 import { Heading, HeadingBoundary } from '../Heading';
 
-export type Question = {
+export type QuestionType = {
   id: string;
   useRajainOptionNameFromRajain?: boolean;
   rajainOptionsToBeRemoved?: Array<string>;
@@ -73,26 +74,16 @@ export const QuestionInfoText = ({ questionInfo }: { questionInfo: string }) => 
   </Grid>
 );
 
-type QuestionProps = {
-  question: Question;
-  currentQuestionIndex: number;
-  setCurrentQuestionIndex: (index: number) => void;
-  lastQuestionIndex: number;
-  toggleAllSelectedRajainValues: (id: string, rajainId: string) => void;
-  allSelectedRajainValues: Rajain;
-  setAllSelectedRajainValues: (val: Rajain) => void;
-};
-
-export const Question = ({
-  question,
-  currentQuestionIndex,
-  setCurrentQuestionIndex,
-  lastQuestionIndex,
-  toggleAllSelectedRajainValues,
-  allSelectedRajainValues,
-  setAllSelectedRajainValues,
-}: QuestionProps) => {
+export const Question = () => {
   const { t } = useTranslation();
+
+  const {
+    question,
+    currentQuestionIndex,
+    setCurrentQuestionIndex,
+    lastQuestionIndex,
+    allSelectedRajainValues,
+  } = useOhjaavaHakuContext();
 
   const { goToSearchPage, setRajainValues, rajainValues, rajainOptions, isFetching } =
     useSearch();
@@ -139,27 +130,17 @@ export const Question = ({
               {questionId == 'koulutuksenkestokuukausina' ? (
                 <KoulutuksenKesto
                   rajainItems={rajainItems}
-                  allSelectedRajainValues={allSelectedRajainValues}
-                  setAllSelectedRajainValues={setAllSelectedRajainValues}
                   setErrorKey={setErrorKey}
                   errorKey={errorKey}
                 />
               ) : questionId == 'maksullisuus' ? (
                 <Maksullisuus
                   rajainItems={rajainItems}
-                  allSelectedRajainValues={allSelectedRajainValues}
-                  toggleAllSelectedRajainValues={toggleAllSelectedRajainValues}
-                  setAllSelectedRajainValues={setAllSelectedRajainValues}
                   setErrorKey={setErrorKey}
                   errorKey={errorKey}
                 />
               ) : (
-                <QuestionWithOptions
-                  question={question}
-                  rajainItems={rajainItems}
-                  allSelectedRajainValues={allSelectedRajainValues}
-                  toggleAllSelectedRajainValues={toggleAllSelectedRajainValues}
-                />
+                <QuestionWithOptions rajainItems={rajainItems} />
               )}
             </Grid>
           )}

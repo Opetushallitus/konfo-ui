@@ -4,28 +4,21 @@ import { Grid } from '@mui/material';
 import { some } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
-import {
-  Question,
-  QuestionInfoText,
-  RajainOption,
-  Rajain,
-} from '#/src/components/ohjaava-haku/Question';
+import { useOhjaavaHakuContext } from '#/src/components/ohjaava-haku/OhjaavaHakuContext';
+import { QuestionInfoText, RajainOption } from '#/src/components/ohjaava-haku/Question';
 import { RajainItem } from '#/src/types/SuodatinTypes';
 
 import { classes } from './StyledRoot';
 
 export const QuestionWithOptions = ({
-  question,
   rajainItems,
-  allSelectedRajainValues,
-  toggleAllSelectedRajainValues,
 }: {
-  question: Question;
   rajainItems?: Array<RajainItem>;
-  allSelectedRajainValues: Rajain;
-  toggleAllSelectedRajainValues: (id: string, rajainId: string) => void;
 }) => {
   const { t } = useTranslation();
+
+  const { allSelectedRajainValues, toggleAllSelectedRajainValues, question } =
+    useOhjaavaHakuContext();
 
   const { rajainOptionsToBeRemoved, useRajainOptionNameFromRajain } = question;
   const rajainOptionsToShow = rajainItems?.filter(({ id }) => {

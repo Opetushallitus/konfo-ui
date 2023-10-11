@@ -11,6 +11,7 @@ import { ContentWrapper } from '#/src/components/common/ContentWrapper';
 import { Murupolku } from '#/src/components/common/Murupolku';
 import { useSearch } from '#/src/components/haku/hakutulosHooks';
 import { Heading, HeadingBoundary } from '#/src/components/Heading';
+import { OhjaavaHakuContext } from '#/src/components/ohjaava-haku/OhjaavaHakuContext';
 import { Question, Rajain } from '#/src/components/ohjaava-haku/Question';
 import { getChangedRajaimet } from '#/src/components/ohjaava-haku/utils';
 import { getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
@@ -59,57 +60,58 @@ export const OhjaavaHaku = () => {
   };
 
   const ohjaavaHakuTitle = t('ohjaava-haku.otsikko');
+  const value = {
+    toggleAllSelectedRajainValues: toggleAllRajainValues,
+    allSelectedRajainValues,
+    setAllSelectedRajainValues,
+    questions: questionsWithoutInvalidOptions,
+    question: currentQuestion,
+    currentQuestion,
+    currentQuestionIndex,
+    setCurrentQuestionIndex,
+    lastQuestionIndex,
+  };
   return (
-    <ContentWrapper>
-      <StyledRoot>
-        <Box>
-          <Murupolku
-            path={[
-              { name: t('haku.otsikko'), link: hakuUrl },
-              { name: ohjaavaHakuTitle },
-            ]}
-          />
-        </Box>
-        {isStartOfKysely ? (
+    <OhjaavaHakuContext.Provider value={value}>
+      <ContentWrapper>
+        <StyledRoot>
           <Box>
-            <HeadingBoundary>
-              <Heading
-                id={toId(ohjaavaHakuTitle)}
-                variant="h2"
-                sx={{ marginTop: '1.5rem', marginBottom: '1.5rem' }}>
-                {ohjaavaHakuTitle}
-              </Heading>
-            </HeadingBoundary>
-            <Typography sx={{ marginBottom: '1.5rem' }}>
-              {t('ohjaava-haku.info-text')}
-            </Typography>
-            <Button
-              onClick={startQuestionnaire}
-              variant="contained"
-              color="primary"
-              sx={{ marginBottom: '30%' }}>
-              {t('ohjaava-haku.aloita-kysely')}
-            </Button>
-          </Box>
-        ) : (
-          <Box className={classes.container}>
-            <ProgressSivupalkki
-              questions={questionsWithoutInvalidOptions}
-              currentQuestionIndex={currentQuestionIndex}
-              setCurrentQuestionIndex={setCurrentQuestionIndex}
-            />
-            <Question
-              question={currentQuestion}
-              currentQuestionIndex={currentQuestionIndex}
-              setCurrentQuestionIndex={setCurrentQuestionIndex}
-              lastQuestionIndex={lastQuestionIndex}
-              toggleAllSelectedRajainValues={toggleAllRajainValues}
-              allSelectedRajainValues={allSelectedRajainValues}
-              setAllSelectedRajainValues={setAllSelectedRajainValues}
+            <Murupolku
+              path={[
+                { name: t('haku.otsikko'), link: hakuUrl },
+                { name: ohjaavaHakuTitle },
+              ]}
             />
           </Box>
-        )}
-      </StyledRoot>
-    </ContentWrapper>
+          {isStartOfKysely ? (
+            <Box>
+              <HeadingBoundary>
+                <Heading
+                  id={toId(ohjaavaHakuTitle)}
+                  variant="h2"
+                  sx={{ marginTop: '1.5rem', marginBottom: '1.5rem' }}>
+                  {ohjaavaHakuTitle}
+                </Heading>
+              </HeadingBoundary>
+              <Typography sx={{ marginBottom: '1.5rem' }}>
+                {t('ohjaava-haku.info-text')}
+              </Typography>
+              <Button
+                onClick={startQuestionnaire}
+                variant="contained"
+                color="primary"
+                sx={{ marginBottom: '30%' }}>
+                {t('ohjaava-haku.aloita-kysely')}
+              </Button>
+            </Box>
+          ) : (
+            <Box className={classes.container}>
+              <ProgressSivupalkki />
+              <Question />
+            </Box>
+          )}
+        </StyledRoot>
+      </ContentWrapper>
+    </OhjaavaHakuContext.Provider>
   );
 };

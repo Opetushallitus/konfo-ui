@@ -8,6 +8,7 @@ import { match } from 'ts-pattern';
 import { NumberRangeSlider } from '#/src/components/common/Filter/NumberRangeSlider';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { InputWithUnit } from '#/src/components/ohjaava-haku/common/InputWithUnit';
+import { useOhjaavaHakuContext } from '#/src/components/ohjaava-haku/OhjaavaHakuContext';
 import {
   QuestionInfoText,
   Rajain,
@@ -52,20 +53,17 @@ const MaksullisuusRangeSlider = ({
 const MaksullisuusInput = ({
   id,
   rajainItems,
-  allSelectedRajainValues,
-  setAllSelectedRajainValues,
   setErrorKey,
   errorKey,
 }: {
   id: string;
   rajainItems?: Array<RajainItem>;
-  allSelectedRajainValues: Rajain;
-  setAllSelectedRajainValues: (val: Rajain) => void;
   setErrorKey: (errorKey: string) => void;
   errorKey: string;
 }) => {
   const { t } = useTranslation();
 
+  const { allSelectedRajainValues, setAllSelectedRajainValues } = useOhjaavaHakuContext();
   const rajainItem = rajainItems?.[0] as NumberRangeRajainItem;
   const undefinedRajainValues = [0, rajainItem?.upperLimit || DEFAULT_UPPERLIMIT];
 
@@ -211,20 +209,16 @@ const MaksullisuusInput = ({
 
 export const Maksullisuus = ({
   rajainItems,
-  allSelectedRajainValues,
-  toggleAllSelectedRajainValues,
-  setAllSelectedRajainValues,
   setErrorKey,
   errorKey,
 }: {
   rajainItems: Array<RajainItem>;
-  allSelectedRajainValues: Rajain;
-  toggleAllSelectedRajainValues: (id: string, rajainId: string) => void;
-  setAllSelectedRajainValues: (val: Rajain) => void;
   setErrorKey: (errorKey: string) => void;
   errorKey: string;
 }) => {
   const { t } = useTranslation();
+  const { allSelectedRajainValues, toggleAllSelectedRajainValues } =
+    useOhjaavaHakuContext();
 
   const maksullisuustyyppiRajainItems =
     combineMaksunMaaraWithMaksullisuustyyppi(rajainItems);
@@ -250,8 +244,6 @@ export const Maksullisuus = ({
               <MaksullisuusInput
                 id={id}
                 rajainItems={linkedRajainItems}
-                allSelectedRajainValues={allSelectedRajainValues}
-                setAllSelectedRajainValues={setAllSelectedRajainValues}
                 setErrorKey={setErrorKey}
                 errorKey={errorKey}
               />

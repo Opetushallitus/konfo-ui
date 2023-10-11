@@ -6,7 +6,8 @@ import { useTranslation } from 'react-i18next';
 import { match } from 'ts-pattern';
 
 import { InputWithUnit } from '#/src/components/ohjaava-haku/common/InputWithUnit';
-import { QuestionInfoText, Rajain } from '#/src/components/ohjaava-haku/Question';
+import { useOhjaavaHakuContext } from '#/src/components/ohjaava-haku/OhjaavaHakuContext';
+import { QuestionInfoText } from '#/src/components/ohjaava-haku/Question';
 import {
   getChangedKestoInMonths,
   getYearsAndMonthsFromRangeValue,
@@ -21,19 +22,16 @@ const DEFAULT_UPPERLIMIT = 72;
 
 export const KoulutuksenKesto = ({
   rajainItems,
-  allSelectedRajainValues,
-  setAllSelectedRajainValues,
   setErrorKey,
   errorKey,
 }: {
   rajainItems: Array<RajainItem>;
-  allSelectedRajainValues: Rajain;
-  setAllSelectedRajainValues: (val: Rajain) => void;
   setErrorKey: (errorKey: string) => void;
   errorKey: string;
 }) => {
   const { t } = useTranslation();
 
+  const { allSelectedRajainValues, setAllSelectedRajainValues } = useOhjaavaHakuContext();
   const rajainItem = rajainItems?.[0] as NumberRangeRajainItem;
   const undefinedRajainValues = [0, rajainItem?.upperLimit || DEFAULT_UPPERLIMIT];
 
