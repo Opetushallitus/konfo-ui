@@ -136,13 +136,7 @@ const MaksullisuusInput = ({
     });
   };
 
-  const unit = () => (
-    <MaterialIcon
-      className={classes.question__lyhenne}
-      icon="euro_symbol"
-      fontSize="small"
-    />
-  );
+  const unit = () => <MaterialIcon icon="euro_symbol" fontSize="small" />;
 
   return (
     <Grid container direction="column" wrap="nowrap">

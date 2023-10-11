@@ -2,8 +2,6 @@ import React from 'react';
 
 import { Box, InputLabel, OutlinedInput } from '@mui/material';
 
-import { classes } from '../StyledRoot';
-
 export const InputWithUnit = ({
   id,
   value,
@@ -21,8 +19,8 @@ export const InputWithUnit = ({
     <Box display="flex" gap="0.5rem">
       <OutlinedInput id={id} value={value} onChange={handleInputValueChange} />
       <InputLabel
+        sx={{ overflow: 'visible', alignSelf: 'center' }}
         htmlFor={id}
-        className={classes.question__lyhenne}
         aria-label={inputLabel}>
         {unitComponent}
       </InputLabel>

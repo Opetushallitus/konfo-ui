@@ -12,7 +12,6 @@ export const classes = {
   question__option: `${PREFIX}question__option`,
   question__inputContainer: `${PREFIX}question__input-container`,
   question__inputFieldContainer: `${PREFIX}question__input-field-container`,
-  question__lyhenne: `${PREFIX}question__lyhenne`,
   buttonContainer: `${PREFIX}buttonContainer`,
   buttonContainerLastQuestion: `${PREFIX}buttonContainerLastQuestion`,
   buttonContainer__previous: `${PREFIX}buttonContainer__previous`,
@@ -75,11 +74,6 @@ export const StyledRoot = styled(Box)(({ theme }) => {
       display: flex;
       gap: 0.5rem;
       margin-bottom: 0.5rem;
-    }
-
-    &__lyhenne {
-      overflow: visible;
-      align-self: center;
     }
   }
 

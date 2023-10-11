@@ -105,11 +105,7 @@ export const KoulutuksenKesto = ({
     });
   };
 
-  const unit = (id: string) => (
-    <Typography className={classes.question__lyhenne}>
-      {t(`haku.lyhenne-${id}`)}
-    </Typography>
-  );
+  const unit = (id: string) => <Typography>{t(`haku.lyhenne-${id}`)}</Typography>;
 
   return (
     <Grid container direction="column" wrap="nowrap">
