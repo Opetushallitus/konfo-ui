@@ -5,6 +5,7 @@ import { isEmpty, isFinite } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { match } from 'ts-pattern';
 
+import { CustomInputLabel } from '#/src/components/ohjaava-haku/common/CustomInputLabel';
 import { InputWithUnit } from '#/src/components/ohjaava-haku/common/InputWithUnit';
 import { useOhjaavaHakuContext } from '#/src/components/ohjaava-haku/OhjaavaHakuContext';
 import { QuestionInfoText } from '#/src/components/ohjaava-haku/Question';
@@ -126,9 +127,7 @@ export const KoulutuksenKesto = ({
           wrap="nowrap"
           xs={3}
           className={classes.question__inputFieldContainer}>
-          <Typography className={classes.question__inputLabel}>
-            {t('ohjaava-haku.kysymykset.koulutuksenkestokuukausina.opiskelen-vahintaan')}
-          </Typography>
+          <CustomInputLabel translationKey="ohjaava-haku.kysymykset.koulutuksenkestokuukausina.opiskelen-vahintaan" />
           <Box className={classes.question__inputFieldContainer}>
             <InputWithUnit
               id="vahintaan-vuosi"
@@ -156,9 +155,7 @@ export const KoulutuksenKesto = ({
           wrap="nowrap"
           xs={3}
           className={classes.question__inputFieldContainer}>
-          <Typography className={classes.question__inputLabel}>
-            {t('ohjaava-haku.kysymykset.koulutuksenkestokuukausina.opiskelen-enintaan')}
-          </Typography>
+          <CustomInputLabel translationKey="ohjaava-haku.kysymykset.koulutuksenkestokuukausina.opiskelen-enintaan" />
           <Box className={classes.question__inputFieldContainer}>
             <InputWithUnit
               id="enintaan-vuosi"

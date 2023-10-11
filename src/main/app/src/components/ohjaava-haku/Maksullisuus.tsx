@@ -19,6 +19,7 @@ import { marks } from '#/src/components/suodattimet/common/maksullisuusRajainUti
 import { NDASH } from '#/src/constants';
 import { NumberRangeRajainItem, RajainItem } from '#/src/types/SuodatinTypes';
 
+import { CustomInputLabel } from './common/CustomInputLabel';
 import { classes } from './StyledRoot';
 
 const DEFAULT_UPPERLIMIT = 20000;
@@ -158,9 +159,7 @@ const MaksullisuusInput = ({
           wrap="nowrap"
           xs={3}
           className={classes.question__inputFieldContainer}>
-          <Typography className={classes.question__inputLabel}>
-            {t('ohjaava-haku.kysymykset.maksullisuustyyppi.vahintaan')}
-          </Typography>
+          <CustomInputLabel translationKey="ohjaava-haku.kysymykset.maksullisuustyyppi.vahintaan" />
           <InputWithUnit
             id={`${id}-vahintaan`}
             value={vahintaan}
@@ -179,9 +178,7 @@ const MaksullisuusInput = ({
           wrap="nowrap"
           xs={3}
           className={classes.question__inputFieldContainer}>
-          <Typography className={classes.question__inputLabel}>
-            {t('ohjaava-haku.kysymykset.maksullisuustyyppi.enintaan')}
-          </Typography>
+          <CustomInputLabel translationKey="ohjaava-haku.kysymykset.maksullisuustyyppi.enintaan" />
           <InputWithUnit
             id={`${id}-enintaan`}
             value={enintaan}
