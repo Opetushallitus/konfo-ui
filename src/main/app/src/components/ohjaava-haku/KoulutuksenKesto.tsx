@@ -7,6 +7,7 @@ import { match } from 'ts-pattern';
 
 import { CustomInputLabel } from '#/src/components/ohjaava-haku/common/CustomInputLabel';
 import { InputWithUnit } from '#/src/components/ohjaava-haku/common/InputWithUnit';
+import { Ndash } from '#/src/components/ohjaava-haku/common/Ndash';
 import { useOhjaavaHakuContext } from '#/src/components/ohjaava-haku/OhjaavaHakuContext';
 import { QuestionInfoText } from '#/src/components/ohjaava-haku/Question';
 import {
@@ -14,7 +15,6 @@ import {
   getYearsAndMonthsFromRangeValue,
 } from '#/src/components/ohjaava-haku/utils';
 import { KoulutuksenKestoSlider } from '#/src/components/suodattimet/common/KoulutuksenKestoSuodatin';
-import { NDASH } from '#/src/constants';
 import { RajainItem, NumberRangeRajainItem } from '#/src/types/SuodatinTypes';
 
 import { classes } from './StyledRoot';
@@ -145,9 +145,7 @@ export const KoulutuksenKesto = ({
             />
           </Box>
         </Grid>
-        <Grid item className={classes.question__ndashContainer}>
-          <div className={classes.question__ndash}>{NDASH}</div>
-        </Grid>
+        <Ndash />
         <Grid
           item
           container

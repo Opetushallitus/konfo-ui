@@ -13,8 +13,6 @@ export const classes = {
   question__inputContainer: `${PREFIX}question__input-container`,
   question__inputFieldContainer: `${PREFIX}question__input-field-container`,
   question__lyhenne: `${PREFIX}question__lyhenne`,
-  question__ndash: `${PREFIX}question__ndash`,
-  question__ndashContainer: `${PREFIX}question__ndash-container`,
   buttonContainer: `${PREFIX}buttonContainer`,
   buttonContainerLastQuestion: `${PREFIX}buttonContainerLastQuestion`,
   buttonContainer__previous: `${PREFIX}buttonContainer__previous`,
@@ -82,17 +80,6 @@ export const StyledRoot = styled(Box)(({ theme }) => {
     &__lyhenne {
       overflow: visible;
       align-self: center;
-    }
-
-    &__ndash-container {
-      display: flex;
-      justify-content: center;
-      align-items: end;
-    }
-
-    &__ndash {
-      font-size: 1.5rem;
-      margin-bottom: 1.75rem;
     }
   }
 

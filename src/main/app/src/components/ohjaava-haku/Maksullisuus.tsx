@@ -16,10 +16,10 @@ import {
 } from '#/src/components/ohjaava-haku/Question';
 import { combineMaksunMaaraWithMaksullisuustyyppi } from '#/src/components/ohjaava-haku/utils';
 import { marks } from '#/src/components/suodattimet/common/maksullisuusRajainUtils';
-import { NDASH } from '#/src/constants';
 import { NumberRangeRajainItem, RajainItem } from '#/src/types/SuodatinTypes';
 
 import { CustomInputLabel } from './common/CustomInputLabel';
+import { Ndash } from './common/Ndash';
 import { classes } from './StyledRoot';
 
 const DEFAULT_UPPERLIMIT = 20000;
@@ -168,9 +168,7 @@ const MaksullisuusInput = ({
             inputLabel="euro"
           />
         </Grid>
-        <Grid item className={classes.question__ndashContainer}>
-          <div className={classes.question__ndash}>{NDASH}</div>
-        </Grid>
+        <Ndash />
         <Grid
           item
           container
