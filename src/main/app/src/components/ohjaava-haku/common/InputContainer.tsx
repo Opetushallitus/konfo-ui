@@ -16,7 +16,7 @@ export const InputFieldContainer = styled(Grid)(({ theme }) => ({
   display: 'flex',
   gap: '0.5rem',
   margin: '0.5rem',
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down('md')]: {
     flexBasis: 'content',
     maxWidth: 'none',
   },

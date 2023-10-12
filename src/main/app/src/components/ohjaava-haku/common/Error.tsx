@@ -6,5 +6,9 @@ import { useTranslation } from 'react-i18next';
 export const Error = ({ errorKey }: { errorKey: string }) => {
   const { t } = useTranslation();
 
-  return <Typography color="red">{t(`ohjaava-haku.error.${errorKey}`)}</Typography>;
+  return (
+    <Typography color="red" marginBottom="1rem">
+      {t(`ohjaava-haku.error.${errorKey}`)}
+    </Typography>
+  );
 };

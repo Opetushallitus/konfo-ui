@@ -143,24 +143,28 @@ const MaksullisuusInput = ({
       <InputContainer item container direction="row" wrap="nowrap">
         <InputFieldContainer item container direction="column" wrap="nowrap" xs={3}>
           <CustomInputLabel translationKey="ohjaava-haku.kysymykset.maksullisuustyyppi.vahintaan" />
-          <InputWithUnit
-            id={`${id}-vahintaan`}
-            value={vahintaan}
-            handleInputValueChange={handleInputValueChange}
-            unitComponent={unit()}
-            inputLabel="euro"
-          />
+          <InputFieldContainer>
+            <InputWithUnit
+              id={`${id}-vahintaan`}
+              value={vahintaan}
+              handleInputValueChange={handleInputValueChange}
+              unitComponent={unit()}
+              inputLabel="euro"
+            />
+          </InputFieldContainer>
         </InputFieldContainer>
         <Ndash />
         <InputFieldContainer item container direction="column" wrap="nowrap" xs={3}>
           <CustomInputLabel translationKey="ohjaava-haku.kysymykset.maksullisuustyyppi.enintaan" />
-          <InputWithUnit
-            id={`${id}-enintaan`}
-            value={enintaan}
-            handleInputValueChange={handleInputValueChange}
-            unitComponent={unit()}
-            inputLabel="euro"
-          />
+          <InputFieldContainer>
+            <InputWithUnit
+              id={`${id}-enintaan`}
+              value={enintaan}
+              handleInputValueChange={handleInputValueChange}
+              unitComponent={unit()}
+              inputLabel="euro"
+            />
+          </InputFieldContainer>
         </InputFieldContainer>
       </InputContainer>
       {!isEmpty(errorKey) && <Error errorKey={errorKey} />}
