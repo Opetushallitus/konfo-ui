@@ -4,8 +4,9 @@ import { Grid } from '@mui/material';
 import { some } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
+import { RajainOption } from '#/src/components/ohjaava-haku/common/RajainOption';
 import { useOhjaavaHakuContext } from '#/src/components/ohjaava-haku/OhjaavaHakuContext';
-import { QuestionInfoText, RajainOption } from '#/src/components/ohjaava-haku/Question';
+import { QuestionInfoText } from '#/src/components/ohjaava-haku/Question';
 import { RajainItem } from '#/src/types/SuodatinTypes';
 
 import { StyledQuestion } from './common/StyledQuestion';

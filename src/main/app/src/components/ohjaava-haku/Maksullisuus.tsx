@@ -12,12 +12,9 @@ import {
   InputFieldContainer,
 } from '#/src/components/ohjaava-haku/common/InputContainer';
 import { InputWithUnit } from '#/src/components/ohjaava-haku/common/InputWithUnit';
+import { RajainOption } from '#/src/components/ohjaava-haku/common/RajainOption';
 import { useOhjaavaHakuContext } from '#/src/components/ohjaava-haku/OhjaavaHakuContext';
-import {
-  QuestionInfoText,
-  Rajain,
-  RajainOption,
-} from '#/src/components/ohjaava-haku/Question';
+import { QuestionInfoText, Rajain } from '#/src/components/ohjaava-haku/Question';
 import { combineMaksunMaaraWithMaksullisuustyyppi } from '#/src/components/ohjaava-haku/utils';
 import { marks } from '#/src/components/suodattimet/common/maksullisuusRajainUtils';
 import { NumberRangeRajainItem, RajainItem } from '#/src/types/SuodatinTypes';
