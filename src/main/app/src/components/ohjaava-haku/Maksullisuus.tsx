@@ -20,7 +20,7 @@ import { marks } from '#/src/components/suodattimet/common/maksullisuusRajainUti
 import { NumberRangeRajainItem, RajainItem } from '#/src/types/SuodatinTypes';
 
 import { CustomInputLabel } from './common/CustomInputLabel';
-import { Error } from './common/Error';
+import { ErrorMessage } from './common/ErrorMessage';
 import { Ndash } from './common/Ndash';
 import { StyledQuestion } from './common/StyledQuestion';
 
@@ -167,7 +167,7 @@ const MaksullisuusInput = ({
           </InputFieldContainer>
         </InputFieldContainer>
       </InputContainer>
-      {!isEmpty(errorKey) && <Error errorKey={errorKey} />}
+      {!isEmpty(errorKey) && <ErrorMessage errorKey={errorKey} />}
       <Grid item sx={{ mx: 1 }}>
         <MaksullisuusRangeSlider
           rangeValues={rangeValues}
