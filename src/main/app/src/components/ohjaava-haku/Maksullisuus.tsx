@@ -1,26 +1,28 @@
 import React, { useState } from 'react';
 
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { match } from 'ts-pattern';
 
 import { NumberRangeSlider } from '#/src/components/common/Filter/NumberRangeSlider';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
-import { InputWithUnit } from '#/src/components/ohjaava-haku/common/InputWithUnit';
-import { useOhjaavaHakuContext } from '#/src/components/ohjaava-haku/OhjaavaHakuContext';
 import {
-  QuestionInfoText,
-  Rajain,
-  RajainOption,
-} from '#/src/components/ohjaava-haku/Question';
+  InputContainer,
+  InputFieldContainer,
+} from '#/src/components/ohjaava-haku/common/InputContainer';
+import { InputWithUnit } from '#/src/components/ohjaava-haku/common/InputWithUnit';
+import { RajainOption } from '#/src/components/ohjaava-haku/common/RajainOption';
+import { useOhjaavaHakuContext } from '#/src/components/ohjaava-haku/OhjaavaHakuContext';
+import { QuestionInfoText, Rajain } from '#/src/components/ohjaava-haku/Question';
 import { combineMaksunMaaraWithMaksullisuustyyppi } from '#/src/components/ohjaava-haku/utils';
 import { marks } from '#/src/components/suodattimet/common/maksullisuusRajainUtils';
 import { NumberRangeRajainItem, RajainItem } from '#/src/types/SuodatinTypes';
 
 import { CustomInputLabel } from './common/CustomInputLabel';
+import { Error } from './common/Error';
 import { Ndash } from './common/Ndash';
-import { classes } from './StyledRoot';
+import { StyledQuestion } from './common/StyledQuestion';
 
 const DEFAULT_UPPERLIMIT = 20000;
 
@@ -62,8 +64,6 @@ const MaksullisuusInput = ({
   setErrorKey: (errorKey: string) => void;
   errorKey: string;
 }) => {
-  const { t } = useTranslation();
-
   const { allSelectedRajainValues, setAllSelectedRajainValues } = useOhjaavaHakuContext();
   const rajainItem = rajainItems?.[0] as NumberRangeRajainItem;
   const undefinedRajainValues = [0, rajainItem?.upperLimit || DEFAULT_UPPERLIMIT];
@@ -140,51 +140,34 @@ const MaksullisuusInput = ({
 
   return (
     <Grid container direction="column" wrap="nowrap">
-      <Grid
-        item
-        container
-        direction="row"
-        wrap="nowrap"
-        className={classes.question__inputContainer}>
-        <Grid
-          item
-          container
-          direction="column"
-          wrap="nowrap"
-          xs={3}
-          className={classes.question__inputFieldContainer}>
+      <InputContainer item container direction="row" wrap="nowrap">
+        <InputFieldContainer item container direction="column" wrap="nowrap" xs={3}>
           <CustomInputLabel translationKey="ohjaava-haku.kysymykset.maksullisuustyyppi.vahintaan" />
-          <InputWithUnit
-            id={`${id}-vahintaan`}
-            value={vahintaan}
-            handleInputValueChange={handleInputValueChange}
-            unitComponent={unit()}
-            inputLabel="euro"
-          />
-        </Grid>
+          <InputFieldContainer>
+            <InputWithUnit
+              id={`${id}-vahintaan`}
+              value={vahintaan}
+              handleInputValueChange={handleInputValueChange}
+              unitComponent={unit()}
+              inputLabel="euro"
+            />
+          </InputFieldContainer>
+        </InputFieldContainer>
         <Ndash />
-        <Grid
-          item
-          container
-          direction="column"
-          wrap="nowrap"
-          xs={3}
-          className={classes.question__inputFieldContainer}>
+        <InputFieldContainer item container direction="column" wrap="nowrap" xs={3}>
           <CustomInputLabel translationKey="ohjaava-haku.kysymykset.maksullisuustyyppi.enintaan" />
-          <InputWithUnit
-            id={`${id}-enintaan`}
-            value={enintaan}
-            handleInputValueChange={handleInputValueChange}
-            unitComponent={unit()}
-            inputLabel="euro"
-          />
-        </Grid>
-      </Grid>
-      {!isEmpty(errorKey) && (
-        <Typography className={classes.error}>
-          {t(`ohjaava-haku.error.${errorKey}`)}
-        </Typography>
-      )}
+          <InputFieldContainer>
+            <InputWithUnit
+              id={`${id}-enintaan`}
+              value={enintaan}
+              handleInputValueChange={handleInputValueChange}
+              unitComponent={unit()}
+              inputLabel="euro"
+            />
+          </InputFieldContainer>
+        </InputFieldContainer>
+      </InputContainer>
+      {!isEmpty(errorKey) && <Error errorKey={errorKey} />}
       <Grid item sx={{ mx: 1 }}>
         <MaksullisuusRangeSlider
           rangeValues={rangeValues}
@@ -213,7 +196,7 @@ export const Maksullisuus = ({
     combineMaksunMaaraWithMaksullisuustyyppi(rajainItems);
 
   return (
-    <Grid item className={classes.question}>
+    <StyledQuestion item>
       <QuestionInfoText
         questionInfo={t(`ohjaava-haku.kysymykset.info-text-for-options`)}
       />
@@ -240,6 +223,6 @@ export const Maksullisuus = ({
           </Box>
         );
       })}
-    </Grid>
+    </StyledQuestion>
   );
 };
