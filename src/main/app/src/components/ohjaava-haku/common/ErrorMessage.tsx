@@ -3,7 +3,7 @@ import React from 'react';
 import { Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-export const Error = ({ errorKey }: { errorKey: string }) => {
+export const ErrorMessage = ({ errorKey }: { errorKey: string }) => {
   const { t } = useTranslation();
 
   return (

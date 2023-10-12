@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { match } from 'ts-pattern';
 
 import { CustomInputLabel } from '#/src/components/ohjaava-haku/common/CustomInputLabel';
-import { Error } from '#/src/components/ohjaava-haku/common/Error';
+import { ErrorMessage } from '#/src/components/ohjaava-haku/common/ErrorMessage';
 import {
   InputContainer,
   InputFieldContainer,
@@ -154,7 +154,7 @@ export const KoulutuksenKesto = ({
           </InputFieldContainer>
         </InputFieldContainer>
       </InputContainer>
-      {!isEmpty(errorKey) && <Error errorKey={errorKey} />}
+      {!isEmpty(errorKey) && <ErrorMessage errorKey={errorKey} />}
       <KoulutuksenKestoSlider
         rangeValues={rangeValues}
         undefinedRajainValues={undefinedRajainValues}
