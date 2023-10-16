@@ -1,31 +1,21 @@
 import { formatISO } from 'date-fns';
+import { forEach } from 'lodash';
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
 interface HakukohdeFavouriteState {
-  hakukohdeFavourites: Record<string, { timestamp: string }>;
-  addHakukohdeFavourite: (id: string) => void;
-  removeHakukohdeFavourite: (id: string) => void;
-  toggleHakukohdeFavourite: (id: string) => void;
-  clearHakukohdeFavourites: () => void;
+  hakukohdeFavourites: Record<string, { timestamp: string; removed?: boolean }>;
+  toggleFavourite: (id: string) => void;
+  softToggleFavourite: (id: string) => void;
+  clearSoftRemovedFavourites: () => void;
 }
 
 const useFavouriteStore = create<HakukohdeFavouriteState>()(
   persist(
     immer((set) => ({
       hakukohdeFavourites: {},
-      addHakukohdeFavourite: (id: string) =>
-        set((state) => {
-          state.hakukohdeFavourites[id] = state.hakukohdeFavourites[id] ?? {
-            timestamp: formatISO(new Date()),
-          };
-        }),
-      removeHakukohdeFavourite: (id: string) =>
-        set((state) => {
-          delete state.hakukohdeFavourites[id];
-        }),
-      toggleHakukohdeFavourite: (id: string) =>
+      toggleFavourite: (id: string) =>
         set((state) => {
           if (state.hakukohdeFavourites[id]) {
             delete state.hakukohdeFavourites[id];
@@ -35,9 +25,20 @@ const useFavouriteStore = create<HakukohdeFavouriteState>()(
             };
           }
         }),
-      clearHakukohdeFavourites: () =>
+      softToggleFavourite: (id: string) =>
         set((state) => {
-          state.hakukohdeFavourites = {};
+          if (state.hakukohdeFavourites[id]) {
+            state.hakukohdeFavourites[id].removed =
+              !state.hakukohdeFavourites[id].removed;
+          }
+        }),
+      clearSoftRemovedFavourites: () =>
+        set((state) => {
+          forEach(state.hakukohdeFavourites, (val, oid) => {
+            if (val.removed) {
+              delete state.hakukohdeFavourites[oid];
+            }
+          });
         }),
     })),
     {

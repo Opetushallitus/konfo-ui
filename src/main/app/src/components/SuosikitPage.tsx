@@ -1,4 +1,6 @@
-import { Box, Paper, Typography } from '@mui/material';
+import { useEffect } from 'react';
+
+import { Backdrop, Box, Paper, Typography } from '@mui/material';
 import { isEmpty, truncate } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
@@ -16,8 +18,8 @@ import { MaterialIcon } from './common/MaterialIcon';
 import { Murupolku } from './common/Murupolku';
 import { QueryResultWrapper } from './common/QueryResultWrapper';
 import { TextWithBackground } from './common/TextWithBackground';
+import { ToggleFavouriteButton } from './common/ToggleFavouriteButton';
 import { Heading, HeadingBoundary } from './Heading';
-import { ToggleFavouriteButton } from './toteutus/ToteutusHakukohteet';
 
 const useTruncatedKuvaus = (kuvaus: string) => {
   const { t } = useTranslation();
@@ -41,6 +43,7 @@ const useHakukohdeSuosikitData = (oids?: Array<string>) => {
 const PaperWithAccent = styled(Paper)(({ theme }) => ({
   borderTop: `5px solid ${colors.brandGreen}`,
   width: '100%',
+  position: 'relative',
   padding: `${theme.spacing(3)}`,
 }));
 
@@ -59,7 +62,13 @@ const Tutkintonimikkeet = ({
   ) : null;
 };
 
-const SuosikkiKortti = ({ hakukohdeSuosikki }: { hakukohdeSuosikki: any }) => {
+const SuosikkiKortti = ({
+  hakukohdeSuosikki,
+  removed,
+}: {
+  hakukohdeSuosikki: any;
+  removed?: boolean;
+}) => {
   const { t } = useTranslation();
 
   const logoAltText = `${t('haku.oppilaitoksen-logo')}`;
@@ -68,6 +77,7 @@ const SuosikkiKortti = ({ hakukohdeSuosikki }: { hakukohdeSuosikki: any }) => {
 
   return (
     <PaperWithAccent key={hakukohdeSuosikki.hakukohdeOid}>
+      <Backdrop sx={{ position: 'absolute' }} open={Boolean(removed)} />
       <Box
         sx={{
           display: 'inline-block',
@@ -103,7 +113,10 @@ const SuosikkiKortti = ({ hakukohdeSuosikki }: { hakukohdeSuosikki: any }) => {
           </Box>
         </Box>
         <Box sx={{ float: 'right' }}>
-          <ToggleFavouriteButton hakukohdeOid={hakukohdeSuosikki.hakukohdeOid} />
+          <ToggleFavouriteButton
+            hakukohdeOid={hakukohdeSuosikki.hakukohdeOid}
+            softRemove
+          />
         </Box>
       </Box>
     </PaperWithAccent>
@@ -112,12 +125,21 @@ const SuosikkiKortti = ({ hakukohdeSuosikki }: { hakukohdeSuosikki: any }) => {
 
 export const SuosikitPage = () => {
   const { t } = useTranslation();
-  const { hakukohdeFavourites } = useHakukohdeFavourites();
+  const { hakukohdeFavourites, clearSoftRemovedFavourites: clearRemoved } =
+    useHakukohdeFavourites();
+
+  const nonDeletedFavourites = Object.values(hakukohdeFavourites).filter(
+    (favourite) => !favourite.removed
+  );
 
   const queryResult = useHakukohdeSuosikitData(Object.keys(hakukohdeFavourites));
   const { data } = queryResult;
 
-  const suosikitLength = Object.keys(hakukohdeFavourites).length;
+  const suosikitLength = nonDeletedFavourites.length;
+
+  useEffect(() => {
+    clearRemoved();
+  }, [clearRemoved]);
 
   return (
     <ContentWrapper>
@@ -145,6 +167,7 @@ export const SuosikitPage = () => {
                 <SuosikkiKortti
                   key={hakukohdeSuosikki.hakukohdeOid}
                   hakukohdeSuosikki={hakukohdeSuosikki}
+                  removed={hakukohdeFavourites?.[hakukohdeSuosikki.hakukohdeOid]?.removed}
                 />
               ))}
             </Box>

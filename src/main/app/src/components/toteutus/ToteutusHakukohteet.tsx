@@ -17,9 +17,9 @@ import { AdditionalInfoWithIcon } from '#/src/components/common/AdditionalInfoWi
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
 import { MaterialIcon, createMaterialIcon } from '#/src/components/common/MaterialIcon';
 import { PageSection } from '#/src/components/common/PageSection';
+import { ToggleFavouriteButton } from '#/src/components/common/ToggleFavouriteButton';
 import { useDemoLinks } from '#/src/components/toteutus/hooks';
 import { Hakulomaketyyppi } from '#/src/constants';
-import { useHakukohdeFavourites } from '#/src/hooks/useHakukohdeFavourites';
 import { styled } from '#/src/theme';
 import { localize } from '#/src/tools/localization';
 import { useOsoitteet } from '#/src/tools/useOppilaitosOsoite';
@@ -76,27 +76,6 @@ type GridProps = {
   toteutus?: Toteutus;
   hakukohteet: Array<Hakukohde>;
   oppilaitosOsat?: Array<OppilaitosOsa>;
-};
-
-export const ToggleFavouriteButton = ({ hakukohdeOid }: { hakukohdeOid?: string }) => {
-  const { toggleHakukohdeFavourite, hakukohdeFavourites } = useHakukohdeFavourites();
-
-  const isAdded = Boolean(hakukohdeFavourites[hakukohdeOid ?? '']);
-
-  const { t } = useTranslation();
-
-  return hakukohdeOid ? (
-    <Button
-      sx={{
-        float: 'right',
-        marginLeft: 1,
-      }}
-      variant="contained"
-      onClick={() => toggleHakukohdeFavourite(hakukohdeOid)}
-      startIcon={<MaterialIcon icon={isAdded ? 'favorite' : 'favorite_border'} />}>
-      {isAdded ? t('suosikit.poista') : t('suosikit.lisaa')}
-    </Button>
-  ) : null;
 };
 
 const HakuCardGrid = ({

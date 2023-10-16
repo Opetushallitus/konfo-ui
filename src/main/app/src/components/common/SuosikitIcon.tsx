@@ -13,7 +13,9 @@ export const DarkBadge = styled(Badge)({
 });
 export const SuosikitIcon = () => {
   const { hakukohdeFavourites } = useHakukohdeFavourites();
-  const suosikitCount = Object.keys(hakukohdeFavourites).length;
+  const suosikitCount = Object.values(hakukohdeFavourites).filter(
+    (favourite) => !favourite.removed
+  ).length;
 
   return (
     <DarkBadge badgeContent={suosikitCount}>
