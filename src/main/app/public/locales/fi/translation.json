@@ -764,6 +764,8 @@
     "ei-tallennettuja-hakukohteita": "Ei tallennettuja hakukohteita",
     "kumoa-poisto": "Kumoa poisto",
     "suosikki-lisatty": "Oppilaitos lisätty suosikiksi",
-    "katso-suosikkejasi": "Katso suosikkejasi"
+    "katso-suosikkejasi": "Katso suosikkejasi",
+    "puuttuvia-suosikkeja": "Joidenkin lisäämiesi suosikkien tietoja ei enää löytynyt. Ne on piilotettu listauksesta.",
+    "poista-puuttuvat": "Poista piilotetut"
   }
 }

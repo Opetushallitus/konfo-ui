@@ -9,13 +9,14 @@ export interface SuosikitState {
   toggleSuosikki: (id: string) => void;
   softToggleSuosikki: (id: string) => void;
   clearSoftRemovedSuosikit: () => void;
+  removeSuosikit: (ids: Array<string>) => void;
 }
 
 const useSuosikitState = create<SuosikitState>()(
   persist(
     immer((set) => ({
       suosikitSelection: {},
-      toggleSuosikki: (id: string) =>
+      toggleSuosikki: (id) =>
         set((state) => {
           if (state.suosikitSelection[id]) {
             delete state.suosikitSelection[id];
@@ -25,11 +26,17 @@ const useSuosikitState = create<SuosikitState>()(
             };
           }
         }),
-      softToggleSuosikki: (id: string) =>
+      softToggleSuosikki: (id) =>
         set((state) => {
           if (state.suosikitSelection[id]) {
             state.suosikitSelection[id].removed = !state.suosikitSelection[id].removed;
           }
+        }),
+      removeSuosikit: (ids) =>
+        set((state) => {
+          ids.forEach((id) => {
+            if (state.suosikitSelection[id]) delete state.suosikitSelection[id];
+          });
         }),
       clearSoftRemovedSuosikit: () =>
         set((state) => {

@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from 'react';
 
-import { Backdrop, Box, Paper, Typography } from '@mui/material';
+import { Alert, Backdrop, Box, Button, Paper, Typography } from '@mui/material';
 import { isEmpty, sortBy } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
@@ -119,10 +119,33 @@ const SuosikkiKortti = ({
   );
 };
 
+const MissingSuosikit = ({ removeMissing }: { removeMissing: () => void }) => {
+  const { t } = useTranslation();
+
+  return (
+    <Alert
+      severity="warning"
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        alignSelf: 'center',
+      }}>
+      <Box display="inline-block" mr={2}>
+        {t('suosikit.puuttuvia-suosikkeja')}
+      </Box>
+      <Button color="primary" variant="contained" onClick={removeMissing}>
+        {t('suosikit.poista-puuttuvat')}
+      </Button>
+    </Alert>
+  );
+};
+
 const SuosikitList = ({
   suosikitSelection,
+  removeSuosikit,
 }: {
   suosikitSelection: SuosikitState['suosikitSelection'];
+  removeSuosikit: SuosikitState['removeSuosikit'];
 }) => {
   const queryResult = useSuosikitData(Object.keys(suosikitSelection));
   const { data } = queryResult;
@@ -136,10 +159,19 @@ const SuosikitList = ({
     [data, suosikitSelection]
   );
 
+  const suosikitWithMissingData = Object.keys(suosikitSelection).filter(
+    (oid) => !data?.find((item) => item.hakukohdeOid == oid)
+  );
+
   return (
     <QueryResultWrapper queryResult={queryResult}>
       <HeadingBoundary>
         <Box display="flex" flexDirection="column" rowGap={3}>
+          {!isEmpty(suosikitWithMissingData) && (
+            <MissingSuosikit
+              removeMissing={() => removeSuosikit(suosikitWithMissingData)}
+            />
+          )}
           {orderedData?.map((hakukohdeSuosikki) => (
             <SuosikkiKortti
               key={hakukohdeSuosikki.hakukohdeOid}
@@ -155,7 +187,8 @@ const SuosikitList = ({
 
 export const SuosikitPage = () => {
   const { t } = useTranslation();
-  const { suosikitSelection, clearSoftRemovedSuosikit } = useSuosikitSelection();
+  const { suosikitSelection, clearSoftRemovedSuosikit, removeSuosikit } =
+    useSuosikitSelection();
 
   const suosikitCount = useNonRemovedSuosikitCount();
 
@@ -182,7 +215,10 @@ export const SuosikitPage = () => {
         )}
       </Box>
       {!isEmpty(suosikitSelection) && (
-        <SuosikitList suosikitSelection={suosikitSelection} />
+        <SuosikitList
+          suosikitSelection={suosikitSelection}
+          removeSuosikit={removeSuosikit}
+        />
       )}
     </ContentWrapper>
   );
