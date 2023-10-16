@@ -93,8 +93,8 @@ const SuosikkiKortti = ({
         justifyContent="space-between"
         alignItems="flex-end"
         mt={2}
-        columnGap={3}>
-        <Box display="flex" columnGap={3} alignItems="flex-start">
+        columnGap={2}>
+        <Box display="flex" columnGap={3} alignItems="flex-end" flexWrap="wrap-reverse">
           <Box display="flex">
             <Tutkintonimikkeet tutkintonimikkeet={hakukohdeSuosikki.tutkintonimikkeet} />
           </Box>
@@ -104,11 +104,11 @@ const SuosikkiKortti = ({
               {localize(hakukohdeSuosikki.jarjestyspaikka.paikkakunta)}
             </Typography>
           </Box>
-          <Box>
+          <Box mt="3px" mb={1}>
             <TextWithBackground>{t('haku.hakukaynnissa')}</TextWithBackground>
           </Box>
         </Box>
-        <Box sx={{ float: 'right' }}>
+        <Box>
           <ToggleSuosikkiButton
             hakukohdeOid={hakukohdeSuosikki.hakukohdeOid}
             softRemove
