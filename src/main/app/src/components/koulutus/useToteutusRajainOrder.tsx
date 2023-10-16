@@ -92,7 +92,7 @@ export const useToteutusRajainOrder = ({
     },
   ].filter(Boolean) as Array<{
     id: string;
-    Component: (props: RajainComponentProps) => JSX.Element;
+    Component: (props: RajainComponentProps) => React.JSX.Element;
     props?: RajainComponentProps;
   }>;
 };

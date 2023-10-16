@@ -8,7 +8,7 @@ import { SearchBox } from './SearchBox';
 export const Hakupalkki = ({
   rajaaButton = null,
 }: {
-  rajaaButton?: JSX.Element | null;
+  rajaaButton?: React.JSX.Element | null;
 }) => {
   const { keyword, goToSearchPage, setKeyword } = useSearch();
 

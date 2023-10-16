@@ -72,7 +72,7 @@ const getJarjestyspaikkaYhteystiedot = (
   osoitteet.find((osoite) => osoite.oppilaitosOid === jarjestyspaikka.oid)?.yhteystiedot;
 type GridProps = {
   tyyppiOtsikko: string;
-  icon: JSX.Element;
+  icon: React.JSX.Element;
   toteutus?: Toteutus;
   hakukohteet: Array<Hakukohde>;
   oppilaitosOsat?: Array<OppilaitosOsa>;

@@ -102,8 +102,8 @@ const StyledSmartLink = styled(SmartLink, {
 
 // TODO: Jostain syystä TS:n labeled tuples ei toiminut, e.g. IconComponent: (...props: any) => JSX.Element
 type IconText = [
-  JSX.Element | string,
-  ((props: SvgIconProps) => JSX.Element) | undefined,
+  React.JSX.Element | string,
+  ((props: SvgIconProps) => React.JSX.Element) | undefined,
 ];
 
 type StyledSmartLinkProps = {

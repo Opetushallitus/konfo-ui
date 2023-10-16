@@ -9,7 +9,7 @@ import { Spacer } from './Spacer';
 
 type Props = React.PropsWithChildren<
   {
-    heading: string | JSX.Element;
+    heading: string | React.JSX.Element;
   } & BoxProps
 >;
 
