@@ -758,6 +758,9 @@
   "suosikit": {
     "otsikko": "Suosikit",
     "lisaa": "Lisää suosikiksi",
-    "poista": "Poista suosikeista"
+    "poista": "Poista suosikeista",
+    "tallennettu-hakukohde": "1 tallennettu hakukohde",
+    "tallennettu-hakukohde_plural": "{{count}} tallennettua hakukohdetta",
+    "ei-tallennettuja-hakukohteita": "Ei tallennettuja hakukohteita"
   }
 }

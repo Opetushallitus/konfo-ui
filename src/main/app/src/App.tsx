@@ -142,7 +142,6 @@ const KonfoRoutes = () => (
           </>
         }>
         <Route path="" element={<Etusivu />} />
-        <Route path="suosikit" element={<SuosikitPage />} />
         <Route path="sisaltohaku" element={<Sisaltohaku />} />
         <Route
           element={
@@ -155,6 +154,7 @@ const KonfoRoutes = () => (
               <Outlet />
             </>
           }>
+          <Route path="suosikit" element={<SuosikitPage />} />
           <Route path="haku/:keyword?" element={<HakuPage />} />
           <Route path="koulutus/:oid" element={<KoulutusPage />} />
           <Route path="oppilaitos/:oid" element={<OppilaitosPage />} />

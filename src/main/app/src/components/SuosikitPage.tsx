@@ -13,6 +13,7 @@ import { Translateable } from '#/src/types/common';
 import { ContentWrapper } from './common/ContentWrapper';
 import { OppilaitosKorttiLogo } from './common/KorttiLogo';
 import { MaterialIcon } from './common/MaterialIcon';
+import { Murupolku } from './common/Murupolku';
 import { QueryResultWrapper } from './common/QueryResultWrapper';
 import { TextWithBackground } from './common/TextWithBackground';
 import { Heading, HeadingBoundary } from './Heading';
@@ -116,12 +117,27 @@ export const SuosikitPage = () => {
   const queryResult = useHakukohdeSuosikitData(Object.keys(hakukohdeFavourites));
   const { data } = queryResult;
 
+  const suosikitLength = Object.keys(hakukohdeFavourites).length;
+
   return (
     <ContentWrapper>
+      <Box width="100%" alignSelf="start">
+        <Murupolku path={[{ name: t('suosikit.otsikko') }]} />
+      </Box>
       <Heading variant="h1">{t('suosikit.otsikko')}</Heading>
-      {isEmpty(hakukohdeFavourites) ? (
-        t('suosikit.ei-suosikkeja')
-      ) : (
+      <Box display="inline-flex" mb={1}>
+        {suosikitLength > 0 ? (
+          <>
+            <Box mr={1}>
+              <MaterialIcon icon="favorite" color="primary" />
+            </Box>
+            {t('suosikit.tallennettu-hakukohde', { count: suosikitLength })}
+          </>
+        ) : (
+          t('suosikit.ei-tallennettuja-hakukohteita')
+        )}
+      </Box>
+      {!isEmpty(hakukohdeFavourites) && (
         <QueryResultWrapper queryResult={queryResult}>
           <HeadingBoundary>
             <Box display="flex" flexDirection="column" rowGap={3}>
