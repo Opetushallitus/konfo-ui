@@ -18,7 +18,6 @@ import { ReactComponent as OPOLogoEN } from '#/src/assets/images/opintopolku_log
 import { ReactComponent as OPOLogoFI } from '#/src/assets/images/opintopolku_logo_header_fi.svg';
 import { ReactComponent as OPOLogoSV } from '#/src/assets/images/opintopolku_logo_header_sv.svg';
 import { colors } from '#/src/colors';
-import { BetaBanner } from '#/src/components/common/BetaBanner';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { styled, theme } from '#/src/theme';
 import { getLanguage } from '#/src/tools/localization';
@@ -113,22 +112,30 @@ const getOpintopolkuHeaderLogo = () => {
   }
 };
 
-const TESTI_LABELS = {
-  'untuvaopintopolku.fi': 'untuva',
-  'hahtuvaopintopolku.fi': 'hahtuva',
-  'testiopintopolku.fi': 'testi',
+const getTestiLabel = () => {
+  const hostname = window.location.hostname;
+  const environment = hostname.split('opintopolku.fi')?.[0];
+
+  if (hostname === 'localhost') {
+    return 'localhost';
+  } else if (environment.length > 0) {
+    return environment;
+  }
+  return undefined;
 };
 
 export const Header = ({
   toggleMenu,
   isOpen,
-  betaBanner,
-  setBetaBanner,
   refreshSideMenu,
+}: {
+  toggleMenu: () => void;
+  isOpen: boolean;
+  refreshSideMenu: () => void;
 }) => {
   const { t } = useTranslation();
 
-  const testiLabel = TESTI_LABELS[window.location.hostname];
+  const testiLabel = getTestiLabel();
   const showTestiLabel = testiLabel != null;
 
   const OpintopolkuHeaderLogo = getOpintopolkuHeaderLogo();
@@ -137,7 +144,6 @@ export const Header = ({
     <>
       <CssBaseline />
       <StyledAppBar className={classes.appBar}>
-        {betaBanner ? <BetaBanner onClose={() => setBetaBanner(false)} /> : null}
         <Toolbar className={classes.toolBar}>
           <IconButton
             color="inherit"

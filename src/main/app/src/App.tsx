@@ -60,16 +60,9 @@ const classes = {
 };
 
 const Root = styled('div')(
-  ({
-    betaBannerVisible = false,
-    menuVisible,
-  }: {
-    betaBannerVisible?: boolean;
-    isSmall?: boolean;
-    menuVisible?: boolean;
-  }) => ({
+  ({ menuVisible }: { isSmall?: boolean; menuVisible?: boolean }) => ({
     [`& .${classes.content}`]: {
-      marginTop: getHeaderHeight(theme)({ betaBannerVisible }),
+      marginTop: getHeaderHeight(theme),
       minWidth: 0,
       flexGrow: 1,
       padding: 0,
@@ -89,7 +82,7 @@ const Root = styled('div')(
     },
 
     [`& .${classes.smContent}`]: {
-      marginTop: getHeaderHeight(theme)({ betaBannerVisible }),
+      marginTop: getHeaderHeight(theme),
       minWidth: 0,
       flexGrow: 1,
       padding: 0,
@@ -216,7 +209,6 @@ type TitleObject = {
 
 export const App = () => {
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
-  const [betaBanner, setBetaBanner] = useState(false);
   const [titleObj, setTitleObj] = useState<TitleObject>();
   const language = getLanguage();
   const { pathname } = useLocation();
@@ -255,7 +247,7 @@ export const App = () => {
   }, [isFetching, isAtEtusivu, titleObj, language, pathname]);
 
   return (
-    <Root betaBannerVisible={betaBanner} isSmall={isSmall} menuVisible={menuVisible}>
+    <Root isSmall={isSmall} menuVisible={menuVisible}>
       <span style={visuallyHidden} id="focus-reset-target" tabIndex={-1} ref={focusRef} />
       <SkipToContent />
       <Draft />
@@ -265,15 +257,12 @@ export const App = () => {
         <Header
           toggleMenu={toggleMenu}
           isOpen={menuVisible}
-          betaBanner={betaBanner}
-          setBetaBanner={setBetaBanner}
           refreshSideMenu={() => setSideMenuKey(sideMenuKey + 1)}
         />
         <SideMenu
           isSmall={isSmall}
           menuVisible={menuVisible}
           closeMenu={closeMenu}
-          betaBannerVisible={betaBanner}
           key={`sidemenu-key-${sideMenuKey}`}
         />
         <main
