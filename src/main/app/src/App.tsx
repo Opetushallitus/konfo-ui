@@ -41,6 +41,7 @@ import { Palvelut } from './components/palvelu/Palvelut';
 import { ReactiveBorder } from './components/ReactiveBorder';
 import { Sisaltohaku } from './components/Sisaltohaku';
 import { SivuRouter } from './components/sivu/SivuRouter';
+import { SuosikitPage } from './components/SuosikitPage';
 import { ToteutusPage } from './components/toteutus/ToteutusPage';
 import {
   ValintaperustePage,
@@ -141,6 +142,7 @@ const KonfoRoutes = () => (
           </>
         }>
         <Route path="" element={<Etusivu />} />
+        <Route path="suosikit" element={<SuosikitPage />} />
         <Route path="sisaltohaku" element={<Sisaltohaku />} />
         <Route
           element={

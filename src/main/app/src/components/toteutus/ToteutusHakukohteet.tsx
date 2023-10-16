@@ -78,7 +78,7 @@ type GridProps = {
   oppilaitosOsat?: Array<OppilaitosOsa>;
 };
 
-const ToggleFavouriteButton = ({ hakukohdeOid }: { hakukohdeOid?: string }) => {
+export const ToggleFavouriteButton = ({ hakukohdeOid }: { hakukohdeOid?: string }) => {
   const { toggleHakukohdeFavourite, hakukohdeFavourites } = useHakukohdeFavourites();
 
   const isAdded = Boolean(hakukohdeFavourites[hakukohdeOid ?? '']);
