@@ -4,7 +4,7 @@ import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
-interface SuosikitState {
+export interface SuosikitState {
   suosikitSelection: Record<string, { timestamp: string; removed?: boolean }>;
   toggleSuosikki: (id: string) => void;
   softToggleSuosikki: (id: string) => void;

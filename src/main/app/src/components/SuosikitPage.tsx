@@ -1,13 +1,14 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 
 import { Backdrop, Box, Paper, Typography } from '@mui/material';
-import { isEmpty } from 'lodash';
+import { isEmpty, sortBy } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
 
 import { getHakukohdeSuosikit } from '#/src/api/konfoApi';
 import { colors } from '#/src/colors';
 import {
+  SuosikitState,
   useNonRemovedSuosikitCount,
   useSuosikitSelection,
 } from '#/src/hooks/useSuosikitSelection';
@@ -85,6 +86,7 @@ const SuosikkiKortti = ({
       </Typography>
       <Heading variant="h4">{localize(hakukohdeSuosikki.nimi)}</Heading>
       <Typography>{kuvaus}</Typography>
+      <p>{hakukohdeSuosikki.timestamp}</p>
       <Box
         display="flex"
         flexDirection="row"
@@ -117,12 +119,43 @@ const SuosikkiKortti = ({
   );
 };
 
+const SuosikitList = ({
+  suosikitSelection,
+}: {
+  suosikitSelection: SuosikitState['suosikitSelection'];
+}) => {
+  const queryResult = useSuosikitData(Object.keys(suosikitSelection));
+  const { data } = queryResult;
+
+  const orderedData = useMemo(
+    () =>
+      sortBy(
+        data,
+        (suosikkiData) => suosikitSelection[suosikkiData.hakukohdeOid]?.timestamp
+      ),
+    [data, suosikitSelection]
+  );
+
+  return (
+    <QueryResultWrapper queryResult={queryResult}>
+      <HeadingBoundary>
+        <Box display="flex" flexDirection="column" rowGap={3}>
+          {orderedData?.map((hakukohdeSuosikki) => (
+            <SuosikkiKortti
+              key={hakukohdeSuosikki.hakukohdeOid}
+              hakukohdeSuosikki={hakukohdeSuosikki}
+              removed={suosikitSelection?.[hakukohdeSuosikki.hakukohdeOid]?.removed}
+            />
+          ))}
+        </Box>
+      </HeadingBoundary>
+    </QueryResultWrapper>
+  );
+};
+
 export const SuosikitPage = () => {
   const { t } = useTranslation();
   const { suosikitSelection, clearSoftRemovedSuosikit } = useSuosikitSelection();
-
-  const queryResult = useSuosikitData(Object.keys(suosikitSelection));
-  const { data } = queryResult;
 
   const suosikitCount = useNonRemovedSuosikitCount();
 
@@ -149,19 +182,7 @@ export const SuosikitPage = () => {
         )}
       </Box>
       {!isEmpty(suosikitSelection) && (
-        <QueryResultWrapper queryResult={queryResult}>
-          <HeadingBoundary>
-            <Box display="flex" flexDirection="column" rowGap={3}>
-              {data?.map((hakukohdeSuosikki) => (
-                <SuosikkiKortti
-                  key={hakukohdeSuosikki.hakukohdeOid}
-                  hakukohdeSuosikki={hakukohdeSuosikki}
-                  removed={suosikitSelection?.[hakukohdeSuosikki.hakukohdeOid]?.removed}
-                />
-              ))}
-            </Box>
-          </HeadingBoundary>
-        </QueryResultWrapper>
+        <SuosikitList suosikitSelection={suosikitSelection} />
       )}
     </ContentWrapper>
   );
