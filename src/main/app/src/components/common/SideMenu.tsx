@@ -1,15 +1,6 @@
 import React, { useState } from 'react';
 
-import {
-  Drawer,
-  Paper,
-  InputBase,
-  Button,
-  Box,
-  Hidden,
-  Typography,
-  Link,
-} from '@mui/material';
+import { Drawer, Paper, InputBase, Button, Box, Hidden } from '@mui/material';
 import { includes, last } from 'lodash';
 import { urls } from 'oph-urls-js';
 import { useTranslation } from 'react-i18next';
@@ -26,6 +17,8 @@ import { useContentful } from '#/src/hooks/useContentful';
 import { getHeaderHeight, styled } from '#/src/theme';
 import { getOne } from '#/src/tools/getOne';
 
+import { TextButtonLink } from './TextButtonLink';
+
 const PREFIX = 'SideMenu';
 
 const classes = {
@@ -38,9 +31,6 @@ const classes = {
   iconButton: `${PREFIX}IconButton`,
   divider: `${PREFIX}Divider`,
   drawerHeader: `${PREFIX}DrawerHeader`,
-  omaOpintopolkuLink: `${PREFIX}OmaOpintopolkuLink`,
-  omaOpintopolkuIcon: `${PREFIX}OmaOpintopolkuIcon`,
-  omaOpintopolkuText: `${PREFIX}OmaOpintopolkuText`,
 };
 
 const StyledDrawer = styled(Drawer, {
@@ -102,23 +92,6 @@ const StyledDrawer = styled(Drawer, {
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
   },
-
-  [`& .${classes.omaOpintopolkuLink}`]: {
-    display: 'flex',
-    alignItems: 'left',
-    flexDirection: 'row',
-    margin: '20px 0px 0px 0px',
-  },
-
-  [`& .${classes.omaOpintopolkuIcon}`]: {
-    color: colors.brandGreen,
-    marginRight: 10,
-  },
-
-  [`& .${classes.omaOpintopolkuText}`]: {
-    color: colors.brandGreen,
-    fontSize: 'inherit',
-  },
 }));
 
 export const SideMenu = (props: {
@@ -161,17 +134,21 @@ export const SideMenu = (props: {
       isSmall={props.isSmall}>
       <div className={classes.inputBackground}>
         <Hidden smUp>
-          <Box mb={2}>
-            <LanguageTab />
-            <Link
+          <Box mb={2} display="flex" flexDirection="column" alignItems="flex-start">
+            <Box mb={1}>
+              <LanguageTab />
+            </Box>
+            <TextButtonLink
+              href="suosikit"
+              startIcon={<MaterialIcon icon="favorite_border" />}>
+              {t('suosikit.otsikko')}
+            </TextButtonLink>
+            <TextButtonLink
               href={urls.url('oma-opintopolku')}
-              className={classes.omaOpintopolkuLink}
-              target="_blank">
-              <MaterialIcon icon="apps" className={classes.omaOpintopolkuIcon} />
-              <Typography className={classes.omaOpintopolkuText}>
-                {t('oma-opintopolku')}
-              </Typography>
-            </Link>
+              target="_blank"
+              startIcon={<MaterialIcon icon="apps" />}>
+              {t('oma-opintopolku')}
+            </TextButtonLink>
           </Box>
         </Hidden>
         <Paper

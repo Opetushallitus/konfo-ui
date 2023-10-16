@@ -1,5 +1,3 @@
-import React from 'react';
-
 import {
   AppBar,
   Box,
@@ -23,41 +21,35 @@ import { styled, theme } from '#/src/theme';
 import { getLanguage } from '#/src/tools/localization';
 
 import { LanguageDropDown } from './LanguageDropDown';
+import { TextButtonLink } from './TextButtonLink';
 
 const PREFIX = 'Header';
 
 const classes = {
-  testiLabel: `${PREFIX}-testiLabel`,
   testi: `${PREFIX}-testi`,
   appBar: `${PREFIX}-appBar`,
   menuButton: `${PREFIX}-menuButton`,
   menuBox: `${PREFIX}-menuBox`,
   menuText: `${PREFIX}-menuText`,
-  languageSelector: `${PREFIX}-languageSelector`,
-  omaOpintopolkuLink: `${PREFIX}-omaOpintopolkuLink`,
-  omaOpintopolkuIcon: `${PREFIX}-omaOpintopolkuIcon`,
-  omaOpintopolkuText: `${PREFIX}-omaOpintopolkuText`,
   toolBar: `${PREFIX}-ToolBar`,
 };
 
 const StyledAppBar = styled(AppBar)(() => ({
   position: 'fixed',
   height: theme.headerHeight,
-  [`& .${classes.testiLabel}`]: {
-    fontSize: 12,
-    fontWeight: 'bold',
-    textTransform: 'uppercase',
-  },
-
+  fontSize: 'small',
   [`& .${classes.toolBar}`]: {
-    padding: '0.3rem 1.5rem',
+    padding: '0.3rem 0.7rem 0.3rem 1.5rem',
+    justifyContent: 'space-between',
   },
 
   [`& .${classes.testi}`]: {
     color: colors.white,
+    fontSize: '11px',
+    fontWeight: 800,
+    textTransform: 'uppercase',
     borderRadius: 2,
-    marginLeft: 20,
-    padding: '0px 5px',
+    marginLeft: '20px',
     background: colors.red,
   },
 
@@ -75,27 +67,6 @@ const StyledAppBar = styled(AppBar)(() => ({
   [`& .${classes.menuText}`]: {
     fontSize: 'small',
     color: colors.white,
-  },
-
-  [`& .${classes.languageSelector}`]: {
-    marginLeft: 'auto',
-    float: 'left',
-  },
-
-  [`& .${classes.omaOpintopolkuLink}`]: {
-    display: 'flex',
-    alignItems: 'center',
-    flexDirection: 'column',
-    margin: '0px 40px 0px 0px',
-  },
-
-  [`& .${classes.omaOpintopolkuIcon}`]: {
-    color: colors.white,
-  },
-
-  [`& .${classes.omaOpintopolkuText}`]: {
-    color: colors.white,
-    fontSize: 'small',
   },
 }));
 
@@ -117,12 +88,29 @@ const getTestiLabel = () => {
   const environment = hostname.split('opintopolku.fi')?.[0];
 
   if (hostname === 'localhost') {
-    return 'localhost';
+    return 'local';
   } else if (environment.length > 0) {
     return environment;
   }
-  return undefined;
 };
+
+export const ToolbarLinkButton = styled(TextButtonLink)({
+  display: 'flex',
+  flexDirection: 'column',
+  color: colors.white,
+  textDecoration: 'none',
+  flexShrink: 0,
+  '&:hover': {
+    textDecoration: 'none',
+  },
+  '& .MuiButton-startIcon': {
+    margin: '0 0 1px 0',
+  },
+  '& .MuiButton-startIcon > svg': {
+    fontSize: '26px',
+    margin: 0,
+  },
+});
 
 export const Header = ({
   toggleMenu,
@@ -145,39 +133,41 @@ export const Header = ({
       <CssBaseline />
       <StyledAppBar className={classes.appBar}>
         <Toolbar className={classes.toolBar}>
-          <IconButton
-            color="inherit"
-            aria-label={t('avaa-sulje-valikko')}
-            onClick={toggleMenu}
-            edge="start"
-            className={classes.menuButton}>
-            <Box className={classes.menuBox}>
-              {isOpen ? <MaterialIcon icon="close" /> : <MaterialIcon icon="menu" />}
-              <Typography className={classes.menuText}>{t('valikko')}</Typography>
-            </Box>
-          </IconButton>
-          <Link href="/" title={t('header.siirry-etusivulle')} onClick={refreshSideMenu}>
-            <OpintopolkuHeaderLogo focusable="false" aria-hidden="true" height="26px" />
-          </Link>
-          {showTestiLabel && (
-            <Chip
-              className={classes.testi}
-              size="small"
-              classes={{ label: classes.testiLabel }}
-              label={testiLabel}
-            />
-          )}
+          <Box display="flex" alignItems="center">
+            <IconButton
+              color="inherit"
+              aria-label={t('avaa-sulje-valikko')}
+              onClick={toggleMenu}
+              edge="start"
+              className={classes.menuButton}>
+              <Box className={classes.menuBox}>
+                {isOpen ? <MaterialIcon icon="close" /> : <MaterialIcon icon="menu" />}
+                <Typography className={classes.menuText}>{t('valikko')}</Typography>
+              </Box>
+            </IconButton>
+            <Link
+              href="/"
+              title={t('header.siirry-etusivulle')}
+              onClick={refreshSideMenu}>
+              <OpintopolkuHeaderLogo focusable="false" aria-hidden="true" height="26px" />
+            </Link>
+            {showTestiLabel && (
+              <Chip className={classes.testi} size="small" label={testiLabel} />
+            )}
+          </Box>
           <Hidden smDown>
-            <Box display="flex" className={classes.languageSelector}>
-              <Link
+            <Box display="flex" columnGap={2}>
+              <ToolbarLinkButton
+                href="suosikit"
+                startIcon={<MaterialIcon icon="favorite_border" />}>
+                {t('suosikit.otsikko')}
+              </ToolbarLinkButton>
+              <ToolbarLinkButton
                 href={urls.url('oma-opintopolku')}
-                className={classes.omaOpintopolkuLink}
+                startIcon={<MaterialIcon icon="apps" />}
                 target="_blank">
-                <MaterialIcon icon="apps" className={classes.omaOpintopolkuIcon} />
-                <Typography className={classes.omaOpintopolkuText}>
-                  {t('oma-opintopolku')}
-                </Typography>
-              </Link>
+                {t('oma-opintopolku')}
+              </ToolbarLinkButton>
               <LanguageDropDown />
             </Box>
           </Hidden>
