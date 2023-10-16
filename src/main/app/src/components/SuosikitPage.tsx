@@ -7,7 +7,11 @@ import { useQuery } from 'react-query';
 
 import { getHakukohdeSuosikit } from '#/src/api/konfoApi';
 import { colors } from '#/src/colors';
-import { useHakukohdeFavourites } from '#/src/hooks/useHakukohdeFavourites';
+import {
+  useNonRemovedSuosikitCount,
+  useSuosikitSelection,
+} from '#/src/hooks/useSuosikitSelection';
+import { useTruncatedKuvaus } from '#/src/hooks/useTruncatedKuvaus';
 import { styled } from '#/src/theme';
 import { localize } from '#/src/tools/localization';
 import { Translateable } from '#/src/types/common';
@@ -18,19 +22,17 @@ import { MaterialIcon } from './common/MaterialIcon';
 import { Murupolku } from './common/Murupolku';
 import { QueryResultWrapper } from './common/QueryResultWrapper';
 import { TextWithBackground } from './common/TextWithBackground';
-import { ToggleFavouriteButton } from './common/ToggleFavouriteButton';
+import { ToggleSuosikkiButton } from './common/ToggleSuosikkiButton';
 import { Heading, HeadingBoundary } from './Heading';
-import { useTruncatedKuvaus } from '../hooks/useTruncatedKuvaus';
 
-const useHakukohdeSuosikitData = (oids?: Array<string>) => {
-  return useQuery(
-    ['getHakukohdeSuosikit', oids],
+const useSuosikitData = (oids?: Array<string>) =>
+  useQuery(
+    ['getSuosikit', oids],
     () => getHakukohdeSuosikit({ 'hakukohde-oids': oids! }),
     {
       enabled: !isEmpty(oids),
     }
   );
-};
 
 const PaperWithAccent = styled(Paper)(({ theme }) => ({
   borderTop: `5px solid ${colors.brandGreen}`,
@@ -105,7 +107,7 @@ const SuosikkiKortti = ({
           </Box>
         </Box>
         <Box sx={{ float: 'right' }}>
-          <ToggleFavouriteButton
+          <ToggleSuosikkiButton
             hakukohdeOid={hakukohdeSuosikki.hakukohdeOid}
             softRemove
           />
@@ -117,21 +119,16 @@ const SuosikkiKortti = ({
 
 export const SuosikitPage = () => {
   const { t } = useTranslation();
-  const { hakukohdeFavourites, clearSoftRemovedFavourites: clearRemoved } =
-    useHakukohdeFavourites();
+  const { suosikitSelection, clearSoftRemovedSuosikit } = useSuosikitSelection();
 
-  const nonDeletedFavourites = Object.values(hakukohdeFavourites).filter(
-    (favourite) => !favourite.removed
-  );
-
-  const queryResult = useHakukohdeSuosikitData(Object.keys(hakukohdeFavourites));
+  const queryResult = useSuosikitData(Object.keys(suosikitSelection));
   const { data } = queryResult;
 
-  const suosikitLength = nonDeletedFavourites.length;
+  const suosikitCount = useNonRemovedSuosikitCount();
 
   useEffect(() => {
-    clearRemoved();
-  }, [clearRemoved]);
+    clearSoftRemovedSuosikit();
+  }, [clearSoftRemovedSuosikit]);
 
   return (
     <ContentWrapper>
@@ -140,18 +137,18 @@ export const SuosikitPage = () => {
       </Box>
       <Heading variant="h1">{t('suosikit.otsikko')}</Heading>
       <Box display="inline-flex" mb={1}>
-        {suosikitLength > 0 ? (
+        {suosikitCount > 0 ? (
           <>
             <Box mr={1}>
               <MaterialIcon icon="favorite" color="primary" />
             </Box>
-            {t('suosikit.tallennettu-hakukohde', { count: suosikitLength })}
+            {t('suosikit.tallennettu-hakukohde', { count: suosikitCount })}
           </>
         ) : (
           t('suosikit.ei-tallennettuja-hakukohteita')
         )}
       </Box>
-      {!isEmpty(hakukohdeFavourites) && (
+      {!isEmpty(suosikitSelection) && (
         <QueryResultWrapper queryResult={queryResult}>
           <HeadingBoundary>
             <Box display="flex" flexDirection="column" rowGap={3}>
@@ -159,7 +156,7 @@ export const SuosikitPage = () => {
                 <SuosikkiKortti
                   key={hakukohdeSuosikki.hakukohdeOid}
                   hakukohdeSuosikki={hakukohdeSuosikki}
-                  removed={hakukohdeFavourites?.[hakukohdeSuosikki.hakukohdeOid]?.removed}
+                  removed={suosikitSelection?.[hakukohdeSuosikki.hakukohdeOid]?.removed}
                 />
               ))}
             </Box>

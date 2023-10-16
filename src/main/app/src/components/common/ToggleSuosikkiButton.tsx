@@ -2,11 +2,11 @@ import { Box, Button, Link } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
-import { useHakukohdeFavourites } from '#/src/hooks/useHakukohdeFavourites';
+import { useSuosikitSelection } from '#/src/hooks/useSuosikitSelection';
 
 import { useNotification } from '../../hooks/useNotification';
 
-export const ToggleFavouriteButton = ({
+export const ToggleSuosikkiButton = ({
   hakukohdeOid,
   softRemove,
   notifyOnAdd = false,
@@ -15,14 +15,14 @@ export const ToggleFavouriteButton = ({
   softRemove?: boolean;
   notifyOnAdd?: boolean;
 }) => {
-  const { toggleFavourite, hakukohdeFavourites, softToggleFavourite } =
-    useHakukohdeFavourites();
+  const { toggleSuosikki, suosikitSelection, softToggleSuosikki } =
+    useSuosikitSelection();
 
   const showNotification = useNotification((state) => state.showNotification);
 
   const isAdded = softRemove
-    ? !hakukohdeFavourites[hakukohdeOid ?? '']?.removed
-    : Boolean(hakukohdeFavourites[hakukohdeOid ?? '']);
+    ? !suosikitSelection[hakukohdeOid ?? '']?.removed
+    : Boolean(suosikitSelection[hakukohdeOid ?? '']);
 
   const { t } = useTranslation();
 
@@ -37,9 +37,9 @@ export const ToggleFavouriteButton = ({
       variant="contained"
       onClick={() => {
         if (softRemove) {
-          softToggleFavourite(hakukohdeOid);
+          softToggleSuosikki(hakukohdeOid);
         } else {
-          toggleFavourite(hakukohdeOid);
+          toggleSuosikki(hakukohdeOid);
         }
         if (notifyOnAdd && !isAdded) {
           showNotification({

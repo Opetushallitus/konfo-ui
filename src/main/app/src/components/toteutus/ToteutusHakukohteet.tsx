@@ -17,7 +17,7 @@ import { AdditionalInfoWithIcon } from '#/src/components/common/AdditionalInfoWi
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
 import { MaterialIcon, createMaterialIcon } from '#/src/components/common/MaterialIcon';
 import { PageSection } from '#/src/components/common/PageSection';
-import { ToggleFavouriteButton } from '#/src/components/common/ToggleFavouriteButton';
+import { ToggleSuosikkiButton } from '#/src/components/common/ToggleSuosikkiButton';
 import { useDemoLinks } from '#/src/components/toteutus/hooks';
 import { Hakulomaketyyppi } from '#/src/constants';
 import { styled } from '#/src/theme';
@@ -165,7 +165,7 @@ const HakuCardGrid = ({
                   <Box m={4}>
                     <Grid container spacing={3} display="flex" flexDirection="column">
                       <Grid item display="inline-block" position="relative">
-                        <ToggleFavouriteButton
+                        <ToggleSuosikkiButton
                           hakukohdeOid={hakukohde.hakukohdeOid}
                           notifyOnAdd={true}
                         />

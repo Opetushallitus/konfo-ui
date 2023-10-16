@@ -17,7 +17,7 @@ import { useContentful } from '#/src/hooks/useContentful';
 import { getHeaderHeight, styled } from '#/src/theme';
 import { getOne } from '#/src/tools/getOne';
 
-import { SuosikitIcon } from './SuosikitIcon';
+import { SuosikitButton } from './SuosikitButton';
 import { TextButtonLink } from './TextButtonLink';
 
 const PREFIX = 'SideMenu';
@@ -139,12 +139,7 @@ export const SideMenu = (props: {
             <Box mb={1}>
               <LanguageTab />
             </Box>
-            <TextButtonLink
-              href="suosikit"
-              startIcon={<SuosikitIcon />}
-              onClick={closeMenu}>
-              {t('suosikit.otsikko')}
-            </TextButtonLink>
+            <SuosikitButton onClick={closeMenu} />
             <TextButtonLink
               href={urls.url('oma-opintopolku')}
               target="_blank"

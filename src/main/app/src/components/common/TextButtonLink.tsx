@@ -2,9 +2,11 @@ import { Button, lighten, ButtonProps } from '@mui/material';
 
 import { colors } from '#/src/colors';
 
-export const TextButtonLink = (
-  props: Omit<ButtonProps<'a'>, 'variant' | 'disableRipple'> & { href: string }
-) => (
+export type TextButtonLinkProps = Omit<ButtonProps<'a'>, 'variant' | 'disableRipple'> & {
+  href: string;
+};
+
+export const TextButtonLink = (props: TextButtonLinkProps) => (
   <Button
     variant="text"
     disableRipple
