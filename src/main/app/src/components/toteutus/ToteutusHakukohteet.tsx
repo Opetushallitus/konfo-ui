@@ -19,14 +19,14 @@ import { MaterialIcon, createMaterialIcon } from '#/src/components/common/Materi
 import { PageSection } from '#/src/components/common/PageSection';
 import { ToggleSuosikkiButton } from '#/src/components/common/ToggleSuosikkiButton';
 import { useDemoLinks } from '#/src/components/toteutus/hooks';
-import { Hakulomaketyyppi } from '#/src/constants';
+import { Hakulomaketyyppi, TOISEN_ASTEEN_YHTEISHAUN_KOHDEJOUKKO } from '#/src/constants';
 import { styled } from '#/src/theme';
 import { localize } from '#/src/tools/localization';
 import { useOsoitteet } from '#/src/tools/useOppilaitosOsoite';
 import { useUrlParams } from '#/src/tools/useUrlParams';
 import { formatDouble } from '#/src/tools/utils';
 import { Hakukohde } from '#/src/types/HakukohdeTypes';
-import { OppilaitosOsa, Toteutus } from '#/src/types/ToteutusTypes';
+import { Hakutieto, OppilaitosOsa, Toteutus } from '#/src/types/ToteutusTypes';
 
 import { HakutietoTable } from './HakutietoTable';
 import { formatAloitus } from './utils';
@@ -70,13 +70,17 @@ const getJarjestyspaikkaYhteystiedot = (
   osoitteet: Array<{ oppilaitosOid: string; yhteystiedot: string }>
 ) =>
   osoitteet.find((osoite) => osoite.oppilaitosOid === jarjestyspaikka.oid)?.yhteystiedot;
+
 type GridProps = {
   tyyppiOtsikko: string;
   icon: React.JSX.Element;
   toteutus?: Toteutus;
-  hakukohteet: Array<Hakukohde>;
+  hakukohteet: Array<Hakukohde & { kohdejoukko: Hakutieto['kohdejoukko'] }>;
   oppilaitosOsat?: Array<OppilaitosOsa>;
 };
+
+const isToisenAsteenYhteishaku = (hakutieto: { kohdejoukko: Hakutieto['kohdejoukko'] }) =>
+  hakutieto.kohdejoukko?.koodiUri?.includes(TOISEN_ASTEEN_YHTEISHAUN_KOHDEJOUKKO);
 
 const HakuCardGrid = ({
   tyyppiOtsikko,
@@ -165,10 +169,12 @@ const HakuCardGrid = ({
                   <Box m={4}>
                     <Grid container spacing={3} display="flex" flexDirection="column">
                       <Grid item display="inline-block" position="relative">
-                        <ToggleSuosikkiButton
-                          hakukohdeOid={hakukohde.hakukohdeOid}
-                          notifyOnAdd={true}
-                        />
+                        {isToisenAsteenYhteishaku(hakukohde) && (
+                          <ToggleSuosikkiButton
+                            hakukohdeOid={hakukohde.hakukohdeOid}
+                            notifyOnAdd={true}
+                          />
+                        )}
                         <Typography component="div" className={classes.hakuName}>
                           {localize(hakukohde.nimi)}
                         </Typography>

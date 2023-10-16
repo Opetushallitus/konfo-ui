@@ -42,6 +42,7 @@ const selectHakukohteetByHakutapa = (toteutus: any) => {
             hakutieto.hakukohteet.map((hakukohde: any) => ({
               ...hakukohde,
               hakuOid: hakutieto.hakuOid,
+              kohdejoukko: hakutieto.kohdejoukko,
               isHakuMennyt: isHakuMennyt(hakukohde?.hakuajat),
               isHakuAuki: isHakuAuki(hakukohde?.hakuajat),
             }))
