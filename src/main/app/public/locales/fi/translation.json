@@ -754,5 +754,9 @@
     "tayta-hakulomake": "Täytä hakulomake",
     "ohjeet-hakemiseen": "Ohjeet hakemiseen",
     "tutustu-koulutuksiin": "Tutustu koulutuksiin"
+  },
+  "suosikit": {
+    "lisaa": "Lisää suosikiksi",
+    "poista": "Poista suosikeista"
   }
 }

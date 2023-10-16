@@ -19,6 +19,7 @@ import { MaterialIcon, createMaterialIcon } from '#/src/components/common/Materi
 import { PageSection } from '#/src/components/common/PageSection';
 import { useDemoLinks } from '#/src/components/toteutus/hooks';
 import { Hakulomaketyyppi } from '#/src/constants';
+import { useHakukohdeFavourites } from '#/src/hooks/useHakukohdeFavourites';
 import { styled } from '#/src/theme';
 import { localize } from '#/src/tools/localization';
 import { useOsoitteet } from '#/src/tools/useOppilaitosOsoite';
@@ -46,6 +47,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     ...theme.typography.h5,
     fontWeight: 700,
     color: colors.black,
+    display: 'inline',
   },
 
   [`& .${classes.lomakeButtonGroup}`]: {
@@ -74,6 +76,27 @@ type GridProps = {
   toteutus?: Toteutus;
   hakukohteet: Array<Hakukohde>;
   oppilaitosOsat?: Array<OppilaitosOsa>;
+};
+
+const ToggleFavouriteButton = ({ hakukohdeOid }: { hakukohdeOid?: string }) => {
+  const { toggleHakukohdeFavourite, hakukohdeFavourites } = useHakukohdeFavourites();
+
+  const isAdded = Boolean(hakukohdeFavourites[hakukohdeOid ?? '']);
+
+  const { t } = useTranslation();
+
+  return hakukohdeOid ? (
+    <Button
+      sx={{
+        float: 'right',
+        marginLeft: 1,
+      }}
+      variant="contained"
+      onClick={() => toggleHakukohdeFavourite(hakukohdeOid)}
+      startIcon={<MaterialIcon icon={isAdded ? 'favorite' : 'favorite_border'} />}>
+      {isAdded ? t('suosikit.poista') : t('suosikit.lisaa')}
+    </Button>
+  ) : null;
 };
 
 const HakuCardGrid = ({
@@ -160,29 +183,28 @@ const HakuCardGrid = ({
               <Grid key={hakukohde.hakukohdeOid} item xs={12}>
                 <Paper className={classes.paper}>
                   <Box m={4}>
-                    <Grid container direction="column" spacing={3}>
-                      <Grid item>
-                        <Grid container direction="column" spacing={1}>
-                          <Grid item>
-                            <Typography className={classes.hakuName}>
-                              {localize(hakukohde.nimi)}
-                            </Typography>
-                          </Grid>
-                          <Grid item>
-                            <LocalizedHTML data={hakukohde.hakulomakeKuvaus} noMargin />
-                          </Grid>
-                          {jarjestyspaikka && (
-                            <Grid item>
-                              <Typography variant="body1">{jarjestyspaikka}</Typography>
-                            </Grid>
-                          )}
-                          {jarjestaaUrheilijanAmmKoulutusta && (
+                    <Grid container spacing={3} display="flex" flexDirection="column">
+                      <Grid item display="inline-block" position="relative">
+                        <ToggleFavouriteButton hakukohdeOid={hakukohde.hakukohdeOid} />
+                        <Typography component="div" className={classes.hakuName}>
+                          {localize(hakukohde.nimi)}
+                        </Typography>
+                        {!isEmpty(hakukohde.hakulomakeKuvaus) && (
+                          <LocalizedHTML data={hakukohde.hakulomakeKuvaus} noMargin />
+                        )}
+                        {jarjestyspaikka && (
+                          <Typography component="div" variant="body1">
+                            {jarjestyspaikka}
+                          </Typography>
+                        )}
+                        {jarjestaaUrheilijanAmmKoulutusta && (
+                          <Box mt={1}>
                             <AdditionalInfoWithIcon
                               translationKey="haku.urheilijan-amm-koulutus"
                               icon={<MaterialIcon icon="sports_soccer" />}
                             />
-                          )}
-                        </Grid>
+                          </Box>
+                        )}
                       </Grid>
                       <Grid item>
                         <Divider />
