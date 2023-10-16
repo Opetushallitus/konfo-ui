@@ -48,7 +48,7 @@ const useSuosikitState = create<SuosikitState>()(
         }),
     })),
     {
-      name: 'hakukohde-favorites',
+      name: 'favorites',
       storage: createJSONStorage(() => localStorage),
     }
   )

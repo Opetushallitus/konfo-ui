@@ -148,7 +148,7 @@ const SuosikitList = ({
   removeSuosikit: SuosikitState['removeSuosikit'];
 }) => {
   const queryResult = useSuosikitData(Object.keys(suosikitSelection));
-  const { data } = queryResult;
+  const { data, isFetching } = queryResult;
 
   const orderedData = useMemo(
     () =>
@@ -167,7 +167,7 @@ const SuosikitList = ({
     <QueryResultWrapper queryResult={queryResult}>
       <HeadingBoundary>
         <Box display="flex" flexDirection="column" rowGap={3}>
-          {!isEmpty(suosikitWithMissingData) && (
+          {!isFetching && !isEmpty(suosikitWithMissingData) && (
             <MissingSuosikit
               removeMissing={() => removeSuosikit(suosikitWithMissingData)}
             />
