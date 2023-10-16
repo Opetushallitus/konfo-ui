@@ -28,6 +28,7 @@ import { getLanguage } from '#/src/tools/localization';
 import { Draft } from './components/common/Draft';
 import { Footer } from './components/common/Footer';
 import { Header } from './components/common/Header';
+import { Notification } from './components/common/Notification';
 import { SideMenu } from './components/common/SideMenu';
 import { SkipToContent } from './components/common/SkipToContent';
 import { Etusivu } from './components/Etusivu';
@@ -275,6 +276,7 @@ export const App = () => {
           <HeadingBoundary>
             <KonfoRoutes />
             <HeadingBoundary>
+              <Notification />
               <Palvelut />
               <Footer />
             </HeadingBoundary>

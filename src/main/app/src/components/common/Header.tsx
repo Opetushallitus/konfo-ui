@@ -28,7 +28,6 @@ const PREFIX = 'Header';
 
 const classes = {
   testi: `${PREFIX}-testi`,
-  appBar: `${PREFIX}-appBar`,
   menuButton: `${PREFIX}-menuButton`,
   menuBox: `${PREFIX}-menuBox`,
   menuText: `${PREFIX}-menuText`,
@@ -132,7 +131,7 @@ export const Header = ({
   return (
     <>
       <CssBaseline />
-      <StyledAppBar className={classes.appBar}>
+      <StyledAppBar>
         <Toolbar className={classes.toolBar}>
           <Box display="flex" alignItems="center">
             <IconButton

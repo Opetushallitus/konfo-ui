@@ -762,6 +762,8 @@
     "tallennettu-hakukohde": "1 tallennettu hakukohde",
     "tallennettu-hakukohde_plural": "{{count}} tallennettua hakukohdetta",
     "ei-tallennettuja-hakukohteita": "Ei tallennettuja hakukohteita",
-    "kumoa-poisto": "Kumoa poisto"
+    "kumoa-poisto": "Kumoa poisto",
+    "suosikki-lisatty": "Oppilaitos lisätty suosikiksi",
+    "katso-suosikkejasi": "Katso suosikkejasi"
   }
 }

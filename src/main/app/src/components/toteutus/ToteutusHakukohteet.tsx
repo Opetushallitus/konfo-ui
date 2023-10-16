@@ -117,6 +117,7 @@ const HakuCardGrid = ({
       .map((tp) => localize(tp))
       .join(', ');
   }
+
   return (
     <Box marginY={3}>
       <Box ml={2} display="flex" justifyContent="center">
@@ -164,7 +165,10 @@ const HakuCardGrid = ({
                   <Box m={4}>
                     <Grid container spacing={3} display="flex" flexDirection="column">
                       <Grid item display="inline-block" position="relative">
-                        <ToggleFavouriteButton hakukohdeOid={hakukohde.hakukohdeOid} />
+                        <ToggleFavouriteButton
+                          hakukohdeOid={hakukohde.hakukohdeOid}
+                          notifyOnAdd={true}
+                        />
                         <Typography component="div" className={classes.hakuName}>
                           {localize(hakukohde.nimi)}
                         </Typography>
