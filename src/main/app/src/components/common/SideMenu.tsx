@@ -139,7 +139,10 @@ export const SideMenu = (props: {
             <Box mb={1}>
               <LanguageTab />
             </Box>
-            <TextButtonLink href="suosikit" startIcon={<SuosikitIcon />}>
+            <TextButtonLink
+              href="suosikit"
+              startIcon={<SuosikitIcon />}
+              onClick={closeMenu}>
               {t('suosikit.otsikko')}
             </TextButtonLink>
             <TextButtonLink

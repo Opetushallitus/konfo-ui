@@ -11,6 +11,7 @@ export const DarkBadge = styled(Badge)({
     color: colors.white,
   },
 });
+
 export const SuosikitIcon = () => {
   const { hakukohdeFavourites } = useHakukohdeFavourites();
   const suosikitCount = Object.values(hakukohdeFavourites).filter(
