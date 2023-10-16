@@ -21,6 +21,7 @@ import { styled, theme } from '#/src/theme';
 import { getLanguage } from '#/src/tools/localization';
 
 import { LanguageDropDown } from './LanguageDropDown';
+import { SuosikitIcon } from './SuosikitIcon';
 import { TextButtonLink } from './TextButtonLink';
 
 const PREFIX = 'Header';
@@ -157,9 +158,7 @@ export const Header = ({
           </Box>
           <Hidden smDown>
             <Box display="flex" columnGap={2}>
-              <ToolbarLinkButton
-                href="suosikit"
-                startIcon={<MaterialIcon icon="favorite_border" />}>
+              <ToolbarLinkButton href="suosikit" startIcon={<SuosikitIcon />}>
                 {t('suosikit.otsikko')}
               </ToolbarLinkButton>
               <ToolbarLinkButton
