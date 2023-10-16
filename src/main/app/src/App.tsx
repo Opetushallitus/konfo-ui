@@ -7,7 +7,14 @@ import Cookies from 'js-cookie';
 import { includes } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useIsFetching } from 'react-query';
-import { Navigate, Routes, Route, useLocation, useParams } from 'react-router-dom';
+import {
+  Navigate,
+  Routes,
+  Route,
+  useLocation,
+  useParams,
+  Outlet,
+} from 'react-router-dom';
 
 import { CookieModal } from '#/src/components/common/CookieModal';
 import { SiteImprove } from '#/src/components/common/SiteImprove';
@@ -100,15 +107,7 @@ const Root = styled('div')(
   })
 );
 
-const KoulutusHakuBar = () => (
-  <div style={{ margin: 'auto', maxWidth: '1600px' }}>
-    <ReactiveBorder>
-      <Hakupalkki />
-    </ReactiveBorder>
-  </div>
-);
-
-const TranslatedRoutes = () => {
+const TranslatedRoute = () => {
   const { i18n } = useTranslation();
   const location = useLocation();
   const params = useParams();
@@ -131,127 +130,56 @@ const TranslatedRoutes = () => {
       ...location,
       pathname: '/' + (langCookie ? langCookie : 'fi') + location.pathname,
     };
+
     return <Navigate to={newLocation} replace />;
   }
 
-  return isSupportedLanguageSelected ? (
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <>
-            <Hairiotiedote />
-            <Etusivu />
-          </>
-        }
-      />
-      <Route
-        path="sisaltohaku/"
-        element={
-          <>
-            <Hairiotiedote />
-            <Sisaltohaku />
-          </>
-        }
-      />
-      <Route
-        path="haku/:keyword/*"
-        element={
-          <>
-            <Hairiotiedote />
-            <KoulutusHakuBar />
-            <HakuPage />
-          </>
-        }
-      />
-      <Route
-        path="haku/*"
-        element={
-          <>
-            <Hairiotiedote />
-            <KoulutusHakuBar />
-            <HakuPage />
-          </>
-        }
-      />
-      <Route
-        path="koulutus/:oid"
-        element={
-          <>
-            <Hairiotiedote />
-            <KoulutusHakuBar />
-            <KoulutusPage />
-          </>
-        }
-      />
-      <Route
-        path="oppilaitos/:oid"
-        element={
-          <>
-            <Hairiotiedote />
-            <KoulutusHakuBar />
-            <OppilaitosPage />
-          </>
-        }
-      />
-      <Route
-        path="oppilaitososa/:oid"
-        element={
-          <>
-            <Hairiotiedote />
-            <KoulutusHakuBar />
-            <OppilaitosPage oppilaitosOsa />
-          </>
-        }
-      />
-      <Route
-        path="toteutus/:oid"
-        element={
-          <>
-            <Hairiotiedote />
-            <KoulutusHakuBar />
-            <ToteutusPage />
-          </>
-        }
-      />
-      <Route
-        path="sivu/:id"
-        element={
-          <>
-            <Hairiotiedote />
-            <KoulutusHakuBar />
-            <SivuRouter />
-          </>
-        }
-      />
-      <Route
-        path="hakukohde/:hakukohdeOid/valintaperuste"
-        element={
-          <>
-            <Hairiotiedote />
-            <KoulutusHakuBar />
-            <ValintaperustePage />
-          </>
-        }
-      />
-      <Route
-        path="valintaperuste/:valintaperusteId"
-        element={
-          <>
-            <Hairiotiedote />
-            <KoulutusHakuBar />
-            <ValintaperustePreviewPage />
-          </>
-        }
-      />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
-  ) : (
-    <Routes>
-      <Route path="*" element={<NotFound />} />
-    </Routes>
-  );
+  return <Outlet />;
 };
+
+const KonfoRoutes = () => (
+  <Routes>
+    <Route path="/:lng?" element={<TranslatedRoute />}>
+      <Route
+        element={
+          <>
+            <Hairiotiedote />
+            <Outlet />
+          </>
+        }>
+        <Route path="" element={<Etusivu />} />
+        <Route path="sisaltohaku" element={<Sisaltohaku />} />
+        <Route
+          element={
+            <>
+              <div style={{ margin: 'auto', maxWidth: '1600px' }}>
+                <ReactiveBorder>
+                  <Hakupalkki />
+                </ReactiveBorder>
+              </div>
+              <Outlet />
+            </>
+          }>
+          <Route path="haku/:keyword?" element={<HakuPage />} />
+          <Route path="koulutus/:oid" element={<KoulutusPage />} />
+          <Route path="oppilaitos/:oid" element={<OppilaitosPage />} />
+          <Route path="oppilaitososa/:oid" element={<OppilaitosPage oppilaitosOsa />} />
+          <Route path="toteutus/:oid" element={<ToteutusPage />} />
+          <Route path="sivu/:id" element={<SivuRouter />} />
+          <Route
+            path="hakukohde/:hakukohdeOid/valintaperuste"
+            element={<ValintaperustePage />}
+          />
+          <Route
+            path="valintaperuste/:valintaperusteId"
+            element={<ValintaperustePreviewPage />}
+          />
+        </Route>
+      </Route>
+      <Route path="*" element={<NotFound />} />
+    </Route>
+  </Routes>
+);
 
 const defaultTitle = (lang: string) => {
   switch (lang) {
@@ -354,10 +282,7 @@ export const App = () => {
             [classes.contentShift]: menuVisible,
           })}>
           <HeadingBoundary>
-            <Routes>
-              <Route path="/:lng/*" element={<TranslatedRoutes />} />
-              <Route path="*" element={<TranslatedRoutes />} />
-            </Routes>
+            <KonfoRoutes />
             <HeadingBoundary>
               <Palvelut />
               <Footer />
