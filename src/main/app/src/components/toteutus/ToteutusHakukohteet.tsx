@@ -9,7 +9,18 @@ import {
   Paper,
   Typography,
 } from '@mui/material';
-import { isEmpty, sortBy, toPairs, some, every, map, get, find } from 'lodash';
+import {
+  isEmpty,
+  sortBy,
+  toPairs,
+  some,
+  every,
+  map,
+  get,
+  find,
+  uniqueId,
+  kebabCase,
+} from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
@@ -122,16 +133,25 @@ const HakuCardGrid = ({
       .join(', ');
   }
 
+  const headingId = uniqueId('heading_' + kebabCase(tyyppiOtsikko));
+
   return (
     <Box marginY={3}>
       <Box ml={2} display="flex" justifyContent="center">
         {icon}
         <Box ml={2}>
-          <Typography variant="h4">{`${tyyppiOtsikko} ( ${hakukohteet.length} )`}</Typography>
+          <Typography
+            id={headingId}
+            variant="h4">{`${tyyppiOtsikko} ( ${hakukohteet.length} )`}</Typography>
         </Box>
       </Box>
       <Box mt={4}>
-        <StyledGrid container spacing={2} justifyContent="center">
+        <StyledGrid
+          role="list"
+          container
+          spacing={2}
+          justifyContent="center"
+          aria-labelledby={headingId}>
           {hakukohteet.map((hakukohde) => {
             const anyHakuaikaPaattyy = hakukohde.hakuajat?.some(
               (hakuaika) => hakuaika.paattyy
@@ -164,7 +184,7 @@ const HakuCardGrid = ({
               : '';
 
             return (
-              <Grid key={hakukohde.hakukohdeOid} item xs={12}>
+              <Grid key={hakukohde.hakukohdeOid} item xs={12} role="listitem">
                 <Paper className={classes.paper}>
                   <Box m={4}>
                     <Grid container spacing={3} display="flex" flexDirection="column">

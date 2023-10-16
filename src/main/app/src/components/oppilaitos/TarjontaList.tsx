@@ -1,6 +1,4 @@
-import React from 'react';
-
-import { Typography, Box } from '@mui/material';
+import { Box } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { EntiteettiKortti } from '#/src/components/common/EntiteettiKortti';
@@ -43,11 +41,10 @@ export const TarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
     case 'success':
       return tarjonta.hasHits ? (
         <PageSection
-          heading={
-            <Typography variant="h2" id={scrolltargetId}>
-              {t('oppilaitos.oppilaitoksessa-jarjestettavat-koulutukset')}
-            </Typography>
-          }>
+          heading={t('oppilaitos.oppilaitoksessa-jarjestettavat-koulutukset')}
+          headingProps={{
+            id: scrolltargetId,
+          }}>
           <Pagination
             total={total}
             pagination={pagination}

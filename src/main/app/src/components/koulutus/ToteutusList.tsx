@@ -97,11 +97,10 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
   return (
     <Box>
       <PageSection
-        heading={
-          <Typography variant="h2" id={scrollTargetId}>
-            {t('koulutus.tarjonta')}
-          </Typography>
-        }>
+        heading={t('koulutus.tarjonta')}
+        headingProps={{
+          id: scrollTargetId,
+        }}>
         <>
           <Hidden mdDown>
             {someSelected && (

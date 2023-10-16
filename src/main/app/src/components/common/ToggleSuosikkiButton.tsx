@@ -2,9 +2,8 @@ import { Box, Button, Link } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { useNotification } from '#/src/hooks/useNotification';
 import { useSuosikitSelection } from '#/src/hooks/useSuosikitSelection';
-
-import { useNotification } from '../../hooks/useNotification';
 
 export const ToggleSuosikkiButton = ({
   hakukohdeOid,

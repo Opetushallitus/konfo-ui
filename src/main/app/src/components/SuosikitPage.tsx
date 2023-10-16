@@ -71,7 +71,7 @@ const SuosikkiKortti = ({
   const kuvaus = useTruncatedKuvaus(localize(hakukohdeSuosikki.esittely));
 
   return (
-    <PaperWithAccent key={hakukohdeSuosikki.hakukohdeOid}>
+    <PaperWithAccent key={hakukohdeSuosikki.hakukohdeOid} role="listitem">
       <Backdrop sx={{ position: 'absolute' }} open={Boolean(removed)} />
       <Box
         sx={{
@@ -172,13 +172,15 @@ const SuosikitList = ({
               removeMissing={() => removeSuosikit(suosikitWithMissingData)}
             />
           )}
-          {orderedData?.map((hakukohdeSuosikki) => (
-            <SuosikkiKortti
-              key={hakukohdeSuosikki.hakukohdeOid}
-              hakukohdeSuosikki={hakukohdeSuosikki}
-              removed={suosikitSelection?.[hakukohdeSuosikki.hakukohdeOid]?.removed}
-            />
-          ))}
+          <Box role="list" data-testid="suosikit-list">
+            {orderedData?.map((hakukohdeSuosikki) => (
+              <SuosikkiKortti
+                key={hakukohdeSuosikki.hakukohdeOid}
+                hakukohdeSuosikki={hakukohdeSuosikki}
+                removed={suosikitSelection?.[hakukohdeSuosikki.hakukohdeOid]?.removed}
+              />
+            ))}
+          </Box>
         </Box>
       </HeadingBoundary>
     </QueryResultWrapper>
@@ -194,6 +196,7 @@ export const SuosikitPage = () => {
 
   useEffect(() => {
     clearSoftRemovedSuosikit();
+    return () => clearSoftRemovedSuosikit();
   }, [clearSoftRemovedSuosikit]);
 
   return (

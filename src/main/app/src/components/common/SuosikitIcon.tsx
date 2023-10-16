@@ -14,7 +14,7 @@ export const DarkBadge = styled(Badge)({
 
 export const SuosikitIcon = () => {
   return (
-    <DarkBadge badgeContent={useNonRemovedSuosikitCount()}>
+    <DarkBadge badgeContent={useNonRemovedSuosikitCount()} data-testid="suosikit-badge">
       <MaterialIcon icon="favorite_border" />
     </DarkBadge>
   );
