@@ -157,7 +157,6 @@ type HakukohdeSuosikki = {
 export const getHakukohdeSuosikit = (requestParams: {
   'hakukohde-oids': Array<string>;
 }) => {
-  console.log(requestParams);
   return get<Array<HakukohdeSuosikki>>(urls.url('konfo-backend.hakukohde-suosikit'), {
     params: requestParams,
   });

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 import { Backdrop, Box, Paper, Typography } from '@mui/material';
-import { isEmpty, truncate } from 'lodash';
+import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
 
@@ -20,15 +20,7 @@ import { QueryResultWrapper } from './common/QueryResultWrapper';
 import { TextWithBackground } from './common/TextWithBackground';
 import { ToggleFavouriteButton } from './common/ToggleFavouriteButton';
 import { Heading, HeadingBoundary } from './Heading';
-
-const useTruncatedKuvaus = (kuvaus: string) => {
-  const { t } = useTranslation();
-  return kuvaus
-    ? truncate(localize(kuvaus).replace(/<[^>]*>/gm, ' '), {
-        length: 300,
-      })
-    : t('haku.ei_kuvausta');
-};
+import { useTruncatedKuvaus } from '../hooks/useTruncatedKuvaus';
 
 const useHakukohdeSuosikitData = (oids?: Array<string>) => {
   return useQuery(
@@ -73,7 +65,7 @@ const SuosikkiKortti = ({
 
   const logoAltText = `${t('haku.oppilaitoksen-logo')}`;
 
-  const kuvaus = useTruncatedKuvaus(hakukohdeSuosikki.esittely);
+  const kuvaus = useTruncatedKuvaus(localize(hakukohdeSuosikki.esittely));
 
   return (
     <PaperWithAccent key={hakukohdeSuosikki.hakukohdeOid}>

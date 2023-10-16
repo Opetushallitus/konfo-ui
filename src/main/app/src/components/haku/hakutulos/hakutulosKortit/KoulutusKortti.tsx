@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
@@ -41,12 +39,6 @@ export const KoulutusKortti = ({ koulutus, isSmall }: Props) => {
     isAvoinKorkeakoulutus,
   } = koulutus;
 
-  const kuvausText =
-    localize(kuvaus)
-      .replace(/<\/li>/gm, ',</li>')
-      .replace(/\.,<\/li>/gm, '.</li>')
-      .replace(/<[^>]*>/gm, '') || t('haku.ei_kuvausta');
-
   const toteutustenTarjoajatText = getToteutustenTarjoajat(t, toteutustenTarjoajat);
 
   const koulutustyyppiText = useVisibleKoulutustyyppi({
@@ -65,7 +57,7 @@ export const KoulutusKortti = ({ koulutus, isSmall }: Props) => {
       to={`/koulutus/${oid}`}
       teemakuvaElement={<KoulutusKorttiLogo image={teemakuva} alt="" />}
       header={localize(koulutus)}
-      kuvaus={kuvausText}
+      kuvaus={localize(kuvaus)}
       iconTexts={[
         isEmpty(tutkintonimikkeetText)
           ? [koulutustyyppiText, createMaterialIcon('extension', 'outlined')]
