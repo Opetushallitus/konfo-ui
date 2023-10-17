@@ -32,24 +32,18 @@ type ConfigItem = {
 
 const config: Config = isPlaywright ? configPlaywright : configProd;
 
-const PREFIX = 'ohjaava-haku__';
-
-const classes = {
-  container: `${PREFIX}container`,
-};
-
-export const StyledRoot = styled(Box)(({ theme }) => ({
+const StyledRoot = styled(Box)({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
+});
 
-  [`& .${classes.container}`]: {
-    display: 'flex',
-    flexDirection: 'row',
+const QuestionContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'row',
 
-    [theme.breakpoints.down('sm')]: {
-      flexDirection: 'column',
-    },
+  [theme.breakpoints.down('sm')]: {
+    flexDirection: 'column',
   },
 }));
 
@@ -107,10 +101,10 @@ export const OhjaavaHaku = () => {
               setStartOfQuestionnaire={setStartOfQuestionnaire}
             />
           ) : (
-            <Box className={classes.container}>
+            <QuestionContainer>
               <Progress />
               <Question />
-            </Box>
+            </QuestionContainer>
           )}
         </StyledRoot>
       </ContentWrapper>
