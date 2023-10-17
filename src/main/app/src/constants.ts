@@ -118,3 +118,11 @@ export enum MAKSULLISUUSTYYPPI {
   MAKSUTON = 'maksuton',
   LUKUVUOSIMAKSU = 'lukuvuosimaksu',
 }
+
+export const PAINOTETUT_OPPIAINEET_LUKIO_KAIKKI_OPTIONS = [
+  'painotettavatoppiaineetlukiossa_a1',
+  'painotettavatoppiaineetlukiossa_a2',
+  'painotettavatoppiaineetlukiossa_b1',
+  'painotettavatoppiaineetlukiossa_b2',
+  'painotettavatoppiaineetlukiossa_b3',
+];

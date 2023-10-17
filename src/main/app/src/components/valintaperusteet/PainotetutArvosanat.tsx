@@ -3,7 +3,9 @@ import React from 'react';
 import { Box, Divider, Grid } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
+import { AllLanguagesTooltip } from '#/src/components/common/AllLanguagesTooltip/AllLanguagesTooltip';
 import { Heading, HeadingBoundary } from '#/src/components/Heading';
+import { PAINOTETUT_OPPIAINEET_LUKIO_KAIKKI_OPTIONS } from '#/src/constants';
 import { styled } from '#/src/theme';
 import { localize } from '#/src/tools/localization';
 import { formatDouble, toId } from '#/src/tools/utils';
@@ -73,6 +75,15 @@ export const PainotetutArvosanat = ({ arvosanat }: Props) => {
                     <td className={classes.cell}>{getOppiaineName(arvosana.koodit)}</td>
                     <td className={classes.cell}>
                       {formatDouble(arvosana.painokerroin)}
+                    </td>
+                    <td>
+                      {PAINOTETUT_OPPIAINEET_LUKIO_KAIKKI_OPTIONS.includes(
+                        arvosana.koodit.oppiaine.koodiUri
+                      ) && (
+                        <AllLanguagesTooltip
+                          koodiUri={arvosana.koodit.oppiaine.koodiUri}
+                        />
+                      )}
                     </td>
                   </tr>
                 ))}
