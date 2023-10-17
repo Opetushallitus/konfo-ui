@@ -80,21 +80,19 @@ const MaksullisuusInput = ({
   const maksunMaara = (newValues: Array<number>): Rajain => {
     const newMin = newValues[0];
     const newMax = newValues[1];
-    if (id === 'lukuvuosimaksu') {
-      return {
-        lukuvuosimaksunmaara: {
-          lukuvuosimaksunmaara_min: newMin,
-          lukuvuosimaksunmaara_max: newMax,
-        },
-      };
-    } else {
-      return {
-        maksunmaara: {
-          maksunmaara_min: newMin,
-          maksunmaara_max: newMax,
-        },
-      };
-    }
+    return id === 'lukuvuosimaksu'
+      ? {
+          lukuvuosimaksunmaara: {
+            lukuvuosimaksunmaara_min: newMin,
+            lukuvuosimaksunmaara_max: newMax,
+          },
+        }
+      : {
+          maksunmaara: {
+            maksunmaara_min: newMin,
+            maksunmaara_max: newMax,
+          },
+        };
   };
 
   const handleSliderValueCommit = (newValues: Array<number>) => {
