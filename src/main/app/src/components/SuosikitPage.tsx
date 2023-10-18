@@ -92,9 +92,16 @@ const SuosikkiKortti = ({
         flexDirection="row"
         justifyContent="space-between"
         alignItems="flex-end"
+        flexWrap="wrap"
         mt={2}
-        columnGap={2}>
-        <Box display="flex" columnGap={3} alignItems="flex-end" flexWrap="wrap-reverse">
+        gap={2}>
+        <Box
+          display="flex"
+          columnGap={3}
+          alignItems="flex-end"
+          justifyContent="space-between"
+          flexWrap="wrap-reverse"
+          flex-direction="column">
           <Box display="flex">
             <Tutkintonimikkeet tutkintonimikkeet={hakukohdeSuosikki.tutkintonimikkeet} />
           </Box>
@@ -108,7 +115,7 @@ const SuosikkiKortti = ({
             <TextWithBackground>{t('haku.hakukaynnissa')}</TextWithBackground>
           </Box>
         </Box>
-        <Box>
+        <Box ml="auto">
           <ToggleSuosikkiButton
             hakukohdeOid={hakukohdeSuosikki.hakukohdeOid}
             softRemove
