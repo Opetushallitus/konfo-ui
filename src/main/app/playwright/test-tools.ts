@@ -1,6 +1,6 @@
 import path from 'path';
 
-import { BrowserContext, Page, Route, expect } from '@playwright/test';
+import { BrowserContext, Locator, Page, Route, expect } from '@playwright/test';
 
 const MOCKS_PATH = path.resolve(__dirname, './mocks');
 
@@ -58,5 +58,27 @@ export const expectURLEndsWith = (page: Page, urlEnd: string) =>
 
 const FIXTURES_PATH = path.resolve(__dirname, './fixtures');
 
+export const getFixturePath = (fileName: string) => path.resolve(FIXTURES_PATH, fileName);
+
 export const fixtureFromFile = (fileName: string) => (route: Route) =>
-  route.fulfill({ path: path.resolve(FIXTURES_PATH, fileName) });
+  route.fulfill({ path: getFixturePath(fileName) });
+
+export const getFixtureData = async (fileName: string) =>
+  (await import(getFixturePath(fileName)))?.default;
+
+export const getSectionByHeading = async (
+  loc: Locator | Page,
+  headingText: string | RegExp,
+  exact: boolean = false
+) => {
+  const label = loc.getByRole('heading', { name: headingText, exact });
+  await label.evaluate((x) => x); // NOTE: Jostain syystä ilman tätä riviä ei toimi oikein. Mahdollisesti Playwrightin bugi?
+  const id = await label.getAttribute('id');
+  return loc.locator(`[aria-labelledby="${id}"]`);
+};
+
+// For debugging
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const outerHTML = (l: Locator) => l.evaluate((el) => el.outerHTML);
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const innerHTML = (l: Locator) => l.evaluate((el) => el.innerHTML);

@@ -82,7 +82,7 @@ export const BackendErrorMessage = () => {
                 classes={{ root: classes.buttonRoot }}
                 variant="contained"
                 color="secondary"
-                onKeyPress={(event) => event.key === 'Enter' && refreshPage()}
+                onKeyDown={(event) => event.key === 'Enter' && refreshPage()}
                 onClick={() => refreshPage()}>
                 {t('haku.paivita-sivu')}
               </Button>

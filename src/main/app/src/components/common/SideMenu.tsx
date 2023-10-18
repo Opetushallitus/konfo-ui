@@ -1,15 +1,6 @@
 import React, { useState } from 'react';
 
-import {
-  Drawer,
-  Paper,
-  InputBase,
-  Button,
-  Box,
-  Hidden,
-  Typography,
-  Link,
-} from '@mui/material';
+import { Drawer, Paper, InputBase, Button, Box, Hidden } from '@mui/material';
 import { includes, last } from 'lodash';
 import { urls } from 'oph-urls-js';
 import { useTranslation } from 'react-i18next';
@@ -26,6 +17,9 @@ import { useContentful } from '#/src/hooks/useContentful';
 import { getHeaderHeight, styled } from '#/src/theme';
 import { getOne } from '#/src/tools/getOne';
 
+import { SuosikitButton } from './SuosikitButton';
+import { TextButtonLink } from './TextButtonLink';
+
 const PREFIX = 'SideMenu';
 
 const classes = {
@@ -38,93 +32,70 @@ const classes = {
   iconButton: `${PREFIX}IconButton`,
   divider: `${PREFIX}Divider`,
   drawerHeader: `${PREFIX}DrawerHeader`,
-  omaOpintopolkuLink: `${PREFIX}OmaOpintopolkuLink`,
-  omaOpintopolkuIcon: `${PREFIX}OmaOpintopolkuIcon`,
-  omaOpintopolkuText: `${PREFIX}OmaOpintopolkuText`,
 };
 
 const StyledDrawer = styled(Drawer, {
-  shouldForwardProp: (prop) => !includes(['isSmall', 'betaBannerVisible'], prop),
-})<{ isSmall: boolean; betaBannerVisible: boolean }>(
-  ({ theme, isSmall, betaBannerVisible }) => ({
+  shouldForwardProp: (prop) => !includes(['isSmall'], prop),
+})<{ isSmall: boolean }>(({ theme, isSmall }) => ({
+  width: isSmall ? '100%' : SIDEMENU_WIDTH,
+  flexShrink: 0,
+
+  [`& .${classes.drawerPaper}`]: {
+    marginTop: getHeaderHeight(theme),
+    height: `calc(100% - ${getHeaderHeight(theme)}px)`,
     width: isSmall ? '100%' : SIDEMENU_WIDTH,
-    flexShrink: 0,
+  },
 
-    [`& .${classes.drawerPaper}`]: {
-      marginTop: getHeaderHeight(theme)({ betaBannerVisible }),
-      height: `calc(100% - ${getHeaderHeight(theme)({ betaBannerVisible })}px)`,
-      width: isSmall ? '100%' : SIDEMENU_WIDTH,
-    },
+  [`& .${classes.inputBackground}`]: {
+    backgroundColor: colors.white,
+    paddingLeft: '20px',
+    paddingTop: '20px',
+    paddingBottom: '20px',
+  },
 
-    [`& .${classes.inputBackground}`]: {
-      backgroundColor: colors.white,
-      paddingLeft: '20px',
-      paddingTop: '20px',
-      paddingBottom: '20px',
-    },
+  [`& .${classes.murupolku}`]: {
+    paddingLeft: '20px',
+    paddingTop: '20px',
+    paddingBottom: '20px',
+  },
 
-    [`& .${classes.murupolku}`]: {
-      paddingLeft: '20px',
-      paddingTop: '20px',
-      paddingBottom: '20px',
-    },
+  [`& .${classes.inputRoot}`]: {
+    height: '38px',
+    display: 'flex',
+    alignItems: 'center',
+    boxSizing: 'border-box',
+    border: '1px solid #B2B2B2',
+    borderRadius: '2px',
+    width: 290,
+  },
 
-    [`& .${classes.inputRoot}`]: {
-      height: '38px',
-      display: 'flex',
-      alignItems: 'center',
-      boxSizing: 'border-box',
-      border: '1px solid #B2B2B2',
-      borderRadius: '2px',
-      width: 290,
-    },
+  [`& .${classes.input}`]: {
+    borderRadius: 0,
+    marginLeft: theme.spacing(1),
+    flex: 1,
+  },
 
-    [`& .${classes.input}`]: {
-      borderRadius: 0,
-      marginLeft: theme.spacing(1),
-      flex: 1,
-    },
+  [`& .${classes.iconButton}`]: {
+    minWidth: '40px',
+    maxWidth: '40px',
+    borderRadius: 0,
+  },
 
-    [`& .${classes.iconButton}`]: {
-      minWidth: '40px',
-      maxWidth: '40px',
-      borderRadius: 0,
-    },
+  [`& .${classes.divider}`]: {
+    height: 28,
+    margin: 4,
+  },
 
-    [`& .${classes.divider}`]: {
-      height: 28,
-      margin: 4,
-    },
-
-    [`& .${classes.drawerHeader}`]: {
-      display: 'flex',
-      alignItems: 'center',
-      padding: theme.spacing(0, 1),
-      ...theme.mixins.toolbar,
-      justifyContent: 'flex-end',
-    },
-
-    [`& .${classes.omaOpintopolkuLink}`]: {
-      display: 'flex',
-      alignItems: 'left',
-      flexDirection: 'row',
-      margin: '20px 0px 0px 0px',
-    },
-
-    [`& .${classes.omaOpintopolkuIcon}`]: {
-      color: colors.brandGreen,
-      marginRight: 10,
-    },
-
-    [`& .${classes.omaOpintopolkuText}`]: {
-      color: colors.brandGreen,
-      fontSize: 'inherit',
-    },
-  })
-);
+  [`& .${classes.drawerHeader}`]: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: theme.spacing(0, 1),
+    ...theme.mixins.toolbar,
+    justifyContent: 'flex-end',
+  },
+}));
 
 export const SideMenu = (props: {
-  betaBannerVisible: boolean;
   menuVisible?: boolean;
   isSmall: boolean;
   closeMenu: () => void;
@@ -161,21 +132,20 @@ export const SideMenu = (props: {
       classes={{
         paper: classes.drawerPaper,
       }}
-      isSmall={props.isSmall}
-      betaBannerVisible={props.betaBannerVisible}>
+      isSmall={props.isSmall}>
       <div className={classes.inputBackground}>
         <Hidden smUp>
-          <Box mb={2}>
-            <LanguageTab />
-            <Link
+          <Box mb={2} display="flex" flexDirection="column" alignItems="flex-start">
+            <Box mb={1}>
+              <LanguageTab />
+            </Box>
+            <SuosikitButton onClick={closeMenu} />
+            <TextButtonLink
               href={urls.url('oma-opintopolku')}
-              className={classes.omaOpintopolkuLink}
-              target="_blank">
-              <MaterialIcon icon="apps" className={classes.omaOpintopolkuIcon} />
-              <Typography className={classes.omaOpintopolkuText}>
-                {t('oma-opintopolku')}
-              </Typography>
-            </Link>
+              target="_blank"
+              startIcon={<MaterialIcon icon="apps" />}>
+              {t('oma-opintopolku')}
+            </TextButtonLink>
           </Box>
         </Hidden>
         <Paper

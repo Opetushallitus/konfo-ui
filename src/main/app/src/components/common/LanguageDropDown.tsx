@@ -44,11 +44,11 @@ export const LanguageDropDown = () => {
     setLanguage?.(selectedLanguage);
   };
   return (
-    <Box display="flex" flexDirection="column" alignItems="center">
+    <Box display="flex" flexDirection="column" alignItems="center" padding={1}>
       <MaterialIcon
         icon="language"
         onClick={isOpen ? handleClose : handleOpen}
-        sx={{ cursor: 'pointer', marginRight: '9px' }}
+        sx={{ cursor: 'pointer', marginRight: '9px', marginTop: '1px' }}
       />
       <Select
         sx={{

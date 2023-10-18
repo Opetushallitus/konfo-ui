@@ -13,6 +13,7 @@ import { Pagination } from '#/src/components/common/Pagination';
 import { QueryResultWrapper } from '#/src/components/common/QueryResultWrapper';
 import { TextWithBackground } from '#/src/components/common/TextWithBackground';
 import { KOULUTUS_TYYPPI } from '#/src/constants';
+import { useToteutusRajainOrder } from '#/src/hooks/useToteutusRajainOrder';
 import {
   localize,
   getLocalizedMaksullisuus,
@@ -23,7 +24,6 @@ import { RajainName, TODOType } from '#/src/types/common';
 import { Jarjestaja } from '#/src/types/ToteutusTypes';
 
 import { useKoulutusJarjestajat } from './hooks';
-import { useToteutusRajainOrder } from './useToteutusRajainOrder';
 import { useSelectedFilters } from '../haku/hakutulosHooks';
 import { SuodatinValinnat } from '../suodattimet/hakutulosSuodattimet/SuodatinValinnat';
 import { MobileFiltersOnTopMenu } from '../suodattimet/toteutusSuodattimet/MobileFiltersOnTopMenu';
@@ -97,11 +97,10 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
   return (
     <Box>
       <PageSection
-        heading={
-          <Typography variant="h2" id={scrollTargetId}>
-            {t('koulutus.tarjonta')}
-          </Typography>
-        }>
+        heading={t('koulutus.tarjonta')}
+        headingProps={{
+          id: scrollTargetId,
+        }}>
         <>
           <Hidden mdDown>
             {someSelected && (
