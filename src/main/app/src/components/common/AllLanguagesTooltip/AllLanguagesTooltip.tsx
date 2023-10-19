@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Box } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 import { usePainotettavatOppiaineetLukiossa } from '#/src/components/common/AllLanguagesTooltip/hooks';
 import { LabelTooltip } from '#/src/components/common/LabelTooltip';
@@ -17,6 +18,7 @@ type Props = {
   koodiUri: string;
 };
 export const AllLanguagesTooltip = ({ koodiUri }: Props) => {
+  const { t } = useTranslation();
   const oppiaineet = usePainotettavatOppiaineetLukiossa();
   const kielet = oppiaineet
     ?.filter(
@@ -27,7 +29,9 @@ export const AllLanguagesTooltip = ({ koodiUri }: Props) => {
 
   return (
     <Container>
-      <LabelTooltip title={`Sisältyvät oppiaineet: ${kielet?.join(', ')}`} />
+      <LabelTooltip
+        title={`${t('toteutus.kaikki-kielet-prefix')}: ${kielet?.join(', ')}`}
+      />
     </Container>
   );
 };
