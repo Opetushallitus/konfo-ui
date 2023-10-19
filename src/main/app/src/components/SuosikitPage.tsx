@@ -179,7 +179,12 @@ const SuosikitList = ({
               removeMissing={() => removeSuosikit(suosikitWithMissingData)}
             />
           )}
-          <Box role="list" data-testid="suosikit-list">
+          <Box
+            role="list"
+            data-testid="suosikit-list"
+            display="flex"
+            flexDirection="column"
+            rowGap={3}>
             {orderedData?.map((hakukohdeSuosikki) => (
               <SuosikkiKortti
                 key={hakukohdeSuosikki.hakukohdeOid}
