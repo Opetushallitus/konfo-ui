@@ -36,7 +36,9 @@ export const KoulutuksenKesto = ({
 }) => {
   const { t } = useTranslation();
 
-  const { allSelectedRajainValues, setAllSelectedRajainValues } = useOhjaavaHaku();
+  const { allSelectedRajainValues, setAllSelectedRajainValues } = useOhjaavaHaku(
+    (s) => s
+  );
 
   const rajainItem = rajainItems?.[0] as NumberRangeRajainItem;
   const undefinedRajainValues = [0, rajainItem?.upperLimit || DEFAULT_UPPERLIMIT];

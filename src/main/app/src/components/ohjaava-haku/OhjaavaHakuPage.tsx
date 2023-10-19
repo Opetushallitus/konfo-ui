@@ -10,16 +10,17 @@ import configPlaywright from '#/playwright/ohjaava-haku-test-config.json';
 import { ContentWrapper } from '#/src/components/common/ContentWrapper';
 import { Murupolku } from '#/src/components/common/Murupolku';
 import { useSearch } from '#/src/components/haku/hakutulosHooks';
-import {
-  createQuestionsStore,
-  QuestionsContext,
-} from '#/src/components/ohjaava-haku/OhjaavaHakuContext';
 import { Question } from '#/src/components/ohjaava-haku/Question';
 import { getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
 import { styled } from '#/src/theme';
 import { isPlaywright } from '#/src/tools/utils';
 
-import { useOhjaavaHaku } from './hooks/useOhjaavaHaku';
+import {
+  createOhjaavaHakuStore,
+  OhjaavaHakuContext,
+  OhjaavaHakuStore,
+  useOhjaavaHaku,
+} from './hooks/useOhjaavaHaku';
 import { Progress } from './Progress';
 import { StartComponent } from './StartComponent';
 
@@ -53,49 +54,56 @@ const QuestionContainer = styled(Box)(({ theme }) => ({
 export const OhjaavaHaku = () => {
   const { t } = useTranslation();
   const hakuUrl = useSelector(getHakuUrl);
+  const isStartOfQuestionnaire = useOhjaavaHaku((s) => s.isStartOfQuestionnaire);
+  const ohjaavaHakuTitle = t('ohjaava-haku.otsikko');
 
+  return (
+    <ContentWrapper>
+      <StyledRoot>
+        <Box>
+          <Murupolku
+            path={[
+              { name: t('haku.otsikko'), link: hakuUrl },
+              { name: ohjaavaHakuTitle },
+            ]}
+          />
+        </Box>
+        {isStartOfQuestionnaire ? (
+          <StartComponent ohjaavaHakuTitle={ohjaavaHakuTitle} />
+        ) : (
+          <QuestionContainer>
+            <Progress />
+            <Question />
+          </QuestionContainer>
+        )}
+      </StyledRoot>
+    </ContentWrapper>
+  );
+};
+
+export const OhjaavaHakuPage = () => {
   const { rajainValues } = useSearch();
 
   const questions = config.kysymykset;
 
-  const { isStartOfQuestionnaire } = useOhjaavaHaku();
-
-  const questionsWithoutInvalidOptions = questions.filter(({ id }) => {
-    return has(rajainValues, id);
-  });
+  const questionsWithoutInvalidOptions = questions.filter(({ id }) =>
+    has(rajainValues, id)
+  );
 
   const lastQuestionIndex = questionsWithoutInvalidOptions.length - 1;
 
-  const ohjaavaHakuTitle = t('ohjaava-haku.otsikko');
+  const storeRef = useRef<OhjaavaHakuStore>();
 
-  const value = {
-    questions: questionsWithoutInvalidOptions,
-    lastQuestionIndex,
-  };
+  if (!storeRef.current) {
+    storeRef.current = createOhjaavaHakuStore({
+      questions: questionsWithoutInvalidOptions,
+      lastQuestionIndex,
+    });
+  }
 
-  const store = useRef(createQuestionsStore(value)).current;
   return (
-    <QuestionsContext.Provider value={store}>
-      <ContentWrapper>
-        <StyledRoot>
-          <Box>
-            <Murupolku
-              path={[
-                { name: t('haku.otsikko'), link: hakuUrl },
-                { name: ohjaavaHakuTitle },
-              ]}
-            />
-          </Box>
-          {isStartOfQuestionnaire ? (
-            <StartComponent ohjaavaHakuTitle={ohjaavaHakuTitle} />
-          ) : (
-            <QuestionContainer>
-              <Progress />
-              <Question />
-            </QuestionContainer>
-          )}
-        </StyledRoot>
-      </ContentWrapper>
-    </QuestionsContext.Provider>
+    <OhjaavaHakuContext.Provider value={storeRef.current}>
+      <OhjaavaHaku />
+    </OhjaavaHakuContext.Provider>
   );
 };

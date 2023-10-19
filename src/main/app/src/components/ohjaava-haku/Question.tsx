@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { KoulutuksenKesto } from '#/src/components/ohjaava-haku/KoulutuksenKesto';
 import { Maksullisuus } from '#/src/components/ohjaava-haku/Maksullisuus';
-import { useQuestionsStore } from '#/src/components/ohjaava-haku/OhjaavaHakuContext';
 import { RAJAIN_TYPES } from '#/src/constants';
 import { styled } from '#/src/theme';
 import { useRajainItems } from '#/src/tools/filters';
@@ -60,8 +59,7 @@ export const QuestionInfoText = ({ questionInfo }: { questionInfo: string }) => 
 export const Question = () => {
   const { t } = useTranslation();
 
-  const questions = useQuestionsStore((state) => state.questions);
-  const { currentQuestionIndex } = useOhjaavaHaku();
+  const { currentQuestionIndex, questions } = useOhjaavaHaku((s) => s);
   const question = questions[currentQuestionIndex];
 
   const { rajainValues, rajainOptions, isFetching } = useSearch();
