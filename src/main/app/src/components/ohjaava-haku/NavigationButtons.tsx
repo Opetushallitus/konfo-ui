@@ -4,9 +4,10 @@ import { Button, Grid } from '@mui/material';
 import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
-import { useOhjaavaHakuContext } from '#/src/components/ohjaava-haku/OhjaavaHakuContext';
+import { useQuestionsStore } from '#/src/components/ohjaava-haku/OhjaavaHakuContext';
 import { styled } from '#/src/theme';
 
+import { useOhjaavaHaku } from './hooks/useOhjaavaHaku';
 import { useSearch } from '../../components/haku/hakutulosHooks';
 
 const ButtonContainer = styled(Grid)(({ theme }) => ({
@@ -53,12 +54,10 @@ export const NavigationButtons = ({ errorKey }: { errorKey: string }) => {
 
   const { goToSearchPage, setRajainValues } = useSearch();
 
-  const {
-    currentQuestionIndex,
-    setCurrentQuestionIndex,
-    lastQuestionIndex,
-    allSelectedRajainValues,
-  } = useOhjaavaHakuContext();
+  const lastQuestionIndex = useQuestionsStore((state) => state.lastQuestionIndex);
+  const { currentQuestionIndex, setCurrentQuestionIndex } = useOhjaavaHaku();
+
+  const { allSelectedRajainValues } = useOhjaavaHaku();
 
   const isFirstQuestion = currentQuestionIndex === 0;
   const isLastQuestion = currentQuestionIndex === lastQuestionIndex;

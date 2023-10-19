@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 
 import { Box } from '@mui/material';
 import { has } from 'lodash';
@@ -10,13 +10,16 @@ import configPlaywright from '#/playwright/ohjaava-haku-test-config.json';
 import { ContentWrapper } from '#/src/components/common/ContentWrapper';
 import { Murupolku } from '#/src/components/common/Murupolku';
 import { useSearch } from '#/src/components/haku/hakutulosHooks';
-import { OhjaavaHakuContext } from '#/src/components/ohjaava-haku/OhjaavaHakuContext';
-import { Question, Rajain } from '#/src/components/ohjaava-haku/Question';
-import { getChangedRajaimet } from '#/src/components/ohjaava-haku/utils';
+import {
+  createQuestionsStore,
+  QuestionsContext,
+} from '#/src/components/ohjaava-haku/OhjaavaHakuContext';
+import { Question } from '#/src/components/ohjaava-haku/Question';
 import { getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
 import { styled } from '#/src/theme';
 import { isPlaywright } from '#/src/tools/utils';
 
+import { useOhjaavaHaku } from './hooks/useOhjaavaHaku';
 import { Progress } from './Progress';
 import { StartComponent } from './StartComponent';
 
@@ -52,39 +55,27 @@ export const OhjaavaHaku = () => {
   const hakuUrl = useSelector(getHakuUrl);
 
   const { rajainValues } = useSearch();
-  const [allSelectedRajainValues, setAllSelectedRajainValues] = useState<Rajain>({});
-
-  const toggleAllSelectedRajainValues = (id: string, rajainId: string) => {
-    setAllSelectedRajainValues(getChangedRajaimet(allSelectedRajainValues, rajainId, id));
-  };
-
-  const [isStartOfQuestionnaire, setStartOfQuestionnaire] = useState(true);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
   const questions = config.kysymykset;
+
+  const { isStartOfQuestionnaire } = useOhjaavaHaku();
+
   const questionsWithoutInvalidOptions = questions.filter(({ id }) => {
     return has(rajainValues, id);
   });
 
   const lastQuestionIndex = questionsWithoutInvalidOptions.length - 1;
-  const currentQuestion = questionsWithoutInvalidOptions[currentQuestionIndex];
 
   const ohjaavaHakuTitle = t('ohjaava-haku.otsikko');
 
   const value = {
-    toggleAllSelectedRajainValues,
-    allSelectedRajainValues,
-    setAllSelectedRajainValues,
     questions: questionsWithoutInvalidOptions,
-    question: currentQuestion,
-    currentQuestion,
-    currentQuestionIndex,
-    setCurrentQuestionIndex,
     lastQuestionIndex,
   };
 
+  const store = useRef(createQuestionsStore(value)).current;
   return (
-    <OhjaavaHakuContext.Provider value={value}>
+    <QuestionsContext.Provider value={store}>
       <ContentWrapper>
         <StyledRoot>
           <Box>
@@ -96,10 +87,7 @@ export const OhjaavaHaku = () => {
             />
           </Box>
           {isStartOfQuestionnaire ? (
-            <StartComponent
-              ohjaavaHakuTitle={ohjaavaHakuTitle}
-              setStartOfQuestionnaire={setStartOfQuestionnaire}
-            />
+            <StartComponent ohjaavaHakuTitle={ohjaavaHakuTitle} />
           ) : (
             <QuestionContainer>
               <Progress />
@@ -108,6 +96,6 @@ export const OhjaavaHaku = () => {
           )}
         </StyledRoot>
       </ContentWrapper>
-    </OhjaavaHakuContext.Provider>
+    </QuestionsContext.Provider>
   );
 };

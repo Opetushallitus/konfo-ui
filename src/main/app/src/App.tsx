@@ -28,6 +28,7 @@ import { Hairiotiedote } from './components/Hairiotiedote';
 import { HakuPage } from './components/haku/HakuPage';
 import { Hakupalkki } from './components/haku/Hakupalkki';
 import { KoulutusPage } from './components/koulutus/KoulutusPage';
+import { useOhjaavaHaku } from './components/ohjaava-haku/hooks/useOhjaavaHaku';
 import { OhjaavaHaku } from './components/ohjaava-haku/OhjaavaHakuPage';
 import { OppilaitosPage } from './components/oppilaitos/OppilaitosPage';
 import { OutlinedButton } from './components/OutlinedButton';
@@ -105,8 +106,15 @@ const Root = styled('div')(
 const OhjaavaHakuLink = () => {
   const { t } = useTranslation();
 
+  const { reset } = useOhjaavaHaku();
+
   return (
-    <OutlinedButton href="/ohjaava-haku" color="primary" sx={{ marginTop: 1 }}>
+    <OutlinedButton
+      href="/ohjaava-haku"
+      color="primary"
+      sx={{ marginTop: 1 }}
+      onClick={() => reset()}
+      onKeyDown={() => reset()}>
       {t('ohjaava-haku.otsikko')}
     </OutlinedButton>
   );

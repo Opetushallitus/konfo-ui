@@ -1,29 +1,39 @@
 import { createContext, useContext } from 'react';
 
-import { QuestionType, Rajain } from '#/src/components/ohjaava-haku/Question';
+import { useStore, createStore } from 'zustand';
 
-export type OhjaavaHakuContextType = {
+import { QuestionType } from '#/src/components/ohjaava-haku/Question';
+
+interface QuestionsProps {
   questions: Array<QuestionType>;
-  question: QuestionType;
-  currentQuestionIndex: number;
-  setCurrentQuestionIndex: (index: number) => void;
   lastQuestionIndex: number;
-  toggleAllSelectedRajainValues: (id: string, rajainId: string) => void;
-  allSelectedRajainValues: Rajain;
-  setAllSelectedRajainValues: (val: Rajain) => void;
+}
+
+interface QuestionsState extends QuestionsProps {}
+
+export const createQuestionsStore = (initProps: QuestionsProps) => {
+  const DEFAULT_PROPS: QuestionsProps = {
+    questions: [],
+    lastQuestionIndex: 0,
+  };
+
+  return createStore<QuestionsState>()(() => ({
+    ...DEFAULT_PROPS,
+    ...initProps,
+  }));
 };
 
-export const OhjaavaHakuContext = createContext<OhjaavaHakuContextType | undefined>(
-  undefined
-);
+type QuestionsStore = ReturnType<typeof createQuestionsStore>;
 
-export const useOhjaavaHakuContext = () => {
-  const context = useContext(OhjaavaHakuContext);
+export const QuestionsContext = createContext<QuestionsStore | undefined>(undefined);
+
+export const useQuestionsStore = <T>(selector: (state: QuestionsProps) => T): T => {
+  const context = useContext(QuestionsContext);
   if (!context) {
     throw new Error(
       `useOhjaavaHakuContext must be used within OhjaavaHakuContextProvider`
     );
   }
 
-  return context;
+  return useStore(context, selector);
 };

@@ -13,7 +13,6 @@ import {
 } from '#/src/components/ohjaava-haku/common/InputContainer';
 import { InputWithUnit } from '#/src/components/ohjaava-haku/common/InputWithUnit';
 import { Ndash } from '#/src/components/ohjaava-haku/common/Ndash';
-import { useOhjaavaHakuContext } from '#/src/components/ohjaava-haku/OhjaavaHakuContext';
 import { QuestionInfoText } from '#/src/components/ohjaava-haku/Question';
 import {
   getChangedKestoInMonths,
@@ -21,6 +20,8 @@ import {
 } from '#/src/components/ohjaava-haku/utils';
 import { KoulutuksenKestoSlider } from '#/src/components/suodattimet/common/KoulutuksenKestoSuodatin';
 import { RajainItem, NumberRangeRajainItem } from '#/src/types/SuodatinTypes';
+
+import { useOhjaavaHaku } from './hooks/useOhjaavaHaku';
 
 const DEFAULT_UPPERLIMIT = 72;
 
@@ -35,7 +36,8 @@ export const KoulutuksenKesto = ({
 }) => {
   const { t } = useTranslation();
 
-  const { allSelectedRajainValues, setAllSelectedRajainValues } = useOhjaavaHakuContext();
+  const { allSelectedRajainValues, setAllSelectedRajainValues } = useOhjaavaHaku();
+
   const rajainItem = rajainItems?.[0] as NumberRangeRajainItem;
   const undefinedRajainValues = [0, rajainItem?.upperLimit || DEFAULT_UPPERLIMIT];
 

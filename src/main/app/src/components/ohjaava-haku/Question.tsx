@@ -6,11 +6,12 @@ import { useTranslation } from 'react-i18next';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { KoulutuksenKesto } from '#/src/components/ohjaava-haku/KoulutuksenKesto';
 import { Maksullisuus } from '#/src/components/ohjaava-haku/Maksullisuus';
-import { useOhjaavaHakuContext } from '#/src/components/ohjaava-haku/OhjaavaHakuContext';
+import { useQuestionsStore } from '#/src/components/ohjaava-haku/OhjaavaHakuContext';
 import { RAJAIN_TYPES } from '#/src/constants';
 import { styled } from '#/src/theme';
 import { useRajainItems } from '#/src/tools/filters';
 
+import { useOhjaavaHaku } from './hooks/useOhjaavaHaku';
 import { NavigationButtons } from './NavigationButtons';
 import { QuestionWithOptions } from './QuestionWithOptions';
 import { useSearch } from '../../components/haku/hakutulosHooks';
@@ -59,7 +60,9 @@ export const QuestionInfoText = ({ questionInfo }: { questionInfo: string }) => 
 export const Question = () => {
   const { t } = useTranslation();
 
-  const { question } = useOhjaavaHakuContext();
+  const questions = useQuestionsStore((state) => state.questions);
+  const { currentQuestionIndex } = useOhjaavaHaku();
+  const question = questions[currentQuestionIndex];
 
   const { rajainValues, rajainOptions, isFetching } = useSearch();
   const { id: questionId } = question;
@@ -99,7 +102,10 @@ export const Question = () => {
                   errorKey={errorKey}
                 />
               ) : (
-                <QuestionWithOptions rajainItems={rajainItems} />
+                <QuestionWithOptions
+                  currentQuestion={question}
+                  rajainItems={rajainItems}
+                />
               )}
             </Grid>
           )}

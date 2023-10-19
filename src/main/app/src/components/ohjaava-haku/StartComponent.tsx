@@ -7,19 +7,16 @@ import { useSearch } from '#/src/components/haku/hakutulosHooks';
 import { Heading, HeadingBoundary } from '#/src/components/Heading';
 import { toId } from '#/src/tools/utils';
 
-export const StartComponent = ({
-  ohjaavaHakuTitle,
-  setStartOfQuestionnaire,
-}: {
-  ohjaavaHakuTitle: string;
-  setStartOfQuestionnaire: (val: boolean) => void;
-}) => {
+import { useOhjaavaHaku } from './hooks/useOhjaavaHaku';
+
+export const StartComponent = ({ ohjaavaHakuTitle }: { ohjaavaHakuTitle: string }) => {
   const { t } = useTranslation();
 
   const { clearRajainValues } = useSearch();
+  const { setIsStartOfQuestionnaire } = useOhjaavaHaku();
 
   const startQuestionnaire = () => {
-    setStartOfQuestionnaire(false);
+    setIsStartOfQuestionnaire(false);
     clearRajainValues();
   };
 
