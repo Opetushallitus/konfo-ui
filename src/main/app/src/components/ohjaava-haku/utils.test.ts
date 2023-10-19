@@ -105,6 +105,10 @@ describe('getChangedKestoInMonths', () => {
   test('returns 29 when given decimal "2.2" for years and decimal "5.6" for months', () => {
     expect(getChangedKestoInMonths('2.2', '5.6')).toEqual(29);
   });
+
+  test('removes spaces from input and returns 35 when given "2 " for years and "1 1" for months', () => {
+    expect(getChangedKestoInMonths(' 2', '1 1')).toEqual(35);
+  });
 });
 
 describe('getYearsAndMonthsFromRangeValues', () => {

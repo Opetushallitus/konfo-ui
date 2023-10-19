@@ -109,7 +109,8 @@ const MaksullisuusInput = ({
 
   const handleInputValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const changedValue = event.target.value;
-    const changedValueNumber = parseInt(changedValue);
+    const changedValueWithoutSpaces = changedValue.replace(/\s/g, '');
+    const changedValueNumber = parseInt(changedValueWithoutSpaces);
 
     const newValues = match(event.target.id)
       .with(`${id}-vahintaan`, () => {

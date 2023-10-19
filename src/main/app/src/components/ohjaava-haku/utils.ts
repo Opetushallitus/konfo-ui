@@ -21,8 +21,10 @@ export const getChangedRajaimet = (
 };
 
 export const getChangedKestoInMonths = (vuodet: string, months: string) => {
-  const vuodetKuukausinaInt = parseInt(vuodet) * 12;
-  const kuukaudetInt = parseInt(months);
+  const vuodetWithoutSpaces = vuodet.replace(/\s/g, '');
+  const vuodetKuukausinaInt = parseInt(vuodetWithoutSpaces) * 12;
+  const kkWithoutSpaces = months.replace(/\s/g, '');
+  const kuukaudetInt = parseInt(kkWithoutSpaces);
   const vuodetKk = isFinite(vuodetKuukausinaInt) ? vuodetKuukausinaInt : 0;
   const kk = isFinite(kuukaudetInt) ? kuukaudetInt : 0;
   return vuodetKk + kk;
