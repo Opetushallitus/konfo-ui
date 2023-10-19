@@ -13,7 +13,7 @@ export const StartComponent = ({ ohjaavaHakuTitle }: { ohjaavaHakuTitle: string 
   const { t } = useTranslation();
 
   const { clearRajainValues } = useSearch();
-  const { setIsStartOfQuestionnaire } = useOhjaavaHaku();
+  const setIsStartOfQuestionnaire = useOhjaavaHaku((s) => s.setIsStartOfQuestionnaire);
 
   const startQuestionnaire = () => {
     setIsStartOfQuestionnaire(false);

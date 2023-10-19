@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
-import { useQuestionsStore } from '#/src/components/ohjaava-haku/OhjaavaHakuContext';
 import { styled } from '#/src/theme';
 
 import { useOhjaavaHaku } from './hooks/useOhjaavaHaku';
@@ -27,8 +26,9 @@ const ProgressSivupalkki = styled(Grid)({
 });
 
 export const Progress = () => {
-  const questions = useQuestionsStore((state) => state.questions);
-  const { currentQuestionIndex, setCurrentQuestionIndex } = useOhjaavaHaku();
+  const { currentQuestionIndex, setCurrentQuestionIndex, questions } = useOhjaavaHaku(
+    (s) => s
+  );
   const { t } = useTranslation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));

@@ -20,7 +20,9 @@ export const QuestionWithOptions = ({
 }) => {
   const { t } = useTranslation();
 
-  const { allSelectedRajainValues, toggleAllSelectedRajainValues } = useOhjaavaHaku();
+  const { allSelectedRajainValues, toggleAllSelectedRajainValues } = useOhjaavaHaku(
+    (s) => s
+  );
 
   const { rajainOptionsToBeRemoved, useRajainOptionNameFromRajain } = currentQuestion;
   const rajainOptionsToShow = rajainItems?.filter(({ id }) => {

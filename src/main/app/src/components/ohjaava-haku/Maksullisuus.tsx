@@ -66,7 +66,7 @@ const MaksullisuusInput = ({
   errorKey: string;
   allSelectedRajainValues: Rajain;
 }) => {
-  const { setAllSelectedRajainValues } = useOhjaavaHaku();
+  const setAllSelectedRajainValues = useOhjaavaHaku((s) => s.setAllSelectedRajainValues);
   const rajainItem = rajainItems?.[0] as NumberRangeRajainItem;
   const undefinedRajainValues = [0, rajainItem?.upperLimit || DEFAULT_UPPERLIMIT];
 
@@ -190,7 +190,9 @@ export const Maksullisuus = ({
   errorKey: string;
 }) => {
   const { t } = useTranslation();
-  const { allSelectedRajainValues, toggleAllSelectedRajainValues } = useOhjaavaHaku();
+  const { allSelectedRajainValues, toggleAllSelectedRajainValues } = useOhjaavaHaku(
+    (s) => s
+  );
 
   const maksullisuustyyppiRajainItems =
     combineMaksunMaaraWithMaksullisuustyyppi(rajainItems);
