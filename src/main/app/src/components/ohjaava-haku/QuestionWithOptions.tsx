@@ -5,23 +5,24 @@ import { some } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { RajainOption } from '#/src/components/ohjaava-haku/common/RajainOption';
-import { useOhjaavaHakuContext } from '#/src/components/ohjaava-haku/OhjaavaHakuContext';
-import { QuestionInfoText } from '#/src/components/ohjaava-haku/Question';
+import { QuestionInfoText, QuestionType } from '#/src/components/ohjaava-haku/Question';
 import { RajainItem } from '#/src/types/SuodatinTypes';
 
 import { StyledQuestion } from './common/StyledQuestion';
+import { useOhjaavaHaku } from './hooks/useOhjaavaHaku';
 
 export const QuestionWithOptions = ({
   rajainItems,
+  currentQuestion,
 }: {
   rajainItems?: Array<RajainItem>;
+  currentQuestion: QuestionType;
 }) => {
   const { t } = useTranslation();
 
-  const { allSelectedRajainValues, toggleAllSelectedRajainValues, question } =
-    useOhjaavaHakuContext();
+  const { allSelectedRajainValues, toggleAllSelectedRajainValues } = useOhjaavaHaku();
 
-  const { rajainOptionsToBeRemoved, useRajainOptionNameFromRajain } = question;
+  const { rajainOptionsToBeRemoved, useRajainOptionNameFromRajain } = currentQuestion;
   const rajainOptionsToShow = rajainItems?.filter(({ id }) => {
     return !some(rajainOptionsToBeRemoved, (rajain) => {
       return rajain === id;

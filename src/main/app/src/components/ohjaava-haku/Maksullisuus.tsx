@@ -13,7 +13,6 @@ import {
 } from '#/src/components/ohjaava-haku/common/InputContainer';
 import { InputWithUnit } from '#/src/components/ohjaava-haku/common/InputWithUnit';
 import { RajainOption } from '#/src/components/ohjaava-haku/common/RajainOption';
-import { useOhjaavaHakuContext } from '#/src/components/ohjaava-haku/OhjaavaHakuContext';
 import { QuestionInfoText, Rajain } from '#/src/components/ohjaava-haku/Question';
 import { combineMaksunMaaraWithMaksullisuustyyppi } from '#/src/components/ohjaava-haku/utils';
 import { marks } from '#/src/components/suodattimet/common/maksullisuusRajainUtils';
@@ -23,6 +22,7 @@ import { CustomInputLabel } from './common/CustomInputLabel';
 import { ErrorMessage } from './common/ErrorMessage';
 import { Ndash } from './common/Ndash';
 import { StyledQuestion } from './common/StyledQuestion';
+import { useOhjaavaHaku } from './hooks/useOhjaavaHaku';
 
 const DEFAULT_UPPERLIMIT = 20000;
 
@@ -58,13 +58,15 @@ const MaksullisuusInput = ({
   rajainItems,
   setErrorKey,
   errorKey,
+  allSelectedRajainValues,
 }: {
   id: string;
   rajainItems?: Array<RajainItem>;
   setErrorKey: (errorKey: string) => void;
   errorKey: string;
+  allSelectedRajainValues: Rajain;
 }) => {
-  const { allSelectedRajainValues, setAllSelectedRajainValues } = useOhjaavaHakuContext();
+  const { setAllSelectedRajainValues } = useOhjaavaHaku();
   const rajainItem = rajainItems?.[0] as NumberRangeRajainItem;
   const undefinedRajainValues = [0, rajainItem?.upperLimit || DEFAULT_UPPERLIMIT];
 
@@ -80,21 +82,19 @@ const MaksullisuusInput = ({
   const maksunMaara = (newValues: Array<number>): Rajain => {
     const newMin = newValues[0];
     const newMax = newValues[1];
-    if (id === 'lukuvuosimaksu') {
-      return {
-        lukuvuosimaksunmaara: {
-          lukuvuosimaksunmaara_min: newMin,
-          lukuvuosimaksunmaara_max: newMax,
-        },
-      };
-    } else {
-      return {
-        maksunmaara: {
-          maksunmaara_min: newMin,
-          maksunmaara_max: newMax,
-        },
-      };
-    }
+    return id === 'lukuvuosimaksu'
+      ? {
+          lukuvuosimaksunmaara: {
+            lukuvuosimaksunmaara_min: newMin,
+            lukuvuosimaksunmaara_max: newMax,
+          },
+        }
+      : {
+          maksunmaara: {
+            maksunmaara_min: newMin,
+            maksunmaara_max: newMax,
+          },
+        };
   };
 
   const handleSliderValueCommit = (newValues: Array<number>) => {
@@ -189,8 +189,7 @@ export const Maksullisuus = ({
   errorKey: string;
 }) => {
   const { t } = useTranslation();
-  const { allSelectedRajainValues, toggleAllSelectedRajainValues } =
-    useOhjaavaHakuContext();
+  const { allSelectedRajainValues, toggleAllSelectedRajainValues } = useOhjaavaHaku();
 
   const maksullisuustyyppiRajainItems =
     combineMaksunMaaraWithMaksullisuustyyppi(rajainItems);
@@ -218,6 +217,7 @@ export const Maksullisuus = ({
                 rajainItems={linkedRajainItems}
                 setErrorKey={setErrorKey}
                 errorKey={errorKey}
+                allSelectedRajainValues={allSelectedRajainValues}
               />
             )}
           </Box>

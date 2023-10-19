@@ -5,9 +5,10 @@ import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
-import { useOhjaavaHakuContext } from '#/src/components/ohjaava-haku/OhjaavaHakuContext';
+import { useQuestionsStore } from '#/src/components/ohjaava-haku/OhjaavaHakuContext';
 import { styled } from '#/src/theme';
 
+import { useOhjaavaHaku } from './hooks/useOhjaavaHaku';
 import { QuestionType } from './Question';
 
 const MobileProgressBar = ({ progress }: { progress: string }) => {
@@ -18,42 +19,16 @@ const MobileProgressBar = ({ progress }: { progress: string }) => {
   );
 };
 
-const PREFIX = 'ohjaava-haku__';
-
-const classes = {
-  progressSivupalkki: `${PREFIX}progressSivupalkki`,
-  progressSivupalkkiButton: `${PREFIX}progressSivupalkki-button`,
-  progressSivupalkkiButtonIcon: `${PREFIX}progressSivupalkki-button-icon`,
-};
-
 const ProgressSivupalkki = styled(Grid)({
   display: 'flex',
   gap: '0.2rem',
   marginBottom: '1rem',
   maxWidth: '25%',
-  [`& .${classes.progressSivupalkkiButton}`]: {
-    maxWidth: '100%',
-    fontSize: '0.75rem',
-    lineHeight: '1rem',
-    color: colors.black,
-
-    [`&[data-current]`]: {
-      backgroundColor: colors.brightGreenBg,
-    },
-
-    [`&[data-past]`]: {
-      backgroundColor: colors.lightGrayishGreenBg,
-    },
-  },
-
-  [`& .${classes.progressSivupalkkiButtonIcon}`]: {
-    color: colors.brandGreen,
-  },
 });
 
 export const Progress = () => {
-  const { questions, currentQuestionIndex, setCurrentQuestionIndex } =
-    useOhjaavaHakuContext();
+  const questions = useQuestionsStore((state) => state.questions);
+  const { currentQuestionIndex, setCurrentQuestionIndex } = useOhjaavaHaku();
   const { t } = useTranslation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -76,19 +51,24 @@ export const Progress = () => {
                 variant={isPastQuestion || isCurrentQuestion ? 'contained' : 'outlined'}
                 disableElevation
                 color="primary"
-                className={classes.progressSivupalkkiButton}
+                sx={{
+                  maxWidth: '100%',
+                  fontSize: '0.75rem',
+                  lineHeight: '1rem',
+                  color: colors.black,
+                  backgroundColor: isCurrentQuestion
+                    ? colors.brightGreenBg
+                    : isPastQuestion
+                    ? colors.lightGrayishGreenBg
+                    : 'initial',
+                }}
                 key={questionId}
                 onClick={() => setCurrentQuestionIndex(index)}
                 {...(isPastQuestion && {
                   endIcon: (
-                    <MaterialIcon
-                      icon="check"
-                      className={classes.progressSivupalkkiButtonIcon}
-                    />
+                    <MaterialIcon icon="check" sx={{ color: colors.brandGreen }} />
                   ),
-                  'data-past': true,
-                })}
-                {...(isCurrentQuestion && { 'data-current': true })}>
+                })}>
                 {t(`ohjaava-haku.kysymykset.${questionId}.otsikko`)}
               </Button>
             );

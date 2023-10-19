@@ -4,46 +4,18 @@ import { Button, Grid } from '@mui/material';
 import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
-import { useOhjaavaHakuContext } from '#/src/components/ohjaava-haku/OhjaavaHakuContext';
+import { useQuestionsStore } from '#/src/components/ohjaava-haku/OhjaavaHakuContext';
 import { styled } from '#/src/theme';
 
+import { useOhjaavaHaku } from './hooks/useOhjaavaHaku';
 import { useSearch } from '../../components/haku/hakutulosHooks';
 
-const PREFIX = 'ohjaava-haku__';
-
-const classes = {
-  lastQuestion: `${PREFIX}buttonContainer-last-question`,
-  buttonPrevious: `${PREFIX}button-previous`,
-  buttonNext: `${PREFIX}button-next`,
-  buttonResults: `${PREFIX}button-results`,
-};
-
-export const ButtonContainer = styled(Grid)(({ theme }) => ({
+const ButtonContainer = styled(Grid)(({ theme }) => ({
   margin: '1rem 0',
   display: 'grid',
   gridTemplateColumns: '25% 25% 25% 25%',
   gridTemplateRows: 'auto',
   gridTemplateAreas: `"previous . results next"`,
-
-  [`& .${classes.buttonPrevious}`]: {
-    gridArea: 'previous',
-    fontWeight: 'bold',
-  },
-
-  [`& .${classes.buttonNext}`]: {
-    gridArea: 'next',
-  },
-
-  [`& .${classes.buttonResults}`]: {
-    gridArea: 'results',
-    fontWeight: 'bold',
-  },
-
-  [`&.${classes.lastQuestion}`]: {
-    gridTemplateColumns: '25% 25% 25% 25%',
-    gridTemplateRows: 'auto',
-    gridTemplateAreas: `"previous . . results"`,
-  },
 
   [theme.breakpoints.down('sm')]: {
     display: 'grid',
@@ -56,24 +28,36 @@ export const ButtonContainer = styled(Grid)(({ theme }) => ({
     `,
     gap: '0.5rem 0',
     margin: '1rem 0',
-
-    [`& .${classes.buttonPrevious}`]: {
-      width: '100%',
-    },
   },
 }));
+
+const ButtonNext = styled(Button)({
+  gridArea: 'next',
+});
+
+const ButtonPrevious = styled(Button)(({ theme }) => ({
+  gridArea: 'previous',
+  fontWeight: 'bold',
+
+  [theme.breakpoints.down('sm')]: {
+    width: '100%',
+  },
+}));
+
+const ButtonResults = styled(Button)({
+  gridArea: 'results',
+  fontWeight: 'bold',
+});
 
 export const NavigationButtons = ({ errorKey }: { errorKey: string }) => {
   const { t } = useTranslation();
 
   const { goToSearchPage, setRajainValues } = useSearch();
 
-  const {
-    currentQuestionIndex,
-    setCurrentQuestionIndex,
-    lastQuestionIndex,
-    allSelectedRajainValues,
-  } = useOhjaavaHakuContext();
+  const lastQuestionIndex = useQuestionsStore((state) => state.lastQuestionIndex);
+  const { currentQuestionIndex, setCurrentQuestionIndex } = useOhjaavaHaku();
+
+  const { allSelectedRajainValues } = useOhjaavaHaku();
 
   const isFirstQuestion = currentQuestionIndex === 0;
   const isLastQuestion = currentQuestionIndex === lastQuestionIndex;
@@ -97,36 +81,39 @@ export const NavigationButtons = ({ errorKey }: { errorKey: string }) => {
     <ButtonContainer
       item
       xs={12}
-      {...(isLastQuestion && { className: classes.lastQuestion })}>
+      {...(isLastQuestion && {
+        sx: {
+          gridTemplateColumns: '25% 25% 25% 25%',
+          gridTemplateRows: 'auto',
+          gridTemplateAreas: `"previous . . results"`,
+        },
+      })}>
       {!isLastQuestion && (
-        <Button
-          className={classes.buttonNext}
+        <ButtonNext
           onClick={moveToNextQuestion}
           variant="contained"
           color="primary"
           disabled={!isEmpty(errorKey)}>
           {t('ohjaava-haku.seuraava')}
-        </Button>
+        </ButtonNext>
       )}
       {!isFirstQuestion && (
-        <Button
-          className={classes.buttonPrevious}
+        <ButtonPrevious
           onClick={moveToPreviousQuestion}
           variant="outlined"
           color="primary"
           disabled={!isEmpty(errorKey)}>
           {t('ohjaava-haku.edellinen')}
-        </Button>
+        </ButtonPrevious>
       )}
       {
-        <Button
-          className={classes.buttonResults}
+        <ButtonResults
           onClick={seeResults}
           color="primary"
           variant={isLastQuestion ? 'contained' : 'text'}
           disabled={!isEmpty(errorKey)}>
           {t('ohjaava-haku.katso-tulokset')}
-        </Button>
+        </ButtonResults>
       }
     </ButtonContainer>
   );
