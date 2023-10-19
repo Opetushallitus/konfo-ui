@@ -23,7 +23,7 @@ import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { styled, theme } from '#/src/theme';
 import { getLanguage } from '#/src/tools/localization';
 
-import { LanguagePopover } from './LanguagePopover';
+import { LanguageAccordion } from './LanguageAccordion';
 
 const PREFIX = 'Header';
 
@@ -79,7 +79,7 @@ const StyledAppBar = styled(AppBar)(() => ({
   },
 
   [`& .${classes.languageSelector}`]: {
-    marginLeft: 'auto',
+    marginLeft: 'calc(100% - 520px)',
     float: 'left',
   },
 
@@ -150,7 +150,11 @@ export const Header = ({
               <Typography className={classes.menuText}>{t('valikko')}</Typography>
             </Box>
           </IconButton>
-          <Link href="/" title={t('header.siirry-etusivulle')} onClick={refreshSideMenu}>
+          <Link
+            minWidth={'160px'}
+            href="/"
+            title={t('header.siirry-etusivulle')}
+            onClick={refreshSideMenu}>
             <OpintopolkuHeaderLogo focusable="false" aria-hidden="true" height="26px" />
           </Link>
           {showTestiLabel && (
@@ -161,8 +165,8 @@ export const Header = ({
               label={testiLabel}
             />
           )}
-          <Box display="flex" className={classes.languageSelector}>
-            <Hidden smDown>
+          <Hidden smDown>
+            <Box display="flex" className={classes.languageSelector}>
               <Link
                 href={urls.url('oma-opintopolku')}
                 className={classes.omaOpintopolkuLink}
@@ -172,9 +176,16 @@ export const Header = ({
                   {t('oma-opintopolku')}
                 </Typography>
               </Link>
-            </Hidden>
-            <LanguagePopover />
-          </Box>
+              <Box sx={{ position: 'relative' }}>
+                <LanguageAccordion />
+              </Box>
+            </Box>
+          </Hidden>
+          <Hidden smUp>
+            <Box sx={{ position: 'absolute', top: 9, right: 172 }}>
+              <LanguageAccordion />
+            </Box>
+          </Hidden>
         </Toolbar>
       </StyledAppBar>
     </>
