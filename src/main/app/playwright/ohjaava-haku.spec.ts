@@ -107,7 +107,7 @@ test.describe('Ohjaava haku', () => {
       .click();
 
     await page.locator('#maksullinen-vahintaan').fill('1000');
-    await page.locator('#maksullinen-enintaan').fill('10000');
+    await page.locator('#maksullinen-enintaan').fill('10 000');
     await page.getByRole('button', { name: /voin maksaa lukuvuosimaksun./ }).click();
     await page.locator('#lukuvuosimaksu-vahintaan').fill('1000');
     await page.locator('#lukuvuosimaksu-enintaan').fill('10000');
