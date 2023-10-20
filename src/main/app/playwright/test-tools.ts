@@ -66,15 +66,14 @@ export const fixtureFromFile = (fileName: string) => (route: Route) =>
 export const getFixtureData = async (fileName: string) =>
   (await import(getFixturePath(fileName)))?.default;
 
-export const getSectionByHeading = async (
+export const getByHeadingLabel = async (
   loc: Locator | Page,
   headingText: string | RegExp,
   exact: boolean = false
 ) => {
   const label = loc.getByRole('heading', { name: headingText, exact });
-  await label.evaluate((x) => x); // NOTE: Jostain syystä ilman tätä riviä ei toimi oikein. Mahdollisesti Playwrightin bugi?
   const id = await label.getAttribute('id');
-  return loc.locator(`[aria-labelledby="${id}"]`);
+  return loc.locator(`css=[aria-labelledby="${id}"]`);
 };
 
 // For debugging

@@ -4,7 +4,7 @@ import {
   expectURLEndsWith,
   fixtureFromFile,
   getFixtureData,
-  getSectionByHeading,
+  getByHeadingLabel,
   setupCommonTest,
 } from './test-tools';
 
@@ -32,6 +32,8 @@ const mockSuosikit = async (
 const gotoWithInit = async (page: Page, url, init: () => Promise<void>) => {
   await page.goto(url, { waitUntil: 'commit' });
   await init();
+  await page.waitForURL(url), { waitUntil: 'domcontentloaded' };
+  await expect(page.getByRole('progressbar')).toBeHidden();
 };
 
 const initLocalstorage = async (page: Page, oids: Array<string>) => {
@@ -161,12 +163,13 @@ test.describe('Suosikit', () => {
       () => initLocalstorage(page, SUOSIKKI_OIDS)
     );
 
-    const hakukohteetSection = await getSectionByHeading(
+    const hakukohteetSection = await getByHeadingLabel(
       page,
       'Koulutuksen hakukohteet',
       true
     );
-    const yhteishautSection = await getSectionByHeading(hakukohteetSection, 'Yhteishaku');
+
+    const yhteishautSection = await getByHeadingLabel(hakukohteetSection, 'Yhteishaku');
 
     const yhteishakukohteet = yhteishautSection.getByRole('listitem');
 
