@@ -18,6 +18,7 @@ import { useNavigate } from 'react-router-dom';
 import { colors } from '#/src/colors';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MobileLanguageSelection } from '#/src/components/common/MobileLanguageSelection';
 import { Murupolku } from '#/src/components/common/Murupolku';
 import { SidebarValikko } from '#/src/components/common/SidebarValikko';
 import { SIDEMENU_WIDTH } from '#/src/constants';
@@ -174,6 +175,7 @@ export const SideMenu = (props: {
                 {t('oma-opintopolku')}
               </Typography>
             </Link>
+            <MobileLanguageSelection />
           </Box>
         </Hidden>
         <Paper

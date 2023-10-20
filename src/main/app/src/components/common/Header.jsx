@@ -181,11 +181,6 @@ export const Header = ({
               </Box>
             </Box>
           </Hidden>
-          <Hidden smUp>
-            <Box sx={{ position: 'absolute', top: 9, right: 172 }}>
-              <LanguageAccordion />
-            </Box>
-          </Hidden>
         </Toolbar>
       </StyledAppBar>
     </>
