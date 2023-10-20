@@ -60,6 +60,8 @@ const StyledAppBar = styled(AppBar)(() => ({
     marginLeft: 20,
     padding: '0px 5px',
     background: colors.red,
+    position: 'absolute',
+    left: '240px',
   },
 
   [`& .${classes.menuButton}`]: {
