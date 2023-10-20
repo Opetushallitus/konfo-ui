@@ -77,7 +77,7 @@ export const LanguageAccordion = () => {
         </Box>
       </StyledAccordionSummary>
       <StyledAccordionDetials>
-        <MenuList aria-hidden={true}>
+        <MenuList aria-label={t('kielivalinta.valitse-kieli-taman-sivun-kieli-on')}>
           {LANG_NAME_Code_ISOCode.filter(({ code }) => !isEqual(language, code)).map(
             (langCode) => (
               <StyledMenuItem

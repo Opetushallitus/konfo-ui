@@ -33,7 +33,10 @@ export const MobileLanguageSelection = () => {
   };
 
   return (
-    <StyledLangNavList component="menu" aria-hidden={true} dense>
+    <StyledLangNavList
+      component="menu"
+      aria-label={t('kielivalinta.valitse-kieli-taman-sivun-kieli-on')}
+      dense>
       {LANG_NAME_Code_ISOCode.map((langCode) => (
         <ListItem key={langCode.code}>
           <ListItemButton
