@@ -32,7 +32,7 @@ const mockSuosikit = async (
 const gotoWithInit = async (page: Page, url, init: () => Promise<void>) => {
   await page.goto(url, { waitUntil: 'commit' });
   await init();
-  await page.waitForURL(url), { waitUntil: 'domcontentloaded' };
+  await page.waitForURL(url, { waitUntil: 'domcontentloaded' });
   await expect(page.getByRole('progressbar')).toBeHidden();
 };
 
