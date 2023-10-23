@@ -1,0 +1,228 @@
+[
+  {
+    "tila": "julkaistu",
+    "esittely": {
+      "fi": "<p><strong>Ammatillista ja valmentavaa koulutusta nuorille ja aikuisille, jotka tarvitsevat yksilöllistä tukea opintoihinsa.</strong></p><p></p><p>Ammattiopisto Spesia on ammatillinen erityisoppilaitos. Meillä opiskelee vuosittain yli 1390 opiskelijaa.</p><p></p><p>Spesian päätoimipaikat ovat <strong>Jyväskylä</strong>, <strong>Järvenpää</strong>, <strong>Pieksämäki</strong> ja <strong>Turku</strong>. Järjestämme koulutusta myös useilla muilla paikkakunnilla.</p><p></p><p><strong>Kenelle?</strong></p><p></p><p>Opiskelijamme ovat mahtava joukko nuoria ja aikuisia, jotka tarvitsevat yksilöllistä tukea opintoihinsa. Erityisen tuen tarve voi liittyä esimerkiksi oppimisvaikeuksiin, fyysisiin rajoitteisiin tai sosiaalisiin haasteisiin.</p><p></p><p></p><p><strong>Mitä?</strong></p><p></p><p>Spesian monipuolisesta koulutustarjonnasta löydät ammatilliseen perustutkintoon johtavaa koulutusta, valmentavaa koulutusta sekä tuettua oppisopimuskoulutusta. Lisätietoa koulutuksista ja hakemisesta löydät Opintopolusta tai oppilaitoksen sivuilta osoitteesta www.spesia.fi.</p><p></p><p><strong>Miten?</strong></p><p></p><p>Spesiassa asiat opitaan käytännönläheisesti, pienissä ryhmissä. Opetus on selkeää ja asioita kerrataan riittävän monta kertaa.</p><p>Opiskelijan vahvuudet ja tuen tarve huomioidaan yksilöllisesti.</p>"
+    },
+    "logo": "https://konfo-files.opintopolku.fi/oppilaitos-logo/1.2.246.562.10.57547005504/56ce8fe1-cf1d-43d6-8ff3-f4d8db2bd453.png",
+    "toteutusOid": "1.2.246.562.17.00000000000000005375",
+    "jarjestyspaikka": {
+      "nimi": {
+        "sv": "Karins",
+        "fi": "Kaarina",
+        "en": "Kaarina"
+      },
+      "paikkakunta": {
+        "koodiUri": "kunta_202",
+        "nimi": {
+          "fi": "Kaarina",
+          "sv": "St Karins"
+        }
+      },
+      "jarjestaaUrheilijanAmmKoulutusta": false,
+      "oid": "1.2.246.562.10.39101208583"
+    },
+    "nimi": {
+      "fi": "Vauriokorjauksen osaamisala, Ajoneuvoalan perustutkinto (vaativa erityinen tuki)",
+      "sv": "Kompetensområdet för reparation av skador, Grundexamen inom fordonsbranschen (krävande särskilt stöd)"
+    },
+    "hakuajat": [
+      {
+        "formatoituAlkaa": {
+          "fi": "20.2.2024 klo 08:00",
+          "sv": "20.2.2024 kl. 08:00",
+          "en": "Feb. 20, 2024 at 08:00 AM UTC+2"
+        },
+        "alkaa": "2024-02-20T08:00",
+        "paattyy": "2024-03-19T15:00",
+        "formatoituPaattyy": {
+          "fi": "19.3.2024 klo 15:00",
+          "sv": "19.3.2024 kl. 15:00",
+          "en": "Mar. 19, 2024 at 03:00 PM UTC+2"
+        },
+        "hakuAuki": false,
+        "hakuMennyt": false
+      }
+    ],
+    "tutkintonimikkeet": [
+      {
+        "koodiUri": "tutkintonimikkeet_10025",
+        "nimi": {
+          "fi": "Automaalari",
+          "sv": "Billackerare"
+        }
+      },
+      {
+        "koodiUri": "tutkintonimikkeet_10028",
+        "nimi": {
+          "fi": "Varaosamyyjä",
+          "sv": "Reservdelsförsäljare"
+        }
+      },
+      {
+        "koodiUri": "tutkintonimikkeet_10066",
+        "nimi": {
+          "fi": "Automekaanikko",
+          "sv": "Bilmekaniker"
+        }
+      },
+      {
+        "koodiUri": "tutkintonimikkeet_10068",
+        "nimi": {
+          "fi": "Ajoneuvomyyjä",
+          "sv": "Fordonsförsäljare"
+        }
+      },
+      {
+        "koodiUri": "tutkintonimikkeet_10069",
+        "nimi": {
+          "fi": "Pienkonemekaanikko",
+          "sv": "Småmaskinsmekaniker"
+        }
+      },
+      {
+        "koodiUri": "tutkintonimikkeet_10074",
+        "nimi": {
+          "en": "Autokorimekaanikko",
+          "fi": "Autokorimekaanikko",
+          "sv": "Karosseri- och bilplåtsmekaniker"
+        }
+      },
+      {
+        "koodiUri": "tutkintonimikkeet_10079",
+        "nimi": {
+          "fi": "Diagnoosimekaanikko",
+          "sv": "Diagnosmekaniker"
+        }
+      },
+      {
+        "koodiUri": "tutkintonimikkeet_10080",
+        "nimi": {
+          "fi": "Hyötyajoneuvomekaanikko",
+          "sv": "Nyttofordonsmekaniker"
+        }
+      },
+      {
+        "koodiUri": "tutkintonimikkeet_10082",
+        "nimi": {
+          "fi": "Huoltomyyjä",
+          "sv": "Serviceförsäljare"
+        }
+      }
+    ],
+    "hakukohdeOid": "1.2.246.562.20.00000000000000041502"
+  },
+  {
+    "tila": "julkaistu",
+    "esittely": {
+      "fi": "<p><strong>Ammatillista ja valmentavaa koulutusta nuorille ja aikuisille, jotka tarvitsevat yksilöllistä tukea opintoihinsa.</strong></p><p></p><p>Ammattiopisto Spesia on ammatillinen erityisoppilaitos. Meillä opiskelee vuosittain yli 1390 opiskelijaa.</p><p></p><p>Spesian päätoimipaikat ovat <strong>Jyväskylä</strong>, <strong>Järvenpää</strong>, <strong>Pieksämäki</strong> ja <strong>Turku</strong>. Järjestämme koulutusta myös useilla muilla paikkakunnilla.</p><p></p><p><strong>Kenelle?</strong></p><p></p><p>Opiskelijamme ovat mahtava joukko nuoria ja aikuisia, jotka tarvitsevat yksilöllistä tukea opintoihinsa. Erityisen tuen tarve voi liittyä esimerkiksi oppimisvaikeuksiin, fyysisiin rajoitteisiin tai sosiaalisiin haasteisiin.</p><p></p><p></p><p><strong>Mitä?</strong></p><p></p><p>Spesian monipuolisesta koulutustarjonnasta löydät ammatilliseen perustutkintoon johtavaa koulutusta, valmentavaa koulutusta sekä tuettua oppisopimuskoulutusta. Lisätietoa koulutuksista ja hakemisesta löydät Opintopolusta tai oppilaitoksen sivuilta osoitteesta www.spesia.fi.</p><p></p><p><strong>Miten?</strong></p><p></p><p>Spesiassa asiat opitaan käytännönläheisesti, pienissä ryhmissä. Opetus on selkeää ja asioita kerrataan riittävän monta kertaa.</p><p>Opiskelijan vahvuudet ja tuen tarve huomioidaan yksilöllisesti.</p>"
+    },
+    "logo": "https://konfo-files.opintopolku.fi/oppilaitos-logo/1.2.246.562.10.57547005504/56ce8fe1-cf1d-43d6-8ff3-f4d8db2bd453.png",
+    "toteutusOid": "1.2.246.562.17.00000000000000005375",
+    "jarjestyspaikka": {
+      "nimi": {
+        "sv": "Karins",
+        "fi": "Kaarina",
+        "en": "Kaarina"
+      },
+      "paikkakunta": {
+        "koodiUri": "kunta_202",
+        "nimi": {
+          "fi": "Kaarina",
+          "sv": "St Karins"
+        }
+      },
+      "jarjestaaUrheilijanAmmKoulutusta": false,
+      "oid": "1.2.246.562.10.39101208583"
+    },
+    "nimi": {
+      "sv": "Kompetensområdet för fordonsteknik, Grundexamen inom fordonsbranschen (krävande särskilt stöd)",
+      "fi": "Ajoneuvotekniikan osaamisala, Ajoneuvoalan perustutkinto (vaativa erityinen tuki)"
+    },
+    "hakuajat": [
+      {
+        "formatoituAlkaa": {
+          "fi": "20.2.2024 klo 08:00",
+          "sv": "20.2.2024 kl. 08:00",
+          "en": "Feb. 20, 2024 at 08:00 AM UTC+2"
+        },
+        "alkaa": "2024-02-20T08:00",
+        "paattyy": "2024-03-19T15:00",
+        "formatoituPaattyy": {
+          "fi": "19.3.2024 klo 15:00",
+          "sv": "19.3.2024 kl. 15:00",
+          "en": "Mar. 19, 2024 at 03:00 PM UTC+2"
+        },
+        "hakuAuki": false,
+        "hakuMennyt": false
+      }
+    ],
+    "tutkintonimikkeet": [
+      {
+        "koodiUri": "tutkintonimikkeet_10025",
+        "nimi": {
+          "fi": "Automaalari",
+          "sv": "Billackerare"
+        }
+      },
+      {
+        "koodiUri": "tutkintonimikkeet_10028",
+        "nimi": {
+          "fi": "Varaosamyyjä",
+          "sv": "Reservdelsförsäljare"
+        }
+      },
+      {
+        "koodiUri": "tutkintonimikkeet_10066",
+        "nimi": {
+          "fi": "Automekaanikko",
+          "sv": "Bilmekaniker"
+        }
+      },
+      {
+        "koodiUri": "tutkintonimikkeet_10068",
+        "nimi": {
+          "fi": "Ajoneuvomyyjä",
+          "sv": "Fordonsförsäljare"
+        }
+      },
+      {
+        "koodiUri": "tutkintonimikkeet_10069",
+        "nimi": {
+          "fi": "Pienkonemekaanikko",
+          "sv": "Småmaskinsmekaniker"
+        }
+      },
+      {
+        "koodiUri": "tutkintonimikkeet_10074",
+        "nimi": {
+          "en": "Autokorimekaanikko",
+          "fi": "Autokorimekaanikko",
+          "sv": "Karosseri- och bilplåtsmekaniker"
+        }
+      },
+      {
+        "koodiUri": "tutkintonimikkeet_10079",
+        "nimi": {
+          "fi": "Diagnoosimekaanikko",
+          "sv": "Diagnosmekaniker"
+        }
+      },
+      {
+        "koodiUri": "tutkintonimikkeet_10080",
+        "nimi": {
+          "fi": "Hyötyajoneuvomekaanikko",
+          "sv": "Nyttofordonsmekaniker"
+        }
+      },
+      {
+        "koodiUri": "tutkintonimikkeet_10082",
+        "nimi": {
+          "fi": "Huoltomyyjä",
+          "sv": "Serviceförsäljare"
+        }
+      }
+    ],
+    "hakukohdeOid": "1.2.246.562.20.00000000000000041481"
+  }
+]

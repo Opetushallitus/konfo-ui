@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { Box, Grid } from '@mui/material';
+import { uniq } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { SmartLink } from '#/src/components/common/SmartLink';
@@ -44,7 +45,7 @@ const UNEXPANDED_ASIASANA_LIMIT = 10;
 
 const useVisibleAsiasanat = (asiasanat: Array<string>, isExpanded: boolean) => {
   if (isExpanded) {
-    return asiasanat;
+    return uniq(asiasanat);
   } else {
     return asiasanat.slice(0, UNEXPANDED_ASIASANA_LIMIT);
   }
