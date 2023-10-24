@@ -35,7 +35,7 @@ const PainotettuArvosanaList = ({ painotetutArvosanat }: Props) => {
               'pistelaskuri.graafi.painokerroin'
             )}: ${formatDouble(painotettu.painokerroin)}`}
             {PAINOTETUT_OPPIAINEET_LUKIO_KAIKKI_OPTIONS.includes(
-              painotettu.koodit.oppiaine.koodiUri
+              painotettu.koodit.oppiaine.koodiUri.split('#')[0]
             ) && <AllLanguagesTooltip koodiUri={painotettu.koodit.oppiaine.koodiUri} />}
           </Box>
         </ListItem>

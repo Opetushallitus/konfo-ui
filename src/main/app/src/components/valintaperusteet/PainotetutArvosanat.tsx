@@ -78,7 +78,7 @@ export const PainotetutArvosanat = ({ arvosanat }: Props) => {
                     </td>
                     <td>
                       {PAINOTETUT_OPPIAINEET_LUKIO_KAIKKI_OPTIONS.includes(
-                        arvosana.koodit.oppiaine.koodiUri
+                        arvosana.koodit.oppiaine.koodiUri.split('#')[0]
                       ) && (
                         <AllLanguagesTooltip
                           koodiUri={arvosana.koodit.oppiaine.koodiUri}
