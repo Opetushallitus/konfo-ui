@@ -118,6 +118,7 @@ export const LINKED_IDS: Record<string, Array<string>> = {
 export const ORDER_TO_BE_RETAINED_RAJAINIDS: Array<CheckboxRajainId> = [
   RAJAIN_TYPES.KOULUTUSTYYPPI,
 ];
+
 export type RajainBackendItem = {
   id: string;
   filterId: string;
