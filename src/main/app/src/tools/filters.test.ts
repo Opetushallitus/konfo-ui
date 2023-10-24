@@ -1,9 +1,14 @@
 import produce from 'immer';
-import { set, flow } from 'lodash';
+import { set, flow, mapValues } from 'lodash';
 
-import { getStateChangesForCheckboxRajaimet } from './filters';
-import { RAJAIN_TYPES } from '../constants';
-import { CheckboxRajainItem } from '../types/SuodatinTypes';
+import { RAJAIN_TYPES } from '#/src/constants';
+import {
+  HAKUTULOS_INITIAL,
+  HAKU_RAJAIMET_INITIAL,
+} from '#/src/store/reducers/hakutulosSlice';
+import { CheckboxRajainItem } from '#/src/types/SuodatinTypes';
+
+import { getRajainValueInUIFormat, getStateChangesForCheckboxRajaimet } from './filters';
 
 const fpSet = (x: Record<string, any>, path: string, value: any) =>
   produce(x, (draft) => {
@@ -41,7 +46,7 @@ describe('hakutulosSuodattimet utils', () => {
     [baseValues, baseValues[2], { [b]: ['b1'], [c]: ['c2.1', 'c2.2'] }],
     [baseValues, baseValues[2].alakoodit![0], { [c]: ['c2.1'] }],
 
-    // Testataan valinna poisto + yläkoodin valinnan poisto kun alakoodi poistetaan
+    // Testataan valinnan poisto + yläkoodin valinnan poisto kun alakoodi poistetaan
     [
       fpSet(baseValues, '[0].checked', true),
       fpSet(baseValues[0], 'checked', true),
@@ -69,5 +74,51 @@ describe('hakutulosSuodattimet utils', () => {
         item as CheckboxRajainItem
       )
     ).toEqual(expected);
+  });
+
+  test('getRajainValueInUIFormat orders alkamiskausi rajain items by id', () => {
+    expect(
+      getRajainValueInUIFormat(
+        {
+          ...mapValues(HAKUTULOS_INITIAL, (v) => (Array.isArray(v) ? {} : { count: 0 })),
+          alkamiskausi: {
+            henkilokohtainen: {
+              count: 1,
+              nimi: {
+                fi: 'Aloituksesta sovitaan erikseen',
+                sv: 'Inledningen bestäms individuellt',
+                en: 'Start of studies decided individually',
+              },
+            },
+            '2024-syksy': {
+              count: 1,
+              nimi: {
+                fi: 'Koulutus alkaa syksyllä 2024',
+                sv: 'Utbildningen börjar under hösten 2024',
+                en: 'Study programme starts in autumn 2024',
+              },
+            },
+            '2023-syksy': {
+              count: 1,
+              nimi: {
+                fi: 'Koulutus alkaa syksyllä 2023',
+                sv: 'Utbildningen börjar under hösten 2023',
+                en: 'Study programme starts in autumn 2023',
+              },
+            },
+            '2024-kevat': {
+              count: 1,
+              nimi: {
+                fi: 'Koulutus alkaa keväällä 2024',
+                sv: 'Utbildningen börjar under våren 2024',
+                en: 'Study programme starts in spring 2024',
+              },
+            },
+          },
+        },
+        HAKU_RAJAIMET_INITIAL,
+        'alkamiskausi'
+      ).map((item) => item.id)
+    ).toEqual(['2023-syksy', '2024-kevat', '2024-syksy', 'henkilokohtainen']);
   });
 });
