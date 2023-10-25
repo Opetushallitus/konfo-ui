@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from 'react';
 
-import { Alert, Backdrop, Box, Button, Paper, Typography } from '@mui/material';
+import { Alert, Backdrop, Box, Button, Link, Paper, Typography } from '@mui/material';
 import { isEmpty, sortBy } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
@@ -84,7 +84,11 @@ const SuosikkiKortti = ({
       <Typography variant="body1">
         {localize(hakukohdeSuosikki.jarjestyspaikka)}
       </Typography>
-      <Heading variant="h4">{localize(hakukohdeSuosikki.nimi)}</Heading>
+      <Link href={`toteutus/${hakukohdeSuosikki.toteutusOid}`}>
+        <Heading color="primary" variant="h4">
+          {localize(hakukohdeSuosikki.nimi)}
+        </Heading>
+      </Link>
       <Typography>{kuvaus}</Typography>
       <p>{hakukohdeSuosikki.timestamp}</p>
       <Box
