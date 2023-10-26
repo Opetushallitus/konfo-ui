@@ -79,7 +79,7 @@ export type Props = {
   heading?: string;
   tarjoajat?: Array<Organisaatio>;
   yhteystiedot?: Array<YhteystiedotType>;
-  hakijapalveluidenYhteystiedot?: YhteystiedotType;
+  hakijapalveluidenYhteystiedot?: YhteystiedotType | Array<YhteystiedotType>;
   organisaatioidenYhteystiedot?: Array<YhteystiedotType>;
   matchTarjoajat?: boolean;
   some?: Some;
@@ -105,11 +105,7 @@ export const Yhteystiedot = ({
     const organisaatiot = (yhteystiedot || [])
       .concat(organisaatioidenYhteystiedot as any)
       .filter((obj) => hasIn(obj, 'nimi'))
-      .filter(
-        (obj) =>
-          !matchTarjoajat ||
-          tarjoajat?.some((ta) => obj?.nimi?.fi === ta?.nimi?.fi || obj?.oid === ta?.oid)
-      )
+      .filter((obj) => !matchTarjoajat || tarjoajat?.some((ta) => obj?.oid === ta?.oid))
       .filter(Boolean)
       .map(parseYhteystieto(some, wwwSivu))
       .sort(byLocaleCompare('nimi'));

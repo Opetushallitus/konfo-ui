@@ -11,6 +11,7 @@ import { Spacer } from '#/src/components/common/Spacer';
 import { useOppilaitokset } from '#/src/components/oppilaitos/hooks';
 import { Yhteystiedot } from '#/src/components/oppilaitos/Yhteystiedot';
 import { localize } from '#/src/tools/localization';
+import { Yhteystiedot as YhteystiedotType } from '#/src/types/common';
 import { Organisaatio } from '#/src/types/ToteutusTypes';
 
 import { hasYhteystiedot } from '../oppilaitos/hasYhteystiedot';
@@ -72,6 +73,16 @@ export const ToteutuksenYhteystiedot = ({
         ),
     [oppilaitokset]
   );
+
+  const getOppilaitosYhteystiedot = (oppilaitos: any): Array<YhteystiedotType> => {
+    const yhteystiedot = oppilaitos?.oppilaitos?.metadata?.yhteystiedot?.map(
+      (yt: YhteystiedotType) => {
+        return { ...yt, oid: oppilaitos?.oid };
+      }
+    );
+    return yhteystiedot;
+  };
+
   return (
     <>
       {filtered?.length > 0 && (
@@ -125,7 +136,7 @@ export const ToteutuksenYhteystiedot = ({
               <Yhteystiedot
                 id={localize(oppilaitos)}
                 tarjoajat={tarjoajat}
-                {...oppilaitos.metadata}
+                yhteystiedot={getOppilaitosYhteystiedot(oppilaitos)}
                 hakijapalveluidenYhteystiedot={kaytettavatHakijapalveluidenYhteystiedot} //Huom. tämä päätelty kenttä yliajaa oppilaitoken metadatassa mahdollisesti olevat yhteystiedot.
                 organisaatioidenYhteystiedot={filteredOrganisaatioYhteystiedot}
               />
