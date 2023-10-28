@@ -64,6 +64,7 @@ export const LanguageAccordion = () => {
   return (
     <StyledAccordion
       aria-label={t('kielivalinta.valitse-kieli-taman-sivun-kieli-on')}
+      role="button"
       aria-expanded={isOpen}
       disableGutters
       expanded={isOpen}

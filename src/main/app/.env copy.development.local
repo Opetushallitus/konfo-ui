@@ -1,3 +1,4 @@
 # Nämä ovat oletusarvoja. Muokkaa näitä vain, jos haluat muutokset muidenkin käyttöön.
 # Luo itsellesi tiedosto .env.development.local ja muokkaa ympäristömuuttujien arvoja siellä.
-OPINTOPOLKU_PROXY_URL=https://testiopintopolku.fi
+PORT=3005
+OPINTOPOLKU_PROXY_URL=https://opintopolku.fi
