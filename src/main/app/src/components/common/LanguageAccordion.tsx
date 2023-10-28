@@ -26,16 +26,10 @@ const StyledAccordion = styled(Accordion)({
   color: colors.white,
   position: 'absolute',
   minWidth: '170px',
-  '& .Mui-expanded': {
-    outline: '1px solid white',
-  },
 });
 
 const StyledAccordionSummary = styled(AccordionSummary)({
   color: colors.white,
-  '& .Mui-expanded': {
-    outline: 'none',
-  },
 });
 
 const StyledAccordionDetials = styled(AccordionDetails)({
@@ -43,8 +37,13 @@ const StyledAccordionDetials = styled(AccordionDetails)({
 });
 
 const StyledMenuItem = styled(MenuItem)({
-  '& .MuiMenuItem-root': {
-    padding: '10px 0',
+  padding: '10px 0',
+  margin: '0 3px',
+  '&.Mui-focusVisible': {
+    outline: '1px solid white',
+  },
+  '&:hover': {
+    outline: '1px solid white',
   },
 });
 
@@ -62,22 +61,29 @@ export const LanguageAccordion = () => {
     setLanguage?.(langCode);
   };
 
-  console.log(language);
   return (
-    <StyledAccordion role="navigation" disableGutters expanded={isOpen} elevation={0}>
+    <StyledAccordion
+      aria-label={t('kielivalinta.valitse-kieli-taman-sivun-kieli-on')}
+      aria-expanded={isOpen}
+      disableGutters
+      expanded={isOpen}
+      elevation={0}>
       <StyledAccordionSummary
         aria-label={t('kielivalinta.valitse-kieli-taman-sivun-kieli-on')}
+        aria-hidden={true}
         expandIcon={<ExpandMore sx={{ color: colors.white }} />}
         onClick={() => setOpen(!isOpen)}>
         <Box display="flex" flexDirection="row" alignItems="center">
           <MaterialIcon icon="language" sx={{ cursor: 'pointer', marginRight: '9px' }} />
-          <Typography sx={{ color: colors.white, border: 'none' }}>
+          <Typography sx={{ color: colors.white, border: 'none' }} aria-hidden={true}>
             {t(`kielivalinta.header.${language}`)}
           </Typography>
         </Box>
       </StyledAccordionSummary>
       <StyledAccordionDetials>
-        <MenuList aria-label={t('kielivalinta.valitse-kieli-taman-sivun-kieli-on')}>
+        <MenuList
+          role="list"
+          aria-label={t('kielivalinta.valitse-kieli-taman-sivun-kieli-on')}>
           {LANG_NAME_Code_ISOCode.filter(({ code }) => !isEqual(language, code)).map(
             (langCode) => (
               <StyledMenuItem
@@ -87,6 +93,7 @@ export const LanguageAccordion = () => {
                 role="link"
                 onClick={() => handleChange(langCode.code)}>
                 <ListItemText
+                  aria-hidden={true}
                   primary={t(`kielivalinta.header.${langCode.code}`)}
                   primaryTypographyProps={{
                     color: colors.white,
