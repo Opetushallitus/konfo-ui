@@ -8,8 +8,6 @@ import {
   AccordionSummary,
   AccordionDetails,
   Typography,
-  // MenuList,
-  // MenuItem,
   List,
   ListItemButton,
   ListItem,
@@ -39,16 +37,15 @@ const StyledAccordionDetials = styled(AccordionDetails)({
   padding: '10px 0 10px',
 });
 
-// const StyledMenuItem = styled(MenuItem)({
-//   padding: '10px 0',
-//   margin: '0 3px',
-//   '&.Mui-focusVisible': {
-//     outline: '1px solid white',
-//   },
-//   '&:hover': {
-//     outline: '1px solid white',
-//   },
-// });
+const StyledListItemButton = styled(ListItemButton)({
+  margin: '0 3px',
+  '&.Mui-focusVisible': {
+    outline: '1px solid white',
+  },
+  '&:hover': {
+    outline: '1px solid white',
+  },
+});
 
 export const LanguageAccordion = () => {
   const { t } = useTranslation();
@@ -84,34 +81,11 @@ export const LanguageAccordion = () => {
         </Box>
       </StyledAccordionSummary>
       <StyledAccordionDetials>
-        {/* <MenuList
-          role="list"
-          aria-label={t('kielivalinta.valitse-kieli-taman-sivun-kieli-on')}>
-          {LANG_NAME_Code_ISOCode.filter(({ code }) => !isEqual(language, code)).map(
-            (langCode) => (
-              <StyledMenuItem
-                key={langCode.code}
-                aria-label={t(`kielivalinta.${langCode.code}`)}
-                lang={langCode.ISOCode}
-                role="link"
-                onClick={() => handleChange(langCode.code)}>
-                <ListItemText
-                  aria-hidden={true}
-                  primary={t(`kielivalinta.header.${langCode.code}`)}
-                  primaryTypographyProps={{
-                    color: colors.white,
-                    padding: '5px 34px 5px',
-                  }}
-                />
-              </StyledMenuItem>
-            )
-          )}
-        </MenuList> */}
         <List aria-label={t('kielivalinta.valitse-kieli-taman-sivun-kieli-on')}>
           {LANG_NAME_Code_ISOCode.filter(({ code }) => !isEqual(language, code)).map(
             (langCode) => (
-              <ListItem key={langCode.code}>
-                <ListItemButton
+              <ListItem key={langCode.code} sx={{ padding: 0 }}>
+                <StyledListItemButton
                   disabled={isEqual(langCode.code, language)}
                   onClick={() => handleChange(langCode.code)}
                   role="link"
@@ -121,9 +95,10 @@ export const LanguageAccordion = () => {
                     primary={t(`kielivalinta.header.${langCode.code}`)}
                     primaryTypographyProps={{
                       color: colors.white,
+                      paddingLeft: '10px',
                     }}
                   />
-                </ListItemButton>
+                </StyledListItemButton>
               </ListItem>
             )
           )}
