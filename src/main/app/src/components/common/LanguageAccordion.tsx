@@ -59,19 +59,18 @@ export const LanguageAccordion = () => {
       path: '/',
     });
     setLanguage?.(langCode);
+    (document.activeElement as HTMLElement).blur();
   };
 
   return (
     <StyledAccordion
-      aria-label={t('kielivalinta.valitse-kieli-taman-sivun-kieli-on')}
-      role="button"
       aria-expanded={isOpen}
       disableGutters
       expanded={isOpen}
       elevation={0}>
       <StyledAccordionSummary
         aria-label={t('kielivalinta.valitse-kieli-taman-sivun-kieli-on')}
-        aria-hidden={true}
+        role="button"
         expandIcon={<ExpandMore sx={{ color: colors.white }} />}
         onClick={() => setOpen(!isOpen)}>
         <Box display="flex" flexDirection="row" alignItems="center">
