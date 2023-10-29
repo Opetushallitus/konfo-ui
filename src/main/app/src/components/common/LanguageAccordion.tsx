@@ -8,8 +8,11 @@ import {
   AccordionSummary,
   AccordionDetails,
   Typography,
-  MenuList,
-  MenuItem,
+  // MenuList,
+  // MenuItem,
+  List,
+  ListItemButton,
+  ListItem,
 } from '@mui/material';
 import Cookies from 'js-cookie';
 import { isEqual } from 'lodash';
@@ -36,16 +39,16 @@ const StyledAccordionDetials = styled(AccordionDetails)({
   padding: '10px 0 10px',
 });
 
-const StyledMenuItem = styled(MenuItem)({
-  padding: '10px 0',
-  margin: '0 3px',
-  '&.Mui-focusVisible': {
-    outline: '1px solid white',
-  },
-  '&:hover': {
-    outline: '1px solid white',
-  },
-});
+// const StyledMenuItem = styled(MenuItem)({
+//   padding: '10px 0',
+//   margin: '0 3px',
+//   '&.Mui-focusVisible': {
+//     outline: '1px solid white',
+//   },
+//   '&:hover': {
+//     outline: '1px solid white',
+//   },
+// });
 
 export const LanguageAccordion = () => {
   const { t } = useTranslation();
@@ -81,7 +84,7 @@ export const LanguageAccordion = () => {
         </Box>
       </StyledAccordionSummary>
       <StyledAccordionDetials>
-        <MenuList
+        {/* <MenuList
           role="list"
           aria-label={t('kielivalinta.valitse-kieli-taman-sivun-kieli-on')}>
           {LANG_NAME_Code_ISOCode.filter(({ code }) => !isEqual(language, code)).map(
@@ -103,7 +106,28 @@ export const LanguageAccordion = () => {
               </StyledMenuItem>
             )
           )}
-        </MenuList>
+        </MenuList> */}
+        <List aria-label={t('kielivalinta.valitse-kieli-taman-sivun-kieli-on')}>
+          {LANG_NAME_Code_ISOCode.filter(({ code }) => !isEqual(language, code)).map(
+            (langCode) => (
+              <ListItem key={langCode.code}>
+                <ListItemButton
+                  disabled={isEqual(langCode.code, language)}
+                  onClick={() => handleChange(langCode.code)}
+                  role="link"
+                  lang={langCode.ISOCode}
+                  aria-label={t(`kielivalinta.${langCode.code}`)}>
+                  <ListItemText
+                    primary={t(`kielivalinta.header.${langCode.code}`)}
+                    primaryTypographyProps={{
+                      color: colors.white,
+                    }}
+                  />
+                </ListItemButton>
+              </ListItem>
+            )
+          )}
+        </List>
       </StyledAccordionDetials>
     </StyledAccordion>
   );
