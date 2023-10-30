@@ -31,6 +31,12 @@ const StyledAccordion = styled(Accordion)({
 
 const StyledAccordionSummary = styled(AccordionSummary)({
   color: colors.white,
+  '&.Mui-focusVisible': {
+    outline: '1px solid white',
+  },
+  '&:hover': {
+    outline: '1px solid white',
+  },
 });
 
 const StyledAccordionDetials = styled(AccordionDetails)({
@@ -84,14 +90,15 @@ export const LanguageAccordion = () => {
         <List aria-label={t('kielivalinta.valitse-kieli-taman-sivun-kieli-on')}>
           {LANG_NAME_Code_ISOCode.filter(({ code }) => !isEqual(language, code)).map(
             (langCode) => (
-              <ListItem key={langCode.code} sx={{ padding: 0 }}>
+              <ListItem key={langCode.code} sx={{ padding: 0 }} lang={langCode.ISOCode}>
                 <StyledListItemButton
+                  lang={langCode.ISOCode}
                   disabled={isEqual(langCode.code, language)}
                   onClick={() => handleChange(langCode.code)}
                   role="link"
-                  lang={langCode.ISOCode}
                   aria-label={t(`kielivalinta.${langCode.code}`)}>
                   <ListItemText
+                    lang={langCode.ISOCode}
                     primary={t(`kielivalinta.header.${langCode.code}`)}
                     primaryTypographyProps={{
                       color: colors.white,
