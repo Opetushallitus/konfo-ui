@@ -16,6 +16,7 @@ const OptionButton = styled(Button)(({ theme }) => ({
   color: colors.black,
   paddingLeft: '1rem',
   paddingLight: '1rem',
+  textAlign: 'left',
 
   [theme.breakpoints.down('sm')]: {
     width: '100%',
