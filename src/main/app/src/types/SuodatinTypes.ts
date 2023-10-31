@@ -1,6 +1,6 @@
+import { RAJAIN_TYPES } from '#/src/constants';
 import { RajainName, Translateable } from '#/src/types/common';
 
-import { RAJAIN_TYPES } from '../constants';
 import { RajainValues } from '../store/reducers/hakutulosSlice';
 
 export type SetRajainValues = (value: Partial<RajainValues>) => void;
@@ -29,6 +29,7 @@ export interface RajainBase {
   hidden?: boolean;
   nimi?: Translateable;
   linkedIds?: Array<string>;
+  linkedRajainItems?: Array<RajainItem>;
 }
 
 export interface CheckboxRajainBase extends RajainBase {
@@ -98,6 +99,7 @@ const CHECKBOX_RAJAIN_IDS = [
   RAJAIN_TYPES.MAKSULLISUUSTYYPPI,
   RAJAIN_TYPES.ALKAMISKAUSI,
   RAJAIN_TYPES.OPPILAITOS,
+  RAJAIN_TYPES.HAKUALKAAPAIVISSA,
 ] as const;
 
 export type CheckboxRajainId = (typeof CHECKBOX_RAJAIN_IDS)[number];

@@ -139,7 +139,6 @@ export const MurupolkuFragment = ({
         <Link
           href={link ?? (isLast ? window.location.href : undefined)}
           className={classes.link}
-          title={normalizedName}
           onClick={closeDrawer}
           aria-current={isLast ? 'location' : undefined}>
           {isHome && (

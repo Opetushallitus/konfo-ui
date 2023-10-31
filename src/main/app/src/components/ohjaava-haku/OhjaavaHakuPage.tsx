@@ -1,44 +1,65 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 
-import { Box, Button, Typography } from '@mui/material';
+import { Box } from '@mui/material';
+import { has } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
-import * as specs from '#/ohjaava-haku.json';
+import configProd from '#/ohjaava-haku.json';
+import configPlaywright from '#/playwright/ohjaava-haku-test-config.json';
 import { ContentWrapper } from '#/src/components/common/ContentWrapper';
 import { Murupolku } from '#/src/components/common/Murupolku';
 import { useSearch } from '#/src/components/haku/hakutulosHooks';
-import { Heading, HeadingBoundary } from '#/src/components/Heading';
-import { Kysymys, Rajain } from '#/src/components/ohjaava-haku/Kysymys';
-import { getChangedRajaimet } from '#/src/components/ohjaava-haku/utils';
+import { Question } from '#/src/components/ohjaava-haku/Question';
 import { getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
-import { toId } from '#/src/tools/utils';
+import { styled } from '#/src/theme';
+import { isPlaywright } from '#/src/tools/utils';
+
+import {
+  createOhjaavaHakuStore,
+  OhjaavaHakuContext,
+  OhjaavaHakuStore,
+  useOhjaavaHaku,
+} from './hooks/useOhjaavaHaku';
+import { Progress } from './Progress';
+import { StartComponent } from './StartComponent';
+
+type Config = {
+  kysymykset: Array<ConfigItem>;
+};
+
+type ConfigItem = {
+  id: string;
+  useRajainOptionNameFromRajain?: boolean;
+  rajainOptionsToBeRemoved?: Array<string>;
+};
+
+const config: Config = isPlaywright ? configPlaywright : configProd;
+
+const StyledRoot = styled(Box)({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
+});
+
+const QuestionContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'row',
+
+  [theme.breakpoints.down('sm')]: {
+    flexDirection: 'column',
+  },
+}));
 
 export const OhjaavaHaku = () => {
   const { t } = useTranslation();
   const hakuUrl = useSelector(getHakuUrl);
-  const { clearRajainValues } = useSearch();
-  const [allSelectedRajainValues, setAllSelectedRajainValues] = useState<Rajain>({});
-
-  const toggleAllRajainValues = (id: string, rajainId: string) => {
-    setAllSelectedRajainValues(getChangedRajaimet(allSelectedRajainValues, rajainId, id));
-  };
-
+  const isStartOfQuestionnaire = useOhjaavaHaku((s) => s.isStartOfQuestionnaire);
   const ohjaavaHakuTitle = t('ohjaava-haku.otsikko');
-  const [isStartOfKysely, setStartOfKysely] = useState(true);
-  const [currentKysymysIndex, setCurrentKysymysIndex] = useState(0);
-  const lastKysymysIndex = specs.kysymykset.length - 1;
-  const kysymykset = specs.kysymykset;
-  const currentKysymys = kysymykset[currentKysymysIndex];
-
-  const handleClick = () => {
-    setStartOfKysely(false);
-    clearRajainValues();
-  };
 
   return (
     <ContentWrapper>
-      <Box width="100%" alignItems="start">
+      <StyledRoot>
         <Box>
           <Murupolku
             path={[
@@ -47,41 +68,42 @@ export const OhjaavaHaku = () => {
             ]}
           />
         </Box>
-        {isStartOfKysely ? (
-          <Box>
-            <HeadingBoundary>
-              <Heading
-                id={toId(t(ohjaavaHakuTitle))}
-                variant="h2"
-                sx={{ marginTop: '1.5rem', marginBottom: '1.5rem' }}>
-                {ohjaavaHakuTitle}
-              </Heading>
-            </HeadingBoundary>
-            <Typography sx={{ marginBottom: '1.5rem' }}>
-              {t('ohjaava-haku.info-text')}
-            </Typography>
-            <Button
-              onClick={handleClick}
-              variant="contained"
-              color="primary"
-              sx={{ marginBottom: '30%' }}>
-              {t('ohjaava-haku.aloita-kysely')}
-            </Button>
-          </Box>
+        {isStartOfQuestionnaire ? (
+          <StartComponent ohjaavaHakuTitle={ohjaavaHakuTitle} />
         ) : (
-          <Box>
-            <Kysymys
-              kysymys={currentKysymys}
-              currentKysymysIndex={currentKysymysIndex}
-              setCurrentKysymysIndex={setCurrentKysymysIndex}
-              lastKysymysIndex={lastKysymysIndex}
-              toggleAllSelectedRajainValues={toggleAllRajainValues}
-              allSelectedRajainValues={allSelectedRajainValues}
-              setAllSelectedRajainValues={setAllSelectedRajainValues}
-            />
-          </Box>
+          <QuestionContainer>
+            <Progress />
+            <Question />
+          </QuestionContainer>
         )}
-      </Box>
+      </StyledRoot>
     </ContentWrapper>
+  );
+};
+
+export const OhjaavaHakuPage = () => {
+  const { rajainValues } = useSearch();
+
+  const questions = config.kysymykset;
+
+  const questionsWithoutInvalidOptions = questions.filter(({ id }) =>
+    has(rajainValues, id)
+  );
+
+  const lastQuestionIndex = questionsWithoutInvalidOptions.length - 1;
+
+  const storeRef = useRef<OhjaavaHakuStore>();
+
+  if (!storeRef.current) {
+    storeRef.current = createOhjaavaHakuStore({
+      questions: questionsWithoutInvalidOptions,
+      lastQuestionIndex,
+    });
+  }
+
+  return (
+    <OhjaavaHakuContext.Provider value={storeRef.current}>
+      <OhjaavaHaku />
+    </OhjaavaHakuContext.Provider>
   );
 };

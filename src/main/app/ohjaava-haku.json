@@ -1,23 +1,21 @@
 {
   "kysymykset": [
     { "id": "opetusaika" },
-    {
-      "id": "koulutuksenkestokuukausina",
-      "isRajainWithRange": true
-    },
+    { "id": "koulutuksenkestokuukausina" },
     { "id": "opetustapa" },
+    { "id": "maksullisuus" },
+    {
+      "id": "koulutusala",
+      "useRajainOptionNameFromRajain": true
+    },
     {
       "id": "pohjakoulutusvaatimus",
-      "rajainOptionTextFromRajain": true
+      "useRajainOptionNameFromRajain": true
     },
     {
       "id": "alkamiskausi",
-      "rajainOptionTextFromRajain": true,
+      "useRajainOptionNameFromRajain": true,
       "rajainOptionsToBeRemoved": ["henkilokohtainen"]
-    },
-    {
-      "id": "koulutusala",
-      "rajainOptionTextFromRajain": true
     }
   ]
 }

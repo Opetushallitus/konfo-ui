@@ -12,9 +12,6 @@ import { Suodatin } from './Suodatin';
 
 const getRajainProps = ({ id, t }: { id: string; t: TFunction }) =>
   match(id)
-    .with('hakukaynnissa', () => ({
-      header: t('haku.hakukaynnissa-otsikko'),
-    }))
     .with('koulutusala', () => ({ header: t('haku.koulutusalat') }))
     .with('koulutuksenkesto', () => ({ header: t('haku.koulutuksenkestokuukausina') }))
     .with('maksullisuus', () => ({ header: t('maksullisuus') }))

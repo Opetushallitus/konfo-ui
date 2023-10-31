@@ -21,6 +21,13 @@ import { Hakukohde } from '#/src/types/HakukohdeTypes';
 import { Hakutieto } from '#/src/types/ToteutusTypes';
 
 import { AccessibleGraafi } from './AccessibleGraafi';
+import {
+  containsOnlyTodistusvalinta,
+  getStyleByPistetyyppi,
+  getPistetyyppiText,
+  getUniquePistetyypit,
+  getLukioPisteText,
+} from './GraafiUtil';
 import { PainotetutArvosanat } from './PainotetutArvosanat';
 import { PisteGraafi } from './PisteGraafi';
 import { Kouluaineet, kopioiKouluaineetPainokertoimilla } from '../aine/Kouluaine';
@@ -40,8 +47,8 @@ const classes = {
   hakukohdeSelect: `${PREFIX}hakukohdeselect`,
   hakukohdeInput: `${PREFIX}hakukohdeinput`,
   legend: `${PREFIX}legend`,
-  legendScores: `${PREFIX}legend_scores`,
-  legendScore: `${PREFIX}legend_score`,
+  pistetyyppiText: `${PREFIX}pistetyyppitext`,
+  pistetyyppiBox: `${PREFIX}pistetyyppibox`,
 };
 
 const StyledBox = styled(Box)(({ theme }) => ({
@@ -96,23 +103,6 @@ const StyledBox = styled(Box)(({ theme }) => ({
     [theme.breakpoints.down('sm')]: {
       flexDirection: 'column',
     },
-    [`& .${classes.legendScores}`]: {
-      width: '12px',
-      height: '12px',
-      backgroundColor: colors.verminal,
-      marginRight: '12px',
-      verticalAlign: 'middle',
-      display: 'inline-block',
-    },
-    [`& .${classes.legendScore}`]: {
-      width: '19px',
-      height: 0,
-      border: `3px solid ${colors.sunglow}`,
-      marginLeft: '25px',
-      marginRight: '12px',
-      verticalAlign: 'middle',
-      display: 'inline-block',
-    },
   },
 }));
 
@@ -130,10 +120,14 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
       (tieto: Hakutieto) => tieto.hakutapa?.koodiUri?.includes(YHTEISHAKU_KOODI_URI)
     )
     .flatMap((tieto: Hakutieto) => tieto.hakukohteet);
-
   const [hakukohde, setHakukohde] = useState(hakukohteet[0]);
   const [calculatedTulos, setCalculatedTulos] = useState(tulos);
-
+  const [isTodistusvalinta, setTodistusvalinta] = useState(
+    containsOnlyTodistusvalinta(hakukohteet[0])
+  );
+  useEffect(() => {
+    setTodistusvalinta(containsOnlyTodistusvalinta(hakukohde));
+  }, [isTodistusvalinta, hakukohde]);
   useEffect(() => {
     if (
       tulos?.tapa === LaskelmaTapa.LUKUAINEET &&
@@ -196,19 +190,48 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
               hakukohde={hakukohde}
               tulos={calculatedTulos}
               isLukio={isLukio}
+              isTodistusvalinta={isTodistusvalinta}
             />
             <Box className={classes.legend} aria-hidden={true}>
-              <Typography sx={{ fontSize: '0.875rem' }}>
-                <Box className={classes.legendScores} />
-                {t(
-                  isLukio
-                    ? 'pistelaskuri.graafi.alin-keskiarvo'
-                    : 'pistelaskuri.graafi.alin-pisteet'
-                )}
-              </Typography>
+              {getUniquePistetyypit(hakukohde).map((valintatapajonoTyyppi) => (
+                <>
+                  <Typography
+                    className={classes.pistetyyppiText}
+                    sx={{ fontSize: '0.875rem' }}>
+                    <Box
+                      className={classes.pistetyyppiBox}
+                      sx={{
+                        justifyContent: 'center',
+                        width: '12px',
+                        height: '12px',
+                        marginLeft: '24px',
+                        marginRight: '6px',
+                        verticalAlign: 'middle',
+                        display: 'inline-block',
+                        backgroundColor: getStyleByPistetyyppi(valintatapajonoTyyppi),
+                      }}
+                    />
+                    {isLukio
+                      ? getLukioPisteText(valintatapajonoTyyppi, t)
+                      : t('pistelaskuri.graafi.alin-pisteet') +
+                        getPistetyyppiText(valintatapajonoTyyppi, t)}
+                  </Typography>
+                </>
+              ))}
+
               {tulos && (
                 <Typography sx={{ fontSize: '0.875rem' }}>
-                  <Box className={classes.legendScore} />
+                  <Box
+                    sx={{
+                      width: '19px',
+                      height: 0,
+                      border: `3px solid ${colors.sunglow}`,
+                      marginLeft: '25px',
+                      marginRight: '12px',
+                      verticalAlign: 'middle',
+                      display: 'inline-block',
+                    }}
+                  />
                   {t(
                     isLukio
                       ? 'pistelaskuri.graafi.keskiarvosi'

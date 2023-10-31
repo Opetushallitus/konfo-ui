@@ -300,26 +300,45 @@
     "nayta-kaikki-oppilaitos-hakutulokset": "Näytä {{count}} hakuehdoilla löytyvä oppilaitos",
     "nayta-kaikki-oppilaitos-hakutulokset_plural": "Näytä kaikki {{count}} hakuehdoilla löytyvää oppilaitosta",
     "koulutuksenkestokuukausina": "Koulutuksen kesto",
+    "koulutuksen-hinta": "Koulutuksen hinta",
     "lyhenne-vuosi": "v",
     "lyhenne-kuukausi": "kk",
     "alkamiskausi": "Alkamiskausi",
-    "lukuvuosimaksu-tooltip": "Korkeakoulujen lukuvuosimaksut EU-ETA-alueen ulkopuolisille"
+    "lukuvuosimaksu-tooltip": "Korkeakoulujen lukuvuosimaksut EU-ETA-alueen ulkopuolisille",
+    "hakualkaapaivissa": {
+      "30": "Haku alkaa kuukauden kuluessa"
+    },
+    "hakuaika": "Hakuaika"
   },
   "ohjaava-haku": {
     "aloita-kysely": "Käynnistä kysely",
     "edellinen": "Edellinen kysymys",
     "error": {
-      "vahintaan-suurempi-kuin-enintaan": "Koulutuksen minimikeston tulee olla pienempi kuin maksimikesto."
+      "vahintaan-suurempi-kuin-enintaan": "Koulutuksen minimikeston tulee olla pienempi kuin maksimikeston."
     },
     "info-text": "Ei hätää, vastaa ensin muutamaan helppoon kysymykseen. Saat vastaustesi perusteella sinulle valikoidut hakuehdot ja ehdotuksena niihin soveltuvat koulutuspaikat ja oppilaitokset.",
     "katso-tulokset": "Katso tulokset",
+    "question": "Kysymys",
     "kysymykset": {
-      "info-text": "Valitse niin monta vaihtoehtoa kuin haluat. Voit myös ohittaa kysymyksen ja siirtyä seuraavaan.",
+      "info-text": "Voit myös ohittaa kysymyksen ja siirtyä seuraavaan.",
+      "info-text-for-options": "Valitse niin monta vaihtoehtoa kuin haluat. Voit myös ohittaa kysymyksen ja siirtyä seuraavaan.",
       "alkamiskausi": {
         "otsikko": "Milloin haluaisit aloittaa opiskelun?"
       },
       "koulutusala": {
         "otsikko": "Mitkä aihealueet kiinnostavat?"
+      },
+      "maksullisuus": {
+        "otsikko": "Oletko valmis maksamaan koulutuksesta?"
+      },
+      "maksullisuustyyppi": {
+        "vahintaan": "Maksan vähintään",
+        "enintaan": "Maksan enintään",
+        "vaihtoehdot": {
+          "maksuton": "En halua maksaa koulutuksesta.",
+          "maksullinen": "Olen valmis maksamaan koulutuksesta.",
+          "lukuvuosimaksu": "Tulen EU:n ulkopuolelta ja voin maksaa lukuvuosimaksun."
+        }
       },
       "opetusaika": {
         "otsikko": "Milloin voit opiskella?",
@@ -345,7 +364,8 @@
       "pohjakoulutusvaatimus": {
         "otsikko": "Mikä on koulutustaustasi?"
       },
-      "koulutuksen-kesto": {
+      "koulutuksenkestokuukausina": {
+        "otsikko": "Miten paljon voit opiskella?",
         "opiskelen-vahintaan": "Opiskelen vähintään",
         "opiskelen-enintaan": "Opiskelen enintään"
       }
@@ -465,6 +485,7 @@
     "tyyppi-erikoislaakari": "Erikoislaakari",
     "tyyppi-muu": "Muu koulutus",
     "tyyppi-lk": "Lukio",
+    "tyyppi-erikoistumiskoulutus": "Erikoistumiskoulutukset",
     "tarjonta": "Tutustu tarjontaan",
     "haku-kaynnissa": "Haku käynnissä",
     "katso-jarjestavat": "Katso koulutusta järjestävät oppilaitokset.",
@@ -717,15 +738,19 @@
       "info-rohkaisu": "Pistelasku on suuntaa antava. Koulutukseen kannattaa hakea, vaikka pistemääräsi ei olisikaan aiempien vuosien tasolla.",
       "ei-tuloksia": "Hakukohteesta ei ole aiempien vuosien pistetietoja",
       "keskiarvosi": "arvioitu keskiarvosi",
-      "alin-keskiarvo": "sisäänpääsyn alin keskiarvo tai pistemäärä",
+      "alin-keskiarvo": "sisäänpääsyn alin keskiarvo",
       "pisteesi": "arvioitu pistemääräsi",
       "alin-pisteet": "sisäänpääsyn alin pistemäärä",
+      "todistusvalinta": "valintapisteet",
+      "yhteispisteet": "valintapisteet ja pääsykoe",
+      "yhteispisteet-lukio": "keskiarvo + pääsykoe ja/tai lisänäyttö",
+      "koepisteet": "pääsykoe",
       "poista": "Poista tietosi",
       "saavutettavuus": {
         "saate": "Sisäänpääsyn alin pisteraja on ollut kohteelle {{kohde}}",
         "pisteet": "Arvioitu pistemääräsi on {{tulos}}",
         "ka": "Arvioitu keskiarvosi on {{keskiarvo}}",
-        "vuosipiste": "Vuonna {{vuosi}}: {{pisteet}} pistettä.",
+        "vuosipiste": "Vuonna {{vuosi}}: {{pisteet}} pistettä",
         "vuosika": "Vuonna {{vuosi}}: {{pisteet}} keskiarvolla."
       },
       "hakukohde": {

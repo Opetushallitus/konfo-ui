@@ -19,6 +19,13 @@ test.describe('Pistelaskuri KOMOTO', () => {
     await expect(page.locator('#mui-component-select-hakukohde-select')).toHaveText(
       /^Lukion yleislinja/
     );
+    await expect(page.locator('.graafi__container__pistetyyppitext')).toHaveText(
+      /^sisäänpääsyn alin keskiarvo/
+    );
+    await expect(page.locator('.graafi__container__pistetyyppibox')).toHaveCSS(
+      'background-color',
+      'rgb(91, 202, 19)'
+    );
   });
 
   test('Shows keskiarvo dialog', async ({ page }) => {
@@ -102,5 +109,29 @@ test.describe('Pistelaskuri KOMOTO', () => {
     await expect(keskiarvoPalleroTulokset.nth(0)).toHaveText('8');
     await expect(keskiarvoPalleroTulokset.nth(1)).toHaveText('12');
     await expect(keskiarvoPalleroTulokset.nth(2)).toHaveText('10');
+  });
+});
+
+test.describe('Pistelaskuri KOMOTO for yhteispisteet', () => {
+  test.beforeEach(async ({ page, context, baseURL }) => {
+    await setupCommonTest({ page, context, baseURL });
+    await mocksFromFile(page, 'komoto-pistelaskuri.mocks.json');
+    await page.goto('/konfo/fi/toteutus/1.2.246.562.17.00000000000000005701');
+  });
+
+  test('Pistelaskuri KOMOTO renders properly', async ({ page }) => {
+    await expect(page.locator('.PisteContainer__infobox')).toHaveText(
+      /^Edellisvuosien alin hyväksytty pistemäärä, jolla oppilaitokseen on päässyt opiskelemaan./
+    );
+    await expect(page.locator('#mui-component-select-hakukohde-select')).toHaveText(
+      /^Lukion yleislinja/
+    );
+    await expect(page.locator('.graafi__container__pistetyyppitext')).toHaveText(
+      'sisäänpääsyn alin pistemäärä (keskiarvo + pääsykoe ja/tai lisänäyttö)'
+    );
+    await expect(page.locator('.graafi__container__pistetyyppibox')).toHaveCSS(
+      'background-color',
+      'rgb(230, 8, 149)'
+    );
   });
 });

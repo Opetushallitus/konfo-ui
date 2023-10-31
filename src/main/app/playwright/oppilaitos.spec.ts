@@ -24,17 +24,18 @@ test.describe('oppilaitos', () => {
   });
 
   test('some renders properly', async ({ page }) => {
-    const verifySomeLink = async (id: number, url: string) =>
-      await expect(
-        page.locator(`div:nth-child(6) > div:nth-child(${id})`).getByRole('link')
-      ).toHaveAttribute('href', url);
-    await verifySomeLink(1, 'https://facebook.com/aaltouniversity');
-    await verifySomeLink(2, 'https://www.linkedin.com/school/aalto-university/');
-    await verifySomeLink(3, 'https://twitter.com/aaltouniversity');
-    await verifySomeLink(4, 'https://instagram.com/aaltouniversity');
-    await verifySomeLink(5, 'https://www.youtube.com/user/aaltouniversity');
-    await verifySomeLink(6, 'https://www.aalto.fi/snapchat');
-    await verifySomeLink(7, 'https://footube.com');
+    const verifySomeLink = async (name: string, url: string) =>
+      await expect(page.getByRole('link', { name })).toHaveAttribute('href', url);
+    await verifySomeLink('Facebook', 'https://facebook.com/aaltouniversity');
+    await verifySomeLink('Linkedin', 'https://www.linkedin.com/school/aalto-university/');
+    await verifySomeLink('Twitter', 'https://twitter.com/aaltouniversity');
+    await verifySomeLink('Instagram', 'https://instagram.com/aaltouniversity');
+    await verifySomeLink('Youtube', 'https://www.youtube.com/user/aaltouniversity');
+    await verifySomeLink(
+      'https://www.aalto.fi/snapchat',
+      'https://www.aalto.fi/snapchat'
+    );
+    await verifySomeLink('Footube', 'https://footube.com');
     await expect(page.getByLabel('https://blogs.aalto.fi/')).toBeVisible();
     await expect(
       page

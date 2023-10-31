@@ -1,6 +1,6 @@
 import { includes } from 'lodash';
 
-import { HakuKaynnissaSuodatin } from '#/src/components/suodattimet/common/HakuKaynnissaSuodatin';
+import { HakuaikaRajain } from '#/src/components/suodattimet/common/HakuaikaRajain';
 import { HakutapaSuodatin } from '#/src/components/suodattimet/common/HakutapaSuodatin';
 import { OpetuskieliSuodatin } from '#/src/components/suodattimet/common/OpetusKieliSuodatin';
 import { OpetustapaSuodatin } from '#/src/components/suodattimet/common/OpetustapaSuodatin';
@@ -25,8 +25,8 @@ export const useToteutusRajainOrder = ({
 }) => {
   return [
     {
-      id: 'hakukaynnissa',
-      Component: HakuKaynnissaSuodatin,
+      id: 'hakuaika',
+      Component: HakuaikaRajain,
     },
     {
       id: 'alkamiskausi',

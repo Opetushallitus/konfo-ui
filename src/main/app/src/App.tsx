@@ -12,6 +12,7 @@ import { Navigate, Routes, Route, useLocation, useParams } from 'react-router-do
 import { CookieModal } from '#/src/components/common/CookieModal';
 import { SiteImprove } from '#/src/components/common/SiteImprove';
 import { HeadingBoundary } from '#/src/components/Heading';
+import { OhjaavaHakuLink } from '#/src/components/ohjaava-haku/OhjaavaHakuLink';
 import { useSideMenu } from '#/src/hooks';
 import { NotFound } from '#/src/NotFound';
 import { styled } from '#/src/theme';
@@ -28,9 +29,8 @@ import { Hairiotiedote } from './components/Hairiotiedote';
 import { HakuPage } from './components/haku/HakuPage';
 import { Hakupalkki } from './components/haku/Hakupalkki';
 import { KoulutusPage } from './components/koulutus/KoulutusPage';
-import { OhjaavaHaku } from './components/ohjaava-haku/OhjaavaHakuPage';
+import { OhjaavaHakuPage } from './components/ohjaava-haku/OhjaavaHakuPage';
 import { OppilaitosPage } from './components/oppilaitos/OppilaitosPage';
-import { OutlinedButton } from './components/OutlinedButton';
 import { PalautePopup } from './components/palaute/PalautePopup';
 import { Palvelut } from './components/palvelu/Palvelut';
 import { ReactiveBorder } from './components/ReactiveBorder';
@@ -101,16 +101,6 @@ const Root = styled('div')(
     },
   })
 );
-
-const OhjaavaHakuLink = () => {
-  const { t } = useTranslation();
-
-  return (
-    <OutlinedButton href="/ohjaava-haku" color="primary" sx={{ marginTop: 1 }}>
-      {t('ohjaava-haku.otsikko')}
-    </OutlinedButton>
-  );
-};
 
 const KoulutusHakuBar = () => {
   return (
@@ -263,7 +253,7 @@ const TranslatedRoutes = () => {
         path="ohjaava-haku"
         element={
           <>
-            <OhjaavaHaku />
+            <OhjaavaHakuPage />
           </>
         }
       />

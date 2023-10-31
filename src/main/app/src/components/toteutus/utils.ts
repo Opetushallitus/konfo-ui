@@ -4,7 +4,6 @@ import { isEmpty } from 'lodash';
 import { getHakuDemo } from '#/src/api/konfoApi';
 import { Alkamiskausityyppi } from '#/src/constants';
 import { localize } from '#/src/tools/localization';
-import { formatDateString } from '#/src/tools/utils';
 import { Alkamiskausi, Translateable } from '#/src/types/common';
 import { Hakukohde } from '#/src/types/HakukohdeTypes';
 
@@ -27,8 +26,8 @@ export const formatAloitus = (
       };
     case Alkamiskausityyppi.TARKKA_ALKAMISAJANKOHTA:
       return {
-        alkaaText: formatDateString(formatoituKoulutuksenalkamispaivamaara),
-        paattyyText: formatDateString(formatoituKoulutuksenpaattymispaivamaara),
+        alkaaText: localize(formatoituKoulutuksenalkamispaivamaara),
+        paattyyText: localize(formatoituKoulutuksenpaattymispaivamaara),
       };
     case Alkamiskausityyppi.ALKAMISKAUSI_JA_VUOSI:
       return {

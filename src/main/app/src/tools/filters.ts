@@ -48,18 +48,6 @@ const getRajainAlakoodit = (
   }));
 };
 
-export const getRajainOptions = (
-  filters: Record<string, any> | undefined,
-  filterId: string
-) => {
-  const filter = filters?.[filterId];
-  return mapValues(filter, (v, id) => ({
-    ...v,
-    id,
-    filterId,
-  }));
-};
-
 const numberRangeRajain = (
   rajainId: NumberRangeRajainId,
   count: number,

@@ -11,7 +11,6 @@ import { PageSection } from '#/src/components/common/PageSection';
 import { styled } from '#/src/theme';
 import { localize } from '#/src/tools/localization';
 import { useOsoitteet } from '#/src/tools/useOppilaitosOsoite';
-import { formatDateString } from '#/src/tools/utils';
 import { Translateable } from '#/src/types/common';
 import { Hakuaika } from '#/src/types/HakukohdeTypes';
 import { Toteutus } from '#/src/types/ToteutusTypes';
@@ -99,7 +98,7 @@ const HakuaikaRivi = ({
             hakutermi === 'hakeutuminen'
               ? t('toteutus.haku-alkaa:')
               : t('toteutus.ilmoittautuminen-alkaa:'),
-          content: [formatDateString(hakuaika.formatoituAlkaa)],
+          content: [localize(hakuaika.formatoituAlkaa)],
         },
         hakuaika?.formatoituPaattyy && {
           size: 6,
@@ -108,7 +107,7 @@ const HakuaikaRivi = ({
               ? t('toteutus.haku-paattyy:')
               : t('toteutus.ilmoittautuminen-paattyy:'),
           content: [
-            hakuaika.paattyy ? formatDateString(hakuaika.formatoituPaattyy) : '-', // This is needed for the alkuu & paattyy to be rendered on the same row
+            hakuaika.paattyy ? localize(hakuaika.formatoituPaattyy) : '-', // This is needed for the alkuu & paattyy to be rendered on the same row
           ],
         },
       ]}
