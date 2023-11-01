@@ -7,9 +7,9 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
-import { LanguageTab } from '#/src/components/common/LanguageTab';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MobileLanguageSelection } from '#/src/components/common/MobileLanguageSelection';
 import { Murupolku } from '#/src/components/common/Murupolku';
 import { SidebarValikko } from '#/src/components/common/SidebarValikko';
 import { SIDEMENU_WIDTH } from '#/src/constants';
@@ -136,9 +136,7 @@ export const SideMenu = (props: {
       <div className={classes.inputBackground}>
         <Hidden smUp>
           <Box mb={2} display="flex" flexDirection="column" alignItems="flex-start">
-            <Box mb={1}>
-              <LanguageTab />
-            </Box>
+            <Box mb={1}></Box>
             <SuosikitButton onClick={closeMenu} />
             <TextButtonLink
               href={urls.url('oma-opintopolku')}
@@ -146,6 +144,7 @@ export const SideMenu = (props: {
               startIcon={<MaterialIcon icon="apps" />}>
               {t('oma-opintopolku')}
             </TextButtonLink>
+            <MobileLanguageSelection />
           </Box>
         </Hidden>
         <Paper
