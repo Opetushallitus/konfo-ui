@@ -45,7 +45,7 @@ export const LANG_NAME_BY_CODE = {
   en: 'englanti',
 } as const;
 
-export const LANG_NAME_Code_ISOCode = [
+export const LANG_OPTIONS = [
   {
     name: 'suomi',
     code: 'fi',

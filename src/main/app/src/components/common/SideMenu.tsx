@@ -136,7 +136,6 @@ export const SideMenu = (props: {
       <div className={classes.inputBackground}>
         <Hidden smUp>
           <Box mb={2} display="flex" flexDirection="column" alignItems="flex-start">
-            <Box mb={1}></Box>
             <SuosikitButton onClick={closeMenu} />
             <TextButtonLink
               href={urls.url('oma-opintopolku')}

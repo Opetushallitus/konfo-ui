@@ -156,7 +156,7 @@ export const Header = ({
             )}
           </Box>
           <Hidden smDown>
-            <Box display="flex" columnGap={2} sx={{ marginRight: '170px' }}>
+            <Box display="flex" columnGap={2} marginRight="170px">
               <SuosikitButton Component={ToolbarLinkButton} />
               <ToolbarLinkButton
                 href={urls.url('oma-opintopolku')}

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-import { ExpandMore } from '@mui/icons-material';
 import {
   Accordion,
   Box,
@@ -12,13 +11,12 @@ import {
   ListItemButton,
   ListItem,
 } from '@mui/material';
-import Cookies from 'js-cookie';
 import { isEqual } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
-import { LANG_NAME_Code_ISOCode } from '#/src/constants';
+import { LANG_OPTIONS } from '#/src/constants';
 import { useLanguageState } from '#/src/hooks';
 import { styled } from '#/src/theme';
 
@@ -45,7 +43,7 @@ const StyledAccordionSummary = styled(AccordionSummary)({
   },
 });
 
-const StyledAccordionDetials = styled(AccordionDetails)({
+const StyledAccordionDetails = styled(AccordionDetails)({
   padding: '10px 0 10px',
 });
 
@@ -66,10 +64,6 @@ export const LanguageAccordion = () => {
 
   const handleChange = (langCode: string) => {
     setOpen(false);
-    Cookies.set('lang', langCode, {
-      expires: 1800,
-      path: '/',
-    });
     setLanguage?.(langCode);
     (document.activeElement as HTMLElement).blur();
   };
@@ -79,7 +73,7 @@ export const LanguageAccordion = () => {
       <StyledAccordionSummary
         aria-label={t('kielivalinta.valitse-kieli-taman-sivun-kieli-on')}
         role="button"
-        expandIcon={<ExpandMore sx={{ color: colors.white }} />}
+        expandIcon={<MaterialIcon icon="expand_more" sx={{ color: colors.white }} />}
         onClick={() => setOpen(!isOpen)}>
         <Box display="flex" flexDirection="row" alignItems="center">
           <MaterialIcon icon="language" sx={{ cursor: 'pointer', marginRight: '9px' }} />
@@ -88,20 +82,23 @@ export const LanguageAccordion = () => {
           </Typography>
         </Box>
       </StyledAccordionSummary>
-      <StyledAccordionDetials>
+      <StyledAccordionDetails>
         <List aria-label={t('kielivalinta.valitse-kieli-taman-sivun-kieli-on')}>
-          {LANG_NAME_Code_ISOCode.filter(({ code }) => !isEqual(language, code)).map(
-            (langCode) => (
-              <ListItem key={langCode.code} sx={{ padding: 0 }} lang={langCode.ISOCode}>
+          {LANG_OPTIONS.filter(({ code }) => !isEqual(language, code)).map(
+            (langOption) => (
+              <ListItem
+                key={langOption.code}
+                sx={{ padding: 0 }}
+                lang={langOption.ISOCode}>
                 <StyledListItemButton
-                  lang={langCode.ISOCode}
-                  disabled={isEqual(langCode.code, language)}
-                  onClick={() => handleChange(langCode.code)}
+                  lang={langOption.ISOCode}
+                  disabled={isEqual(langOption.code, language)}
+                  onClick={() => handleChange(langOption.code)}
                   role="link"
-                  aria-label={t(`kielivalinta.${langCode.code}`)}>
+                  aria-label={t(`kielivalinta.${langOption.code}`)}>
                   <ListItemText
-                    lang={langCode.ISOCode}
-                    primary={t(`kielivalinta.header.${langCode.code}`)}
+                    lang={langOption.ISOCode}
+                    primary={t(`kielivalinta.header.${langOption.code}`)}
                     primaryTypographyProps={{
                       color: colors.white,
                       paddingLeft: '30px',
@@ -112,7 +109,7 @@ export const LanguageAccordion = () => {
             )
           )}
         </List>
-      </StyledAccordionDetials>
+      </StyledAccordionDetails>
     </StyledAccordion>
   );
 };
