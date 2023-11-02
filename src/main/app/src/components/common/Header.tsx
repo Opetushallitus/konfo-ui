@@ -20,7 +20,7 @@ import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { styled, theme } from '#/src/theme';
 import { getLanguage } from '#/src/tools/localization';
 
-import { LanguageDropDown } from './LanguageDropDown';
+import { LanguageAccordion } from './LanguageAccordion';
 import { SuosikitButton } from './SuosikitButton';
 import { TextButtonLink } from './TextButtonLink';
 
@@ -156,7 +156,7 @@ export const Header = ({
             )}
           </Box>
           <Hidden smDown>
-            <Box display="flex" columnGap={2}>
+            <Box display="flex" columnGap={2} marginRight="170px">
               <SuosikitButton Component={ToolbarLinkButton} />
               <ToolbarLinkButton
                 href={urls.url('oma-opintopolku')}
@@ -164,8 +164,8 @@ export const Header = ({
                 target="_blank">
                 {t('oma-opintopolku')}
               </ToolbarLinkButton>
-              <LanguageDropDown />
             </Box>
+            <LanguageAccordion />
           </Hidden>
         </Toolbar>
       </StyledAppBar>
