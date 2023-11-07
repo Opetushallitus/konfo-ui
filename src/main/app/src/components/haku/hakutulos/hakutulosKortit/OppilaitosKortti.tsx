@@ -26,8 +26,6 @@ export const OppilaitosKortti = ({ oppilaitos, isSmall }: Props) => {
   const { t } = useTranslation();
 
   const paikkakunnatStr = localizeArrayToCommaSeparated(oppilaitos?.paikkakunnat);
-  const kuvaus =
-    localize(oppilaitos?.kuvaus).replace(/<[^>]*>/gm, '') || t('haku.ei_kuvausta');
 
   const tutkintoonJohtavat = oppilaitos?.koulutusohjelmatLkm?.tutkintoonJohtavat;
   const tutkintoonJohtamattomat = oppilaitos?.koulutusohjelmatLkm?.eiTutkintoonJohtavat;
@@ -39,7 +37,7 @@ export const OppilaitosKortti = ({ oppilaitos, isSmall }: Props) => {
       to={`/oppilaitos/${oppilaitos?.oid}`}
       logoElement={<OppilaitosKorttiLogo image={oppilaitos?.logo} alt={logoAltText} />}
       header={localize(oppilaitos)}
-      kuvaus={kuvaus}
+      kuvaus={localize(oppilaitos?.kuvaus)}
       iconTexts={[
         tutkintoonJohtavat
           ? [

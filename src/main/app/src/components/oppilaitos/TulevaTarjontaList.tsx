@@ -1,6 +1,4 @@
-import React from 'react';
-
-import { Typography, Box } from '@mui/material';
+import { Box } from '@mui/material';
 import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
@@ -57,11 +55,10 @@ export const TulevaTarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
     case 'success':
       return isEmpty(values) ? null : (
         <PageSection
-          heading={
-            <Typography variant="h2" id={scrollTargetId}>
-              {t('oppilaitos.tulevat-koulutukset')}
-            </Typography>
-          }>
+          heading={t('oppilaitos.tulevat-koulutukset')}
+          headingProps={{
+            id: scrollTargetId,
+          }}>
           <Box position="relative" sx={{ width: '100%', maxWidth: '900px' }}>
             <OverlayLoadingCircle isLoading={isFetching} />
             <Box flexDirection="column" alignItems="stretch">

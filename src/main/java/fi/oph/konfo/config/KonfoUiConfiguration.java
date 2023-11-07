@@ -81,6 +81,8 @@ public class KonfoUiConfiguration extends OphProperties {
         "konfo-backend.haku.demo", this.require("konfo-backend.haku.demo"));
     this.frontProperties.setProperty(
         "konfo-backend.koodisto.koodit", this.require("konfo-backend.koodisto.koodit"));
+    this.frontProperties.setProperty(
+        "konfo-backend.suosikit", this.require("konfo-backend.suosikit"));
 
     publicConfiguration.naytaFiltterienHakutulosLuvut =
         Boolean.parseBoolean(

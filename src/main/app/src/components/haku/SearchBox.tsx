@@ -124,7 +124,7 @@ export const SearchBox = ({
 }: {
   keyword: string;
   doSearch: (keyword: string) => void;
-  rajaaButton?: JSX.Element | null;
+  rajaaButton?: React.JSX.Element | null;
 }) => {
   const { setSearchPhraseDebounced, isFetching, data } = useAutoComplete();
 

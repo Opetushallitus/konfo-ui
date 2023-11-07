@@ -62,9 +62,9 @@ const iconLookupTable: Record<string, string> = {
 type Props = {
   gridData: Array<{
     id?: string;
-    icon: string | JSX.Element;
+    icon: string | React.JSX.Element;
     title: string;
-    modalText?: JSX.Element | false;
+    modalText?: React.JSX.Element | false;
     text: string;
     testid?: string;
   }>;

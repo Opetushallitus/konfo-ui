@@ -90,9 +90,18 @@
     "naytakaikki": "Näytä kaikki vaihtoehdot"
   },
   "kielivalinta": {
+    "valitse-kieli-taman-sivun-kieli-on": "Valitse kieli, tämän sivun kieli on suomi.",
     "suomi": "Suomeksi",
     "ruotsi": "På svenska",
-    "englanti": "In English"
+    "englanti": "In English",
+    "fi": "Vaihda kieleksi suomi",
+    "sv": "Byt språk till svenska",
+    "en": "Switch language to English",
+    "header": {
+      "fi": "Suomi",
+      "sv": "Svenska",
+      "en": "English"
+    }
   },
   "uutinen": {
     "kategoria": "Uutinen"
@@ -818,5 +827,18 @@
     "tayta-hakulomake": "Täytä hakulomake",
     "ohjeet-hakemiseen": "Ohjeet hakemiseen",
     "tutustu-koulutuksiin": "Tutustu koulutuksiin"
+  },
+  "suosikit": {
+    "otsikko": "Suosikit",
+    "lisaa": "Lisää suosikiksi",
+    "poista": "Poista suosikeista",
+    "tallennettu-hakukohde": "1 tallennettu hakukohde",
+    "tallennettu-hakukohde_plural": "{{count}} tallennettua hakukohdetta",
+    "ei-tallennettuja-hakukohteita": "Ei tallennettuja hakukohteita",
+    "kumoa-poisto": "Kumoa poisto",
+    "suosikki-lisatty": "Hakukohde lisätty suosikiksi",
+    "katso-suosikkejasi": "Katso suosikkejasi",
+    "puuttuvia-suosikkeja": "Joidenkin lisäämiesi suosikkien tietoja ei enää löytynyt. Ne on piilotettu listauksesta.",
+    "poista-puuttuvat": "Poista piilotetut"
   }
 }

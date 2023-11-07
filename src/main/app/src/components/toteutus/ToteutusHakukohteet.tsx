@@ -9,7 +9,18 @@ import {
   Paper,
   Typography,
 } from '@mui/material';
-import { isEmpty, sortBy, toPairs, some, every, map, get, find } from 'lodash';
+import {
+  isEmpty,
+  sortBy,
+  toPairs,
+  some,
+  every,
+  map,
+  get,
+  find,
+  uniqueId,
+  kebabCase,
+} from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
@@ -17,15 +28,16 @@ import { AdditionalInfoWithIcon } from '#/src/components/common/AdditionalInfoWi
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
 import { MaterialIcon, createMaterialIcon } from '#/src/components/common/MaterialIcon';
 import { PageSection } from '#/src/components/common/PageSection';
+import { ToggleSuosikkiButton } from '#/src/components/common/ToggleSuosikkiButton';
 import { useDemoLinks } from '#/src/components/toteutus/hooks';
-import { Hakulomaketyyppi } from '#/src/constants';
+import { Hakulomaketyyppi, TOISEN_ASTEEN_YHTEISHAUN_KOHDEJOUKKO } from '#/src/constants';
 import { styled } from '#/src/theme';
 import { localize } from '#/src/tools/localization';
 import { useOsoitteet } from '#/src/tools/useOppilaitosOsoite';
 import { useUrlParams } from '#/src/tools/useUrlParams';
 import { formatDouble } from '#/src/tools/utils';
 import { Hakukohde } from '#/src/types/HakukohdeTypes';
-import { OppilaitosOsa, Toteutus } from '#/src/types/ToteutusTypes';
+import { Hakutieto, OppilaitosOsa, Toteutus } from '#/src/types/ToteutusTypes';
 
 import { HakutietoTable } from './HakutietoTable';
 import { formatAloitus } from './utils';
@@ -46,6 +58,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     ...theme.typography.h5,
     fontWeight: 700,
     color: colors.black,
+    display: 'inline',
   },
 
   [`& .${classes.lomakeButtonGroup}`]: {
@@ -68,13 +81,17 @@ const getJarjestyspaikkaYhteystiedot = (
   osoitteet: Array<{ oppilaitosOid: string; yhteystiedot: string }>
 ) =>
   osoitteet.find((osoite) => osoite.oppilaitosOid === jarjestyspaikka.oid)?.yhteystiedot;
+
 type GridProps = {
   tyyppiOtsikko: string;
-  icon: JSX.Element;
+  icon: React.JSX.Element;
   toteutus?: Toteutus;
-  hakukohteet: Array<Hakukohde>;
+  hakukohteet: Array<Hakukohde & { kohdejoukko: Hakutieto['kohdejoukko'] }>;
   oppilaitosOsat?: Array<OppilaitosOsa>;
 };
+
+const isToisenAsteenYhteishaku = (hakutieto: { kohdejoukko: Hakutieto['kohdejoukko'] }) =>
+  hakutieto.kohdejoukko?.koodiUri?.includes(TOISEN_ASTEEN_YHTEISHAUN_KOHDEJOUKKO);
 
 const HakuCardGrid = ({
   tyyppiOtsikko,
@@ -115,16 +132,26 @@ const HakuCardGrid = ({
       .map((tp) => localize(tp))
       .join(', ');
   }
+
+  const headingId = uniqueId('heading_' + kebabCase(tyyppiOtsikko));
+
   return (
     <Box marginY={3}>
       <Box ml={2} display="flex" justifyContent="center">
         {icon}
         <Box ml={2}>
-          <Typography variant="h4">{`${tyyppiOtsikko} ( ${hakukohteet.length} )`}</Typography>
+          <Typography
+            id={headingId}
+            variant="h4">{`${tyyppiOtsikko} ( ${hakukohteet.length} )`}</Typography>
         </Box>
       </Box>
       <Box mt={4}>
-        <StyledGrid container spacing={2} justifyContent="center">
+        <StyledGrid
+          role="list"
+          container
+          spacing={2}
+          justifyContent="center"
+          aria-labelledby={headingId}>
           {hakukohteet.map((hakukohde) => {
             const anyHakuaikaPaattyy = hakukohde.hakuajat?.some(
               (hakuaika) => hakuaika.paattyy
@@ -157,32 +184,36 @@ const HakuCardGrid = ({
               : '';
 
             return (
-              <Grid key={hakukohde.hakukohdeOid} item xs={12}>
+              <Grid key={hakukohde.hakukohdeOid} item xs={12} role="listitem">
                 <Paper className={classes.paper}>
                   <Box m={4}>
-                    <Grid container direction="column" spacing={3}>
-                      <Grid item>
-                        <Grid container direction="column" spacing={1}>
-                          <Grid item>
-                            <Typography className={classes.hakuName}>
-                              {localize(hakukohde.nimi)}
-                            </Typography>
-                          </Grid>
-                          <Grid item>
-                            <LocalizedHTML data={hakukohde.hakulomakeKuvaus} noMargin />
-                          </Grid>
-                          {jarjestyspaikka && (
-                            <Grid item>
-                              <Typography variant="body1">{jarjestyspaikka}</Typography>
-                            </Grid>
-                          )}
-                          {jarjestaaUrheilijanAmmKoulutusta && (
+                    <Grid container spacing={3} display="flex" flexDirection="column">
+                      <Grid item display="inline-block" position="relative">
+                        {isToisenAsteenYhteishaku(hakukohde) && (
+                          <ToggleSuosikkiButton
+                            hakukohdeOid={hakukohde.hakukohdeOid}
+                            notifyOnAdd={true}
+                          />
+                        )}
+                        <Typography component="div" className={classes.hakuName}>
+                          {localize(hakukohde.nimi)}
+                        </Typography>
+                        {!isEmpty(hakukohde.hakulomakeKuvaus) && (
+                          <LocalizedHTML data={hakukohde.hakulomakeKuvaus} noMargin />
+                        )}
+                        {jarjestyspaikka && (
+                          <Typography component="div" variant="body1">
+                            {jarjestyspaikka}
+                          </Typography>
+                        )}
+                        {jarjestaaUrheilijanAmmKoulutusta && (
+                          <Box mt={1}>
                             <AdditionalInfoWithIcon
                               translationKey="haku.urheilijan-amm-koulutus"
                               icon={<MaterialIcon icon="sports_soccer" />}
                             />
-                          )}
-                        </Grid>
+                          </Box>
+                        )}
                       </Grid>
                       <Grid item>
                         <Divider />

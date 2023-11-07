@@ -14,7 +14,7 @@ const getRajainProps = ({ id, t }: { id: string; t: TFunction }) =>
   match(id)
     .with('koulutusala', () => ({ header: t('haku.koulutusalat') }))
     .with('koulutuksenkesto', () => ({ header: t('haku.koulutuksenkestokuukausina') }))
-    .with('maksullisuus', () => ({ header: t('maksullisuus') }))
+    .with('maksullisuus', () => ({ header: t('haku.maksullisuus') }))
     .otherwise(() => ({ header: t(`haku.${id}`) }));
 
 export const HakupalkkiFilters = () => {

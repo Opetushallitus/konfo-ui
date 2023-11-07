@@ -1,7 +1,11 @@
 import { includes } from 'lodash';
 
+import { AlkamiskausiSuodatin } from '#/src/components/suodattimet/common/AlkamiskausiSuodatin';
 import { HakuaikaRajain } from '#/src/components/suodattimet/common/HakuaikaRajain';
 import { HakutapaSuodatin } from '#/src/components/suodattimet/common/HakutapaSuodatin';
+import { KoulutuksenKestoSuodatin } from '#/src/components/suodattimet/common/KoulutuksenKestoSuodatin';
+import { MaksullisuusSuodatin } from '#/src/components/suodattimet/common/MaksullisuusSuodatin';
+import { OpetusaikaSuodatin } from '#/src/components/suodattimet/common/OpetusaikaSuodatin';
 import { OpetuskieliSuodatin } from '#/src/components/suodattimet/common/OpetusKieliSuodatin';
 import { OpetustapaSuodatin } from '#/src/components/suodattimet/common/OpetustapaSuodatin';
 import { OppilaitosSuodatin } from '#/src/components/suodattimet/common/OppilaitosSuodatin';
@@ -9,14 +13,9 @@ import { PohjakoulutusvaatimusSuodatin } from '#/src/components/suodattimet/comm
 import { SijaintiSuodatin } from '#/src/components/suodattimet/common/SijaintiSuodatin';
 import { ValintatapaSuodatin } from '#/src/components/suodattimet/common/ValintatapaSuodatin';
 import { AmmOsaamisalatSuodatin } from '#/src/components/suodattimet/toteutusSuodattimet/AmmOsaamisalatSuodatin';
+import { LukiolinjatSuodatin } from '#/src/components/suodattimet/toteutusSuodattimet/LukiolinjatSuodatin';
 import { KOULUTUS_TYYPPI, KORKEAKOULU_KOULUTUSTYYPIT } from '#/src/constants';
 import { RajainComponentProps } from '#/src/types/SuodatinTypes';
-
-import { AlkamiskausiSuodatin } from '../suodattimet/common/AlkamiskausiSuodatin';
-import { KoulutuksenKestoSuodatin } from '../suodattimet/common/KoulutuksenKestoSuodatin';
-import { MaksullisuusSuodatin } from '../suodattimet/common/MaksullisuusSuodatin';
-import { OpetusaikaSuodatin } from '../suodattimet/common/OpetusaikaSuodatin';
-import { LukiolinjatSuodatin } from '../suodattimet/toteutusSuodattimet/LukiolinjatSuodatin';
 
 export const useToteutusRajainOrder = ({
   koulutustyyppi,
@@ -92,7 +91,7 @@ export const useToteutusRajainOrder = ({
     },
   ].filter(Boolean) as Array<{
     id: string;
-    Component: (props: RajainComponentProps) => JSX.Element;
+    Component: (props: RajainComponentProps) => React.JSX.Element;
     props?: RajainComponentProps;
   }>;
 };

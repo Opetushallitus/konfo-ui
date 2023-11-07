@@ -173,7 +173,9 @@ export type Toteutus = {
     string,
     {
       nimi: Translateable;
-      hakukohteet: Array<Hakukohde & { isHakuAuki: boolean; isHakuMennyt: boolean }>;
+      hakukohteet: Array<
+        Hakukohde & { isHakuAuki: boolean; isHakuMennyt: boolean; kohdejoukko: Koodi }
+      >;
     }
   >;
 };

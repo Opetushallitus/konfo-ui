@@ -82,7 +82,7 @@ export const Palvelu = ({ id }: { id: string }) => {
         className={clsx(classes.card, classes[color])}
         key={palvelu.id}
         tabIndex={0}
-        onKeyPress={(event) => {
+        onKeyDown={(event) => {
           if (event.key === 'Enter') {
             forwardToPage();
           }

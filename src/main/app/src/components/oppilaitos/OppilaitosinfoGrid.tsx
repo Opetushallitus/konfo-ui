@@ -17,7 +17,7 @@ type Props = {
 };
 
 type Perustieto = {
-  icon: JSX.Element;
+  icon: React.JSX.Element;
   title: string;
   text: string;
 };
