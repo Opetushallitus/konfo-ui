@@ -1,15 +1,15 @@
 import React from 'react';
 
-import { Button } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { StyledButton } from '#/src/components/ohjaava-haku/common/StyledButton';
 import { styled } from '#/src/theme';
 import { localize } from '#/src/tools/localization';
 import { Translateable } from '#/src/types/common';
 
-const OptionButton = styled(Button)(({ theme }) => ({
+const OptionButton = styled(StyledButton)(({ theme }) => ({
   width: '100%',
   justifyContent: 'start',
   backgroundColor: colors.lightGrayishGreenBg,
@@ -23,7 +23,7 @@ const OptionButton = styled(Button)(({ theme }) => ({
   },
 
   '&:hover': {
-    backgroundColor: '#a5c291',
+    backgroundColor: colors.darkerGrayishGreenBg,
   },
 
   '&[data-selected]': {

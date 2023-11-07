@@ -1,10 +1,11 @@
 import React from 'react';
 
-import { Button, Grid, useMediaQuery, useTheme } from '@mui/material';
+import { Grid, useMediaQuery, useTheme } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { StyledButton } from '#/src/components/ohjaava-haku/common/StyledButton';
 import { styled } from '#/src/theme';
 
 import { useOhjaavaHaku } from './hooks/useOhjaavaHaku';
@@ -47,9 +48,10 @@ export const Progress = () => {
             const isCurrentQuestion = index === currentQuestionIndex;
             const isPastQuestion = index < currentQuestionIndex;
             return (
-              <Button
+              <StyledButton
                 variant={isPastQuestion || isCurrentQuestion ? 'contained' : 'outlined'}
                 disableElevation
+                disableFocusRipple
                 color="primary"
                 sx={{
                   maxWidth: '100%',
@@ -61,6 +63,10 @@ export const Progress = () => {
                     : isPastQuestion
                     ? colors.lightGrayishGreenBg
                     : 'initial',
+                  marginTop: '0.25rem',
+                  '&:hover': {
+                    backgroundColor: colors.darkerGrayishGreenBg,
+                  },
                 }}
                 key={questionId}
                 onClick={() => setCurrentQuestionIndex(index)}
@@ -70,7 +76,7 @@ export const Progress = () => {
                   ),
                 })}>
                 {t(`ohjaava-haku.kysymykset.${questionId}.otsikko`)}
-              </Button>
+              </StyledButton>
             );
           })}
         </ProgressSivupalkki>

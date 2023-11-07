@@ -1,9 +1,10 @@
 import React from 'react';
 
-import { Button, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
+import { StyledButton } from '#/src/components/ohjaava-haku/common/StyledButton';
 import { styled } from '#/src/theme';
 
 import { useOhjaavaHaku } from './hooks/useOhjaavaHaku';
@@ -30,11 +31,11 @@ const ButtonContainer = styled(Grid)(({ theme }) => ({
   },
 }));
 
-const ButtonNext = styled(Button)({
+const ButtonNext = styled(StyledButton)({
   gridArea: 'next',
 });
 
-const ButtonPrevious = styled(Button)(({ theme }) => ({
+const ButtonPrevious = styled(StyledButton)(({ theme }) => ({
   gridArea: 'previous',
   fontWeight: 'bold',
 
@@ -43,7 +44,7 @@ const ButtonPrevious = styled(Button)(({ theme }) => ({
   },
 }));
 
-const ButtonResults = styled(Button)({
+const ButtonResults = styled(StyledButton)({
   gridArea: 'results',
   fontWeight: 'bold',
 });
