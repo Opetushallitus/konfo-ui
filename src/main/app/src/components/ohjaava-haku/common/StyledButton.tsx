@@ -6,6 +6,8 @@ import { colors } from '#/src/colors';
 import { styled } from '#/src/theme';
 
 const AccessibleButton = styled(Button)({
+  fontSize: '1rem',
+
   '&.Mui-focusVisible': {
     color: colors.black,
     background: colors.lightGrayishGreenBg,
