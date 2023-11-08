@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Grid, useMediaQuery, useTheme } from '@mui/material';
+import { Grid, useMediaQuery, useTheme, ButtonProps } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
@@ -26,7 +26,7 @@ const ProgressSivupalkki = styled(Grid)({
   maxWidth: '25%',
 });
 
-export const Progress = () => {
+export const Progress = React.forwardRef<HTMLButtonElement, ButtonProps>((_, ref) => {
   const { currentQuestionIndex, setCurrentQuestionIndex, questions } = useOhjaavaHaku(
     (s) => s
   );
@@ -49,6 +49,7 @@ export const Progress = () => {
             const isPastQuestion = index < currentQuestionIndex;
             return (
               <StyledButton
+                {...(index === 0 && { ref })}
                 variant={isPastQuestion || isCurrentQuestion ? 'contained' : 'outlined'}
                 disableElevation
                 disableFocusRipple
@@ -83,4 +84,4 @@ export const Progress = () => {
       )}
     </>
   );
-};
+});

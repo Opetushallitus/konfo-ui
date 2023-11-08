@@ -56,7 +56,11 @@ export const QuestionInfoText = ({ questionInfo }: { questionInfo: string }) => 
   </Grid>
 );
 
-export const Question = () => {
+export const Question = ({
+  refElement,
+}: {
+  refElement?: React.RefObject<HTMLButtonElement>;
+}) => {
   const { t } = useTranslation();
 
   const { currentQuestionIndex, questions } = useOhjaavaHaku((s) => s);
@@ -108,7 +112,7 @@ export const Question = () => {
             </Grid>
           )}
         </Grid>
-        <NavigationButtons errorKey={errorKey} />
+        <NavigationButtons errorKey={errorKey} refElement={refElement} />
       </QuestionContainer>
     </HeadingBoundary>
   );

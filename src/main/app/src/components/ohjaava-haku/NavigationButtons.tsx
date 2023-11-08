@@ -49,7 +49,19 @@ const ButtonResults = styled(StyledButton)({
   fontWeight: 'bold',
 });
 
-export const NavigationButtons = ({ errorKey }: { errorKey: string }) => {
+const setFocus = (refElement?: React.RefObject<HTMLButtonElement>) => {
+  if (refElement && refElement.current) {
+    refElement.current.focus();
+  }
+};
+
+export const NavigationButtons = ({
+  errorKey,
+  refElement,
+}: {
+  errorKey: string;
+  refElement?: React.RefObject<HTMLButtonElement>;
+}) => {
   const { t } = useTranslation();
 
   const { goToSearchPage, setRajainValues } = useSearch();
@@ -66,11 +78,13 @@ export const NavigationButtons = ({ errorKey }: { errorKey: string }) => {
 
   const moveToNextQuestion = () => {
     setCurrentQuestionIndex(currentQuestionIndex + 1);
+    setFocus(refElement);
     window.scrollTo(0, 0);
   };
 
   const moveToPreviousQuestion = () => {
     setCurrentQuestionIndex(currentQuestionIndex - 1);
+    setFocus(refElement);
     window.scrollTo(0, 0);
   };
 
