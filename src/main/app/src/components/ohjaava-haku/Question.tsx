@@ -20,6 +20,7 @@ export type QuestionType = {
   id: string;
   useRajainOptionNameFromRajain?: boolean;
   rajainOptionsToBeRemoved?: Array<string>;
+  optionOrder?: Array<string>;
 };
 
 export type Rajain = {
@@ -67,7 +68,7 @@ export const Question = ({
   const question = questions[currentQuestionIndex];
 
   const { rajainValues, rajainOptions, isFetching } = useSearch();
-  const { id: questionId } = question;
+  const { id: questionId, optionOrder: rajainOrder } = question;
   const questionTitle = t(`ohjaava-haku.kysymykset.${questionId}.otsikko`);
 
   const rajainItems = useRajainItems(
@@ -75,6 +76,12 @@ export const Question = ({
     rajainValues,
     RAJAIN_TYPES[questionId.toUpperCase() as RajainKey]
   );
+
+  const sortedRajainItems = rajainOrder
+    ? rajainItems.sort(
+        (itemA, itemB) => rajainOrder.indexOf(itemA.id) - rajainOrder.indexOf(itemB.id)
+      )
+    : rajainItems;
 
   const [errorKey, setErrorKey] = useState('');
 
@@ -93,20 +100,20 @@ export const Question = ({
             <Grid item>
               {questionId == 'koulutuksenkestokuukausina' ? (
                 <KoulutuksenKesto
-                  rajainItems={rajainItems}
+                  rajainItems={sortedRajainItems}
                   setErrorKey={setErrorKey}
                   errorKey={errorKey}
                 />
               ) : questionId == 'maksullisuus' ? (
                 <Maksullisuus
-                  rajainItems={rajainItems}
+                  rajainItems={sortedRajainItems}
                   setErrorKey={setErrorKey}
                   errorKey={errorKey}
                 />
               ) : (
                 <QuestionWithOptions
                   currentQuestion={question}
-                  rajainItems={rajainItems}
+                  rajainItems={sortedRajainItems}
                 />
               )}
             </Grid>
