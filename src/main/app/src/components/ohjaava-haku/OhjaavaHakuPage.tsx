@@ -32,6 +32,7 @@ type ConfigItem = {
   id: string;
   useRajainOptionNameFromRajain?: boolean;
   rajainOptionsToBeRemoved?: Array<string>;
+  optionOrder?: Array<string>;
 };
 
 const config: Config = isPlaywright ? configPlaywright : configProd;

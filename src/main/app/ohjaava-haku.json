@@ -3,14 +3,30 @@
     { "id": "opetusaika" },
     { "id": "koulutuksenkestokuukausina" },
     { "id": "opetustapa" },
-    { "id": "maksullisuus" },
+    {
+      "id": "maksullisuus",
+      "optionOrder": ["maksuton", "maksullinen", "lukuvuosimaksu"]
+    },
     {
       "id": "koulutusala",
       "useRajainOptionNameFromRajain": true
     },
     {
       "id": "pohjakoulutusvaatimus",
-      "useRajainOptionNameFromRajain": true
+      "useRajainOptionNameFromRajain": true,
+      "rajainOptionsToBeRemoved": ["pohjakoulutusvaatimuskonfo_001"],
+      "optionOrder": [
+        "pohjakoulutusvaatimuskonfo_pk",
+        "pohjakoulutusvaatimuskonfo_am",
+        "pohjakoulutusvaatimuskonfo_105",
+        "pohjakoulutusvaatimuskonfo_125",
+        "pohjakoulutusvaatimuskonfo_002",
+        "pohjakoulutusvaatimuskonfo_003",
+        "pohjakoulutusvaatimuskonfo_004",
+        "pohjakoulutusvaatimuskonfo_005",
+        "pohjakoulutusvaatimuskonfo_006",
+        "pohjakoulutusvaatimuskonfo_007"
+      ]
     },
     {
       "id": "alkamiskausi",
