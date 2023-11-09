@@ -149,6 +149,19 @@ export const autoCompleteSearch = (requestParams: SearchParams) =>
     params: { lng: getLanguage(), ...cleanRequestParams(requestParams) },
   });
 
+type HakukohdeSuosikki = {
+  hakukohdeOid: string;
+  [x: string]: any;
+};
+
+export const getHakukohdeSuosikit = (requestParams: {
+  'hakukohde-oids': Array<string>;
+}) => {
+  return get<Array<HakukohdeSuosikki>>(urls.url('konfo-backend.suosikit'), {
+    params: requestParams,
+  });
+};
+
 export const postClientError = (errorData: {
   'error-message': string;
   url: string;

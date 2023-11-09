@@ -66,6 +66,8 @@ const MaksullisuusInput = ({
   errorKey: string;
   allSelectedRajainValues: Rajain;
 }) => {
+  const { t } = useTranslation();
+
   const setAllSelectedRajainValues = useOhjaavaHaku((s) => s.setAllSelectedRajainValues);
   const rajainItem = rajainItems?.[0] as NumberRangeRajainItem;
   const undefinedRajainValues = [0, rajainItem?.upperLimit || DEFAULT_UPPERLIMIT];
@@ -128,7 +130,7 @@ const MaksullisuusInput = ({
       .otherwise(() => rangeValues);
 
     newValues[0] > newValues[1]
-      ? setErrorKey('vahintaan-suurempi-kuin-enintaan')
+      ? setErrorKey('minimihinta-suurempi-kuin-maksimihinta')
       : setErrorKey('');
     setRangeValues(newValues);
     setAllSelectedRajainValues({
@@ -138,7 +140,7 @@ const MaksullisuusInput = ({
   };
 
   const unit = () => <MaterialIcon icon="euro_symbol" fontSize="small" />;
-
+  const errorId = 'maksullisuus-error';
   return (
     <Grid container direction="column" wrap="nowrap">
       <InputContainer item container direction="row" wrap="nowrap">
@@ -150,7 +152,10 @@ const MaksullisuusInput = ({
               value={vahintaan}
               handleInputValueChange={handleInputValueChange}
               unitComponent={unit()}
-              inputLabel="euro"
+              ariaLabel={t(
+                'ohjaava-haku.kysymykset.maksullisuustyyppi.vahintaan-accessible-label'
+              )}
+              ariaDescribedby={errorId}
             />
           </InputFieldContainer>
         </InputFieldContainer>
@@ -163,12 +168,15 @@ const MaksullisuusInput = ({
               value={enintaan}
               handleInputValueChange={handleInputValueChange}
               unitComponent={unit()}
-              inputLabel="euro"
+              ariaLabel={t(
+                'ohjaava-haku.kysymykset.maksullisuustyyppi.enintaan-accessible-label'
+              )}
+              ariaDescribedby={errorId}
             />
           </InputFieldContainer>
         </InputFieldContainer>
       </InputContainer>
-      {!isEmpty(errorKey) && <ErrorMessage errorKey={errorKey} />}
+      {!isEmpty(errorKey) && <ErrorMessage id={errorId} errorKey={errorKey} />}
       <Grid item sx={{ mx: 1 }}>
         <MaksullisuusRangeSlider
           rangeValues={rangeValues}

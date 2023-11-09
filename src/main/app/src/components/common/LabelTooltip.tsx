@@ -45,7 +45,7 @@ const Root = styled('div')(() => ({
 }));
 
 type Props = {
-  title: JSX.Element | string;
+  title: React.JSX.Element | string;
   sx?: Record<string, string>;
 };
 

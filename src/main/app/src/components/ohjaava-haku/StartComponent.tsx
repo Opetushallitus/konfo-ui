@@ -1,10 +1,11 @@
 import React from 'react';
 
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { useSearch } from '#/src/components/haku/hakutulosHooks';
 import { Heading, HeadingBoundary } from '#/src/components/Heading';
+import { StyledButton } from '#/src/components/ohjaava-haku/common/StyledButton';
 import { toId } from '#/src/tools/utils';
 
 import { useOhjaavaHaku } from './hooks/useOhjaavaHaku';
@@ -33,13 +34,13 @@ export const StartComponent = ({ ohjaavaHakuTitle }: { ohjaavaHakuTitle: string 
       <Typography sx={{ marginBottom: '1.5rem' }}>
         {t('ohjaava-haku.info-text')}
       </Typography>
-      <Button
+      <StyledButton
         onClick={startQuestionnaire}
         variant="contained"
         color="primary"
         sx={{ marginBottom: '30%' }}>
         {t('ohjaava-haku.aloita-kysely')}
-      </Button>
+      </StyledButton>
     </Box>
   );
 };

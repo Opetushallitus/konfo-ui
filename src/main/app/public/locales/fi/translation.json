@@ -90,9 +90,18 @@
     "naytakaikki": "Näytä kaikki vaihtoehdot"
   },
   "kielivalinta": {
+    "valitse-kieli-taman-sivun-kieli-on": "Valitse kieli, tämän sivun kieli on suomi.",
     "suomi": "Suomeksi",
     "ruotsi": "På svenska",
-    "englanti": "In English"
+    "englanti": "In English",
+    "fi": "Vaihda kieleksi suomi",
+    "sv": "Byt språk till svenska",
+    "en": "Switch language to English",
+    "header": {
+      "fi": "Suomi",
+      "sv": "Svenska",
+      "en": "English"
+    }
   },
   "uutinen": {
     "kategoria": "Uutinen"
@@ -314,7 +323,8 @@
     "aloita-kysely": "Käynnistä kysely",
     "edellinen": "Edellinen kysymys",
     "error": {
-      "vahintaan-suurempi-kuin-enintaan": "Koulutuksen minimikeston tulee olla pienempi kuin maksimikeston."
+      "minimikesto-suurempi-kuin-maksimikesto": "Koulutuksen minimikeston tulee olla pienempi kuin maksimikeston.",
+      "minimihinta-suurempi-kuin-maksimihinta": "Koulutuksen minimihinnan tulee olla pienempi kuin maksimihinnan."
     },
     "info-text": "Ei hätää, vastaa ensin muutamaan helppoon kysymykseen. Saat vastaustesi perusteella sinulle valikoidut hakuehdot ja ehdotuksena niihin soveltuvat koulutuspaikat ja oppilaitokset.",
     "katso-tulokset": "Katso tulokset",
@@ -334,6 +344,8 @@
       "maksullisuustyyppi": {
         "vahintaan": "Maksan vähintään",
         "enintaan": "Maksan enintään",
+        "vahintaan-accessible-label": "Maksan koulutuksesta vähintään euroa",
+        "enintaan-accessible-label": "Maksan koulutuksesta enintään euroa",
         "vaihtoehdot": {
           "maksuton": "En halua maksaa koulutuksesta.",
           "maksullinen": "Olen valmis maksamaan koulutuksesta.",
@@ -367,7 +379,11 @@
       "koulutuksenkestokuukausina": {
         "otsikko": "Miten paljon voit opiskella?",
         "opiskelen-vahintaan": "Opiskelen vähintään",
-        "opiskelen-enintaan": "Opiskelen enintään"
+        "opiskelen-enintaan": "Opiskelen enintään",
+        "opiskelen-vahintaan-vuotta-accessible-label": "Opiskelen vähintään vuotta",
+        "opiskelen-vahintaan-kk-accessible-label": "Opiskelen vähintään kuukautta",
+        "opiskelen-enintaan-vuotta-accessible-label": "Opiskelen enintään vuotta",
+        "opiskelen-enintaan-kk-accessible-label": "Opiskelen enintään kuukautta"
       }
     },
     "otsikko": "En tiedä mitä haluaisin opiskella",
@@ -818,5 +834,18 @@
     "tayta-hakulomake": "Täytä hakulomake",
     "ohjeet-hakemiseen": "Ohjeet hakemiseen",
     "tutustu-koulutuksiin": "Tutustu koulutuksiin"
+  },
+  "suosikit": {
+    "otsikko": "Suosikit",
+    "lisaa": "Lisää suosikiksi",
+    "poista": "Poista suosikeista",
+    "tallennettu-hakukohde": "1 tallennettu hakukohde",
+    "tallennettu-hakukohde_plural": "{{count}} tallennettua hakukohdetta",
+    "ei-tallennettuja-hakukohteita": "Ei tallennettuja hakukohteita",
+    "kumoa-poisto": "Kumoa poisto",
+    "suosikki-lisatty": "Hakukohde lisätty suosikiksi",
+    "katso-suosikkejasi": "Katso suosikkejasi",
+    "puuttuvia-suosikkeja": "Joidenkin lisäämiesi suosikkien tietoja ei enää löytynyt. Ne on piilotettu listauksesta.",
+    "poista-puuttuvat": "Poista piilotetut"
   }
 }

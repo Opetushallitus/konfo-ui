@@ -5,12 +5,11 @@ import { t } from 'i18next';
 
 import { colors } from '#/src/colors';
 import { FilterSearchResultsButton } from '#/src/components/common/FilterSearchResultsButton';
+import { MobileRajainDrawer } from '#/src/components/common/MobileRajainDrawer';
+import { useToteutusRajainOrder } from '#/src/hooks/useToteutusRajainOrder';
 import { RajainValues } from '#/src/store/reducers/hakutulosSlice';
 import { RajainName } from '#/src/types/common';
 import { SetRajainValues } from '#/src/types/SuodatinTypes';
-
-import { MobileRajainDrawer } from '../../common/MobileRajainDrawer';
-import { useToteutusRajainOrder } from '../../koulutus/useToteutusRajainOrder';
 
 type Props = {
   koulutustyyppi: string;

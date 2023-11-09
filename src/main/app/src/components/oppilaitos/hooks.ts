@@ -92,15 +92,15 @@ type UseOppilaitoksetProps = {
 
 export const useOppilaitokset = ({
   oids,
+  // TODO: Poista isOppilaitosOsa-parametri ja refaktoroi oppilaitosten/osien käsittely järkevämmäksi.
   isOppilaitosOsa,
   isDraft,
 }: UseOppilaitoksetProps) => {
   const results = useQueries(
     oids.map((oid) => ({
-      queryKey: ['getOppilaitos', { oid, isOppilaitosOsa, isDraft }],
-      queryFn: isOppilaitosOsa
-        ? () => getOppilaitosOsa(oid, isDraft)
-        : () => getOppilaitos(oid, isDraft),
+      queryKey: ['getOppilaitos', { oid, isDraft }],
+      // NOTE: getOppilaitos palauttaa myös oppilaitoksen osia, jos oideilla niitä löytyy
+      queryFn: () => getOppilaitos(oid, isDraft),
       refetchOnMount: false,
       retryOnMount: false,
     }))

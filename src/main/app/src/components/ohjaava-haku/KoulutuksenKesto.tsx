@@ -101,7 +101,9 @@ export const KoulutuksenKesto = ({
 
     const newMin = newValues[0];
     const newMax = newValues[1];
-    newMin > newMax ? setErrorKey('vahintaan-suurempi-kuin-enintaan') : setErrorKey('');
+    newMin > newMax
+      ? setErrorKey('minimikesto-suurempi-kuin-maksimikesto')
+      : setErrorKey('');
     setRangeValues(newValues);
     setAllSelectedRajainValues({
       ...allSelectedRajainValues,
@@ -113,6 +115,7 @@ export const KoulutuksenKesto = ({
   };
 
   const unit = (id: string) => <Typography>{t(`haku.lyhenne-${id}`)}</Typography>;
+  const errorId = 'koulutuksen-kesto-error';
 
   return (
     <Grid container direction="column" wrap="nowrap">
@@ -126,14 +129,20 @@ export const KoulutuksenKesto = ({
               value={vahintaan[0]}
               handleInputValueChange={handleInputValueChange}
               unitComponent={unit('vuosi')}
-              inputLabel="vuosi"
+              ariaLabel={t(
+                'ohjaava-haku.kysymykset.koulutuksenkestokuukausina.opiskelen-vahintaan-vuotta-accessible-label'
+              )}
+              ariaDescribedby={errorId}
             />
             <InputWithUnit
               id="vahintaan-kk"
               value={vahintaan[1]}
               handleInputValueChange={handleInputValueChange}
               unitComponent={unit('kuukausi')}
-              inputLabel="kuukausi"
+              ariaLabel={t(
+                'ohjaava-haku.kysymykset.koulutuksenkestokuukausina.opiskelen-vahintaan-kk-accessible-label'
+              )}
+              ariaDescribedby={errorId}
             />
           </InputFieldContainer>
         </InputFieldContainer>
@@ -146,19 +155,25 @@ export const KoulutuksenKesto = ({
               value={enintaan[0]}
               handleInputValueChange={handleInputValueChange}
               unitComponent={unit('vuosi')}
-              inputLabel="vuosi"
+              ariaLabel={t(
+                'ohjaava-haku.kysymykset.koulutuksenkestokuukausina.opiskelen-enintaan-vuotta-accessible-label'
+              )}
+              ariaDescribedby={errorId}
             />
             <InputWithUnit
               id="enintaan-kk"
               value={enintaan[1]}
               handleInputValueChange={handleInputValueChange}
               unitComponent={unit('kuukausi')}
-              inputLabel="kuukausi"
+              ariaLabel={t(
+                'ohjaava-haku.kysymykset.koulutuksenkestokuukausina.opiskelen-enintaan-kk-accessible-label'
+              )}
+              ariaDescribedby={errorId}
             />
           </InputFieldContainer>
         </InputFieldContainer>
       </InputContainer>
-      {!isEmpty(errorKey) && <ErrorMessage errorKey={errorKey} />}
+      {!isEmpty(errorKey) && <ErrorMessage id={errorId} errorKey={errorKey} />}
       <KoulutuksenKestoSlider
         rangeValues={rangeValues}
         undefinedRajainValues={undefinedRajainValues}

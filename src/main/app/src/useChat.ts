@@ -40,7 +40,7 @@ export const useChat = () => {
       );
       script.src = 'https://occhat.elisa.fi/chatserver//Scripts/oc-chat-v2.js';
 
-      if (document.domain === 'opintopolku.fi') {
+      if (location.hostname === 'opintopolku.fi') {
         script.setAttribute(
           'data-oc-service',
           '0e8747a9-e9c5-4988-bdfb-f52371da5eea-180-88756EB48B5E580FE8993DCDF914B33E8F2DA18D'
