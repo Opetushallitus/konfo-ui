@@ -323,7 +323,8 @@
     "aloita-kysely": "Käynnistä kysely",
     "edellinen": "Edellinen kysymys",
     "error": {
-      "vahintaan-suurempi-kuin-enintaan": "Koulutuksen minimikeston tulee olla pienempi kuin maksimikeston."
+      "minimikesto-suurempi-kuin-maksimikesto": "Koulutuksen minimikeston tulee olla pienempi kuin maksimikeston.",
+      "minimihinta-suurempi-kuin-maksimihinta": "Koulutuksen minimihinnan tulee olla pienempi kuin maksimihinnan."
     },
     "info-text": "Ei hätää, vastaa ensin muutamaan helppoon kysymykseen. Saat vastaustesi perusteella sinulle valikoidut hakuehdot ja ehdotuksena niihin soveltuvat koulutuspaikat ja oppilaitokset.",
     "katso-tulokset": "Katso tulokset",
@@ -343,6 +344,8 @@
       "maksullisuustyyppi": {
         "vahintaan": "Maksan vähintään",
         "enintaan": "Maksan enintään",
+        "vahintaan-accessible-label": "Maksan koulutuksesta vähintään euroa",
+        "enintaan-accessible-label": "Maksan koulutuksesta enintään euroa",
         "vaihtoehdot": {
           "maksuton": "En halua maksaa koulutuksesta.",
           "maksullinen": "Olen valmis maksamaan koulutuksesta.",
@@ -376,7 +379,11 @@
       "koulutuksenkestokuukausina": {
         "otsikko": "Miten paljon voit opiskella?",
         "opiskelen-vahintaan": "Opiskelen vähintään",
-        "opiskelen-enintaan": "Opiskelen enintään"
+        "opiskelen-enintaan": "Opiskelen enintään",
+        "opiskelen-vahintaan-vuotta-accessible-label": "Opiskelen vähintään vuotta",
+        "opiskelen-vahintaan-kk-accessible-label": "Opiskelen vähintään kuukautta",
+        "opiskelen-enintaan-vuotta-accessible-label": "Opiskelen enintään vuotta",
+        "opiskelen-enintaan-kk-accessible-label": "Opiskelen enintään kuukautta"
       }
     },
     "otsikko": "En tiedä mitä haluaisin opiskella",

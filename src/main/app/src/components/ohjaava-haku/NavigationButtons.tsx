@@ -109,7 +109,8 @@ export const NavigationButtons = ({
           onClick={moveToNextQuestion}
           variant="contained"
           color="primary"
-          disabled={!isEmpty(errorKey)}>
+          disabled={!isEmpty(errorKey)}
+          aria-disabled={!isEmpty(errorKey)}>
           {t('ohjaava-haku.seuraava')}
         </ButtonNext>
       )}
@@ -118,7 +119,8 @@ export const NavigationButtons = ({
           onClick={moveToPreviousQuestion}
           variant="outlined"
           color="primary"
-          disabled={!isEmpty(errorKey)}>
+          disabled={!isEmpty(errorKey)}
+          aria-disabled={!isEmpty(errorKey)}>
           {t('ohjaava-haku.edellinen')}
         </ButtonPrevious>
       )}
@@ -127,7 +129,8 @@ export const NavigationButtons = ({
           onClick={seeResults}
           color="primary"
           variant={isLastQuestion ? 'contained' : 'text'}
-          disabled={!isEmpty(errorKey)}>
+          disabled={!isEmpty(errorKey)}
+          aria-disabled={!isEmpty(errorKey)}>
           {t('ohjaava-haku.katso-tulokset')}
         </ButtonResults>
       }
