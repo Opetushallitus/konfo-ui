@@ -13,13 +13,14 @@ import { useSearch } from '../../components/haku/hakutulosHooks';
 const ButtonContainer = styled(Grid)(({ theme }) => ({
   margin: '1rem 0',
   display: 'grid',
-  gridTemplateColumns: '25% 25% 25% 25%',
+  gridTemplateColumns: '25fr 25fr 25fr 25fr',
   gridTemplateRows: 'auto',
   gridTemplateAreas: `"previous . results next"`,
+  gridGap: '1rem',
 
   [theme.breakpoints.down('sm')]: {
     display: 'grid',
-    gridTemplateColumns: '25% 25% 25% 25%',
+    gridTemplateColumns: '25fr 25fr 25fr 25fr',
     gridTemplateRows: 'auto',
     gridTemplateAreas: `
       "next next next next"
