@@ -5,6 +5,7 @@ import {
   getChangedKestoInMonths,
   getYearsAndMonthsFromRangeValue,
   combineMaksunMaaraWithMaksullisuustyyppi,
+  getRajainOptionsToShow,
 } from './utils';
 
 describe('getChangedRajaimet', () => {
@@ -305,5 +306,365 @@ describe('combineMaksunMaaraWithMaksullisuustyyppi', () => {
       },
     ];
     expect(combineMaksunMaaraWithMaksullisuustyyppi(rajainItems)).toEqual(result);
+  });
+});
+
+describe('getRajainOptionsToShow', () => {
+  test('should remove etä- ja monimuoto-opetus from rajain items', () => {
+    const rajainItems = [
+      {
+        id: 'opetuspaikkakk_1',
+        rajainId: 'opetustapa',
+        nimi: {
+          fi: 'Lähiopetus',
+          sv: 'Närundervisning',
+          en: 'Contact teaching',
+        },
+      },
+      {
+        id: 'opetuspaikkakk_2',
+        rajainId: 'opetustapa',
+        nimi: {
+          sv: 'Distansundervisning',
+          en: 'Distance teaching',
+          fi: 'Etäopetus',
+        },
+      },
+      {
+        id: 'opetuspaikkakk_3',
+        rajainId: 'opetustapa',
+        nimi: {
+          fi: 'Verkko-opetus',
+          sv: 'Nätundervisning',
+          en: 'Online teaching',
+        },
+      },
+      {
+        id: 'opetuspaikkakk_4',
+        rajainId: 'opetustapa',
+        nimi: {
+          fi: 'Monimuoto',
+          sv: 'Flerform',
+          en: 'Blended teaching',
+        },
+      },
+      {
+        id: 'opetuspaikkakk_5',
+        rajainId: 'opetustapa',
+        nimi: {
+          fi: 'Itsenäinen opiskelu',
+          en: 'Independent learning',
+          sv: 'Självständiga studier',
+        },
+      },
+    ] as Array<RajainItem>;
+
+    const rajainOptionsToBeRemoved = ['opetuspaikkakk_4', 'opetuspaikkakk_2'];
+
+    const result = [
+      {
+        id: 'opetuspaikkakk_1',
+        rajainId: 'opetustapa',
+        nimi: {
+          fi: 'Lähiopetus',
+          sv: 'Närundervisning',
+          en: 'Contact teaching',
+        },
+      },
+      {
+        id: 'opetuspaikkakk_3',
+        rajainId: 'opetustapa',
+        nimi: {
+          fi: 'Verkko-opetus',
+          sv: 'Nätundervisning',
+          en: 'Online teaching',
+        },
+      },
+      {
+        id: 'opetuspaikkakk_5',
+        rajainId: 'opetustapa',
+        nimi: {
+          fi: 'Itsenäinen opiskelu',
+          en: 'Independent learning',
+          sv: 'Självständiga studier',
+        },
+      },
+    ];
+    expect(
+      getRajainOptionsToShow(rajainItems, rajainOptionsToBeRemoved, undefined)
+    ).toEqual(result);
+  });
+
+  test('should remove monimuoto-opetus from rajain items and combine etä- ja verkko-opetus under combined etäopetus', () => {
+    const rajainItems = [
+      {
+        id: 'opetuspaikkakk_1',
+        rajainId: 'opetustapa',
+        nimi: {
+          fi: 'Lähiopetus',
+          sv: 'Närundervisning',
+          en: 'Contact teaching',
+        },
+      },
+      {
+        id: 'opetuspaikkakk_2',
+        rajainId: 'opetustapa',
+        nimi: {
+          sv: 'Distansundervisning',
+          en: 'Distance teaching',
+          fi: 'Etäopetus',
+        },
+      },
+      {
+        id: 'opetuspaikkakk_3',
+        rajainId: 'opetustapa',
+        nimi: {
+          fi: 'Verkko-opetus',
+          sv: 'Nätundervisning',
+          en: 'Online teaching',
+        },
+      },
+      {
+        id: 'opetuspaikkakk_4',
+        rajainId: 'opetustapa',
+        nimi: {
+          fi: 'Monimuoto',
+          sv: 'Flerform',
+          en: 'Blended teaching',
+        },
+      },
+      {
+        id: 'opetuspaikkakk_5',
+        rajainId: 'opetustapa',
+        nimi: {
+          fi: 'Itsenäinen opiskelu',
+          en: 'Independent learning',
+          sv: 'Självständiga studier',
+        },
+      },
+    ] as Array<RajainItem>;
+
+    const rajainOptionsToBeRemoved = ['opetuspaikkakk_4'];
+    const rajainOptionsToBeCombined = [
+      {
+        translationKey: 'combined_etaopetus',
+        rajainKoodiuris: ['opetuspaikkakk_2', 'opetuspaikkakk_3'],
+      },
+    ];
+
+    const result = [
+      {
+        id: 'opetuspaikkakk_1',
+        rajainId: 'opetustapa',
+        nimi: {
+          fi: 'Lähiopetus',
+          sv: 'Närundervisning',
+          en: 'Contact teaching',
+        },
+      },
+      {
+        id: 'opetuspaikkakk_5',
+        rajainId: 'opetustapa',
+        nimi: {
+          fi: 'Itsenäinen opiskelu',
+          en: 'Independent learning',
+          sv: 'Självständiga studier',
+        },
+      },
+      {
+        id: 'combined_etaopetus',
+        rajainIds: ['opetuspaikkakk_2', 'opetuspaikkakk_3'],
+        rajainId: 'opetustapa',
+      },
+    ];
+    expect(
+      getRajainOptionsToShow(
+        rajainItems,
+        rajainOptionsToBeRemoved,
+        rajainOptionsToBeCombined
+      )
+    ).toEqual(result);
+  });
+
+  test('should combine lähi-, etä- ja monimuoto-opetus under combined_monimuoto and verkko- ja itsenäinen  opiskelu under combined_etäopiskelu', () => {
+    const rajainItems = [
+      {
+        id: 'opetuspaikkakk_1',
+        rajainId: 'opetustapa',
+        nimi: {
+          fi: 'Lähiopetus',
+          sv: 'Närundervisning',
+          en: 'Contact teaching',
+        },
+      },
+      {
+        id: 'opetuspaikkakk_2',
+        rajainId: 'opetustapa',
+        nimi: {
+          sv: 'Distansundervisning',
+          en: 'Distance teaching',
+          fi: 'Etäopetus',
+        },
+      },
+      {
+        id: 'opetuspaikkakk_3',
+        rajainId: 'opetustapa',
+        nimi: {
+          fi: 'Verkko-opetus',
+          sv: 'Nätundervisning',
+          en: 'Online teaching',
+        },
+      },
+      {
+        id: 'opetuspaikkakk_4',
+        rajainId: 'opetustapa',
+        nimi: {
+          fi: 'Monimuoto',
+          sv: 'Flerform',
+          en: 'Blended teaching',
+        },
+      },
+      {
+        id: 'opetuspaikkakk_5',
+        rajainId: 'opetustapa',
+        nimi: {
+          fi: 'Itsenäinen opiskelu',
+          en: 'Independent learning',
+          sv: 'Självständiga studier',
+        },
+      },
+    ] as Array<RajainItem>;
+
+    const rajainOptionsToBeCombined = [
+      {
+        translationKey: 'combined_etaopetus',
+        rajainKoodiuris: ['opetuspaikkakk_3', 'opetuspaikkakk_5'],
+      },
+      {
+        translationKey: 'combined_monimuoto',
+        rajainKoodiuris: ['opetuspaikkakk_1', 'opetuspaikkakk_2', 'opetuspaikkakk_4'],
+      },
+    ];
+
+    const result = [
+      {
+        id: 'combined_etaopetus',
+        rajainIds: ['opetuspaikkakk_3', 'opetuspaikkakk_5'],
+        rajainId: 'opetustapa',
+      },
+      {
+        id: 'combined_monimuoto',
+        rajainIds: ['opetuspaikkakk_1', 'opetuspaikkakk_2', 'opetuspaikkakk_4'],
+        rajainId: 'opetustapa',
+      },
+    ];
+
+    expect(getRajainOptionsToShow(rajainItems, [], rajainOptionsToBeCombined)).toEqual(
+      result
+    );
+  });
+
+  test('should combine lähi-, etä- ja monimuoto-opetus under combined_monimuoto and verkko- ja itsenäinen  opiskelu under combined_etäopiskelu', () => {
+    const rajainItems = [
+      {
+        id: 'opetusaikakk_3',
+        rajainId: 'opetusaika',
+        nimi: {
+          fi: 'Viikonloppuopetus',
+          sv: 'Veckoslutsundervisning',
+          en: 'Weekend teaching',
+        },
+        count: 531,
+      },
+      {
+        id: 'opetusaikakk_4',
+        rajainId: 'opetusaika',
+        nimi: {
+          en: 'Daytime and evening teaching',
+          sv: 'Dags- och kvällsundervisning',
+          fi: 'Päivä- ja iltaopetus',
+        },
+        count: 648,
+      },
+      {
+        id: 'opetusaikakk_5',
+        rajainId: 'opetusaika',
+        nimi: {
+          sv: 'Oberoende av tidpunkt',
+          en: 'Irrespective of time',
+          fi: 'Ajankohdasta riippumaton',
+        },
+        count: 2067,
+      },
+      {
+        id: 'opetusaikakk_2',
+        rajainId: 'opetusaika',
+        nimi: {
+          fi: 'Iltaopetus',
+          sv: 'Kvällsundervisning',
+          en: 'Evening teaching',
+        },
+        count: 861,
+      },
+      {
+        id: 'opetusaikakk_1',
+        rajainId: 'opetusaika',
+        nimi: {
+          sv: 'Dagundervisning',
+          en: 'Day time teaching',
+          fi: 'Päiväopetus',
+        },
+        count: 3001,
+      },
+    ] as Array<RajainItem>;
+
+    const rajainOptionsToBeCombined = [
+      {
+        translationKey: 'combined_virka-ajan_ulkopuolella',
+        rajainKoodiuris: ['opetusaikakk_2', 'opetusaikakk_3'],
+      },
+    ];
+
+    const result = [
+      {
+        id: 'opetusaikakk_4',
+        rajainId: 'opetusaika',
+        nimi: {
+          en: 'Daytime and evening teaching',
+          sv: 'Dags- och kvällsundervisning',
+          fi: 'Päivä- ja iltaopetus',
+        },
+        count: 648,
+      },
+      {
+        id: 'opetusaikakk_5',
+        rajainId: 'opetusaika',
+        nimi: {
+          sv: 'Oberoende av tidpunkt',
+          en: 'Irrespective of time',
+          fi: 'Ajankohdasta riippumaton',
+        },
+        count: 2067,
+      },
+      {
+        id: 'opetusaikakk_1',
+        rajainId: 'opetusaika',
+        nimi: {
+          sv: 'Dagundervisning',
+          en: 'Day time teaching',
+          fi: 'Päiväopetus',
+        },
+        count: 3001,
+      },
+      {
+        id: 'combined_virka-ajan_ulkopuolella',
+        rajainIds: ['opetusaikakk_3', 'opetusaikakk_2'],
+        rajainId: 'opetusaika',
+      },
+    ];
+
+    expect(
+      getRajainOptionsToShow(rajainItems, undefined, rajainOptionsToBeCombined)
+    ).toEqual(result);
   });
 });

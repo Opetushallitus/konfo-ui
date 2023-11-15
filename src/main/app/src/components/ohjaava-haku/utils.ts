@@ -1,8 +1,8 @@
-import { isUndefined } from 'lodash';
+import { isUndefined, some } from 'lodash';
 
 import { RajainItem } from '#/src/types/SuodatinTypes';
 
-import { Rajain } from './Question';
+import { CombinedRajaimet, Rajain } from './Question';
 
 export const getChangedRajaimet = (
   selectedRajainValues: Rajain,
@@ -59,4 +59,41 @@ export const combineMaksunMaaraWithMaksullisuustyyppi = (
       (rajainItem): rajainItem is RajainItem =>
         rajainItem && rajainItem.rajainId === 'maksullisuustyyppi'
     );
+};
+
+export const getRajainOptionsToShow = (
+  rajainItems?: Array<RajainItem>,
+  rajainOptionsToBeRemoved?: Array<string>,
+  rajainOptionsToBeCombined?: Array<CombinedRajaimet>
+): Array<Omit<RajainItem, 'count'> & { rajainIds?: Array<string> }> => {
+  const filteredRajainItems =
+    rajainItems?.filter(({ id }) => {
+      return !some(rajainOptionsToBeRemoved, (rajain) => {
+        return rajain === id;
+      });
+    }) || [];
+
+  const combined =
+    rajainOptionsToBeCombined?.map(({ translationKey, rajainKoodiuris }) => {
+      const toBeCombinedRajainItems = filteredRajainItems?.filter(({ id }) => {
+        return some(rajainKoodiuris, (rajain) => {
+          return rajain === id;
+        });
+      });
+
+      return {
+        id: translationKey,
+        rajainId: toBeCombinedRajainItems[0].rajainId,
+        rajainIds: toBeCombinedRajainItems.map(({ id }) => id),
+      };
+    }) || [];
+
+  const toBeCombinedRajainKoodiuris = combined?.flatMap(({ rajainIds }) => rajainIds);
+  const rajainItemsWithoutCombined = filteredRajainItems?.filter(({ id }) => {
+    return !some(toBeCombinedRajainKoodiuris, (rajain) => {
+      return rajain === id;
+    });
+  });
+
+  return [...rajainItemsWithoutCombined, ...combined].filter(Boolean);
 };
