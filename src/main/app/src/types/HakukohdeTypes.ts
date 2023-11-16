@@ -75,6 +75,7 @@ export type Hakukohde = {
     linja?: Koodi;
     lisatietoa: Translateable;
     painotetutArvosanat: Array<PainotettuArvosana>;
+    painotetutArvosanatOppiaineittain: Array<PainotettuArvosana>;
   };
   hakulomakeAtaruId: string;
   hakulomakeKuvaus: Translateable;

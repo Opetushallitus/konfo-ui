@@ -700,7 +700,8 @@
     "opintojakson-kuvaus": "Opintojakson kuvaus",
     "lue-lisaa-opintojaksosta": "Lue lisää opintojaksosta",
     "kuuluu-opintokokonaisuuksiin": "Opintojakso kuuluu seuraaviin opintokokonaisuuksiin:",
-    "taiteenala": "Taiteenalat"
+    "taiteenala": "Taiteenalat",
+    "kaikki-kielet-prefix": "Sisältyvät oppiaineet"
   },
   "header": {
     "siirry-etusivulle": "Siirry Opintopolun etusivulle"
