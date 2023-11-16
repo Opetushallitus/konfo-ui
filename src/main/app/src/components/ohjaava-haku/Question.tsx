@@ -16,11 +16,17 @@ import { QuestionWithOptions } from './QuestionWithOptions';
 import { useSearch } from '../../components/haku/hakutulosHooks';
 import { Heading, HeadingBoundary } from '../Heading';
 
+export type CombinedRajaimet = {
+  translationKey: string;
+  rajainKoodiuris: Array<string>;
+};
+
 export type QuestionType = {
   id: string;
   useRajainOptionNameFromRajain?: boolean;
   rajainOptionsToBeRemoved?: Array<string>;
   optionOrder?: Array<string>;
+  rajainOptionsToBeCombined?: Array<CombinedRajaimet>;
 };
 
 export type Rajain = {

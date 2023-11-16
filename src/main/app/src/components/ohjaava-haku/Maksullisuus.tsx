@@ -14,7 +14,10 @@ import {
 import { InputWithUnit } from '#/src/components/ohjaava-haku/common/InputWithUnit';
 import { RajainOption } from '#/src/components/ohjaava-haku/common/RajainOption';
 import { QuestionInfoText, Rajain } from '#/src/components/ohjaava-haku/Question';
-import { combineMaksunMaaraWithMaksullisuustyyppi } from '#/src/components/ohjaava-haku/utils';
+import {
+  combineMaksunMaaraWithMaksullisuustyyppi,
+  getIsRajainSelected,
+} from '#/src/components/ohjaava-haku/utils';
 import { marks } from '#/src/components/suodattimet/common/maksullisuusRajainUtils';
 import { NumberRangeRajainItem, RajainItem } from '#/src/types/SuodatinTypes';
 
@@ -211,13 +214,18 @@ export const Maksullisuus = ({
         questionInfo={t(`ohjaava-haku.kysymykset.info-text-for-options`)}
       />
       {maksullisuustyyppiRajainItems.map(({ id, rajainId, linkedRajainItems }) => {
-        const selectedRajainItems = allSelectedRajainValues[rajainId] as Array<string>;
-        const isRajainSelected = selectedRajainItems && selectedRajainItems.includes(id);
+        const rajainValueIds = [id];
+        const isRajainSelected = getIsRajainSelected(
+          allSelectedRajainValues,
+          rajainId,
+          rajainValueIds
+        );
 
         return (
           <Box key={id}>
             <RajainOption
               id={id}
+              rajainValueIds={rajainValueIds}
               isRajainSelected={isRajainSelected}
               rajainId={rajainId}
               toggleAllSelectedRajainValues={toggleAllSelectedRajainValues}

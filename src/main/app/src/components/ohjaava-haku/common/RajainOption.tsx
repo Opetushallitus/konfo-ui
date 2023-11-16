@@ -34,6 +34,7 @@ const OptionButton = styled(StyledButton)(({ theme }) => ({
 
 export const RajainOption = ({
   id,
+  rajainValueIds,
   useRajainOptionNameFromRajain,
   isRajainSelected,
   nimi,
@@ -41,11 +42,15 @@ export const RajainOption = ({
   toggleAllSelectedRajainValues,
 }: {
   id: string;
+  rajainValueIds?: Array<string>;
   useRajainOptionNameFromRajain?: boolean;
   isRajainSelected?: boolean;
   nimi?: Translateable;
   rajainId: string;
-  toggleAllSelectedRajainValues: (id: string, rajainId: string) => void;
+  toggleAllSelectedRajainValues: (
+    rajainId: string,
+    rajainValueIds?: Array<string>
+  ) => void;
 }) => {
   const { t } = useTranslation();
 
@@ -55,7 +60,7 @@ export const RajainOption = ({
         startIcon: <MaterialIcon icon="check" />,
       })}
       key={id}
-      onClick={() => toggleAllSelectedRajainValues(id, rajainId)}
+      onClick={() => toggleAllSelectedRajainValues(rajainId, rajainValueIds)}
       {...(isRajainSelected && { 'data-selected': true })}>
       {useRajainOptionNameFromRajain
         ? localize(nimi)

@@ -2,7 +2,15 @@
   "kysymykset": [
     { "id": "opetusaika" },
     { "id": "koulutuksenkestokuukausina" },
-    { "id": "opetustapa" },
+    {
+      "id": "opetustapa",
+      "rajainOptionsToBeCombined": [
+        {
+          "translationKey": "combined_etaopetus",
+          "rajainKoodiuris": ["opetuspaikkakk_2", "opetuspaikkakk_3"]
+        }
+      ]
+    },
     {
       "id": "maksullisuus",
       "optionOrder": ["maksuton", "maksullinen", "lukuvuosimaksu"]
