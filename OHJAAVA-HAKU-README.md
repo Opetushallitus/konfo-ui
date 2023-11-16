@@ -27,3 +27,5 @@ Ohjaavaa hakua voi konfiguroida `ohjaava-haku.json`ia muokkaamalla. Kyseinen kon
 Myös sellaisille kysymyksille, joille käytetään koodistosta tulevaa rajaimen nimeä, tulee lisätä kysymyksen otsikko `ohjaava-haku.kysymykset.<rajaimen id>.otsikko`-avaimen alle, esim. `ohjaava-haku.kysymykset.pohjakoulutusvaatimus.otsikko: "Mikä on koulutustaustasi?"`.
 
 - `rajainOptionsToBeRemoved`: array-tyyppisen parametrin arvoksi voi lisätä rajainvaihtoehtoja, joita ei haluta näyttää ohjaavassa haussa. Tästä esimerkkinä on "alkamiskausi"-kysymys, jolle ei haluta näyttää "henkilokohtainen" -vaihtoehtoa.
+
+- `optionOrder`: array-tyyppisellä parametrilla voi määritellä rajainvaihtoehtojen järjestyksen kysymysnäkymässä.

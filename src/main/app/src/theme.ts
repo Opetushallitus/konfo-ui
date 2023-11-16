@@ -23,7 +23,6 @@ const breakpoints = {
 };
 
 export const theme = createTheme({
-  betaBannerHeight: 40,
   headerHeight: HEADER_HEIGHT_PX,
   breakpoints,
   palette: {
@@ -248,9 +247,6 @@ export const theme = createTheme({
   },
 });
 
-export function getHeaderHeight(themeProp: typeof theme) {
-  return ({ betaBannerVisible = false }) =>
-    themeProp.headerHeight + (betaBannerVisible ? themeProp.betaBannerHeight : 0);
-}
+export const getHeaderHeight = (themeProp: typeof theme) => themeProp.headerHeight;
 
 export const styled = createStyled({ defaultTheme: theme });

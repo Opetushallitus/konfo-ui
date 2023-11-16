@@ -16,10 +16,17 @@ import { QuestionWithOptions } from './QuestionWithOptions';
 import { useSearch } from '../../components/haku/hakutulosHooks';
 import { Heading, HeadingBoundary } from '../Heading';
 
+export type CombinedRajaimet = {
+  translationKey: string;
+  rajainKoodiuris: Array<string>;
+};
+
 export type QuestionType = {
   id: string;
   useRajainOptionNameFromRajain?: boolean;
   rajainOptionsToBeRemoved?: Array<string>;
+  optionOrder?: Array<string>;
+  rajainOptionsToBeCombined?: Array<CombinedRajaimet>;
 };
 
 export type Rajain = {
@@ -56,14 +63,18 @@ export const QuestionInfoText = ({ questionInfo }: { questionInfo: string }) => 
   </Grid>
 );
 
-export const Question = () => {
+export const Question = ({
+  refElement,
+}: {
+  refElement?: React.RefObject<HTMLButtonElement>;
+}) => {
   const { t } = useTranslation();
 
   const { currentQuestionIndex, questions } = useOhjaavaHaku((s) => s);
   const question = questions[currentQuestionIndex];
 
   const { rajainValues, rajainOptions, isFetching } = useSearch();
-  const { id: questionId } = question;
+  const { id: questionId, optionOrder: rajainOrder } = question;
   const questionTitle = t(`ohjaava-haku.kysymykset.${questionId}.otsikko`);
 
   const rajainItems = useRajainItems(
@@ -71,6 +82,12 @@ export const Question = () => {
     rajainValues,
     RAJAIN_TYPES[questionId.toUpperCase() as RajainKey]
   );
+
+  const sortedRajainItems = rajainOrder
+    ? rajainItems.sort(
+        (itemA, itemB) => rajainOrder.indexOf(itemA.id) - rajainOrder.indexOf(itemB.id)
+      )
+    : rajainItems;
 
   const [errorKey, setErrorKey] = useState('');
 
@@ -89,26 +106,26 @@ export const Question = () => {
             <Grid item>
               {questionId == 'koulutuksenkestokuukausina' ? (
                 <KoulutuksenKesto
-                  rajainItems={rajainItems}
+                  rajainItems={sortedRajainItems}
                   setErrorKey={setErrorKey}
                   errorKey={errorKey}
                 />
               ) : questionId == 'maksullisuus' ? (
                 <Maksullisuus
-                  rajainItems={rajainItems}
+                  rajainItems={sortedRajainItems}
                   setErrorKey={setErrorKey}
                   errorKey={errorKey}
                 />
               ) : (
                 <QuestionWithOptions
                   currentQuestion={question}
-                  rajainItems={rajainItems}
+                  rajainItems={sortedRajainItems}
                 />
               )}
             </Grid>
           )}
         </Grid>
-        <NavigationButtons errorKey={errorKey} />
+        <NavigationButtons errorKey={errorKey} refElement={refElement} />
       </QuestionContainer>
     </HeadingBoundary>
   );

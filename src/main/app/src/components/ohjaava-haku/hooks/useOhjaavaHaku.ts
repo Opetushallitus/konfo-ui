@@ -17,7 +17,10 @@ type OhjaavaHakuOperations = {
   setIsStartOfQuestionnaire: (val: boolean) => void;
   setCurrentQuestionIndex: (index: number) => void;
   setAllSelectedRajainValues: (val: Rajain) => void;
-  toggleAllSelectedRajainValues: (id: string, rajainId: string) => void;
+  toggleAllSelectedRajainValues: (
+    rajainId: string,
+    rajainValueIds?: Array<string>
+  ) => void;
 };
 
 const initialState: OhjaavaHakuData = {
@@ -44,14 +47,14 @@ export const createOhjaavaHakuStore = (initProps: Partial<OhjaavaHakuData>) => {
         };
       });
     },
-    toggleAllSelectedRajainValues: (id, rajainId) =>
+    toggleAllSelectedRajainValues: (rajainId, rajainValueIds) =>
       set((state) => {
         return {
           ...state,
           allSelectedRajainValues: getChangedRajaimet(
             state.allSelectedRajainValues,
             rajainId,
-            id
+            rajainValueIds
           ),
         };
       }),

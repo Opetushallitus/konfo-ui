@@ -1,0 +1,1941 @@
+{
+  "tila": "julkaistu",
+  "kuuluuOpintokokonaisuuksiin": null,
+  "liitetytOpintojaksot": [],
+  "hakuAuki": true,
+  "oppilaitokset": [
+    "1.2.246.562.10.57547005504"
+  ],
+  "teemakuva": "https://konfo-files.opintopolku.fi/toteutus-teemakuva/1.2.246.562.17.00000000000000005375/191b4f99-b6f4-46dd-90ff-4b1461849e7b.jpg",
+  "koulutukset": [
+    {
+      "koodiUri": "koulutus_351301#12",
+      "nimi": {
+        "sv": "Grundexamen inom fordonsbranschen",
+        "en": "Vocational qualification in the Vehicle Sector",
+        "fi": "Ajoneuvoalan perustutkinto"
+      }
+    }
+  ],
+  "tarjoajat": [
+    {
+      "oid": "1.2.246.562.10.23856923257",
+      "nimi": {
+        "sv": "Järvenpää",
+        "fi": "Järvenpää",
+        "en": "Järvenpää"
+      },
+      "paikkakunta": {
+        "koodiUri": "kunta_186",
+        "nimi": {
+          "sv": "Träskända",
+          "fi": "Järvenpää"
+        }
+      }
+    },
+    {
+      "oid": "1.2.246.562.10.39101208583",
+      "nimi": {
+        "sv": "Karins",
+        "fi": "Kaarina",
+        "en": "Kaarina"
+      },
+      "paikkakunta": {
+        "koodiUri": "kunta_202",
+        "nimi": {
+          "fi": "Kaarina",
+          "sv": "St Karins"
+        }
+      }
+    },
+    {
+      "oid": "1.2.246.562.10.41675425924",
+      "nimi": {
+        "sv": "Pieksämäki",
+        "fi": "Pieksämäki",
+        "en": "Pieksämäki"
+      },
+      "paikkakunta": {
+        "koodiUri": "kunta_593",
+        "nimi": {
+          "fi": "Pieksämäki",
+          "sv": "Pieksämäki"
+        }
+      }
+    },
+    {
+      "oid": "1.2.246.562.10.45026413877",
+      "nimi": {
+        "sv": "Turku",
+        "fi": "Turku",
+        "en": "Turku"
+      },
+      "paikkakunta": {
+        "koodiUri": "kunta_853",
+        "nimi": {
+          "sv": "Åbo",
+          "fi": "Turku"
+        }
+      }
+    },
+    {
+      "oid": "1.2.246.562.10.50306628079",
+      "nimi": {
+        "sv": "Jyväskylä",
+        "fi": "Jyväskylä",
+        "en": "Jyväskylä"
+      },
+      "paikkakunta": {
+        "koodiUri": "kunta_179",
+        "nimi": {
+          "sv": "Jyväskylä",
+          "fi": "Jyväskylä"
+        }
+      }
+    }
+  ],
+  "esikatselu": false,
+  "modified": "2023-02-14T16:08:47",
+  "koulutusOid": "1.2.246.562.13.00000000000000000018",
+  "nimi": {
+    "fi": "Ajoneuvoalan perustutkinto"
+  },
+  "muokkaaja": {
+    "oid": "1.2.246.562.24.18953816333",
+    "nimi": "Anonymisoitu Virkailija"
+  },
+  "oid": "1.2.246.562.17.00000000000000005375",
+  "kielivalinta": [
+    "fi"
+  ],
+  "haut": [
+    "1.2.246.562.29.00000000000000038404",
+    "1.2.246.562.29.00000000000000021303",
+    "1.2.246.562.29.00000000000000005368",
+    "1.2.246.562.29.00000000000000010364"
+  ],
+  "koulutustyyppiPath": "amm/ammatillinen-perustutkinto",
+  "timestamp": 1697061703256,
+  "organisaatiot": [
+    "1.2.246.562.10.57547005504",
+    "1.2.246.562.10.23856923257",
+    "1.2.246.562.10.39101208583",
+    "1.2.246.562.10.41675425924",
+    "1.2.246.562.10.45026413877",
+    "1.2.246.562.10.50306628079"
+  ],
+  "organisaatio": {
+    "oid": "1.2.246.562.10.57547005504",
+    "nimi": {
+      "sv": "Ammattiopisto Spesia",
+      "fi": "Ammattiopisto Spesia",
+      "en": "Ammattiopisto Spesia"
+    },
+    "paikkakunta": {
+      "koodiUri": "kunta_186",
+      "nimi": {
+        "sv": "Träskända",
+        "fi": "Järvenpää"
+      }
+    }
+  },
+  "metadata": {
+    "kuvaus": {
+      "fi": "<p><strong>Opinnot</strong></p><p></p><p>Ajoneuvoalan perustutkinnon suorittaja voi suunnata osaamistaan autojen, hyötyajoneuvojen tai pienkoneiden osa-alueille, valitsemansa tutkintonimikkeen mukaisesti. Ajoneuvoalan perustutkintoon johtavaa koulutusta on tarjolla Järvenpään, Jyväskylän, Pieksämäen ja Turun toimipisteissä. </p><ul><li><strong>Automekaanikon</strong> tutkintonimikkeen valinneet suuntaavat osaamistaan autojen mekaanisiin korjauksiin. Automekaanikoksi voit valmistua Järvenpään, Jyväskylän tai Turun toimipisteessä.</li><li><strong>Pienkonemekaanikko</strong> valitsee tutkintoonsa mm. vapaa-ajan ajoneuvoihin ja laitteisiin liittyviä osa-alueita. Pienkonemekaanikoksi voit valmistua Järvenpään, Pieksämäen tai Turun toimipisteessä. </li><li><strong>Autokorimekaanikot</strong> osaavat selvittää kolarivaurion korjattavuuden ja korjaukseen liittyvät säädökset ja hallitsee ammatissa tarvittavat liitos- ja oikaisumenetelmät. Autokorimekaanikoksi voit valmistua Turun toimipisteessä.</li></ul><p><strong>Edellytykset</strong></p><p></p><p>Alalla tarvitaan esimerkiksi kädentaitoja, vuorovaikutustaitoja, hyvää hahmotuskykyä ja suunnitelmallisuutta. Auton liikenneturvallisuudesta ja siisteydestä huolehtiminen edellyttää huolellisuutta. Opiskelu ja työskentely edellyttävät kykyä noudattaa sovittuja aikatauluja ja ohjeita.</p><p></p><p><strong>Työskentely</strong></p><p></p><p>Automekaanikko työskentelee esimerkiksi erilaisissa autoliikkeissä, korjaamoissa, huoltamoilla ja kuljetusliikkeissä.</p><p></p><p>Pienkonemekaanikko voi työskennellä auto-, moottoripyörä- ja mopokorjaamoissa, pienkonekorjauksiin erikoistuneissa yrityksissä, rengasliikkeissä sekä erilaisissa isoissa ja pienissä konekorjaamoissa. Koulutuksen aikana opituilla kädentaidoilla on käyttöä myös esimerkiksi teollisuuden kunnossapitotöissä.</p><p></p><p>Autokorimekaanikko voi toimia autopeltiseppänä autokorjaamossa, autotehtaan työntekijänä, yleispeltiseppänä, hitsaajana tai muis­sa teknisen alan työtehtävissä.</p><p></p><p><strong>Opiskelu Spesiassa</strong></p><p></p><p>Käy katsomassa Spesian videot ajoneuvoalan perustutkinnon opinnoista: <a href=\"https://www.spesia.fi/koulutukset/ajoneuvoasentaja/\" rel=\"noopener noreferrer\" target=\"_blank\">Automekaanikko</a>, <a href=\"https://www.spesia.fi/koulutukset/pienkonekorjaaja/\" rel=\"noopener noreferrer\" target=\"_blank\">Pienkonemekaanikko</a> ja <a href=\"https://www.spesia.fi/koulutukset/autokorinkorjaaja/\" rel=\"noopener noreferrer\" target=\"_blank\">Autokorimekaanikko.</a></p><p></p><p>Ammattiopisto Spesia on ammatillinen erityisoppilaitos. Meillä jokainen saa loistaa ja oppiminen onnistuu. Opinnot ja tarvittava tuki suunnitellaan jokaiselle yksilöllisesti.</p><p></p><p>Opiskelu on käytännönläheistä ja se tapahtuu pienissä ryhmissä. Spesiassa saat oppia ja tehdä aitoja työtehtäviä monipuolisesti erilaisissa oppimisympäristöissä.</p>"
+    },
+    "osaamisalat": [
+      {
+        "koodi": {
+          "koodiUri": "osaamisala_1008",
+          "nimi": {
+            "sv": "Kompetensområdet för fordonsteknik",
+            "fi": "Ajoneuvotekniikan osaamisala"
+          }
+        },
+        "linkki": {},
+        "otsikko": {}
+      },
+      {
+        "koodi": {
+          "koodiUri": "osaamisala_3181",
+          "nimi": {
+            "sv": "Kompetensområdet för skadereparation",
+            "en": "Competence area of Damage Repairs",
+            "fi": "Vauriokorjauksen osaamisala"
+          }
+        },
+        "linkki": {},
+        "otsikko": {}
+      }
+    ],
+    "isMuokkaajaOphVirkailija": false,
+    "ammattinimikkeet": [
+      {
+        "kieli": "fi",
+        "arvo": "automekaanikko"
+      },
+      {
+        "kieli": "fi",
+        "arvo": "pienkonemekaanikko"
+      },
+      {
+        "kieli": "fi",
+        "arvo": "autokorimekaanikko"
+      }
+    ],
+    "asiasanat": [
+      {
+        "kieli": "fi",
+        "arvo": "autoala"
+      },
+      {
+        "kieli": "fi",
+        "arvo": "ajoneuvoala"
+      },
+      {
+        "kieli": "fi",
+        "arvo": "ajoneuvotekniikka"
+      },
+      {
+        "kieli": "fi",
+        "arvo": "vauriokorjaus"
+      },
+      {
+        "kieli": "fi",
+        "arvo": "moottorikäyttöiset pienkoneet"
+      }
+    ],
+    "isTyovoimakoulutus": false,
+    "hasJotpaRahoitus": false,
+    "isTaydennyskoulutus": false,
+    "opetus": {
+      "maksullisuustyyppi": "maksuton",
+      "maksullisuusKuvaus": {},
+      "suunniteltuKestoKuvaus": {},
+      "suunniteltuKestoVuodet": 3,
+      "onkoApuraha": false,
+      "lisatiedot": [],
+      "suunniteltuKestoKuukaudet": 0,
+      "opetustapaKuvaus": {},
+      "opetuskieletKuvaus": {},
+      "opetustapa": [
+        {
+          "koodiUri": "opetuspaikkakk_1#1",
+          "nimi": {
+            "fi": "Lähiopetus",
+            "sv": "Närundervisning",
+            "en": "Contact teaching"
+          }
+        }
+      ],
+      "opetusaikaKuvaus": {},
+      "opetuskieli": [
+        {
+          "koodiUri": "oppilaitoksenopetuskieli_1#2",
+          "nimi": {
+            "sv": "finska",
+            "fi": "suomi",
+            "en": "Finnish"
+          }
+        }
+      ],
+      "opetusaika": [
+        {
+          "koodiUri": "opetusaikakk_1#1",
+          "nimi": {
+            "sv": "Dagundervisning",
+            "en": "Day time teaching",
+            "fi": "Päiväopetus"
+          }
+        }
+      ]
+    },
+    "yhteyshenkilot": [
+      {
+        "nimi": {
+          "fi": "Ammattiopisto Spesia"
+        },
+        "titteli": {},
+        "sahkoposti": {
+          "fi": "hakutoimisto@spesia.fi"
+        },
+        "puhelinnumero": {
+          "fi": "010 608 4300"
+        },
+        "wwwSivu": {
+          "fi": "http://www.spesia.fi"
+        },
+        "wwwSivuTeksti": {}
+      }
+    ],
+    "tyyppi": "amm",
+    "ammatillinenPerustutkintoErityisopetuksena": true
+  },
+  "hakutiedot": [
+    {
+      "hakuOid": "1.2.246.562.29.00000000000000010364",
+      "nimi": {
+        "fi": "Jatkuva haku Ammattiopisto Spesian koulutuksiin"
+      },
+      "hakutapa": {
+        "koodiUri": "hakutapa_03#1",
+        "nimi": {
+          "en": "Rolling admission (upper secondary level)",
+          "fi": "Jatkuva haku",
+          "sv": "Kontinuerlig ansökan"
+        }
+      },
+      "koulutuksenAlkamiskausi": {
+        "alkamiskausityyppi": "alkamiskausi ja -vuosi",
+        "henkilokohtaisenSuunnitelmanLisatiedot": {},
+        "koulutuksenAlkamiskausi": {
+          "koodiUri": "kausi_s#1",
+          "nimi": {
+            "sv": "Höst",
+            "en": "Autumn",
+            "fi": "Syksy"
+          }
+        },
+        "koulutuksenAlkamisvuosi": "2023"
+      },
+      "kohdejoukko": {
+        "koodiUri": "haunkohdejoukko_20#1",
+        "nimi": {
+          "fi": "Erityisopetuksena järjestettävä ammatillinen koulutus",
+          "sv": "Yrkesutbildning med specialundervisning"
+        }
+      },
+      "hakukohteet": [
+        {
+          "tila": "julkaistu",
+          "hakulomakeKuvaus": {},
+          "pohjakoulutusvaatimusTarkenne": {},
+          "aloituspaikat": {
+            "lukumaara": 3,
+            "kuvaus": {}
+          },
+          "hakulomaketyyppi": "ataru",
+          "pohjakoulutusvaatimus": [
+            {
+              "koodiUri": "pohjakoulutusvaatimuskouta_pk#1",
+              "nimi": {
+                "fi": "Peruskoulu",
+                "sv": "Grundskola",
+                "en": "Peruskoulu"
+              }
+            },
+            {
+              "koodiUri": "pohjakoulutusvaatimuskouta_er#1",
+              "nimi": {
+                "fi": "Peruskoulu / Yksilöllistetty perusopetus",
+                "en": "Peruskoulu / Yksilöllistetty perusopetus",
+                "sv": "Grundskola / Individualiserad grundutbildning"
+              }
+            }
+          ],
+          "hakulomakeLinkki": {
+            "fi": "https://testiopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000016343?lang=fi",
+            "sv": "https://testiopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000016343?lang=sv",
+            "en": "https://testiopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000016343?lang=en"
+          },
+          "koulutuksenAlkamiskausi": {
+            "alkamiskausityyppi": "alkamiskausi ja -vuosi",
+            "henkilokohtaisenSuunnitelmanLisatiedot": {},
+            "koulutuksenAlkamiskausi": {
+              "koodiUri": "kausi_s#1",
+              "nimi": {
+                "sv": "Höst",
+                "en": "Autumn",
+                "fi": "Syksy"
+              }
+            },
+            "koulutuksenAlkamisvuosi": "2023"
+          },
+          "hakulomakeAtaruId": "bf84cae9-03d4-4b44-8607-d9c3b3d66cd7",
+          "esikatselu": false,
+          "hasValintaperustekuvausData": true,
+          "modified": "2023-08-21T08:36:00",
+          "jarjestyspaikka": {
+            "oid": "1.2.246.562.10.23856923257",
+            "nimi": {
+              "sv": "Järvenpää",
+              "fi": "Järvenpää",
+              "en": "Järvenpää"
+            },
+            "paikkakunta": {
+              "koodiUri": "kunta_186",
+              "nimi": {
+                "sv": "Träskända",
+                "fi": "Järvenpää"
+              }
+            },
+            "jarjestaaUrheilijanAmmKoulutusta": false
+          },
+          "nimi": {
+            "fi": "Ajoneuvotekniikan osaamisala, Pienkonemekaanikko, Jatkuva haku, Järvenpää (vaativa erityinen tuki)"
+          },
+          "hakuajat": [
+            {
+              "alkaa": "2023-08-21T08:15",
+              "formatoituAlkaa": {
+                "fi": "21.8.2023 klo 08:15",
+                "sv": "21.8.2023 kl. 08:15",
+                "en": "Aug. 21, 2023 at 08:15 AM UTC+3"
+              },
+              "hakuAuki": true,
+              "hakuMennyt": false
+            }
+          ],
+          "hakukohdeOid": "1.2.246.562.20.00000000000000016343",
+          "organisaatio": {
+            "oid": "1.2.246.562.10.48291859840",
+            "nimi": {
+              "fi": "Ammattiopisto Spesia Oy",
+              "sv": "Ammattiopisto Spesia Oy",
+              "en": "Ammattiopisto Spesia Oy"
+            },
+            "paikkakunta": {
+              "koodiUri": "kunta_091",
+              "nimi": {
+                "fi": "Helsinki",
+                "sv": "Helsingfors"
+              }
+            }
+          },
+          "formatoituModified": {
+            "fi": "21.8.2023 klo 08:36",
+            "sv": "21.8.2023 kl. 08:36",
+            "en": "Aug. 21, 2023 at 08:36 AM UTC+3"
+          },
+          "valintaperusteId": "37a374d2-f27b-4409-8465-9b11ef4ba58d"
+        },
+        {
+          "tila": "julkaistu",
+          "hakulomakeKuvaus": {},
+          "pohjakoulutusvaatimusTarkenne": {},
+          "aloituspaikat": {
+            "lukumaara": 4,
+            "kuvaus": {}
+          },
+          "hakulomaketyyppi": "ataru",
+          "pohjakoulutusvaatimus": [
+            {
+              "koodiUri": "pohjakoulutusvaatimuskouta_pk#1",
+              "nimi": {
+                "fi": "Peruskoulu",
+                "sv": "Grundskola",
+                "en": "Peruskoulu"
+              }
+            },
+            {
+              "koodiUri": "pohjakoulutusvaatimuskouta_er#1",
+              "nimi": {
+                "fi": "Peruskoulu / Yksilöllistetty perusopetus",
+                "en": "Peruskoulu / Yksilöllistetty perusopetus",
+                "sv": "Grundskola / Individualiserad grundutbildning"
+              }
+            }
+          ],
+          "hakulomakeLinkki": {
+            "fi": "https://testiopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000018021?lang=fi",
+            "sv": "https://testiopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000018021?lang=sv",
+            "en": "https://testiopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000018021?lang=en"
+          },
+          "koulutuksenAlkamiskausi": {
+            "alkamiskausityyppi": "alkamiskausi ja -vuosi",
+            "henkilokohtaisenSuunnitelmanLisatiedot": {},
+            "koulutuksenAlkamiskausi": {
+              "koodiUri": "kausi_s#1",
+              "nimi": {
+                "sv": "Höst",
+                "en": "Autumn",
+                "fi": "Syksy"
+              }
+            },
+            "koulutuksenAlkamisvuosi": "2023"
+          },
+          "hakulomakeAtaruId": "bf84cae9-03d4-4b44-8607-d9c3b3d66cd7",
+          "esikatselu": false,
+          "hasValintaperustekuvausData": true,
+          "modified": "2023-08-22T15:33:49",
+          "jarjestyspaikka": {
+            "oid": "1.2.246.562.10.39101208583",
+            "nimi": {
+              "sv": "Karins",
+              "fi": "Kaarina",
+              "en": "Kaarina"
+            },
+            "paikkakunta": {
+              "koodiUri": "kunta_202",
+              "nimi": {
+                "fi": "Kaarina",
+                "sv": "St Karins"
+              }
+            },
+            "jarjestaaUrheilijanAmmKoulutusta": false
+          },
+          "nimi": {
+            "fi": "Vauriokorjaamisen osaamisala, Autokorimekaanikko, Jatkuva haku, Turku (vaativa erityinen tuki)"
+          },
+          "hakuajat": [
+            {
+              "alkaa": "2023-08-23T08:00",
+              "paattyy": "2023-09-06T15:00",
+              "formatoituPaattyy": {
+                "fi": "6.9.2023 klo 15:00",
+                "sv": "6.9.2023 kl. 15:00",
+                "en": "Sep. 6, 2023 at 03:00 PM UTC+3"
+              },
+              "formatoituAlkaa": {
+                "fi": "23.8.2023 klo 08:00",
+                "sv": "23.8.2023 kl. 08:00",
+                "en": "Aug. 23, 2023 at 08:00 AM UTC+3"
+              },
+              "hakuAuki": false,
+              "hakuMennyt": true
+            }
+          ],
+          "hakukohdeOid": "1.2.246.562.20.00000000000000018021",
+          "organisaatio": {
+            "oid": "1.2.246.562.10.48291859840",
+            "nimi": {
+              "fi": "Ammattiopisto Spesia Oy",
+              "sv": "Ammattiopisto Spesia Oy",
+              "en": "Ammattiopisto Spesia Oy"
+            },
+            "paikkakunta": {
+              "koodiUri": "kunta_091",
+              "nimi": {
+                "fi": "Helsinki",
+                "sv": "Helsingfors"
+              }
+            }
+          },
+          "formatoituModified": {
+            "fi": "22.8.2023 klo 15:33",
+            "sv": "22.8.2023 kl. 15:33",
+            "en": "Aug. 22, 2023 at 03:33 PM UTC+3"
+          },
+          "valintaperusteId": "37a374d2-f27b-4409-8465-9b11ef4ba58d"
+        },
+        {
+          "tila": "julkaistu",
+          "hakulomakeKuvaus": {},
+          "pohjakoulutusvaatimusTarkenne": {},
+          "aloituspaikat": {
+            "lukumaara": 5,
+            "kuvaus": {}
+          },
+          "hakulomaketyyppi": "ataru",
+          "pohjakoulutusvaatimus": [
+            {
+              "koodiUri": "pohjakoulutusvaatimuskouta_pk#1",
+              "nimi": {
+                "fi": "Peruskoulu",
+                "sv": "Grundskola",
+                "en": "Peruskoulu"
+              }
+            },
+            {
+              "koodiUri": "pohjakoulutusvaatimuskouta_er#1",
+              "nimi": {
+                "fi": "Peruskoulu / Yksilöllistetty perusopetus",
+                "en": "Peruskoulu / Yksilöllistetty perusopetus",
+                "sv": "Grundskola / Individualiserad grundutbildning"
+              }
+            }
+          ],
+          "hakulomakeLinkki": {
+            "fi": "https://testiopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000016341?lang=fi",
+            "sv": "https://testiopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000016341?lang=sv",
+            "en": "https://testiopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000016341?lang=en"
+          },
+          "koulutuksenAlkamiskausi": {
+            "alkamiskausityyppi": "alkamiskausi ja -vuosi",
+            "henkilokohtaisenSuunnitelmanLisatiedot": {},
+            "koulutuksenAlkamiskausi": {
+              "koodiUri": "kausi_s#1",
+              "nimi": {
+                "sv": "Höst",
+                "en": "Autumn",
+                "fi": "Syksy"
+              }
+            },
+            "koulutuksenAlkamisvuosi": "2023"
+          },
+          "hakulomakeAtaruId": "bf84cae9-03d4-4b44-8607-d9c3b3d66cd7",
+          "esikatselu": false,
+          "hasValintaperustekuvausData": true,
+          "modified": "2023-09-13T10:25:46",
+          "jarjestyspaikka": {
+            "oid": "1.2.246.562.10.23856923257",
+            "nimi": {
+              "sv": "Järvenpää",
+              "fi": "Järvenpää",
+              "en": "Järvenpää"
+            },
+            "paikkakunta": {
+              "koodiUri": "kunta_186",
+              "nimi": {
+                "sv": "Träskända",
+                "fi": "Järvenpää"
+              }
+            },
+            "jarjestaaUrheilijanAmmKoulutusta": false
+          },
+          "nimi": {
+            "fi": "Ajoneuvotekniikan osaamisala, Automekaanikko, Jatkuva haku, Järvenpää (vaativa erityinen tuki)"
+          },
+          "hakuajat": [
+            {
+              "alkaa": "2023-08-21T08:15",
+              "formatoituAlkaa": {
+                "fi": "21.8.2023 klo 08:15",
+                "sv": "21.8.2023 kl. 08:15",
+                "en": "Aug. 21, 2023 at 08:15 AM UTC+3"
+              },
+              "hakuAuki": true,
+              "hakuMennyt": false
+            }
+          ],
+          "hakukohdeOid": "1.2.246.562.20.00000000000000016341",
+          "organisaatio": {
+            "oid": "1.2.246.562.10.48291859840",
+            "nimi": {
+              "fi": "Ammattiopisto Spesia Oy",
+              "sv": "Ammattiopisto Spesia Oy",
+              "en": "Ammattiopisto Spesia Oy"
+            },
+            "paikkakunta": {
+              "koodiUri": "kunta_091",
+              "nimi": {
+                "fi": "Helsinki",
+                "sv": "Helsingfors"
+              }
+            }
+          },
+          "formatoituModified": {
+            "fi": "13.9.2023 klo 10:25",
+            "sv": "13.9.2023 kl. 10:25",
+            "en": "Sep. 13, 2023 at 10:25 AM UTC+3"
+          },
+          "valintaperusteId": "37a374d2-f27b-4409-8465-9b11ef4ba58d"
+        }
+      ]
+    },
+    {
+      "hakuOid": "1.2.246.562.29.00000000000000021303",
+      "nimi": {
+        "en": "Joint application to upper secondary education and preparatory education 2023",
+        "fi": "Perusopetuksen jälkeisen koulutuksen yhteishaku 2023",
+        "sv": "Gemensam ansökan till utbildning efter den grundläggande utbildningen 2023"
+      },
+      "hakutapa": {
+        "koodiUri": "hakutapa_01#1",
+        "nimi": {
+          "fi": "Yhteishaku",
+          "sv": "Gemensam ansökan",
+          "en": "Joint application"
+        }
+      },
+      "koulutuksenAlkamiskausi": {
+        "alkamiskausityyppi": "alkamiskausi ja -vuosi",
+        "henkilokohtaisenSuunnitelmanLisatiedot": {},
+        "koulutuksenAlkamiskausi": {
+          "koodiUri": "kausi_s#1",
+          "nimi": {
+            "sv": "Höst",
+            "en": "Autumn",
+            "fi": "Syksy"
+          }
+        },
+        "koulutuksenAlkamisvuosi": "2023"
+      },
+      "kohdejoukko": {
+        "koodiUri": "haunkohdejoukko_11#1",
+        "nimi": {
+          "fi": "Perusopetuksen jälkeisen koulutuksen yhteishaku",
+          "sv": "Gemensam ansökan till utbildning efter grundläggande utbildning"
+        }
+      },
+      "hakukohteet": [
+        {
+          "tila": "julkaistu",
+          "hakulomakeKuvaus": {},
+          "pohjakoulutusvaatimusTarkenne": {},
+          "aloituspaikat": {
+            "lukumaara": 4,
+            "kuvaus": {}
+          },
+          "hakulomaketyyppi": "ataru",
+          "pohjakoulutusvaatimus": [
+            {
+              "koodiUri": "pohjakoulutusvaatimuskouta_pk#1",
+              "nimi": {
+                "fi": "Peruskoulu",
+                "sv": "Grundskola",
+                "en": "Peruskoulu"
+              }
+            },
+            {
+              "koodiUri": "pohjakoulutusvaatimuskouta_er#1",
+              "nimi": {
+                "fi": "Peruskoulu / Yksilöllistetty perusopetus",
+                "en": "Peruskoulu / Yksilöllistetty perusopetus",
+                "sv": "Grundskola / Individualiserad grundutbildning"
+              }
+            }
+          ],
+          "hakulomakeLinkki": {
+            "fi": "https://testiopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000022730?lang=fi",
+            "sv": "https://testiopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000022730?lang=sv",
+            "en": "https://testiopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000022730?lang=en"
+          },
+          "koulutuksenAlkamiskausi": {
+            "alkamiskausityyppi": "alkamiskausi ja -vuosi",
+            "henkilokohtaisenSuunnitelmanLisatiedot": {},
+            "koulutuksenAlkamiskausi": {
+              "koodiUri": "kausi_s#1",
+              "nimi": {
+                "sv": "Höst",
+                "en": "Autumn",
+                "fi": "Syksy"
+              }
+            },
+            "koulutuksenAlkamisvuosi": "2023"
+          },
+          "hakulomakeAtaruId": "b1646055-f5a4-428d-9ffa-838512e10a44",
+          "esikatselu": false,
+          "hasValintaperustekuvausData": true,
+          "modified": "2023-02-15T10:40:32",
+          "jarjestyspaikka": {
+            "oid": "1.2.246.562.10.39101208583",
+            "nimi": {
+              "sv": "Karins",
+              "fi": "Kaarina",
+              "en": "Kaarina"
+            },
+            "paikkakunta": {
+              "koodiUri": "kunta_202",
+              "nimi": {
+                "fi": "Kaarina",
+                "sv": "St Karins"
+              }
+            },
+            "jarjestaaUrheilijanAmmKoulutusta": false
+          },
+          "nimi": {
+            "sv": "Kompetensområdet för fordonsteknik, Grundexamen inom fordonsbranschen (krävande särskilt stöd)",
+            "fi": "Ajoneuvotekniikan osaamisala, Ajoneuvoalan perustutkinto (vaativa erityinen tuki)"
+          },
+          "hakuajat": [
+            {
+              "alkaa": "2023-02-21T08:00",
+              "paattyy": "2023-03-21T15:00",
+              "formatoituPaattyy": {
+                "fi": "21.3.2023 klo 15:00",
+                "sv": "21.3.2023 kl. 15:00",
+                "en": "Mar. 21, 2023 at 03:00 PM UTC+2"
+              },
+              "formatoituAlkaa": {
+                "fi": "21.2.2023 klo 08:00",
+                "sv": "21.2.2023 kl. 08:00",
+                "en": "Feb. 21, 2023 at 08:00 AM UTC+2"
+              },
+              "hakuAuki": false,
+              "hakuMennyt": true
+            }
+          ],
+          "hakukohdeOid": "1.2.246.562.20.00000000000000022730",
+          "organisaatio": {
+            "oid": "1.2.246.562.10.57547005504",
+            "nimi": {
+              "sv": "Ammattiopisto Spesia",
+              "fi": "Ammattiopisto Spesia",
+              "en": "Ammattiopisto Spesia"
+            },
+            "paikkakunta": {
+              "koodiUri": "kunta_186",
+              "nimi": {
+                "sv": "Träskända",
+                "fi": "Järvenpää"
+              }
+            }
+          },
+          "metadata": {
+            "pistehistoria": []
+          },
+          "formatoituModified": {
+            "fi": "15.2.2023 klo 10:40",
+            "sv": "15.2.2023 kl. 10:40",
+            "en": "Feb. 15, 2023 at 10:40 AM UTC+2"
+          },
+          "valintaperusteId": "bbe5ed02-37a5-437e-bf1b-42968bceecd5"
+        },
+        {
+          "tila": "julkaistu",
+          "hakulomakeKuvaus": {},
+          "pohjakoulutusvaatimusTarkenne": {},
+          "aloituspaikat": {
+            "lukumaara": 6,
+            "kuvaus": {}
+          },
+          "hakulomaketyyppi": "ataru",
+          "pohjakoulutusvaatimus": [
+            {
+              "koodiUri": "pohjakoulutusvaatimuskouta_pk#1",
+              "nimi": {
+                "fi": "Peruskoulu",
+                "sv": "Grundskola",
+                "en": "Peruskoulu"
+              }
+            },
+            {
+              "koodiUri": "pohjakoulutusvaatimuskouta_er#1",
+              "nimi": {
+                "fi": "Peruskoulu / Yksilöllistetty perusopetus",
+                "en": "Peruskoulu / Yksilöllistetty perusopetus",
+                "sv": "Grundskola / Individualiserad grundutbildning"
+              }
+            }
+          ],
+          "hakulomakeLinkki": {
+            "fi": "https://testiopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000022788?lang=fi",
+            "sv": "https://testiopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000022788?lang=sv",
+            "en": "https://testiopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000022788?lang=en"
+          },
+          "koulutuksenAlkamiskausi": {
+            "alkamiskausityyppi": "alkamiskausi ja -vuosi",
+            "henkilokohtaisenSuunnitelmanLisatiedot": {},
+            "koulutuksenAlkamiskausi": {
+              "koodiUri": "kausi_s#1",
+              "nimi": {
+                "sv": "Höst",
+                "en": "Autumn",
+                "fi": "Syksy"
+              }
+            },
+            "koulutuksenAlkamisvuosi": "2023"
+          },
+          "hakulomakeAtaruId": "b1646055-f5a4-428d-9ffa-838512e10a44",
+          "esikatselu": false,
+          "hasValintaperustekuvausData": true,
+          "modified": "2023-02-15T10:42:08",
+          "jarjestyspaikka": {
+            "oid": "1.2.246.562.10.39101208583",
+            "nimi": {
+              "sv": "Karins",
+              "fi": "Kaarina",
+              "en": "Kaarina"
+            },
+            "paikkakunta": {
+              "koodiUri": "kunta_202",
+              "nimi": {
+                "fi": "Kaarina",
+                "sv": "St Karins"
+              }
+            },
+            "jarjestaaUrheilijanAmmKoulutusta": false
+          },
+          "nimi": {
+            "fi": "Vauriokorjauksen osaamisala, Ajoneuvoalan perustutkinto (vaativa erityinen tuki)",
+            "sv": "Kompetensområdet för reparation av skador, Grundexamen inom fordonsbranschen (krävande särskilt stöd)"
+          },
+          "hakuajat": [
+            {
+              "alkaa": "2023-02-21T08:00",
+              "paattyy": "2023-03-21T15:00",
+              "formatoituPaattyy": {
+                "fi": "21.3.2023 klo 15:00",
+                "sv": "21.3.2023 kl. 15:00",
+                "en": "Mar. 21, 2023 at 03:00 PM UTC+2"
+              },
+              "formatoituAlkaa": {
+                "fi": "21.2.2023 klo 08:00",
+                "sv": "21.2.2023 kl. 08:00",
+                "en": "Feb. 21, 2023 at 08:00 AM UTC+2"
+              },
+              "hakuAuki": false,
+              "hakuMennyt": true
+            }
+          ],
+          "hakukohdeOid": "1.2.246.562.20.00000000000000022788",
+          "organisaatio": {
+            "oid": "1.2.246.562.10.57547005504",
+            "nimi": {
+              "sv": "Ammattiopisto Spesia",
+              "fi": "Ammattiopisto Spesia",
+              "en": "Ammattiopisto Spesia"
+            },
+            "paikkakunta": {
+              "koodiUri": "kunta_186",
+              "nimi": {
+                "sv": "Träskända",
+                "fi": "Järvenpää"
+              }
+            }
+          },
+          "metadata": {
+            "pistehistoria": []
+          },
+          "formatoituModified": {
+            "fi": "15.2.2023 klo 10:42",
+            "sv": "15.2.2023 kl. 10:42",
+            "en": "Feb. 15, 2023 at 10:42 AM UTC+2"
+          },
+          "valintaperusteId": "bbe5ed02-37a5-437e-bf1b-42968bceecd5"
+        },
+        {
+          "tila": "julkaistu",
+          "hakulomakeKuvaus": {},
+          "pohjakoulutusvaatimusTarkenne": {},
+          "aloituspaikat": {
+            "lukumaara": 2,
+            "kuvaus": {}
+          },
+          "hakulomaketyyppi": "ataru",
+          "pohjakoulutusvaatimus": [
+            {
+              "koodiUri": "pohjakoulutusvaatimuskouta_pk#1",
+              "nimi": {
+                "fi": "Peruskoulu",
+                "sv": "Grundskola",
+                "en": "Peruskoulu"
+              }
+            },
+            {
+              "koodiUri": "pohjakoulutusvaatimuskouta_er#1",
+              "nimi": {
+                "fi": "Peruskoulu / Yksilöllistetty perusopetus",
+                "en": "Peruskoulu / Yksilöllistetty perusopetus",
+                "sv": "Grundskola / Individualiserad grundutbildning"
+              }
+            }
+          ],
+          "hakulomakeLinkki": {
+            "fi": "https://testiopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000022568?lang=fi",
+            "sv": "https://testiopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000022568?lang=sv",
+            "en": "https://testiopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000022568?lang=en"
+          },
+          "koulutuksenAlkamiskausi": {
+            "alkamiskausityyppi": "alkamiskausi ja -vuosi",
+            "henkilokohtaisenSuunnitelmanLisatiedot": {},
+            "koulutuksenAlkamiskausi": {
+              "koodiUri": "kausi_s#1",
+              "nimi": {
+                "sv": "Höst",
+                "en": "Autumn",
+                "fi": "Syksy"
+              }
+            },
+            "koulutuksenAlkamisvuosi": "2023"
+          },
+          "hakulomakeAtaruId": "b1646055-f5a4-428d-9ffa-838512e10a44",
+          "esikatselu": false,
+          "hasValintaperustekuvausData": true,
+          "modified": "2023-02-16T10:04:33",
+          "jarjestyspaikka": {
+            "oid": "1.2.246.562.10.41675425924",
+            "nimi": {
+              "sv": "Pieksämäki",
+              "fi": "Pieksämäki",
+              "en": "Pieksämäki"
+            },
+            "paikkakunta": {
+              "koodiUri": "kunta_593",
+              "nimi": {
+                "fi": "Pieksämäki",
+                "sv": "Pieksämäki"
+              }
+            },
+            "jarjestaaUrheilijanAmmKoulutusta": false
+          },
+          "nimi": {
+            "sv": "Kompetensområdet för fordonsteknik, Grundexamen inom fordonsbranschen (krävande särskilt stöd)",
+            "fi": "Ajoneuvotekniikan osaamisala, Ajoneuvoalan perustutkinto (vaativa erityinen tuki)"
+          },
+          "hakuajat": [
+            {
+              "alkaa": "2023-02-21T08:00",
+              "paattyy": "2023-03-21T15:00",
+              "formatoituPaattyy": {
+                "fi": "21.3.2023 klo 15:00",
+                "sv": "21.3.2023 kl. 15:00",
+                "en": "Mar. 21, 2023 at 03:00 PM UTC+2"
+              },
+              "formatoituAlkaa": {
+                "fi": "21.2.2023 klo 08:00",
+                "sv": "21.2.2023 kl. 08:00",
+                "en": "Feb. 21, 2023 at 08:00 AM UTC+2"
+              },
+              "hakuAuki": false,
+              "hakuMennyt": true
+            }
+          ],
+          "hakukohdeOid": "1.2.246.562.20.00000000000000022568",
+          "organisaatio": {
+            "oid": "1.2.246.562.10.57547005504",
+            "nimi": {
+              "sv": "Ammattiopisto Spesia",
+              "fi": "Ammattiopisto Spesia",
+              "en": "Ammattiopisto Spesia"
+            },
+            "paikkakunta": {
+              "koodiUri": "kunta_186",
+              "nimi": {
+                "sv": "Träskända",
+                "fi": "Järvenpää"
+              }
+            }
+          },
+          "metadata": {
+            "pistehistoria": [
+              {
+                "tarjoaja": "1.2.246.562.10.41675425924",
+                "hakukohdekoodi": {
+                  "koodiUri": "hakukohteeterammatillinenerityisopetus_1008",
+                  "nimi": {
+                    "sv": "Kompetensområdet för fordonsteknik, Grundexamen inom fordonsbranschen (krävande särskilt stöd)",
+                    "fi": "Ajoneuvotekniikan osaamisala, Ajoneuvoalan perustutkinto (vaativa erityinen tuki)"
+                  }
+                },
+                "pisteet": -1.0,
+                "vuosi": "2022",
+                "valintatapajonoOid": "1649146388138-4312867168375784212",
+                "hakukohdeOid": "1.2.246.562.20.00000000000000012093",
+                "hakuOid": "1.2.246.562.29.00000000000000005368",
+                "valintatapajonoTyyppi": null
+              }
+            ]
+          },
+          "formatoituModified": {
+            "fi": "16.2.2023 klo 10:04",
+            "sv": "16.2.2023 kl. 10:04",
+            "en": "Feb. 16, 2023 at 10:04 AM UTC+2"
+          },
+          "valintaperusteId": "bbe5ed02-37a5-437e-bf1b-42968bceecd5"
+        },
+        {
+          "tila": "julkaistu",
+          "hakulomakeKuvaus": {},
+          "pohjakoulutusvaatimusTarkenne": {},
+          "aloituspaikat": {
+            "lukumaara": 24,
+            "kuvaus": {}
+          },
+          "hakulomaketyyppi": "ataru",
+          "pohjakoulutusvaatimus": [
+            {
+              "koodiUri": "pohjakoulutusvaatimuskouta_pk#1",
+              "nimi": {
+                "fi": "Peruskoulu",
+                "sv": "Grundskola",
+                "en": "Peruskoulu"
+              }
+            },
+            {
+              "koodiUri": "pohjakoulutusvaatimuskouta_er#1",
+              "nimi": {
+                "fi": "Peruskoulu / Yksilöllistetty perusopetus",
+                "en": "Peruskoulu / Yksilöllistetty perusopetus",
+                "sv": "Grundskola / Individualiserad grundutbildning"
+              }
+            }
+          ],
+          "hakulomakeLinkki": {
+            "fi": "https://testiopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000022493?lang=fi",
+            "sv": "https://testiopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000022493?lang=sv",
+            "en": "https://testiopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000022493?lang=en"
+          },
+          "koulutuksenAlkamiskausi": {
+            "alkamiskausityyppi": "alkamiskausi ja -vuosi",
+            "henkilokohtaisenSuunnitelmanLisatiedot": {},
+            "koulutuksenAlkamiskausi": {
+              "koodiUri": "kausi_s#1",
+              "nimi": {
+                "sv": "Höst",
+                "en": "Autumn",
+                "fi": "Syksy"
+              }
+            },
+            "koulutuksenAlkamisvuosi": "2023"
+          },
+          "hakulomakeAtaruId": "b1646055-f5a4-428d-9ffa-838512e10a44",
+          "esikatselu": false,
+          "hasValintaperustekuvausData": true,
+          "modified": "2023-02-07T15:56:20",
+          "jarjestyspaikka": {
+            "oid": "1.2.246.562.10.23856923257",
+            "nimi": {
+              "sv": "Järvenpää",
+              "fi": "Järvenpää",
+              "en": "Järvenpää"
+            },
+            "paikkakunta": {
+              "koodiUri": "kunta_186",
+              "nimi": {
+                "sv": "Träskända",
+                "fi": "Järvenpää"
+              }
+            },
+            "jarjestaaUrheilijanAmmKoulutusta": false
+          },
+          "nimi": {
+            "sv": "Kompetensområdet för fordonsteknik, Grundexamen inom fordonsbranschen (krävande särskilt stöd)",
+            "fi": "Ajoneuvotekniikan osaamisala, Ajoneuvoalan perustutkinto (vaativa erityinen tuki)"
+          },
+          "hakuajat": [
+            {
+              "alkaa": "2023-02-21T08:00",
+              "paattyy": "2023-03-21T15:00",
+              "formatoituPaattyy": {
+                "fi": "21.3.2023 klo 15:00",
+                "sv": "21.3.2023 kl. 15:00",
+                "en": "Mar. 21, 2023 at 03:00 PM UTC+2"
+              },
+              "formatoituAlkaa": {
+                "fi": "21.2.2023 klo 08:00",
+                "sv": "21.2.2023 kl. 08:00",
+                "en": "Feb. 21, 2023 at 08:00 AM UTC+2"
+              },
+              "hakuAuki": false,
+              "hakuMennyt": true
+            }
+          ],
+          "hakukohdeOid": "1.2.246.562.20.00000000000000022493",
+          "organisaatio": {
+            "oid": "1.2.246.562.10.57547005504",
+            "nimi": {
+              "sv": "Ammattiopisto Spesia",
+              "fi": "Ammattiopisto Spesia",
+              "en": "Ammattiopisto Spesia"
+            },
+            "paikkakunta": {
+              "koodiUri": "kunta_186",
+              "nimi": {
+                "sv": "Träskända",
+                "fi": "Järvenpää"
+              }
+            }
+          },
+          "metadata": {
+            "pistehistoria": [
+              {
+                "tarjoaja": "1.2.246.562.10.23856923257",
+                "hakukohdekoodi": {
+                  "koodiUri": "hakukohteeterammatillinenerityisopetus_1008",
+                  "nimi": {
+                    "sv": "Kompetensområdet för fordonsteknik, Grundexamen inom fordonsbranschen (krävande särskilt stöd)",
+                    "fi": "Ajoneuvotekniikan osaamisala, Ajoneuvoalan perustutkinto (vaativa erityinen tuki)"
+                  }
+                },
+                "pisteet": -3.0,
+                "vuosi": "2022",
+                "valintatapajonoOid": "16491463843325240901932434176592",
+                "hakukohdeOid": "1.2.246.562.20.00000000000000012079",
+                "hakuOid": "1.2.246.562.29.00000000000000005368",
+                "valintatapajonoTyyppi": null
+              }
+            ]
+          },
+          "formatoituModified": {
+            "fi": "7.2.2023 klo 15:56",
+            "sv": "7.2.2023 kl. 15:56",
+            "en": "Feb. 7, 2023 at 03:56 PM UTC+2"
+          },
+          "valintaperusteId": "bbe5ed02-37a5-437e-bf1b-42968bceecd5"
+        },
+        {
+          "tila": "julkaistu",
+          "hakulomakeKuvaus": {},
+          "pohjakoulutusvaatimusTarkenne": {},
+          "aloituspaikat": {
+            "lukumaara": 4,
+            "kuvaus": {}
+          },
+          "hakulomaketyyppi": "ataru",
+          "pohjakoulutusvaatimus": [
+            {
+              "koodiUri": "pohjakoulutusvaatimuskouta_pk#1",
+              "nimi": {
+                "fi": "Peruskoulu",
+                "sv": "Grundskola",
+                "en": "Peruskoulu"
+              }
+            },
+            {
+              "koodiUri": "pohjakoulutusvaatimuskouta_er#1",
+              "nimi": {
+                "fi": "Peruskoulu / Yksilöllistetty perusopetus",
+                "en": "Peruskoulu / Yksilöllistetty perusopetus",
+                "sv": "Grundskola / Individualiserad grundutbildning"
+              }
+            }
+          ],
+          "hakulomakeLinkki": {
+            "fi": "https://testiopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000022559?lang=fi",
+            "sv": "https://testiopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000022559?lang=sv",
+            "en": "https://testiopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000022559?lang=en"
+          },
+          "koulutuksenAlkamiskausi": {
+            "alkamiskausityyppi": "alkamiskausi ja -vuosi",
+            "henkilokohtaisenSuunnitelmanLisatiedot": {},
+            "koulutuksenAlkamiskausi": {
+              "koodiUri": "kausi_s#1",
+              "nimi": {
+                "sv": "Höst",
+                "en": "Autumn",
+                "fi": "Syksy"
+              }
+            },
+            "koulutuksenAlkamisvuosi": "2023"
+          },
+          "hakulomakeAtaruId": "b1646055-f5a4-428d-9ffa-838512e10a44",
+          "esikatselu": false,
+          "hasValintaperustekuvausData": true,
+          "modified": "2023-02-07T15:56:20",
+          "jarjestyspaikka": {
+            "oid": "1.2.246.562.10.50306628079",
+            "nimi": {
+              "sv": "Jyväskylä",
+              "fi": "Jyväskylä",
+              "en": "Jyväskylä"
+            },
+            "paikkakunta": {
+              "koodiUri": "kunta_179",
+              "nimi": {
+                "sv": "Jyväskylä",
+                "fi": "Jyväskylä"
+              }
+            },
+            "jarjestaaUrheilijanAmmKoulutusta": false
+          },
+          "nimi": {
+            "sv": "Kompetensområdet för fordonsteknik, Grundexamen inom fordonsbranschen (krävande särskilt stöd)",
+            "fi": "Ajoneuvotekniikan osaamisala, Ajoneuvoalan perustutkinto (vaativa erityinen tuki)"
+          },
+          "hakuajat": [
+            {
+              "alkaa": "2023-02-21T08:00",
+              "paattyy": "2023-03-21T15:00",
+              "formatoituPaattyy": {
+                "fi": "21.3.2023 klo 15:00",
+                "sv": "21.3.2023 kl. 15:00",
+                "en": "Mar. 21, 2023 at 03:00 PM UTC+2"
+              },
+              "formatoituAlkaa": {
+                "fi": "21.2.2023 klo 08:00",
+                "sv": "21.2.2023 kl. 08:00",
+                "en": "Feb. 21, 2023 at 08:00 AM UTC+2"
+              },
+              "hakuAuki": false,
+              "hakuMennyt": true
+            }
+          ],
+          "hakukohdeOid": "1.2.246.562.20.00000000000000022559",
+          "organisaatio": {
+            "oid": "1.2.246.562.10.57547005504",
+            "nimi": {
+              "sv": "Ammattiopisto Spesia",
+              "fi": "Ammattiopisto Spesia",
+              "en": "Ammattiopisto Spesia"
+            },
+            "paikkakunta": {
+              "koodiUri": "kunta_186",
+              "nimi": {
+                "sv": "Träskända",
+                "fi": "Järvenpää"
+              }
+            }
+          },
+          "metadata": {
+            "pistehistoria": [
+              {
+                "tarjoaja": "1.2.246.562.10.50306628079",
+                "hakukohdekoodi": {
+                  "koodiUri": "hakukohteeterammatillinenerityisopetus_1008",
+                  "nimi": {
+                    "sv": "Kompetensområdet för fordonsteknik, Grundexamen inom fordonsbranschen (krävande särskilt stöd)",
+                    "fi": "Ajoneuvotekniikan osaamisala, Ajoneuvoalan perustutkinto (vaativa erityinen tuki)"
+                  }
+                },
+                "pisteet": -1.0,
+                "vuosi": "2022",
+                "valintatapajonoOid": "1649146388115-5332674272569642183",
+                "hakukohdeOid": "1.2.246.562.20.00000000000000012095",
+                "hakuOid": "1.2.246.562.29.00000000000000005368",
+                "valintatapajonoTyyppi": null
+              }
+            ]
+          },
+          "formatoituModified": {
+            "fi": "7.2.2023 klo 15:56",
+            "sv": "7.2.2023 kl. 15:56",
+            "en": "Feb. 7, 2023 at 03:56 PM UTC+2"
+          },
+          "valintaperusteId": "bbe5ed02-37a5-437e-bf1b-42968bceecd5"
+        }
+      ]
+    },
+    {
+      "hakuOid": "1.2.246.562.29.00000000000000038404",
+      "nimi": {
+        "en": "Joint application to upper secondary education and preparatory education 2024",
+        "fi": "Perusopetuksen jälkeisen koulutuksen yhteishaku 2024",
+        "sv": "Gemensam ansökan till utbildning efter den grundläggande utbildningen 2024"
+      },
+      "hakutapa": {
+        "koodiUri": "hakutapa_01#1",
+        "nimi": {
+          "fi": "Yhteishaku",
+          "sv": "Gemensam ansökan",
+          "en": "Joint application"
+        }
+      },
+      "koulutuksenAlkamiskausi": {
+        "alkamiskausityyppi": "alkamiskausi ja -vuosi",
+        "henkilokohtaisenSuunnitelmanLisatiedot": {},
+        "koulutuksenAlkamiskausi": {
+          "koodiUri": "kausi_s#1",
+          "nimi": {
+            "sv": "Höst",
+            "en": "Autumn",
+            "fi": "Syksy"
+          }
+        },
+        "koulutuksenAlkamisvuosi": "2024"
+      },
+      "kohdejoukko": {
+        "koodiUri": "haunkohdejoukko_11#1",
+        "nimi": {
+          "fi": "Perusopetuksen jälkeisen koulutuksen yhteishaku",
+          "sv": "Gemensam ansökan till utbildning efter grundläggande utbildning"
+        }
+      },
+      "hakukohteet": [
+        {
+          "tila": "julkaistu",
+          "hakulomakeKuvaus": {},
+          "pohjakoulutusvaatimusTarkenne": {},
+          "aloituspaikat": {
+            "lukumaara": 2,
+            "kuvaus": {}
+          },
+          "hakulomaketyyppi": "ataru",
+          "pohjakoulutusvaatimus": [
+            {
+              "koodiUri": "pohjakoulutusvaatimuskouta_pk#1",
+              "nimi": {
+                "fi": "Peruskoulu",
+                "sv": "Grundskola",
+                "en": "Peruskoulu"
+              }
+            },
+            {
+              "koodiUri": "pohjakoulutusvaatimuskouta_er#1",
+              "nimi": {
+                "fi": "Peruskoulu / Yksilöllistetty perusopetus",
+                "en": "Peruskoulu / Yksilöllistetty perusopetus",
+                "sv": "Grundskola / Individualiserad grundutbildning"
+              }
+            }
+          ],
+          "hakulomakeLinkki": {
+            "fi": "https://testiopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000041502?lang=fi",
+            "sv": "https://testiopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000041502?lang=sv",
+            "en": "https://testiopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000041502?lang=en"
+          },
+          "koulutuksenAlkamiskausi": {
+            "alkamiskausityyppi": "alkamiskausi ja -vuosi",
+            "henkilokohtaisenSuunnitelmanLisatiedot": {},
+            "koulutuksenAlkamiskausi": {
+              "koodiUri": "kausi_s#1",
+              "nimi": {
+                "sv": "Höst",
+                "en": "Autumn",
+                "fi": "Syksy"
+              }
+            },
+            "koulutuksenAlkamisvuosi": "2024"
+          },
+          "hakulomakeAtaruId": "0e886f0c-3b6f-4a7e-808b-14dded35e013",
+          "esikatselu": false,
+          "hasValintaperustekuvausData": true,
+          "modified": "2023-09-12T13:22:58",
+          "jarjestyspaikka": {
+            "oid": "1.2.246.562.10.39101208583",
+            "nimi": {
+              "sv": "Karins",
+              "fi": "Kaarina",
+              "en": "Kaarina"
+            },
+            "paikkakunta": {
+              "koodiUri": "kunta_202",
+              "nimi": {
+                "fi": "Kaarina",
+                "sv": "St Karins"
+              }
+            },
+            "jarjestaaUrheilijanAmmKoulutusta": false
+          },
+          "nimi": {
+            "fi": "Vauriokorjauksen osaamisala, Ajoneuvoalan perustutkinto (vaativa erityinen tuki)",
+            "sv": "Kompetensområdet för reparation av skador, Grundexamen inom fordonsbranschen (krävande särskilt stöd)"
+          },
+          "hakuajat": [
+            {
+              "alkaa": "2024-02-20T08:00",
+              "paattyy": "2024-03-19T15:00",
+              "formatoituPaattyy": {
+                "fi": "19.3.2024 klo 15:00",
+                "sv": "19.3.2024 kl. 15:00",
+                "en": "Mar. 19, 2024 at 03:00 PM UTC+2"
+              },
+              "formatoituAlkaa": {
+                "fi": "20.2.2024 klo 08:00",
+                "sv": "20.2.2024 kl. 08:00",
+                "en": "Feb. 20, 2024 at 08:00 AM UTC+2"
+              },
+              "hakuAuki": false,
+              "hakuMennyt": false
+            }
+          ],
+          "hakukohdeOid": "1.2.246.562.20.00000000000000041502",
+          "organisaatio": {
+            "oid": "1.2.246.562.10.57547005504",
+            "nimi": {
+              "sv": "Ammattiopisto Spesia",
+              "fi": "Ammattiopisto Spesia",
+              "en": "Ammattiopisto Spesia"
+            },
+            "paikkakunta": {
+              "koodiUri": "kunta_186",
+              "nimi": {
+                "sv": "Träskända",
+                "fi": "Järvenpää"
+              }
+            }
+          },
+          "metadata": {
+            "pistehistoria": []
+          },
+          "formatoituModified": {
+            "fi": "12.9.2023 klo 13:22",
+            "sv": "12.9.2023 kl. 13:22",
+            "en": "Sep. 12, 2023 at 01:22 PM UTC+3"
+          },
+          "valintaperusteId": "bbe5ed02-37a5-437e-bf1b-42968bceecd5"
+        },
+        {
+          "tila": "julkaistu",
+          "hakulomakeKuvaus": {},
+          "pohjakoulutusvaatimusTarkenne": {},
+          "aloituspaikat": {
+            "lukumaara": 3,
+            "kuvaus": {}
+          },
+          "hakulomaketyyppi": "ataru",
+          "pohjakoulutusvaatimus": [
+            {
+              "koodiUri": "pohjakoulutusvaatimuskouta_pk#1",
+              "nimi": {
+                "fi": "Peruskoulu",
+                "sv": "Grundskola",
+                "en": "Peruskoulu"
+              }
+            },
+            {
+              "koodiUri": "pohjakoulutusvaatimuskouta_er#1",
+              "nimi": {
+                "fi": "Peruskoulu / Yksilöllistetty perusopetus",
+                "en": "Peruskoulu / Yksilöllistetty perusopetus",
+                "sv": "Grundskola / Individualiserad grundutbildning"
+              }
+            }
+          ],
+          "hakulomakeLinkki": {
+            "fi": "https://testiopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000041649?lang=fi",
+            "sv": "https://testiopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000041649?lang=sv",
+            "en": "https://testiopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000041649?lang=en"
+          },
+          "koulutuksenAlkamiskausi": {
+            "alkamiskausityyppi": "alkamiskausi ja -vuosi",
+            "henkilokohtaisenSuunnitelmanLisatiedot": {},
+            "koulutuksenAlkamiskausi": {
+              "koodiUri": "kausi_s#1",
+              "nimi": {
+                "sv": "Höst",
+                "en": "Autumn",
+                "fi": "Syksy"
+              }
+            },
+            "koulutuksenAlkamisvuosi": "2024"
+          },
+          "hakulomakeAtaruId": "0e886f0c-3b6f-4a7e-808b-14dded35e013",
+          "esikatselu": false,
+          "hasValintaperustekuvausData": true,
+          "modified": "2023-09-13T09:00:47",
+          "jarjestyspaikka": {
+            "oid": "1.2.246.562.10.50306628079",
+            "nimi": {
+              "sv": "Jyväskylä",
+              "fi": "Jyväskylä",
+              "en": "Jyväskylä"
+            },
+            "paikkakunta": {
+              "koodiUri": "kunta_179",
+              "nimi": {
+                "sv": "Jyväskylä",
+                "fi": "Jyväskylä"
+              }
+            },
+            "jarjestaaUrheilijanAmmKoulutusta": false
+          },
+          "nimi": {
+            "sv": "Kompetensområdet för fordonsteknik, Grundexamen inom fordonsbranschen (krävande särskilt stöd)",
+            "fi": "Ajoneuvotekniikan osaamisala, Ajoneuvoalan perustutkinto (vaativa erityinen tuki)"
+          },
+          "hakuajat": [
+            {
+              "alkaa": "2024-02-20T08:00",
+              "paattyy": "2024-03-19T15:00",
+              "formatoituPaattyy": {
+                "fi": "19.3.2024 klo 15:00",
+                "sv": "19.3.2024 kl. 15:00",
+                "en": "Mar. 19, 2024 at 03:00 PM UTC+2"
+              },
+              "formatoituAlkaa": {
+                "fi": "20.2.2024 klo 08:00",
+                "sv": "20.2.2024 kl. 08:00",
+                "en": "Feb. 20, 2024 at 08:00 AM UTC+2"
+              },
+              "hakuAuki": false,
+              "hakuMennyt": false
+            }
+          ],
+          "hakukohdeOid": "1.2.246.562.20.00000000000000041649",
+          "organisaatio": {
+            "oid": "1.2.246.562.10.57547005504",
+            "nimi": {
+              "sv": "Ammattiopisto Spesia",
+              "fi": "Ammattiopisto Spesia",
+              "en": "Ammattiopisto Spesia"
+            },
+            "paikkakunta": {
+              "koodiUri": "kunta_186",
+              "nimi": {
+                "sv": "Träskända",
+                "fi": "Järvenpää"
+              }
+            }
+          },
+          "metadata": {
+            "pistehistoria": [
+              {
+                "tarjoaja": "1.2.246.562.10.50306628079",
+                "hakukohdekoodi": {
+                  "koodiUri": "hakukohteeterammatillinenerityisopetus_1008",
+                  "nimi": {
+                    "sv": "Kompetensområdet för fordonsteknik, Grundexamen inom fordonsbranschen (krävande särskilt stöd)",
+                    "fi": "Ajoneuvotekniikan osaamisala, Ajoneuvoalan perustutkinto (vaativa erityinen tuki)"
+                  }
+                },
+                "pisteet": -1.0,
+                "vuosi": "2022",
+                "valintatapajonoOid": "1649146388115-5332674272569642183",
+                "hakukohdeOid": "1.2.246.562.20.00000000000000012095",
+                "hakuOid": "1.2.246.562.29.00000000000000005368",
+                "valintatapajonoTyyppi": null
+              }
+            ]
+          },
+          "formatoituModified": {
+            "fi": "13.9.2023 klo 09:00",
+            "sv": "13.9.2023 kl. 09:00",
+            "en": "Sep. 13, 2023 at 09:00 AM UTC+3"
+          },
+          "valintaperusteId": "bbe5ed02-37a5-437e-bf1b-42968bceecd5"
+        },
+        {
+          "tila": "julkaistu",
+          "hakulomakeKuvaus": {},
+          "pohjakoulutusvaatimusTarkenne": {},
+          "aloituspaikat": {
+            "lukumaara": 3,
+            "kuvaus": {}
+          },
+          "hakulomaketyyppi": "ataru",
+          "pohjakoulutusvaatimus": [
+            {
+              "koodiUri": "pohjakoulutusvaatimuskouta_pk#1",
+              "nimi": {
+                "fi": "Peruskoulu",
+                "sv": "Grundskola",
+                "en": "Peruskoulu"
+              }
+            },
+            {
+              "koodiUri": "pohjakoulutusvaatimuskouta_er#1",
+              "nimi": {
+                "fi": "Peruskoulu / Yksilöllistetty perusopetus",
+                "en": "Peruskoulu / Yksilöllistetty perusopetus",
+                "sv": "Grundskola / Individualiserad grundutbildning"
+              }
+            }
+          ],
+          "hakulomakeLinkki": {
+            "fi": "https://testiopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000041652?lang=fi",
+            "sv": "https://testiopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000041652?lang=sv",
+            "en": "https://testiopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000041652?lang=en"
+          },
+          "koulutuksenAlkamiskausi": {
+            "alkamiskausityyppi": "alkamiskausi ja -vuosi",
+            "henkilokohtaisenSuunnitelmanLisatiedot": {},
+            "koulutuksenAlkamiskausi": {
+              "koodiUri": "kausi_s#1",
+              "nimi": {
+                "sv": "Höst",
+                "en": "Autumn",
+                "fi": "Syksy"
+              }
+            },
+            "koulutuksenAlkamisvuosi": "2024"
+          },
+          "hakulomakeAtaruId": "0e886f0c-3b6f-4a7e-808b-14dded35e013",
+          "esikatselu": true,
+          "hasValintaperustekuvausData": true,
+          "modified": "2023-09-13T09:12:24",
+          "jarjestyspaikka": {
+            "oid": "1.2.246.562.10.41675425924",
+            "nimi": {
+              "sv": "Pieksämäki",
+              "fi": "Pieksämäki",
+              "en": "Pieksämäki"
+            },
+            "paikkakunta": {
+              "koodiUri": "kunta_593",
+              "nimi": {
+                "fi": "Pieksämäki",
+                "sv": "Pieksämäki"
+              }
+            },
+            "jarjestaaUrheilijanAmmKoulutusta": false
+          },
+          "nimi": {
+            "sv": "Kompetensområdet för fordonsteknik, Grundexamen inom fordonsbranschen (krävande särskilt stöd)",
+            "fi": "Ajoneuvotekniikan osaamisala, Ajoneuvoalan perustutkinto (vaativa erityinen tuki)"
+          },
+          "hakuajat": [
+            {
+              "alkaa": "2024-02-20T08:00",
+              "paattyy": "2024-03-19T15:00",
+              "formatoituPaattyy": {
+                "fi": "19.3.2024 klo 15:00",
+                "sv": "19.3.2024 kl. 15:00",
+                "en": "Mar. 19, 2024 at 03:00 PM UTC+2"
+              },
+              "formatoituAlkaa": {
+                "fi": "20.2.2024 klo 08:00",
+                "sv": "20.2.2024 kl. 08:00",
+                "en": "Feb. 20, 2024 at 08:00 AM UTC+2"
+              },
+              "hakuAuki": false,
+              "hakuMennyt": false
+            }
+          ],
+          "hakukohdeOid": "1.2.246.562.20.00000000000000041652",
+          "organisaatio": {
+            "oid": "1.2.246.562.10.57547005504",
+            "nimi": {
+              "sv": "Ammattiopisto Spesia",
+              "fi": "Ammattiopisto Spesia",
+              "en": "Ammattiopisto Spesia"
+            },
+            "paikkakunta": {
+              "koodiUri": "kunta_186",
+              "nimi": {
+                "sv": "Träskända",
+                "fi": "Järvenpää"
+              }
+            }
+          },
+          "metadata": {
+            "pistehistoria": [
+              {
+                "tarjoaja": "1.2.246.562.10.41675425924",
+                "hakukohdekoodi": {
+                  "koodiUri": "hakukohteeterammatillinenerityisopetus_1008",
+                  "nimi": {
+                    "sv": "Kompetensområdet för fordonsteknik, Grundexamen inom fordonsbranschen (krävande särskilt stöd)",
+                    "fi": "Ajoneuvotekniikan osaamisala, Ajoneuvoalan perustutkinto (vaativa erityinen tuki)"
+                  }
+                },
+                "pisteet": -1.0,
+                "vuosi": "2022",
+                "valintatapajonoOid": "1649146388138-4312867168375784212",
+                "hakukohdeOid": "1.2.246.562.20.00000000000000012093",
+                "hakuOid": "1.2.246.562.29.00000000000000005368",
+                "valintatapajonoTyyppi": null
+              }
+            ]
+          },
+          "formatoituModified": {
+            "fi": "13.9.2023 klo 09:12",
+            "sv": "13.9.2023 kl. 09:12",
+            "en": "Sep. 13, 2023 at 09:12 AM UTC+3"
+          },
+          "valintaperusteId": "bbe5ed02-37a5-437e-bf1b-42968bceecd5"
+        },
+        {
+          "tila": "julkaistu",
+          "hakulomakeKuvaus": {},
+          "pohjakoulutusvaatimusTarkenne": {},
+          "aloituspaikat": {
+            "lukumaara": 24,
+            "kuvaus": {}
+          },
+          "hakulomaketyyppi": "ataru",
+          "pohjakoulutusvaatimus": [
+            {
+              "koodiUri": "pohjakoulutusvaatimuskouta_pk#1",
+              "nimi": {
+                "fi": "Peruskoulu",
+                "sv": "Grundskola",
+                "en": "Peruskoulu"
+              }
+            },
+            {
+              "koodiUri": "pohjakoulutusvaatimuskouta_er#1",
+              "nimi": {
+                "fi": "Peruskoulu / Yksilöllistetty perusopetus",
+                "en": "Peruskoulu / Yksilöllistetty perusopetus",
+                "sv": "Grundskola / Individualiserad grundutbildning"
+              }
+            }
+          ],
+          "hakulomakeLinkki": {
+            "fi": "https://testiopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000041166?lang=fi",
+            "sv": "https://testiopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000041166?lang=sv",
+            "en": "https://testiopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000041166?lang=en"
+          },
+          "koulutuksenAlkamiskausi": {
+            "alkamiskausityyppi": "alkamiskausi ja -vuosi",
+            "henkilokohtaisenSuunnitelmanLisatiedot": {},
+            "koulutuksenAlkamiskausi": {
+              "koodiUri": "kausi_s#1",
+              "nimi": {
+                "sv": "Höst",
+                "en": "Autumn",
+                "fi": "Syksy"
+              }
+            },
+            "koulutuksenAlkamisvuosi": "2024"
+          },
+          "hakulomakeAtaruId": "0e886f0c-3b6f-4a7e-808b-14dded35e013",
+          "esikatselu": false,
+          "hasValintaperustekuvausData": true,
+          "modified": "2023-09-12T12:54:08",
+          "jarjestyspaikka": {
+            "oid": "1.2.246.562.10.23856923257",
+            "nimi": {
+              "sv": "Järvenpää",
+              "fi": "Järvenpää",
+              "en": "Järvenpää"
+            },
+            "paikkakunta": {
+              "koodiUri": "kunta_186",
+              "nimi": {
+                "sv": "Träskända",
+                "fi": "Järvenpää"
+              }
+            },
+            "jarjestaaUrheilijanAmmKoulutusta": false
+          },
+          "nimi": {
+            "sv": "Kompetensområdet för fordonsteknik, Grundexamen inom fordonsbranschen (krävande särskilt stöd)",
+            "fi": "Ajoneuvotekniikan osaamisala, Ajoneuvoalan perustutkinto (vaativa erityinen tuki)"
+          },
+          "hakuajat": [
+            {
+              "alkaa": "2024-02-20T08:00",
+              "paattyy": "2024-03-19T15:00",
+              "formatoituPaattyy": {
+                "fi": "19.3.2024 klo 15:00",
+                "sv": "19.3.2024 kl. 15:00",
+                "en": "Mar. 19, 2024 at 03:00 PM UTC+2"
+              },
+              "formatoituAlkaa": {
+                "fi": "20.2.2024 klo 08:00",
+                "sv": "20.2.2024 kl. 08:00",
+                "en": "Feb. 20, 2024 at 08:00 AM UTC+2"
+              },
+              "hakuAuki": false,
+              "hakuMennyt": false
+            }
+          ],
+          "hakukohdeOid": "1.2.246.562.20.00000000000000041166",
+          "organisaatio": {
+            "oid": "1.2.246.562.10.57547005504",
+            "nimi": {
+              "sv": "Ammattiopisto Spesia",
+              "fi": "Ammattiopisto Spesia",
+              "en": "Ammattiopisto Spesia"
+            },
+            "paikkakunta": {
+              "koodiUri": "kunta_186",
+              "nimi": {
+                "sv": "Träskända",
+                "fi": "Järvenpää"
+              }
+            }
+          },
+          "metadata": {
+            "pistehistoria": [
+              {
+                "tarjoaja": "1.2.246.562.10.23856923257",
+                "hakukohdekoodi": {
+                  "koodiUri": "hakukohteeterammatillinenerityisopetus_1008",
+                  "nimi": {
+                    "sv": "Kompetensområdet för fordonsteknik, Grundexamen inom fordonsbranschen (krävande särskilt stöd)",
+                    "fi": "Ajoneuvotekniikan osaamisala, Ajoneuvoalan perustutkinto (vaativa erityinen tuki)"
+                  }
+                },
+                "pisteet": -3.0,
+                "vuosi": "2022",
+                "valintatapajonoOid": "16491463843325240901932434176592",
+                "hakukohdeOid": "1.2.246.562.20.00000000000000012079",
+                "hakuOid": "1.2.246.562.29.00000000000000005368",
+                "valintatapajonoTyyppi": null
+              }
+            ]
+          },
+          "formatoituModified": {
+            "fi": "12.9.2023 klo 12:54",
+            "sv": "12.9.2023 kl. 12:54",
+            "en": "Sep. 12, 2023 at 12:54 PM UTC+3"
+          },
+          "valintaperusteId": "bbe5ed02-37a5-437e-bf1b-42968bceecd5"
+        },
+        {
+          "tila": "julkaistu",
+          "hakulomakeKuvaus": {},
+          "pohjakoulutusvaatimusTarkenne": {},
+          "aloituspaikat": {
+            "lukumaara": 13,
+            "kuvaus": {}
+          },
+          "hakulomaketyyppi": "ataru",
+          "pohjakoulutusvaatimus": [
+            {
+              "koodiUri": "pohjakoulutusvaatimuskouta_pk#1",
+              "nimi": {
+                "fi": "Peruskoulu",
+                "sv": "Grundskola",
+                "en": "Peruskoulu"
+              }
+            },
+            {
+              "koodiUri": "pohjakoulutusvaatimuskouta_er#1",
+              "nimi": {
+                "fi": "Peruskoulu / Yksilöllistetty perusopetus",
+                "en": "Peruskoulu / Yksilöllistetty perusopetus",
+                "sv": "Grundskola / Individualiserad grundutbildning"
+              }
+            }
+          ],
+          "hakulomakeLinkki": {
+            "fi": "https://testiopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000041481?lang=fi",
+            "sv": "https://testiopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000041481?lang=sv",
+            "en": "https://testiopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000041481?lang=en"
+          },
+          "koulutuksenAlkamiskausi": {
+            "alkamiskausityyppi": "alkamiskausi ja -vuosi",
+            "henkilokohtaisenSuunnitelmanLisatiedot": {},
+            "koulutuksenAlkamiskausi": {
+              "koodiUri": "kausi_s#1",
+              "nimi": {
+                "sv": "Höst",
+                "en": "Autumn",
+                "fi": "Syksy"
+              }
+            },
+            "koulutuksenAlkamisvuosi": "2024"
+          },
+          "hakulomakeAtaruId": "0e886f0c-3b6f-4a7e-808b-14dded35e013",
+          "esikatselu": false,
+          "hasValintaperustekuvausData": true,
+          "modified": "2023-09-12T13:06:30",
+          "jarjestyspaikka": {
+            "oid": "1.2.246.562.10.39101208583",
+            "nimi": {
+              "sv": "Karins",
+              "fi": "Kaarina",
+              "en": "Kaarina"
+            },
+            "paikkakunta": {
+              "koodiUri": "kunta_202",
+              "nimi": {
+                "fi": "Kaarina",
+                "sv": "St Karins"
+              }
+            },
+            "jarjestaaUrheilijanAmmKoulutusta": false
+          },
+          "nimi": {
+            "sv": "Kompetensområdet för fordonsteknik, Grundexamen inom fordonsbranschen (krävande särskilt stöd)",
+            "fi": "Ajoneuvotekniikan osaamisala, Ajoneuvoalan perustutkinto (vaativa erityinen tuki)"
+          },
+          "hakuajat": [
+            {
+              "alkaa": "2024-02-20T08:00",
+              "paattyy": "2024-03-19T15:00",
+              "formatoituPaattyy": {
+                "fi": "19.3.2024 klo 15:00",
+                "sv": "19.3.2024 kl. 15:00",
+                "en": "Mar. 19, 2024 at 03:00 PM UTC+2"
+              },
+              "formatoituAlkaa": {
+                "fi": "20.2.2024 klo 08:00",
+                "sv": "20.2.2024 kl. 08:00",
+                "en": "Feb. 20, 2024 at 08:00 AM UTC+2"
+              },
+              "hakuAuki": false,
+              "hakuMennyt": false
+            }
+          ],
+          "hakukohdeOid": "1.2.246.562.20.00000000000000041481",
+          "organisaatio": {
+            "oid": "1.2.246.562.10.57547005504",
+            "nimi": {
+              "sv": "Ammattiopisto Spesia",
+              "fi": "Ammattiopisto Spesia",
+              "en": "Ammattiopisto Spesia"
+            },
+            "paikkakunta": {
+              "koodiUri": "kunta_186",
+              "nimi": {
+                "sv": "Träskända",
+                "fi": "Järvenpää"
+              }
+            }
+          },
+          "metadata": {
+            "pistehistoria": []
+          },
+          "formatoituModified": {
+            "fi": "12.9.2023 klo 13:06",
+            "sv": "12.9.2023 kl. 13:06",
+            "en": "Sep. 12, 2023 at 01:06 PM UTC+3"
+          },
+          "valintaperusteId": "bbe5ed02-37a5-437e-bf1b-42968bceecd5"
+        }
+      ]
+    }
+  ],
+  "formatoituModified": {
+    "fi": "14.2.2023 klo 16:08",
+    "sv": "14.2.2023 kl. 16:08",
+    "en": "Feb. 14, 2023 at 04:08 PM UTC+2"
+  },
+  "koulutustyyppi": "amm"
+}

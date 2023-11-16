@@ -4,13 +4,11 @@ import { PaletteColorOptions, Theme, ThemeOptions } from '@mui/material/styles';
 
 declare module '@mui/material/styles' {
   interface CustomTheme extends Theme {
-    betaBannerHeight: number;
     headerHeight: number;
   }
 
   // allow configuration using `createTheme`
   interface CustomThemeOptions extends ThemeOptions {
-    betaBannerHeight: number;
     headerHeight: number;
   }
 

@@ -1,6 +1,5 @@
 import React, { PropsWithChildren, useEffect } from 'react';
 
-import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router';
 
 import { getConfiguration } from '#/src/api/konfoApi';
@@ -9,15 +8,15 @@ import { useQueryOnce } from '#/src/hooks/useQueryOnce';
 import { configureI18n } from '#/src/tools/i18n';
 import { configureUrls } from '#/src/urls';
 
-import { locationChanged } from './store/reducers/appSlice';
+import { useLocationChanged } from './store/reducers/appSlice';
 
 const useSyncAppPage = () => {
-  const dispatch = useDispatch();
   const location = useLocation();
+  const locationChanged = useLocationChanged();
 
   useEffect(() => {
-    dispatch(locationChanged(location));
-  }, [dispatch, location]);
+    locationChanged(location);
+  }, [location, locationChanged]);
 };
 
 export const InitGate = ({ children }: PropsWithChildren) => {

@@ -14,8 +14,8 @@ test.describe('Sivut (mobiili)', () => {
     await page.goto(
       '/konfo/fi/sivu/paikan-vastaanotto-ja-ilmoittautuminen-korkeakouluun'
     );
-    await page.getByRole('button', { name: /Avaa tai sulje valikko/i }).click();
-    await page.getByRole('tab', { name: /på svenska/i }).click();
+    await page.getByRole('button', { name: /valikko/i }).click();
+    await page.getByRole('link', { name: /Svenska/i, includeHidden: true }).click();
 
     await page.waitForURL(
       '**/sv/sivu/mottagande-av-studieplats-i-gemensam-ansoekan-och-anmaelning-till-hoegskolor'

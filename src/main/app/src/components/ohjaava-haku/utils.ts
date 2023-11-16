@@ -1,22 +1,47 @@
-import { isUndefined } from 'lodash';
+import { isEmpty, isUndefined, some } from 'lodash';
 
 import { RajainItem } from '#/src/types/SuodatinTypes';
 
-import { Rajain } from './Question';
+import { CombinedRajaimet, Rajain } from './Question';
+
+export const updateRajainValues = (updated: Array<string> = [], rajainValue: string) => {
+  return updated.includes(rajainValue)
+    ? updated.filter((v: string) => v !== rajainValue)
+    : [...updated, rajainValue];
+};
 
 export const getChangedRajaimet = (
-  selectedRajainValues: Rajain,
+  allSelectedRajainValues: Rajain,
   rajainId: string,
-  rajainValue: string
+  selectedRajainValues: Array<string> = []
 ) => {
-  const rajainValues = selectedRajainValues[rajainId] as Array<string>;
-  if (isUndefined(rajainValues)) {
-    return { ...selectedRajainValues, [rajainId]: [rajainValue] };
+  const selected = allSelectedRajainValues[rajainId] as Array<string>;
+
+  if (isUndefined(selected)) {
+    return { ...allSelectedRajainValues, [rajainId]: selectedRajainValues };
   } else {
-    const updatedSelected = rajainValues.includes(rajainValue)
-      ? rajainValues.filter((v: string) => v !== rajainValue)
-      : [...rajainValues, rajainValue];
-    return { ...selectedRajainValues, [rajainId]: updatedSelected };
+    let updated = selected;
+    for (const rajainValue of selectedRajainValues) {
+      updated = updateRajainValues(updated, rajainValue);
+    }
+    return { ...allSelectedRajainValues, [rajainId]: updated };
+  }
+};
+
+export const getIsRajainSelected = (
+  allSelectedRajainValues: Rajain,
+  rajainId: string,
+  rajainValueIds: Array<string> = []
+) => {
+  if (isEmpty(allSelectedRajainValues) || isEmpty(rajainValueIds)) {
+    return false;
+  } else {
+    const selectedRajainValues = allSelectedRajainValues[rajainId] as Array<string>;
+    return rajainValueIds
+      .map((rajainValue: string) => {
+        return selectedRajainValues?.includes(rajainValue);
+      })
+      .every((v) => v);
   }
 };
 
@@ -59,4 +84,51 @@ export const combineMaksunMaaraWithMaksullisuustyyppi = (
       (rajainItem): rajainItem is RajainItem =>
         rajainItem && rajainItem.rajainId === 'maksullisuustyyppi'
     );
+};
+
+export const getRajainOptionsToShow = (
+  rajainItems?: Array<RajainItem>,
+  rajainOptionsToBeRemoved?: Array<string>,
+  rajainOptionsToBeCombined?: Array<CombinedRajaimet>
+): Array<Omit<RajainItem, 'count'> & { rajainValueIds?: Array<string> }> => {
+  const filteredRajainItems =
+    rajainItems?.filter(({ id }) => {
+      return !some(rajainOptionsToBeRemoved, (rajain) => {
+        return rajain === id;
+      });
+    }) || [];
+
+  const combined =
+    rajainOptionsToBeCombined?.map(({ translationKey, rajainKoodiuris }) => {
+      const toBeCombinedRajainItems = filteredRajainItems?.filter(({ id }) => {
+        return some(rajainKoodiuris, (rajain) => {
+          return rajain === id;
+        });
+      });
+
+      return {
+        id: translationKey,
+        rajainId: toBeCombinedRajainItems[0].rajainId,
+        rajainValueIds: toBeCombinedRajainItems.map(({ id }) => id),
+      };
+    }) || [];
+
+  const toBeCombinedRajainKoodiuris = combined?.flatMap(
+    ({ rajainValueIds }) => rajainValueIds
+  );
+
+  const rajainItemsWithoutCombined = filteredRajainItems
+    ?.filter(({ id }) => {
+      return !some(toBeCombinedRajainKoodiuris, (rajain) => {
+        return rajain === id;
+      });
+    })
+    .map((rajainItem) => {
+      return {
+        ...rajainItem,
+        rajainValueIds: [rajainItem.id],
+      };
+    });
+
+  return [...rajainItemsWithoutCombined, ...combined].filter(Boolean);
 };

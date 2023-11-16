@@ -32,6 +32,7 @@ type ConfigItem = {
   id: string;
   useRajainOptionNameFromRajain?: boolean;
   rajainOptionsToBeRemoved?: Array<string>;
+  optionOrder?: Array<string>;
 };
 
 const config: Config = isPlaywright ? configPlaywright : configProd;
@@ -56,6 +57,7 @@ export const OhjaavaHaku = () => {
   const hakuUrl = useSelector(getHakuUrl);
   const isStartOfQuestionnaire = useOhjaavaHaku((s) => s.isStartOfQuestionnaire);
   const ohjaavaHakuTitle = t('ohjaava-haku.otsikko');
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   return (
     <ContentWrapper>
@@ -72,8 +74,8 @@ export const OhjaavaHaku = () => {
           <StartComponent ohjaavaHakuTitle={ohjaavaHakuTitle} />
         ) : (
           <QuestionContainer>
-            <Progress />
-            <Question />
+            <Progress ref={buttonRef} />
+            <Question refElement={buttonRef} />
           </QuestionContainer>
         )}
       </StyledRoot>

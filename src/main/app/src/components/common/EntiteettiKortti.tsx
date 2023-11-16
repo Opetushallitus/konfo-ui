@@ -7,7 +7,7 @@ import {
   Box,
   SvgIconProps,
 } from '@mui/material';
-import { truncate, trim, isEmpty, isUndefined } from 'lodash';
+import { trim, isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { colors, educationTypeColorCode } from '#/src/colors';
@@ -17,6 +17,8 @@ import { SmartLink } from '#/src/components/common/SmartLink';
 import { KOULUTUS_TYYPPI } from '#/src/constants';
 import { styled } from '#/src/theme';
 import { sanitizedHTMLParser } from '#/src/tools/utils';
+
+import { useTruncatedKuvaus } from '../../hooks/useTruncatedKuvaus';
 
 const PREFIX = 'EntiteettiKortti';
 
@@ -102,8 +104,8 @@ const StyledSmartLink = styled(SmartLink, {
 
 // TODO: Jostain syystä TS:n labeled tuples ei toiminut, e.g. IconComponent: (...props: any) => JSX.Element
 type IconText = [
-  JSX.Element | string,
-  ((props: SvgIconProps) => JSX.Element) | undefined,
+  React.JSX.Element | string,
+  ((props: SvgIconProps) => React.JSX.Element) | undefined,
 ];
 
 type StyledSmartLinkProps = {
@@ -148,9 +150,7 @@ export const EntiteettiKortti = ({
 
   const { t } = useTranslation();
 
-  const kuvaus = isUndefined(kuvausProp)
-    ? undefined
-    : truncate(kuvausProp, { length: 255 }) || t('haku.ei_kuvausta');
+  const kuvaus = useTruncatedKuvaus(kuvausProp);
 
   let erityisopetusHeaderText = '';
   if (erityisopetusHeader && koulutustyyppi === KOULUTUS_TYYPPI.AMM) {

@@ -14,7 +14,10 @@ import {
 import { InputWithUnit } from '#/src/components/ohjaava-haku/common/InputWithUnit';
 import { RajainOption } from '#/src/components/ohjaava-haku/common/RajainOption';
 import { QuestionInfoText, Rajain } from '#/src/components/ohjaava-haku/Question';
-import { combineMaksunMaaraWithMaksullisuustyyppi } from '#/src/components/ohjaava-haku/utils';
+import {
+  combineMaksunMaaraWithMaksullisuustyyppi,
+  getIsRajainSelected,
+} from '#/src/components/ohjaava-haku/utils';
 import { marks } from '#/src/components/suodattimet/common/maksullisuusRajainUtils';
 import { NumberRangeRajainItem, RajainItem } from '#/src/types/SuodatinTypes';
 
@@ -66,6 +69,8 @@ const MaksullisuusInput = ({
   errorKey: string;
   allSelectedRajainValues: Rajain;
 }) => {
+  const { t } = useTranslation();
+
   const setAllSelectedRajainValues = useOhjaavaHaku((s) => s.setAllSelectedRajainValues);
   const rajainItem = rajainItems?.[0] as NumberRangeRajainItem;
   const undefinedRajainValues = [0, rajainItem?.upperLimit || DEFAULT_UPPERLIMIT];
@@ -128,7 +133,7 @@ const MaksullisuusInput = ({
       .otherwise(() => rangeValues);
 
     newValues[0] > newValues[1]
-      ? setErrorKey('vahintaan-suurempi-kuin-enintaan')
+      ? setErrorKey('minimihinta-suurempi-kuin-maksimihinta')
       : setErrorKey('');
     setRangeValues(newValues);
     setAllSelectedRajainValues({
@@ -138,7 +143,7 @@ const MaksullisuusInput = ({
   };
 
   const unit = () => <MaterialIcon icon="euro_symbol" fontSize="small" />;
-
+  const errorId = 'maksullisuus-error';
   return (
     <Grid container direction="column" wrap="nowrap">
       <InputContainer item container direction="row" wrap="nowrap">
@@ -150,7 +155,10 @@ const MaksullisuusInput = ({
               value={vahintaan}
               handleInputValueChange={handleInputValueChange}
               unitComponent={unit()}
-              inputLabel="euro"
+              ariaLabel={t(
+                'ohjaava-haku.kysymykset.maksullisuustyyppi.vahintaan-accessible-label'
+              )}
+              ariaDescribedby={errorId}
             />
           </InputFieldContainer>
         </InputFieldContainer>
@@ -163,12 +171,15 @@ const MaksullisuusInput = ({
               value={enintaan}
               handleInputValueChange={handleInputValueChange}
               unitComponent={unit()}
-              inputLabel="euro"
+              ariaLabel={t(
+                'ohjaava-haku.kysymykset.maksullisuustyyppi.enintaan-accessible-label'
+              )}
+              ariaDescribedby={errorId}
             />
           </InputFieldContainer>
         </InputFieldContainer>
       </InputContainer>
-      {!isEmpty(errorKey) && <ErrorMessage errorKey={errorKey} />}
+      {!isEmpty(errorKey) && <ErrorMessage id={errorId} errorKey={errorKey} />}
       <Grid item sx={{ mx: 1 }}>
         <MaksullisuusRangeSlider
           rangeValues={rangeValues}
@@ -203,13 +214,18 @@ export const Maksullisuus = ({
         questionInfo={t(`ohjaava-haku.kysymykset.info-text-for-options`)}
       />
       {maksullisuustyyppiRajainItems.map(({ id, rajainId, linkedRajainItems }) => {
-        const selectedRajainItems = allSelectedRajainValues[rajainId] as Array<string>;
-        const isRajainSelected = selectedRajainItems && selectedRajainItems.includes(id);
+        const rajainValueIds = [id];
+        const isRajainSelected = getIsRajainSelected(
+          allSelectedRajainValues,
+          rajainId,
+          rajainValueIds
+        );
 
         return (
           <Box key={id}>
             <RajainOption
               id={id}
+              rajainValueIds={rajainValueIds}
               isRajainSelected={isRajainSelected}
               rajainId={rajainId}
               toggleAllSelectedRajainValues={toggleAllSelectedRajainValues}

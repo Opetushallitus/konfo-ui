@@ -95,6 +95,20 @@ export const containsOnlyTodistusvalinta = (hakukohde: Hakukohde) => {
   );
 };
 
+export const containsOnlyKoepisteet = (hakukohde: Hakukohde) => {
+  return (
+    getUniquePistetyypit(hakukohde).length == 1 &&
+    getUniquePistetyypit(hakukohde).includes('valintatapajono_kp')
+  );
+};
+
+export const containsOnlyYhteispisteet = (hakukohde: Hakukohde) => {
+  return (
+    getUniquePistetyypit(hakukohde).length == 1 &&
+    getUniquePistetyypit(hakukohde).includes('valintatapajono_yp')
+  );
+};
+
 export const getPistetyyppiText = (
   pistetyyppi: string | undefined,
   t: TFunction

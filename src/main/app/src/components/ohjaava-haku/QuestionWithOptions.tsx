@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { Grid } from '@mui/material';
-import { some } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { RajainOption } from '#/src/components/ohjaava-haku/common/RajainOption';
@@ -10,6 +9,7 @@ import { RajainItem } from '#/src/types/SuodatinTypes';
 
 import { StyledQuestion } from './common/StyledQuestion';
 import { useOhjaavaHaku } from './hooks/useOhjaavaHaku';
+import { getIsRajainSelected, getRajainOptionsToShow } from './utils';
 
 export const QuestionWithOptions = ({
   rajainItems,
@@ -24,12 +24,16 @@ export const QuestionWithOptions = ({
     (s) => s
   );
 
-  const { rajainOptionsToBeRemoved, useRajainOptionNameFromRajain } = currentQuestion;
-  const rajainOptionsToShow = rajainItems?.filter(({ id }) => {
-    return !some(rajainOptionsToBeRemoved, (rajain) => {
-      return rajain === id;
-    });
-  });
+  const {
+    rajainOptionsToBeRemoved,
+    useRajainOptionNameFromRajain,
+    rajainOptionsToBeCombined,
+  } = currentQuestion;
+  const rajainOptionsToShow = getRajainOptionsToShow(
+    rajainItems,
+    rajainOptionsToBeRemoved,
+    rajainOptionsToBeCombined
+  );
 
   return (
     <Grid item container sx={{ width: '100%' }}>
@@ -37,14 +41,17 @@ export const QuestionWithOptions = ({
         questionInfo={t(`ohjaava-haku.kysymykset.info-text-for-options`)}
       />
       <StyledQuestion item>
-        {rajainOptionsToShow?.map(({ id, rajainId, nimi }) => {
-          const selectedRajainItems = allSelectedRajainValues[rajainId] as Array<string>;
-          const isRajainSelected =
-            selectedRajainItems && selectedRajainItems.includes(id);
+        {rajainOptionsToShow.map(({ id, rajainId, nimi, rajainValueIds }) => {
+          const isRajainSelected = getIsRajainSelected(
+            allSelectedRajainValues,
+            rajainId,
+            rajainValueIds
+          );
           return (
             <RajainOption
               key={id}
               id={id}
+              rajainValueIds={rajainValueIds}
               useRajainOptionNameFromRajain={useRajainOptionNameFromRajain}
               isRajainSelected={isRajainSelected}
               nimi={nimi}

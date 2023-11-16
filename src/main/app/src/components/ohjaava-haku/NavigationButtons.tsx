@@ -1,9 +1,10 @@
 import React from 'react';
 
-import { Button, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
+import { StyledButton } from '#/src/components/ohjaava-haku/common/StyledButton';
 import { styled } from '#/src/theme';
 
 import { useOhjaavaHaku } from './hooks/useOhjaavaHaku';
@@ -12,13 +13,14 @@ import { useSearch } from '../../components/haku/hakutulosHooks';
 const ButtonContainer = styled(Grid)(({ theme }) => ({
   margin: '1rem 0',
   display: 'grid',
-  gridTemplateColumns: '25% 25% 25% 25%',
+  gridTemplateColumns: '25fr 25fr 25fr 25fr',
   gridTemplateRows: 'auto',
   gridTemplateAreas: `"previous . results next"`,
+  gridGap: '1rem',
 
   [theme.breakpoints.down('sm')]: {
     display: 'grid',
-    gridTemplateColumns: '25% 25% 25% 25%',
+    gridTemplateColumns: '25fr 25fr 25fr 25fr',
     gridTemplateRows: 'auto',
     gridTemplateAreas: `
       "next next next next"
@@ -30,11 +32,11 @@ const ButtonContainer = styled(Grid)(({ theme }) => ({
   },
 }));
 
-const ButtonNext = styled(Button)({
+const ButtonNext = styled(StyledButton)({
   gridArea: 'next',
 });
 
-const ButtonPrevious = styled(Button)(({ theme }) => ({
+const ButtonPrevious = styled(StyledButton)(({ theme }) => ({
   gridArea: 'previous',
   fontWeight: 'bold',
 
@@ -43,12 +45,24 @@ const ButtonPrevious = styled(Button)(({ theme }) => ({
   },
 }));
 
-const ButtonResults = styled(Button)({
+const ButtonResults = styled(StyledButton)({
   gridArea: 'results',
   fontWeight: 'bold',
 });
 
-export const NavigationButtons = ({ errorKey }: { errorKey: string }) => {
+const setFocus = (refElement?: React.RefObject<HTMLButtonElement>) => {
+  if (refElement && refElement.current) {
+    refElement.current.focus();
+  }
+};
+
+export const NavigationButtons = ({
+  errorKey,
+  refElement,
+}: {
+  errorKey: string;
+  refElement?: React.RefObject<HTMLButtonElement>;
+}) => {
   const { t } = useTranslation();
 
   const { goToSearchPage, setRajainValues } = useSearch();
@@ -65,11 +79,13 @@ export const NavigationButtons = ({ errorKey }: { errorKey: string }) => {
 
   const moveToNextQuestion = () => {
     setCurrentQuestionIndex(currentQuestionIndex + 1);
+    setFocus(refElement);
     window.scrollTo(0, 0);
   };
 
   const moveToPreviousQuestion = () => {
     setCurrentQuestionIndex(currentQuestionIndex - 1);
+    setFocus(refElement);
     window.scrollTo(0, 0);
   };
 
@@ -94,7 +110,8 @@ export const NavigationButtons = ({ errorKey }: { errorKey: string }) => {
           onClick={moveToNextQuestion}
           variant="contained"
           color="primary"
-          disabled={!isEmpty(errorKey)}>
+          disabled={!isEmpty(errorKey)}
+          aria-disabled={!isEmpty(errorKey)}>
           {t('ohjaava-haku.seuraava')}
         </ButtonNext>
       )}
@@ -103,7 +120,8 @@ export const NavigationButtons = ({ errorKey }: { errorKey: string }) => {
           onClick={moveToPreviousQuestion}
           variant="outlined"
           color="primary"
-          disabled={!isEmpty(errorKey)}>
+          disabled={!isEmpty(errorKey)}
+          aria-disabled={!isEmpty(errorKey)}>
           {t('ohjaava-haku.edellinen')}
         </ButtonPrevious>
       )}
@@ -112,7 +130,8 @@ export const NavigationButtons = ({ errorKey }: { errorKey: string }) => {
           onClick={seeResults}
           color="primary"
           variant={isLastQuestion ? 'contained' : 'text'}
-          disabled={!isEmpty(errorKey)}>
+          disabled={!isEmpty(errorKey)}
+          aria-disabled={!isEmpty(errorKey)}>
           {t('ohjaava-haku.katso-tulokset')}
         </ButtonResults>
       }

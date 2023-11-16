@@ -2,15 +2,14 @@ import { useCallback, useEffect, useRef } from 'react';
 
 import { useMediaQuery } from '@mui/material';
 import { isEmpty } from 'lodash';
-import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { SIDEMENU_WIDTH } from '#/src/constants';
-import { setMenuState, useMenuOpen } from '#/src/store/reducers/appSlice';
+import { useSideMenuOpen } from '#/src/store/reducers/appSlice';
 import { theme } from '#/src/theme';
 import { i18n } from '#/src/tools/i18n';
 
-export const useLanguageState = () => {
+export const useLanguageState = (): [string | undefined, (newLang: string) => void] => {
   const location = useLocation();
   const navigate = useNavigate();
   const lng = location.pathname.match(/^\/(.*?)(\/|$)/)?.[1];
@@ -18,7 +17,7 @@ export const useLanguageState = () => {
     document.documentElement.setAttribute('lang', lng);
   }
   const setLanguage = useCallback(
-    (newLang) => {
+    (newLang: string) => {
       document.documentElement.setAttribute('lang', newLang || 'fi');
       if (lng && newLang !== lng) {
         i18n.changeLanguage(newLang);
@@ -34,8 +33,8 @@ export const useLanguageState = () => {
   return [lng, setLanguage];
 };
 
-export function usePreviousNonEmpty(value) {
-  const ref = useRef();
+export function usePreviousNonEmpty<T>(value?: T) {
+  const ref = useRef<T | undefined>();
 
   useEffect(() => {
     if (!isEmpty(value)) {
@@ -47,25 +46,23 @@ export function usePreviousNonEmpty(value) {
 }
 
 export const useSideMenu = () => {
-  const dispatch = useDispatch();
+  const [menuOpen, setMenuState] = useSideMenuOpen();
 
-  const menuOpen = useMenuOpen();
+  const toggleMenu = useCallback(() => {
+    setMenuState(!menuOpen);
+  }, [menuOpen, setMenuState]);
 
-  const toggle = useCallback(() => {
-    dispatch(setMenuState(!menuOpen));
-  }, [menuOpen, dispatch]);
-
-  const close = useCallback(() => {
-    dispatch(setMenuState(false));
-  }, [dispatch]);
+  const closeMenu = useCallback(() => {
+    setMenuState(false);
+  }, [setMenuState]);
 
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
 
   return {
     keepMenuVisible: !isSmall && menuOpen,
     state: menuOpen,
-    toggleMenu: toggle,
-    closeMenu: close,
+    toggleMenu,
+    closeMenu,
     width: menuOpen ? SIDEMENU_WIDTH : 0,
   };
 };

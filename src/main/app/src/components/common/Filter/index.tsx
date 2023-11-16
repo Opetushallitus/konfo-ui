@@ -139,7 +139,7 @@ type CheckboxProps = {
   isCountVisible?: boolean;
   onChange: (v: RajainItem) => void;
   indented?: boolean;
-  expandButton?: JSX.Element;
+  expandButton?: React.JSX.Element;
   disabled?: boolean;
   additionalInfo?: string;
 };
@@ -284,7 +284,7 @@ type Props = {
   options?: OptionsType;
   optionsLoading?: boolean;
   selectPlaceholder?: string;
-  additionalContent?: JSX.Element;
+  additionalContent?: React.JSX.Element;
   isCountVisible?: boolean;
 };
 

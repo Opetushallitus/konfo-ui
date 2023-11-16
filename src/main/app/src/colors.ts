@@ -6,6 +6,7 @@ export const colors = {
   lightGreenBg: '#CCFFCC', // Label BG
   brightGreenBg: '#64bc46',
   lightGrayishGreenBg: '#e3ecdd', // Ohjaava haku
+  darkerGrayishGreenBg: '#a5c291', // Ohjaava haku hover
   black: '#1D1D1D', // Headings, paragraphs
   darkGrey: '#4C4C4C', // input field text
   lightGrey: '#B2B2B2', // Disabled states

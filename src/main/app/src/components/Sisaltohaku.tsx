@@ -182,7 +182,7 @@ export const Sisaltohaku = () => {
             <InputBase
               className={classes.input}
               defaultValue={search}
-              onKeyPress={(event) => event.key === 'Enter' && doSearch(event)}
+              onKeyDown={(event) => event.key === 'Enter' && doSearch(event)}
               onChange={({ target }) => setSearch(trim(target.value))}
               placeholder={t('sidebar.etsi-tietoa-opintopolusta')}
               inputProps={{

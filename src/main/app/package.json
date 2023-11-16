@@ -59,12 +59,12 @@
     "tslib": "^2.6.0",
     "typeface-open-sans": "^1.1.13",
     "victory": "^36.6.11",
-    "zustand": "^4.4.3"
+    "zustand": "^4.4.1"
   },
   "devDependencies": {
     "@material-design-icons/svg": "^0.14.10",
     "@optimize-lodash/rollup-plugin": "^4.0.3",
-    "@playwright/test": "^1.36.0",
+    "@playwright/test": "^1.39.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@types/dompurify": "^3.0.2",
