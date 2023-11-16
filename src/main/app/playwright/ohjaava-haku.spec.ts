@@ -32,7 +32,7 @@ test.describe('Ohjaava haku', () => {
     await expect(page.getByRole('button', { name: 'Edellinen kysymys' })).toBeHidden();
     await page.getByRole('button', { name: 'Seuraava kysymys' }).click();
     await expect(
-      page.getByRole('heading', { name: 'Miten paljon voit opiskella?' })
+      page.getByRole('heading', { name: 'Miten paljon tarvitset ohjausta opetukseen?' })
     ).toBeVisible();
     await page.getByRole('button', { name: 'Edellinen kysymys' }).click();
     await expect(
@@ -48,6 +48,7 @@ test.describe('Ohjaava haku', () => {
   }) => {
     await page.goto('/konfo/fi/ohjaava-haku');
     await page.getByRole('button', { name: 'Käynnistä kysely' }).click();
+    await page.getByRole('button', { name: 'Seuraava kysymys' }).click();
     await page.getByRole('button', { name: 'Seuraava kysymys' }).click();
     await page.locator('#vahintaan-vuosi').fill('8');
     await expect(
@@ -70,6 +71,9 @@ test.describe('Ohjaava haku', () => {
     await page
       .getByRole('button', { name: 'Yhdistetty päivä- ja iltaopetus sopii minulle.' })
       .click();
+    await page.getByRole('button', { name: 'Seuraava kysymys' }).click();
+
+    await page.getByRole('button', { name: 'Haluan opiskella kotoa käsin.' }).click();
     await page.getByRole('button', { name: 'Seuraava kysymys' }).click();
 
     const slider = page.locator('.MuiSlider-root');
@@ -120,7 +124,7 @@ test.describe('Ohjaava haku', () => {
     await page.getByRole('button', { name: 'Katso tulokset' }).click();
 
     await expect(page).toHaveURL(
-      'http://localhost:3005/konfo/fi/haku?alkamiskausi=2024-kevat&koulutuksenkestokuukausina_max=65&koulutuksenkestokuukausina_min=22&lukuvuosimaksunmaara_max=10000&lukuvuosimaksunmaara_min=1000&maksullisuustyyppi=lukuvuosimaksu,maksullinen&maksunmaara_max=10000&maksunmaara_min=1000&opetusaika=opetusaikakk_4&order=desc&size=20&sort=score'
+      'http://localhost:3005/konfo/fi/haku?alkamiskausi=2024-kevat&koulutuksenkestokuukausina_max=65&koulutuksenkestokuukausina_min=22&lukuvuosimaksunmaara_max=10000&lukuvuosimaksunmaara_min=1000&maksullisuustyyppi=lukuvuosimaksu,maksullinen&maksunmaara_max=10000&maksunmaara_min=1000&opetusaika=opetusaikakk_4&opetustapa=opetuspaikkakk_2,opetuspaikkakk_3&order=desc&size=20&sort=score'
     );
 
     await expect(page.getByTestId('chip-opetusaikakk_4')).toBeVisible();
