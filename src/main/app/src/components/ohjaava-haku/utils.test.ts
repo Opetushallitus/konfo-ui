@@ -14,6 +14,13 @@ describe('updateRajainValues', () => {
   test('adds one rajainValue in an empty array', () => {
     expect(updateRajainValues([], 'opetusaikakk_2')).toEqual(['opetusaikakk_2']);
   });
+
+  test('adds new rajainValue in an array that has one rajain value', () => {
+    expect(updateRajainValues(['opetusaikakk_3'], 'opetusaikakk_2')).toEqual([
+      'opetusaikakk_3',
+      'opetusaikakk_2',
+    ]);
+  });
 });
 
 describe('getChangedRajaimet', () => {
