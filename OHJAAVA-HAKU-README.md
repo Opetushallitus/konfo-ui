@@ -29,3 +29,23 @@ Myös sellaisille kysymyksille, joille käytetään koodistosta tulevaa rajaimen
 - `rajainOptionsToBeRemoved`: array-tyyppisen parametrin arvoksi voi lisätä rajainvaihtoehtoja, joita ei haluta näyttää ohjaavassa haussa. Tästä esimerkkinä on "alkamiskausi"-kysymys, jolle ei haluta näyttää "henkilokohtainen" -vaihtoehtoa.
 
 - `optionOrder`: array-tyyppisellä parametrilla voi määritellä rajainvaihtoehtojen järjestyksen kysymysnäkymässä.
+
+- `rajainOptionsToBeCombined`: array-tyyppinen parametri sisältää objekteja, joilla on kaksi kenttää:
+  - `translationKey`: käännösavaimen yksilöivä osa, merkkijono.
+  - `rajainKoodiuris`: array, johon on lisätty koodiurit, jotka halutaan "yhdistää" yhden rajainvaihtoehdon alle
+
+  Esimerkki yhdistelmärajaimen konfiguraatiosta:
+
+  ```
+  {
+      "id": "opetustapa",
+      "rajainOptionsToBeCombined": [
+          {
+              "translationKey": "combined_etaopetus",
+              "rajainKoodiuris": ["opetuspaikkakk_2", "opetuspaikkakk_3"]
+          }
+      ]
+  }
+  ```
+
+  Esimerkkikonfiguraatiolla halutaan yhdistää kaksi `opetuspaikkakk`-koodiuria yhden rajainvaihtoehdon alle. Yhdistelmärajaimelle tulee lisätä käännös lokalisaatiopalveluun muodossa `ohjaava-haku.kysymykset.<id>.vaihtoehdot.<translationKey>` eli esimerkkitapauksen käännösavain olisi `ohjaava-haku.kysymykset.opetustapa.vaihtoehdot.combined_etaopetus`.
