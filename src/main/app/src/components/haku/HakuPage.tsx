@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect } from 'react';
+import React, { useEffect } from 'react';
 
 import {
   Box,
@@ -13,7 +13,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { useMeasure, useWindowSize } from 'react-use';
+import { useWindowSize } from 'react-use';
 
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
@@ -30,6 +30,7 @@ import { safeParseNumber } from '#/src/tools/utils';
 import { BackendErrorMessage } from './hakutulos/BackendErrorMessage';
 import { HakutulosResults } from './hakutulos/HakutulosResults';
 import { HakutulosTabs } from './hakutulos/HakutulosTabs';
+import { useSyncHakutulosWidth } from './hakutulos/hooks';
 import { Suodatinpalkki } from './hakutulos/Suodatinpalkki';
 import { useAllSelectedFilters, useSearch, useSearchSortOrder } from './hakutulosHooks';
 import { MobileFiltersOnTopMenu } from './MobileFiltersOnTopMenu';
@@ -158,17 +159,6 @@ const useContentWidth = () => {
 const ExpandMore = (props: SvgIconProps) => (
   <MaterialIcon icon="expand_more" {...props} />
 );
-
-const useSyncHakutulosWidth = () => {
-  const [hakutulosRef, { width: realHakutulosWidth }] = useMeasure();
-
-  const [, setHakutulosWidth] = useHakutulosWidth();
-  useLayoutEffect(() => {
-    setHakutulosWidth(Math.round(realHakutulosWidth));
-  }, [realHakutulosWidth, setHakutulosWidth]);
-
-  return hakutulosRef;
-};
 
 export const HakuPage = () => {
   const theme = useTheme();
