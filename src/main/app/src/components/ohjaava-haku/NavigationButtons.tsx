@@ -100,7 +100,7 @@ export const NavigationButtons = ({
       xs={12}
       {...(isLastQuestion && {
         sx: {
-          gridTemplateColumns: '25% 25% 25% 25%',
+          gridTemplateColumns: '25fr 25fr 25fr 25fr',
           gridTemplateRows: 'auto',
           gridTemplateAreas: `"previous . . results"`,
         },

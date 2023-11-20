@@ -8,6 +8,7 @@ import {
   getRajainOptionsToShow,
   updateRajainValues,
   getIsRajainSelected,
+  getHasBeenAnswered,
 } from './utils';
 
 describe('updateRajainValues', () => {
@@ -836,5 +837,84 @@ describe('getRajainOptionsToShow', () => {
     expect(
       getRajainOptionsToShow(rajainItems, undefined, rajainOptionsToBeCombined)
     ).toEqual(result);
+  });
+});
+
+describe('getHasBeenAnswered', () => {
+  test('should return false when opetustapa has no value in all selected rajain values', () => {
+    const allSelectedRajainValues = {
+      opetusaika: ['opetusaikakk_1'],
+      maksullisuustyyppi: ['maksuton'],
+      koulutuksenkestokuukausina: {
+        koulutuksenkestokuukausina_min: 9,
+        koulutuksenkestokuukausina_max: 84,
+      },
+    };
+
+    expect(getHasBeenAnswered(allSelectedRajainValues, 'opetustapa')).toBe(false);
+  });
+
+  test('should return true when opetusaika has one selected value in all selected rajain values', () => {
+    const allSelectedRajainValues = {
+      opetusaika: ['opetusaikakk_1'],
+      maksullisuustyyppi: ['maksuton'],
+      koulutuksenkestokuukausina: {
+        koulutuksenkestokuukausina_min: 9,
+        koulutuksenkestokuukausina_max: 84,
+      },
+    };
+
+    expect(getHasBeenAnswered(allSelectedRajainValues, 'opetusaika')).toBe(true);
+  });
+
+  test('should return true when koulutuksenkestokuukausina has been defined in all selected rajain values', () => {
+    const allSelectedRajainValues = {
+      opetusaika: ['opetusaikakk_1'],
+      maksullisuustyyppi: ['maksuton'],
+      koulutuksenkestokuukausina: {
+        koulutuksenkestokuukausina_min: 9,
+        koulutuksenkestokuukausina_max: 84,
+      },
+    };
+
+    expect(
+      getHasBeenAnswered(allSelectedRajainValues, 'koulutuksenkestokuukausina')
+    ).toBe(true);
+  });
+
+  test('should return false when koulutuksenkestokuukausina has not been defined in all selected rajain values', () => {
+    const allSelectedRajainValues = {
+      opetusaika: ['opetusaikakk_1'],
+      maksullisuustyyppi: ['maksuton'],
+    };
+
+    expect(
+      getHasBeenAnswered(allSelectedRajainValues, 'koulutuksenkestokuukausina')
+    ).toBe(false);
+  });
+
+  test("should return false when maksullisuus doesn't have value in all selected rajain values", () => {
+    const allSelectedRajainValues = {
+      opetusaika: ['opetusaikakk_1'],
+      koulutuksenkestokuukausina: {
+        koulutuksenkestokuukausina_min: 9,
+        koulutuksenkestokuukausina_max: 84,
+      },
+    };
+
+    expect(getHasBeenAnswered(allSelectedRajainValues, 'maksullisuus')).toBe(false);
+  });
+
+  test('should return true when maksullisuus has been defined in all selected rajain values', () => {
+    const allSelectedRajainValues = {
+      opetusaika: ['opetusaikakk_1'],
+      maksullisuustyyppi: ['maksuton'],
+      koulutuksenkestokuukausina: {
+        koulutuksenkestokuukausina_min: 9,
+        koulutuksenkestokuukausina_max: 84,
+      },
+    };
+
+    expect(getHasBeenAnswered(allSelectedRajainValues, 'maksullisuus')).toBe(true);
   });
 });

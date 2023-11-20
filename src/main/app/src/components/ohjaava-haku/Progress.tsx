@@ -10,6 +10,7 @@ import { styled } from '#/src/theme';
 
 import { useOhjaavaHaku } from './hooks/useOhjaavaHaku';
 import { QuestionType } from './Question';
+import { getHasBeenAnswered } from './utils';
 
 const MobileProgressBar = ({ progress }: { progress: string }) => {
   return (
@@ -37,6 +38,8 @@ export const Progress = React.forwardRef<HTMLButtonElement, ButtonProps>((_, ref
     currentQuestionIndex + 1
   } / ${questions?.length}`;
 
+  const { allSelectedRajainValues } = useOhjaavaHaku((s) => s);
+
   return (
     <>
       {isMobile ? (
@@ -45,6 +48,10 @@ export const Progress = React.forwardRef<HTMLButtonElement, ButtonProps>((_, ref
         <ProgressSivupalkki container item direction="column">
           {questions.map((question: QuestionType, index: number) => {
             const questionId = question.id;
+            const hasBeenAnswered = getHasBeenAnswered(
+              allSelectedRajainValues,
+              questionId
+            );
             const isCurrentQuestion = index === currentQuestionIndex;
             const isPastQuestion = index < currentQuestionIndex;
             return (
@@ -71,11 +78,12 @@ export const Progress = React.forwardRef<HTMLButtonElement, ButtonProps>((_, ref
                 }}
                 key={questionId}
                 onClick={() => setCurrentQuestionIndex(index)}
-                {...(isPastQuestion && {
-                  endIcon: (
-                    <MaterialIcon icon="check" sx={{ color: colors.brandGreen }} />
-                  ),
-                })}>
+                {...(hasBeenAnswered &&
+                  isPastQuestion && {
+                    endIcon: (
+                      <MaterialIcon icon="check" sx={{ color: colors.brandGreen }} />
+                    ),
+                  })}>
                 {t(`ohjaava-haku.kysymykset.${questionId}.otsikko`)}
               </StyledButton>
             );

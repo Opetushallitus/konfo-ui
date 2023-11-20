@@ -132,3 +132,12 @@ export const getRajainOptionsToShow = (
 
   return [...rajainItemsWithoutCombined, ...combined].filter(Boolean);
 };
+
+export const getHasBeenAnswered = (
+  allSelectedRajainValues: Rajain,
+  questionId: string
+) => {
+  const id = questionId === 'maksullisuus' ? 'maksullisuustyyppi' : questionId;
+
+  return !isEmpty(allSelectedRajainValues[id]);
+};
