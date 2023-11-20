@@ -263,3 +263,56 @@ export const EntiteettiKortti = ({
     </StyledSmartLink>
   );
 };
+
+export const EntiteettiKorttiTiivistetty = ({
+  header,
+  iconTexts,
+  to,
+  isSmall: isSmallProp,
+  wrapIconTexts = false,
+}: Props) => {
+  const theme = useTheme();
+  const smDown = useMediaQuery(theme.breakpoints.down('sm'));
+  const isSmall = isSmallProp == null ? smDown : isSmallProp;
+
+  return (
+    <StyledSmartLink href={to} wrapIconTexts={wrapIconTexts} isSmall={isSmall}>
+      <Paper
+        data-testid={header}
+        classes={{ root: classes.paperRoot }}
+        style={{
+          borderTop: `5px solid ${colors.brandGreen}`,
+          padding: isSmall ? '16px' : '32px',
+        }}>
+        <Box display="inline">
+          <Typography variant="h4" className={classes.header}>
+            {header}
+          </Typography>
+        </Box>
+        <Box className={classes.iconTexts}>
+          {iconTexts.filter(Boolean).map((iconText, i) => {
+            const [content, IconComponent] = iconText as IconText;
+            return (
+              content && (
+                <Box
+                  key={`header-icon-text-${i}`}
+                  flexBasis="33.33%"
+                  flexShrink={1}
+                  marginBottom={1}>
+                  <Typography
+                    style={{
+                      display: 'flex',
+                      marginRight: '8px',
+                    }}>
+                    {IconComponent && <IconComponent style={{ marginRight: '8px' }} />}
+                    {content}
+                  </Typography>
+                </Box>
+              )
+            );
+          })}
+        </Box>
+      </Paper>
+    </StyledSmartLink>
+  );
+};
