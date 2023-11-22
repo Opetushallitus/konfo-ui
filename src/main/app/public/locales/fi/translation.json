@@ -815,6 +815,14 @@
       "kielennimi": "Kielen nimi"
     }
   },
+  "vertaa-hakukohteeseen": {
+    "header": "Vertaa pisteitä hakukohteeseen",
+    "vertaa-ohje": "Vertaa pisteitäsi pistemäärään, jolla oppilaitokseen on päässyt opiskelemaan.",
+    "etsi-hakukohteita": "Etsi hakukohteita",
+    "lataus-käynnissä": "Haetaan...",
+    "syota-ainakin-kolme-merkkia": "Syötä ainakin kolme merkkiä",
+    "tyhjenna": "Tyhjennä"
+  },
   "kouluaineet": {
     "aidinkieli": "Äidinkieli ja kirjallisuus",
     "a1-kieli": "A1-kieli",

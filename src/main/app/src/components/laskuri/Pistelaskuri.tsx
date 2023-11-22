@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Box, Button } from '@mui/material';
 import { useTranslation } from 'react-i18next';
@@ -24,6 +24,7 @@ import {
   LocalStorageUtil,
   RESULT_STORE_KEY,
 } from './LocalStorageUtil';
+import { VertaaHakukohteeseen } from './VertaaHakukohteeseen';
 
 const PREFIX = 'Pistelaskuri__';
 
@@ -113,10 +114,6 @@ export const Pistelaskuri = ({
     }
   }, [tulos]);
 
-  useLayoutEffect(() => {
-    scrollIntoView(rootRef.current);
-  });
-
   const calcButtonDisabled =
     useKeskiarvoLaskuri &&
     (!isValidKeskiarvo(keskiarvoToCalculate.lukuaineet) ||
@@ -136,6 +133,7 @@ export const Pistelaskuri = ({
   const clearTulos = () => {
     LocalStorageUtil.remove(RESULT_STORE_KEY);
     updateTulos(null);
+    scrollIntoView(rootRef.current);
   };
 
   const clearValues = () => {
@@ -169,6 +167,7 @@ export const Pistelaskuri = ({
           tulos={tulos}
           embedded={embedded}
           kouluaineet={kouluaineetToCalculate}
+          rootRef={rootRef}
         />
       )}
       <Box className={classes.buttonWrapper}>
@@ -196,6 +195,7 @@ export const Pistelaskuri = ({
           </Button>
         )}
       </Box>
+      {tulos && embedded && <VertaaHakukohteeseen tulos={tulos} />}
     </StyledDiv>
   );
 };
