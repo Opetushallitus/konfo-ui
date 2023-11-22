@@ -19,11 +19,11 @@ type Props = {
 };
 export const AllLanguagesTooltip = ({ koodiUri }: Props) => {
   const { t } = useTranslation();
+  const koodi = koodiUri.split('#')[0];
   const oppiaineet = usePainotettavatOppiaineetLukiossa();
   const kielet = oppiaineet
     ?.filter(
-      (oppiaine) =>
-        oppiaine.koodiUri.startsWith(koodiUri) && oppiaine.koodiUri !== koodiUri
+      (oppiaine) => oppiaine.koodiUri.startsWith(koodi) && oppiaine.koodiUri !== koodi
     )
     .map((kieli) => translate(kieli.nimi));
 
