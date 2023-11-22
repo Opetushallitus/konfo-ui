@@ -19,6 +19,7 @@ import {
 import { CookieModal } from '#/src/components/common/CookieModal';
 import { SiteImprove } from '#/src/components/common/SiteImprove';
 import { HeadingBoundary } from '#/src/components/Heading';
+import { OhjaavaHakuLink } from '#/src/components/ohjaava-haku/OhjaavaHakuLink';
 import { useSideMenu } from '#/src/hooks';
 import { NotFound } from '#/src/NotFound';
 import { styled } from '#/src/theme';
@@ -36,6 +37,7 @@ import { Hairiotiedote } from './components/Hairiotiedote';
 import { HakuPage } from './components/haku/HakuPage';
 import { Hakupalkki } from './components/haku/Hakupalkki';
 import { KoulutusPage } from './components/koulutus/KoulutusPage';
+import { OhjaavaHakuPage } from './components/ohjaava-haku/OhjaavaHakuPage';
 import { OppilaitosPage } from './components/oppilaitos/OppilaitosPage';
 import { PalautePopup } from './components/palaute/PalautePopup';
 import { Palvelut } from './components/palvelu/Palvelut';
@@ -144,12 +146,14 @@ const KonfoRoutes = () => (
         }>
         <Route path="" element={<Etusivu />} />
         <Route path="sisaltohaku" element={<Sisaltohaku />} />
+        <Route path="ohjaava-haku" element={<OhjaavaHakuPage />} />
         <Route
           element={
             <>
               <div style={{ margin: 'auto', maxWidth: '1600px' }}>
                 <ReactiveBorder>
                   <Hakupalkki />
+                  <OhjaavaHakuLink />
                 </ReactiveBorder>
               </div>
               <Outlet />
