@@ -175,8 +175,8 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
           disableUnderline={true}
           className={classes.hakukohdeSelect}
           input={<Input className={classes.hakukohdeInput} />}>
-          {hakukohteet.map((kohde: Hakukohde, index: number) => (
-            <MenuItem key={`hakukohde-${index}`} value={kohde as any}>
+          {hakukohteet.map((kohde: Hakukohde) => (
+            <MenuItem key={`hakukohde-${self.crypto.randomUUID()}`} value={kohde as any}>
               {localize(kohde.nimi)}
               {kohde.jarjestyspaikka ? `, ${localize(kohde.jarjestyspaikka.nimi)}` : ''}
             </MenuItem>

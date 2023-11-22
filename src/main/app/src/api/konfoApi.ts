@@ -4,6 +4,7 @@ import { includes, isEmpty, map } from 'lodash';
 import { urls } from 'oph-urls-js';
 import qs from 'query-string';
 
+import { ToteutuksetKoulutuksittainResult } from '#/src/components/laskuri/hooks';
 import { getLanguage } from '#/src/tools/localization';
 import { cleanRequestParams, isPlaywright, isDev } from '#/src/tools/utils';
 import {
@@ -249,3 +250,19 @@ export const getContentfulData = (
     return { contentfulData, slugsToIds };
   });
 };
+
+export const getToteutuksetKoulutuksittain = (keyword: string, searchLanguage: string) =>
+  get<ToteutuksetKoulutuksittainResult>(
+    urls.url('konfo-backend.toteutuksetkoulutuksittain'),
+    {
+      params: cleanRequestParams({
+        keyword: keyword,
+        lng: searchLanguage,
+        page: 1,
+        size: 20,
+        sort: 'score',
+        order: 'desc',
+        koulutustyyppi: ['amm', 'lk'],
+      }),
+    }
+  );
