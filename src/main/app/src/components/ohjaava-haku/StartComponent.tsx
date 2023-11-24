@@ -4,7 +4,7 @@ import { Box, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { useSearch } from '#/src/components/haku/hakutulosHooks';
-import { Heading, HeadingBoundary } from '#/src/components/Heading';
+import { Heading } from '#/src/components/Heading';
 import { StyledButton } from '#/src/components/ohjaava-haku/common/StyledButton';
 import { toId } from '#/src/tools/utils';
 
@@ -23,14 +23,12 @@ export const StartComponent = ({ ohjaavaHakuTitle }: { ohjaavaHakuTitle: string 
 
   return (
     <Box>
-      <HeadingBoundary>
-        <Heading
-          id={toId(ohjaavaHakuTitle)}
-          variant="h2"
-          sx={{ marginTop: '1.5rem', marginBottom: '1.5rem' }}>
-          {ohjaavaHakuTitle}
-        </Heading>
-      </HeadingBoundary>
+      <Heading
+        id={toId(ohjaavaHakuTitle)}
+        variant="h2"
+        sx={{ marginTop: '1.5rem', marginBottom: '1.5rem' }}>
+        {ohjaavaHakuTitle}
+      </Heading>
       <Typography sx={{ marginBottom: '1.5rem' }}>
         {t('ohjaava-haku.info-text')}
       </Typography>
