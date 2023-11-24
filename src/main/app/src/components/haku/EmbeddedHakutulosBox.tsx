@@ -9,7 +9,6 @@ import { useQuery } from 'react-query';
 import { searchKoulutukset } from '#/src/api/konfoApi';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { useHakutulosWidth } from '#/src/store/reducers/appSlice';
-import { SearchParams } from '#/src/types/common';
 
 import { BackendErrorMessage } from './hakutulos/BackendErrorMessage';
 import {
@@ -18,7 +17,7 @@ import {
 } from './hakutulos/hakutulosKortit/KoulutusKortti';
 import { useSyncHakutulosWidth } from './hakutulos/hooks';
 
-const MAX_SIZE_FOR_INITIAL_QUERY = 3;
+const MAX_SIZE_FOR_INITIAL_QUERY = 10;
 
 type KoulutusQueryResult = {
   total: number;
@@ -26,28 +25,34 @@ type KoulutusQueryResult = {
 };
 
 type Props = {
-  keyword: string;
   searchParams: string;
   size?: number;
 };
 
-const useKoulutusSearch = ({ keyword, searchParams, size }: Props) => {
-  const search: SearchParams =
+const useKoulutusSearch = ({ searchParams, size }: Props) => {
+  const keywordAndParams = searchParams.split('?');
+  const searchParmsWithKeyword =
+    keywordAndParams.length > 1
+      ? {
+          ...qs.parse(keywordAndParams[1], { parseNumbers: true }),
+          keyword: keywordAndParams[0],
+        }
+      : qs.parse(keywordAndParams[0], { parseNumbers: true });
+
+  const completeSearchParams =
     size && size >= 0
       ? {
-          keyword,
-          ...qs.parse(searchParams, { parseNumbers: true }),
+          ...searchParmsWithKeyword,
           size,
           page: 1,
         }
       : {
-          keyword,
-          ...omit(qs.parse(searchParams, { parseNumbers: true }), ['size', 'page']),
+          ...omit(searchParmsWithKeyword, ['size', 'page']),
         };
 
   return useQuery<unknown, unknown, KoulutusQueryResult>(
-    ['searchKoulutukset', { search }],
-    ({ signal }) => searchKoulutukset(search, signal),
+    ['searchKoulutukset', { search: completeSearchParams }],
+    ({ signal }) => searchKoulutukset(completeSearchParams, signal),
     {
       keepPreviousData: false,
       refetchOnMount: false,
