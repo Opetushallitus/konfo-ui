@@ -1,0 +1,53 @@
+{
+  "oid": "1.2.3",
+  "koulutustyyppi": "lk",
+  "hakutiedot": [
+    {
+      "nimi": {
+        "fi": "Perusopetuksen jälkeisen koulutuksen yhteishaku 2024"
+      },
+      "hakutapa": {
+        "koodiUri": "hakutapa_01#1"
+      },
+      "hakukohteet": [
+        {
+          "nimi": {
+            "fi": "Lukion yleislinja"
+          },
+          "metadata": {
+            "pistehistoria": [
+              {
+                "pisteet": 8,
+                "vuosi": "2018",
+                "valintatapajonoTyyppi": {
+                  "koodiUri": "valintatapajono_tv"
+                }
+              },
+              {
+                "pisteet": 8.33,
+                "vuosi": "2019",
+                "valintatapajonoTyyppi": {
+                  "koodiUri": "valintatapajono_tv"
+                }
+              },
+              {
+                "pisteet": 8.67,
+                "vuosi": "2020",
+                "valintatapajonoTyyppi": {
+                  "koodiUri": "valintatapajono_tv"
+                }
+              },
+              {
+                "pisteet": 8.5,
+                "vuosi": "2021",
+                "valintatapajonoTyyppi": {
+                  "koodiUri": "valintatapajono_tv"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
