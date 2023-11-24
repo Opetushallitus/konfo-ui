@@ -1,6 +1,6 @@
 import { expect, Page, test } from '@playwright/test';
 
-import { setupCommonTest } from './test-tools';
+import { fixtureFromFile, setupCommonTest } from './test-tools';
 
 const getKeskiarvoPalleroTulokset = (page: Page) =>
   page.locator('.keskiarvo__tulos__pallerot__embeddedtextcontainer > :first-child');
@@ -10,6 +10,15 @@ test.describe('Embedded pistelaskuri', () => {
     await setupCommonTest({ page, context, baseURL });
   });
   test('calculates average and clears values', async ({ page }) => {
+    await page.route(
+      '/konfo-backend/external/search/toteutukset-koulutuksittain**',
+      fixtureFromFile('search-toteutuksetkoulutuksittain-auto.json')
+    );
+    await page.route(
+      '/konfo-backend/toteutus/1.2.3',
+      fixtureFromFile('toteutus-alppilan-lukio.json')
+    );
+
     await page.goto('/konfo/fi/sivu/pistelaskuritesti');
     await expect(page.locator('h3')).toHaveText('Perusopetuksen keskiarvot');
 
@@ -17,6 +26,7 @@ test.describe('Embedded pistelaskuri', () => {
     await page.locator('.keskiarvo__laskuri__input').nth(1).fill('9');
     await page.locator('.keskiarvo__laskuri__input').nth(2).fill('6');
     await page.locator('.MuiCheckbox-root input').click();
+    await expect(page.locator('.VertaaHakukohteeseen__container')).toBeHidden();
 
     await page.locator('.Pistelaskuri__calculatebutton').click();
 
@@ -25,6 +35,15 @@ test.describe('Embedded pistelaskuri', () => {
     await expect(keskiarvoPalleroTulokset.nth(0)).toHaveText('8');
     await expect(keskiarvoPalleroTulokset.nth(1)).toHaveText('12');
     await expect(keskiarvoPalleroTulokset.nth(2)).toHaveText('10');
+
+    // renders vertaa hakukohteeseen elements
+    await expect(page.locator('.VertaaHakukohteeseen__container')).toBeVisible();
+    await page.locator('.VertaaHakukohteeseen__input input').nth(0).fill('lukio');
+    await expect(page.locator('.MuiAutocomplete-popper')).toHaveText(
+      'Lukio, 150 opintopistettä, Alppilan Lukio'
+    );
+    await page.locator('.MuiAutocomplete-popper').nth(0).click();
+    await expect(page.locator('.graafi__container__pistetyyppibox')).toBeVisible();
 
     // render correct buttons
     await expect(page.locator('.Pistelaskuri__recalculatebutton')).toBeHidden();
@@ -38,6 +57,7 @@ test.describe('Embedded pistelaskuri', () => {
     await expect(page.locator('.keskiarvo__laskuri__input').nth(1)).toHaveValue('');
     await expect(page.locator('.keskiarvo__laskuri__input').nth(2)).toHaveValue('');
     await expect(page.locator('.MuiCheckbox-root input')).toBeChecked();
+    await expect(page.locator('.VertaaHakukohteeseen__container')).toBeHidden();
   });
   test('calculates average with weighting', async ({ page }) => {
     await page.goto('/konfo/fi/sivu/pistelaskuritesti');

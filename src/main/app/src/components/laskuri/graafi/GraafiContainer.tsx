@@ -199,6 +199,7 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
                   className={classes.pistetyyppiText}
                   sx={{ fontSize: '0.875rem' }}>
                   <Box
+                    component="span"
                     className={classes.pistetyyppiBox}
                     sx={{
                       justifyContent: 'center',
@@ -221,6 +222,7 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
               {tulos && (
                 <Typography sx={{ fontSize: '0.875rem' }}>
                   <Box
+                    component="span"
                     sx={{
                       width: '19px',
                       height: 0,
