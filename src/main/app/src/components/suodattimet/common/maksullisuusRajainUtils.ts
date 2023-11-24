@@ -13,11 +13,18 @@ export const resolveSliderMarkValues = (upperLimit: number) => {
     (ALLOWED_SLIDER_MARK_BASES.find((v) => v >= markCandidate / markE10Multiplier) ??
       Math.max(...ALLOWED_SLIDER_MARK_BASES));
 
-  return range(0, upperLimit, markStep).concat([upperLimit]);
+  const sliderMarkValuesWithoutUpperLimit = range(0, upperLimit, markStep);
+  const lastIndex = sliderMarkValuesWithoutUpperLimit.length - 1;
+  const lastValue = sliderMarkValuesWithoutUpperLimit[lastIndex];
+  return upperLimit - lastValue < markStep
+    ? sliderMarkValuesWithoutUpperLimit.slice(0, lastIndex).concat([upperLimit])
+    : sliderMarkValuesWithoutUpperLimit.concat([upperLimit]);
 };
 
-export const marks = (upperLimit: number) =>
+export const marks = (upperLimit: number, useAbbreviation = true) =>
   resolveSliderMarkValues(upperLimit).map((value) => ({
     value,
-    label: value ? `${getExponent(value) >= 3 ? value / 1000 + ' k' : value} €` : '',
+    label: value
+      ? `${useAbbreviation && getExponent(value) >= 3 ? value / 1000 + ' k' : value} €`
+      : '',
   }));
