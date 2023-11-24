@@ -19,5 +19,5 @@ export const resolveSliderMarkValues = (upperLimit: number) => {
 export const marks = (upperLimit: number) =>
   resolveSliderMarkValues(upperLimit).map((value) => ({
     value,
-    label: value ? `${getExponent(value) >= 3 ? value / 1000 + 'k' : value}€` : '',
+    label: value ? `${getExponent(value) >= 3 ? value / 1000 + ' k' : value} €` : '',
   }));

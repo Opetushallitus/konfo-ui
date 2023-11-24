@@ -39,7 +39,7 @@ const MaksullisuusRangeSlider = ({
   handleSliderValueCommit: (val: Array<number>) => void;
 }) => {
   const { t } = useTranslation();
-  const labelText = (val: number) => (val > 0 ? `${val}€` : '0');
+  const labelText = (val: number) => (val > 0 ? `${val} €` : '0');
 
   return undefinedRajainValues?.[1] === 0 ? null : (
     <Box mr={2} ml={1}>
