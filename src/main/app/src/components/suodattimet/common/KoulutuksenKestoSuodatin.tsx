@@ -41,9 +41,9 @@ const resolveSliderMarks = (upperLimit: number, unitOfMeasure: UnitOfMeasure) =>
     : range(0, upperLimit + 1, stepLength);
 };
 
-const yearsAbbr = (years: number, t: TFunction) => `${years}${t('haku.lyhenne-vuosi')}`;
+const yearsAbbr = (years: number, t: TFunction) => `${years} ${t('haku.lyhenne-vuosi')}`;
 const monthsAbbr = (months: number, t: TFunction) =>
-  `${months}${t('haku.lyhenne-kuukausi')}`;
+  `${months} ${t('haku.lyhenne-kuukausi')}`;
 
 const rangeText = (val: number, t: TFunction) => {
   if (val === 0) {
