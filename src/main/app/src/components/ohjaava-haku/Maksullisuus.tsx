@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Box, Grid } from '@mui/material';
+import { Box, Grid, useMediaQuery, useTheme } from '@mui/material';
 import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { match } from 'ts-pattern';
@@ -39,7 +39,10 @@ const MaksullisuusRangeSlider = ({
   handleSliderValueCommit: (val: Array<number>) => void;
 }) => {
   const { t } = useTranslation();
-  const labelText = (val: number) => (val > 0 ? `${val}€` : '0');
+  const labelText = (val: number) => (val > 0 ? `${val} €` : '0');
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return undefinedRajainValues?.[1] === 0 ? null : (
     <Box mr={2} ml={1}>
@@ -47,7 +50,7 @@ const MaksullisuusRangeSlider = ({
         values={rangeValues}
         min={undefinedRajainValues[0]}
         max={undefinedRajainValues[1]}
-        marks={marks(undefinedRajainValues[1])}
+        marks={marks(undefinedRajainValues[1], isMobile)}
         labelFormatter={labelText}
         onRangeCommit={handleSliderValueCommit}
         sliderLabel={t('haku.koulutuksen-hinta')}
@@ -159,6 +162,7 @@ const MaksullisuusInput = ({
                 'ohjaava-haku.kysymykset.maksullisuustyyppi.vahintaan-accessible-label'
               )}
               ariaDescribedby={errorId}
+              type="number"
             />
           </InputFieldContainer>
         </InputFieldContainer>
@@ -175,6 +179,7 @@ const MaksullisuusInput = ({
                 'ohjaava-haku.kysymykset.maksullisuustyyppi.enintaan-accessible-label'
               )}
               ariaDescribedby={errorId}
+              type="number"
             />
           </InputFieldContainer>
         </InputFieldContainer>

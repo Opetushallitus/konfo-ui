@@ -9,6 +9,7 @@ export const InputWithUnit = ({
   unitComponent,
   ariaLabel,
   ariaDescribedby,
+  type,
 }: {
   id: string;
   value: string;
@@ -16,6 +17,7 @@ export const InputWithUnit = ({
   unitComponent: React.ReactNode;
   ariaLabel: string;
   ariaDescribedby?: string;
+  type?: string;
 }) => {
   return (
     <Box display="flex" gap="0.5rem">
@@ -24,6 +26,7 @@ export const InputWithUnit = ({
         value={value}
         onChange={handleInputValueChange}
         {...(ariaDescribedby && { 'aria-describedby': ariaDescribedby })}
+        type={type}
       />
       <InputLabel
         sx={{ overflow: 'visible', alignSelf: 'center' }}

@@ -41,9 +41,9 @@ const resolveSliderMarks = (upperLimit: number, unitOfMeasure: UnitOfMeasure) =>
     : range(0, upperLimit + 1, stepLength);
 };
 
-const yearsAbbr = (years: number, t: TFunction) => `${years}${t('haku.lyhenne-vuosi')}`;
+const yearsAbbr = (years: number, t: TFunction) => `${years} ${t('haku.lyhenne-vuosi')}`;
 const monthsAbbr = (months: number, t: TFunction) =>
-  `${months}${t('haku.lyhenne-kuukausi')}`;
+  `${months} ${t('haku.lyhenne-kuukausi')}`;
 
 const rangeText = (val: number, t: TFunction) => {
   if (val === 0) {
@@ -169,11 +169,13 @@ export const KoulutuksenKestoSlider = ({
   undefinedRajainValues,
   handleSliderValueCommit,
   sliderLabel,
+  ariaValueText,
 }: {
   rangeValues: Array<number>;
   undefinedRajainValues: Array<number>;
   handleSliderValueCommit: (val: Array<number>) => void;
   sliderLabel?: string;
+  ariaValueText?: (value: number) => string;
 }) => {
   const { t } = useTranslation();
   const labelFormatter = (val: number) => rangeText(val, t);
@@ -187,6 +189,7 @@ export const KoulutuksenKestoSlider = ({
         labelFormatter={labelFormatter}
         onRangeCommit={handleSliderValueCommit}
         sliderLabel={sliderLabel}
+        ariaValueText={ariaValueText}
       />
     </Grid>
   );
