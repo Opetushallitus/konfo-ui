@@ -4,18 +4,18 @@ import {
   Autocomplete,
   AutocompleteRenderInputParams,
   Box,
+  createFilterOptions,
   InputBase,
   Paper,
-  Tooltip,
   Typography,
 } from '@mui/material';
-import { isString, omit, size } from 'lodash';
+import { isString, omit, sortBy } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { GraafiContainer } from '#/src/components/laskuri/graafi/GraafiContainer';
-import { useToteutuksetKoulutuksittain } from '#/src/components/laskuri/hooks';
+import { HaunHakukohde, useGetHaku } from '#/src/components/laskuri/hooks';
 import { InfoBox } from '#/src/components/laskuri/InfoBox';
 import { useToteutus } from '#/src/components/toteutus/hooks';
 import { theme } from '#/src/theme';
@@ -32,50 +32,50 @@ const classes = {
   input: `${PREFIX}input`,
 };
 
-const checkIsKeywordValid = (word: string) => size(word) === 0 || size(word) > 2;
-
 interface Option {
   label: string;
-  value: string;
+  value: HaunHakukohde;
 }
 
 type Props = {
   tulos: HakupisteLaskelma;
 };
 
+const sanitize = (oid: string | undefined): string | null => {
+  return isString(oid) ? oid.replace(/[^0-9.]/gm, '') : null;
+};
+
 export const VertaaHakukohteeseen = ({ tulos }: Props) => {
   const { t } = useTranslation();
-  const [inputValue, setInputValue] = useState<string>(() => '');
-  const [toteutusOid, setToteutusOid] = useState<string | undefined>(undefined);
-  const isKeywordValid = checkIsKeywordValid(inputValue);
-  const { isFetching, data } = useToteutuksetKoulutuksittain({
-    keyword: inputValue,
-    searchLanguage: 'fi',
-  });
-
-  const hits = useMemo(
-    () =>
-      data?.hits
-        .map((hit) => {
-          return hit.toteutukset?.map((toteutus) => {
-            const oppilaitosNimi = toteutus.oppilaitosNimi
-              ? localize(toteutus.oppilaitosNimi)
-              : undefined;
-            return {
-              label: `${localize(toteutus.toteutusNimi)}${
-                oppilaitosNimi ? `, ${oppilaitosNimi}` : ''
-              }`,
-              value: toteutus.toteutusOid,
-            };
-          });
-        })
-        .flat() || [],
-    [data?.hits]
+  const { isDraft, search } = useUrlParams();
+  const [selectedHakukohde, setSelectedHakukohde] = useState<HaunHakukohde | undefined>(
+    undefined
   );
 
-  const { isDraft } = useUrlParams();
+  const { isFetching, data } = useGetHaku({
+    // Parse haku oid from url params
+    oid: sanitize(search?.haku as string) || '1.2.246.562.29.00000000000000038404',
+    isDraft,
+  });
+
+  const options = useMemo(() => {
+    const opts =
+      data?.hakukohteet.map((hakukohde) => {
+        const organisaatioNimi = hakukohde.organisaatio
+          ? localize(hakukohde.organisaatio.nimi).trim()
+          : undefined;
+        return {
+          label: `${localize(hakukohde.nimi).trim()}${
+            organisaatioNimi ? `, ${organisaatioNimi}` : ''
+          }`,
+          value: hakukohde,
+        };
+      }) || [];
+    return sortBy(opts, ['label']);
+  }, [data?.hakukohteet]);
+
   const { data: toteutus } = useToteutus({
-    oid: toteutusOid,
+    oid: selectedHakukohde?.toteutus.oid,
     isDraft,
   });
 
@@ -129,62 +129,56 @@ export const VertaaHakukohteeseen = ({ tulos }: Props) => {
           border: `1px solid ${colors.lightGrey}`,
           borderRadius: '2px',
         }}>
-        <Tooltip
-          placement="bottom-start"
-          open={!isKeywordValid}
-          title={t('vertaa-hakukohteeseen.syota-ainakin-kolme-merkkia') || ''}>
-          <Autocomplete
-            fullWidth={true}
-            inputValue={inputValue}
-            freeSolo={true}
-            options={hits}
-            clearText={t('vertaa-hakukohteeseen.tyhjenna')}
-            loadingText={t('vertaa-hakukohteeseen.lataus-käynnissä')}
-            loading={isFetching}
-            onChange={(_e, val) => {
-              if (!isString(val) && val?.value) {
-                setToteutusOid(val?.value);
-              }
-            }}
-            onInputChange={(_e, newInputValue, reason) => {
-              if (reason === 'clear') {
-                setInputValue('');
-                setToteutusOid(undefined);
-              } else {
-                setInputValue(newInputValue);
-              }
-            }}
-            className={classes.input}
-            renderOption={(
-              props: React.HTMLAttributes<HTMLLIElement>,
-              option: Option
-            ) => {
-              return (
-                <li {...props} style={{ display: 'block' }} key={option.value}>
-                  <Box>{option.label}</Box>
-                </li>
-              );
-            }}
-            renderInput={(params: AutocompleteRenderInputParams) => {
-              const { InputProps } = params;
-              const rest = omit(params, ['InputProps', 'InputLabelProps']);
-              return (
-                <InputBase
-                  sx={{
-                    borderRadius: 0,
-                    flex: 1,
-                    width: '100%',
-                  }}
-                  type="text"
-                  name="keyword"
-                  placeholder={t('vertaa-hakukohteeseen.etsi-hakukohteita')}
-                  {...InputProps}
-                  {...rest}
-                />
-              );
-            }}
-          />
-        </Tooltip>
+        <Autocomplete
+          fullWidth={true}
+          freeSolo={true}
+          options={options}
+          clearText={t('vertaa-hakukohteeseen.tyhjenna')}
+          loadingText={t('vertaa-hakukohteeseen.lataus-käynnissä')}
+          loading={isFetching}
+          onChange={(_e, val) => {
+            if (!isString(val) && val?.value) {
+              setSelectedHakukohde(val?.value);
+            }
+          }}
+          onInputChange={(_, input, reason) => {
+            if (reason === 'clear') {
+              setSelectedHakukohde(undefined);
+            }
+          }}
+          className={classes.input}
+          filterOptions={createFilterOptions({
+            matchFrom: 'any',
+            stringify: (option) => option.label,
+            trim: true,
+            limit: 50,
+          })}
+          renderOption={(props: React.HTMLAttributes<HTMLLIElement>, option: Option) => {
+            return (
+              <li {...props} style={{ display: 'block' }} key={option.value.oid}>
+                <Box>{option.label}</Box>
+              </li>
+            );
+          }}
+          renderInput={(params: AutocompleteRenderInputParams) => {
+            const { InputProps } = params;
+            const rest = omit(params, ['InputProps', 'InputLabelProps']);
+            return (
+              <InputBase
+                sx={{
+                  borderRadius: 0,
+                  flex: 1,
+                  width: '100%',
+                }}
+                type="text"
+                name="keyword"
+                placeholder={t('vertaa-hakukohteeseen.etsi-hakukohteita')}
+                {...InputProps}
+                {...rest}
+              />
+            );
+          }}
+        />
         <MaterialIcon
           icon="search"
           color="disabled"
@@ -194,31 +188,36 @@ export const VertaaHakukohteeseen = ({ tulos }: Props) => {
           }}
         />
       </Paper>
-      {inputValue && Boolean(toteutus) && toteutusOid === toteutus?.oid && (
-        <Box
-          ref={contentRef}
-          sx={{
-            marginTop: theme.spacing(4),
-          }}>
-          <Typography
-            variant="h4"
+      {selectedHakukohde &&
+        toteutus &&
+        selectedHakukohde.toteutus.oid === toteutus?.oid && (
+          <Box
+            ref={contentRef}
             sx={{
-              fontSize: '1rem',
-              [theme.breakpoints.down('sm')]: {
-                fontSize: '1rem',
-                marginLeft: theme.spacing(0.25),
-              },
+              marginTop: theme.spacing(4),
             }}>
-            {localize(toteutus?.nimi)}
-          </Typography>
-          <InfoBox />
-          <GraafiContainer
-            tulos={tulos}
-            hakutiedot={toteutus?.hakutiedot || []}
-            isLukio={toteutus?.koulutustyyppi === 'lk'}
-          />
-        </Box>
-      )}
+            <Typography
+              variant="h4"
+              sx={{
+                fontSize: '1rem',
+                [theme.breakpoints.down('sm')]: {
+                  fontSize: '1rem',
+                  marginLeft: theme.spacing(0.25),
+                },
+              }}>
+              {`${localize(selectedHakukohde?.nimi).trim()}, ${localize(
+                selectedHakukohde?.organisaatio.nimi
+              )}`}
+            </Typography>
+            <InfoBox />
+            <GraafiContainer
+              tulos={tulos}
+              hakutiedot={toteutus?.hakutiedot || []}
+              isLukio={toteutus?.koulutustyyppi === 'lk'}
+              hakukohdeOid={selectedHakukohde?.oid}
+            />
+          </Box>
+        )}
     </Box>
   );
 };

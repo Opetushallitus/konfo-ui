@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 
 import { useQuery } from 'react-query';
 
-import { getKoodistonKoodit, getToteutuksetKoulutuksittain } from '#/src/api/konfoApi';
+import { getHaku, getKoodistonKoodit } from '#/src/api/konfoApi';
 import { selectToteutus } from '#/src/components/toteutus/hooks';
 import { translate } from '#/src/tools/localization';
 import { Koodi, Translateable } from '#/src/types/common';
@@ -22,34 +22,28 @@ export const useKieliKoodit = () => {
   }, [data]);
 };
 
-interface ToteutusHit {
-  toteutusOid: string;
-  toteutusNimi: Translateable;
-  oppilaitosNimi: Translateable;
+interface HakukohteenToteutus {
+  oid: string;
 }
 
-interface ToteutuksetKoulutuksittainHit {
-  toteutukset: Array<ToteutusHit>;
+interface HakukohteenOrganisaatio {
+  nimi: Translateable;
 }
 
-export interface ToteutuksetKoulutuksittainResult {
-  total: number;
-  hits: Array<ToteutuksetKoulutuksittainHit>;
+export interface HaunHakukohde {
+  oid: string;
+  nimi: Translateable;
+  toteutus: HakukohteenToteutus;
+  organisaatio: HakukohteenOrganisaatio;
 }
 
-export const useToteutuksetKoulutuksittain = ({
-  keyword,
-  searchLanguage = 'fi',
-}: {
-  keyword: string;
-  searchLanguage: 'fi' | 'sv' | 'en';
-}) => {
-  return useQuery<ToteutuksetKoulutuksittainResult>(
-    ['toteutuksetKoulutuksittain', { keyword }],
-    () => getToteutuksetKoulutuksittain(keyword, searchLanguage),
-    {
-      select: selectToteutus,
-      enabled: Boolean(keyword),
-    }
-  );
+export interface Haku {
+  hakukohteet: Array<HaunHakukohde>;
+}
+
+export const useGetHaku = ({ oid, isDraft }: { oid: string; isDraft: boolean }) => {
+  return useQuery<Haku>(['getHaku', { oid, isDraft }], () => getHaku(oid, isDraft), {
+    select: selectToteutus,
+    enabled: Boolean(oid),
+  });
 };

@@ -1,0 +1,18 @@
+{
+  "hakukohteet": [
+    {
+      "oid": "1.2.3.4.5",
+      "nimi": {
+        "fi": "Lukion yleislinja"
+      },
+      "toteutus": {
+        "oid": "1.2.3"
+      },
+      "organisaatio": {
+        "nimi": {
+          "fi": "Alppilan lukio"
+        }
+      }
+    }
+  ]
+}
