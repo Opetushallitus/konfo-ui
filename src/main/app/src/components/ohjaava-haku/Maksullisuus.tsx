@@ -162,6 +162,7 @@ const MaksullisuusInput = ({
                 'ohjaava-haku.kysymykset.maksullisuustyyppi.vahintaan-accessible-label'
               )}
               ariaDescribedby={errorId}
+              type="number"
             />
           </InputFieldContainer>
         </InputFieldContainer>
@@ -178,6 +179,7 @@ const MaksullisuusInput = ({
                 'ohjaava-haku.kysymykset.maksullisuustyyppi.enintaan-accessible-label'
               )}
               ariaDescribedby={errorId}
+              type="number"
             />
           </InputFieldContainer>
         </InputFieldContainer>

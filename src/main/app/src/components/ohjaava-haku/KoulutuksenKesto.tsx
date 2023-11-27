@@ -156,6 +156,7 @@ export const KoulutuksenKesto = ({
                 'ohjaava-haku.kysymykset.koulutuksenkestokuukausina.opiskelen-vahintaan-vuotta-accessible-label'
               )}
               ariaDescribedby={errorId}
+              type="number"
             />
             <InputWithUnit
               id="vahintaan-kk"
@@ -166,6 +167,7 @@ export const KoulutuksenKesto = ({
                 'ohjaava-haku.kysymykset.koulutuksenkestokuukausina.opiskelen-vahintaan-kk-accessible-label'
               )}
               ariaDescribedby={errorId}
+              type="number"
             />
           </InputFieldContainer>
         </InputFieldContainer>
@@ -182,6 +184,7 @@ export const KoulutuksenKesto = ({
                 'ohjaava-haku.kysymykset.koulutuksenkestokuukausina.opiskelen-enintaan-vuotta-accessible-label'
               )}
               ariaDescribedby={errorId}
+              type="number"
             />
             <InputWithUnit
               id="enintaan-kk"
@@ -192,6 +195,7 @@ export const KoulutuksenKesto = ({
                 'ohjaava-haku.kysymykset.koulutuksenkestokuukausina.opiskelen-enintaan-kk-accessible-label'
               )}
               ariaDescribedby={errorId}
+              type="number"
             />
           </InputFieldContainer>
         </InputFieldContainer>
