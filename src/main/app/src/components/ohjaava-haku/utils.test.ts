@@ -291,6 +291,10 @@ describe('getYearsAndMonthsFromRangeValues', () => {
   test('returns "0" for years and "2" for months when range value is 2', () => {
     expect(getYearsAndMonthsFromRangeValue(2)).toEqual(['0', '2']);
   });
+
+  test('returns numeric 2 for years and 1 for months when range value is 25', () => {
+    expect(getYearsAndMonthsFromRangeValue(25, false)).toEqual([2, 1]);
+  });
 });
 
 describe('combineMaksunMaaraWithMaksullisuustyyppi', () => {

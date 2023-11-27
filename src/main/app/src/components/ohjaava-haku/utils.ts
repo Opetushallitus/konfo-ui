@@ -55,10 +55,13 @@ export const getChangedKestoInMonths = (vuodet: string, months: string) => {
   return vuodetKk + kk;
 };
 
-export const getYearsAndMonthsFromRangeValue = (rangeValue: number) => {
+export const getYearsAndMonthsFromRangeValue = (
+  rangeValue: number,
+  toString: boolean = true
+) => {
   const years = Math.floor(rangeValue / 12);
   const months = rangeValue % 12;
-  return [years.toString(), months.toString()];
+  return toString ? [years.toString(), months.toString()] : [years, months];
 };
 
 export const combineMaksunMaaraWithMaksullisuustyyppi = (

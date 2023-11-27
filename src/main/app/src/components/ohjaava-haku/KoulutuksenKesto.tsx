@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Grid, Typography } from '@mui/material';
-import { isEmpty, isFinite } from 'lodash';
+import { isEmpty, isFinite, toNumber } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { match } from 'ts-pattern';
 
@@ -61,8 +61,8 @@ export const KoulutuksenKesto = ({
   const handleSliderValueCommit = (newValues: Array<number>) => {
     const newMin = newValues[0];
     const newMax = newValues[1];
-    setVahintaan(getYearsAndMonthsFromRangeValue(newMin));
-    setEnintaan(getYearsAndMonthsFromRangeValue(newMax));
+    setVahintaan(getYearsAndMonthsFromRangeValue(newMin) as Array<string>);
+    setEnintaan(getYearsAndMonthsFromRangeValue(newMax) as Array<string>);
     setRangeValues(newValues);
     setAllSelectedRajainValues({
       ...allSelectedRajainValues,
@@ -116,6 +116,29 @@ export const KoulutuksenKesto = ({
 
   const unit = (id: string) => <Typography>{t(`haku.lyhenne-${id}`)}</Typography>;
   const errorId = 'koulutuksen-kesto-error';
+
+  const ariaValueText = (value: number) => {
+    const [years, months] = getYearsAndMonthsFromRangeValue(
+      value,
+      false
+    ) as Array<number>;
+    const yearsWithUnit =
+      years === 1
+        ? t('koulutus.kesto-vuosi', { count: years })
+        : toNumber(years) > 0
+        ? t('koulutus.kesto-vuosi_plural', { count: years })
+        : '';
+    const monthsWithUnit =
+      months === 1
+        ? t('koulutus.kesto-kuukausi', {
+            count: months,
+          })
+        : t('koulutus.kesto-kuukausi_plural', {
+            count: months,
+          });
+
+    return `${yearsWithUnit} ${monthsWithUnit}`;
+  };
 
   return (
     <Grid container direction="column" wrap="nowrap">
@@ -179,6 +202,7 @@ export const KoulutuksenKesto = ({
         undefinedRajainValues={undefinedRajainValues}
         handleSliderValueCommit={handleSliderValueCommit}
         sliderLabel={t('haku.koulutuksenkestokuukausina')}
+        ariaValueText={ariaValueText}
       />
     </Grid>
   );
