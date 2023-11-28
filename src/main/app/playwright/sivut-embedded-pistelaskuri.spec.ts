@@ -10,6 +10,10 @@ test.describe('Embedded pistelaskuri', () => {
     await setupCommonTest({ page, context, baseURL });
   });
   test('calculates average and clears values', async ({ page }) => {
+    await page.route(
+      '/konfo-backend/search/koulutukset**',
+      fixtureFromFile('search-koulutukset-lk.json')
+    );
     await page.route('/konfo-backend/haku/1.2.3.4', fixtureFromFile('haku-1.2.3.4.json'));
     await page.route(
       '/konfo-backend/toteutus/1.2.3',

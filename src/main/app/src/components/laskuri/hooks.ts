@@ -3,7 +3,6 @@ import { useMemo } from 'react';
 import { useQuery } from 'react-query';
 
 import { getHaku, getKoodistonKoodit } from '#/src/api/konfoApi';
-import { selectToteutus } from '#/src/components/toteutus/hooks';
 import { translate } from '#/src/tools/localization';
 import { Koodi, Translateable } from '#/src/types/common';
 
@@ -41,9 +40,9 @@ export interface Haku {
   hakukohteet: Array<HaunHakukohde>;
 }
 
-export const useGetHaku = ({ oid, isDraft }: { oid: string; isDraft: boolean }) => {
-  return useQuery<Haku>(['getHaku', { oid, isDraft }], () => getHaku(oid, isDraft), {
-    select: selectToteutus,
+export const useHaku = ({ oid, isDraft }: { oid?: string; isDraft: boolean }) => {
+  return useQuery<Haku>(['getHaku', { oid, isDraft }], () => getHaku(oid!, isDraft), {
+    select: (haku) => haku,
     enabled: Boolean(oid),
   });
 };
