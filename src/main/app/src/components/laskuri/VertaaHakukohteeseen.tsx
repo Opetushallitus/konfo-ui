@@ -9,7 +9,7 @@ import {
   Paper,
   Typography,
 } from '@mui/material';
-import { isString, omit, sortBy } from 'lodash';
+import { isString, last, omit, sortBy } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
@@ -52,8 +52,7 @@ const findHakuOid = (searchData?: SearchKoulutusResult): string | undefined => {
     );
     if (hakuOids.length > 0) {
       // In case of multiple hits, presuming larger oid values are more recent
-      hakuOids.sort().reverse();
-      return hakuOids[0];
+      return last(sortBy(hakuOids));
     }
   }
   return undefined;
