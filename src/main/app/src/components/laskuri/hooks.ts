@@ -2,9 +2,14 @@ import { useMemo } from 'react';
 
 import { useQuery } from 'react-query';
 
-import { getHaku, getKoodistonKoodit } from '#/src/api/konfoApi';
+import {
+  getKoodistonKoodit,
+  HakukohdeSearchParams,
+  HakukohdeSearchResult,
+  searchHakukohteet,
+} from '#/src/api/konfoApi';
 import { translate } from '#/src/tools/localization';
-import { Koodi, Translateable } from '#/src/types/common';
+import { Koodi } from '#/src/types/common';
 
 export const useKieliKoodit = () => {
   const { data } = useQuery<Array<Koodi>>(
@@ -21,28 +26,9 @@ export const useKieliKoodit = () => {
   }, [data]);
 };
 
-interface HakukohteenToteutus {
-  oid: string;
-}
-
-interface HakukohteenOrganisaatio {
-  nimi: Translateable;
-}
-
-export interface HaunHakukohde {
-  oid: string;
-  nimi: Translateable;
-  toteutus: HakukohteenToteutus;
-  organisaatio: HakukohteenOrganisaatio;
-}
-
-export interface Haku {
-  hakukohteet: Array<HaunHakukohde>;
-}
-
-export const useHaku = ({ oid, isDraft }: { oid?: string; isDraft: boolean }) => {
-  return useQuery<Haku>(['getHaku', { oid, isDraft }], () => getHaku(oid!, isDraft), {
-    select: (haku) => haku,
-    enabled: Boolean(oid),
-  });
-};
+export const useHakukohdeSearch = (requestParams: HakukohdeSearchParams) =>
+  useQuery<any, unknown, HakukohdeSearchResult>(
+    [requestParams],
+    ({ signal }) => searchHakukohteet(requestParams, signal),
+    {}
+  );

@@ -9,22 +9,21 @@ import {
   Paper,
   Typography,
 } from '@mui/material';
-import { isString, last, omit, sortBy } from 'lodash';
+import { isString, omit, sortBy } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
+import { CompactHakukohde } from '#/src/api/konfoApi';
 import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
-import { useKoulutusSearch } from '#/src/components/haku/hakutulosHooks';
 import { GraafiContainer } from '#/src/components/laskuri/graafi/GraafiContainer';
-import { HaunHakukohde, useHaku } from '#/src/components/laskuri/hooks';
+import { useHakukohdeSearch } from '#/src/components/laskuri/hooks';
 import { InfoBox } from '#/src/components/laskuri/InfoBox';
+import { HakupisteLaskelma } from '#/src/components/laskuri/Keskiarvo';
 import { useToteutus } from '#/src/components/toteutus/hooks';
 import { theme } from '#/src/theme';
 import { localize } from '#/src/tools/localization';
 import { useUrlParams } from '#/src/tools/useUrlParams';
 import { scrollIntoView } from '#/src/tools/utils';
-
-import { HakupisteLaskelma } from './Keskiarvo';
 
 const PREFIX = 'VertaaHakukohteeseen__';
 
@@ -33,34 +32,9 @@ const classes = {
   input: `${PREFIX}input`,
 };
 
-interface SearchKoulutusResult {
-  total: number;
-  filters: {
-    yhteishaku: Record<
-      string,
-      {
-        count: number;
-      }
-    >;
-  };
-}
-
-const findHakuOid = (searchData?: SearchKoulutusResult): string | undefined => {
-  if (searchData && searchData.total > 0 && searchData.filters?.yhteishaku) {
-    const hakuOids = Object.keys(searchData.filters.yhteishaku).filter(
-      (oid) => searchData.filters.yhteishaku[oid].count > 0
-    );
-    if (hakuOids.length > 0) {
-      // In case of multiple hits, presuming larger oid values are more recent
-      return last(sortBy(hakuOids));
-    }
-  }
-  return undefined;
-};
-
 interface Option {
   label: string;
-  value: HaunHakukohde;
+  value: CompactHakukohde;
 }
 
 type Props = {
@@ -70,26 +44,17 @@ type Props = {
 export const VertaaHakukohteeseen = ({ tulos }: Props) => {
   const { t } = useTranslation();
   const { isDraft } = useUrlParams();
-  const [selectedHakukohde, setSelectedHakukohde] = useState<HaunHakukohde | undefined>(
-    undefined
-  );
+  const [selectedHakukohde, setSelectedHakukohde] = useState<
+    CompactHakukohde | undefined
+  >(undefined);
 
-  // Using koulutus search to find the latest haku oid
-  const { isFetching: isFetchingHakuOid, data: koulutusData } = useKoulutusSearch(
-    { page: 1, size: 1, koulutustyyppi: ['lk'] },
-    {
-      enabled: true,
-    }
-  );
-
-  const { isFetching: isFetchingHaku, data: haku } = useHaku({
-    oid: findHakuOid(koulutusData),
-    isDraft,
+  const { isFetching: isFetchingHakukohteet, data: searchResult } = useHakukohdeSearch({
+    kohdejoukko: 'haunkohdejoukko_11',
   });
 
   const options = useMemo(() => {
     const opts =
-      haku?.hakukohteet.map((hakukohde) => {
+      searchResult?.hits.map((hakukohde) => {
         const organisaatioNimi = hakukohde.organisaatio
           ? localize(hakukohde.organisaatio.nimi).trim()
           : undefined;
@@ -101,7 +66,7 @@ export const VertaaHakukohteeseen = ({ tulos }: Props) => {
         };
       }) || [];
     return sortBy(opts, ['label']);
-  }, [haku?.hakukohteet]);
+  }, [searchResult?.hits]);
 
   const { data: toteutus } = useToteutus({
     oid: selectedHakukohde?.toteutus.oid,
@@ -165,7 +130,7 @@ export const VertaaHakukohteeseen = ({ tulos }: Props) => {
           options={options}
           clearText={t('vertaa-hakukohteeseen.tyhjenna')}
           loadingText={t('vertaa-hakukohteeseen.lataus-käynnissä')}
-          loading={isFetchingHakuOid || isFetchingHaku}
+          loading={isFetchingHakukohteet}
           onChange={(_e, val) => {
             if (!isString(val) && val?.value) {
               setSelectedHakukohde(val?.value);

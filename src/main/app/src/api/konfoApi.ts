@@ -16,6 +16,7 @@ import {
   SearchParams,
   Suosikki,
   VertailuSuosikki,
+  Translateable,
 } from '#/src/types/common';
 import {
   ContentfulData,
@@ -135,6 +136,36 @@ export const getKoodistonKoodit = async (koodisto: string) => {
 };
 
 export const getValintaperuste = createEntityGetter('valintaperusteet');
+
+export interface HakukohdeSearchParams {
+  kohdejoukko: string;
+}
+
+export interface CompactHakukohde {
+  oid: string;
+  nimi: Translateable;
+  toteutus: {
+    oid: string;
+    nimi: Translateable;
+  };
+  organisaatio: {
+    nimi: Translateable;
+  };
+}
+
+export interface HakukohdeSearchResult {
+  total: number;
+  hits: Array<CompactHakukohde>;
+}
+
+export const searchHakukohteet: (
+  requestParams: HakukohdeSearchParams,
+  signal?: AbortSignal
+) => Promise<HakukohdeSearchResult> = (requestParams, signal?) =>
+  get(urls.url('konfo-backend.search.hakukohteet'), {
+    params: { lng: getLanguage(), ...cleanRequestParams(requestParams) },
+    signal,
+  });
 
 export const searchKoulutukset = (requestParams: SearchParams, signal?: AbortSignal) =>
   get(urls.url('konfo-backend.search.koulutukset'), {
