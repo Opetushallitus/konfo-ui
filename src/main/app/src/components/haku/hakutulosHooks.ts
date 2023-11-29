@@ -90,15 +90,11 @@ const createSearchQueryHook =
       merge({}, defaultOptions, options)
     );
 
-export const useKoulutusSearch = createSearchQueryHook(
-  'searchKoulutukset',
-  searchKoulutukset,
-  {
-    keepPreviousData: true,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-  }
-);
+const useKoulutusSearch = createSearchQueryHook('searchKoulutukset', searchKoulutukset, {
+  keepPreviousData: true,
+  refetchOnMount: false,
+  refetchOnWindowFocus: false,
+});
 
 const useOppilaitosSearch = createSearchQueryHook(
   'searchOppilaitokset',
