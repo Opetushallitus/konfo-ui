@@ -1,3 +1,4 @@
+import { Typography } from '@mui/material';
 import { sortBy, castArray } from 'lodash';
 
 import { SuodatinSlider } from './CustomizedMuiComponents';
@@ -15,6 +16,8 @@ type SliderProps = {
   labelFormatter: (numberVal: number) => string;
   onRangeCommit: (numberVals: Array<number>) => void;
   disabled?: boolean;
+  sliderLabel?: string;
+  ariaValueText?: (value: number) => string;
 };
 
 const valueToKey = (value: Array<number>) => `${value[0]},${value[1]}`;
@@ -27,6 +30,8 @@ export const NumberRangeSlider = ({
   labelFormatter,
   onRangeCommit,
   disabled,
+  sliderLabel,
+  ariaValueText,
 }: SliderProps) => {
   const handleSliderValueCommit = (
     _e: React.SyntheticEvent | Event,
@@ -36,17 +41,28 @@ export const NumberRangeSlider = ({
   };
 
   return (
-    <SuodatinSlider
-      key={valueToKey(values)}
-      disabled={disabled}
-      defaultValue={values}
-      min={min}
-      max={max}
-      marks={marks}
-      step={1}
-      valueLabelDisplay="auto"
-      valueLabelFormat={labelFormatter}
-      onChangeCommitted={handleSliderValueCommit}
-    />
+    <>
+      {sliderLabel && (
+        <Typography id="suodatin-slider" gutterBottom>
+          {sliderLabel}
+        </Typography>
+      )}
+      <SuodatinSlider
+        {...(sliderLabel && { 'aria-labelledby': 'suodatin-slider' })}
+        key={valueToKey(values)}
+        disabled={disabled}
+        defaultValue={values}
+        min={min}
+        max={max}
+        aria-valuemin={min}
+        aria-valuemax={max}
+        marks={marks}
+        step={1}
+        valueLabelDisplay="auto"
+        valueLabelFormat={labelFormatter}
+        onChangeCommitted={handleSliderValueCommit}
+        {...(ariaValueText && { getAriaValueText: ariaValueText })}
+      />
+    </>
   );
 };

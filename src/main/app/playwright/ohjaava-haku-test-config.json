@@ -1,0 +1,27 @@
+{
+  "kysymykset": [
+    {
+      "id": "opetusaika"
+    },
+    {
+      "id": "opetustapa",
+      "rajainOptionsToBeCombined": [
+        {
+          "translationKey": "combined_etaopetus",
+          "rajainKoodiuris": ["opetuspaikkakk_2", "opetuspaikkakk_3"]
+        }
+      ]
+    },
+    {
+      "id": "koulutuksenkestokuukausina"
+    },
+    {
+      "id": "maksullisuus"
+    },
+    {
+      "id": "alkamiskausi",
+      "useRajainOptionNameFromRajain": true,
+      "rajainOptionsToBeRemoved": ["henkilokohtainen"]
+    }
+  ]
+}

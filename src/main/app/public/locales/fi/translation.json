@@ -309,6 +309,7 @@
     "nayta-kaikki-oppilaitos-hakutulokset": "Näytä {{count}} hakuehdoilla löytyvä oppilaitos",
     "nayta-kaikki-oppilaitos-hakutulokset_plural": "Näytä kaikki {{count}} hakuehdoilla löytyvää oppilaitosta",
     "koulutuksenkestokuukausina": "Koulutuksen kesto",
+    "koulutuksen-hinta": "Koulutuksen hinta",
     "lyhenne-vuosi": "v",
     "lyhenne-kuukausi": "kk",
     "alkamiskausi": "Alkamiskausi",
@@ -317,6 +318,77 @@
       "30": "Haku alkaa kuukauden kuluessa"
     },
     "hakuaika": "Hakuaika"
+  },
+  "ohjaava-haku": {
+    "aloita-kysely": "Käynnistä kysely",
+    "edellinen": "Edellinen kysymys",
+    "error": {
+      "minimikesto-suurempi-kuin-maksimikesto": "Koulutuksen minimikeston tulee olla pienempi kuin maksimikeston.",
+      "minimihinta-suurempi-kuin-maksimihinta": "Koulutuksen minimihinnan tulee olla pienempi kuin maksimihinnan."
+    },
+    "info-text": "Ei hätää, vastaa ensin muutamaan helppoon kysymykseen. Saat vastaustesi perusteella sinulle valikoidut hakuehdot ja ehdotuksena niihin soveltuvat koulutuspaikat ja oppilaitokset.",
+    "katso-tulokset": "Katso tulokset",
+    "question": "Kysymys",
+    "kysymykset": {
+      "info-text": "Voit myös ohittaa kysymyksen ja siirtyä seuraavaan.",
+      "info-text-for-options": "Valitse niin monta vaihtoehtoa kuin haluat. Voit myös ohittaa kysymyksen ja siirtyä seuraavaan.",
+      "alkamiskausi": {
+        "otsikko": "Milloin haluaisit aloittaa opiskelun?"
+      },
+      "koulutusala": {
+        "otsikko": "Mitkä aihealueet kiinnostavat?"
+      },
+      "maksullisuus": {
+        "otsikko": "Oletko valmis maksamaan koulutuksesta?"
+      },
+      "maksullisuustyyppi": {
+        "vahintaan": "Maksan vähintään",
+        "enintaan": "Maksan enintään",
+        "vahintaan-accessible-label": "Maksan koulutuksesta vähintään euroa",
+        "enintaan-accessible-label": "Maksan koulutuksesta enintään euroa",
+        "vaihtoehdot": {
+          "maksuton": "En halua maksaa koulutuksesta.",
+          "maksullinen": "Olen valmis maksamaan koulutuksesta.",
+          "lukuvuosimaksu": "Tulen EU:n ulkopuolelta ja voin maksaa lukuvuosimaksun."
+        }
+      },
+      "opetusaika": {
+        "otsikko": "Milloin voit opiskella?",
+        "vaihtoehdot": {
+          "opetusaikakk_1": "Haluan opiskella päivisin.",
+          "opetusaikakk_2": "Minulla on paremmin aikaa iltaisin.",
+          "opetusaikakk_3": "Toivon että voisin opiskella viikonloppuisin.",
+          "opetusaikakk_4": "Yhdistetty päivä- ja iltaopetus sopii minulle.",
+          "opetusaikakk_5": "En halua sitoa opiskeluani mihinkään tiettyyn ajankohtaan."
+        }
+      },
+      "opetustapa": {
+        "otsikko": "Miten paljon tarvitset ohjausta opetukseen?",
+        "vaihtoehdot": {
+          "opetuspaikkakk_1": "Haluan opiskella pääosin samassa tilassa opettajan kanssa.",
+          "combined_etaopetus": "Haluan opiskella kotoa käsin.",
+          "opetuspaikkakk_2": "Haluan opiskella kotoa käsin.",
+          "opetuspaikkakk_3": "Haluan opiskella netissä.",
+          "opetuspaikkakk_4": "Haluan yhdistellä eri muotoja.",
+          "opetuspaikkakk_5": "Haluan opiskella itsenäisesti, en tarvitse ohjausta.",
+          "opetuspaikkakk_6": "Oppisopimus kiinnostaa minua."
+        }
+      },
+      "pohjakoulutusvaatimus": {
+        "otsikko": "Mikä on koulutustaustasi?"
+      },
+      "koulutuksenkestokuukausina": {
+        "otsikko": "Miten paljon voit opiskella?",
+        "opiskelen-vahintaan": "Opiskelen vähintään",
+        "opiskelen-enintaan": "Opiskelen enintään",
+        "opiskelen-vahintaan-vuotta-accessible-label": "Opiskelen vähintään vuotta",
+        "opiskelen-vahintaan-kk-accessible-label": "Opiskelen vähintään kuukautta",
+        "opiskelen-enintaan-vuotta-accessible-label": "Opiskelen enintään vuotta",
+        "opiskelen-enintaan-kk-accessible-label": "Opiskelen enintään kuukautta"
+      }
+    },
+    "otsikko": "En tiedä mitä haluaisin opiskella",
+    "seuraava": "Seuraava kysymys"
   },
   "navigaatio": {
     "edellinen": "Edellinen",
@@ -444,6 +516,8 @@
     "kesto-kuukausi": "{{count}} kuukausi",
     "kesto-kuukausi_plural": "{{count}} kuukautta",
     "ei-kestoa": "Ei suunniteltua kestoa",
+    "hinta-euroa": "{{count}} euro",
+    "hinta-euroa_plural": "{{count}} euroa",
     "hakutulos": "Hakutulos",
     "sinua-saattaa-kiinnostaa-myos": "Sinua saattaa kiinnostaa myös",
     "ei-suositeltuja-koulutuksia": "Samankaltaisia koulutuksia ei löytynyt",

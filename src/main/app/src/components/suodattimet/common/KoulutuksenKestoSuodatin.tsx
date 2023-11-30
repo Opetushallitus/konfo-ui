@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Grid from '@mui/material/Grid';
+import { Grid } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { TFunction } from 'i18next';
 import { isEqual, ceil, range, round } from 'lodash';
@@ -41,9 +41,9 @@ const resolveSliderMarks = (upperLimit: number, unitOfMeasure: UnitOfMeasure) =>
     : range(0, upperLimit + 1, stepLength);
 };
 
-const yearsAbbr = (years: number, t: TFunction) => `${years}${t('haku.lyhenne-vuosi')}`;
+const yearsAbbr = (years: number, t: TFunction) => `${years} ${t('haku.lyhenne-vuosi')}`;
 const monthsAbbr = (months: number, t: TFunction) =>
-  `${months}${t('haku.lyhenne-kuukausi')}`;
+  `${months} ${t('haku.lyhenne-kuukausi')}`;
 
 const rangeText = (val: number, t: TFunction) => {
   if (val === 0) {
@@ -135,8 +135,6 @@ export const KoulutuksenKestoSuodatin = ({
       : `${rangeText(rangeValues[0], t)} - ${rangeText(rangeValues[1], t)}`;
   };
 
-  const labelFormatter = (val: number) => rangeText(val, t);
-
   return (
     <SuodatinAccordion elevation={elevation} defaultExpanded={expanded} square>
       {!summaryHidden && (
@@ -156,19 +154,43 @@ export const KoulutuksenKestoSuodatin = ({
         </SuodatinAccordionSummary>
       )}
       <SuodatinAccordionDetails {...(summaryHidden && { style: { padding: 0 } })}>
-        <Grid container direction="column" wrap="nowrap">
-          <Grid item sx={{ mx: 1 }}>
-            <NumberRangeSlider
-              values={rangeValues}
-              min={undefinedRajainValues[0]}
-              max={undefinedRajainValues[1]}
-              marks={marks(undefinedRajainValues[1], t)}
-              labelFormatter={labelFormatter}
-              onRangeCommit={handleSliderValueCommit}
-            />
-          </Grid>
-        </Grid>
+        <KoulutuksenKestoSlider
+          rangeValues={rangeValues}
+          undefinedRajainValues={undefinedRajainValues}
+          handleSliderValueCommit={handleSliderValueCommit}
+        />
       </SuodatinAccordionDetails>
     </SuodatinAccordion>
+  );
+};
+
+export const KoulutuksenKestoSlider = ({
+  rangeValues,
+  undefinedRajainValues,
+  handleSliderValueCommit,
+  sliderLabel,
+  ariaValueText,
+}: {
+  rangeValues: Array<number>;
+  undefinedRajainValues: Array<number>;
+  handleSliderValueCommit: (val: Array<number>) => void;
+  sliderLabel?: string;
+  ariaValueText?: (value: number) => string;
+}) => {
+  const { t } = useTranslation();
+  const labelFormatter = (val: number) => rangeText(val, t);
+  return (
+    <Grid item sx={{ mx: 1 }}>
+      <NumberRangeSlider
+        values={rangeValues}
+        min={undefinedRajainValues[0]}
+        max={undefinedRajainValues[1]}
+        marks={marks(undefinedRajainValues[1], t)}
+        labelFormatter={labelFormatter}
+        onRangeCommit={handleSliderValueCommit}
+        sliderLabel={sliderLabel}
+        ariaValueText={ariaValueText}
+      />
+    </Grid>
   );
 };

@@ -7,6 +7,8 @@ import { useTranslation } from 'react-i18next';
 
 import Image from '#/src/assets/images/o-EDUCATION-facebook.jpg';
 import { colors } from '#/src/colors';
+import { OhjaavaHakuLink } from '#/src/components/ohjaava-haku/OhjaavaHakuLink';
+import { StyledOutlinedButton } from '#/src/components/OutlinedButton';
 import { usePageSectionGap } from '#/src/hooks/usePageSectionGap';
 import { styled } from '#/src/theme';
 
@@ -14,7 +16,6 @@ import { Hakupalkki } from './haku/Hakupalkki';
 import { useSearch } from './haku/hakutulosHooks';
 import { MobileFiltersOnTopMenu } from './haku/MobileFiltersOnTopMenu';
 import { RajaaPopoverButton, RajaimetPopover } from './haku/RajaimetPopover';
-import { OutlinedInvertedButton } from './OutlinedInvertedButton';
 import { ReactiveBorder } from './ReactiveBorder';
 
 const Root = styled(Box, { name: 'JumpotronRoot' })({
@@ -61,9 +62,13 @@ const ShowAllResultsLink = ({ children }: React.PropsWithChildren) => {
       {children}
     </Link>
   ) : (
-    <OutlinedInvertedButton href="/haku" sx={{ marginTop: 1 }}>
+    <StyledOutlinedButton
+      href="/haku"
+      sx={{ fontWeight: 'bold', borderWidth: '2px' }}
+      buttoncolor="white"
+      inverted={true}>
       {children}
-    </OutlinedInvertedButton>
+    </StyledOutlinedButton>
   );
 };
 
@@ -107,8 +112,9 @@ export const Jumpotron = () => {
                   display="flex"
                   flexDirection="row"
                   width="100%"
-                  justifyContent="space-between"
-                  alignItems="stretch">
+                  gap="1rem"
+                  marginTop={2}>
+                  <OhjaavaHakuLink inverted={true} />
                   <ShowAllResultsLink>{t('jumpotron.naytakaikki')}</ShowAllResultsLink>
                   <Hidden mdUp>
                     <MobileFiltersOnTopMenu isButtonInline={true} />
