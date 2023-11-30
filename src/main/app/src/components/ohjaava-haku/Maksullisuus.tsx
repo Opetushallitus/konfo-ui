@@ -44,6 +44,12 @@ const MaksullisuusRangeSlider = ({
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
+  const ariaValueText = (value: number) => {
+    return value == 1
+      ? t('koulutus.hinta-euroa', { count: value })
+      : t('koulutus.hinta-euroa_plural', { count: value });
+  };
+
   return undefinedRajainValues?.[1] === 0 ? null : (
     <Box mr={2} ml={1}>
       <NumberRangeSlider
@@ -54,6 +60,7 @@ const MaksullisuusRangeSlider = ({
         labelFormatter={labelText}
         onRangeCommit={handleSliderValueCommit}
         sliderLabel={t('haku.koulutuksen-hinta')}
+        ariaValueText={ariaValueText}
       />
     </Box>
   );

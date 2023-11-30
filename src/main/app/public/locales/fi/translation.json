@@ -516,6 +516,8 @@
     "kesto-kuukausi": "{{count}} kuukausi",
     "kesto-kuukausi_plural": "{{count}} kuukautta",
     "ei-kestoa": "Ei suunniteltua kestoa",
+    "hinta-euroa": "{{count}} euro",
+    "hinta-euroa_plural": "{{count}} euroa",
     "hakutulos": "Hakutulos",
     "sinua-saattaa-kiinnostaa-myos": "Sinua saattaa kiinnostaa myös",
     "ei-suositeltuja-koulutuksia": "Samankaltaisia koulutuksia ei löytynyt",
