@@ -14,7 +14,7 @@ import { useOhjaavaHaku } from './hooks/useOhjaavaHaku';
 import { NavigationButtons } from './NavigationButtons';
 import { QuestionWithOptions } from './QuestionWithOptions';
 import { useSearch } from '../../components/haku/hakutulosHooks';
-import { Heading, HeadingBoundary } from '../Heading';
+import { Heading } from '../Heading';
 
 export type CombinedRajaimet = {
   translationKey: string;
@@ -92,41 +92,39 @@ export const Question = ({
   const [errorKey, setErrorKey] = useState('');
 
   return (
-    <HeadingBoundary>
-      <QuestionContainer container item>
-        <Grid item xs={12}>
-          <Heading variant="h2">{questionTitle}</Heading>
-        </Grid>
-        <Grid container item>
-          {isFetching ? (
-            <Grid item sx={{ margin: 'auto' }}>
-              <LoadingCircle />
-            </Grid>
-          ) : (
-            <Grid item>
-              {questionId == 'koulutuksenkestokuukausina' ? (
-                <KoulutuksenKesto
-                  rajainItems={sortedRajainItems}
-                  setErrorKey={setErrorKey}
-                  errorKey={errorKey}
-                />
-              ) : questionId == 'maksullisuus' ? (
-                <Maksullisuus
-                  rajainItems={sortedRajainItems}
-                  setErrorKey={setErrorKey}
-                  errorKey={errorKey}
-                />
-              ) : (
-                <QuestionWithOptions
-                  currentQuestion={question}
-                  rajainItems={sortedRajainItems}
-                />
-              )}
-            </Grid>
-          )}
-        </Grid>
-        <NavigationButtons errorKey={errorKey} refElement={refElement} />
-      </QuestionContainer>
-    </HeadingBoundary>
+    <QuestionContainer container item>
+      <Grid item xs={12}>
+        <Heading variant="h2">{questionTitle}</Heading>
+      </Grid>
+      <Grid container item>
+        {isFetching ? (
+          <Grid item sx={{ margin: 'auto' }}>
+            <LoadingCircle />
+          </Grid>
+        ) : (
+          <Grid item>
+            {questionId == 'koulutuksenkestokuukausina' ? (
+              <KoulutuksenKesto
+                rajainItems={sortedRajainItems}
+                setErrorKey={setErrorKey}
+                errorKey={errorKey}
+              />
+            ) : questionId == 'maksullisuus' ? (
+              <Maksullisuus
+                rajainItems={sortedRajainItems}
+                setErrorKey={setErrorKey}
+                errorKey={errorKey}
+              />
+            ) : (
+              <QuestionWithOptions
+                currentQuestion={question}
+                rajainItems={sortedRajainItems}
+              />
+            )}
+          </Grid>
+        )}
+      </Grid>
+      <NavigationButtons errorKey={errorKey} refElement={refElement} />
+    </QuestionContainer>
   );
 };
