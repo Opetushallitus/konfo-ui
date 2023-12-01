@@ -81,7 +81,7 @@ const VertailuKortti = ({
         maxWidth="50px"
         marginRight={2}
         sx={{
-          float: 'left',
+          float: 'right',
         }}
       />
       <Typography variant="body1">
@@ -138,6 +138,7 @@ const Vertailu = ({ oids }: { oids: Array<string> }) => {
           role="list"
           gap={3}
           flexWrap="wrap"
+          alignItems="flex-start"
           data-testid="suosikit-vertailu-list">
           {orderedData?.map((hakukohdeSuosikki) => (
             <VertailuKortti
