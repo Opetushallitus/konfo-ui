@@ -1,15 +1,22 @@
 import { formatISO } from 'date-fns';
-import { forEach } from 'lodash';
+import { forEach, toPairs } from 'lodash';
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
+type Suosikki = {
+  timestamp: string;
+  removed?: boolean;
+  compare?: boolean;
+};
+
 export interface SuosikitState {
-  suosikitSelection: Record<string, { timestamp: string; removed?: boolean }>;
+  suosikitSelection: Record<string, Suosikki>;
   toggleSuosikki: (id: string) => void;
   softToggleSuosikki: (id: string) => void;
   clearSoftRemovedSuosikit: () => void;
   removeSuosikit: (ids: Array<string>) => void;
+  toggleVertailu: (id: string) => void;
 }
 
 const useSuosikitState = create<SuosikitState>()(
@@ -46,6 +53,12 @@ const useSuosikitState = create<SuosikitState>()(
             }
           });
         }),
+      toggleVertailu: (id) =>
+        set((state) => {
+          if (state.suosikitSelection[id]) {
+            state.suosikitSelection[id].compare = !state.suosikitSelection[id].compare;
+          }
+        }),
     })),
     {
       name: 'favorites',
@@ -61,4 +74,12 @@ export const useNonRemovedSuosikitCount = () =>
     (state) =>
       Object.values(state.suosikitSelection).filter((suosikki) => !suosikki.removed)
         .length
+  );
+
+export const useVertailuSuosikit = () =>
+  useSuosikitState((state) =>
+    toPairs(state.suosikitSelection).reduce(
+      (acc, [oid, suosikki]) => (suosikki?.compare ? [...acc, oid] : acc),
+      [] as Array<string>
+    )
   );

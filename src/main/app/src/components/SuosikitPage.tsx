@@ -1,6 +1,15 @@
-import { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 
-import { Alert, Backdrop, Box, Button, Link, Paper, Typography } from '@mui/material';
+import {
+  Alert,
+  Backdrop,
+  Box,
+  Button,
+  ButtonProps,
+  Link,
+  Paper,
+  Typography,
+} from '@mui/material';
 import { isEmpty, sortBy } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
@@ -11,6 +20,7 @@ import {
   SuosikitState,
   useNonRemovedSuosikitCount,
   useSuosikitSelection,
+  useVertailuSuosikit,
 } from '#/src/hooks/useSuosikitSelection';
 import { useTruncatedKuvaus } from '#/src/hooks/useTruncatedKuvaus';
 import { styled } from '#/src/theme';
@@ -55,6 +65,40 @@ const Tutkintonimikkeet = ({
       </Typography>
     </>
   ) : null;
+};
+
+export type OutlinedCheckboxButtonProps = Omit<ButtonProps, 'variant' | 'color'> & {
+  checked?: boolean;
+};
+
+const OutlinedCheckboxButton = React.forwardRef<
+  HTMLButtonElement,
+  OutlinedCheckboxButtonProps
+>(({ checked, ...props }, ref) => (
+  <Button
+    {...props}
+    startIcon={<MaterialIcon icon={checked ? 'check_box' : 'check_box_outline_blank'} />}
+    ref={ref}
+    variant="outlined"
+    color="primary"
+  />
+));
+
+const ToggleVertailuButton = ({ oid }: { oid: string }) => {
+  const { toggleVertailu } = useSuosikitSelection();
+  const vertailuSuosikit = useVertailuSuosikit();
+
+  const checked = vertailuSuosikit.indexOf(oid) !== -1;
+
+  return (
+    <OutlinedCheckboxButton
+      checked={checked}
+      onClick={() => {
+        toggleVertailu(oid);
+      }}>
+      {checked ? 'Poista vertailusta' : 'Lisää vertailuun'}
+    </OutlinedCheckboxButton>
+  );
 };
 
 const SuosikkiKortti = ({
@@ -120,6 +164,7 @@ const SuosikkiKortti = ({
           </Box>
         </Box>
         <Box ml="auto">
+          <ToggleVertailuButton oid={hakukohdeSuosikki.hakukohdeOid} />
           <ToggleSuosikkiButton
             hakukohdeOid={hakukohdeSuosikki.hakukohdeOid}
             softRemove
@@ -148,6 +193,20 @@ const MissingSuosikit = ({ removeMissing }: { removeMissing: () => void }) => {
         {t('suosikit.poista-puuttuvat')}
       </Button>
     </Alert>
+  );
+};
+
+const VertaileButton = () => {
+  const vertailuSuosikit = useVertailuSuosikit();
+  return (
+    <Button
+      sx={{ alignSelf: 'flex-end' }}
+      href="suosikit/vertailu"
+      disabled={vertailuSuosikit.length === 0}
+      variant="outlined"
+      color="primary">
+      Vertaile valittuja ({vertailuSuosikit.length})
+    </Button>
   );
 };
 
