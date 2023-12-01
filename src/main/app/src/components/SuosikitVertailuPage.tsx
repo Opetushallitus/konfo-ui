@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box, Button, Link, Paper, Typography } from '@mui/material';
+import { Box, Link, Paper, Typography } from '@mui/material';
 import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
@@ -9,7 +9,6 @@ import { getHakukohdeSuosikitVertailu } from '#/src/api/konfoApi';
 import { colors } from '#/src/colors';
 import { NDASH } from '#/src/constants';
 import {
-  useHakulomakkeelleVietavat,
   useSuosikitSelection,
   useVertailuSuosikit,
 } from '#/src/hooks/useSuosikitSelection';
@@ -26,7 +25,6 @@ import { Murupolku } from './common/Murupolku';
 import { QueryResult } from './common/QueryResultWrapper';
 import { TextButton } from './common/TextButton';
 import { Heading, HeadingBoundary } from './Heading';
-import { OutlinedCheckboxButton } from './OutlinedCheckboxButton';
 
 const useSuosikitVertailuData = (oids?: Array<string>) =>
   useQuery(
@@ -115,7 +113,7 @@ const VertailuKortti = ({
   removed?: boolean;
 }) => {
   const { t } = useTranslation();
-  const { suosikitSelection, toggleVertailu, toggleHaku } = useSuosikitSelection();
+  const { toggleVertailu } = useSuosikitSelection();
 
   const kuvaus = useTruncatedKuvaus(localize(hakukohde.esittely));
 
@@ -159,11 +157,6 @@ const VertailuKortti = ({
         />
         <InfoItem
           icon="people_outline"
-          label={t('suosikit-vertailu.aloituspaikat-ensisijaiset-hakijat', { year })}
-          value="TODO"
-        />
-        <InfoItem
-          icon="people_outline"
           label={t('suosikit-vertailu.opiskelijoita')}
           value={hakukohde.opiskelijoita}
         />
@@ -186,7 +179,7 @@ const VertailuKortti = ({
         <InfoItem
           icon="verified"
           iconVariant="outlined"
-          label={t('lukiodiplomit')}
+          label={t('suosikit-vertailu.lukiodiplomit')}
           value={<KoodiLista koodit={hakukohde.lukiodiplomit} />}
         />
         <InfoItem
@@ -207,12 +200,7 @@ const VertailuKortti = ({
           />
         )}
         <hr />
-        <Box display="flex" justifyContent="space-between" flexWrap="wrap" gap={1}>
-          <OutlinedCheckboxButton
-            checked={suosikitSelection?.[hakukohde.hakukohdeOid]?.haku}
-            onClick={() => toggleHaku(hakukohde.hakukohdeOid)}>
-            {t('suosikit-vertailu.vie-hakulomakkeelle')}
-          </OutlinedCheckboxButton>
+        <Box display="flex" justifyContent="flex-end" flexWrap="wrap" gap={1}>
           <TextButton onClick={() => toggleVertailu(hakukohde.hakukohdeOid)}>
             {t('suosikit.poista-vertailusta')}
           </TextButton>
@@ -226,20 +214,9 @@ const Vertailu = ({ oids }: { oids: Array<string> }) => {
   const queryResult = useSuosikitVertailuData(oids);
   const { data } = queryResult;
 
-  const { t } = useTranslation();
-
-  const hakulomakkeelleVietavat = useHakulomakkeelleVietavat();
-
   return (
     <QueryResult queryResult={queryResult}>
       <Box display="flex" flexDirection="column" gap={2}>
-        <Box alignSelf="flex-end">
-          <Button color="primary" variant="contained">
-            {t('suosikit-vertailu.siirry-hakulomakkeelle', {
-              count: hakulomakkeelleVietavat?.length,
-            })}
-          </Button>
-        </Box>
         <HeadingBoundary>
           <Box display="flex" role="list" data-testid="suosikit-list" gap={3}>
             {data?.map((hakukohdeSuosikki) => (

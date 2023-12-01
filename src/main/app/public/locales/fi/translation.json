@@ -857,11 +857,9 @@
   },
   "suosikit-vertailu": {
     "otsikko": "Vertaile suosikkeja",
-    "siirry-hakulomakkeelle": "Siirry hakulomakkeelle ({{count}} valittu)",
     "ei-vertailtavia-suosikkeja": "Ei vertailtavia suosikkeja",
     "kayntiosoite": "Käyntiosoite",
     "sisaanpaasyn-alin-pistemaara": "Sisäänpääsyn alin pistemäärä {{year}}",
-    "aloituspaikat-ensisijaiset-hakijat": "Aloituspaikat / ensisijaiset hakijat {{year}}",
     "opiskelijoita": "Opiskelijoita",
     "koe-tai-lisanaytto": "Koe tai lisänäyttö",
     "kaksoistutkinto": "Kaksoistutkinto",
@@ -869,7 +867,6 @@
     "lukiodiplomit": "Lukiodiplomit",
     "kielivalikoima": "Kielivalikoima",
     "osaamisalat": "Osaamisalat",
-    "jarjestaa-urheilijan-amm-koulutusta": "Mahdollisuus urheilijan ammatilliseen koulutukseen",
-    "vie-hakulomakkeelle": "Vie hakulomakkeelle"
+    "jarjestaa-urheilijan-amm-koulutusta": "Mahdollisuus urheilijan ammatilliseen koulutukseen"
   }
 }
