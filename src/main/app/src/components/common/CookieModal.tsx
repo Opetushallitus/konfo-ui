@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-import { ArrowDropDown, ArrowDropUp } from '@mui/icons-material';
 import {
   Button,
   Checkbox,
@@ -19,6 +18,8 @@ import { colors } from '#/src/colors';
 import { useContentful } from '#/src/hooks/useContentful';
 import { styled } from '#/src/theme';
 import { getOne } from '#/src/tools/getOne';
+
+import { MaterialIcon } from './MaterialIcon';
 
 const PREFIX = 'CookieModal';
 
@@ -241,7 +242,11 @@ export const CookieModal = () => {
           sx={{ whiteSpace: 'nowrap', width: 'fit-contect' }}
           variant="text"
           id="cookie-text-expand-link"
-          endIcon={fullCookieInfoOpen ? <ArrowDropUp /> : <ArrowDropDown />}
+          endIcon={
+            <MaterialIcon
+              icon={fullCookieInfoOpen ? 'arrow_drop_up' : 'arrow_drop_down'}
+            />
+          }
           className={classes.textExpandLink}
           disableRipple
           onClick={() => setFullCookieInfoOpen(!fullCookieInfoOpen)}>
