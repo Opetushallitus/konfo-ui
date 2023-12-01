@@ -41,7 +41,7 @@ const DiplomiContent = ({ diplomi }: { diplomi: Lukiodiplomi }) => {
       <Typography variant="h4">{t('toteutus.keskeiset-sisällöt')}</Typography>
       <ListContent items={diplomi?.sisallot} />
       {!isEmpty(linkki) && (
-        <ExternalLink target="_blank" rel="noopener" href={linkki}>
+        <ExternalLink href={linkki}>
           {isEmpty(altTeksti) ? t('toteutus.lisätietoa') : altTeksti}
         </ExternalLink>
       )}

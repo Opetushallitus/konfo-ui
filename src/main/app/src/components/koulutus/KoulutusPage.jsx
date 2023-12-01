@@ -1,6 +1,4 @@
-import React from 'react';
-
-import { Box, Link as MuiLink, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { head, isEmpty } from 'lodash';
 import { urls } from 'oph-urls-js';
 import { useTranslation } from 'react-i18next';
@@ -12,7 +10,6 @@ import { ContentWrapper } from '#/src/components/common/ContentWrapper';
 import { ExternalLink } from '#/src/components/common/ExternalLink';
 import { HtmlTextBox } from '#/src/components/common/HtmlTextBox';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { Murupolku } from '#/src/components/common/Murupolku';
 import { PageSection } from '#/src/components/common/PageSection';
 import { TeemakuvaImage } from '#/src/components/common/TeemakuvaImage';
@@ -87,9 +84,7 @@ const TutkinnonOsat = ({ koulutus }) => {
             content: (
               <>
                 {createTutkinnonOsa(foundTutkinnonOsa)}
-                <MuiLink
-                  target="_blank"
-                  rel="noopener"
+                <ExternalLink
                   href={urls.url(
                     'eperusteet-service.eperuste.kuvaus',
                     getLanguage(),
@@ -97,8 +92,7 @@ const TutkinnonOsat = ({ koulutus }) => {
                     tutkinnonosaViite
                   )}>
                   {t('koulutus.eperuste-linkki')}
-                  <MaterialIcon icon="open_in_new" />
-                </MuiLink>
+                </ExternalLink>
               </>
             ),
           };
@@ -110,11 +104,9 @@ const TutkinnonOsat = ({ koulutus }) => {
 
 const EPerusteLinkki = withDefaultProps(
   styled(ExternalLink)({
-    fontWeight: 6000,
+    fontWeight: 600,
   }),
   {
-    target: '_blank',
-    rel: 'noopener',
     'data-testid': 'eperuste-linkki',
   }
 );
