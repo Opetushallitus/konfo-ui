@@ -77,9 +77,8 @@ export const VertaaHakukohteeseen = ({ tulos }: Props) => {
 
   return (
     <Box
-      sx={{
-        marginTop: theme.spacing(4),
-      }}>
+      marginTop={4}
+>
       <Typography variant="h4">{t('vertaa-hakukohteeseen.header')}</Typography>
       <Typography variant="body1" sx={{ marginBottom: '0.5rem' }}>
         {t('vertaa-hakukohteeseen.vertaa-ohje')}
