@@ -1,3 +1,5 @@
+import { Box, BoxProps } from '@mui/material';
+
 import oppilaitos_img from '#/src/assets/images/logo-oppilaitos.png';
 import koulutus_img from '#/src/assets/images/Opolkuhts.png';
 import { styled } from '#/src/theme';
@@ -54,4 +56,19 @@ export const KoulutusKorttiLogo = ({ alt, image }: Props) => (
 
 export const OppilaitosKorttiLogo = ({ alt, image }: Props) => (
   <StyledKorttiLogo entity="oppilaitos" alt={alt} src={image || oppilaitos_img} />
+);
+
+export const KorttiLogo = ({
+  src,
+  entity,
+  ...props
+}: BoxProps<'img'> & {
+  src: string | undefined;
+  entity: 'koulutus' | 'oppilaitos';
+}) => (
+  <Box
+    component="img"
+    src={src ?? (entity === 'koulutus' ? koulutus_img : oppilaitos_img)}
+    {...props}
+  />
 );

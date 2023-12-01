@@ -4,7 +4,7 @@ import { QueryObserverResult } from 'react-query';
 
 import { getCombinedQueryStatus } from './queryResultUtils';
 import { ErrorMessage } from '../ErrorMessage';
-import { LoadingCircleWrapper } from '../LoadingCircle';
+import { LoadingCircle, LoadingCircleWrapper } from '../LoadingCircle';
 
 type QueryResultWrapperProps = React.PropsWithChildren<{
   queryResult: QueryObserverResult | Array<QueryObserverResult>;
@@ -54,4 +54,9 @@ const createQueryResultWrapper =
 export const QueryResultWrapper = createQueryResultWrapper({
   ErrorComponent: ErrorMessage,
   LoadingWrapper: LoadingCircleWrapper,
+});
+
+export const QueryResult = createQueryResultWrapper({
+  ErrorComponent: ErrorMessage,
+  LoadingWrapper: LoadingCircle,
 });
