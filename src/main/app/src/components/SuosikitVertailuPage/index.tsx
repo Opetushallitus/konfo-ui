@@ -35,12 +35,17 @@ const InfoItem = ({
   label?: string;
   value: React.ReactNode;
 }) => {
+  const labelId = `${label}_${value}`;
   return value ? (
     <Box display="flex" gap={1}>
       <MaterialIcon icon={icon} variant={iconVariant} color="primary" />
       <Box display="flex" flexDirection="column">
-        {label && <Typography>{label}</Typography>}
-        <Typography component="div" display="flex" fontWeight="bold">
+        {label && <Typography id={labelId}>{label}</Typography>}
+        <Typography
+          component="div"
+          display="flex"
+          fontWeight="bold"
+          aria-labelledby={labelId}>
           {value}
         </Typography>
       </Box>
