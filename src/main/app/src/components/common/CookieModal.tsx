@@ -21,109 +21,31 @@ import { getOne } from '#/src/tools/getOne';
 
 import { MaterialIcon } from './MaterialIcon';
 
-const PREFIX = 'CookieModal';
-
-const classes = {
-  modalBackdrop: `${PREFIX}-modalBackdrop`,
-  modalHeader: `${PREFIX}-modalHeader`,
-  icon: `${PREFIX}-icon`,
-  modalText: `${PREFIX}-modalText`,
-  modalContent: `${PREFIX}-modalContent`,
-  settings: `${PREFIX}-settings`,
-  settingsCheckbox: `${PREFIX}-settingsCheckbox`,
-  textExpandLink: `${PREFIX}-textExpandLink`,
-  buttons: `${PREFIX}-buttons`,
-  divider: `${PREFIX}-divider`,
-  settingsHeader: `${PREFIX}-settingsHeader`,
-};
-
-const StyledModal = styled(Modal)(({ theme }) => ({
-  overflowY: 'auto',
-
-  [`& .${classes.modalHeader}`]: {
-    marginTop: '0px',
-    marginLeft: '3%',
-    marginRight: '3%',
-  },
-
-  [`& .${classes.icon}`]: {
-    position: 'absolute',
-  },
-
-  [`& .${classes.modalText}`]: {
-    marginTop: '15px',
-    marginBottom: '15px',
-    marginLeft: '3%',
-    marginRight: '3%',
-    whiteSpace: 'pre-wrap !important',
-  },
-
-  [`& .${classes.modalContent}`]: {
-    position: 'absolute',
-    zIndex: '9999',
-    backgroundColor: colors.white,
-    border: '1px solid #ccc',
-    boxShadow: '1px 1px 1px ' + colors.black,
-    padding: '16px',
-    boxSizing: 'border-box',
-    borderRadius: '10px',
-    width: '60%',
-    left: '20%',
-    top: '5%',
-    [theme.breakpoints.down('md')]: {
-      width: '90%',
-      left: '5%',
-    },
-  },
-
-  [`& .${classes.settings}`]: {
-    marginTop: '15px',
-    marginLeft: '2%',
-  },
-
-  [`& .${classes.settingsCheckbox}`]: {
-    boxShadow: 'none',
-    fontSize: '2em',
-    padding: '5px 2px 5px 5px',
-  },
-
-  [`& .${classes.textExpandLink}`]: {
-    color: colors.brandGreen,
-    marginTop: '5px',
-    marginBottom: '15px',
-    marginLeft: '2%',
-    fontWeight: 'bold',
-    display: 'inline',
-  },
-
-  [`& .${classes.buttons}`]: {
-    float: 'right',
-    paddingRight: '20px',
-  },
-
-  [`& .${classes.divider}`]: {
-    marginBottom: '15px',
-  },
-
-  [`& .${classes.settingsHeader}`]: {
-    margin: '9px 8px 3px 8px',
-    paddingBottom: '10px',
-    fontSize: '1.5em',
+const StyledModalContent = styled('div')(({ theme }) => ({
+  position: 'absolute',
+  zIndex: '9999',
+  backgroundColor: colors.white,
+  border: '1px solid #ccc',
+  boxShadow: '1px 1px 1px ' + colors.black,
+  padding: '16px',
+  boxSizing: 'border-box',
+  borderRadius: '10px',
+  width: '60%',
+  left: '20%',
+  top: '5%',
+  [theme.breakpoints.down('md')]: {
+    width: '90%',
+    left: '5%',
   },
 }));
-const StyledCheckbox = styled(Checkbox)({
-  padding: '0 9px 0 9px',
-  marginLeft: 0,
+
+const CookieModalCheckbox = styled(Checkbox)({
+  boxShadow: 'none',
+  fontSize: '2em',
+  padding: '5px 2px 5px 5px',
 });
-const StyledButton = styled(Button)({
-  '&:focus': {
-    boxShadow: `
-    0px 3px 1px -2px rgba(0,0,0,0.2), 
-    0px 2px 2px 0px rgba(0,0,0,0.14), 
-    0px 1px 5px 0px rgba(0,0,0,0.12);`,
-  },
-});
-const mandatoryCookieName = 'oph-mandatory-cookies-accepted';
+
+const MANDATORY_COOKIE_NAME = 'oph-mandatory-cookies-accepted';
 
 export const CookieModal = () => {
   const { t } = useTranslation();
@@ -131,7 +53,7 @@ export const CookieModal = () => {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [fullCookieInfoOpen, setFullCookieInfoOpen] = useState(false);
   const [cookiesAccepted, setCookiesAccepted] = useState<boolean>(
-    Boolean(Cookies.get(mandatoryCookieName))
+    Boolean(Cookies.get(MANDATORY_COOKIE_NAME))
   );
 
   const [statisticCookiesAccepted, setStatisticCookiesAccepted] = useState(false);
@@ -163,7 +85,7 @@ export const CookieModal = () => {
 
   const handleAcceptCookies: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
-    Cookies.set(mandatoryCookieName, 'true', {
+    Cookies.set(MANDATORY_COOKIE_NAME, 'true', {
       expires: 1800,
       path: '/',
     });
@@ -183,29 +105,23 @@ export const CookieModal = () => {
   };
 
   const openSettings = (
-    <div id="cookie-modal-settings" className={classes.settings}>
-      <Divider className={classes.divider} />
-      <Typography variant="h3" className={classes.settingsHeader}>
+    <div id="cookie-modal-settings">
+      <Divider sx={{ marginBottom: '15px' }} />
+      <Typography
+        variant="h3"
+        sx={{ margin: '9px 8px 3px 8px', paddingBottom: '10px', fontSize: '1.5em' }}>
         {fields.settingsHeaderText}
       </Typography>
       <FormGroup>
         <FormControlLabel
           label={fields.settingsAcceptMandatoryText}
-          control={
-            <StyledCheckbox
-              id="mandatoryCookies"
-              className={classes.settingsCheckbox}
-              checked
-              disabled
-            />
-          }
+          control={<CookieModalCheckbox id="mandatoryCookies" checked disabled />}
         />
         <FormControlLabel
           label={fields.settingsAcceptStatisticText}
           control={
-            <StyledCheckbox
+            <CookieModalCheckbox
               id="statisticCookies"
-              className={classes.settingsCheckbox}
               checked={statisticCookiesAccepted}
               onClick={() => setStatisticCookiesAccepted(!statisticCookiesAccepted)}
             />
@@ -214,9 +130,8 @@ export const CookieModal = () => {
         <FormControlLabel
           label={fields.settingsAcceptMarketingText}
           control={
-            <StyledCheckbox
+            <CookieModalCheckbox
               id="marketingCookies"
-              className={classes.settingsCheckbox}
               checked={marketingCookiesAccepted}
               onClick={() => setMarketingCookiesAccepted(!marketingCookiesAccepted)}
             />
@@ -227,44 +142,55 @@ export const CookieModal = () => {
   );
 
   return (
-    <StyledModal
+    <Modal
       id="oph-cookie-modal-backdrop"
-      className={classes.modalBackdrop}
+      sx={{ overflowY: 'auto' }}
       open={!(isLoading || cookiesAccepted)}>
-      <div id="cookie-modal-content" className={classes.modalContent}>
-        <Typography variant="h2" className={classes.modalHeader}>
+      <StyledModalContent>
+        <Typography
+          variant="h2"
+          sx={{ marginTop: '0px', marginLeft: '3%', marginRight: '3%' }}>
           {fields.heading}
         </Typography>
-        <Typography variant="body1" className={classes.modalText}>
+        <Typography
+          variant="body1"
+          whiteSpace="pre-wrap"
+          sx={{
+            marginTop: '15px',
+            marginBottom: '15px',
+            marginLeft: '3%',
+            marginRight: '3%',
+          }}>
           {fields.shortContent}
         </Typography>
-        <StyledButton
-          sx={{ whiteSpace: 'nowrap', width: 'fit-contect' }}
-          variant="text"
+        <Button
           id="cookie-text-expand-link"
+          sx={{ whiteSpace: 'nowrap', width: 'fit-contect', marginBottom: '15px' }}
+          variant="text"
           endIcon={
             <MaterialIcon
               icon={fullCookieInfoOpen ? 'arrow_drop_up' : 'arrow_drop_down'}
             />
           }
-          className={classes.textExpandLink}
           disableRipple
           onClick={() => setFullCookieInfoOpen(!fullCookieInfoOpen)}>
-          <Typography variant="body1" className={classes.textExpandLink}>
-            {fullCookieInfoOpen ? fields.collapseLinkText : fields.expandLinkText}
-          </Typography>
-        </StyledButton>
-        {fullCookieInfoOpen ? (
           <Typography
             variant="body1"
-            id="cookie-modal-fulltext"
-            className={classes.modalText}>
+            sx={{ color: colors.brandGreen, fontWeight: 'bold', display: 'inline' }}>
+            {fullCookieInfoOpen ? fields.collapseLinkText : fields.expandLinkText}
+          </Typography>
+        </Button>
+        {fullCookieInfoOpen ? (
+          <Typography variant="body1" id="cookie-modal-fulltext" whiteSpace="pre-wrap">
             <Markdown>{fields.fullContent}</Markdown>
           </Typography>
         ) : null}
         {settingsOpen ? openSettings : null}
-        <ButtonGroup className={classes.buttons} orientation="horizontal" color="primary">
-          <StyledButton
+        <ButtonGroup
+          sx={{ float: 'right', paddingRight: '20px' }}
+          orientation="horizontal"
+          color="primary">
+          <Button
             sx={{ fontWeight: 'bold' }}
             variant="outlined"
             size="large"
@@ -272,7 +198,7 @@ export const CookieModal = () => {
             disableRipple
             onClick={() => setSettingsOpen(!settingsOpen)}>
             {settingsOpen ? fields.settingsButtonCloseText : fields.settingsButtonText}
-          </StyledButton>
+          </Button>
           <Button
             sx={{ fontWeight: 'bold' }}
             variant="contained"
@@ -283,7 +209,7 @@ export const CookieModal = () => {
             {fields.acceptButtonText}
           </Button>
         </ButtonGroup>
-      </div>
-    </StyledModal>
+      </StyledModalContent>
+    </Modal>
   );
 };
