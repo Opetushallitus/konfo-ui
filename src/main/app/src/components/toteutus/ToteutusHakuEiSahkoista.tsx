@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Grid, Paper, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
@@ -12,21 +10,10 @@ import { localize } from '#/src/tools/localization';
 import { sanitizedHTMLParser } from '#/src/tools/utils';
 import { Toteutus } from '#/src/types/ToteutusTypes';
 
-const PREFIX = 'ToteutusHakuEiSahkoista';
-
-const classes = {
-  hakuName: `${PREFIX}-hakuName`,
-  paper: `${PREFIX}-paper`,
-};
-
-const StyledPageSection = styled(PageSection)(({ theme }) => ({
-  [`& .${classes.hakuName}`]: {
-    ...theme.typography.h4,
-    fontWeight: 'bold',
-    color: colors.black,
-  },
-
-  [`& .${classes.paper}`]: { padding: '30px', width: '100%' },
+const StyledNimi = styled(Typography)(({ theme }) => ({
+  ...theme.typography.h4,
+  fontWeight: 'bold',
+  color: colors.black,
 }));
 
 type Props = {
@@ -44,8 +31,8 @@ export const ToteutusHakuEiSahkoista = ({ toteutus }: Props) => {
   const toteutusMetadata = toteutus?.metadata;
 
   return (
-    <StyledPageSection heading={hakeuduTaiIlmoittauduHeading} maxWidth="800px">
-      <Paper className={classes.paper}>
+    <PageSection heading={hakeuduTaiIlmoittauduHeading} maxWidth="800px">
+      <Paper sx={{ padding: '30px', width: '100%' }}>
         <Grid
           container
           direction="column"
@@ -61,9 +48,7 @@ export const ToteutusHakuEiSahkoista = ({ toteutus }: Props) => {
             />
           </IconBackground>
           <Grid item>
-            <Typography className={classes.hakuName}>
-              {t('toteutus.ei-sahkoista-hakua')}
-            </Typography>
+            <StyledNimi>{t('toteutus.ei-sahkoista-hakua')}</StyledNimi>
           </Grid>
           <Grid item>
             <Typography variant="body1" component="div">
@@ -72,6 +57,6 @@ export const ToteutusHakuEiSahkoista = ({ toteutus }: Props) => {
           </Grid>
         </Grid>
       </Paper>
-    </StyledPageSection>
+    </PageSection>
   );
 };
