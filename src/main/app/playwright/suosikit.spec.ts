@@ -268,7 +268,7 @@ test.describe('Suosikit', () => {
     await expect(firstVertailuItem.getByText('Osaamisalat')).toBeVisible();
     await expect(
       firstVertailuItem.getByText('Mahdollisuus urheilijan ammatilliseen koulutukseen')
-    ).toBeVisible();
+    ).toBeHidden();
 
     await expect(vertailuListItems).toHaveCount(2);
 

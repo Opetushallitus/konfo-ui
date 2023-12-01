@@ -98,7 +98,7 @@ export const FIELDS_ORDER: Array<{
     icon: 'sports_soccer',
     fieldId: 'urheilijan-amm-koulutus',
     renderValue: (vertailuSuosikki: VertailuSuosikki, t: TFunction) =>
-      isEmpty(vertailuSuosikki.jarjestaaUrheilijanAmmKoulutusta)
+      vertailuSuosikki.jarjestaaUrheilijanAmmKoulutusta
         ? t('suosikit-vertailu.jarjestaa-urheilijan-amm-koulutusta')
         : null,
   },
