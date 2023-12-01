@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next';
 import { localize } from '#/src/tools/localization';
 import { Kielivalikoima } from '#/src/types/ToteutusTypes';
 
+import { VertailuList } from './VertailuList';
+
 export const VertailuKielet = ({
   kielivalikoima,
 }: {
@@ -12,15 +14,17 @@ export const VertailuKielet = ({
 }) => {
   const { t } = useTranslation();
   return isEmpty(kielivalikoima) ? null : (
-    <Box>
+    <VertailuList>
       {Object.entries(kielivalikoima ?? {})?.map(([kieliKey, kieliValue]) =>
         isEmpty(kieliValue) ? null : (
-          <Box key={kieliKey} display="flex" gap={1}>
-            <Box flexShrink={0}>{t(`toteutus.${kieliKey}`)}: </Box>
-            <Box>{kieliValue?.map((kieli) => localize(kieli)).join(', ')}</Box>
-          </Box>
+          <li key={kieliKey}>
+            <Box display="flex" gap={1}>
+              <Box flexShrink={0}>{t(`toteutus.${kieliKey}`)}: </Box>
+              <Box>{kieliValue?.map((kieli) => localize(kieli)).join(', ')}</Box>
+            </Box>
+          </li>
         )
       )}
-    </Box>
+    </VertailuList>
   );
 };

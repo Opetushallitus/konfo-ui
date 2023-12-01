@@ -2,7 +2,6 @@ import { Box } from '@mui/material';
 import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
-import { styled } from '#/src/theme';
 import { localize } from '#/src/tools/localization';
 
 export const VertailuValintakokeet = ({
@@ -19,7 +18,3 @@ export const VertailuValintakokeet = ({
     </Box>
   );
 };
-export const List = styled('ul')({
-  textIndent: 0,
-  paddingLeft: '20px',
-});
