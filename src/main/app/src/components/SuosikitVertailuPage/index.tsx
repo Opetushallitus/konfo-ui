@@ -4,6 +4,7 @@ import { Box, Link, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import {
+  useSuosikitDataOrdered,
   useSuosikitSelection,
   useVertailuSuosikit,
 } from '#/src/hooks/useSuosikitSelection';
@@ -124,7 +125,9 @@ const VertailuKortti = ({
 
 const Vertailu = ({ oids }: { oids: Array<string> }) => {
   const queryResult = useSuosikitVertailuData(oids);
+
   const { data } = queryResult;
+  const orderedData = useSuosikitDataOrdered(data);
 
   return (
     <QueryResult queryResult={queryResult}>
@@ -136,7 +139,7 @@ const Vertailu = ({ oids }: { oids: Array<string> }) => {
           gap={3}
           flexWrap="wrap"
           data-testid="suosikit-vertailu-list">
-          {data?.map((hakukohdeSuosikki) => (
+          {orderedData?.map((hakukohdeSuosikki) => (
             <VertailuKortti
               key={hakukohdeSuosikki.hakukohdeOid}
               vertailuSuosikki={hakukohdeSuosikki}

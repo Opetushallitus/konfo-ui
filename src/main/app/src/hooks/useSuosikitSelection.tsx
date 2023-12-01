@@ -1,5 +1,7 @@
+import { useMemo } from 'react';
+
 import { formatISO } from 'date-fns';
-import { forEach, toPairs } from 'lodash';
+import { forEach, orderBy, toPairs } from 'lodash';
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
@@ -83,3 +85,19 @@ export const useVertailuSuosikit = () =>
       [] as Array<string>
     )
   );
+
+export const useSuosikitDataOrdered = <T extends { hakukohdeOid: string }>(
+  data?: Array<T>
+) => {
+  const { suosikitSelection } = useSuosikitSelection();
+
+  return useMemo(
+    () =>
+      orderBy(
+        data,
+        (suosikkiData) => suosikitSelection[suosikkiData.hakukohdeOid]?.timestamp,
+        'desc'
+      ),
+    [data, suosikitSelection]
+  );
+};

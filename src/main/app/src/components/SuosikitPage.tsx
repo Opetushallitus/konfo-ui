@@ -1,7 +1,7 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 
 import { Alert, Backdrop, Box, Button, Link, Typography } from '@mui/material';
-import { isEmpty, orderBy } from 'lodash';
+import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
 
@@ -9,6 +9,7 @@ import { getHakukohdeSuosikit } from '#/src/api/konfoApi';
 import {
   SuosikitState,
   useNonRemovedSuosikitCount,
+  useSuosikitDataOrdered,
   useSuosikitSelection,
   useVertailuSuosikit,
 } from '#/src/hooks/useSuosikitSelection';
@@ -194,15 +195,7 @@ const SuosikitList = ({
   const queryResult = useSuosikitData(Object.keys(suosikitSelection));
   const { data, isFetching } = queryResult;
 
-  const orderedData = useMemo(
-    () =>
-      orderBy(
-        data,
-        (suosikkiData) => suosikitSelection[suosikkiData.hakukohdeOid]?.timestamp,
-        'desc'
-      ),
-    [data, suosikitSelection]
-  );
+  const orderedData = useSuosikitDataOrdered(data);
 
   const suosikitWithMissingData = Object.keys(suosikitSelection).filter(
     (oid) => !data?.find((item) => item.hakukohdeOid == oid)
