@@ -91,3 +91,4 @@ export type RajainName = ValueOf<typeof RAJAIN_TYPES>;
 
 export type SearchParams = paths['/search/koulutukset']['get']['parameters']['query'];
 export type KonfoKoulutustyyppi = components['schemas']['KonfoKoulutustyyppi'];
+export type VertailuSuosikki = any;

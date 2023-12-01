@@ -13,12 +13,12 @@ export type SuosikitVertailuMask = {
   kielivalikoima: boolean;
 };
 
-export interface SuosikitVertailuState {
+export interface SuosikitVertailuMaskState {
   mask: SuosikitVertailuMask;
   setMask: (maskChange: Partial<SuosikitVertailuMask>) => void;
 }
 
-const useSuosikitVertailuState = create<SuosikitVertailuState>()(
+const useSuosikitVertailuMaskState = create<SuosikitVertailuMaskState>()(
   immer((set) => ({
     mask: {
       kayntiosoite: true,
@@ -38,4 +38,4 @@ const useSuosikitVertailuState = create<SuosikitVertailuState>()(
   }))
 );
 
-export const useSuosikitVertailuMask = () => useSuosikitVertailuState();
+export const useSuosikitVertailuMask = () => useSuosikitVertailuMaskState();
