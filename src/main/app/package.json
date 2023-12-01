@@ -19,7 +19,8 @@
     "analyze": "vite-bundle-visualizer",
     "tsc": "tsc",
     "cf-content-types": "cf-content-types-generator -s $CONTENTFUL_SPACE_ID -t $CONTENTFUL_MANAGEMENT_API_TOKEN -e $CONTENTFUL_ENVIRONMENT_ID -X -o ./src/types/contentful",
-    "contentful:typegen": "dotenv-run-script .env.local -- cf-content-types"
+    "contentful:typegen": "dotenv-run-script .env.local -- cf-content-types",
+    "konfo-backend:typegen": "npx openapi-typescript http://localhost:3006/konfo-backend/swagger.yaml -o ./src/types/konfo-backend.d.ts"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
