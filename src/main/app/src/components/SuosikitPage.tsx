@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo } from 'react';
 
 import { Alert, Backdrop, Box, Button, Link, Paper, Typography } from '@mui/material';
-import { isEmpty, sortBy } from 'lodash';
+import { isEmpty, orderBy } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
 
@@ -197,9 +197,10 @@ const SuosikitList = ({
 
   const orderedData = useMemo(
     () =>
-      sortBy(
+      orderBy(
         data,
-        (suosikkiData) => suosikitSelection[suosikkiData.hakukohdeOid]?.timestamp
+        (suosikkiData) => suosikitSelection[suosikkiData.hakukohdeOid]?.timestamp,
+        'desc'
       ),
     [data, suosikitSelection]
   );
