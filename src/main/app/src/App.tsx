@@ -2,7 +2,6 @@ import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 
 import { useMediaQuery, Box } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
-import clsx from 'clsx';
 import Cookies from 'js-cookie';
 import { includes } from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -55,52 +54,38 @@ import { useIsAtEtusivu } from './store/reducers/appSlice';
 import { getHeaderHeight, theme } from './theme';
 import { useChat } from './useChat';
 
-const PREFIX = 'App';
-
-const classes = {
-  content: `${PREFIX}content`,
-  contentShift: `${PREFIX}contentShift`,
-  smContent: `${PREFIX}smContent`,
-};
-
-const Root = styled('div')(
-  ({ menuVisible }: { isSmall?: boolean; menuVisible?: boolean }) => ({
-    [`& .${classes.content}`]: {
-      marginTop: getHeaderHeight(theme),
-      minWidth: 0,
-      flexGrow: 1,
-      padding: 0,
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-      marginLeft: -SIDEMENU_WIDTH,
-    },
-
-    [`& .${classes.contentShift}`]: {
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      marginLeft: 0,
-    },
-
-    [`& .${classes.smContent}`]: {
-      marginTop: getHeaderHeight(theme),
-      minWidth: 0,
-      flexGrow: 1,
-      padding: 0,
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-      position: 'absolute',
-      left: 0,
-      right: 0,
-      overflow: 'hidden',
-      top: menuVisible ? 0 : 'auto',
-      bottom: menuVisible ? 0 : 'auto',
-    },
+const MainContent = styled('main')(
+  ({ isSmall, menuVisible }: { isSmall?: boolean; menuVisible?: boolean }) => ({
+    marginTop: getHeaderHeight(theme),
+    minWidth: 0,
+    flexGrow: 1,
+    padding: 0,
+    ...(isSmall
+      ? {
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          overflow: 'hidden',
+          top: menuVisible ? 0 : 'auto',
+          bottom: menuVisible ? 0 : 'auto',
+        }
+      : {
+          marginLeft: -SIDEMENU_WIDTH,
+        }),
+    ...(menuVisible
+      ? {
+          transition: theme.transitions.create('margin', {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+          }),
+          marginLeft: 0,
+        }
+      : {
+          transition: theme.transitions.create('margin', {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+          }),
+        }),
   })
 );
 
@@ -254,7 +239,7 @@ export const App = () => {
   }, [isFetching, isAtEtusivu, titleObj, language, pathname]);
 
   return (
-    <Root isSmall={isSmall} menuVisible={menuVisible}>
+    <div>
       <span style={visuallyHidden} id="focus-reset-target" tabIndex={-1} ref={focusRef} />
       <SkipToContent />
       <Draft />
@@ -272,11 +257,7 @@ export const App = () => {
           closeMenu={closeMenu}
           key={`sidemenu-key-${sideMenuKey}`}
         />
-        <main
-          id="app-main-content"
-          className={clsx(isSmall ? classes.smContent : classes.content, {
-            [classes.contentShift]: menuVisible,
-          })}>
+        <MainContent id="app-main-content" isSmall={isSmall} menuVisible={menuVisible}>
           <HeadingBoundary>
             <KonfoRoutes />
             <HeadingBoundary>
@@ -285,9 +266,9 @@ export const App = () => {
               <Footer />
             </HeadingBoundary>
           </HeadingBoundary>
-        </main>
+        </MainContent>
       </Box>
       {!chatIsVisible && <PalautePopup />}
-    </Root>
+    </div>
   );
 };

@@ -9,40 +9,34 @@ import { toId } from '#/src/tools/utils';
 
 import { SmartLink } from '../common/SmartLink';
 
-const PREFIX = 'Sisallysluettelo';
-
-const classes = {
-  toc: `${PREFIX}-toc`,
-  link: `${PREFIX}-link`,
-};
-
-const StyledGrid = styled(Grid)({
+const StyledGrid = styled(Grid, { name: 'Sisallysluettelo' })({
   position: 'sticky',
   alignSelf: 'flex-start',
   height: 'auto',
   top: '90px',
   paddingTop: '30px',
   paddingBottom: '10px',
-  [`& .${classes.link}`]: {
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    fontSize: '14px',
-    lineHeight: '27px',
-    color: colors.brandGreen,
-    borderLeftColor: colors.lightGrey,
-    borderLeftWidth: '1px',
-    borderLeftStyle: 'solid',
-    borderBottomColor: colors.lightGrey,
-    borderBottomWidth: '1px',
-    borderBottomStyle: 'solid',
-    textDecoration: 'none',
-    display: 'block',
-    paddingLeft: '21px',
-    paddingBottom: '10px',
-    paddingTop: '10px',
-    '&:last-child': {
-      borderBottomStyle: 'none',
-    },
+});
+
+const StyledSmartLink = styled(SmartLink)({
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  fontSize: '14px',
+  lineHeight: '27px',
+  color: colors.brandGreen,
+  borderLeftColor: colors.lightGrey,
+  borderLeftWidth: '1px',
+  borderLeftStyle: 'solid',
+  borderBottomColor: colors.lightGrey,
+  borderBottomWidth: '1px',
+  borderBottomStyle: 'solid',
+  textDecoration: 'none',
+  display: 'block',
+  paddingLeft: '21px',
+  paddingBottom: '10px',
+  paddingTop: '10px',
+  '&:last-child': {
+    borderBottomStyle: 'none',
   },
 });
 
@@ -73,21 +67,12 @@ export const Sisallysluettelo = (props: Props) => {
   ].filter(Boolean) as Array<string>;
 
   return (
-    <StyledGrid
-      container
-      direction="row"
-      justifyContent="center"
-      alignItems="center"
-      className={classes.toc}>
+    <StyledGrid container direction="row" justifyContent="center" alignItems="center">
       <Grid item xs={10}>
         {visibleIds.map((name, i) => (
-          <SmartLink
-            key={`${name}-${i}`}
-            className={classes.link}
-            aria-label={name}
-            href={`#${toId(name)}`}>
+          <StyledSmartLink key={`${name}-${i}`} aria-label={name} href={`#${toId(name)}`}>
             {name}
-          </SmartLink>
+          </StyledSmartLink>
         ))}
       </Grid>
     </StyledGrid>
