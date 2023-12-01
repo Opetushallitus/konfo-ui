@@ -1,12 +1,11 @@
 import React, { useEffect, useMemo } from 'react';
 
-import { Alert, Backdrop, Box, Button, Link, Paper, Typography } from '@mui/material';
+import { Alert, Backdrop, Box, Button, Link, Typography } from '@mui/material';
 import { isEmpty, orderBy } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
 
 import { getHakukohdeSuosikit } from '#/src/api/konfoApi';
-import { colors } from '#/src/colors';
 import {
   SuosikitState,
   useNonRemovedSuosikitCount,
@@ -14,7 +13,6 @@ import {
   useVertailuSuosikit,
 } from '#/src/hooks/useSuosikitSelection';
 import { useTruncatedKuvaus } from '#/src/hooks/useTruncatedKuvaus';
-import { styled } from '#/src/theme';
 import { localize } from '#/src/tools/localization';
 import { Translateable } from '#/src/types/common';
 
@@ -27,6 +25,7 @@ import { TextWithBackground } from './common/TextWithBackground';
 import { ToggleSuosikkiButton } from './common/ToggleSuosikkiButton';
 import { Heading, HeadingBoundary } from './Heading';
 import { OutlinedCheckboxButton } from './OutlinedCheckboxButton';
+import { PaperWithTopColor } from './PaperWithTopColor';
 
 const useSuosikitData = (oids?: Array<string>) =>
   useQuery(
@@ -36,13 +35,6 @@ const useSuosikitData = (oids?: Array<string>) =>
       enabled: !isEmpty(oids),
     }
   );
-
-const PaperWithAccent = styled(Paper)(({ theme }) => ({
-  borderTop: `5px solid ${colors.brandGreen}`,
-  width: '100%',
-  position: 'relative',
-  padding: `${theme.spacing(3)}`,
-}));
 
 const Tutkintonimikkeet = ({
   tutkintonimikkeet,
@@ -94,7 +86,7 @@ const SuosikkiKortti = ({
   const kuvaus = useTruncatedKuvaus(localize(hakukohdeSuosikki.esittely));
 
   return (
-    <PaperWithAccent key={hakukohdeSuosikki.hakukohdeOid} role="listitem">
+    <PaperWithTopColor key={hakukohdeSuosikki.hakukohdeOid} role="listitem">
       <Backdrop sx={{ position: 'absolute' }} open={Boolean(removed)} />
       <Box
         sx={{
@@ -149,7 +141,7 @@ const SuosikkiKortti = ({
           />
         </Box>
       </Box>
-    </PaperWithAccent>
+    </PaperWithTopColor>
   );
 };
 

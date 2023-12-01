@@ -1,13 +1,12 @@
 import React from 'react';
 
-import { Box, FormControlLabel, Paper, Typography } from '@mui/material';
+import { Box, FormControlLabel, Typography } from '@mui/material';
 import { TFunction } from 'i18next';
 import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
 
 import { getHakukohdeSuosikitVertailu } from '#/src/api/konfoApi';
-import { colors } from '#/src/colors';
 import { NDASH } from '#/src/constants';
 import {
   useSuosikitSelection,
@@ -31,6 +30,7 @@ import { Murupolku } from './common/Murupolku';
 import { QueryResult } from './common/QueryResultWrapper';
 import { TextButton } from './common/TextButton';
 import { Heading, HeadingBoundary } from './Heading';
+import { PaperWithTopColor } from './PaperWithTopColor';
 
 const useSuosikitVertailuData = (oids?: Array<string>) =>
   useQuery(
@@ -40,13 +40,6 @@ const useSuosikitVertailuData = (oids?: Array<string>) =>
       enabled: !isEmpty(oids),
     }
   );
-
-const PaperWithAccent = styled(Paper)(({ theme }) => ({
-  borderTop: `5px solid ${colors.brandGreen}`,
-  width: '100%',
-  position: 'relative',
-  padding: `${theme.spacing(3)}`,
-}));
 
 const InfoItem = ({
   icon,
@@ -78,16 +71,15 @@ const FIELDS_ORDER: Array<{
   icon: MaterialIconName;
   iconVariant?: MaterialIconVariant;
   fieldId: keyof SuosikitVertailuMask;
-  getLabel?: (t: TFunction) => string;
-  renderValue?: any;
+  getLabel?: (t: TFunction, vertailuSuosikki?: VertailuSuosikki) => string;
+  renderValue?: (vertailuSuosikki: VertailuSuosikki, t: TFunction) => React.ReactNode;
 }> = [
   {
     icon: 'public',
     iconVariant: 'outlined',
     fieldId: 'kayntiosoite',
-    getLabel: (t: TFunction) => t('suosikit-vertailu.kayntiosoite'),
-    renderValue: (vertailuSuosikki: VertailuSuosikki) =>
-      localize(vertailuSuosikki.osoite),
+    getLabel: (t) => t('suosikit-vertailu.kayntiosoite'),
+    renderValue: (vertailuSuosikki) => localize(vertailuSuosikki.osoite),
   },
   {
     icon: 'door_back',
@@ -102,15 +94,15 @@ const FIELDS_ORDER: Array<{
   {
     icon: 'people_outline',
     fieldId: 'opiskelijoita',
-    getLabel: (t: TFunction) => t('suosikit-vertailu.opiskelijoita'),
-    renderValue: (vertailuSuosikki: VertailuSuosikki) => vertailuSuosikki.opiskelijoita,
+    getLabel: (t) => t('suosikit-vertailu.opiskelijoita'),
+    renderValue: (vertailuSuosikki) => vertailuSuosikki.opiskelijoita,
   },
   {
     icon: 'school',
     iconVariant: 'outlined',
     fieldId: 'valintakoe',
-    getLabel: (t: TFunction) => t('suosikit-vertailu.koe-tai-lisanaytto'),
-    renderValue: (vertailuSuosikki: VertailuSuosikki) =>
+    getLabel: (t) => t('suosikit-vertailu.koe-tai-lisanaytto'),
+    renderValue: (vertailuSuosikki) =>
       isEmpty(vertailuSuosikki.valintakokeet) ? null : (
         <Valintakokeet valintakokeet={vertailuSuosikki.valintakokeet} />
       ),
@@ -119,18 +111,18 @@ const FIELDS_ORDER: Array<{
     icon: 'school',
     iconVariant: 'outlined',
     fieldId: 'kaksoistutkinto',
-    getLabel: (t: TFunction) => t('suosikit-vertailu.kaksoistutkinto'),
-    renderValue: (vertailuSuosikki: VertailuSuosikki, t: TFunction) =>
+    getLabel: (t) => t('suosikit-vertailu.kaksoistutkinto'),
+    renderValue: (vertailuSuosikki, t) =>
       vertailuSuosikki.toinenAsteOnkoKaksoistutkinto
-        ? t('suosikit-vertailu.voi-suorittaa-kaksoistutkinnon')
+        ? t?.('suosikit-vertailu.voi-suorittaa-kaksoistutkinnon')
         : NDASH,
   },
   {
     icon: 'verified',
     iconVariant: 'outlined',
     fieldId: 'lukiodiplomit',
-    getLabel: (t: TFunction) => t('suosikit-vertailu.lukiodiplomit'),
-    renderValue: (vertailuSuosikki: VertailuSuosikki) =>
+    getLabel: (t) => t('suosikit-vertailu.lukiodiplomit'),
+    renderValue: (vertailuSuosikki) =>
       vertailuSuosikki.koulutustyyppi !== 'lk' &&
       isEmpty(vertailuSuosikki.lukiodiplomit) ? null : (
         <KoodiLista koodit={vertailuSuosikki.lukiodiplomit} />
@@ -218,7 +210,10 @@ const VertailuKortti = ({
   const { mask } = useSuosikitVertailuMask();
 
   return (
-    <PaperWithAccent key={hakukohde.hakukohdeOid} role="listitem">
+    <PaperWithTopColor
+      key={hakukohde.hakukohdeOid}
+      role="listitem"
+      sx={{ flex: '1 1 350px' }}>
       <KorttiLogo
         entity="oppilaitos"
         src={hakukohde.logo}
@@ -248,8 +243,8 @@ const VertailuKortti = ({
               key={fieldId}
               icon={icon}
               iconVariant={iconVariant}
-              label={getLabel?.(t)}
-              value={renderValue(hakukohde, t)}
+              label={getLabel?.(t, hakukohde)}
+              value={renderValue?.(hakukohde, t)}
             />
           ) : null;
         })}
@@ -260,7 +255,7 @@ const VertailuKortti = ({
           </TextButton>
         </Box>
       </Box>
-    </PaperWithAccent>
+    </PaperWithTopColor>
   );
 };
 
@@ -272,7 +267,7 @@ const Vertailu = ({ oids }: { oids: Array<string> }) => {
     <QueryResult queryResult={queryResult}>
       <Box display="flex" flexDirection="column" gap={2}>
         <HeadingBoundary>
-          <Box display="flex" role="list" data-testid="suosikit-list" gap={3}>
+          <Box display="flex" role="list" gap={3} flexWrap="wrap">
             {data?.map((hakukohdeSuosikki) => (
               <VertailuKortti
                 key={hakukohdeSuosikki.hakukohdeOid}
