@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box, Link, Paper, Typography } from '@mui/material';
+import { Box, Paper, Typography } from '@mui/material';
 import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
@@ -72,13 +72,12 @@ const List = styled('ul')({
 });
 
 const Valintakokeet = ({ valintakokeet }: { valintakokeet: Array<any> }) => {
+  const { t } = useTranslation();
   return (
     <Box display="flex" flexDirection="column" width="100%">
-      {valintakokeet.map((valintakoe) => (
-        <Link key={valintakoe.id} href="TODO">
-          {localize(valintakoe.tyyppi)}
-        </Link>
-      ))}
+      {isEmpty(valintakokeet)
+        ? t('suosikit-vertailu.ei-valintakokeita')
+        : valintakokeet.map((valintakoe) => localize(valintakoe))}
     </Box>
   );
 };
@@ -118,6 +117,8 @@ const VertailuKortti = ({
   const kuvaus = useTruncatedKuvaus(localize(hakukohde.esittely));
 
   const year = 2022; // TODO
+
+  const isLukio = hakukohde.koulutustyyppi === 'lk';
 
   return (
     <PaperWithAccent key={hakukohde.hakukohdeOid} role="listitem">
@@ -164,7 +165,11 @@ const VertailuKortti = ({
           icon="school"
           iconVariant="outlined"
           label={t('suosikit-vertailu.koe-tai-lisanaytto')}
-          value={<Valintakokeet valintakokeet={hakukohde.valintakokeet} />}
+          value={
+            isEmpty(hakukohde.valintakokeet) ? null : (
+              <Valintakokeet valintakokeet={hakukohde.valintakokeet} />
+            )
+          }
         />
         <InfoItem
           icon="school"
@@ -176,22 +181,36 @@ const VertailuKortti = ({
               : NDASH
           }
         />
-        <InfoItem
-          icon="verified"
-          iconVariant="outlined"
-          label={t('suosikit-vertailu.lukiodiplomit')}
-          value={<KoodiLista koodit={hakukohde.lukiodiplomit} />}
-        />
+        {isLukio && (
+          <InfoItem
+            icon="verified"
+            iconVariant="outlined"
+            label={t('suosikit-vertailu.lukiodiplomit')}
+            value={
+              isEmpty(hakukohde.lukiodiplomit) ? null : (
+                <KoodiLista koodit={hakukohde.lukiodiplomit} />
+              )
+            }
+          />
+        )}
         <InfoItem
           icon="chat_bubble_outline"
           label={t('suosikit-vertailu.kielivalikoima')}
-          value={<Kielet kielivalikoima={hakukohde.kielivalikoima} />}
+          value={
+            isEmpty(hakukohde.kielivalikoima) ? null : (
+              <Kielet kielivalikoima={hakukohde.kielivalikoima} />
+            )
+          }
         />
         <InfoItem
           icon="lightbulb"
           iconVariant="outlined"
           label={t('suosikit-vertailu.osaamisalat')}
-          value={<KoodiLista koodit={hakukohde.osaamisalat} />}
+          value={
+            isEmpty(hakukohde.osaamisalat) ? null : (
+              <KoodiLista koodit={hakukohde.osaamisalat} />
+            )
+          }
         />
         {hakukohde.jarjestaaUrheilijanAmmKoulutusta && (
           <InfoItem
