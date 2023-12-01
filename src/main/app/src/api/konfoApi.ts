@@ -16,7 +16,8 @@ import {
   SearchParams,
   Suosikki,
   VertailuSuosikki,
-  Translateable,
+  HakukohdeSearchResult,
+  HakukohdeSearchParams,
 } from '#/src/types/common';
 import {
   ContentfulData,
@@ -136,27 +137,6 @@ export const getKoodistonKoodit = async (koodisto: string) => {
 };
 
 export const getValintaperuste = createEntityGetter('valintaperusteet');
-
-export interface HakukohdeSearchParams {
-  kohdejoukko: string;
-}
-
-export interface CompactHakukohde {
-  oid: string;
-  nimi: Translateable;
-  toteutus: {
-    oid: string;
-    nimi: Translateable;
-  };
-  organisaatio: {
-    nimi: Translateable;
-  };
-}
-
-export interface HakukohdeSearchResult {
-  total: number;
-  hits: Array<CompactHakukohde>;
-}
 
 export const searchHakukohteet: (
   requestParams: HakukohdeSearchParams,

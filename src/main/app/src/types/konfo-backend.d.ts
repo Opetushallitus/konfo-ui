@@ -1430,6 +1430,73 @@ export interface paths {
       };
     };
   };
+  "/search/hakukohteet": {
+    /**
+     * Hae hakukohteita
+     * @description Hakee (kaikki julkaistut) hakukohteet haun kohdejoukon perusteella. Huom.! Vain Opintopolun sisäiseen käyttöön
+     */
+    get: {
+      parameters: {
+        query: {
+          /** @description Haun kohdejoukko (koodi uri) */
+          kohdejoukko: string;
+        };
+      };
+      responses: {
+        /** @description Ok */
+        200: {
+          content: {
+            "application/json": {
+              /** Format: int32 */
+              total: number;
+              hits: {
+                  /** @description Hakukohteen yksilöivä tunniste */
+                  oid: string;
+                  /**
+                   * Nimi
+                   * @description Hakukohteen nimi eri kielillä
+                   */
+                  nimi: {
+                    /** @description Suomenkielinen nimi, jos määritelty */
+                    fi?: string;
+                    /** @description Ruotsinkielinen nimi, jos määritelty */
+                    sv?: string;
+                    /** @description Englanninkielinen nimi, jos määritelty */
+                    en?: string;
+                  };
+                  /** @description Hakukohteeseen liitetyn haun yksilöivä tunniste */
+                  hakuOid: string;
+                  organisaatio: {
+                    /**
+                     * Nimi
+                     * @description Organisaation nimi eri kielillä
+                     */
+                    nimi: {
+                      /** @description Suomenkielinen nimi, jos määritelty */
+                      fi?: string;
+                      /** @description Ruotsinkielinen nimi, jos määritelty */
+                      sv?: string;
+                      /** @description Englanninkielinen nimi, jos määritelty */
+                      en?: string;
+                    };
+                  };
+                  toteutus: {
+                    /** @description Toteutuksen yksilöivä tunniste */
+                    oid: string;
+                  };
+                }[];
+            };
+          };
+        };
+        /** @description Bad request */
+        400: {
+          content: {
+            "text/plain": string;
+          };
+        };
+      };
+    };
+  };
   "/palaute": {
     /**
      * Lähetä palaute
@@ -3531,6 +3598,84 @@ export interface components {
       total?: number;
       /** @description Hakutulokset */
       hits?: components["schemas"]["KoulutusToteutusHit"][];
+    };
+    /** CompactHakukohde */
+    CompactHakukohde: {
+      /** @description Hakukohteen yksilöivä tunniste */
+      oid: string;
+      /**
+       * Nimi
+       * @description Hakukohteen nimi eri kielillä
+       */
+      nimi: {
+        /** @description Suomenkielinen nimi, jos määritelty */
+        fi?: string;
+        /** @description Ruotsinkielinen nimi, jos määritelty */
+        sv?: string;
+        /** @description Englanninkielinen nimi, jos määritelty */
+        en?: string;
+      };
+      /** @description Hakukohteeseen liitetyn haun yksilöivä tunniste */
+      hakuOid: string;
+      organisaatio: {
+        /**
+         * Nimi
+         * @description Organisaation nimi eri kielillä
+         */
+        nimi: {
+          /** @description Suomenkielinen nimi, jos määritelty */
+          fi?: string;
+          /** @description Ruotsinkielinen nimi, jos määritelty */
+          sv?: string;
+          /** @description Englanninkielinen nimi, jos määritelty */
+          en?: string;
+        };
+      };
+      toteutus: {
+        /** @description Toteutuksen yksilöivä tunniste */
+        oid: string;
+      };
+    };
+    /** HakukohdeSearchResult */
+    HakukohdeSearchResult: {
+      /** Format: int32 */
+      total: number;
+      hits: {
+          /** @description Hakukohteen yksilöivä tunniste */
+          oid: string;
+          /**
+           * Nimi
+           * @description Hakukohteen nimi eri kielillä
+           */
+          nimi: {
+            /** @description Suomenkielinen nimi, jos määritelty */
+            fi?: string;
+            /** @description Ruotsinkielinen nimi, jos määritelty */
+            sv?: string;
+            /** @description Englanninkielinen nimi, jos määritelty */
+            en?: string;
+          };
+          /** @description Hakukohteeseen liitetyn haun yksilöivä tunniste */
+          hakuOid: string;
+          organisaatio: {
+            /**
+             * Nimi
+             * @description Organisaation nimi eri kielillä
+             */
+            nimi: {
+              /** @description Suomenkielinen nimi, jos määritelty */
+              fi?: string;
+              /** @description Ruotsinkielinen nimi, jos määritelty */
+              sv?: string;
+              /** @description Englanninkielinen nimi, jos määritelty */
+              en?: string;
+            };
+          };
+          toteutus: {
+            /** @description Toteutuksen yksilöivä tunniste */
+            oid: string;
+          };
+        }[];
     };
     /** SuosikitItem */
     SuosikitItem: {

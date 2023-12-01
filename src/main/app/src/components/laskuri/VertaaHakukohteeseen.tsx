@@ -12,7 +12,6 @@ import {
 import { isString, omit, sortBy } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
-import { CompactHakukohde } from '#/src/api/konfoApi';
 import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { GraafiContainer } from '#/src/components/laskuri/graafi/GraafiContainer';
@@ -24,6 +23,7 @@ import { theme } from '#/src/theme';
 import { localize } from '#/src/tools/localization';
 import { useUrlParams } from '#/src/tools/useUrlParams';
 import { scrollIntoView } from '#/src/tools/utils';
+import { CompactHakukohde } from '#/src/types/common';
 
 const PREFIX = 'VertaaHakukohteeseen__';
 
