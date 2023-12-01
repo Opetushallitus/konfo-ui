@@ -1,15 +1,6 @@
 import React, { useEffect, useMemo } from 'react';
 
-import {
-  Alert,
-  Backdrop,
-  Box,
-  Button,
-  ButtonProps,
-  Link,
-  Paper,
-  Typography,
-} from '@mui/material';
+import { Alert, Backdrop, Box, Button, Link, Paper, Typography } from '@mui/material';
 import { isEmpty, sortBy } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
@@ -35,6 +26,7 @@ import { QueryResultWrapper } from './common/QueryResultWrapper';
 import { TextWithBackground } from './common/TextWithBackground';
 import { ToggleSuosikkiButton } from './common/ToggleSuosikkiButton';
 import { Heading, HeadingBoundary } from './Heading';
+import { OutlinedCheckboxButton } from './OutlinedCheckboxButton';
 
 const useSuosikitData = (oids?: Array<string>) =>
   useQuery(
@@ -66,23 +58,6 @@ const Tutkintonimikkeet = ({
     </>
   ) : null;
 };
-
-export type OutlinedCheckboxButtonProps = Omit<ButtonProps, 'variant' | 'color'> & {
-  checked?: boolean;
-};
-
-const OutlinedCheckboxButton = React.forwardRef<
-  HTMLButtonElement,
-  OutlinedCheckboxButtonProps
->(({ checked, ...props }, ref) => (
-  <Button
-    {...props}
-    startIcon={<MaterialIcon icon={checked ? 'check_box' : 'check_box_outline_blank'} />}
-    ref={ref}
-    variant="outlined"
-    color="primary"
-  />
-));
 
 const ToggleVertailuButton = ({ oid }: { oid: string }) => {
   const { toggleVertailu } = useSuosikitSelection();
@@ -242,6 +217,7 @@ const SuosikitList = ({
               removeMissing={() => removeSuosikit(suosikitWithMissingData)}
             />
           )}
+          {!isFetching && !isEmpty(data) && <VertaileButton />}
           <Box
             role="list"
             data-testid="suosikit-list"
