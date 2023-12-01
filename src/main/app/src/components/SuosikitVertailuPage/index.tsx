@@ -9,6 +9,7 @@ import {
 } from '#/src/hooks/useSuosikitSelection';
 import { useTruncatedKuvaus } from '#/src/hooks/useTruncatedKuvaus';
 import { localize } from '#/src/tools/localization';
+import { VertailuSuosikki } from '#/src/types/common';
 
 import { useSuosikitVertailuData } from './useSuosikitVertailuData';
 import { useSuosikitVertailuMask } from './useSuosikitVertailuMask';
@@ -48,26 +49,26 @@ const InfoItem = ({
 };
 
 const VertailuKortti = ({
-  hakukohde: hakukohde,
+  vertailuSuosikki,
 }: {
-  hakukohde: any;
+  vertailuSuosikki: VertailuSuosikki;
   removed?: boolean;
 }) => {
   const { t } = useTranslation();
   const { toggleVertailu } = useSuosikitSelection();
 
-  const kuvaus = useTruncatedKuvaus(localize(hakukohde.esittely));
+  const kuvaus = useTruncatedKuvaus(localize(vertailuSuosikki.esittely));
 
   const { mask } = useSuosikitVertailuMask();
 
   return (
     <PaperWithTopColor
-      key={hakukohde.hakukohdeOid}
+      key={vertailuSuosikki.hakukohdeOid}
       role="listitem"
       sx={{ flex: '1 1 350px' }}>
       <KorttiLogo
         entity="oppilaitos"
-        src={hakukohde.logo}
+        src={vertailuSuosikki.logo}
         alt={t('haku.oppilaitoksen-logo')}
         display="inline-block"
         position="relative"
@@ -77,10 +78,12 @@ const VertailuKortti = ({
           float: 'left',
         }}
       />
-      <Typography variant="body1">{localize(hakukohde.jarjestyspaikka)}</Typography>
-      <Link href={`toteutus/${hakukohde.toteutusOid}`}>
+      <Typography variant="body1">
+        {localize(vertailuSuosikki.jarjestyspaikka)}
+      </Typography>
+      <Link href={`toteutus/${vertailuSuosikki.toteutusOid}`}>
         <Heading variant="h4" color="primary">
-          {localize(hakukohde.nimi)}
+          {localize(vertailuSuosikki.nimi)}
         </Heading>
       </Link>
       <Typography>{kuvaus}</Typography>
@@ -98,14 +101,14 @@ const VertailuKortti = ({
               key={fieldId}
               icon={icon}
               iconVariant={iconVariant}
-              label={getLabel?.(t, hakukohde)}
-              value={renderValue?.(hakukohde, t)}
+              label={getLabel?.(t, vertailuSuosikki)}
+              value={renderValue?.(vertailuSuosikki, t)}
             />
           ) : null;
         })}
         <hr />
         <Box display="flex" justifyContent="flex-end" flexWrap="wrap" gap={1}>
-          <TextButton onClick={() => toggleVertailu(hakukohde.hakukohdeOid)}>
+          <TextButton onClick={() => toggleVertailu(vertailuSuosikki.hakukohdeOid)}>
             {t('suosikit.poista-vertailusta')}
           </TextButton>
         </Box>
@@ -126,7 +129,7 @@ const Vertailu = ({ oids }: { oids: Array<string> }) => {
             {data?.map((hakukohdeSuosikki) => (
               <VertailuKortti
                 key={hakukohdeSuosikki.hakukohdeOid}
-                hakukohde={hakukohdeSuosikki}
+                vertailuSuosikki={hakukohdeSuosikki}
               />
             ))}
           </Box>

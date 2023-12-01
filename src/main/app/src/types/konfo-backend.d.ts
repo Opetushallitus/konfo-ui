@@ -2028,6 +2028,29 @@ export interface paths {
                 };
                 /** @description Onko hakukohteen toisen asteen koulutuksessa mahdollista suorittaa kaksoistutkinto? */
                 toinenAsteOnkoKaksoistutkinto: boolean;
+                /**
+                 * Organisaatio
+                 * @description Hakukohteen järjestyspaikan tiedot
+                 */
+                jarjestyspaikka: {
+                  paikkakunta: {
+                    koodiUri: string | null;
+                    /** Kielistetty */
+                    nimi: {
+                      fi?: string;
+                      sv?: string;
+                      en?: string;
+                    };
+                  };
+                  /** Kielistetty */
+                  nimi: {
+                    fi?: string;
+                    sv?: string;
+                    en?: string;
+                  };
+                  oid: string;
+                  [key: string]: unknown;
+                };
               })[];
           };
         };
@@ -2150,6 +2173,7 @@ export interface components {
     KonfoKoulutustyyppi: "amm-ope-erityisope-ja-opo" | "vaativan-tuen-koulutukset" | "amk-opintojakso-avoin" | "yo-opintojakso-avoin" | "tohtori" | "valmentavat-koulutukset" | "amk-opintojakso" | "amm-osaamisala" | "muu" | "vapaa-sivistystyo-muu" | "amk-alempi" | "amm-tutkinnon-osa" | "amm-muu" | "yo-erikoistumiskoulutus" | "kandi" | "koulutustyyppi_26" | "yo-opintokokonaisuus" | "tuva-normal" | "kandi-ja-maisteri" | "yo-opintokokonaisuus-avoin" | "erikoislaakari" | "muu-amm-tutkinto" | "taiteen-perusopetus" | "ope-pedag-opinnot" | "koulutustyyppi_4" | "koulutustyyppi_12" | "amk-ylempi" | "yo-opintojakso" | "amm" | "maisteri" | "vapaa-sivistystyo-opistovuosi" | "amk" | "amk-opintokokonaisuus-avoin" | "amk-erikoistumiskoulutus" | "telma" | "koulutustyyppi_11" | "aikuisten-perusopetus" | "amk-opintokokonaisuus" | "tuva-erityisopetus" | "yo" | "lk";
     /** @enum {string} */
     Kieli: "en" | "fi" | "sv";
+    /** Kuvaus */
     Kuvaus: {
       /** @description Suomenkielinen kuvaus, jos määritelty */
       fi?: string;
@@ -2158,6 +2182,7 @@ export interface components {
       /** @description Englanninkielinen kuvaus, jos määritelty */
       en?: string;
     };
+    /** Nimi */
     Nimi: {
       /** @description Suomenkielinen nimi, jos määritelty */
       fi?: string;
@@ -2166,6 +2191,7 @@ export interface components {
       /** @description Englanninkielinen nimi, jos määritelty */
       en?: string;
     };
+    /** Teksti */
     Teksti: {
       /** @description Suomenkielinen teksti, jos määritelty */
       fi?: string;
@@ -2174,6 +2200,7 @@ export interface components {
       /** @description Englanninkielinen teksti, jos määritelty */
       en?: string;
     };
+    /** Linkki */
     Linkki: {
       /** @description Suomenkielinen linkki, jos määritelty */
       fi?: string;
@@ -3502,6 +3529,7 @@ export interface components {
       /** @description Hakutulokset */
       hits?: components["schemas"]["KoulutusToteutusHit"][];
     };
+    /** SuosikitItem */
     SuosikitItem: {
       /** @description Hakukohteen yksilöivä tunniste */
       hakukohdeOid: string;
@@ -3868,6 +3896,29 @@ export interface components {
       };
       /** @description Onko hakukohteen toisen asteen koulutuksessa mahdollista suorittaa kaksoistutkinto? */
       toinenAsteOnkoKaksoistutkinto: boolean;
+      /**
+       * Organisaatio
+       * @description Hakukohteen järjestyspaikan tiedot
+       */
+      jarjestyspaikka: {
+        paikkakunta: {
+          koodiUri: string | null;
+          /** Kielistetty */
+          nimi: {
+            fi?: string;
+            sv?: string;
+            en?: string;
+          };
+        };
+        /** Kielistetty */
+        nimi: {
+          fi?: string;
+          sv?: string;
+          en?: string;
+        };
+        oid: string;
+        [key: string]: unknown;
+      };
     };
   };
   responses: never;
