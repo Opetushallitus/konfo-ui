@@ -138,12 +138,12 @@ export const getKoodistonKoodit = async (koodisto: string) => {
 
 export const getValintaperuste = createEntityGetter('valintaperusteet');
 
-export const searchHakukohteet: (
+export const searchHakukohteet = (
   requestParams: HakukohdeSearchParams,
   signal?: AbortSignal
-) => Promise<HakukohdeSearchResult> = (requestParams, signal?) =>
-  get(urls.url('konfo-backend.search.hakukohteet'), {
-    params: { lng: getLanguage(), ...cleanRequestParams(requestParams) },
+) =>
+  get<HakukohdeSearchResult>(urls.url('konfo-backend.search.hakukohteet'), {
+    params: { ...cleanRequestParams(requestParams) },
     signal,
   });
 
