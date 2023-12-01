@@ -867,6 +867,10 @@
     "lukiodiplomit": "Lukiodiplomit",
     "kielivalikoima": "Kielivalikoima",
     "osaamisalat": "Osaamisalat",
-    "jarjestaa-urheilijan-amm-koulutusta": "Mahdollisuus urheilijan ammatilliseen koulutukseen"
+    "jarjestaa-urheilijan-amm-koulutusta": "Mahdollisuus urheilijan ammatilliseen koulutukseen",
+    "valintakoe": "Koe- tai lisänäyttö",
+    "urheilijan-amm-koulutus": "Urheilijan ammatillinen koulutus",
+    "valitse-vertailtavat-tiedot": "Valitse vertailtavat tiedot",
+    "sisaanpaasyn-pistemaara": "Sisäänpääsyn pistemäärä"
   }
 }
