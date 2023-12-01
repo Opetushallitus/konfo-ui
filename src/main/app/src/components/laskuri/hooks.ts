@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 
 import { getKoodistonKoodit, searchHakukohteet } from '#/src/api/konfoApi';
 import { translate } from '#/src/tools/localization';
-import { HakukohdeSearchParams, HakukohdeSearchResult, Koodi } from '#/src/types/common';
+import { HakukohdeSearchParams, Koodi } from '#/src/types/common';
 
 export const useKieliKoodit = () => {
   const { data } = useQuery<Array<Koodi>>(
@@ -22,8 +22,4 @@ export const useKieliKoodit = () => {
 };
 
 export const useHakukohdeSearch = (requestParams: HakukohdeSearchParams) =>
-  useQuery<any, unknown, HakukohdeSearchResult>(
-    [requestParams],
-    ({ signal }) => searchHakukohteet(requestParams, signal),
-    {}
-  );
+  useQuery([requestParams], ({ signal }) => searchHakukohteet(requestParams, signal), {});
