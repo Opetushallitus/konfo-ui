@@ -60,18 +60,22 @@ const Tutkintonimikkeet = ({
 };
 
 const ToggleVertailuButton = ({ oid }: { oid: string }) => {
+  const { t } = useTranslation();
   const { toggleVertailu } = useSuosikitSelection();
   const vertailuSuosikit = useVertailuSuosikit();
+
+  const canAddToVertailu = vertailuSuosikit.length < 3;
 
   const checked = vertailuSuosikit.indexOf(oid) !== -1;
 
   return (
     <OutlinedCheckboxButton
       checked={checked}
+      disabled={!checked && !canAddToVertailu}
       onClick={() => {
         toggleVertailu(oid);
       }}>
-      {checked ? 'Poista vertailusta' : 'Lisää vertailuun'}
+      {checked ? t('suosikit.poista-vertailusta') : t('suosikit.lisaa-vertailuun')}
     </OutlinedCheckboxButton>
   );
 };
@@ -171,6 +175,7 @@ const MissingSuosikit = ({ removeMissing }: { removeMissing: () => void }) => {
 };
 
 const VertaileButton = () => {
+  const { t } = useTranslation();
   const vertailuSuosikit = useVertailuSuosikit();
   return (
     <Button
@@ -179,7 +184,7 @@ const VertaileButton = () => {
       disabled={vertailuSuosikit.length === 0}
       variant="outlined"
       color="primary">
-      Vertaile valittuja ({vertailuSuosikit.length})
+      {t('suosikit.vertaile-valittuja', { count: vertailuSuosikit.length, max: 3 })}
     </Button>
   );
 };

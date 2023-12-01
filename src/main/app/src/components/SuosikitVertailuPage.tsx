@@ -214,7 +214,7 @@ const VertailuKortti = ({
             {t('suosikit-vertailu.vie-hakulomakkeelle')}
           </OutlinedCheckboxButton>
           <TextButton onClick={() => toggleVertailu(hakukohde.hakukohdeOid)}>
-            {t('suosikit-vertailu.poista-vertailusta')}
+            {t('suosikit.poista-vertailusta')}
           </TextButton>
         </Box>
       </Box>
