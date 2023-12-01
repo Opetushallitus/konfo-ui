@@ -2,7 +2,7 @@ const fs = require('fs');
 const exec = require('child_process').execSync;
 const core = require('@actions/core');
 
-fieldEqual = (masterField, testiField) => {
+const fieldEqual = (masterField, testiField) => {
   return masterField.id === testiField.id
     && masterField.type === testiField.type
     && masterField.localized === testiField.localized
