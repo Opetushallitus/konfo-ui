@@ -119,9 +119,7 @@ export const RajaimetPopover = ({
         open={isPopoverOpen}
         anchorEl={anchorEl}
         onClose={handleClose}
-        PaperProps={{
-          elevation: 0,
-        }}
+        elevation={0}
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'center',
