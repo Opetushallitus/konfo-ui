@@ -27,6 +27,8 @@ DOMPurify.addHook('afterSanitizeAttributes', (node) => {
 
 export const sanitizeHTML = (html: string) => DOMPurify.sanitize(html);
 
+export const stripTags = (html: string) => DOMPurify.sanitize(html, { ALLOWED_TAGS: [] });
+
 // Filters all untruthy values, we do not want false or 0 values sent
 export const cleanRequestParams = (params?: Record<string, any>) =>
   params ? pickBy(params, Boolean) : {};
