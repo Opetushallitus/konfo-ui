@@ -6,7 +6,7 @@ import { styled } from '#/src/theme';
 
 const StyledContainer = styled(Container)({
   backgroundColor: colors.white,
-  maxWidth: '1600px',
+  maxWidth: '1500px',
   '& a[!class]': {
     color: colors.brandGreen,
     textDecoration: 'underline',
@@ -22,12 +22,11 @@ export const ContentWrapper = ({
 
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
-    <StyledContainer sx={sx} disableGutters={isMobile}>
+    <StyledContainer sx={sx} disableGutters={isMobile} maxWidth={false}>
       <Box
         margin="auto"
         paddingLeft={1}
         paddingRight={1}
-        maxWidth="1200px"
         display="flex"
         flexDirection="column"
         alignItems="center">
