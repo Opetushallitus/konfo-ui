@@ -23,7 +23,7 @@ export const AllLanguagesTooltip = ({ koodiUri }: Props) => {
   const oppiaineet = usePainotettavatOppiaineetLukiossa();
   const kielet = oppiaineet
     ?.filter(
-      (oppiaine) => oppiaine.koodiUri.startsWith(koodi) && oppiaine.koodiUri !== koodi
+      (oppiaine) => oppiaine?.koodiUri?.startsWith(koodi) && oppiaine.koodiUri !== koodi
     )
     .map((kieli) => translate(kieli.nimi));
 
