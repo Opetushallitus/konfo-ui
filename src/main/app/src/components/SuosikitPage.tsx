@@ -111,7 +111,7 @@ const SuosikkiKortti = ({
         justifyContent="space-between"
         alignItems="flex-end"
         flexWrap="wrap"
-        mt={2}
+        marginTop={2}
         gap={2}>
         <Box
           display="flex"
@@ -129,11 +129,11 @@ const SuosikkiKortti = ({
               {localize(hakukohdeSuosikki.jarjestyspaikka.paikkakunta)}
             </Typography>
           </Box>
-          <Box mt="3px" mb={1}>
+          <Box marginTop="3px" marginBottom={1}>
             <TextWithBackground>{t('haku.hakukaynnissa')}</TextWithBackground>
           </Box>
         </Box>
-        <Box ml="auto">
+        <Box marginLeft="auto">
           <ToggleVertailuButton oid={hakukohdeSuosikki.hakukohdeOid} />
           <ToggleSuosikkiButton
             hakukohdeOid={hakukohdeSuosikki.hakukohdeOid}
@@ -156,7 +156,7 @@ const MissingSuosikit = ({ removeMissing }: { removeMissing: () => void }) => {
         alignItems: 'center',
         alignSelf: 'center',
       }}>
-      <Box display="inline-block" mr={2}>
+      <Box display="inline-block" marginRight={2}>
         {t('suosikit.puuttuvia-suosikkeja')}
       </Box>
       <Button color="primary" variant="contained" onClick={removeMissing}>
@@ -253,10 +253,10 @@ export const SuosikitPage = () => {
         <Murupolku path={[{ name: t('suosikit.otsikko') }]} />
       </Box>
       <Heading variant="h1">{t('suosikit.otsikko')}</Heading>
-      <Box display="inline-flex" mb={1}>
+      <Box display="inline-flex" marginBottom={1}>
         {suosikitCount > 0 ? (
           <>
-            <Box mr={1}>
+            <Box marginRight={1}>
               <MaterialIcon icon="favorite" color="primary" />
             </Box>
             {t('suosikit.tallennettu-hakukohde', { count: suosikitCount })}

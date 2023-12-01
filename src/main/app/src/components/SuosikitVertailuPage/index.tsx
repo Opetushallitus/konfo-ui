@@ -98,7 +98,7 @@ const VertailuKortti = ({
         justifyContent="space-between"
         alignItems="stretch"
         flexWrap="wrap"
-        mt={2}
+        marginTop={2}
         gap={2}>
         {FIELDS_ORDER.map(({ icon, iconVariant, getLabel, renderValue, fieldId }) => {
           return mask[fieldId] ? (
@@ -129,16 +129,20 @@ const Vertailu = ({ oids }: { oids: Array<string> }) => {
   return (
     <QueryResult queryResult={queryResult}>
       <Box display="flex" flexDirection="column" gap={2}>
-        <HeadingBoundary>
-          <Box display="flex" role="list" gap={3} flexWrap="wrap">
-            {data?.map((hakukohdeSuosikki) => (
-              <VertailuKortti
-                key={hakukohdeSuosikki.hakukohdeOid}
-                vertailuSuosikki={hakukohdeSuosikki}
-              />
-            ))}
-          </Box>
-        </HeadingBoundary>
+        <VertailuFieldMask />
+        <Box
+          display="flex"
+          role="list"
+          gap={3}
+          flexWrap="wrap"
+          data-testid="suosikit-vertailu-list">
+          {data?.map((hakukohdeSuosikki) => (
+            <VertailuKortti
+              key={hakukohdeSuosikki.hakukohdeOid}
+              vertailuSuosikki={hakukohdeSuosikki}
+            />
+          ))}
+        </Box>
       </Box>
     </QueryResult>
   );
@@ -162,7 +166,6 @@ export const SuosikitVertailuPage = () => {
       </Box>
       <Heading variant="h1">{t('suosikit-vertailu.otsikko')}</Heading>
       <HeadingBoundary>
-        <VertailuFieldMask />
         {vertailuCount > 0 ? (
           <Vertailu oids={oids} />
         ) : (
