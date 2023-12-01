@@ -37,13 +37,13 @@ test.describe('Embedded pistelaskuri', () => {
     await expect(keskiarvoPalleroTulokset.nth(2)).toHaveText('10');
 
     // renders "vertaa hakukohteeseen" elements
-    await expect(page.locator('.VertaaHakukohteeseen__container')).toBeVisible();
-    await page.locator('.VertaaHakukohteeseen__input input').nth(0).fill('lukio');
+    await expect(page.getByText('Vertaa pisteitä hakukohteeseen')).toBeVisible();
+    await page.getByPlaceholder('Etsi hakukohteita').fill('lukio');
     await expect(page.locator('.MuiAutocomplete-popper')).toHaveText(
       'Lukion yleislinja, Alppilan lukio'
     );
     await page.locator('.MuiAutocomplete-popper').nth(0).click();
-    await expect(page.locator('.graafi__container__pistetyyppibox')).toBeVisible();
+    await expect(page.getByText('sisäänpääsyn alin keskiarvo')).toBeVisible();
 
     // render correct buttons
     await expect(page.locator('.Pistelaskuri__recalculatebutton')).toBeHidden();
@@ -57,7 +57,7 @@ test.describe('Embedded pistelaskuri', () => {
     await expect(page.locator('.keskiarvo__laskuri__input').nth(1)).toHaveValue('');
     await expect(page.locator('.keskiarvo__laskuri__input').nth(2)).toHaveValue('');
     await expect(page.locator('.MuiCheckbox-root input')).toBeChecked();
-    await expect(page.locator('.VertaaHakukohteeseen__container')).toBeHidden();
+    await expect(page.getByText('Vertaa pisteitä hakukohteeseen')).toBeHidden();
   });
   test('calculates average with weighting', async ({ page }) => {
     await page.goto('/konfo/fi/sivu/pistelaskuritesti');
