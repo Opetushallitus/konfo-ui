@@ -162,6 +162,14 @@ export const getHakukohdeSuosikit = (requestParams: {
   });
 };
 
+export const getHakukohdeSuosikitVertailu = (requestParams: {
+  'hakukohde-oids': Array<string>;
+}) => {
+  return get<Array<HakukohdeSuosikki>>(urls.url('konfo-backend.suosikit-vertailu'), {
+    params: requestParams,
+  });
+};
+
 export const postClientError = (errorData: {
   'error-message': string;
   url: string;
