@@ -8,7 +8,7 @@ import { Kielivalikoima } from '#/src/types/ToteutusTypes';
 export const VertailuKielet = ({
   kielivalikoima,
 }: {
-  kielivalikoima?: Kielivalikoima;
+  kielivalikoima: Kielivalikoima;
 }) => {
   const { t } = useTranslation();
   return isEmpty(kielivalikoima) ? null : (

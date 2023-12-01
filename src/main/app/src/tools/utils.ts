@@ -33,7 +33,7 @@ export const stripTags = (html: string) => DOMPurify.sanitize(html, { ALLOWED_TA
 export const cleanRequestParams = (params?: Record<string, any>) =>
   params ? pickBy(params, Boolean) : {};
 
-export const koodiUriToPostinumero = (str: string) => {
+export const koodiUriToPostinumero = (str?: string | null) => {
   return str?.match(/^posti_(\d+)/)?.[1] ?? '';
 };
 

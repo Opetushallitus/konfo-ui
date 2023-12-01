@@ -14,7 +14,7 @@ import {
 } from '#/src/hooks/useSuosikitSelection';
 import { useTruncatedKuvaus } from '#/src/hooks/useTruncatedKuvaus';
 import { localize } from '#/src/tools/localization';
-import { Translateable } from '#/src/types/common';
+import { Koodi, Suosikki, Translateable } from '#/src/types/common';
 
 import { ContentWrapper } from './common/ContentWrapper';
 import { OppilaitosKorttiLogo } from './common/KorttiLogo';
@@ -39,7 +39,7 @@ const useSuosikitData = (oids?: Array<string>) =>
 const Tutkintonimikkeet = ({
   tutkintonimikkeet,
 }: {
-  tutkintonimikkeet: Array<{ nimi: Translateable }>;
+  tutkintonimikkeet?: Array<Koodi>;
 }) => {
   return tutkintonimikkeet ? (
     <>
@@ -76,7 +76,7 @@ const SuosikkiKortti = ({
   hakukohdeSuosikki,
   removed,
 }: {
-  hakukohdeSuosikki: any;
+  hakukohdeSuosikki: Suosikki;
   removed?: boolean;
 }) => {
   const { t } = useTranslation();

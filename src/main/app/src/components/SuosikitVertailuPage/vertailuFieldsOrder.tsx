@@ -72,7 +72,7 @@ export const FIELDS_ORDER: Array<{
     renderValue: (vertailuSuosikki) =>
       vertailuSuosikki.koulutustyyppi !== 'lk' &&
       isEmpty(vertailuSuosikki.lukiodiplomit) ? null : (
-        <VertailuKoodiLista koodit={vertailuSuosikki.lukiodiplomit} />
+        <VertailuKoodiLista koodit={vertailuSuosikki.lukiodiplomit!} />
       ),
   },
   {
@@ -80,8 +80,8 @@ export const FIELDS_ORDER: Array<{
     fieldId: 'kielivalikoima',
     getLabel: (t: TFunction) => t('suosikit-vertailu.kielivalikoima'),
     renderValue: (vertailuSuosikki: VertailuSuosikki) =>
-      isEmpty(vertailuSuosikki.kielivalikoima) ? null : (
-        <VertailuKielet kielivalikoima={vertailuSuosikki.kielivalikoima} />
+      vertailuSuosikki.kielivalikoima && (
+        <VertailuKielet kielivalikoima={vertailuSuosikki.kielivalikoima!} />
       ),
   },
   {
@@ -90,7 +90,7 @@ export const FIELDS_ORDER: Array<{
     fieldId: 'osaamisalat',
     getLabel: (t: TFunction) => t('suosikit-vertailu.osaamisalat'),
     renderValue: (vertailuSuosikki: VertailuSuosikki) =>
-      isEmpty(vertailuSuosikki.osaamisalat) ? null : (
+      vertailuSuosikki.osaamisalat && (
         <VertailuKoodiLista koodit={vertailuSuosikki.osaamisalat} />
       ),
   },

@@ -101,7 +101,7 @@ export const KieliSelect = ({ aine, updateKieli }: Props) => {
             {t('pistelaskuri.aine.valitsekieli')}
           </MenuItem>
           {data.map((kieli: Koodi, index: number) => (
-            <MenuItem key={`kieli-${index}`} value={kieli.koodiUri}>
+            <MenuItem key={`kieli-${index}`} value={kieli?.koodiUri ?? undefined}>
               {translate(kieli.nimi)}
             </MenuItem>
           ))}

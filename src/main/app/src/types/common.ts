@@ -8,7 +8,7 @@ export const LANGUAGES = ['fi', 'sv', 'en'] as const;
 export type LanguageCode = (typeof LANGUAGES)[number];
 
 export type Translateable = { fi?: string; sv?: string; en?: string };
-export type Koodi = { koodiUri: string; nimi: Translateable };
+export type Koodi = { koodiUri: string | null; nimi: Translateable };
 
 export type Osoite = {
   osoite: Translateable;
@@ -91,4 +91,6 @@ export type RajainName = ValueOf<typeof RAJAIN_TYPES>;
 
 export type SearchParams = paths['/search/koulutukset']['get']['parameters']['query'];
 export type KonfoKoulutustyyppi = components['schemas']['KonfoKoulutustyyppi'];
-export type VertailuSuosikki = any;
+
+export type Suosikki = components['schemas']['SuosikitItem'];
+export type VertailuSuosikki = components['schemas']['SuosikitVertailuItem'];
