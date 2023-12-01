@@ -22,7 +22,7 @@ export const VertailuPistemaara = ({
 
   return (
     vertailuSuosikki.edellinenHaku && (
-      <Box>
+      <Box fontWeight="normal">
         <KeskiArvoModal
           open={pistelaskuriOpen}
           closeFn={() => setPistelaskuriOpen(false)}
@@ -32,10 +32,15 @@ export const VertailuPistemaara = ({
         <Typography fontWeight="bold" component="span">
           {vertailuSuosikki?.edellinenHaku?.pisteet}{' '}
         </Typography>
-        {tulos &&
-          `(${t('suosikit-vertailu.pistemaarasi')} ${
-            isLukio ? tulos?.keskiarvo : tulos?.pisteet
-          }) `}
+        {tulos && (
+          <>
+            {`(${t('suosikit-vertailu.pistemaarasi')} `}
+            <Typography component="span" fontWeight="bold">
+              {isLukio ? tulos?.keskiarvo : tulos?.pisteet}
+            </Typography>
+            {') '}
+          </>
+        )}
         <Link
           onClick={() => {
             setPistelaskuriOpen(true);
