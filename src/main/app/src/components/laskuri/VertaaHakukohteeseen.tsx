@@ -25,13 +25,6 @@ import { useUrlParams } from '#/src/tools/useUrlParams';
 import { scrollIntoView } from '#/src/tools/utils';
 import { CompactHakukohde } from '#/src/types/common';
 
-const PREFIX = 'VertaaHakukohteeseen__';
-
-const classes = {
-  container: `${PREFIX}container`,
-  input: `${PREFIX}input`,
-};
-
 interface Option {
   label: string;
   value: CompactHakukohde;
@@ -83,20 +76,10 @@ export const VertaaHakukohteeseen = ({ tulos }: Props) => {
 
   return (
     <Box
-      className={classes.container}
       sx={{
         marginTop: theme.spacing(4),
       }}>
-      <Typography
-        variant="h3"
-        sx={{
-          fontSize: '1.25rem',
-          [theme.breakpoints.down('sm')]: {
-            fontSize: '1.2rem',
-          },
-        }}>
-        {t('vertaa-hakukohteeseen.header')}
-      </Typography>
+      <Typography variant="h4">{t('vertaa-hakukohteeseen.header')}</Typography>
       <Typography variant="body1" sx={{ marginBottom: '0.5rem' }}>
         {t('vertaa-hakukohteeseen.vertaa-ohje')}
       </Typography>
@@ -124,7 +107,6 @@ export const VertaaHakukohteeseen = ({ tulos }: Props) => {
           borderRadius: '2px',
         }}>
         <Autocomplete
-          className={classes.input}
           fullWidth={true}
           freeSolo={true}
           options={options}
@@ -191,13 +173,9 @@ export const VertaaHakukohteeseen = ({ tulos }: Props) => {
               marginTop: theme.spacing(4),
             }}>
             <Typography
-              variant="h4"
+              variant="h5"
               sx={{
-                fontSize: '1rem',
-                [theme.breakpoints.down('sm')]: {
-                  fontSize: '1rem',
-                  marginLeft: theme.spacing(0.25),
-                },
+                marginBottom: theme.spacing(2),
               }}>
               {`${localize(selectedHakukohde.nimi).trim()}, ${localize(
                 selectedHakukohde.organisaatio.nimi

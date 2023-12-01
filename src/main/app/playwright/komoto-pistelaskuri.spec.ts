@@ -54,7 +54,7 @@ test.describe('Pistelaskuri KOMOTO', () => {
     await expect(keskiarvoPalleroTulokset.nth(0)).toHaveText('8');
     await expect(keskiarvoPalleroTulokset.nth(1)).toHaveText('18');
     await expect(keskiarvoPalleroTulokset.nth(2)).toHaveText('16');
-    await expect(page.locator('.VertaaHakukohteeseen__container')).toBeHidden();
+    await expect(page.getByText('Vertaa pisteitä hakukohteeseen')).toBeHidden();
 
     //Shows compare button
     await expect(page.locator('.Pistelaskuri__calculatebutton')).toHaveText(

@@ -26,7 +26,7 @@ test.describe('Embedded pistelaskuri', () => {
     await page.locator('.keskiarvo__laskuri__input').nth(1).fill('9');
     await page.locator('.keskiarvo__laskuri__input').nth(2).fill('6');
     await page.locator('.MuiCheckbox-root input').click();
-    await expect(page.locator('.VertaaHakukohteeseen__container')).toBeHidden();
+    await expect(page.getByText('Vertaa pisteitä hakukohteeseen')).toBeHidden();
 
     await page.locator('.Pistelaskuri__calculatebutton').click();
 
