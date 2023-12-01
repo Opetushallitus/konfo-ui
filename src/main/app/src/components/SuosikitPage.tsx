@@ -128,7 +128,7 @@ const SuosikkiKortti = ({
           <Box display="flex">
             <MaterialIcon icon="public" />
             <Typography display="flex" marginLeft={1}>
-              {localize(hakukohdeSuosikki.jarjestyspaikka.paikkakunta)}
+              {localize(hakukohdeSuosikki.jarjestyspaikka?.paikkakunta)}
             </Typography>
           </Box>
           <Box marginTop="3px" marginBottom={1}>
@@ -225,13 +225,15 @@ const SuosikitList = ({
             display="flex"
             flexDirection="column"
             rowGap={3}>
-            {orderedData?.map((hakukohdeSuosikki) => (
-              <SuosikkiKortti
-                key={hakukohdeSuosikki.hakukohdeOid}
-                hakukohdeSuosikki={hakukohdeSuosikki}
-                removed={suosikitSelection?.[hakukohdeSuosikki.hakukohdeOid]?.removed}
-              />
-            ))}
+            {orderedData?.map((hakukohdeSuosikki) =>
+              hakukohdeSuosikki ? (
+                <SuosikkiKortti
+                  key={hakukohdeSuosikki.hakukohdeOid}
+                  hakukohdeSuosikki={hakukohdeSuosikki}
+                  removed={suosikitSelection?.[hakukohdeSuosikki.hakukohdeOid]?.removed}
+                />
+              ) : null
+            )}
           </Box>
         </Box>
       </HeadingBoundary>
