@@ -60,7 +60,7 @@ const InfoItem = ({
       <MaterialIcon icon={icon} variant={iconVariant} color="primary" />
       <Box display="flex" flexDirection="column">
         {label && <Typography>{label}</Typography>}
-        <Typography display="flex" fontWeight="bold">
+        <Typography component="div" display="flex" fontWeight="bold">
           {value}
         </Typography>
       </Box>
