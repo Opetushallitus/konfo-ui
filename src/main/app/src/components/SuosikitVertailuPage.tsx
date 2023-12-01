@@ -93,9 +93,11 @@ const FIELDS_ORDER: Array<{
     icon: 'door_back',
     iconVariant: 'outlined',
     fieldId: 'sisaanpaasyn-pistemaara',
-    getLabel: (t: TFunction) =>
-      t('suosikit-vertailu.sisaanpaasyn-alin-pistemaara', { year: 2022 }),
-    renderValue: () => 'TODO',
+    getLabel: (t, vertailuSuosikki) =>
+      t('suosikit-vertailu.sisaanpaasyn-alin-pistemaara', {
+        year: vertailuSuosikki?.edellinenHaku?.vuosi,
+      }),
+    renderValue: (vertailuSuosikki) => vertailuSuosikki?.edellinenHaku?.pisteet,
   },
   {
     icon: 'people_outline',
