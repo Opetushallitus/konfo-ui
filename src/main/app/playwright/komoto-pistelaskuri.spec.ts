@@ -13,7 +13,7 @@ test.describe('Pistelaskuri KOMOTO', () => {
   });
 
   test('Pistelaskuri KOMOTO renders properly', async ({ page }) => {
-    await expect(page.locator('.InfoBox__infobox')).toHaveText(
+    await expect(page.getByTestId('infobox')).toHaveText(
       /^Edellisvuosien alin hyväksytty pistemäärä, jolla oppilaitokseen on päässyt opiskelemaan./
     );
     await expect(page.locator('#mui-component-select-hakukohde-select')).toHaveText(
@@ -121,7 +121,7 @@ test.describe('Pistelaskuri KOMOTO for yhteispisteet', () => {
   });
 
   test('Pistelaskuri KOMOTO renders properly', async ({ page }) => {
-    await expect(page.locator('.InfoBox__infobox')).toHaveText(
+    await expect(page.getByTestId('infobox')).toHaveText(
       /^Edellisvuosien alin hyväksytty pistemäärä, jolla oppilaitokseen on päässyt opiskelemaan./
     );
     await expect(page.locator('#mui-component-select-hakukohde-select')).toHaveText(
