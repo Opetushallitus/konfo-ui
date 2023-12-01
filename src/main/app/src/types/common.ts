@@ -94,3 +94,8 @@ export type KonfoKoulutustyyppi = components['schemas']['KonfoKoulutustyyppi'];
 
 export type Suosikki = components['schemas']['SuosikitItem'];
 export type VertailuSuosikki = components['schemas']['SuosikitVertailuItem'];
+
+export type HakukohdeSearchParams =
+  paths['/search/hakukohteet']['get']['parameters']['query'];
+export type CompactHakukohde = components['schemas']['CompactHakukohde'];
+export type HakukohdeSearchResult = components['schemas']['HakukohdeSearchResult'];
