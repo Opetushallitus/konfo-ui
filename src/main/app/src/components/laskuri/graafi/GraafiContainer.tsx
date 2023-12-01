@@ -187,9 +187,7 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos, hakukohdeOid }: Pr
             className={classes.hakukohdeSelect}
             input={<Input className={classes.hakukohdeInput} />}>
             {hakukohteet.map((kohde: Hakukohde) => (
-              <MenuItem
-                key={`hakukohde-${self.crypto.randomUUID()}`}
-                value={kohde as any}>
+              <MenuItem key={hakukohde.hakukohdeOid} value={kohde as any}>
                 {localize(kohde.nimi)}
                 {kohde.jarjestyspaikka ? `, ${localize(kohde.jarjestyspaikka.nimi)}` : ''}
               </MenuItem>
@@ -207,9 +205,9 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos, hakukohdeOid }: Pr
               isTodistusvalinta={isTodistusvalinta}
             />
             <Box className={classes.legend} aria-hidden={true}>
-              {getUniquePistetyypit(hakukohde).map((valintatapajonoTyyppi) => (
+              {getUniquePistetyypit(hakukohde).map((valintatapajonoTyyppi, index) => (
                 <Typography
-                  key={valintatapajonoTyyppi}
+                  key={valintatapajonoTyyppi || `vt-${index}`}
                   className={classes.pistetyyppiText}
                   sx={{ fontSize: '0.875rem' }}>
                   <Box
