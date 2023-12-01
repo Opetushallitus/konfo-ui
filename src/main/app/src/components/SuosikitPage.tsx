@@ -156,14 +156,22 @@ const MissingSuosikit = ({ removeMissing }: { removeMissing: () => void }) => {
     <Alert
       severity="warning"
       sx={{
-        display: 'flex',
-        alignItems: 'center',
-        alignSelf: 'center',
+        '& .MuiAlert-message': {
+          display: 'flex',
+          justifyContent: 'space-between',
+          width: '100%',
+          flexWrap: 'wrap',
+          gap: 1,
+        },
       }}>
-      <Box display="inline-block" marginRight={2}>
+      <Box flexShrink="1" display="inline-block">
         {t('suosikit.puuttuvia-suosikkeja')}
       </Box>
-      <Button color="primary" variant="contained" onClick={removeMissing}>
+      <Button
+        color="primary"
+        variant="contained"
+        onClick={removeMissing}
+        sx={{ justifySelf: 'flex-end', marginLeft: 'auto' }}>
         {t('suosikit.poista-puuttuvat')}
       </Button>
     </Alert>
