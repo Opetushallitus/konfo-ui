@@ -13,6 +13,7 @@ import {
   useVertailuSuosikit,
 } from '#/src/hooks/useSuosikitSelection';
 import { useTruncatedKuvaus } from '#/src/hooks/useTruncatedKuvaus';
+import { isHakuAuki } from '#/src/tools/hakuaikaUtils';
 import { localize } from '#/src/tools/localization';
 import { Koodi, Suosikki, Translateable } from '#/src/types/common';
 
@@ -130,7 +131,9 @@ const SuosikkiKortti = ({
             </Typography>
           </Box>
           <Box marginTop="3px" marginBottom={1}>
-            <TextWithBackground>{t('haku.hakukaynnissa')}</TextWithBackground>
+            {isHakuAuki(hakukohdeSuosikki.hakuajat) && (
+              <TextWithBackground>{t('haku.hakukaynnissa')}</TextWithBackground>
+            )}
           </Box>
         </Box>
         <Box marginLeft="auto">
