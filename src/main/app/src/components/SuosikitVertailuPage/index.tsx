@@ -84,9 +84,7 @@ const VertailuKortti = ({
           float: 'right',
         }}
       />
-      <Typography variant="body1">
-        {localize(vertailuSuosikki.jarjestyspaikka)}
-      </Typography>
+      <Typography variant="body1">{localize(vertailuSuosikki.oppilaitosNimi)}</Typography>
       <Link href={`toteutus/${vertailuSuosikki.toteutusOid}`}>
         <Heading variant="h4" color="primary">
           {localize(vertailuSuosikki.nimi)}

@@ -99,7 +99,7 @@ const SuosikkiKortti = ({
         <OppilaitosKorttiLogo image={hakukohdeSuosikki.logo} alt={logoAltText} />
       </Box>
       <Typography variant="body1">
-        {localize(hakukohdeSuosikki.jarjestyspaikka)}
+        {localize(hakukohdeSuosikki.oppilaitosNimi)}
       </Typography>
       <Link href={`toteutus/${hakukohdeSuosikki.toteutusOid}`}>
         <Heading color="primary" variant="h4">

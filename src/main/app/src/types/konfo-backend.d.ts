@@ -1693,6 +1693,18 @@ export interface paths {
                   /** @description Englanninkielinen nimi, jos määritelty */
                   en?: string;
                 };
+                /**
+                 * Nimi
+                 * @description Hakukohteen järjestyspaikan oppilaitoksen nimi
+                 */
+                oppilaitosNimi: {
+                  /** @description Suomenkielinen nimi, jos määritelty */
+                  fi?: string;
+                  /** @description Ruotsinkielinen nimi, jos määritelty */
+                  sv?: string;
+                  /** @description Englanninkielinen nimi, jos määritelty */
+                  en?: string;
+                };
                 /** @description Hakukohteeseen liitetyn toteutuksen yksilöivä tunniste */
                 toteutusOid: string;
                 /** @description Hakukohteen järjestyspaikan oppilaitoksen logon URL */
@@ -1877,6 +1889,8 @@ export interface paths {
                   })[];
                 /** @description Hakukohteen yksilöivä tunniste */
                 hakukohdeOid: string;
+                /** @description Hakukohteeseen liitetyn haun yksilöivä tunniste */
+                hakuOid: string;
                 /** @description Lista ammatillisen koulutuksen osaamisalojen kuvauksia */
                 osaamisalat?: ({
                     koodi: {
@@ -1940,6 +1954,18 @@ export interface paths {
                  * @description Hakukohteen nimi eri kielillä
                  */
                 nimi: {
+                  /** @description Suomenkielinen nimi, jos määritelty */
+                  fi?: string;
+                  /** @description Ruotsinkielinen nimi, jos määritelty */
+                  sv?: string;
+                  /** @description Englanninkielinen nimi, jos määritelty */
+                  en?: string;
+                };
+                /**
+                 * Nimi
+                 * @description Hakukohteen järjestyspaikan oppilaitoksen nimi
+                 */
+                oppilaitosNimi: {
                   /** @description Suomenkielinen nimi, jos määritelty */
                   fi?: string;
                   /** @description Ruotsinkielinen nimi, jos määritelty */
@@ -2028,29 +2054,6 @@ export interface paths {
                 };
                 /** @description Onko hakukohteen toisen asteen koulutuksessa mahdollista suorittaa kaksoistutkinto? */
                 toinenAsteOnkoKaksoistutkinto: boolean;
-                /**
-                 * Organisaatio
-                 * @description Hakukohteen järjestyspaikan tiedot
-                 */
-                jarjestyspaikka: {
-                  paikkakunta: {
-                    koodiUri: string | null;
-                    /** Kielistetty */
-                    nimi: {
-                      fi?: string;
-                      sv?: string;
-                      en?: string;
-                    };
-                  };
-                  /** Kielistetty */
-                  nimi: {
-                    fi?: string;
-                    sv?: string;
-                    en?: string;
-                  };
-                  oid: string;
-                  [key: string]: unknown;
-                };
               })[];
           };
         };
@@ -3586,6 +3589,18 @@ export interface components {
         /** @description Englanninkielinen nimi, jos määritelty */
         en?: string;
       };
+      /**
+       * Nimi
+       * @description Hakukohteen järjestyspaikan oppilaitoksen nimi
+       */
+      oppilaitosNimi: {
+        /** @description Suomenkielinen nimi, jos määritelty */
+        fi?: string;
+        /** @description Ruotsinkielinen nimi, jos määritelty */
+        sv?: string;
+        /** @description Englanninkielinen nimi, jos määritelty */
+        en?: string;
+      };
       /** @description Hakukohteeseen liitetyn toteutuksen yksilöivä tunniste */
       toteutusOid: string;
       /** @description Hakukohteen järjestyspaikan oppilaitoksen logon URL */
@@ -3745,6 +3760,8 @@ export interface components {
         })[];
       /** @description Hakukohteen yksilöivä tunniste */
       hakukohdeOid: string;
+      /** @description Hakukohteeseen liitetyn haun yksilöivä tunniste */
+      hakuOid: string;
       /** @description Lista ammatillisen koulutuksen osaamisalojen kuvauksia */
       osaamisalat?: ({
           koodi: {
@@ -3808,6 +3825,18 @@ export interface components {
        * @description Hakukohteen nimi eri kielillä
        */
       nimi: {
+        /** @description Suomenkielinen nimi, jos määritelty */
+        fi?: string;
+        /** @description Ruotsinkielinen nimi, jos määritelty */
+        sv?: string;
+        /** @description Englanninkielinen nimi, jos määritelty */
+        en?: string;
+      };
+      /**
+       * Nimi
+       * @description Hakukohteen järjestyspaikan oppilaitoksen nimi
+       */
+      oppilaitosNimi: {
         /** @description Suomenkielinen nimi, jos määritelty */
         fi?: string;
         /** @description Ruotsinkielinen nimi, jos määritelty */
@@ -3896,29 +3925,6 @@ export interface components {
       };
       /** @description Onko hakukohteen toisen asteen koulutuksessa mahdollista suorittaa kaksoistutkinto? */
       toinenAsteOnkoKaksoistutkinto: boolean;
-      /**
-       * Organisaatio
-       * @description Hakukohteen järjestyspaikan tiedot
-       */
-      jarjestyspaikka: {
-        paikkakunta: {
-          koodiUri: string | null;
-          /** Kielistetty */
-          nimi: {
-            fi?: string;
-            sv?: string;
-            en?: string;
-          };
-        };
-        /** Kielistetty */
-        nimi: {
-          fi?: string;
-          sv?: string;
-          en?: string;
-        };
-        oid: string;
-        [key: string]: unknown;
-      };
     };
   };
   responses: never;
