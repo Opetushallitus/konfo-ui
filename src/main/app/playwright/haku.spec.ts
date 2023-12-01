@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 import {
+  expectURLEndsWith,
   fixtureFromFile,
   getSearchButton,
   getSearchInput,
@@ -18,8 +19,6 @@ test.describe('Haku', () => {
     );
 
     await mocksFromFile(page, 'haku.mocks.json');
-
-    await page.goto('/konfo/fi/haku');
   });
 
   test('Should show autocomplete suggestions', async ({ page }) => {
@@ -33,6 +32,7 @@ test.describe('Haku', () => {
       '/konfo-backend/search/koulutukset**',
       fixtureFromFile('search-koulutukset-auto.json')
     );
+    await page.goto('/konfo/fi/haku');
 
     const searchInput = getSearchInput(page);
     const koulutuksetNav = page.getByRole('navigation', { name: 'Koulutukset' });
@@ -48,8 +48,9 @@ test.describe('Haku', () => {
       koulutuksetNav.getByText('Näytä 1 hakuehdoilla löytyvä koulutus')
     ).toBeVisible();
     await koulutuksetNav.getByText('Näytä 1 hakuehdoilla löytyvä koulutus').click();
-    await page.waitForURL(
-      new RegExp('/konfo/fi/haku/auto\\?order=desc&size=20&sort=score')
+    await expectURLEndsWith(
+      page,
+      '/konfo/fi/haku/auto?order=desc&size=20&sort=score&tab=koulutus'
     );
     await expect(page.getByRole('progressbar').last()).toBeHidden();
     await getSearchInput(page).click();
@@ -58,8 +59,9 @@ test.describe('Haku', () => {
     await page.goBack({ waitUntil: 'domcontentloaded' });
     await getSearchInput(page).click();
     await oppilaitoksetNav.getByText('Näytä 1 hakuehdoilla löytyvä oppilaitos').click();
-    await page.waitForURL(
-      new RegExp('/konfo/fi/haku/auto\\?order=desc&size=20&sort=score&tab=oppilaitos$')
+    await expectURLEndsWith(
+      page,
+      '/konfo/fi/haku/auto?order=desc&size=20&sort=score&tab=oppilaitos'
     );
   });
 
@@ -69,6 +71,7 @@ test.describe('Haku', () => {
       '/konfo-backend/search/koulutukset**',
       fixtureFromFile('search-koulutukset-all.json')
     );
+    await page.goto('/konfo/fi/haku');
 
     const koulutustyyppiFilter = page.getByTestId('koulutustyyppi-filter');
     const amkCheckbox = koulutustyyppiFilter.getByRole('checkbox', {
@@ -106,6 +109,7 @@ test.describe('Haku', () => {
       '/konfo-backend/search/koulutukset**',
       fixtureFromFile('search-koulutukset-auto.json')
     );
+    await page.goto('/konfo/fi/haku');
 
     const opetustapaFilter = page.getByTestId('opetustapa-filter');
     const etaopetusChk = opetustapaFilter.getByRole('checkbox', { name: /Etäopetus/i });
@@ -132,6 +136,7 @@ test.describe('Haku', () => {
       '/konfo-backend/search/koulutukset**',
       fixtureFromFile('search-koulutukset-auto.json')
     );
+    await page.goto('/konfo/fi/haku');
 
     const valintatapaFilter = page.getByTestId('valintatapa-filter');
     const koepisteetChk = valintatapaFilter.getByRole('checkbox', {
@@ -160,6 +165,7 @@ test.describe('Haku', () => {
       '/konfo-backend/search/koulutukset**',
       fixtureFromFile('search-koulutukset-auto.json')
     );
+    await page.goto('/konfo/fi/haku');
 
     const hakukaynnissaFilter = page.getByTestId('hakukaynnissa-filter');
     const hakuKaynnissaChk = hakukaynnissaFilter.getByRole('checkbox', {
@@ -177,6 +183,7 @@ test.describe('Haku', () => {
       '/konfo-backend/search/koulutukset**',
       fixtureFromFile('search-koulutukset-auto.json')
     );
+    await page.goto('/konfo/fi/haku');
 
     const hakutapaFilter = page.getByTestId('hakutapa-filter');
     const yhteishakuChk = hakutapaFilter.getByRole('checkbox', { name: /Yhteishaku/i });
@@ -201,6 +208,7 @@ test.describe('Haku', () => {
       '/konfo-backend/search/koulutukset**',
       fixtureFromFile('search-koulutukset-auto.json')
     );
+    await page.goto('/konfo/fi/haku');
 
     const pohjakoulutusVaatimusFilter = page.getByTestId('pohjakoulutusvaatimus-filter');
     const ammatillinenPerustutkintoChk = pohjakoulutusVaatimusFilter.getByRole(
@@ -226,6 +234,7 @@ test.describe('Haku', () => {
   });
 
   test('"Tutkinnon osa" koulutuskortti data presented correctly', async ({ page }) => {
+    await page.goto('/konfo/fi/haku');
     const searchInput = getSearchInput(page);
     const searchButton = getSearchButton(page);
     const tutkinnonOsaCard = page.getByTestId('Hevosten hyvinvoinnista huolehtiminen');
@@ -241,6 +250,7 @@ test.describe('Haku', () => {
   });
 
   test('"Osaamisala" koulutuskortti data presented correctly', async ({ page }) => {
+    await page.goto('/konfo/fi/haku');
     const searchInput = getSearchInput(page);
     const searchButton = getSearchButton(page);
     const osaamisalaCard = page.getByTestId('Jalkojenhoidon osaamisala');

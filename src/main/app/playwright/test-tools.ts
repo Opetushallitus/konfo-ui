@@ -53,8 +53,10 @@ export const getSearchInput = (page: Page) =>
 
 export const getSearchButton = (page: Page) => page.getByRole('button', { name: /Etsi/ });
 
+const escapeRegExp = (str: string) => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+
 export const expectURLEndsWith = (page: Page, urlEnd: string) =>
-  expect(page).toHaveURL(new RegExp(urlEnd + '$'));
+  expect(page).toHaveURL(new RegExp(escapeRegExp(urlEnd) + '$'));
 
 const FIXTURES_PATH = path.resolve(__dirname, './fixtures');
 

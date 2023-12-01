@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 import {
+  expectURLEndsWith,
   fixtureFromFile,
   getSearchButton,
   getSearchInput,
@@ -54,8 +55,9 @@ test.describe('Etusivu', () => {
     await page.keyboard.press('Escape');
     await page.keyboard.press('Escape');
     await getSearchButton(page).click();
-    await expect(page).toHaveURL(
-      new RegExp('/konfo/fi/haku/auto\\?koulutustyyppi=lk&order=desc&size=20&sort=score$')
+    await expectURLEndsWith(
+      page,
+      '/konfo/fi/haku/auto?koulutustyyppi=lk&order=desc&size=20&sort=score'
     );
   });
 });

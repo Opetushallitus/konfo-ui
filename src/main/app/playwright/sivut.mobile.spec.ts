@@ -17,8 +17,9 @@ test.describe('Sivut (mobiili)', () => {
     await page.getByRole('button', { name: /valikko/i }).click();
     await page.getByRole('link', { name: /Svenska/i, includeHidden: true }).click();
 
-    await page.waitForURL(
-      '**/sv/sivu/mottagande-av-studieplats-i-gemensam-ansoekan-och-anmaelning-till-hoegskolor'
+    await expectURLEndsWith(
+      page,
+      '/sv/sivu/mottagande-av-studieplats-i-gemensam-ansoekan-och-anmaelning-till-hoegskolor'
     );
     await page
       .getByRole('menuitem', { name: 'Sökandes hälsa och funktionsförmåga' })

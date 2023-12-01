@@ -163,11 +163,7 @@ test.describe('Suosikit', () => {
       () => initLocalstorage(page, SUOSIKKI_OIDS)
     );
 
-    const hakukohteetSection = await getByHeadingLabel(
-      page,
-      'Koulutuksen hakukohteet',
-      true
-    );
+    const hakukohteetSection = await getByHeadingLabel(page, 'Koulutuksen hakukohteet');
 
     const yhteishautSection = await getByHeadingLabel(hakukohteetSection, 'Yhteishaku');
 
