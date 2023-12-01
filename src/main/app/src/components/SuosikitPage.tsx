@@ -109,7 +109,6 @@ const SuosikkiKortti = ({
         </Heading>
       </Link>
       <Typography>{kuvaus}</Typography>
-      <p>{hakukohdeSuosikki.timestamp}</p>
       <Box
         display="flex"
         flexDirection="row"
