@@ -8,6 +8,7 @@ import {
   InputBase,
   Paper,
   Typography,
+  useTheme,
 } from '@mui/material';
 import { isString, omit, sortBy } from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -19,7 +20,6 @@ import { useHakukohdeSearch } from '#/src/components/laskuri/hooks';
 import { InfoBox } from '#/src/components/laskuri/InfoBox';
 import { HakupisteLaskelma } from '#/src/components/laskuri/Keskiarvo';
 import { useToteutus } from '#/src/components/toteutus/hooks';
-import { theme } from '#/src/theme';
 import { localize } from '#/src/tools/localization';
 import { useUrlParams } from '#/src/tools/useUrlParams';
 import { scrollIntoView } from '#/src/tools/utils';
@@ -35,6 +35,7 @@ type Props = {
 };
 
 export const VertaaHakukohteeseen = ({ tulos }: Props) => {
+  const theme = useTheme();
   const { t } = useTranslation();
   const { isDraft } = useUrlParams();
   const [selectedHakukohde, setSelectedHakukohde] = useState<
