@@ -85,9 +85,6 @@ export const VertaaHakukohteeseen = ({ tulos }: Props) => {
         component="form"
         onSubmit={(event: React.ChangeEvent<HTMLFormElement>) => {
           event.preventDefault();
-          const formData = new FormData(event.target);
-          const keywordValue = formData.get('keyword')?.toString() ?? '';
-          console.log('keywordValue', keywordValue);
         }}
         sx={{
           [theme.breakpoints.up('md')]: {
