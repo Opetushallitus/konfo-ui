@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
-import { Box, Link, Typography } from '@mui/material';
+import { Box, Link, Typography, useTheme } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
+import { useContentWidth } from '#/src/hooks/useContentWidth';
 import {
   useSuosikitDataOrdered,
   useSuosikitSelection,
   useVertailuSuosikit,
 } from '#/src/hooks/useSuosikitSelection';
+import { useSyncRefHeight } from '#/src/hooks/useSyncRefHeight';
 import { useTruncatedKuvaus } from '#/src/hooks/useTruncatedKuvaus';
 import { localize } from '#/src/tools/localization';
 import { VertailuSuosikki } from '#/src/types/common';
@@ -25,20 +27,36 @@ import { TextButton } from '../common/TextButton';
 import { Heading, HeadingBoundary } from '../Heading';
 import { PaperWithTopColor } from '../PaperWithTopColor';
 
+const useIsContentSmall = () => {
+  const theme = useTheme();
+
+  const contentWidth = useContentWidth();
+  return contentWidth <= theme.breakpoints.values['sm'];
+};
+
 const InfoItem = ({
+  fieldId,
   icon,
   iconVariant = 'filled',
   label,
   value,
 }: {
+  fieldId: string;
   icon: MaterialIconName;
   iconVariant?: MaterialIconVariant;
   label?: string;
   value: React.ReactNode;
 }) => {
   const labelId = `${label}_${value}`;
+
+  const itemsRef = useRef(null);
+
+  const isContentSmall = useIsContentSmall();
+
+  useSyncRefHeight([[fieldId, itemsRef]], { enabled: !isContentSmall });
+
   return value ? (
-    <Box display="flex" gap={1}>
+    <Box display="flex" gap={1} ref={itemsRef}>
       <MaterialIcon icon={icon} variant={iconVariant} color="primary" />
       <Box display="flex" flexDirection="column">
         {label && <Typography id={labelId}>{label}</Typography>}
@@ -67,6 +85,14 @@ const VertailuKortti = ({
 
   const { mask } = useSuosikitVertailuMask();
 
+  const headerRef = useRef(null);
+
+  const { oppilaitosNimi, nimi } = vertailuSuosikki;
+
+  const isContentSmall = useIsContentSmall();
+
+  useSyncRefHeight([['header', headerRef]], { enabled: !isContentSmall });
+
   return (
     <PaperWithTopColor
       key={vertailuSuosikki.hakukohdeOid}
@@ -84,13 +110,15 @@ const VertailuKortti = ({
           float: 'right',
         }}
       />
-      <Typography variant="body1">{localize(vertailuSuosikki.oppilaitosNimi)}</Typography>
-      <Link href={`toteutus/${vertailuSuosikki.toteutusOid}`}>
-        <Heading variant="h4" color="primary">
-          {localize(vertailuSuosikki.nimi)}
-        </Heading>
-      </Link>
-      <Typography>{kuvaus}</Typography>
+      <Box ref={headerRef}>
+        <Typography variant="body1">{localize(oppilaitosNimi)}</Typography>
+        <Link href={`toteutus/${vertailuSuosikki.toteutusOid}`}>
+          <Heading variant="h4" color="primary">
+            {localize(nimi)}
+          </Heading>
+        </Link>
+        <Typography>{kuvaus}</Typography>
+      </Box>
       <Box
         display="flex"
         flexDirection="column"
@@ -103,6 +131,7 @@ const VertailuKortti = ({
           return mask[fieldId] ? (
             <InfoItem
               key={fieldId}
+              fieldId={fieldId}
               icon={icon}
               iconVariant={iconVariant}
               label={getLabel?.(t, vertailuSuosikki)}
