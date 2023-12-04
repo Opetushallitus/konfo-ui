@@ -238,7 +238,6 @@ test.describe('Suosikit', () => {
     await secondSuosikki.getByRole('button', { name: 'Lisää vertailuun' }).click();
 
     await expect(vertaileButton).toBeEnabled();
-    await expect(vertaileButton).toContainText('(2/3)');
 
     await firstSuosikki.getByRole('button', { name: 'Poista vertailusta' }).click();
     await secondSuosikki.getByRole('button', { name: 'Poista vertailusta' }).click();

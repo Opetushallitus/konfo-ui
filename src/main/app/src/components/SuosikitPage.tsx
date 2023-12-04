@@ -196,18 +196,21 @@ const MissingSuosikit = ({ removeMissing }: { removeMissing: () => void }) => {
   );
 };
 
-const VertaileButton = () => {
+const VertaileValittuja = () => {
   const { t } = useTranslation();
   const vertailuSuosikit = useVertailuSuosikit();
   return (
-    <Button
-      sx={{ alignSelf: 'flex-end' }}
-      href="suosikit/vertailu"
-      disabled={vertailuSuosikit.length === 0}
-      variant="outlined"
-      color="primary">
-      {t('suosikit.vertaile-valittuja', { count: vertailuSuosikit.length, max: 3 })}
-    </Button>
+    <Box>
+      <Button
+        sx={{ display: 'inline-block', float: 'right', marginLeft: 1, marginTop: '4px' }}
+        href="suosikit/vertailu"
+        disabled={vertailuSuosikit.length === 0}
+        variant="outlined"
+        color="primary">
+        {t('suosikit.vertaile-valittuja')}
+      </Button>
+      <Typography>{t('suosikit.vertaile-ohje')}</Typography>
+    </Box>
   );
 };
 
@@ -242,7 +245,7 @@ const SuosikitList = ({
               removeMissing={() => removeSuosikit(suosikitWithMissingData)}
             />
           )}
-          {!isFetching && !isEmpty(data) && <VertaileButton />}
+          {!isFetching && !isEmpty(data) && <VertaileValittuja />}
           <TransitionGroupList role="list" data-testid="suosikit-list">
             {orderedData?.map((hakukohdeSuosikki) => (
               <Collapse key={hakukohdeSuosikki.hakukohdeOid}>
