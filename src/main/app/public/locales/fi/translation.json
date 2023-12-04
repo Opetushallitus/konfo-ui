@@ -853,7 +853,9 @@
     "poista-puuttuvat": "Poista piilotetut",
     "vertaile-valittuja": "Vertaile valittuja ({{count}}/{{max}})",
     "lisaa-vertailuun": "Lisää vertailuun",
-    "poista-vertailusta": "Poista vertailusta"
+    "poista-vertailusta": "Poista vertailusta",
+    "poista-dialog-title": "Vahvista poisto",
+    "poista-dialog-text": "Haluatko varmasti poistaa hakukohteen suosikeistasi?"
   },
   "suosikit-vertailu": {
     "otsikko": "Vertaile suosikkeja",

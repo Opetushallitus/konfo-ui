@@ -111,7 +111,7 @@ test.describe('Suosikit', () => {
     ).toBeVisible();
   });
 
-  test('Should "soft-remove" suosikki when clicking the button on suosikit-page and permanently remove after reloading the page', async ({
+  test('Should ask confirmation before removing suosikki and remove it when confirmed', async ({
     page,
   }) => {
     await gotoWithInit(page, '/konfo/fi/suosikit', () =>
@@ -125,17 +125,19 @@ test.describe('Suosikit', () => {
     const suosikitBadge = suosikitBtn.getByTestId('suosikit-badge');
     await expect(suosikitBadge).toHaveText('2');
     await secondSuosikki.getByRole('button', { name: 'Poista suosikeista' }).click();
+
+    const dialog = page.getByRole('dialog', {
+      name: 'Vahvista poisto',
+    });
+
+    await dialog.getByRole('button', { name: 'Poista suosikeista' }).click();
     await expect(suosikitBadge).toHaveText('1');
-    await expect(suosikitListItems).toHaveCount(2);
-    await secondSuosikki.getByRole('button', { name: 'Kumoa poisto' }).click();
-    await expect(suosikitBadge).toHaveText('2');
+
     await firstSuosikki.getByRole('button', { name: 'Poista suosikeista' }).click();
-    await expect(suosikitBadge).toHaveText('1');
-    await page.goto('/konfo/fi');
-    await mockSuosikit(page, [SUOSIKKI_OIDS[0]]);
-    await page.goto('/konfo/fi/suosikit');
-    await expect(suosikitBadge).toHaveText('1');
-    await expect(suosikitListItems).toHaveCount(1);
+
+    await dialog.getByRole('button', { name: 'Poista suosikeista' }).click();
+    await expect(suosikitBadge).toBeHidden();
+    await expect(page.getByText('Ei tallennettuja hakukohteita')).toBeVisible();
   });
 
   test('Should hide suosikit which have no data and show notification', async ({

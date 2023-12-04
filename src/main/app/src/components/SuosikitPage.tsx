@@ -1,19 +1,20 @@
-import React, { useEffect } from 'react';
-
-import { Alert, Backdrop, Box, Button, Link, Typography } from '@mui/material';
+import { Alert, Box, Button, Collapse, Link, Typography } from '@mui/material';
 import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
+import { TransitionGroup } from 'react-transition-group';
+import { usePrevious } from 'react-use';
 
 import { getHakukohdeSuosikit } from '#/src/api/konfoApi';
 import {
   SuosikitState,
-  useNonRemovedSuosikitCount,
+  useSuosikitCount,
   useSuosikitDataOrdered,
   useSuosikitSelection,
   useVertailuSuosikit,
 } from '#/src/hooks/useSuosikitSelection';
 import { useTruncatedKuvaus } from '#/src/hooks/useTruncatedKuvaus';
+import { styled } from '#/src/theme';
 import { isHakuAuki } from '#/src/tools/hakuaikaUtils';
 import { localize } from '#/src/tools/localization';
 import { Koodi, Suosikki, Translateable } from '#/src/types/common';
@@ -22,21 +23,45 @@ import { ContentWrapper } from './common/ContentWrapper';
 import { OppilaitosKorttiLogo } from './common/KorttiLogo';
 import { MaterialIcon } from './common/MaterialIcon';
 import { Murupolku } from './common/Murupolku';
-import { QueryResultWrapper } from './common/QueryResultWrapper';
+import { QueryResult } from './common/QueryResultWrapper';
 import { TextWithBackground } from './common/TextWithBackground';
 import { ToggleSuosikkiButton } from './common/ToggleSuosikkiButton';
 import { Heading, HeadingBoundary } from './Heading';
 import { OutlinedCheckboxButton } from './OutlinedCheckboxButton';
 import { PaperWithTopColor } from './PaperWithTopColor';
 
-const useSuosikitData = (oids?: Array<string>) =>
-  useQuery(
+const useSuosikitData = (oids?: Array<string>) => {
+  const queryClient = useQueryClient();
+  const previousOids = usePrevious(oids);
+
+  const oidsRemoved =
+    oids &&
+    previousOids &&
+    oids?.length < previousOids?.length &&
+    oids?.every((v) => previousOids?.includes(v));
+
+  // Jos poistetaan suosikki, asetetaan uudelle pyynnölle arvo filtteröimällä.
+  // Näin ei noudeta dataa turhaan ja näytetä spinneriä -> pystytään animoimaan poistaminen.
+  if (oidsRemoved) {
+    const previousData: Array<Suosikki> | undefined = queryClient.getQueryData([
+      'getSuosikit',
+      previousOids,
+    ]);
+    queryClient.setQueryData(
+      ['getSuosikit', oids],
+      previousData?.filter(({ hakukohdeOid }) => oids?.includes(hakukohdeOid))
+    );
+  }
+
+  return useQuery(
     ['getSuosikit', oids],
     () => getHakukohdeSuosikit({ 'hakukohde-oids': oids! }),
     {
       enabled: !isEmpty(oids),
+      refetchOnWindowFocus: false,
     }
   );
+};
 
 const Tutkintonimikkeet = ({
   tutkintonimikkeet,
@@ -74,13 +99,7 @@ const ToggleVertailuButton = ({ oid }: { oid: string }) => {
   );
 };
 
-const SuosikkiKortti = ({
-  hakukohdeSuosikki,
-  removed,
-}: {
-  hakukohdeSuosikki: Suosikki;
-  removed?: boolean;
-}) => {
+const SuosikkiKortti = ({ hakukohdeSuosikki }: { hakukohdeSuosikki: Suosikki }) => {
   const { t } = useTranslation();
 
   const logoAltText = `${t('haku.oppilaitoksen-logo')}`;
@@ -89,7 +108,6 @@ const SuosikkiKortti = ({
 
   return (
     <PaperWithTopColor key={hakukohdeSuosikki.hakukohdeOid} role="listitem">
-      <Backdrop sx={{ position: 'absolute' }} open={Boolean(removed)} />
       <Box
         sx={{
           display: 'inline-block',
@@ -141,7 +159,7 @@ const SuosikkiKortti = ({
           <ToggleVertailuButton oid={hakukohdeSuosikki.hakukohdeOid} />
           <ToggleSuosikkiButton
             hakukohdeOid={hakukohdeSuosikki.hakukohdeOid}
-            softRemove
+            confirmRemove
           />
         </Box>
       </Box>
@@ -193,6 +211,12 @@ const VertaileButton = () => {
   );
 };
 
+const TransitionGroupList = styled(TransitionGroup)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  rowGap: theme.spacing(3),
+}));
+
 const SuosikitList = ({
   suosikitSelection,
   removeSuosikit,
@@ -210,7 +234,7 @@ const SuosikitList = ({
   );
 
   return (
-    <QueryResultWrapper queryResult={queryResult}>
+    <QueryResult queryResult={queryResult}>
       <HeadingBoundary>
         <Box display="flex" flexDirection="column" rowGap={3}>
           {!isFetching && !isEmpty(suosikitWithMissingData) && (
@@ -219,39 +243,24 @@ const SuosikitList = ({
             />
           )}
           {!isFetching && !isEmpty(data) && <VertaileButton />}
-          <Box
-            role="list"
-            data-testid="suosikit-list"
-            display="flex"
-            flexDirection="column"
-            rowGap={3}>
-            {orderedData?.map((hakukohdeSuosikki) =>
-              hakukohdeSuosikki ? (
-                <SuosikkiKortti
-                  key={hakukohdeSuosikki.hakukohdeOid}
-                  hakukohdeSuosikki={hakukohdeSuosikki}
-                  removed={suosikitSelection?.[hakukohdeSuosikki.hakukohdeOid]?.removed}
-                />
-              ) : null
-            )}
-          </Box>
+          <TransitionGroupList role="list" data-testid="suosikit-list">
+            {orderedData?.map((hakukohdeSuosikki) => (
+              <Collapse key={hakukohdeSuosikki.hakukohdeOid}>
+                <SuosikkiKortti hakukohdeSuosikki={hakukohdeSuosikki} />
+              </Collapse>
+            ))}
+          </TransitionGroupList>
         </Box>
       </HeadingBoundary>
-    </QueryResultWrapper>
+    </QueryResult>
   );
 };
 
 export const SuosikitPage = () => {
   const { t } = useTranslation();
-  const { suosikitSelection, clearSoftRemovedSuosikit, removeSuosikit } =
-    useSuosikitSelection();
+  const { suosikitSelection, removeSuosikit } = useSuosikitSelection();
 
-  const suosikitCount = useNonRemovedSuosikitCount();
-
-  useEffect(() => {
-    clearSoftRemovedSuosikit();
-    return () => clearSoftRemovedSuosikit();
-  }, [clearSoftRemovedSuosikit]);
+  const suosikitCount = useSuosikitCount();
 
   return (
     <ContentWrapper>
