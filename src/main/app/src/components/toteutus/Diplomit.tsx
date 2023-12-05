@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Typography } from '@mui/material';
 import { map, isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -7,22 +5,9 @@ import { useTranslation } from 'react-i18next';
 import { Accordion } from '#/src/components/common/Accordion';
 import { ExternalLink } from '#/src/components/common/ExternalLink';
 import { PageSection } from '#/src/components/common/PageSection';
-import { styled } from '#/src/theme';
 import { localize } from '#/src/tools/localization';
 import { Translateable } from '#/src/types/common';
 import { Lukiodiplomi } from '#/src/types/ToteutusTypes';
-
-const PREFIX = 'Diplomit';
-
-const classes = {
-  contentHeader: `${PREFIX}-contentHeader`,
-};
-
-const StyledPageSection = styled(PageSection)({
-  [`& .${classes.contentHeader}`]: { marginTop: '16px', marginBottom: '16px' },
-});
-
-export {};
 
 const ListContent = ({
   leadParagraph,
@@ -49,14 +34,14 @@ const DiplomiContent = ({ diplomi }: { diplomi: Lukiodiplomi }) => {
   const altTeksti = localize(diplomi?.linkinAltTeksti);
   return (
     <>
-      <Typography variant="h4" className={classes.contentHeader}>
+      <Typography variant="h4" marginTop={2} marginBottom={2}>
         {t('toteutus.yleiset-tavoitteet')}
       </Typography>
       <ListContent leadParagraph={diplomi?.tavoitteetKohde} items={diplomi.tavoitteet} />
       <Typography variant="h4">{t('toteutus.keskeiset-sisällöt')}</Typography>
       <ListContent items={diplomi?.sisallot} />
       {!isEmpty(linkki) && (
-        <ExternalLink target="_blank" rel="noopener" href={linkki}>
+        <ExternalLink href={linkki}>
           {isEmpty(altTeksti) ? t('toteutus.lisätietoa') : altTeksti}
         </ExternalLink>
       )}
@@ -68,13 +53,13 @@ export const Diplomit = ({ diplomit }: { diplomit: Array<Lukiodiplomi> }) => {
   const { t } = useTranslation();
 
   return diplomit?.length > 0 ? (
-    <StyledPageSection heading={t('toteutus.lukiodiplomit')}>
+    <PageSection heading={t('toteutus.lukiodiplomit')}>
       <Accordion
         items={diplomit.map((diplomi: any) => ({
           title: localize(diplomi?.koodi),
           content: <DiplomiContent diplomi={diplomi} />,
         }))}
       />
-    </StyledPageSection>
+    </PageSection>
   ) : null;
 };

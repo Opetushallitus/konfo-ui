@@ -19,31 +19,11 @@ import { HakutietoTable } from './HakutietoTable';
 import { selectMuuHaku } from './hooks';
 import { formatAloitus } from './utils';
 
-const PREFIX = 'ToteutusHakuMuu';
-
-const classes = {
-  hakuName: `${PREFIX}-hakuName`,
-  valueText: `${PREFIX}-valueText`,
-  paper: `${PREFIX}-paper`,
-};
-
-const StyledPageSection = styled(PageSection)(({ theme }) => ({
-  [`& .${classes.hakuName}`]: {
-    ...theme.typography.h5,
-    fontWeight: 'bold',
-    color: colors.black,
-  },
-
-  [`& .${classes.valueText}`]: {
-    fontWeight: 'bold',
-  },
-
-  [`& .${classes.paper}`]: {
-    width: '100%',
-    maxWidth: '800px',
-    padding: '30px',
-  },
-}));
+const StyledPaper = styled(Paper)({
+  width: '100%',
+  maxWidth: '800px',
+  padding: '30px',
+});
 
 const getTarjoajaYhteystiedot = (
   osoitteet: Array<{ oppilaitosOid: string; yhteystiedot: string }>,
@@ -134,14 +114,20 @@ export const ToteutusHakuMuu = ({ toteutus }: Props) => {
   const alkamiskausi = muuHaku?.opetus?.koulutuksenAlkamiskausi;
 
   return (
-    <StyledPageSection heading={hakeuduTaiIlmoittauduTrans}>
+    <PageSection heading={hakeuduTaiIlmoittauduTrans}>
       {isLoading ? (
         <LoadingCircle />
       ) : (
-        <Paper className={classes.paper}>
+        <StyledPaper>
           <Grid container direction="column" spacing={2}>
             <Grid item>
-              <Typography className={classes.hakuName}>
+              <Typography
+                variant="h5"
+                component="p"
+                sx={{
+                  fontWeight: 'bold',
+                  color: colors.black,
+                }}>
                 {localize(muuHaku.nimi)}
               </Typography>
             </Grid>
@@ -159,7 +145,7 @@ export const ToteutusHakuMuu = ({ toteutus }: Props) => {
                   </Typography>
                 </Grid>
                 <Grid item xs>
-                  <Typography variant="body1" noWrap className={classes.valueText}>
+                  <Typography variant="body1" fontWeight="bold" noWrap>
                     {muuHaku.aloituspaikat}
                   </Typography>
                 </Grid>
@@ -213,8 +199,8 @@ export const ToteutusHakuMuu = ({ toteutus }: Props) => {
               </Button>
             </Grid>
           </Grid>
-        </Paper>
+        </StyledPaper>
       )}
-    </StyledPageSection>
+    </PageSection>
   );
 };

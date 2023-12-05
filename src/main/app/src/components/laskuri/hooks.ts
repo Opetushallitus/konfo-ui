@@ -2,9 +2,9 @@ import { useMemo } from 'react';
 
 import { useQuery } from 'react-query';
 
-import { getKoodistonKoodit } from '#/src/api/konfoApi';
+import { getKoodistonKoodit, searchHakukohteet } from '#/src/api/konfoApi';
 import { translate } from '#/src/tools/localization';
-import { Koodi } from '#/src/types/common';
+import { HakukohdeSearchParams, Koodi } from '#/src/types/common';
 
 export const useKieliKoodit = () => {
   const { data } = useQuery<Array<Koodi>>(
@@ -20,3 +20,6 @@ export const useKieliKoodit = () => {
     });
   }, [data]);
 };
+
+export const useHakukohdeSearch = (requestParams: HakukohdeSearchParams) =>
+  useQuery([requestParams], ({ signal }) => searchHakukohteet(requestParams, signal), {});

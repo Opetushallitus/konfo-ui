@@ -1,27 +1,8 @@
-import React from 'react';
+import { Button } from '@mui/material';
 
-import { styled } from '#/src/theme';
-const PREFIX = 'TextButton';
+import { withDefaultProps } from '#/src/tools/withDefaultProps';
 
-const classes = {
-  textButton: `${PREFIX}-textButton`,
-};
-
-const Root = styled('button')(({ theme }) => ({
-  [`&.${classes.textButton}`]: {
-    backgroundColor: 'transparent',
-    border: 'none',
-    cursor: 'pointer',
-    display: 'inline',
-    padding: 0,
-    margin: '35px 0 0',
-    fontWeight: 600,
-    fontSize: '1rem',
-    lineHeight: '1.375rem',
-    color: theme.palette.primary.main,
-  },
-}));
-
-export const TextButton = (props: React.HTMLAttributes<HTMLButtonElement>) => {
-  return <Root className={classes.textButton} {...props} />;
-};
+export const TextButton = withDefaultProps(Button, {
+  variant: 'text',
+  color: 'primary',
+});

@@ -13,14 +13,13 @@ import {
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { useWindowSize } from 'react-use';
 
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { Murupolku } from '#/src/components/common/Murupolku';
 import { Pagination } from '#/src/components/common/Pagination';
 import { PAGE_SIZE_OPTIONS, PAGE_SORT_OPTIONS } from '#/src/constants';
-import { useSideMenu } from '#/src/hooks';
+import { useContentWidth } from '#/src/hooks/useContentWidth';
 import { useHakutulosWidth } from '#/src/store/reducers/appSlice';
 import { urlParamsChanged } from '#/src/store/reducers/hakutulosSlice';
 import { styled } from '#/src/theme';
@@ -147,13 +146,6 @@ const RajainValinnat = () => {
       clearRajainValues={clearRajainValues}
     />
   );
-};
-
-const useContentWidth = () => {
-  const { width: windowWidth } = useWindowSize();
-  const { width: sideMenuWidth } = useSideMenu();
-
-  return Math.round(windowWidth - sideMenuWidth);
 };
 
 const ExpandMore = (props: SvgIconProps) => (

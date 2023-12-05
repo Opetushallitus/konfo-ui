@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
-import { Box, Typography, Button, Hidden } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-import { educationTypeColorCode, colors } from '#/src/colors';
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { colors } from '#/src/colors';
 import { PageSection } from '#/src/components/common/PageSection';
+import { InfoBox } from '#/src/components/laskuri/InfoBox';
 import { styled } from '#/src/theme';
 import { Hakutieto } from '#/src/types/ToteutusTypes';
 
@@ -22,33 +22,12 @@ import {
 const PREFIX = 'PisteContainer__';
 
 const classes = {
-  infoBox: `${PREFIX}infobox`,
   openButton: `${PREFIX}openbutton`,
   purifyButton: `${PREFIX}purifybutton`,
-  infoIcon: `${PREFIX}__infobox__icon`,
   buttonsBox: `${PREFIX}__buttonsbox`,
 };
 
 const StyledPageSection = styled(PageSection)(({ theme }) => ({
-  [` .${classes.infoBox}`]: {
-    maxWidth: '982px',
-    display: 'flex',
-    flexDirection: 'row',
-    textAlign: 'left',
-    whiteSpace: 'pre-wrap',
-    padding: '0.8rem',
-    paddingRight: '0.9rem',
-    backgroundColor: educationTypeColorCode.ammatillinenGreenBg,
-    marginBottom: '1rem',
-    [`.${classes.infoIcon}`]: {
-      marginRight: '8px',
-      color: colors.brandGreen,
-      [theme.breakpoints.down('sm')]: {
-        marginRight: '4px',
-        verticalAlign: 'text-bottom',
-      },
-    },
-  },
   [`.${classes.buttonsBox}`]: {
     display: 'flex',
     flexDirection: 'row',
@@ -108,20 +87,7 @@ export const PisteContainer = ({ hakutiedot, isLukio }: Props) => {
 
   return (
     <StyledPageSection heading={t('pistelaskuri.graafi.heading')}>
-      <Box className={classes.infoBox}>
-        <Hidden smDown>
-          <MaterialIcon icon="info" variant="outlined" className={classes.infoIcon} />
-        </Hidden>
-        <Typography variant="body1">
-          <Hidden smUp>
-            <MaterialIcon icon="info" variant="outlined" className={classes.infoIcon} />
-          </Hidden>
-          {t('pistelaskuri.graafi.info')}
-          <span style={{ fontWeight: 600 }}>
-            &nbsp;{t('pistelaskuri.graafi.info-rohkaisu')}
-          </span>
-        </Typography>
-      </Box>
+      <InfoBox />
       <Box className={classes.buttonsBox}>
         <Button onClick={() => setModalOpen(true)} className={classes.openButton}>
           &nbsp;{t('pistelaskuri.graafi.laske-ja-vertaa')}

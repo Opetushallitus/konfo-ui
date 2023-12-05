@@ -6,21 +6,15 @@ import { useTranslation } from 'react-i18next';
 import { colors } from '#/src/colors';
 import { styled } from '#/src/theme';
 
-const PREFIX = 'AdditionalInfoWithIcon';
-
-const classes = {
-  text: `${PREFIX}-text`,
-  icon: `${PREFIX}-icon`,
-};
-
 const StyledTypography = styled(Typography)({
   color: colors.brandGreen,
   fontWeight: 600,
   paddingBottom: '8px',
-  [`& .${classes.icon}`]: {
-    verticalAlign: 'text-bottom',
-    marginRight: '10px',
-  },
+});
+
+const StyledIcon = styled(Icon)({
+  verticalAlign: 'text-bottom',
+  marginRight: '10px',
 });
 
 type Props = {
@@ -32,8 +26,8 @@ export const AdditionalInfoWithIcon = ({ translationKey, icon }: Props) => {
   const { t } = useTranslation();
 
   return (
-    <StyledTypography className={classes.text} variant="body1">
-      <Icon className={classes.icon}>{icon}</Icon>
+    <StyledTypography variant="body1">
+      <StyledIcon>{icon}</StyledIcon>
       {t(translationKey)}
     </StyledTypography>
   );

@@ -29,6 +29,22 @@ const mockSuosikit = async (
   );
 };
 
+const mockSuosikitVertailu = async (
+  page: Page,
+  resOids: Array<string> = SUOSIKKI_OIDS,
+  reqOids = resOids
+) => {
+  await page.route(
+    '/konfo-backend/suosikit-vertailu?hakukohde-oids=' + reqOids.join(','),
+    async (route: Route) => {
+      const suosikitData = await getFixtureData('suosikit-vertailu-data.json');
+      return route.fulfill({
+        json: suosikitData?.filter((item) => resOids.includes(item.hakukohdeOid)),
+      });
+    }
+  );
+};
+
 const gotoWithInit = async (page: Page, url, init: () => Promise<void>) => {
   await page.goto(url, { waitUntil: 'commit' });
   await init();
@@ -36,7 +52,11 @@ const gotoWithInit = async (page: Page, url, init: () => Promise<void>) => {
   await expect(page.getByRole('progressbar')).toBeHidden();
 };
 
-const initLocalstorage = async (page: Page, oids: Array<string>) => {
+const initLocalstorage = async (
+  page: Page,
+  oids: Array<string>,
+  opts?: { compare?: boolean }
+) => {
   await page.evaluate(
     (s) => {
       localStorage.setItem('favorites', JSON.stringify(s));
@@ -48,6 +68,7 @@ const initLocalstorage = async (page: Page, oids: Array<string>) => {
             oid,
             {
               timestamp: `2023-10-12T12:1${index}:19+03:00`,
+              compare: Boolean(opts?.compare),
             },
           ])
         ),
@@ -76,14 +97,16 @@ test.describe('Suosikit', () => {
     const suosikitListItems = page.getByTestId('suosikit-list').getByRole('listitem');
     const firstSuosikki = suosikitListItems.nth(0);
     const secondSuosikki = suosikitListItems.nth(1);
+
     await expect(
       firstSuosikki.getByRole('heading', {
-        name: 'Ajoneuvotekniikan osaamisala, Ajoneuvoalan perustutkinto (vaativa erityinen tuki)',
+        name: 'Vauriokorjauksen osaamisala, Ajoneuvoalan perustutkinto (vaativa erityinen tuki)',
       })
     ).toBeVisible();
+
     await expect(
-      secondSuosikki.getByRole('heading', {
-        name: 'Vauriokorjauksen osaamisala, Ajoneuvoalan perustutkinto (vaativa erityinen tuki)',
+      secondSuosikki.getByRole('link', {
+        name: 'Ajoneuvotekniikan osaamisala, Ajoneuvoalan perustutkinto (vaativa erityinen tuki)',
       })
     ).toBeVisible();
   });
@@ -101,12 +124,12 @@ test.describe('Suosikit', () => {
     const suosikitBtn = getSuosikitBtn(page);
     const suosikitBadge = suosikitBtn.getByTestId('suosikit-badge');
     await expect(suosikitBadge).toHaveText('2');
-    await firstSuosikki.getByRole('button', { name: 'Poista suosikeista' }).click();
+    await secondSuosikki.getByRole('button', { name: 'Poista suosikeista' }).click();
     await expect(suosikitBadge).toHaveText('1');
     await expect(suosikitListItems).toHaveCount(2);
-    await firstSuosikki.getByRole('button', { name: 'Kumoa poisto' }).click();
+    await secondSuosikki.getByRole('button', { name: 'Kumoa poisto' }).click();
     await expect(suosikitBadge).toHaveText('2');
-    await secondSuosikki.getByRole('button', { name: 'Poista suosikeista' }).click();
+    await firstSuosikki.getByRole('button', { name: 'Poista suosikeista' }).click();
     await expect(suosikitBadge).toHaveText('1');
     await page.goto('/konfo/fi');
     await mockSuosikit(page, [SUOSIKKI_OIDS[0]]);
@@ -163,11 +186,7 @@ test.describe('Suosikit', () => {
       () => initLocalstorage(page, SUOSIKKI_OIDS)
     );
 
-    const hakukohteetSection = await getByHeadingLabel(
-      page,
-      'Koulutuksen hakukohteet',
-      true
-    );
+    const hakukohteetSection = await getByHeadingLabel(page, 'Koulutuksen hakukohteet');
 
     const yhteishautSection = await getByHeadingLabel(hakukohteetSection, 'Yhteishaku');
 
@@ -201,5 +220,59 @@ test.describe('Suosikit', () => {
     await expect(alertKatsoSuosikkejaLink).toBeVisible();
     await alertKatsoSuosikkejaLink.click();
     await expectURLEndsWith(page, '/konfo/fi/suosikit');
+  });
+
+  test('Should allow adding suosikit to vertailu', async ({ page }) => {
+    await gotoWithInit(page, '/konfo/fi/suosikit', () =>
+      initLocalstorage(page, SUOSIKKI_OIDS)
+    );
+
+    const suosikitListItems = page.getByTestId('suosikit-list').getByRole('listitem');
+    const firstSuosikki = suosikitListItems.nth(0);
+    const secondSuosikki = suosikitListItems.nth(1);
+
+    const vertaileButton = page.getByRole('link', { name: 'Vertaile valittuja' });
+    await firstSuosikki.getByRole('button', { name: 'Lisää vertailuun' }).click();
+    await secondSuosikki.getByRole('button', { name: 'Lisää vertailuun' }).click();
+
+    await expect(vertaileButton).toBeEnabled();
+    await expect(vertaileButton).toContainText('(2/3)');
+
+    await firstSuosikki.getByRole('button', { name: 'Poista vertailusta' }).click();
+    await secondSuosikki.getByRole('button', { name: 'Poista vertailusta' }).click();
+
+    await expect(vertaileButton).toBeDisabled();
+  });
+
+  test('Should list vertailu-suosikit', async ({ page }) => {
+    await mockSuosikitVertailu(page, SUOSIKKI_OIDS);
+    await mockSuosikitVertailu(page, [SUOSIKKI_OIDS[0]], [SUOSIKKI_OIDS[0]]);
+    await gotoWithInit(page, '/konfo/fi/suosikit/vertailu', () =>
+      initLocalstorage(page, SUOSIKKI_OIDS, { compare: true })
+    );
+
+    const vertailuListItems = page
+      .getByTestId('suosikit-vertailu-list')
+      .getByRole('listitem')
+      .filter({ has: page.getByRole('heading', { level: 2 }) });
+
+    const firstVertailuItem = vertailuListItems.nth(0);
+
+    await expect(firstVertailuItem.getByText('Käyntiosoite')).toBeVisible();
+    await expect(
+      firstVertailuItem.getByText('Sisäänpääsyn alin pistemäärä')
+    ).toBeVisible();
+    await expect(firstVertailuItem.getByText('Opiskelijoita')).toBeVisible();
+    await expect(firstVertailuItem.getByText('Koe tai lisänäyttö')).toBeVisible();
+    await expect(firstVertailuItem.getByText('Kaksoistutkinto')).toBeVisible();
+    await expect(firstVertailuItem.getByText('Osaamisalat')).toBeVisible();
+    await expect(
+      firstVertailuItem.getByText('Mahdollisuus urheilijan ammatilliseen koulutukseen')
+    ).toBeHidden();
+
+    await expect(vertailuListItems).toHaveCount(2);
+
+    await firstVertailuItem.getByRole('button', { name: 'Poista vertailusta' }).click();
+    await expect(vertailuListItems).toHaveCount(1);
   });
 });

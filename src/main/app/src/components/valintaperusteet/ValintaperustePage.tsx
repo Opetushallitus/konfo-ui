@@ -15,6 +15,7 @@ import { NotFound } from '#/src/NotFound';
 import { getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
 import { styled } from '#/src/theme';
 import { localize } from '#/src/tools/localization';
+import { withDefaultProps } from '#/src/tools/withDefaultProps';
 
 import { AlinHyvaksyttyKeskiarvo } from './AlinHyvaksyttyKeskiarvo';
 import { Hakukelpoisuus } from './Hakukelpoisuus';
@@ -33,26 +34,21 @@ import { Sisallysluettelo } from './Sisallysluettelo';
 import { Valintakokeet } from './Valintakokeet';
 import { Valintatavat } from './Valintatavat';
 
-const PREFIX = 'ValintaperustePreviewPage';
-
-const classes = {
-  container: `${PREFIX}-container`,
-};
-
-const Root = styled('div')(() => ({
-  [`& .${classes.container}`]: {
+const RowContainer = withDefaultProps(
+  styled(Grid)(() => ({
     paddingLeft: '10px',
     paddingRight: '10px',
-  },
-}));
+  })),
+  { container: true, direction: 'row' }
+);
 
 const Row: React.FC<React.PropsWithChildren> = ({ children }) => {
   return (
-    <Grid container direction="row" justifyContent="center" className={classes.container}>
+    <RowContainer justifyContent="center">
       <Grid item xs={12} sm={12} md={10}>
         {children}
       </Grid>
-    </Grid>
+    </RowContainer>
   );
 };
 
@@ -168,12 +164,7 @@ export const ValintaperustePreviewPage = () => {
       return <NotFound />;
     default:
       return (
-        <Grid
-          container
-          direction="row"
-          spacing={0}
-          justifyContent="flex-start"
-          className={classes.container}>
+        <RowContainer spacing={0} justifyContent="flex-start">
           <Grid item xs={12} md={3} />
           <Grid item xs={12} md={6}>
             <Heading>{t('lomake.valintaperusteet')}</Heading>
@@ -187,7 +178,7 @@ export const ValintaperustePreviewPage = () => {
               yleiskuvaukset,
             }}
           />
-        </Grid>
+        </RowContainer>
       );
   }
 };
@@ -244,7 +235,7 @@ export const ValintaperustePage = () => {
       return <NotFound />;
     default:
       return (
-        <Root>
+        <div>
           <Row>
             <Murupolku
               path={[
@@ -255,12 +246,7 @@ export const ValintaperustePage = () => {
               ]}
             />
           </Row>
-          <Grid
-            container
-            direction="row"
-            spacing={0}
-            justifyContent="flex-start"
-            className={classes.container}>
+          <RowContainer spacing={0} justifyContent="flex-start">
             <Grid item xs={12} md={3} />
             <Grid item xs={12} md={6}>
               <Paluu paluuLinkki={toteutusLink} />
@@ -279,8 +265,8 @@ export const ValintaperustePage = () => {
                 yleiskuvaukset,
               }}
             />
-          </Grid>
-        </Root>
+          </RowContainer>
+        </div>
       );
   }
 };

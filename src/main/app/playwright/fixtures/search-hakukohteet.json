@@ -1,0 +1,20 @@
+{
+  "total": 1,
+  "hits": [
+    {
+      "oid": "1.2.3.4.5",
+      "hakuOid": "1.2.3.4",
+      "nimi": {
+        "fi": "Lukion yleislinja"
+      },
+      "toteutus": {
+        "oid": "1.2.3"
+      },
+      "organisaatio": {
+        "nimi": {
+          "fi": "Alppilan lukio"
+        }
+      }
+    }
+  ]
+}

@@ -1,6 +1,4 @@
-import React from 'react';
-
-import { Box, Link as MuiLink, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { head, isEmpty } from 'lodash';
 import { urls } from 'oph-urls-js';
 import { useTranslation } from 'react-i18next';
@@ -12,48 +10,28 @@ import { ContentWrapper } from '#/src/components/common/ContentWrapper';
 import { ExternalLink } from '#/src/components/common/ExternalLink';
 import { HtmlTextBox } from '#/src/components/common/HtmlTextBox';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { Murupolku } from '#/src/components/common/Murupolku';
 import { PageSection } from '#/src/components/common/PageSection';
 import { TeemakuvaImage } from '#/src/components/common/TeemakuvaImage';
 import { NotFound } from '#/src/NotFound';
 import { getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
+import { styled } from '#/src/theme';
 import { getLanguage, localize } from '#/src/tools/localization';
 import { useUrlParams } from '#/src/tools/useUrlParams';
 import { sanitizedHTMLParser } from '#/src/tools/utils';
+import { withDefaultProps } from '#/src/tools/withDefaultProps';
 
 import { useKoulutus, useKoulutusJarjestajat } from './hooks';
 import { KoulutusInfoGrid } from './KoulutusInfoGrid';
 import { ToteutusList } from './ToteutusList';
 import { TulevaJarjestajaList } from './TulevaJarjestajaList';
 
-const PREFIX = 'KoulutusPage';
-
-const classes = {
-  lisatietoa: `${PREFIX}lisatietoa`,
-  alatText: `${PREFIX}alatText`,
-  tutkintoHeader: `${PREFIX}tutkintoHeader`,
-  linkButton: `${PREFIX}linkButton`,
-};
-
-const AdditionalStylesFn = ({ theme }) => ({
-  [`& .${classes.lisatietoa}`]: { width: '50%' },
-
-  [`& .${classes.alatText}`]: {
-    ...theme.typography.body1,
-    fontSize: '1.25rem',
-    margin: 'auto',
-    textAlign: 'center',
-  },
-
-  [`& .${classes.tutkintoHeader}`]: {
-    textAlign: 'center',
-  },
-
-  [`& .${classes.linkButton}`]: {
-    fontWeight: 600,
-  },
-});
+const KoulutusalatHeading = styled(Typography)(({ theme }) => ({
+  ...theme.typography.body1,
+  fontSize: '1.25rem',
+  margin: 'auto',
+  textAlign: 'center',
+}));
 
 const findEperuste = (koulutus) => (id) =>
   head(koulutus.eperusteet.filter((e) => e.id === id));
@@ -106,9 +84,7 @@ const TutkinnonOsat = ({ koulutus }) => {
             content: (
               <>
                 {createTutkinnonOsa(foundTutkinnonOsa)}
-                <MuiLink
-                  target="_blank"
-                  rel="noopener"
+                <ExternalLink
                   href={urls.url(
                     'eperusteet-service.eperuste.kuvaus',
                     getLanguage(),
@@ -116,8 +92,7 @@ const TutkinnonOsat = ({ koulutus }) => {
                     tutkinnonosaViite
                   )}>
                   {t('koulutus.eperuste-linkki')}
-                  <MaterialIcon icon="open_in_new" />
-                </MuiLink>
+                </ExternalLink>
               </>
             ),
           };
@@ -126,6 +101,15 @@ const TutkinnonOsat = ({ koulutus }) => {
     </PageSection>
   ) : null;
 };
+
+const EPerusteLinkki = withDefaultProps(
+  styled(ExternalLink)({
+    fontWeight: 600,
+  }),
+  {
+    'data-testid': 'eperuste-linkki',
+  }
+);
 
 const Kuvaus = ({ koulutus }) => {
   const { t } = useTranslation();
@@ -151,31 +135,21 @@ const Kuvaus = ({ koulutus }) => {
       data-testid="kuvaus"
       heading={t('koulutus.kuvaus')}
       html={createKoulutusHtml()}
-      className={classes.root}
       additionalContent={
         (!isEmpty(koulutus?.linkkiEPerusteisiin) && (
-          <ExternalLink
-            target="_blank"
-            rel="noopener"
-            href={localize(koulutus?.linkkiEPerusteisiin)}
-            className={classes.linkButton}
-            data-testid="eperuste-linkki">
+          <EPerusteLinkki href={localize(koulutus?.linkkiEPerusteisiin)}>
             {t('koulutus.eperuste-linkki')}
-          </ExternalLink>
+          </EPerusteLinkki>
         )) ||
         (koulutus?.ePerusteId && (
-          <ExternalLink
-            target="_blank"
-            rel="noopener"
+          <EPerusteLinkki
             href={urls.url(
               'eperusteet-service.eperuste.tiedot',
               getLanguage(),
               koulutus?.ePerusteId
-            )}
-            className={classes.linkButton}
-            data-testid="eperuste-linkki">
+            )}>
             {t('koulutus.eperuste-linkki')}
-          </ExternalLink>
+          </EPerusteLinkki>
         ))
       }
     />
@@ -209,7 +183,7 @@ export const KoulutusPage = () => {
       return <NotFound />;
     case 'success':
       return (
-        <ContentWrapper additionalStylesFn={AdditionalStylesFn}>
+        <ContentWrapper>
           <Box width="100%" alignSelf="start">
             <Murupolku
               path={[
@@ -220,13 +194,13 @@ export const KoulutusPage = () => {
           </Box>
           <Box mt={4}>
             {koulutusAlat && (
-              <Typography className={classes.alatText} variant="h3" component="h3">
+              <KoulutusalatHeading variant="h3" component="h3">
                 {koulutusAlat}
-              </Typography>
+              </KoulutusalatHeading>
             )}
           </Box>
           <Box mt={1}>
-            <Typography className={classes.tutkintoHeader} variant="h1" component="h1">
+            <Typography sx={{ textAlign: 'center' }} variant="h1" component="h1">
               {localize(koulutus?.tutkintoNimi)}
             </Typography>
           </Box>
@@ -250,7 +224,6 @@ export const KoulutusPage = () => {
             <HtmlTextBox
               heading={t('koulutus.hakijan-terveydentila-ja-toimintakyky')}
               html={localize(soraKuvaus?.metadata?.kuvaus)}
-              className={classes.root}
             />
           )}
         </ContentWrapper>

@@ -4,39 +4,14 @@ import { Box, Grid, Paper, Typography, useMediaQuery, useTheme } from '@mui/mate
 import { hasIn } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
-import { colors } from '#/src/colors';
 import { OskariKartta } from '#/src/components/common/OskariKartta';
 import { Spacer } from '#/src/components/common/Spacer';
-import { styled } from '#/src/theme';
 import { localize } from '#/src/tools/localization';
 import { byLocaleCompare, toId } from '#/src/tools/utils';
 import { Translateable, Yhteystiedot as YhteystiedotType } from '#/src/types/common';
 import { Organisaatio } from '#/src/types/ToteutusTypes';
 
 import { SomeRow, Some, BlogAndWebsite } from './SomeYhteysTiedot';
-
-const PREFIX = 'Yhteystiedot';
-
-const classes = {
-  container: `${PREFIX}-container`,
-  info: `${PREFIX}-info`,
-  text: `${PREFIX}-text`,
-};
-
-const StyledBox = styled(Box)(() => ({
-  [`& .${classes.container}`]: {
-    marginTop: 10,
-  },
-
-  [`& .${classes.info}`]: {
-    width: 230,
-  },
-
-  [`& .${classes.text}`]: {
-    color: colors.black,
-    fontWeight: 600,
-  },
-}));
 
 const parseYhteystieto =
   (some?: Some, wwwSivu?: { nimi: Translateable; url: string }) =>
@@ -134,8 +109,8 @@ export const Yhteystiedot = ({
   ]);
 
   return (
-    <StyledBox
-      mt={isSm ? 6 : 12}
+    <Box
+      marginTop={isSm ? 6 : 12}
       display="flex"
       flexDirection="column"
       alignItems="center"
@@ -163,7 +138,7 @@ export const Yhteystiedot = ({
         ) => (
           <Grid
             key={`${nimi}_${i}`}
-            className={classes.container}
+            marginTop="10px"
             container
             spacing={5}
             alignItems="center"
@@ -210,6 +185,6 @@ export const Yhteystiedot = ({
           </Grid>
         )
       )}
-    </StyledBox>
+    </Box>
   );
 };

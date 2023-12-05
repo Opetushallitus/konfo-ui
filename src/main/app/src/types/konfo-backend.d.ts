@@ -1430,6 +1430,73 @@ export interface paths {
       };
     };
   };
+  "/search/hakukohteet": {
+    /**
+     * Hae hakukohteita
+     * @description Hakee (kaikki julkaistut) hakukohteet haun kohdejoukon perusteella. Huom.! Vain Opintopolun sisäiseen käyttöön
+     */
+    get: {
+      parameters: {
+        query: {
+          /** @description Haun kohdejoukko (koodi uri) */
+          kohdejoukko: string;
+        };
+      };
+      responses: {
+        /** @description Ok */
+        200: {
+          content: {
+            "application/json": {
+              /** Format: int32 */
+              total: number;
+              hits: {
+                  /** @description Hakukohteen yksilöivä tunniste */
+                  oid: string;
+                  /**
+                   * Nimi
+                   * @description Hakukohteen nimi eri kielillä
+                   */
+                  nimi: {
+                    /** @description Suomenkielinen nimi, jos määritelty */
+                    fi?: string;
+                    /** @description Ruotsinkielinen nimi, jos määritelty */
+                    sv?: string;
+                    /** @description Englanninkielinen nimi, jos määritelty */
+                    en?: string;
+                  };
+                  /** @description Hakukohteeseen liitetyn haun yksilöivä tunniste */
+                  hakuOid: string;
+                  organisaatio: {
+                    /**
+                     * Nimi
+                     * @description Organisaation nimi eri kielillä
+                     */
+                    nimi: {
+                      /** @description Suomenkielinen nimi, jos määritelty */
+                      fi?: string;
+                      /** @description Ruotsinkielinen nimi, jos määritelty */
+                      sv?: string;
+                      /** @description Englanninkielinen nimi, jos määritelty */
+                      en?: string;
+                    };
+                  };
+                  toteutus: {
+                    /** @description Toteutuksen yksilöivä tunniste */
+                    oid: string;
+                  };
+                }[];
+            };
+          };
+        };
+        /** @description Bad request */
+        400: {
+          content: {
+            "text/plain": string;
+          };
+        };
+      };
+    };
+  };
   "/palaute": {
     /**
      * Lähetä palaute
@@ -1621,6 +1688,449 @@ export interface paths {
       };
     };
   };
+  "/suosikit": {
+    /**
+     * Hae suosikeille tietoja
+     * @description Hae annetuilla hakukohde-oideilla tietoja suosikit-listausta varten. Huom.! Vain Opintopolun sisäiseen käyttöön
+     */
+    get: {
+      parameters: {
+        query?: {
+          /** @description Pilkulla erotettu lista hakukohteiden oideja */
+          "hakukohde-oids"?: string[];
+        };
+      };
+      responses: {
+        /** @description Ok */
+        200: {
+          content: {
+            "application/json": ({
+                /** @description Hakukohteen yksilöivä tunniste */
+                hakukohdeOid: string;
+                /** @description Lista tutkintonimikkeitä käännöksineen (tutkintonimikkeet-koodisto) */
+                tutkintonimikkeet?: ({
+                    koodiUri: string | null;
+                    /** Kielistetty */
+                    nimi: {
+                      fi?: string;
+                      sv?: string;
+                      en?: string;
+                    };
+                  })[];
+                /**
+                 * Kuvaus
+                 * @description Hakukohteen järjestyspaikan oppilaitoksen esittely eri kielillä
+                 */
+                esittely: {
+                  /** @description Suomenkielinen kuvaus, jos määritelty */
+                  fi?: string;
+                  /** @description Ruotsinkielinen kuvaus, jos määritelty */
+                  sv?: string;
+                  /** @description Englanninkielinen kuvaus, jos määritelty */
+                  en?: string;
+                };
+                jarjestaaUrheilijanAmmKoulutusta: boolean;
+                hakuajat: {
+                    alkaa: string;
+                    paattyy?: string;
+                    /** Kielistetty */
+                    formatoituAlkaa: {
+                      fi?: string;
+                      sv?: string;
+                      en?: string;
+                    };
+                    /** Kielistetty */
+                    formatoituPaattyy?: {
+                      fi?: string;
+                      sv?: string;
+                      en?: string;
+                    };
+                    hakuAuki: boolean;
+                    hakuMennyt: boolean;
+                  }[];
+                /**
+                 * Nimi
+                 * @description Hakukohteen nimi eri kielillä
+                 */
+                nimi: {
+                  /** @description Suomenkielinen nimi, jos määritelty */
+                  fi?: string;
+                  /** @description Ruotsinkielinen nimi, jos määritelty */
+                  sv?: string;
+                  /** @description Englanninkielinen nimi, jos määritelty */
+                  en?: string;
+                };
+                /**
+                 * Nimi
+                 * @description Hakukohteen järjestyspaikan oppilaitoksen nimi
+                 */
+                oppilaitosNimi: {
+                  /** @description Suomenkielinen nimi, jos määritelty */
+                  fi?: string;
+                  /** @description Ruotsinkielinen nimi, jos määritelty */
+                  sv?: string;
+                  /** @description Englanninkielinen nimi, jos määritelty */
+                  en?: string;
+                };
+                /** @description Hakukohteeseen liitetyn toteutuksen yksilöivä tunniste */
+                toteutusOid: string;
+                /** @description Hakukohteen järjestyspaikan oppilaitoksen logon URL */
+                logo: string;
+                /**
+                 * Organisaatio
+                 * @description Hakukohteen järjestyspaikan tiedot
+                 */
+                jarjestyspaikka: {
+                  paikkakunta: {
+                    koodiUri: string | null;
+                    /** Kielistetty */
+                    nimi: {
+                      fi?: string;
+                      sv?: string;
+                      en?: string;
+                    };
+                  };
+                  /** Kielistetty */
+                  nimi: {
+                    fi?: string;
+                    sv?: string;
+                    en?: string;
+                  };
+                  oid: string;
+                  [key: string]: unknown;
+                };
+              })[];
+          };
+        };
+        /** @description Not found */
+        404: {
+          content: never;
+        };
+      };
+    };
+  };
+  "/suosikit-vertailu": {
+    /**
+     * Hae hakukohteille vertailutietoja
+     * @description Hae annetuilla hakukohde-oideilla tietoja suosikkien vertailua varten. Huom.! Vain Opintopolun sisäiseen käyttöön
+     */
+    get: {
+      parameters: {
+        query?: {
+          /** @description Pilkulla erotettu lista hakukohteiden oideja */
+          "hakukohde-oids"?: string[];
+        };
+      };
+      responses: {
+        /** @description Ok */
+        200: {
+          content: {
+            "application/json": ({
+                /**
+                 * Format: int32
+                 * @description Hakukohteen järjestyspaikan oppilaitoksen opiskelijoiden määrä
+                 */
+                opiskelijoita?: number;
+                /**
+                 * @description Koulutuksen tyyppi
+                 * @enum {string}
+                 */
+                koulutustyyppi: "amm-ope-erityisope-ja-opo" | "amm-osaamisala" | "muu" | "vapaa-sivistystyo-muu" | "amm-tutkinnon-osa" | "kk-opintojakso" | "tuva" | "amm-muu" | "kk-opintokokonaisuus" | "erikoislaakari" | "taiteen-perusopetus" | "ope-pedag-opinnot" | "erikoistumiskoulutus" | "amm" | "vapaa-sivistystyo-opistovuosi" | "amk" | "telma" | "aikuisten-perusopetus" | "yo" | "lk";
+                lukiodiplomit?: ({
+                    koodi: {
+                      koodiUri: string | null;
+                      /** Kielistetty */
+                      nimi: {
+                        fi?: string;
+                        sv?: string;
+                        en?: string;
+                      };
+                    };
+                    /** Kielistetty */
+                    linkki: {
+                      fi?: string;
+                      sv?: string;
+                      en?: string;
+                    };
+                    /** Kielistetty */
+                    linkinAltTeksti: {
+                      fi?: string;
+                      sv?: string;
+                      en?: string;
+                    };
+                    sisallot: {
+                        fi?: string;
+                        sv?: string;
+                        en?: string;
+                      }[];
+                    /** Kielistetty */
+                    tavoitteetKohde: {
+                      fi?: string;
+                      sv?: string;
+                      en?: string;
+                    };
+                    tavoitteet: {
+                        fi?: string;
+                        sv?: string;
+                        en?: string;
+                      }[];
+                  })[];
+                /** @description Hakukohteeseen liittyvät valintakokeet */
+                valintakokeet: ({
+                    id: string;
+                    tyyppi?: {
+                      koodiUri: string | null;
+                      /** Kielistetty */
+                      nimi: {
+                        fi?: string;
+                        sv?: string;
+                        en?: string;
+                      };
+                    };
+                    /** Kielistetty */
+                    nimi?: {
+                      fi?: string;
+                      sv?: string;
+                      en?: string;
+                    };
+                    metadata?: {
+                      /** Kielistetty */
+                      tietoja?: {
+                        fi?: string;
+                        sv?: string;
+                        en?: string;
+                      };
+                      /** Format: double */
+                      vahimmaispisteet?: number;
+                      liittyyEnnakkovalmistautumista?: boolean;
+                      /** Kielistetty */
+                      ohjeetEnnakkovalmistautumiseen?: {
+                        fi?: string;
+                        sv?: string;
+                        en?: string;
+                      };
+                      erityisjarjestelytMahdollisia?: boolean;
+                      /** Kielistetty */
+                      ohjeetErityisjarjestelyihin?: {
+                        fi?: string;
+                        sv?: string;
+                        en?: string;
+                      };
+                    };
+                    tilaisuudet?: ({
+                        osoite: {
+                          /** Kielistetty */
+                          osoite: {
+                            fi?: string;
+                            sv?: string;
+                            en?: string;
+                          };
+                          postinumero: {
+                            koodiUri: string | null;
+                            /** Kielistetty */
+                            nimi: {
+                              fi?: string;
+                              sv?: string;
+                              en?: string;
+                            };
+                          };
+                        };
+                        aika: {
+                          alkaa: string;
+                          paattyy?: string | null;
+                          [key: string]: unknown;
+                        };
+                        /** Kielistetty */
+                        jarjestamispaikka?: {
+                          fi?: string;
+                          sv?: string;
+                          en?: string;
+                        };
+                        /** Kielistetty */
+                        lisatietoja?: {
+                          fi?: string;
+                          sv?: string;
+                          en?: string;
+                        };
+                      })[];
+                  })[];
+                /** @description Hakukohteen yksilöivä tunniste */
+                hakukohdeOid: string;
+                /** @description Hakukohteeseen liitetyn haun yksilöivä tunniste */
+                hakuOid: string;
+                /** @description Lista ammatillisen koulutuksen osaamisalojen kuvauksia */
+                osaamisalat?: ({
+                    koodi: {
+                      koodiUri: string | null;
+                      /** Kielistetty */
+                      nimi: {
+                        fi?: string;
+                        sv?: string;
+                        en?: string;
+                      };
+                    };
+                    /**
+                     * Kielistetty
+                     * @description Osaamisalan linkki ePerusteisiin
+                     */
+                    linkki: {
+                      fi?: string;
+                      sv?: string;
+                      en?: string;
+                    };
+                    /**
+                     * Kielistetty
+                     * @description Osaamisalan linkin otsikko eri kielillä
+                     */
+                    otsikko: {
+                      fi?: string;
+                      sv?: string;
+                      en?: string;
+                    };
+                  })[];
+                /**
+                 * Kuvaus
+                 * @description Hakukohteen järjestyspaikan oppilaitoksen esittely eri kielillä
+                 */
+                esittely: {
+                  /** @description Suomenkielinen kuvaus, jos määritelty */
+                  fi?: string;
+                  /** @description Ruotsinkielinen kuvaus, jos määritelty */
+                  sv?: string;
+                  /** @description Englanninkielinen kuvaus, jos määritelty */
+                  en?: string;
+                };
+                jarjestaaUrheilijanAmmKoulutusta: boolean;
+                /**
+                 * Pistetieto
+                 * @description Edellisen haun tiedot
+                 */
+                edellinenHaku: {
+                  tarjoaja: string;
+                  hakukohdekoodi: string;
+                  /** Format: double */
+                  pisteet: number;
+                  vuosi: string;
+                  valintatapajonoOid: string;
+                  hakukohdeOid: string;
+                  hakuOid: string;
+                  valintatapajonoTyyppi: string;
+                };
+                /**
+                 * Nimi
+                 * @description Hakukohteen nimi eri kielillä
+                 */
+                nimi: {
+                  /** @description Suomenkielinen nimi, jos määritelty */
+                  fi?: string;
+                  /** @description Ruotsinkielinen nimi, jos määritelty */
+                  sv?: string;
+                  /** @description Englanninkielinen nimi, jos määritelty */
+                  en?: string;
+                };
+                /**
+                 * Nimi
+                 * @description Hakukohteen järjestyspaikan oppilaitoksen nimi
+                 */
+                oppilaitosNimi: {
+                  /** @description Suomenkielinen nimi, jos määritelty */
+                  fi?: string;
+                  /** @description Ruotsinkielinen nimi, jos määritelty */
+                  sv?: string;
+                  /** @description Englanninkielinen nimi, jos määritelty */
+                  en?: string;
+                };
+                /** @description Hakukohteeseen liitetyn toteutuksen yksilöivä tunniste */
+                toteutusOid: string;
+                /** @description Hakukohteen järjestyspaikan oppilaitoksen logon URL */
+                logo: string;
+                /** @description Hakukohteen järjestyspaikan käyntiosoite */
+                osoite: {
+                  /** @description Suomenkielinen osoite, jos määritelty */
+                  fi?: string;
+                  /** @description Ruotsinkielinen osoite, jos määritelty */
+                  sv?: string;
+                  /** @description Englanninkielinen osoite, jos määritelty */
+                  en?: string;
+                };
+                /** Kielivalikoima */
+                kielivalikoima: {
+                  A1Kielet: ({
+                      koodiUri: string | null;
+                      /** Kielistetty */
+                      nimi: {
+                        fi?: string;
+                        sv?: string;
+                        en?: string;
+                      };
+                    })[];
+                  A2Kielet: ({
+                      koodiUri: string | null;
+                      /** Kielistetty */
+                      nimi: {
+                        fi?: string;
+                        sv?: string;
+                        en?: string;
+                      };
+                    })[];
+                  B1Kielet: ({
+                      koodiUri: string | null;
+                      /** Kielistetty */
+                      nimi: {
+                        fi?: string;
+                        sv?: string;
+                        en?: string;
+                      };
+                    })[];
+                  B2Kielet: ({
+                      koodiUri: string | null;
+                      /** Kielistetty */
+                      nimi: {
+                        fi?: string;
+                        sv?: string;
+                        en?: string;
+                      };
+                    })[];
+                  B3Kielet: ({
+                      koodiUri: string | null;
+                      /** Kielistetty */
+                      nimi: {
+                        fi?: string;
+                        sv?: string;
+                        en?: string;
+                      };
+                    })[];
+                  aidinkielet: ({
+                      koodiUri: string | null;
+                      /** Kielistetty */
+                      nimi: {
+                        fi?: string;
+                        sv?: string;
+                        en?: string;
+                      };
+                    })[];
+                  muutKielet: ({
+                      koodiUri: string | null;
+                      /** Kielistetty */
+                      nimi: {
+                        fi?: string;
+                        sv?: string;
+                        en?: string;
+                      };
+                    })[];
+                };
+                /** @description Onko hakukohteen toisen asteen koulutuksessa mahdollista suorittaa kaksoistutkinto? */
+                toinenAsteOnkoKaksoistutkinto: boolean;
+              })[];
+          };
+        };
+        /** @description Not found */
+        404: {
+          content: never;
+        };
+      };
+    };
+  };
   "/sitemap/sitemap.xml": {
     /**
      * Opintopolun sitemap.xml
@@ -1725,80 +2235,48 @@ export interface components {
      * @description Koulutuksen tyyppi
      * @enum {string}
      */
-    KoutaKoulutustyyppi: "amm" | "yo" | "amk" | "amm-ope-erityisope-ja-opo" | "ope-pedag-opinnot" | "kk-opintojakso" | "kk-opintokokonaisuus" | "erikoislaakari" | "erikoistumiskoulutus" | "lk" | "telma" | "tuva" | "vapaa-sivistystyo-opistovuosi" | "vapaa-sivistystyo-muu" | "muu" | "amm-osaamisala" | "amm-tutkinnon-osa" | "amm-muu" | "aikuisten-perusopetus" | "taiteen-perusopetus";
+    KoutaKoulutustyyppi: "amm-ope-erityisope-ja-opo" | "amm-osaamisala" | "muu" | "vapaa-sivistystyo-muu" | "amm-tutkinnon-osa" | "kk-opintojakso" | "tuva" | "amm-muu" | "kk-opintokokonaisuus" | "erikoislaakari" | "taiteen-perusopetus" | "ope-pedag-opinnot" | "erikoistumiskoulutus" | "amm" | "vapaa-sivistystyo-opistovuosi" | "amk" | "telma" | "aikuisten-perusopetus" | "yo" | "lk";
     /**
      * @description Koulutuksen tyyppi
      * @enum {string}
      */
-    KonfoKoulutustyyppi: "aikuisten-perusopetus" | "taiteen-perusopetus" | "vaativan-tuen-koulutukset" | "koulutustyyppi_4" | "tuva-erityisopetus" | "valmentavat-koulutukset" | "tuva-normal" | "telma" | "vapaa-sivistystyo-opistovuosi" | "amm" | "koulutustyyppi_26" | "koulutustyyppi_11" | "koulutustyyppi_12" | "muu-amm-tutkinto" | "amm-osaamisala" | "amm-tutkinnon-osa" | "amm-muu" | "lk" | "amk" | "amk-alempi" | "amk-ylempi" | "amm-ope-erityisope-ja-opo" | "amk-opintojakso-avoin" | "amk-opintojakso" | "amk-opintokokonaisuus-avoin" | "amk-opintokokonaisuus" | "amk-erikoistumiskoulutus" | "yo" | "kandi" | "kandi-ja-maisteri" | "maisteri" | "tohtori" | "yo-opintojakso-avoin" | "yo-opintojakso" | "yo-opintokokonaisuus" | "yo-opintokokonaisuus-avoin" | "ope-pedag-opinnot" | "erikoislaakari" | "yo-erikoistumiskoulutus" | "vapaa-sivistystyo-muu" | "muu";
+    KonfoKoulutustyyppi: "amm-ope-erityisope-ja-opo" | "vaativan-tuen-koulutukset" | "amk-opintojakso-avoin" | "yo-opintojakso-avoin" | "tohtori" | "valmentavat-koulutukset" | "amk-opintojakso" | "amm-osaamisala" | "muu" | "vapaa-sivistystyo-muu" | "amk-alempi" | "amm-tutkinnon-osa" | "amm-muu" | "yo-erikoistumiskoulutus" | "kandi" | "koulutustyyppi_26" | "yo-opintokokonaisuus" | "tuva-normal" | "kandi-ja-maisteri" | "yo-opintokokonaisuus-avoin" | "erikoislaakari" | "muu-amm-tutkinto" | "taiteen-perusopetus" | "ope-pedag-opinnot" | "koulutustyyppi_4" | "koulutustyyppi_12" | "amk-ylempi" | "yo-opintojakso" | "amm" | "maisteri" | "vapaa-sivistystyo-opistovuosi" | "amk" | "amk-opintokokonaisuus-avoin" | "amk-erikoistumiskoulutus" | "telma" | "koulutustyyppi_11" | "aikuisten-perusopetus" | "amk-opintokokonaisuus" | "tuva-erityisopetus" | "yo" | "lk";
     /** @enum {string} */
-    Kieli: "fi" | "sv" | "en";
+    Kieli: "en" | "fi" | "sv";
+    /** Kuvaus */
     Kuvaus: {
-      /**
-       * @description Suomenkielinen kuvaus, jos kielivalinnassa on 'fi'
-       * @example Suomenkielinen kuvaus
-       */
+      /** @description Suomenkielinen kuvaus, jos määritelty */
       fi?: string;
-      /**
-       * @description Ruotsinkielinen kuvaus, jos kielivalinnassa on 'sv'
-       * @example Ruotsinkielinen kuvaus
-       */
+      /** @description Ruotsinkielinen kuvaus, jos määritelty */
       sv?: string;
-      /**
-       * @description Englanninkielinen kuvaus, jos kielivalinnassa on 'en'
-       * @example Englanninkielinen kuvaus
-       */
+      /** @description Englanninkielinen kuvaus, jos määritelty */
       en?: string;
     };
+    /** Nimi */
     Nimi: {
-      /**
-       * @description Suomenkielinen nimi, jos on olemassa
-       * @example Suomenkielinen nimi
-       */
+      /** @description Suomenkielinen nimi, jos määritelty */
       fi?: string;
-      /**
-       * @description Ruotsinkielinen nimi, jos on olemassa
-       * @example Ruotsinkielinen nimi
-       */
+      /** @description Ruotsinkielinen nimi, jos määritelty */
       sv?: string;
-      /**
-       * @description Englanninkielinen nimi, jos on olemassa
-       * @example Englanninkielinen nimi
-       */
+      /** @description Englanninkielinen nimi, jos määritelty */
       en?: string;
     };
+    /** Teksti */
     Teksti: {
-      /**
-       * @description Suomenkielinen teksti, jos on olemassa
-       * @example Suomenkielinen teksti
-       */
+      /** @description Suomenkielinen teksti, jos määritelty */
       fi?: string;
-      /**
-       * @description Ruotsinkielinen teksti, jos on olemassa
-       * @example Ruotsinkielinen teksti
-       */
+      /** @description Ruotsinkielinen teksti, jos määritelty */
       sv?: string;
-      /**
-       * @description Englanninkielinen teksti, jos on olemassa
-       * @example Englanninkielinen teksti
-       */
+      /** @description Englanninkielinen teksti, jos määritelty */
       en?: string;
     };
+    /** Linkki */
     Linkki: {
-      /**
-       * @description Suomenkielinen linkki, jos on olemassa
-       * @example Suomenkielinen linkki
-       */
+      /** @description Suomenkielinen linkki, jos määritelty */
       fi?: string;
-      /**
-       * @description Ruotsinkielinen linkki, jos on olemassa
-       * @example Ruotsinkielinen linkki
-       */
+      /** @description Ruotsinkielinen linkki, jos määritelty */
       sv?: string;
-      /**
-       * @description Englanninkielinen linkki, jos on olemassa
-       * @example Englanninkielinen linkki
-       */
+      /** @description Englanninkielinen linkki, jos määritelty */
       en?: string;
     };
     Organisaatio: {
@@ -3120,6 +3598,478 @@ export interface components {
       total?: number;
       /** @description Hakutulokset */
       hits?: components["schemas"]["KoulutusToteutusHit"][];
+    };
+    /** CompactHakukohde */
+    CompactHakukohde: {
+      /** @description Hakukohteen yksilöivä tunniste */
+      oid: string;
+      /**
+       * Nimi
+       * @description Hakukohteen nimi eri kielillä
+       */
+      nimi: {
+        /** @description Suomenkielinen nimi, jos määritelty */
+        fi?: string;
+        /** @description Ruotsinkielinen nimi, jos määritelty */
+        sv?: string;
+        /** @description Englanninkielinen nimi, jos määritelty */
+        en?: string;
+      };
+      /** @description Hakukohteeseen liitetyn haun yksilöivä tunniste */
+      hakuOid: string;
+      organisaatio: {
+        /**
+         * Nimi
+         * @description Organisaation nimi eri kielillä
+         */
+        nimi: {
+          /** @description Suomenkielinen nimi, jos määritelty */
+          fi?: string;
+          /** @description Ruotsinkielinen nimi, jos määritelty */
+          sv?: string;
+          /** @description Englanninkielinen nimi, jos määritelty */
+          en?: string;
+        };
+      };
+      toteutus: {
+        /** @description Toteutuksen yksilöivä tunniste */
+        oid: string;
+      };
+    };
+    /** HakukohdeSearchResult */
+    HakukohdeSearchResult: {
+      /** Format: int32 */
+      total: number;
+      hits: {
+          /** @description Hakukohteen yksilöivä tunniste */
+          oid: string;
+          /**
+           * Nimi
+           * @description Hakukohteen nimi eri kielillä
+           */
+          nimi: {
+            /** @description Suomenkielinen nimi, jos määritelty */
+            fi?: string;
+            /** @description Ruotsinkielinen nimi, jos määritelty */
+            sv?: string;
+            /** @description Englanninkielinen nimi, jos määritelty */
+            en?: string;
+          };
+          /** @description Hakukohteeseen liitetyn haun yksilöivä tunniste */
+          hakuOid: string;
+          organisaatio: {
+            /**
+             * Nimi
+             * @description Organisaation nimi eri kielillä
+             */
+            nimi: {
+              /** @description Suomenkielinen nimi, jos määritelty */
+              fi?: string;
+              /** @description Ruotsinkielinen nimi, jos määritelty */
+              sv?: string;
+              /** @description Englanninkielinen nimi, jos määritelty */
+              en?: string;
+            };
+          };
+          toteutus: {
+            /** @description Toteutuksen yksilöivä tunniste */
+            oid: string;
+          };
+        }[];
+    };
+    /** SuosikitItem */
+    SuosikitItem: {
+      /** @description Hakukohteen yksilöivä tunniste */
+      hakukohdeOid: string;
+      /** @description Lista tutkintonimikkeitä käännöksineen (tutkintonimikkeet-koodisto) */
+      tutkintonimikkeet?: ({
+          koodiUri: string | null;
+          /** Kielistetty */
+          nimi: {
+            fi?: string;
+            sv?: string;
+            en?: string;
+          };
+        })[];
+      /**
+       * Kuvaus
+       * @description Hakukohteen järjestyspaikan oppilaitoksen esittely eri kielillä
+       */
+      esittely: {
+        /** @description Suomenkielinen kuvaus, jos määritelty */
+        fi?: string;
+        /** @description Ruotsinkielinen kuvaus, jos määritelty */
+        sv?: string;
+        /** @description Englanninkielinen kuvaus, jos määritelty */
+        en?: string;
+      };
+      jarjestaaUrheilijanAmmKoulutusta: boolean;
+      hakuajat: {
+          alkaa: string;
+          paattyy?: string;
+          /** Kielistetty */
+          formatoituAlkaa: {
+            fi?: string;
+            sv?: string;
+            en?: string;
+          };
+          /** Kielistetty */
+          formatoituPaattyy?: {
+            fi?: string;
+            sv?: string;
+            en?: string;
+          };
+          hakuAuki: boolean;
+          hakuMennyt: boolean;
+        }[];
+      /**
+       * Nimi
+       * @description Hakukohteen nimi eri kielillä
+       */
+      nimi: {
+        /** @description Suomenkielinen nimi, jos määritelty */
+        fi?: string;
+        /** @description Ruotsinkielinen nimi, jos määritelty */
+        sv?: string;
+        /** @description Englanninkielinen nimi, jos määritelty */
+        en?: string;
+      };
+      /**
+       * Nimi
+       * @description Hakukohteen järjestyspaikan oppilaitoksen nimi
+       */
+      oppilaitosNimi: {
+        /** @description Suomenkielinen nimi, jos määritelty */
+        fi?: string;
+        /** @description Ruotsinkielinen nimi, jos määritelty */
+        sv?: string;
+        /** @description Englanninkielinen nimi, jos määritelty */
+        en?: string;
+      };
+      /** @description Hakukohteeseen liitetyn toteutuksen yksilöivä tunniste */
+      toteutusOid: string;
+      /** @description Hakukohteen järjestyspaikan oppilaitoksen logon URL */
+      logo: string;
+      /**
+       * Organisaatio
+       * @description Hakukohteen järjestyspaikan tiedot
+       */
+      jarjestyspaikka: {
+        paikkakunta: {
+          koodiUri: string | null;
+          /** Kielistetty */
+          nimi: {
+            fi?: string;
+            sv?: string;
+            en?: string;
+          };
+        };
+        /** Kielistetty */
+        nimi: {
+          fi?: string;
+          sv?: string;
+          en?: string;
+        };
+        oid: string;
+        [key: string]: unknown;
+      };
+    };
+    SuosikitVertailuItem: {
+      /**
+       * Format: int32
+       * @description Hakukohteen järjestyspaikan oppilaitoksen opiskelijoiden määrä
+       */
+      opiskelijoita?: number;
+      /**
+       * @description Koulutuksen tyyppi
+       * @enum {string}
+       */
+      koulutustyyppi: "amm-ope-erityisope-ja-opo" | "amm-osaamisala" | "muu" | "vapaa-sivistystyo-muu" | "amm-tutkinnon-osa" | "kk-opintojakso" | "tuva" | "amm-muu" | "kk-opintokokonaisuus" | "erikoislaakari" | "taiteen-perusopetus" | "ope-pedag-opinnot" | "erikoistumiskoulutus" | "amm" | "vapaa-sivistystyo-opistovuosi" | "amk" | "telma" | "aikuisten-perusopetus" | "yo" | "lk";
+      lukiodiplomit?: ({
+          koodi: {
+            koodiUri: string | null;
+            /** Kielistetty */
+            nimi: {
+              fi?: string;
+              sv?: string;
+              en?: string;
+            };
+          };
+          /** Kielistetty */
+          linkki: {
+            fi?: string;
+            sv?: string;
+            en?: string;
+          };
+          /** Kielistetty */
+          linkinAltTeksti: {
+            fi?: string;
+            sv?: string;
+            en?: string;
+          };
+          sisallot: {
+              fi?: string;
+              sv?: string;
+              en?: string;
+            }[];
+          /** Kielistetty */
+          tavoitteetKohde: {
+            fi?: string;
+            sv?: string;
+            en?: string;
+          };
+          tavoitteet: {
+              fi?: string;
+              sv?: string;
+              en?: string;
+            }[];
+        })[];
+      /** @description Hakukohteeseen liittyvät valintakokeet */
+      valintakokeet: ({
+          id: string;
+          tyyppi?: {
+            koodiUri: string | null;
+            /** Kielistetty */
+            nimi: {
+              fi?: string;
+              sv?: string;
+              en?: string;
+            };
+          };
+          /** Kielistetty */
+          nimi?: {
+            fi?: string;
+            sv?: string;
+            en?: string;
+          };
+          metadata?: {
+            /** Kielistetty */
+            tietoja?: {
+              fi?: string;
+              sv?: string;
+              en?: string;
+            };
+            /** Format: double */
+            vahimmaispisteet?: number;
+            liittyyEnnakkovalmistautumista?: boolean;
+            /** Kielistetty */
+            ohjeetEnnakkovalmistautumiseen?: {
+              fi?: string;
+              sv?: string;
+              en?: string;
+            };
+            erityisjarjestelytMahdollisia?: boolean;
+            /** Kielistetty */
+            ohjeetErityisjarjestelyihin?: {
+              fi?: string;
+              sv?: string;
+              en?: string;
+            };
+          };
+          tilaisuudet?: ({
+              osoite: {
+                /** Kielistetty */
+                osoite: {
+                  fi?: string;
+                  sv?: string;
+                  en?: string;
+                };
+                postinumero: {
+                  koodiUri: string | null;
+                  /** Kielistetty */
+                  nimi: {
+                    fi?: string;
+                    sv?: string;
+                    en?: string;
+                  };
+                };
+              };
+              aika: {
+                alkaa: string;
+                paattyy?: string | null;
+                [key: string]: unknown;
+              };
+              /** Kielistetty */
+              jarjestamispaikka?: {
+                fi?: string;
+                sv?: string;
+                en?: string;
+              };
+              /** Kielistetty */
+              lisatietoja?: {
+                fi?: string;
+                sv?: string;
+                en?: string;
+              };
+            })[];
+        })[];
+      /** @description Hakukohteen yksilöivä tunniste */
+      hakukohdeOid: string;
+      /** @description Hakukohteeseen liitetyn haun yksilöivä tunniste */
+      hakuOid: string;
+      /** @description Lista ammatillisen koulutuksen osaamisalojen kuvauksia */
+      osaamisalat?: ({
+          koodi: {
+            koodiUri: string | null;
+            /** Kielistetty */
+            nimi: {
+              fi?: string;
+              sv?: string;
+              en?: string;
+            };
+          };
+          /**
+           * Kielistetty
+           * @description Osaamisalan linkki ePerusteisiin
+           */
+          linkki: {
+            fi?: string;
+            sv?: string;
+            en?: string;
+          };
+          /**
+           * Kielistetty
+           * @description Osaamisalan linkin otsikko eri kielillä
+           */
+          otsikko: {
+            fi?: string;
+            sv?: string;
+            en?: string;
+          };
+        })[];
+      /**
+       * Kuvaus
+       * @description Hakukohteen järjestyspaikan oppilaitoksen esittely eri kielillä
+       */
+      esittely: {
+        /** @description Suomenkielinen kuvaus, jos määritelty */
+        fi?: string;
+        /** @description Ruotsinkielinen kuvaus, jos määritelty */
+        sv?: string;
+        /** @description Englanninkielinen kuvaus, jos määritelty */
+        en?: string;
+      };
+      jarjestaaUrheilijanAmmKoulutusta: boolean;
+      /**
+       * Pistetieto
+       * @description Edellisen haun tiedot
+       */
+      edellinenHaku: {
+        tarjoaja: string;
+        hakukohdekoodi: string;
+        /** Format: double */
+        pisteet: number;
+        vuosi: string;
+        valintatapajonoOid: string;
+        hakukohdeOid: string;
+        hakuOid: string;
+        valintatapajonoTyyppi: string;
+      };
+      /**
+       * Nimi
+       * @description Hakukohteen nimi eri kielillä
+       */
+      nimi: {
+        /** @description Suomenkielinen nimi, jos määritelty */
+        fi?: string;
+        /** @description Ruotsinkielinen nimi, jos määritelty */
+        sv?: string;
+        /** @description Englanninkielinen nimi, jos määritelty */
+        en?: string;
+      };
+      /**
+       * Nimi
+       * @description Hakukohteen järjestyspaikan oppilaitoksen nimi
+       */
+      oppilaitosNimi: {
+        /** @description Suomenkielinen nimi, jos määritelty */
+        fi?: string;
+        /** @description Ruotsinkielinen nimi, jos määritelty */
+        sv?: string;
+        /** @description Englanninkielinen nimi, jos määritelty */
+        en?: string;
+      };
+      /** @description Hakukohteeseen liitetyn toteutuksen yksilöivä tunniste */
+      toteutusOid: string;
+      /** @description Hakukohteen järjestyspaikan oppilaitoksen logon URL */
+      logo: string;
+      /** @description Hakukohteen järjestyspaikan käyntiosoite */
+      osoite: {
+        /** @description Suomenkielinen osoite, jos määritelty */
+        fi?: string;
+        /** @description Ruotsinkielinen osoite, jos määritelty */
+        sv?: string;
+        /** @description Englanninkielinen osoite, jos määritelty */
+        en?: string;
+      };
+      /** Kielivalikoima */
+      kielivalikoima: {
+        A1Kielet: ({
+            koodiUri: string | null;
+            /** Kielistetty */
+            nimi: {
+              fi?: string;
+              sv?: string;
+              en?: string;
+            };
+          })[];
+        A2Kielet: ({
+            koodiUri: string | null;
+            /** Kielistetty */
+            nimi: {
+              fi?: string;
+              sv?: string;
+              en?: string;
+            };
+          })[];
+        B1Kielet: ({
+            koodiUri: string | null;
+            /** Kielistetty */
+            nimi: {
+              fi?: string;
+              sv?: string;
+              en?: string;
+            };
+          })[];
+        B2Kielet: ({
+            koodiUri: string | null;
+            /** Kielistetty */
+            nimi: {
+              fi?: string;
+              sv?: string;
+              en?: string;
+            };
+          })[];
+        B3Kielet: ({
+            koodiUri: string | null;
+            /** Kielistetty */
+            nimi: {
+              fi?: string;
+              sv?: string;
+              en?: string;
+            };
+          })[];
+        aidinkielet: ({
+            koodiUri: string | null;
+            /** Kielistetty */
+            nimi: {
+              fi?: string;
+              sv?: string;
+              en?: string;
+            };
+          })[];
+        muutKielet: ({
+            koodiUri: string | null;
+            /** Kielistetty */
+            nimi: {
+              fi?: string;
+              sv?: string;
+              en?: string;
+            };
+          })[];
+      };
+      /** @description Onko hakukohteen toisen asteen koulutuksessa mahdollista suorittaa kaksoistutkinto? */
+      toinenAsteOnkoKaksoistutkinto: boolean;
     };
   };
   responses: never;

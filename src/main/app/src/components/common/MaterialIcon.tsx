@@ -2,13 +2,15 @@ import { SvgIconProps } from '@mui/material';
 
 import { InlineSvgIcon } from './InlineSvgIcon';
 
+export type MaterialIconVariant = 'filled' | 'outlined';
+
 export const MaterialIcon = ({
   icon,
   variant = 'filled',
   ...rest
 }: {
   icon: MaterialIconName;
-  variant?: 'filled' | 'outlined';
+  variant?: MaterialIconVariant;
 } & SvgIconProps) => (
   <InlineSvgIcon {...rest} src={`/konfo/icons/material/${variant}/${icon}.svg`} />
 );

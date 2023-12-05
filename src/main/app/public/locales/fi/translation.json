@@ -814,6 +814,13 @@
       "kielennimi": "Kielen nimi"
     }
   },
+  "vertaa-hakukohteeseen": {
+    "header": "Vertaa pisteitä hakukohteeseen",
+    "vertaa-ohje": "Vertaa pisteitäsi pistemäärään, jolla oppilaitokseen on päässyt opiskelemaan.",
+    "etsi-hakukohteita": "Etsi hakukohteita",
+    "lataus-käynnissä": "Haetaan...",
+    "tyhjenna": "Tyhjennä"
+  },
   "kouluaineet": {
     "aidinkieli": "Äidinkieli ja kirjallisuus",
     "a1-kieli": "A1-kieli",
@@ -851,6 +858,30 @@
     "suosikki-lisatty": "Hakukohde lisätty suosikiksi",
     "katso-suosikkejasi": "Katso suosikkejasi",
     "puuttuvia-suosikkeja": "Joidenkin lisäämiesi suosikkien tietoja ei enää löytynyt. Ne on piilotettu listauksesta.",
-    "poista-puuttuvat": "Poista piilotetut"
+    "poista-puuttuvat": "Poista piilotetut",
+    "vertaile-valittuja": "Vertaile valittuja ({{count}}/{{max}})",
+    "lisaa-vertailuun": "Lisää vertailuun",
+    "poista-vertailusta": "Poista vertailusta"
+  },
+  "suosikit-vertailu": {
+    "otsikko": "Vertaile suosikkeja",
+    "ei-vertailtavia-suosikkeja": "Ei vertailtavia suosikkeja",
+    "kayntiosoite": "Käyntiosoite",
+    "sisaanpaasyn-alin-pistemaara": "Sisäänpääsyn alin pistemäärä {{year}}",
+    "opiskelijoita": "Opiskelijoita",
+    "koe-tai-lisanaytto": "Koe tai lisänäyttö",
+    "kaksoistutkinto": "Kaksoistutkinto",
+    "voi-suorittaa-kaksoistutkinnon": "Voi suorittaa kaksoistutkinnon",
+    "lukiodiplomit": "Lukiodiplomit",
+    "kielivalikoima": "Kielivalikoima",
+    "osaamisalat": "Osaamisalat",
+    "jarjestaa-urheilijan-amm-koulutusta": "Mahdollisuus urheilijan ammatilliseen koulutukseen",
+    "valintakoe": "Koe- tai lisänäyttö",
+    "urheilijan-amm-koulutus": "Urheilijan ammatillinen koulutus",
+    "valitse-vertailtavat-tiedot": "Valitse vertailtavat tiedot",
+    "sisaanpaasyn-pistemaara": "Sisäänpääsyn pistemäärä",
+    "pistemaarasi": "Pistemääräsi",
+    "laske-pistemaarasi": "Laske pistemääräsi",
+    "ei-valintakokeita": "Ei järjestetä"
   }
 }

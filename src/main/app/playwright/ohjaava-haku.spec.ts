@@ -76,26 +76,28 @@ test.describe('Ohjaava haku', () => {
     await page.getByRole('button', { name: 'Haluan opiskella kotoa käsin.' }).click();
     await page.getByRole('button', { name: 'Seuraava kysymys' }).click();
 
+    const SLIDER_TOTAL_MONTHS = 84;
     const slider = page.locator('.MuiSlider-root');
-    await slider.hover({ position: { x: 200, y: 0 } });
+    const sliderWidth = await slider.evaluate((e) => e.clientWidth);
+
+    const startX = (sliderWidth / SLIDER_TOTAL_MONTHS) * 22;
+
+    await slider.hover({ position: { x: startX, y: 0 } });
     await page.mouse.down();
     await page.mouse.up();
     const sliderInputVahintaan = slider.locator('input[data-index="0"]');
-    const vahintaanValue = await sliderInputVahintaan.evaluate(
-      (e) => (e as HTMLInputElement).value
-    );
+    const vahintaanValue = await sliderInputVahintaan.inputValue();
     const vahintaanVuosi = Math.floor(parseInt(vahintaanValue) / 12);
     await expect(page.locator('#vahintaan-vuosi')).toHaveValue(vahintaanVuosi.toString());
     const vahintaanKk = Math.floor(parseInt(vahintaanValue) % 12);
     await expect(page.locator('#vahintaan-kk')).toHaveValue(vahintaanKk.toString());
 
-    await slider.hover({ position: { x: 600, y: 0 } });
+    const endX = (sliderWidth / SLIDER_TOTAL_MONTHS) * 65;
+    await slider.hover({ position: { x: endX, y: 0 } });
     await page.mouse.down();
     await page.mouse.up();
     const sliderInputEnintaan = slider.locator('input[data-index="1"]');
-    const enintaanValue = await sliderInputEnintaan.evaluate(
-      (e) => (e as HTMLInputElement).value
-    );
+    const enintaanValue = await sliderInputEnintaan.inputValue();
     const enintaanVuosi = Math.floor(parseInt(enintaanValue) / 12);
     await expect(page.locator('#enintaan-vuosi')).toHaveValue(enintaanVuosi.toString());
     const enintaanKk = Math.floor(parseInt(enintaanValue) % 12);

@@ -28,22 +28,6 @@ import { TulevaTarjontaList } from './TulevaTarjontaList';
 import { Yhteystiedot } from './Yhteystiedot';
 import { ExternalLinkButton } from '../common/ExternalLinkButton';
 
-const PREFIX = 'OppilaitosPage';
-
-const classes = {
-  title: `${PREFIX}-title`,
-  alatText: `${PREFIX}-alatText`,
-};
-
-const AdditionalStylesFn = ({ theme }) => ({
-  [`& .${classes.title}`]: { marginTop: 40 },
-
-  [`& .${classes.alatText}`]: {
-    ...theme.typography.body1,
-    fontSize: '1.25rem',
-  },
-});
-
 export const OppilaitosPage = (props) => {
   const { oid } = useParams();
   const { t } = useTranslation();
@@ -72,7 +56,7 @@ export const OppilaitosPage = (props) => {
       return <NotFound />;
     case 'success':
       return (
-        <ContentWrapper additionalStylesFn={AdditionalStylesFn}>
+        <ContentWrapper>
           <Box width="100%" alignSelf="start">
             <Murupolku
               path={[
@@ -95,7 +79,7 @@ export const OppilaitosPage = (props) => {
               ]}
             />
           </Box>
-          <Box className={classes.title}>
+          <Box marginTop={5}>
             <Typography variant="h1" component="h1">
               {localize(entity)}
             </Typography>
