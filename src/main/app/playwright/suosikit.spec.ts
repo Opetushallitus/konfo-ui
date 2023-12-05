@@ -4,7 +4,7 @@ import {
   expectURLEndsWith,
   fixtureFromFile,
   getFixtureData,
-  getByHeadingLabel,
+  getByLabelLoc,
   setupCommonTest,
 } from './test-tools';
 
@@ -188,9 +188,15 @@ test.describe('Suosikit', () => {
       () => initLocalstorage(page, SUOSIKKI_OIDS)
     );
 
-    const hakukohteetSection = await getByHeadingLabel(page, 'Koulutuksen hakukohteet');
+    const hakukohteetSection = await getByLabelLoc(
+      page,
+      page.getByRole('heading', { name: 'Koulutuksen hakukohteet' })
+    );
 
-    const yhteishautSection = await getByHeadingLabel(hakukohteetSection, 'Yhteishaku');
+    const yhteishautSection = await getByLabelLoc(
+      hakukohteetSection,
+      hakukohteetSection.getByRole('heading', { name: 'Yhteishaku' })
+    );
 
     const yhteishakukohteet = yhteishautSection.getByRole('listitem');
 
@@ -268,8 +274,11 @@ test.describe('Suosikit', () => {
     await expect(firstVertailuItem.getByText('Kaksoistutkinto')).toBeVisible();
     await expect(firstVertailuItem.getByText('Osaamisalat')).toBeVisible();
     await expect(
-      firstVertailuItem.getByText('Mahdollisuus urheilijan ammatilliseen koulutukseen')
-    ).toBeHidden();
+      await getByLabelLoc(
+        firstVertailuItem,
+        firstVertailuItem.getByText('Mahdollisuus urheilijan ammatilliseen koulutukseen')
+      )
+    ).toHaveText('Ei');
 
     await expect(vertailuListItems).toHaveCount(2);
 

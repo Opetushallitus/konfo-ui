@@ -10,10 +10,12 @@ import { VertailuList } from './VertailuList';
 export const VertailuKielet = ({
   kielivalikoima,
 }: {
-  kielivalikoima: Kielivalikoima;
+  kielivalikoima?: Kielivalikoima;
 }) => {
   const { t } = useTranslation();
-  return isEmpty(kielivalikoima) ? null : (
+  return isEmpty(kielivalikoima) ? (
+    t('suosikit-vertailu.ei-maaritelty')
+  ) : (
     <VertailuList>
       {Object.entries(kielivalikoima ?? {})?.map(([kieliKey, kieliValue]) =>
         isEmpty(kieliValue) ? null : (

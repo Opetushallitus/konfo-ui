@@ -73,6 +73,7 @@
   "nayta-lisatiedot": "Näytä lisätiedot",
   "sulje": "Sulje",
   "ei": "Ei",
+  "kylla": "Kyllä",
   "etusivu": "Etusivu",
   "valikko": "Valikko",
   "oma-opintopolku": "Oma Opintopolku",
@@ -877,6 +878,7 @@
     "sisaanpaasyn-pistemaara": "Sisäänpääsyn pistemäärä",
     "pistemaarasi": "Pistemääräsi",
     "laske-pistemaarasi": "Laske pistemääräsi",
-    "ei-valintakokeita": "Ei järjestetä"
+    "ei-valintakokeita": "Ei järjestetä",
+    "ei-maaritelty": "Ei tiedossa"
   }
 }

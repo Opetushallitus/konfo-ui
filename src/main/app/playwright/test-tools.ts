@@ -68,12 +68,7 @@ export const fixtureFromFile = (fileName: string) => (route: Route) =>
 export const getFixtureData = async (fileName: string) =>
   (await import(getFixturePath(fileName)))?.default;
 
-export const getByHeadingLabel = async (
-  loc: Locator | Page,
-  headingText: string | RegExp,
-  exact: boolean = false
-) => {
-  const label = loc.getByRole('heading', { name: headingText, exact });
+export const getByLabelLoc = async (loc: Locator | Page, label: Locator) => {
   const id = await label.getAttribute('id');
   return loc.locator(`css=[aria-labelledby="${id}"]`);
 };

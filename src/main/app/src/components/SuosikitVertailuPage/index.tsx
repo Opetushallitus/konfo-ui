@@ -12,12 +12,13 @@ import {
 import { useSyncRefHeight } from '#/src/hooks/useSyncRefHeight';
 import { useTruncatedKuvaus } from '#/src/hooks/useTruncatedKuvaus';
 import { localize } from '#/src/tools/localization';
+import { isNonNil } from '#/src/tools/utils';
 import { VertailuSuosikki } from '#/src/types/common';
 
 import { useSuosikitVertailuData } from './useSuosikitVertailuData';
 import { useSuosikitVertailuMask } from './useSuosikitVertailuMask';
+import { VERTAILU_FIELDS_ORDER } from './VERTAILU_FIELDS_ORDER';
 import { VertailuFieldMask } from './VertailuFieldMask';
-import { FIELDS_ORDER } from './vertailuFieldsOrder';
 import { ContentWrapper } from '../common/ContentWrapper';
 import { KorttiLogo } from '../common/KorttiLogo';
 import { MaterialIcon, MaterialIconVariant } from '../common/MaterialIcon';
@@ -44,8 +45,8 @@ const InfoItem = ({
   fieldId: string;
   icon: MaterialIconName;
   iconVariant?: MaterialIconVariant;
-  label?: string;
-  value: React.ReactNode;
+  label: string;
+  value?: React.ReactNode;
 }) => {
   const labelId = `${label}_${value}`;
 
@@ -55,11 +56,11 @@ const InfoItem = ({
 
   useSyncRefHeight([[fieldId, itemsRef]], { enabled: !isContentSmall });
 
-  return value ? (
+  return isNonNil(value) ? (
     <Box display="flex" gap={1} ref={itemsRef}>
       <MaterialIcon icon={icon} variant={iconVariant} color="primary" />
       <Box display="flex" flexDirection="column">
-        {label && <Typography id={labelId}>{label}</Typography>}
+        <Typography id={labelId}>{label}</Typography>
         <Typography
           component="div"
           display="flex"
@@ -127,18 +128,22 @@ const VertailuKortti = ({
         flexWrap="wrap"
         marginTop={2}
         gap={2}>
-        {FIELDS_ORDER.map(({ icon, iconVariant, getLabel, renderValue, fieldId }) => {
-          return mask[fieldId] ? (
-            <InfoItem
-              key={fieldId}
-              fieldId={fieldId}
-              icon={icon}
-              iconVariant={iconVariant}
-              label={getLabel?.(t, vertailuSuosikki)}
-              value={renderValue?.(vertailuSuosikki, t)}
-            />
-          ) : null;
-        })}
+        {VERTAILU_FIELDS_ORDER.map(
+          ({ icon, iconVariant, getLabel, renderValue, fieldId }) => {
+            return (
+              mask[fieldId] && (
+                <InfoItem
+                  key={fieldId}
+                  fieldId={fieldId}
+                  icon={icon}
+                  iconVariant={iconVariant}
+                  label={getLabel(t, vertailuSuosikki)}
+                  value={renderValue?.(vertailuSuosikki, t)}
+                />
+              )
+            );
+          }
+        )}
         <Divider />
         <Box display="flex" justifyContent="flex-end" flexWrap="wrap" gap={1}>
           <TextButton onClick={() => toggleVertailu(vertailuSuosikki.hakukohdeOid)}>
