@@ -4,7 +4,7 @@ import {
   expectURLEndsWith,
   fixtureFromFile,
   getFixtureData,
-  getByHeadingLabel,
+  getByLabelLoc,
   setupCommonTest,
 } from './test-tools';
 
@@ -111,7 +111,7 @@ test.describe('Suosikit', () => {
     ).toBeVisible();
   });
 
-  test('Should "soft-remove" suosikki when clicking the button on suosikit-page and permanently remove after reloading the page', async ({
+  test('Should ask confirmation before removing suosikki and remove it when confirmed', async ({
     page,
   }) => {
     await gotoWithInit(page, '/konfo/fi/suosikit', () =>
@@ -125,17 +125,19 @@ test.describe('Suosikit', () => {
     const suosikitBadge = suosikitBtn.getByTestId('suosikit-badge');
     await expect(suosikitBadge).toHaveText('2');
     await secondSuosikki.getByRole('button', { name: 'Poista suosikeista' }).click();
+
+    const dialog = page.getByRole('dialog', {
+      name: 'Vahvista poisto',
+    });
+
+    await dialog.getByRole('button', { name: 'Poista suosikeista' }).click();
     await expect(suosikitBadge).toHaveText('1');
-    await expect(suosikitListItems).toHaveCount(2);
-    await secondSuosikki.getByRole('button', { name: 'Kumoa poisto' }).click();
-    await expect(suosikitBadge).toHaveText('2');
+
     await firstSuosikki.getByRole('button', { name: 'Poista suosikeista' }).click();
-    await expect(suosikitBadge).toHaveText('1');
-    await page.goto('/konfo/fi');
-    await mockSuosikit(page, [SUOSIKKI_OIDS[0]]);
-    await page.goto('/konfo/fi/suosikit');
-    await expect(suosikitBadge).toHaveText('1');
-    await expect(suosikitListItems).toHaveCount(1);
+
+    await dialog.getByRole('button', { name: 'Poista suosikeista' }).click();
+    await expect(suosikitBadge).toBeHidden();
+    await expect(page.getByText('Ei tallennettuja hakukohteita')).toBeVisible();
   });
 
   test('Should hide suosikit which have no data and show notification', async ({
@@ -186,9 +188,15 @@ test.describe('Suosikit', () => {
       () => initLocalstorage(page, SUOSIKKI_OIDS)
     );
 
-    const hakukohteetSection = await getByHeadingLabel(page, 'Koulutuksen hakukohteet');
+    const hakukohteetSection = await getByLabelLoc(
+      page,
+      page.getByRole('heading', { name: 'Koulutuksen hakukohteet' })
+    );
 
-    const yhteishautSection = await getByHeadingLabel(hakukohteetSection, 'Yhteishaku');
+    const yhteishautSection = await getByLabelLoc(
+      hakukohteetSection,
+      hakukohteetSection.getByRole('heading', { name: 'Yhteishaku' })
+    );
 
     const yhteishakukohteet = yhteishautSection.getByRole('listitem');
 
@@ -236,7 +244,6 @@ test.describe('Suosikit', () => {
     await secondSuosikki.getByRole('button', { name: 'Lisää vertailuun' }).click();
 
     await expect(vertaileButton).toBeEnabled();
-    await expect(vertaileButton).toContainText('(2/3)');
 
     await firstSuosikki.getByRole('button', { name: 'Poista vertailusta' }).click();
     await secondSuosikki.getByRole('button', { name: 'Poista vertailusta' }).click();
@@ -267,8 +274,11 @@ test.describe('Suosikit', () => {
     await expect(firstVertailuItem.getByText('Kaksoistutkinto')).toBeVisible();
     await expect(firstVertailuItem.getByText('Osaamisalat')).toBeVisible();
     await expect(
-      firstVertailuItem.getByText('Mahdollisuus urheilijan ammatilliseen koulutukseen')
-    ).toBeHidden();
+      await getByLabelLoc(
+        firstVertailuItem,
+        firstVertailuItem.getByText('Mahdollisuus urheilijan ammatilliseen koulutukseen')
+      )
+    ).toHaveText('Ei');
 
     await expect(vertailuListItems).toHaveCount(2);
 

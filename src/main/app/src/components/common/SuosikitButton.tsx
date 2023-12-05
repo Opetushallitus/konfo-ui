@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-import { useNonRemovedSuosikitCount } from '#/src/hooks/useSuosikitSelection';
+import { useSuosikitCount } from '#/src/hooks/useSuosikitSelection';
 
 import { SuosikitIcon } from './SuosikitIcon';
 import { TextButtonLink, TextButtonLinkProps } from './TextButtonLink';
@@ -13,7 +13,7 @@ export const SuosikitButton = ({
   Component?: React.ComponentType<TextButtonLinkProps>;
 }) => {
   const { t } = useTranslation();
-  const suosikitCount = useNonRemovedSuosikitCount();
+  const suosikitCount = useSuosikitCount();
 
   return suosikitCount > 0 ? (
     <Component href="suosikit" startIcon={<SuosikitIcon />} onClick={() => onClick?.()}>

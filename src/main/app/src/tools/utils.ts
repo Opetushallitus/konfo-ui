@@ -247,3 +247,7 @@ export const sortArray = <T>(
   arr: Array<T>,
   compareFn: (a: T, b: T) => number = defaultCompareFn<T>
 ) => arr.sort(compareFn);
+
+export const isNonNil = <TValue>(
+  value: TValue | null | undefined | false
+): value is TValue => value != null;

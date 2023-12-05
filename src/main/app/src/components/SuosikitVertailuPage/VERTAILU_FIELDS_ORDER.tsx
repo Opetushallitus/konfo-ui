@@ -1,30 +1,31 @@
 import { TFunction } from 'i18next';
-import { isEmpty } from 'lodash';
 
 import { MaterialIconVariant } from '#/src/components/common/MaterialIcon';
 import { NDASH } from '#/src/constants';
 import { localize } from '#/src/tools/localization';
 import { VertailuSuosikki } from '#/src/types/common';
 
+import { isLukio, isAmmatillinen } from './suosikitVertailuUtils';
 import { SuosikitVertailuMask } from './useSuosikitVertailuMask';
 import { VertailuKielet } from './VertailuKielet';
 import { VertailuKoodiLista } from './VertailuKoodiLista';
 import { VertailuPistemaara } from './VertailuPistemaara';
 import { VertailuValintakokeet } from './VertailuValintakokeet';
 
-export const FIELDS_ORDER: Array<{
+export const VERTAILU_FIELDS_ORDER: Array<{
   icon: MaterialIconName;
   iconVariant?: MaterialIconVariant;
   fieldId: keyof SuosikitVertailuMask;
-  getLabel?: (t: TFunction, vertailuSuosikki?: VertailuSuosikki) => string;
-  renderValue?: (vertailuSuosikki: VertailuSuosikki, t: TFunction) => React.ReactNode;
+  getLabel: (t: TFunction, vertailuSuosikki?: VertailuSuosikki) => string;
+  renderValue: (vertailuSuosikki: VertailuSuosikki, t: TFunction) => React.ReactNode;
 }> = [
   {
     icon: 'public',
     iconVariant: 'outlined',
     fieldId: 'kayntiosoite',
     getLabel: (t) => t('suosikit-vertailu.kayntiosoite'),
-    renderValue: (vertailuSuosikki) => localize(vertailuSuosikki.osoite),
+    renderValue: (vertailuSuosikki, t) =>
+      localize(vertailuSuosikki.osoite) || t('suosikit-vertailu.ei-maaritelty'),
   },
   {
     icon: 'door_back',
@@ -34,16 +35,16 @@ export const FIELDS_ORDER: Array<{
       t('suosikit-vertailu.sisaanpaasyn-alin-pistemaara', {
         year: vertailuSuosikki?.edellinenHaku?.vuosi,
       }),
-    renderValue: (vertailuSuosikki) =>
-      vertailuSuosikki.edellinenHaku && (
-        <VertailuPistemaara vertailuSuosikki={vertailuSuosikki} />
-      ),
+    renderValue: (vertailuSuosikki) => (
+      <VertailuPistemaara vertailuSuosikki={vertailuSuosikki} />
+    ),
   },
   {
     icon: 'people_outline',
     fieldId: 'opiskelijoita',
     getLabel: (t) => t('suosikit-vertailu.opiskelijoita'),
-    renderValue: (vertailuSuosikki) => vertailuSuosikki.opiskelijoita,
+    renderValue: (vertailuSuosikki, t) =>
+      vertailuSuosikki.opiskelijoita ?? t('suosikit-vertailu.ei-maaritelty'),
   },
   {
     icon: 'school',
@@ -61,7 +62,7 @@ export const FIELDS_ORDER: Array<{
     getLabel: (t) => t('suosikit-vertailu.kaksoistutkinto'),
     renderValue: (vertailuSuosikki, t) =>
       vertailuSuosikki.toinenAsteOnkoKaksoistutkinto
-        ? t?.('suosikit-vertailu.voi-suorittaa-kaksoistutkinnon')
+        ? t('suosikit-vertailu.voi-suorittaa-kaksoistutkinnon')
         : NDASH,
   },
   {
@@ -70,19 +71,18 @@ export const FIELDS_ORDER: Array<{
     fieldId: 'lukiodiplomit',
     getLabel: (t) => t('suosikit-vertailu.lukiodiplomit'),
     renderValue: (vertailuSuosikki) =>
-      vertailuSuosikki.koulutustyyppi !== 'lk' &&
-      isEmpty(vertailuSuosikki.lukiodiplomit) ? null : (
-        <VertailuKoodiLista koodit={vertailuSuosikki.lukiodiplomit!} />
-      ),
+      isLukio(vertailuSuosikki) ? (
+        <VertailuKoodiLista koodit={vertailuSuosikki.lukiodiplomit} />
+      ) : undefined,
   },
   {
     icon: 'chat_bubble_outline',
     fieldId: 'kielivalikoima',
     getLabel: (t: TFunction) => t('suosikit-vertailu.kielivalikoima'),
     renderValue: (vertailuSuosikki: VertailuSuosikki) =>
-      vertailuSuosikki.kielivalikoima && (
-        <VertailuKielet kielivalikoima={vertailuSuosikki.kielivalikoima!} />
-      ),
+      isLukio(vertailuSuosikki) ? (
+        <VertailuKielet kielivalikoima={vertailuSuosikki.kielivalikoima} />
+      ) : undefined,
   },
   {
     icon: 'lightbulb',
@@ -90,16 +90,18 @@ export const FIELDS_ORDER: Array<{
     fieldId: 'osaamisalat',
     getLabel: (t: TFunction) => t('suosikit-vertailu.osaamisalat'),
     renderValue: (vertailuSuosikki: VertailuSuosikki) =>
-      vertailuSuosikki.osaamisalat && (
+      isAmmatillinen(vertailuSuosikki) ? (
         <VertailuKoodiLista koodit={vertailuSuosikki.osaamisalat} />
-      ),
+      ) : undefined,
   },
   {
     icon: 'sports_soccer',
     fieldId: 'urheilijan-amm-koulutus',
+    getLabel: (t: TFunction) =>
+      t('suosikit-vertailu.jarjestaa-urheilijan-amm-koulutusta'),
     renderValue: (vertailuSuosikki: VertailuSuosikki, t: TFunction) =>
-      vertailuSuosikki.jarjestaaUrheilijanAmmKoulutusta
-        ? t('suosikit-vertailu.jarjestaa-urheilijan-amm-koulutusta')
-        : null,
+      isAmmatillinen(vertailuSuosikki)
+        ? t(vertailuSuosikki.jarjestaaUrheilijanAmmKoulutusta ? 'kylla' : 'ei')
+        : undefined,
   },
 ];

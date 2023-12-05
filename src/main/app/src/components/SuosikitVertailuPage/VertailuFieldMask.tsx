@@ -4,7 +4,7 @@ import { Box, FormControlLabel } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { SuosikitVertailuMask, useSuosikitVertailuMask } from './useSuosikitVertailuMask';
-import { FIELDS_ORDER } from './vertailuFieldsOrder';
+import { VERTAILU_FIELDS_ORDER } from './VERTAILU_FIELDS_ORDER';
 import { KonfoCheckbox } from '../common/KonfoCheckbox';
 import { Heading } from '../Heading';
 
@@ -37,7 +37,7 @@ export const VertailuFieldMask = () => {
       m={2}>
       <Heading variant="h5">{t('suosikit-vertailu.valitse-vertailtavat-tiedot')}</Heading>
       <Box display="flex" flexWrap="wrap" gap={1}>
-        {FIELDS_ORDER.map(({ fieldId }) => (
+        {VERTAILU_FIELDS_ORDER.map(({ fieldId }) => (
           <VertailuFieldCheckbox key={fieldId} fieldId={fieldId} />
         ))}
       </Box>

@@ -73,6 +73,7 @@
   "nayta-lisatiedot": "Näytä lisätiedot",
   "sulje": "Sulje",
   "ei": "Ei",
+  "kylla": "Kyllä",
   "etusivu": "Etusivu",
   "valikko": "Valikko",
   "oma-opintopolku": "Oma Opintopolku",
@@ -852,9 +853,12 @@
     "katso-suosikkejasi": "Katso suosikkejasi",
     "puuttuvia-suosikkeja": "Joidenkin lisäämiesi suosikkien tietoja ei enää löytynyt. Ne on piilotettu listauksesta.",
     "poista-puuttuvat": "Poista piilotetut",
-    "vertaile-valittuja": "Vertaile valittuja ({{count}}/{{max}})",
+    "vertaile-valittuja": "Vertaile valittuja",
+    "vertaile-ohje": "Voit halutessasi vertailla hakukohteilla olevia tietoja valitsemalla hakukohteet vertailuun. Voit valita vertailuun max 3 hakukohdetta kerrallaan.",
     "lisaa-vertailuun": "Lisää vertailuun",
-    "poista-vertailusta": "Poista vertailusta"
+    "poista-vertailusta": "Poista vertailusta",
+    "poista-dialog-title": "Vahvista poisto",
+    "poista-dialog-text": "Haluatko varmasti poistaa hakukohteen suosikeistasi?"
   },
   "suosikit-vertailu": {
     "otsikko": "Vertaile suosikkeja",
@@ -875,6 +879,7 @@
     "sisaanpaasyn-pistemaara": "Sisäänpääsyn pistemäärä",
     "pistemaarasi": "Pistemääräsi",
     "laske-pistemaarasi": "Laske pistemääräsi",
-    "ei-valintakokeita": "Ei järjestetä"
+    "ei-valintakokeita": "Ei järjestetä",
+    "ei-maaritelty": "Ei tiedossa"
   }
 }
