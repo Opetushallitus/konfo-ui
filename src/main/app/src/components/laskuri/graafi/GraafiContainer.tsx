@@ -187,7 +187,7 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos, hakukohdeOid }: Pr
             className={classes.hakukohdeSelect}
             input={<Input className={classes.hakukohdeInput} />}>
             {hakukohteet.map((kohde: Hakukohde) => (
-              <MenuItem key={hakukohde.hakukohdeOid} value={kohde as any}>
+              <MenuItem key={kohde.hakukohdeOid} value={kohde as any}>
                 {localize(kohde.nimi)}
                 {kohde.jarjestyspaikka ? `, ${localize(kohde.jarjestyspaikka.nimi)}` : ''}
               </MenuItem>
