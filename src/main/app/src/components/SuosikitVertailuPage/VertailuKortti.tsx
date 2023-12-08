@@ -32,13 +32,13 @@ const useIsContentSmall = () => {
 const InfoItem = ({
   fieldId,
   icon,
-  iconVariant = 'filled',
+  iconVariant,
   label,
   value,
 }: {
   fieldId: string;
   icon: MaterialIconName;
-  iconVariant?: MaterialIconVariant;
+  iconVariant: MaterialIconVariant;
   label?: string;
   value: React.ReactNode;
 }) => {
