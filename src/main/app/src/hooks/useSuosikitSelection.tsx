@@ -72,7 +72,8 @@ export const useSuosikitCount = () =>
 export const useVertailuSuosikit = () =>
   useSuosikitState((state) =>
     toPairs(state.suosikitSelection).reduce(
-      (acc, [oid, suosikki]) => (suosikki?.compare ? [...acc, oid] : acc),
+      (acc, [oid, suosikki]) =>
+        suosikki?.compare && !suosikki.removed ? [...acc, oid] : acc,
       [] as Array<string>
     )
   );
@@ -80,7 +81,8 @@ export const useVertailuSuosikit = () =>
 export const useHakuunValitut = () =>
   useSuosikitState((state) =>
     toPairs(state.suosikitSelection).reduce(
-      (acc, [oid, suosikki]) => (suosikki?.haku ? [...acc, oid] : acc),
+      (acc, [oid, suosikki]) =>
+        suosikki?.haku && !suosikki?.removed ? [...acc, oid] : acc,
       [] as Array<string>
     )
   );
