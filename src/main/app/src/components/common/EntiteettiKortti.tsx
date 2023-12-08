@@ -42,7 +42,7 @@ const StyledSmartLink = styled(SmartLink, {
     width: '100%',
     marginBottom: theme.spacing(1.5),
     boxShadow: '0 0 8px 0 rgba(0,0,0,0.2)',
-    padding: theme.spacing(3),
+    padding: isSmall ? '16px' : theme.spacing(3),
     [theme.breakpoints.down('xs')]: {
       padding: theme.spacing(2),
     },
@@ -129,6 +129,32 @@ type Props = {
   opintojenLaajuus?: string;
 };
 
+const IconTextBox = ({ iconTexts }: { iconTexts: Array<IconText | undefined> }) => (
+  <Box className={classes.iconTexts}>
+    {iconTexts.filter(Boolean).map((iconText, i) => {
+      const [content, IconComponent] = iconText as IconText;
+      return (
+        content && (
+          <Box
+            key={`header-icon-text-${i}`}
+            flexBasis="33.33%"
+            flexShrink={1}
+            marginBottom={1}>
+            <Typography
+              style={{
+                display: 'flex',
+                marginRight: '8px',
+              }}>
+              {IconComponent && <IconComponent style={{ marginRight: '8px' }} />}
+              {content}
+            </Typography>
+          </Box>
+        )
+      );
+    })}
+  </Box>
+);
+
 export const EntiteettiKortti = ({
   koulutustyyppi = 'amm', // Käytetään vihreää entiteeteille joilla ei ole tyyppiä (e.g. oppilaitos)
   preHeader,
@@ -166,7 +192,6 @@ export const EntiteettiKortti = ({
         classes={{ root: classes.paperRoot }}
         style={{
           borderTop: `5px solid ${educationTypeColorCode[koulutustyyppi]}`,
-          padding: isSmall ? '16px' : '32px',
         }}>
         <Box display="inline-block" width="100%">
           {logoElement && (
@@ -219,30 +244,7 @@ export const EntiteettiKortti = ({
               </Typography>
             </Hidden>
           )}
-
-          <Box className={classes.iconTexts}>
-            {iconTexts.filter(Boolean).map((iconText, i) => {
-              const [content, IconComponent] = iconText as IconText;
-              return (
-                content && (
-                  <Box
-                    key={`header-icon-text-${i}`}
-                    flexBasis="33.33%"
-                    flexShrink={1}
-                    marginBottom={1}>
-                    <Typography
-                      style={{
-                        display: 'flex',
-                        marginRight: '8px',
-                      }}>
-                      {IconComponent && <IconComponent style={{ marginRight: '8px' }} />}
-                      {content}
-                    </Typography>
-                  </Box>
-                )
-              );
-            })}
-          </Box>
+          <IconTextBox iconTexts={iconTexts} />
           {teemakuvaElement && (
             <Hidden smUp>
               <Box
@@ -282,36 +284,13 @@ export const EntiteettiKorttiTiivistetty = ({
         classes={{ root: classes.paperRoot }}
         style={{
           borderTop: `5px solid ${colors.brandGreen}`,
-          padding: isSmall ? '16px' : '32px',
         }}>
         <Box display="inline">
           <Typography variant="h4" className={classes.header}>
             {header}
           </Typography>
         </Box>
-        <Box className={classes.iconTexts}>
-          {iconTexts.filter(Boolean).map((iconText, i) => {
-            const [content, IconComponent] = iconText as IconText;
-            return (
-              content && (
-                <Box
-                  key={`header-icon-text-${i}`}
-                  flexBasis="33.33%"
-                  flexShrink={1}
-                  marginBottom={1}>
-                  <Typography
-                    style={{
-                      display: 'flex',
-                      marginRight: '8px',
-                    }}>
-                    {IconComponent && <IconComponent style={{ marginRight: '8px' }} />}
-                    {content}
-                  </Typography>
-                </Box>
-              )
-            );
-          })}
-        </Box>
+        <IconTextBox iconTexts={iconTexts} />
       </Paper>
     </StyledSmartLink>
   );
