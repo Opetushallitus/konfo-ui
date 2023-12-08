@@ -8,7 +8,7 @@ const StyledTextContent = styled('span')({
   verticalAlign: 'center',
   fontSize: '0.75rem',
   fontWeight: 600,
-  color: colors.black,
+  color: colors.grey900,
   margin: '0 10px',
   lineHeight: '24px',
   whiteSpace: 'nowrap',
@@ -21,7 +21,7 @@ export const TextWithBackground = ({ children }: { children: string }) => {
       justifyContent="center"
       justifyItems="center"
       component="span"
-      sx={{ backgroundColor: colors.lightGreenBg, height: 'fit-content' }}>
+      sx={{ backgroundColor: colors.green100, height: 'fit-content' }}>
       <StyledTextContent>{children}</StyledTextContent>
     </Box>
   );

@@ -20,7 +20,7 @@ const Root = styled('div')({
   },
   fontSize: '16px',
   lineHeight: '27px',
-  color: colors.black,
+  color: colors.grey900,
 });
 
 const SivuHeading = styled('h1')({
@@ -29,7 +29,7 @@ const SivuHeading = styled('h1')({
   marginTop: '15px',
   marginBottom: '30px',
   fontWeight: '700',
-  color: colors.black,
+  color: colors.grey900,
 });
 
 export const Sivu = ({ id }: { id: string }) => {

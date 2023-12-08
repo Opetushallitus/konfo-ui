@@ -65,7 +65,7 @@ export const Progress = React.forwardRef<HTMLButtonElement, ButtonProps>((_, ref
                   maxWidth: '100%',
                   fontSize: '0.75rem',
                   lineHeight: '1rem',
-                  color: colors.black,
+                  color: colors.grey900,
                   backgroundColor: isCurrentQuestion
                     ? colors.brightGreenBg
                     : isPastQuestion

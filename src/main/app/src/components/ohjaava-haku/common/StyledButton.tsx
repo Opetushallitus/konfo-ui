@@ -9,7 +9,7 @@ const AccessibleButton = styled(Button)({
   fontSize: '1rem',
 
   '&.Mui-focusVisible': {
-    color: colors.black,
+    color: colors.grey900,
     background: colors.lightGrayishGreenBg,
     outline: `thick double ${colors.brandGreen}`,
   },
