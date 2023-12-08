@@ -1,7 +1,6 @@
 import { TFunction } from 'i18next';
 
 import { MaterialIconVariant } from '#/src/components/common/MaterialIcon';
-import { NDASH } from '#/src/constants';
 import { localize } from '#/src/tools/localization';
 import { VertailuSuosikki } from '#/src/types/common';
 
@@ -59,11 +58,9 @@ export const VERTAILU_FIELDS_ORDER: Array<{
     icon: 'school',
     iconVariant: 'outlined',
     fieldId: 'kaksoistutkinto',
-    getLabel: (t) => t('suosikit-vertailu.kaksoistutkinto'),
+    getLabel: (t) => t('suosikit-vertailu.voi-suorittaa-kaksoistutkinnon'),
     renderValue: (vertailuSuosikki, t) =>
-      vertailuSuosikki.toinenAsteOnkoKaksoistutkinto
-        ? t('suosikit-vertailu.voi-suorittaa-kaksoistutkinnon')
-        : NDASH,
+      vertailuSuosikki.toinenAsteOnkoKaksoistutkinto ? t('kylla') : t('ei'),
   },
   {
     icon: 'verified',
@@ -78,8 +75,8 @@ export const VERTAILU_FIELDS_ORDER: Array<{
   {
     icon: 'chat_bubble_outline',
     fieldId: 'kielivalikoima',
-    getLabel: (t: TFunction) => t('suosikit-vertailu.kielivalikoima'),
-    renderValue: (vertailuSuosikki: VertailuSuosikki) =>
+    getLabel: (t) => t('suosikit-vertailu.kielivalikoima'),
+    renderValue: (vertailuSuosikki) =>
       isLukio(vertailuSuosikki) ? (
         <VertailuKielet kielivalikoima={vertailuSuosikki.kielivalikoima} />
       ) : undefined,
@@ -88,18 +85,20 @@ export const VERTAILU_FIELDS_ORDER: Array<{
     icon: 'lightbulb',
     iconVariant: 'outlined',
     fieldId: 'osaamisalat',
-    getLabel: (t: TFunction) => t('suosikit-vertailu.osaamisalat'),
-    renderValue: (vertailuSuosikki: VertailuSuosikki) =>
+    getLabel: (t) => t('suosikit-vertailu.osaamisalat'),
+    renderValue: (vertailuSuosikki, t) =>
       isAmmatillinen(vertailuSuosikki) ? (
-        <VertailuKoodiLista koodit={vertailuSuosikki.osaamisalat} />
+        <VertailuKoodiLista
+          koodit={vertailuSuosikki.osaamisalat}
+          emptyText={t('suosikit-vertailu.ei-osaamisaloja')}
+        />
       ) : undefined,
   },
   {
     icon: 'sports_soccer',
     fieldId: 'urheilijan-amm-koulutus',
-    getLabel: (t: TFunction) =>
-      t('suosikit-vertailu.jarjestaa-urheilijan-amm-koulutusta'),
-    renderValue: (vertailuSuosikki: VertailuSuosikki, t: TFunction) =>
+    getLabel: (t) => t('suosikit-vertailu.jarjestaa-urheilijan-amm-koulutusta'),
+    renderValue: (vertailuSuosikki, t) =>
       isAmmatillinen(vertailuSuosikki)
         ? t(vertailuSuosikki.jarjestaaUrheilijanAmmKoulutusta ? 'kylla' : 'ei')
         : undefined,

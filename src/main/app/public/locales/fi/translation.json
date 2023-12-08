@@ -868,18 +868,19 @@
     "opiskelijoita": "Opiskelijoita",
     "koe-tai-lisanaytto": "Koe tai lisänäyttö",
     "kaksoistutkinto": "Kaksoistutkinto",
-    "voi-suorittaa-kaksoistutkinnon": "Voi suorittaa kaksoistutkinnon",
+    "voi-suorittaa-kaksoistutkinnon": "Mahdollisuus kaksoistutkinnon suorittamiseen",
     "lukiodiplomit": "Lukiodiplomit",
     "kielivalikoima": "Kielivalikoima",
     "osaamisalat": "Osaamisalat",
     "jarjestaa-urheilijan-amm-koulutusta": "Mahdollisuus urheilijan ammatilliseen koulutukseen",
-    "valintakoe": "Koe- tai lisänäyttö",
+    "valintakoe": "Koe tai lisänäyttö",
     "urheilijan-amm-koulutus": "Urheilijan ammatillinen koulutus",
     "valitse-vertailtavat-tiedot": "Valitse vertailtavat tiedot",
     "sisaanpaasyn-pistemaara": "Sisäänpääsyn pistemäärä",
     "pistemaarasi": "Pistemääräsi",
     "laske-pistemaarasi": "Laske pistemääräsi",
     "ei-valintakokeita": "Ei järjestetä",
+    "ei-osaamisaloja": "Ei osaamisaloja",
     "ei-maaritelty": "Ei tiedossa"
   }
 }
