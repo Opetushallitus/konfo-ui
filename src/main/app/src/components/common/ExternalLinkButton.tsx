@@ -3,7 +3,10 @@ import { castArray } from 'lodash';
 
 import { MaterialIcon } from './MaterialIcon';
 
-type ExternalButtonProps = Pick<ButtonProps<'a'>, 'sx' | 'children' | 'disabled'> & {
+type ExternalButtonProps = Pick<
+  ButtonProps<'a'>,
+  'sx' | 'children' | 'disabled' | 'onClick'
+> & {
   href: string;
 };
 
@@ -12,6 +15,7 @@ export const ExternalLinkButton = ({
   children,
   href,
   disabled,
+  onClick,
 }: ExternalButtonProps) => (
   <Button
     variant="contained"
@@ -22,6 +26,7 @@ export const ExternalLinkButton = ({
     aria-label={href}
     target="_blank"
     disabled={disabled}
+    onClick={onClick}
     sx={[...castArray(sx).filter(Boolean)]}>
     {children}
   </Button>
