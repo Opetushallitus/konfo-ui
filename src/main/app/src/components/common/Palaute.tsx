@@ -39,25 +39,34 @@ const StyledDialogActions = styled(DialogActions)(({ theme }) => ({
   marginRight: theme.spacing(2),
 }));
 
-const AnnaPalaute = ({ setPalauteAnnettu, onClose }) => {
+const AnnaPalaute = ({
+  setPalauteAnnettu,
+  onClose,
+}: {
+  setPalauteAnnettu: any;
+  onClose: () => void;
+}) => {
   const { t } = useTranslation();
 
-  const [state, setState] = useState({
+  const [state, setState] = useState<{
+    arvosana: number;
+    arvosanaHover: number | null;
+    palaute: string;
+  }>({
     arvosana: 0,
     arvosanaHover: null,
     palaute: '',
   });
 
-  const handleSubmit = (event, arvosana, palaute) => {
-    event.preventDefault();
+  const handleSubmit = (arvosana: number, palaute: string) => {
     return sendPalaute({ arvosana, palaute });
   };
-  const handleArvosanaHoverChange = (star) => setState({ ...state, arvosanaHover: star });
-  const handleArvosanaChange = (evt, star) => {
+  const handleArvosanaHoverChange = (star: number | null) =>
+    setState({ ...state, arvosanaHover: star });
+  const handleArvosanaChange = (star: number) => {
     setState({ ...state, arvosana: star });
-    evt.preventDefault();
   };
-  const handlePalauteChange = (p) => setState({ ...state, palaute: p });
+  const handlePalauteChange = (p: string) => setState({ ...state, palaute: p });
 
   return (
     <>
@@ -91,9 +100,8 @@ const AnnaPalaute = ({ setPalauteAnnettu, onClose }) => {
           {[1, 2, 3, 4, 5].map((star) => {
             const selected =
               (state.arvosanaHover && state.arvosanaHover >= star) ||
-              state.arvosana >= star
-                ? 'palaute-form-star-selected'
-                : null;
+              state.arvosana >= star;
+
             return (
               <IconButton
                 key={'star-' + star}
@@ -102,7 +110,7 @@ const AnnaPalaute = ({ setPalauteAnnettu, onClose }) => {
                 aria-label={t('palaute.tähti.' + star)}
                 onMouseEnter={() => handleArvosanaHoverChange(star)}
                 onMouseLeave={() => handleArvosanaHoverChange(null)}
-                onClick={(e) => handleArvosanaChange(e, star)}
+                onClick={() => handleArvosanaChange(star)}
                 component="span">
                 <MaterialIcon icon="star" />
               </IconButton>
@@ -123,8 +131,8 @@ const AnnaPalaute = ({ setPalauteAnnettu, onClose }) => {
           variant="contained"
           disabled={!state.arvosana}
           color="primary"
-          onClick={(event) =>
-            handleSubmit(event, state.arvosana, state.palaute).then(() =>
+          onClick={() =>
+            handleSubmit(state.arvosana, state.palaute).then(() =>
               setPalauteAnnettu(true)
             )
           }>
@@ -135,7 +143,7 @@ const AnnaPalaute = ({ setPalauteAnnettu, onClose }) => {
   );
 };
 
-const KiitosPalautteesta = ({ onClose }) => {
+const KiitosPalautteesta = ({ onClose }: { onClose: () => void }) => {
   const { t } = useTranslation();
 
   return (
@@ -159,21 +167,16 @@ const KiitosPalautteesta = ({ onClose }) => {
   );
 };
 
-export const Palaute = ({ open, hide }) => {
+export const Palaute = ({ open, hide }: { open: boolean; hide: () => void }) => {
   const { t } = useTranslation();
   const [palauteAnnettu, setPalauteAnnettu] = useState(false);
-
-  const onClose = (event) => {
-    hide();
-    event.preventDefault();
-  };
 
   return (
     <StyledDialog open={open} onClose={hide} aria-labelledby={t('palaute.otsikko')}>
       {palauteAnnettu ? (
-        <KiitosPalautteesta onClose={onClose} />
+        <KiitosPalautteesta onClose={hide} />
       ) : (
-        <AnnaPalaute setPalauteAnnettu={setPalauteAnnettu} onClose={onClose} />
+        <AnnaPalaute setPalauteAnnettu={setPalauteAnnettu} onClose={hide} />
       )}
     </StyledDialog>
   );
