@@ -12,7 +12,8 @@ export const VertailuNotificationContent = () => {
     <Box sx={{ color: 'white' }}>
       <Box fontWeight="bold">{t('suosikit-vertailu.hakukohde-valittu')}</Box>
       <Link
-        component="span"
+        component="button"
+        type="button"
         sx={{ color: 'white', textDecorationColor: 'white' }}
         onClick={() => {
           setIsOpen(true);
