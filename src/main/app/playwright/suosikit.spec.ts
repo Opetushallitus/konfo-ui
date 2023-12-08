@@ -1,4 +1,4 @@
-import { Page, Route, expect, test } from '@playwright/test';
+import { Locator, Page, Route, expect, test } from '@playwright/test';
 
 import {
   expectURLEndsWith,
@@ -265,18 +265,39 @@ test.describe('Suosikit', () => {
 
     const firstVertailuItem = vertailuListItems.nth(0);
 
-    await expect(firstVertailuItem.getByText('Käyntiosoite')).toBeVisible();
+    const getVertailuField = (loc: Locator, text: string) =>
+      getByLabelLoc(loc, loc.getByText(text));
+
+    await expect(await getVertailuField(firstVertailuItem, 'Käyntiosoite')).toHaveText(
+      'Rämsöönranta 312, 04400 Järvenpää'
+    );
     await expect(
-      firstVertailuItem.getByText('Sisäänpääsyn alin pistemäärä')
-    ).toBeVisible();
-    await expect(firstVertailuItem.getByText('Opiskelijoita')).toBeVisible();
-    await expect(firstVertailuItem.getByText('Koe tai lisänäyttö')).toBeVisible();
-    await expect(firstVertailuItem.getByText('Kaksoistutkinto')).toBeVisible();
-    await expect(firstVertailuItem.getByText('Osaamisalat')).toBeVisible();
+      await getVertailuField(firstVertailuItem, 'Sisäänpääsyn alin pistemäärä')
+    ).toHaveText(/^-6/);
+
+    await expect(await getVertailuField(firstVertailuItem, 'Opiskelijoita')).toHaveText(
+      '1400'
+    );
+
     await expect(
-      await getByLabelLoc(
+      await getVertailuField(firstVertailuItem, 'Koe tai lisänäyttö')
+    ).toHaveText('Haastattelu');
+
+    await expect(
+      await getVertailuField(
         firstVertailuItem,
-        firstVertailuItem.getByText('Mahdollisuus urheilijan ammatilliseen koulutukseen')
+        'Mahdollisuus kaksoistutkinnon suorittamiseen'
+      )
+    ).toHaveText('Ei');
+
+    await expect(await getVertailuField(firstVertailuItem, 'Osaamisalat')).toHaveText(
+      'Ajoneuvotekniikan osaamisalaVauriokorjauksen osaamisala'
+    );
+
+    await expect(
+      await getVertailuField(
+        firstVertailuItem,
+        'Mahdollisuus urheilijan ammatilliseen koulutukseen'
       )
     ).toHaveText('Ei');
 
