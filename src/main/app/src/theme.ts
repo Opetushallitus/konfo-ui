@@ -170,8 +170,19 @@ export const theme = createTheme({
     },
     MuiTooltip: {
       styleOverrides: {
+        arrow: {
+          color: colors.white,
+          '&::before': {
+            border: `1px solid ${colors.grey500}`,
+          },
+        },
         tooltip: {
+          backgroundColor: colors.white,
+          cursor: 'auto',
+          userSelect: 'all',
+          color: colors.grey900,
           fontSize: 12,
+          border: `1px solid ${colors.grey500}`,
         },
       },
     },
