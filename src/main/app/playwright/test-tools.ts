@@ -53,8 +53,10 @@ export const getSearchInput = (page: Page) =>
 
 export const getSearchButton = (page: Page) => page.getByRole('button', { name: /Etsi/ });
 
+const escapeRegExp = (str: string) => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+
 export const expectURLEndsWith = (page: Page, urlEnd: string) =>
-  expect(page).toHaveURL(new RegExp(urlEnd + '$'));
+  expect(page).toHaveURL(new RegExp(escapeRegExp(urlEnd) + '$'));
 
 const FIXTURES_PATH = path.resolve(__dirname, './fixtures');
 
@@ -66,12 +68,7 @@ export const fixtureFromFile = (fileName: string) => (route: Route) =>
 export const getFixtureData = async (fileName: string) =>
   (await import(getFixturePath(fileName)))?.default;
 
-export const getByHeadingLabel = async (
-  loc: Locator | Page,
-  headingText: string | RegExp,
-  exact: boolean = false
-) => {
-  const label = loc.getByRole('heading', { name: headingText, exact });
+export const getByLabelLoc = async (loc: Locator | Page, label: Locator) => {
   const id = await label.getAttribute('id');
   return loc.locator(`css=[aria-labelledby="${id}"]`);
 };

@@ -13,6 +13,7 @@ import {
 } from '#/src/types/ContentfulTypes';
 
 import { InlineSvgIcon } from './common/InlineSvgIcon';
+import { MaterialIcon } from './common/MaterialIcon';
 import { ContentSection } from './ContentSection';
 import { Heading } from './Heading';
 
@@ -32,8 +33,8 @@ const StyledLI = styled('li')({
 
 const ListItemWithChevron = ({ children }: React.PropsWithChildren) => (
   <StyledLI sx={{ display: 'flex', alignItems: 'flex-start' }}>
-    <InlineSvgIcon
-      src="/konfo/icons/material/outlined/chevron_right.svg"
+    <MaterialIcon
+      icon="chevron_right"
       color="primary"
       sx={{ fontSize: '1.4em', marginTop: '.3rem' }}
     />

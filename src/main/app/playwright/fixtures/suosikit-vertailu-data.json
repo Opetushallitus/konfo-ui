@@ -1,0 +1,190 @@
+[
+    {
+        "lukiodiplomit": null,
+        "esittely": {
+            "fi": "<p><strong>Ammatillista ja valmentavaa koulutusta nuorille ja aikuisille, jotka tarvitsevat yksilöllistä tukea opintoihinsa.</strong></p><p></p><p>Ammattiopisto Spesia on ammatillinen erityisoppilaitos. Meillä opiskelee vuosittain yli 1400 opiskelijaa.</p><p></p><p>Spesian päätoimipaikat ovat <strong>Jyväskylä</strong>, <strong>Järvenpää</strong>, <strong>Pieksämäki</strong> ja <strong>Turku</strong>. Järjestämme koulutusta myös useilla muilla paikkakunnilla.</p><p></p><p><strong>Kenelle?</strong></p><p></p><p>Opiskelijamme ovat mahtava joukko nuoria ja aikuisia, jotka tarvitsevat yksilöllistä tukea opintoihinsa. Erityisen tuen tarve voi liittyä esimerkiksi oppimisvaikeuksiin, fyysisiin rajoitteisiin tai sosiaalisiin haasteisiin.</p><p></p><p></p><p><strong>Mitä?</strong></p><p></p><p>Spesian monipuolisesta koulutustarjonnasta löydät ammatilliseen perustutkintoon johtavaa koulutusta, valmentavaa koulutusta sekä tuettua oppisopimuskoulutusta. Lisätietoa koulutuksista ja hakemisesta löydät Opintopolusta tai oppilaitoksen sivuilta osoitteesta www.spesia.fi.</p><p></p><p><strong>Miten?</strong></p><p></p><p>Spesiassa asiat opitaan käytännönläheisesti, pienissä ryhmissä. Opetus on selkeää ja asioita kerrataan riittävän monta kertaa.</p><p>Opiskelijan vahvuudet ja tuen tarve huomioidaan yksilöllisesti.</p>"
+        },
+        "logo": "https://konfo-files.opintopolku.fi/oppilaitos-logo/1.2.246.562.10.57547005504/56ce8fe1-cf1d-43d6-8ff3-f4d8db2bd453.png",
+        "edellinenHaku": {
+            "tarjoaja": "1.2.246.562.10.39101208583",
+            "hakukohdekoodi": "hakukohteeterammatillinenerityisopetus_3181",
+            "pisteet": -6.0,
+            "vuosi": "2023",
+            "valintatapajonoOid": "1680000068791-6244825191380484087",
+            "hakukohdeOid": "1.2.246.562.20.00000000000000022788",
+            "hakuOid": "1.2.246.562.29.00000000000000021303",
+            "valintatapajonoTyyppi": "valintatapajono_m"
+        },
+        "osaamisalat": [
+            {
+                "koodi": {
+                    "koodiUri": "osaamisala_1008",
+                    "nimi": {
+                        "sv": "Kompetensområdet för fordonsteknik",
+                        "fi": "Ajoneuvotekniikan osaamisala"
+                    }
+                },
+                "linkki": {},
+                "otsikko": {}
+            },
+            {
+                "koodi": {
+                    "koodiUri": "osaamisala_3181",
+                    "nimi": {
+                        "sv": "Kompetensområdet för skadereparation",
+                        "en": "Competence area of Damage Repairs",
+                        "fi": "Vauriokorjauksen osaamisala"
+                    }
+                },
+                "linkki": {},
+                "otsikko": {}
+            }
+        ],
+        "kielivalikoima": null,
+        "toteutusOid": "1.2.246.562.17.00000000000000005375",
+        "opiskelijoita": 1400,
+        "jarjestyspaikka": {
+            "oid": "1.2.246.562.10.39101208583",
+            "nimi": {
+                "sv": "Karins",
+                "fi": "Kaarina",
+                "en": "Kaarina"
+            },
+            "paikkakunta": {
+                "koodiUri": "kunta_202",
+                "nimi": {
+                    "fi": "Kaarina",
+                    "sv": "St Karins"
+                }
+            },
+            "jarjestaaUrheilijanAmmKoulutusta": null
+        },
+        "toinenAsteOnkoKaksoistutkinto": false,
+        "nimi": {
+            "fi": "Vauriokorjauksen osaamisala, Ajoneuvoalan perustutkinto (vaativa erityinen tuki)"
+        },
+        "osoite": {
+            "fi": "Rämsöönranta 312, 04400 Järvenpää"
+        },
+        "hakukohdeOid": "1.2.246.562.20.00000000000000041502",
+        "jarjestaaUrheilijanAmmKoulutusta": false,
+        "valintakokeet": [
+            {
+                "id": "0c4e59a4-e4c6-420e-814b-71e0040e57d6",
+                "tyyppi": {
+                    "koodiUri": "valintakokeentyyppi_6#1",
+                    "nimi": {
+                        "fi": "Haastattelu",
+                        "sv": "Intervju"
+                    }
+                },
+                "nimi": {
+                    "fi": "Haastattelu"
+                },
+                "metadata": {
+                    "tietoja": {
+                        "fi": "<p>Haastatteluun kutsutaan kaikki hakukelpoiset hakijat, jotka ovat asettaneet kyseisen osaamisalan 1. hakutoiveeksi.</p><p></p><p>Hakijaan ollaan yhteydessä joko tekstiviestillä tai puhelimitse haastatteluajan sopimiseksi. Hakijalle ilmoitetaan haastatteluaika tekstiviestillä. Mikäli puhelinnumero muuttuu tai hakemukseen kirjattu puhelinnumero on väärä, niin hakijan on ilmoitettava uusi puhelinnumero sähköpostilla osoitteeseen: hakutoimisto(at)spesia.fi.</p>"
+                    },
+                    "ohjeetEnnakkovalmistautumiseen": {},
+                    "ohjeetErityisjarjestelyihin": {}
+                },
+                "tilaisuudet": []
+            }
+        ],
+        "koulutustyyppi": "amm"
+    },
+    {
+        "lukiodiplomit": null,
+        "esittely": {
+            "fi": "<p><strong>Ammatillista ja valmentavaa koulutusta nuorille ja aikuisille, jotka tarvitsevat yksilöllistä tukea opintoihinsa.</strong></p><p></p><p>Ammattiopisto Spesia on ammatillinen erityisoppilaitos. Meillä opiskelee vuosittain yli 1400 opiskelijaa.</p><p></p><p>Spesian päätoimipaikat ovat <strong>Jyväskylä</strong>, <strong>Järvenpää</strong>, <strong>Pieksämäki</strong> ja <strong>Turku</strong>. Järjestämme koulutusta myös useilla muilla paikkakunnilla.</p><p></p><p><strong>Kenelle?</strong></p><p></p><p>Opiskelijamme ovat mahtava joukko nuoria ja aikuisia, jotka tarvitsevat yksilöllistä tukea opintoihinsa. Erityisen tuen tarve voi liittyä esimerkiksi oppimisvaikeuksiin, fyysisiin rajoitteisiin tai sosiaalisiin haasteisiin.</p><p></p><p></p><p><strong>Mitä?</strong></p><p></p><p>Spesian monipuolisesta koulutustarjonnasta löydät ammatilliseen perustutkintoon johtavaa koulutusta, valmentavaa koulutusta sekä tuettua oppisopimuskoulutusta. Lisätietoa koulutuksista ja hakemisesta löydät Opintopolusta tai oppilaitoksen sivuilta osoitteesta www.spesia.fi.</p><p></p><p><strong>Miten?</strong></p><p></p><p>Spesiassa asiat opitaan käytännönläheisesti, pienissä ryhmissä. Opetus on selkeää ja asioita kerrataan riittävän monta kertaa.</p><p>Opiskelijan vahvuudet ja tuen tarve huomioidaan yksilöllisesti.</p>"
+        },
+        "logo": "https://konfo-files.opintopolku.fi/oppilaitos-logo/1.2.246.562.10.57547005504/56ce8fe1-cf1d-43d6-8ff3-f4d8db2bd453.png",
+        "edellinenHaku": {
+            "tarjoaja": "1.2.246.562.10.39101208583",
+            "hakukohdekoodi": "hakukohteeterammatillinenerityisopetus_1008",
+            "pisteet": -2.0,
+            "vuosi": "2023",
+            "valintatapajonoOid": "16800000581871618242764669095745",
+            "hakukohdeOid": "1.2.246.562.20.00000000000000022730",
+            "hakuOid": "1.2.246.562.29.00000000000000021303",
+            "valintatapajonoTyyppi": "valintatapajono_m"
+        },
+        "osaamisalat": [
+            {
+                "koodi": {
+                    "koodiUri": "osaamisala_1008",
+                    "nimi": {
+                        "sv": "Kompetensområdet för fordonsteknik",
+                        "fi": "Ajoneuvotekniikan osaamisala"
+                    }
+                },
+                "linkki": {},
+                "otsikko": {}
+            },
+            {
+                "koodi": {
+                    "koodiUri": "osaamisala_3181",
+                    "nimi": {
+                        "sv": "Kompetensområdet för skadereparation",
+                        "en": "Competence area of Damage Repairs",
+                        "fi": "Vauriokorjauksen osaamisala"
+                    }
+                },
+                "linkki": {},
+                "otsikko": {}
+            }
+        ],
+        "kielivalikoima": null,
+        "toteutusOid": "1.2.246.562.17.00000000000000005375",
+        "opiskelijoita": 1400,
+        "jarjestyspaikka": {
+            "oid": "1.2.246.562.10.39101208583",
+            "nimi": {
+                "sv": "Karins",
+                "fi": "Kaarina",
+                "en": "Kaarina"
+            },
+            "paikkakunta": {
+                "koodiUri": "kunta_202",
+                "nimi": {
+                    "fi": "Kaarina",
+                    "sv": "St Karins"
+                }
+            },
+            "jarjestaaUrheilijanAmmKoulutusta": null
+        },
+        "toinenAsteOnkoKaksoistutkinto": false,
+        "nimi": {
+            "fi": "Ajoneuvotekniikan osaamisala, Ajoneuvoalan perustutkinto (vaativa erityinen tuki)"
+        },
+        "osoite": {
+            "fi": "Rämsöönranta 312, 04400 Järvenpää"
+        },
+        "hakukohdeOid": "1.2.246.562.20.00000000000000041481",
+        "jarjestaaUrheilijanAmmKoulutusta": false,
+        "valintakokeet": [
+            {
+                "id": "2c9a2b9b-e702-432f-a13a-a4c84ab2c3de",
+                "tyyppi": {
+                    "koodiUri": "valintakokeentyyppi_6#1",
+                    "nimi": {
+                        "fi": "Haastattelu",
+                        "sv": "Intervju"
+                    }
+                },
+                "nimi": {
+                    "fi": "Haastattelu"
+                },
+                "metadata": {
+                    "tietoja": {
+                        "fi": "<p>Haastatteluun kutsutaan kaikki hakukelpoiset hakijat, jotka ovat asettaneet kyseisen osaamisalan 1. hakutoiveeksi.</p><p></p><p>Hakijaan ollaan yhteydessä joko tekstiviestillä tai puhelimitse haastatteluajan sopimiseksi. Hakijalle ilmoitetaan haastatteluaika tekstiviestillä. Mikäli puhelinnumero muuttuu tai hakemukseen kirjattu puhelinnumero on väärä, niin hakijan on ilmoitettava uusi puhelinnumero sähköpostilla osoitteeseen: hakutoimisto(at)spesia.fi.</p>"
+                    },
+                    "ohjeetEnnakkovalmistautumiseen": {},
+                    "ohjeetErityisjarjestelyihin": {}
+                },
+                "tilaisuudet": []
+            }
+        ],
+        "koulutustyyppi": "amm"
+    }
+]

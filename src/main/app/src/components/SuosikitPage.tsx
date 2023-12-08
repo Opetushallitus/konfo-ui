@@ -1,51 +1,72 @@
-import { useEffect, useMemo } from 'react';
-
-import { Alert, Backdrop, Box, Button, Link, Paper, Typography } from '@mui/material';
-import { isEmpty, sortBy } from 'lodash';
+import { Alert, Box, Button, Collapse, Link, Typography } from '@mui/material';
+import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
+import { TransitionGroup } from 'react-transition-group';
+import { usePrevious } from 'react-use';
 
 import { getHakukohdeSuosikit } from '#/src/api/konfoApi';
-import { colors } from '#/src/colors';
 import {
   SuosikitState,
-  useNonRemovedSuosikitCount,
+  useSuosikitCount,
+  useSuosikitDataOrdered,
   useSuosikitSelection,
+  useVertailuSuosikit,
 } from '#/src/hooks/useSuosikitSelection';
 import { useTruncatedKuvaus } from '#/src/hooks/useTruncatedKuvaus';
 import { styled } from '#/src/theme';
+import { isHakuAuki } from '#/src/tools/hakuaikaUtils';
 import { localize } from '#/src/tools/localization';
-import { Translateable } from '#/src/types/common';
+import { Koodi, Suosikki, Translateable } from '#/src/types/common';
 
 import { ContentWrapper } from './common/ContentWrapper';
 import { OppilaitosKorttiLogo } from './common/KorttiLogo';
 import { MaterialIcon } from './common/MaterialIcon';
 import { Murupolku } from './common/Murupolku';
-import { QueryResultWrapper } from './common/QueryResultWrapper';
+import { QueryResult } from './common/QueryResultWrapper';
 import { TextWithBackground } from './common/TextWithBackground';
 import { ToggleSuosikkiButton } from './common/ToggleSuosikkiButton';
 import { Heading, HeadingBoundary } from './Heading';
+import { OutlinedCheckboxButton } from './OutlinedCheckboxButton';
+import { PaperWithTopColor } from './PaperWithTopColor';
 
-const useSuosikitData = (oids?: Array<string>) =>
-  useQuery(
+const useSuosikitData = (oids?: Array<string>) => {
+  const queryClient = useQueryClient();
+  const previousOids = usePrevious(oids);
+
+  const oidsRemoved =
+    oids &&
+    previousOids &&
+    oids?.length < previousOids?.length &&
+    oids?.every((v) => previousOids?.includes(v));
+
+  // Jos poistetaan suosikki, asetetaan uudelle pyynnölle arvo filtteröimällä.
+  // Näin ei noudeta dataa turhaan ja näytetä spinneriä -> pystytään animoimaan poistaminen.
+  if (oidsRemoved) {
+    const previousData: Array<Suosikki> | undefined = queryClient.getQueryData([
+      'getSuosikit',
+      previousOids,
+    ]);
+    queryClient.setQueryData(
+      ['getSuosikit', oids],
+      previousData?.filter(({ hakukohdeOid }) => oids?.includes(hakukohdeOid))
+    );
+  }
+
+  return useQuery(
     ['getSuosikit', oids],
     () => getHakukohdeSuosikit({ 'hakukohde-oids': oids! }),
     {
       enabled: !isEmpty(oids),
+      refetchOnWindowFocus: false,
     }
   );
-
-const PaperWithAccent = styled(Paper)(({ theme }) => ({
-  borderTop: `5px solid ${colors.brandGreen}`,
-  width: '100%',
-  position: 'relative',
-  padding: `${theme.spacing(3)}`,
-}));
+};
 
 const Tutkintonimikkeet = ({
   tutkintonimikkeet,
 }: {
-  tutkintonimikkeet: Array<{ nimi: Translateable }>;
+  tutkintonimikkeet?: Array<Koodi>;
 }) => {
   return tutkintonimikkeet ? (
     <>
@@ -57,13 +78,28 @@ const Tutkintonimikkeet = ({
   ) : null;
 };
 
-const SuosikkiKortti = ({
-  hakukohdeSuosikki,
-  removed,
-}: {
-  hakukohdeSuosikki: any;
-  removed?: boolean;
-}) => {
+const ToggleVertailuButton = ({ oid }: { oid: string }) => {
+  const { t } = useTranslation();
+  const { toggleVertailu } = useSuosikitSelection();
+  const vertailuSuosikit = useVertailuSuosikit();
+
+  const canAddToVertailu = vertailuSuosikit.length < 3;
+
+  const checked = vertailuSuosikit.indexOf(oid) !== -1;
+
+  return (
+    <OutlinedCheckboxButton
+      checked={checked}
+      disabled={!checked && !canAddToVertailu}
+      onClick={() => {
+        toggleVertailu(oid);
+      }}>
+      {checked ? t('suosikit.poista-vertailusta') : t('suosikit.lisaa-vertailuun')}
+    </OutlinedCheckboxButton>
+  );
+};
+
+const SuosikkiKortti = ({ hakukohdeSuosikki }: { hakukohdeSuosikki: Suosikki }) => {
   const { t } = useTranslation();
 
   const logoAltText = `${t('haku.oppilaitoksen-logo')}`;
@@ -71,8 +107,7 @@ const SuosikkiKortti = ({
   const kuvaus = useTruncatedKuvaus(localize(hakukohdeSuosikki.esittely));
 
   return (
-    <PaperWithAccent key={hakukohdeSuosikki.hakukohdeOid} role="listitem">
-      <Backdrop sx={{ position: 'absolute' }} open={Boolean(removed)} />
+    <PaperWithTopColor key={hakukohdeSuosikki.hakukohdeOid} role="listitem">
       <Box
         sx={{
           display: 'inline-block',
@@ -82,7 +117,7 @@ const SuosikkiKortti = ({
         <OppilaitosKorttiLogo image={hakukohdeSuosikki.logo} alt={logoAltText} />
       </Box>
       <Typography variant="body1">
-        {localize(hakukohdeSuosikki.jarjestyspaikka)}
+        {localize(hakukohdeSuosikki.oppilaitosNimi)}
       </Typography>
       <Link href={`toteutus/${hakukohdeSuosikki.toteutusOid}`}>
         <Heading color="primary" variant="h4">
@@ -90,14 +125,13 @@ const SuosikkiKortti = ({
         </Heading>
       </Link>
       <Typography>{kuvaus}</Typography>
-      <p>{hakukohdeSuosikki.timestamp}</p>
       <Box
         display="flex"
         flexDirection="row"
         justifyContent="space-between"
         alignItems="flex-end"
         flexWrap="wrap"
-        mt={2}
+        marginTop={2}
         gap={2}>
         <Box
           display="flex"
@@ -112,21 +146,24 @@ const SuosikkiKortti = ({
           <Box display="flex">
             <MaterialIcon icon="public" />
             <Typography display="flex" marginLeft={1}>
-              {localize(hakukohdeSuosikki.jarjestyspaikka.paikkakunta)}
+              {localize(hakukohdeSuosikki.jarjestyspaikka?.paikkakunta)}
             </Typography>
           </Box>
-          <Box mt="3px" mb={1}>
-            <TextWithBackground>{t('haku.hakukaynnissa')}</TextWithBackground>
+          <Box marginTop="3px" marginBottom={1}>
+            {isHakuAuki(hakukohdeSuosikki.hakuajat) && (
+              <TextWithBackground>{t('haku.hakukaynnissa')}</TextWithBackground>
+            )}
           </Box>
         </Box>
-        <Box ml="auto">
+        <Box marginLeft="auto">
+          <ToggleVertailuButton oid={hakukohdeSuosikki.hakukohdeOid} />
           <ToggleSuosikkiButton
             hakukohdeOid={hakukohdeSuosikki.hakukohdeOid}
-            softRemove
+            confirmRemove
           />
         </Box>
       </Box>
-    </PaperWithAccent>
+    </PaperWithTopColor>
   );
 };
 
@@ -137,19 +174,51 @@ const MissingSuosikit = ({ removeMissing }: { removeMissing: () => void }) => {
     <Alert
       severity="warning"
       sx={{
-        display: 'flex',
-        alignItems: 'center',
-        alignSelf: 'center',
+        '& .MuiAlert-message': {
+          display: 'flex',
+          justifyContent: 'space-between',
+          width: '100%',
+          flexWrap: 'wrap',
+          gap: 1,
+        },
       }}>
-      <Box display="inline-block" mr={2}>
+      <Box flexShrink="1" display="inline-block">
         {t('suosikit.puuttuvia-suosikkeja')}
       </Box>
-      <Button color="primary" variant="contained" onClick={removeMissing}>
+      <Button
+        color="primary"
+        variant="contained"
+        onClick={removeMissing}
+        sx={{ justifySelf: 'flex-end', marginLeft: 'auto' }}>
         {t('suosikit.poista-puuttuvat')}
       </Button>
     </Alert>
   );
 };
+
+const VertaileValittuja = () => {
+  const { t } = useTranslation();
+  const vertailuSuosikit = useVertailuSuosikit();
+  return (
+    <Box>
+      <Button
+        sx={{ display: 'inline-block', float: 'right', marginLeft: 1, marginTop: '4px' }}
+        href="suosikit/vertailu"
+        disabled={vertailuSuosikit.length === 0}
+        variant="outlined"
+        color="primary">
+        {t('suosikit.vertaile-valittuja')}
+      </Button>
+      <Typography>{t('suosikit.vertaile-ohje')}</Typography>
+    </Box>
+  );
+};
+
+const TransitionGroupList = styled(TransitionGroup)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  rowGap: theme.spacing(3),
+}));
 
 const SuosikitList = ({
   suosikitSelection,
@@ -161,21 +230,14 @@ const SuosikitList = ({
   const queryResult = useSuosikitData(Object.keys(suosikitSelection));
   const { data, isFetching } = queryResult;
 
-  const orderedData = useMemo(
-    () =>
-      sortBy(
-        data,
-        (suosikkiData) => suosikitSelection[suosikkiData.hakukohdeOid]?.timestamp
-      ),
-    [data, suosikitSelection]
-  );
+  const orderedData = useSuosikitDataOrdered(data);
 
   const suosikitWithMissingData = Object.keys(suosikitSelection).filter(
     (oid) => !data?.find((item) => item.hakukohdeOid == oid)
   );
 
   return (
-    <QueryResultWrapper queryResult={queryResult}>
+    <QueryResult queryResult={queryResult}>
       <HeadingBoundary>
         <Box display="flex" flexDirection="column" rowGap={3}>
           {!isFetching && !isEmpty(suosikitWithMissingData) && (
@@ -183,37 +245,25 @@ const SuosikitList = ({
               removeMissing={() => removeSuosikit(suosikitWithMissingData)}
             />
           )}
-          <Box
-            role="list"
-            data-testid="suosikit-list"
-            display="flex"
-            flexDirection="column"
-            rowGap={3}>
+          {!isFetching && !isEmpty(data) && <VertaileValittuja />}
+          <TransitionGroupList role="list" data-testid="suosikit-list">
             {orderedData?.map((hakukohdeSuosikki) => (
-              <SuosikkiKortti
-                key={hakukohdeSuosikki.hakukohdeOid}
-                hakukohdeSuosikki={hakukohdeSuosikki}
-                removed={suosikitSelection?.[hakukohdeSuosikki.hakukohdeOid]?.removed}
-              />
+              <Collapse key={hakukohdeSuosikki.hakukohdeOid}>
+                <SuosikkiKortti hakukohdeSuosikki={hakukohdeSuosikki} />
+              </Collapse>
             ))}
-          </Box>
+          </TransitionGroupList>
         </Box>
       </HeadingBoundary>
-    </QueryResultWrapper>
+    </QueryResult>
   );
 };
 
 export const SuosikitPage = () => {
   const { t } = useTranslation();
-  const { suosikitSelection, clearSoftRemovedSuosikit, removeSuosikit } =
-    useSuosikitSelection();
+  const { suosikitSelection, removeSuosikit } = useSuosikitSelection();
 
-  const suosikitCount = useNonRemovedSuosikitCount();
-
-  useEffect(() => {
-    clearSoftRemovedSuosikit();
-    return () => clearSoftRemovedSuosikit();
-  }, [clearSoftRemovedSuosikit]);
+  const suosikitCount = useSuosikitCount();
 
   return (
     <ContentWrapper>
@@ -221,10 +271,10 @@ export const SuosikitPage = () => {
         <Murupolku path={[{ name: t('suosikit.otsikko') }]} />
       </Box>
       <Heading variant="h1">{t('suosikit.otsikko')}</Heading>
-      <Box display="inline-flex" mb={1}>
+      <Box display="inline-flex" marginBottom={1}>
         {suosikitCount > 0 ? (
           <>
-            <Box mr={1}>
+            <Box marginRight={1}>
               <MaterialIcon icon="favorite" color="primary" />
             </Box>
             {t('suosikit.tallennettu-hakukohde', { count: suosikitCount })}

@@ -12,22 +12,14 @@ import { sanitizedHTMLParser } from '#/src/tools/utils';
 
 import { PageSection } from './PageSection';
 
-const PREFIX = 'HtmlTextBox';
-
-const classes = {
-  textArea: `${PREFIX}-textArea`,
-};
-
-const StyledPageSection = styled(PageSection)(({ theme }) => ({
-  [`& .${classes.textArea}`]: {
-    margin: '60px auto',
-    width: '63%',
-    '& a[!class]': {
-      color: colors.brandGreen,
-      textDecoration: 'underline',
-    },
-    ...theme.typography.body1,
+const StyledTextArea = styled(Box)(({ theme }) => ({
+  margin: '60px auto',
+  width: '63%',
+  '& a[!class]': {
+    color: colors.brandGreen,
+    textDecoration: 'underline',
   },
+  ...theme.typography.body1,
 }));
 
 const Ellipsis = ({ onShowMore }) => {
@@ -52,9 +44,9 @@ export const HtmlTextBox = (props) => {
   const { t } = useTranslation();
 
   return (
-    <StyledPageSection heading={heading} {...rest}>
+    <PageSection heading={heading} {...rest}>
       <ColoredPaperContent backgroundColor={educationTypeColorCode.ammatillinenGreenBg}>
-        <Box display="flex" flexDirection="column" className={classes.textArea}>
+        <StyledTextArea display="flex" flexDirection="column">
           <TruncateMarkup
             lines={isExpanded ? Infinity : 12}
             ellipsis={<Ellipsis onShowMore={() => setIsExpanded(true)} />}>
@@ -68,8 +60,8 @@ export const HtmlTextBox = (props) => {
               {t('haku.näytä_vähemmän')}
             </TextButton>
           )}
-        </Box>
+        </StyledTextArea>
       </ColoredPaperContent>
-    </StyledPageSection>
+    </PageSection>
   );
 };

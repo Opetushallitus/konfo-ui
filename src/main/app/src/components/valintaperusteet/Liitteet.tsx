@@ -7,25 +7,11 @@ import { ExternalLink } from '#/src/components/common/ExternalLink';
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
 import { createMaterialIcon } from '#/src/components/common/MaterialIcon';
 import { Heading, HeadingBoundary } from '#/src/components/Heading';
-import { styled } from '#/src/theme';
 import { localize, localizeOsoite } from '#/src/tools/localization';
 import { useOsoitteet } from '#/src/tools/useOppilaitosOsoite';
 import { toId } from '#/src/tools/utils';
 import { Yhteystiedot } from '#/src/types/common';
 import { Hakukohde, Liite, FormatoituAikaleima } from '#/src/types/HakukohdeTypes';
-
-const PREFIX = 'Liitteet';
-
-const classes = {
-  root: `${PREFIX}-root`,
-};
-
-const StyledGrid = styled(Grid)(() => ({
-  [`& .${classes.root}`]: {
-    color: colors.brandGreen,
-    marginTop: 12,
-  },
-}));
 
 const LIITTEEN_TOIMITUSTAPA = {
   TOIMITETAAN_LAHETTAMISEN_YHTEYDESSA: 'lomake',
@@ -145,13 +131,14 @@ const LiiteCard = ({
       <HeadingBoundary>
         <Card elevation={2}>
           <CardContent>
-            <StyledGrid container>
+            <Grid container>
               {liitteet.map(({ nimi, kuvaus }, i) => (
                 <Grid container key={`liite-${nimi}-${i}`}>
                   <Grid item container xs={1} justifyContent="flex-end">
                     <FileIcon
-                      classes={{
-                        root: classes.root,
+                      sx={{
+                        color: colors.brandGreen,
+                        marginTop: 12,
                       }}
                     />
                   </Grid>
@@ -187,7 +174,7 @@ const LiiteCard = ({
                   <Typography variant="body1">{localize(toimitusaika)}</Typography>
                 </Box>
               </Grid>
-            </StyledGrid>
+            </Grid>
           </CardContent>
         </Card>
       </HeadingBoundary>

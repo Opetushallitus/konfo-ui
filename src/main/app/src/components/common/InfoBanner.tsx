@@ -4,7 +4,11 @@ import { Box, Typography } from '@mui/material';
 
 import { ContentWithTopIcon } from '#/src/components/common/ContentWithTopIcon';
 
-export const InfoBanner = (props) => {
+export const InfoBanner = (props: {
+  heading: string;
+  bodytext: string;
+  icon: React.ReactNode;
+}) => {
   const { heading, bodytext, icon } = props;
   return (
     <ContentWithTopIcon icon={icon}>

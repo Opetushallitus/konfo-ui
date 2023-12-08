@@ -1,14 +1,11 @@
-import React from 'react';
-
-import { Link } from '@mui/material';
 import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
 
 import { getToteutusOsaamisalaKuvaus } from '#/src/api/konfoApi';
 import { Accordion } from '#/src/components/common/Accordion';
+import { ExternalLink } from '#/src/components/common/ExternalLink';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { PageSection } from '#/src/components/common/PageSection';
 import { localize } from '#/src/tools/localization';
 import { sanitizedHTMLParser } from '#/src/tools/utils';
@@ -74,13 +71,9 @@ export const Osaamisalat = ({
                 <>
                   {sanitizedHTMLParser(osaamisala?.kuvaus)}
                   {!isEmpty(osaamisala?.linkki) && !isEmpty(osaamisala?.otsikko) && (
-                    <Link
-                      target="_blank"
-                      rel="noopener"
-                      href={localize(osaamisala?.linkki)}>
+                    <ExternalLink href={localize(osaamisala?.linkki)}>
                       {localize(osaamisala?.otsikko)}
-                      <MaterialIcon icon="open_in_new" fontSize="small" />
-                    </Link>
+                    </ExternalLink>
                   )}
                 </>
               ),

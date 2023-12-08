@@ -60,7 +60,7 @@ export const PainotetutArvosanat = ({ arvosanat }: Props) => {
           <Heading
             id={toId(t('valintaperuste.painotettavat-oppiaineet'))}
             variant="h2"
-            style={{ marginBottom: '8px' }}>
+            marginBottom="8px">
             {t('valintaperuste.painotettavat-oppiaineet')}
           </Heading>
           <Box>

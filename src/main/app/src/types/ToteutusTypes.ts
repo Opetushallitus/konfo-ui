@@ -67,13 +67,13 @@ export type Lukiodiplomi = {
 };
 
 export type Kielivalikoima = {
-  A1Kielet: Array<Translateable>;
-  A2Kielet: Array<Translateable>;
-  B1Kielet: Array<Translateable>;
-  B2Kielet: Array<Translateable>;
-  B3Kielet: Array<Translateable>;
-  aidinkielet: Array<Translateable>;
-  muutKielet: Array<Translateable>;
+  A1Kielet: Array<Koodi>;
+  A2Kielet: Array<Koodi>;
+  B1Kielet: Array<Koodi>;
+  B2Kielet: Array<Koodi>;
+  B3Kielet: Array<Koodi>;
+  aidinkielet: Array<Koodi>;
+  muutKielet: Array<Koodi>;
 };
 
 export type ToteutusMetadata = {

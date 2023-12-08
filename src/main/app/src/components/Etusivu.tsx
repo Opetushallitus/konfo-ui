@@ -23,32 +23,17 @@ import { Kortti } from './kortti/Kortti';
 import { Pikalinkit } from './Pikalinkit';
 import { Uutiset } from './uutinen/Uutiset';
 
-const PREFIX = 'Etusivu';
+const StyledInfo = styled(Paper)({
+  backgroundColor: colors.grey,
+  borderRadius: 2,
+  padding: '25px 20px',
+  width: '100%',
+});
 
-const classes = {
-  info: `${PREFIX}-info`,
-  infoYhteishaku: `${PREFIX}-infoYhteishaku`,
-  header: `${PREFIX}-header`,
-  showMore: `${PREFIX}-showMore`,
-};
-
-const Root = styled(Box)({
-  [`& .${classes.info}`]: {
-    backgroundColor: colors.grey,
-    borderRadius: 2,
-    padding: '25px 20px',
-    width: '100%',
-  },
-  [`& .${classes.header}`]: {
-    fontSize: '28px',
-    paddingBottom: '28px',
-    fontWeight: 700,
-  },
-  [`& .${classes.showMore}`]: {
-    marginTop: '55px',
-    fontWeight: 600,
-    textTransform: 'none',
-  },
+const ShowMoreButton = styled(Button)({
+  marginTop: '55px',
+  fontWeight: 600,
+  textTransform: 'none',
 });
 
 export const Etusivu = () => {
@@ -84,7 +69,7 @@ export const Etusivu = () => {
   const pageSectionGap = usePageSectionGap();
 
   return (
-    <Root>
+    <Box>
       <Jumpotron />
       {isLoading ? (
         <LoadingCircle />
@@ -113,9 +98,9 @@ export const Etusivu = () => {
                     {infos.map((info) =>
                       info?.content ? (
                         <CondGrid item xs={12} key={info.id}>
-                          <Paper className={classes.info} elevation={0}>
+                          <StyledInfo elevation={0}>
                             <Markdown>{info.content}</Markdown>
-                          </Paper>
+                          </StyledInfo>
                         </CondGrid>
                       ) : null
                     )}
@@ -145,13 +130,12 @@ export const Etusivu = () => {
                     direction="row"
                     justifyContent="center"
                     alignItems="center">
-                    <Button
-                      className={classes.showMore}
+                    <ShowMoreButton
                       variant="contained"
                       onClick={() => setShowMore(false)}
                       color="primary">
                       {t('näytä-kaikki')}
-                    </Button>
+                    </ShowMoreButton>
                   </Grid>
                 ) : null}
               </ContentSection>
@@ -159,6 +143,6 @@ export const Etusivu = () => {
           </CondGrid>
         </HeadingBoundary>
       )}
-    </Root>
+    </Box>
   );
 };

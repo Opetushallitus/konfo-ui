@@ -14,6 +14,8 @@ import {
   RequestParams,
   SlugsToIds,
   SearchParams,
+  Suosikki,
+  VertailuSuosikki,
 } from '#/src/types/common';
 import {
   ContentfulData,
@@ -149,15 +151,18 @@ export const autoCompleteSearch = (requestParams: SearchParams) =>
     params: { lng: getLanguage(), ...cleanRequestParams(requestParams) },
   });
 
-type HakukohdeSuosikki = {
-  hakukohdeOid: string;
-  [x: string]: any;
-};
-
 export const getHakukohdeSuosikit = (requestParams: {
   'hakukohde-oids': Array<string>;
 }) => {
-  return get<Array<HakukohdeSuosikki>>(urls.url('konfo-backend.suosikit'), {
+  return get<Array<Suosikki>>(urls.url('konfo-backend.suosikit'), {
+    params: requestParams,
+  });
+};
+
+export const getHakukohdeSuosikitVertailu = (requestParams: {
+  'hakukohde-oids': Array<string>;
+}) => {
+  return get<Array<VertailuSuosikki>>(urls.url('konfo-backend.suosikit-vertailu'), {
     params: requestParams,
   });
 };

@@ -1,10 +1,11 @@
-import React from 'react';
-
 import { Grid, useTheme, useMediaQuery, Link } from '@mui/material';
 
 import { ImageCardWithText } from '#/src/components/common/ImageCardWithText';
 
-export const ImageCardGrid = (props) => {
+export const ImageCardGrid = (props: {
+  cards: Array<{ image: string; text: string; link?: string }>;
+  cardIsLink: boolean;
+}) => {
   const { cards, cardIsLink } = props;
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));

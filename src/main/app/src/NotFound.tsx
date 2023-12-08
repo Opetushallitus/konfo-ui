@@ -6,12 +6,6 @@ import { useNavigate } from 'react-router';
 
 import { styled } from '#/src/theme';
 
-const PREFIX = 'NotFound';
-
-const classes = {
-  component: `${PREFIX}-component`,
-};
-
 const Root = styled('div')({
   textAlign: 'center',
   paddingTop: '132px',
@@ -23,7 +17,7 @@ export const NotFound = () => {
   const navigate = useNavigate();
 
   return (
-    <Root className={classes.component}>
+    <Root>
       <Grid
         container
         direction="column"

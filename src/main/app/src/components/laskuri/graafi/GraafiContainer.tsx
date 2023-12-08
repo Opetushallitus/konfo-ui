@@ -194,29 +194,28 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
             />
             <Box className={classes.legend} aria-hidden={true}>
               {getUniquePistetyypit(hakukohde).map((valintatapajonoTyyppi) => (
-                <>
-                  <Typography
-                    className={classes.pistetyyppiText}
-                    sx={{ fontSize: '0.875rem' }}>
-                    <Box
-                      className={classes.pistetyyppiBox}
-                      sx={{
-                        justifyContent: 'center',
-                        width: '12px',
-                        height: '12px',
-                        marginLeft: '24px',
-                        marginRight: '6px',
-                        verticalAlign: 'middle',
-                        display: 'inline-block',
-                        backgroundColor: getStyleByPistetyyppi(valintatapajonoTyyppi),
-                      }}
-                    />
-                    {isLukio
-                      ? getLukioPisteText(valintatapajonoTyyppi, t)
-                      : t('pistelaskuri.graafi.alin-pisteet') +
-                        getPistetyyppiText(valintatapajonoTyyppi, t)}
-                  </Typography>
-                </>
+                <Typography
+                  key={valintatapajonoTyyppi}
+                  className={classes.pistetyyppiText}
+                  sx={{ fontSize: '0.875rem' }}>
+                  <Box
+                    className={classes.pistetyyppiBox}
+                    sx={{
+                      justifyContent: 'center',
+                      width: '12px',
+                      height: '12px',
+                      marginLeft: '24px',
+                      marginRight: '6px',
+                      verticalAlign: 'middle',
+                      display: 'inline-block',
+                      backgroundColor: getStyleByPistetyyppi(valintatapajonoTyyppi),
+                    }}
+                  />
+                  {isLukio
+                    ? getLukioPisteText(valintatapajonoTyyppi, t)
+                    : t('pistelaskuri.graafi.alin-pisteet') +
+                      getPistetyyppiText(valintatapajonoTyyppi, t)}
+                </Typography>
               ))}
 
               {tulos && (

@@ -1,15 +1,21 @@
+import { useMemo } from 'react';
+
 import { formatISO } from 'date-fns';
-import { forEach } from 'lodash';
+import { castArray, orderBy, toPairs } from 'lodash';
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
+type Suosikki = {
+  timestamp: string;
+  compare?: boolean;
+};
+
 export interface SuosikitState {
-  suosikitSelection: Record<string, { timestamp: string; removed?: boolean }>;
+  suosikitSelection: Record<string, Suosikki>;
   toggleSuosikki: (id: string) => void;
-  softToggleSuosikki: (id: string) => void;
-  clearSoftRemovedSuosikit: () => void;
-  removeSuosikit: (ids: Array<string>) => void;
+  removeSuosikit: (ids: string | Array<string>) => void;
+  toggleVertailu: (id: string) => void;
 }
 
 const useSuosikitState = create<SuosikitState>()(
@@ -26,25 +32,18 @@ const useSuosikitState = create<SuosikitState>()(
             };
           }
         }),
-      softToggleSuosikki: (id) =>
-        set((state) => {
-          if (state.suosikitSelection[id]) {
-            state.suosikitSelection[id].removed = !state.suosikitSelection[id].removed;
-          }
-        }),
       removeSuosikit: (ids) =>
         set((state) => {
-          ids.forEach((id) => {
+          const idArr = castArray(ids);
+          idArr.forEach((id) => {
             if (state.suosikitSelection[id]) delete state.suosikitSelection[id];
           });
         }),
-      clearSoftRemovedSuosikit: () =>
+      toggleVertailu: (id) =>
         set((state) => {
-          forEach(state.suosikitSelection, (val, oid) => {
-            if (val.removed) {
-              delete state.suosikitSelection[oid];
-            }
-          });
+          if (state.suosikitSelection[id]) {
+            state.suosikitSelection[id].compare = !state.suosikitSelection[id].compare;
+          }
         }),
     })),
     {
@@ -56,9 +55,29 @@ const useSuosikitState = create<SuosikitState>()(
 
 export const useSuosikitSelection = () => useSuosikitState();
 
-export const useNonRemovedSuosikitCount = () =>
-  useSuosikitState(
-    (state) =>
-      Object.values(state.suosikitSelection).filter((suosikki) => !suosikki.removed)
-        .length
+export const useSuosikitCount = () =>
+  useSuosikitState((state) => Object.values(state.suosikitSelection).length);
+
+export const useVertailuSuosikit = () =>
+  useSuosikitState((state) =>
+    toPairs(state.suosikitSelection).reduce(
+      (acc, [oid, suosikki]) => (suosikki?.compare ? [...acc, oid] : acc),
+      [] as Array<string>
+    )
   );
+
+export const useSuosikitDataOrdered = <T extends { hakukohdeOid: string }>(
+  data?: Array<T>
+) => {
+  const { suosikitSelection } = useSuosikitSelection();
+
+  return useMemo(
+    () =>
+      orderBy(
+        data,
+        (suosikkiData) => suosikitSelection[suosikkiData.hakukohdeOid]?.timestamp,
+        'desc'
+      ),
+    [data, suosikitSelection]
+  );
+};

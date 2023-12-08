@@ -30,6 +30,7 @@ const development = {
   'konfo-backend.koulutus.kuvaus': '/konfo-backend/kuvaus/$1',
   'konfo-backend.eperuste.kuvaus': '/konfo-backend/eperuste/$1',
   'konfo-backend.suosikit': '/konfo-backend/suosikit',
+  'konfo-backend.suosikit-vertailu': '/konfo-backend/suosikit-vertailu',
   'konfo-backend.content': 'https://konfo-content.untuvaopintopolku.fi/$1',
   'kartta.base-url': 'https://hkp.maanmittauslaitos.fi',
   'kartta.publish-url':

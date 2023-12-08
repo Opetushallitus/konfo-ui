@@ -55,7 +55,6 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     flexBasis: 'unset',
   },
   [`& .${classes.hakuName}`]: {
-    ...theme.typography.h5,
     fontWeight: 700,
     color: colors.black,
     display: 'inline',
@@ -195,7 +194,10 @@ const HakuCardGrid = ({
                             notifyOnAdd={true}
                           />
                         )}
-                        <Typography component="div" className={classes.hakuName}>
+                        <Typography
+                          variant="h5"
+                          component="div"
+                          className={classes.hakuName}>
                           {localize(hakukohde.nimi)}
                         </Typography>
                         {!isEmpty(hakukohde.hakulomakeKuvaus) && (

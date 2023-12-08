@@ -1,17 +1,9 @@
-import React from 'react';
-
 import { useTranslation } from 'react-i18next';
 
 import { styled } from '#/src/theme';
 import { useUrlParams } from '#/src/tools/useUrlParams';
 
-const PREFIX = 'Draft';
-
-const classes = {
-  draft: `${PREFIX}-draft`,
-};
-
-const Root = styled('div')({
+const StyledDraft = styled('div', { name: 'Draft' })({
   display: 'inline-block',
   position: 'fixed',
   top: '10px',
@@ -30,5 +22,5 @@ const Root = styled('div')({
 export const Draft = () => {
   const { t } = useTranslation();
   const { isDraft } = useUrlParams();
-  return isDraft ? <Root className={classes.draft}>{t('Esikatselu')}</Root> : null;
+  return isDraft ? <StyledDraft>{t('Esikatselu')}</StyledDraft> : null;
 };
