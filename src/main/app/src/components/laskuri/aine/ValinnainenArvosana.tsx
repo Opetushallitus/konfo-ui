@@ -60,15 +60,15 @@ const ValinnainenControl = styled(FormControl)(({ theme }) => ({
     margin: '0',
   },
   [`& .${classes.input}`]: {
-    border: `1px solid ${colors.lightGrey}`,
+    border: `1px solid ${colors.grey500}`,
     padding: '0 0.5rem',
     maxWidth: '100%',
     width: '11rem',
     '&:focus-within': {
-      borderColor: colors.black,
+      borderColor: colors.grey900,
     },
     '&:hover': {
-      borderColor: colors.black,
+      borderColor: colors.grey900,
     },
     [theme.breakpoints.down('lg')]: {
       width: '6rem',
@@ -78,7 +78,7 @@ const ValinnainenControl = styled(FormControl)(({ theme }) => ({
     },
   },
   [`& .${classes.optionDisabled}`]: {
-    color: colors.lightGrey,
+    color: colors.grey500,
   },
 }));
 

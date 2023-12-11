@@ -54,8 +54,8 @@ const StyledDiv = styled('div')(({ theme }) => ({
         backgroundColor: colors.brandGreen,
       },
       '&:disabled': {
-        backgroundColor: colors.lightGrey,
-        border: `2px solid ${colors.lightGrey}`,
+        backgroundColor: colors.grey500,
+        border: `2px solid ${colors.grey500}`,
       },
       [theme.breakpoints.down('sm')]: {
         marginLeft: 0,

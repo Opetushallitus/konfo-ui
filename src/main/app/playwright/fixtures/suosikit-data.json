@@ -110,7 +110,8 @@
         }
       }
     ],
-    "hakukohdeOid": "1.2.246.562.20.00000000000000041502"
+    "hakukohdeOid": "1.2.246.562.20.00000000000000041502",
+    "hakuAuki": false
   },
   {
     "tila": "julkaistu",
@@ -139,24 +140,6 @@
       "sv": "Kompetensområdet för fordonsteknik, Grundexamen inom fordonsbranschen (krävande särskilt stöd)",
       "fi": "Ajoneuvotekniikan osaamisala, Ajoneuvoalan perustutkinto (vaativa erityinen tuki)"
     },
-    "hakuajat": [
-      {
-        "formatoituAlkaa": {
-          "fi": "20.2.2024 klo 08:00",
-          "sv": "20.2.2024 kl. 08:00",
-          "en": "Feb. 20, 2024 at 08:00 AM UTC+2"
-        },
-        "alkaa": "2024-02-20T08:00",
-        "paattyy": "2024-03-19T15:00",
-        "formatoituPaattyy": {
-          "fi": "19.3.2024 klo 15:00",
-          "sv": "19.3.2024 kl. 15:00",
-          "en": "Mar. 19, 2024 at 03:00 PM UTC+2"
-        },
-        "hakuAuki": false,
-        "hakuMennyt": false
-      }
-    ],
     "tutkintonimikkeet": [
       {
         "koodiUri": "tutkintonimikkeet_10025",
@@ -223,6 +206,7 @@
         }
       }
     ],
-    "hakukohdeOid": "1.2.246.562.20.00000000000000041481"
+    "hakukohdeOid": "1.2.246.562.20.00000000000000041481",
+    "hakuAuki": true
   }
 ]

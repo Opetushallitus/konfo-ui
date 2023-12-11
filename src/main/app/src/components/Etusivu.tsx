@@ -24,7 +24,7 @@ import { Pikalinkit } from './Pikalinkit';
 import { Uutiset } from './uutinen/Uutiset';
 
 const StyledInfo = styled(Paper)({
-  backgroundColor: colors.grey,
+  backgroundColor: colors.grey50,
   borderRadius: 2,
   padding: '25px 20px',
   width: '100%',

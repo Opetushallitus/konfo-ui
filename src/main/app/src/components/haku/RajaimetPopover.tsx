@@ -70,7 +70,7 @@ export const RajaaPopoverButton = ({
       <Box
         component="div"
         sx={{
-          borderLeft: `2px solid ${colors.lightGrey}`,
+          borderLeft: `2px solid ${colors.grey500}`,
           paddingLeft: '10px',
           marginLeft: '10px',
         }}>

@@ -13,7 +13,7 @@ const OptionButton = styled(StyledButton)(({ theme }) => ({
   width: '100%',
   justifyContent: 'start',
   backgroundColor: colors.lightGrayishGreenBg,
-  color: colors.black,
+  color: colors.grey900,
   paddingLeft: '1rem',
   paddingLight: '1rem',
   textAlign: 'left',

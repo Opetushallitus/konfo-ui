@@ -251,3 +251,7 @@ export const sortArray = <T>(
 export const isNonNil = <TValue>(
   value: TValue | null | undefined | false
 ): value is TValue => value != null;
+
+export const isTruthy = <TValue>(
+  value: TValue | null | undefined | false
+): value is TValue => Boolean(value);

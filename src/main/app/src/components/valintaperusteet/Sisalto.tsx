@@ -19,35 +19,17 @@ import { localize } from '#/src/tools/localization';
 import { tagHeaders } from './tagHeaders';
 import { Sisalto, SisaltoTaulukko, SisaltoTeksti } from './ValintaperusteTypes';
 
-const PREFIX = 'SisaltoComponent';
-
-const classes = {
-  root: `${PREFIX}-root`,
-  head: `${PREFIX}-head`,
-  body: `${PREFIX}-body`,
-};
-
-export const StyledBox = styled(Box)(({ theme }) => ({
-  [`& .${classes.root}`]: {
-    '&:nth-of-type(even)': {
-      backgroundColor: theme.palette.action.hover,
-    },
-  },
-
-  [`& .${classes.head}`]: {
-    backgroundColor: colors.brandGreen,
-    color: colors.white,
-    fontWeight: 'bold',
-  },
-
-  [`& .${classes.body}`]: {
-    fontWeight: 'bold',
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(even)': {
+    backgroundColor: theme.palette.action.hover,
   },
 }));
 
-const StyledTableRow = TableRow;
-
-const HeaderCell = TableCell;
+const HeaderCell = styled(TableCell)({
+  backgroundColor: colors.brandGreen,
+  color: colors.white,
+  fontWeight: 'bold',
+});
 
 const SubHeaderCell = TableCell;
 
@@ -62,21 +44,13 @@ const Taulukko = ({ data: { rows } }: SisaltoTaulukko) => {
   const [headerRow, ...restRows] = rows;
 
   return (
-    <StyledBox>
+    <Box>
       <TableContainer component={Paper}>
         <Table size="small" aria-label={t('valintaperuste.taulukko')}>
           <TableHead>
-            <StyledTableRow
-              classes={{
-                root: classes.root,
-              }}>
+            <StyledTableRow>
               {headerRow?.columns.map((col, index) => (
-                <HeaderCell
-                  key={`cell-${index}`}
-                  align="left"
-                  classes={{
-                    head: classes.head,
-                  }}>
+                <HeaderCell key={`cell-${index}`} align="left">
                   {localize(col?.text)}
                 </HeaderCell>
               ))}
@@ -86,11 +60,7 @@ const Taulukko = ({ data: { rows } }: SisaltoTaulukko) => {
             {restRows.map(({ isHeader, columns }, index) => {
               const Cell = isHeader ? SubHeaderCell : TableCell;
               return (
-                <StyledTableRow
-                  key={`row-${index}`}
-                  classes={{
-                    root: classes.root,
-                  }}>
+                <StyledTableRow key={`row-${index}`}>
                   {columns.map((col, idx) => (
                     <Cell key={`cell-${idx}`} align="left">
                       {localize(col?.text)}
@@ -102,12 +72,12 @@ const Taulukko = ({ data: { rows } }: SisaltoTaulukko) => {
           </TableBody>
         </Table>
       </TableContainer>
-    </StyledBox>
+    </Box>
   );
 };
 
 export const SisaltoComponent = ({ tyyppi, ...props }: Sisalto[0], index: number) => (
-  <Box pb={2} key={`sisalto-${index}`}>
+  <Box paddingBottom={2} key={`sisalto-${index}`}>
     {tyyppi === 'teksti' && <Teksti {...(props as SisaltoTeksti)} />}
     {tyyppi === 'taulukko' && <Taulukko {...(props as SisaltoTaulukko)} />}
   </Box>

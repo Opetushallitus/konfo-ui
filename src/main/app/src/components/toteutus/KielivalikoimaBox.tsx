@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Box } from '@mui/material';
 import { isEmpty, every, size } from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -10,27 +8,22 @@ import { styled } from '#/src/theme';
 import { localizeArrayToCommaSeparated } from '#/src/tools/localization';
 import { Kielivalikoima } from '#/src/types/ToteutusTypes';
 
-const PREFIX = 'KielivalikoimaBox';
-
-const classes = {
-  table: `${PREFIX}-table`,
-  cell: `${PREFIX}-cell`,
-};
-
-const StyledPageSection = styled(PageSection)({
-  [`& .${classes.table}`]: {
-    borderSpacing: 0,
-    borderCollapse: 'separate',
-  },
-  [`& .${classes.cell}`]: {
-    textAlign: 'left',
-    maxWidth: '150px',
-    padding: '8px',
-    verticalAlign: 'top',
-  },
+const Table = styled('table')({
+  borderSpacing: 0,
+  borderCollapse: 'separate',
 });
 
-const kielivalikoimaKeys: Array<keyof Kielivalikoima> = [
+const cellStyles = {
+  textAlign: 'left',
+  maxWidth: '150px',
+  padding: '8px',
+  verticalAlign: 'top',
+} as const;
+
+const Td = styled('td')(cellStyles);
+const Th = styled('th')(cellStyles);
+
+const KIELIVALIKOIMA_KEYS: Array<keyof Kielivalikoima> = [
   'A1Kielet',
   'A2Kielet',
   'B1Kielet',
@@ -50,27 +43,27 @@ export const KielivalikoimaBox = ({
   const hasKielivalikoima = !(isEmpty(kielivalikoima) || every(kielivalikoima, isEmpty));
 
   return hasKielivalikoima ? (
-    <StyledPageSection heading={t('toteutus.kielivalikoima')}>
+    <PageSection heading={t('toteutus.kielivalikoima')}>
       <ColoredPaperContent>
         <Box margin={4}>
-          <table className={classes.table}>
+          <Table>
             <tbody>
-              {kielivalikoimaKeys.map(
+              {KIELIVALIKOIMA_KEYS.map(
                 (valikoimaKey) =>
                   // _.size() palauttaa nollan myös nil-arvoille
                   size(kielivalikoima?.[valikoimaKey]) !== 0 && (
                     <tr key={valikoimaKey}>
-                      <th className={classes.cell}>{t(`toteutus.${valikoimaKey}`)}</th>
-                      <td className={classes.cell}>
+                      <Th>{t(`toteutus.${valikoimaKey}`)}</Th>
+                      <Td>
                         {localizeArrayToCommaSeparated(kielivalikoima![valikoimaKey])}
-                      </td>
+                      </Td>
                     </tr>
                   )
               )}
             </tbody>
-          </table>
+          </Table>
         </Box>
       </ColoredPaperContent>
-    </StyledPageSection>
+    </PageSection>
   ) : null;
 };

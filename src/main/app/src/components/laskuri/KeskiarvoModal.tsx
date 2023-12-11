@@ -42,7 +42,7 @@ const StyledDialog = styled(Dialog)(({ theme }) => ({
   },
   [`.${classes.info}`]: {
     paddingBottom: '0.6rem',
-    borderBottom: `1px solid ${colors.lighterGrey}`,
+    borderBottom: `1px solid ${colors.grey500}`,
     marginBottom: '0.7rem',
   },
 }));

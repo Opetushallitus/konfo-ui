@@ -83,7 +83,7 @@ export const ResultSphere = ({
           colorScales || [
             colors.sunglow,
             colors.brandGreen,
-            colors.darkGrey,
+            colors.grey700,
             colors.kkMagenta,
           ]
         }

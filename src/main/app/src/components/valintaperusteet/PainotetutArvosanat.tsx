@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Box, Divider, Grid } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
@@ -11,25 +9,20 @@ import { localize } from '#/src/tools/localization';
 import { formatDouble, toId } from '#/src/tools/utils';
 import { PainotettuArvosana, KoodiUrit } from '#/src/types/HakukohdeTypes';
 
-const PREFIX = 'PainotetutArvosanat';
-
-const classes = {
-  table: `${PREFIX}-table`,
-  cell: `${PREFIX}-cell`,
-};
-
-const StyledGrid = styled(Grid)({
-  [`& .${classes.table}`]: {
-    borderSpacing: 0,
-    borderCollapse: 'separate',
-  },
-  [`& .${classes.cell}`]: {
-    textAlign: 'left',
-    maxWidth: '200px',
-    padding: '8px',
-    verticalAlign: 'top',
-  },
+const Table = styled('table')({
+  borderSpacing: 0,
+  borderCollapse: 'separate',
 });
+
+const cellStyles = {
+  textAlign: 'left',
+  maxWidth: '200px',
+  padding: '8px',
+  verticalAlign: 'top',
+} as const;
+
+const Td = styled('td')(cellStyles);
+const Th = styled('th')(cellStyles);
 
 type Props = {
   arvosanat: Array<PainotettuArvosana>;
@@ -51,7 +44,7 @@ export const PainotetutArvosanat = ({ arvosanat }: Props) => {
   const { t } = useTranslation();
 
   return (
-    <StyledGrid item xs={12}>
+    <Grid item xs={12}>
       <Box py={4}>
         <Divider />
       </Box>
@@ -64,19 +57,17 @@ export const PainotetutArvosanat = ({ arvosanat }: Props) => {
             {t('valintaperuste.painotettavat-oppiaineet')}
           </Heading>
           <Box>
-            <table className={classes.table}>
+            <Table>
               <tbody>
                 <tr>
-                  <th className={classes.cell}>{t('valintaperuste.oppiaine')}</th>
-                  <th className={classes.cell}>{t('valintaperuste.painokerroin')}</th>
+                  <Th>{t('valintaperuste.oppiaine')}</Th>
+                  <Th>{t('valintaperuste.painokerroin')}</Th>
                 </tr>
                 {arvosanat.map((arvosana, index) => (
                   <tr key={index}>
-                    <td className={classes.cell}>{getOppiaineName(arvosana.koodit)}</td>
-                    <td className={classes.cell}>
-                      {formatDouble(arvosana.painokerroin)}
-                    </td>
-                    <td>
+                    <Td>{getOppiaineName(arvosana.koodit)}</Td>
+                    <Td>{formatDouble(arvosana.painokerroin)}</Td>
+                    <Td>
                       {PAINOTETUT_OPPIAINEET_LUKIO_KAIKKI_OPTIONS.includes(
                         arvosana.koodit.oppiaine.koodiUri.split('#')[0]
                       ) && (
@@ -84,14 +75,14 @@ export const PainotetutArvosanat = ({ arvosanat }: Props) => {
                           koodiUri={arvosana.koodit.oppiaine.koodiUri}
                         />
                       )}
-                    </td>
+                    </Td>
                   </tr>
                 ))}
               </tbody>
-            </table>
+            </Table>
           </Box>
         </HeadingBoundary>
       </Box>
-    </StyledGrid>
+    </Grid>
   );
 };

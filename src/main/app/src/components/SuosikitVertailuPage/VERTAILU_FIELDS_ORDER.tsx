@@ -13,7 +13,7 @@ import { VertailuValintakokeet } from './VertailuValintakokeet';
 
 export const VERTAILU_FIELDS_ORDER: Array<{
   icon: MaterialIconName;
-  iconVariant?: MaterialIconVariant;
+  iconVariant: MaterialIconVariant;
   fieldId: keyof SuosikitVertailuMask;
   getLabel: (t: TFunction, vertailuSuosikki?: VertailuSuosikki) => string;
   renderValue: (vertailuSuosikki: VertailuSuosikki, t: TFunction) => React.ReactNode;
@@ -40,6 +40,7 @@ export const VERTAILU_FIELDS_ORDER: Array<{
   },
   {
     icon: 'people_outline',
+    iconVariant: 'filled',
     fieldId: 'opiskelijoita',
     getLabel: (t) => t('suosikit-vertailu.opiskelijoita'),
     renderValue: (vertailuSuosikki, t) =>
@@ -74,6 +75,7 @@ export const VERTAILU_FIELDS_ORDER: Array<{
   },
   {
     icon: 'chat_bubble_outline',
+    iconVariant: 'filled',
     fieldId: 'kielivalikoima',
     getLabel: (t) => t('suosikit-vertailu.kielivalikoima'),
     renderValue: (vertailuSuosikki) =>
@@ -96,6 +98,7 @@ export const VERTAILU_FIELDS_ORDER: Array<{
   },
   {
     icon: 'sports_soccer',
+    iconVariant: 'filled',
     fieldId: 'urheilijan-amm-koulutus',
     getLabel: (t) => t('suosikit-vertailu.jarjestaa-urheilijan-amm-koulutusta'),
     renderValue: (vertailuSuosikki, t) =>
