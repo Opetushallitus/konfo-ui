@@ -1,10 +1,8 @@
-import React from 'react';
-
-import { Box, Typography, Paper, Link, useTheme, useMediaQuery } from '@mui/material';
+import { Box, Typography, Paper, useTheme, useMediaQuery } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { ExternalLink } from '#/src/components/common/ExternalLink';
 import { useLaskuriHakukohde } from '#/src/store/reducers/pistelaskuriSlice';
 import { styled } from '#/src/theme';
 
@@ -28,7 +26,6 @@ const classes = {
   column: `${PREFIX}column`,
   textContainer: `${PREFIX}textcontainer`,
   textBlock: `${PREFIX}textblock`,
-  linkIcon: `${PREFIX}linkicon`,
   osalaskut: `${PREFIX}osalaskut`,
   osalaskutSection: `${PREFIX}osalaskut__section`,
   osalaskutDisc: `${PREFIX}osalaskut__disc`,
@@ -52,7 +49,7 @@ const TulosContainer = styled(Box)(({ theme }) => ({
     flexDirection: 'column',
   },
   [`& .${classes.textContainer}`]: {
-    background: colors.greyBg,
+    background: colors.grey50,
     padding: '1rem',
     flexGrow: 2,
   },
@@ -62,11 +59,6 @@ const TulosContainer = styled(Box)(({ theme }) => ({
     '&--bottom-margin': {
       marginBottom: '0.5rem',
     },
-  },
-  [`& .${classes.linkIcon}`]: {
-    verticalAlign: 'middle',
-    marginRight: '5px',
-    marginBottom: '1px',
   },
   [`& .${classes.osalaskut}`]: {
     display: 'flex',
@@ -96,13 +88,12 @@ const TulosContainer = styled(Box)(({ theme }) => ({
 const LinkToValintaPerusteet = () => {
   const { t } = useTranslation();
   return (
-    <Link
+    <ExternalLink
       sx={{ fontSize: '0.875rem' }}
       href="/sivu/perusopetuksen-jalkeisen-koulutuksen-yhteishaun-valintaperusteet"
       title={t('pistelaskuri.valintaperusteet.linkki')}>
-      <MaterialIcon icon="open_in_new" className={classes.linkIcon} />
       {t('pistelaskuri.valintaperusteet.linkki')}
-    </Link>
+    </ExternalLink>
   );
 };
 
@@ -130,10 +121,7 @@ const Osalaskut = ({ osalasku }: OsalaskutProps) => {
         </Typography>
       </Box>
       <Box className={classes.osalaskutSection}>
-        <Box
-          className={classes.osalaskutDisc}
-          sx={{ backgroundColor: colors.darkGrey }}
-        />
+        <Box className={classes.osalaskutDisc} sx={{ backgroundColor: colors.grey700 }} />
         <Typography
           variant="body1"
           className={classes.textBlock}

@@ -11,8 +11,8 @@ const SkipLink = styled(Link)({
   opacity: '0',
 
   '&.Mui-focusVisible': {
-    color: colors.black,
-    background: colors.lightGreenBg,
+    color: colors.grey900,
+    background: colors.green100,
     height: '30px',
     left: '50%',
     textAlign: 'center',

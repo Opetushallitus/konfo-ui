@@ -37,14 +37,14 @@ const KieliSelectControl = styled(FormControl)(({ theme }) => ({
     width: '100%',
   },
   [`& .${classes.input}`]: {
-    border: `1px solid ${colors.lightGrey}`,
+    border: `1px solid ${colors.grey500}`,
     padding: '0 0.5rem',
     marginTop: 0,
     '&:focus-within': {
-      borderColor: colors.black,
+      borderColor: colors.grey900,
     },
     '&:hover': {
-      borderColor: colors.black,
+      borderColor: colors.grey900,
     },
     width: '12rem',
     maxWidth: '100%',
@@ -54,7 +54,7 @@ const KieliSelectControl = styled(FormControl)(({ theme }) => ({
     },
   },
   [`& .${classes.optionDisabled}`]: {
-    color: colors.lightGrey,
+    color: colors.grey500,
   },
   [`& .${classes.langLabel}`]: {
     overflow: 'unset',

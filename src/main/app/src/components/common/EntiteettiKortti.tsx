@@ -55,7 +55,7 @@ const StyledSmartLink = styled(SmartLink, {
   },
 
   [`& .${classes.preHeader}`]: {
-    color: colors.darkGrey,
+    color: colors.grey700,
     fontWeight: 600,
   },
 

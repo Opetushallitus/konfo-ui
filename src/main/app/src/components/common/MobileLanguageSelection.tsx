@@ -39,7 +39,7 @@ export const MobileLanguageSelection = () => {
               color: colors.brandGreen,
               '&.Mui-disabled': {
                 opacity: 1,
-                color: colors.darkGreen,
+                color: colors.green900,
               },
             }}
             disabled={isEqual(langOption.code, language)}
@@ -49,7 +49,7 @@ export const MobileLanguageSelection = () => {
             aria-label={t(`kielivalinta.${langOption.code}`)}>
             <ListItemIcon>
               {isEqual(language, langOption.code) && (
-                <MaterialIcon sx={{ color: colors.darkGreen }} icon="check" />
+                <MaterialIcon sx={{ color: colors.green900 }} icon="check" />
               )}
             </ListItemIcon>
             <ListItemText

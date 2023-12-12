@@ -1,37 +1,28 @@
-import React from 'react';
-
-import { Button, SxProps } from '@mui/material';
+import { Button, ButtonProps } from '@mui/material';
 import { castArray } from 'lodash';
 
 import { MaterialIcon } from './MaterialIcon';
 
-type ExternalButtonProps = {
-  sx?: SxProps;
-  children: React.ReactNode;
-  href: string;
-};
+type ExternalButtonProps = Pick<
+  ButtonProps,
+  'sx' | 'children' | 'disabled' | 'onClick' | 'href'
+>;
 
-export const ExternalLinkButton = ({ sx, children, href }: ExternalButtonProps) => (
+export const ExternalLinkButton = ({
+  sx,
+  children,
+  href,
+  disabled,
+  onClick,
+}: ExternalButtonProps) => (
   <Button
     variant="contained"
     color="primary"
-    size="medium"
-    rel="noopener noreferrer"
-    href={href}
-    aria-label={href}
-    target="_blank"
-    sx={[
-      {
-        fontWeight: 600,
-      },
-      ...castArray(sx).filter(Boolean),
-    ]}>
+    endIcon={<MaterialIcon icon="open_in_new" aria-hidden="true" />}
+    disabled={disabled}
+    onClick={onClick}
+    sx={[...castArray(sx).filter(Boolean)]}
+    {...(href ? { href, rel: 'noopener noreferrer', target: '_blank' } : {})}>
     {children}
-    <MaterialIcon
-      icon="open_in_new"
-      fontSize="small"
-      sx={{ marginLeft: '0.4rem' }}
-      aria-hidden="true"
-    />
   </Button>
 );

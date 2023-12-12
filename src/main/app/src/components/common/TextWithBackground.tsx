@@ -1,41 +1,28 @@
-import React from 'react';
-
 import Box from '@mui/material/Box';
 
 import { colors } from '#/src/colors';
 import { styled } from '#/src/theme';
 
-const PREFIX = 'TextWithBackground';
-
-const classes = {
-  textWithBackgroundBox: `${PREFIX}-textWithBackgroundBox`,
-  textWithBackgroundText: `${PREFIX}-textWithBackgroundText`,
-};
-
-const StyledBox = styled(Box)({
-  backgroundColor: colors.lightGreenBg,
-  height: 'fit-content',
-  [`& .${classes.textWithBackgroundText}`]: {
-    textAlign: 'center',
-    verticalAlign: 'center',
-    fontSize: '0.75rem',
-    fontWeight: 600,
-    color: colors.black,
-    margin: '0 10px',
-    lineHeight: '24px',
-    whiteSpace: 'nowrap',
-  },
+const StyledTextContent = styled('span')({
+  textAlign: 'center',
+  verticalAlign: 'center',
+  fontSize: '0.75rem',
+  fontWeight: 600,
+  color: colors.grey900,
+  margin: '0 10px',
+  lineHeight: '24px',
+  whiteSpace: 'nowrap',
 });
 
-export const TextWithBackground = (props: React.PropsWithChildren<object>) => {
+export const TextWithBackground = ({ children }: { children: string }) => {
   return (
-    <StyledBox
-      className={classes.textWithBackgroundBox}
+    <Box
       display="flex"
       justifyContent="center"
       justifyItems="center"
-      component="span">
-      <span className={classes.textWithBackgroundText}>{props.children}</span>
-    </StyledBox>
+      component="span"
+      sx={{ backgroundColor: colors.green100, height: 'fit-content' }}>
+      <StyledTextContent>{children}</StyledTextContent>
+    </Box>
   );
 };

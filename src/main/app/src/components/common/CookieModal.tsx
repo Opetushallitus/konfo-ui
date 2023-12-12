@@ -26,7 +26,7 @@ const StyledModalContent = styled('div')(({ theme }) => ({
   zIndex: '9999',
   backgroundColor: colors.white,
   border: '1px solid #ccc',
-  boxShadow: '1px 1px 1px ' + colors.black,
+  boxShadow: '1px 1px 1px ' + colors.grey900,
   padding: '16px',
   boxSizing: 'border-box',
   borderRadius: '10px',
