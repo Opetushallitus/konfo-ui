@@ -14,7 +14,9 @@
         "nimi": {
           "fi": "Alppilan lukio"
         }
-      }
+      },
+      "koulutustyyppi": "lk",
+      "ammatillinenPerustutkintoErityisopetuksena": false
     }
   ]
 }

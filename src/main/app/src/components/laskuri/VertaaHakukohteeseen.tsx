@@ -20,6 +20,7 @@ import { useHakukohdeSearch } from '#/src/components/laskuri/hooks';
 import { InfoBox } from '#/src/components/laskuri/InfoBox';
 import { HakupisteLaskelma } from '#/src/components/laskuri/Keskiarvo';
 import { useToteutus } from '#/src/components/toteutus/hooks';
+import { KOULUTUS_TYYPPI } from '#/src/constants';
 import { localize } from '#/src/tools/localization';
 import { useUrlParams } from '#/src/tools/useUrlParams';
 import { scrollIntoView } from '#/src/tools/utils';
@@ -48,17 +49,28 @@ export const VertaaHakukohteeseen = ({ tulos }: Props) => {
 
   const options = useMemo(() => {
     const opts =
-      searchResult?.hits.map((hakukohde) => {
-        const organisaatioNimi = hakukohde.organisaatio
-          ? localize(hakukohde.organisaatio.nimi).trim()
-          : undefined;
-        return {
-          label: `${localize(hakukohde.nimi).trim()}${
-            organisaatioNimi ? `, ${organisaatioNimi}` : ''
-          }`,
-          value: hakukohde,
-        };
-      }) || [];
+      searchResult?.hits
+        .filter((hakukohde) =>
+          Boolean(
+            hakukohde &&
+              [
+                KOULUTUS_TYYPPI.AMM.toString(),
+                KOULUTUS_TYYPPI.LUKIOKOULUTUS.toString(),
+              ].includes(hakukohde.koulutustyyppi) &&
+              !hakukohde.ammatillinenPerustutkintoErityisopetuksena
+          )
+        )
+        .map((hakukohde) => {
+          const organisaatioNimi = hakukohde.organisaatio
+            ? localize(hakukohde.organisaatio.nimi).trim()
+            : undefined;
+          return {
+            label: `${localize(hakukohde.nimi).trim()}${
+              organisaatioNimi ? `, ${organisaatioNimi}` : ''
+            }`,
+            value: hakukohde,
+          };
+        }) || [];
     return sortBy(opts, ['label']);
   }, [searchResult?.hits]);
 
@@ -122,7 +134,7 @@ export const VertaaHakukohteeseen = ({ tulos }: Props) => {
             matchFrom: 'any',
             stringify: (option) => option.label,
             trim: true,
-            limit: 50,
+            limit: 3000,
           })}
           renderOption={(props: React.HTMLAttributes<HTMLLIElement>, option: Option) => {
             return (

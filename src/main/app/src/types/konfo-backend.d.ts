@@ -1449,7 +1449,7 @@ export interface paths {
             "application/json": {
               /** Format: int32 */
               total: number;
-              hits: {
+              hits: ({
                   /** @description Hakukohteen yksilöivä tunniste */
                   oid: string;
                   /**
@@ -1484,7 +1484,14 @@ export interface paths {
                     /** @description Toteutuksen yksilöivä tunniste */
                     oid: string;
                   };
-                }[];
+                  /**
+                   * @description Koulutuksen tyyppi
+                   * @enum {string}
+                   */
+                  koulutustyyppi: "amm-ope-erityisope-ja-opo" | "vaativan-tuen-koulutukset" | "amk-opintojakso-avoin" | "yo-opintojakso-avoin" | "tohtori" | "valmentavat-koulutukset" | "amk-opintojakso" | "amm-osaamisala" | "muu" | "vapaa-sivistystyo-muu" | "amk-alempi" | "amm-tutkinnon-osa" | "amm-muu" | "yo-erikoistumiskoulutus" | "kandi" | "koulutustyyppi_26" | "yo-opintokokonaisuus" | "tuva-normal" | "kandi-ja-maisteri" | "yo-opintokokonaisuus-avoin" | "erikoislaakari" | "muu-amm-tutkinto" | "taiteen-perusopetus" | "ope-pedag-opinnot" | "koulutustyyppi_4" | "koulutustyyppi_12" | "amk-ylempi" | "yo-opintojakso" | "amm" | "maisteri" | "vapaa-sivistystyo-opistovuosi" | "amk" | "amk-opintokokonaisuus-avoin" | "amk-erikoistumiskoulutus" | "telma" | "koulutustyyppi_11" | "aikuisten-perusopetus" | "amk-opintokokonaisuus" | "tuva-erityisopetus" | "yo" | "lk";
+                  /** @description Onko koulutuksen tyyppi "Ammatillinen perustutkinto erityisopetuksena"? */
+                  ammatillinenPerustutkintoErityisopetuksena: boolean;
+                })[];
             };
           };
         };
@@ -3635,12 +3642,19 @@ export interface components {
         /** @description Toteutuksen yksilöivä tunniste */
         oid: string;
       };
+      /**
+       * @description Koulutuksen tyyppi
+       * @enum {string}
+       */
+      koulutustyyppi: "amm-ope-erityisope-ja-opo" | "vaativan-tuen-koulutukset" | "amk-opintojakso-avoin" | "yo-opintojakso-avoin" | "tohtori" | "valmentavat-koulutukset" | "amk-opintojakso" | "amm-osaamisala" | "muu" | "vapaa-sivistystyo-muu" | "amk-alempi" | "amm-tutkinnon-osa" | "amm-muu" | "yo-erikoistumiskoulutus" | "kandi" | "koulutustyyppi_26" | "yo-opintokokonaisuus" | "tuva-normal" | "kandi-ja-maisteri" | "yo-opintokokonaisuus-avoin" | "erikoislaakari" | "muu-amm-tutkinto" | "taiteen-perusopetus" | "ope-pedag-opinnot" | "koulutustyyppi_4" | "koulutustyyppi_12" | "amk-ylempi" | "yo-opintojakso" | "amm" | "maisteri" | "vapaa-sivistystyo-opistovuosi" | "amk" | "amk-opintokokonaisuus-avoin" | "amk-erikoistumiskoulutus" | "telma" | "koulutustyyppi_11" | "aikuisten-perusopetus" | "amk-opintokokonaisuus" | "tuva-erityisopetus" | "yo" | "lk";
+      /** @description Onko koulutuksen tyyppi "Ammatillinen perustutkinto erityisopetuksena"? */
+      ammatillinenPerustutkintoErityisopetuksena: boolean;
     };
     /** HakukohdeSearchResult */
     HakukohdeSearchResult: {
       /** Format: int32 */
       total: number;
-      hits: {
+      hits: ({
           /** @description Hakukohteen yksilöivä tunniste */
           oid: string;
           /**
@@ -3675,7 +3689,14 @@ export interface components {
             /** @description Toteutuksen yksilöivä tunniste */
             oid: string;
           };
-        }[];
+          /**
+           * @description Koulutuksen tyyppi
+           * @enum {string}
+           */
+          koulutustyyppi: "amm-ope-erityisope-ja-opo" | "vaativan-tuen-koulutukset" | "amk-opintojakso-avoin" | "yo-opintojakso-avoin" | "tohtori" | "valmentavat-koulutukset" | "amk-opintojakso" | "amm-osaamisala" | "muu" | "vapaa-sivistystyo-muu" | "amk-alempi" | "amm-tutkinnon-osa" | "amm-muu" | "yo-erikoistumiskoulutus" | "kandi" | "koulutustyyppi_26" | "yo-opintokokonaisuus" | "tuva-normal" | "kandi-ja-maisteri" | "yo-opintokokonaisuus-avoin" | "erikoislaakari" | "muu-amm-tutkinto" | "taiteen-perusopetus" | "ope-pedag-opinnot" | "koulutustyyppi_4" | "koulutustyyppi_12" | "amk-ylempi" | "yo-opintojakso" | "amm" | "maisteri" | "vapaa-sivistystyo-opistovuosi" | "amk" | "amk-opintokokonaisuus-avoin" | "amk-erikoistumiskoulutus" | "telma" | "koulutustyyppi_11" | "aikuisten-perusopetus" | "amk-opintokokonaisuus" | "tuva-erityisopetus" | "yo" | "lk";
+          /** @description Onko koulutuksen tyyppi "Ammatillinen perustutkinto erityisopetuksena"? */
+          ammatillinenPerustutkintoErityisopetuksena: boolean;
+        })[];
     };
     /** SuosikitItem */
     SuosikitItem: {
