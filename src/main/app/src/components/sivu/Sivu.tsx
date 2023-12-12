@@ -67,7 +67,7 @@ export const Sivu = ({ id }: { id: string }) => {
         justifyContent="center"
         spacing={2}
         alignItems="center">
-        <Grid item xs={12} sm={12} md={tableOfContents ? 10 : 6}>
+        <Grid item xs={12} sm={12} md={tableOfContents ? 10 : 8}>
           <Murupolku path={murupolku(pageId)} />
           <h1 className={classes.header1}>{name}</h1>
           <p>{description}</p>
@@ -79,7 +79,7 @@ export const Sivu = ({ id }: { id: string }) => {
             <TableOfContents content={content} />
           </Grid>
         ) : null}
-        <Grid item xs={12} sm={12} md={tableOfContents ? 7 : 6}>
+        <Grid item xs={12} sm={12} md={tableOfContents ? 7 : 8}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12} md={12}>
               <Sisalto content={content} rootRef={rootRef} />
