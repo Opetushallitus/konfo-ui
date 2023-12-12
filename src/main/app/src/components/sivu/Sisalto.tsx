@@ -9,6 +9,7 @@ import { useContentful } from '#/src/hooks/useContentful';
 
 import { Accordion, Summary } from './Accordion';
 import { LinkOrYoutube } from './LinkOrYoutube';
+import { EmbeddedHakutulosBox } from '../haku/EmbeddedHakutulosBox';
 
 const isBlank = (str?: string) => {
   return !str || /^\s*$/.test(str);
@@ -98,6 +99,9 @@ export const Sisalto = ({
             props: {
               rootRef: rootRef,
             },
+          },
+          koulutushaku: {
+            component: EmbeddedHakutulosBox,
           },
         },
       }}>
