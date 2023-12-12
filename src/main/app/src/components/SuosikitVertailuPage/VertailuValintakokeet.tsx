@@ -1,20 +1,25 @@
-import { Box } from '@mui/material';
 import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { localize } from '#/src/tools/localization';
+import { VertailuSuosikki } from '#/src/types/common';
+
+import { VertailuList } from './VertailuList';
 
 export const VertailuValintakokeet = ({
   valintakokeet,
 }: {
-  valintakokeet: Array<any>;
+  valintakokeet: VertailuSuosikki['valintakokeet'];
 }) => {
   const { t } = useTranslation();
-  return (
-    <Box display="flex" flexDirection="column" width="100%">
-      {isEmpty(valintakokeet)
-        ? t('suosikit-vertailu.ei-valintakokeita')
-        : valintakokeet.map((valintakoe) => localize(valintakoe))}
-    </Box>
+
+  return isEmpty(valintakokeet) ? (
+    t('suosikit-vertailu.ei-valintakokeita')
+  ) : (
+    <VertailuList>
+      {valintakokeet.map((valintakoe) => (
+        <li key={valintakoe.id}>{localize(valintakoe)}</li>
+      ))}
+    </VertailuList>
   );
 };
