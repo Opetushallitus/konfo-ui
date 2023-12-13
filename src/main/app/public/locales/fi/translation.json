@@ -881,6 +881,8 @@
     "laske-pistemaarasi": "Laske pistemääräsi",
     "ei-valintakokeita": "Ei järjestetä",
     "ei-osaamisaloja": "Ei osaamisaloja",
-    "ei-maaritelty": "Ei tiedossa"
+    "ei-maaritelty": "Ei määritelty",
+    "siirry-hakulomakkeelle": "Siirry hakulomakkeelle ({{count}} valittu)",
+    "vie-hakulomakkeelle": "Vie hakulomakkeelle"
   }
 }
