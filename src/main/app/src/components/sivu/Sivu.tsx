@@ -11,15 +11,6 @@ import { styled } from '#/src/theme';
 import { Sisalto } from './Sisalto';
 import { TableOfContents } from './TableOfContents';
 
-const PREFIX = 'Sivu';
-
-const classes = {
-  notFound: `${PREFIX}-notFound`,
-  header1: `${PREFIX}-header1`,
-  icon: `${PREFIX}-icon`,
-  component: `${PREFIX}-component`,
-};
-
 const Root = styled('div')({
   paddingLeft: '10px',
   paddingRight: '10px',
@@ -30,20 +21,15 @@ const Root = styled('div')({
   fontSize: '16px',
   lineHeight: '27px',
   color: colors.black,
-  [`& .${classes.notFound}`]: {
-    textAlign: 'center',
-  },
-  [`& .${classes.header1}`]: {
-    fontSize: '40px',
-    lineHeight: '48px',
-    marginTop: '15px',
-    marginBottom: '30px',
-    fontWeight: '700',
-    color: colors.black,
-  },
-  [`& .${classes.icon}`]: {
-    fontSize: '16px',
-  },
+});
+
+const SivuHeading = styled('h1')({
+  fontSize: '40px',
+  lineHeight: '48px',
+  marginTop: '15px',
+  marginBottom: '30px',
+  fontWeight: '700',
+  color: colors.black,
 });
 
 export const Sivu = ({ id }: { id: string }) => {
@@ -60,7 +46,7 @@ export const Sivu = ({ id }: { id: string }) => {
   useScrollToHash();
 
   return (
-    <Root ref={rootRef} className={classes.component}>
+    <Root ref={rootRef}>
       <Grid
         container
         direction="row"
@@ -69,7 +55,7 @@ export const Sivu = ({ id }: { id: string }) => {
         alignItems="center">
         <Grid item xs={12} sm={12} md={tableOfContents ? 10 : 6}>
           <Murupolku path={murupolku(pageId)} />
-          <h1 className={classes.header1}>{name}</h1>
+          <SivuHeading>{name}</SivuHeading>
           <p>{description}</p>
         </Grid>
       </Grid>
