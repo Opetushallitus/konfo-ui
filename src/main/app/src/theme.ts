@@ -133,6 +133,10 @@ export const theme = createTheme({
     },
     MuiButton: {
       styleOverrides: {
+        root: ({ ownerState, theme: myTheme }) => ({
+          ...myTheme.typography.body1,
+          color: ownerState.color,
+        }),
         outlined: {
           backgroundColor: 'transparent',
           borderWidth: '1px',
