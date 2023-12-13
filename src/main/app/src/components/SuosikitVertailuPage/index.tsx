@@ -94,6 +94,56 @@ const NotificationContent = ({ data }: any) => {
   );
 };
 
+const VieHakulomakkeelleButton = ({
+  vertailuSuosikki,
+  data,
+}: {
+  vertailuSuosikki: VertailuSuosikki;
+  data?: Array<VertailuSuosikki>;
+}) => {
+  const { t } = useTranslation();
+  const { toggleHaku } = useSuosikitSelection();
+  const showNotification = useNotification((state) => state.showNotification);
+
+  const hakuunValitut = useHakuunValitut();
+
+  const hakuunValitutData =
+    data?.filter((suosikki) => hakuunValitut?.includes(suosikki.hakukohdeOid)) ?? [];
+
+  const allHaveSameHaku = Boolean(
+    hakuunValitutData.reduce(
+      (resultOid, item) => {
+        return resultOid === item.hakuOid ? item.hakuOid : undefined;
+      },
+      vertailuSuosikki.hakuOid as string | undefined
+    )
+  );
+
+  const isSelectedToHaku = includes(hakuunValitut, vertailuSuosikki.hakukohdeOid);
+
+  const isEnabled = allHaveSameHaku || isSelectedToHaku;
+
+  return (
+    <OutlinedCheckboxButton
+      disabled={!isEnabled}
+      checked={isSelectedToHaku}
+      title={
+        allHaveSameHaku ? undefined : 'Hakulomakkeelle vietäviksi valituilla on eri haku!'
+      }
+      onClick={() => {
+        toggleHaku(vertailuSuosikki.hakukohdeOid);
+        if (!isSelectedToHaku) {
+          showNotification({
+            content: <NotificationContent data={data} />,
+            severity: 'success',
+          });
+        }
+      }}>
+      {t('suosikit-vertailu.vie-hakulomakkeelle')}
+    </OutlinedCheckboxButton>
+  );
+};
+
 const VertailuKortti = ({
   vertailuSuosikki,
   data,
@@ -102,10 +152,7 @@ const VertailuKortti = ({
   data?: Array<VertailuSuosikki>;
 }) => {
   const { t } = useTranslation();
-  const { toggleHaku, toggleVertailu } = useSuosikitSelection();
-  const showNotification = useNotification((state) => state.showNotification);
-
-  const hakuunValitut = useHakuunValitut();
+  const { toggleVertailu } = useSuosikitSelection();
 
   const kuvaus = useTruncatedKuvaus(localize(vertailuSuosikki.esittely));
 
@@ -118,8 +165,6 @@ const VertailuKortti = ({
   const isContentSmall = useIsContentSmall();
 
   useSyncRefHeight([['header', headerRef]], { enabled: !isContentSmall });
-
-  const isSelectedToHaku = includes(hakuunValitut, vertailuSuosikki.hakukohdeOid);
 
   return (
     <PaperWithTopColor
@@ -173,19 +218,7 @@ const VertailuKortti = ({
         )}
         <Divider />
         <Box display="flex" justifyContent="flex-end" flexWrap="wrap" gap={1}>
-          <OutlinedCheckboxButton
-            checked={isSelectedToHaku}
-            onClick={() => {
-              toggleHaku(vertailuSuosikki.hakukohdeOid);
-              if (!isSelectedToHaku) {
-                showNotification({
-                  content: <NotificationContent data={data} />,
-                  severity: 'success',
-                });
-              }
-            }}>
-            {t('suosikit-vertailu.vie-hakulomakkeelle')}
-          </OutlinedCheckboxButton>
+          <VieHakulomakkeelleButton data={data} vertailuSuosikki={vertailuSuosikki} />
           <TextButton onClick={() => toggleVertailu(vertailuSuosikki.hakukohdeOid)}>
             {t('suosikit.poista-vertailusta')}
           </TextButton>
@@ -205,8 +238,6 @@ const useSiirryHakulomakkeelleInfo = (data?: Array<VertailuSuosikki>) => {
 
   const isValid = hakuunValitutData.length !== 0;
 
-  console.log({ hakuunValitutData, hakuunValitut });
-
   return {
     url: isValid
       ? urls.url('ataru.hakemus-haku', firstValittuHakuOid) +
@@ -217,12 +248,10 @@ const useSiirryHakulomakkeelleInfo = (data?: Array<VertailuSuosikki>) => {
   };
 };
 
-const VieHakulomakkeelleButton = ({ data }: { data?: Array<VertailuSuosikki> }) => {
+const SiirryHakulomakkeelleButton = ({ data }: { data?: Array<VertailuSuosikki> }) => {
   const { t } = useTranslation();
 
   const { url: hakulomakeURL, isValid, count } = useSiirryHakulomakkeelleInfo(data);
-
-  console.log({ count });
 
   return (
     <ExternalLinkButton href={hakulomakeURL} disabled={!isValid}>
@@ -241,7 +270,7 @@ const Vertailu = ({ oids }: { oids: Array<string> }) => {
     <QueryResult queryResult={queryResult}>
       <Box display="flex" flexDirection="column" gap={2}>
         <Box alignSelf="flex-end">
-          <VieHakulomakkeelleButton data={data} />
+          <SiirryHakulomakkeelleButton data={data} />
         </Box>
         <VertailuFieldMask />
         <Box
