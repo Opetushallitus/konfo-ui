@@ -56,7 +56,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   },
   [`& .${classes.hakuName}`]: {
     fontWeight: 700,
-    color: colors.black,
+    color: colors.grey900,
     display: 'inline',
   },
 

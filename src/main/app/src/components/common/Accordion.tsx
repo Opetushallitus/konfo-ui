@@ -43,7 +43,7 @@ const StyledBox = styled(Box)(({ theme }) => ({
   [`& .${classes.greenSummaryRoot}`]: {
     [`&.${classes.expanded}`]: {
       borderBottom: `1px solid ${colors.grey}`,
-      backgroundColor: colors.lightGreenBg,
+      backgroundColor: colors.green100,
       borderTop: `5px solid ${colors.brandGreen}`,
     },
   },

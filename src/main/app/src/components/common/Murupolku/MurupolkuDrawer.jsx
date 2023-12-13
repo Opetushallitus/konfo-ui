@@ -39,7 +39,7 @@ const StyledDrawer = styled(Drawer)(({ theme }) => ({
 
   [`& .${classes.drawerItemWrapper}`]: {
     padding: theme.spacing(2),
-    borderBottom: `1px solid ${colors.lightGrey}`,
+    borderBottom: `1px solid ${colors.grey500}`,
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
     overflow: 'hidden',

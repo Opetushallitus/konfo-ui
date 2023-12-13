@@ -16,7 +16,7 @@ import { FormatoituAikaleima } from '#/src/types/HakukohdeTypes';
 const ValintakoeSubHeading = withDefaultProps(
   styled(Heading)({
     fontWeight: 700,
-    color: colors.darkGrey,
+    color: colors.grey700,
   }),
   {
     variant: 'h5',

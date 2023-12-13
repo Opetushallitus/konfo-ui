@@ -40,13 +40,13 @@ const AineSelectControl = styled(FormControl, {
     marginBottom: 0,
   },
   [`& .${classes.input}`]: {
-    border: `1px solid ${colors.lightGrey}`,
+    border: `1px solid ${colors.grey500}`,
     padding: '0 0.5rem',
     '&:focus-within': {
-      borderColor: colors.black,
+      borderColor: colors.grey900,
     },
     '&:hover': {
-      borderColor: colors.black,
+      borderColor: colors.grey900,
     },
     width: '12rem',
     maxWidth: '100%',
@@ -63,7 +63,7 @@ const AineSelectControl = styled(FormControl, {
     },
   },
   [`& .${classes.optionDisabled}`]: {
-    color: colors.lightGrey,
+    color: colors.grey500,
   },
   [`& .${classes.poistakieli}`]: {
     color: colors.brandGreen,
