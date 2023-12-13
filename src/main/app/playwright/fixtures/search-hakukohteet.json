@@ -10,6 +10,11 @@
       "toteutus": {
         "oid": "1.2.3"
       },
+      "jarjestyspaikka": {
+        "nimi": {
+          "fi": "Alppilan lukio, Helsinki"
+        }
+      },
       "organisaatio": {
         "nimi": {
           "fi": "Alppilan lukio"

@@ -40,7 +40,7 @@ test.describe('Embedded pistelaskuri', () => {
     await expect(page.getByText('Vertaa pisteitä hakukohteeseen')).toBeVisible();
     await page.getByPlaceholder('Etsi hakukohteita').fill('lukio');
     await expect(page.locator('.MuiAutocomplete-popper')).toHaveText(
-      'Lukion yleislinja, Alppilan lukio'
+      'Lukion yleislinja, Alppilan lukio, Alppilan lukio, Helsinki'
     );
     await page.locator('.MuiAutocomplete-popper').nth(0).click();
     await expect(page.getByText('sisäänpääsyn alin keskiarvo')).toBeVisible();

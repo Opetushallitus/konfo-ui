@@ -61,13 +61,16 @@ export const VertaaHakukohteeseen = ({ tulos }: Props) => {
           )
         )
         .map((hakukohde) => {
+          const jarjestyspaikkaNimi = hakukohde.jarjestyspaikka
+            ? localize(hakukohde.jarjestyspaikka.nimi).trim()
+            : undefined;
           const organisaatioNimi = hakukohde.organisaatio
             ? localize(hakukohde.organisaatio.nimi).trim()
             : undefined;
           return {
             label: `${localize(hakukohde.nimi).trim()}${
               organisaatioNimi ? `, ${organisaatioNimi}` : ''
-            }`,
+            }${jarjestyspaikkaNimi ? `, ${jarjestyspaikkaNimi}` : ''}`,
             value: hakukohde,
           };
         }) || [];
@@ -186,7 +189,7 @@ export const VertaaHakukohteeseen = ({ tulos }: Props) => {
               }}>
               {`${localize(selectedHakukohde.nimi).trim()}, ${localize(
                 selectedHakukohde.organisaatio.nimi
-              )}`}
+              )}, ${localize(selectedHakukohde.jarjestyspaikka?.nimi)}`}
             </Typography>
             <InfoBox />
             <GraafiContainer

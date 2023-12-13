@@ -1480,6 +1480,20 @@ export interface paths {
                       en?: string;
                     };
                   };
+                  jarjestyspaikka: {
+                    /**
+                     * Nimi
+                     * @description Järjestyspaikan nimi eri kielillä
+                     */
+                    nimi: {
+                      /** @description Suomenkielinen nimi, jos määritelty */
+                      fi?: string;
+                      /** @description Ruotsinkielinen nimi, jos määritelty */
+                      sv?: string;
+                      /** @description Englanninkielinen nimi, jos määritelty */
+                      en?: string;
+                    };
+                  };
                   toteutus: {
                     /** @description Toteutuksen yksilöivä tunniste */
                     oid: string;
@@ -3638,6 +3652,20 @@ export interface components {
           en?: string;
         };
       };
+      jarjestyspaikka: {
+        /**
+         * Nimi
+         * @description Järjestyspaikan nimi eri kielillä
+         */
+        nimi: {
+          /** @description Suomenkielinen nimi, jos määritelty */
+          fi?: string;
+          /** @description Ruotsinkielinen nimi, jos määritelty */
+          sv?: string;
+          /** @description Englanninkielinen nimi, jos määritelty */
+          en?: string;
+        };
+      };
       toteutus: {
         /** @description Toteutuksen yksilöivä tunniste */
         oid: string;
@@ -3675,6 +3703,20 @@ export interface components {
             /**
              * Nimi
              * @description Organisaation nimi eri kielillä
+             */
+            nimi: {
+              /** @description Suomenkielinen nimi, jos määritelty */
+              fi?: string;
+              /** @description Ruotsinkielinen nimi, jos määritelty */
+              sv?: string;
+              /** @description Englanninkielinen nimi, jos määritelty */
+              en?: string;
+            };
+          };
+          jarjestyspaikka: {
+            /**
+             * Nimi
+             * @description Järjestyspaikan nimi eri kielillä
              */
             nimi: {
               /** @description Suomenkielinen nimi, jos määritelty */
