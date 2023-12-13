@@ -3,6 +3,7 @@ import React, { useRef } from 'react';
 import { Grid } from '@mui/material';
 
 import { colors } from '#/src/colors';
+import { Askem } from '#/src/components/common/Askem';
 import { Murupolku } from '#/src/components/common/Murupolku';
 import { useContentful } from '#/src/hooks/useContentful';
 import { useScrollToHash } from '#/src/hooks/useScrollToHash';
@@ -83,6 +84,7 @@ export const Sivu = ({ id }: { id: string }) => {
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12} md={12}>
               <Sisalto content={content} rootRef={rootRef} />
+              <Askem />
             </Grid>
           </Grid>
         </Grid>
