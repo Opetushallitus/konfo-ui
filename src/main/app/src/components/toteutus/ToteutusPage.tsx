@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import { Accordion } from '#/src/components/common/Accordion';
+import { Askem } from '#/src/components/common/Askem';
 import { ContentWrapper } from '#/src/components/common/ContentWrapper';
 import { ExternalLink } from '#/src/components/common/ExternalLink';
 import { HtmlTextBox } from '#/src/components/common/HtmlTextBox';
@@ -350,6 +351,7 @@ export const ToteutusPage = () => {
           />
         )}
       </InnerWrapper>
+      <Askem />
     </ContentWrapper>
   );
 };
