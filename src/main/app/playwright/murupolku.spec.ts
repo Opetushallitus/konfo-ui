@@ -19,7 +19,7 @@ const assertBreadcrumb = async (
   const items = page
     .locator('#app-main-content')
     .getByRole('navigation', { name: 'Murupolku' })
-    .locator('.Murupolku-item');
+    .locator('li');
 
   await expect(items).toHaveCount(length);
 

@@ -871,11 +871,11 @@
     "siirry-hakulomakkeelle": "Siirry hakulomakkeelle",
     "valittu-maara": "({{count}} valittu)",
     "vie-hakulomakkeelle": "Vie hakulomakkeelle",
-    "hakukohde-valittu": "Hakukohde valittu",
     "valittu-notification-text-suffix": "tai lisää muita hakukohteita.",
-    "hakulomakkella-jo-toisen-haun-hakukohteita": "Hakulomakkeelle voi viedä vain yhden haun hakukohteita. Toisen haun hakukohteita on jo lisätty.",
-    "haku-ei-kaynnissa": "Hakukohdetta ei voi viedä hakulomakkeelle, koska haku ei ole käynnissä.",
     "siirry-hakulomakkeelle-dialog-title": "Olet siirtymässä hakulomakkeelle",
-    "siirry-hakulomakkeelle-dialog-text": "Huomaathan, että hakukohteet eivät välttämättä ole hakulomakkeella toivomassasi järjestyksessä. Aseta valitsemasi hakukohteet järjestykseen, jossa toivot tulevasi niihin hyväksytyksi. Harkitse hakukohdejärjestystä tarkoin, sillä se on sitova, etkä voi muuttaa sitä enää hakuajan päättymisen jälkeen."
+    "siirry-hakulomakkeelle-dialog-text": "Huomaathan, että hakukohteet eivät välttämättä ole hakulomakkeella toivomassasi järjestyksessä. Aseta valitsemasi hakukohteet järjestykseen, jossa toivot tulevasi niihin hyväksytyksi. Harkitse hakukohdejärjestystä tarkoin, sillä se on sitova, etkä voi muuttaa sitä enää hakuajan päättymisen jälkeen.",
+    "hakukohde-valittu": "Hakukohde valittu",
+    "haku-ei-kaynnissa": "Hakukohdetta ei voi viedä hakulomakkeelle, koska haku ei ole käynnissä.",
+    "hakulomakkella-jo-toisen-haun-hakukohteita": "Hakulomakkeelle voi viedä vain yhden haun hakukohteita. Toisen haun hakukohteita on jo lisätty."
   }
 }

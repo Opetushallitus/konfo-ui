@@ -1,6 +1,7 @@
 import path from 'path';
 
 import { BrowserContext, Locator, Page, Route, expect } from '@playwright/test';
+import { escapeRegExp } from 'lodash';
 
 const MOCKS_PATH = path.resolve(__dirname, './mocks');
 
@@ -52,8 +53,6 @@ export const getSearchInput = (page: Page) =>
   page.getByPlaceholder('Etsi koulutuksia tai oppilaitoksia');
 
 export const getSearchButton = (page: Page) => page.getByRole('button', { name: /Etsi/ });
-
-const escapeRegExp = (str: string) => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
 
 export const expectURLEndsWith = (page: Page, urlEnd: string) =>
   expect(page).toHaveURL(new RegExp(escapeRegExp(urlEnd) + '$'));
