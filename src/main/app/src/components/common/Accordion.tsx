@@ -42,7 +42,7 @@ const StyledBox = styled(Box)(({ theme }) => ({
   // NOTE: For some reason '&$expanded' as a key did not work when returning values from function hence the two separate styles
   [`& .${classes.greenSummaryRoot}`]: {
     [`&.${classes.expanded}`]: {
-      borderBottom: `1px solid ${colors.grey}`,
+      borderBottom: `1px solid ${colors.grey500}`,
       backgroundColor: colors.green100,
       borderTop: `5px solid ${colors.brandGreen}`,
     },
@@ -50,7 +50,7 @@ const StyledBox = styled(Box)(({ theme }) => ({
 
   [`& .${classes.whiteSummaryRoot}`]: {
     [`&.${classes.expanded}`]: {
-      borderBottom: `1px solid ${colors.grey}`,
+      borderBottom: `1px solid ${colors.grey500}`,
     },
   },
 

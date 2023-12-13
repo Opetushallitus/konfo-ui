@@ -29,9 +29,6 @@ export const colors = {
   grey50: '#F5F7F9', // Desktop background
   white: '#FFFFFF', // Content area bg, text on dark bg
 
-  // TODO: Näitä ei ole tyylioppaassa. Vaihda oikeisiin tai lisää tyylioppaaseen.
-  grey: '#EEEEEE',
-  lighterGrey: '#D5D5D5',
   brightGreenBg: '#64bc46',
   lightGrayishGreenBg: '#e3ecdd', // Ohjaava haku
   darkerGrayishGreenBg: '#a5c291', // Ohjaava haku hover
