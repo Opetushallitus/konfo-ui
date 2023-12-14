@@ -1430,6 +1430,94 @@ export interface paths {
       };
     };
   };
+  "/search/hakukohteet": {
+    /**
+     * Hae hakukohteita
+     * @description Hakee (kaikki julkaistut) hakukohteet haun kohdejoukon perusteella. Huom.! Vain Opintopolun sisäiseen käyttöön
+     */
+    get: {
+      parameters: {
+        query: {
+          /** @description Haun kohdejoukko (koodi uri) */
+          kohdejoukko: string;
+        };
+      };
+      responses: {
+        /** @description Ok */
+        200: {
+          content: {
+            "application/json": {
+              /** Format: int32 */
+              total: number;
+              hits: ({
+                  /** @description Hakukohteen yksilöivä tunniste */
+                  oid: string;
+                  /**
+                   * Nimi
+                   * @description Hakukohteen nimi eri kielillä
+                   */
+                  nimi: {
+                    /** @description Suomenkielinen nimi, jos määritelty */
+                    fi?: string;
+                    /** @description Ruotsinkielinen nimi, jos määritelty */
+                    sv?: string;
+                    /** @description Englanninkielinen nimi, jos määritelty */
+                    en?: string;
+                  };
+                  /** @description Hakukohteeseen liitetyn haun yksilöivä tunniste */
+                  hakuOid: string;
+                  organisaatio: {
+                    /**
+                     * Nimi
+                     * @description Organisaation nimi eri kielillä
+                     */
+                    nimi: {
+                      /** @description Suomenkielinen nimi, jos määritelty */
+                      fi?: string;
+                      /** @description Ruotsinkielinen nimi, jos määritelty */
+                      sv?: string;
+                      /** @description Englanninkielinen nimi, jos määritelty */
+                      en?: string;
+                    };
+                  };
+                  jarjestyspaikka: {
+                    /**
+                     * Nimi
+                     * @description Järjestyspaikan nimi eri kielillä
+                     */
+                    nimi: {
+                      /** @description Suomenkielinen nimi, jos määritelty */
+                      fi?: string;
+                      /** @description Ruotsinkielinen nimi, jos määritelty */
+                      sv?: string;
+                      /** @description Englanninkielinen nimi, jos määritelty */
+                      en?: string;
+                    };
+                  };
+                  toteutus: {
+                    /** @description Toteutuksen yksilöivä tunniste */
+                    oid: string;
+                  };
+                  /**
+                   * @description Koulutuksen tyyppi
+                   * @enum {string}
+                   */
+                  koulutustyyppi: "amm-ope-erityisope-ja-opo" | "vaativan-tuen-koulutukset" | "amk-opintojakso-avoin" | "yo-opintojakso-avoin" | "tohtori" | "valmentavat-koulutukset" | "amk-opintojakso" | "amm-osaamisala" | "muu" | "vapaa-sivistystyo-muu" | "amk-alempi" | "amm-tutkinnon-osa" | "amm-muu" | "yo-erikoistumiskoulutus" | "kandi" | "koulutustyyppi_26" | "yo-opintokokonaisuus" | "tuva-normal" | "kandi-ja-maisteri" | "yo-opintokokonaisuus-avoin" | "erikoislaakari" | "muu-amm-tutkinto" | "taiteen-perusopetus" | "ope-pedag-opinnot" | "koulutustyyppi_4" | "koulutustyyppi_12" | "amk-ylempi" | "yo-opintojakso" | "amm" | "maisteri" | "vapaa-sivistystyo-opistovuosi" | "amk" | "amk-opintokokonaisuus-avoin" | "amk-erikoistumiskoulutus" | "telma" | "koulutustyyppi_11" | "aikuisten-perusopetus" | "amk-opintokokonaisuus" | "tuva-erityisopetus" | "yo" | "lk";
+                  /** @description Onko koulutuksen tyyppi "Ammatillinen perustutkinto erityisopetuksena"? */
+                  ammatillinenPerustutkintoErityisopetuksena: boolean;
+                })[];
+            };
+          };
+        };
+        /** @description Bad request */
+        400: {
+          content: {
+            "text/plain": string;
+          };
+        };
+      };
+    };
+  };
   "/palaute": {
     /**
      * Lähetä palaute
@@ -3531,6 +3619,126 @@ export interface components {
       total?: number;
       /** @description Hakutulokset */
       hits?: components["schemas"]["KoulutusToteutusHit"][];
+    };
+    /** CompactHakukohde */
+    CompactHakukohde: {
+      /** @description Hakukohteen yksilöivä tunniste */
+      oid: string;
+      /**
+       * Nimi
+       * @description Hakukohteen nimi eri kielillä
+       */
+      nimi: {
+        /** @description Suomenkielinen nimi, jos määritelty */
+        fi?: string;
+        /** @description Ruotsinkielinen nimi, jos määritelty */
+        sv?: string;
+        /** @description Englanninkielinen nimi, jos määritelty */
+        en?: string;
+      };
+      /** @description Hakukohteeseen liitetyn haun yksilöivä tunniste */
+      hakuOid: string;
+      organisaatio: {
+        /**
+         * Nimi
+         * @description Organisaation nimi eri kielillä
+         */
+        nimi: {
+          /** @description Suomenkielinen nimi, jos määritelty */
+          fi?: string;
+          /** @description Ruotsinkielinen nimi, jos määritelty */
+          sv?: string;
+          /** @description Englanninkielinen nimi, jos määritelty */
+          en?: string;
+        };
+      };
+      jarjestyspaikka: {
+        /**
+         * Nimi
+         * @description Järjestyspaikan nimi eri kielillä
+         */
+        nimi: {
+          /** @description Suomenkielinen nimi, jos määritelty */
+          fi?: string;
+          /** @description Ruotsinkielinen nimi, jos määritelty */
+          sv?: string;
+          /** @description Englanninkielinen nimi, jos määritelty */
+          en?: string;
+        };
+      };
+      toteutus: {
+        /** @description Toteutuksen yksilöivä tunniste */
+        oid: string;
+      };
+      /**
+       * @description Koulutuksen tyyppi
+       * @enum {string}
+       */
+      koulutustyyppi: "amm-ope-erityisope-ja-opo" | "vaativan-tuen-koulutukset" | "amk-opintojakso-avoin" | "yo-opintojakso-avoin" | "tohtori" | "valmentavat-koulutukset" | "amk-opintojakso" | "amm-osaamisala" | "muu" | "vapaa-sivistystyo-muu" | "amk-alempi" | "amm-tutkinnon-osa" | "amm-muu" | "yo-erikoistumiskoulutus" | "kandi" | "koulutustyyppi_26" | "yo-opintokokonaisuus" | "tuva-normal" | "kandi-ja-maisteri" | "yo-opintokokonaisuus-avoin" | "erikoislaakari" | "muu-amm-tutkinto" | "taiteen-perusopetus" | "ope-pedag-opinnot" | "koulutustyyppi_4" | "koulutustyyppi_12" | "amk-ylempi" | "yo-opintojakso" | "amm" | "maisteri" | "vapaa-sivistystyo-opistovuosi" | "amk" | "amk-opintokokonaisuus-avoin" | "amk-erikoistumiskoulutus" | "telma" | "koulutustyyppi_11" | "aikuisten-perusopetus" | "amk-opintokokonaisuus" | "tuva-erityisopetus" | "yo" | "lk";
+      /** @description Onko koulutuksen tyyppi "Ammatillinen perustutkinto erityisopetuksena"? */
+      ammatillinenPerustutkintoErityisopetuksena: boolean;
+    };
+    /** HakukohdeSearchResult */
+    HakukohdeSearchResult: {
+      /** Format: int32 */
+      total: number;
+      hits: ({
+          /** @description Hakukohteen yksilöivä tunniste */
+          oid: string;
+          /**
+           * Nimi
+           * @description Hakukohteen nimi eri kielillä
+           */
+          nimi: {
+            /** @description Suomenkielinen nimi, jos määritelty */
+            fi?: string;
+            /** @description Ruotsinkielinen nimi, jos määritelty */
+            sv?: string;
+            /** @description Englanninkielinen nimi, jos määritelty */
+            en?: string;
+          };
+          /** @description Hakukohteeseen liitetyn haun yksilöivä tunniste */
+          hakuOid: string;
+          organisaatio: {
+            /**
+             * Nimi
+             * @description Organisaation nimi eri kielillä
+             */
+            nimi: {
+              /** @description Suomenkielinen nimi, jos määritelty */
+              fi?: string;
+              /** @description Ruotsinkielinen nimi, jos määritelty */
+              sv?: string;
+              /** @description Englanninkielinen nimi, jos määritelty */
+              en?: string;
+            };
+          };
+          jarjestyspaikka: {
+            /**
+             * Nimi
+             * @description Järjestyspaikan nimi eri kielillä
+             */
+            nimi: {
+              /** @description Suomenkielinen nimi, jos määritelty */
+              fi?: string;
+              /** @description Ruotsinkielinen nimi, jos määritelty */
+              sv?: string;
+              /** @description Englanninkielinen nimi, jos määritelty */
+              en?: string;
+            };
+          };
+          toteutus: {
+            /** @description Toteutuksen yksilöivä tunniste */
+            oid: string;
+          };
+          /**
+           * @description Koulutuksen tyyppi
+           * @enum {string}
+           */
+          koulutustyyppi: "amm-ope-erityisope-ja-opo" | "vaativan-tuen-koulutukset" | "amk-opintojakso-avoin" | "yo-opintojakso-avoin" | "tohtori" | "valmentavat-koulutukset" | "amk-opintojakso" | "amm-osaamisala" | "muu" | "vapaa-sivistystyo-muu" | "amk-alempi" | "amm-tutkinnon-osa" | "amm-muu" | "yo-erikoistumiskoulutus" | "kandi" | "koulutustyyppi_26" | "yo-opintokokonaisuus" | "tuva-normal" | "kandi-ja-maisteri" | "yo-opintokokonaisuus-avoin" | "erikoislaakari" | "muu-amm-tutkinto" | "taiteen-perusopetus" | "ope-pedag-opinnot" | "koulutustyyppi_4" | "koulutustyyppi_12" | "amk-ylempi" | "yo-opintojakso" | "amm" | "maisteri" | "vapaa-sivistystyo-opistovuosi" | "amk" | "amk-opintokokonaisuus-avoin" | "amk-erikoistumiskoulutus" | "telma" | "koulutustyyppi_11" | "aikuisten-perusopetus" | "amk-opintokokonaisuus" | "tuva-erityisopetus" | "yo" | "lk";
+          /** @description Onko koulutuksen tyyppi "Ammatillinen perustutkinto erityisopetuksena"? */
+          ammatillinenPerustutkintoErityisopetuksena: boolean;
+        })[];
     };
     /** SuosikitItem */
     SuosikitItem: {

@@ -16,6 +16,8 @@ import {
   SearchParams,
   Suosikki,
   VertailuSuosikki,
+  HakukohdeSearchResult,
+  HakukohdeSearchParams,
 } from '#/src/types/common';
 import {
   ContentfulData,
@@ -118,6 +120,8 @@ export const getToteutusOsaamisalaKuvaus = ({
 
 export const getHakukohde = createEntityGetter<TODOType>('hakukohde');
 
+export const getHaku = createEntityGetter<TODOType>('haku');
+
 export const getHakuDemo = async (hakuOid: string) => {
   try {
     return await get<{ demoAllowed: boolean }>(
@@ -133,6 +137,15 @@ export const getKoodistonKoodit = async (koodisto: string) => {
 };
 
 export const getValintaperuste = createEntityGetter('valintaperusteet');
+
+export const searchHakukohteet = (
+  requestParams: HakukohdeSearchParams,
+  signal?: AbortSignal
+) =>
+  get<HakukohdeSearchResult>(urls.url('konfo-backend.search.hakukohteet'), {
+    params: { ...cleanRequestParams(requestParams) },
+    signal,
+  });
 
 export const searchKoulutukset = (requestParams: SearchParams, signal?: AbortSignal) =>
   get(urls.url('konfo-backend.search.koulutukset'), {
