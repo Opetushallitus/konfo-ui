@@ -35,6 +35,22 @@ type Props = {
   tulos: HakupisteLaskelma;
 };
 
+const hakukohdeLabel = (hakukohde: CompactHakukohde) => {
+  const jarjestyspaikkaNimi = hakukohde.jarjestyspaikka
+    ? localize(hakukohde.jarjestyspaikka.nimi).trim()
+    : undefined;
+  const organisaatioNimi = hakukohde.organisaatio
+    ? localize(hakukohde.organisaatio.nimi).trim()
+    : undefined;
+  return `${localize(hakukohde.nimi).trim()}${
+    organisaatioNimi ? `, ${organisaatioNimi}` : ''
+  }${
+    jarjestyspaikkaNimi && jarjestyspaikkaNimi !== organisaatioNimi
+      ? `, ${jarjestyspaikkaNimi}`
+      : ''
+  }`;
+};
+
 export const VertaaHakukohteeseen = ({ tulos }: Props) => {
   const theme = useTheme();
   const { t } = useTranslation();
@@ -61,16 +77,8 @@ export const VertaaHakukohteeseen = ({ tulos }: Props) => {
           )
         )
         .map((hakukohde) => {
-          const jarjestyspaikkaNimi = hakukohde.jarjestyspaikka
-            ? localize(hakukohde.jarjestyspaikka.nimi).trim()
-            : undefined;
-          const organisaatioNimi = hakukohde.organisaatio
-            ? localize(hakukohde.organisaatio.nimi).trim()
-            : undefined;
           return {
-            label: `${localize(hakukohde.nimi).trim()}${
-              organisaatioNimi ? `, ${organisaatioNimi}` : ''
-            }${jarjestyspaikkaNimi ? `, ${jarjestyspaikkaNimi}` : ''}`,
+            label: hakukohdeLabel(hakukohde),
             value: hakukohde,
           };
         }) || [];
@@ -187,9 +195,7 @@ export const VertaaHakukohteeseen = ({ tulos }: Props) => {
               sx={{
                 marginBottom: theme.spacing(2),
               }}>
-              {`${localize(selectedHakukohde.nimi).trim()}, ${localize(
-                selectedHakukohde.organisaatio.nimi
-              )}, ${localize(selectedHakukohde.jarjestyspaikka?.nimi)}`}
+              {hakukohdeLabel(selectedHakukohde)}
             </Typography>
             <InfoBox />
             <GraafiContainer
