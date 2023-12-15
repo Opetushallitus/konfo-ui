@@ -11,8 +11,8 @@ export const stripKuvausHTML = (kuvaus: string, limit?: number) => {
     slicedKuvaus
       .replace(/<\/strong><\/p>|<\/h\d>/g, ': ')
       .replace(/\.<\/p>/g, '. ')
-      .replace(/<ul>|<ol>|(<\/?[a-zA-Z]{0,10}$)/gm, ' ')
       .replace(/([^.])<\/li>/gm, '$1, ')
+      .replace(/<ul>|<ol>|&nbsp;|(<\/?[a-zA-Z]{0,10}$)/gm, ' ')
       .trim()
   );
 };
