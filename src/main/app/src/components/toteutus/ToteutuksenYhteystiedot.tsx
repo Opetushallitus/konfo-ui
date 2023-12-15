@@ -1,12 +1,11 @@
 import React, { useMemo } from 'react';
 
-import { Box, Button, Grid, Typography } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { OppilaitosKorttiLogo } from '#/src/components/common/KorttiLogo';
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { Spacer } from '#/src/components/common/Spacer';
 import { useOppilaitokset } from '#/src/components/oppilaitos/hooks';
 import { Yhteystiedot } from '#/src/components/oppilaitos/Yhteystiedot';
@@ -14,6 +13,7 @@ import { localize } from '#/src/tools/localization';
 import { Yhteystiedot as YhteystiedotType } from '#/src/types/common';
 import { Organisaatio } from '#/src/types/ToteutusTypes';
 
+import { ExternalLinkButton } from '../common/ExternalLinkButton';
 import { hasYhteystiedot } from '../oppilaitos/hasYhteystiedot';
 
 // NOTE: In most cases there is only one oppilaitos per KOMOTO but there is no limit in data model
@@ -117,21 +117,16 @@ export const ToteutuksenYhteystiedot = ({
               )}
 
               {oppilaitos.metadata.wwwSivu && (
-                <Button
-                  style={{
-                    marginTop: 20,
+                <ExternalLinkButton
+                  sx={{
+                    marginTop: '20px',
                     fontWeight: 600,
                   }}
-                  target="_blank"
-                  href={localize(oppilaitos.metadata.wwwSivu.url)}
-                  variant="contained"
-                  size="medium"
-                  color="primary">
+                  href={localize(oppilaitos.metadata.wwwSivu.url)}>
                   {isEmpty(oppilaitos.metadata.wwwSivu.nimi)
                     ? t('oppilaitos.oppilaitoksen-www-sivut')
                     : localize(oppilaitos.metadata.wwwSivu)}
-                  <MaterialIcon icon="open_in_new" fontSize="small" />
-                </Button>
+                </ExternalLinkButton>
               )}
               <Yhteystiedot
                 id={localize(oppilaitos)}
