@@ -11,6 +11,7 @@ const development = {
   'konfo-backend.old-oppija-fi': '/',
   'konfo-backend.old-oppija-sv': '/sv/',
   'konfo-backend.old-oppija-en': '/en/',
+  'konfo-backend.search.hakukohteet': '/konfo-backend/search/hakukohteet',
   'konfo-backend.search.koulutukset': '/konfo-backend/search/koulutukset',
   'konfo-backend.search.oppilaitokset': '/konfo-backend/search/oppilaitokset',
   'konfo-backend.search.autocomplete': '/konfo-backend/search/autocomplete',

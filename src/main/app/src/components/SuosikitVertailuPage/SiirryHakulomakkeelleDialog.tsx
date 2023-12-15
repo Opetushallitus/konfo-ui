@@ -4,7 +4,7 @@ import { create } from 'zustand';
 import { ExternalLinkButton } from '#/src/components/common/ExternalLinkButton';
 import { KonfoDialog } from '#/src/components/common/KonfoDialog';
 import { TextButton } from '#/src/components/common/TextButton';
-import { VertailuSuosikki } from '#/src/types/common';
+import { BaseSuosikki } from '#/src/types/common';
 
 import { useSiirryHakulomakkeelleInfo } from './useSiirryHakulomakkeelleInfo';
 
@@ -27,7 +27,7 @@ export const SiirryHakulomakkeelleDialog = ({
   open,
   onClose,
 }: {
-  data?: Array<VertailuSuosikki>;
+  data?: Array<BaseSuosikki>;
   open: boolean;
   onClose: () => void;
 }) => {

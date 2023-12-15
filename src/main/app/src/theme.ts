@@ -140,6 +140,16 @@ export const theme = createTheme({
         outlined: {
           backgroundColor: 'transparent',
           borderWidth: '1px',
+          '&.Mui-disabled': {
+            borderColor: colors.grey600,
+            color: colors.grey600,
+          },
+        },
+        contained: {
+          '&.Mui-disabled': {
+            backgroundColor: colors.grey600,
+            color: colors.white,
+          },
         },
       },
     },

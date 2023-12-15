@@ -1,15 +1,13 @@
 import React, { useRef } from 'react';
 
-import { Box, Link, Tooltip, Typography, useTheme } from '@mui/material';
-import { includes } from 'lodash';
+import { Box, Link, Typography, useTheme } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { KorttiLogo } from '#/src/components/common/KorttiLogo';
 import { MaterialIcon, MaterialIconVariant } from '#/src/components/common/MaterialIcon';
 import { TextButton } from '#/src/components/common/TextButton';
 import { useContentWidth } from '#/src/hooks/useContentWidth';
-import { useNotification } from '#/src/hooks/useNotification';
-import { useHakuunValitut, useSuosikitSelection } from '#/src/hooks/useSuosikitSelection';
+import { useSuosikitSelection } from '#/src/hooks/useSuosikitSelection';
 import { useSyncRefHeight } from '#/src/hooks/useSyncRefHeight';
 import { useTruncatedKuvaus } from '#/src/hooks/useTruncatedKuvaus';
 import { localize } from '#/src/tools/localization';
@@ -17,9 +15,7 @@ import { VertailuSuosikki } from '#/src/types/common';
 
 import { useSuosikitVertailuMask } from './useSuosikitVertailuMask';
 import { VERTAILU_FIELDS_ORDER } from './VERTAILU_FIELDS_ORDER';
-import { VertailuNotificationContent } from './VertailuNotificationContent';
 import { Heading } from '../Heading';
-import { OutlinedCheckboxButton } from '../OutlinedCheckboxButton';
 import { PaperWithTopColor } from '../PaperWithTopColor';
 
 const useIsContentSmall = () => {
@@ -67,74 +63,10 @@ const InfoItem = ({
   ) : null;
 };
 
-const VieHakulomakkeelleButton = ({
-  vertailuSuosikki,
-  data,
-}: {
-  vertailuSuosikki: VertailuSuosikki;
-  data?: Array<VertailuSuosikki>;
-}) => {
-  const { t } = useTranslation();
-  const { toggleHaku } = useSuosikitSelection();
-  const showNotification = useNotification((state) => state.showNotification);
-
-  const hakuunValitut = useHakuunValitut();
-
-  const hakuunValitutData =
-    data?.filter((suosikki) => hakuunValitut?.includes(suosikki.hakukohdeOid)) ?? [];
-
-  const allHaveSameHaku = Boolean(
-    hakuunValitutData.reduce(
-      (resultOid, item) => {
-        return resultOid === item.hakuOid ? item.hakuOid : undefined;
-      },
-      vertailuSuosikki.hakuOid as string | undefined
-    )
-  );
-
-  const isSelectedToHaku = includes(hakuunValitut, vertailuSuosikki.hakukohdeOid);
-
-  const disabledReasons: Array<string> = [];
-
-  if (!vertailuSuosikki?.hakuAuki) {
-    disabledReasons.push(t('suosikit-vertailu.haku-ei-kaynnissa'));
-  }
-  if (!allHaveSameHaku) {
-    disabledReasons.push(
-      t('suosikit-vertailu.hakulomakkeella-jo-toisen-haun-hakukohteita')
-    );
-  }
-
-  const isDisabled = !isSelectedToHaku && disabledReasons.length !== 0;
-
-  return (
-    <Tooltip title={disabledReasons.join('\n')} placement="top" arrow>
-      <span>
-        <OutlinedCheckboxButton
-          disabled={isDisabled}
-          checked={isSelectedToHaku}
-          onClick={() => {
-            toggleHaku(vertailuSuosikki.hakukohdeOid);
-            if (!isSelectedToHaku) {
-              showNotification({
-                content: <VertailuNotificationContent />,
-                severity: 'success',
-              });
-            }
-          }}>
-          {t('suosikit-vertailu.vie-hakulomakkeelle')}
-        </OutlinedCheckboxButton>
-      </span>
-    </Tooltip>
-  );
-};
-
 export const VertailuKortti = ({
   vertailuSuosikki,
-  data,
 }: {
   vertailuSuosikki: VertailuSuosikki;
-  data?: Array<VertailuSuosikki>;
 }) => {
   const { t } = useTranslation();
   const { toggleVertailu } = useSuosikitSelection();
@@ -164,14 +96,14 @@ export const VertailuKortti = ({
         }}
       />
       <Box ref={headerRef}>
-        <Typography variant="body1">
-          {localize(vertailuSuosikki.oppilaitosNimi)}
-        </Typography>
-        <Link href={`toteutus/${vertailuSuosikki.toteutusOid}`}>
-          <Heading variant="h4" color="primary">
+        <Heading variant="h4" color="primary">
+          <Typography variant="body1">
+            {localize(vertailuSuosikki.oppilaitosNimi)}
+          </Typography>
+          <Link href={`toteutus/${vertailuSuosikki.toteutusOid}`}>
             {localize(vertailuSuosikki.nimi)}
-          </Heading>
-        </Link>
+          </Link>
+        </Heading>
         <Typography>{kuvaus}</Typography>
       </Box>
       <Box
@@ -199,7 +131,6 @@ export const VertailuKortti = ({
         <hr />
 
         <Box display="flex" justifyContent="flex-end" flexWrap="wrap" gap={1}>
-          <VieHakulomakkeelleButton data={data} vertailuSuosikki={vertailuSuosikki} />
           <TextButton onClick={() => toggleVertailu(vertailuSuosikki.hakukohdeOid)}>
             {t('suosikit.poista-vertailusta')}
           </TextButton>

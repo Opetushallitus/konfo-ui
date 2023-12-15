@@ -110,9 +110,10 @@ type Props = {
   hakutiedot: Array<Hakutieto>;
   isLukio: boolean;
   tulos: HakupisteLaskelma | null;
+  hakukohdeOid?: string | null;
 };
 
-export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
+export const GraafiContainer = ({ hakutiedot, isLukio, tulos, hakukohdeOid }: Props) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const hakukohteet = hakutiedot
@@ -157,32 +158,43 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
     setHakukohde(uusiHakukohde);
   };
 
+  useEffect(() => {
+    if (hakukohdeOid) {
+      const kohde = hakukohteet.find((hk) => hk.hakukohdeOid === hakukohdeOid);
+      if (kohde) {
+        setHakukohde(kohde);
+      }
+    }
+  }, [hakukohteet, hakukohdeOid]);
+
   return (
     <StyledBox>
-      <FormControl variant="standard" className={classes.hakukohdeControl}>
-        <label className={classes.hakukohdeLabel} htmlFor="hakukohde-select">
-          {t(
-            isLukio
-              ? 'pistelaskuri.graafi.hakukohde.lukio'
-              : 'pistelaskuri.graafi.hakukohde.muu'
-          )}
-        </label>
-        <Select
-          name="hakukohde-select"
-          value={hakukohde}
-          onChange={changeHakukohde}
-          variant="standard"
-          disableUnderline={true}
-          className={classes.hakukohdeSelect}
-          input={<Input className={classes.hakukohdeInput} />}>
-          {hakukohteet.map((kohde: Hakukohde, index: number) => (
-            <MenuItem key={`hakukohde-${index}`} value={kohde as any}>
-              {localize(kohde.nimi)}
-              {kohde.jarjestyspaikka ? `, ${localize(kohde.jarjestyspaikka.nimi)}` : ''}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+      {!hakukohdeOid && (
+        <FormControl variant="standard" className={classes.hakukohdeControl}>
+          <label className={classes.hakukohdeLabel} htmlFor="hakukohde-select">
+            {t(
+              isLukio
+                ? 'pistelaskuri.graafi.hakukohde.lukio'
+                : 'pistelaskuri.graafi.hakukohde.muu'
+            )}
+          </label>
+          <Select
+            name="hakukohde-select"
+            value={hakukohde}
+            onChange={changeHakukohde}
+            variant="standard"
+            disableUnderline={true}
+            className={classes.hakukohdeSelect}
+            input={<Input className={classes.hakukohdeInput} />}>
+            {hakukohteet.map((kohde: Hakukohde) => (
+              <MenuItem key={kohde.hakukohdeOid} value={kohde as any}>
+                {localize(kohde.nimi)}
+                {kohde.jarjestyspaikka ? `, ${localize(kohde.jarjestyspaikka.nimi)}` : ''}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      )}
       {hakukohde?.metadata?.pistehistoria &&
         hakukohde?.metadata?.pistehistoria?.length > 0 && (
           <Box>
@@ -193,12 +205,13 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
               isTodistusvalinta={isTodistusvalinta}
             />
             <Box className={classes.legend} aria-hidden={true}>
-              {getUniquePistetyypit(hakukohde).map((valintatapajonoTyyppi) => (
+              {getUniquePistetyypit(hakukohde).map((valintatapajonoTyyppi, index) => (
                 <Typography
-                  key={valintatapajonoTyyppi}
+                  key={valintatapajonoTyyppi || `vt-${index}`}
                   className={classes.pistetyyppiText}
                   sx={{ fontSize: '0.875rem' }}>
                   <Box
+                    component="span"
                     className={classes.pistetyyppiBox}
                     sx={{
                       justifyContent: 'center',
@@ -221,6 +234,7 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos }: Props) => {
               {tulos && (
                 <Typography sx={{ fontSize: '0.875rem' }}>
                   <Box
+                    component="span"
                     sx={{
                       width: '19px',
                       height: 0,

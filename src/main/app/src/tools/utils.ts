@@ -12,10 +12,10 @@ import {
 } from 'lodash';
 
 import { NDASH } from '#/src/constants';
+import { Koodi, TODOType, Translateable } from '#/src/types/common';
 
 import { getLanguage, getTranslationForKey, localize } from './localization';
 import { Pagination } from '../store/reducers/koulutusSlice';
-import { Koodi, TODOType, Translateable } from '../types/common';
 
 DOMPurify.addHook('afterSanitizeAttributes', (node) => {
   // set all elements owning target to target=_blank

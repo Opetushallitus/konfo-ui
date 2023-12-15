@@ -42,7 +42,7 @@ const Lukiopistelaskelma = ({ tulos, years, ...props }: LukiopisteProps) => {
       {...props}
       style={{
         data: { stroke: colors.sunglow, strokeWidth: 3 },
-        labels: { fontSize: isSmall ? 32 : 14 },
+        labels: { fontSize: isSmall ? 32 : 16 },
       }}
       data={[
         {
@@ -99,7 +99,7 @@ const PisteGraafiKouluarvosanat = ({ hakukohde, tulos }: Props) => {
             axis: { stroke: colors.invisible },
             ticks: { stroke: colors.invisible },
             grid: { stroke: colors.invisible },
-            tickLabels: { fontSize: isSmall ? 32 : 14 },
+            tickLabels: { fontSize: isSmall ? 32 : 16 },
           }}
         />
         <VictoryAxis
@@ -109,7 +109,7 @@ const PisteGraafiKouluarvosanat = ({ hakukohde, tulos }: Props) => {
             axis: { stroke: colors.invisible },
             ticks: { stroke: colors.invisible },
             grid: { strokeWidth: '3', strokeDasharray: '' },
-            tickLabels: { fontSize: isSmall ? 32 : 14 },
+            tickLabels: { fontSize: isSmall ? 32 : 16 },
           }}
         />
         <VictoryGroup>
@@ -117,7 +117,7 @@ const PisteGraafiKouluarvosanat = ({ hakukohde, tulos }: Props) => {
             data={data}
             style={{
               data: { fill: ({ datum }) => getStyleByPistetyyppi(datum.pistetyyppi) },
-              labels: { fontSize: isSmall ? 32 : 14 },
+              labels: { fontSize: isSmall ? 32 : 16 },
             }}
             barWidth={isSmall ? 74 : 52}
             labels={data.map((datum) => datum.pisteetLabel)}
@@ -182,7 +182,7 @@ const PisteGraafiAmmatillinenJaPaasykoe = ({ hakukohde, tulos, isLukio }: Props)
             axis: { stroke: colors.invisible },
             ticks: { stroke: colors.invisible },
             grid: { stroke: colors.invisible },
-            tickLabels: { fontSize: isSmall ? 32 : 14 },
+            tickLabels: { fontSize: isSmall ? 32 : 16 },
           }}
         />
         <VictoryAxis
@@ -192,7 +192,7 @@ const PisteGraafiAmmatillinenJaPaasykoe = ({ hakukohde, tulos, isLukio }: Props)
             axis: { stroke: colors.invisible },
             ticks: { stroke: colors.invisible },
             grid: { strokeWidth: '3', strokeDasharray: '' },
-            tickLabels: { fontSize: isSmall ? 32 : 14 },
+            tickLabels: { fontSize: isSmall ? 32 : 16 },
           }}
         />
         <VictoryGroup>
@@ -200,7 +200,7 @@ const PisteGraafiAmmatillinenJaPaasykoe = ({ hakukohde, tulos, isLukio }: Props)
             data={data}
             style={{
               data: { fill: ({ datum }) => getStyleByPistetyyppi(datum.pistetyyppi) },
-              labels: { fontSize: isSmall ? 32 : 14 },
+              labels: { fontSize: isSmall ? 32 : 16 },
             }}
             barWidth={52}
             labels={data.map((datum) => datum.pisteetLabel)}
@@ -214,7 +214,7 @@ const PisteGraafiAmmatillinenJaPaasykoe = ({ hakukohde, tulos, isLukio }: Props)
               <VictoryLine
                 style={{
                   data: { stroke: colors.sunglow, strokeWidth: 3 },
-                  labels: { fontSize: isSmall ? 32 : 14 },
+                  labels: { fontSize: isSmall ? 32 : 16 },
                 }}
                 data={[
                   {

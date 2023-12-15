@@ -5,43 +5,14 @@ import {
   useSuosikitDataOrdered,
   useVertailuSuosikit,
 } from '#/src/hooks/useSuosikitSelection';
-import { VertailuSuosikki } from '#/src/types/common';
 
-import {
-  SiirryHakulomakkeelleDialog,
-  useDialogState,
-} from './SiirryHakulomakkeelleDialog';
-import { useSiirryHakulomakkeelleInfo } from './useSiirryHakulomakkeelleInfo';
 import { useSuosikitVertailuData } from './useSuosikitVertailuData';
 import { VertailuFieldMask } from './VertailuFieldMask';
 import { VertailuKortti } from './VertailuKortti';
 import { ContentWrapper } from '../common/ContentWrapper';
-import { ExternalLinkButton } from '../common/ExternalLinkButton';
 import { Murupolku } from '../common/Murupolku';
 import { QueryResult } from '../common/QueryResultWrapper';
 import { Heading, HeadingBoundary } from '../Heading';
-
-const SiirryHakulomakkeelleButton = ({ data }: { data?: Array<VertailuSuosikki> }) => {
-  const { t } = useTranslation();
-
-  const { isValid, count } = useSiirryHakulomakkeelleInfo(data);
-
-  const { setIsOpen } = useDialogState();
-
-  return (
-    <ExternalLinkButton
-      disabled={!isValid}
-      onClick={() => {
-        setIsOpen(true);
-      }}>
-      {t('suosikit-vertailu.siirry-hakulomakkeelle') +
-        ' ' +
-        t('suosikit-vertailu.valittu-maara', {
-          count,
-        })}
-    </ExternalLinkButton>
-  );
-};
 
 const Vertailu = ({ oids }: { oids: Array<string> }) => {
   const queryResult = useSuosikitVertailuData(oids);
@@ -49,19 +20,9 @@ const Vertailu = ({ oids }: { oids: Array<string> }) => {
 
   const orderedData = useSuosikitDataOrdered(data);
 
-  const { isOpen, setIsOpen } = useDialogState();
-
   return (
     <QueryResult queryResult={queryResult}>
-      <SiirryHakulomakkeelleDialog
-        data={data}
-        open={isOpen}
-        onClose={() => setIsOpen(false)}
-      />
       <Box display="flex" flexDirection="column" gap={2}>
-        <Box alignSelf="flex-end">
-          <SiirryHakulomakkeelleButton data={data} />
-        </Box>
         <VertailuFieldMask />
         <Box
           display="flex"
@@ -74,7 +35,6 @@ const Vertailu = ({ oids }: { oids: Array<string> }) => {
             <VertailuKortti
               key={hakukohdeSuosikki.hakukohdeOid}
               vertailuSuosikki={hakukohdeSuosikki}
-              data={data}
             />
           ))}
         </Box>

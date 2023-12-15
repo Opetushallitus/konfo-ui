@@ -801,6 +801,13 @@
       "kielennimi": "Kielen nimi"
     }
   },
+  "vertaa-hakukohteeseen": {
+    "header": "Vertaa pisteitä hakukohteeseen",
+    "vertaa-ohje": "Vertaa pisteitäsi pistemäärään, jolla oppilaitokseen on päässyt opiskelemaan.",
+    "etsi-hakukohteita": "Etsi hakukohteita",
+    "lataus-käynnissä": "Haetaan...",
+    "tyhjenna": "Tyhjennä"
+  },
   "kouluaineet": {
     "aidinkieli": "Äidinkieli ja kirjallisuus",
     "a1-kieli": "A1-kieli",
@@ -844,7 +851,8 @@
     "lisaa-vertailuun": "Lisää vertailuun",
     "poista-vertailusta": "Poista vertailusta",
     "poista-dialog-title": "Vahvista poisto",
-    "poista-dialog-text": "Haluatko varmasti poistaa hakukohteen suosikeistasi?"
+    "poista-dialog-text": "Haluatko varmasti poistaa hakukohteen suosikeistasi?",
+    "vertailuun-voi-lisata-enintaan": "Vertailuun voi lisätä enintään {{max}} hakukohdetta."
   },
   "suosikit-vertailu": {
     "otsikko": "Vertaile suosikkeja",
@@ -876,6 +884,7 @@
     "siirry-hakulomakkeelle-dialog-text": "Huomaathan, että hakukohteet eivät välttämättä ole hakulomakkeella toivomassasi järjestyksessä. Aseta valitsemasi hakukohteet järjestykseen, jossa toivot tulevasi niihin hyväksytyksi. Harkitse hakukohdejärjestystä tarkoin, sillä se on sitova, etkä voi muuttaa sitä enää hakuajan päättymisen jälkeen.",
     "hakukohde-valittu": "Hakukohde valittu",
     "haku-ei-kaynnissa": "Hakukohdetta ei voi viedä hakulomakkeelle, koska haku ei ole käynnissä.",
-    "hakulomakkella-jo-toisen-haun-hakukohteita": "Hakulomakkeelle voi viedä vain yhden haun hakukohteita. Toisen haun hakukohteita on jo lisätty."
+    "hakulomakkella-jo-toisen-haun-hakukohteita": "Hakulomakkeelle voi viedä vain yhden haun hakukohteita. Toisen haun hakukohteita on jo lisätty.",
+    "hakulomakkeelle-voi-vieda-enintaan": "Hakulomakkeelle voi viedä enintään {{max}} hakukohdetta."
   }
 }

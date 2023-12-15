@@ -89,13 +89,7 @@ export const Palvelu = ({ id }: { id: string }) => {
         }}
         onClick={forwardToPage}>
         <CardHeader
-          avatar={
-            <Avatar
-              aria-label={palvelu.name}
-              src={assetUrl(a?.url)}
-              className={classes.avatar}
-            />
-          }
+          avatar={<Avatar src={assetUrl(a?.url)} className={classes.avatar} alt="" />}
           className={classes.header}
           disableTypography={true}
           title={palvelu.name}

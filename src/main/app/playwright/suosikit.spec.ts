@@ -5,8 +5,9 @@ import {
   expectURLEndsWith,
   fixtureFromFile,
   getFixtureData,
-  getByLabelLoc,
+  getByLabelLocator,
   setupCommonTest,
+  expectPageAccessibilityOk,
 } from './test-tools';
 
 const SUOSIKKI_OIDS = [
@@ -87,6 +88,15 @@ test.describe('Suosikit', () => {
   test.beforeEach(async ({ page, context, baseURL }) => {
     await setupCommonTest({ page, context, baseURL });
     await mockSuosikit(page);
+  });
+
+  test('should not have any automatically detectable accessibility issues', async ({
+    page,
+  }) => {
+    await gotoWithInit(page, '/konfo/fi/suosikit', () =>
+      initLocalstorage(page, SUOSIKKI_OIDS)
+    );
+    await expectPageAccessibilityOk(page);
   });
 
   test('Should list added suosikit', async ({ page }) => {
@@ -189,12 +199,12 @@ test.describe('Suosikit', () => {
       () => initLocalstorage(page, SUOSIKKI_OIDS)
     );
 
-    const hakukohteetSection = await getByLabelLoc(
+    const hakukohteetSection = await getByLabelLocator(
       page,
       page.getByRole('heading', { name: 'Koulutuksen hakukohteet' })
     );
 
-    const yhteishautSection = await getByLabelLoc(
+    const yhteishautSection = await getByLabelLocator(
       hakukohteetSection,
       hakukohteetSection.getByRole('heading', { name: 'Yhteishaku' })
     );
@@ -267,7 +277,7 @@ test.describe('Suosikit', () => {
     const firstVertailuItem = vertailuListItems.nth(0);
 
     const getVertailuField = (loc: Locator, text: string) =>
-      getByLabelLoc(loc, loc.getByText(text));
+      getByLabelLocator(loc, loc.getByText(text));
 
     await expect(await getVertailuField(firstVertailuItem, 'Käyntiosoite')).toHaveText(
       'Rämsöönranta 312, 04400 Järvenpää'
@@ -308,29 +318,29 @@ test.describe('Suosikit', () => {
     await expect(vertailuListItems).toHaveCount(1);
   });
 
-  test('Should be able to add vertailu items to hakulomake and show confirmation with link to hakulomake', async ({
+  test('Should be able to add suosikki items to hakulomake and show confirmation with link to hakulomake', async ({
     page,
   }) => {
     await mockSuosikitVertailu(page, SUOSIKKI_OIDS);
-    await gotoWithInit(page, '/konfo/fi/suosikit/vertailu', () =>
+    await gotoWithInit(page, '/konfo/fi/suosikit', () =>
       initLocalstorage(page, SUOSIKKI_OIDS, { compare: true })
     );
 
-    const vertailuListItems = page
-      .getByTestId('suosikit-vertailu-list')
+    const suosikkiListItems = page
+      .getByTestId('suosikit-list')
       .getByRole('listitem')
       .filter({ has: page.getByRole('heading', { level: 2 }) });
 
-    const firstVertailuItem = vertailuListItems.nth(0);
-    const secondVertailuItem = vertailuListItems.nth(1);
+    const firstSuosikki = suosikkiListItems.nth(0);
+    const secondSuosikki = suosikkiListItems.nth(1);
 
-    const firstItemVieHakulomakkeelleBtn = firstVertailuItem.getByRole('button', {
+    const firstItemVieHakulomakkeelleBtn = firstSuosikki.getByRole('button', {
       name: 'Vie hakulomakkeelle',
     });
 
     await expect(firstItemVieHakulomakkeelleBtn).toBeDisabled();
 
-    const firstItemTooltip = firstVertailuItem.locator('span', {
+    const firstItemTooltip = firstSuosikki.locator('span', {
       has: page.getByRole('button', { name: 'Vie hakulomakkeelle' }),
     });
 
@@ -345,7 +355,7 @@ test.describe('Suosikit', () => {
       )
     ).toBeVisible();
 
-    await secondVertailuItem.getByRole('button', { name: 'Vie hakulomakkeelle' }).click();
+    await secondSuosikki.getByRole('button', { name: 'Vie hakulomakkeelle' }).click();
 
     const siirryHakulomakkeelleURLRegExp = new RegExp(
       escapeRegExp(

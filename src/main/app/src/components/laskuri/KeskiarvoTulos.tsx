@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import { Box, Typography, Paper, useTheme, useMediaQuery } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
@@ -5,6 +7,7 @@ import { colors } from '#/src/colors';
 import { ExternalLink } from '#/src/components/common/ExternalLink';
 import { useLaskuriHakukohde } from '#/src/store/reducers/pistelaskuriSlice';
 import { styled } from '#/src/theme';
+import { scrollIntoView } from '#/src/tools/utils';
 
 import { kopioiKouluaineetPainokertoimilla, Kouluaineet } from './aine/Kouluaine';
 import {
@@ -146,9 +149,10 @@ type Props = {
   tulos: HakupisteLaskelma;
   embedded: boolean;
   kouluaineet: Kouluaineet;
+  rootRef: React.MutableRefObject<HTMLDivElement | null>;
 };
 
-export const KeskiarvoTulos = ({ tulos, embedded, kouluaineet }: Props) => {
+export const KeskiarvoTulos = ({ tulos, embedded, kouluaineet, rootRef }: Props) => {
   const hakukohde = useLaskuriHakukohde();
   const { t } = useTranslation();
 
@@ -170,6 +174,10 @@ export const KeskiarvoTulos = ({ tulos, embedded, kouluaineet }: Props) => {
 
   const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
+
+  useEffect(() => {
+    scrollIntoView(rootRef.current);
+  }, [tulos, rootRef]);
 
   return (
     <TulosContainer>
