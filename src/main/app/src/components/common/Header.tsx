@@ -146,6 +146,12 @@ export const Header = ({
               </Box>
             </IconButton>
             <Link
+              sx={{
+                '&.Mui-focusVisible': {
+                  outline: '1px solid white',
+                  outlineOffset: '8px',
+                },
+              }}
               href="/"
               title={t('header.siirry-etusivulle')}
               onClick={refreshSideMenu}>
@@ -161,6 +167,11 @@ export const Header = ({
               <ToolbarLinkButton
                 href={urls.url('oma-opintopolku')}
                 startIcon={<MaterialIcon icon="apps" />}
+                sx={{
+                  '&.Mui-focusVisible': {
+                    outline: '1px solid white',
+                  },
+                }}
                 target="_blank">
                 {t('oma-opintopolku')}
               </ToolbarLinkButton>

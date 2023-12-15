@@ -6,6 +6,7 @@ import Markdown from 'markdown-to-jsx';
 import { EmbeddedPistelaskuri } from '#/src/components/laskuri/EmbeddedPistelaskuri';
 import { ImageComponent } from '#/src/components/sivu/ImageComponent';
 import { useContentful } from '#/src/hooks/useContentful';
+import { styled } from '#/src/theme';
 
 import { Accordion, Summary } from './Accordion';
 import { LinkOrYoutube } from './LinkOrYoutube';
@@ -14,6 +15,13 @@ import { EmbeddedHakutulosBox } from '../haku/EmbeddedHakutulosBox';
 const isBlank = (str?: string) => {
   return !str || /^\s*$/.test(str);
 };
+
+const StyledMarkdown = styled(Markdown)({
+  [`.MuiLink-root.Mui-focusVisible`]: {
+    outline: '1px solid black',
+    outlineOffset: '4px',
+  },
+});
 
 // Markdownissa tällainen:
 // <sivu slug="sivun-url-tunniste">Kuvaava linkin teksti</sivu>
@@ -40,7 +48,7 @@ export const Sisalto = ({
   rootRef?: RefObject<HTMLDivElement>;
 }) => {
   return content ? (
-    <Markdown
+    <StyledMarkdown
       options={{
         overrides: {
           img: {
@@ -106,6 +114,6 @@ export const Sisalto = ({
         },
       }}>
       {content}
-    </Markdown>
+    </StyledMarkdown>
   ) : null;
 };

@@ -57,6 +57,10 @@ const StyledGrid = styled(Grid)({
   [`& .${classes.polku}`]: {
     background: colors.brandGreen,
   },
+  [`.MuiLink-root.Mui-focusVisible`]: {
+    outline: '1px solid white',
+    outlineOffset: '4px',
+  },
 });
 
 export const Kortti = ({ id }: { id: string }) => {

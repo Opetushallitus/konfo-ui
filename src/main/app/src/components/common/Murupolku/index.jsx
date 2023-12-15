@@ -4,6 +4,7 @@ import { useTheme, useMediaQuery } from '@mui/material';
 import { head, last } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
+import { colors } from '#/src/colors';
 import { styled } from '#/src/theme';
 
 import { MurupolkuDrawer } from './MurupolkuDrawer';
@@ -37,6 +38,10 @@ const Root = styled('nav')(() => ({
     '&:last-child': {
       flex: '1 1 0%',
     },
+  },
+
+  [`.MuiLink-root.Mui-focusVisible`]: {
+    backgroundColor: colors.lighterGrey,
   },
 }));
 
