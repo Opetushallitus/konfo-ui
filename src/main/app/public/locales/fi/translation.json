@@ -890,6 +890,8 @@
     "ei-osaamisaloja": "Ei osaamisaloja",
     "ei-maaritelty": "Ei määritelty",
     "siirry-hakulomakkeelle": "Siirry hakulomakkeelle ({{count}} valittu)",
-    "vie-hakulomakkeelle": "Vie hakulomakkeelle"
+    "vie-hakulomakkeelle": "Vie hakulomakkeelle",
+    "haku-ei-kaynnissa": "Hakukohdetta ei voi viedä hakulomakkeelle, koska haku ei ole käynnissä.",
+    "hakulomakkeella-jo-toisen-haun-hakukohteita": "Hakulomakkeelle voi viedä vain yhden haun hakukohteita. Toisen haun hakukohteita on jo lisätty."
   }
 }
