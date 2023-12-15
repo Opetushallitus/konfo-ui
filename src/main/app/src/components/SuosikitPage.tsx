@@ -85,16 +85,16 @@ const ToggleVertailuButton = ({ oid }: { oid: string }) => {
 
   const canAddToVertailu = vertailuSuosikit.length < 3;
 
-  const checked = vertailuSuosikit.indexOf(oid) !== -1;
+  const isChecked = vertailuSuosikit.indexOf(oid) !== -1;
 
   return (
     <OutlinedCheckboxButton
-      checked={checked}
-      disabled={!checked && !canAddToVertailu}
+      checked={isChecked}
+      disabled={!isChecked && !canAddToVertailu}
       onClick={() => {
         toggleVertailu(oid);
       }}>
-      {checked ? t('suosikit.poista-vertailusta') : t('suosikit.lisaa-vertailuun')}
+      {isChecked ? t('suosikit.poista-vertailusta') : t('suosikit.lisaa-vertailuun')}
     </OutlinedCheckboxButton>
   );
 };

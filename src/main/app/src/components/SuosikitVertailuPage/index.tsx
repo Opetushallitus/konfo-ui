@@ -1,11 +1,14 @@
 import React, { useRef } from 'react';
 
 import { Box, Divider, Link, Typography, useTheme } from '@mui/material';
+import { includes } from 'lodash';
+import { urls } from 'oph-urls-js';
 import { useTranslation } from 'react-i18next';
 
 import { useContentWidth } from '#/src/hooks/useContentWidth';
+import { useNotification } from '#/src/hooks/useNotification';
 import {
-  useSuosikitDataOrdered,
+  useHakuunValitut,
   useSuosikitSelection,
   useVertailuSuosikit,
 } from '#/src/hooks/useSuosikitSelection';
@@ -20,12 +23,14 @@ import { useSuosikitVertailuMask } from './useSuosikitVertailuMask';
 import { VERTAILU_FIELDS_ORDER } from './VERTAILU_FIELDS_ORDER';
 import { VertailuFieldMask } from './VertailuFieldMask';
 import { ContentWrapper } from '../common/ContentWrapper';
+import { ExternalLinkButton } from '../common/ExternalLinkButton';
 import { KorttiLogo } from '../common/KorttiLogo';
 import { MaterialIcon, MaterialIconVariant } from '../common/MaterialIcon';
 import { Murupolku } from '../common/Murupolku';
 import { QueryResult } from '../common/QueryResultWrapper';
 import { TextButton } from '../common/TextButton';
 import { Heading, HeadingBoundary } from '../Heading';
+import { OutlinedCheckboxButton } from '../OutlinedCheckboxButton';
 import { PaperWithTopColor } from '../PaperWithTopColor';
 
 const useIsContentSmall = () => {
@@ -73,14 +78,34 @@ const InfoItem = ({
   ) : null;
 };
 
+const NotificationContent = ({ data }: any) => {
+  const { t } = useTranslation();
+
+  const { url: hakulomakeURL } = useSiirryHakulomakkeelleInfo(data);
+
+  return (
+    <Box sx={{ color: 'white' }}>
+      <Box fontWeight="bold">{t('suosikit-vertailu.hakukohde-valittu')}</Box>
+      <Link sx={{ color: 'white', textDecorationColor: 'white' }} href={hakulomakeURL}>
+        {t('suosikit-vertailu.siirry-hakulomakkelle')}
+      </Link>{' '}
+      <span>{t('suosikit-vertailu.tai-lisaa-muita-hakukohteita')}</span>
+    </Box>
+  );
+};
+
 const VertailuKortti = ({
   vertailuSuosikki,
+  data,
 }: {
   vertailuSuosikki: VertailuSuosikki;
-  removed?: boolean;
+  data?: Array<VertailuSuosikki>;
 }) => {
   const { t } = useTranslation();
-  const { toggleVertailu } = useSuosikitSelection();
+  const { toggleHaku, toggleVertailu } = useSuosikitSelection();
+  const showNotification = useNotification((state) => state.showNotification);
+
+  const hakuunValitut = useHakuunValitut();
 
   const kuvaus = useTruncatedKuvaus(localize(vertailuSuosikki.esittely));
 
@@ -93,6 +118,8 @@ const VertailuKortti = ({
   const isContentSmall = useIsContentSmall();
 
   useSyncRefHeight([['header', headerRef]], { enabled: !isContentSmall });
+
+  const isSelectedToHaku = includes(hakuunValitut, vertailuSuosikki.hakukohdeOid);
 
   return (
     <PaperWithTopColor
@@ -146,6 +173,19 @@ const VertailuKortti = ({
         )}
         <Divider />
         <Box display="flex" justifyContent="flex-end" flexWrap="wrap" gap={1}>
+          <OutlinedCheckboxButton
+            checked={isSelectedToHaku}
+            onClick={() => {
+              toggleHaku(vertailuSuosikki.hakukohdeOid);
+              if (!isSelectedToHaku) {
+                showNotification({
+                  content: <NotificationContent data={data} />,
+                  severity: 'success',
+                });
+              }
+            }}>
+            {t('suosikit-vertailu.vie-hakulomakkeelle')}
+          </OutlinedCheckboxButton>
           <TextButton onClick={() => toggleVertailu(vertailuSuosikki.hakukohdeOid)}>
             {t('suosikit.poista-vertailusta')}
           </TextButton>
@@ -155,15 +195,54 @@ const VertailuKortti = ({
   );
 };
 
+const useSiirryHakulomakkeelleInfo = (data?: Array<VertailuSuosikki>) => {
+  const hakuunValitut = useHakuunValitut();
+
+  const hakuunValitutData =
+    data?.filter((suosikki) => hakuunValitut?.includes(suosikki.hakukohdeOid)) ?? [];
+
+  const firstValittuHakuOid = hakuunValitutData?.[0]?.hakuOid;
+
+  const isValid = hakuunValitutData.length !== 0;
+
+  console.log({ hakuunValitutData, hakuunValitut });
+
+  return {
+    url: isValid
+      ? urls.url('ataru.hakemus-haku', firstValittuHakuOid) +
+        `?hakukohteet=${hakuunValitutData.map((i) => i.hakukohdeOid).join(',')}`
+      : '',
+    isValid,
+    count: hakuunValitutData.length,
+  };
+};
+
+const VieHakulomakkeelleButton = ({ data }: { data?: Array<VertailuSuosikki> }) => {
+  const { t } = useTranslation();
+
+  const { url: hakulomakeURL, isValid, count } = useSiirryHakulomakkeelleInfo(data);
+
+  console.log({ count });
+
+  return (
+    <ExternalLinkButton href={hakulomakeURL} disabled={!isValid}>
+      {t('suosikit-vertailu.siirry-hakulomakkeelle', {
+        count,
+      })}
+    </ExternalLinkButton>
+  );
+};
+
 const Vertailu = ({ oids }: { oids: Array<string> }) => {
   const queryResult = useSuosikitVertailuData(oids);
-
   const { data } = queryResult;
-  const orderedData = useSuosikitDataOrdered(data);
 
   return (
     <QueryResult queryResult={queryResult}>
       <Box display="flex" flexDirection="column" gap={2}>
+        <Box alignSelf="flex-end">
+          <VieHakulomakkeelleButton data={data} />
+        </Box>
         <VertailuFieldMask />
         <Box
           display="flex"
@@ -172,10 +251,11 @@ const Vertailu = ({ oids }: { oids: Array<string> }) => {
           flexWrap="wrap"
           alignItems="flex-start"
           data-testid="suosikit-vertailu-list">
-          {orderedData?.map((hakukohdeSuosikki) => (
+          {data?.map((hakukohdeSuosikki) => (
             <VertailuKortti
               key={hakukohdeSuosikki.hakukohdeOid}
               vertailuSuosikki={hakukohdeSuosikki}
+              data={data}
             />
           ))}
         </Box>
@@ -186,9 +266,9 @@ const Vertailu = ({ oids }: { oids: Array<string> }) => {
 
 export const SuosikitVertailuPage = () => {
   const { t } = useTranslation();
-  const oids = useVertailuSuosikit();
+  const vertailuSuosikit = useVertailuSuosikit();
 
-  const vertailuCount = oids.length;
+  const vertailuCount = vertailuSuosikit.length;
 
   return (
     <ContentWrapper>
@@ -203,7 +283,7 @@ export const SuosikitVertailuPage = () => {
       <Heading variant="h1">{t('suosikit-vertailu.otsikko')}</Heading>
       <HeadingBoundary>
         {vertailuCount > 0 ? (
-          <Vertailu oids={oids} />
+          <Vertailu oids={vertailuSuosikit} />
         ) : (
           t('suosikit-vertailu.ei-vertailtavia-suosikkeja')
         )}
