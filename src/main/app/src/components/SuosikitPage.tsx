@@ -115,14 +115,14 @@ const SuosikkiKortti = ({ hakukohdeSuosikki }: { hakukohdeSuosikki: Suosikki }) 
         }}>
         <OppilaitosKorttiLogo image={hakukohdeSuosikki.logo} alt={logoAltText} />
       </Box>
-      <Typography variant="body1">
-        {localize(hakukohdeSuosikki.oppilaitosNimi)}
-      </Typography>
-      <Link href={`toteutus/${hakukohdeSuosikki.toteutusOid}`}>
-        <Heading color="primary" variant="h4">
+      <Heading color="primary" variant="h4">
+        <Typography variant="body1">
+          {localize(hakukohdeSuosikki.oppilaitosNimi)}
+        </Typography>
+        <Link href={`toteutus/${hakukohdeSuosikki.toteutusOid}`}>
           {localize(hakukohdeSuosikki.nimi)}
-        </Heading>
-      </Link>
+        </Link>
+      </Heading>
       <Typography>{kuvaus}</Typography>
       <Box
         display="flex"
