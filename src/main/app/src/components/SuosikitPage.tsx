@@ -238,7 +238,7 @@ const VertaileValittuja = () => {
           disabled={isDisabled}
           color="primary">
           {t('suosikit.vertaile-valittuja')}
-          {` (${MAX_VERTAILTAVAT})`}
+          {` (${vertailuSuosikit.length})`}
         </Button>
       </span>
     </Tooltip>
