@@ -5,8 +5,9 @@ import {
   expectURLEndsWith,
   fixtureFromFile,
   getFixtureData,
-  getByLabelLoc,
+  getByLabelLocator,
   setupCommonTest,
+  expectPageAccessibilityOk,
 } from './test-tools';
 
 const SUOSIKKI_OIDS = [
@@ -87,6 +88,15 @@ test.describe('Suosikit', () => {
   test.beforeEach(async ({ page, context, baseURL }) => {
     await setupCommonTest({ page, context, baseURL });
     await mockSuosikit(page);
+  });
+
+  test('should not have any automatically detectable accessibility issues', async ({
+    page,
+  }) => {
+    await gotoWithInit(page, '/konfo/fi/suosikit', () =>
+      initLocalstorage(page, SUOSIKKI_OIDS)
+    );
+    await expectPageAccessibilityOk(page);
   });
 
   test('Should list added suosikit', async ({ page }) => {
@@ -189,12 +199,12 @@ test.describe('Suosikit', () => {
       () => initLocalstorage(page, SUOSIKKI_OIDS)
     );
 
-    const hakukohteetSection = await getByLabelLoc(
+    const hakukohteetSection = await getByLabelLocator(
       page,
       page.getByRole('heading', { name: 'Koulutuksen hakukohteet' })
     );
 
-    const yhteishautSection = await getByLabelLoc(
+    const yhteishautSection = await getByLabelLocator(
       hakukohteetSection,
       hakukohteetSection.getByRole('heading', { name: 'Yhteishaku' })
     );
@@ -267,7 +277,7 @@ test.describe('Suosikit', () => {
     const firstVertailuItem = vertailuListItems.nth(0);
 
     const getVertailuField = (loc: Locator, text: string) =>
-      getByLabelLoc(loc, loc.getByText(text));
+      getByLabelLocator(loc, loc.getByText(text));
 
     await expect(await getVertailuField(firstVertailuItem, 'Käyntiosoite')).toHaveText(
       'Rämsöönranta 312, 04400 Järvenpää'
