@@ -318,29 +318,29 @@ test.describe('Suosikit', () => {
     await expect(vertailuListItems).toHaveCount(1);
   });
 
-  test('Should be able to add vertailu items to hakulomake and show confirmation with link to hakulomake', async ({
+  test('Should be able to add suosikki items to hakulomake and show confirmation with link to hakulomake', async ({
     page,
   }) => {
     await mockSuosikitVertailu(page, SUOSIKKI_OIDS);
-    await gotoWithInit(page, '/konfo/fi/suosikit/vertailu', () =>
+    await gotoWithInit(page, '/konfo/fi/suosikit', () =>
       initLocalstorage(page, SUOSIKKI_OIDS, { compare: true })
     );
 
-    const vertailuListItems = page
-      .getByTestId('suosikit-vertailu-list')
+    const suosikkiListItems = page
+      .getByTestId('suosikit-list')
       .getByRole('listitem')
       .filter({ has: page.getByRole('heading', { level: 2 }) });
 
-    const firstVertailuItem = vertailuListItems.nth(0);
-    const secondVertailuItem = vertailuListItems.nth(1);
+    const firstSuosikki = suosikkiListItems.nth(0);
+    const secondSuosikki = suosikkiListItems.nth(1);
 
-    const firstItemVieHakulomakkeelleBtn = firstVertailuItem.getByRole('button', {
+    const firstItemVieHakulomakkeelleBtn = firstSuosikki.getByRole('button', {
       name: 'Vie hakulomakkeelle',
     });
 
     await expect(firstItemVieHakulomakkeelleBtn).toBeDisabled();
 
-    const firstItemTooltip = firstVertailuItem.locator('span', {
+    const firstItemTooltip = firstSuosikki.locator('span', {
       has: page.getByRole('button', { name: 'Vie hakulomakkeelle' }),
     });
 
@@ -355,7 +355,7 @@ test.describe('Suosikit', () => {
       )
     ).toBeVisible();
 
-    await secondVertailuItem.getByRole('button', { name: 'Vie hakulomakkeelle' }).click();
+    await secondSuosikki.getByRole('button', { name: 'Vie hakulomakkeelle' }).click();
 
     const siirryHakulomakkeelleURLRegExp = new RegExp(
       escapeRegExp(

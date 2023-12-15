@@ -1728,6 +1728,8 @@ export interface paths {
             "application/json": ({
                 /** @description Hakukohteen yksilöivä tunniste */
                 hakukohdeOid: string;
+                /** @description Hakukohteeseen liitetyn haun yksilöivä tunniste */
+                hakuOid: string;
                 /** @description Lista tutkintonimikkeitä käännöksineen (tutkintonimikkeet-koodisto) */
                 tutkintonimikkeet?: ({
                     koodiUri: string | null;
@@ -3730,6 +3732,8 @@ export interface components {
     SuosikitItem: {
       /** @description Hakukohteen yksilöivä tunniste */
       hakukohdeOid: string;
+      /** @description Hakukohteeseen liitetyn haun yksilöivä tunniste */
+      hakuOid: string;
       /** @description Lista tutkintonimikkeitä käännöksineen (tutkintonimikkeet-koodisto) */
       tutkintonimikkeet?: ({
           koodiUri: string | null;
