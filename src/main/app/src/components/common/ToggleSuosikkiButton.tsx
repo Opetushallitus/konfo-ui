@@ -53,10 +53,6 @@ export const ToggleSuosikkiButton = ({
         />
       )}
       <Button
-        sx={{
-          float: 'right',
-          marginLeft: 1,
-        }}
         variant="contained"
         onClick={() => {
           if (confirmRemove && isAdded) {

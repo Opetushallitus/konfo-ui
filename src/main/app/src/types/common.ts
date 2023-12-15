@@ -94,6 +94,7 @@ export type KonfoKoulutustyyppi = components['schemas']['KonfoKoulutustyyppi'];
 
 export type Suosikki = components['schemas']['SuosikitItem'];
 export type VertailuSuosikki = components['schemas']['SuosikitVertailuItem'];
+export type BaseSuosikki = Pick<Suosikki, 'hakuOid' | 'hakukohdeOid' | 'hakuAuki'>;
 
 export type HakukohdeSearchParams =
   paths['/search/hakukohteet']['get']['parameters']['query'];

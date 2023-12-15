@@ -189,10 +189,12 @@ const HakuCardGrid = ({
                     <Grid container spacing={3} display="flex" flexDirection="column">
                       <Grid item display="inline-block" position="relative">
                         {isToisenAsteenYhteishaku(hakukohde) && (
-                          <ToggleSuosikkiButton
-                            hakukohdeOid={hakukohde.hakukohdeOid}
-                            notifyOnAdd={true}
-                          />
+                          <Box sx={{ float: 'right', marginLeft: 1 }}>
+                            <ToggleSuosikkiButton
+                              hakukohdeOid={hakukohde.hakukohdeOid}
+                              notifyOnAdd={true}
+                            />
+                          </Box>
                         )}
                         <Typography
                           variant="h5"
