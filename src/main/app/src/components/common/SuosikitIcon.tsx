@@ -7,7 +7,7 @@ import { styled } from '#/src/theme';
 
 export const DarkBadge = styled(Badge)({
   '& .MuiBadge-badge': {
-    backgroundColor: colors.darkGreen,
+    backgroundColor: colors.green900,
     color: colors.white,
   },
 });

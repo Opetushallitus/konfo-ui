@@ -44,13 +44,13 @@ const StyledGrid = styled(Grid)({
   },
   [`& .${classes.kategoria}`]: {
     textTransform: 'uppercase',
-    color: colors.darkGrey,
+    color: colors.grey700,
     fontSize: '14px',
     lineHeight: '19px',
     fontWeight: 'light',
   },
   [`& .${classes.pvm}`]: {
-    color: colors.darkGrey,
+    color: colors.grey700,
     fontSize: '14px',
     lineHeight: '19px',
     textAlign: 'end',

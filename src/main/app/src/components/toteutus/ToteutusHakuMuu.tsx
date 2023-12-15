@@ -126,7 +126,7 @@ export const ToteutusHakuMuu = ({ toteutus }: Props) => {
                 component="p"
                 sx={{
                   fontWeight: 'bold',
-                  color: colors.black,
+                  color: colors.grey900,
                 }}>
                 {localize(muuHaku.nimi)}
               </Typography>

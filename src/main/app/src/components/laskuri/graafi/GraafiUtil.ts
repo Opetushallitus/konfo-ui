@@ -67,7 +67,7 @@ export const getStyleByPistetyyppi = (pistetyyppi: string | undefined): string =
     case 'valintatapajono_tv':
       return colors.verminal;
     default:
-      return colors.darkGrey; // valintatapajono_m tai tieto puuttuu
+      return colors.grey700; // valintatapajono_m tai tieto puuttuu
   }
 };
 

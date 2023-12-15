@@ -21,7 +21,7 @@ const StyledMarkdown = styled(Markdown)({
     lineHeight: '27px',
     paddingLeft: '21px',
     color: colors.brandGreen,
-    borderLeftColor: colors.lightGrey,
+    borderLeftColor: colors.grey500,
     borderLeftWidth: '1px',
     borderLeftStyle: 'solid',
     display: 'block',

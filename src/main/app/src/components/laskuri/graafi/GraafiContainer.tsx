@@ -84,14 +84,14 @@ const StyledBox = styled(Box)(({ theme }) => ({
       },
     },
     [`& .${classes.hakukohdeInput}`]: {
-      border: `1px solid ${colors.lightGrey}`,
+      border: `1px solid ${colors.grey500}`,
       padding: '0.5rem',
       textAlign: 'left',
       '&:focus-within': {
-        borderColor: colors.black,
+        borderColor: colors.grey900,
       },
       '&:hover': {
-        borderColor: colors.black,
+        borderColor: colors.grey900,
       },
     },
   },

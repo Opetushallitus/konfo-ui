@@ -363,7 +363,7 @@ export const Filter = ({
                   ...theme,
                   colors: {
                     ...theme.colors,
-                    primary25: colors.darkGrey,
+                    primary25: colors.grey700,
                     primary: colors.brandGreen,
                   },
                 })}
