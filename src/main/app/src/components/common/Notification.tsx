@@ -28,6 +28,8 @@ export const Notification = () => {
       }}
       onMouseEnter={clearTimeout}
       onMouseLeave={resetTimeout}
+      onFocus={clearTimeout}
+      onBlur={resetTimeout}
       anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
       autoHideDuration={null}
       open={isOpen}>
