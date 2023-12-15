@@ -84,7 +84,7 @@ const ToggleVertailuButton = ({ oid }: { oid: string }) => {
 
   const canAddToVertailu = vertailuSuosikit.length < 3;
 
-  const isChecked = vertailuSuosikit.indexOf(oid) !== -1;
+  const isChecked = vertailuSuosikit.includes(oid);
 
   return (
     <OutlinedCheckboxButton
