@@ -12,11 +12,11 @@ const getApiKey = () => {
   console.log('Askem - language: ' + language);
   switch (language) {
     case 'en':
-      return 'idze486kova0hcrl';
+      return 'f554ofogzbqr00jk';
     case 'sv':
       return '2zziejxvzml3uvry';
     default:
-      return 'f554ofogzbqr00jk';
+      return 'idze486kova0hcrl';
   }
 };
 
