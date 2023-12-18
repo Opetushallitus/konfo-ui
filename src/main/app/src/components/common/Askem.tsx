@@ -14,19 +14,13 @@ const getApiKey = () => {
     case 'en':
       return 'idze486kova0hcrl';
     case 'sv':
-      return 'idze486kova0hcrl';
+      return '2zziejxvzml3uvry';
     default:
-      return 'idze486kova0hcrl';
+      return 'f554ofogzbqr00jk';
   }
 };
 
-const hostnames: Array<string> = [
-  'opintopolku.fi',
-  'testiopintopolku.fi',
-  'untuvaopintopolku.fi',
-  'hahtuvaopintopolku.fi',
-  'localhost',
-];
+const hostnames: Array<string> = ['opintopolku.fi', 'testiopintopolku.fi', 'localhost'];
 const enableAskem = (): boolean => {
   const hostname = window.location.hostname;
   console.log('Askem - hostname: ' + hostname);
