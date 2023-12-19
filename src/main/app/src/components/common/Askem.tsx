@@ -91,5 +91,9 @@ export const Askem = () => {
     },
   }));
 
-  return <StyledAskem className="askem"></StyledAskem>;
+  return (
+    <StyledAskem>
+      <div className="askem" />
+    </StyledAskem>
+  );
 };
