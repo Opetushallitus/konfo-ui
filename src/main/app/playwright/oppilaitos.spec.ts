@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-import { mocksFromFile, setupCommonTest } from './test-tools';
+import { fixtureFromFile, mocksFromFile, setupCommonTest } from './test-tools';
 
 test.describe('oppilaitos', () => {
   test.beforeEach(async ({ page, context, baseURL }) => {
@@ -43,5 +43,10 @@ test.describe('oppilaitos', () => {
         .filter({ hasText: /^Oppilaitoksen blogiAalto-yliopisto$/ })
         .getByLabel('https://www.aalto.fi/fi/')
     ).toBeVisible();
+  });
+
+  test('esittelyvideo renders', async ({ page }) => {
+    await page.route('/konfo/esittelyvideo.mp4', fixtureFromFile('esittelyvideo.mp4'));
+    await expect(page.getByTestId('esittelyvideo').locator('video')).toBeVisible();
   });
 });

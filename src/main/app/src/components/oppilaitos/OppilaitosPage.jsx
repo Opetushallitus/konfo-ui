@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import { ContentWrapper } from '#/src/components/common/ContentWrapper';
+import { Esittelyvideo } from '#/src/components/common/Esittelyvideo';
 import { HtmlTextBox } from '#/src/components/common/HtmlTextBox';
 import { InfoBanner } from '#/src/components/common/InfoBanner';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
@@ -91,11 +92,20 @@ export const OppilaitosPage = (props) => {
               icon={<MaterialIcon icon="sports_soccer" />}
             />
           )}
-          <Box mt={7.5}>
-            <TeemakuvaImage
-              imgUrl={entity?.teemakuva}
-              altText={t('oppilaitos.oppilaitoksen-teemakuva')}
-            />
+          <Box
+            mt={7.5}
+            sx={{
+              width: '100%',
+              maxWidth: '1200px',
+            }}>
+            {entity?.teemakuva ? (
+              <TeemakuvaImage
+                imgUrl={entity?.teemakuva}
+                altText={t('oppilaitos.oppilaitoksen-teemakuva')}
+              />
+            ) : (
+              <Esittelyvideo videoUrl={localize(entity?.metadata?.esittelyvideo.url)} />
+            )}
           </Box>
           <PageSection heading={t('oppilaitos.perustiedot')}>
             <OppilaitosinfoGrid
