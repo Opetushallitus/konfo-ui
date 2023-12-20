@@ -46,7 +46,7 @@ export const Askem = () => {
     return () => {
       if (enableAskem()) document.body.removeChild(script);
     };
-  }, []);
+  });
 
   const buttonStyles = {
     textTransform: 'none',
