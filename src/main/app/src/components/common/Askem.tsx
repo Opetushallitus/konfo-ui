@@ -10,7 +10,6 @@ declare const window: Window &
 
 const getApiKey = () => {
   const language = getLanguage();
-  console.log('Askem - language: ' + language);
   switch (language) {
     case 'en':
       return 'f554ofogzbqr00jk';
@@ -24,7 +23,6 @@ const getApiKey = () => {
 const hostnames: Array<string> = ['opintopolku.fi', 'testiopintopolku.fi', 'localhost'];
 const enableAskem = (): boolean => {
   const hostname = window.location.hostname;
-  console.log('Askem - hostname: ' + hostname);
   return hostnames.includes(hostname);
 };
 
