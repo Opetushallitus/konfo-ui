@@ -62,6 +62,10 @@ const Root = styled('footer')({
     backgroundColor: colors.white,
     padding: '0 40px 0 40px',
   },
+  [`.MuiLink-root.Mui-focusVisible`]: {
+    outline: '1px solid black',
+    outlineOffset: '4px',
+  },
 });
 
 const overrides = {

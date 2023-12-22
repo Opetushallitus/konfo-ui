@@ -26,6 +26,9 @@ const StyledMarkdown = styled(Markdown)({
     borderLeftStyle: 'solid',
     display: 'block',
     paddingBottom: '15px',
+    [`&:focus-visible`]: {
+      outline: '1px solid black',
+    },
   },
 });
 
