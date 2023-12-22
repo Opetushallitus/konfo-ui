@@ -4,7 +4,7 @@ import { Box, Button, Link } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
-import { useNotification } from '#/src/hooks/useNotification';
+import { useNotifications } from '#/src/hooks/useNotifications';
 import { useSuosikitSelection } from '#/src/hooks/useSuosikitSelection';
 
 import { ConfirmSuosikkiRemoveDialog } from '../ConfirmSuosikkiRemoveDialog';
@@ -38,7 +38,7 @@ export const ToggleSuosikkiButton = ({
 
   const [isConfirmationOpen, setConfirmationOpen] = useState(false);
 
-  const showNotification = useNotification((state) => state.showNotification);
+  const showNotification = useNotifications((state) => state.showNotification);
 
   const isAdded = Boolean(suosikitSelection[hakukohdeOid ?? '']);
   const { t } = useTranslation();
@@ -53,7 +53,9 @@ export const ToggleSuosikkiButton = ({
         />
       )}
       <Button
-        variant="contained"
+        variant="outlined"
+        color="primary"
+        //variant="contained"
         onClick={() => {
           if (confirmRemove && isAdded) {
             setConfirmationOpen(true);

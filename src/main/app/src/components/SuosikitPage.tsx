@@ -26,13 +26,13 @@ import { QueryResult } from './common/QueryResultWrapper';
 import { TextWithBackground } from './common/TextWithBackground';
 import { ToggleSuosikkiButton } from './common/ToggleSuosikkiButton';
 import { Heading, HeadingBoundary } from './Heading';
-import { OutlinedCheckboxButton } from './OutlinedCheckboxButton';
 import { PaperWithTopColor } from './PaperWithTopColor';
 import { SiirryHakulomakkeelleButton } from './SuosikitVertailuPage/SiirryHakulomakkeelleButton';
 import {
   SiirryHakulomakkeelleDialog,
   useDialogState,
 } from './SuosikitVertailuPage/SiirryHakulomakkeelleDialog';
+import { ToggleVertailuButton } from './SuosikitVertailuPage/ToggleVertailuButton';
 import { ToggleVieHakulomakkeelleButton } from './SuosikitVertailuPage/ToggleVieHakulomakkeelleButton';
 
 const useSuosikitData = (oids?: Array<string>) => {
@@ -81,36 +81,6 @@ const Tutkintonimikkeet = ({
       </Typography>
     </>
   ) : null;
-};
-
-const MAX_VERTAILTAVAT = 3;
-
-const ToggleVertailuButton = ({ oid }: { oid: string }) => {
-  const { t } = useTranslation();
-  const { toggleVertailu } = useSuosikitSelection();
-  const vertailuSuosikit = useVertailuSuosikit();
-
-  const tooltipText =
-    vertailuSuosikit.length >= MAX_VERTAILTAVAT
-      ? t('suosikit.vertailuun-voi-lisata-enintaan', { max: MAX_VERTAILTAVAT })
-      : undefined;
-
-  const isChecked = vertailuSuosikit.includes(oid);
-
-  return (
-    <Tooltip title={!isChecked && tooltipText} placement="top" arrow>
-      <span>
-        <OutlinedCheckboxButton
-          checked={isChecked}
-          disabled={!isChecked && Boolean(tooltipText)}
-          onClick={() => {
-            toggleVertailu(oid);
-          }}>
-          {isChecked ? t('suosikit.poista-vertailusta') : t('suosikit.lisaa-vertailuun')}
-        </OutlinedCheckboxButton>
-      </span>
-    </Tooltip>
-  );
 };
 
 const SuosikkiKortti = ({
