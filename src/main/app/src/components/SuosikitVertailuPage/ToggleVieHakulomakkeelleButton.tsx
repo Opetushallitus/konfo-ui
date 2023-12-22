@@ -2,11 +2,11 @@ import { Tooltip } from '@mui/material';
 import { includes } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
-import { useNotification } from '#/src/hooks/useNotification';
+import { useNotifications } from '#/src/hooks/useNotifications';
 import { useHakuunValitut, useSuosikitSelection } from '#/src/hooks/useSuosikitSelection';
 import { BaseSuosikki } from '#/src/types/common';
 
-import { VertailuNotificationContent } from './VertailuNotificationContent';
+import { VieHakulomakkeelleNotificationContent } from './VieHakulomakkeelleNotificationContent';
 import { OutlinedCheckboxButton } from '../OutlinedCheckboxButton';
 
 const MAX_HAKUUN_VALITUT = 7;
@@ -20,7 +20,7 @@ export const ToggleVieHakulomakkeelleButton = ({
 }) => {
   const { t } = useTranslation();
   const { toggleHaku } = useSuosikitSelection();
-  const showNotification = useNotification((state) => state.showNotification);
+  const showNotification = useNotifications((state) => state.showNotification);
 
   const hakuunValitut = useHakuunValitut();
 
@@ -69,7 +69,7 @@ export const ToggleVieHakulomakkeelleButton = ({
               toggleHaku(suosikki?.hakukohdeOid);
               if (!isSelectedToHaku) {
                 showNotification({
-                  content: <VertailuNotificationContent />,
+                  content: <VieHakulomakkeelleNotificationContent />,
                   severity: 'success',
                 });
               }
