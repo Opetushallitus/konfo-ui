@@ -104,7 +104,10 @@ export const OppilaitosPage = (props) => {
                 altText={t('oppilaitos.oppilaitoksen-teemakuva')}
               />
             ) : (
-              <Esittelyvideo videoUrl={localize(entity?.metadata?.esittelyvideo.url)} />
+              <Esittelyvideo
+                videoUrl={localize(entity?.metadata?.esittelyvideo.url)}
+                altText={t('oppilaitos.oppilaitoksen-esittelyvideo')}
+              />
             )}
           </Box>
           <PageSection heading={t('oppilaitos.perustiedot')}>
