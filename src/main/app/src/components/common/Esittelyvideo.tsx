@@ -1,7 +1,13 @@
 import { Card } from '@mui/material';
 import ReactPlayer from 'react-player';
 
-export const Esittelyvideo = ({ videoUrl }: { videoUrl?: string }) => {
+export const Esittelyvideo = ({
+  videoUrl,
+  altText,
+}: {
+  videoUrl?: string;
+  altText: string;
+}) => {
   return (
     <Card
       data-testid="esittelyvideo"
@@ -10,6 +16,7 @@ export const Esittelyvideo = ({ videoUrl }: { videoUrl?: string }) => {
         position: 'relative',
         paddingTop: '56.25%',
       }}
+      title={altText}
       elevation={1}>
       <ReactPlayer
         data-testid="player"
