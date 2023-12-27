@@ -80,6 +80,11 @@ export const PalautePopup = () => {
         ) : null}
 
         <Fab
+          sx={{
+            '&.Mui-focusVisible': {
+              outline: '2px solid black',
+            },
+          }}
           color="secondary"
           aria-label={t('palaute.anna-palautetta')}
           onClick={() => setShow(true)}

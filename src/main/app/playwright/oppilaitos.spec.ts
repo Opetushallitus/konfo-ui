@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-import { mocksFromFile, setupCommonTest } from './test-tools';
+import { fixtureFromFile, mocksFromFile, setupCommonTest } from './test-tools';
 
 test.describe('oppilaitos', () => {
   test.beforeEach(async ({ page, context, baseURL }) => {
@@ -46,5 +46,10 @@ test.describe('oppilaitos', () => {
     await expect(
       buttonGroup.getByRole('link', { name: 'Aalto-Yliopisto' })
     ).toHaveAttribute('href', 'https://www.aalto.fi/fi/');
+  });
+
+  test('esittelyvideo renders', async ({ page }) => {
+    await page.route('/konfo/esittelyvideo.mp4', fixtureFromFile('esittelyvideo.mp4'));
+    await expect(page.getByTestId('esittelyvideo').locator('video')).toBeVisible();
   });
 });

@@ -89,6 +89,10 @@ const PikalinkitPaper = styled(Paper)({
   borderRadius: 0,
   padding: '20px 0',
   width: '100%',
+  [`.MuiLink-root.Mui-focusVisible`]: {
+    outline: '1px solid black',
+    outlineOffset: '2px',
+  },
 });
 
 export const Pikalinkit = ({

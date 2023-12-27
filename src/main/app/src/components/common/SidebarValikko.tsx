@@ -111,7 +111,7 @@ const SivuItem = ({
 
 const OtsikkoItem = ({ name }: { name: string }) => {
   return (
-    <h2 role="menuitem" className={classes.otsikkoText} tabIndex={0} aria-label={name}>
+    <h2 role="menuitem" className={classes.otsikkoText} tabIndex={-1} aria-label={name}>
       {name}
     </h2>
   );
@@ -131,7 +131,7 @@ const ValikkoItem = ({
       <ListItemText
         className={classes.valintaText}
         role="menuitem"
-        tabIndex={0}
+        tabIndex={-1}
         aria-label={name}>
         {name}
       </ListItemText>
@@ -170,7 +170,7 @@ export const SidebarValikko = (props: {
           <ListItemIcon className={classes.parentOtsikkoIconBase}>
             <MaterialIcon icon="chevron_left" className={classes.parentOtsikkoIcon} />
           </ListItemIcon>
-          <ListItemText role="menuitem" tabIndex={0} aria-label={parent.name}>
+          <ListItemText role="menuitem" tabIndex={-1} aria-label={parent.name}>
             {parent.name}
           </ListItemText>
         </ListItemLink>
