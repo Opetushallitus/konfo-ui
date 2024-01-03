@@ -1,55 +1,69 @@
 import { useEffect, useState } from 'react';
 
-import { Alert, CustomTheme, Snackbar, useTheme } from '@mui/material';
+import { Alert, Box, CustomTheme, Snackbar, useTheme } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
 import { useLocation } from 'react-router-dom';
 import { usePrevious } from 'react-use';
 
-import { useNotification } from '#/src/hooks/useNotification';
+import { useNotifications } from '#/src/hooks/useNotifications';
 import { getHeaderHeight } from '#/src/theme';
 
-export const Notification = () => {
-  const { isOpen, closeNotification, content, severity, clearTimeout, resetTimeout } =
-    useNotification();
+export const Notifications = () => {
+  const {
+    notifications,
+    closeNotification,
+    closeNotifications,
+    clearTimeouts,
+    resetTimeouts,
+  } = useNotifications();
   const theme = useTheme();
 
   const { pathname } = useLocation();
   const previousPathname = usePrevious(pathname);
 
   const [hasBeenOpened, setHasBeenOpened] = useState<boolean>(false);
-
   useEffect(() => {
     if (previousPathname !== pathname) {
-      closeNotification();
+      closeNotifications();
       setHasBeenOpened(false);
-    } else if (isOpen) {
+    } else if (notifications.length > 0) {
       setHasBeenOpened(true);
     }
-  }, [isOpen, pathname, previousPathname, closeNotification]);
+  }, [notifications, pathname, previousPathname, closeNotifications]);
 
+  //console.log('!!!!!!!!! ', notifications.length);
+  //notifications.forEach((n) => console.log(n.id + ' ' + n.timeoutId));
   return (
     <Snackbar
       sx={{
         marginTop: `${getHeaderHeight(theme as CustomTheme)}px`,
         // Ruudunlukijoille on ongelmallista, jos notifikaatio poistetaan automaattisesti,
         // joten piilotetaan notifikaatio vain visuaalisesti.
-        ...(isOpen ? {} : visuallyHidden),
+        ...(notifications.length > 0 ? {} : visuallyHidden),
       }}
       TransitionProps={{
         appear: false,
       }}
-      onMouseEnter={clearTimeout}
-      onMouseLeave={resetTimeout}
-      onFocus={clearTimeout}
-      onBlur={resetTimeout}
+      onMouseEnter={clearTimeouts}
+      onMouseLeave={resetTimeouts}
+      onFocus={clearTimeouts}
+      onBlur={resetTimeouts}
       anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
       autoHideDuration={null}
       // Notifikaatiota ei haluta ruudunlukijoillekaan luettavan sivun latauksessa,
       // joten asetetaan tämä true:ksi vasta kun notifikaatio avataan sivulla ensimmäisen kerran.
       open={hasBeenOpened}>
-      <Alert variant="filled" severity={severity} onClose={closeNotification}>
-        {content}
-      </Alert>
+      <Box display="flex" flexDirection="column" gap={theme.spacing(2)}>
+        {notifications.map((n) => (
+          <Alert
+            key={n.id}
+            variant="filled"
+            severity={n.severity}
+            onClose={() => closeNotification(n.id)}>
+            {n.content}
+          </Alert>
+        ))}
+      </Box>
     </Snackbar>
   );
 };
