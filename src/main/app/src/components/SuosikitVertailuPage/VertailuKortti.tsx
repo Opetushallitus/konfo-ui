@@ -164,14 +164,14 @@ export const VertailuKortti = ({
         }}
       />
       <Box ref={headerRef}>
-        <Typography variant="body1">
-          {localize(vertailuSuosikki.oppilaitosNimi)}
-        </Typography>
-        <Link href={`toteutus/${vertailuSuosikki.toteutusOid}`}>
-          <Heading variant="h4" color="primary">
+        <Heading variant="h4" color="primary">
+          <Typography variant="body1">
+            {localize(vertailuSuosikki.oppilaitosNimi)}
+          </Typography>
+          <Link href={`toteutus/${vertailuSuosikki.toteutusOid}`}>
             {localize(vertailuSuosikki.nimi)}
-          </Heading>
-        </Link>
+          </Link>
+        </Heading>
         <Typography>{kuvaus}</Typography>
       </Box>
       <Box
