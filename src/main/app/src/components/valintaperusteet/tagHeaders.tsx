@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import {
   DOMNode,
   HTMLReactParserOptions,
@@ -8,8 +8,6 @@ import {
 import { includes } from 'lodash';
 
 import { toId } from '#/src/tools/utils';
-
-import { StyledBox } from './Sisalto';
 
 const headers = ['h1', 'h2', 'h3', 'h4', 'h5'] as const;
 
@@ -27,11 +25,11 @@ export const tagHeaders: HTMLReactParserOptions['transform'] = (
       const id = toId(text);
       const isH1 = 'h1' === node.name;
       return (
-        <StyledBox pt={isH1 ? 0.5 : 0} key={id}>
+        <Box pt={isH1 ? 0.5 : 0} key={id}>
           <Typography id={id} variant={name}>
             {text}
           </Typography>
-        </StyledBox>
+        </Box>
       );
     }
   }
