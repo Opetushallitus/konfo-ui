@@ -272,7 +272,7 @@ const SuosikitList = ({
   return (
     <QueryResult queryResult={queryResult}>
       <SiirryHakulomakkeelleDialog
-        data={data}
+        data={orderedData}
         open={isOpen}
         onClose={() => setIsOpen(false)}
       />
@@ -283,12 +283,6 @@ const SuosikitList = ({
               removeMissing={() => removeSuosikit(suosikitWithMissingData)}
             />
           )}
-          {!isFetching && !isEmpty(data) && (
-            <Box display="flex" gap={2} justifyContent="flex-end" flexWrap="wrap">
-              <VertaileValittuja />
-              <SiirryHakulomakkeelleButton data={data} />
-            </Box>
-          )}
           <TransitionGroupList role="list" data-testid="suosikit-list">
             {orderedData?.map((hakukohdeSuosikki) => (
               <Collapse key={hakukohdeSuosikki.hakukohdeOid}>
@@ -296,6 +290,12 @@ const SuosikitList = ({
               </Collapse>
             ))}
           </TransitionGroupList>
+          {!isFetching && !isEmpty(data) && (
+            <Box display="flex" gap={2} justifyContent="center" flexWrap="wrap">
+              <VertaileValittuja />
+              <SiirryHakulomakkeelleButton data={data} />
+            </Box>
+          )}
         </Box>
       </HeadingBoundary>
     </QueryResult>
