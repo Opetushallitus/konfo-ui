@@ -26,6 +26,20 @@ export const colors = {
   kkMagenta: '#990066',
   koepisteetBlue: '#0041DC',
   yhteispisteetPink: '#E60895',
+
+  green900: '#254905', // Hover states
+  green700: '#3A7A10', // Header, CTA, Ammatillinen accent, Links
+  green300: '#9CFF5A', // Focus states
+  green100: '#CCFFCC', // Label background
+  green50: '#F4FFF4', // Highlight background
+
+  grey900: '#1D1D1D', // Headings
+  grey700: '#4C4C4C', // Paragraphs, input field text
+  grey600: '#767676', // Disabled states
+  grey500: '#B2B2B2', // Disabled states
+  // grey400: '#CCCCCC', // No used yet
+  // grey200: '#E6E6E6', // Not used yet
+  grey50: '#F5F7F9', // Desktop BG
 };
 
 // NOTE: kts. speksi Invision -> Oppija styleguide -> Konfo-UI colors
