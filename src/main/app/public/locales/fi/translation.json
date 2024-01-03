@@ -68,6 +68,7 @@
     "otsikko-muut-palvelut": "Muut palvelut",
     "otsikko-ohjeet-ja-tuki": "Ohjeet ja tuki"
   },
+  "peruuta": "Peruuta",
   "vähintään": "Vähintään",
   "enintään": "Enintään",
   "nayta-lisatiedot": "Näytä lisätiedot",
@@ -528,21 +529,6 @@
     "tunniste": "Hakijalle näkyvä tunniste",
     "opinnonTyyppi": "Opinnon tyyppi"
   },
-  "vertailu": {
-    "takaisin-edelliselle-sivulle": "Takaisin edelliselle sivulle",
-    "vertailuun-ottamasi-kohteet": "Vertailuun ottamasi kohteet",
-    "koulutus-alkaa": "Koulutus alkaa",
-    "opetuskieli": "Opetuskieli",
-    "koulutuksen-laajuus": "Koulutuksen laajuus",
-    "suunniteltu-kesto": "Suunniteltu kesto",
-    "osaamisalat": "Osaamisalat",
-    "opetusaika": "Opetusaika",
-    "opetustapa": "Opetustapa",
-    "opiskelumuoto": "Opiskelumuoto",
-    "pohjakoulutus": "Pohjakoulutus",
-    "maksullinen": "Maksullinen",
-    "maksuton": "Maksuton"
-  },
   "sidebar": {
     "lukio": "Lukio",
     "opinnot-lukiossa": "Opinnot lukiossa",
@@ -889,9 +875,14 @@
     "ei-valintakokeita": "Ei järjestetä",
     "ei-osaamisaloja": "Ei osaamisaloja",
     "ei-maaritelty": "Ei määritelty",
-    "siirry-hakulomakkeelle": "Siirry hakulomakkeelle ({{count}} valittu)",
+    "siirry-hakulomakkeelle": "Siirry hakulomakkeelle",
+    "valittu-maara": "({{count}} valittu)",
     "vie-hakulomakkeelle": "Vie hakulomakkeelle",
+    "hakukohde-valittu": "Hakukohde valittu",
+    "valittu-notification-text-suffix": "tai lisää muita hakukohteita.",
+    "hakulomakkella-jo-toisen-haun-hakukohteita": "Hakulomakkeelle voi viedä vain yhden haun hakukohteita. Toisen haun hakukohteita on jo lisätty.",
     "haku-ei-kaynnissa": "Hakukohdetta ei voi viedä hakulomakkeelle, koska haku ei ole käynnissä.",
-    "hakulomakkeella-jo-toisen-haun-hakukohteita": "Hakulomakkeelle voi viedä vain yhden haun hakukohteita. Toisen haun hakukohteita on jo lisätty."
+    "siirry-hakulomakkeelle-dialog-title": "Olet siirtymässä hakulomakkeelle",
+    "siirry-hakulomakkeelle-dialog-text": "Huomaathan, että hakukohteet eivät välttämättä ole hakulomakkeella toivomassasi järjestyksessä. Aseta valitsemasi hakukohteet järjestykseen, jossa toivot tulevasi niihin hyväksytyksi. Harkitse hakukohdejärjestystä tarkoin, sillä se on sitova, etkä voi muuttaa sitä enää hakuajan päättymisen jälkeen."
   }
 }
