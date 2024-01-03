@@ -11,7 +11,7 @@ export const useSiirryHakulomakkeelleInfo = (data?: Array<VertailuSuosikki>) => 
 
   const firstValittuHakuOid = hakuunValitutData?.[0]?.hakuOid;
 
-  const isValid = hakuunValitutData.length !== 0;
+  const isValid = hakuunValitutData.length > 0;
 
   return {
     url: isValid
