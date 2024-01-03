@@ -57,6 +57,8 @@ const StyledListItemButton = styled(ListItemButton)({
   },
 });
 
+const LANG_ACCORDION_CONTENT_ID = 'language-accordion-content';
+
 export const LanguageAccordion = () => {
   const { t } = useTranslation();
   const [language, setLanguage]: any = useLanguageState();
@@ -69,9 +71,11 @@ export const LanguageAccordion = () => {
   };
 
   return (
-    <StyledAccordion aria-expanded={isOpen} disableGutters expanded={isOpen}>
+    <StyledAccordion disableGutters expanded={isOpen}>
       <StyledAccordionSummary
         aria-label={t('kielivalinta.valitse-kieli-taman-sivun-kieli-on')}
+        aria-expanded={isOpen}
+        aria-controls={LANG_ACCORDION_CONTENT_ID}
         role="button"
         expandIcon={<MaterialIcon icon="expand_more" sx={{ color: colors.white }} />}
         onClick={() => setOpen(!isOpen)}>
@@ -82,7 +86,7 @@ export const LanguageAccordion = () => {
           </Typography>
         </Box>
       </StyledAccordionSummary>
-      <StyledAccordionDetails>
+      <StyledAccordionDetails id={LANG_ACCORDION_CONTENT_ID}>
         <List aria-label={t('kielivalinta.valitse-kieli-taman-sivun-kieli-on')}>
           {LANG_OPTIONS.filter(({ code }) => !isEqual(language, code)).map(
             (langOption) => (

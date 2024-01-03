@@ -1,5 +1,6 @@
 import path from 'path';
 
+import AxeBuilder from '@axe-core/playwright';
 import { BrowserContext, Locator, Page, Route, expect } from '@playwright/test';
 import { escapeRegExp } from 'lodash';
 
@@ -67,9 +68,15 @@ export const fixtureFromFile = (fileName: string) => (route: Route) =>
 export const getFixtureData = async (fileName: string) =>
   (await import(getFixturePath(fileName)))?.default;
 
-export const getByLabelLoc = async (loc: Locator | Page, label: Locator) => {
-  const id = await label.getAttribute('id');
-  return loc.locator(`css=[aria-labelledby="${id}"]`);
+export const getByLabelLocator = async (outer: Locator | Page, label: Locator) => {
+  // label.getAttribute('id') toimii jostain syystä epävakaasti tässä..
+  const id = await label.evaluate((el) => el.getAttribute('id'));
+  return outer.locator(`css=[aria-labelledby="${id}"]`);
+};
+
+export const expectPageAccessibilityOk = async (page: Page) => {
+  const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+  await expect(accessibilityScanResults.violations).toEqual([]);
 };
 
 // For debugging

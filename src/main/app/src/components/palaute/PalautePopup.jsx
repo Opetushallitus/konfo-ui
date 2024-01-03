@@ -63,7 +63,7 @@ export const PalautePopup = () => {
   const [hover, setHover] = useState(false);
 
   return (
-    <Root>
+    <Root role="complementary">
       <div className={classes.container}>
         {tooltip || hover ? (
           <span onClick={() => setTooltip(false)} className={classes.box}>

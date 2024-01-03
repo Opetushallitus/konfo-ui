@@ -63,9 +63,10 @@
     "zustand": "^4.4.1"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.8.2",
     "@material-design-icons/svg": "^0.14.10",
     "@optimize-lodash/rollup-plugin": "^4.0.3",
-    "@playwright/test": "^1.39.0",
+    "@playwright/test": "^1.40.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@types/dompurify": "^3.0.2",
