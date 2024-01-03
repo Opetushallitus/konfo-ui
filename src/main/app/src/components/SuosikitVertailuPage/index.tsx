@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 
-import { Box, Divider, Link, Typography, useTheme } from '@mui/material';
+import { Box, Divider, Link, Tooltip, Typography, useTheme } from '@mui/material';
 import { includes } from 'lodash';
 import { urls } from 'oph-urls-js';
 import { useTranslation } from 'react-i18next';
@@ -121,26 +121,38 @@ const VieHakulomakkeelleButton = ({
 
   const isSelectedToHaku = includes(hakuunValitut, vertailuSuosikki.hakukohdeOid);
 
-  const isEnabled = allHaveSameHaku || isSelectedToHaku;
+  const disabledReasons: Array<string> = [];
+
+  if (!vertailuSuosikki?.hakuAuki) {
+    disabledReasons.push(t('suosikit-vertailu.haku-ei-kaynnissa'));
+  }
+  if (!allHaveSameHaku) {
+    disabledReasons.push(
+      t('suosikit-vertailu.hakulomakkeella-jo-toisen-haun-hakukohteita')
+    );
+  }
+
+  const isDisabled = !isSelectedToHaku || disabledReasons.length !== 0;
 
   return (
-    <OutlinedCheckboxButton
-      disabled={!isEnabled}
-      checked={isSelectedToHaku}
-      title={
-        allHaveSameHaku ? undefined : 'Hakulomakkeelle vietäviksi valituilla on eri haku!'
-      }
-      onClick={() => {
-        toggleHaku(vertailuSuosikki.hakukohdeOid);
-        if (!isSelectedToHaku) {
-          showNotification({
-            content: <NotificationContent data={data} />,
-            severity: 'success',
-          });
-        }
-      }}>
-      {t('suosikit-vertailu.vie-hakulomakkeelle')}
-    </OutlinedCheckboxButton>
+    <Tooltip title={disabledReasons.join('\n')} placement="top" arrow>
+      <span>
+        <OutlinedCheckboxButton
+          disabled={isDisabled}
+          checked={isSelectedToHaku}
+          onClick={() => {
+            toggleHaku(vertailuSuosikki.hakukohdeOid);
+            if (!isSelectedToHaku) {
+              showNotification({
+                content: <NotificationContent data={data} />,
+                severity: 'success',
+              });
+            }
+          }}>
+          {t('suosikit-vertailu.vie-hakulomakkeelle')}
+        </OutlinedCheckboxButton>
+      </span>
+    </Tooltip>
   );
 };
 
