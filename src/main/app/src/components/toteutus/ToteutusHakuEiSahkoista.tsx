@@ -13,7 +13,7 @@ import { Toteutus } from '#/src/types/ToteutusTypes';
 const StyledNimi = styled(Typography)(({ theme }) => ({
   ...theme.typography.h4,
   fontWeight: 'bold',
-  color: colors.black,
+  color: colors.grey900,
 }));
 
 type Props = {

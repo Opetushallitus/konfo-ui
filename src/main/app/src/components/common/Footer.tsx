@@ -35,7 +35,7 @@ const Hr = styled('div')({
   border: 'none',
   borderTopWidth: '1px',
   borderTopStyle: 'solid',
-  borderTopColor: colors.lightGrey,
+  borderTopColor: colors.grey500,
   textAlign: 'center',
 });
 

@@ -27,7 +27,7 @@ const Root = styled('span')(({ isLast, isHome, link }) => ({
   [`& .${classes.arrow}`]: {
     display: 'inline',
     marginRight: BREADCRUMB_ICON_SPACING,
-    color: colors.lightGrey,
+    color: colors.grey500,
     fontSize: '12px',
   },
 
@@ -56,7 +56,7 @@ const Root = styled('span')(({ isLast, isHome, link }) => ({
     ...theme.typography.body1,
     marginRight: BREADCRUMB_ICON_SPACING,
     cursor: 'pointer',
-    border: `1px solid ${colors.lightGrey}`,
+    border: `1px solid ${colors.grey500}`,
     padding: '2px 12px',
     lineHeight: '24px',
     minWidth: 0,

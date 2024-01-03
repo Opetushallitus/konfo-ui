@@ -33,13 +33,13 @@ const KieliContainer = styled(Box)(({ theme }) => ({
     },
   },
   [`& .${classes.input}`]: {
-    border: `1px solid ${colors.lightGrey}`,
+    border: `1px solid ${colors.grey500}`,
     padding: '0 0.5rem',
     '&:focus-within': {
-      borderColor: colors.black,
+      borderColor: colors.grey900,
     },
     '&:hover': {
-      borderColor: colors.black,
+      borderColor: colors.grey900,
     },
   },
   [`& .${classes.kieliValinta}`]: {

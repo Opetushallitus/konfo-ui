@@ -34,7 +34,7 @@ const Root = styled('div')(() => ({
     backgroundColor: colors.white,
     cursor: 'auto',
     userSelect: 'all',
-    color: colors.black,
+    color: colors.grey900,
     paddingLeft: '16px',
     paddingRight: '35px', // Bigger to make space for close button
   },

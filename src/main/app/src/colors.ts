@@ -1,24 +1,10 @@
-// NOTE: kts. speksi Invision -> Oppija styleguide -> Konfo-UI colors
+// Tyyliopas Figmassa:
+// https://www.figma.com/file/7oWvDwZj6X9cGkEVDfoPLf/OPH---Oppija-Design-System-(opintopolku.fi-%2B-muut-julkiset)
+
 export const colors = {
-  brandGreen: '#3A7A10', // Header, CTA, Links
-  darkGreen: '#254905', // Hover states
-  lightGreen: '#9CFF5A', // Focus states
-  lightGreenBg: '#CCFFCC', // Label BG
-  brightGreenBg: '#64bc46',
-  lightGrayishGreenBg: '#e3ecdd', // Ohjaava haku
-  darkerGrayishGreenBg: '#a5c291', // Ohjaava haku hover
-  black: '#1D1D1D', // Headings, paragraphs
-  darkGrey: '#4C4C4C', // input field text
-  lightGrey: '#B2B2B2', // Disabled states
-  greyBg: '#F5F7F9', // Desktop BG
-  white: '#FFFFFF', // Content area bg, text on dark bg
   red: '#CC3300', // Error states
   korkeakouluPurple: '#990066',
-
-  // TODO: Should be from specs?
-  blue: '#0033CC',
-  grey: '#EEEEEE',
-  lighterGrey: '#D5D5D5',
+  blue: '#0033CC', // lukio blue
 
   invisible: 'rgba(255,255,255,0)',
   verminal: '#5BCA13',
@@ -27,6 +13,7 @@ export const colors = {
   koepisteetBlue: '#0041DC',
   yhteispisteetPink: '#E60895',
 
+  brandGreen: '#3A7A10', // green700
   green900: '#254905', // Hover states
   green700: '#3A7A10', // Header, CTA, Ammatillinen accent, Links
   green300: '#9CFF5A', // Focus states
@@ -37,18 +24,26 @@ export const colors = {
   grey700: '#4C4C4C', // Paragraphs, input field text
   grey600: '#767676', // Disabled states
   grey500: '#B2B2B2', // Disabled states
-  // grey400: '#CCCCCC', // No used yet
-  // grey200: '#E6E6E6', // Not used yet
-  grey50: '#F5F7F9', // Desktop BG
+  // grey400: '#CCCCCC', // TBA, Not used yet
+  // grey200: '#E6E6E6', // TBA, Not used yet
+  grey50: '#F5F7F9', // Desktop background
+  white: '#FFFFFF', // Content area bg, text on dark bg
+
+  // TODO: Näitä ei ole tyylioppaassa. Vaihda oikeisiin tai lisää tyylioppaaseen.
+  grey: '#EEEEEE',
+  lighterGrey: '#D5D5D5',
+  brightGreenBg: '#64bc46',
+  lightGrayishGreenBg: '#e3ecdd', // Ohjaava haku
+  darkerGrayishGreenBg: '#a5c291', // Ohjaava haku hover
 };
 
 // NOTE: kts. speksi Invision -> Oppija styleguide -> Konfo-UI colors
 export const educationTypeColorCode: Record<string, string> = {
   // ammatillinenGreen
-  amm: colors.brandGreen,
-  'amm-osaamisala': colors.brandGreen,
-  'amm-tutkinnon-osa': colors.brandGreen,
-  'amm-muu': colors.brandGreen,
+  amm: colors.green700,
+  'amm-osaamisala': colors.green700,
+  'amm-tutkinnon-osa': colors.green700,
+  'amm-muu': colors.green700,
   ammatillinenGreenBg: '#F4FFF4', // Highlight BG color
 
   // korkeakouluPurple
@@ -65,7 +60,7 @@ export const educationTypeColorCode: Record<string, string> = {
 
   // tuva
   // KTO-1144: "Konfo-UI:n teemaväriä ei ole vielä hyväksytty, joten väri voi olla sama kuin ammatillisella koulutuksella (vihreä)"
-  tuva: colors.brandGreen,
+  tuva: colors.green700,
   // tuva: '#FF5000', // TODO Tarkistaa pitikö olla oranssi
   // tuvaBg: '#FFEDE5',
   'vapaa-sivistystyo-opistovuosi': '#007373',
@@ -86,4 +81,4 @@ export const educationTypeColorCode: Record<string, string> = {
 
 const root = document.documentElement;
 
-root.style.setProperty('--primary-main-color', colors.brandGreen);
+root.style.setProperty('--primary-main-color', colors.green700);

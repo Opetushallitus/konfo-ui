@@ -52,7 +52,7 @@ const TulosContainer = styled(Box)(({ theme }) => ({
     flexDirection: 'column',
   },
   [`& .${classes.textContainer}`]: {
-    background: colors.greyBg,
+    background: colors.grey50,
     padding: '1rem',
     flexGrow: 2,
   },
@@ -124,10 +124,7 @@ const Osalaskut = ({ osalasku }: OsalaskutProps) => {
         </Typography>
       </Box>
       <Box className={classes.osalaskutSection}>
-        <Box
-          className={classes.osalaskutDisc}
-          sx={{ backgroundColor: colors.darkGrey }}
-        />
+        <Box className={classes.osalaskutDisc} sx={{ backgroundColor: colors.grey700 }} />
         <Typography
           variant="body1"
           className={classes.textBlock}
