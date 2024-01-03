@@ -45,9 +45,6 @@ const useSuosikitState = create<SuosikitState>()(
         set((state) => {
           if (state.suosikitSelection[id]) {
             state.suosikitSelection[id].compare = !state.suosikitSelection[id].compare;
-            if (!state.suosikitSelection[id].compare) {
-              state.suosikitSelection[id].haku = false;
-            }
           }
         }),
       toggleHaku: (id) =>
