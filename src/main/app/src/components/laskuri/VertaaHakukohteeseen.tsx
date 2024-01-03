@@ -121,7 +121,7 @@ export const VertaaHakukohteeseen = ({ tulos }: Props) => {
           width: '100%',
           alignItems: 'center',
           boxSizing: 'border-box',
-          border: `1px solid ${colors.lightGrey}`,
+          border: `1px solid ${colors.grey500}`,
           borderRadius: '2px',
         }}>
         <Autocomplete
