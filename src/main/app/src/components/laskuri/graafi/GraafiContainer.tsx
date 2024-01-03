@@ -183,6 +183,15 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos, hakukohdeOid }: Pr
             value={hakukohde}
             onChange={changeHakukohde}
             variant="standard"
+            aria-label={
+              t('pistelaskuri.graafi.heading') +
+              ', ' +
+              t(
+                isLukio
+                  ? 'pistelaskuri.graafi.hakukohde.lukio'
+                  : 'pistelaskuri.graafi.hakukohde.muu'
+              )
+            }
             disableUnderline={true}
             className={classes.hakukohdeSelect}
             input={<Input className={classes.hakukohdeInput} />}>
@@ -197,7 +206,7 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos, hakukohdeOid }: Pr
       )}
       {hakukohde?.metadata?.pistehistoria &&
         hakukohde?.metadata?.pistehistoria?.length > 0 && (
-          <Box>
+          <Box aria-live="polite">
             <PisteGraafi
               hakukohde={hakukohde}
               tulos={calculatedTulos}
