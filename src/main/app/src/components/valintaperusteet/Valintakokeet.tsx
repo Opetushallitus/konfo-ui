@@ -160,7 +160,7 @@ export const Valintakokeet = ({
                   id={`${toId(localize(nimi))}`}
                   elevation={0}
                   style={{
-                    backgroundColor: colors.grey,
+                    backgroundColor: colors.grey50,
                     padding: '15px',
                     marginBottom: '20px',
                   }}>
