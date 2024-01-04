@@ -31,8 +31,6 @@ export const Notifications = () => {
     }
   }, [notifications, pathname, previousPathname, closeNotifications]);
 
-  //console.log('!!!!!!!!! ', notifications.length);
-  //notifications.forEach((n) => console.log(n.id + ' ' + n.timeoutId));
   return (
     <Snackbar
       sx={{
