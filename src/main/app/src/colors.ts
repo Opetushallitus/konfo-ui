@@ -25,7 +25,7 @@ export const colors = {
   grey600: '#767676', // Disabled states
   grey500: '#B2B2B2', // Disabled states
   // grey400: '#CCCCCC', // TBA, Not used yet
-  // grey200: '#E6E6E6', // TBA, Not used yet
+  grey200: '#E6E6E6', // keyboard focus background
   grey50: '#F5F7F9', // Desktop background
   white: '#FFFFFF', // Content area bg, text on dark bg
 
