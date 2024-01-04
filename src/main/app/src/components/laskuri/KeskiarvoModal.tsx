@@ -67,7 +67,8 @@ export const KeskiArvoModal = ({ open = false, closeFn, updateTulos, tulos }: Pr
       onClose={closeFn}
       maxWidth="lg"
       fullScreen={fullScreen}
-      scroll="body">
+      scroll="body"
+      aria-label={t('pistelaskuri.heading')}>
       <Box className={classes.container} ref={containerRef}>
         <Typography variant="h2">{t('pistelaskuri.heading')}</Typography>
         {tulos == null && (
