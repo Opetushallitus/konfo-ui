@@ -887,6 +887,8 @@
     "lisatty-vertailuun": "Lisätty vertailuun",
     "haku-ei-kaynnissa": "Hakukohdetta ei voi viedä hakulomakkeelle, koska haku ei ole käynnissä.",
     "hakulomakkella-jo-toisen-haun-hakukohteita": "Hakulomakkeelle voi viedä vain yhden haun hakukohteita. Toisen haun hakukohteita on jo lisätty.",
-    "hakulomakkeelle-voi-vieda-enintaan": "Hakulomakkeelle voi viedä enintään {{max}} hakukohdetta."
+    "hakulomakkeelle-voi-vieda-enintaan": "Hakulomakkeelle voi viedä enintään {{max}} hakukohdetta.",
+    "aloituspaikat": "Aloituspaikat",
+    "aloituspaikat-ensisijaiset-hakijat": "Aloituspaikat / Ensisijaiset hakijat {{year}}"
   }
 }

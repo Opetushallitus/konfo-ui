@@ -4,6 +4,7 @@ import { immer } from 'zustand/middleware/immer';
 export type SuosikitVertailuMask = {
   kayntiosoite: boolean;
   'sisaanpaasyn-pistemaara': boolean;
+  aloituspaikat: boolean;
   lukiodiplomit: boolean;
   opiskelijoita: boolean;
   kaksoistutkinto: boolean;
@@ -23,6 +24,7 @@ const useSuosikitVertailuMaskState = create<SuosikitVertailuMaskState>()(
     mask: {
       kayntiosoite: true,
       'sisaanpaasyn-pistemaara': true,
+      aloituspaikat: true,
       lukiodiplomit: true,
       opiskelijoita: true,
       kaksoistutkinto: true,

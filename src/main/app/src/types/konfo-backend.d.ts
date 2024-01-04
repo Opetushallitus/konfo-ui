@@ -2013,15 +2013,19 @@ export interface paths {
                  * @description Edellisen haun tiedot
                  */
                 edellinenHaku: {
-                  tarjoaja: string;
-                  hakukohdekoodi: string;
-                  /** Format: double */
-                  pisteet: number;
+                  /** Format: int32 */
+                  aloituspaikat?: number;
+                  valintatapajonoTyyppi: string;
                   vuosi: string;
-                  valintatapajonoOid: string;
                   hakukohdeOid: string;
                   hakuOid: string;
-                  valintatapajonoTyyppi: string;
+                  /** Format: double */
+                  pisteet: number;
+                  valintatapajonoOid: string;
+                  hakukohdekoodi: string;
+                  tarjoaja: string;
+                  /** Format: int32 */
+                  ensisijaisestiHakeneet?: number;
                 };
                 /**
                  * Nimi
@@ -3992,15 +3996,19 @@ export interface components {
        * @description Edellisen haun tiedot
        */
       edellinenHaku: {
-        tarjoaja: string;
-        hakukohdekoodi: string;
-        /** Format: double */
-        pisteet: number;
+        /** Format: int32 */
+        aloituspaikat?: number;
+        valintatapajonoTyyppi: string;
         vuosi: string;
-        valintatapajonoOid: string;
         hakukohdeOid: string;
         hakuOid: string;
-        valintatapajonoTyyppi: string;
+        /** Format: double */
+        pisteet: number;
+        valintatapajonoOid: string;
+        hakukohdekoodi: string;
+        tarjoaja: string;
+        /** Format: int32 */
+        ensisijaisestiHakeneet?: number;
       };
       /**
        * Nimi

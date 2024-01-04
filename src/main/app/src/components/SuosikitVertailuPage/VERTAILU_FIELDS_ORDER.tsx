@@ -2,6 +2,7 @@ import { TFunction } from 'i18next';
 
 import { MaterialIconVariant } from '#/src/components/common/MaterialIcon';
 import { localize } from '#/src/tools/localization';
+import { isNonNil } from '#/src/tools/utils';
 import { VertailuSuosikki } from '#/src/types/common';
 
 import { isLukio, isAmmatillinen } from './suosikitVertailuUtils';
@@ -39,8 +40,25 @@ export const VERTAILU_FIELDS_ORDER: Array<{
     ),
   },
   {
-    icon: 'people_outline',
-    iconVariant: 'filled',
+    icon: 'people',
+    iconVariant: 'outlined',
+    fieldId: 'aloituspaikat',
+    getLabel: (t, vertailuSuosikki) =>
+      t('suosikit-vertailu.aloituspaikat-ensisijaiset-hakijat', {
+        year: vertailuSuosikki?.edellinenHaku?.vuosi,
+      }),
+    renderValue: (vertailuSuosikki, t) => {
+      const aloituspaikat = vertailuSuosikki?.edellinenHaku?.aloituspaikat;
+      const ensisijaisestiHakeneet =
+        vertailuSuosikki?.edellinenHaku?.ensisijaisestiHakeneet;
+      return isNonNil(aloituspaikat) && isNonNil(ensisijaisestiHakeneet)
+        ? `${aloituspaikat} / ${ensisijaisestiHakeneet}`
+        : t('suosikit-vertailu.ei-maaritelty');
+    },
+  },
+  {
+    icon: 'people',
+    iconVariant: 'outlined',
     fieldId: 'opiskelijoita',
     getLabel: (t) => t('suosikit-vertailu.opiskelijoita'),
     renderValue: (vertailuSuosikki, t) =>
