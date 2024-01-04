@@ -2,7 +2,6 @@ import {
   AppBar,
   Box,
   Chip,
-  CssBaseline,
   Hidden,
   IconButton,
   Toolbar,
@@ -129,57 +128,54 @@ export const Header = ({
   const OpintopolkuHeaderLogo = getOpintopolkuHeaderLogo();
 
   return (
-    <>
-      <CssBaseline />
-      <StyledAppBar>
-        <Toolbar className={classes.toolBar}>
-          <Box display="flex" alignItems="center">
-            <IconButton
-              color="inherit"
-              aria-label={t('avaa-sulje-valikko')}
-              onClick={toggleMenu}
-              edge="start"
-              className={classes.menuButton}>
-              <Box className={classes.menuBox}>
-                {isOpen ? <MaterialIcon icon="close" /> : <MaterialIcon icon="menu" />}
-                <Typography className={classes.menuText}>{t('valikko')}</Typography>
-              </Box>
-            </IconButton>
-            <Link
+    <StyledAppBar>
+      <Toolbar className={classes.toolBar}>
+        <Box display="flex" alignItems="center">
+          <IconButton
+            color="inherit"
+            aria-label={t('avaa-sulje-valikko')}
+            onClick={toggleMenu}
+            edge="start"
+            className={classes.menuButton}>
+            <Box className={classes.menuBox}>
+              {isOpen ? <MaterialIcon icon="close" /> : <MaterialIcon icon="menu" />}
+              <Typography className={classes.menuText}>{t('valikko')}</Typography>
+            </Box>
+          </IconButton>
+          <Link
+            sx={{
+              '&.Mui-focusVisible': {
+                outline: '1px solid white',
+                outlineOffset: '8px',
+              },
+            }}
+            href="/"
+            title={t('header.siirry-etusivulle')}
+            onClick={refreshSideMenu}>
+            <OpintopolkuHeaderLogo focusable="false" aria-hidden="true" height="26px" />
+          </Link>
+          {showTestiLabel && (
+            <Chip className={classes.testi} size="small" label={testiLabel} />
+          )}
+        </Box>
+        <Hidden smDown>
+          <Box display="flex" columnGap={2} marginRight="170px">
+            <SuosikitButton Component={ToolbarLinkButton} />
+            <ToolbarLinkButton
+              href={urls.url('oma-opintopolku')}
+              startIcon={<MaterialIcon icon="apps" />}
               sx={{
                 '&.Mui-focusVisible': {
                   outline: '1px solid white',
-                  outlineOffset: '8px',
                 },
               }}
-              href="/"
-              title={t('header.siirry-etusivulle')}
-              onClick={refreshSideMenu}>
-              <OpintopolkuHeaderLogo focusable="false" aria-hidden="true" height="26px" />
-            </Link>
-            {showTestiLabel && (
-              <Chip className={classes.testi} size="small" label={testiLabel} />
-            )}
+              target="_blank">
+              {t('oma-opintopolku')}
+            </ToolbarLinkButton>
           </Box>
-          <Hidden smDown>
-            <Box display="flex" columnGap={2} marginRight="170px">
-              <SuosikitButton Component={ToolbarLinkButton} />
-              <ToolbarLinkButton
-                href={urls.url('oma-opintopolku')}
-                startIcon={<MaterialIcon icon="apps" />}
-                sx={{
-                  '&.Mui-focusVisible': {
-                    outline: '1px solid white',
-                  },
-                }}
-                target="_blank">
-                {t('oma-opintopolku')}
-              </ToolbarLinkButton>
-            </Box>
-            <LanguageAccordion />
-          </Hidden>
-        </Toolbar>
-      </StyledAppBar>
-    </>
+          <LanguageAccordion />
+        </Hidden>
+      </Toolbar>
+    </StyledAppBar>
   );
 };
