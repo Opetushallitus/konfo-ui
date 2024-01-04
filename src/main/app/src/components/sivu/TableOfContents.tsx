@@ -2,33 +2,28 @@ import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
+import { SmartLink } from '#/src/components/common/SmartLink';
 import { styled } from '#/src/theme';
-
-import { SmartLink } from '../common/SmartLink';
-const PREFIX = 'TableOfContents';
-
-const classes = {
-  link: `${PREFIX}-link`,
-};
 
 const StyledMarkdown = styled(Markdown)({
   position: 'sticky',
   top: '90px',
-  [`& .${classes.link}`]: {
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    fontSize: '16px',
-    lineHeight: '27px',
-    paddingLeft: '21px',
-    color: colors.brandGreen,
-    borderLeftColor: colors.grey500,
-    borderLeftWidth: '1px',
-    borderLeftStyle: 'solid',
-    display: 'block',
-    paddingBottom: '15px',
-    [`&:focus-visible`]: {
-      outline: '1px solid black',
-    },
+});
+
+const StyledLink = styled(SmartLink)({
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  fontSize: '16px',
+  lineHeight: '27px',
+  paddingLeft: '21px',
+  color: colors.brandGreen,
+  borderLeftColor: colors.grey500,
+  borderLeftWidth: '1px',
+  borderLeftStyle: 'solid',
+  display: 'block',
+  paddingBottom: '15px',
+  [`&:focus-visible`]: {
+    outline: '1px solid black',
   },
 });
 
@@ -39,12 +34,9 @@ const HeadingLevelToComponent = ({
   const { t } = useTranslation();
   const value = children;
   return (
-    <SmartLink
-      className={classes.link}
-      aria-label={t('ankkurilinkki') + ' ' + value}
-      href={`#${id}`}>
+    <StyledLink aria-label={t('ankkurilinkki') + ' ' + value} href={`#${id}`}>
       {value}
-    </SmartLink>
+    </StyledLink>
   );
 };
 
