@@ -1,59 +1,39 @@
-import React from 'react';
-
 import { Grid, Typography, ButtonGroup, Button } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { HakutulosSlice } from '#/src/store/reducers/hakutulosSlice';
 import { styled } from '#/src/theme';
 
 import { useSearchSortOrder } from '../hakutulosHooks';
 
-const PREFIX = 'MobileToggleOrderByButtonMenu';
-
-const classes = {
-  buttonActive: `${PREFIX}-buttonActive`,
-  buttonInactive: `${PREFIX}-buttonInactive`,
-};
-
-const StyledGrid = styled(Grid)(() => ({
-  [`& .${classes.buttonActive}`]: {
-    backgroundColor: colors.brandGreen,
-    color: colors.white,
-    fontSize: 14,
-    fontWeight: 600,
-    whiteSpace: 'nowrap',
-    '&:hover': {
-      backgroundColor: colors.brandGreen,
-    },
-  },
-
-  [`& .${classes.buttonInactive}`]: {
-    backgroundColor: colors.white,
-    color: colors.brandGreen,
-    fontSize: 14,
-    fontWeight: 600,
-    whiteSpace: 'nowrap',
-  },
+const SortOrderButton = styled(Button)<{ isActive: boolean }>(({ isActive }) => ({
+  backgroundColor: colors.white,
+  color: colors.brandGreen,
+  fontSize: 14,
+  fontWeight: 600,
+  whiteSpace: 'nowrap',
+  ...(isActive
+    ? {
+        backgroundColor: colors.brandGreen,
+        color: colors.white,
+        '&:hover': {
+          backgroundColor: colors.brandGreen,
+        },
+      }
+    : {}),
 }));
-
-const SortOrderButton = ({ isActive, onClick, endIcon, children }) => {
-  return (
-    <Button
-      className={isActive ? classes.buttonActive : classes.buttonInactive}
-      onClick={onClick}
-      endIcon={endIcon}>
-      {children}
-    </Button>
-  );
-};
 
 export const MobileToggleOrderByButtonMenu = () => {
   const { t } = useTranslation();
 
   const { sort, order, sortOrder, setSortOrder } = useSearchSortOrder();
 
-  const updateSortAndOrder = (newSort, newOrder) => {
+  const updateSortAndOrder = (
+    newSort: HakutulosSlice['sort'],
+    newOrder: HakutulosSlice['order']
+  ) => {
     setSortOrder(`${newSort}_${newOrder}`);
   };
 
@@ -63,7 +43,7 @@ export const MobileToggleOrderByButtonMenu = () => {
     updateSortAndOrder('name', order === 'asc' ? 'desc' : 'asc');
 
   return (
-    <StyledGrid
+    <Grid
       container
       direction="row"
       justifyContent="space-between"
@@ -95,6 +75,6 @@ export const MobileToggleOrderByButtonMenu = () => {
           </SortOrderButton>
         </ButtonGroup>
       </Grid>
-    </StyledGrid>
+    </Grid>
   );
 };
