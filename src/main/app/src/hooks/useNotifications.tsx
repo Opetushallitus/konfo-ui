@@ -8,7 +8,7 @@ interface NotificationItem {
   id: number;
   content?: React.JSX.Element;
   severity: AlertColor;
-  timeoutId?: any;
+  timeoutId?: number;
 }
 
 interface NotificationStore {
@@ -60,7 +60,7 @@ export const useNotifications = create<NotificationStore>((set) => ({
         ...n,
         timeoutId:
           n.id === state.notifications[0].id
-            ? setTimeout(
+            ? window.setTimeout(
                 () => set(deleteNotificationsFromList(state, allIds)),
                 NOTIFICATION_TIMEOUT
               )
@@ -91,7 +91,7 @@ export const useNotifications = create<NotificationStore>((set) => ({
             id: newIdSeq,
             content,
             severity,
-            timeoutId: setTimeout(
+            timeoutId: window.setTimeout(
               () =>
                 set((currState) => deleteNotificationsFromList(currState, [newIdSeq])),
               NOTIFICATION_TIMEOUT
