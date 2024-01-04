@@ -132,7 +132,10 @@ export const KouluaineInput = ({
   const isKieli = isKieliaine(kouluaine);
 
   return (
-    <AineContainer isKieli={isKieli} data-testid={`${PREFIX}${kouluaine.nimi}`}>
+    <AineContainer
+      isKieli={isKieli}
+      data-testid={`${PREFIX}${kouluaine.nimi}`}
+      aria-label={t(kouluaine.nimi)}>
       {isKieli && (
         <>
           <div className={classes.headerContainer}>
@@ -148,7 +151,8 @@ export const KouluaineInput = ({
       <Typography className={classes.gradeLabel}>
         {t(isKieli ? 'pistelaskuri.aine.arvosana' : kouluaine.nimi)}
       </Typography>
-      <ArvosanaContainer>
+      <ArvosanaContainer
+        aria-label={t(isKieli ? 'pistelaskuri.aine.arvosana' : kouluaine.nimi)}>
         <KouluaineSelect
           aine={kouluaine}
           updateArvosana={handleArvosanaChange}
