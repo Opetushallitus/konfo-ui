@@ -116,7 +116,9 @@ export const KeskiarvoLaskuri = ({
   };
 
   return (
-    <LaskuriContainer embedded={embedded}>
+    <LaskuriContainer
+      embedded={embedded}
+      aria-label={t('pistelaskuri.keskiarvot-header')}>
       <Typography variant="h3" sx={{ fontSize: '1.25rem' }}>
         {t('pistelaskuri.keskiarvot-header')}
       </Typography>

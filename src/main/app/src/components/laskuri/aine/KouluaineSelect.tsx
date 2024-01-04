@@ -97,10 +97,12 @@ export const KouluaineSelect = ({
 
   return (
     <AineSelectControl
+      aria-label={t(aine.nimi)}
       isLisaKieli={isLisaKieli}
       variant="standard"
       sx={{ minWidth: 220 }}>
       <Select
+        aria-label={t(aine.nimi) + ' ' + t('pistelaskuri.aine.arvosana')}
         labelId={labelId}
         value={String(aine.arvosana)}
         onChange={handleArvosanaChange}
