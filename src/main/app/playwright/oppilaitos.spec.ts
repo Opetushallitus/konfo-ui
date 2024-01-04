@@ -23,7 +23,7 @@ test.describe('oppilaitos', () => {
     );
   });
 
-  test('some renders properly', async ({ page }) => {
+  test('Social media links render properly', async ({ page }) => {
     const verifySomeLink = async (name: string, url: string) =>
       await expect(page.getByRole('link', { name })).toHaveAttribute('href', url);
     await verifySomeLink('Facebook', 'https://facebook.com/aaltouniversity');
@@ -36,12 +36,15 @@ test.describe('oppilaitos', () => {
       'https://www.aalto.fi/snapchat'
     );
     await verifySomeLink('Footube', 'https://footube.com');
-    await expect(page.getByLabel('https://blogs.aalto.fi/')).toBeVisible();
+    const buttonGroup = page.locator('div', {
+      hasText: /^Oppilaitoksen blogiAalto-yliopisto$/,
+    });
     await expect(
-      page
-        .locator('div')
-        .filter({ hasText: /^Oppilaitoksen blogiAalto-yliopisto$/ })
-        .getByLabel('https://www.aalto.fi/fi/')
-    ).toBeVisible();
+      buttonGroup.getByRole('link', { name: 'Oppilaitoksen blogi' })
+    ).toHaveAttribute('href', 'https://blogs.aalto.fi/');
+
+    await expect(
+      buttonGroup.getByRole('link', { name: 'Aalto-Yliopisto' })
+    ).toHaveAttribute('href', 'https://www.aalto.fi/fi/');
   });
 });

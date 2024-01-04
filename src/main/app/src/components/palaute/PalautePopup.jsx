@@ -44,7 +44,7 @@ const Root = styled('div')(({ theme }) => ({
     flex: '1',
     position: 'relative',
     background: colors.white,
-    color: colors.black,
+    color: colors.grey900,
     border: '1px solid #e0e1dd',
     marginBottom: '8px',
   },
@@ -63,7 +63,7 @@ export const PalautePopup = () => {
   const [hover, setHover] = useState(false);
 
   return (
-    <Root>
+    <Root role="complementary">
       <div className={classes.container}>
         {tooltip || hover ? (
           <span onClick={() => setTooltip(false)} className={classes.box}>

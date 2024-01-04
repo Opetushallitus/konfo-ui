@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Link, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -13,59 +11,48 @@ import OPOLogoFooterEN from '#/src/assets/images/OPO_Logo_Footer_englanti.svg';
 import OPOLogoFooterSV from '#/src/assets/images/OPO_Logo_Footer_ruotsi.svg';
 import { colors } from '#/src/colors';
 import { ImageComponent } from '#/src/components/sivu/ImageComponent';
+import { WithSideMargins } from '#/src/components/WithSideMargins';
 import { useContentful } from '#/src/hooks/useContentful';
 import { styled, theme } from '#/src/theme';
 import { getOne } from '#/src/tools/getOne';
 import { getLanguage } from '#/src/tools/localization';
 
-import { WithSideMargins } from '../WithSideMargins';
-
-const PREFIX = 'Footer';
-
-const classes = {
-  footer: `${PREFIX}-footer`,
-  link: `${PREFIX}-link`,
-  content: `${PREFIX}-content`,
-  hr: `${PREFIX}-hr`,
-  ophIcon: `${PREFIX}-ophIcon`,
-  icon: `${PREFIX}-icon`,
-  spaceOnBorders: `${PREFIX}-spaceOnBorders`,
-  smSpaceOnBorders: `${PREFIX}-smSpaceOnBorders`,
-};
-
 const Root = styled('footer')({
   marginTop: theme.spacing(8),
   marginBottom: theme.spacing(12),
   lineHeight: '21px',
-  [`& .${classes.hr}`]: {
-    backgroundColor: colors.white,
-    width: '100%',
-    overflow: 'visible',
-    padding: '0',
-    border: 'none',
-    borderTopWidth: '1px',
-    borderTopStyle: 'solid',
-    borderTopColor: colors.lightGrey,
-    textAlign: 'center',
-  },
-  [`& .${classes.ophIcon}`]: {
-    height: '30px',
-    top: '-15px',
-    position: 'relative',
-    backgroundColor: colors.white,
-    padding: '0 68px',
-  },
-  [`& .${classes.icon}`]: {
-    height: '68px',
-    top: '-24px',
-    position: 'relative',
-    backgroundColor: colors.white,
-    padding: '0 40px 0 40px',
-  },
-  [`.MuiLink-root.Mui-focusVisible`]: {
+  '.MuiLink-root.Mui-focusVisible': {
     outline: '1px solid black',
     outlineOffset: '4px',
   },
+});
+
+const Hr = styled('div')({
+  backgroundColor: colors.white,
+  width: '100%',
+  overflow: 'visible',
+  padding: '0',
+  border: 'none',
+  borderTopWidth: '1px',
+  borderTopStyle: 'solid',
+  borderTopColor: colors.grey500,
+  textAlign: 'center',
+});
+
+const StyledIcon = styled('img')({
+  height: '68px',
+  top: '-24px',
+  position: 'relative',
+  backgroundColor: colors.white,
+  padding: '0 40px 0 40px',
+});
+
+const StyledOphIcon = styled('img')({
+  height: '30px',
+  top: '-15px',
+  position: 'relative',
+  backgroundColor: colors.white,
+  padding: '0 68px',
 });
 
 const overrides = {
@@ -125,13 +112,9 @@ export const Footer = () => {
       <WithSideMargins>
         <Grid container>
           <Grid item xs={12}>
-            <div className={classes.hr}>
-              <img
-                alt={t('opintopolku.brand')}
-                className={classes.ophIcon}
-                src={OpintopolkuFooterLogo()}
-              />
-            </div>
+            <Hr>
+              <StyledOphIcon alt={t('opintopolku.brand')} src={OpintopolkuFooterLogo()} />
+            </Hr>
           </Grid>
         </Grid>
         <Grid
@@ -158,16 +141,12 @@ export const Footer = () => {
         </Grid>
         <Grid container>
           <Grid item xs={12}>
-            <div className={classes.hr}>
-              <img
-                alt={t('opintopolku.brand')}
-                className={classes.icon}
-                src={OPHFooterLogo()}
-              />
-            </div>
+            <Hr>
+              <StyledIcon alt={t('opintopolku.brand')} src={OPHFooterLogo()} />
+            </Hr>
           </Grid>
         </Grid>
-        <Grid container justifyContent="center" className={classes.content}>
+        <Grid container justifyContent="center">
           <Grid item xs={12} sm={12} md={8}>
             <Markdown options={overrides}>{lopputekstit || ''}</Markdown>
           </Grid>

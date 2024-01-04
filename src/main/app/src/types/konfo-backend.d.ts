@@ -1728,6 +1728,8 @@ export interface paths {
             "application/json": ({
                 /** @description Hakukohteen yksilöivä tunniste */
                 hakukohdeOid: string;
+                /** @description Hakukohteeseen liitetyn haun yksilöivä tunniste */
+                hakuOid: string;
                 /** @description Lista tutkintonimikkeitä käännöksineen (tutkintonimikkeet-koodisto) */
                 tutkintonimikkeet?: ({
                     koodiUri: string | null;
@@ -1751,24 +1753,6 @@ export interface paths {
                   en?: string;
                 };
                 jarjestaaUrheilijanAmmKoulutusta: boolean;
-                hakuajat: {
-                    alkaa: string;
-                    paattyy?: string;
-                    /** Kielistetty */
-                    formatoituAlkaa: {
-                      fi?: string;
-                      sv?: string;
-                      en?: string;
-                    };
-                    /** Kielistetty */
-                    formatoituPaattyy?: {
-                      fi?: string;
-                      sv?: string;
-                      en?: string;
-                    };
-                    hakuAuki: boolean;
-                    hakuMennyt: boolean;
-                  }[];
                 /**
                  * Nimi
                  * @description Hakukohteen nimi eri kielillä
@@ -1793,6 +1777,8 @@ export interface paths {
                   /** @description Englanninkielinen nimi, jos määritelty */
                   en?: string;
                 };
+                /** @description Onko hakukohteen hakuaika käynnissä? */
+                hakuAuki: boolean;
                 /** @description Hakukohteeseen liitetyn toteutuksen yksilöivä tunniste */
                 toteutusOid: string;
                 /** @description Hakukohteen järjestyspaikan oppilaitoksen logon URL */
@@ -2061,6 +2047,8 @@ export interface paths {
                   /** @description Englanninkielinen nimi, jos määritelty */
                   en?: string;
                 };
+                /** @description Onko hakukohteen hakuaika käynnissä? */
+                hakuAuki: boolean;
                 /** @description Hakukohteeseen liitetyn toteutuksen yksilöivä tunniste */
                 toteutusOid: string;
                 /** @description Hakukohteen järjestyspaikan oppilaitoksen logon URL */
@@ -3744,6 +3732,8 @@ export interface components {
     SuosikitItem: {
       /** @description Hakukohteen yksilöivä tunniste */
       hakukohdeOid: string;
+      /** @description Hakukohteeseen liitetyn haun yksilöivä tunniste */
+      hakuOid: string;
       /** @description Lista tutkintonimikkeitä käännöksineen (tutkintonimikkeet-koodisto) */
       tutkintonimikkeet?: ({
           koodiUri: string | null;
@@ -3767,24 +3757,6 @@ export interface components {
         en?: string;
       };
       jarjestaaUrheilijanAmmKoulutusta: boolean;
-      hakuajat: {
-          alkaa: string;
-          paattyy?: string;
-          /** Kielistetty */
-          formatoituAlkaa: {
-            fi?: string;
-            sv?: string;
-            en?: string;
-          };
-          /** Kielistetty */
-          formatoituPaattyy?: {
-            fi?: string;
-            sv?: string;
-            en?: string;
-          };
-          hakuAuki: boolean;
-          hakuMennyt: boolean;
-        }[];
       /**
        * Nimi
        * @description Hakukohteen nimi eri kielillä
@@ -3809,6 +3781,8 @@ export interface components {
         /** @description Englanninkielinen nimi, jos määritelty */
         en?: string;
       };
+      /** @description Onko hakukohteen hakuaika käynnissä? */
+      hakuAuki: boolean;
       /** @description Hakukohteeseen liitetyn toteutuksen yksilöivä tunniste */
       toteutusOid: string;
       /** @description Hakukohteen järjestyspaikan oppilaitoksen logon URL */
@@ -4052,6 +4026,8 @@ export interface components {
         /** @description Englanninkielinen nimi, jos määritelty */
         en?: string;
       };
+      /** @description Onko hakukohteen hakuaika käynnissä? */
+      hakuAuki: boolean;
       /** @description Hakukohteeseen liitetyn toteutuksen yksilöivä tunniste */
       toteutusOid: string;
       /** @description Hakukohteen järjestyspaikan oppilaitoksen logon URL */

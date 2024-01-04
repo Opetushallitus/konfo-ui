@@ -33,7 +33,7 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
   backgroundColor: educationTypeColorCode.ammatillinenGreenBg, // TODO: Not sure if this should come from koulutus type theme
 
   [`& .${classes.text}`]: {
-    color: colors.black,
+    color: colors.grey900,
   },
 
   [`& .${classes.title}`]: {

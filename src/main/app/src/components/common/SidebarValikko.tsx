@@ -40,8 +40,8 @@ const StyledList = styled(List)({
     paddingBottom: '0',
     borderTopStyle: 'solid',
     borderWidth: '1px',
-    borderColor: colors.lightGrey,
-    color: colors.darkGrey,
+    borderColor: colors.grey500,
+    color: colors.grey700,
     '&:last-child': {
       borderBottomStyle: 'solid',
       marginBottom: '40px',
@@ -76,7 +76,7 @@ const StyledList = styled(List)({
   [`& .${classes.valintaIconBase}`]: {
     borderLeftWidth: '1px',
     borderLeftStyle: 'solid',
-    borderColor: colors.lightGrey,
+    borderColor: colors.grey500,
     padding: '12px',
   },
   [`& .${classes.valintaIcon}`]: {

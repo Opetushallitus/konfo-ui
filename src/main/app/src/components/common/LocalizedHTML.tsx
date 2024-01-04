@@ -1,31 +1,9 @@
-import React from 'react';
-
 import { HTMLReactParserOptions } from 'html-react-parser';
 
 import { styled } from '#/src/theme';
 import { localize } from '#/src/tools/localization';
 import { sanitizedHTMLParser } from '#/src/tools/utils';
 import { Translateable } from '#/src/types/common';
-
-type StylesProps = Pick<Props, 'noMargin'>;
-
-const classes = {
-  html: 'LocalizedHTML',
-};
-
-const Root = styled('div')<StylesProps>(({ theme, noMargin }) => ({
-  [`&.${classes.html}`]: () => ({
-    ...theme.typography.body1,
-    ...(noMargin
-      ? {}
-      : {
-          '& p': {
-            marginTop: '8px',
-            marginBottom: '20px',
-          },
-        }),
-  }),
-}));
 
 type Props = {
   data?: Translateable | { nimi: Translateable };
@@ -34,6 +12,18 @@ type Props = {
   noWrapper?: boolean;
   noMargin?: boolean;
 };
+
+const Root = styled('div')<Pick<Props, 'noMargin'>>(({ theme, noMargin }) => ({
+  ...theme.typography.body1,
+  ...(noMargin
+    ? {}
+    : {
+        '& p': {
+          marginTop: '8px',
+          marginBottom: '20px',
+        },
+      }),
+}));
 
 export const LocalizedHTML = ({
   data,
@@ -47,11 +37,5 @@ export const LocalizedHTML = ({
       transform,
     }) || defaultValue;
 
-  return noWrapper ? (
-    <>{content}</>
-  ) : (
-    <Root className={classes.html} noMargin={noMargin}>
-      {content}
-    </Root>
-  );
+  return noWrapper ? <>{content}</> : <Root noMargin={noMargin}>{content}</Root>;
 };

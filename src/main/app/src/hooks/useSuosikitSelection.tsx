@@ -9,6 +9,7 @@ import { immer } from 'zustand/middleware/immer';
 type Suosikki = {
   timestamp: string;
   compare?: boolean;
+  haku?: boolean;
 };
 
 export interface SuosikitState {
@@ -16,6 +17,7 @@ export interface SuosikitState {
   toggleSuosikki: (id: string) => void;
   removeSuosikit: (ids: string | Array<string>) => void;
   toggleVertailu: (id: string) => void;
+  toggleHaku: (id: string) => void;
 }
 
 const useSuosikitState = create<SuosikitState>()(
@@ -45,6 +47,12 @@ const useSuosikitState = create<SuosikitState>()(
             state.suosikitSelection[id].compare = !state.suosikitSelection[id].compare;
           }
         }),
+      toggleHaku: (id) =>
+        set((state) => {
+          if (state.suosikitSelection[id]) {
+            state.suosikitSelection[id].haku = !state.suosikitSelection[id].haku;
+          }
+        }),
     })),
     {
       name: 'favorites',
@@ -62,6 +70,14 @@ export const useVertailuSuosikit = () =>
   useSuosikitState((state) =>
     toPairs(state.suosikitSelection).reduce(
       (acc, [oid, suosikki]) => (suosikki?.compare ? [...acc, oid] : acc),
+      [] as Array<string>
+    )
+  );
+
+export const useHakuunValitut = () =>
+  useSuosikitState((state) =>
+    toPairs(state.suosikitSelection).reduce(
+      (acc, [oid, suosikki]) => (suosikki?.haku ? [...acc, oid] : acc),
       [] as Array<string>
     )
   );

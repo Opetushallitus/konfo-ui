@@ -91,7 +91,9 @@
                 "tilaisuudet": []
             }
         ],
-        "koulutustyyppi": "amm"
+        "koulutustyyppi": "amm",
+        "hakuOid": "1.2.246.562.29.00000000000000021303",
+        "hakuAuki": false
     },
     {
         "lukiodiplomit": null,
@@ -185,6 +187,8 @@
                 "tilaisuudet": []
             }
         ],
-        "koulutustyyppi": "amm"
+        "koulutustyyppi": "amm",
+        "hakuOid": "1.2.246.562.29.00000000000000021303",
+        "hakuAuki": true
     }
 ]

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Box, Card, CardContent, Divider, Grid, Typography } from '@mui/material';
 import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -11,27 +9,19 @@ import { Heading, HeadingBoundary } from '#/src/components/Heading';
 import { styled } from '#/src/theme';
 import { localize, localizeOsoite } from '#/src/tools/localization';
 import { toId } from '#/src/tools/utils';
+import { withDefaultProps } from '#/src/tools/withDefaultProps';
 import { Koodi, Translateable } from '#/src/types/common';
 import { FormatoituAikaleima } from '#/src/types/HakukohdeTypes';
 
-const PREFIX = 'Valintakokeet';
-
-const classes = {
-  valintakoeHeader: `${PREFIX}-valintakoeHeader`,
-  valintakoeSubHeader: `${PREFIX}-valintakoeSubHeader`,
-};
-
-const StyledGrid = styled(Grid)(() => ({
-  [`& .${classes.valintakoeHeader}`]: {
-    fontSize: '20px',
-    color: colors.darkGrey,
-  },
-
-  [`& .${classes.valintakoeSubHeader}`]: {
+const ValintakoeSubHeading = withDefaultProps(
+  styled(Heading)({
     fontWeight: 700,
-    color: colors.darkGrey,
-  },
-}));
+    color: colors.grey700,
+  }),
+  {
+    variant: 'h5',
+  }
+);
 
 type TilaisuusProps = {
   index: number;
@@ -49,30 +39,26 @@ const TilaisuusComponent = ({
 }: TilaisuusProps) => {
   const { t } = useTranslation();
   return (
-    <StyledGrid style={{ padding: '10px 20px' }} container key={`koetilaisuus-${index}`}>
+    <Grid padding="10px 20px" container key={`koetilaisuus-${index}`}>
       <HeadingBoundary>
         <Grid item xs={6}>
           <Box py={1}>
-            <Heading className={classes.valintakoeSubHeader} variant="h5">
-              {t('valintaperuste.alkaa')}
-            </Heading>
+            <ValintakoeSubHeading>{t('valintaperuste.alkaa')}</ValintakoeSubHeading>
             <Typography variant="body1">{localize(formatoituAlkaa)}</Typography>
           </Box>
         </Grid>
         <Grid item xs={6}>
           <Box py={1}>
-            <Heading className={classes.valintakoeSubHeader} variant="h5">
-              {t('valintaperuste.paattyy')}
-            </Heading>
+            <ValintakoeSubHeading>{t('valintaperuste.paattyy')}</ValintakoeSubHeading>
             <Typography variant="body1">{localize(formatoituPaattyy)}</Typography>
           </Box>
         </Grid>
         {postinumero ? (
           <Grid item xs={12}>
             <Box py={1}>
-              <Heading className={classes.valintakoeSubHeader} variant="h5">
+              <ValintakoeSubHeading>
                 {t('valintaperuste.jarjestyspaikka')}
-              </Heading>
+              </ValintakoeSubHeading>
               <Typography variant="body1">{localize(jarjestamispaikka)}</Typography>
               <Typography variant="body1">
                 {localizeOsoite(osoite, postinumero)}
@@ -83,15 +69,15 @@ const TilaisuusComponent = ({
         {!isEmpty(lisatietoja) && (
           <Grid item xs={12}>
             <Box py={1}>
-              <Heading className={classes.valintakoeSubHeader} variant="h5">
+              <ValintakoeSubHeading>
                 {t('valintaperuste.lisatietoja')}
-              </Heading>
+              </ValintakoeSubHeading>
               <LocalizedHTML data={lisatietoja!} defaultValue="-" />
             </Box>
           </Grid>
         )}
       </HeadingBoundary>
-    </StyledGrid>
+    </Grid>
   );
 };
 
@@ -174,7 +160,7 @@ export const Valintakokeet = ({
                   id={`${toId(localize(nimi))}`}
                   elevation={0}
                   style={{
-                    backgroundColor: colors.grey,
+                    backgroundColor: colors.grey50,
                     padding: '15px',
                     marginBottom: '20px',
                   }}>
@@ -184,25 +170,25 @@ export const Valintakokeet = ({
                     <HeadingBoundary>
                       {(vahimmaispisteet || vahimmaispisteet === 0) && (
                         <>
-                          <Heading variant="h5" className={classes.valintakoeSubHeader}>
+                          <ValintakoeSubHeading>
                             {t('valintaperuste.alin-hyvaksytty-pistemaara')}
-                          </Heading>
+                          </ValintakoeSubHeading>
                           <Typography variant="body1">{vahimmaispisteet}</Typography>
                         </>
                       )}
                       {!isEmpty(ohjeetEnnakkovalmistautumiseen) && (
                         <>
-                          <Heading variant="h5" className={classes.valintakoeSubHeader}>
+                          <ValintakoeSubHeading>
                             {t('valintaperuste.valmistautumisohjeet-hakijalle')}
-                          </Heading>
+                          </ValintakoeSubHeading>
                           <LocalizedHTML data={ohjeetEnnakkovalmistautumiseen!} />
                         </>
                       )}
                       {!isEmpty(ohjeetErityisjarjestelyihin) && (
                         <>
-                          <Heading variant="h5" className={classes.valintakoeSubHeader}>
+                          <ValintakoeSubHeading>
                             {t('valintaperuste.ohjeet-erityisjarjestelyihin')}
-                          </Heading>
+                          </ValintakoeSubHeading>
                           <LocalizedHTML data={ohjeetErityisjarjestelyihin!} />
                         </>
                       )}

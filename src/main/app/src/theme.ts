@@ -34,8 +34,8 @@ export const theme = createTheme({
       main: colors.brandGreen,
     },
     text: {
-      primary: colors.black,
-      secondary: colors.black,
+      primary: colors.grey900,
+      secondary: colors.grey900,
     },
     inverted: {
       main: colors.white,
@@ -51,7 +51,7 @@ export const theme = createTheme({
       fontSize: '2.5rem',
       letterSpacing: '-0.09375rem',
       fontWeight: 700,
-      color: colors.black,
+      color: colors.grey900,
       lineHeight: '3rem',
       marginBottom: '1.5rem',
       [breakpoints.down('sm')]: {
@@ -63,7 +63,7 @@ export const theme = createTheme({
     h2: {
       fontSize: '2rem',
       fontWeight: 700,
-      color: colors.black,
+      color: colors.grey900,
       lineHeight: '2.25rem',
       marginBottom: '1rem',
       [breakpoints.down('sm')]: {
@@ -76,14 +76,14 @@ export const theme = createTheme({
       fontWeight: 700,
       lineHeight: '2rem',
       marginBottom: '0.5rem',
-      color: colors.black,
+      color: colors.grey900,
       [breakpoints.down('sm')]: {
         fontSize: '1.5rem',
         lineHeight: '1.875rem',
       },
     },
     h4: {
-      color: colors.black,
+      color: colors.grey900,
       fontSize: '1.5rem',
       fontWeight: '700',
       lineHeight: '1.75rem',
@@ -94,7 +94,7 @@ export const theme = createTheme({
       },
     },
     h5: {
-      color: colors.black,
+      color: colors.grey900,
       fontSize: '1.0rem',
       fontWeight: '700',
       lineHeight: '1.75rem',
@@ -106,13 +106,13 @@ export const theme = createTheme({
     subtitle1: {
       fontWeight: 600,
       fontSize: '16px',
-      color: colors.black,
+      color: colors.grey900,
     },
     body1: {
       fontSize: '1rem',
       fontWeight: 400,
       lineHeight: '1.6875rem',
-      color: colors.black,
+      color: colors.grey900,
       [breakpoints.down('sm')]: {
         lineHeight: '1.6875rem',
       },
@@ -133,9 +133,23 @@ export const theme = createTheme({
     },
     MuiButton: {
       styleOverrides: {
+        root: ({ ownerState, theme: myTheme }) => ({
+          ...myTheme.typography.body1,
+          color: ownerState.color,
+        }),
         outlined: {
           backgroundColor: 'transparent',
           borderWidth: '1px',
+          '&.Mui-disabled': {
+            borderColor: colors.grey600,
+            color: colors.grey600,
+          },
+        },
+        contained: {
+          '&.Mui-disabled': {
+            backgroundColor: colors.grey600,
+            color: colors.white,
+          },
         },
       },
     },
@@ -166,8 +180,19 @@ export const theme = createTheme({
     },
     MuiTooltip: {
       styleOverrides: {
+        arrow: {
+          color: colors.white,
+          '&::before': {
+            border: `1px solid ${colors.grey500}`,
+          },
+        },
         tooltip: {
+          backgroundColor: colors.white,
+          cursor: 'auto',
+          userSelect: 'all',
+          color: colors.grey900,
           fontSize: 12,
+          border: `1px solid ${colors.grey500}`,
         },
       },
     },

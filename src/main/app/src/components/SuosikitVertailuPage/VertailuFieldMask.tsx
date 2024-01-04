@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Box, FormControlLabel } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
@@ -34,7 +32,7 @@ export const VertailuFieldMask = () => {
       justifyContent="flex-start"
       alignItems="flex-start"
       width="100%"
-      m={2}>
+      margin={2}>
       <Heading variant="h5">{t('suosikit-vertailu.valitse-vertailtavat-tiedot')}</Heading>
       <Box display="flex" flexWrap="wrap" gap={1}>
         {VERTAILU_FIELDS_ORDER.map(({ fieldId }) => (

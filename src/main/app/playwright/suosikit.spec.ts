@@ -1,11 +1,13 @@
 import { Locator, Page, Route, expect, test } from '@playwright/test';
+import { escapeRegExp } from 'lodash';
 
 import {
   expectURLEndsWith,
   fixtureFromFile,
   getFixtureData,
-  getByLabelLoc,
+  getByLabelLocator,
   setupCommonTest,
+  expectPageAccessibilityOk,
 } from './test-tools';
 
 const SUOSIKKI_OIDS = [
@@ -86,6 +88,15 @@ test.describe('Suosikit', () => {
   test.beforeEach(async ({ page, context, baseURL }) => {
     await setupCommonTest({ page, context, baseURL });
     await mockSuosikit(page);
+  });
+
+  test('should not have any automatically detectable accessibility issues', async ({
+    page,
+  }) => {
+    await gotoWithInit(page, '/konfo/fi/suosikit', () =>
+      initLocalstorage(page, SUOSIKKI_OIDS)
+    );
+    await expectPageAccessibilityOk(page);
   });
 
   test('Should list added suosikit', async ({ page }) => {
@@ -188,12 +199,12 @@ test.describe('Suosikit', () => {
       () => initLocalstorage(page, SUOSIKKI_OIDS)
     );
 
-    const hakukohteetSection = await getByLabelLoc(
+    const hakukohteetSection = await getByLabelLocator(
       page,
       page.getByRole('heading', { name: 'Koulutuksen hakukohteet' })
     );
 
-    const yhteishautSection = await getByLabelLoc(
+    const yhteishautSection = await getByLabelLocator(
       hakukohteetSection,
       hakukohteetSection.getByRole('heading', { name: 'Yhteishaku' })
     );
@@ -266,7 +277,7 @@ test.describe('Suosikit', () => {
     const firstVertailuItem = vertailuListItems.nth(0);
 
     const getVertailuField = (loc: Locator, text: string) =>
-      getByLabelLoc(loc, loc.getByText(text));
+      getByLabelLocator(loc, loc.getByText(text));
 
     await expect(await getVertailuField(firstVertailuItem, 'Käyntiosoite')).toHaveText(
       'Rämsöönranta 312, 04400 Järvenpää'
@@ -305,5 +316,84 @@ test.describe('Suosikit', () => {
 
     await firstVertailuItem.getByRole('button', { name: 'Poista vertailusta' }).click();
     await expect(vertailuListItems).toHaveCount(1);
+  });
+
+  test('Should be able to add suosikki items to hakulomake and show confirmation with link to hakulomake', async ({
+    page,
+  }) => {
+    await mockSuosikitVertailu(page, SUOSIKKI_OIDS);
+    await gotoWithInit(page, '/konfo/fi/suosikit', () =>
+      initLocalstorage(page, SUOSIKKI_OIDS, { compare: true })
+    );
+
+    const suosikkiListItems = page
+      .getByTestId('suosikit-list')
+      .getByRole('listitem')
+      .filter({ has: page.getByRole('heading', { level: 2 }) });
+
+    const firstSuosikki = suosikkiListItems.nth(0);
+    const secondSuosikki = suosikkiListItems.nth(1);
+
+    const firstItemVieHakulomakkeelleBtn = firstSuosikki.getByRole('button', {
+      name: 'Vie hakulomakkeelle',
+    });
+
+    await expect(firstItemVieHakulomakkeelleBtn).toBeDisabled();
+
+    const firstItemTooltip = firstSuosikki.locator('span', {
+      has: page.getByRole('button', { name: 'Vie hakulomakkeelle' }),
+    });
+
+    await expect(firstItemTooltip).toHaveAttribute(
+      'aria-label',
+      'Hakukohdetta ei voi viedä hakulomakkeelle, koska haku ei ole käynnissä.'
+    );
+    await firstItemTooltip.hover();
+    await expect(
+      page.getByText(
+        'Hakukohdetta ei voi viedä hakulomakkeelle, koska haku ei ole käynnissä.'
+      )
+    ).toBeVisible();
+
+    await secondSuosikki.getByRole('button', { name: 'Vie hakulomakkeelle' }).click();
+
+    const siirryHakulomakkeelleURLRegExp = new RegExp(
+      escapeRegExp(
+        `/hakemus/haku/1.2.246.562.29.00000000000000021303?hakukohteet=${SUOSIKKI_OIDS[0]}`
+      ) + '$'
+    );
+
+    const alertSiirryButton = page
+      .getByRole('alert')
+      .getByRole('button', { name: 'Siirry hakulomakkeelle' });
+
+    await alertSiirryButton.click();
+
+    const dialog = page.getByRole('dialog', { name: 'Olet siirtymässä hakulomakkeelle' });
+    await expect(dialog).toBeVisible();
+    await expect(
+      dialog.getByRole('link', { name: 'Siirry hakulomakkeelle' })
+    ).toHaveAttribute('href', siirryHakulomakkeelleURLRegExp);
+    await dialog.getByRole('button', { name: 'Peruuta' }).click();
+
+    await expect(dialog).toBeHidden();
+
+    const siirryButton = page.getByRole('button', {
+      name: 'Siirry hakulomakkeelle (1 valittu)',
+    });
+
+    await expect(siirryButton).toBeEnabled();
+    await siirryButton.click();
+
+    await expect(dialog).toBeVisible();
+
+    const dialogSiirryLink = dialog.getByRole('link', { name: 'Siirry hakulomakkeelle' });
+    await expect(
+      dialog.getByRole('link', { name: 'Siirry hakulomakkeelle' })
+    ).toHaveAttribute('href', siirryHakulomakkeelleURLRegExp);
+    await expect(dialogSiirryLink).toHaveAttribute(
+      'href',
+      siirryHakulomakkeelleURLRegExp
+    );
   });
 });

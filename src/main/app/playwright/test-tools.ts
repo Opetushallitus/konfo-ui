@@ -1,6 +1,8 @@
 import path from 'path';
 
+import AxeBuilder from '@axe-core/playwright';
 import { BrowserContext, Locator, Page, Route, expect } from '@playwright/test';
+import { escapeRegExp } from 'lodash';
 
 const MOCKS_PATH = path.resolve(__dirname, './mocks');
 
@@ -53,8 +55,6 @@ export const getSearchInput = (page: Page) =>
 
 export const getSearchButton = (page: Page) => page.getByRole('button', { name: /Etsi/ });
 
-const escapeRegExp = (str: string) => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
-
 export const expectURLEndsWith = (page: Page, urlEnd: string) =>
   expect(page).toHaveURL(new RegExp(escapeRegExp(urlEnd) + '$'));
 
@@ -68,9 +68,15 @@ export const fixtureFromFile = (fileName: string) => (route: Route) =>
 export const getFixtureData = async (fileName: string) =>
   (await import(getFixturePath(fileName)))?.default;
 
-export const getByLabelLoc = async (loc: Locator | Page, label: Locator) => {
-  const id = await label.getAttribute('id');
-  return loc.locator(`css=[aria-labelledby="${id}"]`);
+export const getByLabelLocator = async (outer: Locator | Page, label: Locator) => {
+  // label.getAttribute('id') toimii jostain syystä epävakaasti tässä..
+  const id = await label.evaluate((el) => el.getAttribute('id'));
+  return outer.locator(`css=[aria-labelledby="${id}"]`);
+};
+
+export const expectPageAccessibilityOk = async (page: Page) => {
+  const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+  await expect(accessibilityScanResults.violations).toEqual([]);
 };
 
 // For debugging

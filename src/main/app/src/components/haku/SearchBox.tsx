@@ -84,8 +84,8 @@ const AutocompleteGroupList = styled('ul')`
     display: block;
     font-weight: bold;
     padding: ${theme.spacing(1)};
-    border-top: 1px solid ${colors.lightGrey};
-    border-bottom: 1px solid ${colors.lightGrey};
+    border-top: 1px solid ${colors.grey500};
+    border-bottom: 1px solid ${colors.grey500};
   }
 `;
 
@@ -175,7 +175,7 @@ export const SearchBox = ({
         width: '100%',
         alignItems: 'center',
         boxSizing: 'border-box',
-        border: `1px solid ${colors.lightGrey}`,
+        border: `1px solid ${colors.grey500}`,
         borderRadius: '2px',
       }}
       elevation={4}>

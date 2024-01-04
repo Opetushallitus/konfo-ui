@@ -10,41 +10,6 @@ import { styled } from '#/src/theme';
 import { MurupolkuDrawer } from './MurupolkuDrawer';
 import { MurupolkuFragment } from './MurupolkuFragment';
 
-const PREFIX = 'Murupolku';
-
-const classes = {
-  breadcrumb: `${PREFIX}-breadcrumb`,
-  item: `${PREFIX}-item`,
-};
-
-const Root = styled('nav')(() => ({
-  [`& .${classes.breadcrumb}`]: {
-    display: 'flex',
-    paddingTop: 0,
-    paddingLeft: 0,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    listStyle: 'none',
-  },
-
-  [`& .${classes.item}`]: {
-    display: 'block',
-    flex: '0 0 auto',
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
-    whiteSpace: 'nowrap',
-    minWidth: 0,
-    '&:last-child': {
-      flex: '1 1 0%',
-    },
-  },
-
-  [`.MuiLink-root.Mui-focusVisible`]: {
-    backgroundColor: colors.lighterGrey,
-  },
-}));
-
 const useCollapsingPath = (path) => {
   const theme = useTheme();
   const isNarrow = useMediaQuery(theme.breakpoints.down('sm'));
@@ -55,6 +20,34 @@ const useCollapsingPath = (path) => {
     return path;
   }
 };
+
+const BreadcrumbList = styled('ol')({
+  display: 'flex',
+  paddingTop: 0,
+  paddingLeft: 0,
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'flex-start',
+  listStyle: 'none',
+});
+
+const BreadcrumbListItem = styled('li')({
+  display: 'block',
+  flex: '0 0 auto',
+  textOverflow: 'ellipsis',
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
+  minWidth: 0,
+  '&:last-child': {
+    flex: '1 1 0%',
+  },
+});
+
+const StyledNav = styled('nav')({
+  '.MuiLink-root.Mui-focusVisible': {
+    backgroundColor: colors.grey200,
+  },
+});
 
 export const Murupolku = ({ path }) => {
   const { t } = useTranslation();
@@ -67,11 +60,11 @@ export const Murupolku = ({ path }) => {
   const [drawerState, setDrawerState] = useState(false);
 
   return (
-    <Root aria-label={t('murupolku')}>
-      <ol className={classes.breadcrumb}>
+    <StyledNav aria-label={t('murupolku')}>
+      <BreadcrumbList>
         {collapsingPath.map(({ name, link, isCollapsedPart, isHome }, index) => {
           return (
-            <li key={`${name} ${link}`} className={classes.item}>
+            <BreadcrumbListItem key={`${name} ${link}`}>
               <MurupolkuFragment
                 name={name}
                 link={link}
@@ -80,15 +73,15 @@ export const Murupolku = ({ path }) => {
                 isCollapsedPart={isCollapsedPart}
                 isHome={isHome}
               />
-            </li>
+            </BreadcrumbListItem>
           );
         })}
-      </ol>
+      </BreadcrumbList>
       <MurupolkuDrawer
         path={pathWithHome}
         isOpen={drawerState}
         onClose={() => setDrawerState(false)}
       />
-    </Root>
+    </StyledNav>
   );
 };
