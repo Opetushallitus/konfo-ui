@@ -110,6 +110,7 @@ export const ValinnainenArvosana = ({
         {t('pistelaskuri.aine.valinnaisaine')}
         <SelectContainer>
           <Select
+            autoFocus
             labelId={`${labelId}-${index}`}
             value={String(arvosana)}
             onChange={updateValinnainenArvosana}
