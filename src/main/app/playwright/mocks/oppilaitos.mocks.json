@@ -132,6 +132,14 @@
               "sv": "https://www.aalto.fi/sv/"
             }
           },
+          "esittelyvideo": {
+            "nimi": {
+              "fi": "esittelyvideo"
+            },
+            "url": {
+              "fi": "http://localhost:3005/konfo/esittelyvideo.mp4"
+            }
+          },
           "jarjestaaUrheilijanAmmKoulutusta": false
         },
         "nimi": {
@@ -169,7 +177,8 @@
         "kotipaikka": {
           "koodiUri": "kunta_091",
           "nimi": { "fi": "Helsinki", "sv": "Helsingfors" }
-        }
+        },
+        "teemakuva": null
       },
       "status": 200
     }
