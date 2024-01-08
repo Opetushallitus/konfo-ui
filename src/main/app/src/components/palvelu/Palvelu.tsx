@@ -7,6 +7,12 @@ import { colors } from '#/src/colors';
 import { useContentful } from '#/src/hooks/useContentful';
 import { styled } from '#/src/theme';
 import { withDefaultProps } from '#/src/tools/withDefaultProps';
+import { ContentfulPalvelu } from '#/src/types/ContentfulTypes';
+
+const PALVELU_COLOR_MAP = {
+  sininen: colors.blue,
+  polku: colors.brandGreen,
+};
 
 const StyledCardHeader = styled(CardHeader)({
   fontSize: '20px',
@@ -17,10 +23,15 @@ const StyledCardHeader = styled(CardHeader)({
   color: colors.white,
 });
 
-const PALVELU_COLOR_MAP = {
-  sininen: colors.blue,
-  polku: colors.brandGreen,
-};
+const PalveluCard = styled(Card)<{ palvelu: ContentfulPalvelu }>(
+  ({ theme, palvelu }) => ({
+    cursor: 'pointer',
+    borderRadius: theme.spacing(1),
+    padding: '20px 20px 0px 20px',
+    height: '100%',
+    background: PALVELU_COLOR_MAP[palvelu.color ?? 'sininen'],
+  })
+);
 
 const Paragraph = withDefaultProps(Box, { lineHeight: '21px', fontSize: '14px' });
 
@@ -41,14 +52,8 @@ export const Palvelu = ({ id }: { id: string }) => {
 
   return (
     <Grid item xs={12} sm={6} md={4}>
-      <Card
-        sx={{
-          cursor: 'pointer',
-          borderRadius: 1,
-          padding: '20px 20px 0px 20px',
-          height: '100%',
-          background: PALVELU_COLOR_MAP[palvelu.color ?? 'sininen'],
-        }}
+      <PalveluCard
+        palvelu={palvelu}
         key={palvelu.id}
         tabIndex={0}
         onKeyDown={(event) => {
@@ -80,7 +85,7 @@ export const Palvelu = ({ id }: { id: string }) => {
             </Markdown>
           </CardContent>
         )}
-      </Card>
+      </PalveluCard>
     </Grid>
   );
 };
