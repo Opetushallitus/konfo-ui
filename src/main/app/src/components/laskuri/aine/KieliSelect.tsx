@@ -91,6 +91,7 @@ export const KieliSelect = ({ aine, updateKieli }: Props) => {
       </InputLabel>
       {data !== undefined && (
         <Select
+          aria-label={t(aine.nimi) + ', ' + t('pistelaskuri.aine.kielennimi')}
           value={String(aine.kieliKoodi || null)}
           onChange={handleKieliChange}
           input={<Input className={classes.input} />}
