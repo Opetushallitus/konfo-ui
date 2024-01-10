@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 
-import { Box, Link, Typography, useTheme } from '@mui/material';
+import { Box, Divider, Link, Typography, useTheme } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { KorttiLogo } from '#/src/components/common/KorttiLogo';
@@ -128,8 +128,7 @@ export const VertailuKortti = ({
             ) : null;
           }
         )}
-        <hr />
-
+        <Divider />
         <Box display="flex" justifyContent="flex-end" flexWrap="wrap" gap={1}>
           <TextButton onClick={() => toggleVertailu(vertailuSuosikki.hakukohdeOid)}>
             {t('suosikit.poista-vertailusta')}
