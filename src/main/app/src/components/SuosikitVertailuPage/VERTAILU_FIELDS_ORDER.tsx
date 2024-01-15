@@ -30,7 +30,7 @@ export const VERTAILU_FIELDS_ORDER: Array<{
   {
     icon: 'door_back',
     iconVariant: 'outlined',
-    fieldId: 'sisaanpaasyn-pistemaara',
+    fieldId: 'sisaanpaasyn-alin-pistemaara',
     getLabel: (t, vertailuSuosikki) =>
       t('suosikit-vertailu.sisaanpaasyn-alin-pistemaara', {
         year: vertailuSuosikki?.edellinenHaku?.vuosi,
@@ -42,7 +42,7 @@ export const VERTAILU_FIELDS_ORDER: Array<{
   {
     icon: 'people',
     iconVariant: 'outlined',
-    fieldId: 'aloituspaikat',
+    fieldId: 'aloituspaikat-ensisijaiset-hakijat',
     getLabel: (t, vertailuSuosikki) =>
       t('suosikit-vertailu.aloituspaikat-ensisijaiset-hakijat', {
         year: vertailuSuosikki?.edellinenHaku?.vuosi,
@@ -51,8 +51,21 @@ export const VERTAILU_FIELDS_ORDER: Array<{
       const aloituspaikat = vertailuSuosikki?.edellinenHaku?.aloituspaikat;
       const ensisijaisestiHakeneet =
         vertailuSuosikki?.edellinenHaku?.ensisijaisestiHakeneet;
+
       return isNonNil(aloituspaikat) && isNonNil(ensisijaisestiHakeneet)
         ? `${aloituspaikat} / ${ensisijaisestiHakeneet}`
+        : t('suosikit-vertailu.ei-maaritelty');
+    },
+  },
+  {
+    icon: 'people',
+    iconVariant: 'outlined',
+    fieldId: 'aloituspaikat',
+    getLabel: (t) => t('suosikit-vertailu.aloituspaikat'),
+    renderValue: (vertailuSuosikki, t) => {
+      const aloituspaikat = vertailuSuosikki?.aloituspaikat;
+      return isNonNil(aloituspaikat)
+        ? aloituspaikat
         : t('suosikit-vertailu.ei-maaritelty');
     },
   },

@@ -1839,6 +1839,11 @@ export interface paths {
                  */
                 opiskelijoita?: number;
                 /**
+                 * Format: int32
+                 * @description Hakukohteen aloituspaikat
+                 */
+                aloituspaikat?: number;
+                /**
                  * @description Koulutuksen tyyppi
                  * @enum {string}
                  */
@@ -3821,6 +3826,11 @@ export interface components {
        * @description Hakukohteen järjestyspaikan oppilaitoksen opiskelijoiden määrä
        */
       opiskelijoita?: number;
+      /**
+       * Format: int32
+       * @description Hakukohteen aloituspaikat
+       */
+      aloituspaikat?: number;
       /**
        * @description Koulutuksen tyyppi
        * @enum {string}
