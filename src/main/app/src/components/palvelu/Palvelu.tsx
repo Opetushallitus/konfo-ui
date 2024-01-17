@@ -1,7 +1,4 @@
-import React from 'react';
-
 import { Avatar, Box, Card, CardContent, CardHeader, Grid } from '@mui/material';
-import clsx from 'clsx';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -9,56 +6,34 @@ import { useNavigate } from 'react-router-dom';
 import { colors } from '#/src/colors';
 import { useContentful } from '#/src/hooks/useContentful';
 import { styled } from '#/src/theme';
+import { withDefaultProps } from '#/src/tools/withDefaultProps';
+import { ContentfulPalvelu } from '#/src/types/ContentfulTypes';
 
-const PREFIX = 'Palvelu';
-
-const classes = {
-  card: `${PREFIX}-card`,
-  avatar: `${PREFIX}-avatar`,
-  content: `${PREFIX}-content`,
-  header: `${PREFIX}-header`,
-  media: `${PREFIX}-media`,
-  sininen: `${PREFIX}-sininen`,
-  polku: `${PREFIX}-polku`,
+const PALVELU_COLOR_MAP = {
+  sininen: colors.blue,
+  polku: colors.brandGreen,
 };
 
-const StyledGrid = styled(Grid)({
-  [`& .${classes.card}`]: {
-    cursor: 'pointer',
-    borderRadius: 1,
-    padding: '20px 20px 0px 20px',
-    height: '100%',
-  },
-  [`& .${classes.avatar}`]: {},
-  [`& .${classes.content}`]: {
-    fontSize: '14px',
-    color: colors.white,
-  },
-  [`& .${classes.header}`]: {
-    fontSize: '20px',
-    fontWeight: 'bold',
-    borderBottomStyle: 'solid',
-    borderWidth: '2px',
-    borderColor: colors.white,
-    color: colors.white,
-  },
-  [`& .${classes.media}`]: {
-    height: 0,
-    paddingTop: '56.25%',
-  },
-  [`& .${classes.sininen}`]: {
-    background: colors.blue,
-  },
-  [`& .${classes.polku}`]: {
-    background: colors.brandGreen,
-  },
+const StyledCardHeader = styled(CardHeader)({
+  fontSize: '20px',
+  fontWeight: 'bold',
+  borderBottomStyle: 'solid',
+  borderWidth: '2px',
+  borderColor: colors.white,
+  color: colors.white,
 });
 
-const Paragraph = ({ children }: React.PropsWithChildren) => (
-  <Box lineHeight="21px" fontSize="14px">
-    {children}
-  </Box>
+const PalveluCard = styled(Card)<{ palvelu: ContentfulPalvelu }>(
+  ({ theme, palvelu }) => ({
+    cursor: 'pointer',
+    borderRadius: theme.spacing(1),
+    padding: '20px 20px 0px 20px',
+    height: '100%',
+    background: PALVELU_COLOR_MAP[palvelu.color ?? 'sininen'],
+  })
 );
+
+const Paragraph = withDefaultProps(Box, { lineHeight: '21px', fontSize: '14px' });
 
 export const Palvelu = ({ id }: { id: string }) => {
   const navigate = useNavigate();
@@ -68,7 +43,6 @@ export const Palvelu = ({ id }: { id: string }) => {
   const palvelu = data.palvelu[id];
 
   const a = palvelu.image ? asset[palvelu.image.id] : null;
-  const color = (palvelu.color as keyof typeof classes) || 'sininen';
 
   const forwardToPage = () => {
     if (palvelu.linkki && palvelu.linkki.id) {
@@ -77,9 +51,9 @@ export const Palvelu = ({ id }: { id: string }) => {
   };
 
   return (
-    <StyledGrid item xs={12} sm={6} md={4}>
-      <Card
-        className={clsx(classes.card, classes[color])}
+    <Grid item xs={12} sm={6} md={4}>
+      <PalveluCard
+        palvelu={palvelu}
         key={palvelu.id}
         tabIndex={0}
         onKeyDown={(event) => {
@@ -88,15 +62,14 @@ export const Palvelu = ({ id }: { id: string }) => {
           }
         }}
         onClick={forwardToPage}>
-        <CardHeader
-          avatar={<Avatar src={assetUrl(a?.url)} className={classes.avatar} alt="" />}
-          className={classes.header}
+        <StyledCardHeader
+          avatar={<Avatar src={assetUrl(a?.url)} alt="" />}
           disableTypography={true}
           title={palvelu.name}
           subheader=""
         />
         {palvelu.content && (
-          <CardContent className={classes.content}>
+          <CardContent sx={{ fontSize: '14px', color: colors.white }}>
             <Markdown
               options={{
                 overrides: {
@@ -112,7 +85,7 @@ export const Palvelu = ({ id }: { id: string }) => {
             </Markdown>
           </CardContent>
         )}
-      </Card>
-    </StyledGrid>
+      </PalveluCard>
+    </Grid>
   );
 };

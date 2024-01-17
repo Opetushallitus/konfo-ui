@@ -84,7 +84,7 @@ export const HAKU_RAJAIMET_INITIAL = {
   hakualkaapaivissa: [],
 };
 
-type HakutulosSlice = {
+export type HakutulosSlice = {
   selectedTab: 'koulutus' | 'oppilaitos';
   size: number;
   order: 'asc' | 'desc';

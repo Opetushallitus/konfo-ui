@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Grid, Typography } from '@mui/material';
 import { toString, min, max } from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -12,15 +10,10 @@ import { useSearch } from '../hakutulosHooks';
 export const MobileResultsPerPageExpansionMenu = () => {
   const { t } = useTranslation();
   const { pagination, setPagination, resetPagination } = useSearch();
-  const size = pagination.size;
-  const marks = PAGE_SIZE_OPTIONS.map((_size) => ({
-    value: _size,
-    label: toString(_size),
-  }));
 
-  const handleSliderValueChange = (e, newSize) => {
+  const handleSliderValueChange = (_: unknown, newSize?: number | Array<number>) => {
     resetPagination();
-    setPagination({ size: newSize });
+    setPagination({ size: Array.isArray(newSize) ? newSize[0] : newSize });
   };
 
   return (
@@ -29,7 +22,7 @@ export const MobileResultsPerPageExpansionMenu = () => {
       direction="row"
       justifyContent="space-between"
       alignItems="flex-start"
-      style={{ padding: '12px 24px' }}>
+      sx={{ padding: '12px 24px' }}>
       <Grid item xs={12} sm={4}>
         <Typography variant="subtitle1" noWrap>
           {t('haku.tuloksia-per-sivu')}
@@ -37,13 +30,16 @@ export const MobileResultsPerPageExpansionMenu = () => {
       </Grid>
       <Grid item xs={12} sm>
         <SuodatinSlider
-          value={size}
+          value={pagination.size}
           track={false}
           min={min(PAGE_SIZE_OPTIONS)}
           max={max(PAGE_SIZE_OPTIONS)}
-          marks={marks}
+          marks={PAGE_SIZE_OPTIONS.map((size) => ({
+            value: size,
+            label: toString(size),
+          }))}
           step={null}
-          getAriaValueText={(value) => value}
+          getAriaValueText={(value) => `${value}`}
           aria-label={t('haku.tuloksia-per-sivu')}
           onChange={handleSliderValueChange}
         />

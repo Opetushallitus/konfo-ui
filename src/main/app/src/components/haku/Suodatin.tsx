@@ -7,38 +7,24 @@ import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { PopoverWithArrow } from '#/src/components/common/PopoverWithArrow';
 import { styled } from '#/src/theme';
 
-const PREFIX = 'Suodatin';
-
-const classes = {
-  item: `${PREFIX}-item`,
-  header: `${PREFIX}-header`,
-  expandButton: `${PREFIX}-expandButton`,
-};
-
 const StyledBox = styled(Box)(({ theme }) => ({
-  [`&.${classes.item}`]: {
-    padding: '10px 25px 5px 25px',
-    // 22% ja 7% koska divider syö tilaa, muuten olisi 25% / 10%
-    [theme.breakpoints.up('md')]: {
-      flexBasis: '22%',
-    },
-    [theme.breakpoints.up('lg')]: {
-      flexBasis: '7%',
-    },
+  padding: '10px 25px 5px 25px',
+  // 22% ja 7% koska divider syö tilaa, muuten olisi 25% / 10%
+  [theme.breakpoints.up('md')]: {
+    flexBasis: '22%',
   },
-
-  [`& .${classes.header}`]: {
-    paddingLeft: '8px',
-  },
-
-  [`& .${classes.expandButton}`]: {
-    height: '40px',
-    fontSize: '16px',
-    fontWeight: 600,
-    lineHeight: '16px',
-    textAlign: 'center',
+  [theme.breakpoints.up('lg')]: {
+    flexBasis: '7%',
   },
 }));
+
+const ExpandButton = styled(Button)({
+  height: '40px',
+  fontSize: '16px',
+  fontWeight: 600,
+  lineHeight: '16px',
+  textAlign: 'center',
+});
 
 type Props = React.PropsWithChildren<{
   id: string;
@@ -52,19 +38,18 @@ export const Suodatin = ({ id, children, header }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <StyledBox className={classes.item}>
-      <Typography className={classes.header} variant="h5">
+    <StyledBox>
+      <Typography paddingLeft="8px" variant="h5">
         {header}
       </Typography>
-      <Button
+      <ExpandButton
         endIcon={<MaterialIcon icon={isOpen ? 'expand_less' : 'expand_more'} />}
         onClick={() => setIsOpen(true)}
         ref={anchorRef}
         aria-label={t('haku.valitse')}
-        data-testid={`valitse_${id}`}
-        className={classes.expandButton}>
+        data-testid={`valitse_${id}`}>
         {t('haku.valitse')}
-      </Button>
+      </ExpandButton>
       <PopoverWithArrow
         anchorEl={anchorRef.current}
         content={children}

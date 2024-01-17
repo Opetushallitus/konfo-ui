@@ -1,6 +1,6 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 
-import { Box, CssBaseline } from '@mui/material';
+import { Box } from '@mui/material';
 
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { MuiFlatPagination } from '#/src/components/MuiFlatPagination';
@@ -73,7 +73,6 @@ export const Pagination = ({
 
   return total > size ? (
     <StyledBox textAlign="center" marginY={3}>
-      <CssBaseline />
       <MuiFlatPagination
         limit={size}
         offset={offset}

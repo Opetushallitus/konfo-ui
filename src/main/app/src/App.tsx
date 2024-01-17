@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 
-import { useMediaQuery, Box } from '@mui/material';
+import { useMediaQuery, Box, CssBaseline } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
 import Cookies from 'js-cookie';
 import { includes } from 'lodash';
@@ -244,6 +244,7 @@ export const App = () => {
     <div>
       <span style={visuallyHidden} id="focus-reset-target" tabIndex={-1} ref={focusRef} />
       <SkipToContent />
+      <CssBaseline />
       <Draft />
       <CookieModal />
       <SiteImprove titleObj={titleObj} />

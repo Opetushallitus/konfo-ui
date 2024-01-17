@@ -1,7 +1,4 @@
-import React from 'react';
-
 import { Grid, Icon, Paper, Typography } from '@mui/material';
-import clsx from 'clsx';
 import { isString } from 'lodash';
 
 import ApurahaIcon from '#/src/assets/images/Apuraha.svg';
@@ -12,41 +9,17 @@ import OpetusKasvatusPsykologiaIcon from '#/src/assets/images/opetus_kasvatus_ps
 import SuunniteltuKestoIcon from '#/src/assets/images/suunniteltu_kesto.svg';
 import TutkintoNimikeIcon from '#/src/assets/images/tutkintonimike.svg';
 import TutkintoonHakeminenIcon from '#/src/assets/images/tutkintoon_hakeminen.svg';
-import { colors, educationTypeColorCode } from '#/src/colors';
+import { educationTypeColorCode } from '#/src/colors';
 import { LabelTooltip } from '#/src/components/common/LabelTooltip';
 import { styled } from '#/src/theme';
 import { toId } from '#/src/tools/utils';
 
-const PREFIX = 'InfoGrid';
-
-const classes = {
-  paper: `${PREFIX}-paper`,
-  text: `${PREFIX}-text`,
-  title: `${PREFIX}-title`,
-  grid: `${PREFIX}-grid`,
-};
-
-const StyledPaper = styled(Paper)(({ theme }) => ({
+const StyledPaper = styled(Paper)({
   display: 'flex',
   justifyContent: 'space-evenly',
   width: '100%',
   backgroundColor: educationTypeColorCode.ammatillinenGreenBg, // TODO: Not sure if this should come from koulutus type theme
-
-  [`& .${classes.text}`]: {
-    color: colors.grey900,
-  },
-
-  [`& .${classes.title}`]: {
-    fontWeight: 600,
-  },
-
-  [`& .${classes.grid}`]: {
-    padding: theme.spacing(8),
-    [theme.breakpoints.down('sm')]: {
-      padding: theme.spacing(2),
-    },
-  },
-}));
+});
 
 const iconLookupTable: Record<string, string> = {
   KoulutusAsteIcon: KoulutusAsteIcon,
@@ -74,8 +47,17 @@ export const InfoGrid = (props: Props) => {
   const { gridData } = props;
 
   return (
-    <StyledPaper className={classes.paper}>
-      <Grid className={classes.grid} container justifyContent="space-evenly" spacing={5}>
+    <StyledPaper>
+      <Grid
+        sx={(theme) => ({
+          padding: 8,
+          [theme.breakpoints.down('sm')]: {
+            padding: 2,
+          },
+        })}
+        container
+        justifyContent="space-evenly"
+        spacing={5}>
         {gridData.map((e, index) => (
           <Grid
             item
@@ -105,7 +87,9 @@ export const InfoGrid = (props: Props) => {
               <Grid item container spacing={1} wrap="nowrap" alignItems="flex-start">
                 <Grid item>
                   <Typography
-                    className={clsx(classes.title, classes.text)}
+                    sx={{
+                      fontWeight: 600,
+                    }}
                     variant="body1"
                     id={toId(e.title)}>
                     {e.title}
@@ -120,7 +104,6 @@ export const InfoGrid = (props: Props) => {
               <Grid item>
                 {e.text.split('\n').map((line, i) => (
                   <Typography
-                    className={classes.text}
                     component="div"
                     variant="body1"
                     key={i}
