@@ -78,6 +78,7 @@ export const ResultSphere = ({
       aria-label={text + ' ' + resultWithComma}
       role="figure">
       <VictoryPie
+        aria-hidden={true}
         width={isMedium ? 240 : 320}
         innerRadius={isMedium ? 85 : 95}
         data={resultsData}
@@ -97,7 +98,8 @@ export const ResultSphere = ({
       <Box
         className={
           embedded ? classes.embeddedResultTextContainer : classes.resultTextContainer
-        }>
+        }
+        aria-hidden={true}>
         <Typography sx={{ fontSize: '3rem', fontWeight: 'bold', marginBottom: '7px' }}>
           {resultWithComma}
         </Typography>
