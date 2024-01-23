@@ -7,7 +7,6 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import { Askem } from '#/src/components/common/Askem';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { Murupolku } from '#/src/components/common/Murupolku';
 import { Heading } from '#/src/components/Heading';
@@ -132,7 +131,6 @@ const ValintaperusteContent = ({
             organisaatioOid={toteutus?.organisaatio?.oid}
           />
         )}
-        <Askem />
       </Grid>
     </React.Fragment>
   );
