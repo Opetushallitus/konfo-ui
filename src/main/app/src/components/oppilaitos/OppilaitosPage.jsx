@@ -98,12 +98,13 @@ export const OppilaitosPage = (props) => {
               width: '100%',
               maxWidth: '1200px',
             }}>
-            {entity?.teemakuva ? (
+            {entity?.teemakuva && (
               <TeemakuvaImage
                 imgUrl={entity?.teemakuva}
                 altText={t('oppilaitos.oppilaitoksen-teemakuva')}
               />
-            ) : (
+            )}
+            {entity?.metadata?.esittelyvideo && (
               <Esittelyvideo
                 videoUrl={localize(entity?.metadata?.esittelyvideo.url)}
                 altText={t('oppilaitos.oppilaitoksen-esittelyvideo')}
