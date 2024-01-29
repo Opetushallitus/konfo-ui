@@ -40,6 +40,7 @@ const Lukiopistelaskelma = ({ tulos, years, ...props }: LukiopisteProps) => {
   return (
     <VictoryLine
       {...props}
+      aria-hidden={true}
       style={{
         data: { stroke: colors.sunglow, strokeWidth: 3 },
         labels: { fontSize: isSmall ? 32 : 16 },
@@ -55,7 +56,9 @@ const Lukiopistelaskelma = ({ tulos, years, ...props }: LukiopisteProps) => {
         },
       ]}
       labels={['', formatDouble(tulos.keskiarvoPainotettu)]}
-      labelComponent={<VictoryLabel renderInPortal dx={isSmall ? -25 : -15} />}
+      labelComponent={
+        <VictoryLabel renderInPortal dx={isSmall ? -25 : -15} aria-hidden={true} />
+      }
     />
   );
 };
@@ -81,7 +84,7 @@ const PisteGraafiKouluarvosanat = ({ hakukohde, tulos }: Props) => {
   };
 
   return (
-    <Box aria-hidden={true}>
+    <Box>
       <VictoryChart
         maxDomain={{
           y: maxY(data),
@@ -92,6 +95,7 @@ const PisteGraafiKouluarvosanat = ({ hakukohde, tulos }: Props) => {
           x: GRAAFI_MIN_YEAR + graafiYearModifier(years, GraafiBoundary.MIN),
         }}
         width={920}
+        aria-labelledby="graph__accessible__label"
         theme={VictoryTheme.material}>
         <VictoryAxis
           tickValues={years}

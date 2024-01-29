@@ -200,7 +200,6 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos, hakukohdeOid }: Pr
         hakukohde?.metadata?.pistehistoria?.length > 0 && (
           <Box>
             <PisteGraafi
-              aria-hidden={true}
               hakukohde={hakukohde}
               tulos={calculatedTulos}
               isLukio={isLukio}
