@@ -181,11 +181,18 @@ export const KeskiarvoTulos = ({ tulos, embedded, kouluaineet, rootRef }: Props)
 
   return (
     <TulosContainer>
-      <Typography variant="h3">{t('pistelaskuri.lukio.header')}</Typography>
+      <Typography variant="h3" id="pistelaskuri__lukio__header" aria-hidden="true">
+        {t('pistelaskuri.lukio.header')}
+      </Typography>
       {!isSmall && (
-        <Typography variant="h3">{t('pistelaskuri.ammatillinen.header')}</Typography>
+        <Typography
+          variant="h3"
+          id="pistelaskuri__ammatillinen__header"
+          aria-hidden="true">
+          {t('pistelaskuri.ammatillinen.header')}
+        </Typography>
       )}
-      <Box className={classes.column}>
+      <Box className={classes.column} aria-labelledby="pistelaskuri__lukio__header">
         {showPainokerroinSphere() ? (
           <ResultSpheresLukio
             keskiarvo={tulos.keskiarvo}
@@ -210,9 +217,13 @@ export const KeskiarvoTulos = ({ tulos, embedded, kouluaineet, rootRef }: Props)
         </Paper>
       </Box>
       {isSmall && (
-        <Typography variant="h3">{t('pistelaskuri.ammatillinen.header')}</Typography>
+        <Typography variant="h3" id="pistelaskuri__ammatillinen__header">
+          {t('pistelaskuri.ammatillinen.header')}
+        </Typography>
       )}
-      <Box className={classes.column}>
+      <Box
+        className={classes.column}
+        aria-labelledby="pistelaskuri__ammatillinen__header">
         {tulos.osalasku && (
           <>
             <ResultSpheresAmmatillinen osalasku={tulos.osalasku} embedded={embedded} />

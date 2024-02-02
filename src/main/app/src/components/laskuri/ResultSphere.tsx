@@ -73,12 +73,9 @@ export const ResultSphere = ({
   const isMedium = (useMediaQuery(theme.breakpoints.down('md')) || embedded) && !isSmall;
 
   return (
-    <PalleroContainer
-      className={classes.resultSphere}
-      aria-label={text + ' ' + resultWithComma}
-      role="figure">
+    <PalleroContainer className={classes.resultSphere} role="figure">
       <VictoryPie
-        aria-hidden={true}
+        aria-label={text + ' ' + resultWithComma}
         width={isMedium ? 240 : 320}
         innerRadius={isMedium ? 85 : 95}
         data={resultsData}
