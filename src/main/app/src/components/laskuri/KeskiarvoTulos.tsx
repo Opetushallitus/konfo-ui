@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 
 import { Box, Typography, Paper, useTheme, useMediaQuery } from '@mui/material';
+import { visuallyHidden } from '@mui/utils';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
@@ -181,7 +182,7 @@ export const KeskiarvoTulos = ({ tulos, embedded, kouluaineet, rootRef }: Props)
 
   return (
     <TulosContainer>
-      <Typography variant="h3" id="pistelaskuri__lukio__header" aria-hidden="true">
+      <Typography variant="h3" id="pistelaskuri__lukio__header">
         {t('pistelaskuri.lukio.header')}
       </Typography>
       {!isSmall && (
@@ -216,8 +217,15 @@ export const KeskiarvoTulos = ({ tulos, embedded, kouluaineet, rootRef }: Props)
           <LinkToValintaPerusteet />
         </Paper>
       </Box>
-      {isSmall && (
+      {isSmall ? (
         <Typography variant="h3" id="pistelaskuri__ammatillinen__header">
+          {t('pistelaskuri.ammatillinen.header')}
+        </Typography>
+      ) : (
+        <Typography
+          variant="h3"
+          id="pistelaskuri__ammatillinen__header"
+          style={visuallyHidden}>
           {t('pistelaskuri.ammatillinen.header')}
         </Typography>
       )}
