@@ -111,6 +111,7 @@ export const Yhteystiedot = ({
   return (
     <Box
       marginTop={isSm ? 6 : 12}
+      marginBottom={isSm ? 6 : 12}
       display="flex"
       flexDirection="column"
       alignItems="center"
