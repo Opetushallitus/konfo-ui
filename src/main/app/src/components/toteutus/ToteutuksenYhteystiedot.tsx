@@ -44,35 +44,34 @@ export const ToteutuksenYhteystiedot = ({
 
   //Näytetään toteutukselle vain yhdet hakijapalveluiden yhteystiedot. Ensisijaisesti oppilaitoksen osalta, sen jälkeen oppilaitokselta.
   //Tämä sisältää oletuksen, että jos toteutukseen liittyvät oidit sisältävät oppilaitoksen osan, se sisältää osuvammat yhteystiedot.
-  const kaytettavatHakijapalveluidenYhteystiedot = useMemo(() => {
-    const oppilaitokselle = oppilaitokset
+  const getKaytettavatHakijapalveluidenYhteystiedot = (oppilaitosOid: any): any => {
+    const filteredOppilaitokset = oppilaitokset.filter(
+      (oppilaitos) => oppilaitos.data.oid == oppilaitosOid
+    );
+    const oppilaitokselle = filteredOppilaitokset
       .map((o) => o.data.oppilaitos?.metadata?.hakijapalveluidenYhteystiedot)
       .find(Boolean);
-    const osalle = oppilaitokset
+    const osalle = filteredOppilaitokset
       .map((o) => o.data.oppilaitoksenOsa?.metadata?.hakijapalveluidenYhteystiedot)
       .find(Boolean);
     return osalle ? [osalle] : [oppilaitokselle];
-  }, [oppilaitokset]);
+  };
 
-  const filteredOrganisaatioYhteystiedot = useMemo(
-    () =>
-      oppilaitokset
-        .flatMap((oppilaitos) => oppilaitos.data.oppilaitosOsat)
-        .flat()
-        .filter((oppilaitoksenOsa) =>
-          hasYhteystiedot(oppilaitoksenOsa.oppilaitoksenOsa?.metadata)
+  const getFilteredOrganisaatioYhteystiedot = (oppilaitosOid: any): any => {
+    return oppilaitokset
+      .filter((oppilaitos) => oppilaitos.data.oid == oppilaitosOid)
+      .flatMap((oppilaitos) => oppilaitos.data.oppilaitosOsat)
+      .flat()
+      .filter((oppilaitoksenOsa) =>
+        hasYhteystiedot(oppilaitoksenOsa.oppilaitoksenOsa?.metadata)
+      )
+      .flatMap((oppilaitoksenOsa) =>
+        oppilaitoksenOsa.oppilaitoksenOsa.metadata.yhteystiedot.map(
+          (y: typeof Yhteystiedot) =>
+            Object.assign({ oid: oppilaitoksenOsa.oppilaitoksenOsa.organisaatio?.oid }, y)
         )
-        .flatMap((oppilaitoksenOsa) =>
-          oppilaitoksenOsa.oppilaitoksenOsa.metadata.yhteystiedot.map(
-            (y: typeof Yhteystiedot) =>
-              Object.assign(
-                { oid: oppilaitoksenOsa.oppilaitoksenOsa.organisaatio?.oid },
-                y
-              )
-          )
-        ),
-    [oppilaitokset]
-  );
+      );
+  };
 
   const getOppilaitosYhteystiedot = (oppilaitos: any): Array<YhteystiedotType> => {
     const yhteystiedot = oppilaitos?.oppilaitos?.metadata?.yhteystiedot?.map(
@@ -132,8 +131,12 @@ export const ToteutuksenYhteystiedot = ({
                 id={localize(oppilaitos)}
                 tarjoajat={tarjoajat}
                 yhteystiedot={getOppilaitosYhteystiedot(oppilaitos)}
-                hakijapalveluidenYhteystiedot={kaytettavatHakijapalveluidenYhteystiedot} //Huom. tämä päätelty kenttä yliajaa oppilaitoken metadatassa mahdollisesti olevat yhteystiedot.
-                organisaatioidenYhteystiedot={filteredOrganisaatioYhteystiedot}
+                hakijapalveluidenYhteystiedot={getKaytettavatHakijapalveluidenYhteystiedot(
+                  oppilaitos.oid
+                )} //Huom. tämä päätelty kenttä yliajaa oppilaitoken metadatassa mahdollisesti olevat yhteystiedot.
+                organisaatioidenYhteystiedot={getFilteredOrganisaatioYhteystiedot(
+                  oppilaitos.oid
+                )}
               />
             </React.Fragment>
           ))}
