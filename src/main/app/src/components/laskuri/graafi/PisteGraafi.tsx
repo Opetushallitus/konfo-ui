@@ -40,6 +40,7 @@ const Lukiopistelaskelma = ({ tulos, years, ...props }: LukiopisteProps) => {
   return (
     <VictoryLine
       {...props}
+      aria-hidden={true}
       style={{
         data: { stroke: colors.sunglow, strokeWidth: 3 },
         labels: { fontSize: isSmall ? 32 : 16 },
@@ -55,7 +56,9 @@ const Lukiopistelaskelma = ({ tulos, years, ...props }: LukiopisteProps) => {
         },
       ]}
       labels={['', formatDouble(tulos.keskiarvoPainotettu)]}
-      labelComponent={<VictoryLabel renderInPortal dx={isSmall ? -25 : -15} />}
+      labelComponent={
+        <VictoryLabel renderInPortal dx={isSmall ? -25 : -15} aria-hidden={true} />
+      }
     />
   );
 };
@@ -81,8 +84,9 @@ const PisteGraafiKouluarvosanat = ({ hakukohde, tulos }: Props) => {
   };
 
   return (
-    <Box aria-hidden={true}>
+    <Box role="figure" aria-labelledby="graph__accessible__label">
       <VictoryChart
+        aria-hidden={true}
         maxDomain={{
           y: maxY(data),
           x: GRAAFI_MAX_YEAR + graafiYearModifier(years, GraafiBoundary.MAX),
@@ -94,6 +98,7 @@ const PisteGraafiKouluarvosanat = ({ hakukohde, tulos }: Props) => {
         width={920}
         theme={VictoryTheme.material}>
         <VictoryAxis
+          aria-hidden={true}
           tickValues={years}
           style={{
             axis: { stroke: colors.invisible },
@@ -103,6 +108,7 @@ const PisteGraafiKouluarvosanat = ({ hakukohde, tulos }: Props) => {
           }}
         />
         <VictoryAxis
+          aria-hidden={true}
           dependentAxis
           tickValues={[4, 6, 8, maxY(data)]}
           style={{
@@ -114,6 +120,7 @@ const PisteGraafiKouluarvosanat = ({ hakukohde, tulos }: Props) => {
         />
         <VictoryGroup>
           <VictoryBar
+            aria-hidden={true}
             data={data}
             style={{
               data: { fill: ({ datum }) => getStyleByPistetyyppi(datum.pistetyyppi) },

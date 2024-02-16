@@ -71,7 +71,12 @@ export const AccessibleGraafi = ({ hakukohde, tulos, isLukio }: Props) => {
   const { t } = useTranslation();
 
   return (
-    <Box sx={visuallyHidden}>
+    <Box
+      role="region"
+      aria-live="assertive"
+      aria-hidden={false}
+      sx={visuallyHidden}
+      id="graph__accessible__label">
       <Typography>
         {t('pistelaskuri.graafi.saavutettavuus.saate', {
           kohde: `${localize(hakukohde.nimi)} ${

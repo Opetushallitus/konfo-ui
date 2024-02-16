@@ -183,6 +183,7 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos, hakukohdeOid }: Pr
             value={hakukohde}
             onChange={changeHakukohde}
             variant="standard"
+            aria-labelledby="graph__accessible__label"
             disableUnderline={true}
             className={classes.hakukohdeSelect}
             input={<Input className={classes.hakukohdeInput} />}>
