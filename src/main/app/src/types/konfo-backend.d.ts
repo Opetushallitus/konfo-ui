@@ -3649,7 +3649,7 @@ export interface components {
           en?: string;
         };
       };
-      jarjestyspaikkaEnriched: {
+      jarjestyspaikkaHierarkiaNimi: {
         /**
          * Nimi
          * @description Järjestyspaikka hierarkian nimet ensimmäiseen oppilaitokseen asti eri kielillä
@@ -3710,7 +3710,7 @@ export interface components {
               en?: string;
             };
           };
-        jarjestyspaikkaEnriched: {
+        jarjestyspaikkaHierarkiaNimi: {
           /**
            * Nimi
            * @description Järjestyspaikka hierarkian nimet ensimmäiseen oppilaitokseen asti eri kielillä

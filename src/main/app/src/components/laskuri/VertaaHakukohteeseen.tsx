@@ -36,8 +36,8 @@ type Props = {
 };
 
 const hakukohdeLabel = (hakukohde: CompactHakukohde) => {
-  const jarjestyspaikkaNimi = hakukohde.jarjestyspaikkaEnriched
-    ? localize(hakukohde.jarjestyspaikkaEnriched).trim()
+  const jarjestyspaikkaNimi = hakukohde.jarjestyspaikkaHierarkiaNimi
+    ? localize(hakukohde.jarjestyspaikkaHierarkiaNimi).trim()
     : undefined;
   return `${localize(hakukohde.nimi).trim()}${
     jarjestyspaikkaNimi ? `, ${jarjestyspaikkaNimi}` : ''
