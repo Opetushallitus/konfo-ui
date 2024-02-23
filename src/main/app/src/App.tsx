@@ -38,7 +38,6 @@ import { Hakupalkki } from './components/haku/Hakupalkki';
 import { KoulutusPage } from './components/koulutus/KoulutusPage';
 import { OhjaavaHakuPage } from './components/ohjaava-haku/OhjaavaHakuPage';
 import { OppilaitosPage } from './components/oppilaitos/OppilaitosPage';
-import { PalautePopup } from './components/palaute/PalautePopup';
 import { Palvelut } from './components/palvelu/Palvelut';
 import { ReactiveBorder } from './components/ReactiveBorder';
 import { Sisaltohaku } from './components/Sisaltohaku';
@@ -53,7 +52,6 @@ import {
 import { SIDEMENU_WIDTH } from './constants';
 import { useIsAtEtusivu } from './store/reducers/appSlice';
 import { getHeaderHeight, theme } from './theme';
-import { useChat } from './useChat';
 
 const MainContent = styled('main')(
   ({ isSmall, menuVisible }: { isSmall?: boolean; menuVisible?: boolean }) => ({
@@ -212,7 +210,6 @@ export const App = () => {
   const [sideMenuKey, setSideMenuKey] = useState(1);
 
   const focusRef = useRef<HTMLSpanElement>(null);
-  const chatIsVisible = useChat();
 
   useLayoutEffect(() => {
     focusRef?.current?.focus();
@@ -271,7 +268,6 @@ export const App = () => {
           </HeadingBoundary>
         </MainContent>
       </Box>
-      {!chatIsVisible && <PalautePopup />}
     </div>
   );
 };
