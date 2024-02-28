@@ -138,16 +138,6 @@
     "takaisin": "Siirry Opintopolun etusivulle",
     "paikanpitäjä": "Hakutuloksen kuva"
   },
-  "palaute": {
-    "otsikko": "Mitä mieltä olet uudesta Opintopolusta?",
-    "anna-palautetta": "Anna palautetta Opintopolusta",
-    "kommentti": "Haluatko antaa palautetta?",
-    "lähetä": "Lähetä",
-    "sulje": "sulje",
-    "kiitos": "Kiitos palautteestasi!",
-    "vastaanotettu": "Palautteesi on vastaanotettu onnistuneesti. Käsittelemme palautteet mahdollisimman pian.",
-    "palaa": "Palaa Opintopolkuun"
-  },
   "haku": {
     "aikuisten-perusopetus": "Aikuisten perusopetuksen koulutukset",
     "amk": "Ammattikorkeakoulujen koulutukset",

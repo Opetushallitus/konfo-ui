@@ -21,7 +21,6 @@ const development = {
   'konfo-backend.oppilaitos': '/konfo-backend/oppilaitos/$1',
   'konfo-backend.oppilaitosOsa': '/konfo-backend/oppilaitoksen-osa/$1',
   'konfo-backend.kuvaus.osaamisalat': '/konfo-backend/kuvaus/$1/osaamisalat',
-  'konfo-backend.palaute': '/konfo-backend/palaute',
   'konfo-backend.koulutus.jarjestajat': '/konfo-backend/search/koulutus/$1/jarjestajat',
   'konfo-backend.oppilaitos.tarjonta': '/konfo-backend/search/oppilaitos/$1/tarjonta',
   'konfo-backend.hakukohde': '/konfo-backend/hakukohde/$1',
