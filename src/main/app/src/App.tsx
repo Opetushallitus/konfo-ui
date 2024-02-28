@@ -238,6 +238,7 @@ export const App = () => {
     }
   }, [isFetching, isAtEtusivu, titleObj, language, pathname]);
 
+  // Tämä alustaa Elisan chatin käyttöön
   useChat();
 
   return (
