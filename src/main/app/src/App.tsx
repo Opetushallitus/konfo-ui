@@ -24,6 +24,7 @@ import { NotFound } from '#/src/NotFound';
 import { styled } from '#/src/theme';
 import { supportedLanguages } from '#/src/tools/i18n';
 import { getLanguage } from '#/src/tools/localization';
+import { useChat } from '#/src/useChat';
 
 import { Draft } from './components/common/Draft';
 import { Footer } from './components/common/Footer';
@@ -236,6 +237,8 @@ export const App = () => {
       }
     }
   }, [isFetching, isAtEtusivu, titleObj, language, pathname]);
+
+  useChat();
 
   return (
     <div>
