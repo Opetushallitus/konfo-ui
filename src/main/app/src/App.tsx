@@ -24,6 +24,7 @@ import { NotFound } from '#/src/NotFound';
 import { styled } from '#/src/theme';
 import { supportedLanguages } from '#/src/tools/i18n';
 import { getLanguage } from '#/src/tools/localization';
+import { useChat } from '#/src/useChat';
 
 import { Draft } from './components/common/Draft';
 import { Footer } from './components/common/Footer';
@@ -38,7 +39,6 @@ import { Hakupalkki } from './components/haku/Hakupalkki';
 import { KoulutusPage } from './components/koulutus/KoulutusPage';
 import { OhjaavaHakuPage } from './components/ohjaava-haku/OhjaavaHakuPage';
 import { OppilaitosPage } from './components/oppilaitos/OppilaitosPage';
-import { PalautePopup } from './components/palaute/PalautePopup';
 import { Palvelut } from './components/palvelu/Palvelut';
 import { ReactiveBorder } from './components/ReactiveBorder';
 import { Sisaltohaku } from './components/Sisaltohaku';
@@ -53,7 +53,6 @@ import {
 import { SIDEMENU_WIDTH } from './constants';
 import { useIsAtEtusivu } from './store/reducers/appSlice';
 import { getHeaderHeight, theme } from './theme';
-import { useChat } from './useChat';
 
 const MainContent = styled('main')(
   ({ isSmall, menuVisible }: { isSmall?: boolean; menuVisible?: boolean }) => ({
@@ -212,7 +211,6 @@ export const App = () => {
   const [sideMenuKey, setSideMenuKey] = useState(1);
 
   const focusRef = useRef<HTMLSpanElement>(null);
-  const chatIsVisible = useChat();
 
   useLayoutEffect(() => {
     focusRef?.current?.focus();
@@ -239,6 +237,9 @@ export const App = () => {
       }
     }
   }, [isFetching, isAtEtusivu, titleObj, language, pathname]);
+
+  // Tämä alustaa Elisan chatin käyttöön
+  useChat();
 
   return (
     <div>
@@ -271,7 +272,6 @@ export const App = () => {
           </HeadingBoundary>
         </MainContent>
       </Box>
-      {!chatIsVisible && <PalautePopup />}
     </div>
   );
 };

@@ -1518,33 +1518,6 @@ export interface paths {
       };
     };
   };
-  "/palaute": {
-    /**
-     * Lähetä palaute
-     * @description Lähetä palaute
-     */
-    post: {
-      requestBody?: {
-        content: {
-          "application/x-www-form-urlencoded": {
-            /** @description Palautteen arvosana */
-            arvosana: number;
-            /** @description Palautteen teksti */
-            palaute?: string;
-            path?: string;
-          };
-        };
-      };
-      responses: {
-        /** @description Ok */
-        200: {
-          content: {
-            "text/plain": Record<string, never>;
-          };
-        };
-      };
-    };
-  };
   "/external/koulutus/{oid}": {
     /**
      * Hae koulutuksen tiedot annetulla oidilla

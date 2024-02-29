@@ -189,25 +189,6 @@ export const postClientError = (errorData: {
   stack?: string;
 }) => client.post('/konfo-backend/client-error', errorData);
 
-export const sendPalaute = ({
-  arvosana,
-  palaute,
-}: {
-  arvosana: number;
-  palaute: string;
-}) =>
-  client({
-    method: 'post',
-    url: urls.url('konfo-backend.palaute'),
-    data: qs.stringify({
-      arvosana,
-      palaute,
-    }),
-    headers: {
-      'content-type': 'application/x-www-form-urlencoded',
-    },
-  });
-
 export const getContentfulManifest = async () =>
   (
     await axios.get<ContentfulManifestData>(
