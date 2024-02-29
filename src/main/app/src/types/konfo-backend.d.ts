@@ -3608,10 +3608,10 @@ export interface components {
       };
       /** @description Hakukohteeseen liitetyn haun yksilöivä tunniste */
       hakuOid: string;
-      organisaatio: {
+      jarjestyspaikka: {
         /**
          * Nimi
-         * @description Organisaation nimi eri kielillä
+         * @description Järjestyspaikan nimi eri kielillä
          */
         nimi: {
           /** @description Suomenkielinen nimi, jos määritelty */
@@ -3622,10 +3622,10 @@ export interface components {
           en?: string;
         };
       };
-      jarjestyspaikka: {
+      jarjestyspaikkaHierarkiaNimi: {
         /**
          * Nimi
-         * @description Järjestyspaikan nimi eri kielillä
+         * @description Järjestyspaikka hierarkian nimet ensimmäiseen oppilaitokseen asti eri kielillä
          */
         nimi: {
           /** @description Suomenkielinen nimi, jos määritelty */
@@ -3669,20 +3669,6 @@ export interface components {
           };
           /** @description Hakukohteeseen liitetyn haun yksilöivä tunniste */
           hakuOid: string;
-          organisaatio: {
-            /**
-             * Nimi
-             * @description Organisaation nimi eri kielillä
-             */
-            nimi: {
-              /** @description Suomenkielinen nimi, jos määritelty */
-              fi?: string;
-              /** @description Ruotsinkielinen nimi, jos määritelty */
-              sv?: string;
-              /** @description Englanninkielinen nimi, jos määritelty */
-              en?: string;
-            };
-          };
           jarjestyspaikka: {
             /**
              * Nimi
@@ -3697,6 +3683,20 @@ export interface components {
               en?: string;
             };
           };
+        jarjestyspaikkaHierarkiaNimi: {
+          /**
+           * Nimi
+           * @description Järjestyspaikka hierarkian nimet ensimmäiseen oppilaitokseen asti eri kielillä
+           */
+          nimi: {
+            /** @description Suomenkielinen nimi, jos määritelty */
+            fi?: string;
+            /** @description Ruotsinkielinen nimi, jos määritelty */
+            sv?: string;
+            /** @description Englanninkielinen nimi, jos määritelty */
+            en?: string;
+          };
+        };
           toteutus: {
             /** @description Toteutuksen yksilöivä tunniste */
             oid: string;

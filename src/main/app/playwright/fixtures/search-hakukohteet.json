@@ -15,10 +15,8 @@
           "fi": "Alppilan lukio, Helsinki"
         }
       },
-      "organisaatio": {
-        "nimi": {
-          "fi": "Alppilan lukio"
-        }
+      "jarjestyspaikkaHierarkiaNimi": {
+        "fi": "Alppilan lukio, Alppilan lukio, Helsinki"
       },
       "koulutustyyppi": "lk",
       "ammatillinenPerustutkintoErityisopetuksena": false

@@ -36,18 +36,11 @@ type Props = {
 };
 
 const hakukohdeLabel = (hakukohde: CompactHakukohde) => {
-  const jarjestyspaikkaNimi = hakukohde.jarjestyspaikka
-    ? localize(hakukohde.jarjestyspaikka.nimi).trim()
-    : undefined;
-  const organisaatioNimi = hakukohde.organisaatio
-    ? localize(hakukohde.organisaatio.nimi).trim()
+  const jarjestyspaikkaNimi = hakukohde.jarjestyspaikkaHierarkiaNimi
+    ? localize(hakukohde.jarjestyspaikkaHierarkiaNimi).trim()
     : undefined;
   return `${localize(hakukohde.nimi).trim()}${
-    organisaatioNimi ? `, ${organisaatioNimi}` : ''
-  }${
-    jarjestyspaikkaNimi && jarjestyspaikkaNimi !== organisaatioNimi
-      ? `, ${jarjestyspaikkaNimi}`
-      : ''
+    jarjestyspaikkaNimi ? `, ${jarjestyspaikkaNimi}` : ''
   }`;
 };
 
