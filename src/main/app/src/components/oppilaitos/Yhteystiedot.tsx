@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 
 import { Box, Grid, Paper, Typography, useMediaQuery, useTheme } from '@mui/material';
-import { hasIn } from 'lodash';
+import { hasIn, isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { OskariKartta } from '#/src/components/common/OskariKartta';
@@ -53,7 +53,7 @@ export type Props = {
   id: string;
   heading?: string;
   tarjoajat?: Array<Organisaatio>;
-  yhteystiedot?: Array<YhteystiedotType>;
+  yhteystiedot?: YhteystiedotType;
   hakijapalveluidenYhteystiedot?: YhteystiedotType | Array<YhteystiedotType>;
   organisaatioidenYhteystiedot?: Array<YhteystiedotType>;
   matchTarjoajat?: boolean;
@@ -77,7 +77,7 @@ export const Yhteystiedot = ({
   const isSm = useMediaQuery(theme.breakpoints.down('sm'));
 
   const localizedYhteystiedot = useMemo(() => {
-    const organisaatiot = (yhteystiedot || [])
+    const organisaatiot = (isEmpty(yhteystiedot) ? [] : [yhteystiedot])
       .concat(organisaatioidenYhteystiedot as any)
       .filter((obj) => hasIn(obj, 'nimi'))
       .filter((obj) => !matchTarjoajat || tarjoajat?.some((ta) => obj?.oid === ta?.oid))
