@@ -31,49 +31,55 @@
           "isMuokkaajaOphVirkailija": true,
           "opiskelijoita": 18000,
           "korkeakouluja": 6,
-          "yhteystiedot": [
-            {
-              "nimi": {
-                "fi": "Aalto-yliopisto",
-                "sv": "Aalto-universitetet",
-                "en": "Aalto University"
+          "yhteystiedot": {
+            "nimi": {
+              "fi": "Aalto-yliopisto",
+              "sv": "Aalto-universitetet",
+              "en": "Aalto University"
+            },
+            "sahkoposti": {
+              "fi": "hakija-21977636@oph.fi",
+              "en": "hakija-26263386@oph.fi",
+              "sv": "hakija-39742217@oph.fi"
+            },
+            "puhelinnumero": {
+              "fi": "050 4973301",
+              "en": "050 46475461",
+              "sv": "050 29371761"
+            },
+            "postiosoite": {
+              "osoite": {
+                "fi": "Hankalankuja 127",
+                "en": "Ronkelinraitti 440",
+                "sv": "Horontaipaleenpolku 221"
               },
-              "sahkoposti": {
-                "fi": "hakija-21977636@oph.fi",
-                "en": "hakija-26263386@oph.fi",
-                "sv": "hakija-39742217@oph.fi"
+              "postinumero": null
+            },
+            "kayntiosoite": {
+              "osoite": {
+                "fi": "Junttilantie 575",
+                "sv": "Hankalankuja 710"
               },
-              "puhelinnumero": {
-                "fi": "050 4973301",
-                "en": "050 46475461",
-                "sv": "050 29371761"
-              },
-              "postiosoite": {
-                "osoite": {
-                  "fi": "Hankalankuja 127",
-                  "en": "Ronkelinraitti 440",
-                  "sv": "Horontaipaleenpolku 221"
-                },
-                "postinumero": null
-              },
-              "kayntiosoite": {
-                "osoite": { "fi": "Junttilantie 575", "sv": "Hankalankuja 710" },
-                "postinumero": {
+              "postinumero": {
+                "sv": {
                   "koodiUri": "posti_02150",
-                  "nimi": { "sv": "ESBO", "fi": "ESPOO" }
+                  "nimi": {
+                    "sv": "ESBO",
+                    "fi": "ESPOO"
+                  }
                 }
-              },
-              "postiosoiteStr": {
-                "fi": "Hankalankuja 127, 00076 Aalto",
-                "en": "Ronkelinraitti 440,  ",
-                "sv": "Horontaipaleenpolku 221, 00076 Aalto"
-              },
-              "kayntiosoiteStr": {
-                "fi": "Junttilantie 575,  ",
-                "sv": "Hankalankuja 710, 02150 Esbo"
               }
+            },
+            "postiosoiteStr": {
+              "fi": "Hankalankuja 127, 00076 Aalto",
+              "en": "Ronkelinraitti 440,  ",
+              "sv": "Horontaipaleenpolku 221, 00076 Aalto"
+            },
+            "kayntiosoiteStr": {
+              "fi": "Junttilantie 575,  ",
+              "sv": "Hankalankuja 710, 02150 Esbo"
             }
-          ],
+          },
           "hakijapalveluidenYhteystiedot": {
             "nimi": {
               "en": "Aalto University Admission Services",

@@ -70,21 +70,16 @@ export const ToteutuksenYhteystiedot = ({
       .filter((oppilaitoksenOsa) =>
         hasYhteystiedot(oppilaitoksenOsa.oppilaitoksenOsa?.metadata)
       )
-      .flatMap((oppilaitoksenOsa) =>
-        oppilaitoksenOsa.oppilaitoksenOsa.metadata.yhteystiedot.map(
-          (y: typeof Yhteystiedot) =>
-            Object.assign({ oid: oppilaitoksenOsa.oppilaitoksenOsa.organisaatio?.oid }, y)
-        )
-      );
+      .flatMap((oppilaitoksenOsa) => {
+        return {
+          ...oppilaitoksenOsa.oppilaitoksenOsa.metadata.yhteystiedot,
+          oid: oppilaitoksenOsa.oppilaitoksenOsa.organisaatio?.oid,
+        };
+      });
   };
 
-  const getOppilaitosYhteystiedot = (oppilaitos: any): Array<YhteystiedotType> => {
-    const yhteystiedot = oppilaitos?.oppilaitos?.metadata?.yhteystiedot?.map(
-      (yt: YhteystiedotType) => {
-        return { ...yt, oid: oppilaitos?.oid };
-      }
-    );
-    return yhteystiedot;
+  const getOppilaitosYhteystiedot = (oppilaitos: any): YhteystiedotType => {
+    return { ...oppilaitos?.oppilaitos?.metadata?.yhteystiedot, oid: oppilaitos?.oid };
   };
 
   return (
