@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { isEmpty } from 'lodash';
+import { isEmpty, uniqBy } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { educationTypeColorCode } from '#/src/colors';
@@ -62,7 +62,7 @@ export const TulevaTarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
           <Box position="relative" sx={{ width: '100%', maxWidth: '900px' }}>
             <OverlayLoadingCircle isLoading={isFetching} />
             <Box flexDirection="column" alignItems="stretch">
-              {values.map((kts) => (
+              {uniqBy(values, 'koulutusOid').map((kts) => (
                 <Box key={kts.koulutusOid}>
                   <EntiteettiKortti
                     koulutustyyppi={kts?.tyyppi}
