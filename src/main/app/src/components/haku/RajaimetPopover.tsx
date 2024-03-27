@@ -9,8 +9,7 @@ import { HakupalkkiFilters } from './HakupalkkiFilters';
 
 const StyledPopover = styled(Popover)(() => ({
   '& .MuiPopover-paper': {
-    marginTop: '8px',
-    paddingTop: '25px',
+    paddingTop: '10px',
     background: 'transparent',
   },
 }));
@@ -24,22 +23,8 @@ const ArrowBox = styled(Box)(() => ({
     bottom: '100%',
     left: '50%',
     border: 'solid transparent',
-    content: '" "',
-    height: 0,
-    width: 0,
     position: 'absolute',
     pointerEvents: 'none',
-  },
-
-  '&:after': {
-    borderColor: 'rgba(136, 183, 213, 0)',
-    borderBottomColor: colors.white,
-  },
-  '&:before': {
-    borderColor: 'rgba(194, 225, 245, 0)',
-    borderBottomColor: colors.white,
-    borderWidth: '25px',
-    marginLeft: '-25px',
   },
 }));
 
@@ -57,11 +42,6 @@ export const RajaaPopoverButton = ({
   const { t } = useTranslation();
 
   const handleDesktopBtnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    window.scrollTo({
-      top: 250,
-      left: 0,
-      behavior: 'smooth',
-    });
     setAnchorEl(e.currentTarget);
   };
 

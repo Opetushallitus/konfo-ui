@@ -53,7 +53,7 @@ export const Suodatin = ({ id, children, header }: Props) => {
       <PopoverWithArrow
         anchorEl={anchorRef.current}
         content={children}
-        marginTop={7}
+        marginTop={0}
         onClose={() => setIsOpen(false)}
         open={isOpen}
       />
