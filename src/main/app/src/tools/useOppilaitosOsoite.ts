@@ -1,3 +1,4 @@
+import { isEmpty } from 'lodash';
 import { useQuery } from 'react-query';
 
 import { getOppilaitos, getOppilaitosOsa } from '#/src/api/konfoApi';
@@ -19,9 +20,11 @@ const fetchOppilaitosOsoitteet = async (oppilaitosOids: Array<string>) => {
     const hakijapalvelutData =
       data.oppilaitos?.metadata.hakijapalveluidenYhteystiedot ?? null;
 
+    const yhteystiedot = data.oppilaitos?.metadata?.yhteystiedot;
+
     return {
       oppilaitosOid: data.oid,
-      yhteystiedot: data.oppilaitos?.metadata.yhteystiedot?.map(parseOsoiteData) ?? [],
+      yhteystiedot: isEmpty(yhteystiedot) ? {} : parseOsoiteData(yhteystiedot),
       hakijapalveluidenYhteystiedot:
         hakijapalvelutData && parseOsoiteData(hakijapalvelutData),
     };
@@ -38,9 +41,10 @@ const fetchOppilaitosOsaOsoitteet = async (oppilaitosOsaOids: Array<string>) => 
     const osoiteData =
       (data?.oppilaitoksenOsa || data?.oppilaitos?.oppilaitos)?.metadata.yhteystiedot ??
       null;
+
     return {
       oppilaitosOid: data.oid,
-      yhteystiedot: osoiteData && parseOsoiteData(osoiteData?.postiosoite).yhteystiedot,
+      yhteystiedot: osoiteData && parseOsoiteData(osoiteData).yhteystiedot,
     };
   });
 };
