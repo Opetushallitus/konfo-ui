@@ -23,6 +23,9 @@ const parseYhteystieto =
     sahkoposti,
     puhelinnumero,
   }: YhteystiedotType) => {
+    const localizedPostitoimipaikka = localize(kayntiosoiteProp?.postinumero);
+    const oskariPostitoimipaikka = localizedPostitoimipaikka?.nimi;
+
     return {
       nimi: localize(nimi),
       postiosoite: localize(postiosoiteStr),
@@ -30,7 +33,7 @@ const parseYhteystieto =
       sahkoposti: localize(sahkoposti),
       puhelinnumero: localize(puhelinnumero),
       oskariOsoite: localize(kayntiosoiteProp?.osoite),
-      oskariPostitoimipaikka: localize(kayntiosoiteProp?.postinumero),
+      oskariPostitoimipaikka: oskariPostitoimipaikka,
       somekanavat: some,
       verkkoSivu: wwwSivu,
     };

@@ -2,7 +2,7 @@ import { TFunction } from 'i18next';
 import { isString, flow, map, filter, isEmpty, trim, uniq } from 'lodash';
 
 import { MAKSULLISUUSTYYPPI } from '#/src/constants';
-import { Koodi, Translateable } from '#/src/types/common';
+import { Koodi, Translateable, TranslateableKoodi } from '#/src/types/common';
 import { RajainItem } from '#/src/types/SuodatinTypes';
 import { Maksullisuustyyppi } from '#/src/types/ToteutusTypes';
 
@@ -46,15 +46,16 @@ export const getTranslationForKey = (key = '') => i18n.t(key);
 
 export const localizeOsoite = (
   katuosoite: unknown,
-  postinumeroKoodi?: Koodi,
+  postinumeroKoodi?: TranslateableKoodi,
   erotin: string = ', '
 ) => {
   if (!katuosoite || !postinumeroKoodi) {
     return '';
   }
+  const localizedPostinumerokoodi = localize(postinumeroKoodi);
   const postitoimialue = `${erotin}${koodiUriToPostinumero(
-    postinumeroKoodi?.koodiUri
-  )} ${localize(postinumeroKoodi?.nimi)}`;
+    localizedPostinumerokoodi?.koodiUri
+  )} ${localizedPostinumerokoodi?.nimi}`;
   return `${localize(katuosoite)}${postitoimialue}`;
 };
 
@@ -69,7 +70,7 @@ export const getLocalizedMaksullisuus = (
         maksullisuustyyppi === MAKSULLISUUSTYYPPI.LUKUVUOSIMAKSU
           ? getTranslationForKey('toteutus.lukuvuosimaksu') + ' '
           : ''
-      }${maksuAmount} € 
+      }${maksuAmount} €
       `
     : getTranslationForKey('toteutus.maksuton');
 

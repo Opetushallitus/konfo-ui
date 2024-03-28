@@ -132,11 +132,17 @@ describe('GraafiUtil', () => {
           en: undefined,
         },
         postinumero: {
-          koodiUri: '',
-          nimi: {
-            fi: undefined,
-            sv: undefined,
-            en: undefined,
+          fi: {
+            koodiUri: '',
+            nimi: undefined,
+          },
+          sv: {
+            koodiUri: '',
+            nimi: undefined,
+          },
+          en: {
+            koodiUri: '',
+            nimi: undefined,
           },
         },
       },
