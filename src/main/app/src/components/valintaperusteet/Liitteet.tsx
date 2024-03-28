@@ -145,9 +145,9 @@ const LiiteCard = ({
                   <Grid item xs={11}>
                     <Box m={1}>
                       <Heading variant="h5">{localize(nimi)}</Heading>
-                      <Typography style={{ overflowWrap: 'break-word' }}>
+                      <Box style={{ overflowWrap: 'break-word' }}>
                         <LocalizedHTML data={kuvaus} />
-                      </Typography>
+                      </Box>
                     </Box>
                   </Grid>
                 </Grid>

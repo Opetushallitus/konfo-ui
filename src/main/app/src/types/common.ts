@@ -10,9 +10,19 @@ export type LanguageCode = (typeof LANGUAGES)[number];
 export type Translateable = { fi?: string; sv?: string; en?: string };
 export type Koodi = { koodiUri: string | null; nimi: Translateable };
 
+export type TranslatedKoodiAndNimi = {
+  koodiUri: string | null;
+  nimi: string | undefined;
+};
+export type TranslateableKoodi = {
+  fi?: TranslatedKoodiAndNimi;
+  sv?: TranslatedKoodiAndNimi;
+  en?: TranslatedKoodiAndNimi;
+};
+
 export type Osoite = {
   osoite: Translateable;
-  postinumero: Koodi;
+  postinumero: TranslateableKoodi;
 };
 
 export type Yhteystiedot = {

@@ -6,12 +6,12 @@ describe('localization', () => {
   test.each([
     [
       { fi: 'Opintopolku 1' },
-      { koodiUri: 'posti_00000#1', nimi: { fi: 'Helsinki' } },
+      { fi: { koodiUri: 'posti_00000#1', nimi: 'Helsinki' } },
       'Opintopolku 1, 00000 Helsinki',
     ],
     [undefined, undefined, ''],
     [{ fi: 'Opintopolku 1' }, undefined, ''],
-    [undefined, { koodiUri: 'posti_00000#1', nimi: { fi: 'Helsinki' } }, ''],
+    [undefined, { fi: { koodiUri: 'posti_00000#1', nimi: 'Helsinki' } }, ''],
   ])('localizeOsoite', (osoite, postinumero, fullAddress) => {
     expect(localizeOsoite(osoite, postinumero)).toEqual(fullAddress);
   });
