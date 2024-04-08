@@ -36,14 +36,17 @@ export const Palvelut = () => {
   const { ohjeetJaTuki, palvelut } = data || {};
 
   const palveluKortit = getOne(palvelut)?.linkit ?? [];
+  const palveluKortitName = getOne(palvelut)?.name ?? t('palvelut.otsikko-muut-palvelut');
   const ohjeetJaTukiKortit = getOne(ohjeetJaTuki)?.linkit ?? [];
+  const ohjeetJaTukiKortitName =
+    getOne(ohjeetJaTuki)?.name ?? t('palvelut.otsikko-ohjeet-ja-tuki');
 
   const pageSectionGap = usePageSectionGap();
 
   return (
     <CondGrid container mt={pageSectionGap}>
-      <Rivi otsikko={t('palvelut.otsikko-muut-palvelut')} kortit={palveluKortit} />
-      <Rivi otsikko={t('palvelut.otsikko-ohjeet-ja-tuki')} kortit={ohjeetJaTukiKortit} />
+      <Rivi otsikko={palveluKortitName} kortit={palveluKortit} />
+      <Rivi otsikko={ohjeetJaTukiKortitName} kortit={ohjeetJaTukiKortit} />
     </CondGrid>
   );
 };

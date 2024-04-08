@@ -9,13 +9,15 @@ export const ContentSection = ({
   heading,
   children,
   variant = 'h1',
+  hasContent = true,
 }: {
   heading?: string;
   variant?: TypographyVariant;
+  hasContent?: boolean;
 } & BoxProps) => {
   return (
     <WithSideMargins>
-      {heading && children ? (
+      {heading && children && hasContent ? (
         <>
           <Heading variant={variant}>{heading}</Heading>
           <HeadingBoundary>{children}</HeadingBoundary>
