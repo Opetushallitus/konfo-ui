@@ -22,6 +22,7 @@ export type Koulutus = {
   koulutustyyppi: Koulutustyyppi;
   tutkintonimikkeet: Array<Translateable>;
   teemakuva?: string;
+  hakutuloslistauksenKuvake?: string;
   toteutustenTarjoajat: ToteutustenTarjoajat;
   isAvoinKorkeakoulutus: boolean;
 };
@@ -41,6 +42,7 @@ export const KoulutusKortti = ({ koulutus, isSmall }: Props) => {
     oid,
     tutkintonimikkeet,
     teemakuva,
+    hakutuloslistauksenKuvake,
     kuvaus,
     toteutustenTarjoajat,
     koulutustyyppi,
@@ -60,7 +62,9 @@ export const KoulutusKortti = ({ koulutus, isSmall }: Props) => {
     <EntiteettiKortti
       koulutustyyppi={koulutustyyppi}
       to={`/koulutus/${oid}`}
-      teemakuvaElement={<KoulutusKorttiLogo image={teemakuva} alt="" />}
+      teemakuvaElement={
+        <KoulutusKorttiLogo image={hakutuloslistauksenKuvake ?? teemakuva} alt="" />
+      }
       header={localize(koulutus)}
       kuvaus={localize(kuvaus)}
       iconTexts={[

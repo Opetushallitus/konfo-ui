@@ -111,35 +111,42 @@ export const Etusivu = () => {
             <CondGrid item>
               <Pikalinkit pikalinkit={pikalinkitData} content={content} />
             </CondGrid>
-            <CondGrid item>
-              <ContentSection heading={t('oikopolut')}>
-                <CondGrid container spacing={3}>
-                  {/* Kortit-sisältötyyppi kuvaa korttilistauksen etusivulla, joten niitä on aina vain yksi */}
-                  {getOne(kortit)?.kortit?.map((k) => <Kortti key={k?.id} id={k?.id} />)}
-                </CondGrid>
-              </ContentSection>
-            </CondGrid>
-            <CondGrid item>
-              <ContentSection heading={t('ajankohtaista-ja-uutisia')}>
-                <Grid container spacing={3}>
-                  <Uutiset uutiset={showMore ? take(uutislinkit, 3) : uutislinkit} />
-                </Grid>
-                {showMore ? (
-                  <Grid
-                    container
-                    direction="row"
-                    justifyContent="center"
-                    alignItems="center">
-                    <ShowMoreButton
-                      variant="contained"
-                      onClick={() => setShowMore(false)}
-                      color="primary">
-                      {t('näytä-kaikki')}
-                    </ShowMoreButton>
+            {!isEmpty(getOne(kortit)?.kortit) && (
+              <CondGrid item>
+                <ContentSection heading={getOne(kortit)?.name ?? t('oikopolut')}>
+                  <CondGrid container spacing={3}>
+                    {/* Kortit-sisältötyyppi kuvaa korttilistauksen etusivulla, joten niitä on aina vain yksi */}
+                    {getOne(kortit)?.kortit?.map((k) => (
+                      <Kortti key={k?.id} id={k?.id} />
+                    ))}
+                  </CondGrid>
+                </ContentSection>
+              </CondGrid>
+            )}
+            {!isEmpty(uutislinkit) && (
+              <CondGrid item>
+                <ContentSection
+                  heading={getOne(uutiset)?.name ?? t('ajankohtaista-ja-uutisia')}>
+                  <Grid container spacing={3}>
+                    <Uutiset uutiset={showMore ? take(uutislinkit, 3) : uutislinkit} />
                   </Grid>
-                ) : null}
-              </ContentSection>
-            </CondGrid>
+                  {showMore ? (
+                    <Grid
+                      container
+                      direction="row"
+                      justifyContent="center"
+                      alignItems="center">
+                      <ShowMoreButton
+                        variant="contained"
+                        onClick={() => setShowMore(false)}
+                        color="primary">
+                        {t('näytä-kaikki')}
+                      </ShowMoreButton>
+                    </Grid>
+                  ) : null}
+                </ContentSection>
+              </CondGrid>
+            )}
           </CondGrid>
         </HeadingBoundary>
       )}
