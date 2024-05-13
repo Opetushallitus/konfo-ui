@@ -70,6 +70,7 @@ export enum KOULUTUS_TYYPPI {
   MUU_AMMATILLINEN_KOULUTUS = 'amm-muu',
   TUVA = 'tuva',
   VAPAA_SIVISTYSTYO_OPISTOVUOSI = 'vapaa-sivistystyo-opistovuosi',
+  VAPAA_SIVISTYSTYO_OSAAMISMERKKI = 'vapaa-sivistystyo-osaamismerkki',
   VAPAA_SIVISTYSTYO_MUU = 'vapaa-sivistystyo-muu',
   TELMA = 'telma',
   LUKIOKOULUTUS = 'lk',
