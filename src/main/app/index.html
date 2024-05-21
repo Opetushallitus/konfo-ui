@@ -25,39 +25,54 @@
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
     <meta name="theme-color" content="#378703" />
     <script>
-      var siteDomain = location.hostname;
-
-      // NOTE: Do not run any analytics on local dev / playwright runs
-      if (siteDomain !== 'localhost') {
-        var matomoSiteId;
-        switch (siteDomain) {
-          case 'beta.opintopolku.fi':
-            matomoSiteId = 27;
-            break;
-          case 'beta.testiopintopolku.fi':
-            matomoSiteId = 28;
-            break;
-          default:
-            matomoSiteId = 2; // Kehitys
+      document.addEventListener('DOMContentLoaded', checkCookie);
+      function getCookieValue(name) {
+        const nameEq = name + '=';
+        const ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+          let c = ca[i].trim();
+          if (c.indexOf(nameEq) === 0) return c.substring(nameEq.length, c.length);
         }
-        var _paq = window._paq || [];
-        /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-        _paq.push(['trackPageView']);
-        _paq.push(['setDocumentTitle', document.domain + '/' + document.title]);
-        _paq.push(['enableLinkTracking']);
-        (function () {
-          var u = '//analytiikka.opintopolku.fi/matomo/';
-          _paq.push(['setTrackerUrl', u + 'matomo.php']);
-          _paq.push(['setSiteId', matomoSiteId]);
-          var d = document,
-            g = d.createElement('script'),
-            s = d.getElementsByTagName('script')[0];
-          g.type = 'text/javascript';
-          g.async = true;
-          g.defer = true;
-          g.src = u + 'matomo.js';
-          s.parentNode.insertBefore(g, s);
-        })();
+        return null;
+      }
+      function checkCookie() {
+        let cookieValue = getCookieValue('oph-statistic-cookies-accepted');
+        let siteDomain = location.hostname;
+        if (cookieValue) {
+          // NOTE: Do not run any analytics on local dev / playwright runs
+          if (siteDomain !== 'localhost') {
+            var matomoSiteId;
+            switch (siteDomain) {
+              case 'beta.opintopolku.fi':
+                matomoSiteId = 27;
+                break;
+              case 'beta.testiopintopolku.fi':
+                matomoSiteId = 28;
+                break;
+              default:
+                matomoSiteId = 2; // Kehitys
+            }
+            var _paq = window._paq || [];
+            /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+            _paq.push(['requireConsent']);
+            _paq.push(['trackPageView']);
+            _paq.push(['setDocumentTitle', document.domain + '/' + document.title]);
+            _paq.push(['enableLinkTracking']);
+            (function () {
+              var u = '//analytiikka.opintopolku.fi/matomo/';
+              _paq.push(['setTrackerUrl', u + 'matomo.php']);
+              _paq.push(['setSiteId', matomoSiteId]);
+              var d = document,
+                g = d.createElement('script'),
+                s = d.getElementsByTagName('script')[0];
+              g.type = 'text/javascript';
+              g.async = true;
+              g.defer = true;
+              g.src = u + 'matomo.js';
+              s.parentNode.insertBefore(g, s);
+            })();
+          }
+        }
       }
     </script>
     <script>

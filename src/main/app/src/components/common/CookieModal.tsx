@@ -94,6 +94,7 @@ export const CookieModal = () => {
         expires: 1800,
         path: '/',
       });
+      window.location.replace(window.location.href);
     }
     if (marketingCookiesAccepted) {
       Cookies.set('oph-marketing-cookies-accepted', 'true', {
