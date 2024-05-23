@@ -7,10 +7,13 @@ import {
 } from '#/src/components/common/EntiteettiKortti';
 import { KoulutusKorttiLogo } from '#/src/components/common/KorttiLogo';
 import { createMaterialIcon } from '#/src/components/common/MaterialIcon';
-import { Koulutustyyppi } from '#/src/constants';
+import { Koulutustyyppi, KOULUTUS_TYYPPI } from '#/src/constants';
 import { useVisibleKoulutustyyppi } from '#/src/hooks/useVisibleKoulutustyyppi';
 import { localize } from '#/src/tools/localization';
-import { getLocalizedKoulutusLaajuus } from '#/src/tools/utils';
+import {
+  getLocalizedKoulutusLaajuus,
+  getLocalizedOsaamismerkkikuvaus,
+} from '#/src/tools/utils';
 import { ToteutustenTarjoajat, Translateable } from '#/src/types/common';
 
 import { getToteutustenTarjoajat } from './getToteutustenTarjoajat';
@@ -58,6 +61,11 @@ export const KoulutusKortti = ({ koulutus, isSmall }: Props) => {
 
   const tutkintonimikkeetText = formatTutkintonimikkeetText(tutkintonimikkeet || []);
 
+  const localizedKuvaus =
+    KOULUTUS_TYYPPI.VAPAA_SIVISTYSTYO_OSAAMISMERKKI === koulutustyyppi
+      ? getLocalizedOsaamismerkkikuvaus(kuvaus, t)
+      : localize(kuvaus);
+
   return (
     <EntiteettiKortti
       koulutustyyppi={koulutustyyppi}
@@ -66,7 +74,7 @@ export const KoulutusKortti = ({ koulutus, isSmall }: Props) => {
         <KoulutusKorttiLogo image={hakutuloslistauksenKuvake ?? teemakuva} alt="" />
       }
       header={localize(koulutus)}
-      kuvaus={localize(kuvaus)}
+      kuvaus={localizedKuvaus}
       iconTexts={[
         isEmpty(tutkintonimikkeetText)
           ? [koulutustyyppiText, createMaterialIcon('extension', 'outlined')]

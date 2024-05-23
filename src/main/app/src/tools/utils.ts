@@ -1,5 +1,6 @@
 import DOMPurify from 'dompurify';
 import parseHtmlToReact, { HTMLReactParserOptions } from 'html-react-parser';
+import { TFunction } from 'i18next';
 import {
   pickBy,
   capitalize,
@@ -255,3 +256,27 @@ export const isNonNil = <TValue>(
 export const isTruthy = <TValue>(
   value: TValue | null | undefined | false
 ): value is TValue => Boolean(value);
+
+export const getLocalizedOsaamismerkkikuvaus = (
+  kuvaus: {
+    osaamistavoitteet: Translateable;
+    arviointikriteerit: Translateable;
+  },
+  t: TFunction
+) => {
+  const { osaamistavoitteet, arviointikriteerit } = kuvaus;
+
+  const osaamistavoitteetTitle = isEmpty(osaamistavoitteet)
+    ? ''
+    : `${t('haku.osaamistavoitteet')}: `;
+  const arviointikriteeritTitle = isEmpty(arviointikriteerit)
+    ? ''
+    : `${t('haku.arviointikriteerit')}: `;
+  return (
+    osaamistavoitteetTitle +
+    localize(osaamistavoitteet) +
+    (isEmpty(osaamistavoitteet) ? '' : ' ') +
+    arviointikriteeritTitle +
+    localize(arviointikriteerit)
+  );
+};
