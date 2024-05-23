@@ -1,5 +1,6 @@
 import DOMPurify from 'dompurify';
 import parseHtmlToReact, { HTMLReactParserOptions } from 'html-react-parser';
+import { TFunction } from 'i18next';
 import {
   pickBy,
   capitalize,
@@ -12,7 +13,7 @@ import {
 } from 'lodash';
 
 import { NDASH } from '#/src/constants';
-import { Koodi, TODOType, Translateable } from '#/src/types/common';
+import { Koodi, TODOType, Translateable, Osaamismerkkikuvaus } from '#/src/types/common';
 
 import { getLanguage, getTranslationForKey, localize } from './localization';
 import { Pagination } from '../store/reducers/koulutusSlice';
@@ -255,3 +256,24 @@ export const isNonNil = <TValue>(
 export const isTruthy = <TValue>(
   value: TValue | null | undefined | false
 ): value is TValue => Boolean(value);
+
+export const getLocalizedOsaamismerkkikuvaus = (
+  kuvaus: Osaamismerkkikuvaus,
+  t: TFunction
+) => {
+  const { osaamistavoitteet, arviointikriteerit } = kuvaus;
+
+  const osaamistavoitteetTitle = isEmpty(osaamistavoitteet)
+    ? ''
+    : `${t('haku.osaamistavoitteet')}: `;
+  const arviointikriteeritTitle = isEmpty(arviointikriteerit)
+    ? ''
+    : `${t('haku.arviointikriteerit')}: `;
+  return (
+    osaamistavoitteetTitle +
+    localize(osaamistavoitteet) +
+    (isEmpty(osaamistavoitteet) ? '' : ' ') +
+    arviointikriteeritTitle +
+    localize(arviointikriteerit)
+  );
+};
