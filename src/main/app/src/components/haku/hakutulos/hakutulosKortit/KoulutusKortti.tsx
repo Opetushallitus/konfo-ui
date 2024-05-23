@@ -14,14 +14,18 @@ import {
   getLocalizedKoulutusLaajuus,
   getLocalizedOsaamismerkkikuvaus,
 } from '#/src/tools/utils';
-import { ToteutustenTarjoajat, Translateable } from '#/src/types/common';
+import {
+  ToteutustenTarjoajat,
+  Translateable,
+  Osaamismerkkikuvaus,
+} from '#/src/types/common';
 
 import { getToteutustenTarjoajat } from './getToteutustenTarjoajat';
 
 export type Koulutus = {
   nimi?: Translateable;
   oid: string;
-  kuvaus: Translateable;
+  kuvaus: Translateable | Osaamismerkkikuvaus;
   koulutustyyppi: Koulutustyyppi;
   tutkintonimikkeet: Array<Translateable>;
   teemakuva?: string;
@@ -63,7 +67,7 @@ export const KoulutusKortti = ({ koulutus, isSmall }: Props) => {
 
   const localizedKuvaus =
     KOULUTUS_TYYPPI.VAPAA_SIVISTYSTYO_OSAAMISMERKKI === koulutustyyppi
-      ? getLocalizedOsaamismerkkikuvaus(kuvaus, t)
+      ? getLocalizedOsaamismerkkikuvaus(kuvaus as Osaamismerkkikuvaus, t)
       : localize(kuvaus);
 
   return (

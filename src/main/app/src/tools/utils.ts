@@ -13,7 +13,12 @@ import {
 } from 'lodash';
 
 import { NDASH } from '#/src/constants';
-import { TranslateableKoodi, TODOType, Translateable } from '#/src/types/common';
+import {
+  TranslateableKoodi,
+  TODOType,
+  Translateable,
+  Osaamismerkkikuvaus,
+} from '#/src/types/common';
 
 import { getLanguage, getTranslationForKey, localize } from './localization';
 import { Pagination } from '../store/reducers/koulutusSlice';
@@ -259,10 +264,7 @@ export const isTruthy = <TValue>(
 ): value is TValue => Boolean(value);
 
 export const getLocalizedOsaamismerkkikuvaus = (
-  kuvaus: {
-    osaamistavoitteet: Translateable;
-    arviointikriteerit: Translateable;
-  },
+  kuvaus: Osaamismerkkikuvaus,
   t: TFunction
 ) => {
   const { osaamistavoitteet, arviointikriteerit } = kuvaus;
