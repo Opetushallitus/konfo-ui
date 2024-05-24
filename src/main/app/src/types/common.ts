@@ -111,6 +111,13 @@ export type HakukohdeSearchParams =
 export type CompactHakukohde = components['schemas']['CompactHakukohde'];
 export type HakukohdeSearchResult = components['schemas']['HakukohdeSearchResult'];
 
+export type Osaamismerkki = {
+  kategoria: {
+    id: number;
+    nimi: Translateable;
+  };
+};
+
 export type Osaamismerkkikuvaus = {
   osaamistavoitteet: Translateable;
   arviointikriteerit: Translateable;
