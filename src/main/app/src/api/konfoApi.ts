@@ -18,6 +18,7 @@ import {
   VertailuSuosikki,
   HakukohdeSearchResult,
   HakukohdeSearchParams,
+  Osaamismerkki,
 } from '#/src/types/common';
 import {
   ContentfulData,
@@ -75,6 +76,11 @@ export const getKoulutusKuvaus = (ePerusteId: string) =>
 
 export const getEperusteKuvaus = (ePerusteId?: string) =>
   get(urls.url('konfo-backend.eperuste.kuvaus', ePerusteId));
+
+export const getOsaamismerkki = (
+  osaamismerkkiKoodiUri?: string
+): Promise<Osaamismerkki> =>
+  get(urls.url('konfo-backend.osaamismerkki', osaamismerkkiKoodiUri));
 
 export const getKoulutusJarjestajat = ({
   oid,

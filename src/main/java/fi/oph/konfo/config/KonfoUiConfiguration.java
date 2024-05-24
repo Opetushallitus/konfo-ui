@@ -61,6 +61,8 @@ public class KonfoUiConfiguration extends OphProperties {
     this.frontProperties.setProperty(
         "konfo-backend.oppilaitos.tarjonta", this.require("konfo-backend.oppilaitos.tarjonta"));
     this.frontProperties.setProperty(
+        "konfo-backend.osaamismerkki", this.require("konfo-backend.osaamismerkki"));
+    this.frontProperties.setProperty(
         "konfo-backend.hakukohde", this.require("konfo-backend.hakukohde"));
     this.frontProperties.setProperty("konfo-backend.haku", this.require("konfo-backend.haku"));
     this.frontProperties.setProperty(
