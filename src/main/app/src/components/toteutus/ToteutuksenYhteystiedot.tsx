@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 
 import { Box, Grid, Typography } from '@mui/material';
-import { isEmpty } from 'lodash';
+import { isEmpty, filter, flatten, includes, map } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { OppilaitosKorttiLogo } from '#/src/components/common/KorttiLogo';
@@ -48,11 +48,20 @@ export const ToteutuksenYhteystiedot = ({
     const filteredOppilaitokset = oppilaitokset.filter(
       (oppilaitos) => oppilaitos.data.oid == oppilaitosOid
     );
+    const filteredOppilaitoksenOsat = filter(
+      flatten(filteredOppilaitokset.map((oppilaitos) => oppilaitos.data.oppilaitosOsat)),
+      (osa) => includes(oids, osa.oid)
+    );
+    const osienHakijaPalveluluidenYhteystiedot = map(
+      filteredOppilaitoksenOsat,
+      'oppilaitoksenOsa.metadata.hakijapalveluidenYhteystiedot'
+    );
     const oppilaitokselle = filteredOppilaitokset
       .map((o) => o.data.oppilaitos?.metadata?.hakijapalveluidenYhteystiedot)
       .find(Boolean);
     const osalle = filteredOppilaitokset
       .map((o) => o.data.oppilaitoksenOsa?.metadata?.hakijapalveluidenYhteystiedot)
+      .concat(osienHakijaPalveluluidenYhteystiedot)
       .find(Boolean);
     return osalle ? [osalle] : [oppilaitokselle];
   };
