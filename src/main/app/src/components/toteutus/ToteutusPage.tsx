@@ -103,6 +103,7 @@ export const ToteutusPage = () => {
     ammatillinenPerustutkintoErityisopetuksena,
     jarjestetaanErityisopetuksena,
     tyyppi,
+    suoritetaanNayttona,
   } = toteutus?.metadata ?? {};
 
   const { data: koulutus, status: koulutusStatus } = useKoulutus({
@@ -210,6 +211,8 @@ export const ToteutusPage = () => {
             tunniste={toteutus?.metadata?.tunniste}
             opinnonTyyppi={toteutus?.metadata?.opinnonTyyppi}
             taiteenala={toteutus?.metadata?.taiteenala}
+            osaamismerkki={koulutus?.osaamismerkki}
+            suoritetaanNayttona={suoritetaanNayttona}
           />
         </PageSection>
         {toteutus?.hakuAuki && (

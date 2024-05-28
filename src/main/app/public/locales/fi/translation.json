@@ -467,6 +467,7 @@
     "opintopisteet": "Opintopisteet",
     "koulutusohjelma": "Koulutusohjelma",
     "opetuskielet": "Opetuskielet",
+    "suoritustapa": "Suoritustapa",
     "suoritustavat": "Suoritustavat",
     "opetusajat": "Opetusajat",
     "oppilaitokset": "Oppilaitokset",
@@ -523,7 +524,9 @@
     "muut-koulutusta-jarjestavat-oppilaitokset": "Muut koulutusta järjestävät oppilaitokset",
     "hakijan-terveydentila-ja-toimintakyky": "Hakijan terveydentila ja toimintakyky",
     "tunniste": "Hakijalle näkyvä tunniste",
-    "opinnonTyyppi": "Opinnon tyyppi"
+    "opinnonTyyppi": "Opinnon tyyppi",
+    "naytto": "Näyttokoe",
+    "opintojakso": "Opintojakso"
   },
   "sidebar": {
     "lukio": "Lukio",
