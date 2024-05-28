@@ -100,6 +100,7 @@ export type ToteutusMetadata = {
   tunniste?: string;
   opinnonTyyppi?: Koodi;
   taiteenala?: Array<Translateable>;
+  suoritetaanNayttona?: boolean;
 };
 
 export type Organisaatio = {
