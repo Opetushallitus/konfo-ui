@@ -40,6 +40,8 @@ const development = {
     'https://eperusteet.opintopolku.fi/#/$1/esitys/$2/reformi/tutkinnonosat/$3',
   'eperusteet-service.eperuste.tiedot':
     'https://eperusteet.opintopolku.fi/#/$1/tiedot/$2',
+  'eperusteet-service.osaamismerkki':
+    'https://eperusteet.opintopolku.fi/#/$1/osaamismerkit/osaamismerkki/$2',
   'oma-opintopolku': 'https://testiopintopolku.fi/oma-opintopolku',
   'ataru.hakemus-haku': 'https://testiopintopolku.fi/hakemus/haku/$1',
 };

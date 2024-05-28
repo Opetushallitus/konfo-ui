@@ -138,6 +138,11 @@ export enum MAKSULLISUUSTYYPPI {
   LUKUVUOSIMAKSU = 'lukuvuosimaksu',
 }
 
+export enum OSAAMISMERKKI_JULKAISUTILA {
+  JULKAISTU = 'JULKAISTU',
+  LAADINNASSA = 'LAADINNASSA',
+}
+
 export const PAINOTETUT_OPPIAINEET_LUKIO_KAIKKI_OPTIONS = [
   'painotettavatoppiaineetlukiossa_a1',
   'painotettavatoppiaineetlukiossa_a2',

@@ -69,8 +69,7 @@ export const fetchKoulutus = async (oid: string, isDraft: boolean = false) => {
     koulutusData?.koulutustyyppi === KOULUTUS_TYYPPI.VAPAA_SIVISTYSTYO_OSAAMISMERKKI
   ) {
     const osaamismerkki = await getOsaamismerkki(koulutusData?.metadata?.osaamismerkki);
-    const teemaNimi = osaamismerkki?.kategoria?.nimi;
-    set(koulutusData, 'osaamismerkkiTeema', teemaNimi);
+    set(koulutusData, 'osaamismerkki', osaamismerkki);
   }
 
   return koulutusData;
@@ -104,7 +103,7 @@ const selectKoulutus = (koulutusData: any) => {
       isAvoinKorkeakoulutus: koulutusData?.metadata?.isAvoinKorkeakoulutus,
       tunniste: koulutusData?.metadata?.tunniste, // Avoin-kk "hakijalle näkyvä tunniste"
       opinnonTyyppi: koulutusData?.metadata?.opinnonTyyppi, // Avoin-kk
-      osaamismerkkiTeema: koulutusData?.osaamismerkkiTeema,
+      osaamismerkki: koulutusData?.osaamismerkki,
     };
   } else {
     return undefined;
