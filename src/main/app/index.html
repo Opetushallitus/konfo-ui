@@ -25,20 +25,16 @@
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
     <meta name="theme-color" content="#378703" />
     <script>
-      document.addEventListener('DOMContentLoaded', checkCookie);
-      function getCookieValue(name) {
-        const nameEq = name + '=';
-        const ca = document.cookie.split(';');
-        for (let i = 0; i < ca.length; i++) {
-          let c = ca[i].trim();
-          if (c.indexOf(nameEq) === 0) return c.substring(nameEq.length, c.length);
-        }
-        return null;
-      }
-      function checkCookie() {
-        let cookieValue = getCookieValue('oph-statistic-cookies-accepted');
+      document.addEventListener('DOMContentLoaded', runMatomoTrackingScriptOnUserConsent);
+      function runMatomoTrackingScriptOnUserConsent() {
         let siteDomain = location.hostname;
-        if (cookieValue) {
+        if (
+          document.cookie
+            .split(';')
+            .some((cookieStr) =>
+              cookieStr.includes('oph-statistic-cookies-accepted=true')
+            )
+        ) {
           // NOTE: Do not run any analytics on local dev / playwright runs
           if (siteDomain !== 'localhost') {
             var matomoSiteId;

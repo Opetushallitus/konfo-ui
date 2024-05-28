@@ -94,6 +94,8 @@ export const CookieModal = () => {
         expires: 1800,
         path: '/',
       });
+      // Tässä tarvitaan uudelleenlatausta että Matomo tilastojen
+      // seurannan skripti suoriutuu index.html:ssa
       window.location.replace(window.location.href);
     }
     if (marketingCookiesAccepted) {
