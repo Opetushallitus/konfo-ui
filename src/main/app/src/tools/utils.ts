@@ -303,11 +303,11 @@ export const createKuvausListElement = (
 };
 
 export const createOsaamismerkinKuvausHtml = (
-  osaamismerkki: Osaamismerkki,
-  t: TFunction
+  t: TFunction,
+  osaamismerkki?: Osaamismerkki
 ) => {
-  const osaamistavoitteet = osaamismerkki?.osaamistavoitteet;
-  const arviointikriteerit = osaamismerkki?.arviointikriteerit;
+  const osaamistavoitteet = osaamismerkki?.osaamistavoitteet || [];
+  const arviointikriteerit = osaamismerkki?.arviointikriteerit || [];
 
   return (
     createKuvausListElement(osaamistavoitteet, 'osaamistavoitteet', 'osaamistavoite', t) +

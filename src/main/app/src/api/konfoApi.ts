@@ -77,10 +77,11 @@ export const getKoulutusKuvaus = (ePerusteId: string) =>
 export const getEperusteKuvaus = (ePerusteId?: string) =>
   get(urls.url('konfo-backend.eperuste.kuvaus', ePerusteId));
 
-export const getOsaamismerkki = (
+export const getOsaamismerkki = async (
   osaamismerkkiKoodiUri?: string
-): Promise<Osaamismerkki> =>
-  get(urls.url('konfo-backend.osaamismerkki', osaamismerkkiKoodiUri));
+): Promise<Osaamismerkki> => {
+  return await get(urls.url('konfo-backend.osaamismerkki', osaamismerkkiKoodiUri));
+};
 
 export const getKoulutusJarjestajat = ({
   oid,

@@ -231,7 +231,7 @@ describe('createOsaamismerkinKuvausHtml', () => {
       muokkaaja: '1.2.246.562.24.16945731101',
     };
 
-    expect(createOsaamismerkinKuvausHtml(osaamismerkki, mockedT as TFunction)).toEqual(
+    expect(createOsaamismerkinKuvausHtml(mockedT as TFunction, osaamismerkki)).toEqual(
       '<h3>Osaamistavoitteet</h3><ul><li>osaa tuottaa yksinkertaista digitaalista materiaalia vastuullisesti</li></ul>'
     );
   });
@@ -292,8 +292,12 @@ describe('createOsaamismerkinKuvausHtml', () => {
       muokkaaja: '1.2.246.562.24.16945731101',
     };
 
-    expect(createOsaamismerkinKuvausHtml(osaamismerkki, mockedT as TFunction)).toEqual(
+    expect(createOsaamismerkinKuvausHtml(mockedT as TFunction, osaamismerkki)).toEqual(
       '<h3>Arviointikriteerit</h3><ul><li>luettelee yleisimpiä tietoturvariskejä</li><li>nimeää eri tunnistautumistapojen eroja ja niiden tietoturvatasoja</li></ul>'
     );
+  });
+
+  test('should return empty string when osaamismerkki is not defined', () => {
+    expect(createOsaamismerkinKuvausHtml(mockedT as TFunction, undefined)).toEqual('');
   });
 });
