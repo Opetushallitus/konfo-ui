@@ -32,6 +32,12 @@ export type Koulutus = {
   hakutuloslistauksenKuvake?: string;
   toteutustenTarjoajat: ToteutustenTarjoajat;
   isAvoinKorkeakoulutus: boolean;
+  kuvake?: {
+    id: string;
+    mime: string;
+    nimi: string;
+    binarydata: string;
+  };
 };
 
 type Props = {
@@ -54,6 +60,7 @@ export const KoulutusKortti = ({ koulutus, isSmall }: Props) => {
     toteutustenTarjoajat,
     koulutustyyppi,
     isAvoinKorkeakoulutus,
+    kuvake,
   } = koulutus;
 
   const toteutustenTarjoajatText = getToteutustenTarjoajat(t, toteutustenTarjoajat);
@@ -70,13 +77,17 @@ export const KoulutusKortti = ({ koulutus, isSmall }: Props) => {
       ? getLocalizedOsaamismerkkikuvaus(kuvaus as Osaamismerkkikuvaus, t)
       : localize(kuvaus);
 
+  const koulutusLogo = hakutuloslistauksenKuvake
+    ? hakutuloslistauksenKuvake
+    : kuvake
+    ? `data:image/png;base64,${kuvake.binarydata}`
+    : teemakuva;
+
   return (
     <EntiteettiKortti
       koulutustyyppi={koulutustyyppi}
       to={`/koulutus/${oid}`}
-      teemakuvaElement={
-        <KoulutusKorttiLogo image={hakutuloslistauksenKuvake ?? teemakuva} alt="" />
-      }
+      teemakuvaElement={<KoulutusKorttiLogo image={koulutusLogo} alt="" />}
       header={localize(koulutus)}
       kuvaus={localizedKuvaus}
       iconTexts={[
