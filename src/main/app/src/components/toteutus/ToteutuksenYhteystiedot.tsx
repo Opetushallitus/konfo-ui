@@ -52,16 +52,12 @@ export const ToteutuksenYhteystiedot = ({
       flatten(filteredOppilaitokset.map((oppilaitos) => oppilaitos.data.oppilaitosOsat)),
       (osa) => includes(oids, osa.oid)
     );
-    const osienHakijaPalveluluidenYhteystiedot = map(
+    const osalle = map(
       filteredOppilaitoksenOsat,
       'oppilaitoksenOsa.metadata.hakijapalveluidenYhteystiedot'
-    );
+    ).find(Boolean);
     const oppilaitokselle = filteredOppilaitokset
       .map((o) => o.data.oppilaitos?.metadata?.hakijapalveluidenYhteystiedot)
-      .find(Boolean);
-    const osalle = filteredOppilaitokset
-      .map((o) => o.data.oppilaitoksenOsa?.metadata?.hakijapalveluidenYhteystiedot)
-      .concat(osienHakijaPalveluluidenYhteystiedot)
       .find(Boolean);
     return osalle ? [osalle] : [oppilaitokselle];
   };
