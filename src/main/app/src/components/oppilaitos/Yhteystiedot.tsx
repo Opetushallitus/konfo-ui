@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 
 import { Box, Grid, Paper, Typography, useMediaQuery, useTheme } from '@mui/material';
-import { hasIn } from 'lodash';
+import { hasIn, isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { OskariKartta } from '#/src/components/common/OskariKartta';
@@ -23,6 +23,9 @@ const parseYhteystieto =
     sahkoposti,
     puhelinnumero,
   }: YhteystiedotType) => {
+    const localizedPostitoimipaikka = localize(kayntiosoiteProp?.postinumero);
+    const oskariPostitoimipaikka = localizedPostitoimipaikka?.nimi;
+
     return {
       nimi: localize(nimi),
       postiosoite: localize(postiosoiteStr),
@@ -30,7 +33,7 @@ const parseYhteystieto =
       sahkoposti: localize(sahkoposti),
       puhelinnumero: localize(puhelinnumero),
       oskariOsoite: localize(kayntiosoiteProp?.osoite),
-      oskariPostitoimipaikka: localize(kayntiosoiteProp?.postinumero),
+      oskariPostitoimipaikka: oskariPostitoimipaikka,
       somekanavat: some,
       verkkoSivu: wwwSivu,
     };
@@ -53,7 +56,7 @@ export type Props = {
   id: string;
   heading?: string;
   tarjoajat?: Array<Organisaatio>;
-  yhteystiedot?: Array<YhteystiedotType>;
+  yhteystiedot?: YhteystiedotType;
   hakijapalveluidenYhteystiedot?: YhteystiedotType | Array<YhteystiedotType>;
   organisaatioidenYhteystiedot?: Array<YhteystiedotType>;
   matchTarjoajat?: boolean;
@@ -77,7 +80,7 @@ export const Yhteystiedot = ({
   const isSm = useMediaQuery(theme.breakpoints.down('sm'));
 
   const localizedYhteystiedot = useMemo(() => {
-    const organisaatiot = (yhteystiedot || [])
+    const organisaatiot = (isEmpty(yhteystiedot) ? [] : [yhteystiedot])
       .concat(organisaatioidenYhteystiedot as any)
       .filter((obj) => hasIn(obj, 'nimi'))
       .filter((obj) => !matchTarjoajat || tarjoajat?.some((ta) => obj?.oid === ta?.oid))

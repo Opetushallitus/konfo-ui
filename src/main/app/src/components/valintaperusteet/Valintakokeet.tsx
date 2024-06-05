@@ -10,7 +10,7 @@ import { styled } from '#/src/theme';
 import { localize, localizeOsoite } from '#/src/tools/localization';
 import { toId } from '#/src/tools/utils';
 import { withDefaultProps } from '#/src/tools/withDefaultProps';
-import { Koodi, Translateable } from '#/src/types/common';
+import { Koodi, Translateable, TranslateableKoodi } from '#/src/types/common';
 import { FormatoituAikaleima } from '#/src/types/HakukohdeTypes';
 
 const ValintakoeSubHeading = withDefaultProps(
@@ -84,7 +84,7 @@ const TilaisuusComponent = ({
 type Tilaisuus = {
   lisatietoja: Translateable;
   jarjestamispaikka: Translateable;
-  osoite: { osoite: Translateable; postinumero: Koodi };
+  osoite: { osoite: Translateable; postinumero: TranslateableKoodi };
   aika: {
     alkaa: string;
     paattyy: string;

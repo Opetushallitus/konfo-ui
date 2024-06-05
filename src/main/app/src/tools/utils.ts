@@ -14,7 +14,7 @@ import {
 
 import { NDASH } from '#/src/constants';
 import {
-  Koodi,
+  TranslateableKoodi,
   TODOType,
   Translateable,
   Osaamismerkkikuvaus,
@@ -48,15 +48,16 @@ export const koodiUriToPostinumero = (str?: string | null) => {
 export const parseOsoiteData = (osoiteData: {
   postiosoite: {
     osoite: Translateable;
-    postinumero: Koodi;
+    postinumero: TranslateableKoodi;
   };
   sahkoposti?: string;
   nimi?: string;
 }) => {
   const postiosoite = osoiteData?.postiosoite ?? {};
   const osoite = localize(postiosoite.osoite);
-  const postinumero = koodiUriToPostinumero(postiosoite.postinumero?.koodiUri);
-  const postitoimipaikka = capitalize(localize(postiosoite.postinumero?.nimi));
+  const localizedPostinumerokoodi = localize(postiosoite?.postinumero);
+  const postinumero = koodiUriToPostinumero(localizedPostinumerokoodi?.koodiUri);
+  const postitoimipaikka = capitalize(localizedPostinumerokoodi?.nimi);
   const yhteystiedot =
     osoite && postinumero && postitoimipaikka
       ? trim(`${osoite}, ${postinumero} ${postitoimipaikka}`, ', ')
