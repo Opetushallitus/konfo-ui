@@ -8,6 +8,9 @@
   },
   "cookieModal": {
     "accept": "Hyväksy",
+    "allow-all-cookies": "Salli kaikki evästeet",
+    "allow-only-necessary-cookies": "Salli vain pakolliset evästeet",
+    "save-settings": "Tallenna asetukset",
     "settings": "Asetukset",
     "heading": "Evästeet",
     "mandatory": "Pakolliset evästeet",

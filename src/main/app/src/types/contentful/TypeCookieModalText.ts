@@ -7,12 +7,19 @@ export interface TypeCookieModalTextFields {
     shortContent?: EntryFieldTypes.Text;
     fullContent?: EntryFieldTypes.Text;
     acceptButtonText?: EntryFieldTypes.Symbol;
+    allowAllCookies?: EntryFieldTypes.Symbol;
+    allowOnlyMandatoryCookies?: EntryFieldTypes.Symbol;
+    saveSettingsText?: EntryFieldTypes.Symbol;
     settingsButtonText?: EntryFieldTypes.Symbol;
     settingsHeaderText?: EntryFieldTypes.Symbol;
     settingsAcceptStatisticText?: EntryFieldTypes.Symbol;
     settingsAcceptMarketingText?: EntryFieldTypes.Symbol;
     settingsAcceptMandatoryText?: EntryFieldTypes.Symbol;
     settingsButtonCloseText?: EntryFieldTypes.Symbol;
+    statisticsCheckboxTitleText?: EntryFieldTypes.Symbol;
+    statisticsCheckboxContentText?: EntryFieldTypes.Symbol;
+    mandatoryCheckboxTitleText?: EntryFieldTypes.Symbol;
+    mandatoryCheckboxContentText?: EntryFieldTypes.Symbol;
 }
 
 export type TypeCookieModalTextSkeleton = EntrySkeletonType<TypeCookieModalTextFields, "cookieModalText">;
