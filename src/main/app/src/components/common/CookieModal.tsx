@@ -28,7 +28,6 @@ import { getOne } from '#/src/tools/getOne';
 import { MaterialIcon } from './MaterialIcon';
 
 const StyledModalContent = styled('div')(({ theme }) => ({
-  position: 'absolute',
   zIndex: '9999',
   backgroundColor: colors.white,
   border: '1px solid #ccc',
@@ -36,16 +35,18 @@ const StyledModalContent = styled('div')(({ theme }) => ({
   padding: '16px',
   boxSizing: 'border-box',
   borderRadius: '10px',
-  width: '60%',
-  left: '20%',
   top: '5%',
-  [theme.breakpoints.down('lg')]: {
+  alignItems: 'center',
+  justifyContent: 'center',
+  margin: '40px auto',
+  [theme.breakpoints.down('xl')]: {
     width: '80%',
-    left: '8%',
   },
   [theme.breakpoints.down('md')]: {
     width: '90%',
-    left: '5%',
+  },
+  [theme.breakpoints.up('xl')]: {
+    maxWidth: '1300px',
   },
 }));
 
@@ -57,6 +58,13 @@ const StyledFormControlLabel = styled(FormControlLabel)({
 const StyledButton = styled(Button)({
   width: 'fit-content',
   fontWeight: 'bold',
+});
+
+const StyledAccordionSummary = styled(AccordionSummary)({
+  color: colors.brandGreen,
+  fontWeight: 'bold',
+  boxShadow: 'rgba(0, 0, 0, 0.25) 0px 5px 10px',
+  padding: '0 16px 0 16px',
 });
 
 const MANDATORY_COOKIE_NAME = 'oph-mandatory-cookies-accepted';
@@ -239,18 +247,12 @@ export const CookieModal = () => {
             onChange={handleAccordionExpandedChange}
             sx={{ boxShadow: 'none' }}
             disableGutters>
-            <AccordionSummary
-              sx={{
-                color: colors.brandGreen,
-                fontWeight: 'bold',
-                boxShadow: 'rgba(0, 0, 0, 0.25) 0px 5px 10px',
-                padding: '0 16px 0 16px',
-              }}
+            <StyledAccordionSummary
               expandIcon={
                 <MaterialIcon icon="expand_more" sx={{ color: colors.brandGreen }} />
               }>
               {fullCookieInfoOpen ? fields.collapseLinkText : fields.expandLinkText}
-            </AccordionSummary>
+            </StyledAccordionSummary>
             <AccordionDetails sx={{ padding: '8px 0 16px' }}>
               <Typography
                 variant="body1"
