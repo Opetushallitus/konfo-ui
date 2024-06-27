@@ -97,8 +97,8 @@ describe('Utils/getLocalizedOpintojenLaajuus', () => {
 });
 
 const mockedT = (key: string) => {
-  const match = key.match(/\w+$/i);
-  return capitalize(match ? match[0] : '');
+  const match = key.match(/([a-z]+).([a-z]+)/i);
+  return capitalize(match ? match[2] : '');
 };
 
 describe('createKuvausListElement', () => {
