@@ -18,7 +18,7 @@ import { getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
 import { styled } from '#/src/theme';
 import { getLanguage, localize } from '#/src/tools/localization';
 import { useUrlParams } from '#/src/tools/useUrlParams';
-import { sanitizedHTMLParser } from '#/src/tools/utils';
+import { createOsaamismerkinKuvausHtml, sanitizedHTMLParser } from '#/src/tools/utils';
 import { withDefaultProps } from '#/src/tools/withDefaultProps';
 
 import { useKoulutus, useKoulutusJarjestajat } from './hooks';
@@ -110,6 +110,32 @@ const EPerusteLinkki = withDefaultProps(
     'data-testid': 'eperuste-linkki',
   }
 );
+
+const OsaamismerkinKuvaus = ({ koulutus }) => {
+  const { t } = useTranslation();
+  const { osaamismerkki } = koulutus;
+  const kuvaus = createOsaamismerkinKuvausHtml(t, osaamismerkki);
+  const linkkiEPerusteisiin = urls.url(
+    'eperusteet-service.osaamismerkki',
+    getLanguage(),
+    osaamismerkki?.id
+  );
+
+  return isEmpty(kuvaus) ? null : (
+    <HtmlTextBox
+      data-testid="kuvaus"
+      heading={t('koulutus.kuvaus')}
+      html={kuvaus}
+      additionalContent={
+        !isEmpty(linkkiEPerusteisiin) && (
+          <EPerusteLinkki href={linkkiEPerusteisiin}>
+            {t('koulutus.eperuste-linkki')}
+          </EPerusteLinkki>
+        )
+      }
+    />
+  );
+};
 
 const Kuvaus = ({ koulutus }) => {
   const { t } = useTranslation();
@@ -211,6 +237,7 @@ export const KoulutusPage = () => {
             <KoulutusInfoGrid koulutus={koulutus} />
           </PageSection>
           <Kuvaus koulutus={koulutus} />
+          <OsaamismerkinKuvaus koulutus={koulutus} />
           <TutkinnonOsat koulutus={koulutus} />
           <Box id="tarjonta">
             <ToteutusList oid={oid} koulutustyyppi={koulutus?.koulutustyyppi} />
