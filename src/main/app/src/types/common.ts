@@ -1,4 +1,8 @@
-import { Alkamiskausityyppi, RAJAIN_TYPES } from '#/src/constants';
+import {
+  Alkamiskausityyppi,
+  RAJAIN_TYPES,
+  OSAAMISMERKKI_JULKAISUTILA,
+} from '#/src/constants';
 import { FormatoituAikaleima } from '#/src/types/HakukohdeTypes';
 
 import { components, paths } from './konfo-backend';
@@ -110,3 +114,58 @@ export type HakukohdeSearchParams =
   paths['/search/hakukohteet']['get']['parameters']['query'];
 export type CompactHakukohde = components['schemas']['CompactHakukohde'];
 export type HakukohdeSearchResult = components['schemas']['HakukohdeSearchResult'];
+
+type OsaamismerkkikuvausItem = {
+  _id: string;
+  _tunniste: string;
+  fi?: string;
+  sv?: string;
+  en?: string;
+};
+
+export interface OsaamismerkkikuvausEntity extends Record<string, any> {
+  id: number;
+  osaamistavoite?: OsaamismerkkikuvausItem;
+  arviointikriteeri?: OsaamismerkkikuvausItem;
+}
+
+type Osaamismerkkinimi = {
+  _id: string;
+  _tunniste: string;
+  fi?: string;
+  sv?: string;
+  en?: string;
+};
+
+type Osaamismerkkiliite = {
+  id: string;
+  nimi: string;
+  mime: string;
+  binarydata: string;
+};
+
+export type Osaamismerkki = {
+  id: number;
+  nimi: Osaamismerkkinimi;
+  kuvaus?: string | null;
+  tila: OSAAMISMERKKI_JULKAISUTILA;
+  kategoria: {
+    id: number;
+    nimi: Osaamismerkkinimi;
+    kuvaus: string | null;
+    liite?: Osaamismerkkiliite;
+    muokattu: number;
+  };
+  koodiUri: string;
+  osaamistavoitteet: Array<OsaamismerkkikuvausEntity>;
+  arviointikriteerit: Array<OsaamismerkkikuvausEntity>;
+  voimassaoloAlkaa: number;
+  voimassaoloLoppuu?: number | null;
+  muokattu: number;
+  muokkaaja: string;
+};
+
+export type Osaamismerkkikuvaus = {
+  osaamistavoitteet: Translateable;
+  arviointikriteerit: Translateable;
+};
