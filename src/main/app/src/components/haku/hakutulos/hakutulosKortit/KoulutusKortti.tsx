@@ -1,5 +1,6 @@
 import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
+import { match } from 'ts-pattern';
 
 import {
   EntiteettiKortti,
@@ -72,10 +73,11 @@ export const KoulutusKortti = ({ koulutus, isSmall }: Props) => {
 
   const tutkintonimikkeetText = formatTutkintonimikkeetText(tutkintonimikkeet || []);
 
-  const localizedKuvaus =
-    KOULUTUS_TYYPPI.VAPAA_SIVISTYSTYO_OSAAMISMERKKI === koulutustyyppi
-      ? getLocalizedOsaamismerkkikuvaus(kuvaus as Osaamismerkkikuvaus, t)
-      : localize(kuvaus);
+  const localizedKuvaus = match(koulutustyyppi)
+    .with(KOULUTUS_TYYPPI.VAPAA_SIVISTYSTYO_OSAAMISMERKKI, () =>
+      getLocalizedOsaamismerkkikuvaus(kuvaus as Osaamismerkkikuvaus, t)
+    )
+    .otherwise(() => localize(kuvaus));
 
   const koulutusLogo = hakutuloslistauksenKuvake
     ? hakutuloslistauksenKuvake
