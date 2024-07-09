@@ -69,7 +69,7 @@ export const OppilaitosPage = (props) => {
                 ...condArray(isOppilaitosOsa && entity?.parentToimipisteOid, {
                   name: localize(
                     entity?.oppilaitosOsat?.find(
-                      (o) => o.oid === entity?.parentToimipisteOid
+                      (o) => o?.oid === entity?.parentToimipisteOid
                     )
                   ),
                   link: `/oppilaitososa/${entity?.parentToimipisteOid}`,
