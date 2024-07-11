@@ -142,7 +142,7 @@ export type Opintojakso = {
   };
 };
 
-export type Opintokokonaisuus = {
+export type MinimalEntity = {
   nimi: Translateable;
   oid: string;
 };
@@ -165,7 +165,8 @@ export type Toteutus = {
   timestamp: number;
   oppilaitokset: Array<string>;
   liitetytOpintojaksot: Array<Opintojakso>;
-  kuuluuOpintokokonaisuuksiin: Array<Opintokokonaisuus>;
+  liitetytOsaamismerkit: Array<MinimalEntity>;
+  kuuluuOpintokokonaisuuksiin: Array<MinimalEntity>;
   koulutustyyppi: string;
 
   // NOTE: These are given at selector
