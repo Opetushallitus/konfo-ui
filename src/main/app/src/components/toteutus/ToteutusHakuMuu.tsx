@@ -5,13 +5,9 @@ import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 import { AccordionText } from '#/src/components/common/AccordionText';
-import { LoadingCircle } from '#/src/components/common/LoadingCircle';
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { PageSection } from '#/src/components/common/PageSection';
 import { styled } from '#/src/theme';
 import { localize } from '#/src/tools/localization';
-import { useOsoitteet } from '#/src/tools/useOppilaitosOsoite';
-import { Translateable } from '#/src/types/common';
 import { Hakuaika } from '#/src/types/HakukohdeTypes';
 import { Toteutus } from '#/src/types/ToteutusTypes';
 
@@ -24,17 +20,6 @@ const StyledPaper = styled(Paper)({
   maxWidth: '800px',
   padding: '30px',
 });
-
-const getTarjoajaYhteystiedot = (
-  osoitteet: Array<{ oppilaitosOid: string; yhteystiedot: string }>,
-  tarjoajat: Array<{ oid: string; nimi: Translateable }>
-) =>
-  osoitteet.map((osoite) => {
-    const tarjoajaNimi = tarjoajat.find(
-      (tarjoaja) => tarjoaja.oid === osoite.oppilaitosOid
-    )?.nimi;
-    return `${localize(tarjoajaNimi)} · ${osoite.yhteystiedot}`;
-  });
 
 type Props = { toteutus?: Toteutus };
 
@@ -100,12 +85,6 @@ export const ToteutusHakuMuu = ({ toteutus }: Props) => {
 
   const muuHaku = useMemo(() => selectMuuHaku(toteutus), [toteutus]);
 
-  const oppilaitosOids = muuHaku.tarjoajat.map(
-    (tarjoaja: { oid: string }) => tarjoaja.oid
-  );
-  const { osoitteet, isLoading } = useOsoitteet(oppilaitosOids, true);
-  const yhteystiedot = getTarjoajaYhteystiedot(osoitteet, muuHaku.tarjoajat);
-
   const hakeuduTaiIlmoittauduTrans =
     muuHaku.hakutermi === 'hakeutuminen'
       ? t('toteutus.hakeudu-koulutukseen')
@@ -115,92 +94,82 @@ export const ToteutusHakuMuu = ({ toteutus }: Props) => {
 
   return (
     <PageSection heading={hakeuduTaiIlmoittauduTrans}>
-      {isLoading ? (
-        <LoadingCircle />
-      ) : (
-        <StyledPaper>
-          <Grid container direction="column" spacing={2}>
-            <Grid item>
-              <Typography
-                variant="h5"
-                component="p"
-                sx={{
-                  fontWeight: 'bold',
-                  color: colors.grey900,
-                }}>
-                {localize(muuHaku.nimi)}
-              </Typography>
+      <StyledPaper>
+        <Grid container direction="column" spacing={2}>
+          <Grid item>
+            <Typography
+              variant="h5"
+              component="p"
+              sx={{
+                fontWeight: 'bold',
+                color: colors.grey900,
+              }}>
+              {localize(muuHaku.nimi)}
+            </Typography>
+          </Grid>
+          <Grid item>
+            <HakuaikaRivi hakuaika={muuHaku?.hakuaika} hakutermi={muuHaku.hakutermi} />
+          </Grid>
+          <Grid item>
+            <AlkamiskausiRivi alkamiskausi={alkamiskausi} />
+          </Grid>
+          {muuHaku.aloituspaikat && (
+            <Grid item container direction="row">
+              <Grid item xs md={4}>
+                <Typography noWrap variant="body1">
+                  {t('toteutus.opiskelupaikkoja:')}
+                </Typography>
+              </Grid>
+              <Grid item xs>
+                <Typography variant="body1" fontWeight="bold" noWrap>
+                  {muuHaku.aloituspaikat}
+                </Typography>
+              </Grid>
             </Grid>
+          )}
+          {muuHaku.lisatietoaHakeutumisesta && (
             <Grid item>
-              <HakuaikaRivi hakuaika={muuHaku?.hakuaika} hakutermi={muuHaku.hakutermi} />
+              <AccordionText
+                title={
+                  muuHaku.hakutermi === 'hakeutuminen'
+                    ? t('toteutus.lisatietoa-hakeutumisesta')
+                    : t('toteutus.lisatietoa-ilmoittautumisesta')
+                }
+                text={localize(muuHaku.lisatietoaHakeutumisesta)}
+              />
             </Grid>
+          )}
+          {muuHaku.lisatietoaValintaperusteista && (
             <Grid item>
-              <AlkamiskausiRivi alkamiskausi={alkamiskausi} />
+              <AccordionText
+                title={t('toteutus.lisatietoa-valintaperusteista')}
+                text={localize(muuHaku.lisatietoaValintaperusteista)}
+              />
             </Grid>
-            {muuHaku.aloituspaikat && (
-              <Grid item container direction="row">
-                <Grid item xs md={4}>
-                  <Typography noWrap variant="body1">
-                    {t('toteutus.opiskelupaikkoja:')}
-                  </Typography>
-                </Grid>
-                <Grid item xs>
-                  <Typography variant="body1" fontWeight="bold" noWrap>
-                    {muuHaku.aloituspaikat}
-                  </Typography>
-                </Grid>
-              </Grid>
-            )}
-            {yhteystiedot?.map((osoite, index) => (
-              <Grid key={index} container item direction="row" wrap="nowrap">
-                <MaterialIcon icon="public" sx={{ marginRight: '10px' }} />
-                <Typography variant="body1">{osoite}</Typography>
-              </Grid>
-            ))}
-            {muuHaku.lisatietoaHakeutumisesta && (
-              <Grid item>
-                <AccordionText
-                  title={
-                    muuHaku.hakutermi === 'hakeutuminen'
-                      ? t('toteutus.lisatietoa-hakeutumisesta')
-                      : t('toteutus.lisatietoa-ilmoittautumisesta')
-                  }
-                  text={localize(muuHaku.lisatietoaHakeutumisesta)}
-                />
-              </Grid>
-            )}
-            {muuHaku.lisatietoaValintaperusteista && (
-              <Grid item>
-                <AccordionText
-                  title={t('toteutus.lisatietoa-valintaperusteista')}
-                  text={localize(muuHaku.lisatietoaValintaperusteista)}
-                />
-              </Grid>
-            )}
-            {/* TODO: insert SORA-kuvaus here when it can be fetched from backend
+          )}
+          {/* TODO: insert SORA-kuvaus here when it can be fetched from backend
                 <Grid item>
                 <AccordionText
                 title={'toteutus.hakijan-terveydentila-ja-toimintakyky'}
                 text="TODO"
                 />
                 </Grid>
-              )} */}
-            <Grid item>
-              <Button
-                variant="contained"
-                size="large"
-                color="primary"
-                target="_blank"
-                href={localize(muuHaku.hakulomakeLinkki)}
-                disabled={!muuHaku.isHakuAuki}>
-                <Typography style={{ color: colors.white }} variant="body1">
-                  {hakeuduTaiIlmoittauduTrans}
-                </Typography>
-              </Button>
-            </Grid>
+               */}
+          <Grid item>
+            <Button
+              variant="contained"
+              size="large"
+              color="primary"
+              target="_blank"
+              href={localize(muuHaku.hakulomakeLinkki)}
+              disabled={!muuHaku.isHakuAuki}>
+              <Typography style={{ color: colors.white }} variant="body1">
+                {hakeuduTaiIlmoittauduTrans}
+              </Typography>
+            </Button>
           </Grid>
-        </StyledPaper>
-      )}
+        </Grid>
+      </StyledPaper>
     </PageSection>
   );
 };
