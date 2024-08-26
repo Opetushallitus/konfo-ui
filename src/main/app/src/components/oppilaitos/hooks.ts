@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from 'react';
 
-import { filter, map, size } from 'lodash';
+import { filter, map, size, compact } from 'lodash';
 import { useQueries, useQuery } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -46,11 +46,11 @@ const handleOppilaitosData = (
       ...entity,
       oppilaitosOsat: isOppilaitosOsa
         ? data?.parentToimipisteOid
-          ? [
+          ? compact([
               data?.oppilaitos?.osat?.find(
                 (osa: Organisaatio) => osa.oid === data?.parentToimipisteOid
               ),
-            ]
+            ])
           : undefined
         : map(aktiivisetOsat, (osa: any) => ({
             ...osa,

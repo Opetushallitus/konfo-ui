@@ -1,5 +1,3 @@
-import { useMemo } from 'react';
-
 import {
   Box,
   Button,
@@ -33,7 +31,6 @@ import { useDemoLinks } from '#/src/components/toteutus/hooks';
 import { Hakulomaketyyppi, TOISEN_ASTEEN_YHTEISHAUN_KOHDEJOUKKO } from '#/src/constants';
 import { styled } from '#/src/theme';
 import { localize } from '#/src/tools/localization';
-import { useOsoitteet } from '#/src/tools/useOppilaitosOsoite';
 import { useUrlParams } from '#/src/tools/useUrlParams';
 import { formatDouble } from '#/src/tools/utils';
 import { Hakukohde } from '#/src/types/HakukohdeTypes';
@@ -75,12 +72,6 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   },
 }));
 
-const getJarjestyspaikkaYhteystiedot = (
-  jarjestyspaikka: Hakukohde['jarjestyspaikka'],
-  osoitteet: Array<{ oppilaitosOid: string; yhteystiedot: string }>
-) =>
-  osoitteet.find((osoite) => osoite.oppilaitosOid === jarjestyspaikka.oid)?.yhteystiedot;
-
 type GridProps = {
   tyyppiOtsikko: string;
   icon: React.JSX.Element;
@@ -103,16 +94,9 @@ const HakuCardGrid = ({
 
   const { data: demoLinks } = useDemoLinks(hakukohteet);
 
-  const oppilaitosOids = useMemo(
-    () => hakukohteet.map((hakukohde) => hakukohde.jarjestyspaikka?.oid),
-    [hakukohteet]
-  );
-
   const toteutuksenAlkamiskausi = toteutus?.metadata?.opetus?.koulutuksenAlkamiskausi;
 
   const hakutermi = toteutus?.metadata?.hakutermi;
-
-  const { osoitteet } = useOsoitteet(oppilaitosOids, true);
 
   const { isDraft } = useUrlParams();
   function getFullToimipisteNimi(oid: string) {
@@ -161,13 +145,8 @@ const HakuCardGrid = ({
             );
             const jarjestyspaikka =
               hakukohde.jarjestyspaikka &&
-              [
-                getFullToimipisteNimi(hakukohde.jarjestyspaikka.oid) ||
-                  localize(hakukohde.jarjestyspaikka),
-                getJarjestyspaikkaYhteystiedot(hakukohde.jarjestyspaikka, osoitteet),
-              ]
-                .filter(Boolean)
-                .join(' · ');
+              (getFullToimipisteNimi(hakukohde.jarjestyspaikka.oid) ||
+                localize(hakukohde.jarjestyspaikka));
 
             const jarjestaaUrheilijanAmmKoulutusta =
               hakukohde.jarjestyspaikka?.jarjestaaUrheilijanAmmKoulutusta;
