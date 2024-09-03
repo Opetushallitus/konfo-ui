@@ -1,18 +1,23 @@
 import React from 'react';
 
 import { Box, Typography, useTheme, useMediaQuery } from '@mui/material';
+import { isEmpty } from 'lodash';
 
 import DefaultHeroImage from '#/src/assets/images/herokuva_default.png';
 import { ImageCardGrid } from '#/src/components/common/ImageCardGrid';
 import { Spacer } from '#/src/components/common/Spacer';
 
-const formToimipisteenNimi = (osa, oppilaitosOsat) => {
-  if (osa.parentToimipisteOid) {
-    return `${oppilaitosOsat.find((o) => o.oid === osa.parentToimipisteOid).nimi}, ${
-      osa.nimi
-    }`;
+const formToimipisteenNimi = (parentOsa, oppilaitosOsat) => {
+  if (parentOsa.parentToimipisteOid && !isEmpty(oppilaitosOsat)) {
+    const foundOsa = oppilaitosOsat.find((o) => o.oid === parentOsa.parentToimipisteOid);
+    const parentOsanNimi = parentOsa?.nimi;
+    if (foundOsa?.nimi) {
+      return `${foundOsa.nimi}, ${parentOsanNimi}`;
+    } else {
+      return parentOsanNimi;
+    }
   }
-  return osa.nimi;
+  return parentOsa?.nimi;
 };
 
 export const OppilaitosOsaList = (props) => {
