@@ -46,47 +46,40 @@ import { useKoulutus } from '../koulutus/hooks';
 import { PisteContainer } from '../laskuri/PisteContainer';
 import { showPisteLaskuri } from '../laskuri/PisteLaskuriUtil';
 
-const PREFIX = 'ToteutusPage';
-
-const classes = {
-  oppilaitosHeadingSpan: `${PREFIX}-oppilaitosHeadingSpan`,
-  toteutusHeading: `${PREFIX}-toteutusHeading`,
-  yhteystiedotLink: `${PREFIX}-yhteystiedotLink`,
-};
-
-const InnerWrapper = styled('div')(({ theme }) => ({
+const InnerWrapper = styled('div')({
   maxWidth: '100vw',
   padding: '0 0.4rem',
-  [`& .${classes.oppilaitosHeadingSpan}`]: {
-    ...theme.typography.body1,
-    marginTop: '20px',
-    fontSize: '1.25rem',
-    textAlign: 'center',
-  },
+});
 
-  [`& .${classes.toteutusHeading}`]: {
-    display: 'flex',
-    flexDirection: 'column',
-    textAlign: 'center',
-    whiteSpace: 'pre-wrap',
-  },
-
-  [`& .${classes.yhteystiedotLink}`]: {
-    display: 'inline-block',
-    overflow: 'hidden',
-    whiteSpace: 'nowrap',
-    textOverflow: 'ellipsis',
-    maxWidth: '300px',
-    width: '300px',
-  },
+const OppilaitosHeadingText = styled(Typography)(({ theme }) => ({
+  ...theme.typography.body1,
+  marginTop: '20px',
+  fontSize: '1.25rem',
+  textAlign: 'center',
 }));
 
-export const OppilaitosLink = styled(TextButtonLink)({
+const OppilaitosHeadingLink = styled(TextButtonLink)({
   display: 'flex',
   fontSize: '1.25rem',
   textDecoration: 'none',
   textAlign: 'center',
   flexShrink: 0,
+});
+
+const ToteutusHeading = styled(Heading)({
+  display: 'flex',
+  flexDirection: 'column',
+  textAlign: 'center',
+  whiteSpace: 'pre-wrap',
+});
+
+const YhteystiedotLink = styled(ExternalLink)({
+  display: 'inline-block',
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
+  textOverflow: 'ellipsis',
+  maxWidth: '300px',
+  width: '300px',
 });
 
 export const ToteutusPage = () => {
@@ -201,20 +194,13 @@ export const ToteutusPage = () => {
           />
         </Box>
         {isEmpty(oppilaitosOid) ? (
-          <Typography
-            className={classes.oppilaitosHeadingSpan}
-            variant="h2"
-            component="h2">
-            {oppilaitostenNimet}
-          </Typography>
+          <OppilaitosHeadingText variant="h2">{oppilaitostenNimet}</OppilaitosHeadingText>
         ) : (
-          <OppilaitosLink href={`/oppilaitos/${oppilaitosOid}`} target="_blank">
+          <OppilaitosHeadingLink href={`/oppilaitos/${oppilaitosOid}`} target="_blank">
             {oppilaitostenNimet}
-          </OppilaitosLink>
+          </OppilaitosHeadingLink>
         )}
-        <Heading className={classes.toteutusHeading} variant="h1">
-          {localize(toteutus?.nimi)}
-        </Heading>
+        <ToteutusHeading variant="h1">{localize(toteutus?.nimi)}</ToteutusHeading>
         {erityisopetusHeading && erityisopetusText && (
           <InfoBanner
             heading={erityisopetusHeading}
@@ -357,12 +343,10 @@ export const ToteutusPage = () => {
                       </Grid>
                       {!isEmpty(yhteyshenkilo.wwwSivu) && (
                         <Grid item>
-                          <ExternalLink
-                            className={classes.yhteystiedotLink}
-                            href={localize(yhteyshenkilo.wwwSivu)}>
+                          <YhteystiedotLink href={localize(yhteyshenkilo.wwwSivu)}>
                             {localize(yhteyshenkilo.wwwSivuTeksti) ||
                               localize(yhteyshenkilo.wwwSivu)}
-                          </ExternalLink>
+                          </YhteystiedotLink>
                         </Grid>
                       )}
                     </Grid>
