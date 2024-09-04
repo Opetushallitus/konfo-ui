@@ -209,7 +209,7 @@ export const ToteutusPage = () => {
           />
         )}
         <Asiasanat toteutus={toteutus} />
-        <Box mt={6}>
+        <Box display="flex" justifyContent="center" mt={6}>
           <TeemakuvaImage
             imgUrl={toteutus?.teemakuva}
             altText={t('toteutus.toteutuksen-teemakuva')}
