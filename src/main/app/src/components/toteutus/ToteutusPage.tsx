@@ -17,6 +17,7 @@ import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { Murupolku } from '#/src/components/common/Murupolku';
 import { PageSection } from '#/src/components/common/PageSection';
 import { TeemakuvaImage } from '#/src/components/common/TeemakuvaImage';
+import { TextButtonLink } from '#/src/components/common/TextButtonLink';
 import { Heading } from '#/src/components/Heading';
 import { useOppilaitokset } from '#/src/components/oppilaitos/hooks';
 import { KOULUTUS_TYYPPI } from '#/src/constants';
@@ -27,6 +28,7 @@ import { styled } from '#/src/theme';
 import { localize, localizeLukiolinja } from '#/src/tools/localization';
 import { useUrlParams } from '#/src/tools/useUrlParams';
 import { getLocalizedOpintojenLaajuus, sanitizedHTMLParser } from '#/src/tools/utils';
+import { Translateable } from '#/src/types/common';
 import { Hakutieto, OppilaitosOsa } from '#/src/types/ToteutusTypes';
 
 import { Asiasanat } from './Asiasanat';
@@ -44,40 +46,41 @@ import { useKoulutus } from '../koulutus/hooks';
 import { PisteContainer } from '../laskuri/PisteContainer';
 import { showPisteLaskuri } from '../laskuri/PisteLaskuriUtil';
 
-const PREFIX = 'ToteutusPage';
-
-const classes = {
-  oppilaitosHeadingSpan: `${PREFIX}-oppilaitosHeadingSpan`,
-  toteutusHeading: `${PREFIX}-toteutusHeading`,
-  yhteystiedotLink: `${PREFIX}-yhteystiedotLink`,
-};
-
-const InnerWrapper = styled('div')(({ theme }) => ({
+const InnerWrapper = styled('div')({
   maxWidth: '100vw',
   padding: '0 0.4rem',
-  [`& .${classes.oppilaitosHeadingSpan}`]: {
-    ...theme.typography.body1,
-    marginTop: '20px',
-    fontSize: '1.25rem',
-    textAlign: 'center',
-  },
+});
 
-  [`& .${classes.toteutusHeading}`]: {
-    display: 'flex',
-    flexDirection: 'column',
-    textAlign: 'center',
-    whiteSpace: 'pre-wrap',
-  },
-
-  [`& .${classes.yhteystiedotLink}`]: {
-    display: 'inline-block',
-    overflow: 'hidden',
-    whiteSpace: 'nowrap',
-    textOverflow: 'ellipsis',
-    maxWidth: '300px',
-    width: '300px',
-  },
+const OppilaitosHeadingText = styled(Typography)(({ theme }) => ({
+  ...theme.typography.body1,
+  marginTop: '20px',
+  fontSize: '1.25rem',
+  textAlign: 'center',
 }));
+
+const OppilaitosHeadingLink = styled(TextButtonLink)({
+  display: 'flex',
+  fontSize: '1.25rem',
+  textDecoration: 'none',
+  textAlign: 'center',
+  flexShrink: 0,
+});
+
+const ToteutusHeading = styled(Heading)({
+  display: 'flex',
+  flexDirection: 'column',
+  textAlign: 'center',
+  whiteSpace: 'pre-wrap',
+});
+
+const YhteystiedotLink = styled(ExternalLink)({
+  display: 'inline-block',
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
+  textOverflow: 'ellipsis',
+  maxWidth: '300px',
+  width: '300px',
+});
 
 export const ToteutusPage = () => {
   const { oid } = useParams<{ oid: string }>();
@@ -119,9 +122,19 @@ export const ToteutusPage = () => {
   });
 
   const hasOppilaitokset = oppilaitokset.length > 0;
-  const oppilaitostenNimet = hasOppilaitokset
-    ? oppilaitokset.map((oppilaitos) => `${localize(oppilaitos?.data?.nimi)}`).join(', ')
-    : '';
+  const oppilaitosTiedot = oppilaitokset.map((oppilaitos) => {
+    return { nimi: oppilaitos?.data?.nimi, oid: oppilaitos?.data?.oid };
+  });
+  const oppilaitosOid = isEmpty(oppilaitosTiedot) ? '' : oppilaitosTiedot[0].oid;
+
+  const oppilaitostenNimet = isEmpty(oppilaitosTiedot)
+    ? ''
+    : oppilaitosTiedot
+        .map(
+          (oppilaitos: { nimi: Translateable; oid: string }) =>
+            `${localize(oppilaitos.nimi)}`
+        )
+        .join(', ');
   const oppilaitoksenNimiMurupolku = oppilaitostenNimet ? `${oppilaitostenNimet}, ` : '';
 
   const hakutiedot = toteutus?.hakutiedot;
@@ -180,12 +193,14 @@ export const ToteutusPage = () => {
             ]}
           />
         </Box>
-        <Typography className={classes.oppilaitosHeadingSpan} variant="h2" component="h2">
-          {oppilaitostenNimet}
-        </Typography>
-        <Heading className={classes.toteutusHeading} variant="h1">
-          {localize(toteutus?.nimi)}
-        </Heading>
+        {isEmpty(oppilaitosOid) ? (
+          <OppilaitosHeadingText variant="h2">{oppilaitostenNimet}</OppilaitosHeadingText>
+        ) : (
+          <OppilaitosHeadingLink href={`/oppilaitos/${oppilaitosOid}`} target="_blank">
+            {oppilaitostenNimet}
+          </OppilaitosHeadingLink>
+        )}
+        <ToteutusHeading variant="h1">{localize(toteutus?.nimi)}</ToteutusHeading>
         {erityisopetusHeading && erityisopetusText && (
           <InfoBanner
             heading={erityisopetusHeading}
@@ -194,7 +209,7 @@ export const ToteutusPage = () => {
           />
         )}
         <Asiasanat toteutus={toteutus} />
-        <Box mt={6}>
+        <Box display="flex" justifyContent="center" mt={6}>
           <TeemakuvaImage
             imgUrl={toteutus?.teemakuva}
             altText={t('toteutus.toteutuksen-teemakuva')}
@@ -328,12 +343,10 @@ export const ToteutusPage = () => {
                       </Grid>
                       {!isEmpty(yhteyshenkilo.wwwSivu) && (
                         <Grid item>
-                          <ExternalLink
-                            className={classes.yhteystiedotLink}
-                            href={localize(yhteyshenkilo.wwwSivu)}>
+                          <YhteystiedotLink href={localize(yhteyshenkilo.wwwSivu)}>
                             {localize(yhteyshenkilo.wwwSivuTeksti) ||
                               localize(yhteyshenkilo.wwwSivu)}
-                          </ExternalLink>
+                          </YhteystiedotLink>
                         </Grid>
                       )}
                     </Grid>
