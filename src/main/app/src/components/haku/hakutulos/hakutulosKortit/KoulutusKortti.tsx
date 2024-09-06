@@ -79,11 +79,19 @@ export const KoulutusKortti = ({ koulutus, isSmall }: Props) => {
     )
     .otherwise(() => localize(kuvaus));
 
-  const koulutusLogo = hakutuloslistauksenKuvake
-    ? hakutuloslistauksenKuvake
-    : kuvake
-    ? `data:image/png;base64,${kuvake.binarydata}`
-    : teemakuva;
+  const koulutusLogo = match(hakutuloslistauksenKuvake)
+    .when(
+      () => !isEmpty(hakutuloslistauksenKuvake),
+      () => hakutuloslistauksenKuvake
+    )
+    .otherwise(() =>
+      match(kuvake)
+        .when(
+          () => !isEmpty(kuvake),
+          () => `data:image/png;base64,${kuvake?.binarydata}`
+        )
+        .otherwise(() => teemakuva)
+    );
 
   return (
     <EntiteettiKortti
