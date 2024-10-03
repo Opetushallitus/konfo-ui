@@ -30,7 +30,6 @@ export type Koulutus = {
   koulutustyyppi: Koulutustyyppi;
   tutkintonimikkeet: Array<Translateable>;
   teemakuva?: string;
-  hakutuloslistauksenKuvake?: string;
   toteutustenTarjoajat: ToteutustenTarjoajat;
   isAvoinKorkeakoulutus: boolean;
   kuvake?: {
@@ -56,7 +55,6 @@ export const KoulutusKortti = ({ koulutus, isSmall }: Props) => {
     oid,
     tutkintonimikkeet,
     teemakuva,
-    hakutuloslistauksenKuvake,
     kuvaus,
     toteutustenTarjoajat,
     koulutustyyppi,
@@ -79,19 +77,7 @@ export const KoulutusKortti = ({ koulutus, isSmall }: Props) => {
     )
     .otherwise(() => localize(kuvaus));
 
-  const koulutusLogo = match(hakutuloslistauksenKuvake)
-    .when(
-      () => !isEmpty(hakutuloslistauksenKuvake),
-      () => hakutuloslistauksenKuvake
-    )
-    .otherwise(() =>
-      match(kuvake)
-        .when(
-          () => !isEmpty(kuvake),
-          () => `data:image/png;base64,${kuvake?.binarydata}`
-        )
-        .otherwise(() => teemakuva)
-    );
+  const koulutusLogo = kuvake ? `data:image/png;base64,${kuvake.binarydata}` : teemakuva;
 
   return (
     <EntiteettiKortti
