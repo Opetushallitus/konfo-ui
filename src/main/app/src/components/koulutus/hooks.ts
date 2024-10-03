@@ -9,6 +9,7 @@ import {
   getKoulutus,
   getKoulutusJarjestajat,
   getKoulutusKuvaus,
+  getOsaamismerkki,
 } from '#/src/api/konfoApi';
 import { KOULUTUS_TYYPPI } from '#/src/constants';
 import { useAppDispatch, useAppSelector } from '#/src/hooks/reduxHooks';
@@ -64,7 +65,13 @@ export const fetchKoulutus = async (oid: string, isDraft: boolean = false) => {
     });
 
     set(koulutusData, 'eperusteet', ePerusteet);
+  } else if (
+    koulutusData?.koulutustyyppi === KOULUTUS_TYYPPI.VAPAA_SIVISTYSTYO_OSAAMISMERKKI
+  ) {
+    const osaamismerkki = await getOsaamismerkki(koulutusData?.metadata?.osaamismerkki);
+    set(koulutusData, 'osaamismerkki', osaamismerkki);
   }
+
   return koulutusData;
 };
 
@@ -96,6 +103,7 @@ const selectKoulutus = (koulutusData: any) => {
       isAvoinKorkeakoulutus: koulutusData?.metadata?.isAvoinKorkeakoulutus,
       tunniste: koulutusData?.metadata?.tunniste, // Avoin-kk "hakijalle näkyvä tunniste"
       opinnonTyyppi: koulutusData?.metadata?.opinnonTyyppi, // Avoin-kk
+      osaamismerkki: koulutusData?.osaamismerkki,
     };
   } else {
     return undefined;
