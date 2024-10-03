@@ -7,10 +7,15 @@ import { useTranslation } from 'react-i18next';
 import { InfoGrid } from '#/src/components/common/InfoGrid';
 import { InfoGridIcon } from '#/src/components/common/InfoGridIcon';
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
-import { Koulutustyyppi, NDASH, MAKSULLISUUSTYYPPI } from '#/src/constants';
+import {
+  Koulutustyyppi,
+  NDASH,
+  MAKSULLISUUSTYYPPI,
+  KOULUTUS_TYYPPI,
+} from '#/src/constants';
 import { useVisibleKoulutustyyppi } from '#/src/hooks/useVisibleKoulutustyyppi';
 import { localize } from '#/src/tools/localization';
-import { Koodi, Translateable } from '#/src/types/common';
+import { Koodi, Osaamismerkki, Translateable } from '#/src/types/common';
 import { Opetus, Yksikko } from '#/src/types/ToteutusTypes';
 
 import { formatAloitus } from './utils';
@@ -73,6 +78,8 @@ type Props = {
   tunniste?: string;
   opinnonTyyppi?: Koodi;
   taiteenala?: Array<Translateable>;
+  osaamismerkki?: Osaamismerkki;
+  suoritetaanNayttona?: boolean;
 };
 
 export const ToteutusInfoGrid = ({
@@ -84,6 +91,8 @@ export const ToteutusInfoGrid = ({
   taiteenala,
   opetus = {},
   hasHaku,
+  osaamismerkki,
+  suoritetaanNayttona = false,
 }: Props) => {
   const { t } = useTranslation();
 
@@ -120,13 +129,23 @@ export const ToteutusInfoGrid = ({
       modalText: !isEmpty(opetus.opetuskieletKuvaus) && (
         <LocalizedHTML data={opetus.opetuskieletKuvaus!} noMargin />
       ),
-    },
-    {
-      icon: <InfoGridIcon icon="timelapse" />,
-      title: t('koulutus.koulutuksen-laajuus'),
-      text: laajuus,
     }
   );
+
+  const osaamismerkkiTeema = osaamismerkki?.kategoria?.nimi;
+  if (!isEmpty(osaamismerkkiTeema)) {
+    perustiedotData.push({
+      icon: <InfoGridIcon icon="category" variant="outlined" />,
+      title: t('koulutus.teema'),
+      text: localize(osaamismerkkiTeema),
+    });
+  }
+
+  perustiedotData.push({
+    icon: <InfoGridIcon icon="timelapse" />,
+    title: t('koulutus.koulutuksen-laajuus'),
+    text: laajuus,
+  });
 
   const taiteenalaString = taiteenala?.map(localizeMap).join('\n') ?? '';
 
@@ -226,6 +245,14 @@ export const ToteutusInfoGrid = ({
       icon: <InfoGridIcon icon="label" variant="outlined" />,
       title: t('koulutus.tunniste'),
       text: tunniste,
+    });
+  }
+
+  if (koulutustyyppi === KOULUTUS_TYYPPI.VAPAA_SIVISTYSTYO_OSAAMISMERKKI) {
+    perustiedotData.push({
+      icon: <InfoGridIcon icon="app_registration" variant="outlined" />,
+      title: t('koulutus.suoritustapa'),
+      text: suoritetaanNayttona ? t('koulutus.naytto') : t('koulutus.opintojakso'),
     });
   }
 

@@ -39,6 +39,7 @@ import { KielivalikoimaBox } from './KielivalikoimaBox';
 import { Opintojaksot } from './Opintojaksot';
 import { Opintokokonaisuudet } from './Opintokokonaisuudet';
 import { Osaamisalat } from './Osaamisalat';
+import { Osaamismerkit } from './Osaamismerkit';
 import { ToteutuksenYhteystiedot } from './ToteutuksenYhteystiedot';
 import { ToteutusHakutiedot } from './ToteutusHakutiedot';
 import { ToteutusInfoGrid } from './ToteutusInfoGrid';
@@ -106,6 +107,7 @@ export const ToteutusPage = () => {
     ammatillinenPerustutkintoErityisopetuksena,
     jarjestetaanErityisopetuksena,
     tyyppi,
+    suoritetaanNayttona,
   } = toteutus?.metadata ?? {};
 
   const { data: koulutus, status: koulutusStatus } = useKoulutus({
@@ -115,6 +117,7 @@ export const ToteutusPage = () => {
 
   const opintojaksot = toteutus?.liitetytOpintojaksot;
   const kuuluuOpintokokonaisuuksiin = toteutus?.kuuluuOpintokokonaisuuksiin;
+  const liitetytOsaamismerkit = toteutus?.liitetytOsaamismerkit ?? [];
 
   const oppilaitokset = useOppilaitokset({
     isOppilaitosOsa: false,
@@ -225,6 +228,8 @@ export const ToteutusPage = () => {
             tunniste={toteutus?.metadata?.tunniste}
             opinnonTyyppi={toteutus?.metadata?.opinnonTyyppi}
             taiteenala={toteutus?.metadata?.taiteenala}
+            osaamismerkki={koulutus?.osaamismerkki}
+            suoritetaanNayttona={suoritetaanNayttona}
           />
         </PageSection>
         {toteutus?.hakuAuki && (
@@ -283,6 +288,11 @@ export const ToteutusPage = () => {
             <Opintokokonaisuudet
               opintokokonaisuudet={kuuluuOpintokokonaisuuksiin || []}
             />
+          )}
+        {(KOULUTUS_TYYPPI.VAPAA_SIVISTYSTYO_MUU === tyyppi ||
+          KOULUTUS_TYYPPI.VAPAA_SIVISTYSTYO_OPISTOVUOSI == tyyppi) &&
+          !isEmpty(liitetytOsaamismerkit) && (
+            <Osaamismerkit osaamismerkit={liitetytOsaamismerkit} />
           )}
         {showLaskuri && (
           <PisteContainer
