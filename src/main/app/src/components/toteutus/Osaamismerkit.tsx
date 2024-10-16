@@ -7,25 +7,25 @@ import { PageSection } from '#/src/components/common/PageSection';
 import { localize } from '#/src/tools/localization';
 import { MinimalEntity } from '#/src/types/ToteutusTypes';
 
-export const Opintokokonaisuudet = ({
-  opintokokonaisuudet,
+export const Osaamismerkit = ({
+  osaamismerkit,
 }: {
-  opintokokonaisuudet: Array<MinimalEntity>;
+  osaamismerkit: Array<MinimalEntity>;
 }) => {
   const { t } = useTranslation();
 
-  return opintokokonaisuudet?.length > 0 ? (
+  return osaamismerkit?.length > 0 ? (
     <PageSection
       style={{ textAlign: 'center' }}
-      heading={t('toteutus.kuuluu-opintokokonaisuuksiin')}>
-      {opintokokonaisuudet.map((opintokokonaisuus) => (
+      heading={t('toteutus.voi-suorittaa-osaamismerkit')}>
+      {osaamismerkit.map((osaamismerkki) => (
         <Link
-          key={opintokokonaisuus.oid}
+          key={osaamismerkki.oid}
           sx={{ fontSize: '1.25rem' }}
           target="_blank"
           tabIndex={-1}
-          href={`/toteutus/${opintokokonaisuus.oid}`}>
-          {localize(opintokokonaisuus?.nimi)}
+          href={`/koulutus/${osaamismerkki.oid}`}>
+          {localize(osaamismerkki?.nimi)}
         </Link>
       ))}
     </PageSection>

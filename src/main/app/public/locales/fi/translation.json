@@ -693,7 +693,8 @@
     "lue-lisaa-opintojaksosta": "Lue lisää opintojaksosta",
     "kuuluu-opintokokonaisuuksiin": "Opintojakso kuuluu seuraaviin opintokokonaisuuksiin:",
     "taiteenala": "Taiteenalat",
-    "kaikki-kielet-prefix": "Sisältyvät oppiaineet"
+    "kaikki-kielet-prefix": "Sisältyvät oppiaineet",
+    "voi-suorittaa-osaamismerkit": "Tässä koulutuksessa voi suorittaa myös seuraavat osaamismerkit:"
   },
   "header": {
     "siirry-etusivulle": "Siirry Opintopolun etusivulle"

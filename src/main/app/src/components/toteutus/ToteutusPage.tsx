@@ -39,6 +39,7 @@ import { KielivalikoimaBox } from './KielivalikoimaBox';
 import { Opintojaksot } from './Opintojaksot';
 import { Opintokokonaisuudet } from './Opintokokonaisuudet';
 import { Osaamisalat } from './Osaamisalat';
+import { Osaamismerkit } from './Osaamismerkit';
 import { ToteutuksenYhteystiedot } from './ToteutuksenYhteystiedot';
 import { ToteutusHakutiedot } from './ToteutusHakutiedot';
 import { ToteutusInfoGrid } from './ToteutusInfoGrid';
@@ -116,6 +117,7 @@ export const ToteutusPage = () => {
 
   const opintojaksot = toteutus?.liitetytOpintojaksot;
   const kuuluuOpintokokonaisuuksiin = toteutus?.kuuluuOpintokokonaisuuksiin;
+  const liitetytOsaamismerkit = toteutus?.liitetytOsaamismerkit ?? [];
 
   const oppilaitokset = useOppilaitokset({
     isOppilaitosOsa: false,
@@ -286,6 +288,11 @@ export const ToteutusPage = () => {
             <Opintokokonaisuudet
               opintokokonaisuudet={kuuluuOpintokokonaisuuksiin || []}
             />
+          )}
+        {(KOULUTUS_TYYPPI.VAPAA_SIVISTYSTYO_MUU === tyyppi ||
+          KOULUTUS_TYYPPI.VAPAA_SIVISTYSTYO_OPISTOVUOSI == tyyppi) &&
+          !isEmpty(liitetytOsaamismerkit) && (
+            <Osaamismerkit osaamismerkit={liitetytOsaamismerkit} />
           )}
         {showLaskuri && (
           <PisteContainer
