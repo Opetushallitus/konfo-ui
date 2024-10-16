@@ -1,5 +1,6 @@
 import DOMPurify from 'dompurify';
 import parseHtmlToReact, { HTMLReactParserOptions } from 'html-react-parser';
+import { TFunction } from 'i18next';
 import {
   pickBy,
   capitalize,
@@ -12,7 +13,14 @@ import {
 } from 'lodash';
 
 import { NDASH } from '#/src/constants';
-import { TranslateableKoodi, TODOType, Translateable } from '#/src/types/common';
+import {
+  TranslateableKoodi,
+  TODOType,
+  Translateable,
+  Osaamismerkkikuvaus,
+  OsaamismerkkikuvausEntity,
+  Osaamismerkki,
+} from '#/src/types/common';
 
 import { getLanguage, getTranslationForKey, localize } from './localization';
 import { Pagination } from '../store/reducers/koulutusSlice';
@@ -256,3 +264,59 @@ export const isNonNil = <TValue>(
 export const isTruthy = <TValue>(
   value: TValue | null | undefined | false
 ): value is TValue => Boolean(value);
+
+export const getLocalizedOsaamismerkkikuvaus = (
+  kuvaus: Osaamismerkkikuvaus,
+  t: TFunction
+) => {
+  const { osaamistavoitteet, arviointikriteerit } = kuvaus;
+
+  const osaamistavoitteetTitle = isEmpty(osaamistavoitteet)
+    ? ''
+    : `${t('haku.osaamistavoitteet')}: `;
+  const arviointikriteeritTitle = isEmpty(arviointikriteerit)
+    ? ''
+    : `${t('haku.arviointikriteerit')}: `;
+  return (
+    osaamistavoitteetTitle +
+    localize(osaamistavoitteet) +
+    (isEmpty(osaamistavoitteet) ? '' : ' ') +
+    arviointikriteeritTitle +
+    localize(arviointikriteerit)
+  );
+};
+
+export const createKuvausListElement = (
+  items: Array<OsaamismerkkikuvausEntity>,
+  headingName: string,
+  itemKey: string,
+  t: TFunction
+) => {
+  const translationKey = t(`haku.${headingName}`);
+  const listHeading = `<h3>${translationKey}</h3>`;
+  const listItemHtmlStr = items
+    ?.map((item) => {
+      return '<li>' + localize(item?.[itemKey]) + '</li>';
+    })
+    .join('');
+
+  return isEmpty(items) ? '' : listHeading + '<ul>' + listItemHtmlStr + '</ul>';
+};
+
+export const createOsaamismerkinKuvausHtml = (
+  t: TFunction,
+  osaamismerkki?: Osaamismerkki
+) => {
+  const osaamistavoitteet = osaamismerkki?.osaamistavoitteet || [];
+  const arviointikriteerit = osaamismerkki?.arviointikriteerit || [];
+
+  return (
+    createKuvausListElement(osaamistavoitteet, 'osaamistavoitteet', 'osaamistavoite', t) +
+    createKuvausListElement(
+      arviointikriteerit,
+      'arviointikriteerit',
+      'arviointikriteeri',
+      t
+    )
+  );
+};

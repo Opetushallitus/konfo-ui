@@ -70,6 +70,7 @@ export enum KOULUTUS_TYYPPI {
   MUU_AMMATILLINEN_KOULUTUS = 'amm-muu',
   TUVA = 'tuva',
   VAPAA_SIVISTYSTYO_OPISTOVUOSI = 'vapaa-sivistystyo-opistovuosi',
+  VAPAA_SIVISTYSTYO_OSAAMISMERKKI = 'vapaa-sivistystyo-osaamismerkki',
   VAPAA_SIVISTYSTYO_MUU = 'vapaa-sivistystyo-muu',
   TELMA = 'telma',
   LUKIOKOULUTUS = 'lk',
@@ -135,6 +136,11 @@ export enum MAKSULLISUUSTYYPPI {
   MAKSULLINEN = 'maksullinen',
   MAKSUTON = 'maksuton',
   LUKUVUOSIMAKSU = 'lukuvuosimaksu',
+}
+
+export enum OSAAMISMERKKI_JULKAISUTILA {
+  JULKAISTU = 'JULKAISTU',
+  LAADINNASSA = 'LAADINNASSA',
 }
 
 export const PAINOTETUT_OPPIAINEET_LUKIO_KAIKKI_OPTIONS = [

@@ -61,6 +61,8 @@ public class KonfoUiConfiguration extends OphProperties {
     this.frontProperties.setProperty(
         "konfo-backend.oppilaitos.tarjonta", this.require("konfo-backend.oppilaitos.tarjonta"));
     this.frontProperties.setProperty(
+        "konfo-backend.osaamismerkki", this.require("konfo-backend.osaamismerkki"));
+    this.frontProperties.setProperty(
         "konfo-backend.hakukohde", this.require("konfo-backend.hakukohde"));
     this.frontProperties.setProperty("konfo-backend.haku", this.require("konfo-backend.haku"));
     this.frontProperties.setProperty(
@@ -75,7 +77,9 @@ public class KonfoUiConfiguration extends OphProperties {
     this.frontProperties.setProperty(
         "eperusteet-service.eperuste.kuvaus", this.require("eperusteet-service.eperuste.kuvaus"));
     this.frontProperties.setProperty(
-            "eperusteet-service.eperuste.tiedot", this.require("eperusteet-service.eperuste.tiedot"));
+        "eperusteet-service.eperuste.tiedot", this.require("eperusteet-service.eperuste.tiedot"));
+    this.frontProperties.setProperty(
+        "eperusteet-service.osaamismerkki", this.require("eperusteet-service.osaamismerkki"));
     this.frontProperties.setProperty("oma-opintopolku", this.require("oma-opintopolku"));
     this.frontProperties.setProperty(
         "konfo-backend.haku.demo", this.require("konfo-backend.haku.demo"));
