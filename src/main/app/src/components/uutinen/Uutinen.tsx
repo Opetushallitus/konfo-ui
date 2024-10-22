@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
+import { useSideMenu } from '#/src/hooks';
 import { useContentful } from '#/src/hooks/useContentful';
 import { styled } from '#/src/theme';
 import { localize } from '#/src/tools/localization';
@@ -53,6 +54,7 @@ export const Uutinen = ({ id }: { id: string }) => {
 
   const navigate = useNavigate();
   const { data, forwardTo, assetUrl } = useContentful();
+  const { state: isMenuOpen } = useSideMenu();
 
   const uutinen = data.uutinen[id];
   const link = (uutinen.sivu || {}).id;
@@ -69,7 +71,12 @@ export const Uutinen = ({ id }: { id: string }) => {
   const timestamp = uutinen.formatoituUpdated || uutinen.formatoituCreated;
 
   return (
-    <Grid item xs={12} sm={6} md={4} onClick={() => forwardToPage(link)}>
+    <Grid
+      item
+      xs={12}
+      sm={isMenuOpen ? 12 : 6}
+      md={isMenuOpen ? 6 : 4}
+      onClick={() => forwardToPage(link)}>
       <UutinenCard elevation={3}>
         {imgUrl && (
           <CardMedia
