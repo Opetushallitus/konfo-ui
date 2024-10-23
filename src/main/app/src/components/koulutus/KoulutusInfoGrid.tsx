@@ -11,7 +11,7 @@ import { Koulutustyyppi } from '#/src/constants';
 import { useVisibleKoulutustyyppi } from '#/src/hooks/useVisibleKoulutustyyppi';
 import { localize, localizeArrayToCommaSeparated } from '#/src/tools/localization';
 import { getLocalizedKoulutusLaajuus } from '#/src/tools/utils';
-import { Koodi, Translateable } from '#/src/types/common';
+import { Koodi, Osaamismerkki, Translateable } from '#/src/types/common';
 
 type Koulutus = {
   tutkintonimikkeet: Array<Translateable>;
@@ -22,6 +22,7 @@ type Koulutus = {
   isAvoinKorkeakoulutus: boolean;
   opinnonTyyppi: Koodi;
   tunniste: string;
+  osaamismerkki: Osaamismerkki;
 };
 
 type Props = {
@@ -37,6 +38,7 @@ export const KoulutusInfoGrid = ({ koulutus }: Props) => {
     tutkintonimikkeet,
     opinnonTyyppi,
     tunniste,
+    osaamismerkki,
   } = koulutus;
 
   const laajuus = getLocalizedKoulutusLaajuus(koulutus);
@@ -121,6 +123,15 @@ export const KoulutusInfoGrid = ({ koulutus }: Props) => {
           </ExternalLink>
         </Box>
       ),
+    });
+  }
+
+  const osaamismerkkiTeema = osaamismerkki?.kategoria?.nimi;
+  if (!isEmpty(osaamismerkkiTeema)) {
+    perustiedotData.push({
+      icon: <InfoGridIcon icon="category" variant="outlined" />,
+      title: t('koulutus.teema'),
+      text: localize(osaamismerkkiTeema),
     });
   }
 
