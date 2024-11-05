@@ -11,13 +11,13 @@
     <description>Konfo-ui (Uusi koulutusinformaatio UI)</description>
 
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>21</java.version>
         <logback-access.version>1.2.12</logback-access.version>
     </properties>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.11</version>
+        <version>3.3.5</version>
     </parent>
     <dependencyManagement>
         <dependencies>
@@ -44,9 +44,9 @@
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-access</artifactId>
-            <version>${logback-access.version}</version>
+            <groupId>ch.qos.logback.access</groupId>
+            <artifactId>tomcat</artifactId>
+            <version>2.0.3</version>
         </dependency>
         <dependency>
             <groupId>com.github.greengerong</groupId>
@@ -81,11 +81,11 @@
             <plugin>
                 <groupId>com.diffplug.spotless</groupId>
                 <artifactId>spotless-maven-plugin</artifactId>
-                <version>2.18.0</version>
+                <version>2.43.0</version>
                 <configuration>
                     <java>
                         <googleJavaFormat>
-                            <version>1.13.0</version>
+                            <version>1.24.0</version>
                             <style>GOOGLE</style>
                         </googleJavaFormat>
                     </java>
