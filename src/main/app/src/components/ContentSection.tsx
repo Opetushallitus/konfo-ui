@@ -17,7 +17,9 @@ export const ContentSection = ({
     <WithSideMargins>
       {heading && children ? (
         <>
-          <Heading variant={variant}>{heading}</Heading>
+          <Heading sx={{ marginTop: '15px' }} variant={variant}>
+            {heading}
+          </Heading>
           <HeadingBoundary>{children}</HeadingBoundary>
         </>
       ) : (
