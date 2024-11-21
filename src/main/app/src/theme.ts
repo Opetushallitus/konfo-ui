@@ -22,6 +22,12 @@ const breakpoints = {
   },
 };
 
+const cssBreakWordRule = {
+  wordBreak: 'break-word',
+  overflowWrap: 'break-word',
+  hyphens: 'auto',
+};
+
 export const theme = createTheme({
   headerHeight: HEADER_HEIGHT_PX,
   breakpoints,
@@ -69,6 +75,7 @@ export const theme = createTheme({
       [breakpoints.down('sm')]: {
         fontSize: '1.75rem',
         lineHeight: '2rem',
+        ...cssBreakWordRule,
       },
     },
     h3: {
@@ -80,6 +87,7 @@ export const theme = createTheme({
       [breakpoints.down('sm')]: {
         fontSize: '1.5rem',
         lineHeight: '1.875rem',
+        ...cssBreakWordRule,
       },
     },
     h4: {

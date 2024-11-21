@@ -7,7 +7,7 @@ import { Askem } from '#/src/components/common/Askem';
 import { Murupolku } from '#/src/components/common/Murupolku';
 import { useContentful } from '#/src/hooks/useContentful';
 import { useScrollToHash } from '#/src/hooks/useScrollToHash';
-import { styled } from '#/src/theme';
+import { styled, theme } from '#/src/theme';
 
 import { Sisalto } from './Sisalto';
 import { TableOfContents } from './TableOfContents';
@@ -31,6 +31,12 @@ const SivuHeading = styled('h1')({
   marginBottom: '30px',
   fontWeight: '700',
   color: colors.grey900,
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '30px',
+    wordBreak: 'break-word',
+    overflowWrap: 'break-word',
+    hyphens: 'auto',
+  },
 });
 
 export const Sivu = ({ id }: { id: string }) => {

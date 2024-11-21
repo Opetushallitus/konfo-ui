@@ -75,6 +75,12 @@ export const Askem = () => {
       '.askem-header-text': {
         fontSize: '2rem',
         fontWeight: 700,
+        [theme.breakpoints.down('sm')]: {
+          wordBreak: 'break-word',
+          overflowWrap: 'break-word',
+          hyphens: 'auto',
+          fontSize: '1.6rem',
+        },
       },
       '.askem-reactions-group': {
         '.askem-reaction-button': buttonStyles,
