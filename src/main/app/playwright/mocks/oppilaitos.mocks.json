@@ -26,7 +26,7 @@
             "sosiaalinenmedia_1": "https://facebook.com/aaltouniversity",
             "sosiaalinenmedia_7": "https://www.youtube.com/user/aaltouniversity",
             "sosiaalinenmedia_6": "https://instagram.com/aaltouniversity",
-            "sosiaalinenmedia_9": "https://footube.com"
+            "sosiaalinenmedia_9": "https://www.tiktok.com/@aaltouniversity"
           },
           "isMuokkaajaOphVirkailija": true,
           "opiskelijoita": 18000,
@@ -250,6 +250,14 @@
           "nimi": {
             "fi": "Twitter",
             "sv": "Twitter"
+          }
+        },
+        {
+          "koodiUri": "sosiaalinenmedia_9",
+          "versio": 1,
+          "nimi": {
+            "fi": "TikTok",
+            "sv": "TikTok"
           }
         }
       ]

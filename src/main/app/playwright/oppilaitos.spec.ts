@@ -35,7 +35,7 @@ test.describe('oppilaitos', () => {
       'https://www.aalto.fi/snapchat',
       'https://www.aalto.fi/snapchat'
     );
-    await verifySomeLink('Footube', 'https://footube.com');
+    await verifySomeLink('TikTok', 'https://www.tiktok.com/@aaltouniversity');
     const buttonGroup = page.locator('div', {
       hasText: /^Oppilaitoksen blogiAalto-yliopisto$/,
     });
