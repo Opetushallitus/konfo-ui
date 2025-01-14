@@ -34,7 +34,6 @@ const classes = {
 };
 
 const StyledAppBar = styled(AppBar)(() => ({
-  position: 'fixed',
   height: theme.headerHeight,
   fontSize: 'small',
   [`& .${classes.toolBar}`]: {
@@ -128,7 +127,7 @@ export const Header = ({
   const OpintopolkuHeaderLogo = getOpintopolkuHeaderLogo();
 
   return (
-    <StyledAppBar>
+    <StyledAppBar sx={{ position: { xs: 'absolute', sm: 'fixed' } }}>
       <Toolbar className={classes.toolBar}>
         <Box display="flex" alignItems="center">
           <IconButton

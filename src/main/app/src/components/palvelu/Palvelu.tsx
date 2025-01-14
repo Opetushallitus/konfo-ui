@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
+import { useSideMenu } from '#/src/hooks';
 import { useContentful } from '#/src/hooks/useContentful';
 import { styled } from '#/src/theme';
 import { withDefaultProps } from '#/src/tools/withDefaultProps';
@@ -39,6 +40,7 @@ export const Palvelu = ({ id }: { id: string }) => {
   const navigate = useNavigate();
   const { data, forwardTo, assetUrl } = useContentful();
   const { i18n } = useTranslation();
+  const { state: isMenuOpen } = useSideMenu();
   const { asset } = data;
   const palvelu = data.palvelu[id];
 
@@ -51,7 +53,7 @@ export const Palvelu = ({ id }: { id: string }) => {
   };
 
   return (
-    <Grid item xs={12} sm={6} md={4}>
+    <Grid item xs={12} sm={isMenuOpen ? 12 : 6} md={isMenuOpen ? 6 : 4}>
       <PalveluCard
         palvelu={palvelu}
         key={palvelu.id}
