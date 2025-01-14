@@ -155,7 +155,7 @@ describe('GraafiUtil', () => {
 
   const pistehistoriaTodistusvalinta = {
     pisteet: 6.17,
-    vuosi: '2018',
+    vuosi: String(currentYear - 6),
     valintatapajonoTyyppi: {
       koodiUri: 'valintatapajono_tv',
       nimi: {
@@ -167,7 +167,7 @@ describe('GraafiUtil', () => {
   };
   const pistehistoriaWithTodistusvalinta2 = {
     pisteet: 7.2,
-    vuosi: '2022',
+    vuosi: String(currentYear - 2),
     valintatapajonoTyyppi: {
       koodiUri: 'valintatapajono_tv',
       nimi: {
@@ -180,7 +180,7 @@ describe('GraafiUtil', () => {
 
   const pistehistoriaYhteispisteet = {
     pisteet: 16.0,
-    vuosi: '2023',
+    vuosi: String(currentYear - 1),
     valintatapajonoTyyppi: {
       koodiUri: 'valintatapajono_yp',
       nimi: {
@@ -193,7 +193,7 @@ describe('GraafiUtil', () => {
 
   const pistehistoriaKoepisteet = {
     pisteet: 16.0,
-    vuosi: '2019',
+    vuosi: String(currentYear - 5),
     valintatapajonoTyyppi: {
       koodiUri: 'valintatapajono_kp',
       nimi: {
@@ -206,7 +206,7 @@ describe('GraafiUtil', () => {
 
   const pistehistoriaMuu = {
     pisteet: 16.0,
-    vuosi: '2020',
+    vuosi: String(currentYear - 4),
     valintatapajonoTyyppi: {
       koodiUri: 'valintatapajono_m',
       nimi: {
@@ -217,9 +217,9 @@ describe('GraafiUtil', () => {
     },
   };
 
-  const pistehistoriaTuntematon: PisteHistoria = {
+  const pistehistoriaTuntematon = {
     pisteet: 15.0,
-    vuosi: '2021',
+    vuosi: String(currentYear - 3),
     valintatapajonoTyyppi: null,
   };
 
