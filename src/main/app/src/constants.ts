@@ -150,3 +150,8 @@ export const PAINOTETUT_OPPIAINEET_LUKIO_KAIKKI_OPTIONS = [
   'painotettavatoppiaineetlukiossa_b2',
   'painotettavatoppiaineetlukiossa_b3',
 ];
+
+export enum COOKIES {
+  MANDATORY_COOKIE_NAME = 'oph-mandatory-cookies-accepted',
+  STATISTICS_COOKIE_NAME = 'oph-statistic-cookies-accepted',
+}
