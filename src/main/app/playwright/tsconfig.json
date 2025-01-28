@@ -3,7 +3,8 @@
     "compilerOptions": {
       "allowSyntheticDefaultImports": true,
       "resolveJsonModule": true,
-      "moduleResolution": "node",
+      "module": "esnext",
+      "moduleResolution": "node"
     },
     "include": [
       "./**/*.ts",

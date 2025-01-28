@@ -29,7 +29,7 @@
     "src/**/*.jsx",
     "src/**/*.js",
     ".eslintrc.js",
-    "*.config.ts",
+    "*.config.ts"
   ],
   "exclude": [
     "node_modules"
