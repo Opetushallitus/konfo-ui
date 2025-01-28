@@ -28,34 +28,38 @@
       document.addEventListener('DOMContentLoaded', runMatomoTrackingScriptOnUserConsent);
       function runMatomoTrackingScriptOnUserConsent() {
         let siteDomain = location.hostname;
-        if (
-          document.cookie
+        let enabledStatisticsCookie = document.cookie
             .split(';')
             .some((cookieStr) =>
-              cookieStr.includes('oph-statistic-cookies-accepted=true')
-            )
-        ) {
+              cookieStr.includes('oph-statistic-cookies-accepted=true'));
+
           // NOTE: Do not run any analytics on local dev / playwright runs
           if (siteDomain !== 'localhost') {
             var matomoSiteId;
             switch (siteDomain) {
-              case 'beta.opintopolku.fi':
-                matomoSiteId = 27;
+              case 'opintopolku.fi':
+                matomoSiteId = 2;
                 break;
-              case 'beta.testiopintopolku.fi':
-                matomoSiteId = 28;
+              case 'testiopintopolku.fi':
+                matomoSiteId = 1;
                 break;
               default:
-                matomoSiteId = 2; // Kehitys
+                matomoSiteId = 35; // Kehitys
             }
+            console.log('matomoSiteId', matomoSiteId);
             var _paq = window._paq || [];
             /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+            if (enabledStatisticsCookie) {
+              _paq.push(["setDoNotTrack", false]);
+            } else {
+              _paq.push(["setDoNotTrack", true]);
+            }
             _paq.push(['requireConsent']);
             _paq.push(['trackPageView']);
             _paq.push(['setDocumentTitle', document.domain + '/' + document.title]);
             _paq.push(['enableLinkTracking']);
             (function () {
-              var u = '//analytiikka.opintopolku.fi/matomo/';
+              var u = '//analytiikka.opintopolku.fi/';
               _paq.push(['setTrackerUrl', u + 'matomo.php']);
               _paq.push(['setSiteId', matomoSiteId]);
               var d = document,
@@ -68,10 +72,8 @@
               s.parentNode.insertBefore(g, s);
             })();
           }
-        }
+        
       }
-    </script>
-    <script>
       var siteDomain = document.domain;
       var documentUrl = document.URL;
       var matomoSiteUrl;
