@@ -136,7 +136,7 @@ export const CookieDrawer = () => {
             xl={6}>
             <Hidden smDown>
               <StyledButtonLink variant="text" onClick={() => setCookieModalShown(true)}>
-                Evästeasetukset
+                {t('cookieModal.cookie-settings')}
               </StyledButtonLink>
             </Hidden>
             <ButtonGroup
@@ -149,7 +149,7 @@ export const CookieDrawer = () => {
                 <StyledButtonLink
                   variant="text"
                   onClick={() => setCookieModalShown(true)}>
-                  Evästeasetukset
+                  {t('cookieModal.cookie-settings')}
                 </StyledButtonLink>
               </Hidden>
               <StyledButton
