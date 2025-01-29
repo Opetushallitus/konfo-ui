@@ -15,7 +15,8 @@
     "heading": "Evästeet",
     "mandatory": "Pakolliset evästeet",
     "statistic": "Tilastolliset evästeet",
-    "marketing": "Markkinointievästeet"
+    "marketing": "Markkinointievästeet",
+    "cookie-settings": "Evästeasetukset"
   },
   "opintopolku": {
     "brand": "Opintopolku linkki",
