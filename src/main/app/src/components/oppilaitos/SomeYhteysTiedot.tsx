@@ -8,6 +8,7 @@ import FacebookIcon from '#/src/assets/images/somelogos/some_facebook.svg';
 import InstagramIcon from '#/src/assets/images/somelogos/some_instagram.svg';
 import LinkedInIcon from '#/src/assets/images/somelogos/some_linkedin.svg';
 import SnapChatIcon from '#/src/assets/images/somelogos/some_snapchat.svg';
+import TikTokIcon from '#/src/assets/images/somelogos/some_tiktok.svg';
 import TwitterIcon from '#/src/assets/images/somelogos/some_x.svg';
 import YoutubeIcon from '#/src/assets/images/somelogos/some_youtube.svg';
 import { colors } from '#/src/colors';
@@ -28,6 +29,7 @@ export type Some = {
   sosiaalinenmedia_6: string;
   sosiaalinenmedia_7: string;
   sosiaalinenmedia_8: string;
+  sosiaalinenmedia_9: string;
 };
 
 const SomeIconLookupTable: Record<string, string> = {
@@ -37,6 +39,7 @@ const SomeIconLookupTable: Record<string, string> = {
   sosiaalinenmedia_6: InstagramIcon,
   sosiaalinenmedia_7: YoutubeIcon,
   sosiaalinenmedia_8: SnapChatIcon,
+  sosiaalinenmedia_9: TikTokIcon,
 };
 
 const BLOG_KEY = 'sosiaalinenmedia_5';
