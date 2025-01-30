@@ -11,7 +11,8 @@ export const mocksFromFile = async (ctx: { route: Page['route'] }, fileName: str
     url: string;
     method: string;
     response: { status: number; body: any };
-  }> = (await import(path.resolve(MOCKS_PATH, fileName))).default;
+  }> = (await import(path.resolve(MOCKS_PATH, fileName), { with: { type: 'json' } }))
+    .default;
 
   await Promise.all(
     mocks.map(async (mock) => {
@@ -66,7 +67,7 @@ export const fixtureFromFile = (fileName: string) => (route: Route) =>
   route.fulfill({ path: getFixturePath(fileName) });
 
 export const getFixtureData = async (fileName: string) =>
-  (await import(getFixturePath(fileName)))?.default;
+  (await import(getFixturePath(fileName), { with: { type: 'json' } }))?.default;
 
 export const getByLabelLocator = async (outer: Locator | Page, label: Locator) => {
   // label.getAttribute('id') toimii jostain syystä epävakaasti tässä..
