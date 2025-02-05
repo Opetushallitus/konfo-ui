@@ -1,7 +1,6 @@
 import DOMPurify from 'dompurify';
 import parseHtmlToReact, { HTMLReactParserOptions } from 'html-react-parser';
 import { TFunction } from 'i18next';
-import Cookies from 'js-cookie';
 import {
   pickBy,
   capitalize,
@@ -13,7 +12,7 @@ import {
   merge,
 } from 'lodash';
 
-import { NDASH, COOKIES } from '#/src/constants';
+import { NDASH } from '#/src/constants';
 import {
   TranslateableKoodi,
   TODOType,
@@ -321,23 +320,3 @@ export const createOsaamismerkinKuvausHtml = (
     )
   );
 };
-
-export function reloadPage() {
-  // Tarvitaan uudelleenlatausta että Matomo tilastojen
-  // seurannan skripti suoriutuu index.html:ssa
-  window.location.replace(window.location.href);
-}
-
-export function setMandatoryCookieAccepted() {
-  Cookies.set(COOKIES.MANDATORY_COOKIE_NAME, 'true', {
-    expires: 1800,
-    path: '/',
-  });
-}
-
-export function setStatisticsCookiesAccepted() {
-  Cookies.set(COOKIES.STATISTICS_COOKIE_NAME, 'true', {
-    expires: 1800,
-    path: '/',
-  });
-}

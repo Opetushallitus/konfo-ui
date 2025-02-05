@@ -21,14 +21,9 @@ import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 import { useContentful } from '#/src/hooks/useContentful';
-import { useCookiesInfo } from '#/src/hooks/useCookiesInfo';
+import { useCookieConsentState } from '#/src/hooks/useCookieConsentState';
 import { styled } from '#/src/theme';
 import { getOne } from '#/src/tools/getOne';
-import {
-  reloadPage,
-  setMandatoryCookieAccepted,
-  setStatisticsCookiesAccepted,
-} from '#/src/tools/utils';
 
 import { MaterialIcon } from './MaterialIcon';
 
@@ -79,10 +74,10 @@ export const CookieModal = () => {
   const {
     isCookieModalShown,
     isStatisticsCookiesAccepted,
-    setCookieModalShown,
+    setCookieModalVisible,
     acceptMandatoryCookies,
     acceptStatisticsCookies,
-  } = useCookiesInfo();
+  } = useCookieConsentState();
 
   const [fullCookieInfoOpen, setFullCookieInfoOpen] = useState(false);
   const [statisticsCookiesSwitchValue, setStatisticsCookiesSwitchValue] =
@@ -126,31 +121,26 @@ export const CookieModal = () => {
 
   const handleSaveCookieSettings: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
-    setMandatoryCookieAccepted();
+    acceptMandatoryCookies();
     if (statisticsCookiesSwitchValue) {
-      setStatisticsCookiesAccepted();
-      reloadPage();
+      acceptStatisticsCookies();
     }
-    setCookieModalShown(false);
+    setCookieModalVisible(false);
   };
 
-  const handleAcceptManadatoryCookies: React.MouseEventHandler<HTMLButtonElement> = (
+  const handleAcceptMandatoryCookies: React.MouseEventHandler<HTMLButtonElement> = (
     e
   ) => {
     e.preventDefault();
-    setMandatoryCookieAccepted();
     acceptMandatoryCookies();
-    setCookieModalShown(false);
+    setCookieModalVisible(false);
   };
 
   const handleAcceptAllCookies: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
-    setMandatoryCookieAccepted();
-    setStatisticsCookiesAccepted();
     acceptMandatoryCookies();
     acceptStatisticsCookies();
-    setCookieModalShown(false);
-    reloadPage();
+    setCookieModalVisible(false);
   };
 
   const handleAccordionExpandedChange = (
@@ -277,7 +267,7 @@ export const CookieModal = () => {
                   variant="contained"
                   color="primary"
                   disableRipple
-                  onClick={handleAcceptManadatoryCookies}>
+                  onClick={handleAcceptMandatoryCookies}>
                   {fields.allowOnlyNecessaryCookies}
                 </StyledButton>
               </ButtonGroup>
