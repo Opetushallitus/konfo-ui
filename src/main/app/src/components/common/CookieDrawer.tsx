@@ -13,14 +13,9 @@ import {
 import { useTranslation } from 'react-i18next';
 
 import { useContentful } from '#/src/hooks/useContentful';
-import { useCookiesInfo } from '#/src/hooks/useCookiesInfo';
+import { useCookieConsentState } from '#/src/hooks/useCookieConsentState';
 import { styled } from '#/src/theme';
 import { getOne } from '#/src/tools/getOne';
-import {
-  reloadPage,
-  setMandatoryCookieAccepted,
-  setStatisticsCookiesAccepted,
-} from '#/src/tools/utils';
 
 const StyledButton = styled(Button)(({ theme }) => ({
   width: 'fit-content',
@@ -56,8 +51,8 @@ export const CookieDrawer = () => {
     isMandatoryCookiesAccepted,
     acceptMandatoryCookies,
     acceptStatisticsCookies,
-    setCookieModalShown,
-  } = useCookiesInfo();
+    setCookieModalVisible,
+  } = useCookieConsentState();
 
   const { data, isLoading } = useContentful();
 
@@ -73,21 +68,18 @@ export const CookieDrawer = () => {
       t('cookieModal.allow-only-necessary-cookies'),
   };
 
-  const handleAcceptManadatoryCookies: React.MouseEventHandler<HTMLButtonElement> = (
+  const handleAcceptMandatoryCookies: React.MouseEventHandler<HTMLButtonElement> = (
     e
   ) => {
     e.preventDefault();
-    setMandatoryCookieAccepted();
     acceptMandatoryCookies();
   };
+  console.log('isMandatoryCookiesAccepted', isMandatoryCookiesAccepted);
 
   const handleAcceptAllCookies: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
-    setMandatoryCookieAccepted();
-    setStatisticsCookiesAccepted();
     acceptStatisticsCookies();
     acceptMandatoryCookies();
-    reloadPage();
   };
 
   return (
@@ -135,7 +127,9 @@ export const CookieDrawer = () => {
             md={7}
             xl={6}>
             <Hidden smDown>
-              <StyledButtonLink variant="text" onClick={() => setCookieModalShown(true)}>
+              <StyledButtonLink
+                variant="text"
+                onClick={() => setCookieModalVisible(true)}>
                 {t('cookieModal.cookie-settings')}
               </StyledButtonLink>
             </Hidden>
@@ -148,7 +142,7 @@ export const CookieDrawer = () => {
               <Hidden smUp>
                 <StyledButtonLink
                   variant="text"
-                  onClick={() => setCookieModalShown(true)}>
+                  onClick={() => setCookieModalVisible(true)}>
                   {t('cookieModal.cookie-settings')}
                 </StyledButtonLink>
               </Hidden>
@@ -156,7 +150,7 @@ export const CookieDrawer = () => {
                 variant="contained"
                 color="primary"
                 disableRipple
-                onClick={handleAcceptManadatoryCookies}>
+                onClick={handleAcceptMandatoryCookies}>
                 {fields.allowOnlyNecessaryCookies}
               </StyledButton>
               <StyledButton

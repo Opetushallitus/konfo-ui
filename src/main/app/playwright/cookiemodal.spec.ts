@@ -7,6 +7,7 @@ test.describe('Cookiemodal page', () => {
     await context.clearCookies();
     await expect(await getCookie(context, 'oph-mandatory-cookies-accepted')).toBeFalsy();
     await page.goto('/konfo/fi/');
+    await page.getByRole('button', { name: 'Evästeasetukset' }).click();
     await page.getByRole('button', { name: 'Salli vain pakolliset evästeet' }).click();
     await expect(await getCookie(context, 'oph-mandatory-cookies-accepted')).toEqual(
       'true'
