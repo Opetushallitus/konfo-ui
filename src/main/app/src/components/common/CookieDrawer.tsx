@@ -47,12 +47,8 @@ const StyledButtonLink = styled(Button)(({ theme }) => ({
 export const CookieDrawer = () => {
   const { t } = useTranslation();
 
-  const {
-    isMandatoryCookiesAccepted,
-    acceptMandatoryCookies,
-    acceptStatisticsCookies,
-    setCookieModalVisible,
-  } = useCookieConsentState();
+  const { setCookieModalVisibility, saveCookieConsent, isCookieDrawerVisible } =
+    useCookieConsentState();
 
   const { data, isLoading } = useContentful();
 
@@ -72,14 +68,12 @@ export const CookieDrawer = () => {
     e
   ) => {
     e.preventDefault();
-    acceptMandatoryCookies();
+    saveCookieConsent({ statistics: false });
   };
-  console.log('isMandatoryCookiesAccepted', isMandatoryCookiesAccepted);
 
   const handleAcceptAllCookies: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
-    acceptStatisticsCookies();
-    acceptMandatoryCookies();
+    saveCookieConsent({ statistics: true });
   };
 
   return (
@@ -94,7 +88,7 @@ export const CookieDrawer = () => {
       }}
       anchor="bottom"
       hideBackdrop={true}
-      open={!(isLoading || isMandatoryCookiesAccepted)}>
+      open={!isLoading && isCookieDrawerVisible}>
       <Container maxWidth="xl" sx={{ paddingTop: '10px', paddingBottom: '10px' }}>
         <Grid container spacing={1} justifyContent="space-between" alignItems="center">
           <Grid item xs={12} md={5} xl={6}>
@@ -129,7 +123,7 @@ export const CookieDrawer = () => {
             <Hidden smDown>
               <StyledButtonLink
                 variant="text"
-                onClick={() => setCookieModalVisible(true)}>
+                onClick={() => setCookieModalVisibility(true)}>
                 {t('cookieModal.cookie-settings')}
               </StyledButtonLink>
             </Hidden>
@@ -142,7 +136,7 @@ export const CookieDrawer = () => {
               <Hidden smUp>
                 <StyledButtonLink
                   variant="text"
-                  onClick={() => setCookieModalVisible(true)}>
+                  onClick={() => setCookieModalVisibility(true)}>
                   {t('cookieModal.cookie-settings')}
                 </StyledButtonLink>
               </Hidden>

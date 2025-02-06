@@ -71,17 +71,12 @@ export const CookieModal = () => {
   const { t } = useTranslation();
 
   const [settingsOpen, setSettingsOpen] = useState(false);
-  const {
-    isCookieModalShown,
-    isStatisticsCookiesAccepted,
-    setCookieModalVisible,
-    acceptMandatoryCookies,
-    acceptStatisticsCookies,
-  } = useCookieConsentState();
+  const { isCookieModalVisible, saveCookieConsent } = useCookieConsentState();
 
   const [fullCookieInfoOpen, setFullCookieInfoOpen] = useState(false);
-  const [statisticsCookiesSwitchValue, setStatisticsCookiesSwitchValue] =
-    useState<boolean>(isStatisticsCookiesAccepted);
+
+  const [isStatisticsCookiesAccepted, setIsStatisticsCookiesAccepted] =
+    useState<boolean>(false);
 
   const { data, isLoading } = useContentful();
 
@@ -121,26 +116,19 @@ export const CookieModal = () => {
 
   const handleSaveCookieSettings: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
-    acceptMandatoryCookies();
-    if (statisticsCookiesSwitchValue) {
-      acceptStatisticsCookies();
-    }
-    setCookieModalVisible(false);
+    saveCookieConsent({ statistics: isStatisticsCookiesAccepted });
   };
 
   const handleAcceptMandatoryCookies: React.MouseEventHandler<HTMLButtonElement> = (
     e
   ) => {
     e.preventDefault();
-    acceptMandatoryCookies();
-    setCookieModalVisible(false);
+    saveCookieConsent({ statistics: false });
   };
 
   const handleAcceptAllCookies: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
-    acceptMandatoryCookies();
-    acceptStatisticsCookies();
-    setCookieModalVisible(false);
+    saveCookieConsent({ statistics: true });
   };
 
   const handleAccordionExpandedChange = (
@@ -183,10 +171,8 @@ export const CookieModal = () => {
           control={
             <Switch
               id="statisticCookies"
-              checked={statisticsCookiesSwitchValue}
-              onClick={() =>
-                setStatisticsCookiesSwitchValue(!statisticsCookiesSwitchValue)
-              }
+              checked={isStatisticsCookiesAccepted}
+              onClick={() => setIsStatisticsCookiesAccepted((accepted) => !accepted)}
             />
           }
         />
@@ -208,7 +194,7 @@ export const CookieModal = () => {
     <Modal
       id="oph-cookie-modal-backdrop"
       sx={{ overflowY: 'auto' }}
-      open={!isLoading && isCookieModalShown}>
+      open={!isLoading && isCookieModalVisible}>
       <StyledModalContent>
         <Container sx={{ marginTop: '20px', marginBottom: '20px' }}>
           <Typography variant="h2" sx={{ marginTop: '0px' }}>
