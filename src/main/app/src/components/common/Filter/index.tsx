@@ -333,7 +333,6 @@ export const Filter = ({
 
   const config = useConfig();
   const isCountVisible = isCountVisibleProp && config?.naytaFiltterienHakutulosLuvut;
-  console.log('selectPlaceholder', selectPlaceholder);
 
   return (
     <SuodatinAccordion
