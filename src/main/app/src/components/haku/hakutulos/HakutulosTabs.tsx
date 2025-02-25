@@ -3,6 +3,7 @@ import React from 'react';
 import { Tabs, Tab, useTheme } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
+import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { useHakutulosWidth } from '#/src/store/reducers/appSlice';
 import { styled } from '#/src/theme';
@@ -86,9 +87,18 @@ export const HakutulosTabs = () => {
           labelIcon: classes.tabLabelIcon,
           root: classes.tabRoot,
         }}
+        disableRipple
         label={`${t('haku.koulutukset')} (${koulutusTotal ?? 0})`}
+        sx={{
+          '&:focus-visible': {
+            boxShadow: `inset 0 0 0 2px ${
+              selectedTab == 'koulutus' ? colors.brandGreen : colors.grey700
+            }`,
+          },
+        }}
       />
       <Tab
+        disableRipple
         value="oppilaitos"
         icon={
           <MaterialIcon
@@ -103,6 +113,13 @@ export const HakutulosTabs = () => {
           root: classes.tabRoot,
         }}
         label={`${t('haku.oppilaitokset')} (${oppilaitosTotal ?? 0})`}
+        sx={{
+          '&:focus-visible': {
+            boxShadow: `inset 0 0 0 2px ${
+              selectedTab == 'oppilaitos' ? colors.brandGreen : colors.grey700
+            }`,
+          },
+        }}
       />
     </StyledTabs>
   );

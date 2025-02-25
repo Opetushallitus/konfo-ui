@@ -21,6 +21,12 @@ export const SuodatinAccordion = styled(Accordion)({
 });
 
 export const SuodatinAccordionSummary = styled(AccordionSummary)(({ theme }) => ({
+  '&:focus-visible': {
+    boxShadow: `inset 0 0 0 2px ${colors.grey700}`,
+  },
+  '&.Mui-focused': {
+    boxShadow: `inset 0 0 0 2px ${colors.grey700}`,
+  },
   minHeight: '56px !important',
   [theme.breakpoints.down('md')]: {
     padding: '0 !important',

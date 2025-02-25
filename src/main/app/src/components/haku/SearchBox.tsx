@@ -64,6 +64,10 @@ const createRenderInput = (t: TFunction) => {
           borderRadius: 0,
           flex: 1,
           width: '100%',
+          '& .MuiAutocomplete-input::placeholder': {
+            color: colors.grey700,
+            opacity: 0.85,
+          },
         }}
         type="text"
         name="keyword"
