@@ -274,12 +274,12 @@ export const HakuPage = () => {
                   value={sortOrder}
                   onChange={(e) => setSortOrder(e.target.value)}>
                   {PAGE_SORT_OPTIONS.map((sort) => (
-                    <MenuItem
+                    <StyledMenuItem
                       key={sort}
                       classes={{ root: classes.menuItemRoot }}
                       value={sort}>
                       {t(getPageSortTranslationKey(sort))}
-                    </MenuItem>
+                    </StyledMenuItem>
                   ))}
                 </StyledSelect>
               </Grid>

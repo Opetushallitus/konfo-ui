@@ -423,11 +423,14 @@ export const Filter = ({
           </Grid>
           {expandValues && rajainItems.length > HIDE_NOT_EXPANDED_AMOUNT && (
             <Button
+              disableRipple
               color="secondary"
               size="small"
               sx={{
                 fontSize: 14,
-                border: '1px solid red',
+                '&:focus-visible': {
+                  boxShadow: `inset 0 0 0 2px ${colors.green700}`,
+                },
               }}
               endIcon={<MaterialIcon icon={hideRest ? 'expand_more' : 'expand_less'} />}
               fullWidth
