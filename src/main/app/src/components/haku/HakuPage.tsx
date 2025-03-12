@@ -116,14 +116,20 @@ const StyledMenuItem = styled(MenuItem)(({ selected }) => ({
     fontWeight: 'bold',
     color: 'white',
   }),
+  '&:focus, &.Mui-focused': {
+    boxShadow: `inset 0 0 0 3px ${colors.brandGreen}`,
+    backgroundColor: colors.white,
+    fontWeight: 'bold',
+  },
 }));
-const borderGrey700 = {
-  boxShadow: `inset 0 0 0 2px ${colors.brandGreen}`,
-};
+
+const coloredBorder = (color: string) => ({
+  boxShadow: `inset 0 0 0 2px ${color}`,
+});
 const StyledSelect = styled(Select)({
   paddingLeft: '4px',
-  '&:focus': borderGrey700,
-  '&.Mui-focused': borderGrey700,
+  '&:focus': coloredBorder(colors.brandGreen),
+  '&.Mui-focused': coloredBorder(colors.brandGreen),
 });
 
 const useSyncedHakuParams = () => {
