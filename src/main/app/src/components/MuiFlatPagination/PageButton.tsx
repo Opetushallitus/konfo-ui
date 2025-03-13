@@ -5,6 +5,8 @@ import { PropTypes, StandardProps, Button, Theme, ButtonProps } from '@mui/mater
 import { WithStyles, withStyles, createStyles } from '@mui/styles';
 import clsx from 'clsx';
 
+import { colors } from '#/src/colors';
+
 import { getOffset } from './core';
 import { RenderButtonProps } from './Pagination';
 
@@ -203,6 +205,11 @@ const UnstyledPageButton: React.FunctionComponent<
 
   const button = (
     <Button
+      sx={{
+        '&:focus-visible': {
+          boxShadow: `inset 0 0 0 2px ${isCurrent ? colors.brandGreen : colors.grey700}`,
+        },
+      }}
       classes={classes}
       color={color === 'secondary' ? 'secondary' : 'primary'}
       disabled={disabled}

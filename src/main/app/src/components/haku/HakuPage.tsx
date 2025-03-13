@@ -14,6 +14,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
+import { colors } from '#/src/colors';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { Murupolku } from '#/src/components/common/Murupolku';
@@ -109,6 +110,27 @@ const StyledGrid = styled(Box)(({ theme }) => ({
     whiteSpace: 'nowrap',
   },
 }));
+const StyledMenuItem = styled(MenuItem)(({ selected }) => ({
+  ...(selected && {
+    backgroundColor: `${colors.brandGreen} !important`,
+    fontWeight: 'bold',
+    color: 'white',
+  }),
+  '&:focus, &.Mui-focused': {
+    boxShadow: `inset 0 0 0 3px ${colors.brandGreen}`,
+    backgroundColor: colors.white,
+    fontWeight: 'bold',
+  },
+}));
+
+const coloredBorder = (color: string) => ({
+  boxShadow: `inset 0 0 0 2px ${color}`,
+});
+const StyledSelect = styled(Select)({
+  paddingLeft: '4px',
+  '&:focus': coloredBorder(colors.brandGreen),
+  '&.Mui-focused': coloredBorder(colors.brandGreen),
+});
 
 const useSyncedHakuParams = () => {
   const { search } = useUrlParams();
@@ -221,7 +243,7 @@ export const HakuPage = () => {
                 <Box component="span" className={classes.boxRoot}>
                   {t('haku.tulokset-per-sivu')}
                 </Box>
-                <Select
+                <StyledSelect
                   IconComponent={ExpandMore}
                   className={classes.select}
                   style={{ marginRight: 4 }}
@@ -232,21 +254,21 @@ export const HakuPage = () => {
                   variant="standard"
                   value={pagination.size}
                   onChange={(e) =>
-                    setPagination({ size: safeParseNumber(e.target.value) })
+                    setPagination({ size: safeParseNumber(e.target.value as number) })
                   }>
                   {PAGE_SIZE_OPTIONS.map((size) => (
-                    <MenuItem
+                    <StyledMenuItem
                       key={size}
                       classes={{ root: classes.menuItemRoot }}
                       value={size}>
                       {size}
-                    </MenuItem>
+                    </StyledMenuItem>
                   ))}
-                </Select>
+                </StyledSelect>
                 <Box component="span" className={classes.boxRoot}>
                   {t('haku.jarjesta')}
                 </Box>
-                <Select
+                <StyledSelect
                   IconComponent={ExpandMore}
                   className={classes.select}
                   style={{ marginRight: 4 }}
@@ -258,14 +280,14 @@ export const HakuPage = () => {
                   value={sortOrder}
                   onChange={(e) => setSortOrder(e.target.value)}>
                   {PAGE_SORT_OPTIONS.map((sort) => (
-                    <MenuItem
+                    <StyledMenuItem
                       key={sort}
                       classes={{ root: classes.menuItemRoot }}
                       value={sort}>
                       {t(getPageSortTranslationKey(sort))}
-                    </MenuItem>
+                    </StyledMenuItem>
                   ))}
-                </Select>
+                </StyledSelect>
               </Grid>
             )}
           </Grid>

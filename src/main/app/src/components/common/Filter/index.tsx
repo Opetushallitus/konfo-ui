@@ -58,6 +58,17 @@ const customStyles: Styles = {
     borderRadius: '2px',
     cursor: 'text',
   }),
+  placeholder: (provided) => ({
+    ...provided,
+    color: colors.grey700,
+  }),
+  dropdownIndicator: (provided) => ({
+    ...provided,
+    color: colors.grey700,
+    '&:hover': {
+      color: colors.green900,
+    },
+  }),
   indicatorSeparator: (provided) => ({
     ...provided,
     display: 'none',
@@ -183,6 +194,11 @@ export const FilterCheckbox = ({
         disabled={disabled}
         sx={{
           marginLeft: indented ? 2 : 0,
+          paddingLeft: '2px',
+          paddingRight: '2px',
+          '&:focus-visible': {
+            boxShadow: `0 0 0 2px ${colors.grey700}`,
+          },
         }}>
         <ListItemIcon>
           <KonfoCheckbox
@@ -407,10 +423,14 @@ export const Filter = ({
           </Grid>
           {expandValues && rajainItems.length > HIDE_NOT_EXPANDED_AMOUNT && (
             <Button
+              disableRipple
               color="secondary"
               size="small"
               sx={{
                 fontSize: 14,
+                '&:focus-visible': {
+                  boxShadow: `inset 0 0 0 2px ${colors.green700}`,
+                },
               }}
               endIcon={<MaterialIcon icon={hideRest ? 'expand_more' : 'expand_less'} />}
               fullWidth
