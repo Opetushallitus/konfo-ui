@@ -55,6 +55,26 @@ import { SIDEMENU_WIDTH } from './constants';
 import { useIsAtEtusivu } from './store/reducers/appSlice';
 import { getHeaderHeight, theme } from './theme';
 
+declare global {
+  interface Window {
+    _paq?: Array<any>;
+  }
+}
+
+const MatomoTracker: React.FC = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (window._paq) {
+      window._paq.push(['setCustomUrl', window.location.pathname]);
+      window._paq.push(['setDocumentTitle', document.title]);
+      window._paq.push(['trackPageView']);
+    }
+  }, [location]);
+
+  return null;
+};
+
 const MainContent = styled('main')(
   ({ isSmall, menuVisible }: { isSmall?: boolean; menuVisible?: boolean }) => ({
     marginTop: getHeaderHeight(theme),
@@ -265,6 +285,7 @@ export const App = () => {
         />
         <MainContent id="app-main-content" isSmall={isSmall} menuVisible={menuVisible}>
           <HeadingBoundary>
+            <MatomoTracker />
             <KonfoRoutes />
             <HeadingBoundary>
               <Notifications />
