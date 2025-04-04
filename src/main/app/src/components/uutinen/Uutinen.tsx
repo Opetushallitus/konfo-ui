@@ -36,6 +36,10 @@ const UutinenCard = styled(Card)({
   color: colors.brandGreen,
   height: '100%',
   borderRadius: '3px',
+  '&:focus-visible': {
+    outline: '1px solid black',
+    outlineOffset: '10px',
+  },
 });
 
 const useImageUrl = (
@@ -71,13 +75,12 @@ export const Uutinen = ({ id }: { id: string }) => {
   const timestamp = uutinen.formatoituUpdated || uutinen.formatoituCreated;
 
   return (
-    <Grid
-      item
-      xs={12}
-      sm={isMenuOpen ? 12 : 6}
-      md={isMenuOpen ? 6 : 4}
-      onClick={() => forwardToPage(link)}>
-      <UutinenCard elevation={3}>
+    <Grid item xs={12} sm={isMenuOpen ? 12 : 6} md={isMenuOpen ? 6 : 4}>
+      <UutinenCard
+        elevation={3}
+        tabIndex={0}
+        onKeyDown={(event) => event.key === 'Enter' && forwardToPage(link)}
+        onClick={() => forwardToPage(link)}>
         {imgUrl && (
           <CardMedia
             sx={{

@@ -17,7 +17,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.5</version>
+        <version>3.4.3</version>
     </parent>
     <dependencyManagement>
         <dependencies>
@@ -30,6 +30,13 @@
                 <groupId>org.apache.logging.log4j</groupId>
                 <artifactId>log4j-api</artifactId>
                 <version>2.20.0</version>
+            </dependency>
+
+            <!-- transitient dependency for prerender-java -->
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>2.17.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
