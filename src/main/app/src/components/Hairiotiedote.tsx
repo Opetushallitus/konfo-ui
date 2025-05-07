@@ -28,16 +28,16 @@ export const Hairiotiedote = () => {
   const [closedHairiotiedotteetIds] = useClosedHairioTiedotteet();
   const { hairiotiedote } = data;
 
-  const opintopolkuHairiotiedotteet = Object.entries(hairiotiedote ?? {})
-    ?.map(([_, value]: [string, ContentfulHairiotiedote]) => value)
-    .filter((tiedote: ContentfulHairiotiedote) => {
+  const opintopolkuHairiotiedotteet = Object.values(hairiotiedote ?? {}).filter(
+    (tiedote: ContentfulHairiotiedote) => {
       const whereShown = tiedote?.whereShown;
       if (isEmpty(whereShown)) {
         return false;
       } else {
         return JSON.parse(whereShown).includes('Opintopolku.fi');
       }
-    });
+    }
+  );
 
   const sortedOpintopolkuHairiotiedotteet = sortBy(opintopolkuHairiotiedotteet, [
     'order',
