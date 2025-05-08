@@ -80,6 +80,12 @@ export const expectPageAccessibilityOk = async (page: Page) => {
   await expect(accessibilityScanResults.violations).toEqual([]);
 };
 
+export const getStylePropertyValue = async (locator, property) => {
+  return await locator.evaluate((e, prop) => {
+    return window.getComputedStyle(e).getPropertyValue(prop);
+  }, property);
+};
+
 // For debugging
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const outerHTML = (l: Locator) => l.evaluate((el) => el.outerHTML);

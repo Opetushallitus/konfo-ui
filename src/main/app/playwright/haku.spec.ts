@@ -7,6 +7,7 @@ import {
   getSearchInput,
   mocksFromFile,
   setupCommonTest,
+  getStylePropertyValue,
 } from './test-tools';
 
 test.describe('Haku', () => {
@@ -261,5 +262,86 @@ test.describe('Haku', () => {
     await expect(
       osaamisalaCard.getByText('145 osaamispistettä', { exact: true })
     ).toBeVisible();
+  });
+
+  test('Should reset pagination after navigating first to page 2 and then using search', async ({
+    page,
+  }) => {
+    await page.route(
+      '/konfo-backend/search/koulutukset**',
+      fixtureFromFile('search-koulutukset-all.json')
+    );
+    await page.goto('/konfo/fi/haku');
+
+    const page2Button = page.getByRole('button', { name: '2', exact: true });
+    await page2Button.scrollIntoViewIfNeeded();
+
+    const transparent = 'rgba(0, 0, 0, 0)';
+    const green = 'rgb(0, 128, 0)';
+    let backgroundColorForPage2Button = await getStylePropertyValue(
+      page2Button,
+      'background-color'
+    );
+    // Paginaatio-elementin 2-sivu-buttonia ei ole vielä klikattu
+    expect(backgroundColorForPage2Button).toBe(transparent);
+
+    // Kuunnellaan backendiin lähteviä pyyntöjä: jos kyseiseen urliin ei lähde pyyntöä, tulee timeout ja testi failaa.
+    // Pyynnössä täytyy olla parametrina page=2
+    const requestPromise1 = page.waitForRequest(
+      (request) => {
+        return (
+          request.url() ===
+            'http://localhost:3005/konfo-backend/search/koulutukset?lng=fi&order=desc&page=2&size=20&sort=score' &&
+          request.method() === 'GET'
+        );
+      },
+      { timeout: 5000 }
+    );
+    await page2Button.click();
+    await requestPromise1;
+
+    // 2-sivu-buttonin taustaväri on muuttunut vihreäksi mikä indikoi että ollaan 2. sivulla
+    backgroundColorForPage2Button = await getStylePropertyValue(
+      page2Button,
+      'background-color'
+    );
+    expect(backgroundColorForPage2Button).toBe(green);
+
+    // Tehdään haku hakusanalla "auto"
+    const searchInput = getSearchInput(page);
+    await searchInput.fill('auto');
+
+    const searchButton = getSearchButton(page);
+    await searchInput.scrollIntoViewIfNeeded();
+
+    // Urlissa tällä kertaa page=1
+    const requestPromise = page.waitForRequest(
+      (request) => {
+        return (
+          request.url() ===
+            'http://localhost:3005/konfo-backend/search/koulutukset?keyword=auto&lng=fi&order=desc&page=1&size=20&sort=score' &&
+          request.method() === 'GET'
+        );
+      },
+      { timeout: 5000 }
+    );
+
+    // Ennen hakunapin klikkausta 1-sivu-buttonin taustaväri on valkoinen
+    const page1Button = page.getByRole('button', { name: '1', exact: true });
+    let backgroundColorForPage1Button = await getStylePropertyValue(
+      page1Button,
+      'background-color'
+    );
+    expect(backgroundColorForPage1Button).toBe(transparent);
+
+    await searchButton.click();
+    await requestPromise;
+
+    // Haun jälkeen taustaväri on vihreä
+    backgroundColorForPage1Button = await getStylePropertyValue(
+      page1Button,
+      'background-color'
+    );
+    expect(backgroundColorForPage1Button).toBe(green);
   });
 });
