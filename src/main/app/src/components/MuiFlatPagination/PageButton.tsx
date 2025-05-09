@@ -216,6 +216,7 @@ const UnstyledPageButton: React.FunctionComponent<
       disableRipple={disableRipple}
       onClick={onClick}
       size={size}
+      aria-current={isCurrent ? 'page' : undefined}
       {...other}
     />
   );

@@ -7,7 +7,6 @@ import {
   getSearchInput,
   mocksFromFile,
   setupCommonTest,
-  getStylePropertyValue,
 } from './test-tools';
 
 test.describe('Haku', () => {
@@ -273,21 +272,14 @@ test.describe('Haku', () => {
     );
     await page.goto('/konfo/fi/haku');
 
+    const page1Button = page.getByRole('button', { name: '1', exact: true });
     const page2Button = page.getByRole('button', { name: '2', exact: true });
-    await page2Button.scrollIntoViewIfNeeded();
 
-    const transparent = 'rgba(0, 0, 0, 0)';
-    const green = 'rgb(0, 128, 0)';
-    let backgroundColorForPage2Button = await getStylePropertyValue(
-      page2Button,
-      'background-color'
-    );
-    // Paginaatio-elementin 2-sivu-buttonia ei ole vielä klikattu
-    expect(backgroundColorForPage2Button).toBe(transparent);
+    await expect(page1Button).toHaveAttribute('aria-current', 'page');
+    await expect(page2Button).not.toHaveAttribute('aria-current');
 
-    // Kuunnellaan backendiin lähteviä pyyntöjä: jos kyseiseen urliin ei lähde pyyntöä, tulee timeout ja testi failaa.
     // Pyynnössä täytyy olla parametrina page=2
-    const requestPromise1 = page.waitForRequest(
+    const requestPromiseForPage2Click = page.waitForRequest(
       (request) => {
         return (
           request.url() ===
@@ -298,24 +290,19 @@ test.describe('Haku', () => {
       { timeout: 5000 }
     );
     await page2Button.click();
-    await requestPromise1;
+    await requestPromiseForPage2Click;
 
-    // 2-sivu-buttonin taustaväri on muuttunut vihreäksi mikä indikoi että ollaan 2. sivulla
-    backgroundColorForPage2Button = await getStylePropertyValue(
-      page2Button,
-      'background-color'
-    );
-    expect(backgroundColorForPage2Button).toBe(green);
+    await expect(page1Button).not.toHaveAttribute('aria-current');
+    await expect(page2Button).toHaveAttribute('aria-current', 'page');
 
     // Tehdään haku hakusanalla "auto"
     const searchInput = getSearchInput(page);
     await searchInput.fill('auto');
 
     const searchButton = getSearchButton(page);
-    await searchInput.scrollIntoViewIfNeeded();
 
     // Urlissa tällä kertaa page=1
-    const requestPromise = page.waitForRequest(
+    const requestPromiseForSearchWithSearchWord = page.waitForRequest(
       (request) => {
         return (
           request.url() ===
@@ -326,22 +313,10 @@ test.describe('Haku', () => {
       { timeout: 5000 }
     );
 
-    // Ennen hakunapin klikkausta 1-sivu-buttonin taustaväri on valkoinen
-    const page1Button = page.getByRole('button', { name: '1', exact: true });
-    let backgroundColorForPage1Button = await getStylePropertyValue(
-      page1Button,
-      'background-color'
-    );
-    expect(backgroundColorForPage1Button).toBe(transparent);
-
     await searchButton.click();
-    await requestPromise;
+    await requestPromiseForSearchWithSearchWord;
 
-    // Haun jälkeen taustaväri on vihreä
-    backgroundColorForPage1Button = await getStylePropertyValue(
-      page1Button,
-      'background-color'
-    );
-    expect(backgroundColorForPage1Button).toBe(green);
+    await expect(page1Button).toHaveAttribute('aria-current', 'page');
+    await expect(page2Button).not.toHaveAttribute('aria-current');
   });
 });
