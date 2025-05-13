@@ -9,6 +9,7 @@ export interface TypeCookieModalTextFields {
     acceptButtonText?: EntryFieldTypes.Symbol;
     allowAllCookies?: EntryFieldTypes.Symbol;
     allowOnlyMandatoryCookies?: EntryFieldTypes.Symbol;
+    allowOnlyNecessaryCookies?: EntryFieldTypes.Symbol;
     saveSettingsText?: EntryFieldTypes.Symbol;
     settingsButtonText?: EntryFieldTypes.Symbol;
     settingsHeaderText?: EntryFieldTypes.Symbol;
@@ -18,6 +19,8 @@ export interface TypeCookieModalTextFields {
     settingsButtonCloseText?: EntryFieldTypes.Symbol;
     statisticsCheckboxTitleText?: EntryFieldTypes.Symbol;
     statisticsCheckboxContentText?: EntryFieldTypes.Symbol;
+    necessaryCheckboxTitleText?: EntryFieldTypes.Symbol;
+    necessaryCheckboxContentText?: EntryFieldTypes.Symbol;
     mandatoryCheckboxTitleText?: EntryFieldTypes.Symbol;
     mandatoryCheckboxContentText?: EntryFieldTypes.Symbol;
 }

@@ -2,7 +2,7 @@ import type { ChainModifiers, Entry, EntryFieldTypes, EntrySkeletonType, LocaleC
 import type { TypePalveluSkeleton } from "./TypePalvelu";
 
 export interface TypeOhjeetJaTukiFields {
-    name: EntryFieldTypes.Symbol<"Ohjeet ja tuki">;
+    name: EntryFieldTypes.Symbol;
     linkit?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypePalveluSkeleton>>;
 }
 
