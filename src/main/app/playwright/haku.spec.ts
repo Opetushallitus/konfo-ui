@@ -262,4 +262,61 @@ test.describe('Haku', () => {
       osaamisalaCard.getByText('145 osaamispistettä', { exact: true })
     ).toBeVisible();
   });
+
+  test('Should reset pagination after navigating first to page 2 and then using search', async ({
+    page,
+  }) => {
+    await page.route(
+      '/konfo-backend/search/koulutukset**',
+      fixtureFromFile('search-koulutukset-all.json')
+    );
+    await page.goto('/konfo/fi/haku');
+
+    const page1Button = page.getByRole('button', { name: '1', exact: true });
+    const page2Button = page.getByRole('button', { name: '2', exact: true });
+
+    await expect(page1Button).toHaveAttribute('aria-current', 'page');
+    await expect(page2Button).not.toHaveAttribute('aria-current');
+
+    // Pyynnössä täytyy olla parametrina page=2
+    const requestPromiseForPage2Click = page.waitForRequest(
+      (request) => {
+        return (
+          request.url() ===
+            'http://localhost:3005/konfo-backend/search/koulutukset?lng=fi&order=desc&page=2&size=20&sort=score' &&
+          request.method() === 'GET'
+        );
+      },
+      { timeout: 5000 }
+    );
+    await page2Button.click();
+    await requestPromiseForPage2Click;
+
+    await expect(page1Button).not.toHaveAttribute('aria-current');
+    await expect(page2Button).toHaveAttribute('aria-current', 'page');
+
+    // Tehdään haku hakusanalla "auto"
+    const searchInput = getSearchInput(page);
+    await searchInput.fill('auto');
+
+    const searchButton = getSearchButton(page);
+
+    // Urlissa tällä kertaa page=1
+    const requestPromiseForSearchWithSearchWord = page.waitForRequest(
+      (request) => {
+        return (
+          request.url() ===
+            'http://localhost:3005/konfo-backend/search/koulutukset?keyword=auto&lng=fi&order=desc&page=1&size=20&sort=score' &&
+          request.method() === 'GET'
+        );
+      },
+      { timeout: 5000 }
+    );
+
+    await searchButton.click();
+    await requestPromiseForSearchWithSearchWord;
+
+    await expect(page1Button).toHaveAttribute('aria-current', 'page');
+    await expect(page2Button).not.toHaveAttribute('aria-current');
+  });
 });

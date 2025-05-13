@@ -118,12 +118,18 @@ const setWhenChanged = (state: any, key: string, value: any) => {
 
 const getParamValueList = (value?: string) => sortArray(split(value, ','));
 
+const resetOffset = (state: HakutulosSlice) => {
+  state.koulutusOffset = 0;
+  state.oppilaitosOffset = 0;
+};
+
 export const hakutulosSlice = createSlice({
   name: 'hakutulos',
   initialState: HAKUTULOS_INITIAL,
   reducers: {
     setKeyword: (state, { payload }: PayloadAction<{ keyword: string }>) => {
       state.keyword = payload.keyword;
+      resetOffset(state);
     },
     setSelectedTab: (
       state,
@@ -139,20 +145,19 @@ export const hakutulosSlice = createSlice({
         state,
         mapValues(newValues, (v) => (Array.isArray(v) ? sortArray(v) : v))
       );
-      resetPagination();
+      resetOffset(state);
     },
     resetPagination: (state) => {
-      state.koulutusOffset = 0;
-      state.oppilaitosOffset = 0;
+      resetOffset(state);
     },
     clearRajainValues: (state) => {
       Object.assign(state, HAKU_RAJAIMET_INITIAL);
-      resetPagination();
+      resetOffset(state);
     },
     setSize: (state, { payload }) => {
       state.size = payload.newSize;
       // Asetetaan sivutus alkuun, koska sivuja voi olla vähemmän kuin aiemmin
-      resetPagination();
+      resetOffset(state);
     },
     setKoulutusOffset: (state, { payload }) => {
       state.koulutusOffset = payload.offset;
