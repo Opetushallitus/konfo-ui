@@ -8,7 +8,7 @@ const express = require('express');
 const app = express();
 
 app.use('/konfo', express.static(path.join(__dirname, 'build')));
-app.get(['/konfo', '/konfo/*'], (req, res) => {
+app.get(['/konfo', '/konfo/*splat'], (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
