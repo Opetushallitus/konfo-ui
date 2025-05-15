@@ -6,16 +6,12 @@ export interface TypeCookieModalTextFields {
     collapseLinkText?: EntryFieldTypes.Symbol;
     shortContent?: EntryFieldTypes.Text;
     fullContent?: EntryFieldTypes.Text;
-    acceptButtonText?: EntryFieldTypes.Symbol;
     allowAllCookies?: EntryFieldTypes.Symbol;
     allowOnlyMandatoryCookies?: EntryFieldTypes.Symbol;
     allowOnlyNecessaryCookies?: EntryFieldTypes.Symbol;
     saveSettingsText?: EntryFieldTypes.Symbol;
     settingsButtonText?: EntryFieldTypes.Symbol;
     settingsHeaderText?: EntryFieldTypes.Symbol;
-    settingsAcceptStatisticText?: EntryFieldTypes.Symbol;
-    settingsAcceptMarketingText?: EntryFieldTypes.Symbol;
-    settingsAcceptMandatoryText?: EntryFieldTypes.Symbol;
     settingsButtonCloseText?: EntryFieldTypes.Symbol;
     statisticsCheckboxTitleText?: EntryFieldTypes.Symbol;
     statisticsCheckboxContentText?: EntryFieldTypes.Symbol;

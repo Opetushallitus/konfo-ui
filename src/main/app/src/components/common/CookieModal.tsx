@@ -16,12 +16,12 @@ import {
   Chip,
   Grid,
 } from '@mui/material';
-import Cookies from 'js-cookie';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 import { useContentful } from '#/src/hooks/useContentful';
+import { useCookieConsentState } from '#/src/hooks/useCookieConsentState';
 import { styled } from '#/src/theme';
 import { getOne } from '#/src/tools/getOne';
 
@@ -67,18 +67,16 @@ const StyledAccordionSummary = styled(AccordionSummary)({
   padding: '0 16px 0 16px',
 });
 
-const MANDATORY_COOKIE_NAME = 'oph-mandatory-cookies-accepted';
-
 export const CookieModal = () => {
   const { t } = useTranslation();
 
   const [settingsOpen, setSettingsOpen] = useState(false);
-  const [fullCookieInfoOpen, setFullCookieInfoOpen] = useState(false);
-  const [cookiesAccepted, setCookiesAccepted] = useState<boolean>(
-    Boolean(Cookies.get(MANDATORY_COOKIE_NAME))
-  );
+  const { isCookieModalVisible, saveCookieConsent } = useCookieConsentState();
 
-  const [statisticCookiesAccepted, setStatisticCookiesAccepted] = useState(false);
+  const [fullCookieInfoOpen, setFullCookieInfoOpen] = useState(false);
+
+  const [isStatisticsCookiesAccepted, setIsStatisticsCookiesAccepted] =
+    useState<boolean>(false);
 
   const { data, isLoading } = useContentful();
 
@@ -94,7 +92,6 @@ export const CookieModal = () => {
       contentfulTexts?.['settingsButtonText'] ?? t('cookieModal.settings'),
     settingsButtonCloseText:
       contentfulTexts?.['settingsButtonCloseText'] ?? t('cookieModal.settings'),
-    acceptButtonText: contentfulTexts?.['acceptButtonText'] ?? t('cookieModal.accept'),
     allowAllCookies:
       contentfulTexts?.['allowAllCookies'] ?? t('cookieModal.allow-all-cookies'),
     allowOnlyNecessaryCookies:
@@ -103,12 +100,6 @@ export const CookieModal = () => {
     saveSettingsText:
       contentfulTexts?.['saveSettingsText'] ?? t('cookieModal.save-settings'),
     settingsHeaderText: contentfulTexts?.['settingsHeaderText'] ?? '',
-    settingsAcceptMandatoryText:
-      contentfulTexts?.['settingsAcceptMandatoryText'] ?? t('cookieModal.mandatory'),
-    settingsAcceptStatisticText:
-      contentfulTexts?.['settingsAcceptStatisticText'] ?? t('cookieModal.statistic'),
-    settingsAcceptMarketingText:
-      contentfulTexts?.['settingsAcceptMarketingText'] ?? t('cookieModal.marketing'),
     statisticsCheckboxTitleText: contentfulTexts?.['statisticsCheckboxTitleText'] ?? '',
     statisticsCheckboxContentText:
       contentfulTexts?.['statisticsCheckboxContentText'] ?? '',
@@ -116,51 +107,21 @@ export const CookieModal = () => {
     mandatoryCheckboxContentText: contentfulTexts?.['mandatoryCheckboxContentText'] ?? '',
   };
 
-  function setMandatoryCookieAccepted() {
-    Cookies.set(MANDATORY_COOKIE_NAME, 'true', {
-      expires: 1800,
-      path: '/',
-    });
-  }
-
-  function setStatisticsCookiesAccepted() {
-    Cookies.set('oph-statistic-cookies-accepted', 'true', {
-      expires: 1800,
-      path: '/',
-    });
-    setStatisticCookiesAccepted(true);
-  }
-
-  function reloadPage() {
-    // Tässä tarvitaan uudelleenlatausta että Matomo tilastojen
-    // seurannan skripti suoriutuu index.html:ssa
-    window.location.replace(window.location.href);
-  }
-
-  const handleAcceptCookies: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+  const handleSaveCookieSettings: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
-    setMandatoryCookieAccepted();
-    if (statisticCookiesAccepted) {
-      setStatisticsCookiesAccepted();
-      reloadPage();
-    }
-    setCookiesAccepted(true);
+    saveCookieConsent({ statistics: isStatisticsCookiesAccepted });
   };
 
-  const handleAcceptManadatoryCookies: React.MouseEventHandler<HTMLButtonElement> = (
+  const handleAcceptMandatoryCookies: React.MouseEventHandler<HTMLButtonElement> = (
     e
   ) => {
     e.preventDefault();
-    setMandatoryCookieAccepted();
-    setCookiesAccepted(true);
+    saveCookieConsent({ statistics: false });
   };
 
   const handleAcceptAllCookies: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
-    setMandatoryCookieAccepted();
-    setStatisticsCookiesAccepted();
-    setCookiesAccepted(true);
-    reloadPage();
+    saveCookieConsent({ statistics: true });
   };
 
   const handleAccordionExpandedChange = (
@@ -203,8 +164,8 @@ export const CookieModal = () => {
           control={
             <Switch
               id="statisticCookies"
-              checked={statisticCookiesAccepted}
-              onClick={() => setStatisticCookiesAccepted(!statisticCookiesAccepted)}
+              checked={isStatisticsCookiesAccepted}
+              onClick={() => setIsStatisticsCookiesAccepted((accepted) => !accepted)}
             />
           }
         />
@@ -215,7 +176,7 @@ export const CookieModal = () => {
           size="large"
           color="primary"
           disableRipple
-          onClick={handleAcceptCookies}>
+          onClick={handleSaveCookieSettings}>
           {fields.saveSettingsText}
         </Button>
       </FormGroup>
@@ -226,7 +187,7 @@ export const CookieModal = () => {
     <Modal
       id="oph-cookie-modal-backdrop"
       sx={{ overflowY: 'auto' }}
-      open={!(isLoading || cookiesAccepted)}>
+      open={!isLoading && isCookieModalVisible}>
       <StyledModalContent>
         <Container sx={{ marginTop: '20px', marginBottom: '20px' }}>
           <Typography variant="h2" sx={{ marginTop: '0px' }}>
@@ -285,7 +246,7 @@ export const CookieModal = () => {
                   variant="contained"
                   color="primary"
                   disableRipple
-                  onClick={handleAcceptManadatoryCookies}>
+                  onClick={handleAcceptMandatoryCookies}>
                   {fields.allowOnlyNecessaryCookies}
                 </StyledButton>
               </ButtonGroup>
