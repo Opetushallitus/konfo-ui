@@ -126,8 +126,8 @@ export const KoulutuksenKesto = ({
       years === 1
         ? t('koulutus.kesto-vuosi', { count: years })
         : toNumber(years) > 0
-        ? t('koulutus.kesto-vuosi_plural', { count: years })
-        : '';
+          ? t('koulutus.kesto-vuosi_plural', { count: years })
+          : '';
     const monthsWithUnit =
       months === 1
         ? t('koulutus.kesto-kuukausi', {
