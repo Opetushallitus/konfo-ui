@@ -277,6 +277,7 @@ export const createHakuUrl = (
   })}`;
 
 export const TOTEUTUS_RAJAIN_NAMES = [
+  'koulutustyyppi',
   'opetusaika',
   'opetuskieli',
   'maakunta',
@@ -300,6 +301,8 @@ export const TOTEUTUS_RAJAIN_NAMES = [
   'maksunmaara',
   'lukuvuosimaksunmaara',
   'hakualkaapaivissa',
+  'amm_erityisopetus',
+  'tuva_erityisopetus',
 ];
 
 export const getInitialToteutusRajainValues = createSelector(
