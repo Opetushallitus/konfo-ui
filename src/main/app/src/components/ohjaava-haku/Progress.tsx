@@ -69,8 +69,8 @@ export const Progress = React.forwardRef<HTMLButtonElement, ButtonProps>((_, ref
                   backgroundColor: isCurrentQuestion
                     ? colors.brightGreenBg
                     : isPastQuestion
-                    ? colors.lightGrayishGreenBg
-                    : 'initial',
+                      ? colors.lightGrayishGreenBg
+                      : 'initial',
                   marginTop: '0.25rem',
                   '&:hover': {
                     backgroundColor: colors.darkerGrayishGreenBg,

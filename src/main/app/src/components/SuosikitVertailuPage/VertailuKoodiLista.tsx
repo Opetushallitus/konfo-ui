@@ -15,7 +15,7 @@ export const VertailuKoodiLista = ({
 }) => {
   const { t } = useTranslation();
   return isEmpty(koodit) ? (
-    emptyText ?? t('suosikit-vertailu.ei-maaritelty')
+    (emptyText ?? t('suosikit-vertailu.ei-maaritelty'))
   ) : (
     <VertailuList>
       {koodit?.map((k) => <li key={k?.koodi?.koodiUri}>{localize(k?.koodi?.nimi)}</li>)}

@@ -211,8 +211,9 @@ export const ValintaperustePage = () => {
   const valintakokeet = useMemo(() => {
     const usedValintaperusteenKokeet = (valintaperusteenValintakokeet || []).map(
       (v: any) => {
-        const added = lisatilaisuudet?.find((tilaisuus: any) => tilaisuus.id === v.id)
-          ?.tilaisuudet;
+        const added = lisatilaisuudet?.find(
+          (tilaisuus: any) => tilaisuus.id === v.id
+        )?.tilaisuudet;
         return added
           ? produce(v, (draft: any) => {
               draft.tilaisuudet = concat(v.tilaisuudet, added);

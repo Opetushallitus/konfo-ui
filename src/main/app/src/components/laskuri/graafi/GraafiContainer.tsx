@@ -117,8 +117,8 @@ export const GraafiContainer = ({ hakutiedot, isLukio, tulos, hakukohdeOid }: Pr
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const hakukohteet = hakutiedot
-    .filter(
-      (tieto: Hakutieto) => tieto.hakutapa?.koodiUri?.includes(YHTEISHAKU_KOODI_URI)
+    .filter((tieto: Hakutieto) =>
+      tieto.hakutapa?.koodiUri?.includes(YHTEISHAKU_KOODI_URI)
     )
     .flatMap((tieto: Hakutieto) => tieto.hakukohteet);
   const [hakukohde, setHakukohde] = useState(hakukohteet[0]);
