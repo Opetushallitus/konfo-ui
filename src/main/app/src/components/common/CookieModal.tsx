@@ -92,7 +92,6 @@ export const CookieModal = () => {
       contentfulTexts?.['settingsButtonText'] ?? t('cookieModal.settings'),
     settingsButtonCloseText:
       contentfulTexts?.['settingsButtonCloseText'] ?? t('cookieModal.settings'),
-    acceptButtonText: contentfulTexts?.['acceptButtonText'] ?? t('cookieModal.accept'),
     allowAllCookies:
       contentfulTexts?.['allowAllCookies'] ?? t('cookieModal.allow-all-cookies'),
     allowOnlyNecessaryCookies:
@@ -101,12 +100,6 @@ export const CookieModal = () => {
     saveSettingsText:
       contentfulTexts?.['saveSettingsText'] ?? t('cookieModal.save-settings'),
     settingsHeaderText: contentfulTexts?.['settingsHeaderText'] ?? '',
-    settingsAcceptMandatoryText:
-      contentfulTexts?.['settingsAcceptMandatoryText'] ?? t('cookieModal.mandatory'),
-    settingsAcceptStatisticText:
-      contentfulTexts?.['settingsAcceptStatisticText'] ?? t('cookieModal.statistic'),
-    settingsAcceptMarketingText:
-      contentfulTexts?.['settingsAcceptMarketingText'] ?? t('cookieModal.marketing'),
     statisticsCheckboxTitleText: contentfulTexts?.['statisticsCheckboxTitleText'] ?? '',
     statisticsCheckboxContentText:
       contentfulTexts?.['statisticsCheckboxContentText'] ?? '',
