@@ -6,7 +6,6 @@ import {
   ButtonGroup,
   Drawer,
   Grid,
-  Link,
   Container,
   Hidden,
 } from '@mui/material';
@@ -102,11 +101,6 @@ export const CookieDrawer = () => {
                 marginBottom: '15px',
               }}>
               {fields.shortContent}
-              <Link
-                sx={{ display: 'inline' }}
-                href="sivu/tietosuojaselosteet-ja-evasteet">
-                Lue lisää
-              </Link>
             </Typography>
           </Grid>
           <Grid
