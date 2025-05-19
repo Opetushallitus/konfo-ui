@@ -15,6 +15,7 @@ import {
   Outlet,
 } from 'react-router-dom';
 
+import { CookieDrawer } from '#/src/components/common/CookieDrawer';
 import { CookieModal } from '#/src/components/common/CookieModal';
 import { SiteImprove } from '#/src/components/common/SiteImprove';
 import { HeadingBoundary } from '#/src/components/Heading';
@@ -53,6 +54,26 @@ import {
 import { SIDEMENU_WIDTH } from './constants';
 import { useIsAtEtusivu } from './store/reducers/appSlice';
 import { getHeaderHeight, theme } from './theme';
+
+declare global {
+  interface Window {
+    _paq?: Array<any>;
+  }
+}
+
+const MatomoTracker: React.FC = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (window._paq) {
+      window._paq.push(['setCustomUrl', window.location.pathname]);
+      window._paq.push(['setDocumentTitle', document.title]);
+      window._paq.push(['trackPageView']);
+    }
+  }, [location]);
+
+  return null;
+};
 
 const MainContent = styled('main')(
   ({ isSmall, menuVisible }: { isSmall?: boolean; menuVisible?: boolean }) => ({
@@ -248,6 +269,7 @@ export const App = () => {
       <CssBaseline />
       <Draft />
       <CookieModal />
+      <CookieDrawer />
       <SiteImprove titleObj={titleObj} />
       <Box display="flex">
         <Header
@@ -263,6 +285,7 @@ export const App = () => {
         />
         <MainContent id="app-main-content" isSmall={isSmall} menuVisible={menuVisible}>
           <HeadingBoundary>
+            <MatomoTracker />
             <KonfoRoutes />
             <HeadingBoundary>
               <Notifications />
