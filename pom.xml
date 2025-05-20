@@ -12,7 +12,6 @@
 
     <properties>
         <java.version>21</java.version>
-        <logback-access.version>1.2.12</logback-access.version>
     </properties>
     <parent>
         <groupId>org.springframework.boot</groupId>
