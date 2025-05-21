@@ -11,9 +11,9 @@ import Link from '@mui/material/Link';
 import { urls } from 'oph-urls-js';
 import { useTranslation } from 'react-i18next';
 
-import { ReactComponent as OPOLogoEN } from '#/src/assets/images/opintopolku_logo_header_en.svg';
-import { ReactComponent as OPOLogoFI } from '#/src/assets/images/opintopolku_logo_header_fi.svg';
-import { ReactComponent as OPOLogoSV } from '#/src/assets/images/opintopolku_logo_header_sv.svg';
+import OPOLogoEN from '#/src/assets/images/opintopolku_logo_header_en.svg?react';
+import OPOLogoFI from '#/src/assets/images/opintopolku_logo_header_fi.svg?react';
+import OPOLogoSV from '#/src/assets/images/opintopolku_logo_header_sv.svg?react';
 import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { styled, theme } from '#/src/theme';
