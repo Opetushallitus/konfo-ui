@@ -83,7 +83,7 @@
     "@vitejs/plugin-react": "^4.4.1",
     "browserslist-to-esbuild": "^1.2.0",
     "cf-content-types-generator": "^2.16.0",
-    "contentful": "^10.3.5",
+    "contentful": "^11.5.23",
     "cross-env": "^7.0.3",
     "dotenv-run-script": "^0.3.0",
     "eslint": "^8.45.0",
