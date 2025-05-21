@@ -124,7 +124,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: '*.config.ts',
+      files: '*.config.?ts',
       rules: {
         'import/no-default-export': 'off',
       },
