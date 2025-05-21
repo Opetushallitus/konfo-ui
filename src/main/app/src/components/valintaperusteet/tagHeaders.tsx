@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 import { Box, Typography } from '@mui/material';
 import {
   DOMNode,
@@ -15,7 +17,7 @@ const checkIsHeader = (tag: string): tag is (typeof headers)[number] =>
   includes(headers, tag);
 
 export const tagHeaders: HTMLReactParserOptions['transform'] = (
-  element,
+  element: ReactNode,
   node: DOMNode
 ) => {
   if (node instanceof DomElement) {
@@ -33,5 +35,5 @@ export const tagHeaders: HTMLReactParserOptions['transform'] = (
       );
     }
   }
-  return element;
+  return;
 };
