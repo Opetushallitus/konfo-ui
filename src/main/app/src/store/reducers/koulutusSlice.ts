@@ -39,12 +39,18 @@ export const koulutusSlice = createSlice({
         payload,
       }: PayloadAction<{ isTuleva: boolean; rajainValues?: Partial<RajainValues> }>
     ) {
-      const jarjestajat = payload.isTuleva ? state.tulevatJarjestajat : state.jarjestajat;
-      if (payload.rajainValues) {
+      const { rajainValues, isTuleva } = payload;
+      const jarjestajat = isTuleva ? state.tulevatJarjestajat : state.jarjestajat;
+      if (rajainValues) {
+        const { koulutustyyppi } = rajainValues;
+        const tuvaErityisopetus = koulutustyyppi?.includes('tuva-erityisopetus');
+        const ammErityisopetus = koulutustyyppi?.includes('koulutustyyppi_4');
         const newRajainValues = Object.assign(
           {},
           jarjestajat.rajainValues,
-          payload.rajainValues
+          rajainValues,
+          { amm_erityisopetus: ammErityisopetus },
+          { tuva_erityisopetus: tuvaErityisopetus }
         );
         // Resetoidaan sivutus, jos rajaimet muuttuu
         if (!isEqual(jarjestajat.rajainValues, newRajainValues)) {
