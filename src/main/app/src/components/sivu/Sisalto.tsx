@@ -45,7 +45,7 @@ export const Sisalto = ({
 }: {
   content?: string;
   excludeMedia?: boolean;
-  rootRef?: RefObject<HTMLDivElement>;
+  rootRef?: RefObject<HTMLDivElement | null>;
 }) => {
   return content ? (
     <StyledMarkdown
