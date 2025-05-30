@@ -42,16 +42,7 @@ export const koulutusSlice = createSlice({
       const { rajainValues, isTuleva } = payload;
       const jarjestajat = isTuleva ? state.tulevatJarjestajat : state.jarjestajat;
       if (rajainValues) {
-        const { koulutustyyppi } = rajainValues;
-        const tuvaErityisopetus = Boolean(koulutustyyppi?.includes('tuva-erityisopetus'));
-        const ammErityisopetus = Boolean(koulutustyyppi?.includes('koulutustyyppi_4'));
-        const newRajainValues = Object.assign(
-          {},
-          jarjestajat.rajainValues,
-          rajainValues,
-          { amm_erityisopetus: ammErityisopetus },
-          { tuva_erityisopetus: tuvaErityisopetus }
-        );
+        const newRajainValues = Object.assign({}, jarjestajat.rajainValues, rajainValues);
         // Resetoidaan sivutus, jos rajaimet muuttuu
         if (!isEqual(jarjestajat.rajainValues, newRajainValues)) {
           state.jarjestajat.pagination.offset = 0;

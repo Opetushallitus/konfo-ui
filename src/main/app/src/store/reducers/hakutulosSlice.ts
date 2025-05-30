@@ -42,8 +42,6 @@ export type RajainValues = {
   apuraha: boolean;
   alkamiskausi: Array<string>;
   hakualkaapaivissa: Array<string>;
-  amm_erityisopetus: boolean;
-  tuva_erityisopetus: boolean;
 };
 
 export const HAKU_RAJAIMET_INITIAL = {
@@ -84,8 +82,6 @@ export const HAKU_RAJAIMET_INITIAL = {
   alkamiskausi: [],
   sijainti: [],
   hakualkaapaivissa: [],
-  amm_erityisopetus: false,
-  tuva_erityisopetus: false,
 };
 
 export type HakutulosSlice = {

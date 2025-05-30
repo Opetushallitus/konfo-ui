@@ -301,8 +301,6 @@ export const TOTEUTUS_RAJAIN_NAMES = [
   'maksunmaara',
   'lukuvuosimaksunmaara',
   'hakualkaapaivissa',
-  'amm_erityisopetus',
-  'tuva_erityisopetus',
 ];
 
 export const getInitialToteutusRajainValues = createSelector(
