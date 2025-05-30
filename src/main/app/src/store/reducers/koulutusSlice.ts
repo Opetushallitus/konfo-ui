@@ -43,8 +43,8 @@ export const koulutusSlice = createSlice({
       const jarjestajat = isTuleva ? state.tulevatJarjestajat : state.jarjestajat;
       if (rajainValues) {
         const { koulutustyyppi } = rajainValues;
-        const tuvaErityisopetus = koulutustyyppi?.includes('tuva-erityisopetus');
-        const ammErityisopetus = koulutustyyppi?.includes('koulutustyyppi_4');
+        const tuvaErityisopetus = Boolean(koulutustyyppi?.includes('tuva-erityisopetus'));
+        const ammErityisopetus = Boolean(koulutustyyppi?.includes('koulutustyyppi_4'));
         const newRajainValues = Object.assign(
           {},
           jarjestajat.rajainValues,
