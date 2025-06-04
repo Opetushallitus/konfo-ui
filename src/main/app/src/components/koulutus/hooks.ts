@@ -213,7 +213,7 @@ export const useKoulutusJarjestajat = ({
           ...((values.kunta as Array<string>) ?? []),
         ],
       },
-      ['maakunta', 'kunta', 'koulutusala', 'koulutustyyppi', 'koulutustyyppi-muu']
+      ['maakunta', 'kunta', 'koulutusala', 'koulutustyyppi-muu']
     );
     return mapValues(valuesWithSijainti, (v) =>
       match(v)

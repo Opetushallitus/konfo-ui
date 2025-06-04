@@ -277,6 +277,7 @@ export const createHakuUrl = (
   })}`;
 
 export const TOTEUTUS_RAJAIN_NAMES = [
+  'koulutustyyppi',
   'opetusaika',
   'opetuskieli',
   'maakunta',

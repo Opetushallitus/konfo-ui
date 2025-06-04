@@ -39,13 +39,10 @@ export const koulutusSlice = createSlice({
         payload,
       }: PayloadAction<{ isTuleva: boolean; rajainValues?: Partial<RajainValues> }>
     ) {
-      const jarjestajat = payload.isTuleva ? state.tulevatJarjestajat : state.jarjestajat;
-      if (payload.rajainValues) {
-        const newRajainValues = Object.assign(
-          {},
-          jarjestajat.rajainValues,
-          payload.rajainValues
-        );
+      const { rajainValues, isTuleva } = payload;
+      const jarjestajat = isTuleva ? state.tulevatJarjestajat : state.jarjestajat;
+      if (rajainValues) {
+        const newRajainValues = Object.assign({}, jarjestajat.rajainValues, rajainValues);
         // Resetoidaan sivutus, jos rajaimet muuttuu
         if (!isEqual(jarjestajat.rajainValues, newRajainValues)) {
           state.jarjestajat.pagination.offset = 0;
