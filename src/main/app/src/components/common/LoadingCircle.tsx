@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 
 import { Backdrop, Box, CircularProgress } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 import { styled } from '#/src/theme';
 
@@ -16,10 +17,27 @@ const StyledBackdrop = styled(Backdrop, {
   boxShadow: noContent ? 'none' : '0 0 5px 5px rgba(0,0,0,0.3)',
 }));
 
+const StyledSrOnlyBox = styled(Box)(() => ({
+  border: 0,
+  clip: 'rect(0 0 0 0)',
+  height: '1px',
+  margin: '-1px',
+  overflow: 'hidden',
+  padding: 0,
+  position: 'absolute',
+  width: '1px',
+  whiteSpace: 'nowrap',
+}));
+
 export const LoadingCircle = () => {
+  const { t } = useTranslation();
   return (
-    <Box sx={{ padding: 10, display: 'flex', justifyContent: 'center' }}>
+    <Box
+      role="status"
+      aria-live="polite"
+      sx={{ padding: 10, display: 'flex', justifyContent: 'center' }}>
       <CircularProgress size={50} disableShrink />
+      <StyledSrOnlyBox>{t('loading-circle.ladataan-sisaltoa')}</StyledSrOnlyBox>
     </Box>
   );
 };
