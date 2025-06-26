@@ -122,6 +122,9 @@
     "takaisin": "Palaa edelliselle sivulle",
     "etusivulle": "Palaa etusivulle"
   },
+  "loading-circle": {
+    "ladataan-sisaltoa": "Ladataan sisältöä..."
+  },
   "latausvirhe": {
     "otsikko": "Tekninen virhe",
     "teksti": "Tietojen lataaminen epäonnistui. Jos ongelma jatkuu, ota yhteyttä opintopolun ylläpitoon.",
