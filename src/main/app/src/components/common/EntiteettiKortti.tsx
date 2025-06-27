@@ -216,7 +216,7 @@ export const EntiteettiKortti = ({
                 {preHeader}
               </Typography>
             )}
-            <Typography variant="h4" className={classes.header}>
+            <Typography component="h2" variant="h4" className={classes.header}>
               {trim(
                 isEmpty(opintojenLaajuus) ? header : `${header}, ${opintojenLaajuus}`
               )}

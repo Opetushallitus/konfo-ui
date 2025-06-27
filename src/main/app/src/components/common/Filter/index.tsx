@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 import {
   Box,
@@ -329,10 +329,17 @@ export const Filter = ({
 }: Props) => {
   const { t } = useTranslation();
   const [hideRest, setHideRest] = useState(expandValues);
+  const inputRef = useRef<any>(null);
   const usedName = [name, rajainItems.length === 0 && '(0)'].filter(Boolean).join(' ');
 
   const config = useConfig();
   const isCountVisible = isCountVisibleProp && config?.naytaFiltterienHakutulosLuvut;
+
+  useEffect(() => {
+    if (expanded && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [expanded]);
 
   return (
     <SuodatinAccordion
@@ -356,6 +363,8 @@ export const Filter = ({
           {options && rajainItems.length > HIDE_NOT_EXPANDED_AMOUNT && (
             <Grid item style={{ padding: '20px 0', zIndex: 2 }}>
               <Select
+                ref={inputRef}
+                aria-label="selectPlaceholder"
                 components={{ DropdownIndicator, LoadingIndicator, Option }}
                 styles={customStyles}
                 value={[]}
@@ -370,6 +379,7 @@ export const Filter = ({
                     onItemChange(item);
                   }
                 }}
+                isSearchable={expanded}
                 onFocus={onFocus}
                 onMenuClose={onHide}
                 onMenuOpen={onFocus}

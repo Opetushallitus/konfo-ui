@@ -4,6 +4,7 @@ import { PropTypes, StandardProps } from '@mui/material';
 // eslint-disable-next-line no-restricted-imports
 import { createStyles, WithStyles, withStyles } from '@mui/styles';
 import clsx from 'clsx';
+import { useTranslation } from 'react-i18next';
 
 import { computePages, PagePosition, Position } from './core';
 import { PageButton, PageButtonClassKey, PageVariant } from './PageButton';
@@ -104,6 +105,7 @@ const UnstyledPagination: React.FunctionComponent<
   const outerButtonCount = reduced ? 1 : outerButtonCountProp;
 
   const Component = component;
+  const { t } = useTranslation();
   return (
     <Component className={className} {...other}>
       {computePages(limit, offset, total, innerButtonCount, outerButtonCount).map(
@@ -154,7 +156,17 @@ const UnstyledPagination: React.FunctionComponent<
               renderButton={renderButton}
               otherPageColor={otherPageColor}
               pageVariant={pageVariant}
-              size={size}>
+              size={size}
+              aria-current={undefined}
+              aria-label={
+                pageVariant === 'end'
+                  ? pp.position === Position.LowEnd
+                    ? t('haku.edellinen-sivu')
+                    : t('haku.seuraava-sivu')
+                  : pageVariant === 'current'
+                  ? t('haku.nykyinen-sivu', { page: pp.page })
+                  : t('haku.siirry-sivulle', { page: pp.page })
+              }>
               {children}
             </PageButton>
           );
