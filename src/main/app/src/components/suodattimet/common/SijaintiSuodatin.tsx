@@ -18,6 +18,7 @@ import { useSearch } from '../../haku/hakutulosHooks';
 
 export const SijaintiSuodatin = (props: RajainComponentProps) => {
   const { t } = useTranslation();
+  const [isExpanded, setExpanded] = React.useState(false);
   const { rajainValues, rajainOptions, setRajainValues, loading } = props;
 
   const kuntaRajainValues = useRajainItems(
@@ -85,6 +86,9 @@ export const SijaintiSuodatin = (props: RajainComponentProps) => {
   return (
     <Filter
       {...props}
+      expanded={isExpanded}
+      onFocus={() => setExpanded(true)}
+      onHide={() => setExpanded(false)}
       options={groupedSijainnit}
       optionsLoading={optionsLoading || loading}
       selectPlaceholder={t('haku.etsi-paikkakunta-tai-alue')}
