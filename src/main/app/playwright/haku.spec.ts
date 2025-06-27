@@ -272,10 +272,13 @@ test.describe('Haku', () => {
     );
     await page.goto('/konfo/fi/haku');
 
-    const page1Button = page.getByRole('button', { name: '1', exact: true });
-    const page2Button = page.getByRole('button', { name: '2', exact: true });
+    const currentButtonPage1 = page.locator('[aria-current="page"]');
+    const page2Button = page.getByRole('button', { name: 'Siirry sivulle 2' });
 
-    await expect(page1Button).toHaveAttribute('aria-current', 'page');
+    await expect(currentButtonPage1).toHaveAttribute(
+      'aria-label',
+      'Sivu 1, nykyinen sivu'
+    );
     await expect(page2Button).not.toHaveAttribute('aria-current');
 
     // Pyynnössä täytyy olla parametrina page=2
@@ -292,8 +295,12 @@ test.describe('Haku', () => {
     await page2Button.click();
     await requestPromiseForPage2Click;
 
-    await expect(page1Button).not.toHaveAttribute('aria-current');
-    await expect(page2Button).toHaveAttribute('aria-current', 'page');
+    const currentButtonPage2 = page.locator('[aria-current="page"]');
+
+    await expect(currentButtonPage2).toHaveAttribute(
+      'aria-label',
+      'Sivu 2, nykyinen sivu'
+    );
 
     // Tehdään haku hakusanalla "auto"
     const searchInput = getSearchInput(page);
@@ -316,7 +323,10 @@ test.describe('Haku', () => {
     await searchButton.click();
     await requestPromiseForSearchWithSearchWord;
 
-    await expect(page1Button).toHaveAttribute('aria-current', 'page');
+    await expect(currentButtonPage1).toHaveAttribute(
+      'aria-label',
+      'Sivu 1, nykyinen sivu'
+    );
     await expect(page2Button).not.toHaveAttribute('aria-current');
   });
 });

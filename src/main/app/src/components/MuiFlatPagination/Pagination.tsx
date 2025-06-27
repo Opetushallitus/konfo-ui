@@ -157,7 +157,6 @@ const UnstyledPagination: React.FunctionComponent<
               otherPageColor={otherPageColor}
               pageVariant={pageVariant}
               size={size}
-              aria-current={undefined}
               aria-label={
                 pageVariant === 'end'
                   ? pp.position === Position.LowEnd
