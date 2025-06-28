@@ -364,7 +364,7 @@ export const Filter = ({
             <Grid item style={{ padding: '20px 0', zIndex: 2 }}>
               <Select
                 ref={inputRef}
-                aria-label="selectPlaceholder"
+                aria-label={t('haku.sijainnin-hakukentta')}
                 components={{ DropdownIndicator, LoadingIndicator, Option }}
                 styles={customStyles}
                 value={[]}
