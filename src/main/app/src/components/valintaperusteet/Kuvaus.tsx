@@ -30,7 +30,7 @@ export const Kuvaus = ({ kuvaus, sisalto = [] }: Props) => {
           <Typography id={toId(t('valintaperuste.kuvaus'))} variant="h2">
             {t('valintaperuste.kuvaus')}
           </Typography>
-          <LocalizedHTML data={kuvaus} transform={tagHeaders} />
+          <LocalizedHTML data={kuvaus} replace={tagHeaders} />
         </Box>
       )}
       {sisalto?.length > 0 && <Box>{sisalto.map(SisaltoComponent)}</Box>}

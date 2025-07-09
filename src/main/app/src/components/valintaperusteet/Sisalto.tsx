@@ -35,7 +35,7 @@ const SubHeaderCell = TableCell;
 
 const Teksti = ({ data }: SisaltoTeksti) => (
   <Grid item xs={12}>
-    <LocalizedHTML data={data} transform={tagHeaders} />
+    <LocalizedHTML data={data} replace={tagHeaders} />
   </Grid>
 );
 

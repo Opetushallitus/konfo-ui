@@ -7,7 +7,7 @@ import { Translateable } from '#/src/types/common';
 
 type Props = {
   data?: Translateable | { nimi: Translateable };
-  transform?: HTMLReactParserOptions['replace'];
+  replace?: HTMLReactParserOptions['replace'];
   defaultValue?: string;
   noWrapper?: boolean;
   noMargin?: boolean;
@@ -28,7 +28,7 @@ const Root = styled('div')<Pick<Props, 'noMargin'>>(({ theme, noMargin }) => ({
 export const LocalizedHTML = ({
   data,
   defaultValue = '',
-  transform: replace,
+  replace,
   noWrapper,
   noMargin,
 }: Props) => {
