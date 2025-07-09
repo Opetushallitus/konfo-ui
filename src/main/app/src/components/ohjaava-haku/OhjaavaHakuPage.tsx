@@ -94,7 +94,7 @@ export const OhjaavaHakuPage = () => {
 
   const lastQuestionIndex = questionsWithoutInvalidOptions.length - 1;
 
-  const storeRef = useRef<OhjaavaHakuStore>();
+  const storeRef = useRef<OhjaavaHakuStore>(undefined);
 
   if (!storeRef.current) {
     storeRef.current = createOhjaavaHakuStore({

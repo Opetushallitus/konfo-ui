@@ -63,13 +63,11 @@ module.exports = {
         argsIgnorePattern: '^_',
       },
     ],
-    '@typescript-eslint/ban-types': [
+    '@typescript-eslint/no-empty-object-type': 'off',
+    '@typescript-eslint/no-unused-expressions': [
       'error',
       {
-        types: {
-          object: false,
-        },
-        extendDefaults: true,
+        allowTernary: true,
       },
     ],
     '@typescript-eslint/array-type': [
@@ -126,7 +124,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: '*.config.ts',
+      files: '*.config.?ts',
       rules: {
         'import/no-default-export': 'off',
       },

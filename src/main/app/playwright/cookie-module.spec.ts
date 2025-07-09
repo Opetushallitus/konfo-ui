@@ -7,7 +7,7 @@ import { getCookie } from './test-tools';
 test.describe('Cookie consent button clicking and cockie saving into browser memmory', () => {
   const clearAndChekNoCookies = async (context) => {
     await context.clearCookies();
-    await expect(await getCookie(context, COOKIES.MANDATORY_COOKIE_NAME)).toBeFalsy();
+    expect(await getCookie(context, COOKIES.MANDATORY_COOKIE_NAME)).toBeFalsy();
   };
 
   const checkCookiesPresence = async (
@@ -36,7 +36,7 @@ test.describe('Cookie consent button clicking and cockie saving into browser mem
     context,
   }) => {
     await clearAndChekNoCookies(context);
-    await expect(await getCookie(context, COOKIES.STATISTICS_COOKIE_NAME)).toBeFalsy();
+    expect(await getCookie(context, COOKIES.STATISTICS_COOKIE_NAME)).toBeFalsy();
     await page.goto('/konfo/fi/');
     await page.getByRole('button', { name: 'Salli kaikki evästeet' }).click();
     await checkCookiesPresence(context, true, true);
@@ -47,7 +47,7 @@ test.describe('Cookie consent button clicking and cockie saving into browser mem
     context,
   }) => {
     await clearAndChekNoCookies(context);
-    await expect(await getCookie(context, COOKIES.STATISTICS_COOKIE_NAME)).toBeFalsy();
+    expect(await getCookie(context, COOKIES.STATISTICS_COOKIE_NAME)).toBeFalsy();
     await page.goto('/konfo/fi/');
     await page.getByRole('button', { name: 'Salli vain pakolliset evästeet' }).click();
     await checkCookiesPresence(context, true, false);
@@ -58,7 +58,7 @@ test.describe('Cookie consent button clicking and cockie saving into browser mem
     context,
   }) => {
     await clearAndChekNoCookies(context);
-    await expect(await getCookie(context, COOKIES.STATISTICS_COOKIE_NAME)).toBeFalsy();
+    expect(await getCookie(context, COOKIES.STATISTICS_COOKIE_NAME)).toBeFalsy();
     await page.goto('/konfo/fi/');
     await page.getByRole('button', { name: 'Evästeasetukset' }).click();
     await page.getByRole('button', { name: 'Asetukset' }).click();

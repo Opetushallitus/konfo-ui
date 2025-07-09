@@ -38,7 +38,7 @@ const handleOppilaitosData = (
   data: any,
   rest: Omit<ReturnType<typeof useQuery>, 'data'>
 ) => {
-  const entity = isOppilaitosOsa ? data.oppilaitoksenOsa : data.oppilaitos ?? {};
+  const entity = isOppilaitosOsa ? data.oppilaitoksenOsa : (data.oppilaitos ?? {});
   const aktiivisetOsat = filter(data?.osat, { status: ACTIVE });
   return {
     data: {

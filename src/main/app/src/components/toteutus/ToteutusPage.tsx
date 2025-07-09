@@ -243,8 +243,8 @@ export const ToteutusPage = () => {
               hasAnyHakukohde
                 ? t('toteutus.katso-hakukohteet')
                 : toteutus?.metadata.hakutermi === 'hakeutuminen'
-                ? t('toteutus.katso-hakeutumisen-ohjeet')
-                : t('toteutus.katso-ilmoittautumisen-ohjeet')
+                  ? t('toteutus.katso-hakeutumisen-ohjeet')
+                  : t('toteutus.katso-ilmoittautumisen-ohjeet')
             }
             href="#haut"
             buttonText={
