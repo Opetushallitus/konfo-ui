@@ -192,6 +192,9 @@ export const FilterCheckbox = ({
         disableGutters
         onClick={() => onChange(value)}
         disabled={disabled}
+        role="checkbox"
+        aria-checked={checked}
+        tabIndex={0}
         sx={{
           marginLeft: indented ? 2 : 0,
           paddingLeft: '2px',
@@ -260,6 +263,7 @@ const FilterCheckboxGroup = ({
         expandButton={
           <IconButton
             size="small"
+            aria-expanded={isOpen}
             aria-label={`${localizeIfNimiObject(value)} ${t('haku.nayta-lisarajaimet')}`}
             onClick={handleToggle}
             onFocus={(e) => {
