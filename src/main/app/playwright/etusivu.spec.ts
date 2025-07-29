@@ -52,7 +52,9 @@ test.describe('Etusivu', () => {
     await getSearchInput(page).fill('auto');
     await page.getByRole('button', { name: /^Rajaa/ }).click();
     await page.getByTestId('valitse_koulutustyyppi').click();
-    await page.getByRole('checkbox', { name: 'Lukiokoulutukset' }).check();
+    await page
+      .locator('input[type="checkbox"][aria-labelledby="filter-list-label-lk"]')
+      .check();
     await page.keyboard.press('Escape');
     await page.keyboard.press('Escape');
     await getSearchButton(page).click();

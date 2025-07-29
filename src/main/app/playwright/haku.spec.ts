@@ -78,10 +78,11 @@ test.describe('Haku', () => {
       name: 'Ammattikorkeakoulujen koulutukset',
       exact: true,
     });
-    const ylempiAmkCheckbox = koulutustyyppiFilter.getByRole('checkbox', {
-      name: /Ylemmät AMK-tutkinnot/i,
-      exact: true,
-    });
+
+    const ylempiAmkCheckbox2 = koulutustyyppiFilter.locator(
+      'input[type="checkbox"][aria-labelledby="filter-list-label-amk-ylempi"]'
+    );
+    const ylempiAmkLabel = page.locator('#filter-list-label-amk-ylempi');
 
     const alempiAmkCheckbox = koulutustyyppiFilter.getByRole('checkbox', {
       name: 'AMK-tutkinnot',
@@ -90,17 +91,18 @@ test.describe('Haku', () => {
 
     await koulutustyyppiFilter.getByTestId('show-more-amk').click();
     await amkCheckbox.check();
-    await expect(ylempiAmkCheckbox).toBeChecked();
+    await expect(ylempiAmkLabel).toHaveText(/Ylemmät AMK-tutkinnot/);
+    await expect(ylempiAmkCheckbox2).toBeChecked();
     await expect(alempiAmkCheckbox).toBeChecked();
 
     await amkCheckbox.uncheck();
-    await expect(ylempiAmkCheckbox).not.toBeChecked();
+    await expect(ylempiAmkCheckbox2).not.toBeChecked();
     await expect(alempiAmkCheckbox).not.toBeChecked();
 
     await alempiAmkCheckbox.check();
     await expect(amkCheckbox).toHaveAttribute('data-indeterminate', 'true');
 
-    await ylempiAmkCheckbox.check();
+    await ylempiAmkCheckbox2.check();
     await expect(amkCheckbox).toBeChecked();
   });
 
@@ -112,13 +114,18 @@ test.describe('Haku', () => {
     await page.goto('/konfo/fi/haku');
 
     const opetustapaFilter = page.getByTestId('opetustapa-filter');
-    const etaopetusChk = opetustapaFilter.getByRole('checkbox', { name: /Etäopetus/i });
-    const verkkoOpiskeluChk = opetustapaFilter.getByRole('checkbox', {
-      name: /Verkko-opiskelu/i,
-    });
+    const etaopetusChk = opetustapaFilter.locator(
+      'input[type="checkbox"][aria-labelledby="filter-list-label-opetuspaikkakk_2"]'
+    );
+    const etaopetusLabel = page.locator('#filter-list-label-opetuspaikkakk_2');
+    const verkkoOpiskeluChk = opetustapaFilter.locator(
+      'input[type="checkbox"][aria-labelledby="filter-list-label-opetuspaikkakk_3"]'
+    );
+    const verkkoOpiskeluLabel = page.locator('#filter-list-label-opetuspaikkakk_3');
 
     await page.getByRole('button', { name: 'Opetustapa' }).click();
-
+    await expect(etaopetusLabel).toHaveText(/Etäopetus/);
+    await expect(verkkoOpiskeluLabel).toHaveText(/Verkko-opiskelu/);
     await etaopetusChk.click();
     await expect(etaopetusChk).toBeChecked();
     await etaopetusChk.click();
@@ -139,16 +146,20 @@ test.describe('Haku', () => {
     await page.goto('/konfo/fi/haku');
 
     const valintatapaFilter = page.getByTestId('valintatapa-filter');
-    const koepisteetChk = valintatapaFilter.getByRole('checkbox', {
-      name: /Koepisteet/i,
-    });
-    const yhteispisteetChk = valintatapaFilter.getByRole('checkbox', {
-      name: /Yhteispisteet/i,
-    });
+    const koepisteetChk = valintatapaFilter.locator(
+      'input[type="checkbox"][aria-labelledby="filter-list-label-valintatapajono_kp"]'
+    );
+    const yhteispisteetChk = valintatapaFilter.locator(
+      'input[type="checkbox"][aria-labelledby="filter-list-label-valintatapajono_yp"]'
+    );
+    const koepisteetLabel = page.locator('#filter-list-label-valintatapajono_kp');
+    const yhteispisteetLabel = page.locator('#filter-list-label-valintatapajono_yp');
 
     const valintatapaButton = page.getByRole('button', { name: 'Valintatapa' });
     await expect(valintatapaButton).toBeVisible();
     await valintatapaButton.click();
+    await expect(koepisteetLabel).toHaveText(/Koepisteet/);
+    await expect(yhteispisteetLabel).toHaveText(/Yhteispisteet/);
     await koepisteetChk.click();
     await expect(koepisteetChk).toBeChecked();
     await koepisteetChk.click();
@@ -168,11 +179,13 @@ test.describe('Haku', () => {
     await page.goto('/konfo/fi/haku');
 
     const hakukaynnissaFilter = page.getByTestId('hakukaynnissa-filter');
-    const hakuKaynnissaChk = hakukaynnissaFilter.getByRole('checkbox', {
-      name: /Haku käynnissä/i,
-    });
+    const hakuKaynnissaChk = hakukaynnissaFilter.locator(
+      'input[type="checkbox"][aria-labelledby="filter-list-label-hakukaynnissa"]'
+    );
+    const hakuKaynnissaLabel = page.locator('#filter-list-label-hakukaynnissa');
 
     await hakuKaynnissaChk.click();
+    await expect(hakuKaynnissaLabel).toHaveText(/Haku käynnissä/);
     await expect(hakuKaynnissaChk).toBeChecked();
     await hakuKaynnissaChk.click();
     await expect(hakuKaynnissaChk).not.toBeChecked();
@@ -186,14 +199,20 @@ test.describe('Haku', () => {
     await page.goto('/konfo/fi/haku');
 
     const hakutapaFilter = page.getByTestId('hakutapa-filter');
-    const yhteishakuChk = hakutapaFilter.getByRole('checkbox', { name: /Yhteishaku/i });
-    const jatkuvaHakuChk = hakutapaFilter.getByRole('checkbox', {
-      name: /Jatkuva haku/i,
-    });
+    const jatkuvaHakuChk = hakutapaFilter.locator(
+      'input[type="checkbox"][aria-labelledby="filter-list-label-hakutapa_03"]'
+    );
+    const jatkuvaHakuLabel = page.locator('#filter-list-label-hakutapa_03');
+    const yhteishakuChk = hakutapaFilter.locator(
+      'input[type="checkbox"][aria-labelledby="filter-list-label-hakutapa_01"]'
+    );
+    const yhteisHakuLabel = page.locator('#filter-list-label-hakutapa_01');
 
     const hakutapaButton = page.getByRole('button', { name: 'Hakutapa' });
     await expect(hakutapaButton).toBeVisible();
     await hakutapaButton.click();
+    await expect(jatkuvaHakuLabel).toHaveText(/Jatkuva haku/);
+    await expect(yhteisHakuLabel).toHaveText(/Yhteishaku/);
     await jatkuvaHakuChk.click();
     await expect(jatkuvaHakuChk).toBeChecked();
     await jatkuvaHakuChk.click();
@@ -211,19 +230,21 @@ test.describe('Haku', () => {
     await page.goto('/konfo/fi/haku');
 
     const pohjakoulutusVaatimusFilter = page.getByTestId('pohjakoulutusvaatimus-filter');
-    const ammatillinenPerustutkintoChk = pohjakoulutusVaatimusFilter.getByRole(
-      'checkbox',
-      {
-        name: /Ammatillinen perustutkinto/i,
-      }
+    const ammatillinenPerustutkintoChk = pohjakoulutusVaatimusFilter.locator(
+      'input[type="checkbox"][aria-labelledby="filter-list-label-pohjakoulutusvaatimuskonfo_am"]'
     );
-    const lukioChk = pohjakoulutusVaatimusFilter.getByRole('checkbox', {
-      name: /Lukio/i,
-    });
+    const ammatillinenPerustutkintoLabel = page.locator(
+      '#filter-list-label-pohjakoulutusvaatimuskonfo_am'
+    );
+    const lukioChk = pohjakoulutusVaatimusFilter.locator(
+      'input[type="checkbox"][aria-labelledby="filter-list-label-pohjakoulutusvaatimuskonfo_002"]'
+    );
+    const lukioLabel = page.locator('#filter-list-label-pohjakoulutusvaatimuskonfo_002');
     const koulutustaustaButton = page.getByRole('button', { name: 'Koulutustausta' });
     await expect(koulutustaustaButton).toBeVisible();
     await koulutustaustaButton.click();
-
+    await expect(ammatillinenPerustutkintoLabel).toHaveText(/Ammatillinen perustutkinto/);
+    await expect(lukioLabel).toHaveText(/Lukio/);
     await ammatillinenPerustutkintoChk.click();
     await expect(ammatillinenPerustutkintoChk).toBeChecked();
     await ammatillinenPerustutkintoChk.click();
