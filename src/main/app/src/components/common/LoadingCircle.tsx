@@ -17,7 +17,7 @@ const StyledBackdrop = styled(Backdrop, {
   boxShadow: noContent ? 'none' : '0 0 5px 5px rgba(0,0,0,0.3)',
 }));
 
-const StyledSrOnlyBox = styled(Box)(() => ({
+const VisuallyHiddenBox = styled(Box)(() => ({
   border: 0,
   clip: 'rect(0 0 0 0)',
   height: '1px',
@@ -37,7 +37,7 @@ export const LoadingCircle = () => {
       aria-live="polite"
       sx={{ padding: 10, display: 'flex', justifyContent: 'center' }}>
       <CircularProgress size={50} disableShrink />
-      <StyledSrOnlyBox>{t('loading-circle.ladataan-sisaltoa')}</StyledSrOnlyBox>
+      <VisuallyHiddenBox>{t('loading-circle.ladataan-sisaltoa')}</VisuallyHiddenBox>
     </Box>
   );
 };
