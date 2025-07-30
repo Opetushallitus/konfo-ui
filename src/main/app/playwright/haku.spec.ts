@@ -79,7 +79,7 @@ test.describe('Haku', () => {
       exact: true,
     });
 
-    const ylempiAmkCheckbox2 = koulutustyyppiFilter.locator(
+    const ylempiAmkCheckbox = koulutustyyppiFilter.locator(
       'input[type="checkbox"][aria-labelledby="filter-list-label-amk-ylempi"]'
     );
     const ylempiAmkLabel = page.locator('#filter-list-label-amk-ylempi');
@@ -92,17 +92,17 @@ test.describe('Haku', () => {
     await koulutustyyppiFilter.getByTestId('show-more-amk').click();
     await amkCheckbox.check();
     await expect(ylempiAmkLabel).toHaveText(/Ylemmät AMK-tutkinnot/);
-    await expect(ylempiAmkCheckbox2).toBeChecked();
+    await expect(ylempiAmkCheckbox).toBeChecked();
     await expect(alempiAmkCheckbox).toBeChecked();
 
     await amkCheckbox.uncheck();
-    await expect(ylempiAmkCheckbox2).not.toBeChecked();
+    await expect(ylempiAmkCheckbox).not.toBeChecked();
     await expect(alempiAmkCheckbox).not.toBeChecked();
 
     await alempiAmkCheckbox.check();
     await expect(amkCheckbox).toHaveAttribute('data-indeterminate', 'true');
 
-    await ylempiAmkCheckbox2.check();
+    await ylempiAmkCheckbox.check();
     await expect(amkCheckbox).toBeChecked();
   });
 
