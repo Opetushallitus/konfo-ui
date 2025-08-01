@@ -35,6 +35,8 @@ const getPohjakoulutusvaatimus = (state: RootState) =>
 const getJotpa = (state: RootState) => state.hakutulos.jotpa;
 const getTyovoimakoulutus = (state: RootState) => state.hakutulos.tyovoimakoulutus;
 const getTaydennyskoulutus = (state: RootState) => state.hakutulos.taydennyskoulutus;
+const getPieniOsaamiskokonaisuus = (state: RootState) =>
+  state.hakutulos.pieniosaamiskokonaisuus;
 const getAlkamiskausi = (state: RootState) => state.hakutulos.alkamiskausi;
 const getMaksullisuustyyppi = (state: RootState) => state.hakutulos.maksullisuustyyppi;
 const getMaksunmaara = (state: RootState) => state.hakutulos.maksunmaara;
@@ -89,6 +91,7 @@ export const getIsAnyFilterSelected = createSelector(
     getJotpa,
     getTyovoimakoulutus,
     getTaydennyskoulutus,
+    getPieniOsaamiskokonaisuus,
     getKoulutuksenKestoKuukausina,
     getAlkamiskausi,
     getMaksullisuustyyppi,
@@ -113,6 +116,7 @@ export const getIsAnyFilterSelected = createSelector(
     jotpa,
     tyovoimakoulutus,
     taydennyskoulutus,
+    pieniosaamiskokonaisuus,
     koulutuksenkestokuukausina,
     alkamiskausi,
     maksullisuustyyppi,
@@ -126,6 +130,7 @@ export const getIsAnyFilterSelected = createSelector(
       jotpa ||
       tyovoimakoulutus ||
       taydennyskoulutus ||
+      pieniosaamiskokonaisuus ||
       apuraha ||
       some(
         [
@@ -170,6 +175,7 @@ export const getRajainParams = createSelector(
     getJotpa,
     getTyovoimakoulutus,
     getTaydennyskoulutus,
+    getPieniOsaamiskokonaisuus,
     getKoulutuksenKestoKuukausina,
     getAlkamiskausi,
     getMaksullisuustyyppi,
@@ -194,6 +200,7 @@ export const getRajainParams = createSelector(
     jotpa,
     tyovoimakoulutus,
     taydennyskoulutus,
+    pieniosaamiskokonaisuus,
     koulutuksenkestokuukausina,
     alkamiskausi,
     maksullisuustyyppi,
@@ -214,6 +221,7 @@ export const getRajainParams = createSelector(
     jotpa,
     tyovoimakoulutus,
     taydennyskoulutus,
+    pieniosaamiskokonaisuus,
     ...koulutuksenkestokuukausina,
     ...maksunmaara,
     ...lukuvuosimaksunmaara,
@@ -287,6 +295,7 @@ export const TOTEUTUS_RAJAIN_NAMES = [
   'jotpa',
   'tyovoimakoulutus',
   'taydennyskoulutus',
+  'pieniosaamiskokonaisuus',
   'hakutapa',
   'yhteishaku',
   'pohjakoulutusvaatimus',
