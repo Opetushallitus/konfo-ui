@@ -100,6 +100,7 @@
     "husky": "^8.0.3",
     "jsdom": "^22.1.0",
     "lint-staged": "^13.2.3",
+    "openapi-typescript": "^7.8.0",
     "prettier": "^3.0.0",
     "start-server-and-test": "^2.0.0",
     "typescript": "5.1",

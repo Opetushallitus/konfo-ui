@@ -224,6 +224,7 @@
     "apuraha": "Apuraha",
     "maisteri": "Maisteriohjelmat",
     "muut": "Muut",
+    "muut-rajaimet": "Muut",
     "näytä": "Näytä",
     "näytä_lisää": "Näytä lisää",
     "näytä_vähemmän": "Näytä vähemmän",
@@ -313,7 +314,8 @@
       "30": "Haku alkaa kuukauden kuluessa"
     },
     "hakuaika": "Hakuaika",
-    "nayta-kaikki-koulutukset": "Näytä kaikki koulutukset"
+    "nayta-kaikki-koulutukset": "Näytä kaikki koulutukset",
+    "pieniosaamiskokonaisuus": "Pieni osaamiskokonaisuus"
   },
   "ohjaava-haku": {
     "aloita-kysely": "Käynnistä kysely",
