@@ -30,24 +30,24 @@ export const HakutulosResults = ({
 
   if (selectedTab === 'koulutus' && size(koulutusHits) > 0) {
     return (
-      <>
+      <ul role="list" style={{ listStyle: 'none', padding: 0 }}>
         {koulutusHits.map((koulutus) => (
-          <KoulutusKortti key={koulutus.oid} koulutus={koulutus} isSmall={isSmall} />
+          <li key={koulutus.oid} role="listitem">
+            <KoulutusKortti koulutus={koulutus} isSmall={isSmall} />
+          </li>
         ))}
-      </>
+      </ul>
     );
   }
   if (selectedTab === 'oppilaitos' && size(oppilaitosHits) > 0) {
     return (
-      <>
+      <ul role="list" style={{ listStyle: 'none', padding: 0 }}>
         {oppilaitosHits.map((oppilaitos) => (
-          <OppilaitosKortti
-            key={oppilaitos.oid}
-            oppilaitos={oppilaitos}
-            isSmall={isSmall}
-          />
+          <li key={oppilaitos.oid} role="listitem">
+            <OppilaitosKortti oppilaitos={oppilaitos} isSmall={isSmall} />
+          </li>
         ))}
-      </>
+      </ul>
     );
   }
 
