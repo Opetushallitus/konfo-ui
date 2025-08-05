@@ -66,6 +66,7 @@ export const SivuRouter = () => {
     'vapaaehtoistyo',
     'Erasmus+-nuorisovaihdot-ja-DiscoverEU',
     'kansainvalisia-kokemuksia-alle-18-vuotiaana',
+    'maailmalle-net',
 
     'varfor-ut-i-varlden',
     'internationella-kunskaper',
@@ -95,6 +96,7 @@ export const SivuRouter = () => {
     'volontararbete',
     'Erasmus+-ungdomsutbyte-och-DiscoverEU',
     'internationella-erfarenheter-for-unga-under-18-ar',
+    'maailmalle-net-sv',
   ];
 
   if (isLoading) {
