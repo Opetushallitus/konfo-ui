@@ -16,6 +16,7 @@ export const RAJAIN_TYPES = {
   JOTPA: 'jotpa',
   TYOVOIMAKOULUTUS: 'tyovoimakoulutus',
   TAYDENNYSKOULUTUS: 'taydennyskoulutus',
+  PIENIOSAAMISKOKONAISUUS: 'pieniosaamiskokonaisuus',
   HAKUTAPA: 'hakutapa',
   YHTEISHAKU: 'yhteishaku',
   POHJAKOULUTUSVAATIMUS: 'pohjakoulutusvaatimus',
