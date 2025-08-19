@@ -15,6 +15,7 @@ test.describe('Etusivu', () => {
   test('Should have cards with working links', async ({ page }) => {
     await page.goto('/konfo');
     await page.locator('a[href*="/sivu/ammatillinen-koulutus"]').click();
+    await expect(page.locator('h1')).toHaveCount(1);
     await expect(page.locator('h1')).toContainText('Ammatillinen koulutus');
   });
 

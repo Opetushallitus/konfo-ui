@@ -50,7 +50,7 @@ const ButtonResults = styled(StyledButton)({
   fontWeight: 'bold',
 });
 
-const setFocus = (refElement?: React.RefObject<HTMLButtonElement>) => {
+const setFocus = (refElement?: React.RefObject<HTMLButtonElement | null>) => {
   if (refElement && refElement.current) {
     refElement.current.focus();
   }
@@ -61,7 +61,7 @@ export const NavigationButtons = ({
   refElement,
 }: {
   errorKey: string;
-  refElement?: React.RefObject<HTMLButtonElement>;
+  refElement?: React.RefObject<HTMLButtonElement | null>;
 }) => {
   const { t } = useTranslation();
 

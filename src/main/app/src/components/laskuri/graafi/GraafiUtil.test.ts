@@ -236,7 +236,7 @@ describe('GraafiUtil', () => {
             ],
           },
         })
-      ).toBeTruthy;
+      ).toBeTruthy();
     });
 
     it('returns false if there is valintatapajono_tv and some other valintatapa', () => {
@@ -251,8 +251,9 @@ describe('GraafiUtil', () => {
           ],
         },
       };
-      expect(containsOnlyTodistusvalinta(hakukohdeWithTodistusvalintaAndYhteispisteet))
-        .toBeFalsy;
+      expect(
+        containsOnlyTodistusvalinta(hakukohdeWithTodistusvalintaAndYhteispisteet)
+      ).toBeFalsy();
     });
 
     it('returns false if there is no valintatapajono_tv', () => {
@@ -263,7 +264,7 @@ describe('GraafiUtil', () => {
           pistehistoria: [pistehistoriaKoepisteet],
         },
       };
-      expect(containsOnlyTodistusvalinta(hakukohdeWithKoepisteet)).toBeFalsy;
+      expect(containsOnlyTodistusvalinta(hakukohdeWithKoepisteet)).toBeFalsy();
     });
   });
 

@@ -238,7 +238,7 @@ export const getPaginationPage = ({ offset, size }: Pagination) =>
 const tryCatch = <T>(fn: () => T, defaultValue?: T) => {
   try {
     return fn();
-  } catch (e) {
+  } catch {
     return defaultValue;
   }
 };
