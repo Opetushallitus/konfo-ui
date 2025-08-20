@@ -12,6 +12,7 @@ import { TyoelamaJaTaydennyskoulutuksetSuodatin } from '../../suodattimet/common
 import { ValintatapaSuodatin } from '../../suodattimet/common/ValintatapaSuodatin';
 import { KoulutusalaSuodatin } from '../../suodattimet/hakutulosSuodattimet/KoulutusalaSuodatin';
 import { KoulutustyyppiSuodatin } from '../../suodattimet/hakutulosSuodattimet/KoulutustyyppiSuodatin';
+import { MuutSuodattimet } from '../../suodattimet/hakutulosSuodattimet/MuutSuodattimet';
 
 export const HAKU_RAJAIMET_ORDER = [
   {
@@ -70,4 +71,5 @@ export const HAKU_RAJAIMET_ORDER = [
     id: 'valintatapa',
     Component: ValintatapaSuodatin,
   },
+  { id: 'muut', Component: MuutSuodattimet },
 ];

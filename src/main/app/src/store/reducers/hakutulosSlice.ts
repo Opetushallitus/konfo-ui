@@ -22,6 +22,7 @@ export type RajainValues = {
   jotpa: boolean;
   tyovoimakoulutus: boolean;
   taydennyskoulutus: boolean;
+  pieniosaamiskokonaisuus: boolean;
   hakutapa: Array<string>;
   yhteishaku: Array<string>;
   kunta: Array<string>;
@@ -53,6 +54,7 @@ export const HAKU_RAJAIMET_INITIAL = {
   jotpa: false,
   tyovoimakoulutus: false,
   taydennyskoulutus: false,
+  pieniosaamiskokonaisuus: false,
   hakutapa: [],
   yhteishaku: [], // NOTE: tämä suodatin ei käytä koodistoarvoja vaan hakuOideja
   kunta: [],
@@ -206,6 +208,7 @@ export const hakutulosSlice = createSlice({
             RAJAIN_TYPES.TYOVOIMAKOULUTUS,
             RAJAIN_TYPES.TAYDENNYSKOULUTUS,
             RAJAIN_TYPES.APURAHA,
+            RAJAIN_TYPES.PIENIOSAAMISKOKONAISUUS,
             () => {
               Object.assign(state, { [key]: value === 'true' });
             }
