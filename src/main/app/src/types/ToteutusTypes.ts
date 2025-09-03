@@ -80,6 +80,7 @@ export type ToteutusMetadata = {
   ammattinimikkeet: Array<{ kieli: string; arvo: string }>;
   asiasanat: [];
   kuvaus: Translateable;
+  osaamistavoitteet: Translateable;
   opetus: Opetus;
   osaamisalat: Array<Osaamisala>;
   tyyppi: string;
