@@ -25,6 +25,7 @@ import { useKoulutus, useKoulutusJarjestajat } from './hooks';
 import { KoulutusInfoGrid } from './KoulutusInfoGrid';
 import { ToteutusList } from './ToteutusList';
 import { TulevaJarjestajaList } from './TulevaJarjestajaList';
+import { Osaamistavoitteet } from '../common/Osaamistavoitteet';
 
 const KoulutusalatHeading = styled(Typography)(({ theme }) => ({
   ...theme.typography.body1,
@@ -237,6 +238,7 @@ export const KoulutusPage = () => {
             <KoulutusInfoGrid koulutus={koulutus} />
           </PageSection>
           <Kuvaus koulutus={koulutus} />
+          <Osaamistavoitteet osaamistavoitteet={koulutus?.osaamistavoitteet} />
           <OsaamismerkinKuvaus koulutus={koulutus} />
           <TutkinnonOsat koulutus={koulutus} />
           <Box id="tarjonta">

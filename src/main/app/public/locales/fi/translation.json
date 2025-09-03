@@ -526,7 +526,8 @@
     "tunniste": "Hakijalle näkyvä tunniste",
     "opinnonTyyppi": "Opinnon tyyppi",
     "naytto": "Näyttö",
-    "opintojakso": "Opintojakso"
+    "opintojakso": "Opintojakso",
+    "osaamistavoitteet": "Koulutuksen osaamistavoitteet"
   },
   "sidebar": {
     "lukio": "Lukio",

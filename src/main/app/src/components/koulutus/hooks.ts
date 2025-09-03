@@ -104,6 +104,7 @@ const selectKoulutus = (koulutusData: any) => {
       tunniste: koulutusData?.metadata?.tunniste, // Avoin-kk "hakijalle näkyvä tunniste"
       opinnonTyyppi: koulutusData?.metadata?.opinnonTyyppi, // Avoin-kk
       osaamismerkki: koulutusData?.osaamismerkki,
+      osaamistavoitteet: koulutusData?.metadata?.osaamistavoitteet,
     };
   } else {
     return undefined;
