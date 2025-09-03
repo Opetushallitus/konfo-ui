@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 
 import { Box, Grid, Typography } from '@mui/material';
 import { some, isEmpty, uniq } from 'lodash';
@@ -43,6 +43,7 @@ import { Osaamismerkit } from './Osaamismerkit';
 import { ToteutuksenYhteystiedot } from './ToteutuksenYhteystiedot';
 import { ToteutusHakutiedot } from './ToteutusHakutiedot';
 import { ToteutusInfoGrid } from './ToteutusInfoGrid';
+import { Osaamistavoitteet } from '../common/Osaamistavoitteet';
 import { useKoulutus } from '../koulutus/hooks';
 import { PisteContainer } from '../laskuri/PisteContainer';
 import { showPisteLaskuri } from '../laskuri/PisteLaskuriUtil';
@@ -108,6 +109,7 @@ export const ToteutusPage = () => {
     jarjestetaanErityisopetuksena,
     tyyppi,
     suoritetaanNayttona,
+    osaamistavoitteet,
   } = toteutus?.metadata ?? {};
 
   const { data: koulutus, status: koulutusStatus } = useKoulutus({
@@ -256,6 +258,9 @@ export const ToteutusPage = () => {
         )}
         {!isEmpty(kuvaus) && (
           <HtmlTextBox heading={t('koulutus.kuvaus')} html={localize(kuvaus)} />
+        )}
+        {!isEmpty(osaamistavoitteet) && (
+          <Osaamistavoitteet osaamistavoitteet={osaamistavoitteet} />
         )}
         {!isEmpty(painotukset) && (
           <PageSection heading={t('toteutus.painotukset')}>
