@@ -77,7 +77,7 @@ export const getByLabelLocator = async (outer: Locator | Page, label: Locator) =
 
 export const expectPageAccessibilityOk = async (page: Page) => {
   const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
-  await expect(accessibilityScanResults.violations).toEqual([]);
+  expect(accessibilityScanResults.violations).toEqual([]);
 };
 
 // For debugging

@@ -34,7 +34,7 @@ export const useLanguageState = (): [string | undefined, (newLang: string) => vo
 };
 
 export function usePreviousNonEmpty<T>(value?: T) {
-  const ref = useRef<T | undefined>();
+  const ref = useRef<T | undefined>(undefined);
 
   useEffect(() => {
     if (!isEmpty(value)) {

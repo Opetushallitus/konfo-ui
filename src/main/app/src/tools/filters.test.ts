@@ -1,4 +1,4 @@
-import produce from 'immer';
+import { produce } from 'immer';
 import { set, flow, mapValues } from 'lodash';
 
 import { RAJAIN_TYPES } from '#/src/constants';

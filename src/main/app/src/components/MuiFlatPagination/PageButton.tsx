@@ -116,7 +116,7 @@ export interface PageButtonProps
   pageVariant: PageVariant;
   currentPageColor?: PropTypes.Color;
   onClick?: (ev: React.MouseEvent<HTMLElement>, offset: number, page: number) => void;
-  renderButton?: (props: RenderButtonProps) => React.ReactElement;
+  renderButton?: (props: RenderButtonProps) => React.ReactElement<any>;
   otherPageColor?: PropTypes.Color;
 }
 

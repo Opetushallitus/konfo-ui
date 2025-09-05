@@ -65,16 +65,16 @@ export type ContentfulAsset = CommonContentfulFields & {
 type FieldsModVal<T> = T extends EntryFieldTypes.Object['data']
   ? 'string'
   : T extends boolean
-  ? 'true' | 'false'
-  : T extends Asset
-  ? ContentfulAsset
-  : T extends Entry
-  ? ContentfulEntryLink<T>
-  : T extends Array<infer E>
-  ? E extends Entry
-    ? Array<ContentfulEntryLink<E>>
-    : Array<ContentfulLink>
-  : T;
+    ? 'true' | 'false'
+    : T extends Asset
+      ? ContentfulAsset
+      : T extends Entry
+        ? ContentfulEntryLink<T>
+        : T extends Array<infer E>
+          ? E extends Entry
+            ? Array<ContentfulEntryLink<E>>
+            : Array<ContentfulLink>
+          : T;
 
 type FieldsMod<F extends EntrySkeletonType['fields']> = {
   [P in keyof F]: FieldsModVal<F[P]>;

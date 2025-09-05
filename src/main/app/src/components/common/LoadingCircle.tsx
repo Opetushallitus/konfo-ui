@@ -57,7 +57,7 @@ export const OverlayLoadingCircle = ({
 };
 
 export const LoadingCircleWrapper = ({ children }: React.PropsWithChildren) => {
-  const ref = useRef<HTMLDivElement>();
+  const ref = useRef<HTMLDivElement>(undefined);
 
   const noContent = !ref?.current || ref?.current?.clientHeight <= CIRCLE_MIN_HEIGHT;
 

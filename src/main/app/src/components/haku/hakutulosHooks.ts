@@ -254,7 +254,7 @@ export const useSearch = () => {
     }
   }, [dispatch, currentPage, goToSearchPage]);
 
-  const resetPaginationCb = useCallback(() => dispatch(resetPagination), [dispatch]);
+  const resetPaginationCb = useCallback(() => dispatch(resetPagination()), [dispatch]);
 
   const setKeywordCb = useCallback(
     (k: string) => dispatch(setKeyword({ keyword: k })),

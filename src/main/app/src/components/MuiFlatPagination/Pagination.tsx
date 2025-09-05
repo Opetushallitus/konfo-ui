@@ -63,7 +63,7 @@ export interface PaginationProps
   innerButtonCount?: number;
   nextPageLabel?: React.ReactNode;
   onClick?: (ev: React.MouseEvent<HTMLElement>, offset: number, page: number) => void;
-  renderButton?: (props: RenderButtonProps) => React.ReactElement;
+  renderButton?: (props: RenderButtonProps) => React.ReactElement<any>;
   otherPageColor?: PropTypes.Color;
   outerButtonCount?: number;
   previousPageLabel?: React.ReactNode;

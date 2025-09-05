@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 
 import { Grid } from '@mui/material';
-import produce from 'immer';
+import { produce } from 'immer';
 import { isEmpty, isNumber, concat } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -211,8 +211,9 @@ export const ValintaperustePage = () => {
   const valintakokeet = useMemo(() => {
     const usedValintaperusteenKokeet = (valintaperusteenValintakokeet || []).map(
       (v: any) => {
-        const added = lisatilaisuudet?.find((tilaisuus: any) => tilaisuus.id === v.id)
-          ?.tilaisuudet;
+        const added = lisatilaisuudet?.find(
+          (tilaisuus: any) => tilaisuus.id === v.id
+        )?.tilaisuudet;
         return added
           ? produce(v, (draft: any) => {
               draft.tilaisuudet = concat(v.tilaisuudet, added);

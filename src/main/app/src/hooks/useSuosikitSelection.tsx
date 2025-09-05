@@ -2,9 +2,9 @@ import { useMemo } from 'react';
 
 import { formatISO } from 'date-fns';
 import { castArray, orderBy, toPairs } from 'lodash';
-import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
+import { createWithEqualityFn as create } from 'zustand/traditional';
 
 type Suosikki = {
   timestamp: string;

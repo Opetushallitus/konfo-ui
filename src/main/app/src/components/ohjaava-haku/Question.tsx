@@ -66,7 +66,7 @@ export const QuestionInfoText = ({ questionInfo }: { questionInfo: string }) => 
 export const Question = ({
   refElement,
 }: {
-  refElement?: React.RefObject<HTMLButtonElement>;
+  refElement?: React.RefObject<HTMLButtonElement | null>;
 }) => {
   const { t } = useTranslation();
 
