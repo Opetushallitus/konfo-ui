@@ -163,8 +163,8 @@ const UnstyledPagination: React.FunctionComponent<
                     ? t('haku.edellinen-sivu')
                     : t('haku.seuraava-sivu')
                   : pageVariant === 'current'
-                  ? t('haku.nykyinen-sivu', { page: pp.page })
-                  : t('haku.siirry-sivulle', { page: pp.page })
+                    ? t('haku.nykyinen-sivu', { page: pp.page })
+                    : t('haku.siirry-sivulle', { page: pp.page })
               }>
               {children}
             </PageButton>
