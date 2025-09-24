@@ -294,11 +294,11 @@ test.describe('Haku', () => {
     await page.goto('/konfo/fi/haku');
 
     const currentButtonPage1 = page.locator('[aria-current="page"]');
-    const page2Button = page.getByRole('button', { name: 'Siirry sivulle 2' });
+    const page2Button = page.getByRole('link', { name: 'Siirry sivulle 2 / 114' });
 
     await expect(currentButtonPage1).toHaveAttribute(
       'aria-label',
-      'Sivu 1, nykyinen sivu'
+      'Sivu 1 / 114, nykyinen sivu'
     );
     await expect(page2Button).not.toHaveAttribute('aria-current');
 
@@ -320,7 +320,7 @@ test.describe('Haku', () => {
 
     await expect(currentButtonPage2).toHaveAttribute(
       'aria-label',
-      'Sivu 2, nykyinen sivu'
+      'Sivu 2 / 114, nykyinen sivu'
     );
 
     // Tehdään haku hakusanalla "auto"
@@ -346,7 +346,7 @@ test.describe('Haku', () => {
 
     await expect(currentButtonPage1).toHaveAttribute(
       'aria-label',
-      'Sivu 1, nykyinen sivu'
+      'Sivu 1 / 114, nykyinen sivu'
     );
     await expect(page2Button).not.toHaveAttribute('aria-current');
   });

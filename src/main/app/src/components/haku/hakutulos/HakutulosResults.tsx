@@ -30,7 +30,7 @@ export const HakutulosResults = ({
 
   if (selectedTab === 'koulutus' && size(koulutusHits) > 0) {
     return (
-      <ul role="list" style={{ listStyle: 'none', padding: 0 }}>
+      <ul role="list" style={{ listStyle: 'none', padding: 0, margin: 0 }}>
         {koulutusHits.map((koulutus) => (
           <li key={koulutus.oid} role="listitem">
             <KoulutusKortti koulutus={koulutus} isSmall={isSmall} />
@@ -41,7 +41,7 @@ export const HakutulosResults = ({
   }
   if (selectedTab === 'oppilaitos' && size(oppilaitosHits) > 0) {
     return (
-      <ul role="list" style={{ listStyle: 'none', padding: 0 }}>
+      <ul role="list" style={{ listStyle: 'none', padding: 0, margin: 0 }}>
         {oppilaitosHits.map((oppilaitos) => (
           <li key={oppilaitos.oid} role="listitem">
             <OppilaitosKortti oppilaitos={oppilaitos} isSmall={isSmall} />

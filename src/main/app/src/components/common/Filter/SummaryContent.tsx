@@ -58,7 +58,9 @@ export const SummaryContent = ({
   return (
     <Grid container justifyContent="space-between" alignItems="center" wrap="nowrap">
       <Grid item style={{ paddingRight: '8px' }}>
-        <Typography variant="subtitle1">{filterName}</Typography>
+        <Typography variant="subtitle1" component="span">
+          {filterName}
+        </Typography>
       </Grid>
       {displaySelected && (
         <Grid item>

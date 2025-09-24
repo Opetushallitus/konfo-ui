@@ -103,7 +103,8 @@ const UnstyledPagination: React.FunctionComponent<
 
   const innerButtonCount = reduced ? 1 : innerButtonCountProp;
   const outerButtonCount = reduced ? 1 : outerButtonCountProp;
-
+  const safeLimit = Math.max(1, limit);
+  const totalPages = Math.max(1, Math.ceil(total / safeLimit));
   const Component = component;
   const { t } = useTranslation();
   return (
@@ -163,8 +164,8 @@ const UnstyledPagination: React.FunctionComponent<
                     ? t('haku.edellinen-sivu')
                     : t('haku.seuraava-sivu')
                   : pageVariant === 'current'
-                    ? t('haku.nykyinen-sivu', { page: pp.page })
-                    : t('haku.siirry-sivulle', { page: pp.page })
+                    ? t('haku.nykyinen-sivu', { page: pp.page, count: totalPages })
+                    : t('haku.siirry-sivulle', { page: pp.page, count: totalPages })
               }>
               {children}
             </PageButton>
