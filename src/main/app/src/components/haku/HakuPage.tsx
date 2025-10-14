@@ -222,7 +222,7 @@ export const HakuPage = () => {
           style={{ marginBottom: theme.spacing(2) }}>
           {isContentMdUp && (
             <Grid item lg={3} md={4} sm={12}>
-              <Typography style={{ paddingTop: 10 }} variant="h5">
+              <Typography sx={{ pt: '10px' }} variant="h5" component="h2">
                 {t('haku.rajaa-tuloksia')}
               </Typography>
             </Grid>
