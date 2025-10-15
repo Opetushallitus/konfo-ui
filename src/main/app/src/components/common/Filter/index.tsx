@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 import {
   Box,
@@ -79,6 +79,18 @@ const customStyles: Styles = {
   }),
 };
 
+const screenReaderOnly = {
+  border: 0,
+  clip: 'rect(0 0 0 0)',
+  height: 1,
+  margin: -1,
+  overflow: 'hidden',
+  padding: 0,
+  position: 'absolute' as const,
+  width: 1,
+  whiteSpace: 'nowrap' as const,
+};
+
 const LoadingIndicator = () => <CircularProgress size={25} color="inherit" />;
 
 type DropdownIndicatorProps = RSDropdownIndicatorProps<
@@ -88,7 +100,7 @@ type DropdownIndicatorProps = RSDropdownIndicatorProps<
 >;
 const DropdownIndicator = (props: DropdownIndicatorProps) => (
   <components.DropdownIndicator {...props}>
-    <MaterialIcon icon="search" />
+    <MaterialIcon icon="search" aria-hidden={true} focusable="false" />
   </components.DropdownIndicator>
 );
 
@@ -192,6 +204,9 @@ export const FilterCheckbox = ({
         disableGutters
         onClick={() => onChange(value)}
         disabled={disabled}
+        role="checkbox"
+        aria-checked={checked}
+        tabIndex={0}
         sx={{
           marginLeft: indented ? 2 : 0,
           paddingLeft: '2px',
@@ -215,7 +230,6 @@ export const FilterCheckbox = ({
         </ListItemIcon>
         <ListItemText
           id={labelId}
-          sx={{ wordWrap: 'break-word' }}
           primaryTypographyProps={{ variant: 'body2' }}
           primary={translateRajainItem(value, t)}
         />
@@ -260,6 +274,7 @@ const FilterCheckboxGroup = ({
         expandButton={
           <IconButton
             size="small"
+            aria-expanded={isOpen}
             aria-label={`${localizeIfNimiObject(value)} ${t('haku.nayta-lisarajaimet')}`}
             onClick={handleToggle}
             onFocus={(e) => {
@@ -329,10 +344,24 @@ export const Filter = ({
 }: Props) => {
   const { t } = useTranslation();
   const [hideRest, setHideRest] = useState(expandValues);
+  const inputRef = useRef<any>(null);
   const usedName = [name, rajainItems.length === 0 && '(0)'].filter(Boolean).join(' ');
 
   const config = useConfig();
   const isCountVisible = isCountVisibleProp && config?.naytaFiltterienHakutulosLuvut;
+
+  const panelBase = (testId || name).toString().replace(/\+/g, '-').toLowerCase();
+  const headerId = `${panelBase}-summary`;
+  const contentId = `${panelBase}-region`;
+  const selectId = `${panelBase}-district-search`;
+  const selelctLabelId = `${selectId}-label`;
+  const selectHintId = `${selectId}-hint`;
+
+  useEffect(() => {
+    if (expanded && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [expanded]);
 
   return (
     <SuodatinAccordion
@@ -342,7 +371,10 @@ export const Filter = ({
       defaultExpanded={expanded}
       square>
       {!summaryHidden && (
-        <SuodatinAccordionSummary expandIcon={<MaterialIcon icon="expand_more" />}>
+        <SuodatinAccordionSummary
+          id={headerId}
+          aria-controls={contentId}
+          expandIcon={<MaterialIcon icon="expand_more" />}>
           <SummaryContent
             filterName={usedName}
             values={rajainItems}
@@ -350,12 +382,29 @@ export const Filter = ({
           />
         </SuodatinAccordionSummary>
       )}
-      <SuodatinAccordionDetails {...(summaryHidden && { style: { padding: 0 } })}>
+      <SuodatinAccordionDetails
+        id={contentId}
+        role="region"
+        aria-labelledby={headerId}
+        {...(summaryHidden && { style: { padding: 0 } })}>
         <Grid container direction="column" wrap="nowrap">
           {additionalContent}
           {options && rajainItems.length > HIDE_NOT_EXPANDED_AMOUNT && (
             <Grid item style={{ padding: '20px 0', zIndex: 2 }}>
+              {/* Visually hidden label for WCAG 3.3.2 compliance */}
+              <label htmlFor={selectId} style={screenReaderOnly}>
+                {t('haku.sijainnin-hakukentta')}
+              </label>
+              <div id={selectHintId} style={screenReaderOnly}>
+                {selectPlaceholder || t('haku.etsi')}
+              </div>
+
               <Select
+                inputId={selectId}
+                aria-labelledby={selelctLabelId}
+                aria-describedby={selectHintId}
+                ref={inputRef}
+                aria-label={t('haku.sijainnin-hakukentta')}
                 components={{ DropdownIndicator, LoadingIndicator, Option }}
                 styles={customStyles}
                 value={[]}
@@ -370,6 +419,7 @@ export const Filter = ({
                     onItemChange(item);
                   }
                 }}
+                isSearchable={expanded}
                 onFocus={onFocus}
                 onMenuClose={onHide}
                 onMenuOpen={onFocus}

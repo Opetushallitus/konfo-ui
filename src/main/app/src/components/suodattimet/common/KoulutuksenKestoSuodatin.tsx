@@ -145,7 +145,7 @@ export const KoulutuksenKestoSuodatin = ({
             alignItems="center"
             wrap="nowrap">
             <Grid item style={{ paddingRight: '8px' }}>
-              <Typography variant="subtitle1">
+              <Typography variant="subtitle1" component="span">
                 {t('haku.koulutuksenkestokuukausina')}
               </Typography>
             </Grid>

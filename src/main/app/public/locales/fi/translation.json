@@ -122,6 +122,9 @@
     "takaisin": "Palaa edelliselle sivulle",
     "etusivulle": "Palaa etusivulle"
   },
+  "loading-circle": {
+    "ladataan-sisaltoa": "Ladataan sisältöä..."
+  },
   "latausvirhe": {
     "otsikko": "Tekninen virhe",
     "teksti": "Tietojen lataaminen epäonnistui. Jos ongelma jatkuu, ota yhteyttä opintopolun ylläpitoon.",
@@ -165,6 +168,7 @@
     "ammatillinen": "Ammatilliset tutkinnot",
     "ammatillinen-perustutkinto-erityisopetuksena": "Ammatillinen perustutkinto erityisopetuksena",
     "arviointikriteerit": "Arviointikriteerit",
+    "edellinen-sivu": "Edellinen sivu",
     "ei_kuvausta": "Ei kuvausta",
     "ei_koulutusohjelmia": "Ei koulutusohjelmia",
     "ei-hakutuloksia": "Ei hakutuloksia",
@@ -230,6 +234,7 @@
     "nayta-hakutulos_plural": "Näytä {{count}} hakutulosta",
     "nayta-hakutulos": "Näytä {{count}} hakutulos",
     "nayta-lisarajaimet": "Näytä lisärajaimet",
+    "nykyinen-sivu": "Sivu {{page}} / {{count}}, nykyinen sivu",
     "odota-hetki-ja-kokeile-suorita-toiminto-uudestaan": "Odota hetki ja kokeile suorita toiminto uudestaan",
     "olet-valinnut-vertailuun": "Olet valinnut vertailuun:",
     "opetusaika": "Opetusaika",
@@ -256,7 +261,10 @@
     "rajaa-etsintää": "+ RAJAA ETSINTÄÄ",
     "rajaa-tuloksia": "Rajaa",
     "ruotsi": "Ruotsi",
+    "seuraava-sivu": "Seuraava sivu",
     "siirry-opintopolun-etusivulle": "Siirry Opintopolun etusivulle",
+    "siirry-sivulle": "Siirry sivulle {{page}} / {{count}}",
+    "sijainnin-hakukentta": "Sijainnin hakukenttä",
     "sijainti": "Sijainti",
     "sulje-rajain": "- SULJE RAJAIMET",
     "summary": "Hakusanalla \"{{keyword}}\" ei löytynyt hakutuloksia. Tarkista hakusana tai kokeile toista hakusanaa.",

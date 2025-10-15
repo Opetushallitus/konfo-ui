@@ -31,7 +31,9 @@ export const MobileToggleKoulutusOppilaitos = () => {
   return (
     <SuodatinAccordion style={{ boxShadow: 'none' }} defaultExpanded elevation={0}>
       <SuodatinAccordionSummary expandIcon={<MaterialIcon icon="expand_more" />}>
-        <Typography variant="subtitle1">{t('haku.kategoria')}</Typography>
+        <Typography variant="subtitle1" component="span">
+          {t('haku.kategoria')}
+        </Typography>
       </SuodatinAccordionSummary>
       <SuodatinAccordionDetails>
         <ButtonGroup fullWidth>

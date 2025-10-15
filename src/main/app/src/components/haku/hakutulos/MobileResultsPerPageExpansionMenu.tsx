@@ -24,7 +24,7 @@ export const MobileResultsPerPageExpansionMenu = () => {
       alignItems="flex-start"
       sx={{ padding: '12px 24px' }}>
       <Grid item xs={12} sm={4}>
-        <Typography variant="subtitle1" noWrap>
+        <Typography variant="subtitle1" component="span" noWrap>
           {t('haku.tuloksia-per-sivu')}
         </Typography>
       </Grid>

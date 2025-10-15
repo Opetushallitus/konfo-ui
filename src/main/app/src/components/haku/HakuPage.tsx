@@ -171,7 +171,7 @@ const RajainValinnat = () => {
 };
 
 const ExpandMore = (props: SvgIconProps) => (
-  <MaterialIcon icon="expand_more" {...props} />
+  <MaterialIcon aria-hidden="true" focusable="false" icon="expand_more" {...props} />
 );
 
 export const HakuPage = () => {
@@ -222,7 +222,7 @@ export const HakuPage = () => {
           style={{ marginBottom: theme.spacing(2) }}>
           {isContentMdUp && (
             <Grid item lg={3} md={4} sm={12}>
-              <Typography style={{ paddingTop: 10 }} variant="h5">
+              <Typography sx={{ pt: '10px' }} variant="h5" component="h2">
                 {t('haku.rajaa-tuloksia')}
               </Typography>
             </Grid>
@@ -240,10 +240,14 @@ export const HakuPage = () => {
             </Grid>
             {isContentMdUp && (
               <Grid item style={{ paddingTop: 6 }}>
-                <Box component="span" className={classes.boxRoot}>
+                <Box
+                  id="label-results-per-page"
+                  component="span"
+                  className={classes.boxRoot}>
                   {t('haku.tulokset-per-sivu')}
                 </Box>
                 <StyledSelect
+                  aria-labelledby="label-results-per-page"
                   IconComponent={ExpandMore}
                   className={classes.select}
                   style={{ marginRight: 4 }}
@@ -265,10 +269,11 @@ export const HakuPage = () => {
                     </StyledMenuItem>
                   ))}
                 </StyledSelect>
-                <Box component="span" className={classes.boxRoot}>
+                <Box id="label-sort-order" component="span" className={classes.boxRoot}>
                   {t('haku.jarjesta')}
                 </Box>
                 <StyledSelect
+                  aria-labelledby="label-sort-order"
                   IconComponent={ExpandMore}
                   className={classes.select}
                   style={{ marginRight: 4 }}
