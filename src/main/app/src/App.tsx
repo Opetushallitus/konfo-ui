@@ -17,7 +17,6 @@ import {
 
 import { CookieDrawer } from '#/src/components/common/CookieDrawer';
 import { CookieModal } from '#/src/components/common/CookieModal';
-import { SiteImprove } from '#/src/components/common/SiteImprove';
 import { HeadingBoundary } from '#/src/components/Heading';
 import { OhjaavaHakuLink } from '#/src/components/ohjaava-haku/OhjaavaHakuLink';
 import { useSideMenu } from '#/src/hooks';
@@ -270,7 +269,6 @@ export const App = () => {
       <Draft />
       <CookieModal />
       <CookieDrawer />
-      <SiteImprove titleObj={titleObj} />
       <Box display="flex">
         <Header
           toggleMenu={toggleMenu}
