@@ -6,21 +6,11 @@ import { KEEP_VALIKKO_OPEN_WIDTH } from '#/src/constants';
 
 const getLocationPage = (location: Location) => location?.pathname?.split('/')?.[2];
 
-const getFullUrl = (path: string) =>
-  window.location.protocol + '//' + window.location.hostname + '/konfo' + path;
-
-const getSiteImproveUrl = (location: Location) => {
-  const locationString = location?.pathname + location?.hash;
-  return getFullUrl(locationString.replace(/#/, '/hash/'));
-};
-
 type AppState = {
   hakutulosWidth: number;
   sideMenuOpen: boolean;
   currentPage: string | undefined;
   previousPage: string | undefined;
-  currentSiteImproveUrl?: string | undefined;
-  previousSiteImproveUrl?: string | undefined;
   closedHairiotiedotteetIds: Array<string>;
   setHakutulosWidth: (width: number) => void;
   setMenuState: (isOpen: boolean) => void;
@@ -35,8 +25,6 @@ const useAppState = create<AppState>()(
     // currentPage tallennettu vain, jotta voidaan päätellä previousPage
     currentPage: undefined,
     previousPage: undefined,
-    currentSiteImproveUrl: undefined,
-    previousSiteImproveUrl: undefined,
     closedHairiotiedotteetIds: [],
     setHakutulosWidth: (width: number) =>
       set((state) => {
@@ -49,14 +37,9 @@ const useAppState = create<AppState>()(
     locationChanged: (location: Location) =>
       set((state) => {
         const newPage = getLocationPage(location);
-        const newSiteImproveLocation = getSiteImproveUrl(location);
         if (newPage !== state.currentPage) {
           state.previousPage = state.currentPage;
           state.currentPage = newPage;
-        }
-        if (newSiteImproveLocation !== state.currentSiteImproveUrl) {
-          state.previousSiteImproveUrl = state.currentSiteImproveUrl;
-          state.currentSiteImproveUrl = newSiteImproveLocation;
         }
       }),
     setClosedHairiotiedotteetIds: (ids: Array<string>) =>
@@ -79,12 +62,6 @@ export const usePreviousPage = () => useAppState((state) => state.previousPage);
 // Käytetty useLocation():a tässä, koska Reduxiin tallennetun currentPagen käyttäminen
 // aiheutti ongelmia reitityksessä
 export const useCurrentPage = () => getLocationPage(useLocation());
-
-export const usePreviousSiteImproveLocation = () =>
-  useAppState((state) => state.previousSiteImproveUrl);
-
-export const useCurrentSiteImproveLocation = () =>
-  useAppState((state) => state.currentSiteImproveUrl);
 
 export const useIsAtEtusivu = () => useCurrentPage() === '';
 
