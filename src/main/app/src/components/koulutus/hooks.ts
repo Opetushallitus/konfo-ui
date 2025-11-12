@@ -32,14 +32,22 @@ type TutkinnonOsa = {
   opintojenLaajuusNumero: number;
 };
 
-export const fetchKoulutus = async (oid: string, isDraft: boolean = false) => {
+export const fetchKoulutus = async (
+  oid: string,
+  isDraft: boolean = false,
+  osaamisalakuvaukset: boolean = false
+) => {
   const koulutusData = await getKoulutus(oid, isDraft);
   if (
     (koulutusData?.koulutustyyppi === KOULUTUS_TYYPPI.AMM && koulutusData.ePerusteId) ||
     (koulutusData?.koulutustyyppi === KOULUTUS_TYYPPI.AMM_OSAAMISALA &&
       koulutusData.ePerusteId)
   ) {
-    const koulutusKuvausData = await getKoulutusKuvaus(koulutusData.ePerusteId);
+    const ePerusteId = koulutusData.ePerusteId;
+    const requestParams = {
+      osaamisalakuvaukset: osaamisalakuvaukset,
+    };
+    const koulutusKuvausData = await getKoulutusKuvaus({ ePerusteId, requestParams });
     set(koulutusData, 'metadata.kuvaus', koulutusKuvausData);
   } else if (koulutusData?.koulutustyyppi === KOULUTUS_TYYPPI.AMM_TUTKINNON_OSA) {
     const tutkinnonOsat: Array<TutkinnonOsa> =
@@ -114,12 +122,17 @@ const selectKoulutus = (koulutusData: any) => {
 type UseKoulutusProps = {
   oid?: string;
   isDraft?: boolean;
+  osaamisalakuvaukset?: boolean;
 };
 
-export const useKoulutus = ({ oid, isDraft }: UseKoulutusProps) => {
+export const useKoulutus = ({
+  oid,
+  isDraft,
+  osaamisalakuvaukset = false,
+}: UseKoulutusProps) => {
   return useQuery(
     ['fetchKoulutus', { oid, isDraft }],
-    () => fetchKoulutus(oid!, isDraft),
+    () => fetchKoulutus(oid!, isDraft, osaamisalakuvaukset),
     {
       select: selectKoulutus,
       enabled: Boolean(oid),
