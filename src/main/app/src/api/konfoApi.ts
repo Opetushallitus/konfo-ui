@@ -71,8 +71,16 @@ export const getConfiguration = () => {
 
 export const getKoulutus = createEntityGetter<TODOType>('koulutus');
 
-export const getKoulutusKuvaus = (ePerusteId: string) =>
-  get(urls.url('konfo-backend.koulutus.kuvaus', ePerusteId));
+export const getKoulutusKuvaus = ({
+  ePerusteId,
+  requestParams,
+}: {
+  ePerusteId: string;
+  requestParams: RequestParams;
+}) =>
+  get(urls.url('konfo-backend.koulutus.kuvaus', ePerusteId), {
+    params: cleanRequestParams(requestParams),
+  });
 
 export const getEperusteKuvaus = (ePerusteId?: string) =>
   get(urls.url('konfo-backend.eperuste.kuvaus', ePerusteId));

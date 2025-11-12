@@ -107,7 +107,9 @@
           "nimi": "Antti Sarjanoja"
         },
         "oid": "1.2.246.562.13.00000000000000000623",
-        "kielivalinta": ["fi"],
+        "kielivalinta": [
+          "fi"
+        ],
         "koulutus": {
           "koodiUri": "koulutus_364145#7",
           "nimi": {
@@ -117,7 +119,10 @@
         },
         "timestamp": 1610625789935,
         "julkinen": false,
-        "organisaatiot": ["1.2.246.562.10.594252633210", "1.2.246.562.10.81934895871"],
+        "organisaatiot": [
+          "1.2.246.562.10.594252633210",
+          "1.2.246.562.10.81934895871"
+        ],
         "organisaatio": {
           "paikkakunta": {
             "koodiUri": "kunta_398",
@@ -175,7 +180,7 @@
   },
   {
     "method": "GET",
-    "url": "http://localhost:3005/konfo-backend/kuvaus/2357203",
+    "url": "http://localhost:3005/konfo-backend/kuvaus/2357203?osaamisalakuvaukset=true",
     "response": {
       "body": {
         "id": 2357203,
@@ -211,7 +216,9 @@
             "kuvaus": {
               "fi": "<p>Olen testikuvaus </p><p></p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras orci nunc, mollis ut dolor quis, mollis auctor felis. Nunc euismod iaculis auctor. Sed erat ante, fermentum quis efficitur eget, suscipit sed tortor. Morbi sed iaculis risus, euismod feugiat leo. Etiam nibh arcu, bibendum vel metus eu, tincidunt ultrices leo. Vivamus eu aliquet lorem. Nulla at est iaculis, maximus purus non, finibus sem. Donec tristique, sem sed gravida sollicitudin, ex sem sodales orci, at tristique sem ex ac nulla.</p>"
             },
-            "opetuskielet": ["oppilaitoksenopetuskieli_1"],
+            "opetuskielet": [
+              "oppilaitoksenopetuskieli_1"
+            ],
             "toteutusOid": "1.2.246.562.17.00000000000000000471",
             "opetusajat": [
               {

@@ -189,7 +189,11 @@ export const KoulutusPage = () => {
   const { oid } = useParams();
   const { t } = useTranslation();
 
-  const { data: koulutus, status } = useKoulutus({ oid, isDraft });
+  const { data: koulutus, status } = useKoulutus({
+    oid,
+    isDraft,
+    osaamisalakuvaukset: true,
+  });
 
   const { data: tulevatJarjestajat } = useKoulutusJarjestajat({
     oid,
