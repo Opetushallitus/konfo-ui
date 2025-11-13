@@ -140,24 +140,19 @@ const OsaamismerkinKuvaus = ({ koulutus }) => {
 
 const Kuvaus = ({ koulutus }) => {
   const { t } = useTranslation();
+  const koulutuksenTyotehtavat = koulutus?.tyotehtavatJoissaVoiToimia;
+  const koulutuksenKuvaus = koulutus?.kuvaus;
 
   // NOTE: This uses HtmlTextBox which needs pure html
   const createKoulutusHtml = () =>
-    koulutus?.suorittaneenOsaaminen || koulutus?.tyotehtavatJoissaVoiToimia
+    koulutuksenTyotehtavat
       ? getKuvausHtmlSection(
           t,
-          'koulutus.suorittaneenOsaaminen',
-          koulutus?.suorittaneenOsaaminen
-        ) +
-        getKuvausHtmlSection(
-          t,
           'koulutus.tyotehtavatJoissaVoiToimia',
-          koulutus?.tyotehtavatJoissaVoiToimia
+          koulutuksenTyotehtavat
         )
-      : localize(koulutus?.kuvaus);
-  return !isEmpty(koulutus?.kuvaus) ||
-    koulutus?.suorittaneenOsaaminen ||
-    koulutus?.tyotehtavatJoissaVoiToimia ? (
+      : localize(koulutuksenKuvaus);
+  return !isEmpty(koulutuksenKuvaus) || koulutuksenTyotehtavat ? (
     <HtmlTextBox
       data-testid="kuvaus"
       heading={t('koulutus.kuvaus')}
@@ -242,7 +237,10 @@ export const KoulutusPage = () => {
             <KoulutusInfoGrid koulutus={koulutus} />
           </PageSection>
           <Kuvaus koulutus={koulutus} />
-          <Osaamistavoitteet osaamistavoitteet={koulutus?.osaamistavoitteet} />
+          <Osaamistavoitteet
+            osaamistavoitteet={koulutus?.osaamistavoitteet}
+            suorittaneenOsaaminen={koulutus?.suorittaneenOsaaminen}
+          />
           <OsaamismerkinKuvaus koulutus={koulutus} />
           <TutkinnonOsat koulutus={koulutus} />
           <Box id="tarjonta">
