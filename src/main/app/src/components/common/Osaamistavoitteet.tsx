@@ -6,11 +6,16 @@ import { localize } from '#/src/tools/localization';
 import { Translateable } from '#/src/types/common';
 
 export const Osaamistavoitteet = ({
-  osaamistavoitteet,
+  osaamistavoitteet: osaamistavoitekuvaus,
+  suorittaneenOsaaminen,
 }: {
   osaamistavoitteet: Translateable;
+  suorittaneenOsaaminen?: Translateable;
 }) => {
   const { t } = useTranslation();
+  const osaamistavoitteet = isEmpty(osaamistavoitekuvaus)
+    ? suorittaneenOsaaminen
+    : osaamistavoitekuvaus;
 
   return isEmpty(osaamistavoitteet) ? null : (
     <HtmlTextBox
