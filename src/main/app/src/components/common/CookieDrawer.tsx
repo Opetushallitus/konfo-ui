@@ -32,7 +32,6 @@ const StyledButtonLink = styled(Button)(({ theme }) => ({
   marginRight: '20px',
   fontWeight: 'bold',
   textTransform: 'none',
-  padding: 0,
   textDecoration: 'underline',
   marginBottom: '10px',
   '&:hover': {

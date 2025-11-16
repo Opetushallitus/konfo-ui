@@ -28,6 +28,11 @@ const cssBreakWordRule = {
   hyphens: 'auto',
 };
 
+export const focusRing = {
+  onLight: `0 0 0 2px ${colors.white}, 0 0 0 4px ${colors.brandGreen}`,
+  onDark: `0 0 0 2px  ${colors.brandGreen}, 0 0 0 4px ${colors.white}`,
+};
+
 export const theme = createTheme({
   headerHeight: HEADER_HEIGHT_PX,
   breakpoints,
@@ -141,10 +146,19 @@ export const theme = createTheme({
     },
     MuiButton: {
       styleOverrides: {
-        root: ({ ownerState, theme: myTheme }) => ({
-          ...myTheme.typography.body1,
-          color: ownerState.color,
-        }),
+        root: ({ ownerState, theme: myTheme }) => {
+          return {
+            ...myTheme.typography.body1,
+            color: ownerState.color,
+            '&:focus, &:focus-visible, &.Mui-focusVisible': {
+              outline: 'none',
+              boxShadow:
+                ownerState.color === 'secondary' || ownerState.color === 'inverted'
+                  ? focusRing.onDark
+                  : focusRing.onLight,
+            },
+          };
+        },
         outlined: {
           backgroundColor: 'transparent',
           borderWidth: '1px',
@@ -159,11 +173,28 @@ export const theme = createTheme({
             color: colors.white,
           },
         },
+        text: {
+          '&:focus, &:focus-visible, &.Mui-focusVisible': {
+            outline: 'none',
+            boxShadow: focusRing.onLight,
+          },
+        },
       },
     },
     MuiButtonBase: {
       defaultProps: {
         LinkComponent: SmartLink,
+        disableRipple: true,
+      },
+    },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          '&:focus, &:focus-visible': {
+            outline: 'none',
+            boxShadow: focusRing.onLight,
+          },
+        },
       },
     },
     MuiFormLabel: {
