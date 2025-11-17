@@ -18,7 +18,11 @@ import { getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
 import { styled } from '#/src/theme';
 import { getLanguage, localize } from '#/src/tools/localization';
 import { useUrlParams } from '#/src/tools/useUrlParams';
-import { createOsaamismerkinKuvausHtml, sanitizedHTMLParser } from '#/src/tools/utils';
+import {
+  createOsaamismerkinKuvausHtml,
+  createHtmlListElement,
+  sanitizedHTMLParser,
+} from '#/src/tools/utils';
 import { withDefaultProps } from '#/src/tools/withDefaultProps';
 
 import { useKoulutus, useKoulutusJarjestajat } from './hooks';
@@ -142,6 +146,13 @@ const Kuvaus = ({ koulutus }) => {
   const { t } = useTranslation();
   const koulutuksenTyotehtavat = koulutus?.tyotehtavatJoissaVoiToimia;
   const koulutuksenKuvaus = koulutus?.kuvaus;
+  const osaamisalat = koulutus?.kuvaus?.osaamisalat;
+  const osaamisalatHtml = createHtmlListElement(
+    osaamisalat,
+    'haku.amm-osaamisalat',
+    'nimi',
+    t
+  );
 
   // NOTE: This uses HtmlTextBox which needs pure html
   const createKoulutusHtml = () =>
@@ -150,8 +161,9 @@ const Kuvaus = ({ koulutus }) => {
           t,
           'koulutus.tyotehtavatJoissaVoiToimia',
           koulutuksenTyotehtavat
-        )
+        ) + osaamisalatHtml
       : localize(koulutuksenKuvaus);
+
   return !isEmpty(koulutuksenKuvaus) || koulutuksenTyotehtavat ? (
     <HtmlTextBox
       data-testid="kuvaus"
