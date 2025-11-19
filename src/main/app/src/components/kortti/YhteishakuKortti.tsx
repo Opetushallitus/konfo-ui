@@ -40,12 +40,14 @@ const StyledGrid = styled(Grid)(() => ({
   },
   [`& .${classes.toinenaste}`]: {
     backgroundColor: colors.brandGreen,
+    '--surface-color': colors.brandGreen as any,
     color: colors.white,
     borderRadius: 2,
   },
   [`& .${classes.kk}`]: {
     backgroundColor: colors.kkMagenta,
     color: colors.white,
+    '--surface-color': colors.kkMagenta as any,
     borderRadius: 2,
   },
   [`& .${classes.button}`]: {
@@ -56,6 +58,10 @@ const StyledGrid = styled(Grid)(() => ({
     margin: '5px 5px',
     fontSize: '14px',
     fontWeight: 'bold',
+    '&:focus, &:focus-visible, &.Mui-focusVisible': {
+      outline: 'none',
+      boxShadow: `0 0 0 2px var(--surface-color, ${colors.brandGreen}), 0 0 0 4px ${colors.white}`,
+    },
     [`&:hover`]: {
       backgroundColor: 'transparent',
       borderColor: colors.white,
@@ -74,6 +80,10 @@ const StyledGrid = styled(Grid)(() => ({
     margin: '5px',
     fontSize: '16px',
     fontWeight: 'bold',
+    '&:focus, &:focus-visible, &.Mui-focusVisible': {
+      outline: 'none',
+      boxShadow: `0 0 0 2px var(--surface-color, ${colors.brandGreen}), 0 0 0 4px ${colors.white}`,
+    },
     [`&:hover`]: {
       backgroundColor: colors.white,
       borderColor: colors.white,
@@ -88,6 +98,10 @@ const StyledGrid = styled(Grid)(() => ({
     margin: '5px',
     fontSize: '16px',
     fontWeight: 'bold',
+    '&:focus, &:focus-visible, &.Mui-focusVisible': {
+      outline: 'none',
+      boxShadow: `0 0 0 2px var(--surface-color, ${colors.kkMagenta}), 0 0 0 4px ${colors.white}`,
+    },
     [`&:hover`]: {
       backgroundColor: colors.white,
       borderColor: colors.white,
@@ -121,6 +135,7 @@ export const YhteishakuKortti = ({ id, n }: { id: string; n: number }) => {
               <Button
                 className={isKK ? classes.hakulomakeButtonKk : classes.hakulomakeButton}
                 variant="outlined"
+                color="secondary"
                 href={yhInfo.linkkiHakulomakkeelle}>
                 {yhInfo.tekstiHakulomakkeelle}
               </Button>
@@ -129,6 +144,7 @@ export const YhteishakuKortti = ({ id, n }: { id: string; n: number }) => {
               <Button
                 className={classes.button}
                 variant="outlined"
+                color="secondary"
                 href={yhInfo.linkkiOhjeisiin}>
                 {yhInfo.tekstiOhjeisiin}
               </Button>
@@ -137,6 +153,7 @@ export const YhteishakuKortti = ({ id, n }: { id: string; n: number }) => {
               <Button
                 className={classes.button}
                 variant="outlined"
+                color="secondary"
                 href={yhInfo.linkkiHakutuloksiin}>
                 {yhInfo.tekstiHakutuloksiin}
               </Button>

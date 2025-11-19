@@ -16,7 +16,6 @@ export const SearchButton = ({ isKeywordValid }: { isKeywordValid: boolean }) =>
       disabled={!isKeywordValid}
       type="submit"
       variant="contained"
-      color="secondary"
       sx={{
         display: 'inline-flex',
         flexShrink: 0,

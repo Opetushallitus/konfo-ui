@@ -31,6 +31,10 @@ const PalveluCard = styled(Card)<{ palvelu: ContentfulPalvelu }>(
     padding: '20px 20px 0px 20px',
     height: '100%',
     background: PALVELU_COLOR_MAP[palvelu.color ?? 'sininen'],
+    '&:focus, &:focus-visible': {
+      outline: 'none',
+      boxShadow: `0 0 0 2px ${colors.white}, 0 0 0 4px ${PALVELU_COLOR_MAP[palvelu.color ?? 'sininen']}`,
+    },
   })
 );
 
