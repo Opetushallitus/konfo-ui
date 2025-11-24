@@ -4,7 +4,7 @@ import { capitalize } from 'lodash';
 import {
   getSearchAddress,
   getLocalizedOpintojenLaajuus,
-  createKuvausListElement,
+  createHtmlListElement,
   createOsaamismerkinKuvausHtml,
 } from './utils';
 import { NDASH, OSAAMISMERKKI_JULKAISUTILA } from '../constants';
@@ -101,7 +101,7 @@ const mockedT = (key: string) => {
   return capitalize(match ? match[2] : '');
 };
 
-describe('createKuvausListElement', () => {
+describe('createHtmlListElement', () => {
   test('should create Osaamistavoitteet list with two list items and a heading', () => {
     const osaamistavoitteet = [
       {
@@ -125,9 +125,9 @@ describe('createKuvausListElement', () => {
     ];
 
     expect(
-      createKuvausListElement(
+      createHtmlListElement(
         osaamistavoitteet,
-        'osaamistavoitteet',
+        'haku.osaamistavoitteet',
         'osaamistavoite',
         mockedT as TFunction
       )
@@ -159,9 +159,9 @@ describe('createKuvausListElement', () => {
     ];
 
     expect(
-      createKuvausListElement(
+      createHtmlListElement(
         arviointikriteerit,
-        'arviointikriteerit',
+        'haku.arviointikriteerit',
         'arviointikriteeri',
         mockedT as TFunction
       )
@@ -174,7 +174,7 @@ describe('createKuvausListElement', () => {
     const arviointikriteerit: Array<OsaamismerkkikuvausEntity> = [];
 
     expect(
-      createKuvausListElement(
+      createHtmlListElement(
         arviointikriteerit,
         'arviointikriteerit',
         'arviointikriteeri',

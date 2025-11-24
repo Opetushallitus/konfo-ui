@@ -18,13 +18,18 @@ import { getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
 import { styled } from '#/src/theme';
 import { getLanguage, localize } from '#/src/tools/localization';
 import { useUrlParams } from '#/src/tools/useUrlParams';
-import { createOsaamismerkinKuvausHtml, sanitizedHTMLParser } from '#/src/tools/utils';
+import {
+  createOsaamismerkinKuvausHtml,
+  createHtmlListElement,
+  sanitizedHTMLParser,
+} from '#/src/tools/utils';
 import { withDefaultProps } from '#/src/tools/withDefaultProps';
 
 import { useKoulutus, useKoulutusJarjestajat } from './hooks';
 import { KoulutusInfoGrid } from './KoulutusInfoGrid';
 import { ToteutusList } from './ToteutusList';
 import { TulevaJarjestajaList } from './TulevaJarjestajaList';
+import { Osaamistavoitteet } from '../common/Osaamistavoitteet';
 
 const KoulutusalatHeading = styled(Typography)(({ theme }) => ({
   ...theme.typography.body1,
@@ -139,24 +144,27 @@ const OsaamismerkinKuvaus = ({ koulutus }) => {
 
 const Kuvaus = ({ koulutus }) => {
   const { t } = useTranslation();
+  const koulutuksenTyotehtavat = koulutus?.tyotehtavatJoissaVoiToimia;
+  const koulutuksenKuvaus = koulutus?.kuvaus;
+  const osaamisalat = koulutus?.kuvaus?.osaamisalat;
+  const osaamisalatHtml = createHtmlListElement(
+    osaamisalat,
+    'haku.amm-osaamisalat',
+    'nimi',
+    t
+  );
 
   // NOTE: This uses HtmlTextBox which needs pure html
   const createKoulutusHtml = () =>
-    koulutus?.suorittaneenOsaaminen || koulutus?.tyotehtavatJoissaVoiToimia
+    koulutuksenTyotehtavat
       ? getKuvausHtmlSection(
           t,
-          'koulutus.suorittaneenOsaaminen',
-          koulutus?.suorittaneenOsaaminen
-        ) +
-        getKuvausHtmlSection(
-          t,
           'koulutus.tyotehtavatJoissaVoiToimia',
-          koulutus?.tyotehtavatJoissaVoiToimia
-        )
-      : localize(koulutus?.kuvaus);
-  return !isEmpty(koulutus?.kuvaus) ||
-    koulutus?.suorittaneenOsaaminen ||
-    koulutus?.tyotehtavatJoissaVoiToimia ? (
+          koulutuksenTyotehtavat
+        ) + osaamisalatHtml
+      : localize(koulutuksenKuvaus);
+
+  return !isEmpty(koulutuksenKuvaus) || koulutuksenTyotehtavat ? (
     <HtmlTextBox
       data-testid="kuvaus"
       heading={t('koulutus.kuvaus')}
@@ -188,7 +196,11 @@ export const KoulutusPage = () => {
   const { oid } = useParams();
   const { t } = useTranslation();
 
-  const { data: koulutus, status } = useKoulutus({ oid, isDraft });
+  const { data: koulutus, status } = useKoulutus({
+    oid,
+    isDraft,
+    osaamisalakuvaukset: true,
+  });
 
   const { data: tulevatJarjestajat } = useKoulutusJarjestajat({
     oid,
@@ -237,6 +249,10 @@ export const KoulutusPage = () => {
             <KoulutusInfoGrid koulutus={koulutus} />
           </PageSection>
           <Kuvaus koulutus={koulutus} />
+          <Osaamistavoitteet
+            osaamistavoitteet={koulutus?.osaamistavoitteet}
+            suorittaneenOsaaminen={koulutus?.suorittaneenOsaaminen}
+          />
           <OsaamismerkinKuvaus koulutus={koulutus} />
           <TutkinnonOsat koulutus={koulutus} />
           <Box id="tarjonta">

@@ -286,14 +286,13 @@ export const getLocalizedOsaamismerkkikuvaus = (
   );
 };
 
-export const createKuvausListElement = (
+export const createHtmlListElement = (
   items: Array<OsaamismerkkikuvausEntity>,
-  headingName: string,
+  headingTranslationKey: string,
   itemKey: string,
   t: TFunction
 ) => {
-  const translationKey = t(`haku.${headingName}`);
-  const listHeading = `<h3>${translationKey}</h3>`;
+  const listHeading = `<h3>${t(headingTranslationKey)}</h3>`;
   const listItemHtmlStr = items
     ?.map((item) => {
       return '<li>' + localize(item?.[itemKey]) + '</li>';
@@ -311,10 +310,15 @@ export const createOsaamismerkinKuvausHtml = (
   const arviointikriteerit = osaamismerkki?.arviointikriteerit || [];
 
   return (
-    createKuvausListElement(osaamistavoitteet, 'osaamistavoitteet', 'osaamistavoite', t) +
-    createKuvausListElement(
+    createHtmlListElement(
+      osaamistavoitteet,
+      'haku.osaamistavoitteet',
+      'osaamistavoite',
+      t
+    ) +
+    createHtmlListElement(
       arviointikriteerit,
-      'arviointikriteerit',
+      'haku.arviointikriteerit',
       'arviointikriteeri',
       t
     )
