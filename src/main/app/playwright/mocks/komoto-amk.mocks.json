@@ -1,0 +1,2061 @@
+[
+  {
+    "method": "GET",
+    "url": "http://localhost:3005/konfo-backend/koulutus/1.2.246.562.13.00000000000000000231",
+    "response": {
+      "body": {
+        "tila": "julkaistu",
+        "johtaaTutkintoon": true,
+        "eqf": [
+          {
+            "koodiUri": "eqf_6",
+            "nimi": {
+              "en": "Level 6",
+              "fi": "Taso 6",
+              "sv": "Nivå 6"
+            }
+          }
+        ],
+        "koulutukset": [
+          {
+            "koodiUri": "koulutus_611101#12",
+            "nimi": {
+              "sv": "Musikpedagog (YH)",
+              "fi": "Musiikkipedagogi (AMK)",
+              "en": "Bachelor of Culture and Arts (UAS), Music Educator"
+            }
+          }
+        ],
+        "tarjoajat": [
+          {
+            "oid": "1.2.246.562.10.212457094610",
+            "nimi": {
+              "sv": "Yrkeshögskolan Novia",
+              "fi": "Yrkeshögskolan Novia",
+              "en": "Novia University of Applied Sciences"
+            },
+            "paikkakunta": {
+              "koodiUri": "kunta_905",
+              "nimi": {
+                "sv": "Vasa",
+                "fi": "Vaasa"
+              }
+            }
+          },
+          {
+            "oid": "1.2.246.562.10.34676359085",
+            "nimi": {
+              "fi": "Centria-ammattikorkeakoulu",
+              "sv": "Centria-ammattikorkeakoulu",
+              "en": "Centria University of Applied Sciences"
+            },
+            "paikkakunta": {
+              "koodiUri": "kunta_272",
+              "nimi": {
+                "fi": "Kokkola",
+                "sv": "Karleby"
+              }
+            }
+          },
+          {
+            "oid": "1.2.246.562.10.50880626531",
+            "nimi": {
+              "fi": "Oulun ammattikorkeakoulu",
+              "sv": "Oulun ammattikorkeakoulu",
+              "en": "Oulu University of Applied Sciences"
+            },
+            "paikkakunta": {
+              "koodiUri": "kunta_564",
+              "nimi": {
+                "sv": "Uleåborg",
+                "fi": "Oulu"
+              }
+            }
+          },
+          {
+            "oid": "1.2.246.562.10.57572539237",
+            "nimi": {
+              "sv": "Jyväskylän ammattikorkeakoulu",
+              "fi": "Jyväskylän ammattikorkeakoulu",
+              "en": "Jamk University of Applied Sciences"
+            },
+            "paikkakunta": {
+              "koodiUri": "kunta_179",
+              "nimi": {
+                "sv": "Jyväskylä",
+                "fi": "Jyväskylä"
+              }
+            }
+          },
+          {
+            "oid": "1.2.246.562.10.58083501534",
+            "nimi": {
+              "fi": "Turun ammattikorkeakoulu",
+              "sv": "Turun ammattikorkeakoulu",
+              "en": "Turku University of Applied Sciences"
+            },
+            "paikkakunta": {
+              "koodiUri": "kunta_853",
+              "nimi": {
+                "sv": "Åbo",
+                "fi": "Turku"
+              }
+            }
+          },
+          {
+            "oid": "1.2.246.562.10.64291752455",
+            "nimi": {
+              "fi": "Tampereen ammattikorkeakoulu",
+              "sv": "Tampereen ammattikorkeakoulu",
+              "en": "Tampere University of Applied Sciences"
+            },
+            "paikkakunta": {
+              "koodiUri": "kunta_837",
+              "nimi": {
+                "sv": "Tammerfors",
+                "fi": "Tampere"
+              }
+            }
+          },
+          {
+            "oid": "1.2.246.562.10.67476956288",
+            "nimi": {
+              "fi": "Metropolia Ammattikorkeakoulu",
+              "sv": "Metropolia Ammattikorkeakoulu",
+              "en": "Metropolia University of Applied Sciences"
+            },
+            "paikkakunta": {
+              "koodiUri": "kunta_091",
+              "nimi": {
+                "fi": "Helsinki",
+                "sv": "Helsingfors"
+              }
+            }
+          },
+          {
+            "oid": "1.2.246.562.10.83775162874",
+            "nimi": {
+              "sv": "Savonia-ammattikorkeakoulu",
+              "fi": "Savonia-ammattikorkeakoulu",
+              "en": "Savonia University of Applied Sciences"
+            },
+            "paikkakunta": {
+              "koodiUri": "kunta_297",
+              "nimi": {
+                "fi": "Kuopio",
+                "sv": "Kuopio"
+              }
+            }
+          }
+        ],
+        "toteutukset": [
+          {
+            "tila": "julkaistu",
+            "tarjoajat": [
+              {
+                "oid": "1.2.246.562.10.17379250362",
+                "nimi": {
+                  "fi": "Arabian kampus",
+                  "sv": "Arabian kampus",
+                  "en": "Arabia Campus"
+                },
+                "paikkakunta": {
+                  "koodiUri": "kunta_091",
+                  "nimi": {
+                    "fi": "Helsinki",
+                    "sv": "Helsingfors"
+                  }
+                }
+              }
+            ],
+            "modified": "2025-08-27T12:33:15",
+            "nimi": {
+              "fi": "Musiikkipedagogi (AMK), musiikki, päiväopinnot"
+            },
+            "oid": "1.2.246.562.17.00000000000000002122",
+            "organisaatiot": [
+              "1.2.246.562.10.17379250362"
+            ],
+            "organisaatio": {
+              "oid": "1.2.246.562.10.17379250362",
+              "nimi": {
+                "fi": "Arabian kampus",
+                "sv": "Arabian kampus",
+                "en": "Arabia Campus"
+              },
+              "paikkakunta": {
+                "koodiUri": "kunta_091",
+                "nimi": {
+                  "fi": "Helsinki",
+                  "sv": "Helsingfors"
+                }
+              }
+            },
+            "formatoituModified": {
+              "fi": "27.8.2025 klo 12:33",
+              "sv": "27.8.2025 kl. 12:33",
+              "en": "Aug. 27, 2025 at 12:33 PM UTC+3"
+            }
+          },
+          {
+            "tila": "julkaistu",
+            "tarjoajat": [
+              {
+                "oid": "1.2.246.562.10.70102230086",
+                "nimi": {
+                  "sv": "Linnankadun taidekampus",
+                  "fi": "Linnankadun taidekampus",
+                  "en": "Arts Academy, Linnankatu"
+                },
+                "paikkakunta": {
+                  "koodiUri": "kunta_853",
+                  "nimi": {
+                    "sv": "Åbo",
+                    "fi": "Turku"
+                  }
+                }
+              }
+            ],
+            "modified": "2025-08-27T12:33:15",
+            "nimi": {
+              "fi": "Musiikkipedagogi (AMK), päivätoteutus"
+            },
+            "oid": "1.2.246.562.17.00000000000000002426",
+            "organisaatiot": [
+              "1.2.246.562.10.70102230086"
+            ],
+            "organisaatio": {
+              "oid": "1.2.246.562.10.70102230086",
+              "nimi": {
+                "sv": "Linnankadun taidekampus",
+                "fi": "Linnankadun taidekampus",
+                "en": "Arts Academy, Linnankatu"
+              },
+              "paikkakunta": {
+                "koodiUri": "kunta_853",
+                "nimi": {
+                  "sv": "Åbo",
+                  "fi": "Turku"
+                }
+              }
+            },
+            "formatoituModified": {
+              "fi": "27.8.2025 klo 12:33",
+              "sv": "27.8.2025 kl. 12:33",
+              "en": "Aug. 27, 2025 at 12:33 PM UTC+3"
+            }
+          },
+          {
+            "tila": "julkaistu",
+            "tarjoajat": [
+              {
+                "oid": "1.2.246.562.10.45852282313",
+                "nimi": {
+                  "sv": "TAMK Pääkampus",
+                  "fi": "TAMK Pääkampus",
+                  "en": "TAMK Main Campus"
+                },
+                "paikkakunta": {
+                  "koodiUri": "kunta_837",
+                  "nimi": {
+                    "sv": "Tammerfors",
+                    "fi": "Tampere"
+                  }
+                }
+              }
+            ],
+            "modified": "2025-09-03T14:47:41",
+            "nimi": {
+              "fi": "Musiikkipedagogi (AMK), Musiikkipedagogin tutkinto-ohjelma"
+            },
+            "oid": "1.2.246.562.17.00000000000000002761",
+            "organisaatiot": [
+              "1.2.246.562.10.45852282313"
+            ],
+            "organisaatio": {
+              "oid": "1.2.246.562.10.45852282313",
+              "nimi": {
+                "sv": "TAMK Pääkampus",
+                "fi": "TAMK Pääkampus",
+                "en": "TAMK Main Campus"
+              },
+              "paikkakunta": {
+                "koodiUri": "kunta_837",
+                "nimi": {
+                  "sv": "Tammerfors",
+                  "fi": "Tampere"
+                }
+              }
+            },
+            "formatoituModified": {
+              "fi": "3.9.2025 klo 14:47",
+              "sv": "3.9.2025 kl. 14:47",
+              "en": "Sep. 3, 2025 at 02:47 PM UTC+3"
+            }
+          },
+          {
+            "tila": "julkaistu",
+            "tarjoajat": [
+              {
+                "oid": "1.2.246.562.10.14029604916",
+                "nimi": {
+                  "sv": "Linnanmaan kampus",
+                  "fi": "Linnanmaan kampus",
+                  "en": "Linnanmaa campus"
+                },
+                "paikkakunta": {
+                  "koodiUri": "kunta_564",
+                  "nimi": {
+                    "sv": "Uleåborg",
+                    "fi": "Oulu"
+                  }
+                }
+              },
+              {
+                "oid": "1.2.246.562.10.50880626531",
+                "nimi": {
+                  "fi": "Oulun ammattikorkeakoulu",
+                  "sv": "Oulun ammattikorkeakoulu",
+                  "en": "Oulu University of Applied Sciences"
+                },
+                "paikkakunta": {
+                  "koodiUri": "kunta_564",
+                  "nimi": {
+                    "sv": "Uleåborg",
+                    "fi": "Oulu"
+                  }
+                }
+              }
+            ],
+            "modified": "2025-08-27T12:33:15",
+            "nimi": {
+              "fi": "Musiikkipedagogi (AMK), päivätoteutus"
+            },
+            "oid": "1.2.246.562.17.00000000000000003399",
+            "organisaatiot": [
+              "1.2.246.562.10.50880626531",
+              "1.2.246.562.10.14029604916"
+            ],
+            "organisaatio": {
+              "oid": "1.2.246.562.10.50880626531",
+              "nimi": {
+                "fi": "Oulun ammattikorkeakoulu",
+                "sv": "Oulun ammattikorkeakoulu",
+                "en": "Oulu University of Applied Sciences"
+              },
+              "paikkakunta": {
+                "koodiUri": "kunta_564",
+                "nimi": {
+                  "sv": "Uleåborg",
+                  "fi": "Oulu"
+                }
+              }
+            },
+            "formatoituModified": {
+              "fi": "27.8.2025 klo 12:33",
+              "sv": "27.8.2025 kl. 12:33",
+              "en": "Aug. 27, 2025 at 12:33 PM UTC+3"
+            }
+          },
+          {
+            "tila": "julkaistu",
+            "tarjoajat": [
+              {
+                "oid": "1.2.246.562.10.854984817710",
+                "nimi": {
+                  "sv": "Talonpojankadun kampus, Kokkola",
+                  "fi": "Talonpojankadun kampus, Kokkola",
+                  "en": "Talonpojankatu Campus, Kokkola"
+                },
+                "paikkakunta": {
+                  "koodiUri": "kunta_272",
+                  "nimi": {
+                    "fi": "Kokkola",
+                    "sv": "Karleby"
+                  }
+                }
+              }
+            ],
+            "modified": "2025-08-27T12:33:15",
+            "nimi": {
+              "fi": "Musiikkipedagogi (AMK), päivä- ja monimuotototeutus / Kokkola"
+            },
+            "oid": "1.2.246.562.17.00000000000000003265",
+            "organisaatiot": [
+              "1.2.246.562.10.854984817710"
+            ],
+            "organisaatio": {
+              "oid": "1.2.246.562.10.854984817710",
+              "nimi": {
+                "sv": "Talonpojankadun kampus, Kokkola",
+                "fi": "Talonpojankadun kampus, Kokkola",
+                "en": "Talonpojankatu Campus, Kokkola"
+              },
+              "paikkakunta": {
+                "koodiUri": "kunta_272",
+                "nimi": {
+                  "fi": "Kokkola",
+                  "sv": "Karleby"
+                }
+              }
+            },
+            "formatoituModified": {
+              "fi": "27.8.2025 klo 12:33",
+              "sv": "27.8.2025 kl. 12:33",
+              "en": "Aug. 27, 2025 at 12:33 PM UTC+3"
+            }
+          },
+          {
+            "tila": "julkaistu",
+            "tarjoajat": [
+              {
+                "oid": "1.2.246.562.10.14029604916",
+                "nimi": {
+                  "sv": "Linnanmaan kampus",
+                  "fi": "Linnanmaan kampus",
+                  "en": "Linnanmaa campus"
+                },
+                "paikkakunta": {
+                  "koodiUri": "kunta_564",
+                  "nimi": {
+                    "sv": "Uleåborg",
+                    "fi": "Oulu"
+                  }
+                }
+              },
+              {
+                "oid": "1.2.246.562.10.50880626531",
+                "nimi": {
+                  "fi": "Oulun ammattikorkeakoulu",
+                  "sv": "Oulun ammattikorkeakoulu",
+                  "en": "Oulu University of Applied Sciences"
+                },
+                "paikkakunta": {
+                  "koodiUri": "kunta_564",
+                  "nimi": {
+                    "sv": "Uleåborg",
+                    "fi": "Oulu"
+                  }
+                }
+              }
+            ],
+            "modified": "2025-01-23T15:08:29",
+            "nimi": {
+              "fi": "Musiikkipedagogi (AMK), erillishaut"
+            },
+            "oid": "1.2.246.562.17.00000000000000003659",
+            "organisaatiot": [
+              "1.2.246.562.10.50880626531",
+              "1.2.246.562.10.14029604916"
+            ],
+            "organisaatio": {
+              "oid": "1.2.246.562.10.50880626531",
+              "nimi": {
+                "fi": "Oulun ammattikorkeakoulu",
+                "sv": "Oulun ammattikorkeakoulu",
+                "en": "Oulu University of Applied Sciences"
+              },
+              "paikkakunta": {
+                "koodiUri": "kunta_564",
+                "nimi": {
+                  "sv": "Uleåborg",
+                  "fi": "Oulu"
+                }
+              }
+            },
+            "formatoituModified": {
+              "fi": "23.1.2025 klo 15:08",
+              "sv": "23.1.2025 kl. 15:08",
+              "en": "Jan. 23, 2025 at 03:08 PM UTC+2"
+            }
+          },
+          {
+            "tila": "julkaistu",
+            "tarjoajat": [
+              {
+                "oid": "1.2.246.562.10.28439825226",
+                "nimi": {
+                  "sv": "Kuopio, Musiikki ja tanssi",
+                  "fi": "Kuopio, Musiikki ja tanssi",
+                  "en": "Kuopio, Musiikki ja tanssi"
+                },
+                "paikkakunta": {
+                  "koodiUri": "kunta_297",
+                  "nimi": {
+                    "fi": "Kuopio",
+                    "sv": "Kuopio"
+                  }
+                }
+              }
+            ],
+            "modified": "2025-08-27T12:33:15",
+            "nimi": {
+              "fi": "Musiikkipedagogi (AMK), päivätoteutus"
+            },
+            "oid": "1.2.246.562.17.00000000000000003124",
+            "organisaatiot": [
+              "1.2.246.562.10.28439825226"
+            ],
+            "organisaatio": {
+              "oid": "1.2.246.562.10.28439825226",
+              "nimi": {
+                "sv": "Kuopio, Musiikki ja tanssi",
+                "fi": "Kuopio, Musiikki ja tanssi",
+                "en": "Kuopio, Musiikki ja tanssi"
+              },
+              "paikkakunta": {
+                "koodiUri": "kunta_297",
+                "nimi": {
+                  "fi": "Kuopio",
+                  "sv": "Kuopio"
+                }
+              }
+            },
+            "formatoituModified": {
+              "fi": "27.8.2025 klo 12:33",
+              "sv": "27.8.2025 kl. 12:33",
+              "en": "Aug. 27, 2025 at 12:33 PM UTC+3"
+            }
+          },
+          {
+            "tila": "julkaistu",
+            "tarjoajat": [
+              {
+                "oid": "1.2.246.562.10.70102230086",
+                "nimi": {
+                  "sv": "Linnankadun taidekampus",
+                  "fi": "Linnankadun taidekampus",
+                  "en": "Arts Academy, Linnankatu"
+                },
+                "paikkakunta": {
+                  "koodiUri": "kunta_853",
+                  "nimi": {
+                    "sv": "Åbo",
+                    "fi": "Turku"
+                  }
+                }
+              }
+            ],
+            "modified": "2025-08-27T12:33:15",
+            "nimi": {
+              "fi": "Musiikkipedagogi (AMK), monimuotototeutus"
+            },
+            "oid": "1.2.246.562.17.00000000000000002224",
+            "organisaatiot": [
+              "1.2.246.562.10.70102230086"
+            ],
+            "organisaatio": {
+              "oid": "1.2.246.562.10.70102230086",
+              "nimi": {
+                "sv": "Linnankadun taidekampus",
+                "fi": "Linnankadun taidekampus",
+                "en": "Arts Academy, Linnankatu"
+              },
+              "paikkakunta": {
+                "koodiUri": "kunta_853",
+                "nimi": {
+                  "sv": "Åbo",
+                  "fi": "Turku"
+                }
+              }
+            },
+            "formatoituModified": {
+              "fi": "27.8.2025 klo 12:33",
+              "sv": "27.8.2025 kl. 12:33",
+              "en": "Aug. 27, 2025 at 12:33 PM UTC+3"
+            }
+          },
+          {
+            "tila": "julkaistu",
+            "tarjoajat": [
+              {
+                "oid": "1.2.246.562.10.625191789910",
+                "nimi": {
+                  "sv": "Jamk, Suomalainen musiikkikampus",
+                  "fi": "Jamk, Suomalainen musiikkikampus",
+                  "en": "Finnish Music Campus"
+                },
+                "paikkakunta": {
+                  "koodiUri": "kunta_179",
+                  "nimi": {
+                    "sv": "Jyväskylä",
+                    "fi": "Jyväskylä"
+                  }
+                }
+              }
+            ],
+            "modified": "2025-08-27T12:33:15",
+            "nimi": {
+              "fi": "Musiikkipedagogi (AMK), instrumenttiopetus ja ryhmänohjaus, päivä- ja monimuotototeutus, kevään 2025 haku"
+            },
+            "oid": "1.2.246.562.17.00000000000000025452",
+            "organisaatiot": [
+              "1.2.246.562.10.625191789910"
+            ],
+            "organisaatio": {
+              "oid": "1.2.246.562.10.625191789910",
+              "nimi": {
+                "sv": "Jamk, Suomalainen musiikkikampus",
+                "fi": "Jamk, Suomalainen musiikkikampus",
+                "en": "Finnish Music Campus"
+              },
+              "paikkakunta": {
+                "koodiUri": "kunta_179",
+                "nimi": {
+                  "sv": "Jyväskylä",
+                  "fi": "Jyväskylä"
+                }
+              }
+            },
+            "formatoituModified": {
+              "fi": "27.8.2025 klo 12:33",
+              "sv": "27.8.2025 kl. 12:33",
+              "en": "Aug. 27, 2025 at 12:33 PM UTC+3"
+            }
+          },
+          {
+            "tila": "julkaistu",
+            "tarjoajat": [
+              {
+                "oid": "1.2.246.562.10.625191789910",
+                "nimi": {
+                  "sv": "Jamk, Suomalainen musiikkikampus",
+                  "fi": "Jamk, Suomalainen musiikkikampus",
+                  "en": "Finnish Music Campus"
+                },
+                "paikkakunta": {
+                  "koodiUri": "kunta_179",
+                  "nimi": {
+                    "sv": "Jyväskylä",
+                    "fi": "Jyväskylä"
+                  }
+                }
+              }
+            ],
+            "modified": "2025-08-27T12:33:15",
+            "nimi": {
+              "fi": "Musiikkipedagogi (AMK), varhaisiän musiikkikasvatus ja kulttuurihyvinvointi, päivä- ja monimuotototeutus, kevään 2025 haku"
+            },
+            "oid": "1.2.246.562.17.00000000000000025453",
+            "organisaatiot": [
+              "1.2.246.562.10.625191789910"
+            ],
+            "organisaatio": {
+              "oid": "1.2.246.562.10.625191789910",
+              "nimi": {
+                "sv": "Jamk, Suomalainen musiikkikampus",
+                "fi": "Jamk, Suomalainen musiikkikampus",
+                "en": "Finnish Music Campus"
+              },
+              "paikkakunta": {
+                "koodiUri": "kunta_179",
+                "nimi": {
+                  "sv": "Jyväskylä",
+                  "fi": "Jyväskylä"
+                }
+              }
+            },
+            "formatoituModified": {
+              "fi": "27.8.2025 klo 12:33",
+              "sv": "27.8.2025 kl. 12:33",
+              "en": "Aug. 27, 2025 at 12:33 PM UTC+3"
+            }
+          },
+          {
+            "tila": "julkaistu",
+            "tarjoajat": [
+              {
+                "oid": "1.2.246.562.10.99415780891",
+                "nimi": {
+                  "sv": "Jakobstad",
+                  "fi": "Pietarsaari",
+                  "en": "Pietarsaari"
+                },
+                "paikkakunta": {
+                  "koodiUri": "kunta_598",
+                  "nimi": {
+                    "sv": "Jakobstad",
+                    "fi": "Pietarsaari"
+                  }
+                }
+              }
+            ],
+            "modified": "2025-08-27T12:33:15",
+            "nimi": {
+              "sv": "Musikpedagog (YH)"
+            },
+            "oid": "1.2.246.562.17.00000000000000027704",
+            "organisaatiot": [
+              "1.2.246.562.10.99415780891"
+            ],
+            "organisaatio": {
+              "oid": "1.2.246.562.10.99415780891",
+              "nimi": {
+                "sv": "Jakobstad",
+                "fi": "Pietarsaari",
+                "en": "Pietarsaari"
+              },
+              "paikkakunta": {
+                "koodiUri": "kunta_598",
+                "nimi": {
+                  "sv": "Jakobstad",
+                  "fi": "Pietarsaari"
+                }
+              }
+            },
+            "formatoituModified": {
+              "fi": "27.8.2025 klo 12:33",
+              "sv": "27.8.2025 kl. 12:33",
+              "en": "Aug. 27, 2025 at 12:33 PM UTC+3"
+            }
+          }
+        ],
+        "koulutuskoodienAlatJaAsteet": [
+          {
+            "koulutusKoodiUri": "koulutus_611101#12",
+            "koulutusalaKoodiUrit": [
+              "kansallinenkoulutusluokitus2016koulutusalataso1_01",
+              "kansallinenkoulutusluokitus2016koulutusalataso2_011",
+              "kansallinenkoulutusluokitus2016koulutusalataso3_0114",
+              "okmohjauksenala_1"
+            ],
+            "koulutusasteKoodiUrit": [
+              "kansallinenkoulutusluokitus2016koulutusastetaso1_6",
+              "kansallinenkoulutusluokitus2016koulutusastetaso2_62"
+            ]
+          }
+        ],
+        "esikatselu": false,
+        "modified": "2025-09-03T14:47:07",
+        "nimi": {
+          "en": "Bachelor of Culture and Arts, Music Educator",
+          "fi": "Musiikkipedagogi (AMK)",
+          "sv": "Musikpedagog (YH)"
+        },
+        "oid": "1.2.246.562.13.00000000000000000231",
+        "nqf": [
+          {
+            "koodiUri": "nqf_6",
+            "nimi": {
+              "en": "Level 6",
+              "sv": "Nivå 6",
+              "fi": "Taso 6"
+            }
+          }
+        ],
+        "kielivalinta": [
+          "fi",
+          "sv",
+          "en"
+        ],
+        "haut": [
+          "1.2.246.562.29.00000000000000038455",
+          "1.2.246.562.29.00000000000000054381",
+          "1.2.246.562.29.00000000000000050392",
+          "1.2.246.562.29.00000000000000026613",
+          "1.2.246.562.29.00000000000000038063",
+          "1.2.246.562.29.00000000000000068179",
+          "1.2.246.562.29.00000000000000056343",
+          "1.2.246.562.29.00000000000000068122",
+          "1.2.246.562.29.00000000000000054531",
+          "1.2.246.562.29.00000000000000002821",
+          "1.2.246.562.29.00000000000000017098",
+          "1.2.246.562.29.00000000000000015663",
+          "1.2.246.562.29.00000000000000011348",
+          "1.2.246.562.29.00000000000000027293",
+          "1.2.246.562.29.00000000000000031336",
+          "1.2.246.562.29.00000000000000044284",
+          "1.2.246.562.29.00000000000000051100",
+          "1.2.246.562.29.00000000000000057725",
+          "1.2.246.562.29.00000000000000046441",
+          "1.2.246.562.29.00000000000000001835",
+          "1.2.246.562.29.00000000000000013973",
+          "1.2.246.562.29.00000000000000011609",
+          "1.2.246.562.29.00000000000000027886",
+          "1.2.246.562.29.00000000000000014531",
+          "1.2.246.562.29.00000000000000004518",
+          "1.2.246.562.29.00000000000000017379",
+          "1.2.246.562.29.00000000000000050732",
+          "1.2.246.562.29.00000000000000043306",
+          "1.2.246.562.29.00000000000000018712",
+          "1.2.246.562.29.00000000000000038454",
+          "1.2.246.562.29.00000000000000051671",
+          "1.2.246.562.29.00000000000000033111",
+          "1.2.246.562.29.00000000000000039139",
+          "1.2.246.562.29.00000000000000027885",
+          "1.2.246.562.29.00000000000000016664",
+          "1.2.246.562.29.00000000000000037654",
+          "1.2.246.562.29.00000000000000018713",
+          "1.2.246.562.29.00000000000000033262",
+          "1.2.246.562.29.00000000000000019419",
+          "1.2.246.562.29.00000000000000011355",
+          "1.2.246.562.29.00000000000000057234",
+          "1.2.246.562.29.00000000000000045019",
+          "1.2.246.562.29.00000000000000033596",
+          "1.2.246.562.29.00000000000000048927",
+          "1.2.246.562.29.00000000000000002664",
+          "1.2.246.562.29.00000000000000055608",
+          "1.2.246.562.29.00000000000000067881",
+          "1.2.246.562.29.00000000000000065214",
+          "1.2.246.562.29.00000000000000061655",
+          "1.2.246.562.29.00000000000000022781",
+          "1.2.246.562.29.00000000000000038845",
+          "1.2.246.562.29.00000000000000037316",
+          "1.2.246.562.29.00000000000000039428",
+          "1.2.246.562.29.00000000000000002662",
+          "1.2.246.562.29.00000000000000053949",
+          "1.2.246.562.29.00000000000000046439",
+          "1.2.246.562.29.00000000000000069356",
+          "1.2.246.562.29.00000000000000047150",
+          "1.2.246.562.29.00000000000000065489",
+          "1.2.246.562.29.00000000000000019772",
+          "1.2.246.562.29.00000000000000004517",
+          "1.2.246.562.29.00000000000000002663",
+          "1.2.246.562.29.00000000000000049090",
+          "1.2.246.562.29.00000000000000051101",
+          "1.2.246.562.29.00000000000000056424",
+          "1.2.246.562.29.00000000000000050901",
+          "1.2.246.562.29.00000000000000011574",
+          "1.2.246.562.29.00000000000000010565",
+          "1.2.246.562.29.00000000000000019779",
+          "1.2.246.562.29.00000000000000038456",
+          "1.2.246.562.29.00000000000000007417",
+          "1.2.246.562.29.00000000000000016499",
+          "1.2.246.562.29.00000000000000034656",
+          "1.2.246.562.29.00000000000000055425",
+          "1.2.246.562.29.00000000000000067730",
+          "1.2.246.562.29.00000000000000065733",
+          "1.2.246.562.29.00000000000000036370",
+          "1.2.246.562.29.00000000000000019421",
+          "1.2.246.562.29.00000000000000051667",
+          "1.2.246.562.29.00000000000000013336",
+          "1.2.246.562.29.00000000000000056026",
+          "1.2.246.562.29.00000000000000066864",
+          "1.2.246.562.29.00000000000000053781",
+          "1.2.246.562.29.00000000000000011765",
+          "1.2.246.562.29.00000000000000036742",
+          "1.2.246.562.29.00000000000000002661",
+          "1.2.246.562.29.00000000000000050899",
+          "1.2.246.562.29.00000000000000013875",
+          "1.2.246.562.29.00000000000000033261",
+          "1.2.246.562.29.00000000000000033112",
+          "1.2.246.562.29.00000000000000036124",
+          "1.2.246.562.29.00000000000000055833",
+          "1.2.246.562.29.00000000000000069124",
+          "1.2.246.562.29.00000000000000037879",
+          "1.2.246.562.29.00000000000000026611",
+          "1.2.246.562.29.00000000000000010395",
+          "1.2.246.562.29.00000000000000016335",
+          "1.2.246.562.29.00000000000000050900",
+          "1.2.246.562.29.00000000000000036949",
+          "1.2.246.562.29.00000000000000019420",
+          "1.2.246.562.29.00000000000000014579",
+          "1.2.246.562.29.00000000000000046443",
+          "1.2.246.562.29.00000000000000031356",
+          "1.2.246.562.29.00000000000000016665",
+          "1.2.246.562.29.00000000000000016666",
+          "1.2.246.562.29.00000000000000036099",
+          "1.2.246.562.29.00000000000000010394",
+          "1.2.246.562.29.00000000000000014530",
+          "1.2.246.562.29.00000000000000056748",
+          "1.2.246.562.29.00000000000000017193",
+          "1.2.246.562.29.00000000000000065213",
+          "1.2.246.562.29.00000000000000051099",
+          "1.2.246.562.29.00000000000000011575",
+          "1.2.246.562.29.00000000000000047149",
+          "1.2.246.562.29.00000000000000007452",
+          "1.2.246.562.29.00000000000000016947",
+          "1.2.246.562.29.00000000000000022778",
+          "1.2.246.562.29.00000000000000049086",
+          "1.2.246.562.29.00000000000000048909"
+        ],
+        "koulutustyyppiPath": "kk/amk",
+        "timestamp": 1756900068538,
+        "julkinen": true,
+        "organisaatiot": [
+          "1.2.246.562.10.212457094610",
+          "1.2.246.562.10.34676359085",
+          "1.2.246.562.10.50880626531",
+          "1.2.246.562.10.57572539237",
+          "1.2.246.562.10.58083501534",
+          "1.2.246.562.10.64291752455",
+          "1.2.246.562.10.67476956288",
+          "1.2.246.562.10.83775162874"
+        ],
+        "organisaatio": {
+          "oid": "1.2.246.562.10.212457094610",
+          "nimi": {
+            "sv": "Yrkeshögskolan Novia",
+            "fi": "Yrkeshögskolan Novia",
+            "en": "Novia University of Applied Sciences"
+          },
+          "paikkakunta": {
+            "koodiUri": "kunta_905",
+            "nimi": {
+              "sv": "Vasa",
+              "fi": "Vaasa"
+            }
+          }
+        },
+        "metadata": {
+          "luokittelutermit": [],
+          "kuvaus": {
+            "en": "<p><strong>What competencies does the graduate have?</strong></p><p></p><p>Music pedagogues are experts in the field of music. The studies have trained them in their instrument, playing music in ensemble, music perception skills, conducting and creativity as well as 60 ECTS of teacher studies giving them skills and qualifications to work as a teacher. The graduates also have a working knowledge of entrepreneurship in music and productization and selling their skill set.</p><p></p><p><strong>What kind of learning methods are used in the education?</strong></p><p></p><p>The studies include practical intensive courses, projects and productions. Practical training is most typically completed by teaching in music schools.</p><p></p><p><strong>What kind of career opportunities does the graduate have?</strong></p><p></p><p>The primary employment is in teaching, either teaching an instrument or music perception, from elementary level to conducting choirs or orchestras in music schools or in different communities or self-employed. Many of the music pegagogues work as accompanists, play in orchestras, or perform as a musician. The expertise can also be used as an instructor, teacher or in an expert position in companies offering courses or any education.</p>",
+            "fi": "<h4><strong>Mitä tutkinnon suorittanut osaa?</strong></h4><p>Musiikkipedagogikoulutuksesta valmistunut omaa monipuoliset musiikkialan tiedot ja taidot. Koulutuksen tavoitteena on, että valmistuttuaan opiskelija osaa soveltaa monipuolisesti osaamistaan, jota on hankkinut opiskelemalla instrumenttiopintoja, yhteismusisointia, musiikin hahmottamis- ja johtamisaineita sekä luovuutta.<br><br>Tutkintoon sisältyvät 60 opintopisteen laajuiset opettajan pedagogiset opinnot, jotka kehittävät opiskelijan taitoja opettajana ja antavat opettajan pätevyyden. Opinnoissa tutustutaan myös konkreettisesti musiikkialan yrittäjyyteen ja saadaan valmiuksia oman osaamisen tuotteistamiseen ja myymiseen.</p><h4><strong>Minkälaisia opetusmenetelmiä koulutuksessa käytetään?</strong></h4><p>Opinnoissa työelämä on vahvasti läsnä käytännönläheisten intensiivikurssien, projektien ja produktioiden myötä. Musiikkipedagogien harjoittelu on pääosin opetusharjoittelua, joka suoritetaan esimerkiksi musiikkialan oppilaitoksissa</p><h4><strong>Minkälaisiin tehtäviin ja organisaatioihin tutkinnon suorittaneet työllistyvät?</strong></h4><p>Musiikkipedagogitutkinto antaa pätevyyden toimia erilaisissa opetus- ja ohjaustehtävissä. Musiikkipedagogeja toimii instrumentti- tai musiikin hahmotusaineiden opettajina, varhaisiän musiikinopettajana sekä kuoron- ja orkesterinjohtajina musiikkioppilaitoksissa (musiikkikoulut ja -opistot sekä konservatoriot), vapaan sivistystyön oppilaitoksissa (esim. kansalais- ja työväenopistot) tai erilaisten yhteisöjen palveluksessa. Musiikkipedagogi voi toimia myös yrittäjänä. Musiikkipedagogin ammattitaitoa tarvitaan myös ohjaajana, opettajana ja asiantuntijana erilaisia kursseja tai koulutusta tarjoavissa yrityksissä. Moni musiikkipedagogi hyödyntää taitojaan muusikon työtehtävissä säestäjänä, orkesterissa tai keikkailevana muusikkona.</p>",
+            "sv": "<h4><strong>Vad kan den som har avlagt examen?</strong></h4><p>En utexaminerad från musikpedagogutbildningen har mångsidiga kunskaper och färdigheter inom musikbranschen. Målet med utbildningen är att man som utexaminerad på ett mångsidigt sätt kan tillämpa den kunskap man erhållit genom att studera instrument, ensemblemusik, musikalisk gestaltning och ledarskap samt kreativitet.<br><br>I examen ingår 60 studiepoäng pedagogiska studier för lärare, som utvecklar de studerandes kompetens som lärare och ger lärarbehörighet. Under studierna bekantar man sig också på ett konkret sätt med företagande inom musikbranschen och utvecklar färdigheter för att skapa en produkt av och marknadsföra sitt eget kunnande.</p><h4><strong>Hurdana undervisningsmetoder används i utbildningen?</strong></h4><p>Arbetslivet är starkt närvarande i studierna genom praktiskt inriktade intensivkurser, projekt och produktioner. Musikpedagogernas praktik är i huvudsak undervisningspraktik, som genomförs t.ex. vid en musikskola.</p><h4><strong>Med vilka slags uppgifter och inom hurdana organisationer arbetar utexaminerade?</strong></h4><p>Musikpedagogexamen ger behörighet att jobba med olika slags undervisnings- och ledaruppgifter. Musikpedagoger är verksamma som lärare i instrument eller musikalisk gestaltning, musiklärare för barn, kör- och orkesterledare vid musikinstitutioner (musikskolor, -institut och konservatorier), vid institutioner för fri bildning (arbetar- och medborgarinstitut) eller jobbar inom olika föreningar. En musikpedagog kan också vara företagare. Musikpedagogens yrkeskunskap behövs också &nbsp;som instruktör, lärare och sakkunnig på företag som erbjuder olika kurser och utbildningar. Många musikpedagoger använder sin kompetens i musikerjobb såsom ackompanjatör, i en orkester eller som turnerande musiker.</p>"
+          },
+          "osaamistavoitteet": {
+            "fi": "<p>Musiikkipedagogin osaamistavoitteet koulutuksella</p>"
+          },
+          "opintojenLaajuusyksikko": {
+            "koodiUri": "opintojenlaajuusyksikko_2#1",
+            "nimi": {
+              "en": "ECTS credits",
+              "fi": "opintopistettä",
+              "sv": "studiepoäng"
+            }
+          },
+          "koulutusala": [
+            {
+              "koodiUri": "kansallinenkoulutusluokitus2016koulutusalataso2_021#1",
+              "nimi": {
+                "fi": "Taidealat",
+                "en": "Arts",
+                "sv": "De konstnärliga områdena"
+              }
+            }
+          ],
+          "opintojenLaajuusNumero": 240.0,
+          "isMuokkaajaOphVirkailija": true,
+          "lisatiedot": [],
+          "tyyppi": "amk",
+          "tutkintonimike": [
+            {
+              "koodiUri": "tutkintonimikekk_689#2",
+              "nimi": {
+                "en": "Bachelor of Culture and Arts",
+                "sv": "Musikpedagog (YH)",
+                "fi": "Musiikkipedagogi (AMK)"
+              }
+            }
+          ]
+        },
+        "formatoituModified": {
+          "fi": "3.9.2025 klo 14:47",
+          "sv": "3.9.2025 kl. 14:47",
+          "en": "Sep. 3, 2025 at 02:47 PM UTC+3"
+        },
+        "koulutustyyppi": "amk"
+      },
+      "status": 200
+    }
+  },
+  {
+    "method": "GET",
+    "url": "http://localhost:3005/konfo-backend/toteutus/1.2.246.562.17.00000000000000002761",
+    "response": {
+      "body": {
+        "tila": "julkaistu",
+        "kuuluuOpintokokonaisuuksiin": null,
+        "liitetytOpintojaksot": [],
+        "hakuAuki": null,
+        "oppilaitokset": [
+          "1.2.246.562.10.64291752455"
+        ],
+        "teemakuva": "https://konfo-files.opintopolku.fi/toteutus-teemakuva/1.2.246.562.17.00000000000000002761/8e555c56-b5c5-40aa-b4a7-04a8ed269dce.jpg",
+        "koulutukset": [
+          {
+            "koodiUri": "koulutus_611101#12",
+            "nimi": {
+              "sv": "Musikpedagog (YH)",
+              "fi": "Musiikkipedagogi (AMK)",
+              "en": "Bachelor of Culture and Arts (UAS), Music Educator"
+            }
+          }
+        ],
+        "tarjoajat": [
+          {
+            "oid": "1.2.246.562.10.45852282313",
+            "nimi": {
+              "sv": "TAMK Pääkampus",
+              "fi": "TAMK Pääkampus",
+              "en": "TAMK Main Campus"
+            },
+            "paikkakunta": {
+              "koodiUri": "kunta_837",
+              "nimi": {
+                "sv": "Tammerfors",
+                "fi": "Tampere"
+              }
+            }
+          }
+        ],
+        "liitetytOsaamismerkit": [],
+        "esikatselu": true,
+        "modified": "2025-09-03T14:47:41",
+        "koulutusOid": "1.2.246.562.13.00000000000000000231",
+        "nimi": {
+          "fi": "Musiikkipedagogi (AMK), Musiikkipedagogin tutkinto-ohjelma"
+        },
+        "oid": "1.2.246.562.17.00000000000000002761",
+        "kielivalinta": [
+          "fi"
+        ],
+        "haut": [
+          "1.2.246.562.29.00000000000000054531",
+          "1.2.246.562.29.00000000000000002821",
+          "1.2.246.562.29.00000000000000017098",
+          "1.2.246.562.29.00000000000000027886",
+          "1.2.246.562.29.00000000000000027885",
+          "1.2.246.562.29.00000000000000065214",
+          "1.2.246.562.29.00000000000000047150",
+          "1.2.246.562.29.00000000000000065733",
+          "1.2.246.562.29.00000000000000056026",
+          "1.2.246.562.29.00000000000000066864",
+          "1.2.246.562.29.00000000000000036742",
+          "1.2.246.562.29.00000000000000036124",
+          "1.2.246.562.29.00000000000000010395",
+          "1.2.246.562.29.00000000000000010394",
+          "1.2.246.562.29.00000000000000065213",
+          "1.2.246.562.29.00000000000000047149",
+          "1.2.246.562.29.00000000000000048909"
+        ],
+        "koulutustyyppiPath": "kk/amk",
+        "timestamp": 1756900068131,
+        "organisaatiot": [
+          "1.2.246.562.10.45852282313"
+        ],
+        "organisaatio": {
+          "oid": "1.2.246.562.10.45852282313",
+          "nimi": {
+            "sv": "TAMK Pääkampus",
+            "fi": "TAMK Pääkampus",
+            "en": "TAMK Main Campus"
+          },
+          "paikkakunta": {
+            "koodiUri": "kunta_837",
+            "nimi": {
+              "sv": "Tammerfors",
+              "fi": "Tampere"
+            }
+          }
+        },
+        "metadata": {
+          "kuvaus": {
+            "fi": "<h2>Musiikin opettajaksi ja muusikoksi</h2><p>Musiikkipedagogin tutkinto-ohjelmassa yhdistyvät vahva muusikon ja pedagogin osaaminen. Taiteellisen osaamisen lisäksi opinnot tuottavat yleisen opettajan kelpoisuuden musiikkipedagogiikkaa painottavien opettajan pedagogisten opintojen kautta.&nbsp;</p><p></p><p style=\"text-align: left;\">TAMKissa musiikkipedagogin tutkinto-ohjelman suuntautumiset ovat seuraavat - hakuvaiheessa valitset, haetko yhteen vai useampaan näistä:&nbsp;&nbsp;</p><ul><li value=\"1\">instrumenttipedagogi</li><li value=\"2\">musiikin hahmotustaitojen pedagogi, musiikkiteknologia</li><li value=\"3\">musiikin hahmotustaitojen pedagogi, säveltäminen</li><li value=\"4\">kuoron- tai orkesterinjohtaja</li></ul><p></p><p style=\"text-align: left;\">Musiikin opinnot tuottavat korkeatasoista osaamista soittamiseen, laulamiseen, säveltämiseen, kuoronjohtoon, orkesterinjohtoon (puhallinorkesteri, sinfoniaorkesteri, teatterikapellimestari), musiikkiteknologiaan, musiikin teoriaan ja musiikin historiaan. Orkesterisoitto, orkesteriakatemia, kamarimusiikki, lied ja kuoroakatemia sekä erilaiset produktiot ovat opinnoissa tärkeässä asemassa. Opintojen pääpaino on klassisessa musiikissa rytmimusiikkia ja monialaisia muusikon taitoja unohtamatta. Voit myös täydentää osaamistasi muilla musiikillisilla opinnoilla ja oman kiinnostuksesi mukaan valinnaisilla ammattiopinnoilla. TAMKin laajat kansainväliset verkostot tarjoavat hyvät mahdollisuudet opiskelijavaihtoon. Voit hyödyntää myös Tampereen korkeakouluyhteisön muita tarjolla olevia kursseja ja muokata näin tutkintoasi.&nbsp;</p><p style=\"text-align: left;\">&nbsp;<br>TAMKista musiikkipedagogiksi valmistuneet toimivat muun muassa soiton- tai laulunopettajana, muusikkona, kuoronjohtajana, orkesterinjohtajana, musiikin hahmotusaineiden opettajana, säveltäjänä tai musiikkialan asiantuntija- ja kehittämistehtävissä.</p><p></p><p style=\"text-align: left;\">Opiskelijalle TAMKin vahvuuksia ovat erinomainen opettajakunta, laajat harjoitteluverkostot ja työelämäyhteydet sekä musiikin opiskelijoiden vireä yhteisö osana Tampereen vetovoimaista opiskelijakaupunkia.&nbsp;</p><p style=\"text-align: left;\">&nbsp;<br>Opetus järjestetään pääasiassa TAMKin pääkampuksella.&nbsp;</p>"
+          },
+          "osaamistavoitteet": {
+            "fi": "<p>Tavoitteena on tuottaa sinulle opintosuuntasi mukaan painottuva korkeatasoinen ydinosaaminen: soittaminen, laulaminen, yhteismusisointi, säveltäminen, kuoronjohto, orkesterinjohto (puhallinorkesteri, sinfoniaorkesteri, teatterikapellimestari), musiikkiteknologia, musiikinteoria ja -historia sekä monipuolinen pedagoginen osaaminen. Ydinosaamistasi täydennät muilla musiikillisilla opinnoilla tai oman kiinnostuksesi mukaan monialaisilla opinnoilla.<br>&nbsp;<br>Musiikillisten ja pedagogisten taitojen lisäksi kehität kielten, viestinnän, taiteilijayrittäjyyden, työhyvinvoinnin sekä tutkimuksen ja kehittämisen osaamista. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer a augue nec mauris porta cursus. Curabitur libero diam, hendrerit sit amet volutpat a, sagittis vel felis. Etiam commodo mi gravida faucibus dictum. Mauris vitae semper sem. Quisque ipsum odio, viverra a dignissim eu, scelerisque in erat. Duis non lorem aliquam, efficitur sapien non, dictum eros. Morbi ac sem lectus. Morbi vel fringilla diam. Proin viverra rutrum urna vitae volutpat. In et maximus libero, ut iaculis elit. Nullam nec sodales felis, id consequat tellus. Fusce placerat tortor sed varius luctus. Nunc maximus ligula justo, at cursus libero dapibus vel. Curabitur congue quis orci eget sodales.</p><p></p>"
+          },
+          "isMuokkaajaOphVirkailija": true,
+          "ammattinimikkeet": [
+            {
+              "kieli": "fi",
+              "arvo": "musiikkipedagogi"
+            }
+          ],
+          "asiasanat": [
+            {
+              "kieli": "fi",
+              "arvo": "tamk"
+            },
+            {
+              "kieli": "fi",
+              "arvo": "musiikkipedagogi"
+            },
+            {
+              "kieli": "fi",
+              "arvo": "musiikkipedagogiikka"
+            }
+          ],
+          "isTyovoimakoulutus": false,
+          "hasJotpaRahoitus": false,
+          "isTaydennyskoulutus": false,
+          "opetus": {
+            "maksullisuustyyppi": "maksuton",
+            "maksullisuusKuvaus": {},
+            "suunniteltuKestoKuvaus": {},
+            "suunniteltuKestoVuodet": 4,
+            "onkoApuraha": false,
+            "lisatiedot": [
+              {
+                "otsikko": {
+                  "koodiUri": "koulutuksenlisatiedot_12#1",
+                  "nimi": {
+                    "en": "Content",
+                    "sv": "Innehåll",
+                    "fi": "Sisältö"
+                  }
+                },
+                "teksti": {
+                  "fi": "<p>Musiikkipedagogikoulutuksen keskeiset sisällöt ovat:</p><p></p><ul><li value=\"1\">instrumenttiopinnot</li><li value=\"2\">kuoronjohto</li><li value=\"3\">orkesterinjohto (sinfoniaorkesteri, puhallinorkesteri, teatterikapellimestari)</li><li value=\"4\">säveltäminen</li><li value=\"5\">musiikinteoria ja -historia</li><li value=\"6\">pedagogiikka</li><li value=\"7\">orkesterisoitto, kamarimusiikki ja kuorolaulu</li><li value=\"8\">informaatio- ja musiikkiteknologia (musiikin tietotekniikka, studiotekniikka, äänentoisto)</li><li value=\"9\">viestintätaidot</li><li value=\"10\">musiikkialan yrittäjyys- ja työyhteisöosaaminen</li><li value=\"11\">työergonomia ja työhyvinvointi</li><li value=\"12\">opinnäytetyön suunnittelu ja toteutus sekä tutkimusmenetelmät</li></ul><p>Valinnaisiin ammattiopintoihin voit valita oman kiinnostuksesi ja suuntautumisesi mukaan muun muassa seuraavia opintoja:</p><p></p><ul><li value=\"1\">edellä mainittujen syventäviä opintoja</li><li value=\"2\">orkesteriohjelmisto-opintoja (Tampereen orkesteriakatemia)</li><li value=\"3\">vanhaa musiikkia</li><li value=\"4\">säestämistä ja korrepetitiota</li><li value=\"5\">vapaata säestystä ja rytmimusiikin yhtyesoittoa</li><li value=\"6\">improvisointia</li><li value=\"7\">musiikkipedagogiikkaa</li><li value=\"8\">pop- ja jazz-musiikin teoriaa ja historiaa</li><li value=\"9\">taide- ja kulttuurituotantoa</li><li value=\"10\">muiden TAMKin koulutusten osaamisia</li><li value=\"11\">Tampereen yliopiston opintoja ristiinopiskeluna</li></ul><p></p><p>Musiikin opinnoissa harjaannutat käytännön taitoja teoreettiseen tietoon pohjautuen. Osa opiskelustasi muodostuu pitkäjänteisistä, useiden vuosien kestoisista opinnoista. Osa kursseista voidaan toteuttaa lyhyinä periodeina. Opiskeluaikanasi pääset osallistumaan orkesteri-, kuoro- ja kamarimusiikkitoimintaan sekä erilaisiin produktioihin. 30 opintopisteen laajuinen harjoittelu on opetusharjoittelua ja muusikon tai säveltäjän työn harjoittelua yhteistyössä alan työelämätoimijoiden kanssa.&nbsp;</p><p></p><p>Tutustu <a href=\"http://opinto-opas-ops.tamk.fi/index.php/fi/167/fi/55327\" target=\"_blank\" rel=\"noopener noreferrer\">opetussuunnitelmaan</a>.</p><p></p>"
+                }
+              },
+              {
+                "otsikko": {
+                  "koodiUri": "koulutuksenlisatiedot_01#1",
+                  "nimi": {
+                    "en": "Structure of studies",
+                    "fi": "Opintojen rakenne",
+                    "sv": "Studiernas uppbyggnad"
+                  }
+                },
+                "teksti": {
+                  "fi": "<p>Opintojen laajuus on 240 opintopistettä ja niiden kesto on 4 vuotta.</p><p></p><p>Opinnot muodostuvat seuraavasti: perusopinnot ja ammattiopinnot (180 op), vapaasti valittavat opinnot (15 op), harjoittelu (30 op) ja opinnäytetyö (15 op).</p><p></p>"
+                }
+              },
+              {
+                "otsikko": {
+                  "koodiUri": "koulutuksenlisatiedot_11#1",
+                  "nimi": {
+                    "en": "Thesis",
+                    "sv": "Lärdomsprov",
+                    "fi": "Opinnäytetyö"
+                  }
+                },
+                "teksti": {
+                  "fi": "<p>Opinnäytetyö (15 op) on työelämää hyödyttävä, julkaistavaksi tai ulkopuolisen tilaajan käyttöön tehty lopputyö. Se voi olla esimerkiksi konsertin sisältävä taideteko, musiikkiin liittyvä tutkimus tai pedagoginen kehittämishanke. Opinnäytetyöhön liittyy aina myös kirjallinen osuus.&nbsp;</p><p></p>"
+                }
+              },
+              {
+                "otsikko": {
+                  "koodiUri": "koulutuksenlisatiedot_03#1",
+                  "nimi": {
+                    "en": "Specialisations",
+                    "fi": "Suuntautumisvaihtoehdot",
+                    "sv": "Inriktningsalternativ"
+                  }
+                },
+                "teksti": {
+                  "fi": "<p>Hakuvaiheessa voit valita erikoistumisalatoiveesi (1-4) sekä ilmoittaa pääinstrumenttisi, joiden perusteella valintakoe suoritetaan.</p><p></p><p>Opintojen alkaessa laadit opettajatuutorin kanssa henkilökohtaisen opintosuunnitelman, jota seurataan ja tarkennetaan opintojen edetessä. Voit valita vaihtoehtoisia ammattiopintoja ja vapaasti valittavia opintoja myös muista kuin omasta tutkinto-ohjelmastasi ja jopa muista korkeakouluista.</p><p></p><p>Musiikkipedagogikoulutuksessa voit hakea yhdestä neljään seuraavista suuntautumisista:</p><p></p><ul><li value=\"1\">instrumenttipedagogi</li><li value=\"2\">musiikin hahmotustaitojen pedagogi, musiikkiteknologia</li><li value=\"3\">musiikin hahmotustaitojen pedagogi, säveltäminen</li><li value=\"4\">kuoron- tai orkesterinjohtaja</li></ul><p>Suuntautumisesi mukaan voit opiskella seuraavia pääinstrumentteja:</p><p></p><p>Instrumenttipedagogi</p><p></p><ul><li value=\"1\">Huilu</li><li value=\"2\">Oboe</li><li value=\"3\">Klarinetti</li><li value=\"4\">Fagotti</li><li value=\"5\">Saksofoni</li><li value=\"6\">Nokkahuilu</li><li value=\"7\">Käyrätorvi</li><li value=\"8\">Trumpetti</li><li value=\"9\">Pasuuna</li><li value=\"10\">Tuuba/Baritonitorvi</li><li value=\"11\">Viulu</li><li value=\"12\">Alttoviulu</li><li value=\"13\">Sello</li><li value=\"14\">Kontrabasso</li><li value=\"15\">Lyömäsoittimet</li><li value=\"16\">Harppu</li><li value=\"17\">Piano</li><li value=\"18\">Harmonikka</li><li value=\"19\">Kantele</li><li value=\"20\">Klassinen kitara</li><li value=\"21\">Klassinen laulu</li></ul><p>Musiikin hahmotustaitojen pedagogi, musiikkiteknologia</p><p></p><ul><li value=\"1\">Huilu</li><li value=\"2\">Oboe</li><li value=\"3\">Klarinetti</li><li value=\"4\">Fagotti</li><li value=\"5\">Saksofoni</li><li value=\"6\">Nokkahuilu</li><li value=\"7\">Käyrätorvi</li><li value=\"8\">Trumpetti</li><li value=\"9\">Pasuuna</li><li value=\"10\">Tuuba/Baritonitorvi</li><li value=\"11\">Viulu</li><li value=\"12\">Alttoviulu</li><li value=\"13\">Sello</li><li value=\"14\">Kontrabasso</li><li value=\"15\">Lyömäsoittimet</li><li value=\"16\">Harppu</li><li value=\"17\">Piano</li><li value=\"18\">Harmonikka</li><li value=\"19\">Kantele</li><li value=\"20\">Klassinen kitara</li><li value=\"21\">Sähkökitara</li><li value=\"22\">Sähköbasso</li><li value=\"23\">Klassinen laulu</li><li value=\"24\">Pop/jazz-laulu</li></ul><p></p><p>Musiikin hahmotustaitojen pedagogi, säveltäminen</p><p></p><ul><li value=\"1\">Huilu</li><li value=\"2\">Oboe</li><li value=\"3\">Klarinetti</li><li value=\"4\">Fagotti</li><li value=\"5\">Saksofoni</li><li value=\"6\">Nokkahuilu</li><li value=\"7\">Käyrätorvi</li><li value=\"8\">Trumpetti</li><li value=\"9\">Pasuuna</li><li value=\"10\">Tuuba/Baritonitorvi</li><li value=\"11\">Viulu</li><li value=\"12\">Alttoviulu</li><li value=\"13\">Sello</li><li value=\"14\">Kontrabasso</li><li value=\"15\">Lyömäsoittimet</li><li value=\"16\">Harppu</li><li value=\"17\">Piano</li><li value=\"18\">Harmonikka</li><li value=\"19\">Kantele</li><li value=\"20\">Klassinen kitara</li><li value=\"21\">Sähkökitara</li><li value=\"22\">Sähköbasso</li><li value=\"23\">Klassinen laulu</li><li value=\"24\">Pop/jazz-laulu</li></ul><p>Kuoronjohtaja</p><p></p><ul><li value=\"1\">Klassinen laulu</li><li value=\"2\">Pop/jazz-laulu</li></ul><p>Orkesterinjohtaja</p><p></p><ul><li value=\"1\">Huilu</li><li value=\"2\">Oboe</li><li value=\"3\">Klarinetti</li><li value=\"4\">Fagotti</li><li value=\"5\">Saksofoni</li><li value=\"6\">Nokkahuilu</li><li value=\"7\">Käyrätorvi</li><li value=\"8\">Trumpetti</li><li value=\"9\">Pasuuna</li><li value=\"10\">Tuuba/Baritonitorvi</li><li value=\"11\">Viulu</li><li value=\"12\">Alttoviulu</li><li value=\"13\">Sello</li><li value=\"14\">Kontrabasso</li><li value=\"15\">Lyömäsoittimet</li><li value=\"16\">Harppu</li><li value=\"17\">Piano</li><li value=\"18\">Harmonikka</li><li value=\"19\">Kantele</li><li value=\"20\">Klassinen kitara</li><li value=\"21\">Sähkökitara</li><li value=\"22\">Sähköbasso</li><li value=\"23\">Klassinen laulu</li><li value=\"24\">Pop/jazz-laulu</li></ul><p></p><p></p>"
+                }
+              },
+              {
+                "otsikko": {
+                  "koodiUri": "koulutuksenlisatiedot_04#1",
+                  "nimi": {
+                    "fi": "Uramahdollisuudet",
+                    "en": "Career opportunities",
+                    "sv": "Karriärmöjligheter"
+                  }
+                },
+                "teksti": {
+                  "fi": "<p>Musiikkipedagogina voit toimia eri ikäisten oppijoiden opetus- ja ohjaustehtävissä taiteen perusopetusta antavissa musiikkioppilaitoksissa, taidekouluissa, musiikkialan ammatillisella toisella asteella, vapaassa sivistystyössä tai itsenäisenä yrittäjänä. Musiikkipedagogina ja muusikkona pystyt toimimaan ja työllistämään itseäsi monipuolisissa muusikon, kuoron- tai orkesterinjohtajan, säveltäjän tai muissa musiikkialan asiantuntija- ja kehittämistehtävissä.</p><p></p>"
+                }
+              },
+              {
+                "otsikko": {
+                  "koodiUri": "koulutuksenlisatiedot_09#1",
+                  "nimi": {
+                    "fi": "Koulutuksen antama pätevyys",
+                    "en": "Qualification",
+                    "sv": "Kompetens som utbildningen ger"
+                  }
+                },
+                "teksti": {
+                  "fi": "<p>Musiikkipedagogi (AMK) -tutkinto on ammatillisesti suuntautunut Bachelor-tason (BA) korkeakoulututkinto. Tutkinto vastaa sekä suomalaista että eurooppalaista korkeakoulututkintojen viitekehystä ja osaamisen kriteereitä (NQF ja EQF, taso 6).<br><br>Musiikkipedagogi (AMK) -tutkinto sisältää yleisen opettajan kelpoisuuden tuottavat 60 opintopisteen laajuiset opettajan pedagogiset opinnot.</p><p></p>"
+                }
+              },
+              {
+                "otsikko": {
+                  "koodiUri": "koulutuksenlisatiedot_06#1",
+                  "nimi": {
+                    "sv": "Internationell verksamhet",
+                    "fi": "Kansainvälistyminen",
+                    "en": "Internationalisation"
+                  }
+                },
+                "teksti": {
+                  "fi": "<p>TAMKin opiskelijana voit suorittaa osan tutkinnostasi ulkomailla yhteistyökorkeakouluissamme, joita on yli 300 yhteensä yli 50 maassa. Voit myös hankkia itsellesi harjoittelupaikan mistä tahansa maasta. TAMKissa kansainvälisen ilmapiirin takaavat sadat ulkomaalaiset tutkinto- ja vaihto-opiskelijat eri puolilta maailmaa. Muita keinoja hankkia kieli- ja kulttuuriosaamista ovat kieliopinnot, ulkomaalaisten opiskelijoiden tuutorointi, ystäväperhetoiminta, englanninkieliset opintojaksot ja kansainväliset hankkeet ja projektit.&nbsp;</p><p></p><p>Koulutus on mukana kahdessa kansainvälisessä verkostossa, Euroopan laajuisessa Association of European Conservatoires (<a href=\"http://www.aec-music.eu/\" target=\"_blank\" rel=\"noopener noreferrer\">www.aec-music.eu</a>) sekä Pohjois- ja Baltiamaiden yhteistyöverkostossa Nordplusmusic (<a href=\"http://www.nordplusmusic.net/\" target=\"_blank\" rel=\"noopener noreferrer\">www.nordplusmusic.net</a>).<br><br>Molemmat verkostot työskentelevät musiikkikorkeakoulujen kansainvälistymisen edistämiseksi.</p><p></p>"
+                }
+              },
+              {
+                "otsikko": {
+                  "koodiUri": "koulutuksenlisatiedot_05#1",
+                  "nimi": {
+                    "sv": "Samarbete med andra aktörer",
+                    "fi": "Yhteistyö muiden toimijoiden kanssa",
+                    "en": "Co-operation with other parties"
+                  }
+                },
+                "teksti": {
+                  "fi": "<p>Työelämän yhteistyökumppaneitamme ovat muun muassa:</p><p></p><ul><li value=\"1\">Tampereen yliopisto (Tampereen korkeakouluyhteisö), Tampereen konservatorio, Pirkanmaan musiikkiopisto, Taideyliopiston Sibelius-Akatemia ja Teatterikorkeakoulu, Suomen ammattikorkeakoulujen musiikin koulutukset, Tampere Filharmonia (Orkesteriakatemia-yhteistyö), Puolustusvoimat (Orkesteriakatemia-yhteistyö), Mediapolis, Valkeakosken musiikkiopisto, Pirkanmaan musiikkioppilaitokset, Pirkanmaan kansalais- ja työväenopistot sekä kansanopistot, Pirkanmaan kuorokeskus</li><li value=\"2\">Tampereen seurakuntayhtymä, Hatanpään lukio, Wivi Lönnin koulu, Tampere-talo, Tampereen Ooppera, Tampereen kaupungin kulttuuritoimi, Tampereen Työväen Teatteri, Tampereen Teatteri, Valkeakosken kaupunginteatteri, Suomen Kansallisteatteri, Emil Aaltosen museo, Sara Hildénin Taidemuseo</li></ul><p></p><p>TAMKin tutkinto-opiskelijana sinulla on mahdollisuus valita opintoja myös Tampereen yliopiston tarjonnasta henkilökohtaisen opintosuunnitelmasi mukaisesti. Tämän ristiinopiskelun kautta voit osallistua yliopiston opintojaksoille, yhteisiin projekteihin ja rakentaa näin yksilöllistä osaamistasi. Voit myös suorittaa opintoja muissa ammattikorkeakouluissa kansallisen opintotarjonnan kautta.&nbsp;</p><p></p>"
+                }
+              },
+              {
+                "otsikko": {
+                  "koodiUri": "koulutuksenlisatiedot_10#1",
+                  "nimi": {
+                    "fi": "Tutkimuksen painopisteet",
+                    "en": "Research focus",
+                    "sv": "Tyngdpunkter inom forskning"
+                  }
+                },
+                "teksti": {
+                  "fi": "<p>Musiikin koulutuksissa harjoitettavan tutkimus-, kehitys- ja innovaatiotoiminnan painopiste on erilaisissa hankkeissa, joiden tilaajina voivat olla kaupalliset tai koulutukselliset yhteisöt tai säätiöt. TKI-työ voi olla TAMKin omaa tuotantoa, tai se voi olla yhteistyöhanke jonkin toisen koulutusyhteisön kanssa. Hankkeet painottuvat esimerkiksi musiikkikulttuuriseen yhteistyöhön, pedagogiikkaan, hyvinvointiin, täydennyskoulutustarjontaan sekä kotimaiseen että kansainväliseen koulutustarjonnan yhteistoiminnalliseen kehittämiseen.&nbsp;</p><p></p>"
+                }
+              },
+              {
+                "otsikko": {
+                  "koodiUri": "koulutuksenlisatiedot_02#1",
+                  "nimi": {
+                    "en": "Further study opportunities",
+                    "fi": "Jatko-opintomahdollisuudet",
+                    "sv": "Möjlighet till fortsatta studier"
+                  }
+                },
+                "teksti": {
+                  "fi": "<p>Musiikkipedagogi (AMK) -tutkinto antaa valmiudet jatkaa opintoja ylempään ammattikorkeakoulututkintoon tai maisteritutkintoon. Voit hakeutua suorittamaan ylempää ammattikorkeakoulututkintoa, kun sinulle on kertynyt kolme vuotta työkokemusta musiikkipedagogin tutkinnon suorittamisen jälkeen. TAMKissa on mahdollista suorittaa Musiikkipedagogi (ylempi AMK) -tutkinto. Muita tyypillisiä jatko-opiskelupaikkoja ovat olleet Taideyliopiston Sibelius-Akatemia, muut ylempää ammattikorkeakoulututkintoa tarjoavat ammattikorkeakoulut tai ulkomaiset musiikkialan yliopistot.</p><p></p>"
+                }
+              }
+            ],
+            "suunniteltuKestoKuukaudet": 0,
+            "opetustapaKuvaus": {},
+            "opetuskieletKuvaus": {
+              "fi": "<p>Opetuskielenä on suomi. Vaihtoehtoisiin ammattiopintoihin on mahdollista valita opintoja englanninkielisistä koulutuksista.</p><p></p>"
+            },
+            "opetustapa": [
+              {
+                "koodiUri": "opetuspaikkakk_1#1",
+                "nimi": {
+                  "fi": "Lähiopetus",
+                  "sv": "Närundervisning",
+                  "en": "Contact teaching"
+                }
+              }
+            ],
+            "opetusaikaKuvaus": {},
+            "opetuskieli": [
+              {
+                "koodiUri": "oppilaitoksenopetuskieli_1#1",
+                "nimi": {
+                  "sv": "finska",
+                  "fi": "suomi",
+                  "en": "Finnish"
+                }
+              }
+            ],
+            "opetusaika": [
+              {
+                "koodiUri": "opetusaikakk_1#1",
+                "nimi": {
+                  "sv": "Dagundervisning",
+                  "en": "Day time teaching",
+                  "fi": "Päiväopetus"
+                }
+              }
+            ]
+          },
+          "yhteyshenkilot": [
+            {
+              "nimi": {
+                "fi": "Matti Meikäläinen"
+              },
+              "titteli": {
+                "fi": "Lehtori, tutkintovastaava"
+              },
+              "sahkoposti": {
+                "fi": "etunimi.sukunimi@tuni.fi"
+              },
+              "puhelinnumero": {},
+              "wwwSivu": {
+                "fi": "https://www.tuni.fi/fi/tule-opiskelemaan/musiikin-tutkinto-ohjelma-musiikkipedagogi-paivatoteutus"
+              },
+              "wwwSivuTeksti": {
+                "fi": "Musiikin tutkinto-ohjelma, Musiikkipedagogi, päivätoteutus"
+              }
+            },
+            {
+              "nimi": {
+                "fi": "Minna Mainio"
+              },
+              "titteli": {
+                "fi": "Lehtori, opinto-ohjaaja"
+              },
+              "sahkoposti": {
+                "fi": "minna.mainio@tuni.fi"
+              },
+              "puhelinnumero": {},
+              "wwwSivu": {
+                "fi": "https://www.tuni.fi/fi/tule-opiskelemaan/musiikin-tutkinto-ohjelma-musiikkipedagogi-paivatoteutus"
+              },
+              "wwwSivuTeksti": {
+                "fi": "Musiikin tutkinto-ohjelma, Musiikkipedagogi, päivätoteutus"
+              }
+            }
+          ],
+          "tyyppi": "amk"
+        },
+        "hakutiedot": [
+          {
+            "hakuOid": "1.2.246.562.29.00000000000000054531",
+            "nimi": {
+              "en": "Joint Application to Degree Programmes in Finnish/Swedish, Spring 2025",
+              "fi": "Korkeakoulujen kevään 2025 toinen yhteishaku ",
+              "sv": "Högskolornas andra gemensamma ansökan, våren 2025"
+            },
+            "hakutapa": {
+              "koodiUri": "hakutapa_01#1",
+              "nimi": {
+                "fi": "Yhteishaku",
+                "sv": "Gemensam ansökan",
+                "en": "Joint application"
+              }
+            },
+            "koulutuksenAlkamiskausi": {
+              "alkamiskausityyppi": "alkamiskausi ja -vuosi",
+              "henkilokohtaisenSuunnitelmanLisatiedot": {},
+              "koulutuksenAlkamiskausi": {
+                "koodiUri": "kausi_s#1",
+                "nimi": {
+                  "sv": "Höst",
+                  "en": "Autumn",
+                  "fi": "Syksy"
+                }
+              },
+              "koulutuksenAlkamisvuosi": "2025"
+            },
+            "kohdejoukko": {
+              "koodiUri": "haunkohdejoukko_12#1",
+              "nimi": {
+                "fi": "Korkeakoulutus",
+                "sv": "Högskoleutbildning"
+              }
+            },
+            "hakukohteet": [
+              {
+                "tila": "julkaistu",
+                "hakulomakeKuvaus": {},
+                "pohjakoulutusvaatimusTarkenne": {
+                  "fi": "<p>Hakukohteessa on käytössä yleinen hakukelpoisuus korkeakouluopintoihin.</p><p>Katso lisätietoja sivulta <a href=\"https://www.tuni.fi/fi/tule-opiskelemaan/hae-tamkiin/suomenkielisten-amk-ohjelmien-yhteishaku#hakukelpoisuus\" target=\"_blank\" rel=\"noopener noreferrer\">Hakukelpoisuus AMK-tutkintoon</a>.</p>"
+                },
+                "aloituspaikat": {
+                  "lukumaara": 22,
+                  "ensikertalaisille": 13,
+                  "kuvaus": {
+                    "fi": "<p>Tutkinto-ohjelmaan valitaan 22 opiskelijaa. Ensikertalaisille varataan 60 % tutkinto-ohjelman aloituspaikoista.</p><p></p><p>Olet ensimmäistä korkeakoulupaikkaa hakeva eli ensikertalainen, jos et ole suorittanut ammattikorkeakoulu- tai yliopistotutkintoa Suomessa tai et ole vastaanottanut ammattikorkeakoulu- tai yliopistotutkintoon johtavaa opiskelupaikkaa koulutuksesta, joka on alkanut syksyllä 2014 tai sen jälkeen.</p><p></p><p>Löydät lisätietoja ensikertalaiskiintiöstä Opintopolun sivulta <a href=\"https://beta.opintopolku.fi/konfo/fi/sivu/usein-kysyttya-korkeakouluun-hakemisesta#ensikertalaisuus\" target=\"_blank\" rel=\"noopener noreferrer\">Ensikertalaiskiintiö</a>.</p>"
+                  }
+                },
+                "hakulomaketyyppi": "ataru",
+                "pohjakoulutusvaatimus": [
+                  {
+                    "koodiUri": "pohjakoulutusvaatimuskouta_100#1",
+                    "nimi": {
+                      "en": "General eligibility for universities of applied sciences",
+                      "fi": "Yleinen ammattikorkeakoulukelpoisuus",
+                      "sv": "Allmän behörighet till yrkeshögskolor"
+                    }
+                  }
+                ],
+                "hakulomakeLinkki": {
+                  "fi": "https://hahtuvaopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000064165?lang=fi",
+                  "sv": "https://hahtuvaopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000064165?lang=sv",
+                  "en": "https://hahtuvaopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000064165?lang=en"
+                },
+                "jarjestyspaikkaHierarkiaNimi": {
+                  "sv": "Tampereen ammattikorkeakoulu, TAMK Pääkampus",
+                  "fi": "Tampereen ammattikorkeakoulu, TAMK Pääkampus",
+                  "en": "Tampere University of Applied Sciences, TAMK Main Campus"
+                },
+                "koulutuksenAlkamiskausi": {
+                  "alkamiskausityyppi": "alkamiskausi ja -vuosi",
+                  "henkilokohtaisenSuunnitelmanLisatiedot": {},
+                  "koulutuksenAlkamiskausi": {
+                    "koodiUri": "kausi_s#1",
+                    "nimi": {
+                      "sv": "Höst",
+                      "en": "Autumn",
+                      "fi": "Syksy"
+                    }
+                  },
+                  "koulutuksenAlkamisvuosi": "2025"
+                },
+                "hakulomakeAtaruId": "d1d0f08b-d830-4952-b5a5-966e219d524c",
+                "esikatselu": true,
+                "hasValintaperustekuvausData": false,
+                "modified": "2025-02-18T11:02:27",
+                "jarjestyspaikka": {
+                  "oid": "1.2.246.562.10.45852282313",
+                  "nimi": {
+                    "sv": "TAMK Pääkampus",
+                    "fi": "TAMK Pääkampus",
+                    "en": "TAMK Main Campus"
+                  },
+                  "paikkakunta": {
+                    "koodiUri": "kunta_837",
+                    "nimi": {
+                      "sv": "Tammerfors",
+                      "fi": "Tampere"
+                    }
+                  },
+                  "jarjestaaUrheilijanAmmKoulutusta": false
+                },
+                "nimi": {
+                  "fi": "Musiikkipedagogi (AMK), Musiikkipedagogin tutkinto-ohjelma"
+                },
+                "hakuajat": [
+                  {
+                    "alkaa": "2025-03-11T08:00",
+                    "paattyy": "2025-03-25T15:00",
+                    "formatoituPaattyy": {
+                      "fi": "25.3.2025 klo 15:00",
+                      "sv": "25.3.2025 kl. 15:00",
+                      "en": "Mar. 25, 2025 at 03:00 PM UTC+2"
+                    },
+                    "formatoituAlkaa": {
+                      "fi": "11.3.2025 klo 08:00",
+                      "sv": "11.3.2025 kl. 08:00",
+                      "en": "Mar. 11, 2025 at 08:00 AM UTC+2"
+                    },
+                    "hakuAuki": false,
+                    "hakuMennyt": true
+                  }
+                ],
+                "hakukohdeOid": "1.2.246.562.20.00000000000000064165",
+                "organisaatio": {
+                  "oid": "1.2.246.562.10.41209513476",
+                  "nimi": {
+                    "sv": "Tampereen ammattikorkeakoulu Oy",
+                    "fi": "Tampereen ammattikorkeakoulu Oy",
+                    "en": "Tampereen ammattikorkeakoulu Oy"
+                  },
+                  "paikkakunta": {
+                    "koodiUri": "kunta_837",
+                    "nimi": {
+                      "sv": "Tammerfors",
+                      "fi": "Tampere"
+                    }
+                  }
+                },
+                "formatoituModified": {
+                  "fi": "18.2.2025 klo 11:02",
+                  "sv": "18.2.2025 kl. 11:02",
+                  "en": "Feb. 18, 2025 at 11:02 AM UTC+2"
+                },
+                "valintaperusteId": "00f865bd-7953-4ca5-8ef1-6e00034195b8"
+              }
+            ]
+          },
+          {
+            "hakuOid": "1.2.246.562.29.00000000000000065213",
+            "nimi": {
+              "en": "TAMK Open UAS path, Spring 2025",
+              "fi": "TAMK Avoimen väylän erillishaku, kevät 2025"
+            },
+            "hakutapa": {
+              "koodiUri": "hakutapa_02#1",
+              "nimi": {
+                "sv": "Separata antagningar",
+                "en": "Separate application",
+                "fi": "Erillishaku"
+              }
+            },
+            "koulutuksenAlkamiskausi": {
+              "alkamiskausityyppi": "alkamiskausi ja -vuosi",
+              "henkilokohtaisenSuunnitelmanLisatiedot": {},
+              "koulutuksenAlkamiskausi": {
+                "koodiUri": "kausi_s#1",
+                "nimi": {
+                  "sv": "Höst",
+                  "en": "Autumn",
+                  "fi": "Syksy"
+                }
+              },
+              "koulutuksenAlkamisvuosi": "2025"
+            },
+            "kohdejoukko": {
+              "koodiUri": "haunkohdejoukko_12#1",
+              "nimi": {
+                "fi": "Korkeakoulutus",
+                "sv": "Högskoleutbildning"
+              }
+            },
+            "hakukohteet": [
+              {
+                "tila": "julkaistu",
+                "hakulomakeKuvaus": {},
+                "pohjakoulutusvaatimusTarkenne": {
+                  "fi": "<p>Kun olet suorittanut avoimessa  ammattikorkeakoulussa ja/tai avoimessa yliopistossa vähintään 50  opintopistettä, voit hakea Avoimen väylän erillishaussa  tutkinto-opiskelijaksi TAMKiin. Avoimessa ammattikorkeakoulussa tai  avoimessa yliopistossa suoritettujen opintojen tulee olla haettavaan  tutkintoon soveltuvia. Missä tahansa avoimessa ammattikorkeakoulussa tai  avoimessa yliopistossa suoritetut opinnot hyväksytään.</p><ul><li value=\"1\">Jos  opinnot on tehty TAMKin avoimessa AMKissa, 50 opintopistettä tulee olla  suoritettuna lukukauden loppuun mennessä (31.7./31.12.).</li><li value=\"2\">Muiden  ammattikorkeakoulujen avoimen AMKin opintojen tai avoimen yliopiston opintojen tulee olla suoritettuna hakuajan päättymiseen mennessä.</li></ul><p>Avoimen AMKin tai avoimen yliopiston opintosuoritukset voivat olla pääsääntöisesti korkeintaan kymmenen vuotta vanhoja.</p>"
+                },
+                "aloituspaikat": {
+                  "lukumaara": 10,
+                  "kuvaus": {
+                    "fi": "<p>Hakukohteen sisäänottomäärä Avoimen väylän erillishaussa on 0-10&nbsp;opiskelijaa. Korkeakoululla ei ole velvollisuutta ottaa ilmoitettua määrää opiskelijoita, jos valintakelpoisia ei ole riittävästi&nbsp;tai opiskelijaryhmään ei mahdu ilmoitettua määrää.<br></p>"
+                  }
+                },
+                "hakulomaketyyppi": "ataru",
+                "pohjakoulutusvaatimus": [
+                  {
+                    "koodiUri": "pohjakoulutusvaatimuskouta_115#1",
+                    "nimi": {
+                      "sv": "Studier vid öppna yrkeshögskolan",
+                      "en": "Studies at the Open university of applied sciences",
+                      "fi": "Avoimen ammattikorkeakoulun opinnot"
+                    }
+                  },
+                  {
+                    "koodiUri": "pohjakoulutusvaatimuskouta_118#1",
+                    "nimi": {
+                      "en": "Studies at the Open University",
+                      "fi": "Avoimen yliopiston opinnot",
+                      "sv": "Studier vid öppna universitetet"
+                    }
+                  }
+                ],
+                "hakulomakeLinkki": {
+                  "fi": "https://hahtuvaopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000066413?lang=fi",
+                  "sv": "https://hahtuvaopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000066413?lang=sv",
+                  "en": "https://hahtuvaopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000066413?lang=en"
+                },
+                "jarjestyspaikkaHierarkiaNimi": {
+                  "sv": "Tampereen ammattikorkeakoulu, TAMK Pääkampus",
+                  "fi": "Tampereen ammattikorkeakoulu, TAMK Pääkampus",
+                  "en": "Tampere University of Applied Sciences, TAMK Main Campus"
+                },
+                "koulutuksenAlkamiskausi": {
+                  "alkamiskausityyppi": "alkamiskausi ja -vuosi",
+                  "henkilokohtaisenSuunnitelmanLisatiedot": {},
+                  "koulutuksenAlkamiskausi": {
+                    "koodiUri": "kausi_s#1",
+                    "nimi": {
+                      "sv": "Höst",
+                      "en": "Autumn",
+                      "fi": "Syksy"
+                    }
+                  },
+                  "koulutuksenAlkamisvuosi": "2025"
+                },
+                "hakulomakeAtaruId": "05d282e2-ea9f-4598-b557-a3b6bb66fa16",
+                "esikatselu": true,
+                "hasValintaperustekuvausData": false,
+                "modified": "2025-02-21T13:16:09",
+                "jarjestyspaikka": {
+                  "oid": "1.2.246.562.10.45852282313",
+                  "nimi": {
+                    "sv": "TAMK Pääkampus",
+                    "fi": "TAMK Pääkampus",
+                    "en": "TAMK Main Campus"
+                  },
+                  "paikkakunta": {
+                    "koodiUri": "kunta_837",
+                    "nimi": {
+                      "sv": "Tammerfors",
+                      "fi": "Tampere"
+                    }
+                  },
+                  "jarjestaaUrheilijanAmmKoulutusta": false
+                },
+                "nimi": {
+                  "fi": "Avoimen väylän erillishaku, Musiikkipedagogi (AMK), päivätoteutus"
+                },
+                "hakuajat": [
+                  {
+                    "alkaa": "2025-05-02T08:00",
+                    "paattyy": "2025-05-16T15:00",
+                    "formatoituPaattyy": {
+                      "fi": "16.5.2025 klo 15:00",
+                      "sv": "16.5.2025 kl. 15:00",
+                      "en": "May. 16, 2025 at 03:00 PM UTC+3"
+                    },
+                    "formatoituAlkaa": {
+                      "fi": "2.5.2025 klo 08:00",
+                      "sv": "2.5.2025 kl. 08:00",
+                      "en": "May. 2, 2025 at 08:00 AM UTC+3"
+                    },
+                    "hakuAuki": false,
+                    "hakuMennyt": true
+                  }
+                ],
+                "hakukohdeOid": "1.2.246.562.20.00000000000000066413",
+                "organisaatio": {
+                  "oid": "1.2.246.562.10.41209513476",
+                  "nimi": {
+                    "sv": "Tampereen ammattikorkeakoulu Oy",
+                    "fi": "Tampereen ammattikorkeakoulu Oy",
+                    "en": "Tampereen ammattikorkeakoulu Oy"
+                  },
+                  "paikkakunta": {
+                    "koodiUri": "kunta_837",
+                    "nimi": {
+                      "sv": "Tammerfors",
+                      "fi": "Tampere"
+                    }
+                  }
+                },
+                "formatoituModified": {
+                  "fi": "21.2.2025 klo 13:16",
+                  "sv": "21.2.2025 kl. 13:16",
+                  "en": "Feb. 21, 2025 at 01:16 PM UTC+2"
+                },
+                "valintaperusteId": "5fa3f610-81fd-4a0a-b809-ec463c652acd"
+              }
+            ]
+          },
+          {
+            "hakuOid": "1.2.246.562.29.00000000000000065214",
+            "nimi": {
+              "en": "TAMK Transfer Application, Spring 2025",
+              "fi": "TAMK Siirtohaku, kevät 2025"
+            },
+            "hakutapa": {
+              "koodiUri": "hakutapa_05#1",
+              "nimi": {
+                "fi": "Siirtohaku",
+                "sv": "Ansökan om överflyttning",
+                "en": "Transfer application"
+              }
+            },
+            "koulutuksenAlkamiskausi": {
+              "alkamiskausityyppi": "alkamiskausi ja -vuosi",
+              "henkilokohtaisenSuunnitelmanLisatiedot": {},
+              "koulutuksenAlkamiskausi": {
+                "koodiUri": "kausi_s#1",
+                "nimi": {
+                  "sv": "Höst",
+                  "en": "Autumn",
+                  "fi": "Syksy"
+                }
+              },
+              "koulutuksenAlkamisvuosi": "2025"
+            },
+            "kohdejoukko": {
+              "koodiUri": "haunkohdejoukko_12#1",
+              "nimi": {
+                "fi": "Korkeakoulutus",
+                "sv": "Högskoleutbildning"
+              }
+            },
+            "hakukohteet": [
+              {
+                "tila": "julkaistu",
+                "hakulomakeKuvaus": {},
+                "pohjakoulutusvaatimusTarkenne": {
+                  "fi": "<p>Voit hakea siirtohaussa, jos opiskelet suomalaisessa korkeakoulussa ja haluat vaihtaa voimassa olevan opiskeluoikeutesi.</p>"
+                },
+                "aloituspaikat": {
+                  "lukumaara": 6,
+                  "kuvaus": {
+                    "fi": "<p>Hakukohteen sisäänottomäärä siirtohaussa on 0-6 opiskelijaa. Korkeakoululla ei ole velvollisuutta ottaa ilmoitettua määrää  opiskelijoita, jos valintakelpoisia ei ole riittävästi&nbsp;tai  opiskelijaryhmään ei mahdu ilmoitettua määrää.</p>"
+                  }
+                },
+                "hakulomaketyyppi": "ataru",
+                "pohjakoulutusvaatimus": [
+                  {
+                    "koodiUri": "pohjakoulutusvaatimuskouta_102#1",
+                    "nimi": {
+                      "fi": "Alempi korkeakoulututkinto",
+                      "sv": "Lägre högskoleexamen",
+                      "en": "University Bachelor's degree"
+                    }
+                  },
+                  {
+                    "koodiUri": "pohjakoulutusvaatimuskouta_101#1",
+                    "nimi": {
+                      "fi": "Ammattikorkeakoulututkinto",
+                      "en": "University of applied sciences Bachelor's degree",
+                      "sv": "Yrkeshögskoleexamen"
+                    }
+                  }
+                ],
+                "hakulomakeLinkki": {
+                  "fi": "https://hahtuvaopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000065685?lang=fi",
+                  "sv": "https://hahtuvaopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000065685?lang=sv",
+                  "en": "https://hahtuvaopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000065685?lang=en"
+                },
+                "jarjestyspaikkaHierarkiaNimi": {
+                  "sv": "Tampereen ammattikorkeakoulu, TAMK Pääkampus",
+                  "fi": "Tampereen ammattikorkeakoulu, TAMK Pääkampus",
+                  "en": "Tampere University of Applied Sciences, TAMK Main Campus"
+                },
+                "koulutuksenAlkamiskausi": {
+                  "alkamiskausityyppi": "alkamiskausi ja -vuosi",
+                  "henkilokohtaisenSuunnitelmanLisatiedot": {},
+                  "koulutuksenAlkamiskausi": {
+                    "koodiUri": "kausi_s#1",
+                    "nimi": {
+                      "sv": "Höst",
+                      "en": "Autumn",
+                      "fi": "Syksy"
+                    }
+                  },
+                  "koulutuksenAlkamisvuosi": "2025"
+                },
+                "hakulomakeAtaruId": "88e55071-42ed-4c1c-ae54-e0da0f3acc5e",
+                "esikatselu": true,
+                "hasValintaperustekuvausData": false,
+                "modified": "2025-02-21T15:02:10",
+                "jarjestyspaikka": {
+                  "oid": "1.2.246.562.10.45852282313",
+                  "nimi": {
+                    "sv": "TAMK Pääkampus",
+                    "fi": "TAMK Pääkampus",
+                    "en": "TAMK Main Campus"
+                  },
+                  "paikkakunta": {
+                    "koodiUri": "kunta_837",
+                    "nimi": {
+                      "sv": "Tammerfors",
+                      "fi": "Tampere"
+                    }
+                  },
+                  "jarjestaaUrheilijanAmmKoulutusta": false
+                },
+                "nimi": {
+                  "fi": "Siirtohaku: Musiikkipedagogi (AMK), päivätoteutus"
+                },
+                "hakuajat": [
+                  {
+                    "alkaa": "2025-05-02T08:00",
+                    "paattyy": "2025-05-16T15:00",
+                    "formatoituPaattyy": {
+                      "fi": "16.5.2025 klo 15:00",
+                      "sv": "16.5.2025 kl. 15:00",
+                      "en": "May. 16, 2025 at 03:00 PM UTC+3"
+                    },
+                    "formatoituAlkaa": {
+                      "fi": "2.5.2025 klo 08:00",
+                      "sv": "2.5.2025 kl. 08:00",
+                      "en": "May. 2, 2025 at 08:00 AM UTC+3"
+                    },
+                    "hakuAuki": false,
+                    "hakuMennyt": true
+                  }
+                ],
+                "hakukohdeOid": "1.2.246.562.20.00000000000000065685",
+                "organisaatio": {
+                  "oid": "1.2.246.562.10.41209513476",
+                  "nimi": {
+                    "sv": "Tampereen ammattikorkeakoulu Oy",
+                    "fi": "Tampereen ammattikorkeakoulu Oy",
+                    "en": "Tampereen ammattikorkeakoulu Oy"
+                  },
+                  "paikkakunta": {
+                    "koodiUri": "kunta_837",
+                    "nimi": {
+                      "sv": "Tammerfors",
+                      "fi": "Tampere"
+                    }
+                  }
+                },
+                "formatoituModified": {
+                  "fi": "21.2.2025 klo 15:02",
+                  "sv": "21.2.2025 kl. 15:02",
+                  "en": "Feb. 21, 2025 at 03:02 PM UTC+2"
+                },
+                "valintaperusteId": "5671c4be-4969-4496-afca-542428d615f3"
+              }
+            ]
+          },
+          {
+            "hakuOid": "1.2.246.562.29.00000000000000065733",
+            "nimi": {
+              "fi": "TAMK Tutkinto valmiiksi -haku, kevät 2025"
+            },
+            "hakutapa": {
+              "koodiUri": "hakutapa_04#1",
+              "nimi": {
+                "fi": "Joustava haku",
+                "en": "Rolling admission (higher education)",
+                "sv": "Flexibel ansökan"
+              }
+            },
+            "koulutuksenAlkamiskausi": {
+              "alkamiskausityyppi": "alkamiskausi ja -vuosi",
+              "henkilokohtaisenSuunnitelmanLisatiedot": {},
+              "koulutuksenAlkamiskausi": {
+                "koodiUri": "kausi_k#1",
+                "nimi": {
+                  "en": "Spring",
+                  "sv": "Vår",
+                  "fi": "Kevät"
+                }
+              },
+              "koulutuksenAlkamisvuosi": "2025"
+            },
+            "kohdejoukko": {
+              "koodiUri": "haunkohdejoukko_12#1",
+              "nimi": {
+                "fi": "Korkeakoulutus",
+                "sv": "Högskoleutbildning"
+              }
+            },
+            "hakukohteet": [
+              {
+                "tila": "julkaistu",
+                "hakulomakeKuvaus": {},
+                "pohjakoulutusvaatimusTarkenne": {
+                  "fi": "<p>Voit hakea määräaikaista opiskeluoikeutta opintojesi loppuun saattamiseksi, jos:</p><ul><li value=\"1\">tutkintosi on jäänyt kesken missä tahansa suomalaisessa korkeakoulussa.</li><li value=\"2\">olet eronnut suomalaisesta korkeakoulusta.</li><li value=\"3\">sinulle ei ole myönnetty mitään muuta opiskeluoikeutta, esim. lisäaikaa opintoihisi.</li></ul>"
+                },
+                "aloituspaikat": {
+                  "lukumaara": 10,
+                  "kuvaus": {
+                    "fi": "<p>Hakukohteen sisäänottomäärä Tutkinto valmiiksi -haussa on 0-10 opiskelijaa. Korkeakoululla ei ole velvollisuutta ottaa ilmoitettua määrää  opiskelijoita, jos valintakelpoisia ei ole riittävästi&nbsp;tai  opiskelijaryhmään ei mahdu ilmoitettua määrää.</p>"
+                  }
+                },
+                "hakulomaketyyppi": "ataru",
+                "pohjakoulutusvaatimus": [
+                  {
+                    "koodiUri": "pohjakoulutusvaatimuskouta_102#1",
+                    "nimi": {
+                      "fi": "Alempi korkeakoulututkinto",
+                      "sv": "Lägre högskoleexamen",
+                      "en": "University Bachelor's degree"
+                    }
+                  },
+                  {
+                    "koodiUri": "pohjakoulutusvaatimuskouta_101#1",
+                    "nimi": {
+                      "fi": "Ammattikorkeakoulututkinto",
+                      "en": "University of applied sciences Bachelor's degree",
+                      "sv": "Yrkeshögskoleexamen"
+                    }
+                  }
+                ],
+                "hakulomakeLinkki": {
+                  "fi": "https://hahtuvaopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000065898?lang=fi",
+                  "sv": "https://hahtuvaopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000065898?lang=sv",
+                  "en": "https://hahtuvaopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000065898?lang=en"
+                },
+                "jarjestyspaikkaHierarkiaNimi": {
+                  "sv": "Tampereen ammattikorkeakoulu, TAMK Pääkampus",
+                  "fi": "Tampereen ammattikorkeakoulu, TAMK Pääkampus",
+                  "en": "Tampere University of Applied Sciences, TAMK Main Campus"
+                },
+                "koulutuksenAlkamiskausi": {
+                  "alkamiskausityyppi": "alkamiskausi ja -vuosi",
+                  "henkilokohtaisenSuunnitelmanLisatiedot": {},
+                  "koulutuksenAlkamiskausi": {
+                    "koodiUri": "kausi_k#1",
+                    "nimi": {
+                      "en": "Spring",
+                      "sv": "Vår",
+                      "fi": "Kevät"
+                    }
+                  },
+                  "koulutuksenAlkamisvuosi": "2025"
+                },
+                "hakulomakeAtaruId": "48f428ad-a1b7-4ebc-a08c-9c3c45075e00",
+                "esikatselu": true,
+                "hasValintaperustekuvausData": false,
+                "modified": "2025-01-10T15:13:08",
+                "jarjestyspaikka": {
+                  "oid": "1.2.246.562.10.45852282313",
+                  "nimi": {
+                    "sv": "TAMK Pääkampus",
+                    "fi": "TAMK Pääkampus",
+                    "en": "TAMK Main Campus"
+                  },
+                  "paikkakunta": {
+                    "koodiUri": "kunta_837",
+                    "nimi": {
+                      "sv": "Tammerfors",
+                      "fi": "Tampere"
+                    }
+                  },
+                  "jarjestaaUrheilijanAmmKoulutusta": false
+                },
+                "nimi": {
+                  "fi": "Tutkinto valmiiksi -haku, kevät 2025, Musiikkipedagogi (AMK), päivätoteutus"
+                },
+                "hakuajat": [
+                  {
+                    "alkaa": "2025-02-11T08:00",
+                    "paattyy": "2025-03-10T15:00",
+                    "formatoituPaattyy": {
+                      "fi": "10.3.2025 klo 15:00",
+                      "sv": "10.3.2025 kl. 15:00",
+                      "en": "Mar. 10, 2025 at 03:00 PM UTC+2"
+                    },
+                    "formatoituAlkaa": {
+                      "fi": "11.2.2025 klo 08:00",
+                      "sv": "11.2.2025 kl. 08:00",
+                      "en": "Feb. 11, 2025 at 08:00 AM UTC+2"
+                    },
+                    "hakuAuki": false,
+                    "hakuMennyt": true
+                  }
+                ],
+                "hakukohdeOid": "1.2.246.562.20.00000000000000065898",
+                "organisaatio": {
+                  "oid": "1.2.246.562.10.41209513476",
+                  "nimi": {
+                    "sv": "Tampereen ammattikorkeakoulu Oy",
+                    "fi": "Tampereen ammattikorkeakoulu Oy",
+                    "en": "Tampereen ammattikorkeakoulu Oy"
+                  },
+                  "paikkakunta": {
+                    "koodiUri": "kunta_837",
+                    "nimi": {
+                      "sv": "Tammerfors",
+                      "fi": "Tampere"
+                    }
+                  }
+                },
+                "formatoituModified": {
+                  "fi": "10.1.2025 klo 15:13",
+                  "sv": "10.1.2025 kl. 15:13",
+                  "en": "Jan. 10, 2025 at 03:13 PM UTC+2"
+                },
+                "valintaperusteId": "d5689c19-3fb5-48ef-b658-cf607aa8c017"
+              }
+            ]
+          },
+          {
+            "hakuOid": "1.2.246.562.29.00000000000000066864",
+            "nimi": {
+              "en": "TAMK Internal transfer, spring 2025",
+              "fi": "TAMK Sisäinen siirto, kevät 2025"
+            },
+            "hakutapa": {
+              "koodiUri": "hakutapa_05#1",
+              "nimi": {
+                "fi": "Siirtohaku",
+                "sv": "Ansökan om överflyttning",
+                "en": "Transfer application"
+              }
+            },
+            "koulutuksenAlkamiskausi": {
+              "alkamiskausityyppi": "alkamiskausi ja -vuosi",
+              "henkilokohtaisenSuunnitelmanLisatiedot": {},
+              "koulutuksenAlkamiskausi": {
+                "koodiUri": "kausi_s#1",
+                "nimi": {
+                  "sv": "Höst",
+                  "en": "Autumn",
+                  "fi": "Syksy"
+                }
+              },
+              "koulutuksenAlkamisvuosi": "2025"
+            },
+            "kohdejoukko": {
+              "koodiUri": "haunkohdejoukko_12#1",
+              "nimi": {
+                "fi": "Korkeakoulutus",
+                "sv": "Högskoleutbildning"
+              }
+            },
+            "hakukohteet": [
+              {
+                "tila": "julkaistu",
+                "hakulomakeKuvaus": {},
+                "pohjakoulutusvaatimusTarkenne": {
+                  "fi": "<p>Sinulla on mahdollisuus hakea tutkinto-ohjelman vaihtoa siten, että tutkintonimike vaihtuu,&nbsp;esimerkiksi Muusikosta (AMK) --&gt; Tradenomiksi (AMK).&nbsp;Tutkinto-ohjelman&nbsp;vaihdosta päättää koulutuksen vararehtori.</p>"
+                },
+                "aloituspaikat": {
+                  "lukumaara": 10,
+                  "kuvaus": {
+                    "fi": "<p>Hakukohteen sisäänottomäärä TAMKin sisäisessä siirrossa on 0-10 opiskelijaa. Korkeakoululla ei ole velvollisuutta ottaa ilmoitettua määrää  opiskelijoita, jos valintakelpoisia ei ole riittävästi&nbsp;tai  opiskelijaryhmään ei mahdu ilmoitettua määrää.</p>"
+                  }
+                },
+                "hakulomaketyyppi": "ataru",
+                "pohjakoulutusvaatimus": [
+                  {
+                    "koodiUri": "pohjakoulutusvaatimuskouta_100#1",
+                    "nimi": {
+                      "en": "General eligibility for universities of applied sciences",
+                      "fi": "Yleinen ammattikorkeakoulukelpoisuus",
+                      "sv": "Allmän behörighet till yrkeshögskolor"
+                    }
+                  }
+                ],
+                "hakulomakeLinkki": {
+                  "fi": "https://hahtuvaopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000067033?lang=fi",
+                  "sv": "https://hahtuvaopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000067033?lang=sv",
+                  "en": "https://hahtuvaopintopolku.fi/hakemus/hakukohde/1.2.246.562.20.00000000000000067033?lang=en"
+                },
+                "jarjestyspaikkaHierarkiaNimi": {
+                  "sv": "Tampereen ammattikorkeakoulu, TAMK Pääkampus",
+                  "fi": "Tampereen ammattikorkeakoulu, TAMK Pääkampus",
+                  "en": "Tampere University of Applied Sciences, TAMK Main Campus"
+                },
+                "koulutuksenAlkamiskausi": {
+                  "alkamiskausityyppi": "alkamiskausi ja -vuosi",
+                  "henkilokohtaisenSuunnitelmanLisatiedot": {},
+                  "koulutuksenAlkamiskausi": {
+                    "koodiUri": "kausi_s#1",
+                    "nimi": {
+                      "sv": "Höst",
+                      "en": "Autumn",
+                      "fi": "Syksy"
+                    }
+                  },
+                  "koulutuksenAlkamisvuosi": "2025"
+                },
+                "hakulomakeAtaruId": "f2c00814-351e-47f3-915f-d978f6433131",
+                "esikatselu": true,
+                "hasValintaperustekuvausData": false,
+                "modified": "2025-02-25T09:39:23",
+                "jarjestyspaikka": {
+                  "oid": "1.2.246.562.10.45852282313",
+                  "nimi": {
+                    "sv": "TAMK Pääkampus",
+                    "fi": "TAMK Pääkampus",
+                    "en": "TAMK Main Campus"
+                  },
+                  "paikkakunta": {
+                    "koodiUri": "kunta_837",
+                    "nimi": {
+                      "sv": "Tammerfors",
+                      "fi": "Tampere"
+                    }
+                  },
+                  "jarjestaaUrheilijanAmmKoulutusta": false
+                },
+                "nimi": {
+                  "fi": "TAMK Sisäinen siirto, Musiikkipedagogi (AMK), päivätoteutus, kevät 2025"
+                },
+                "hakuajat": [
+                  {
+                    "alkaa": "2025-03-04T08:00",
+                    "paattyy": "2025-04-29T15:00",
+                    "formatoituPaattyy": {
+                      "fi": "29.4.2025 klo 15:00",
+                      "sv": "29.4.2025 kl. 15:00",
+                      "en": "Apr. 29, 2025 at 03:00 PM UTC+3"
+                    },
+                    "formatoituAlkaa": {
+                      "fi": "4.3.2025 klo 08:00",
+                      "sv": "4.3.2025 kl. 08:00",
+                      "en": "Mar. 4, 2025 at 08:00 AM UTC+2"
+                    },
+                    "hakuAuki": false,
+                    "hakuMennyt": true
+                  }
+                ],
+                "hakukohdeOid": "1.2.246.562.20.00000000000000067033",
+                "organisaatio": {
+                  "oid": "1.2.246.562.10.41209513476",
+                  "nimi": {
+                    "sv": "Tampereen ammattikorkeakoulu Oy",
+                    "fi": "Tampereen ammattikorkeakoulu Oy",
+                    "en": "Tampereen ammattikorkeakoulu Oy"
+                  },
+                  "paikkakunta": {
+                    "koodiUri": "kunta_837",
+                    "nimi": {
+                      "sv": "Tammerfors",
+                      "fi": "Tampere"
+                    }
+                  }
+                },
+                "formatoituModified": {
+                  "fi": "25.2.2025 klo 09:39",
+                  "sv": "25.2.2025 kl. 09:39",
+                  "en": "Feb. 25, 2025 at 09:39 AM UTC+2"
+                },
+                "valintaperusteId": "0951eb85-b8a3-40f3-8b81-bffe32abbcfd"
+              }
+            ]
+          }
+        ],
+        "formatoituModified": {
+          "fi": "3.9.2025 klo 14:47",
+          "sv": "3.9.2025 kl. 14:47",
+          "en": "Sep. 3, 2025 at 02:47 PM UTC+3"
+        },
+        "koulutustyyppi": "amk"
+      },
+      "status": 200
+    }
+  }
+]
