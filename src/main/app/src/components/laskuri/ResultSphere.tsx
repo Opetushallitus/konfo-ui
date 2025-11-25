@@ -2,8 +2,7 @@ import React from 'react';
 
 import { Box, Typography, useTheme, useMediaQuery } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { VictoryContainer } from 'victory-core';
-import { VictoryPie } from 'victory-pie';
+import { VictoryContainer, VictoryPie } from 'victory';
 
 import { colors } from '#/src/colors';
 import { styled } from '#/src/theme';
