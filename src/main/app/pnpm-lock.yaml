@@ -20,6 +20,9 @@ importers:
       '@mui/styles':
         specifier: ^5.14.1
         version: 5.14.1(@types/react@19.1.5)(react@19.1.0)
+      '@mui/system':
+        specifier: ^5.14.5
+        version: 5.14.5(@emotion/react@11.14.0(@types/react@19.1.5)(react@19.1.0))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@19.1.5)(react@19.1.0))(@types/react@19.1.5)(react@19.1.0))(@types/react@19.1.5)(react@19.1.0)
       '@mui/utils':
         specifier: ^5.14.5
         version: 5.14.5(react@19.1.0)
