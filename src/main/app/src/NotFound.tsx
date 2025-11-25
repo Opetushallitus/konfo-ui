@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Grid, Button, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 import { styled } from '#/src/theme';
 
