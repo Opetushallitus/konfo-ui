@@ -20,6 +20,9 @@ importers:
       '@mui/styles':
         specifier: ^5.14.1
         version: 5.14.1(@types/react@19.1.5)(react@19.1.0)
+      '@mui/utils':
+        specifier: ^5.14.5
+        version: 5.14.5(react@19.1.0)
       '@reduxjs/toolkit':
         specifier: ^2.8.2
         version: 2.8.2(react-redux@9.2.0(@types/react@19.1.5)(react@19.1.0)(redux@5.0.1))(react@19.1.0)
