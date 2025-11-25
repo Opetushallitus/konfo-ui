@@ -76,15 +76,7 @@ jobs:
       - name: Get installed Playwright version
         id: playwright-version
         run: |
-          PLAYWRIGHT_VERSION=$(node - <<'NODE'
-          const { execSync } = require('child_process');
-          const out = execSync('pnpm list @playwright/test --depth 0 --json', { encoding: 'utf8' });
-          const parsed = JSON.parse(out);
-          const dep = (parsed[0]?.dependencies || []).find(d => d.name === '@playwright/test');
-          if (!dep) throw new Error('Missing @playwright/test in pnpm list');
-          console.log(dep.version);
-          NODE
-          )
+          PLAYWRIGHT_VERSION=$(node -p "require(require.resolve('@playwright/test/package.json')).version")
           echo "PLAYWRIGHT_VERSION=${PLAYWRIGHT_VERSION}" >> $GITHUB_ENV
       - name: Cache playwright binaries
         uses: actions/cache@v3
