@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "homepage": "/konfo",
   "private": true,
+  "packageManager": "pnpm@10.22.0",
   "scripts": {
     "prepare": "cd ../../../ && husky",
     "start": "vite dev",
@@ -112,6 +113,10 @@
     "vite-plugin-svgr": "^4.3.0",
     "vitest": "^3.2.4"
   },
+  "overrides": {
+    "brace-expansion": "^2.0.1",
+    "minimatch": "^9.0.5"
+  },
   "lint-staged": {
     "*.{json,css,md}": [
       "prettier --write"
@@ -132,5 +137,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm"
+    }
   }
 }
