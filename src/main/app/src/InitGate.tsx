@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, useEffect } from 'react';
 
-import { useLocation } from 'react-router';
+import { useLocation } from 'react-router-dom';
 
 import { getConfiguration } from '#/src/api/konfoApi';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
