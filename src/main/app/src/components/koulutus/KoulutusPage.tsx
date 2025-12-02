@@ -124,7 +124,7 @@ const EPerusteLinkki = withDefaultProps(
 
 const OsaamismerkinKuvaus = ({ koulutus }: { koulutus?: KoulutusExtendedData }) => {
   const { t } = useTranslation();
-  const { osaamismerkki } = koulutus || {};
+  const { osaamismerkki } = koulutus ?? {};
   const kuvaus = createOsaamismerkinKuvausHtml(t, osaamismerkki);
   const linkkiEPerusteisiin = urls.url(
     'eperusteet-service.osaamismerkki',
@@ -150,7 +150,6 @@ const OsaamismerkinKuvaus = ({ koulutus }: { koulutus?: KoulutusExtendedData }) 
 
 const Kuvaus = ({ koulutus }: { koulutus?: KoulutusExtendedData }) => {
   const { t } = useTranslation();
-  console.log(koulutus);
   const koulutuksenTyotehtavat = koulutus?.tyotehtavatJoissaVoiToimia;
   const koulutuksenKuvaus = koulutus?.kuvaus;
   const osaamisalat = koulutus?.kuvaus?.osaamisalat;
