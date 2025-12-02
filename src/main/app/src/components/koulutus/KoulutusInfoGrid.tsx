@@ -24,7 +24,7 @@ export const KoulutusInfoGrid = ({ koulutus }: Props) => {
     opinnonTyyppi,
     tunniste,
     osaamismerkki,
-  } = koulutus || {};
+  } = koulutus ?? {};
 
   const laajuus = getLocalizedKoulutusLaajuus(koulutus);
   const { t } = useTranslation();
