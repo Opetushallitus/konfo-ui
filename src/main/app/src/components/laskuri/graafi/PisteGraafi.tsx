@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Box, useTheme, useMediaQuery } from '@mui/material';
 import {
   VictoryGroup,
@@ -55,7 +53,7 @@ const Lukiopistelaskelma = ({ tulos, years, ...props }: LukiopisteProps) => {
           y: tulos.keskiarvoPainotettu,
         },
       ]}
-      labels={['', formatDouble(tulos.keskiarvoPainotettu)]}
+      labels={['', formatDouble(tulos.keskiarvoPainotettu) || '']}
       labelComponent={
         <VictoryLabel renderInPortal dx={isSmall ? -25 : -15} aria-hidden={true} />
       }

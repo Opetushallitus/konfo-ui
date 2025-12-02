@@ -5,7 +5,7 @@ import { ComponentRef, ComponentType, forwardRef } from 'react';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export function withDefaultProps<P extends React.ComponentPropsWithoutRef<any>>(
   Component: ComponentType<P>,
-  defaultProps: Partial<P>,
+  defaultProps: Partial<P> & { 'data-testid'?: string },
   displayName: string = 'ComponentWithDefaultProps'
 ) {
   const ComponentWithDefaultProps = forwardRef<ComponentRef<ComponentType<P>>, P>(

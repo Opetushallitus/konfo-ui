@@ -95,7 +95,7 @@ export const getKoulutusJarjestajat = ({
   oid,
   requestParams,
 }: {
-  oid: string;
+  oid?: string;
   requestParams: RequestParams;
 }) =>
   get(urls.url('konfo-backend.koulutus.jarjestajat', oid), {

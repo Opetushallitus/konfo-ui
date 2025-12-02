@@ -9,7 +9,7 @@ export const Osaamistavoitteet = ({
   osaamistavoitteet: osaamistavoitekuvaus,
   suorittaneenOsaaminen,
 }: {
-  osaamistavoitteet: Translateable;
+  osaamistavoitteet?: Translateable;
   suorittaneenOsaaminen?: Translateable;
 }) => {
   const { t } = useTranslation();

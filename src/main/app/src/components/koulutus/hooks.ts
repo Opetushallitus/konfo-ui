@@ -24,6 +24,7 @@ import {
   clearJarjestajatRajainValues,
   Pagination,
 } from '#/src/store/reducers/koulutusSlice';
+import { KoulutusExtendedData } from '#/src/types/common';
 import { isNumberRangeRajainId } from '#/src/types/SuodatinTypes';
 
 type TutkinnonOsa = {
@@ -38,6 +39,7 @@ export const fetchKoulutus = async (
   osaamisalakuvaukset: boolean = false
 ) => {
   const koulutusData = await getKoulutus(oid, isDraft);
+
   if (
     (koulutusData?.koulutustyyppi === KOULUTUS_TYYPPI.AMM && koulutusData.ePerusteId) ||
     (koulutusData?.koulutustyyppi === KOULUTUS_TYYPPI.AMM_OSAAMISALA &&
@@ -83,8 +85,9 @@ export const fetchKoulutus = async (
   return koulutusData;
 };
 
-const selectKoulutus = (koulutusData: any) => {
+const selectKoulutus = (koulutusData: KoulutusExtendedData) => {
   if (koulutusData) {
+    console.log({ koulutusData });
     return {
       kuvaus: koulutusData.metadata?.kuvaus,
       linkkiEPerusteisiin: koulutusData.metadata?.linkkiEPerusteisiin,
@@ -94,7 +97,7 @@ const selectKoulutus = (koulutusData: any) => {
       tyotehtavatJoissaVoiToimia:
         koulutusData.metadata?.kuvaus?.tyotehtavatJoissaVoiToimia,
       suorittaneenOsaaminen: koulutusData.metadata?.kuvaus?.suorittaneenOsaaminen,
-      koulutusAla: koulutusData.metadata?.koulutusala,
+      koulutusala: koulutusData.metadata?.koulutusala,
       tutkintoNimi: koulutusData?.nimi,
       tutkintonimikkeet: koulutusData.metadata?.tutkintonimike,
       opintojenLaajuus: koulutusData.metadata?.opintojenLaajuus,
@@ -149,7 +152,7 @@ const selectJarjestajat = (data: any) => {
 };
 
 type UseKoulutusJarjestajatProps = {
-  oid: string;
+  oid?: string;
   isTuleva?: boolean;
 };
 
@@ -257,7 +260,7 @@ export const useKoulutusJarjestajat = ({
   );
 
   return useMemo(
-    () => ({
+    (): any => ({
       queryResult: result,
       queryOptions: requestProps,
       rajainValues: rajainValues,

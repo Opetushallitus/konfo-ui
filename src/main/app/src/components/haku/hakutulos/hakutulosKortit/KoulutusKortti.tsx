@@ -8,7 +8,7 @@ import {
 } from '#/src/components/common/EntiteettiKortti';
 import { KoulutusKorttiLogo } from '#/src/components/common/KorttiLogo';
 import { createMaterialIcon } from '#/src/components/common/MaterialIcon';
-import { Koulutustyyppi, KOULUTUS_TYYPPI } from '#/src/constants';
+import { KOULUTUS_TYYPPI } from '#/src/constants';
 import { useVisibleKoulutustyyppi } from '#/src/hooks/useVisibleKoulutustyyppi';
 import { localize } from '#/src/tools/localization';
 import {
@@ -19,6 +19,7 @@ import {
   ToteutustenTarjoajat,
   Translateable,
   Osaamismerkkikuvaus,
+  KoutaKoulutustyyppi,
 } from '#/src/types/common';
 
 import { getToteutustenTarjoajat } from './getToteutustenTarjoajat';
@@ -27,7 +28,7 @@ export type Koulutus = {
   nimi?: Translateable;
   oid: string;
   kuvaus: Translateable | Osaamismerkkikuvaus;
-  koulutustyyppi: Koulutustyyppi;
+  koulutustyyppi: KoutaKoulutustyyppi;
   tutkintonimikkeet: Array<Translateable>;
   teemakuva?: string;
   toteutustenTarjoajat: ToteutustenTarjoajat;

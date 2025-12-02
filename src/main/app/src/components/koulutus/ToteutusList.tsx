@@ -20,7 +20,7 @@ import {
   localizeArrayToCommaSeparated,
 } from '#/src/tools/localization';
 import { getLocalizedOpintojenLaajuus } from '#/src/tools/utils';
-import { RajainName, TODOType } from '#/src/types/common';
+import { KoutaKoulutustyyppi, RajainName, TODOType } from '#/src/types/common';
 import { Jarjestaja } from '#/src/types/ToteutusTypes';
 
 import { useKoulutusJarjestajat } from './hooks';
@@ -29,8 +29,8 @@ import { SuodatinValinnat } from '../suodattimet/hakutulosSuodattimet/SuodatinVa
 import { MobileFiltersOnTopMenu } from '../suodattimet/toteutusSuodattimet/MobileFiltersOnTopMenu';
 
 type Props = {
-  oid: string;
-  koulutustyyppi: string;
+  oid?: string;
+  koulutustyyppi?: KoutaKoulutustyyppi;
 };
 
 export type RajainOptions = Record<string, Record<string, TODOType>>;
