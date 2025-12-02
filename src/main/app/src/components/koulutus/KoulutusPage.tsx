@@ -14,6 +14,7 @@ import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { Murupolku } from '#/src/components/common/Murupolku';
 import { PageSection } from '#/src/components/common/PageSection';
 import { TeemakuvaImage } from '#/src/components/common/TeemakuvaImage';
+import { KOULUTUS_TYYPPI } from '#/src/constants';
 import { NotFound } from '#/src/NotFound';
 import { getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
 import { styled } from '#/src/theme';
@@ -153,12 +154,10 @@ const Kuvaus = ({ koulutus }: { koulutus?: KoulutusExtendedData }) => {
   const koulutuksenTyotehtavat = koulutus?.tyotehtavatJoissaVoiToimia;
   const koulutuksenKuvaus = koulutus?.kuvaus;
   const osaamisalat = koulutus?.kuvaus?.osaamisalat;
-  const osaamisalatHtml = createHtmlListElement(
-    osaamisalat,
-    'haku.amm-osaamisalat',
-    'nimi',
-    t
-  );
+  const osaamisalatHtml =
+    koulutus?.koulutustyyppi === KOULUTUS_TYYPPI.AMM
+      ? createHtmlListElement(osaamisalat, 'haku.amm-osaamisalat', 'nimi', t)
+      : '';
 
   // NOTE: This uses HtmlTextBox which needs pure html
   const createKoulutusHtml = () =>
