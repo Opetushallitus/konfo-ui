@@ -12,7 +12,7 @@ import { RajainName } from '#/src/types/common';
 import { SetRajainValues } from '#/src/types/SuodatinTypes';
 
 type Props = {
-  koulutustyyppi: string;
+  koulutustyyppi?: string;
   rajainCount: number;
   hitCount: number;
   loading: boolean;

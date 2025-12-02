@@ -22,7 +22,7 @@ import { VaativanErityisenTuenSuodatin } from '../components/suodattimet/toteutu
 export const useToteutusRajainOrder = ({
   koulutustyyppi,
 }: {
-  koulutustyyppi: string;
+  koulutustyyppi?: string;
 }) => {
   return [
     {

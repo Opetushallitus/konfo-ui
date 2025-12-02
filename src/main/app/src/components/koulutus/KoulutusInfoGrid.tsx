@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Box } from '@mui/material';
 import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -7,26 +5,13 @@ import { useTranslation } from 'react-i18next';
 import { ExternalLink } from '#/src/components/common/ExternalLink';
 import { InfoGrid } from '#/src/components/common/InfoGrid';
 import { InfoGridIcon } from '#/src/components/common/InfoGridIcon';
-import { Koulutustyyppi } from '#/src/constants';
 import { useVisibleKoulutustyyppi } from '#/src/hooks/useVisibleKoulutustyyppi';
 import { localize, localizeArrayToCommaSeparated } from '#/src/tools/localization';
 import { getLocalizedKoulutusLaajuus } from '#/src/tools/utils';
-import { Koodi, Osaamismerkki, Translateable } from '#/src/types/common';
-
-type Koulutus = {
-  tutkintonimikkeet: Array<Translateable>;
-  koulutustyyppi?: Koulutustyyppi;
-  laajuus: string;
-  eqf: Array<Koodi>;
-  nqf: Array<Koodi>;
-  isAvoinKorkeakoulutus: boolean;
-  opinnonTyyppi: Koodi;
-  tunniste: string;
-  osaamismerkki: Osaamismerkki;
-};
+import { KoulutusExtendedData } from '#/src/types/common';
 
 type Props = {
-  koulutus: Koulutus;
+  koulutus?: KoulutusExtendedData;
 };
 
 export const KoulutusInfoGrid = ({ koulutus }: Props) => {
@@ -39,7 +24,7 @@ export const KoulutusInfoGrid = ({ koulutus }: Props) => {
     opinnonTyyppi,
     tunniste,
     osaamismerkki,
-  } = koulutus;
+  } = koulutus || {};
 
   const laajuus = getLocalizedKoulutusLaajuus(koulutus);
   const { t } = useTranslation();
@@ -95,14 +80,14 @@ export const KoulutusInfoGrid = ({ koulutus }: Props) => {
   }
 
   const eqfString =
-    eqf?.length > 0
+    eqf && eqf?.length > 0
       ? t('koulutus.koulutuksen-tasot.eqf').concat(
           ': ',
           localizeArrayToCommaSeparated(eqf, { sorted: true })
         )
       : undefined;
   const nqfString =
-    nqf?.length > 0
+    nqf && nqf?.length > 0
       ? t('koulutus.koulutuksen-tasot.nqf').concat(
           ': ',
           localizeArrayToCommaSeparated(nqf, { sorted: true })

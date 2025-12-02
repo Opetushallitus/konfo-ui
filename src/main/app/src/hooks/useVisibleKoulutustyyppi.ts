@@ -1,13 +1,13 @@
 import { useTranslation } from 'react-i18next';
 
-import { Koulutustyyppi } from '../constants';
+import { KoutaKoulutustyyppi } from '../types/common';
 
 export const useVisibleKoulutustyyppi = ({
   koulutustyyppi,
   isAvoinKorkeakoulutus,
 }: {
-  koulutustyyppi?: Koulutustyyppi;
-  isAvoinKorkeakoulutus: boolean;
+  koulutustyyppi?: KoutaKoulutustyyppi;
+  isAvoinKorkeakoulutus?: boolean;
 }) => {
   const { t } = useTranslation();
   if (!koulutustyyppi) {
