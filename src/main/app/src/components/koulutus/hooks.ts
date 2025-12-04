@@ -87,7 +87,6 @@ export const fetchKoulutus = async (
 
 const selectKoulutus = (koulutusData: KoulutusExtendedData) => {
   if (koulutusData) {
-    console.log({ koulutusData });
     return {
       kuvaus: koulutusData.metadata?.kuvaus,
       linkkiEPerusteisiin: koulutusData.metadata?.linkkiEPerusteisiin,
