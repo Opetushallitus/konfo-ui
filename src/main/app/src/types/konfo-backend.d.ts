@@ -3637,9 +3637,19 @@ export interface components {
             /** @description Postinumero ja -toimipaikka */
             postinumero?: components["schemas"]["Postinumero"];
         };
-        TutkinnonOsaExtended: {
+        TutkinnonOsaEperuste: {
             eperuste?: components["schemas"]["Eperuste"];
             koulutus?: components["schemas"]["KoulutusKoodi"];
+            /**
+             * @description Tutkinnon osan id
+             * @example 10
+             */
+            tutkinnonosaId?: number;
+            /**
+             * @description Tutkinnon osan viite
+             * @example 10
+             */
+            tutkinnonosaViite?: number;
             opintojenLaajuus?: components["schemas"]["OpintojenLaajuus"];
             /**
              * @description Opintojen laajuus numeroarvona
@@ -4122,7 +4132,7 @@ export interface components {
              */
             tunniste?: string;
             opinnonTyyppi?: components["schemas"]["OpinnonTyyppi"];
-            tutkinnonOsat?: components["schemas"]["TutkinnonOsaExtended"][];
+            tutkinnonOsat?: components["schemas"]["TutkinnonOsaEperuste"][];
         };
         Toteutus: {
             /**
