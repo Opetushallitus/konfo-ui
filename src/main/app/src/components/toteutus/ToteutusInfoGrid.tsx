@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { TFunction } from 'i18next';
 import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -7,15 +5,15 @@ import { useTranslation } from 'react-i18next';
 import { InfoGrid } from '#/src/components/common/InfoGrid';
 import { InfoGridIcon } from '#/src/components/common/InfoGridIcon';
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
-import {
-  Koulutustyyppi,
-  NDASH,
-  MAKSULLISUUSTYYPPI,
-  KOULUTUS_TYYPPI,
-} from '#/src/constants';
+import { NDASH, MAKSULLISUUSTYYPPI, KOULUTUS_TYYPPI } from '#/src/constants';
 import { useVisibleKoulutustyyppi } from '#/src/hooks/useVisibleKoulutustyyppi';
 import { localize } from '#/src/tools/localization';
-import { Koodi, Osaamismerkki, Translateable } from '#/src/types/common';
+import {
+  Koodi,
+  KoutaKoulutustyyppi,
+  Osaamismerkki,
+  Translateable,
+} from '#/src/types/common';
 import { Opetus, Yksikko } from '#/src/types/ToteutusTypes';
 
 import { formatAloitus } from './utils';
@@ -73,7 +71,7 @@ type Props = {
   laajuus: string;
   opetus: Opetus;
   hasHaku: boolean;
-  koulutustyyppi?: Koulutustyyppi;
+  koulutustyyppi?: KoutaKoulutustyyppi;
   isAvoinKorkeakoulutus?: boolean;
   tunniste?: string;
   opinnonTyyppi?: Koodi;

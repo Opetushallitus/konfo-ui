@@ -105,6 +105,20 @@ export type RajainName = ValueOf<typeof RAJAIN_TYPES>;
 
 export type SearchParams = paths['/search/koulutukset']['get']['parameters']['query'];
 export type KonfoKoulutustyyppi = components['schemas']['KonfoKoulutustyyppi'];
+export type KoutaKoulutustyyppi = components['schemas']['KoutaKoulutustyyppi'];
+export type OpintojenLaajuus = components['schemas']['OpintojenLaajuus'];
+export type OpinnonTyyppi = components['schemas']['OpinnonTyyppi'];
+export type OpintojenLaajuusyksikko = components['schemas']['OpintojenLaajuusyksikko'];
+export type Tutkintonimike = components['schemas']['Tutkintonimike'];
+export type KuvausExtended = components['schemas']['Kuvaus'] & {
+  tyotehtavatJoissaVoiToimia?: Translateable;
+  suorittaneenOsaaminen?: Translateable;
+  osaamisalat?: TODOType;
+};
+export type Koulutusala =
+  | components['schemas']['Koulutusala1']
+  | components['schemas']['Koulutusala2'];
+export type KoulutusLisatieto = components['schemas']['KoulutusLisatieto'];
 
 export type Suosikki = components['schemas']['SuosikitItem'];
 export type VertailuSuosikki = components['schemas']['SuosikitVertailuItem'];
@@ -114,6 +128,38 @@ export type HakukohdeSearchParams =
   paths['/search/hakukohteet']['get']['parameters']['query'];
 export type CompactHakukohde = components['schemas']['CompactHakukohde'];
 export type HakukohdeSearchResult = components['schemas']['HakukohdeSearchResult'];
+export type Koulutus = components['schemas']['Koulutus'];
+
+type KoulutusMetadata = components['schemas']['KoulutusMetadata'];
+type KoulutusMetadataWithoutKuvaus = Omit<KoulutusMetadata, 'kuvaus'>;
+type KoulutusMetadataWithKuvausExtended = KoulutusMetadataWithoutKuvaus & {
+  kuvaus: KuvausExtended;
+};
+type KoulutusWithoutMetadata = Omit<Koulutus, 'metadata'>;
+type KoulutusWithKuvausExtendedInMetadata = KoulutusWithoutMetadata & {
+  metadata?: KoulutusMetadataWithKuvausExtended;
+};
+export type KoulutusExtendedData = KoulutusWithKuvausExtendedInMetadata & {
+  kuvaus?: KuvausExtended;
+  tutkintonimikkeet?: Array<Tutkintonimike>;
+  tutkinnonOsat?: Array<TODOType>;
+  eqf?: Array<Koodi>;
+  nqf?: Array<Koodi>;
+  isAvoinKorkeakoulutus?: boolean;
+  opinnonTyyppi?: OpinnonTyyppi;
+  tunniste?: string;
+  eperusteet: TODOType;
+  osaamismerkki: Osaamismerkki;
+  tyotehtavatJoissaVoiToimia?: Translateable;
+  suorittaneenOsaaminen?: Translateable;
+  linkkiEPerusteisiin?: Translateable;
+  koulutusala?: Array<Koulutusala>;
+  opintojenLaajuus?: OpintojenLaajuus;
+  opintojenLaajuusNumero?: number;
+  opintojenLaajuusNumeroMax?: number;
+  opintojenLaajuusNumeroMin?: number;
+  opintojenLaajuusyksikko?: OpintojenLaajuusyksikko;
+};
 
 type OsaamismerkkikuvausItem = {
   _id: string;

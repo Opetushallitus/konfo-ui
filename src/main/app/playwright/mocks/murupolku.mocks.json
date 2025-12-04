@@ -121,7 +121,9 @@
               "fi": "Ammatillinen koulutus"
             }
           },
-          "kielivalinta": ["fi"],
+          "kielivalinta": [
+            "fi"
+          ],
           "julkinen": false,
           "organisaatio": {
             "paikkakunta": {
@@ -265,7 +267,9 @@
           "voimassa": false,
           "syy": "Ei korkeakoulutus koulutusta"
         },
-        "kielivalinta": ["fi"],
+        "kielivalinta": [
+          "fi"
+        ],
         "timestamp": 1610627357117,
         "organisaatio": {
           "paikkakunta": {
@@ -821,7 +825,10 @@
           "nimi": "Petteri Tolonen"
         },
         "oid": "1.2.246.562.13.00000000000000000156",
-        "kielivalinta": ["fi", "sv"],
+        "kielivalinta": [
+          "fi",
+          "sv"
+        ],
         "koulutus": {
           "koodiUri": "koulutus_750201#12",
           "nimi": {
@@ -1019,7 +1026,10 @@
               "nimi": "Juha Kekkonen"
             },
             "modified": "2020-12-02T14:28",
-            "organisaatiot": ["1.2.246.562.10.594252633210", "1.2.246.562.10.74534804344"]
+            "organisaatiot": [
+              "1.2.246.562.10.594252633210",
+              "1.2.246.562.10.74534804344"
+            ]
           },
           {
             "oid": "1.2.246.562.17.00000000000000000500",
@@ -1135,7 +1145,10 @@
               "nimi": "Pekka Lyyra"
             },
             "modified": "2021-01-12T12:20",
-            "organisaatiot": ["1.2.246.562.10.53642770753", "1.2.246.562.10.74355268397"]
+            "organisaatiot": [
+              "1.2.246.562.10.53642770753",
+              "1.2.246.562.10.74355268397"
+            ]
           },
           {
             "oid": "1.2.246.562.17.00000000000000000431",
@@ -1176,7 +1189,10 @@
               "nimi": "Pekka Lyyra"
             },
             "modified": "2021-01-12T12:20",
-            "organisaatiot": ["1.2.246.562.10.53642770753", "1.2.246.562.10.96247340308"]
+            "organisaatiot": [
+              "1.2.246.562.10.53642770753",
+              "1.2.246.562.10.96247340308"
+            ]
           }
         ],
         "esikatselu": true,
@@ -1191,7 +1207,10 @@
           "nimi": "Petteri Tolonen"
         },
         "oid": "1.2.246.562.13.00000000000000000570",
-        "kielivalinta": ["fi", "sv"],
+        "kielivalinta": [
+          "fi",
+          "sv"
+        ],
         "koulutus": {
           "koodiUri": "koulutus_351301#12",
           "nimi": {
@@ -1426,7 +1445,9 @@
           "nimi": "Pekka Lyyra"
         },
         "oid": "1.2.246.562.13.00000000000000000572",
-        "kielivalinta": ["fi"],
+        "kielivalinta": [
+          "fi"
+        ],
         "koulutus": {
           "koodiUri": "koulutus_384201#12",
           "nimi": {
@@ -1437,7 +1458,10 @@
         },
         "timestamp": 1610625789935,
         "julkinen": true,
-        "organisaatiot": ["1.2.246.562.10.52251087186", "1.2.246.562.10.346830761110"],
+        "organisaatiot": [
+          "1.2.246.562.10.52251087186",
+          "1.2.246.562.10.346830761110"
+        ],
         "organisaatio": {
           "paikkakunta": {
             "koodiUri": "kunta_091",
@@ -1500,7 +1524,7 @@
   },
   {
     "method": "GET",
-    "url": "http://localhost:3005/konfo-backend/kuvaus/3397336",
+    "url": "http://localhost:3005/konfo-backend/kuvaus/3397336?osaamisalakuvaukset=true",
     "response": {
       "body": {
         "id": 3397336,
@@ -1586,7 +1610,10 @@
               "oid": "1.2.246.562.24.14406291182",
               "nimi": "Topias Heinonen"
             },
-            "kielivalinta": ["fi", "sv"],
+            "kielivalinta": [
+              "fi",
+              "sv"
+            ],
             "organisaatio": {
               "paikkakunta": {
                 "koodiUri": "kunta_092",
@@ -2030,7 +2057,10 @@
             "oid": "1.2.246.562.24.14406291182",
             "nimi": "Topias Heinonen"
           },
-          "kielivalinta": ["fi", "sv"],
+          "kielivalinta": [
+            "fi",
+            "sv"
+          ],
           "organisaatio": {
             "paikkakunta": {
               "koodiUri": "kunta_092",
@@ -6848,7 +6878,9 @@
           {
             "maksunMaara": null,
             "kuvaus": {},
-            "opetuskielet": ["oppilaitoksenopetuskieli_5"],
+            "opetuskielet": [
+              "oppilaitoksenopetuskieli_5"
+            ],
             "toteutusOid": "1.2.246.562.17.00000000000000000484",
             "opetusajat": [
               {
@@ -6930,7 +6962,9 @@
             "kuvaus": {
               "fi": "Pekka L määräraha testaus, saa arkistoida."
             },
-            "opetuskielet": ["oppilaitoksenopetuskieli_1"],
+            "opetuskielet": [
+              "oppilaitoksenopetuskieli_1"
+            ],
             "toteutusOid": "1.2.246.562.17.00000000000000000432",
             "opetusajat": [
               {
@@ -7013,7 +7047,9 @@
             "kuvaus": {
               "fi": "Ajoneuvoasentaja on kädentaitaja, joka hallitsee auton etupuskurista takapuskuriin ja kaiken siltä väliltä. Kun autoalan työturvallisuus on käyty läpi ja päästy sinuiksi huoltolaitteiden kanssa, opiskelijat ryhtyvät samantien tositoimiin. Omnian Suomenojan toimipisteessä toimii harjoituskorjaamo, johon asiakkaat tuovat korjattavaksi autojaan.\n\nHuolto- ja korjaustyöt, auton rakenne ja järjestelmät, asiakaspalvelu, sähkötekniikka, alan säädökset, rekisteriasiat, turvavaruste- ja lisävarustetyöt, sähköjärjestelmät. Ajoneuvoasentaja on monipuolinen autoalan ammattilainen!\n\nOpiskelu on hyvin käytännönläheistä, ja suurin osa opeista hankitaan tekemällä oikeita töitä. Omnian kouluttajat ovat useiden kymmenien vuosien korjaamoalan työkokemuksellaan todellisia asiantuntijoita!\n\n”Sain koulutuksessa nopeasti toivomani ammatin. Parasta koulutuksessa oli hyvä opiskeluporukka ja mukavat ja ammattitaitoiset opettajat! Työelämälähtöisyys näkyi kaikessa, ja pääsinkin heti ensimmäisen syksyn jälkeen yritykseen työssä oppimaan. Minut palkattiin töihin jo opiskeluaikana.” – Eveliina Järveläinen, Omniasta valmistunut ajoneuvoasentaja\n\nOmnialla on erinomaiset kansainväliset yhteydet. Autoalan opiskelijat ovat käyneet työssäoppimassa muun muassa Ranskassa, Turkissa, Unkarissa ja Saksassa.\n\nOpintojen aikana sinulla on mahdollisuus suuntautua Moottoriurheilu-uralle, joka on ainoa moottoriurheilumekaanikoksi valmentava koulutus Suomessa.\n\nTutkinto suoritetaan ammatillisen kiltatoiminnan mallin mukaisesti. Lue lisää Omnian kiltatoiminnasta. Autoalan opiskelijat pääsevät työskentelemään aidossa oppimisympäristössä "
             },
-            "opetuskielet": ["oppilaitoksenopetuskieli_1"],
+            "opetuskielet": [
+              "oppilaitoksenopetuskieli_1"
+            ],
             "toteutusOid": "1.2.246.562.17.00000000000000000431",
             "opetusajat": [
               {
@@ -7097,7 +7133,9 @@
               "fi": "<p>Tallennustesti</p>",
               "sv": "<p>testi, tallennus</p>"
             },
-            "opetuskielet": ["oppilaitoksenopetuskieli_1"],
+            "opetuskielet": [
+              "oppilaitoksenopetuskieli_1"
+            ],
             "toteutusOid": "1.2.246.562.17.00000000000000000500",
             "opetusajat": [
               {
@@ -26798,7 +26836,9 @@
           "nimi": "Petteri Tolonen"
         },
         "oid": "1.2.246.562.17.00000000000000000404",
-        "kielivalinta": ["fi"],
+        "kielivalinta": [
+          "fi"
+        ],
         "timestamp": 1610627375024,
         "organisaatiot": [
           "1.2.246.562.10.60198812368",
@@ -26943,7 +26983,9 @@
           "nimi": "Pekka Lyyra"
         },
         "oid": "1.2.246.562.17.00000000000000000434",
-        "kielivalinta": ["fi"],
+        "kielivalinta": [
+          "fi"
+        ],
         "timestamp": 1610627375024,
         "organisaatiot": [
           "1.2.246.562.10.52251087186",
@@ -27148,7 +27190,10 @@
             "nimi": "Juha Kekkonen"
           },
           "id": "09a23d0c-3a6e-403b-b3d6-cd659ec763f8",
-          "kielivalinta": ["fi", "sv"],
+          "kielivalinta": [
+            "fi",
+            "sv"
+          ],
           "organisaatio": {
             "paikkakunta": {
               "koodiUri": "kunta_106",
@@ -27171,7 +27216,9 @@
           },
           "koulutustyyppi": "amm"
         },
-        "kielivalinta": ["fi"],
+        "kielivalinta": [
+          "fi"
+        ],
         "timestamp": 1610625940774,
         "julkinen": false,
         "organisaatio": {

@@ -1,6 +1,13 @@
 import { Hakulomaketyyppi, KOULUTUS_TYYPPI, MAKSULLISUUSTYYPPI } from '#/src/constants';
 
-import { Koodi, Translateable, TODOType, ValueOf, Alkamiskausi } from './common';
+import {
+  Koodi,
+  Translateable,
+  TODOType,
+  ValueOf,
+  Alkamiskausi,
+  KoulutusLisatieto,
+} from './common';
 import { Hakukohde } from './HakukohdeTypes';
 
 type KoulutusTyyppi = ValueOf<typeof KOULUTUS_TYYPPI>;
@@ -39,7 +46,7 @@ export type Opetus = {
   suunniteltuKestoVuodet?: number;
   suunniteltuKestoKuukaudet?: number;
   suunniteltuKestoKuvaus?: Translateable;
-  lisatiedot?: Array<Translateable>;
+  lisatiedot?: Array<KoulutusLisatieto>;
 };
 
 export type Osaamisala = {
@@ -80,6 +87,7 @@ export type ToteutusMetadata = {
   ammattinimikkeet: Array<{ kieli: string; arvo: string }>;
   asiasanat: [];
   kuvaus: Translateable;
+  osaamistavoitteet: Translateable;
   opetus: Opetus;
   osaamisalat: Array<Osaamisala>;
   tyyppi: string;

@@ -1,4 +1,5 @@
 import { Box, Typography } from '@mui/material';
+import { TFunction } from 'i18next';
 import { head, isEmpty } from 'lodash';
 import { urls } from 'oph-urls-js';
 import { useTranslation } from 'react-i18next';
@@ -13,38 +14,49 @@ import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { Murupolku } from '#/src/components/common/Murupolku';
 import { PageSection } from '#/src/components/common/PageSection';
 import { TeemakuvaImage } from '#/src/components/common/TeemakuvaImage';
+import { KOULUTUS_TYYPPI } from '#/src/constants';
 import { NotFound } from '#/src/NotFound';
 import { getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
 import { styled } from '#/src/theme';
 import { getLanguage, localize } from '#/src/tools/localization';
 import { useUrlParams } from '#/src/tools/useUrlParams';
-import { createOsaamismerkinKuvausHtml, sanitizedHTMLParser } from '#/src/tools/utils';
+import {
+  createOsaamismerkinKuvausHtml,
+  createHtmlListElement,
+  sanitizedHTMLParser,
+} from '#/src/tools/utils';
 import { withDefaultProps } from '#/src/tools/withDefaultProps';
+import { KoulutusExtendedData, TODOType, Translateable } from '#/src/types/common';
 
 import { useKoulutus, useKoulutusJarjestajat } from './hooks';
 import { KoulutusInfoGrid } from './KoulutusInfoGrid';
 import { ToteutusList } from './ToteutusList';
 import { TulevaJarjestajaList } from './TulevaJarjestajaList';
+import { Osaamistavoitteet } from '../common/Osaamistavoitteet';
 
-const KoulutusalatHeading = styled(Typography)(({ theme }) => ({
+const KoulutusalatHeading = styled(Typography)<{ component?: string }>(({ theme }) => ({
   ...theme.typography.body1,
   fontSize: '1.25rem',
   margin: 'auto',
   textAlign: 'center',
 }));
 
-const findEperuste = (koulutus) => (id) =>
-  head(koulutus.eperusteet.filter((e) => e.id === id));
+const findEperuste = (koulutus: KoulutusExtendedData) => (id: number) =>
+  head(koulutus.eperusteet.filter((e: TODOType) => e.id === id));
 
-const findTutkinnonOsa = (eperuste) => (id) =>
-  head(eperuste.tutkinnonOsat.filter((t) => t.id === id));
+const findTutkinnonOsa = (eperuste: TODOType) => (id: number) =>
+  head(eperuste.tutkinnonOsat.filter((t: TODOType) => t.id === id));
 
-const getKuvausHtmlSection = (t, captionKey, localizableText) =>
+const getKuvausHtmlSection = (
+  t: TFunction,
+  captionKey: string,
+  localizableText: Translateable
+) =>
   localizableText ? '<h3>' + t(captionKey) + '</h3>' + localize(localizableText) : '';
 
-const TutkinnonOsat = ({ koulutus }) => {
+const TutkinnonOsat = ({ koulutus }: { koulutus?: KoulutusExtendedData }) => {
   const { t } = useTranslation();
-  const createTutkinnonOsa = (tutkinnonOsa) =>
+  const createTutkinnonOsa = (tutkinnonOsa: TODOType) =>
     sanitizedHTMLParser(
       getKuvausHtmlSection(
         t,
@@ -61,7 +73,7 @@ const TutkinnonOsat = ({ koulutus }) => {
   return koulutus?.tutkinnonOsat ? (
     <PageSection heading={t('koulutus.kuvaus')}>
       <Accordion
-        items={koulutus?.tutkinnonOsat.map((tutkinnonOsa) => {
+        items={koulutus?.tutkinnonOsat.map((tutkinnonOsa: TODOType) => {
           const {
             tutkinnonosaId,
             tutkinnonosaViite,
@@ -111,9 +123,9 @@ const EPerusteLinkki = withDefaultProps(
   }
 );
 
-const OsaamismerkinKuvaus = ({ koulutus }) => {
+const OsaamismerkinKuvaus = ({ koulutus }: { koulutus?: KoulutusExtendedData }) => {
   const { t } = useTranslation();
-  const { osaamismerkki } = koulutus;
+  const { osaamismerkki } = koulutus ?? {};
   const kuvaus = createOsaamismerkinKuvausHtml(t, osaamismerkki);
   const linkkiEPerusteisiin = urls.url(
     'eperusteet-service.osaamismerkki',
@@ -137,26 +149,27 @@ const OsaamismerkinKuvaus = ({ koulutus }) => {
   );
 };
 
-const Kuvaus = ({ koulutus }) => {
+const Kuvaus = ({ koulutus }: { koulutus?: KoulutusExtendedData }) => {
   const { t } = useTranslation();
+  const koulutuksenTyotehtavat = koulutus?.tyotehtavatJoissaVoiToimia;
+  const koulutuksenKuvaus = koulutus?.kuvaus;
+  const osaamisalat = koulutus?.kuvaus?.osaamisalat;
+  const osaamisalatHtml =
+    koulutus?.koulutustyyppi === KOULUTUS_TYYPPI.AMM
+      ? createHtmlListElement(osaamisalat, 'haku.amm-osaamisalat', 'nimi', t)
+      : '';
 
   // NOTE: This uses HtmlTextBox which needs pure html
   const createKoulutusHtml = () =>
-    koulutus?.suorittaneenOsaaminen || koulutus?.tyotehtavatJoissaVoiToimia
+    koulutuksenTyotehtavat
       ? getKuvausHtmlSection(
           t,
-          'koulutus.suorittaneenOsaaminen',
-          koulutus?.suorittaneenOsaaminen
-        ) +
-        getKuvausHtmlSection(
-          t,
           'koulutus.tyotehtavatJoissaVoiToimia',
-          koulutus?.tyotehtavatJoissaVoiToimia
-        )
-      : localize(koulutus?.kuvaus);
-  return !isEmpty(koulutus?.kuvaus) ||
-    koulutus?.suorittaneenOsaaminen ||
-    koulutus?.tyotehtavatJoissaVoiToimia ? (
+          koulutuksenTyotehtavat
+        ) + osaamisalatHtml
+      : localize(koulutuksenKuvaus);
+
+  return !isEmpty(koulutuksenKuvaus) || koulutuksenTyotehtavat ? (
     <HtmlTextBox
       data-testid="kuvaus"
       heading={t('koulutus.kuvaus')}
@@ -188,17 +201,20 @@ export const KoulutusPage = () => {
   const { oid } = useParams();
   const { t } = useTranslation();
 
-  const { data: koulutus, status } = useKoulutus({ oid, isDraft });
+  const { data: koulutus, status } = useKoulutus({
+    oid,
+    isDraft,
+    osaamisalakuvaukset: true,
+  });
 
   const { data: tulevatJarjestajat } = useKoulutusJarjestajat({
     oid,
-    isDraft,
     isTuleva: true,
   });
 
   const hakuUrl = useSelector(getHakuUrl);
 
-  const koulutusAlat = koulutus?.koulutusAla?.map((ala) => localize(ala))?.join(' + ');
+  const koulutusalat = koulutus?.koulutusala?.map((ala) => localize(ala))?.join(' + ');
 
   const soraKuvaus = koulutus?.sorakuvaus;
 
@@ -219,9 +235,9 @@ export const KoulutusPage = () => {
             />
           </Box>
           <Box mt={4}>
-            {koulutusAlat && (
+            {koulutusalat && (
               <KoulutusalatHeading variant="h3" component="h3">
-                {koulutusAlat}
+                {koulutusalat}
               </KoulutusalatHeading>
             )}
           </Box>
@@ -237,6 +253,10 @@ export const KoulutusPage = () => {
             <KoulutusInfoGrid koulutus={koulutus} />
           </PageSection>
           <Kuvaus koulutus={koulutus} />
+          <Osaamistavoitteet
+            osaamistavoitteet={koulutus?.osaamistavoitteet}
+            suorittaneenOsaaminen={koulutus?.suorittaneenOsaaminen}
+          />
           <OsaamismerkinKuvaus koulutus={koulutus} />
           <TutkinnonOsat koulutus={koulutus} />
           <Box id="tarjonta">

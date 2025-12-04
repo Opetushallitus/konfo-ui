@@ -48,7 +48,7 @@
       "kielivalinta": ["fi"],
       "koulutus": null,
       "tutkintonimikkeet": null,
-      "eperuste": null,
+      "ePerusteId": null,
       "koulutustyyppi": "amm-tutkinnon-osa"
     },
     {
@@ -104,7 +104,7 @@
           }
         }
       ],
-      "eperuste": null,
+      "ePerusteId": null,
       "koulutustyyppi": "amm"
     },
     {
@@ -190,7 +190,7 @@
           }
         }
       ],
-      "eperuste": 3397336,
+      "ePerusteId": 3397336,
       "koulutustyyppi": "amm"
     },
     {
@@ -214,7 +214,7 @@
         }
       },
       "tutkintonimikkeet": null,
-      "eperuste": null,
+      "ePerusteId": null,
       "koulutustyyppi": "amm"
     },
     {
@@ -238,7 +238,7 @@
         }
       },
       "tutkintonimikkeet": null,
-      "eperuste": null,
+      "ePerusteId": null,
       "koulutustyyppi": "amm"
     },
     {
@@ -274,7 +274,7 @@
         }
       },
       "tutkintonimikkeet": [],
-      "eperuste": null,
+      "ePerusteId": null,
       "koulutustyyppi": "yo"
     },
     {
@@ -359,7 +359,7 @@
           }
         }
       ],
-      "eperuste": 3855075,
+      "ePerusteId": 3855075,
       "koulutustyyppi": "amm"
     },
     {
@@ -443,7 +443,7 @@
           }
         }
       ],
-      "eperuste": 6930620,
+      "ePerusteId": 6930620,
       "koulutustyyppi": "amm"
     },
     {
@@ -469,7 +469,7 @@
         }
       },
       "tutkintonimikkeet": null,
-      "eperuste": null,
+      "ePerusteId": null,
       "koulutustyyppi": "amm"
     }
   ],
