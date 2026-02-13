@@ -31,7 +31,7 @@
     "@mui/system": "^5.14.5",
     "@mui/utils": "^5.14.5",
     "@reduxjs/toolkit": "^2.8.2",
-    "axios": "^1.10.0",
+    "axios": "^1.13.5",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "dompurify": "^3.2.6",
