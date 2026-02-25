@@ -109,7 +109,7 @@ export const ToteutusPage = () => {
     jarjestetaanErityisopetuksena,
     tyyppi,
     suoritetaanNayttona,
-    osaamistavoitteet,
+    osaamistavoitteet: toteutuksenOsaamistavoitteet,
   } = toteutus?.metadata ?? {};
 
   const { data: koulutus, status: koulutusStatus } = useKoulutus({
@@ -162,6 +162,10 @@ export const ToteutusPage = () => {
     () => [...(koulutus?.lisatiedot || []), ...(opetus?.lisatiedot || [])],
     [koulutus?.lisatiedot, opetus?.lisatiedot]
   );
+
+  const osaamistavoitteet = isEmpty(toteutuksenOsaamistavoitteet)
+    ? koulutus?.osaamistavoitteet
+    : toteutuksenOsaamistavoitteet;
 
   const showLaskuri = showPisteLaskuri(
     toteutus,
