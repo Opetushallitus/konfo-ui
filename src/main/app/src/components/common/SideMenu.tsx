@@ -164,6 +164,7 @@ export const SideMenu = (props: {
             inputProps={{
               'aria-label': t('sidebar.etsi-tietoa-opintopolusta'),
               title: t('sidebar.etsi-tietoa-opintopolusta'),
+              role: 'search',
             }}
           />
           <Button
