@@ -1,3 +1,5 @@
+import { useEffect, useRef } from 'react';
+
 import {
   AppBar,
   Box,
@@ -54,6 +56,11 @@ const StyledAppBar = styled(AppBar)(() => ({
 
   [`& .${classes.menuButton}`]: {
     marginRight: theme.spacing(2),
+    borderRadius: 0,
+    padding: '0.25rem',
+  },
+  [`& .${classes.menuButton}:focus`]: {
+    outline: '1px solid rgb(255, 255, 255)',
   },
 
   [`& .${classes.menuBox}`]: {
@@ -134,6 +141,12 @@ export const Header = ({
   const showTestiLabel = testiLabel != null;
 
   const OpintopolkuHeaderLogo = getOpintopolkuHeaderLogo();
+  const searchRef = useRef<HTMLInputElement | null>(null);
+  useEffect(() => {
+    if (isOpen) {
+      searchRef.current?.focus();
+    }
+  }, [searchRef, isOpen]);
 
   return (
     <StyledAppBar sx={{ position: { xs: 'absolute', sm: 'fixed' } }}>
@@ -156,6 +169,7 @@ export const Header = ({
               isSmall={isSmall}
               menuVisible={menuVisible}
               closeMenu={closeMenu}
+              searchRef={searchRef}
             />
           </Box>
           <Link

@@ -99,8 +99,9 @@ export const SideMenu = (props: {
   menuVisible?: boolean;
   isSmall: boolean;
   closeMenu: () => void;
+  searchRef: React.RefObject<HTMLInputElement | null>;
 }) => {
-  const { menuVisible, closeMenu } = props;
+  const { menuVisible, closeMenu, searchRef } = props;
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
 
@@ -132,6 +133,10 @@ export const SideMenu = (props: {
       classes={{
         paper: classes.drawerPaper,
       }}
+      role="menu"
+      PaperProps={{
+        role: 'group',
+      }}
       isSmall={props.isSmall}>
       <div className={classes.inputBackground}>
         <Hidden smUp>
@@ -159,11 +164,13 @@ export const SideMenu = (props: {
                 doSearch(event);
               }
             }}
+            inputRef={searchRef}
             onChange={({ target }) => setSearch(target.value)}
             placeholder={t('sidebar.etsi-tietoa-opintopolusta')}
             inputProps={{
               'aria-label': t('sidebar.etsi-tietoa-opintopolusta'),
               title: t('sidebar.etsi-tietoa-opintopolusta'),
+              role: 'search',
             }}
           />
           <Button

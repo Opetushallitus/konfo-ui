@@ -85,7 +85,7 @@ const StyledList = styled(List)({
 });
 
 const ListItemLink = (props: ListItemButtonProps) => {
-  return <ListItemButton component="a" {...props} />;
+  return <ListItemButton component="a" {...props} role="menuitem" />;
 };
 const SivuItem = ({
   name,
@@ -98,11 +98,7 @@ const SivuItem = ({
 }) => {
   return (
     <ListItemLink onClick={() => onClick(id)} className={classes.valikko}>
-      <ListItemText
-        role="menuitem"
-        className={classes.valintaText}
-        tabIndex={0}
-        aria-label={name}>
+      <ListItemText className={classes.valintaText} aria-label={name}>
         {name}
       </ListItemText>
     </ListItemLink>
@@ -111,7 +107,7 @@ const SivuItem = ({
 
 const OtsikkoItem = ({ name }: { name: string }) => {
   return (
-    <h2 className={classes.otsikkoText} tabIndex={-1} aria-label={name}>
+    <h2 className={classes.otsikkoText} tabIndex={-1} role="presentation">
       {name}
     </h2>
   );
@@ -127,15 +123,17 @@ const ValikkoItem = ({
   select: (id: string) => void;
 }) => {
   return (
-    <ListItemLink role="none" className={classes.valikko} onClick={() => select(id)}>
-      <ListItemText
-        className={classes.valintaText}
-        role="menuitem"
-        tabIndex={-1}
-        aria-label={name}>
+    <ListItemLink
+      className={classes.valikko}
+      aria-haspopup="true"
+      onClick={() => select(id)}>
+      <ListItemText className={classes.valintaText} role="presentation">
         {name}
       </ListItemText>
-      <ListItemIcon className={classes.valintaIconBase}>
+      <ListItemIcon
+        className={classes.valintaIconBase}
+        role="presentation"
+        aria-hidden="true">
         <MaterialIcon icon="chevron_right" className={classes.valintaIcon} />
       </ListItemIcon>
     </ListItemLink>
@@ -164,13 +162,13 @@ export const SidebarValikko = (props: {
   };
 
   return (
-    <StyledList className={classes.root} aria-label={name}>
+    <StyledList role="group" className={classes.root} aria-label={name}>
       {parent ? (
-        <ListItemLink className={classes.parentOtsikko} role="none" onClick={deselect}>
+        <ListItemLink className={classes.parentOtsikko} onClick={deselect}>
           <ListItemIcon className={classes.parentOtsikkoIconBase}>
             <MaterialIcon icon="chevron_left" className={classes.parentOtsikkoIcon} />
           </ListItemIcon>
-          <ListItemText role="menuitem" tabIndex={-1} aria-label={parent.name}>
+          <ListItemText role="presentation" aria-label={parent.name}>
             {parent.name}
           </ListItemText>
         </ListItemLink>
