@@ -97,7 +97,7 @@ const SivuItem = ({
   onClick: (id: string) => void;
 }) => {
   return (
-    <ListItemLink role="none" onClick={() => onClick(id)} className={classes.valikko}>
+    <ListItemLink onClick={() => onClick(id)} className={classes.valikko}>
       <ListItemText
         role="menuitem"
         className={classes.valintaText}
