@@ -16,6 +16,7 @@ import OPOLogoFI from '#/src/assets/images/opintopolku_logo_header_fi.svg?react'
 import OPOLogoSV from '#/src/assets/images/opintopolku_logo_header_sv.svg?react';
 import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { SideMenu } from '#/src/components/common/SideMenu';
 import { styled, theme } from '#/src/theme';
 import { getLanguage } from '#/src/tools/localization';
 
@@ -114,10 +115,18 @@ export const Header = ({
   toggleMenu,
   isOpen,
   refreshSideMenu,
+  isSmall,
+  menuVisible,
+  closeMenu,
+  sideMenuKey,
 }: {
   toggleMenu: () => void;
   isOpen: boolean;
   refreshSideMenu: () => void;
+  isSmall: boolean;
+  menuVisible: boolean;
+  closeMenu: () => void;
+  sideMenuKey: number;
 }) => {
   const { t } = useTranslation();
 
@@ -141,6 +150,14 @@ export const Header = ({
               <Typography className={classes.menuText}>{t('valikko')}</Typography>
             </Box>
           </IconButton>
+          <Box sx={{ position: 'absolute' }}>
+            <SideMenu
+              key={`sidemenu-key-${sideMenuKey}`}
+              isSmall={isSmall}
+              menuVisible={menuVisible}
+              closeMenu={closeMenu}
+            />
+          </Box>
           <Link
             sx={{
               '&.Mui-focusVisible': {
