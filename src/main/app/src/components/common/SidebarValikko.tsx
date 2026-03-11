@@ -164,7 +164,7 @@ export const SidebarValikko = (props: {
   };
 
   return (
-    <StyledList className={classes.root} aria-label="contacts">
+    <StyledList className={classes.root} aria-label={name}>
       {parent ? (
         <ListItemLink className={classes.parentOtsikko} role="none" onClick={deselect}>
           <ListItemIcon className={classes.parentOtsikkoIconBase}>
