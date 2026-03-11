@@ -111,7 +111,7 @@ const SivuItem = ({
 
 const OtsikkoItem = ({ name }: { name: string }) => {
   return (
-    <h2 role="menuitem" className={classes.otsikkoText} tabIndex={-1} aria-label={name}>
+    <h2 className={classes.otsikkoText} tabIndex={-1} aria-label={name}>
       {name}
     </h2>
   );
