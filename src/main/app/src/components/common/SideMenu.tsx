@@ -126,6 +126,7 @@ export const SideMenu = (props: {
 
   return (
     <StyledDrawer
+      id="side-menu"
       open={menuVisible}
       className={classes.drawer}
       variant="persistent"

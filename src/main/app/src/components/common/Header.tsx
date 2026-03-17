@@ -155,6 +155,9 @@ export const Header = ({
           <IconButton
             color="inherit"
             aria-label={t('avaa-sulje-valikko')}
+            aria-expanded={isOpen}
+            aria-haspopup="true"
+            aria-controls="side-menu"
             onClick={toggleMenu}
             edge="start"
             className={classes.menuButton}>
