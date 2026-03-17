@@ -152,10 +152,14 @@ export const SideMenu = (props: {
             <MobileLanguageSelection />
           </Box>
         </Hidden>
+        <label htmlFor="sidebar-search-input">
+          {t('sidebar.etsi-tietoa-opintopolusta')}:
+        </label>
         <Paper
           component="form"
           onSubmit={doSearch}
           className={classes.inputRoot}
+          role="search"
           elevation={0}>
           <InputBase
             className={classes.input}
@@ -167,11 +171,8 @@ export const SideMenu = (props: {
             }}
             inputRef={searchRef}
             onChange={({ target }) => setSearch(target.value)}
-            placeholder={t('sidebar.etsi-tietoa-opintopolusta')}
             inputProps={{
-              'aria-label': t('sidebar.etsi-tietoa-opintopolusta'),
-              title: t('sidebar.etsi-tietoa-opintopolusta'),
-              role: 'search',
+              id: 'sidebar-search-input',
             }}
           />
           <Button
