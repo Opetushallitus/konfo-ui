@@ -134,10 +134,6 @@ export const SideMenu = (props: {
       classes={{
         paper: classes.drawerPaper,
       }}
-      role="menu"
-      PaperProps={{
-        role: 'group',
-      }}
       isSmall={props.isSmall}>
       <div className={classes.inputBackground}>
         <Hidden smUp>
