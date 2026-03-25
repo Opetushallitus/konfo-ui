@@ -27,7 +27,8 @@ export type Apuraha = {
 export type Maksullisuustyyppi =
   | typeof MAKSULLISUUSTYYPPI.MAKSULLINEN
   | typeof MAKSULLISUUSTYYPPI.MAKSUTON
-  | typeof MAKSULLISUUSTYYPPI.LUKUVUOSIMAKSU;
+  | typeof MAKSULLISUUSTYYPPI.LUKUVUOSIMAKSU
+  | typeof MAKSULLISUUSTYYPPI.LUKUVUOSIMAKSU_AMM_LK;
 
 export type Opetus = {
   koulutuksenAlkamiskausi?: Alkamiskausi;
