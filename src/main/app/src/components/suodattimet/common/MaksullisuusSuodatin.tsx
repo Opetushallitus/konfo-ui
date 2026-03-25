@@ -30,7 +30,10 @@ import {
 
 import { marks } from './maksullisuusRajainUtils';
 
-type MaksunMaaraRajainName = 'maksunmaara' | 'lukuvuosimaksunmaara';
+type MaksunMaaraRajainName =
+  | 'maksunmaara'
+  | 'lukuvuosimaksunmaara'
+  | 'lukuvuosimaksunmaara_amm_lk';
 
 const getCheckboxRajain = (rajainItems: Array<RajainItem>, id: string): RajainItem =>
   rajainItems.find((r) => r.id === id) ?? {
@@ -95,7 +98,7 @@ const maksullisuustyyppiSetDisabled = (
   isChecked(getCheckboxRajain(rajainItems, tyyppi)) && !newRajainValues.includes(tyyppi);
 
 const maksullisuustyyppiRajainItems = (rajainItems: Array<RajainItem>) =>
-  ['maksuton', 'maksullinen', 'lukuvuosimaksu'].map((tyyppi) =>
+  ['maksuton', 'maksullinen', 'lukuvuosimaksu', 'lukuvuosimaksu_amm_lk'].map((tyyppi) =>
     getCheckboxRajain(rajainItems, tyyppi)
   );
 
@@ -136,6 +139,19 @@ const maksullisuustyyppiChanges = (
     changes = Object.assign(changes, rangeRajainObject('lukuvuosimaksunmaara', [0, 0]), {
       apuraha: false,
     });
+  }
+
+  if (
+    maksullisuustyyppiSetDisabled(
+      rajainItems,
+      changes.maksullisuustyyppi,
+      'lukuvuosimaksu_amm_lk'
+    )
+  ) {
+    changes = Object.assign(
+      changes,
+      rangeRajainObject('lukuvuosimaksunmaara_amm_lk', [0, 0])
+    );
   }
   return changes;
 };
@@ -299,6 +315,33 @@ const LukuvuosimaksuInputs = ({
   );
 };
 
+const LukuvuosimaksuAmmLk = ({
+  rajainItems = [],
+  setRajainValues,
+  isCountVisible,
+}: InputsSectionProps) => {
+  return (
+    <>
+      <Box>
+        <FilterCheckbox
+          value={getCheckboxRajain(rajainItems, 'lukuvuosimaksu_amm_lk')}
+          onChange={(item) =>
+            setRajainValues(maksullisuustyyppiChanges(rajainItems, item))
+          }
+          isCountVisible={isCountVisible}
+        />
+      </Box>
+      {isChecked(getCheckboxRajain(rajainItems, 'lukuvuosimaksu_amm_lk')) && (
+        <MaksullisuusRangeSlider
+          rajainName="lukuvuosimaksunmaara_amm_lk"
+          rajainItems={rajainItems}
+          setRajainValues={setRajainValues}
+        />
+      )}
+    </>
+  );
+};
+
 export const MaksullisuusSuodatin = ({
   summaryHidden,
   displaySelected = true,
@@ -335,6 +378,11 @@ export const MaksullisuusSuodatin = ({
             isCountVisible={isCountVisible}
           />
           <MaksullinenInputs
+            rajainItems={rajainItems}
+            setRajainValues={setRajainValues}
+            isCountVisible={isCountVisible}
+          />
+          <LukuvuosimaksuAmmLk
             rajainItems={rajainItems}
             setRajainValues={setRajainValues}
             isCountVisible={isCountVisible}

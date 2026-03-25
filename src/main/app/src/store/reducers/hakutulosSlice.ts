@@ -40,6 +40,7 @@ export type RajainValues = {
   maksullisuustyyppi: Array<MAKSULLISUUSTYYPPI>;
   maksunmaara: RangeRajainValue<'maksunmaara'>;
   lukuvuosimaksunmaara: RangeRajainValue<'lukuvuosimaksunmaara'>;
+  lukuvuosimaksunmaara_amm_lk: RangeRajainValue<'lukuvuosimaksunmaara_amm_lk'>;
   apuraha: boolean;
   alkamiskausi: Array<string>;
   hakualkaapaivissa: Array<string>;
@@ -79,6 +80,10 @@ export const HAKU_RAJAIMET_INITIAL = {
   lukuvuosimaksunmaara: {
     lukuvuosimaksunmaara_min: 0,
     lukuvuosimaksunmaara_max: 0,
+  },
+  lukuvuosimaksunmaara_amm_lk: {
+    lukuvuosimaksunmaara_amm_lk_min: 0,
+    lukuvuosimaksunmaara_amm_lk_max: 0,
   },
   apuraha: false,
   alkamiskausi: [],
