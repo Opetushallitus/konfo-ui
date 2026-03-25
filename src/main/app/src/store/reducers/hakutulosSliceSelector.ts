@@ -42,6 +42,8 @@ const getMaksullisuustyyppi = (state: RootState) => state.hakutulos.maksullisuus
 const getMaksunmaara = (state: RootState) => state.hakutulos.maksunmaara;
 const getLukuvuosimaksunmaara = (state: RootState) =>
   state.hakutulos.lukuvuosimaksunmaara;
+const getAmmLkLukuvuosimaksunmaara = (state: RootState) =>
+  state.hakutulos.lukuvuosimaksunmaara_amm_lk;
 const getApuraha = (state: RootState) => state.hakutulos.apuraha;
 const getHakualkaaPaivissa = (state: RootState) => state.hakutulos.hakualkaapaivissa;
 
@@ -97,6 +99,7 @@ export const getIsAnyFilterSelected = createSelector(
     getMaksullisuustyyppi,
     getMaksunmaara,
     getLukuvuosimaksunmaara,
+    getAmmLkLukuvuosimaksunmaara,
     getApuraha,
     getHakualkaaPaivissa,
   ],
@@ -122,6 +125,7 @@ export const getIsAnyFilterSelected = createSelector(
     maksullisuustyyppi,
     maksunmaara,
     lukuvuosimaksunmaara,
+    lukuvuosimaksunmaara_amm_lk,
     apuraha,
     hakualkaapaivissa
   ) => {
@@ -151,8 +155,14 @@ export const getIsAnyFilterSelected = createSelector(
         ],
         (filterArr) => _size(filterArr) > 0
       ) ||
-      some([koulutuksenkestokuukausina, maksunmaara, lukuvuosimaksunmaara], (obj) =>
-        some(Object.values(obj), (val) => val > 0)
+      some(
+        [
+          koulutuksenkestokuukausina,
+          maksunmaara,
+          lukuvuosimaksunmaara,
+          lukuvuosimaksunmaara_amm_lk,
+        ],
+        (obj) => some(Object.values(obj), (val) => val > 0)
       )
     );
   }
@@ -181,6 +191,7 @@ export const getRajainParams = createSelector(
     getMaksullisuustyyppi,
     getMaksunmaara,
     getLukuvuosimaksunmaara,
+    getAmmLkLukuvuosimaksunmaara,
     getApuraha,
     getHakualkaaPaivissa,
   ],
@@ -206,6 +217,7 @@ export const getRajainParams = createSelector(
     maksullisuustyyppi,
     maksunmaara,
     lukuvuosimaksunmaara,
+    lukuvuosimaksunmaara_amm_lk,
     apuraha,
     hakualkaapaivissa
   ) => ({
@@ -225,6 +237,7 @@ export const getRajainParams = createSelector(
     ...koulutuksenkestokuukausina,
     ...maksunmaara,
     ...lukuvuosimaksunmaara,
+    ...lukuvuosimaksunmaara_amm_lk,
     apuraha,
     yhteishaku,
     pohjakoulutusvaatimus,
