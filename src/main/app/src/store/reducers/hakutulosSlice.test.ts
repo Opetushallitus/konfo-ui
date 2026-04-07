@@ -74,9 +74,9 @@ const DEFAULT_RESULT = {
     maksunmaara_min: '10',
     maksunmaara_max: '20',
   },
-  lukuvuosimaksunmaara: {
-    lukuvuosimaksunmaara_min: '10',
-    lukuvuosimaksunmaara_max: '20',
+  lukuvuosimaksunmaara_kk: {
+    lukuvuosimaksunmaara_kk_min: '10',
+    lukuvuosimaksunmaara_kk_max: '20',
   },
   apuraha: false,
   alkamiskausi: ['2022-kevat', '2022-syksy'],

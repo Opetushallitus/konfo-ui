@@ -40,8 +40,8 @@ const getPieniOsaamiskokonaisuus = (state: RootState) =>
 const getAlkamiskausi = (state: RootState) => state.hakutulos.alkamiskausi;
 const getMaksullisuustyyppi = (state: RootState) => state.hakutulos.maksullisuustyyppi;
 const getMaksunmaara = (state: RootState) => state.hakutulos.maksunmaara;
-const getLukuvuosimaksunmaara = (state: RootState) =>
-  state.hakutulos.lukuvuosimaksunmaara;
+const getKkLukuvuosimaksunmaara = (state: RootState) =>
+  state.hakutulos.lukuvuosimaksunmaara_kk;
 const getAmmLkLukuvuosimaksunmaara = (state: RootState) =>
   state.hakutulos.lukuvuosimaksunmaara_amm_lk;
 const getApuraha = (state: RootState) => state.hakutulos.apuraha;
@@ -98,7 +98,7 @@ export const getIsAnyFilterSelected = createSelector(
     getAlkamiskausi,
     getMaksullisuustyyppi,
     getMaksunmaara,
-    getLukuvuosimaksunmaara,
+    getKkLukuvuosimaksunmaara,
     getAmmLkLukuvuosimaksunmaara,
     getApuraha,
     getHakualkaaPaivissa,
@@ -124,7 +124,7 @@ export const getIsAnyFilterSelected = createSelector(
     alkamiskausi,
     maksullisuustyyppi,
     maksunmaara,
-    lukuvuosimaksunmaara,
+    lukuvuosimaksunmaara_kk,
     lukuvuosimaksunmaara_amm_lk,
     apuraha,
     hakualkaapaivissa
@@ -159,7 +159,7 @@ export const getIsAnyFilterSelected = createSelector(
         [
           koulutuksenkestokuukausina,
           maksunmaara,
-          lukuvuosimaksunmaara,
+          lukuvuosimaksunmaara_kk,
           lukuvuosimaksunmaara_amm_lk,
         ],
         (obj) => some(Object.values(obj), (val) => val > 0)
@@ -190,7 +190,7 @@ export const getRajainParams = createSelector(
     getAlkamiskausi,
     getMaksullisuustyyppi,
     getMaksunmaara,
-    getLukuvuosimaksunmaara,
+    getKkLukuvuosimaksunmaara,
     getAmmLkLukuvuosimaksunmaara,
     getApuraha,
     getHakualkaaPaivissa,
@@ -216,7 +216,7 @@ export const getRajainParams = createSelector(
     alkamiskausi,
     maksullisuustyyppi,
     maksunmaara,
-    lukuvuosimaksunmaara,
+    lukuvuosimaksunmaara_kk,
     lukuvuosimaksunmaara_amm_lk,
     apuraha,
     hakualkaapaivissa
@@ -236,7 +236,7 @@ export const getRajainParams = createSelector(
     pieniosaamiskokonaisuus,
     ...koulutuksenkestokuukausina,
     ...maksunmaara,
-    ...lukuvuosimaksunmaara,
+    ...lukuvuosimaksunmaara_kk,
     ...lukuvuosimaksunmaara_amm_lk,
     apuraha,
     yhteishaku,
@@ -321,7 +321,8 @@ export const TOTEUTUS_RAJAIN_NAMES = [
   'maksullisuus',
   'maksullisuustyyppi',
   'maksunmaara',
-  'lukuvuosimaksunmaara',
+  'lukuvuosimaksunmaara_kk',
+  // TODO: lukuvuosimaksunmaara_amm_lk
   'hakualkaapaivissa',
 ];
 

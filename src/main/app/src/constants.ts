@@ -28,6 +28,7 @@ export const RAJAIN_TYPES = {
   MAKSULLISUUSTYYPPI: 'maksullisuustyyppi',
   MAKSUNMAARA: 'maksunmaara',
   LUKUVUOSIMAKSUNMAARA: 'lukuvuosimaksunmaara',
+  LUKUVUOSIMAKSUNMAARA_KK: 'lukuvuosimaksunmaara_kk',
   LUKUVUOSIMAKSUNMAARA_AMM_LK: 'lukuvuosimaksunmaara_amm_lk',
   APURAHA: 'apuraha',
   SIJAINTI: 'sijainti', // TODO: Poista tämä kun konfo-backend ei enää käytä sijaintirajainta vaan kunta + maakunta
@@ -138,6 +139,12 @@ export enum MAKSULLISUUSTYYPPI {
   MAKSULLINEN = 'maksullinen',
   MAKSUTON = 'maksuton',
   LUKUVUOSIMAKSU = 'lukuvuosimaksu',
+}
+
+export enum MAKSULLISUUSTYYPPI_RAJAIN {
+  MAKSULLINEN = MAKSULLISUUSTYYPPI.MAKSULLINEN,
+  MAKSUTON = MAKSULLISUUSTYYPPI.MAKSUTON,
+  LUKUVUOSIMAKSU_KK = 'lukuvuosimaksu_kk',
   LUKUVUOSIMAKSU_AMM_LK = 'lukuvuosimaksu_amm_lk',
 }
 
