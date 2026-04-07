@@ -32,7 +32,7 @@ import { marks } from './maksullisuusRajainUtils';
 
 type MaksunMaaraRajainName =
   | 'maksunmaara'
-  | 'lukuvuosimaksunmaara'
+  | 'lukuvuosimaksunmaara_kk'
   | 'lukuvuosimaksunmaara_amm_lk';
 
 const getCheckboxRajain = (rajainItems: Array<RajainItem>, id: string): RajainItem =>
@@ -98,8 +98,8 @@ const maksullisuustyyppiSetDisabled = (
   isChecked(getCheckboxRajain(rajainItems, tyyppi)) && !newRajainValues.includes(tyyppi);
 
 const maksullisuustyyppiRajainItems = (rajainItems: Array<RajainItem>) =>
-  ['maksuton', 'maksullinen', 'lukuvuosimaksu', 'lukuvuosimaksu_amm_lk'].map((tyyppi) =>
-    getCheckboxRajain(rajainItems, tyyppi)
+  ['maksuton', 'maksullinen', 'lukuvuosimaksu_kk', 'lukuvuosimaksu_amm_lk'].map(
+    (tyyppi) => getCheckboxRajain(rajainItems, tyyppi)
   );
 
 const labelText = (val: number) => (val > 0 ? `${val}€` : '0');
@@ -210,7 +210,7 @@ const MaksullisuusSummary = ({
   const { t } = useTranslation();
   const maksunmaara = useNumberRangeValues(RAJAIN_TYPES.MAKSUNMAARA, rajainItems);
   const lukuvuosimaksu = useNumberRangeValues(
-    RAJAIN_TYPES.LUKUVUOSIMAKSUNMAARA,
+    RAJAIN_TYPES.LUKUVUOSIMAKSUNMAARA_KK,
     rajainItems
   );
 
@@ -286,16 +286,16 @@ const LukuvuosimaksuInputs = ({
     <>
       <Box>
         <FilterCheckbox
-          value={getCheckboxRajain(rajainItems, 'lukuvuosimaksu')}
+          value={getCheckboxRajain(rajainItems, 'lukuvuosimaksu_kk')}
           onChange={(item) =>
             setRajainValues(maksullisuustyyppiChanges(rajainItems, item))
           }
           isCountVisible={isCountVisible}
         />
       </Box>
-      {isChecked(getCheckboxRajain(rajainItems, 'lukuvuosimaksu')) && (
+      {isChecked(getCheckboxRajain(rajainItems, 'lukuvuosimaksu_kk')) && (
         <MaksullisuusRangeSlider
-          rajainName="lukuvuosimaksunmaara"
+          rajainName="lukuvuosimaksunmaara_kk"
           rajainItems={rajainItems}
           setRajainValues={setRajainValues}
         />
@@ -309,7 +309,7 @@ const LukuvuosimaksuInputs = ({
           })
         }
         isCountVisible={false}
-        disabled={!isChecked(getCheckboxRajain(rajainItems, 'lukuvuosimaksu'))}
+        disabled={!isChecked(getCheckboxRajain(rajainItems, 'lukuvuosimaksu_kk'))}
       />
     </>
   );
