@@ -24,6 +24,7 @@ import {
   clearJarjestajatRajainValues,
   Pagination,
 } from '#/src/store/reducers/koulutusSlice';
+import { KoulutusExtendedData } from '#/src/types/common';
 import { isNumberRangeRajainId } from '#/src/types/SuodatinTypes';
 
 type TutkinnonOsa = {
@@ -32,14 +33,23 @@ type TutkinnonOsa = {
   opintojenLaajuusNumero: number;
 };
 
-export const fetchKoulutus = async (oid: string, isDraft: boolean = false) => {
+export const fetchKoulutus = async (
+  oid: string,
+  isDraft: boolean = false,
+  osaamisalakuvaukset: boolean = false
+) => {
   const koulutusData = await getKoulutus(oid, isDraft);
+
   if (
     (koulutusData?.koulutustyyppi === KOULUTUS_TYYPPI.AMM && koulutusData.ePerusteId) ||
     (koulutusData?.koulutustyyppi === KOULUTUS_TYYPPI.AMM_OSAAMISALA &&
       koulutusData.ePerusteId)
   ) {
-    const koulutusKuvausData = await getKoulutusKuvaus(koulutusData.ePerusteId);
+    const ePerusteId = koulutusData.ePerusteId;
+    const requestParams = {
+      osaamisalakuvaukset: osaamisalakuvaukset,
+    };
+    const koulutusKuvausData = await getKoulutusKuvaus({ ePerusteId, requestParams });
     set(koulutusData, 'metadata.kuvaus', koulutusKuvausData);
   } else if (koulutusData?.koulutustyyppi === KOULUTUS_TYYPPI.AMM_TUTKINNON_OSA) {
     const tutkinnonOsat: Array<TutkinnonOsa> =
@@ -75,7 +85,7 @@ export const fetchKoulutus = async (oid: string, isDraft: boolean = false) => {
   return koulutusData;
 };
 
-const selectKoulutus = (koulutusData: any) => {
+const selectKoulutus = (koulutusData: KoulutusExtendedData) => {
   if (koulutusData) {
     return {
       kuvaus: koulutusData.metadata?.kuvaus,
@@ -86,7 +96,7 @@ const selectKoulutus = (koulutusData: any) => {
       tyotehtavatJoissaVoiToimia:
         koulutusData.metadata?.kuvaus?.tyotehtavatJoissaVoiToimia,
       suorittaneenOsaaminen: koulutusData.metadata?.kuvaus?.suorittaneenOsaaminen,
-      koulutusAla: koulutusData.metadata?.koulutusala,
+      koulutusala: koulutusData.metadata?.koulutusala,
       tutkintoNimi: koulutusData?.nimi,
       tutkintonimikkeet: koulutusData.metadata?.tutkintonimike,
       opintojenLaajuus: koulutusData.metadata?.opintojenLaajuus,
@@ -104,6 +114,7 @@ const selectKoulutus = (koulutusData: any) => {
       tunniste: koulutusData?.metadata?.tunniste, // Avoin-kk "hakijalle näkyvä tunniste"
       opinnonTyyppi: koulutusData?.metadata?.opinnonTyyppi, // Avoin-kk
       osaamismerkki: koulutusData?.osaamismerkki,
+      osaamistavoitteet: koulutusData?.metadata?.osaamistavoitteet,
     };
   } else {
     return undefined;
@@ -113,12 +124,17 @@ const selectKoulutus = (koulutusData: any) => {
 type UseKoulutusProps = {
   oid?: string;
   isDraft?: boolean;
+  osaamisalakuvaukset?: boolean;
 };
 
-export const useKoulutus = ({ oid, isDraft }: UseKoulutusProps) => {
+export const useKoulutus = ({
+  oid,
+  isDraft,
+  osaamisalakuvaukset = false,
+}: UseKoulutusProps) => {
   return useQuery(
     ['fetchKoulutus', { oid, isDraft }],
-    () => fetchKoulutus(oid!, isDraft),
+    () => fetchKoulutus(oid!, isDraft, osaamisalakuvaukset),
     {
       select: selectKoulutus,
       enabled: Boolean(oid),
@@ -135,7 +151,7 @@ const selectJarjestajat = (data: any) => {
 };
 
 type UseKoulutusJarjestajatProps = {
-  oid: string;
+  oid?: string;
   isTuleva?: boolean;
 };
 
@@ -243,7 +259,7 @@ export const useKoulutusJarjestajat = ({
   );
 
   return useMemo(
-    () => ({
+    (): any => ({
       queryResult: result,
       queryOptions: requestProps,
       rajainValues: rajainValues,

@@ -21,11 +21,11 @@ Frontend-sovellus löytyy hakemistosta `/src/main/app`. Kaikki tämän dokumenti
 
 Asenna ensin riippuvuudet ajamalla:
 
-    npm ci
+    pnpm install
 
 Käynnistä konfo-ui kehityspalvelin:
 
-    npm run start
+    pnpm run start
 
 Käyttöliittymä aukeaa osoitteeseen:
 
@@ -45,16 +45,16 @@ ESLintin voi ajaa käsin komennolla `npm run lint`, tai automaattisen fiksauksen
 Koko sovellusta vasten ajettavat testit on toteutettu [Playwright](https://playwright.dev)-kirjastolla. 
 Ensimmäisellä kerralla, ja aina kun Playwright-riippuvuus päivittyy, täytyy sen käyttämät selaimet riippuvuuksineen asentaa käsin komennolla:
 
-    npx playwright install
+    pnpm exec playwright install
 
 Playwright-testit olettavat kälin löytyvän ajossa portista `3005` (ks. otsikko "Käyttöliittymän kehittäminen" yllä).
 Jos haluat ajaa **kaikki** testit kannattaa käynnistää ensin sovellus komennolla:
 
-    npm run preview:watch
+    pnpm run preview:watch
 
 ja ajaa sitten kaikki testit toisessa terminaalissa komennolla
 
-    npm run playwright
+    pnpm run playwright
 
 `preview:watch` npm skiripti buildaa sovelluksen jääden tarkkailemaan muutoksia, ja käynnistää testi-palvelimen, joka servaa buildatun sovelluksen.
 Testien ajaminen Viten dev-serveriä vasten (`npm run start`) on paljon hitaampaa kuin servattua tuotanto-buildia vasten, ja aikakatkaisuja voi tulla, vaikka rajoja on kasvatettu.
@@ -63,13 +63,13 @@ Yksittäisten testien ajamisessa ei ole niin väliä, miten sovellus on käynnis
 
 Yksittäisiä testejä voi myös ajaa [Playwrightin UI-moodissa](https://playwright.dev/docs/test-ui-mode), jonka saa käynnistettyä komennolla:
 
-    npm run playwright:ui
+    pnpm run playwright:ui
 
 ### Yksikkötestit
 
 Yksikkötestit on toteutettu [Vitest](https://vitest.dev/):llä, ja ne voi ajaa komennolla:
 
-    npm run test
+    pnpm run test
 
 Yksikkötestit nimetään päätteellä `.test.js` tai `.test.ts` ja ne luodaan niihin kansioihin missä niiden testaama koodi sijaitsee. Yksikkötestit kannattaa kirjoittaa lähinnä monimutkaisille apufunktioille ja suurin osa testausta pitäisi tehdä Playwright-testeinä.
 
@@ -86,7 +86,7 @@ Korvaa "xxx"-kohdat oikeilla AWS:stä löytyvillä salaisuuksilla. Environment i
 
 Kun salaisuudet ovat paikallaan, luo tyypitykset npm-skriptillä:
 
-    npm run contentful:typegen
+    pnpm run contentful:typegen
 
 Contentfulin tyyppien yhteneväisyys testi ja master ympäristöissä tarkistetaan ajastetulla GitHub Actionilla kerran päivässä. Tarkistuksen voi käynnistää myös käsin GitHubin Actions sivulta.
 
@@ -97,7 +97,7 @@ Tarkan raportin löytää contentful-type-check actionin workflow runs historias
 Konfo-backendin rajapintojen Swagger-määrittelystä luodut TS-tyypitykset löytyvät tiedostosta src/main/app/src/types/konfo-backend.d.ts. Tyypitykset saa generoitua uudelleen ajamalla src/main/app-kansiossa komennon:
 
 ```
-npx openapi-typescript https://testiopintopolku.fi/konfo-backend/swagger.yaml -o ./src/types/konfo-backend.d.ts
+pnpm openapi-typescript https://testiopintopolku.fi/konfo-backend/swagger.yaml -o ./src/types/konfo-backend.d.ts
 ```
 
 Voit vaihtaa URL:n osoittamaan eri ympäristöön tai vaikka lokaalisti käynnissä olevaan konfo-backendiin.

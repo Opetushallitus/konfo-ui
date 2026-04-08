@@ -75,7 +75,7 @@
           }
         }
       ],
-      "eperuste": null,
+      "ePerusteId": null,
       "koulutustyyppi": "yo"
     },
     {
@@ -152,7 +152,7 @@
           }
         }
       ],
-      "eperuste": null,
+      "ePerusteId": null,
       "koulutustyyppi": "yo"
     },
     {
@@ -229,7 +229,7 @@
           }
         }
       ],
-      "eperuste": null,
+      "ePerusteId": null,
       "koulutustyyppi": "yo"
     },
     {
@@ -286,7 +286,7 @@
           }
         }
       ],
-      "eperuste": null,
+      "ePerusteId": null,
       "koulutustyyppi": "amk"
     },
     {
@@ -361,7 +361,7 @@
           }
         }
       ],
-      "eperuste": null,
+      "ePerusteId": null,
       "koulutustyyppi": "yo"
     },
     {
@@ -474,7 +474,7 @@
           }
         }
       ],
-      "eperuste": null,
+      "ePerusteId": null,
       "koulutustyyppi": "amk"
     },
     {
@@ -549,7 +549,7 @@
           }
         }
       ],
-      "eperuste": null,
+      "ePerusteId": null,
       "koulutustyyppi": "yo"
     },
     {
@@ -624,7 +624,7 @@
           }
         }
       ],
-      "eperuste": null,
+      "ePerusteId": null,
       "koulutustyyppi": "yo"
     },
     {
@@ -699,7 +699,7 @@
           }
         }
       ],
-      "eperuste": null,
+      "ePerusteId": null,
       "koulutustyyppi": "yo"
     },
     {
@@ -788,7 +788,7 @@
           }
         }
       ],
-      "eperuste": null,
+      "ePerusteId": null,
       "koulutustyyppi": "amk"
     },
     {
@@ -877,7 +877,7 @@
           }
         }
       ],
-      "eperuste": null,
+      "ePerusteId": null,
       "koulutustyyppi": "amk"
     },
     {
@@ -934,7 +934,7 @@
           }
         }
       ],
-      "eperuste": null,
+      "ePerusteId": null,
       "koulutustyyppi": "amk"
     },
     {
@@ -998,7 +998,7 @@
       },
       "kielivalinta": ["fi"],
       "tutkintonimikkeet": [],
-      "eperuste": null,
+      "ePerusteId": null,
       "koulutustyyppi": "amm-tutkinnon-osa"
     },
     {
@@ -1059,7 +1059,7 @@
           }
         }
       ],
-      "eperuste": null,
+      "ePerusteId": null,
       "koulutustyyppi": "yo"
     },
     {
@@ -1120,7 +1120,7 @@
           }
         }
       ],
-      "eperuste": null,
+      "ePerusteId": null,
       "koulutustyyppi": "yo"
     },
     {
@@ -1183,7 +1183,7 @@
           }
         }
       ],
-      "eperuste": null,
+      "ePerusteId": null,
       "koulutustyyppi": "yo"
     },
     {
@@ -1242,7 +1242,7 @@
           }
         }
       ],
-      "eperuste": null,
+      "ePerusteId": null,
       "koulutustyyppi": "yo"
     },
     {
@@ -1305,7 +1305,7 @@
           }
         }
       ],
-      "eperuste": null,
+      "ePerusteId": null,
       "koulutustyyppi": "yo"
     },
     {
@@ -1368,7 +1368,7 @@
           }
         }
       ],
-      "eperuste": null,
+      "ePerusteId": null,
       "koulutustyyppi": "yo"
     },
     {
@@ -1431,7 +1431,7 @@
           }
         }
       ],
-      "eperuste": null,
+      "ePerusteId": null,
       "koulutustyyppi": "yo"
     }
   ],

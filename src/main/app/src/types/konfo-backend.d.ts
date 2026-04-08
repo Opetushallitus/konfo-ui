@@ -3525,6 +3525,15 @@ export interface components {
             /** @description Englanninkielinen kuvaus, jos määritelty */
             en?: string;
         };
+        /** Osaamistavoitteet */
+        Osaamistavoitteet: {
+            /** @description Suomenkielinen osaamistavoitteet, jos määritelty */
+            fi?: string;
+            /** @description Ruotsinkielinen osaamistavoitteet, jos määritelty */
+            sv?: string;
+            /** @description Englanninkielinen osaamistavoitteet, jos määritelty */
+            en?: string;
+        };
         /** Nimi */
         Nimi: {
             /** @description Suomenkielinen nimi, jos määritelty */
@@ -3627,6 +3636,28 @@ export interface components {
             osoite?: components["schemas"]["Teksti"];
             /** @description Postinumero ja -toimipaikka */
             postinumero?: components["schemas"]["Postinumero"];
+        };
+        TutkinnonOsaEperuste: {
+            eperuste?: components["schemas"]["Eperuste"];
+            koulutus?: components["schemas"]["KoulutusKoodi"];
+            /**
+             * @description Tutkinnon osan id
+             * @example 10
+             */
+            tutkinnonosaId?: number;
+            /**
+             * @description Tutkinnon osan viite
+             * @example 10
+             */
+            tutkinnonosaViite?: number;
+            opintojenLaajuus?: components["schemas"]["OpintojenLaajuus"];
+            /**
+             * @description Opintojen laajuus numeroarvona
+             * @example 10
+             */
+            opintojenLaajuusNumero?: number;
+            opintojenLaajuusyksikko?: components["schemas"]["OpintojenLaajuusyksikko"];
+            tutkinnonOsat?: components["schemas"]["TutkinnonOsa"];
         };
         Kunta: {
             /**
@@ -3958,6 +3989,20 @@ export interface components {
             /** @description Osaamisala. */
             nimi?: components["schemas"]["Teksti"];
         };
+        OpinnonTyyppi: {
+            /**
+             * @description Opinnon tyyppi. Viittaa [koodistoon](https://virkailija.untuvaopintopolku.fi/koodisto-service/ui/koodisto/view/opinnontyyppi/1)
+             * @example opinnontyyppi_2
+             */
+            koodiUri?: string;
+            /**
+             * @description Opinnon tyyppi eri kielillä.
+             * @example {
+             *       "fi": "Perusopinnot"
+             *     }
+             */
+            nimi?: components["schemas"]["Teksti"];
+        };
         TutkinnonOsa: {
             /**
              * @description TutkinnonOsa. Viittaa [koodistoon](https://virkailija.untuvaopintopolku.fi/koodisto-service/ui/koodisto/view/tutkinnonosat/1)
@@ -4035,22 +4080,32 @@ export interface components {
              */
             diaarinumero?: string;
             /**
-             * @description 2021-12-12T00:00:00
-             * @example ePerusten voimassaolon loppumishetki
+             * @description ePerusten voimassaolon loppumishetki
+             * @example 2021-12-12T00:00:00
              */
             voimassaoloLoppuu?: string;
         };
         KoulutusMetadata: {
+            tyyppi?: components["schemas"]["KoutaKoulutustyyppi"];
             eperuste?: components["schemas"]["Eperuste"];
             /**
              * @description Onko viimeisin muokkaaja OPH:n virkailija
              * @example true
              */
             isMuokkaajaOphVirkailija?: boolean;
+            /**
+             * @description Onko koulutus avointa korkeakoulutusta
+             * @example true
+             */
+            isAvoinKorkeakoulutus?: boolean;
             /** @description Lista koulutuksen koulutusaloista */
             koulutusala?: (components["schemas"]["Koulutusala1"] | components["schemas"]["Koulutusala2"])[];
             /** @description Koulutuksen kuvausteksti eri kielillä. Kielet on määritetty koulutuksen kielivalinnassa. */
             kuvaus?: components["schemas"]["Kuvaus"];
+            /** @description Koulutuksen osaamistavoitteet eri kielillä. Kielet on määritetty koulutuksen kielivalinnassa. */
+            osaamistavoitteet?: components["schemas"]["Osaamistavoitteet"];
+            /** @description Linkki eperuste-sivulle eri kielillä. Kielet on määritetty koulutuksen kielivalinnassa. */
+            linkkiEPerusteisiin?: components["schemas"]["Linkki"];
             /** @description Koulutukseen liittyviä lisätietoja, jotka näkyvät oppijalle Opintopolussa */
             lisatiedot?: components["schemas"]["KoulutusLisatieto"][];
             opintojenLaajuus?: components["schemas"]["OpintojenLaajuus"];
@@ -4071,6 +4126,13 @@ export interface components {
             opintojenLaajuusNumeroMax?: number;
             opintojenLaajuusyksikko?: components["schemas"]["OpintojenLaajuusyksikko"];
             tutkintonimike?: components["schemas"]["Tutkintonimike"][];
+            /**
+             * @description Avoimen korkeakoulutuksen hakijalle näkyvä tunniste
+             * @example LY00DV56
+             */
+            tunniste?: string;
+            opinnonTyyppi?: components["schemas"]["OpinnonTyyppi"];
+            tutkinnonOsat?: components["schemas"]["TutkinnonOsaEperuste"][];
         };
         Toteutus: {
             /**
@@ -4106,7 +4168,8 @@ export interface components {
             kielivalinta?: components["schemas"]["Kieli"][];
             /** @description Toteutuksen näytettävä nimi eri kielillä. Kielet on määritetty toteutuksen kielivalinnassa. */
             nimi?: components["schemas"]["Nimi"];
-            /** @example {
+            /**
+             * @example {
              *       "tyyppi": "amm",
              *       "kuvaus": {
              *         "fi": "Suomenkielinen kuvaus",
@@ -4219,7 +4282,8 @@ export interface components {
              *           }
              *         }
              *       ]
-             *     } */
+             *     }
+             */
             metadata?: components["schemas"]["AmmatillinenToteutusMetadata"];
             /** @description Toteutuksen luonut organisaatio */
             organisaatio?: components["schemas"]["Organisaatio"];

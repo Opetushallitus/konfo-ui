@@ -20,6 +20,7 @@ import {
   Osaamismerkkikuvaus,
   OsaamismerkkikuvausEntity,
   Osaamismerkki,
+  KoulutusExtendedData,
 } from '#/src/types/common';
 
 import { getLanguage, getTranslationForKey, localize } from './localization';
@@ -114,8 +115,8 @@ export const scrollToId = (id?: string, options?: ScrollIntoViewOptions) =>
   scrollIntoView(id ? document.getElementById(id) : null, options);
 
 function getFormattedOpintojenLaajuus(
-  opintojenLaajuusNumero: string,
   opintojenLaajuusYksikko: string,
+  opintojenLaajuusNumero?: string,
   opintojenLaajuusMin?: string,
   opintojenLaajuusMax?: string
 ) {
@@ -152,7 +153,7 @@ function getFormattedOpintojenLaajuus(
   return opintojenLaajuus;
 }
 
-function getLocalizedKoulutusOpintojenLaajuus(koulutus: TODOType) {
+function getLocalizedKoulutusOpintojenLaajuus(koulutus?: KoulutusExtendedData) {
   const tutkinnonOsat = koulutus?.tutkinnonOsat || [];
 
   let opintojenLaajuusNumero =
@@ -175,14 +176,14 @@ function getLocalizedKoulutusOpintojenLaajuus(koulutus: TODOType) {
   const opintojenLaajuusMax = formatDouble(koulutus?.opintojenLaajuusNumeroMax);
 
   return getFormattedOpintojenLaajuus(
-    opintojenLaajuusNumero,
     opintojenLaajuusYksikko,
+    opintojenLaajuusNumero,
     opintojenLaajuusMin,
     opintojenLaajuusMax
   );
 }
 
-export function getLocalizedKoulutusLaajuus(koulutus: TODOType) {
+export function getLocalizedKoulutusLaajuus(koulutus?: KoulutusExtendedData | TODOType) {
   return (
     getLocalizedKoulutusOpintojenLaajuus(koulutus) ||
     getTranslationForKey('koulutus.ei-laajuutta')
@@ -203,8 +204,8 @@ export function getLocalizedOpintojenLaajuus(toteutus: TODOType, koulutus?: TODO
     toteutus?.metadata?.opintojenLaajuusyksikko || toteutus?.opintojenLaajuusyksikko
   );
   const laajuus = getFormattedOpintojenLaajuus(
-    laajuusNumero,
     laajuusyksikko,
+    laajuusNumero,
     laajuusNumeroMin,
     laajuusNumeroMax
   );
@@ -223,7 +224,7 @@ export function byLocaleCompare<T extends string>(prop: T) {
 
 export const condArray = <T>(cond: boolean, item: T) => (cond ? [item] : []);
 
-export const formatDouble = (number: number, fixed?: number) =>
+export const formatDouble = (number?: number, fixed?: number) =>
   (fixed === undefined ? number : number?.toFixed(fixed))?.toString().replace('.', ',');
 
 export const isPlaywright = Boolean(localStorage.getItem('isPlaywright'));
@@ -286,14 +287,13 @@ export const getLocalizedOsaamismerkkikuvaus = (
   );
 };
 
-export const createKuvausListElement = (
+export const createHtmlListElement = (
   items: Array<OsaamismerkkikuvausEntity>,
-  headingName: string,
+  headingTranslationKey: string,
   itemKey: string,
   t: TFunction
 ) => {
-  const translationKey = t(`haku.${headingName}`);
-  const listHeading = `<h3>${translationKey}</h3>`;
+  const listHeading = `<h3>${t(headingTranslationKey)}</h3>`;
   const listItemHtmlStr = items
     ?.map((item) => {
       return '<li>' + localize(item?.[itemKey]) + '</li>';
@@ -311,10 +311,15 @@ export const createOsaamismerkinKuvausHtml = (
   const arviointikriteerit = osaamismerkki?.arviointikriteerit || [];
 
   return (
-    createKuvausListElement(osaamistavoitteet, 'osaamistavoitteet', 'osaamistavoite', t) +
-    createKuvausListElement(
+    createHtmlListElement(
+      osaamistavoitteet,
+      'haku.osaamistavoitteet',
+      'osaamistavoite',
+      t
+    ) +
+    createHtmlListElement(
       arviointikriteerit,
-      'arviointikriteerit',
+      'haku.arviointikriteerit',
       'arviointikriteeri',
       t
     )
