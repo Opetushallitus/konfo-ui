@@ -34,7 +34,11 @@ export type Rajain = {
     | Array<string>
     | { koulutuksenkestokuukausina_min: number; koulutuksenkestokuukausina_max: number }
     | { maksunmaara_min: number; maksunmaara_max: number }
-    | { lukuvuosimaksunmaara_min: number; lukuvuosimaksunmaara_max: number };
+    | { lukuvuosimaksunmaara_kk_min: number; lukuvuosimaksunmaara_kk_max: number }
+    | {
+        lukuvuosimaksunmaara_amm_lk_min: number;
+        lukuvuosimaksunmaara_amm_lk_max: number;
+      };
 };
 
 type RajainKey = keyof typeof RAJAIN_TYPES;
@@ -114,6 +118,7 @@ export const Question = ({
                 rajainItems={sortedRajainItems}
                 setErrorKey={setErrorKey}
                 errorKey={errorKey}
+                currentQuestion={question}
               />
             ) : (
               <QuestionWithOptions

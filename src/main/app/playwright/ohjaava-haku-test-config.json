@@ -16,7 +16,14 @@
       "id": "koulutuksenkestokuukausina"
     },
     {
-      "id": "maksullisuus"
+      "id": "maksullisuus",
+      "optionOrder": [
+        "maksuton",
+        "maksullinen",
+        "lukuvuosimaksu_amm_lk",
+        "lukuvuosimaksu_kk"
+      ],
+      "rajainOptionsToBeRemoved": ["lukuvuosimaksu", "lukuvuosimaksunmaara"]
     },
     {
       "id": "alkamiskausi",

@@ -13,9 +13,14 @@ import {
 } from '#/src/components/ohjaava-haku/common/InputContainer';
 import { InputWithUnit } from '#/src/components/ohjaava-haku/common/InputWithUnit';
 import { RajainOption } from '#/src/components/ohjaava-haku/common/RajainOption';
-import { QuestionInfoText, Rajain } from '#/src/components/ohjaava-haku/Question';
+import {
+  QuestionInfoText,
+  QuestionType,
+  Rajain,
+} from '#/src/components/ohjaava-haku/Question';
 import {
   combineMaksunMaaraWithMaksullisuustyyppi,
+  filterRajainOptionsToBeRemoved,
   getIsRajainSelected,
 } from '#/src/components/ohjaava-haku/utils';
 import { marks } from '#/src/components/suodattimet/common/maksullisuusRajainUtils';
@@ -97,19 +102,35 @@ const MaksullisuusInput = ({
   const maksunMaara = (newValues: Array<number>): Rajain => {
     const newMin = newValues[0];
     const newMax = newValues[1];
-    return id === 'lukuvuosimaksu'
-      ? {
-          lukuvuosimaksunmaara: {
-            lukuvuosimaksunmaara_min: newMin,
-            lukuvuosimaksunmaara_max: newMax,
+
+    return match(id)
+      .with('lukuvuosimaksu_kk', () => {
+        return {
+          lukuvuosimaksunmaara_kk: {
+            lukuvuosimaksunmaara_kk_min: newMin,
+            lukuvuosimaksunmaara_kk_max: newMax,
           },
-        }
-      : {
+        };
+      })
+      .with('lukuvuosimaksu_amm_lk', () => {
+        return {
+          lukuvuosimaksunmaara_amm_lk: {
+            lukuvuosimaksunmaara_amm_lk_min: newMin,
+            lukuvuosimaksunmaara_amm_lk_max: newMax,
+          },
+        };
+      })
+      .with('maksullinen', () => {
+        return {
           maksunmaara: {
             maksunmaara_min: newMin,
             maksunmaara_max: newMax,
           },
         };
+      })
+      .otherwise(() => {
+        return {};
+      });
   };
 
   const handleSliderValueCommit = (newValues: Array<number>) => {
@@ -207,18 +228,27 @@ export const Maksullisuus = ({
   rajainItems,
   setErrorKey,
   errorKey,
+  currentQuestion,
 }: {
   rajainItems: Array<RajainItem>;
   setErrorKey: (errorKey: string) => void;
   errorKey: string;
+  currentQuestion: QuestionType;
 }) => {
   const { t } = useTranslation();
   const { allSelectedRajainValues, toggleAllSelectedRajainValues } = useOhjaavaHaku(
     (s) => s
   );
 
+  const { rajainOptionsToBeRemoved } = currentQuestion;
+
+  const filteredRajainItems = filterRajainOptionsToBeRemoved(
+    rajainItems,
+    rajainOptionsToBeRemoved
+  );
+
   const maksullisuustyyppiRajainItems =
-    combineMaksunMaaraWithMaksullisuustyyppi(rajainItems);
+    combineMaksunMaaraWithMaksullisuustyyppi(filteredRajainItems);
 
   return (
     <StyledQuestion item>
