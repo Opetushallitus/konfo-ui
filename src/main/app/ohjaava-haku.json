@@ -1,7 +1,11 @@
 {
   "kysymykset": [
-    { "id": "opetusaika" },
-    { "id": "koulutuksenkestokuukausina" },
+    {
+      "id": "opetusaika"
+    },
+    {
+      "id": "koulutuksenkestokuukausina"
+    },
     {
       "id": "opetustapa",
       "rajainOptionsToBeCombined": [
@@ -13,7 +17,13 @@
     },
     {
       "id": "maksullisuus",
-      "optionOrder": ["maksuton", "maksullinen", "lukuvuosimaksu"]
+      "optionOrder": [
+        "maksuton",
+        "maksullinen",
+        "lukuvuosimaksu_amm_lk",
+        "lukuvuosimaksu_kk"
+      ],
+      "rajainOptionsToBeRemoved": ["lukuvuosimaksu", "lukuvuosimaksunmaara"]
     },
     {
       "id": "koulutusala",

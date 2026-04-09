@@ -322,7 +322,7 @@ export const TOTEUTUS_RAJAIN_NAMES = [
   'maksullisuustyyppi',
   'maksunmaara',
   'lukuvuosimaksunmaara_kk',
-  // TODO: lukuvuosimaksunmaara_amm_lk
+  'lukuvuosimaksunmaara_amm_lk',
   'hakualkaapaivissa',
 ];
 
