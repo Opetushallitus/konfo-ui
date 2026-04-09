@@ -224,15 +224,16 @@ export const hakutulosSlice = createSlice({
             }
           )
           .with(
-            'lukuvuosimaksunmaara_min', // TODO:
-            'lukuvuosimaksunmaara_max', // TODO:
-            // TODO: TÄNNE MYÖS lukuvuosimaksunmaara_amm_lk_min ja max ??
+            'lukuvuosimaksunmaara_kk_min',
+            'lukuvuosimaksunmaara_kk_max',
+            'lukuvuosimaksunmaara_amm_lk_min',
+            'lukuvuosimaksunmaara_amm_lk_max',
             'maksunmaara_min',
             'maksunmaara_max',
             'koulutuksenkestokuukausina_min',
             'koulutuksenkestokuukausina_max',
             () => {
-              const rajainKey = key.split('_')?.[0];
+              const rajainKey = key.split(/_max|min$/)?.[0];
               const minKey = `${rajainKey}_min`;
               const maxKey = `${rajainKey}_max`;
 

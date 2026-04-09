@@ -115,8 +115,8 @@ test.describe('Ohjaava haku', () => {
     await page.locator('#maksullinen-vahintaan').fill('1000');
     await page.locator('#maksullinen-enintaan').fill('10000');
     await page.getByRole('button', { name: /voin maksaa lukuvuosimaksun./ }).click();
-    await page.locator('#lukuvuosimaksu-vahintaan').fill('1000');
-    await page.locator('#lukuvuosimaksu-enintaan').fill('10000');
+    await page.locator('#lukuvuosimaksu_kk-vahintaan').fill('1000');
+    await page.locator('#lukuvuosimaksu_kk-enintaan').fill('10000');
     await page.getByRole('button', { name: 'Seuraava kysymys' }).click();
 
     await expect(
@@ -126,15 +126,15 @@ test.describe('Ohjaava haku', () => {
     await page.getByRole('button', { name: 'Katso tulokset' }).click();
 
     await expect(page).toHaveURL(
-      'http://localhost:3005/konfo/fi/haku?alkamiskausi=2024-kevat&koulutuksenkestokuukausina_max=65&koulutuksenkestokuukausina_min=22&lukuvuosimaksunmaara_max=10000&lukuvuosimaksunmaara_min=1000&maksullisuustyyppi=lukuvuosimaksu,maksullinen&maksunmaara_max=10000&maksunmaara_min=1000&opetusaika=opetusaikakk_4&opetustapa=opetuspaikkakk_2,opetuspaikkakk_3&order=desc&size=20&sort=score'
+      'http://localhost:3005/konfo/fi/haku?alkamiskausi=2024-kevat&koulutuksenkestokuukausina_max=65&koulutuksenkestokuukausina_min=22&lukuvuosimaksunmaara_kk_max=10000&lukuvuosimaksunmaara_kk_min=1000&maksullisuustyyppi=lukuvuosimaksu_kk,maksullinen&maksunmaara_max=10000&maksunmaara_min=1000&opetusaika=opetusaikakk_4&opetustapa=opetuspaikkakk_2,opetuspaikkakk_3&order=desc&size=20&sort=score'
     );
 
     await expect(page.getByTestId('chip-opetusaikakk_4')).toBeVisible();
     await expect(page.getByTestId('chip-koulutuksenkestokuukausina')).toBeVisible();
     await expect(page.getByTestId('chip-maksullinen')).toBeVisible();
-    await expect(page.getByTestId('chip-lukuvuosimaksu')).toBeVisible();
+    await expect(page.getByTestId('chip-lukuvuosimaksu_kk')).toBeVisible();
     await expect(page.getByTestId('chip-maksunmaara')).toBeVisible();
-    await expect(page.getByTestId('chip-lukuvuosimaksunmaara')).toBeVisible();
+    await expect(page.getByTestId('chip-lukuvuosimaksunmaara_kk')).toBeVisible();
     await expect(page.getByTestId('chip-2024-kevat')).toBeVisible();
 
     await expect(

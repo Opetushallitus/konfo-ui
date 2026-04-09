@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { useMediaQuery, Link } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
