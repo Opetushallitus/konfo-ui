@@ -69,6 +69,9 @@ const StyledList = styled(List)({
   [`& .${classes.parentOtsikko}`]: {
     paddingTop: '0',
     paddingBottom: '0',
+    '& .MuiListItemText-root': {
+      alignSelf: 'center',
+    },
   },
   [`& .${classes.parentOtsikkoIconBase}`]: {
     backgroundColor: colors.brandGreen,
@@ -99,24 +102,36 @@ const StyledList = styled(List)({
   },
 });
 
-const ListItemLink = ({ className, ...props }: ListItemButtonProps) => {
+const ListItemLink = ({
+  className,
+  href,
+  ...props
+}: ListItemButtonProps & { href?: string }) => {
   return (
     <ListItem disablePadding className={className}>
-      <ListItemButton component="a" {...props} className={classes.valikkoItem} />
+      <ListItemButton
+        component="a"
+        {...props}
+        {...(href == null ? {} : ({ href } as object))}
+        className={classes.valikkoItem}
+      />
     </ListItem>
   );
 };
 const SivuItem = ({
   name,
-  id,
+  href,
   onClick,
 }: {
   name: string;
-  id: string;
-  onClick: (id: string) => void;
+  href: string;
+  onClick: (e: React.MouseEvent, href: string) => void;
 }) => {
   return (
-    <ListItemLink onClick={() => onClick(id)} className={classes.valikko}>
+    <ListItemLink
+      href={href}
+      onClick={(e) => onClick(e, href)}
+      className={classes.valikko}>
       <ListItemText className={classes.valintaText}>{name}</ListItemText>
     </ListItemLink>
   );
@@ -163,8 +178,9 @@ export const SidebarValikko = (props: {
   const { parent, select, deselect, closeMenu, name, links } = props;
   const { keepMenuVisible } = useSideMenu();
 
-  const forwardToPage = (pageId: string) => {
-    navigate(`/${i18n.language}${forwardTo(pageId)}`);
+  const forwardToPage = (e: React.MouseEvent, href: string) => {
+    e.preventDefault();
+    navigate(href);
     if (!keepMenuVisible) {
       closeMenu();
     }
@@ -188,7 +204,7 @@ export const SidebarValikko = (props: {
               <SivuItem
                 key={`sivu-item-${i.name}`}
                 name={i.name}
-                id={i.id}
+                href={`/${i18n.language}${forwardTo(i.id)}`}
                 onClick={forwardToPage}
               />
             );
