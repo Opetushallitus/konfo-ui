@@ -99,8 +99,9 @@ export const SideMenu = (props: {
   menuVisible?: boolean;
   isSmall: boolean;
   closeMenu: () => void;
+  searchRef: React.RefObject<HTMLInputElement | null>;
 }) => {
-  const { menuVisible, closeMenu } = props;
+  const { menuVisible, closeMenu, searchRef } = props;
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
 
@@ -125,6 +126,7 @@ export const SideMenu = (props: {
 
   return (
     <StyledDrawer
+      id="side-menu"
       open={menuVisible}
       className={classes.drawer}
       variant="persistent"
@@ -146,10 +148,14 @@ export const SideMenu = (props: {
             <MobileLanguageSelection />
           </Box>
         </Hidden>
+        <label htmlFor="sidebar-search-input">
+          {t('sidebar.etsi-tietoa-opintopolusta')}:
+        </label>
         <Paper
           component="form"
           onSubmit={doSearch}
           className={classes.inputRoot}
+          role="search"
           elevation={0}>
           <InputBase
             className={classes.input}
@@ -159,10 +165,10 @@ export const SideMenu = (props: {
                 doSearch(event);
               }
             }}
+            inputRef={searchRef}
             onChange={({ target }) => setSearch(target.value)}
-            placeholder={t('sidebar.etsi-tietoa-opintopolusta')}
             inputProps={{
-              'aria-label': t('sidebar.etsi-tietoa-opintopolusta'),
+              id: 'sidebar-search-input',
             }}
           />
           <Button

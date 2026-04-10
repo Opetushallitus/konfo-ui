@@ -2,6 +2,7 @@ import React from 'react';
 
 import {
   List,
+  ListItem,
   ListItemButton,
   ListItemButtonProps,
   ListItemIcon,
@@ -22,6 +23,7 @@ const PREFIX = 'SidebarValikko';
 const classes = {
   root: `${PREFIX}-root`,
   valikko: `${PREFIX}-valikko`,
+  valikkoItem: `${PREFIX}-valikkoItem`,
   otsikko: `${PREFIX}-otsikko`,
   parentOtsikko: `${PREFIX}-parentOtsikko`,
   parentOtsikkoIconBase: `${PREFIX}-parentOtsikkoIconBase`,
@@ -42,9 +44,21 @@ const StyledList = styled(List)({
     borderWidth: '1px',
     borderColor: colors.grey500,
     color: colors.grey700,
+    paddingRight: '0',
     '&:last-child': {
       borderBottomStyle: 'solid',
       marginBottom: '40px',
+    },
+  },
+  [`& .${classes.valikkoItem}`]: {
+    paddingTop: '0',
+    paddingBottom: '0',
+    alignItems: 'stretch',
+    '&:hover': {
+      backgroundColor: colors.grey50,
+    },
+    '&.Mui-selected': {
+      backgroundColor: colors.grey50,
     },
   },
   [`& .${classes.otsikko}`]: {
@@ -55,6 +69,9 @@ const StyledList = styled(List)({
   [`& .${classes.parentOtsikko}`]: {
     paddingTop: '0',
     paddingBottom: '0',
+    '& .MuiListItemText-root': {
+      alignSelf: 'center',
+    },
   },
   [`& .${classes.parentOtsikkoIconBase}`]: {
     backgroundColor: colors.brandGreen,
@@ -78,42 +95,53 @@ const StyledList = styled(List)({
     borderLeftStyle: 'solid',
     borderColor: colors.grey500,
     padding: '12px',
+    alignItems: 'center',
   },
   [`& .${classes.valintaIcon}`]: {
     color: colors.brandGreen,
   },
 });
 
-const ListItemLink = (props: ListItemButtonProps) => {
-  return <ListItemButton component="a" {...props} />;
+const ListItemLink = ({
+  className,
+  href,
+  ...props
+}: ListItemButtonProps & { href?: string }) => {
+  return (
+    <ListItem disablePadding className={className}>
+      <ListItemButton
+        component="a"
+        {...props}
+        {...(href == null ? {} : ({ href } as object))}
+        className={classes.valikkoItem}
+      />
+    </ListItem>
+  );
 };
 const SivuItem = ({
   name,
-  id,
+  href,
   onClick,
 }: {
   name: string;
-  id: string;
-  onClick: (id: string) => void;
+  href: string;
+  onClick: (e: React.MouseEvent, href: string) => void;
 }) => {
   return (
-    <ListItemLink role="none" onClick={() => onClick(id)} className={classes.valikko}>
-      <ListItemText
-        role="menuitem"
-        className={classes.valintaText}
-        tabIndex={0}
-        aria-label={name}>
-        {name}
-      </ListItemText>
+    <ListItemLink
+      href={href}
+      onClick={(e) => onClick(e, href)}
+      className={classes.valikko}>
+      <ListItemText className={classes.valintaText}>{name}</ListItemText>
     </ListItemLink>
   );
 };
 
 const OtsikkoItem = ({ name }: { name: string }) => {
   return (
-    <h2 role="menuitem" className={classes.otsikkoText} tabIndex={-1} aria-label={name}>
-      {name}
-    </h2>
+    <li role="presentation">
+      <h2 className={classes.otsikkoText}>{name}</h2>
+    </li>
   );
 };
 
@@ -127,15 +155,9 @@ const ValikkoItem = ({
   select: (id: string) => void;
 }) => {
   return (
-    <ListItemLink role="none" className={classes.valikko} onClick={() => select(id)}>
-      <ListItemText
-        className={classes.valintaText}
-        role="menuitem"
-        tabIndex={-1}
-        aria-label={name}>
-        {name}
-      </ListItemText>
-      <ListItemIcon className={classes.valintaIconBase}>
+    <ListItemLink className={classes.valikko} onClick={() => select(id)}>
+      <ListItemText className={classes.valintaText}>{name}</ListItemText>
+      <ListItemIcon className={classes.valintaIconBase} aria-hidden="true">
         <MaterialIcon icon="chevron_right" className={classes.valintaIcon} />
       </ListItemIcon>
     </ListItemLink>
@@ -156,47 +178,48 @@ export const SidebarValikko = (props: {
   const { parent, select, deselect, closeMenu, name, links } = props;
   const { keepMenuVisible } = useSideMenu();
 
-  const forwardToPage = (pageId: string) => {
-    navigate(`/${i18n.language}${forwardTo(pageId)}`);
+  const forwardToPage = (e: React.MouseEvent, href: string) => {
+    e.preventDefault();
+    navigate(href);
     if (!keepMenuVisible) {
       closeMenu();
     }
   };
 
   return (
-    <StyledList className={classes.root} aria-label="contacts">
-      {parent ? (
-        <ListItemLink className={classes.parentOtsikko} role="none" onClick={deselect}>
-          <ListItemIcon className={classes.parentOtsikkoIconBase}>
-            <MaterialIcon icon="chevron_left" className={classes.parentOtsikkoIcon} />
-          </ListItemIcon>
-          <ListItemText role="menuitem" tabIndex={-1} aria-label={parent.name}>
-            {parent.name}
-          </ListItemText>
-        </ListItemLink>
-      ) : null}
-      <OtsikkoItem key={`otsikko-item-${name}`} name={name} />
-      {links.map((i) => {
-        if (i.type === 'sivu') {
-          return (
-            <SivuItem
-              key={`sivu-item-${i.name}`}
-              name={i.name}
-              id={i.id}
-              onClick={forwardToPage}
-            />
-          );
-        } else {
-          return (
-            <ValikkoItem
-              key={`valikko-item-${i.name}`}
-              name={i.name}
-              id={i.id}
-              select={select}
-            />
-          );
-        }
-      })}
-    </StyledList>
+    <nav aria-label={name}>
+      <StyledList className={classes.root}>
+        {parent ? (
+          <ListItemLink className={classes.parentOtsikko} onClick={deselect}>
+            <ListItemIcon className={classes.parentOtsikkoIconBase}>
+              <MaterialIcon icon="chevron_left" className={classes.parentOtsikkoIcon} />
+            </ListItemIcon>
+            <ListItemText>{parent.name}</ListItemText>
+          </ListItemLink>
+        ) : null}
+        <OtsikkoItem key={`otsikko-item-${name}`} name={name} />
+        {links.map((i) => {
+          if (i.type === 'sivu') {
+            return (
+              <SivuItem
+                key={`sivu-item-${i.name}`}
+                name={i.name}
+                href={`/${i18n.language}${forwardTo(i.id)}`}
+                onClick={forwardToPage}
+              />
+            );
+          } else {
+            return (
+              <ValikkoItem
+                key={`valikko-item-${i.name}`}
+                name={i.name}
+                id={i.id}
+                select={select}
+              />
+            );
+          }
+        })}
+      </StyledList>
+    </nav>
   );
 };

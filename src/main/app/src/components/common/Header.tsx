@@ -1,3 +1,5 @@
+import { useEffect, useRef } from 'react';
+
 import {
   AppBar,
   Box,
@@ -16,6 +18,7 @@ import OPOLogoFI from '#/src/assets/images/opintopolku_logo_header_fi.svg?react'
 import OPOLogoSV from '#/src/assets/images/opintopolku_logo_header_sv.svg?react';
 import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { SideMenu } from '#/src/components/common/SideMenu';
 import { styled, theme } from '#/src/theme';
 import { getLanguage } from '#/src/tools/localization';
 
@@ -53,6 +56,11 @@ const StyledAppBar = styled(AppBar)(() => ({
 
   [`& .${classes.menuButton}`]: {
     marginRight: theme.spacing(2),
+    borderRadius: 0,
+    padding: '0.25rem',
+  },
+  [`& .${classes.menuButton}:focus`]: {
+    outline: '1px solid rgb(255, 255, 255)',
   },
 
   [`& .${classes.menuBox}`]: {
@@ -114,10 +122,18 @@ export const Header = ({
   toggleMenu,
   isOpen,
   refreshSideMenu,
+  isSmall,
+  menuVisible,
+  closeMenu,
+  sideMenuKey,
 }: {
   toggleMenu: () => void;
   isOpen: boolean;
   refreshSideMenu: () => void;
+  isSmall: boolean;
+  menuVisible: boolean;
+  closeMenu: () => void;
+  sideMenuKey: number;
 }) => {
   const { t } = useTranslation();
 
@@ -125,6 +141,12 @@ export const Header = ({
   const showTestiLabel = testiLabel != null;
 
   const OpintopolkuHeaderLogo = getOpintopolkuHeaderLogo();
+  const searchRef = useRef<HTMLInputElement | null>(null);
+  useEffect(() => {
+    if (isOpen) {
+      searchRef.current?.focus();
+    }
+  }, [searchRef, isOpen]);
 
   return (
     <StyledAppBar sx={{ position: { xs: 'absolute', sm: 'fixed' } }}>
@@ -133,6 +155,9 @@ export const Header = ({
           <IconButton
             color="inherit"
             aria-label={t('avaa-sulje-valikko')}
+            aria-expanded={isOpen}
+            aria-haspopup="true"
+            aria-controls="side-menu"
             onClick={toggleMenu}
             edge="start"
             className={classes.menuButton}>
@@ -141,6 +166,15 @@ export const Header = ({
               <Typography className={classes.menuText}>{t('valikko')}</Typography>
             </Box>
           </IconButton>
+          <Box sx={{ position: 'absolute' }}>
+            <SideMenu
+              key={`sidemenu-key-${sideMenuKey}`}
+              isSmall={isSmall}
+              menuVisible={menuVisible}
+              closeMenu={closeMenu}
+              searchRef={searchRef}
+            />
+          </Box>
           <Link
             sx={{
               '&.Mui-focusVisible': {
