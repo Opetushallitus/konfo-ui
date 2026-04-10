@@ -133,12 +133,16 @@ const maksullisuustyyppiChanges = (
     maksullisuustyyppiSetDisabled(
       rajainItems,
       changes.maksullisuustyyppi,
-      'lukuvuosimaksu'
+      'lukuvuosimaksu_kk'
     )
   ) {
-    changes = Object.assign(changes, rangeRajainObject('lukuvuosimaksunmaara', [0, 0]), {
-      apuraha: false,
-    });
+    changes = Object.assign(
+      changes,
+      rangeRajainObject('lukuvuosimaksunmaara_kk', [0, 0]),
+      {
+        apuraha: false,
+      }
+    );
   }
 
   if (
