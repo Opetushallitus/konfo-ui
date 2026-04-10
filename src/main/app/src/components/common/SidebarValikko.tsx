@@ -69,6 +69,9 @@ const StyledList = styled(List)({
   [`& .${classes.parentOtsikko}`]: {
     paddingTop: '0',
     paddingBottom: '0',
+    '& .MuiListItemText-root': {
+      alignSelf: 'center',
+    },
   },
   [`& .${classes.parentOtsikkoIconBase}`]: {
     backgroundColor: colors.brandGreen,
