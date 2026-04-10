@@ -21,9 +21,7 @@ test.describe('Sivut (mobiili)', () => {
       page,
       '/sv/sivu/mottagande-av-studieplats-i-gemensam-ansoekan-och-anmaelning-till-hoegskolor'
     );
-    await page
-      .getByRole('button', { name: 'Sökandes hälsa och funktionsförmåga' })
-      .click();
+    await page.getByRole('link', { name: 'Sökandes hälsa och funktionsförmåga' }).click();
     await expectURLEndsWith(page, '/sv/sivu/soekandes-haelsa-och-funktionsfoermaga');
   });
 });
