@@ -155,7 +155,13 @@ const ValikkoItem = ({
   select: (id: string) => void;
 }) => {
   return (
-    <ListItemLink className={classes.valikko} onClick={() => select(id)}>
+    <ListItemLink
+      href="#"
+      className={classes.valikko}
+      onClick={(e) => {
+        e.preventDefault();
+        select(id);
+      }}>
       <ListItemText className={classes.valintaText}>{name}</ListItemText>
       <ListItemIcon className={classes.valintaIconBase} aria-hidden="true">
         <MaterialIcon icon="chevron_right" className={classes.valintaIcon} />
