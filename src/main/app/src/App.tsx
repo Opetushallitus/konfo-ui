@@ -30,7 +30,6 @@ import { Draft } from './components/common/Draft';
 import { Footer } from './components/common/Footer';
 import { Header } from './components/common/Header';
 import { Notifications } from './components/common/Notifications';
-import { SideMenu } from './components/common/SideMenu';
 import { SkipToContent } from './components/common/SkipToContent';
 import { Etusivu } from './components/Etusivu';
 import { Hairiotiedote } from './components/Hairiotiedote';
@@ -89,22 +88,21 @@ const MainContent = styled('main')(
           top: menuVisible ? 0 : 'auto',
           bottom: menuVisible ? 0 : 'auto',
         }
-      : {
-          marginLeft: -SIDEMENU_WIDTH,
-        }),
+      : {}),
     ...(menuVisible
       ? {
           transition: theme.transitions.create('margin', {
             easing: theme.transitions.easing.easeOut,
             duration: theme.transitions.duration.enteringScreen,
           }),
-          marginLeft: 0,
+          marginLeft: isSmall ? 0 : SIDEMENU_WIDTH,
         }
       : {
           transition: theme.transitions.create('margin', {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
           }),
+          marginLeft: 0,
         }),
   })
 );
@@ -274,12 +272,10 @@ export const App = () => {
           toggleMenu={toggleMenu}
           isOpen={menuVisible}
           refreshSideMenu={() => setSideMenuKey(sideMenuKey + 1)}
-        />
-        <SideMenu
           isSmall={isSmall}
           menuVisible={menuVisible}
           closeMenu={closeMenu}
-          key={`sidemenu-key-${sideMenuKey}`}
+          sideMenuKey={sideMenuKey}
         />
         <MainContent id="app-main-content" isSmall={isSmall} menuVisible={menuVisible}>
           <HeadingBoundary>
