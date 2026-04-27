@@ -13,10 +13,11 @@ const classes = {
   home: `${PREFIX}-home`,
   arrow: `${PREFIX}-arrow`,
   link: `${PREFIX}Link`,
+  text: `${PREFIX}Text`,
   collapsedPart: `${PREFIX}-collapsedPart`,
 };
 
-const Root = styled('span')(({ isLast, isHome, link }) => ({
+const Root = styled('span')(({ isLast, isHome }) => ({
   [`& .${classes.home}`]: {
     display: 'inline',
     marginRight: BREADCRUMB_ICON_SPACING,
@@ -27,7 +28,7 @@ const Root = styled('span')(({ isLast, isHome, link }) => ({
   [`& .${classes.arrow}`]: {
     display: 'inline',
     marginRight: BREADCRUMB_ICON_SPACING,
-    color: colors.grey500,
+    color: colors.grey600,
     fontSize: '12px',
   },
 
@@ -35,18 +36,19 @@ const Root = styled('span')(({ isLast, isHome, link }) => ({
     ...theme.typography.body1,
     marginRight: BREADCRUMB_ICON_SPACING,
     display: 'inline',
-    cursor: 'default',
+    cursor: 'pointer',
+    color: colors.brandGreen,
     textDecoration: 'none',
-    ...(link
-      ? {
-          cursor: 'pointer',
-          color: colors.brandGreen,
-        }
-      : {}),
+  },
+
+  [`& .${classes.text}`]: {
+    ...theme.typography.body1,
+    marginRight: BREADCRUMB_ICON_SPACING,
+    display: 'inline',
+    textDecoration: 'none',
     ...(isLast && !isHome
       ? {
           color: theme.palette.text.primary,
-          pointerEvents: 'none',
           fontWeight: 600,
         }
       : {}),
@@ -117,13 +119,14 @@ export const MurupolkuFragment = ({
 }) => {
   const isXLargeDown = useMediaQuery(theme.breakpoints.down('xl'));
   const { state: menuVisible } = useSideMenu();
+  const isInteractiveLink = Boolean(link) && (!isLast || isHome);
 
   const normalizedName = name?.trim() ?? '';
   const shortenedName =
     isXLargeDown || menuVisible ? shortenName(normalizedName) : normalizedName;
 
   return (
-    <Root isLast={isLast} link={link} isHome={isHome}>
+    <Root isLast={isLast} isHome={isHome}>
       {!isHome && (
         <MaterialIcon
           icon="arrow_forward_ios"
@@ -135,12 +138,8 @@ export const MurupolkuFragment = ({
         <Button className={classes.collapsedPart} onClick={openDrawer}>
           {normalizedName}
         </Button>
-      ) : (
-        <Link
-          href={link ?? (isLast ? window.location.href : undefined)}
-          className={classes.link}
-          onClick={closeDrawer}
-          aria-current={isLast ? 'location' : undefined}>
+      ) : isInteractiveLink ? (
+        <Link href={link} className={classes.link} onClick={closeDrawer}>
           {isHome && (
             <MaterialIcon
               icon="home"
@@ -151,6 +150,18 @@ export const MurupolkuFragment = ({
           )}
           {shortenedName}
         </Link>
+      ) : (
+        <span className={classes.text} aria-current={isLast ? 'page' : undefined}>
+          {isHome && (
+            <MaterialIcon
+              icon="home"
+              variant="outlined"
+              aria-hidden="true"
+              className={classes.home}
+            />
+          )}
+          {shortenedName}
+        </span>
       )}
     </Root>
   );

@@ -293,7 +293,9 @@ test.describe('Haku', () => {
     );
     await page.goto('/konfo/fi/haku');
 
-    const currentButtonPage1 = page.locator('[aria-current="page"]');
+    const currentButtonPage1 = page.getByRole('link', {
+      name: 'Sivu 1 / 114, nykyinen sivu',
+    });
     const page2Button = page.getByRole('link', { name: 'Siirry sivulle 2 / 114' });
 
     await expect(currentButtonPage1).toHaveAttribute(
@@ -316,7 +318,9 @@ test.describe('Haku', () => {
     await page2Button.click();
     await requestPromiseForPage2Click;
 
-    const currentButtonPage2 = page.locator('[aria-current="page"]');
+    const currentButtonPage2 = page.getByRole('link', {
+      name: 'Sivu 2 / 114, nykyinen sivu',
+    });
 
     await expect(currentButtonPage2).toHaveAttribute(
       'aria-label',
