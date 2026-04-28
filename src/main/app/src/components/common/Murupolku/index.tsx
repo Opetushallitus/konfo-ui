@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import { useTheme, useMediaQuery } from '@mui/material';
-import { head, last } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
@@ -9,15 +8,16 @@ import { styled } from '#/src/theme';
 
 import { MurupolkuDrawer } from './MurupolkuDrawer';
 import { MurupolkuFragment } from './MurupolkuFragment';
+import type { MurupolkuItem, MurupolkuProps } from './types';
 
-const useCollapsingPath = (path) => {
+const useCollapsingPath = (path: ReadonlyArray<MurupolkuItem>): Array<MurupolkuItem> => {
   const theme = useTheme();
   const isNarrow = useMediaQuery(theme.breakpoints.down('sm'));
 
   if (isNarrow && path.length > 2) {
-    return [head(path), { name: '...', isCollapsedPart: true }, last(path)];
+    return [path[0], { name: '...', isCollapsedPart: true }, path[path.length - 1]];
   } else {
-    return path;
+    return [...path];
   }
 };
 
@@ -49,10 +49,10 @@ const StyledNav = styled('nav')({
   },
 });
 
-export const Murupolku = ({ path }) => {
+export const Murupolku = ({ path }: MurupolkuProps) => {
   const { t } = useTranslation();
 
-  const homePart = { name: t('etusivu'), link: '/', isHome: true };
+  const homePart: MurupolkuItem = { name: t('etusivu'), link: '/', isHome: true };
   const pathWithHome = [homePart, ...path];
 
   const collapsingPath = useCollapsingPath(pathWithHome);
@@ -64,7 +64,7 @@ export const Murupolku = ({ path }) => {
       <BreadcrumbList>
         {collapsingPath.map(({ name, link, isCollapsedPart, isHome }, index) => {
           return (
-            <BreadcrumbListItem key={`${name} ${link}`}>
+            <BreadcrumbListItem key={`${name} ${link ?? ''}`}>
               <MurupolkuFragment
                 name={name}
                 link={link}
