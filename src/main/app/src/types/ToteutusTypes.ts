@@ -29,8 +29,14 @@ export type Maksullisuustyyppi =
   | typeof MAKSULLISUUSTYYPPI.MAKSUTON
   | typeof MAKSULLISUUSTYYPPI.LUKUVUOSIMAKSU;
 
+export type Maksu = {
+  maksullisuustyyppi: Maksullisuustyyppi;
+  maksunMaara?: number;
+};
+
 export type Opetus = {
   koulutuksenAlkamiskausi?: Alkamiskausi;
+  maksut?: Array<Maksu>;
   maksullisuustyyppi?: Maksullisuustyyppi;
   maksullisuusKuvaus?: Translateable;
   maksunMaara?: number;
@@ -195,9 +201,11 @@ export type Jarjestaja = {
   kunnat: Array<Koodi>;
   kuva: string;
   kuvaus: Translateable;
-  maksunMaara: TODOType;
+  maksunMaara: number;
+  lukuvuosimaksunMaara: number;
   nimi: Translateable;
   maksullisuustyyppi: Maksullisuustyyppi;
+  maksullisuustyypit: Array<Maksullisuustyyppi>;
   opetusajat: Array<Koodi>;
   oppilaitosOid: string;
   oppilaitosTila: string; // TODO: string union type, e.g. "julkaistu" | jne
