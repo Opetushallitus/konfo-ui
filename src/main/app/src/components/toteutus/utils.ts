@@ -1,11 +1,17 @@
 import { TFunction } from 'i18next';
-import { isEmpty } from 'lodash';
+import { isEmpty, some } from 'lodash';
 
 import { getHakuDemo } from '#/src/api/konfoApi';
-import { Alkamiskausityyppi } from '#/src/constants';
+import {
+  Alkamiskausityyppi,
+  KOULUTUS_TYYPPI,
+  MAKSULLISUUSTYYPPI,
+  Koulutustyyppi,
+} from '#/src/constants';
 import { localize } from '#/src/tools/localization';
-import { Alkamiskausi, Translateable } from '#/src/types/common';
+import { Alkamiskausi, KoutaKoulutustyyppi, Translateable } from '#/src/types/common';
 import { Hakukohde } from '#/src/types/HakukohdeTypes';
+import { Maksu } from '#/src/types/ToteutusTypes';
 
 export const formatAloitus = (
   {
@@ -79,4 +85,35 @@ export const demoLinksPerLomakeId = async (
   }
 
   return result;
+};
+
+export const isLukuvuosimaksullinen = (maksut?: Array<Maksu>) => {
+  return some(
+    maksut,
+    (mt) => mt?.maksullisuustyyppi === MAKSULLISUUSTYYPPI.LUKUVUOSIMAKSU
+  );
+};
+
+export const isLukuvuosimaksullinenKkToteutus = (
+  maksut?: Array<Maksu>,
+  koulutustyyppi?: KoutaKoulutustyyppi
+) => {
+  return (
+    isLukuvuosimaksullinen(maksut) &&
+    [KOULUTUS_TYYPPI.AMKKOULUTUS, KOULUTUS_TYYPPI.YLIOPISTOKOULUTUS].includes(
+      koulutustyyppi as Koulutustyyppi
+    )
+  );
+};
+
+export const formatMaksullisuusTitle = (
+  t: TFunction,
+  maksut?: Array<Maksu>,
+  koulutustyyppi?: KoutaKoulutustyyppi
+) => {
+  return isLukuvuosimaksullinenKkToteutus(maksut, koulutustyyppi)
+    ? t('toteutus.lukuvuosimaksu-kk')
+    : isLukuvuosimaksullinen(maksut) && maksut?.length === 1
+      ? t('toteutus.lukuvuosimaksu')
+      : t('toteutus.maksullisuus');
 };
