@@ -1,11 +1,12 @@
-import React from 'react';
-
 import { Button, Link, useMediaQuery } from '@mui/material';
+import { isString } from 'lodash';
 
 import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { useSideMenu } from '#/src/hooks';
 import { styled, theme } from '#/src/theme';
+
+import type { MurupolkuFragmentProps } from './types';
 
 const PREFIX = 'MurupolkuFragment';
 
@@ -17,7 +18,14 @@ const classes = {
   collapsedPart: `${PREFIX}-collapsedPart`,
 };
 
-const Root = styled('span')(({ isLast, isHome }) => ({
+type RootProps = {
+  isLast: boolean;
+  isHome?: boolean;
+};
+
+const Root = styled('span', {
+  shouldForwardProp: (propName) => !['isLast', 'isHome'].includes(propName as string),
+})<RootProps>(({ isLast, isHome }) => ({
   [`& .${classes.home}`]: {
     display: 'inline',
     marginRight: BREADCRUMB_ICON_SPACING,
@@ -73,11 +81,11 @@ const BREADCRUMB_ICON_SPACING = '14px';
 const SHORT_NAME_AT_LEAST = 20;
 const SHORT_NAME_AT_MOST = 40;
 
-const shortenName = (name) => {
-  const isLetter = (char) =>
-    char.toUpperCase() !== char.toLowerCase() || char.codePointAt(0) > 127;
+const shortenName = (name: string) => {
+  const isLetter = (char: string) =>
+    char.toUpperCase() !== char.toLowerCase() || (char.codePointAt(0) ?? 0) > 127;
 
-  const atMost = (s) => {
+  const atMost = (s: string) => {
     if (s && s.length > 0 && s.length > SHORT_NAME_AT_MOST) {
       return s.substring(0, SHORT_NAME_AT_MOST);
     } else {
@@ -85,7 +93,7 @@ const shortenName = (name) => {
     }
   };
 
-  const cleanUpAndAddDotDotDot = (shorted) => {
+  const cleanUpAndAddDotDotDot = (shorted: string) => {
     if (shorted && shorted.length > 0) {
       if (isLetter(shorted[shorted.length - 1])) {
         return shorted + '...';
@@ -97,10 +105,10 @@ const shortenName = (name) => {
     }
   };
 
-  let m = '';
+  let match: RegExpExecArray | null = null;
   const re = /\s/g;
-  while ((m = re.exec(name)) !== null) {
-    const currentIndex = re.lastIndex - m.length;
+  while ((match = re.exec(name)) !== null) {
+    const currentIndex = re.lastIndex - match.length;
     if (currentIndex >= SHORT_NAME_AT_LEAST) {
       return cleanUpAndAddDotDotDot(atMost(name.substring(0, currentIndex)));
     }
@@ -116,14 +124,51 @@ export const MurupolkuFragment = ({
   closeDrawer = () => {},
   isCollapsedPart,
   isHome,
-}) => {
+}: MurupolkuFragmentProps) => {
   const isXLargeDown = useMediaQuery(theme.breakpoints.down('xl'));
   const { state: menuVisible } = useSideMenu();
-  const isInteractiveLink = Boolean(link) && (!isLast || isHome);
+  const interactiveHref = isString(link) ? link : undefined;
+  const isInteractiveLink = Boolean(interactiveHref) && (!isLast || isHome);
+  const ariaCurrent = isLast ? 'page' : undefined;
 
-  const normalizedName = name?.trim() ?? '';
+  const normalizedName = name.trim();
   const shortenedName =
     isXLargeDown || menuVisible ? shortenName(normalizedName) : normalizedName;
+
+  const homeIcon = isHome ? (
+    <MaterialIcon
+      icon="home"
+      variant="outlined"
+      aria-hidden="true"
+      className={classes.home}
+    />
+  ) : null;
+
+  const renderContent = () => {
+    if (isCollapsedPart) {
+      return (
+        <Button className={classes.collapsedPart} onClick={openDrawer}>
+          {normalizedName}
+        </Button>
+      );
+    }
+
+    if (isInteractiveLink) {
+      return (
+        <Link href={interactiveHref} className={classes.link} onClick={closeDrawer}>
+          {homeIcon}
+          {shortenedName}
+        </Link>
+      );
+    }
+
+    return (
+      <span className={classes.text} aria-current={ariaCurrent}>
+        {homeIcon}
+        {shortenedName}
+      </span>
+    );
+  };
 
   return (
     <Root isLast={isLast} isHome={isHome}>
@@ -134,35 +179,7 @@ export const MurupolkuFragment = ({
           className={classes.arrow}
         />
       )}
-      {isCollapsedPart ? (
-        <Button className={classes.collapsedPart} onClick={openDrawer}>
-          {normalizedName}
-        </Button>
-      ) : isInteractiveLink ? (
-        <Link href={link} className={classes.link} onClick={closeDrawer}>
-          {isHome && (
-            <MaterialIcon
-              icon="home"
-              variant="outlined"
-              aria-hidden="true"
-              className={classes.home}
-            />
-          )}
-          {shortenedName}
-        </Link>
-      ) : (
-        <span className={classes.text} aria-current={isLast ? 'page' : undefined}>
-          {isHome && (
-            <MaterialIcon
-              icon="home"
-              variant="outlined"
-              aria-hidden="true"
-              className={classes.home}
-            />
-          )}
-          {shortenedName}
-        </span>
-      )}
+      {renderContent()}
     </Root>
   );
 };
