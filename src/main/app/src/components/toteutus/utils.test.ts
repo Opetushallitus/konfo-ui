@@ -1,10 +1,12 @@
 import { identity } from 'lodash';
+import { useTranslation } from 'react-i18next';
 import { vi } from 'vitest';
 
-import { Alkamiskausityyppi } from '#/src/constants';
+import { Alkamiskausityyppi, KOULUTUS_TYYPPI, MAKSULLISUUSTYYPPI } from '#/src/constants';
 import { Hakukohde } from '#/src/types/HakukohdeTypes';
+import { Maksu } from '#/src/types/ToteutusTypes';
 
-import { demoLinksPerLomakeId, formatAloitus } from './utils';
+import { demoLinksPerLomakeId, formatAloitus, formatMaksullisuusTitle } from './utils';
 
 describe('toteutus utils', () => {
   test.each([
@@ -120,5 +122,108 @@ describe('demoLinksPerLomakeId', () => {
       en: undefined,
     });
     expect(demoLinks.get('hakulomake-id-2')).toBe(undefined);
+  });
+});
+
+vi.mock('react-i18next', () => ({
+  useTranslation: () => {
+    return {
+      t: (i18nKey: string) => i18nKey,
+      i18n: {
+        changeLanguage: () => new Promise(() => {}),
+      },
+    };
+  },
+  initReactI18next: {
+    type: '3rdParty',
+    init: () => {},
+  },
+}));
+
+describe('formatMaksullisuusTitle', () => {
+  const { t } = useTranslation();
+  it('should return "toteutus.maksullisuus" as a title when only maksullinen koulutus', () => {
+    const maksut = [
+      { maksullisuustyyppi: MAKSULLISUUSTYYPPI.MAKSULLINEN, maksunMaara: 250 },
+    ];
+    expect(formatMaksullisuusTitle(t, maksut, KOULUTUS_TYYPPI.AMKKOULUTUS)).toEqual(
+      'toteutus.maksullisuus'
+    );
+  });
+
+  it('should return "toteutus.maksullisuus" as a title when maksuton koulutus', () => {
+    const maksut = [{ maksullisuustyyppi: MAKSULLISUUSTYYPPI.MAKSUTON }];
+    expect(formatMaksullisuusTitle(t, maksut, KOULUTUS_TYYPPI.AMKKOULUTUS)).toEqual(
+      'toteutus.maksullisuus'
+    );
+  });
+
+  it('should return "toteutus.maksullisuus" as a title when maksut is empty', () => {
+    const maksut = [] as Array<Maksu>;
+    expect(formatMaksullisuusTitle(t, maksut, KOULUTUS_TYYPPI.AMKKOULUTUS)).toEqual(
+      'toteutus.maksullisuus'
+    );
+  });
+
+  it('should return "toteutus.maksullisuus" as a title when maksut is undefined', () => {
+    const maksut = undefined;
+    expect(formatMaksullisuusTitle(t, maksut, KOULUTUS_TYYPPI.AMKKOULUTUS)).toEqual(
+      'toteutus.maksullisuus'
+    );
+  });
+
+  it('should return "toteutus.lukuvuosimaksu-kk" as a title when amk-koulutus has lukuvuosimaksu', () => {
+    const maksut = [
+      { maksullisuustyyppi: MAKSULLISUUSTYYPPI.LUKUVUOSIMAKSU, maksunMaara: 5000 },
+    ];
+    expect(formatMaksullisuusTitle(t, maksut, KOULUTUS_TYYPPI.AMKKOULUTUS)).toEqual(
+      'toteutus.lukuvuosimaksu-kk'
+    );
+  });
+
+  it('should return "toteutus.lukuvuosimaksu-kk" as a title when yo-koulutus has lukuvuosimaksu', () => {
+    const maksut = [
+      { maksullisuustyyppi: MAKSULLISUUSTYYPPI.LUKUVUOSIMAKSU, maksunMaara: 4000 },
+    ];
+    expect(formatMaksullisuusTitle(t, maksut, KOULUTUS_TYYPPI.YLIOPISTOKOULUTUS)).toEqual(
+      'toteutus.lukuvuosimaksu-kk'
+    );
+  });
+
+  it('should return "toteutus.maksullisuus" as a title when yo-koulutus is maksullinen', () => {
+    const maksut = [
+      { maksullisuustyyppi: MAKSULLISUUSTYYPPI.MAKSULLINEN, maksunMaara: 4000 },
+    ];
+    expect(formatMaksullisuusTitle(t, maksut, KOULUTUS_TYYPPI.YLIOPISTOKOULUTUS)).toEqual(
+      'toteutus.maksullisuus'
+    );
+  });
+
+  it('should return "toteutus.lukuvuosimaksu" as a title when amm-koulutus has lukuvuosimaksu', () => {
+    const maksut = [
+      { maksullisuustyyppi: MAKSULLISUUSTYYPPI.LUKUVUOSIMAKSU, maksunMaara: 500 },
+    ];
+    expect(formatMaksullisuusTitle(t, maksut, KOULUTUS_TYYPPI.AMM)).toEqual(
+      'toteutus.lukuvuosimaksu'
+    );
+  });
+
+  it('should return "toteutus.lukuvuosimaksu" as a title when lk-koulutus has lukuvuosimaksu', () => {
+    const maksut = [
+      { maksullisuustyyppi: MAKSULLISUUSTYYPPI.LUKUVUOSIMAKSU, maksunMaara: 500 },
+    ];
+    expect(formatMaksullisuusTitle(t, maksut, KOULUTUS_TYYPPI.LUKIOKOULUTUS)).toEqual(
+      'toteutus.lukuvuosimaksu'
+    );
+  });
+
+  it('should return "toteutus.maksullisuus" as a title when amm-koulutus has both maksullinen opetus and lukuvuosimaksu', () => {
+    const maksut = [
+      { maksullisuustyyppi: MAKSULLISUUSTYYPPI.LUKUVUOSIMAKSU, maksunMaara: 500 },
+      { maksullisuustyyppi: MAKSULLISUUSTYYPPI.MAKSULLINEN, maksunMaara: 300 },
+    ];
+    expect(formatMaksullisuusTitle(t, maksut, KOULUTUS_TYYPPI.AMM)).toEqual(
+      'toteutus.maksullisuus'
+    );
   });
 });
