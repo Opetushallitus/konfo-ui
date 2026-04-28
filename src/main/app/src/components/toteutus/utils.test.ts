@@ -4,9 +4,14 @@ import { vi } from 'vitest';
 
 import { Alkamiskausityyppi, KOULUTUS_TYYPPI, MAKSULLISUUSTYYPPI } from '#/src/constants';
 import { Hakukohde } from '#/src/types/HakukohdeTypes';
-import { Maksu } from '#/src/types/ToteutusTypes';
+import { Maksu, Maksullisuustyyppi } from '#/src/types/ToteutusTypes';
 
-import { demoLinksPerLomakeId, formatAloitus, formatMaksullisuusTitle } from './utils';
+import {
+  demoLinksPerLomakeId,
+  formatAloitus,
+  formatMaksullisuusText,
+  formatMaksullisuusTitle,
+} from './utils';
 
 describe('toteutus utils', () => {
   test.each([
@@ -225,5 +230,54 @@ describe('formatMaksullisuusTitle', () => {
     expect(formatMaksullisuusTitle(t, maksut, KOULUTUS_TYYPPI.AMM)).toEqual(
       'toteutus.maksullisuus'
     );
+  });
+});
+
+describe('formatMaksullisuusText', () => {
+  const { t } = useTranslation();
+  it('should return maksun määrä when only maksullinen', () => {
+    const maksut = [
+      { maksullisuustyyppi: MAKSULLISUUSTYYPPI.MAKSULLINEN, maksunMaara: 500 },
+    ];
+    expect(formatMaksullisuusText(t, maksut)).toEqual('500 €');
+  });
+
+  it('should return maksun määrä when only lukuvuosimaksullinen', () => {
+    const maksut = [
+      { maksullisuustyyppi: MAKSULLISUUSTYYPPI.LUKUVUOSIMAKSU, maksunMaara: 1500 },
+    ];
+    expect(formatMaksullisuusText(t, maksut)).toEqual('1500 €');
+  });
+
+  it('should return text "Ei maksua" when maksuton toteutus', () => {
+    const maksut = [{ maksullisuustyyppi: MAKSULLISUUSTYYPPI.MAKSUTON }];
+    expect(formatMaksullisuusText(t, maksut)).toEqual('toteutus.ei-maksua');
+  });
+
+  it('should return text "Ei maksua" when maksut is empty', () => {
+    const maksut = [] as Array<Maksu>;
+    expect(formatMaksullisuusText(t, maksut)).toEqual('toteutus.ei-maksua');
+  });
+
+  it('should return text "Ei maksua" when maksut is undefined', () => {
+    const maksut = undefined;
+    expect(formatMaksullisuusText(t, maksut)).toEqual('toteutus.ei-maksua');
+  });
+
+  it('should return text with both maksullinen opetus and lukuvuosimaksu when both are defined', () => {
+    const maksut = [
+      { maksullisuustyyppi: MAKSULLISUUSTYYPPI.MAKSULLINEN, maksunMaara: 450 },
+      { maksullisuustyyppi: MAKSULLISUUSTYYPPI.LUKUVUOSIMAKSU, maksunMaara: 1200 },
+    ];
+    expect(formatMaksullisuusText(t, maksut)).toEqual(
+      `toteutus.maksullinen-opetus: 450 €\ntoteutus.lukuvuosimaksu: 1200 €`
+    );
+  });
+
+  it('should return empty string when unknown maksullisuustyyppi', () => {
+    const maksut = [
+      { maksullisuustyyppi: 'ei-määritelty' as Maksullisuustyyppi, maksunMaara: 450 },
+    ];
+    expect(formatMaksullisuusText(t, maksut)).toEqual('');
   });
 });
