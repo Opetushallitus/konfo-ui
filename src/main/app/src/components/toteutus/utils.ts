@@ -117,3 +117,44 @@ export const formatMaksullisuusTitle = (
       ? t('toteutus.lukuvuosimaksu')
       : t('toteutus.maksullisuus');
 };
+
+const getMaksunMaara = (maksu?: Array<Maksu>) => {
+  return `${maksu?.[0]?.maksunMaara} €`;
+};
+
+export const formatMaksullisuusText = (t: TFunction, maksut?: Array<Maksu>) => {
+  if (
+    isEmpty(maksut) ||
+    (maksut?.length === 1 &&
+      maksut?.[0]?.maksullisuustyyppi === MAKSULLISUUSTYYPPI.MAKSUTON)
+  ) {
+    return t('toteutus.ei-maksua');
+  }
+
+  const maksullinen = maksut?.filter(
+    (maksu) => maksu.maksullisuustyyppi === MAKSULLISUUSTYYPPI.MAKSULLINEN
+  );
+  const lukuvuosimaksu = maksut?.filter(
+    (maksu) => maksu.maksullisuustyyppi === MAKSULLISUUSTYYPPI.LUKUVUOSIMAKSU
+  );
+
+  const maksunMaara = getMaksunMaara(maksullinen);
+  const lukuvuosimaksunMaara = getMaksunMaara(lukuvuosimaksu);
+
+  if (!isEmpty(maksullinen) && !isEmpty(lukuvuosimaksu)) {
+    const maksullinenStr = `${t('toteutus.maksullinen-opetus')}: ${maksunMaara}`;
+
+    const lukuvuosimaksuStr = `${t('toteutus.lukuvuosimaksu')}: ${lukuvuosimaksunMaara}`;
+    return `${maksullinenStr}\n${lukuvuosimaksuStr}`;
+  }
+
+  if (!isEmpty(maksullinen)) {
+    return maksunMaara;
+  }
+
+  if (!isEmpty(lukuvuosimaksu)) {
+    return lukuvuosimaksunMaara;
+  }
+
+  return '';
+};
