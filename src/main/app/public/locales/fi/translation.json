@@ -16,10 +16,14 @@
   },
   "opintopolku": {
     "brand": "Opintopolku linkki",
+    "logo-alt": "Opintopolun logo",
     "otsikko": "Opintopolku",
     "studyinfo": "Studyinfo.fi",
     "testi": "testi",
     "valitsekieli": "Valitse kieli"
+  },
+  "opetushallitus": {
+    "logo-alt": "Opetushallituksen logo"
   },
   "lomake": {
     "tayta-lomake": "Täytä hakulomake",
