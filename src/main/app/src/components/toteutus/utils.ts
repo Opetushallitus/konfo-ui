@@ -123,14 +123,6 @@ const getMaksunMaara = (maksu?: Array<Maksu>) => {
 };
 
 export const formatMaksullisuusText = (t: TFunction, maksut?: Array<Maksu>) => {
-  if (
-    isEmpty(maksut) ||
-    (maksut?.length === 1 &&
-      maksut?.[0]?.maksullisuustyyppi === MAKSULLISUUSTYYPPI.MAKSUTON)
-  ) {
-    return t('toteutus.ei-maksua');
-  }
-
   const maksullinen = maksut?.filter(
     (maksu) => maksu.maksullisuustyyppi === MAKSULLISUUSTYYPPI.MAKSULLINEN
   );
@@ -156,5 +148,5 @@ export const formatMaksullisuusText = (t: TFunction, maksut?: Array<Maksu>) => {
     return lukuvuosimaksunMaara;
   }
 
-  return '';
+  return t('toteutus.ei-maksua');
 };
