@@ -27,10 +27,15 @@ import { getLanguage, getTranslationForKey, localize } from './localization';
 import { Pagination } from '../store/reducers/koulutusSlice';
 
 DOMPurify.addHook('afterSanitizeAttributes', (node) => {
-  // set all elements owning target to target=_blank
   if ('target' in node) {
     node.setAttribute('target', '_blank');
     node.setAttribute('rel', 'noopener');
+
+    const text = node.textContent?.trim();
+    const opensInNewTabText = getTranslationForKey('avautuu-uuteen-valilehteen');
+    if (node.nodeName === 'A' && text && opensInNewTabText) {
+      node.setAttribute('aria-label', `${text} (${opensInNewTabText})`);
+    }
   }
 });
 
