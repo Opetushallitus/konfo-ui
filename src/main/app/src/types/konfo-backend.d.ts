@@ -1118,7 +1118,9 @@ export interface paths {
                      * @example [
                      *       "maksuton",
                      *       "maksullinen",
-                     *       "lukuvuosimaksu"
+                     *       "lukuvuosimaksu",
+                     *       "lukuvuosimaksu_amm_lk",
+                     *       "lukuvuosimaksu_kk"
                      *     ]
                      */
                     maksullisuustyyppi?: string[];
@@ -1142,6 +1144,26 @@ export interface paths {
                      * @example 100
                      */
                     lukuvuosimaksunmaara_max?: number;
+                    /**
+                     * @description Ammatillisen ja lukiokoulutuksen lukuvuosimaksun minimimäärä. Käytetään vain jos maksullisuustyypiksi valittu "lukuvuosimaksu_amm_lk"
+                     * @example 100
+                     */
+                    lukuvuosimaksunmaara_amm_lk_min?: number;
+                    /**
+                     * @description Ammatillisen ja lukiokoulutuksen lukuvuosimaksun maksimimäärä. Käytetään vain jos maksullisuustyypiksi valittu "lukuvuosimaksu_amm_lk"
+                     * @example 100
+                     */
+                    lukuvuosimaksunmaara_amm_lk_max?: number;
+                    /**
+                     * @description Yliopisto- ja AMK-koulutuksen lukuvuosimaksun minimimäärä. Käytetään vain jos maksullisuustyypiksi valittu "lukuvuosimaksu_kk"
+                     * @example 100
+                     */
+                    lukuvuosimaksunmaara_kk_min?: number;
+                    /**
+                     * @description Yliopisto- ja AMK-koulutuksen lukuvuosimaksun maksimimäärä. Käytetään vain jos maksullisuustyypiksi valittu "lukuvuosimaksu_kk"
+                     * @example 100
+                     */
+                    lukuvuosimaksunmaara_kk_max?: number;
                     /** @description Haetaanko koulutuksia, joilla on käytössä apuraha? Käytetään vain jos maksullisuustyypiksi valittu "lukuvuosimaksu" */
                     apuraha?: boolean;
                     /**
@@ -1314,7 +1336,9 @@ export interface paths {
                      * @example [
                      *       "maksuton",
                      *       "maksullinen",
-                     *       "lukuvuosimaksu"
+                     *       "lukuvuosimaksu",
+                     *       "lukuvuosimaksu_amm_lk",
+                     *       "lukuvuosimaksu_kk"
                      *     ]
                      */
                     maksullisuustyyppi?: string[];
@@ -1338,6 +1362,26 @@ export interface paths {
                      * @example 100
                      */
                     lukuvuosimaksunmaara_max?: number;
+                    /**
+                     * @description Ammatillisen ja lukiokoulutuksen lukuvuosimaksun minimimäärä. Käytetään vain jos maksullisuustyypiksi valittu "lukuvuosimaksu_amm_lk"
+                     * @example 100
+                     */
+                    lukuvuosimaksunmaara_amm_lk_min?: number;
+                    /**
+                     * @description Ammatillisen ja lukiokoulutuksen lukuvuosimaksun maksimimäärä. Käytetään vain jos maksullisuustyypiksi valittu "lukuvuosimaksu_amm_lk"
+                     * @example 100
+                     */
+                    lukuvuosimaksunmaara_amm_lk_max?: number;
+                    /**
+                     * @description Yliopisto- ja AMK-koulutuksen lukuvuosimaksun minimimäärä. Käytetään vain jos maksullisuustyypiksi valittu "lukuvuosimaksu_kk"
+                     * @example 100
+                     */
+                    lukuvuosimaksunmaara_kk_min?: number;
+                    /**
+                     * @description Yliopisto- ja AMK-koulutuksen lukuvuosimaksun maksimimäärä. Käytetään vain jos maksullisuustyypiksi valittu "lukuvuosimaksu_kk"
+                     * @example 100
+                     */
+                    lukuvuosimaksunmaara_kk_max?: number;
                     /** @description Haetaanko koulutuksia, joilla on käytössä apuraha? Käytetään vain jos maksullisuustyypiksi valittu "lukuvuosimaksu" */
                     apuraha?: boolean;
                     /**
@@ -1542,7 +1586,9 @@ export interface paths {
                      * @example [
                      *       "maksuton",
                      *       "maksullinen",
-                     *       "lukuvuosimaksu"
+                     *       "lukuvuosimaksu",
+                     *       "lukuvuosimaksu_amm_lk",
+                     *       "lukuvuosimaksu_kk"
                      *     ]
                      */
                     maksullisuustyyppi?: string[];
@@ -1566,6 +1612,26 @@ export interface paths {
                      * @example 100
                      */
                     lukuvuosimaksunmaara_max?: number;
+                    /**
+                     * @description Ammatillisen ja lukiokoulutuksen lukuvuosimaksun minimimäärä. Käytetään vain jos maksullisuustyypiksi valittu "lukuvuosimaksu_amm_lk"
+                     * @example 100
+                     */
+                    lukuvuosimaksunmaara_amm_lk_min?: number;
+                    /**
+                     * @description Ammatillisen ja lukiokoulutuksen lukuvuosimaksun maksimimäärä. Käytetään vain jos maksullisuustyypiksi valittu "lukuvuosimaksu_amm_lk"
+                     * @example 100
+                     */
+                    lukuvuosimaksunmaara_amm_lk_max?: number;
+                    /**
+                     * @description Yliopisto- ja AMK-koulutuksen lukuvuosimaksun minimimäärä. Käytetään vain jos maksullisuustyypiksi valittu "lukuvuosimaksu_kk"
+                     * @example 100
+                     */
+                    lukuvuosimaksunmaara_kk_min?: number;
+                    /**
+                     * @description Yliopisto- ja AMK-koulutuksen lukuvuosimaksun maksimimäärä. Käytetään vain jos maksullisuustyypiksi valittu "lukuvuosimaksu_kk"
+                     * @example 100
+                     */
+                    lukuvuosimaksunmaara_kk_max?: number;
                     /** @description Haetaanko koulutuksia, joilla on käytössä apuraha? Käytetään vain jos maksullisuustyypiksi valittu "lukuvuosimaksu" */
                     apuraha?: boolean;
                     /**
@@ -1936,7 +2002,9 @@ export interface paths {
                      * @example [
                      *       "maksuton",
                      *       "maksullinen",
-                     *       "lukuvuosimaksu"
+                     *       "lukuvuosimaksu",
+                     *       "lukuvuosimaksu_amm_lk",
+                     *       "lukuvuosimaksu_kk"
                      *     ]
                      */
                     maksullisuustyyppi?: string[];
@@ -1960,6 +2028,26 @@ export interface paths {
                      * @example 100
                      */
                     lukuvuosimaksunmaara_max?: number;
+                    /**
+                     * @description Ammatillisen ja lukiokoulutuksen lukuvuosimaksun minimimäärä. Käytetään vain jos maksullisuustyypiksi valittu "lukuvuosimaksu_amm_lk"
+                     * @example 100
+                     */
+                    lukuvuosimaksunmaara_amm_lk_min?: number;
+                    /**
+                     * @description Ammatillisen ja lukiokoulutuksen lukuvuosimaksun maksimimäärä. Käytetään vain jos maksullisuustyypiksi valittu "lukuvuosimaksu_amm_lk"
+                     * @example 100
+                     */
+                    lukuvuosimaksunmaara_amm_lk_max?: number;
+                    /**
+                     * @description Yliopisto- ja AMK-koulutuksen lukuvuosimaksun minimimäärä. Käytetään vain jos maksullisuustyypiksi valittu "lukuvuosimaksu_kk"
+                     * @example 100
+                     */
+                    lukuvuosimaksunmaara_kk_min?: number;
+                    /**
+                     * @description Yliopisto- ja AMK-koulutuksen lukuvuosimaksun maksimimäärä. Käytetään vain jos maksullisuustyypiksi valittu "lukuvuosimaksu_kk"
+                     * @example 100
+                     */
+                    lukuvuosimaksunmaara_kk_max?: number;
                     /** @description Haetaanko koulutuksia, joilla on käytössä apuraha? Käytetään vain jos maksullisuustyypiksi valittu "lukuvuosimaksu" */
                     apuraha?: boolean;
                     /** @description Palautetaan koulutukset, joiden hakuaika alkaa x vuorokauden sisällä. */
@@ -2443,37 +2531,6 @@ export interface paths {
                      */
                     koulutuksenkestokuukausina_max?: number;
                     /**
-                     * @description Pilkulla eroteltu lista koulutuksen maksullisuustyyppejä
-                     * @example [
-                     *       "maksuton",
-                     *       "maksullinen",
-                     *       "lukuvuosimaksu"
-                     *     ]
-                     */
-                    maksullisuustyyppi?: string[];
-                    /**
-                     * @description Koulutuksen maksun minimimäärä. Käytetään vain jos maksullisuustyypiksi valittu "maksullinen"
-                     * @example 100
-                     */
-                    maksunmaara_min?: number;
-                    /**
-                     * @description Koulutuksen maksun maksimimäärä. Käytetään vain jos maksullisuustyypiksi valittu "maksullinen"
-                     * @example 100
-                     */
-                    maksunmaara_max?: number;
-                    /**
-                     * @description Koulutuksen lukuvuosimaksun minimimäärä. Käytetään vain jos maksullisuustyypiksi valittu "lukuvuosimaksu"
-                     * @example 100
-                     */
-                    lukuvuosimaksunmaara_min?: number;
-                    /**
-                     * @description Koulutuksen lukuvuosimaksun maksimimäärä. Käytetään vain jos maksullisuustyypiksi valittu "lukuvuosimaksu"
-                     * @example 100
-                     */
-                    lukuvuosimaksunmaara_max?: number;
-                    /** @description Haetaanko koulutuksia, joilla on käytössä apuraha? Käytetään vain jos maksullisuustyypiksi valittu "lukuvuosimaksu" */
-                    apuraha?: boolean;
-                    /**
                      * @description Pilkulla eroteltuna "valintatapajono"-koodiston koodeja
                      * @example [
                      *       "valintatapajono_av",
@@ -2524,6 +2581,37 @@ export interface paths {
                     alkamiskausi?: string[];
                     /** @description Palautetaan koulutukset, joiden hakuaika alkaa x vuorokauden sisällä. */
                     hakualkaapaivissa?: number;
+                    /**
+                     * @description Pilkulla eroteltu lista koulutuksen maksullisuustyyppejä
+                     * @example [
+                     *       "maksuton",
+                     *       "maksullinen",
+                     *       "lukuvuosimaksu"
+                     *     ]
+                     */
+                    maksullisuustyyppi?: string[];
+                    /**
+                     * @description Koulutuksen maksun minimimäärä. Käytetään vain jos maksullisuustyypiksi valittu "maksullinen"
+                     * @example 100
+                     */
+                    maksunmaara_min?: number;
+                    /**
+                     * @description Koulutuksen maksun maksimimäärä. Käytetään vain jos maksullisuustyypiksi valittu "maksullinen"
+                     * @example 100
+                     */
+                    maksunmaara_max?: number;
+                    /**
+                     * @description Koulutuksen lukuvuosimaksun minimimäärä. Käytetään vain jos maksullisuustyypiksi valittu "lukuvuosimaksu"
+                     * @example 100
+                     */
+                    lukuvuosimaksunmaara_min?: number;
+                    /**
+                     * @description Koulutuksen lukuvuosimaksun maksimimäärä. Käytetään vain jos maksullisuustyypiksi valittu "lukuvuosimaksu"
+                     * @example 100
+                     */
+                    lukuvuosimaksunmaara_max?: number;
+                    /** @description Haetaanko koulutuksia, joilla on käytössä apuraha? Käytetään vain jos maksullisuustyypiksi valittu "lukuvuosimaksu" */
+                    apuraha?: boolean;
                     /**
                      * @description Pilkulla eroteltu lista luokittelutermejä
                      * @example [
