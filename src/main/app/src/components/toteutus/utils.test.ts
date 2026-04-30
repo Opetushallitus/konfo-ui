@@ -249,17 +249,17 @@ describe('formatMaksullisuusText', () => {
     expect(formatMaksullisuusText(t, maksut)).toEqual('1500 €');
   });
 
-  it('should return text "Ei maksua" when maksuton toteutus', () => {
+  it('should return text toteutus.ei-maksua when maksuton toteutus', () => {
     const maksut = [{ maksullisuustyyppi: MAKSULLISUUSTYYPPI.MAKSUTON }];
     expect(formatMaksullisuusText(t, maksut)).toEqual('toteutus.ei-maksua');
   });
 
-  it('should return text "Ei maksua" when maksut is empty', () => {
+  it('should return text toteutus.ei-maksua when maksut is empty', () => {
     const maksut = [] as Array<Maksu>;
     expect(formatMaksullisuusText(t, maksut)).toEqual('toteutus.ei-maksua');
   });
 
-  it('should return text "Ei maksua" when maksut is undefined', () => {
+  it('should return text toteutus.ei-maksua when maksut is undefined', () => {
     const maksut = undefined;
     expect(formatMaksullisuusText(t, maksut)).toEqual('toteutus.ei-maksua');
   });
@@ -274,10 +274,13 @@ describe('formatMaksullisuusText', () => {
     );
   });
 
-  it('should return empty string when unknown maksullisuustyyppi', () => {
+  it('should return toteutus.ei-maksua when unknown maksullisuustyyppi', () => {
     const maksut = [
-      { maksullisuustyyppi: 'ei-määritelty' as Maksullisuustyyppi, maksunMaara: 450 },
+      {
+        maksullisuustyyppi: 'väärä-maksullisuustyyppi' as Maksullisuustyyppi,
+        maksunMaara: 450,
+      },
     ];
-    expect(formatMaksullisuusText(t, maksut)).toEqual('');
+    expect(formatMaksullisuusText(t, maksut)).toEqual('toteutus.ei-maksua');
   });
 });
