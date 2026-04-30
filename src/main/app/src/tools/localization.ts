@@ -1,10 +1,8 @@
 import { TFunction } from 'i18next';
 import { isString, flow, map, filter, isEmpty, trim, uniq } from 'lodash';
 
-import { MAKSULLISUUSTYYPPI } from '#/src/constants';
 import { Koodi, Translateable, TranslateableKoodi } from '#/src/types/common';
 import { RajainItem } from '#/src/types/SuodatinTypes';
-import { Maksullisuustyyppi } from '#/src/types/ToteutusTypes';
 
 import { i18n } from './i18n';
 import { koodiUriToPostinumero, sortArray } from './utils';
@@ -58,21 +56,6 @@ export const localizeOsoite = (
   )} ${localizedPostinumerokoodi?.nimi}`;
   return `${localize(katuosoite)}${postitoimialue}`;
 };
-
-export const getLocalizedMaksullisuus = (
-  maksullisuustyyppi: Maksullisuustyyppi,
-  maksuAmount: number
-) =>
-  [MAKSULLISUUSTYYPPI.MAKSULLINEN, MAKSULLISUUSTYYPPI.LUKUVUOSIMAKSU].includes(
-    maksullisuustyyppi
-  )
-    ? `${
-        maksullisuustyyppi === MAKSULLISUUSTYYPPI.LUKUVUOSIMAKSU
-          ? getTranslationForKey('toteutus.lukuvuosimaksu') + ' '
-          : ''
-      }${maksuAmount} €
-      `
-    : getTranslationForKey('toteutus.maksuton');
 
 export const localizeLukiolinja = (koodi: Koodi) =>
   localize(koodi)?.match(/^(.+?)(\s+\(.+\))?\s*$/)?.[1];
