@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 
 import { useLocation } from 'react-router-dom';
 
-import { scrollToId } from '#/src/tools/utils';
+import { focusElement, scrollToId } from '#/src/tools/utils';
 
 export const useScrollToHash = () => {
   const location = useLocation();
@@ -14,7 +14,9 @@ export const useScrollToHash = () => {
       lastHash.current = hash.slice(1); // safe hash for further use after navigation
     }
     if (lastHash.current) {
+      const target = document.getElementById(lastHash.current);
       scrollToId(lastHash.current);
+      focusElement(target);
       lastHash.current = '';
     }
   }, [location]);
