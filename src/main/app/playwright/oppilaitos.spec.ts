@@ -36,18 +36,20 @@ test.describe('oppilaitos', () => {
       'https://www.aalto.fi/snapchat'
     );
     await verifySomeLink('TikTok', 'https://www.tiktok.com/@aaltouniversity');
+    const yhteystietoCard = page
+      .getByRole('heading', { name: 'Aalto-yliopisto', level: 4 })
+      .locator('xpath=ancestor::div[contains(@class, "MuiPaper-root")]');
+
     await expect(
-      page.getByRole('link', {
+      yhteystietoCard.getByRole('link', {
         name: 'Oppilaitoksen blogi (Avautuu uuteen välilehteen)',
       })
     ).toHaveAttribute('href', 'https://blogs.aalto.fi/');
 
     await expect(
-      page
-        .getByRole('link', {
-          name: 'Aalto-Yliopisto (Avautuu uuteen välilehteen)',
-        })
-        .first()
+      yhteystietoCard.getByRole('link', {
+        name: 'Aalto-Yliopisto (Avautuu uuteen välilehteen)',
+      })
     ).toHaveAttribute('href', 'https://www.aalto.fi/fi/');
   });
 
