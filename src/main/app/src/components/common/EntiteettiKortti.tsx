@@ -38,6 +38,32 @@ const StyledSmartLink = styled(SmartLink, {
   shouldForwardProp: (prop: string) => !['isSmall', 'wrapIconTexts'].includes(prop),
 })<StyledSmartLinkProps>(({ theme, isSmall, wrapIconTexts }) => ({
   display: 'flex',
+  width: '100%',
+  textDecoration: 'none',
+
+  '&:focus-visible': {
+    outline: 'none',
+  },
+
+  '&:focus-visible .EntiteettiKortti-paperRoot': {
+    boxShadow: `
+      0 0 8px rgba(0,0,0,0.2),
+      0 0 0 3px white,
+      0 0 0 6px ${colors.green700}
+    `,
+  },
+
+  [`& .${classes.paperRoot}`]: {
+    width: '100%',
+    marginBottom: theme.spacing(1.5),
+    boxShadow: '0 0 8px 0 rgba(0,0,0,0.2)',
+    padding: isSmall ? '16px' : theme.spacing(3),
+    transition: 'box-shadow 120ms ease',
+
+    [theme.breakpoints.down('xs')]: {
+      padding: theme.spacing(2),
+    },
+  },
   [`& .${classes.paperRoot}`]: {
     width: '100%',
     marginBottom: theme.spacing(1.5),
