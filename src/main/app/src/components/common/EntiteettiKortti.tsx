@@ -59,21 +59,10 @@ const StyledSmartLink = styled(SmartLink, {
     boxShadow: '0 0 8px 0 rgba(0,0,0,0.2)',
     padding: isSmall ? '16px' : theme.spacing(3),
     transition: 'box-shadow 120ms ease',
-
     [theme.breakpoints.down('xs')]: {
       padding: theme.spacing(2),
     },
   },
-  [`& .${classes.paperRoot}`]: {
-    width: '100%',
-    marginBottom: theme.spacing(1.5),
-    boxShadow: '0 0 8px 0 rgba(0,0,0,0.2)',
-    padding: isSmall ? '16px' : theme.spacing(3),
-    [theme.breakpoints.down('xs')]: {
-      padding: theme.spacing(2),
-    },
-  },
-
   [`& .${classes.header}`]: {
     marginBottom: theme.spacing(isSmall ? 2 : 3),
     fontWeight: 'bold',
