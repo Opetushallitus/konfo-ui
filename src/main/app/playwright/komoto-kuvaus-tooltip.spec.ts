@@ -23,6 +23,7 @@ test.describe('Kuvaus tooltip KOMOTO', () => {
 
     const tooltipLink = suunniteltuKestoContainer.getByRole('tooltip').getByRole('link');
     await expect(tooltipLink).toHaveAttribute('target', '_blank');
+    await expect(tooltipLink).toHaveAccessibleName('teksti (Avautuu uuteen välilehteen)');
     await expect(tooltipLink).toHaveAttribute('href', 'https://oph.fi');
   });
 });

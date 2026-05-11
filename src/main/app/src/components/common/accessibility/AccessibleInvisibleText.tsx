@@ -1,10 +1,8 @@
 import React from 'react';
 
-import { Typography } from '@mui/material';
-
 import { styled } from '#/src/theme';
 
-const StyledInvisibleText = styled(Typography)(() => ({
+const StyledInvisibleText = styled('span')(() => ({
   height: '1px',
   width: '1px',
   position: 'absolute',

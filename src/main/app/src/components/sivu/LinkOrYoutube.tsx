@@ -1,7 +1,9 @@
 import React from 'react';
 
 import { Link } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
+import { AccessibleInvisibleText } from '#/src/components/common/accessibility/AccessibleInvisibleText';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { styled } from '#/src/theme';
 import { parseUrl } from '#/src/tools/utils';
@@ -50,6 +52,7 @@ export const LinkOrYoutube = ({
   href,
   ...props
 }: LinkOrYoutubeProps) => {
+  const { t } = useTranslation();
   const url = parseUrl(href);
   const v = url?.searchParams?.get?.('v');
 
@@ -75,12 +78,17 @@ export const LinkOrYoutube = ({
     return (
       <StyledLink
         target={absolute ? '_blank' : '_self'}
-        rel="noopener"
+        rel={absolute ? 'noopener' : undefined}
         {...props}
         href={href}
         underline="always">
         {children}
-        {absolute && <MaterialIcon icon="open_in_new" />}
+        {absolute && (
+          <>
+            <AccessibleInvisibleText text={` (${t('avautuu-uuteen-valilehteen')})`} />
+            <MaterialIcon icon="open_in_new" aria-hidden="true" />
+          </>
+        )}
       </StyledLink>
     );
   }
