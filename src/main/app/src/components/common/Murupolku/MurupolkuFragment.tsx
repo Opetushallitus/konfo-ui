@@ -43,7 +43,9 @@ const Root = styled('span', {
   [`& .${classes.link}`]: {
     ...theme.typography.body1,
     marginRight: BREADCRUMB_ICON_SPACING,
-    display: 'inline',
+    display: 'inline-flex',
+    alignItems: 'center',
+    padding: '1px 4px',
     cursor: 'pointer',
     color: colors.brandGreen,
     textDecoration: 'none',

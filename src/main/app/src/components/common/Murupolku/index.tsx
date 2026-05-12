@@ -45,7 +45,8 @@ const BreadcrumbListItem = styled('li')({
 
 const StyledNav = styled('nav')({
   '.MuiLink-root.Mui-focusVisible': {
-    backgroundColor: colors.grey200,
+    backgroundColor: 'transparent',
+    boxShadow: `inset 0 0 0 2px ${colors.grey900}`,
   },
 });
 
