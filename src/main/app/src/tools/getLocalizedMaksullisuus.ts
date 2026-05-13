@@ -32,18 +32,16 @@ export const getLocalizedMaksullisuus = (
   } else {
     if (isMaksuton) {
       return getTranslationForKey('toteutus.maksuton');
-    } else if (
-      isLukuvuosimaksullinen &&
-      isMaksullinen &&
-      maksuAmount &&
-      lukuvuosimaksuAmount
-    ) {
+    }
+
+    if (isLukuvuosimaksullinen && isMaksullinen && maksuAmount && lukuvuosimaksuAmount) {
       const maksullinenStr = `${getTranslationForKey('toteutus.maksullinen-opetus')}: ${maksuAmount} €`;
       const lukuvuosimaksuStr = `${getTranslationForKey('toteutus.lukuvuosimaksu')}: ${lukuvuosimaksuAmount} €`;
       return `${maksullinenStr}\n${lukuvuosimaksuStr}`;
     } else if (
+      koulutustyyppi &&
       [KOULUTUS_TYYPPI.AMKKOULUTUS, KOULUTUS_TYYPPI.YLIOPISTOKOULUTUS].includes(
-        koulutustyyppi as Koulutustyyppi
+        koulutustyyppi
       ) &&
       isLukuvuosimaksullinen &&
       lukuvuosimaksuAmount
