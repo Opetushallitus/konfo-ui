@@ -225,7 +225,11 @@
     "maksullinen": "Maksullinen",
     "maksunmaara": "Maksun määrä",
     "lukuvuosimaksu": "Lukuvuosimaksu",
+    "lukuvuosimaksu_kk": "Kk-lukuvuosimaksu",
+    "lukuvuosimaksu_amm_lk": "Lukuvuosimaksu amm ja lk",
     "lukuvuosimaksunmaara": "Lukuvuosimaksun määrä",
+    "lukuvuosimaksunmaara_kk": "Kk-lukuvuosimaksun määrä",
+    "lukuvuosimaksunmaara_amm_lk": "Amm- ja lk- lukuvuosimaksun määrä",
     "apuraha": "Apuraha",
     "maisteri": "Maisteriohjelmat",
     "muut": "Muut",
@@ -293,6 +297,7 @@
     "tutkintoon-johtamaton-koulutus-maara_plural": "{{count}} tutkintoon johtamatonta koulutusta",
     "tuva-normal": "Tutkintokoulutukseen valmentavat koulutukset (TUVA)",
     "tuva-erityisopetus": "Tutkintokoulutukseen valmentavat koulutukset (TUVA) erityisopetuksena",
+    "vapaa-sivistystyo": "Vapaa sivistystyö",
     "vapaa-sivistystyo-muu": "Vapaan sivistystyön koulutukset",
     "vapaa-sivistystyo-opistovuosi": "Kansanopistojen opistovuosi oppivelvollisille -koulutukset",
     "vapaa-sivistystyo-osaamismerkki": "Osaamismerkki",
@@ -356,7 +361,8 @@
         "vaihtoehdot": {
           "maksuton": "En halua maksaa koulutuksesta.",
           "maksullinen": "Olen valmis maksamaan koulutuksesta.",
-          "lukuvuosimaksu": "Tulen EU:n ulkopuolelta ja voin maksaa lukuvuosimaksun."
+          "lukuvuosimaksu_kk": "Tulen EU:n ulkopuolelta ja voin maksaa lukuvuosimaksun.",
+          "lukuvuosimaksu_amm_lk": "Amm- ja lk-lukuvuosimaksu"
         }
       },
       "opetusaika": {
@@ -489,7 +495,7 @@
     "tyotehtavatJoissaVoiToimia": "Työtehtäviä, joissa tutkinnon suorittanut voi toimia",
     "opetusaika": "Opetusaika",
     "opetustapa": "Opetustapa",
-    "lukuvuosimaksu": "Lukuvuosimaksu",
+    "lukuvuosimaksu": "lukuvuosimaksu",
     "järjestävät-oppilaitokset": "Koulutusta järjestävät oppilaitokset",
     "lisätietoa": "Lisätietoa koulutuksesta",
     "teema": "Teema",
@@ -634,7 +640,9 @@
     "laajuus": "Laajuus",
     "kesto": "Kesto",
     "maksullinen": "Maksullinen",
+    "maksullinen-opetus": "Maksullinen opetus",
     "lukuvuosimaksu": "Lukuvuosimaksu",
+    "lukuvuosimaksu-kk": "Lukuvuosimaksu muille kuin EU/ETA-kansalaisille",
     "kuvaus": "Toteutuksen kuvaus",
     "osaamisalat": "Osaamisalat",
     "jatko-opintomahdollisuudet": "Jatko-opintomahdollisuudet",

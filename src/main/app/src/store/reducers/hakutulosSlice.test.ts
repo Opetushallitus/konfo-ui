@@ -38,6 +38,10 @@ const DEFAULT_PARAMS = {
     maksunmaara_max: '20',
     lukuvuosimaksunmaara_min: '10',
     lukuvuosimaksunmaara_max: '20',
+    lukuvuosimaksunmaara_kk_min: '30',
+    lukuvuosimaksunmaara_kk_max: '40',
+    lukuvuosimaksunmaara_amm_lk_min: '15',
+    lukuvuosimaksunmaara_amm_lk_max: '25',
     apuraha: 'false',
     alkamiskausi: '2022-kevat,2022-syksy',
     oppilaitos: '8888,9999',
@@ -74,9 +78,13 @@ const DEFAULT_RESULT = {
     maksunmaara_min: '10',
     maksunmaara_max: '20',
   },
-  lukuvuosimaksunmaara: {
-    lukuvuosimaksunmaara_min: '10',
-    lukuvuosimaksunmaara_max: '20',
+  lukuvuosimaksunmaara_kk: {
+    lukuvuosimaksunmaara_kk_min: '30',
+    lukuvuosimaksunmaara_kk_max: '40',
+  },
+  lukuvuosimaksunmaara_amm_lk: {
+    lukuvuosimaksunmaara_amm_lk_min: '15',
+    lukuvuosimaksunmaara_amm_lk_max: '25',
   },
   apuraha: false,
   alkamiskausi: ['2022-kevat', '2022-syksy'],
