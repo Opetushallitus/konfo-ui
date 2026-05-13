@@ -113,7 +113,10 @@ export const Footer = () => {
         <Grid container>
           <Grid item xs={12}>
             <Hr>
-              <StyledOphIcon alt={t('opintopolku.brand')} src={OpintopolkuFooterLogo()} />
+              <StyledOphIcon
+                alt={t('opintopolku.logo-alt')}
+                src={OpintopolkuFooterLogo()}
+              />
             </Hr>
           </Grid>
         </Grid>
@@ -142,7 +145,7 @@ export const Footer = () => {
         <Grid container>
           <Grid item xs={12}>
             <Hr>
-              <StyledIcon alt={t('opintopolku.brand')} src={OPHFooterLogo()} />
+              <StyledIcon alt={t('opetushallitus.logo-alt')} src={OPHFooterLogo()} />
             </Hr>
           </Grid>
         </Grid>
