@@ -233,7 +233,7 @@ export const hakutulosSlice = createSlice({
             'koulutuksenkestokuukausina_min',
             'koulutuksenkestokuukausina_max',
             () => {
-              const rajainKey = key.split(/_max|min$/)?.[0];
+              const rajainKey = key.split(/(_max|min$)/)?.[0];
               const minKey = `${rajainKey}_min`;
               const maxKey = `${rajainKey}_max`;
 
