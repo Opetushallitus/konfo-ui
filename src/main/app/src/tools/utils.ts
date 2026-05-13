@@ -119,6 +119,15 @@ export const scrollIntoView = (
 export const scrollToId = (id?: string, options?: ScrollIntoViewOptions) =>
   scrollIntoView(id ? document.getElementById(id) : null, options);
 
+export const focusElement = (element?: Element | null) => {
+  if (element instanceof HTMLElement) {
+    if (!element.hasAttribute('tabindex')) {
+      element.tabIndex = -1;
+    }
+    element.focus({ preventScroll: true });
+  }
+};
+
 function getFormattedOpintojenLaajuus(
   opintojenLaajuusYksikko: string,
   opintojenLaajuusNumero?: string,
