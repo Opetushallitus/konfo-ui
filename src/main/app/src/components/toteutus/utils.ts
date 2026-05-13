@@ -110,12 +110,16 @@ export const formatMaksullisuusTitle = (
   t: TFunction,
   maksut?: Array<Maksu>,
   koulutustyyppi?: KoutaKoulutustyyppi
-) => {
-  return isLukuvuosimaksullinenKkToteutus(maksut, koulutustyyppi)
-    ? t('toteutus.lukuvuosimaksu-kk')
-    : isLukuvuosimaksullinen(maksut) && maksut?.length === 1
-      ? t('toteutus.lukuvuosimaksu')
-      : t('toteutus.maksullisuus');
+): string => {
+  if (isLukuvuosimaksullinenKkToteutus(maksut, koulutustyyppi)) {
+    return t('toteutus.lukuvuosimaksu-kk');
+  }
+
+  if (isLukuvuosimaksullinen(maksut) && maksut?.length === 1) {
+    return t('toteutus.lukuvuosimaksu');
+  }
+
+  return t('toteutus.maksullisuus');
 };
 
 const getMaksunMaara = (maksu?: Array<Maksu>) => {
