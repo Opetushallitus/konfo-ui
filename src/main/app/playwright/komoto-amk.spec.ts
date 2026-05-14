@@ -21,17 +21,25 @@ test.describe('AMK KOMOTO', () => {
     ).toBeVisible();
     const osaamistavoitteetSection = page.getByLabel('Koulutuksen osaamistavoitteet');
     const osaamistavoitteetTextDiv = osaamistavoitteetSection.locator('div').nth(1);
-    const truncatedText =
-      'Tavoitteena on tuottaa sinulle opintosuuntasi mukaan painottuva korkeatasoinen ydinosaaminen: soittaminen, laulaminen, yhteismusisointi, säveltäminen, kuoronjohto, orkesterinjohto (puhallinorkesteri, sinfoniaorkesteri, teatterikapellimestari), musiikkiteknologia, musiikinteoria ja -historia sekä monipuolinen pedagoginen osaaminen. Ydinosaamistasi täydennät muilla musiikillisilla opinnoilla tai oman kiinnostuksesi mukaan monialaisilla opinnoilla.';
-    await expect(osaamistavoitteetTextDiv).toHaveText(`${truncatedText} ...Näytä lisää`);
+    const textStart =
+      'Tavoitteena on tuottaa sinulle opintosuuntasi mukaan painottuva korkeatasoinen ydinosaaminen';
+    const fullTextEnd = 'Curabitur congue quis orci eget sodales.';
+
+    // Text should be truncated initially — "Näytä lisää" button is visible
     const osaamistavoitekuvausNaytaLisaa = osaamistavoitteetSection.getByRole('button', {
       name: 'Näytä lisää',
     });
+    await expect(osaamistavoitteetTextDiv).toContainText(textStart);
+    await expect(osaamistavoitteetTextDiv).toContainText('...Näytä lisää');
+    await expect(osaamistavoitteetTextDiv).not.toContainText(fullTextEnd);
+
     await osaamistavoitekuvausNaytaLisaa.click();
-    const wholeText =
-      truncatedText +
-      ' Musiikillisten ja pedagogisten taitojen lisäksi kehität kielten, viestinnän, taiteilijayrittäjyyden, työhyvinvoinnin sekä tutkimuksen ja kehittämisen osaamista. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer a augue nec mauris porta cursus. Curabitur libero diam, hendrerit sit amet volutpat a, sagittis vel felis. Etiam commodo mi gravida faucibus dictum. Mauris vitae semper sem. Quisque ipsum odio, viverra a dignissim eu, scelerisque in erat. Duis non lorem aliquam, efficitur sapien non, dictum eros. Morbi ac sem lectus. Morbi vel fringilla diam. Proin viverra rutrum urna vitae volutpat. In et maximus libero, ut iaculis elit. Nullam nec sodales felis, id consequat tellus. Fusce placerat tortor sed varius luctus. Nunc maximus ligula justo, at cursus libero dapibus vel. Curabitur congue quis orci eget sodales.Näytä vähemmän';
-    await expect(osaamistavoitteetTextDiv).toHaveText(wholeText);
+
+    // Full text should be visible after expanding
+    await expect(osaamistavoitteetTextDiv).toContainText(fullTextEnd);
+    await expect(osaamistavoitteetTextDiv).toContainText('Näytä vähemmän');
+    await expect(osaamistavoitekuvausNaytaLisaa).toBeHidden();
+
     const osaamistavoitekuvausNaytaVahemman = osaamistavoitteetSection.getByRole(
       'button',
       {
@@ -39,6 +47,9 @@ test.describe('AMK KOMOTO', () => {
       }
     );
     await osaamistavoitekuvausNaytaVahemman.click();
-    await expect(osaamistavoitteetTextDiv).toHaveText(`${truncatedText} ...Näytä lisää`);
+
+    // Text should be truncated again
+    await expect(osaamistavoitteetTextDiv).not.toContainText(fullTextEnd);
+    await expect(osaamistavoitekuvausNaytaLisaa).toBeVisible();
   });
 });

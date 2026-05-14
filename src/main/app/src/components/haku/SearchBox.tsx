@@ -78,6 +78,7 @@ const createRenderInput = (t: TFunction, descriptionId: string) => {
         inputProps={{
           ...paramInputProps,
           'aria-describedby': descriptionId,
+          'aria-label': t('haku.kehoite'),
         }}
       />
     );
