@@ -391,9 +391,11 @@ export const Filter = ({
           {additionalContent}
           {options && rajainItems.length > HIDE_NOT_EXPANDED_AMOUNT && (
             <Grid item style={{ padding: '20px 0', zIndex: 2 }}>
-              {/* Visually hidden label for WCAG 3.3.2 compliance */}
-              <label htmlFor={selectId} style={screenReaderOnly}>
-                {t('haku.sijainnin-hakukentta')}
+              <label
+                htmlFor={selectId}
+                id={selelctLabelId}
+                style={{ display: 'block', marginBottom: '4px', fontSize: '0.875rem' }}>
+                {t('haku.etsi-paikkakunta-tai-alue')}
               </label>
               <div id={selectHintId} style={screenReaderOnly}>
                 {selectPlaceholder || t('haku.etsi')}
@@ -404,7 +406,7 @@ export const Filter = ({
                 aria-labelledby={selelctLabelId}
                 aria-describedby={selectHintId}
                 ref={inputRef}
-                aria-label={t('haku.sijainnin-hakukentta')}
+                aria-label={t('haku.etsi-paikkakunta-tai-alue')}
                 components={{ DropdownIndicator, LoadingIndicator, Option }}
                 styles={customStyles}
                 value={[]}

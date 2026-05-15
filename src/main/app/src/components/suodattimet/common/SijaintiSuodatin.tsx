@@ -91,7 +91,6 @@ export const SijaintiSuodatin = (props: RajainComponentProps) => {
       onHide={() => setExpanded(false)}
       options={groupedSijainnit}
       optionsLoading={optionsLoading || loading}
-      selectPlaceholder={t('haku.etsi-paikkakunta-tai-alue')}
       name={t('haku.sijainti')}
       rajainItems={usedRajainValues}
       onItemChange={onItemChange}

@@ -225,6 +225,21 @@ export const HakuPage = () => {
               <Typography sx={{ pt: '10px' }} variant="h5" component="h2">
                 {t('haku.rajaa-tuloksia')}
               </Typography>
+              <Box
+                component="p"
+                sx={{
+                  border: 0,
+                  clip: 'rect(0 0 0 0)',
+                  height: 1,
+                  margin: 0,
+                  overflow: 'hidden',
+                  padding: 0,
+                  position: 'absolute',
+                  width: 1,
+                  whiteSpace: 'nowrap',
+                }}>
+                {t('haku.rajaa-ohjeteksti')}
+              </Box>
             </Grid>
           )}
           <Grid

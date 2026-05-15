@@ -33,8 +33,9 @@ const createRenderOption = (t: TFunction) => {
     props: React.HTMLAttributes<HTMLLIElement>,
     option: AutocompleteOption
   ) {
+    const propsWithAriaSelectedOff = { ...props, 'aria-selected': false };
     return (
-      <li {...props} style={{ display: 'block' }} key={option.link}>
+      <li {...propsWithAriaSelectedOff} style={{ display: 'block' }} key={option.link}>
         <Box>{option.label}</Box>
         {match(option)
           .with({ type: 'koulutus' }, (k) => {
@@ -54,10 +55,10 @@ const createRenderOption = (t: TFunction) => {
   };
 };
 
-const createRenderInput = (t: TFunction) => {
+const createRenderInput = (t: TFunction, descriptionId: string) => {
   return function KonfoAutocompleteInput(params: AutocompleteRenderInputParams) {
-    const { InputProps } = params;
-    const rest = omit(params, ['InputProps', 'InputLabelProps']);
+    const { InputProps, inputProps: paramInputProps } = params;
+    const rest = omit(params, ['InputProps', 'InputLabelProps', 'inputProps']);
     return (
       <InputBase
         sx={{
@@ -74,6 +75,11 @@ const createRenderInput = (t: TFunction) => {
         placeholder={t('haku.kehoite')}
         {...InputProps}
         {...rest}
+        inputProps={{
+          ...paramInputProps,
+          'aria-describedby': descriptionId,
+          'aria-label': t('haku.kehoite'),
+        }}
       />
     );
   };
@@ -158,6 +164,8 @@ export const SearchBox = ({
   const navigate = useNavigate();
   const isOptionEqualToValue = useIsOptionEqualToValue();
 
+  const hintId = 'searchbox-autocomplete-hint';
+
   return (
     <Paper
       component="form"
@@ -183,6 +191,21 @@ export const SearchBox = ({
         borderRadius: '2px',
       }}
       elevation={4}>
+      <span
+        id={hintId}
+        style={{
+          border: 0,
+          clip: 'rect(0 0 0 0)',
+          height: 1,
+          margin: -1,
+          overflow: 'hidden',
+          padding: 0,
+          position: 'absolute',
+          width: 1,
+          whiteSpace: 'nowrap',
+        }}>
+        {t('haku.ehdotus-navigoi-sivulle')}
+      </span>
       <Tooltip
         placement="bottom-start"
         open={!isKeywordValid}
@@ -199,6 +222,17 @@ export const SearchBox = ({
           loadingText={t('haku.lataus-käynnissä')}
           loading={isFetching}
           groupBy={(option) => option.type}
+          clearText={t('haku.tyhjenna-hakuehto')}
+          componentsProps={{
+            clearIndicator: {
+              tabIndex: 0,
+              sx: (muiTheme) => ({
+                '&.Mui-focusVisible': {
+                  backgroundColor: muiTheme.palette.action.hover,
+                },
+              }),
+            },
+          }}
           onChange={(_e, val) => {
             if (!isString(val) && val?.link) {
               navigate(val.link);
@@ -212,7 +246,7 @@ export const SearchBox = ({
           }}
           renderGroup={createRenderAutocompleteGroup(t)}
           renderOption={createRenderOption(t)}
-          renderInput={createRenderInput(t)}
+          renderInput={createRenderInput(t, hintId)}
         />
       </Tooltip>
       {rajaaButton}
