@@ -354,7 +354,7 @@ export const Filter = ({
   const headerId = `${panelBase}-summary`;
   const contentId = `${panelBase}-region`;
   const selectId = `${panelBase}-district-search`;
-  const selelctLabelId = `${selectId}-label`;
+  const selectLabelId = `${selectId}-label`;
   const selectHintId = `${selectId}-hint`;
 
   useEffect(() => {
@@ -393,7 +393,7 @@ export const Filter = ({
             <Grid item style={{ padding: '20px 0', zIndex: 2 }}>
               <label
                 htmlFor={selectId}
-                id={selelctLabelId}
+                id={selectLabelId}
                 style={{ display: 'block', marginBottom: '4px', fontSize: '0.875rem' }}>
                 {t('haku.etsi-paikkakunta-tai-alue')}
               </label>
@@ -403,10 +403,9 @@ export const Filter = ({
 
               <Select
                 inputId={selectId}
-                aria-labelledby={selelctLabelId}
+                aria-labelledby={selectLabelId}
                 aria-describedby={selectHintId}
                 ref={inputRef}
-                aria-label={t('haku.etsi-paikkakunta-tai-alue')}
                 components={{ DropdownIndicator, LoadingIndicator, Option }}
                 styles={customStyles}
                 value={[]}
