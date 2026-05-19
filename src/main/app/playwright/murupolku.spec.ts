@@ -1,4 +1,5 @@
 import { Page, test, expect } from '@playwright/test';
+import { isNumber } from 'lodash';
 
 import { mocksFromFile, setupCommonTest } from './test-tools';
 
@@ -6,13 +7,13 @@ const assertBreadcrumb = async (
   page: Page,
   {
     length,
+    linkCount,
     lastTextMatch,
-    lastHrefMatch,
     hasHakutuloksetLink = false,
   }: {
     length: number;
+    linkCount?: number;
     lastTextMatch?: string | RegExp;
-    lastHrefMatch?: string | RegExp;
     hasHakutuloksetLink?: boolean;
   }
 ) => {
@@ -22,15 +23,15 @@ const assertBreadcrumb = async (
     .locator('li');
 
   await expect(items).toHaveCount(length);
-
-  const lastLink = items.last().getByRole('link');
+  if (isNumber(linkCount)) {
+    await expect(items.getByRole('link')).toHaveCount(linkCount);
+  }
 
   if (lastTextMatch) {
-    await expect(lastLink).toContainText(lastTextMatch);
+    await expect(items.last()).toContainText(lastTextMatch);
   }
-  if (lastHrefMatch) {
-    await expect(lastLink).toHaveAttribute('href', lastHrefMatch);
-  }
+  await expect(items.last().getByRole('link')).toHaveCount(0);
+  await expect(items.last().locator('[aria-current="page"]')).toHaveCount(1);
   if (hasHakutuloksetLink) {
     await expect(items.nth(1)).toHaveText('Hakutulokset');
     await expect(items.nth(1).getByRole('link')).toHaveAttribute(
@@ -52,8 +53,8 @@ test.describe('Murupolku', () => {
 
     await assertBreadcrumb(page, {
       length: 4,
+      linkCount: 1,
       lastTextMatch: /^Paikan vastaanotto ja/,
-      lastHrefMatch: new RegExp(url),
       hasHakutuloksetLink: false,
     });
   });
@@ -65,7 +66,6 @@ test.describe('Murupolku', () => {
     await assertBreadcrumb(page, {
       length: 3,
       lastTextMatch: 'Autoalan perustutkinto',
-      lastHrefMatch: new RegExp(url),
       hasHakutuloksetLink: true,
     });
   });
@@ -76,8 +76,8 @@ test.describe('Murupolku', () => {
 
     await assertBreadcrumb(page, {
       length: 4,
+      linkCount: 3,
       lastTextMatch: 'PetteriT:n testitoteutus',
-      lastHrefMatch: new RegExp(url),
       hasHakutuloksetLink: true,
     });
   });
@@ -88,8 +88,8 @@ test.describe('Murupolku', () => {
 
     await assertBreadcrumb(page, {
       length: 3,
+      linkCount: 2,
       lastTextMatch: 'Aalto-yliopisto',
-      lastHrefMatch: new RegExp(url),
       hasHakutuloksetLink: true,
     });
   });
@@ -100,8 +100,8 @@ test.describe('Murupolku', () => {
 
     await assertBreadcrumb(page, {
       length: 4,
+      linkCount: 3,
       lastTextMatch: 'Aalto-yliopisto, Kauppakorkeakoulu',
-      lastHrefMatch: new RegExp(url),
       hasHakutuloksetLink: true,
     });
   });
@@ -112,8 +112,8 @@ test.describe('Murupolku', () => {
 
     await assertBreadcrumb(page, {
       length: 5,
+      linkCount: 4,
       lastTextMatch: 'valintaperuste',
-      lastHrefMatch: new RegExp(url),
       hasHakutuloksetLink: true,
     });
   });

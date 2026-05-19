@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Box, Drawer, Grid, IconButton, Toolbar, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
@@ -8,6 +6,7 @@ import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { styled } from '#/src/theme';
 
 import { MurupolkuFragment } from './MurupolkuFragment';
+import type { MurupolkuDrawerProps } from './types';
 
 const PREFIX = 'MurupolkuDrawer';
 
@@ -48,14 +47,14 @@ const StyledDrawer = styled(Drawer)(({ theme }) => ({
 
 const FRAGMENT_INDENT_STEP = 10;
 
-export const MurupolkuDrawer = ({ path, onClose, isOpen }) => {
+export const MurupolkuDrawer = ({ path, onClose, isOpen }: MurupolkuDrawerProps) => {
   const { t } = useTranslation();
 
   return (
     <StyledDrawer
       classes={{ paperAnchorBottom: classes.drawer }}
       anchor="bottom"
-      onClose={onClose}
+      onClose={() => onClose()}
       open={isOpen}>
       <Box display="flex" flexDirection="column">
         <Toolbar variant="dense" disableGutters className={classes.drawerToolbar}>
@@ -65,7 +64,7 @@ export const MurupolkuDrawer = ({ path, onClose, isOpen }) => {
             alignItems="center"
             wrap="nowrap">
             <Grid item>
-              <IconButton color="inherit" onClick={onClose}>
+              <IconButton color="inherit" onClick={() => onClose()}>
                 <MaterialIcon icon="close" />
               </IconButton>
             </Grid>
@@ -80,7 +79,7 @@ export const MurupolkuDrawer = ({ path, onClose, isOpen }) => {
         <Box className={classes.drawerContainer}>
           {path.map(({ name, link, isHome }, index) => (
             <Box
-              key={`${name} ${link}`}
+              key={`${name} ${link ?? ''}`}
               className={classes.drawerItemWrapper}
               style={{ textIndent: `${index * FRAGMENT_INDENT_STEP}px` }}>
               <MurupolkuFragment
