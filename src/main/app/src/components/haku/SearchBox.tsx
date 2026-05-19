@@ -13,7 +13,7 @@ import {
 import { TFunction } from 'i18next';
 import { identity, isString, omit, size } from 'lodash';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { match } from 'ts-pattern';
 
 import { colors } from '#/src/colors';
@@ -33,9 +33,9 @@ const createRenderOption = (t: TFunction) => {
     props: React.HTMLAttributes<HTMLLIElement>,
     option: AutocompleteOption
   ) {
-    const propsWithAriaSelectedOff = { ...props, 'aria-selected': false };
+    const overriddenProps = { ...props, 'aria-selected': false as const };
     return (
-      <li {...propsWithAriaSelectedOff} style={{ display: 'block' }} key={option.link}>
+      <li {...overriddenProps} style={{ display: 'block' }} key={option.link}>
         <Box>{option.label}</Box>
         {match(option)
           .with({ type: 'koulutus' }, (k) => {
@@ -122,11 +122,6 @@ const createRenderAutocompleteGroup = (t: TFunction) => {
   };
 };
 
-const useIsOptionEqualToValue = () => {
-  const { pathname, search: urlSearch } = useLocation();
-  return (option: AutocompleteOption) => option.link === pathname + urlSearch;
-};
-
 export const SearchBox = ({
   keyword,
   doSearch,
@@ -139,6 +134,7 @@ export const SearchBox = ({
   const { setSearchPhraseDebounced, isFetching, data } = useAutoComplete();
 
   const [inputValue, setInputValue] = useState<string>(() => keyword || '');
+  const [highlightedLabel, setHighlightedLabel] = useState('');
   const isKeywordValid = checkIsKeywordValid(inputValue);
 
   const { t } = useTranslation();
@@ -162,7 +158,6 @@ export const SearchBox = ({
   );
 
   const navigate = useNavigate();
-  const isOptionEqualToValue = useIsOptionEqualToValue();
 
   const hintId = 'searchbox-autocomplete-hint';
 
@@ -192,6 +187,23 @@ export const SearchBox = ({
       }}
       elevation={4}>
       <span
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        style={{
+          border: 0,
+          clip: 'rect(0 0 0 0)',
+          height: 1,
+          margin: -1,
+          overflow: 'hidden',
+          padding: 0,
+          position: 'absolute',
+          width: 1,
+          whiteSpace: 'nowrap',
+        }}>
+        {highlightedLabel}
+      </span>
+      <span
         id={hintId}
         style={{
           border: 0,
@@ -215,7 +227,6 @@ export const SearchBox = ({
           key={keyword}
           inputValue={inputValue}
           freeSolo={true}
-          isOptionEqualToValue={isOptionEqualToValue}
           options={allHits}
           filterOptions={identity}
           noOptionsText={t('haku.ei-ehdotuksia')}
@@ -232,6 +243,9 @@ export const SearchBox = ({
                 },
               }),
             },
+          }}
+          onHighlightChange={(_e, option) => {
+            setHighlightedLabel(option == null || isString(option) ? '' : option.label);
           }}
           onChange={(_e, val) => {
             if (!isString(val) && val?.link) {
