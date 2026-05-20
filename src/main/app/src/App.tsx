@@ -73,6 +73,30 @@ const MatomoTracker: React.FC = () => {
   return null;
 };
 
+const ContentColumn = styled('div')(
+  ({ isSmall, menuVisible }: { isSmall?: boolean; menuVisible?: boolean }) => ({
+    flexGrow: 1,
+    minWidth: 0,
+    display: 'flex',
+    flexDirection: 'column',
+    ...(menuVisible
+      ? {
+          transition: theme.transitions.create('margin', {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+          }),
+          marginLeft: isSmall ? 0 : SIDEMENU_WIDTH,
+        }
+      : {
+          transition: theme.transitions.create('margin', {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+          }),
+          marginLeft: 0,
+        }),
+  })
+);
+
 const MainContent = styled('main')(
   ({ isSmall, menuVisible }: { isSmall?: boolean; menuVisible?: boolean }) => ({
     marginTop: getHeaderHeight(theme),
@@ -89,21 +113,6 @@ const MainContent = styled('main')(
           bottom: menuVisible ? 0 : 'auto',
         }
       : {}),
-    ...(menuVisible
-      ? {
-          transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
-          }),
-          marginLeft: isSmall ? 0 : SIDEMENU_WIDTH,
-        }
-      : {
-          transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-          }),
-          marginLeft: 0,
-        }),
   })
 );
 
@@ -277,17 +286,19 @@ export const App = () => {
           closeMenu={closeMenu}
           sideMenuKey={sideMenuKey}
         />
-        <MainContent id="app-main-content" isSmall={isSmall} menuVisible={menuVisible}>
-          <HeadingBoundary>
-            <MatomoTracker />
-            <KonfoRoutes />
+        <ContentColumn isSmall={isSmall} menuVisible={menuVisible}>
+          <MainContent id="app-main-content" isSmall={isSmall} menuVisible={menuVisible}>
             <HeadingBoundary>
-              <Notifications />
-              <Palvelut />
-              <Footer />
+              <MatomoTracker />
+              <KonfoRoutes />
+              <HeadingBoundary>
+                <Notifications />
+                <Palvelut />
+              </HeadingBoundary>
             </HeadingBoundary>
-          </HeadingBoundary>
-        </MainContent>
+          </MainContent>
+          <Footer />
+        </ContentColumn>
       </Box>
     </div>
   );
