@@ -38,6 +38,12 @@ test.describe('Etusivu', () => {
     await expect(siirrySisaltoonLink).toBeInViewport();
   });
 
+  test('Should have descriptive logo alternative texts', async ({ page }) => {
+    await page.goto('/konfo');
+    await expect(page.getByAltText('Opintopolun logo')).toBeVisible();
+    await expect(page.getByAltText('Opetushallituksen logo')).toBeVisible();
+  });
+
   test('Footer should have contentinfo landmark (OY-4399)', async ({ page }) => {
     await page.goto('/konfo/fi');
     // eslint-disable-next-line playwright/no-networkidle
