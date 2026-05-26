@@ -168,13 +168,15 @@ function getFormattedOpintojenLaajuus(
 }
 
 function getLocalizedKoulutusOpintojenLaajuus(koulutus?: KoulutusExtendedData) {
-  const tutkinnonOsat = koulutus?.tutkinnonOsat || [];
+  const tutkinnonOsat = [
+    ...(koulutus?.tutkinnonOsat ?? []),
+    ...(koulutus?.paikallisetTutkinnonOsat ?? []),
+  ];
 
   let opintojenLaajuusNumero =
     (koulutus?.opintojenLaajuus && localize(koulutus?.opintojenLaajuus)) ||
     formatDouble(koulutus?.opintojenLaajuusNumero) ||
-    (tutkinnonOsat &&
-      tutkinnonOsat.map((k: TODOType) => k?.opintojenLaajuusNumero).join(' + '));
+    tutkinnonOsat?.map((k: TODOType) => k?.opintojenLaajuusNumero).join(' + ');
 
   if (isString(opintojenLaajuusNumero)) {
     opintojenLaajuusNumero = opintojenLaajuusNumero.split('+').map(trim).join(' + ');
