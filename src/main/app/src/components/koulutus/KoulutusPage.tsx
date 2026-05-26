@@ -54,21 +54,22 @@ const getKuvausHtmlSection = (
 ) =>
   localizableText ? '<h3>' + t(captionKey) + '</h3>' + localize(localizableText) : '';
 
-const TutkinnonOsat = ({ koulutus }: { koulutus?: KoulutusExtendedData }) => {
-  const { t } = useTranslation();
-  const createTutkinnonOsa = (tutkinnonOsa: TODOType) =>
-    sanitizedHTMLParser(
+const createTutkinnonOsa = (tutkinnonOsa: TODOType, t: TFunction) =>
+  sanitizedHTMLParser(
+    getKuvausHtmlSection(
+      t,
+      'koulutus.ammattitaitovaatimukset',
+      tutkinnonOsa.ammattitaitovaatimukset
+    ) +
       getKuvausHtmlSection(
         t,
-        'koulutus.ammattitaitovaatimukset',
-        tutkinnonOsa.ammattitaitovaatimukset
-      ) +
-        getKuvausHtmlSection(
-          t,
-          'koulutus.ammattitaidonOsoitamistavat',
-          tutkinnonOsa.ammattitaidonOsoittamistavat
-        )
-    );
+        'koulutus.ammattitaidonOsoitamistavat',
+        tutkinnonOsa.ammattitaidonOsoittamistavat
+      )
+  );
+
+const TutkinnonOsat = ({ koulutus }: { koulutus?: KoulutusExtendedData }) => {
+  const { t } = useTranslation();
 
   return koulutus?.tutkinnonOsat ? (
     <PageSection heading={t('koulutus.kuvaus')}>
@@ -95,7 +96,7 @@ const TutkinnonOsat = ({ koulutus }: { koulutus?: KoulutusExtendedData }) => {
             title,
             content: (
               <>
-                {createTutkinnonOsa(foundTutkinnonOsa)}
+                {createTutkinnonOsa(foundTutkinnonOsa, t)}
                 <ExternalLink
                   href={urls.url(
                     'eperusteet-service.eperuste.kuvaus',
@@ -107,6 +108,40 @@ const TutkinnonOsat = ({ koulutus }: { koulutus?: KoulutusExtendedData }) => {
                 </ExternalLink>
               </>
             ),
+          };
+        })}
+      />
+    </PageSection>
+  ) : null;
+};
+
+const createPaikallinenTutkinnonOsa = (tutkinnonOsa: TODOType, t: TFunction) =>
+  sanitizedHTMLParser(
+    getKuvausHtmlSection(
+      t,
+      'koulutus.ammattitaitovaatimukset',
+      tutkinnonOsa.ammattitaitovaatimukset
+    ) +
+      getKuvausHtmlSection(
+        t,
+        'koulutus.ammattitaidonOsoitamistavat',
+        tutkinnonOsa.ammattitaidonosoittamistavat
+      )
+  );
+
+const PaikallisetTutkinnonOsat = ({ koulutus }: { koulutus?: KoulutusExtendedData }) => {
+  const { t } = useTranslation();
+
+  return koulutus?.paikallisetTutkinnonOsat ? (
+    <PageSection heading={t('koulutus.paikallisetTutkinnonOsat')}>
+      <Accordion
+        items={koulutus.paikallisetTutkinnonOsat.map((tutkinnonOsa: TODOType) => {
+          const { nimi, laajuus } = tutkinnonOsa;
+          const title = [localize(nimi), laajuus].filter(Boolean).join(', ');
+
+          return {
+            title,
+            content: createPaikallinenTutkinnonOsa(tutkinnonOsa, t),
           };
         })}
       />
@@ -259,6 +294,7 @@ export const KoulutusPage = () => {
           />
           <OsaamismerkinKuvaus koulutus={koulutus} />
           <TutkinnonOsat koulutus={koulutus} />
+          <PaikallisetTutkinnonOsat koulutus={koulutus} />
           <Box id="tarjonta">
             <ToteutusList oid={oid} koulutustyyppi={koulutus?.koulutustyyppi} />
           </Box>

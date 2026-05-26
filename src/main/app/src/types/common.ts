@@ -143,6 +143,7 @@ export type KoulutusExtendedData = KoulutusWithKuvausExtendedInMetadata & {
   kuvaus?: KuvausExtended;
   tutkintonimikkeet?: Array<Tutkintonimike>;
   tutkinnonOsat?: Array<TODOType>;
+  paikallisetTutkinnonOsat?: Array<TODOType>;
   eqf?: Array<Koodi>;
   nqf?: Array<Koodi>;
   isAvoinKorkeakoulutus?: boolean;
