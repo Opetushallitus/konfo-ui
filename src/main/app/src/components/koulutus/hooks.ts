@@ -93,6 +93,7 @@ const selectKoulutus = (koulutusData: KoulutusExtendedData) => {
       eperusteet: koulutusData.eperusteet,
       ePerusteId: koulutusData?.ePerusteId,
       tutkinnonOsat: koulutusData.metadata?.tutkinnonOsat,
+      paikallisetTutkinnonOsat: koulutusData.metadata?.paikallisetTutkinnonOsat,
       tyotehtavatJoissaVoiToimia:
         koulutusData.metadata?.kuvaus?.tyotehtavatJoissaVoiToimia,
       suorittaneenOsaaminen: koulutusData.metadata?.kuvaus?.suorittaneenOsaaminen,
