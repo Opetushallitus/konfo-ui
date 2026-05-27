@@ -71,45 +71,60 @@ const createTutkinnonOsa = (tutkinnonOsa: TODOType, t: TFunction) =>
 const TutkinnonOsat = ({ koulutus }: { koulutus?: KoulutusExtendedData }) => {
   const { t } = useTranslation();
 
-  return koulutus?.tutkinnonOsat ? (
+  const hasTutkinnonOsat =
+    !isEmpty(koulutus?.tutkinnonOsat) || !isEmpty(koulutus?.paikallisetTutkinnonOsat);
+
+  return koulutus && hasTutkinnonOsat ? (
     <PageSection heading={t('koulutus.kuvaus')}>
       <Accordion
-        items={koulutus?.tutkinnonOsat.map((tutkinnonOsa: TODOType) => {
-          const {
-            tutkinnonosaId,
-            tutkinnonosaViite,
-            ePerusteId,
-            opintojenLaajuus,
-            opintojenLaajuusNumero,
-            opintojenLaajuusyksikko,
-            tutkinnonOsat: nimi,
-          } = tutkinnonOsa;
-          const eperuste = findEperuste(koulutus)(ePerusteId);
-          const title = [
-            `${localize(nimi)},`,
-            opintojenLaajuusNumero || localize(opintojenLaajuus),
-            localize(opintojenLaajuusyksikko),
-          ].join(' ');
-          const foundTutkinnonOsa = findTutkinnonOsa(eperuste)(tutkinnonosaId);
+        items={(koulutus?.tutkinnonOsat ?? [])
+          .map((tutkinnonOsa: TODOType) => {
+            const {
+              tutkinnonosaId,
+              tutkinnonosaViite,
+              ePerusteId,
+              opintojenLaajuus,
+              opintojenLaajuusNumero,
+              opintojenLaajuusyksikko,
+              tutkinnonOsat: nimi,
+            } = tutkinnonOsa;
+            const eperuste = findEperuste(koulutus)(ePerusteId);
+            const title = [
+              `${localize(nimi)},`,
+              opintojenLaajuusNumero || localize(opintojenLaajuus),
+              localize(opintojenLaajuusyksikko),
+            ].join(' ');
+            const foundTutkinnonOsa = findTutkinnonOsa(eperuste)(tutkinnonosaId);
 
-          return {
-            title,
-            content: (
-              <>
-                {createTutkinnonOsa(foundTutkinnonOsa, t)}
-                <ExternalLink
-                  href={urls.url(
-                    'eperusteet-service.eperuste.kuvaus',
-                    getLanguage(),
-                    ePerusteId,
-                    tutkinnonosaViite
-                  )}>
-                  {t('koulutus.eperuste-linkki')}
-                </ExternalLink>
-              </>
-            ),
-          };
-        })}
+            return {
+              title,
+              content: (
+                <>
+                  {createTutkinnonOsa(foundTutkinnonOsa, t)}
+                  <ExternalLink
+                    href={urls.url(
+                      'eperusteet-service.eperuste.kuvaus',
+                      getLanguage(),
+                      ePerusteId,
+                      tutkinnonosaViite
+                    )}>
+                    {t('koulutus.eperuste-linkki')}
+                  </ExternalLink>
+                </>
+              ),
+            };
+          })
+          .concat(
+            (koulutus.paikallisetTutkinnonOsat ?? [])?.map((tutkinnonOsa: TODOType) => {
+              const { nimi, laajuus } = tutkinnonOsa;
+              const title = [localize(nimi), laajuus].filter(Boolean).join(', ');
+
+              return {
+                title,
+                content: <>{createPaikallinenTutkinnonOsa(tutkinnonOsa, t)}</>,
+              };
+            })
+          )}
       />
     </PageSection>
   ) : null;
@@ -128,26 +143,6 @@ const createPaikallinenTutkinnonOsa = (tutkinnonOsa: TODOType, t: TFunction) =>
         tutkinnonOsa.ammattitaidonosoittamistavat
       )
   );
-
-const PaikallisetTutkinnonOsat = ({ koulutus }: { koulutus?: KoulutusExtendedData }) => {
-  const { t } = useTranslation();
-
-  return koulutus?.paikallisetTutkinnonOsat ? (
-    <PageSection heading={t('koulutus.paikallisetTutkinnonOsat')}>
-      <Accordion
-        items={koulutus.paikallisetTutkinnonOsat.map((tutkinnonOsa: TODOType) => {
-          const { nimi, laajuus } = tutkinnonOsa;
-          const title = [localize(nimi), laajuus].filter(Boolean).join(', ');
-
-          return {
-            title,
-            content: createPaikallinenTutkinnonOsa(tutkinnonOsa, t),
-          };
-        })}
-      />
-    </PageSection>
-  ) : null;
-};
 
 const EPerusteLinkki = withDefaultProps(
   styled(ExternalLink)({
@@ -195,20 +190,19 @@ const Kuvaus = ({ koulutus }: { koulutus?: KoulutusExtendedData }) => {
       : '';
 
   // NOTE: This uses HtmlTextBox which needs pure html
-  const createKoulutusHtml = () =>
-    koulutuksenTyotehtavat
-      ? getKuvausHtmlSection(
-          t,
-          'koulutus.tyotehtavatJoissaVoiToimia',
-          koulutuksenTyotehtavat
-        ) + osaamisalatHtml
-      : localize(koulutuksenKuvaus);
+  const koulutusHtml = koulutuksenTyotehtavat
+    ? getKuvausHtmlSection(
+        t,
+        'koulutus.tyotehtavatJoissaVoiToimia',
+        koulutuksenTyotehtavat
+      ) + osaamisalatHtml
+    : localize(koulutuksenKuvaus);
 
   return !isEmpty(koulutuksenKuvaus) || koulutuksenTyotehtavat ? (
     <HtmlTextBox
       data-testid="kuvaus"
       heading={t('koulutus.kuvaus')}
-      html={createKoulutusHtml()}
+      html={koulutusHtml}
       additionalContent={
         (!isEmpty(koulutus?.linkkiEPerusteisiin) && (
           <EPerusteLinkki href={localize(koulutus?.linkkiEPerusteisiin)}>
@@ -294,7 +288,6 @@ export const KoulutusPage = () => {
           />
           <OsaamismerkinKuvaus koulutus={koulutus} />
           <TutkinnonOsat koulutus={koulutus} />
-          <PaikallisetTutkinnonOsat koulutus={koulutus} />
           <Box id="tarjonta">
             <ToteutusList oid={oid} koulutustyyppi={koulutus?.koulutustyyppi} />
           </Box>
