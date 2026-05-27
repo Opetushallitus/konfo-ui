@@ -351,8 +351,7 @@ export const useSelectedFilters = (
   const selectedFiltersFlatList = useMemo(
     () =>
       selectedFiltersWithAlakoodit
-        .map((v: any) => [v, ...(v.alakoodit || [])])
-        .flat()
+        .flatMap((v: any) => [v, ...(v.alakoodit || [])])
         .filter((v: any) => isRajainActive(v)),
     [selectedFiltersWithAlakoodit]
   ); // Alakoodilistoissa voi olla valitsemattomia koodeja
