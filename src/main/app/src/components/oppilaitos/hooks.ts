@@ -19,11 +19,8 @@ import {
   getTarjontaPaginationProps,
   getTulevaTarjontaPaginationProps,
 } from '#/src/store/reducers/oppilaitosSliceSelector';
-import {
-  localize,
-  localizeArrayToCommaSeparated,
-  getLocalizedMaksullisuus,
-} from '#/src/tools/localization';
+import { getLocalizedMaksullisuus } from '#/src/tools/getLocalizedMaksullisuus';
+import { localize, localizeArrayToCommaSeparated } from '#/src/tools/localization';
 import { getLocalizedOpintojenLaajuus } from '#/src/tools/utils';
 import { Koodi } from '#/src/types/common';
 import { Organisaatio } from '#/src/types/ToteutusTypes';
@@ -128,7 +125,12 @@ const selectTarjonta = (tarjonta: any) => {
       description: localize(t.kuvaus),
       locations: localizeArrayToCommaSeparated(t.kunnat, { sorted: true }),
       opetustapa: localizeArrayToCommaSeparated(t.opetusajat, { sorted: true }),
-      price: getLocalizedMaksullisuus(t.maksullisuustyyppi, t.maksunMaara),
+      price: getLocalizedMaksullisuus(
+        t.koulutustyyppi,
+        t.maksullisuustyypit,
+        t.maksunMaara,
+        t.lukuvuosimaksunMaara
+      ),
       tyyppi: t.koulutustyyppi,
       kuva: t.kuva,
       toteutusOid: t.toteutusOid,
