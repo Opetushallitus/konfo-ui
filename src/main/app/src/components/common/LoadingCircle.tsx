@@ -29,16 +29,22 @@ const VisuallyHiddenBox = styled(Box)(() => ({
   whiteSpace: 'nowrap',
 }));
 
-export const LoadingCircle = () => {
-  const { t } = useTranslation();
+export const LoadingCircleUntranslated = ({ hiddenLabel }: { hiddenLabel?: string }) => {
   return (
     <Box
       role="status"
       aria-live="polite"
       sx={{ padding: 10, display: 'flex', justifyContent: 'center' }}>
       <CircularProgress size={50} disableShrink />
-      <VisuallyHiddenBox>{t('loading-circle.ladataan-sisaltoa')}</VisuallyHiddenBox>
+      <VisuallyHiddenBox>{hiddenLabel}</VisuallyHiddenBox>
     </Box>
+  );
+};
+
+export const LoadingCircle = () => {
+  const { t } = useTranslation();
+  return (
+    <LoadingCircleUntranslated hiddenLabel={t('loading-circle.ladataan-sisaltoa')} />
   );
 };
 
