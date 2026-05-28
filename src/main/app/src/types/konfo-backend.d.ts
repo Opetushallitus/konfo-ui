@@ -3674,24 +3674,12 @@ export interface components {
             nimi?: components["schemas"]["Nimi"];
             /** @description Paikallisen tutkinnon osan laajuus osaamispisteinä */
             laajuus?: number;
-            /** @description Paikallisen tutkinnon osan ammattitaidon osoittamistavat eri kielillä */
+            /** @description Paikallisen tutkinnon osan laajuusyksikkö */
+            laajuusyksikko?: components["schemas"]["OpintojenLaajuusyksikko"];
+            /** @description Paikallisen tutkinnon osan ammattitaidon osoittamistavat HTML-muodossa eri kielillä */
             ammattitaidonosoittamistavat?: components["schemas"]["Teksti"];
-            /** @description Paikallisen tutkinnon osan ammattitaitovaatimukset */
-            ammattitaitovaatimukset?: {
-                /** @description Ammattitaitovaatimusten kohde eri kielillä */
-                kohde?: components["schemas"]["Teksti"];
-                kohdealueet?: {
-                    kuvaus?: components["schemas"]["Teksti"];
-                    vaatimukset?: {
-                        koodi?: string;
-                        vaatimus?: components["schemas"]["Teksti"];
-                    }[];
-                }[];
-                vaatimukset?: {
-                    koodi?: string;
-                    vaatimus?: components["schemas"]["Teksti"];
-                }[];
-            };
+            /** @description Paikallisen tutkinnon osan ammattitaitovaatimukset HTML-muodossa eri kielillä */
+            ammattitaitovaatimukset?: components["schemas"]["Teksti"];
         };
         Kunta: {
             /**
