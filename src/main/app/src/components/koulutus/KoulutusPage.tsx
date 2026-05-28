@@ -116,8 +116,19 @@ const TutkinnonOsat = ({ koulutus }: { koulutus?: KoulutusExtendedData }) => {
           })
           .concat(
             (koulutus.paikallisetTutkinnonOsat ?? [])?.map((tutkinnonOsa: TODOType) => {
-              const { nimi, laajuus, opetussuunnitelmaId, tutkinnonosaId } = tutkinnonOsa;
-              const title = [localize(nimi), laajuus].filter(Boolean).join(', ');
+              const {
+                nimi,
+                laajuus,
+                laajuusyksikko,
+                opetussuunnitelmaId,
+                tutkinnonosaId,
+              } = tutkinnonOsa;
+              const title = [
+                localize(nimi),
+                laajuus ? `${laajuus} ${localize(laajuusyksikko)}` : null,
+              ]
+                .filter(Boolean)
+                .join(', ');
 
               return {
                 title,
