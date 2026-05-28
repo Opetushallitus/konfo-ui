@@ -116,12 +116,25 @@ const TutkinnonOsat = ({ koulutus }: { koulutus?: KoulutusExtendedData }) => {
           })
           .concat(
             (koulutus.paikallisetTutkinnonOsat ?? [])?.map((tutkinnonOsa: TODOType) => {
-              const { nimi, laajuus } = tutkinnonOsa;
+              const { nimi, laajuus, opetussuunnitelmaId, tutkinnonosaId } = tutkinnonOsa;
               const title = [localize(nimi), laajuus].filter(Boolean).join(', ');
 
               return {
                 title,
-                content: <>{createPaikallinenTutkinnonOsa(tutkinnonOsa, t)}</>,
+                content: (
+                  <>
+                    {createPaikallinenTutkinnonOsa(tutkinnonOsa, t)}
+                    <ExternalLink
+                      href={urls.url(
+                        'eperusteet-service.toteutussuunnitelma.sisalto',
+                        getLanguage(),
+                        opetussuunnitelmaId,
+                        tutkinnonosaId
+                      )}>
+                      {t('koulutus.eperuste-linkki')}
+                    </ExternalLink>
+                  </>
+                ),
               };
             })
           )}
