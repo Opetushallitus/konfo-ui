@@ -2,6 +2,7 @@ import { Link, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Markdown from 'markdown-to-jsx';
+import { useTranslation } from 'react-i18next';
 
 import OPOLogoFooterFI from '#/src/assets/images/OpetushallitusIcon.svg';
 import OPHIconEN from '#/src/assets/images/OPH Logo EN.png';
@@ -99,6 +100,7 @@ const OPHFooterLogo = () => {
 };
 
 export const Footer = () => {
+  const { t } = useTranslation();
   const { data } = useContentful();
 
   // Footereita on vain yksi
@@ -115,28 +117,30 @@ export const Footer = () => {
             </Hr>
           </Grid>
         </Grid>
-        <Grid
-          container
-          direction="row"
-          justifyContent="space-evenly"
-          alignItems="flex-start"
-          paddingY={2}>
-          <Grid item xs={12} sm={4} md={3}>
-            <Box m={1}>
-              <Markdown options={overrides}>{content ?? ''}</Markdown>
-            </Box>
+        <nav aria-label={t('footer.valikko')}>
+          <Grid
+            container
+            direction="row"
+            justifyContent="space-evenly"
+            alignItems="flex-start"
+            paddingY={2}>
+            <Grid item xs={12} sm={4} md={3}>
+              <Box m={1}>
+                <Markdown options={overrides}>{content ?? ''}</Markdown>
+              </Box>
+            </Grid>
+            <Grid item xs={12} sm={4} md={3}>
+              <Box m={1}>
+                <Markdown options={overrides}>{contentCenter ?? ''}</Markdown>
+              </Box>
+            </Grid>
+            <Grid item xs={12} sm={4} md={3}>
+              <Box m={1}>
+                <Markdown options={overrides}>{contentRight ?? ''}</Markdown>
+              </Box>
+            </Grid>
           </Grid>
-          <Grid item xs={12} sm={4} md={3}>
-            <Box m={1}>
-              <Markdown options={overrides}>{contentCenter ?? ''}</Markdown>
-            </Box>
-          </Grid>
-          <Grid item xs={12} sm={4} md={3}>
-            <Box m={1}>
-              <Markdown options={overrides}>{contentRight ?? ''}</Markdown>
-            </Box>
-          </Grid>
-        </Grid>
+        </nav>
         <Grid container>
           <Grid item xs={12}>
             <Hr>
