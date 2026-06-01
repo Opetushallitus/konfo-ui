@@ -52,10 +52,21 @@ test.describe('Etusivu', () => {
 
     await expect(page.getByRole('contentinfo')).toBeVisible();
 
+    const footer = page.getByRole('contentinfo');
+    await expect(
+      footer.getByRole('navigation', { name: 'Alatunnisteen valikko' })
+    ).toBeVisible();
+
+    const logoImages = footer.locator('img');
+    for (const img of await logoImages.all()) {
+      await expect(img).toHaveAttribute('alt', '');
+    }
+
     const results = await new AxeBuilder({ page })
       .withRules([
         'landmark-contentinfo-is-top-level',
         'landmark-no-duplicate-contentinfo',
+        'image-alt',
       ])
       .analyze();
     expect(results.violations).toEqual([]);
