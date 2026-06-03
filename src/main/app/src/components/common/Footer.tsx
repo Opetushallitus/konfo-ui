@@ -2,6 +2,7 @@ import { Link, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Markdown from 'markdown-to-jsx';
+import { useTranslation } from 'react-i18next';
 
 import OPOLogoFooterFI from '#/src/assets/images/OpetushallitusIcon.svg';
 import OPHIconEN from '#/src/assets/images/OPH Logo EN.png';
@@ -100,6 +101,7 @@ const OPHFooterLogo = () => {
 
 export const Footer = () => {
   const { data } = useContentful();
+  const { t } = useTranslation();
 
   // Footereita on vain yksi
   const { content, contentRight, contentCenter, lopputekstit } =
