@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { InfoGrid } from '#/src/components/common/InfoGrid';
 import { InfoGridIcon } from '#/src/components/common/InfoGridIcon';
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
-import { NDASH, MAKSULLISUUSTYYPPI, KOULUTUS_TYYPPI } from '#/src/constants';
+import { NDASH, KOULUTUS_TYYPPI } from '#/src/constants';
 import { useVisibleKoulutustyyppi } from '#/src/hooks/useVisibleKoulutustyyppi';
 import { localize } from '#/src/tools/localization';
 import {
@@ -16,7 +16,12 @@ import {
 } from '#/src/types/common';
 import { Opetus, Yksikko } from '#/src/types/ToteutusTypes';
 
-import { formatAloitus, formatMaksullisuusTitle, formatMaksullisuusText } from './utils';
+import {
+  formatAloitus,
+  formatMaksullisuusTitle,
+  formatMaksullisuusText,
+  isLukuvuosimaksullinen,
+} from './utils';
 
 const getYksikkoSymbol = (yksikko?: Yksikko) => {
   switch (yksikko) {
@@ -205,7 +210,7 @@ export const ToteutusInfoGrid = ({
     }
   );
 
-  if (opetus?.maksullisuustyyppi === MAKSULLISUUSTYYPPI.LUKUVUOSIMAKSU) {
+  if (isLukuvuosimaksullinen(opetus?.maksut)) {
     perustiedotData.push({
       icon: 'ApurahaIcon',
       title: t('toteutus.apuraha'),
