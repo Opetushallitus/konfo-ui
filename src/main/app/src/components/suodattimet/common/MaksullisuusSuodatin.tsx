@@ -103,7 +103,7 @@ const maksullisuustyyppiRajainItems = (rajainItems: Array<RajainItem>) =>
   );
 
 const labelText = (val: number) => (val > 0 ? `${val}€` : '0');
-const rangeText = (v: NumberRangeValues) =>
+const rangeText = (v: NumberRangeValues): string =>
   match(v)
     .when(
       () => isEqual(v.numberRangeValues, v.undefinedValue),
@@ -114,7 +114,8 @@ const rangeText = (v: NumberRangeValues) =>
       (values) =>
         ` ${labelText(values[0])}` +
         (values[0] === values[1] ? '' : ` - ${labelText(values[1])}`)
-    );
+    )
+    .otherwise(() => '');
 
 const maksullisuustyyppiChanges = (
   rajainItems: Array<RajainItem>,
@@ -213,10 +214,15 @@ const MaksullisuusSummary = ({
 }) => {
   const { t } = useTranslation();
   const maksunmaara = useNumberRangeValues(RAJAIN_TYPES.MAKSUNMAARA, rajainItems);
-  const lukuvuosimaksu = useNumberRangeValues(
+  const lukuvuosimaksuKkMaksunMaara = useNumberRangeValues(
     RAJAIN_TYPES.LUKUVUOSIMAKSUNMAARA_KK,
     rajainItems
   );
+  const lukuvuosimaksuAmmLkMaksunMaara = useNumberRangeValues(
+    RAJAIN_TYPES.LUKUVUOSIMAKSUNMAARA_AMM_LK,
+    rajainItems
+  );
+  const apuraha = getCheckboxRajain(rajainItems, 'apuraha');
 
   const selectedRajainItems =
     maksullisuustyyppiRajainItems(rajainItems).filter(isChecked);
@@ -230,17 +236,25 @@ const MaksullisuusSummary = ({
             match(item)
               .with({ id: 'maksullinen' }, () => rangeText(maksunmaara))
               .with(
-                { id: 'lukuvuosimaksu' },
+                { id: 'lukuvuosimaksu_kk' },
                 () =>
-                  rangeText(lukuvuosimaksu) +
-                  (isChecked(getCheckboxRajain(rajainItems, 'apuraha'))
-                    ? t('haku.apuraha')
-                    : '')
+                  rangeText(lukuvuosimaksuKkMaksunMaara) +
+                  (isChecked(apuraha) ? t('haku.apuraha') : '')
+              )
+              .with({ id: 'lukuvuosimaksu_amm_lk' }, () =>
+                rangeText(lukuvuosimaksuAmmLkMaksunMaara)
               )
               .otherwise(() => '')
         )
         .join(','),
-    [selectedRajainItems, maksunmaara, lukuvuosimaksu, rajainItems, t]
+    [
+      selectedRajainItems,
+      t,
+      maksunmaara,
+      lukuvuosimaksuKkMaksunMaara,
+      apuraha,
+      lukuvuosimaksuAmmLkMaksunMaara,
+    ]
   );
 
   return (
