@@ -89,16 +89,14 @@ export const combineMaksunMaaraWithMaksullisuustyyppi = (
     );
 };
 
-export const filterRajainOptionsToBeRemoved = (
+export const omitRajaimetWithIds = (
   rajainItems?: Array<RajainItem>,
   rajainOptionsToBeRemoved?: Array<string>
-) => {
+): Array<RajainItem> => {
   return (
-    rajainItems?.filter(({ id }) => {
-      return !some(rajainOptionsToBeRemoved, (rajain) => {
-        return rajain === id;
-      });
-    }) || []
+    rajainItems?.filter(
+      ({ id }: RajainItem): boolean => !rajainOptionsToBeRemoved?.includes(id)
+    ) ?? []
   );
 };
 
@@ -107,10 +105,7 @@ export const getRajainOptionsToShow = (
   rajainOptionsToBeRemoved?: Array<string>,
   rajainOptionsToBeCombined?: Array<CombinedRajaimet>
 ): Array<Omit<RajainItem, 'count'> & { rajainValueIds?: Array<string> }> => {
-  const filteredRajainItems = filterRajainOptionsToBeRemoved(
-    rajainItems,
-    rajainOptionsToBeRemoved
-  );
+  const filteredRajainItems = omitRajaimetWithIds(rajainItems, rajainOptionsToBeRemoved);
 
   const combined =
     rajainOptionsToBeCombined?.map(({ translationKey, rajainKoodiuris }) => {

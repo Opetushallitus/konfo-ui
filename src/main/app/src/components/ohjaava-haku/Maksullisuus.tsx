@@ -20,7 +20,7 @@ import {
 } from '#/src/components/ohjaava-haku/Question';
 import {
   combineMaksunMaaraWithMaksullisuustyyppi,
-  filterRajainOptionsToBeRemoved,
+  omitRajaimetWithIds,
   getIsRajainSelected,
 } from '#/src/components/ohjaava-haku/utils';
 import { marks } from '#/src/components/suodattimet/common/maksullisuusRajainUtils';
@@ -242,10 +242,7 @@ export const Maksullisuus = ({
 
   const { rajainOptionsToBeRemoved } = currentQuestion;
 
-  const filteredRajainItems = filterRajainOptionsToBeRemoved(
-    rajainItems,
-    rajainOptionsToBeRemoved
-  );
+  const filteredRajainItems = omitRajaimetWithIds(rajainItems, rajainOptionsToBeRemoved);
 
   const maksullisuustyyppiRajainItems =
     combineMaksunMaaraWithMaksullisuustyyppi(filteredRajainItems);
