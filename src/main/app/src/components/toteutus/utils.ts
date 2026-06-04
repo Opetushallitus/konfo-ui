@@ -99,6 +99,7 @@ export const isLukuvuosimaksullinenKkToteutus = (
   koulutustyyppi?: KoutaKoulutustyyppi
 ) => {
   return (
+    maksut?.length === 1 &&
     isLukuvuosimaksullinen(maksut) &&
     [KOULUTUS_TYYPPI.AMKKOULUTUS, KOULUTUS_TYYPPI.YLIOPISTOKOULUTUS].includes(
       koulutustyyppi as Koulutustyyppi

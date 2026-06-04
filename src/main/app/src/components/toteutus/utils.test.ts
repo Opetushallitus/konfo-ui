@@ -231,6 +231,16 @@ describe('formatMaksullisuusTitle', () => {
       'toteutus.maksullisuus'
     );
   });
+
+  it('should return "toteutus.maksullisuus" as a title when amm-koulutus has both maksullinen opetus and lukuvuosimaksu', () => {
+    const maksut = [
+      { maksullisuustyyppi: MAKSULLISUUSTYYPPI.LUKUVUOSIMAKSU, maksunMaara: 500 },
+      { maksullisuustyyppi: MAKSULLISUUSTYYPPI.MAKSULLINEN, maksunMaara: 300 },
+    ];
+    expect(formatMaksullisuusTitle(t, maksut, KOULUTUS_TYYPPI.AMKKOULUTUS)).toEqual(
+      'toteutus.maksullisuus'
+    );
+  });
 });
 
 describe('formatMaksullisuusText', () => {
