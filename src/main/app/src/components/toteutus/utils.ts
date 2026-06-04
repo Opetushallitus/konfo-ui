@@ -122,8 +122,9 @@ export const formatMaksullisuusTitle = (
   return t('toteutus.maksullisuus');
 };
 
-const getMaksunMaara = (maksu?: Array<Maksu>) => {
-  return `${maksu?.[0]?.maksunMaara} €`;
+const getMaksunMaara = (maksu?: Array<Maksu>): string => {
+  const maksunMaara = maksu?.[0]?.maksunMaara;
+  return maksunMaara ? `${maksunMaara} €` : '';
 };
 
 export const formatMaksullisuusText = (t: TFunction, maksut?: Array<Maksu>) => {
