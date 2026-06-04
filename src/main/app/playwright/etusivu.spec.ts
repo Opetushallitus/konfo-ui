@@ -37,6 +37,13 @@ test.describe('Etusivu', () => {
     await expect(siirrySisaltoonLink).toBeInViewport();
   });
 
+  test('Should have decorative footer logos', async ({ page }) => {
+    await page.goto('/konfo');
+    await expect(page.getByAltText('Opintopolun logo')).toHaveCount(0);
+    await expect(page.getByAltText('Opetushallituksen logo')).toHaveCount(0);
+    await expect(page.locator('footer img[alt=""]')).toHaveCount(2);
+  });
+
   test('Should pass koulutustyyppi filter selection to haku page', async ({ page }) => {
     await page.route(
       '/konfo-backend/search/oppilaitokset**',
