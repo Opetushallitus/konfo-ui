@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { InfoGrid } from '#/src/components/common/InfoGrid';
 import { InfoGridIcon } from '#/src/components/common/InfoGridIcon';
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
-import { NDASH, MAKSULLISUUSTYYPPI, KOULUTUS_TYYPPI } from '#/src/constants';
+import { NDASH, KOULUTUS_TYYPPI } from '#/src/constants';
 import { useVisibleKoulutustyyppi } from '#/src/hooks/useVisibleKoulutustyyppi';
 import { localize } from '#/src/tools/localization';
 import {
@@ -16,7 +16,12 @@ import {
 } from '#/src/types/common';
 import { Opetus, Yksikko } from '#/src/types/ToteutusTypes';
 
-import { formatAloitus } from './utils';
+import {
+  formatAloitus,
+  formatMaksullisuusTitle,
+  formatMaksullisuusText,
+  isLukuvuosimaksullinen,
+} from './utils';
 
 const getYksikkoSymbol = (yksikko?: Yksikko) => {
   switch (yksikko) {
@@ -40,16 +45,6 @@ const formatApuraha = (opetus: Opetus, t: TFunction) => {
   }
 
   return t('toteutus.ei-apurahaa');
-};
-
-const formatMaksullisuus = (opetus: Opetus, t: TFunction) => {
-  return opetus?.maksunMaara &&
-    opetus?.maksullisuustyyppi &&
-    [MAKSULLISUUSTYYPPI.MAKSULLINEN, MAKSULLISUUSTYYPPI.LUKUVUOSIMAKSU].includes(
-      opetus?.maksullisuustyyppi
-    )
-    ? `${opetus?.maksunMaara} €`
-    : t('toteutus.ei-maksua');
 };
 
 const suunniteltuKesto = (t: TFunction, vuosi?: number, kk?: number) => {
@@ -103,7 +98,6 @@ export const ToteutusInfoGrid = ({
 
   const opetusAikaString = opetus.opetusaika?.map(localizeMap).join('\n') ?? '';
   const opetustapaString = opetus.opetustapa?.map(localizeMap).join('\n') ?? '';
-  const maksullisuusString = formatMaksullisuus(opetus, t);
   const apurahaString = formatApuraha(opetus, t);
 
   const perustiedotData = [];
@@ -112,6 +106,8 @@ export const ToteutusInfoGrid = ({
     koulutustyyppi,
     isAvoinKorkeakoulutus,
   });
+
+  const { maksut } = opetus;
 
   perustiedotData.push(
     {
@@ -206,18 +202,15 @@ export const ToteutusInfoGrid = ({
     },
     {
       icon: <InfoGridIcon icon="euro_symbol" />,
-      title:
-        opetus?.maksullisuustyyppi === MAKSULLISUUSTYYPPI.LUKUVUOSIMAKSU
-          ? t('toteutus.lukuvuosimaksu')
-          : t('toteutus.maksullisuus'),
-      text: maksullisuusString,
+      title: formatMaksullisuusTitle(t, maksut, koulutustyyppi),
+      text: formatMaksullisuusText(t, maksut),
       modalText: !isEmpty(opetus.maksullisuusKuvaus) && (
         <LocalizedHTML data={opetus.maksullisuusKuvaus!} noMargin />
       ),
     }
   );
 
-  if (opetus?.maksullisuustyyppi === MAKSULLISUUSTYYPPI.LUKUVUOSIMAKSU) {
+  if (isLukuvuosimaksullinen(opetus?.maksut)) {
     perustiedotData.push({
       icon: 'ApurahaIcon',
       title: t('toteutus.apuraha'),
