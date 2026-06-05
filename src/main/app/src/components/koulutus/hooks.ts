@@ -93,6 +93,7 @@ const selectKoulutus = (koulutusData: KoulutusExtendedData) => {
       eperusteet: koulutusData.eperusteet,
       ePerusteId: koulutusData?.ePerusteId,
       tutkinnonOsat: koulutusData.metadata?.tutkinnonOsat,
+      paikallisetTutkinnonOsat: koulutusData.metadata?.paikallisetTutkinnonOsat,
       tyotehtavatJoissaVoiToimia:
         koulutusData.metadata?.kuvaus?.tyotehtavatJoissaVoiToimia,
       suorittaneenOsaaminen: koulutusData.metadata?.kuvaus?.suorittaneenOsaaminen,
@@ -133,7 +134,7 @@ export const useKoulutus = ({
   osaamisalakuvaukset = false,
 }: UseKoulutusProps) => {
   return useQuery(
-    ['fetchKoulutus', { oid, isDraft }],
+    ['fetchKoulutus', { oid, isDraft, osaamisalakuvaukset }],
     () => fetchKoulutus(oid!, isDraft, osaamisalakuvaukset),
     {
       select: selectKoulutus,
