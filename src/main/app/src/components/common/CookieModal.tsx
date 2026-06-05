@@ -25,7 +25,7 @@ import { useCookieConsentState } from '#/src/hooks/useCookieConsentState';
 import { styled } from '#/src/theme';
 import { getOne } from '#/src/tools/getOne';
 
-import { MaterialIcon } from './MaterialIcon';
+import { MaterialSymbol } from './MaterialSymbol';
 
 const StyledModalContent = styled('div')(({ theme }) => ({
   zIndex: '9999',
@@ -210,7 +210,10 @@ export const CookieModal = () => {
             disableGutters>
             <StyledAccordionSummary
               expandIcon={
-                <MaterialIcon icon="expand_more" sx={{ color: colors.brandGreen }} />
+                <MaterialSymbol
+                  icon="keyboard_arrow_down"
+                  sx={{ color: colors.brandGreen }}
+                />
               }>
               {fullCookieInfoOpen ? fields.collapseLinkText : fields.expandLinkText}
             </StyledAccordionSummary>
@@ -264,9 +267,9 @@ export const CookieModal = () => {
                 onDelete={() => setSettingsOpen(!settingsOpen)}
                 deleteIcon={
                   settingsOpen ? (
-                    <MaterialIcon icon="expand_less" />
+                    <MaterialSymbol icon="keyboard_arrow_up" />
                   ) : (
-                    <MaterialIcon icon="expand_more" />
+                    <MaterialSymbol icon="keyboard_arrow_down" />
                   )
                 }
               />

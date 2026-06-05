@@ -15,7 +15,7 @@ import { isEqual } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { LANG_OPTIONS } from '#/src/constants';
 import { useLanguageState } from '#/src/hooks';
 import { styled } from '#/src/theme';
@@ -77,10 +77,15 @@ export const LanguageAccordion = () => {
         aria-expanded={isOpen}
         aria-controls={LANG_ACCORDION_CONTENT_ID}
         role="button"
-        expandIcon={<MaterialIcon icon="expand_more" sx={{ color: colors.white }} />}
+        expandIcon={
+          <MaterialSymbol icon="keyboard_arrow_down" sx={{ color: colors.white }} />
+        }
         onClick={() => setOpen(!isOpen)}>
         <Box display="flex" flexDirection="row" alignItems="center">
-          <MaterialIcon icon="language" sx={{ cursor: 'pointer', marginRight: '9px' }} />
+          <MaterialSymbol
+            icon="language"
+            sx={{ cursor: 'pointer', marginRight: '9px' }}
+          />
           <Typography sx={{ color: colors.white, border: 'none' }} aria-hidden={true}>
             {t(`kielivalinta.header.${language}`)}
           </Typography>

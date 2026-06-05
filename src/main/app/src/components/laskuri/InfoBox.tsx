@@ -2,10 +2,10 @@ import { Box, Hidden, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { colors, educationTypeColorCode } from '#/src/colors';
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { styled } from '#/src/theme';
 
-const InfoIcon = styled(MaterialIcon)(({ theme }) => ({
+const InfoIcon = styled(MaterialSymbol)(({ theme }) => ({
   marginRight: '8px',
   color: colors.brandGreen,
   [theme.breakpoints.down('sm')]: {

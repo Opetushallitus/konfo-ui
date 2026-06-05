@@ -14,7 +14,7 @@ import {
 } from '#/src/components/common/Filter/CustomizedMuiComponents';
 import { NumberRangeSlider } from '#/src/components/common/Filter/NumberRangeSlider';
 import { SummaryContent } from '#/src/components/common/Filter/SummaryContent';
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { useConfig } from '#/src/config';
 import { RAJAIN_TYPES } from '#/src/constants';
 import {
@@ -224,7 +224,7 @@ const MaksullisuusSummary = ({
   );
 
   return (
-    <SuodatinAccordionSummary expandIcon={<MaterialIcon icon="expand_more" />}>
+    <SuodatinAccordionSummary expandIcon={<MaterialSymbol icon="keyboard_arrow_down" />}>
       <SummaryContent
         filterName={t('haku.maksullisuus')}
         contentString={contentString}

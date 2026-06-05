@@ -16,7 +16,7 @@ import { useParams } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { Murupolku } from '#/src/components/common/Murupolku';
 import { Pagination } from '#/src/components/common/Pagination';
 import { PAGE_SIZE_OPTIONS, PAGE_SORT_OPTIONS } from '#/src/constants';
@@ -171,7 +171,12 @@ const RajainValinnat = () => {
 };
 
 const ExpandMore = (props: SvgIconProps) => (
-  <MaterialIcon aria-hidden="true" focusable="false" icon="expand_more" {...props} />
+  <MaterialSymbol
+    aria-hidden="true"
+    focusable="false"
+    icon="keyboard_arrow_down"
+    {...props}
+  />
 );
 
 export const HakuPage = () => {

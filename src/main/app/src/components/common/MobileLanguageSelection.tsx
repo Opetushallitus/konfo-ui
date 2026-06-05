@@ -9,7 +9,7 @@ import { isEqual } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { LANG_OPTIONS } from '#/src/constants';
 import { useLanguageState } from '#/src/hooks';
 import { styled } from '#/src/theme';
@@ -49,7 +49,7 @@ export const MobileLanguageSelection = () => {
             aria-label={t(`kielivalinta.${langOption.code}`)}>
             <ListItemIcon>
               {isEqual(language, langOption.code) && (
-                <MaterialIcon sx={{ color: colors.green900 }} icon="check" />
+                <MaterialSymbol sx={{ color: colors.green900 }} icon="check" />
               )}
             </ListItemIcon>
             <ListItemText

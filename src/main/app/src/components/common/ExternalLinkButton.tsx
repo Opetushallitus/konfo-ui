@@ -3,7 +3,7 @@ import { castArray } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { AccessibleInvisibleText } from './accessibility/AccessibleInvisibleText';
-import { MaterialIcon } from './MaterialIcon';
+import { MaterialSymbol } from './MaterialSymbol';
 
 type ExternalButtonProps = Pick<
   ButtonProps,
@@ -23,7 +23,7 @@ export const ExternalLinkButton = ({
     <Button
       variant="contained"
       color="primary"
-      endIcon={<MaterialIcon icon="open_in_new" aria-hidden="true" />}
+      endIcon={<MaterialSymbol icon="open_in_new" aria-hidden="true" />}
       disabled={disabled}
       onClick={onClick}
       sx={[...castArray(sx).filter(Boolean)]}

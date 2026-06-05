@@ -4,7 +4,7 @@ import { Grid, useMediaQuery, useTheme, ButtonProps } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { StyledButton } from '#/src/components/ohjaava-haku/common/StyledButton';
 import { styled } from '#/src/theme';
 
@@ -81,7 +81,7 @@ export const Progress = React.forwardRef<HTMLButtonElement, ButtonProps>((_, ref
                 {...(hasBeenAnswered &&
                   isPastQuestion && {
                     endIcon: (
-                      <MaterialIcon icon="check" sx={{ color: colors.brandGreen }} />
+                      <MaterialSymbol icon="check" sx={{ color: colors.brandGreen }} />
                     ),
                   })}>
                 {t(`ohjaava-haku.kysymykset.${questionId}.otsikko`)}

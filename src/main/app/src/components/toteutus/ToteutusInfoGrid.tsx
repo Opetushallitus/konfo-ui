@@ -121,7 +121,7 @@ export const ToteutusInfoGrid = ({
       testid: 'koulutustyyppi',
     },
     {
-      icon: <InfoGridIcon icon="chat_bubble_outline" />,
+      icon: <InfoGridIcon icon="chat_bubble" />,
       title: t('toteutus.opetuskieli'),
       text: kieliString,
       modalText: !isEmpty(opetus.opetuskieletKuvaus) && (
@@ -149,7 +149,7 @@ export const ToteutusInfoGrid = ({
 
   if (!isEmpty(taiteenalaString)) {
     perustiedotData.push({
-      icon: <InfoGridIcon icon="color_lens" />,
+      icon: <InfoGridIcon icon="palette" />,
       title: t('toteutus.taiteenala'),
       text: taiteenalaString,
     });
@@ -232,7 +232,7 @@ export const ToteutusInfoGrid = ({
 
   if (!isEmpty(opinnonTyyppiText)) {
     perustiedotData.push({
-      icon: <InfoGridIcon icon="class" />,
+      icon: <InfoGridIcon icon="school" />,
       title: t('koulutus.opinnonTyyppi'),
       text: opinnonTyyppiText,
     });

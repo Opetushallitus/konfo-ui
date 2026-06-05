@@ -4,7 +4,10 @@ import { Box, Divider, Link, Typography, useTheme } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { KorttiLogo } from '#/src/components/common/KorttiLogo';
-import { MaterialIcon, MaterialIconVariant } from '#/src/components/common/MaterialIcon';
+import {
+  MaterialSymbol,
+  MaterialSymbolVariant,
+} from '#/src/components/common/MaterialSymbol';
 import { TextButton } from '#/src/components/common/TextButton';
 import { useContentWidth } from '#/src/hooks/useContentWidth';
 import { useSuosikitSelection } from '#/src/hooks/useSuosikitSelection';
@@ -33,8 +36,8 @@ const InfoItem = ({
   value,
 }: {
   fieldId: string;
-  icon: MaterialIconName;
-  iconVariant: MaterialIconVariant;
+  icon: MaterialSymbolName;
+  iconVariant: MaterialSymbolVariant;
   label?: string;
   value: React.ReactNode;
 }) => {
@@ -48,7 +51,7 @@ const InfoItem = ({
 
   return value ? (
     <Box display="flex" gap={1} ref={itemsRef}>
-      <MaterialIcon icon={icon} variant={iconVariant} color="primary" />
+      <MaterialSymbol icon={icon} variant={iconVariant} color="primary" />
       <Box display="flex" flexDirection="column">
         {label && <Typography id={labelId}>{label}</Typography>}
         <Typography

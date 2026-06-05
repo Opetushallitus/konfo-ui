@@ -14,7 +14,7 @@ import { isString, omit, sortBy } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { GraafiContainer } from '#/src/components/laskuri/graafi/GraafiContainer';
 import { useHakukohdeSearch } from '#/src/components/laskuri/hooks';
 import { InfoBox } from '#/src/components/laskuri/InfoBox';
@@ -166,7 +166,7 @@ export const VertaaHakukohteeseen = ({ tulos }: Props) => {
             );
           }}
         />
-        <MaterialIcon
+        <MaterialSymbol
           icon="search"
           color="disabled"
           sx={{

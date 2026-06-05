@@ -24,7 +24,7 @@ import Select, {
 import { P, match } from 'ts-pattern';
 
 import { colors } from '#/src/colors';
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { useConfig } from '#/src/config';
 import { localizeIfNimiObject, translateRajainItem } from '#/src/tools/localization';
 import { TODOType } from '#/src/types/common';
@@ -100,7 +100,7 @@ type DropdownIndicatorProps = RSDropdownIndicatorProps<
 >;
 const DropdownIndicator = (props: DropdownIndicatorProps) => (
   <components.DropdownIndicator {...props}>
-    <MaterialIcon icon="search" aria-hidden={true} focusable="false" />
+    <MaterialSymbol icon="search" aria-hidden={true} focusable="false" />
   </components.DropdownIndicator>
 );
 
@@ -220,7 +220,7 @@ export const FilterCheckbox = ({
             edge="start"
             checked={checked}
             indeterminateIcon={
-              <MaterialIcon variant="outlined" icon="indeterminate_check_box" />
+              <MaterialSymbol variant="outlined" icon="indeterminate_check_box" />
             }
             indeterminate={isIndeterminate(value)}
             tabIndex={-1}
@@ -281,7 +281,7 @@ const FilterCheckboxGroup = ({
               e.stopPropagation();
             }}
             data-testid={`show-more-${value.id}`}>
-            <MaterialIcon icon={isOpen ? 'expand_less' : 'expand_more'} />
+            <MaterialSymbol icon={isOpen ? 'keyboard_arrow_up' : 'keyboard_arrow_down'} />
           </IconButton>
         }
       />
@@ -374,7 +374,7 @@ export const Filter = ({
         <SuodatinAccordionSummary
           id={headerId}
           aria-controls={contentId}
-          expandIcon={<MaterialIcon icon="expand_more" />}>
+          expandIcon={<MaterialSymbol icon="keyboard_arrow_down" />}>
           <SummaryContent
             filterName={usedName}
             values={rajainItems}
@@ -482,7 +482,11 @@ export const Filter = ({
                   boxShadow: `inset 0 0 0 2px ${colors.green700}`,
                 },
               }}
-              endIcon={<MaterialIcon icon={hideRest ? 'expand_more' : 'expand_less'} />}
+              endIcon={
+                <MaterialSymbol
+                  icon={hideRest ? 'keyboard_arrow_down' : 'keyboard_arrow_up'}
+                />
+              }
               fullWidth
               onClick={() => setHideRest(!hideRest)}>
               {hideRest ? t('haku.näytä_lisää') : t('haku.näytä_vähemmän')}

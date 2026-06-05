@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Collapse, Typography } from '@mui/material';
 
 import { colors } from '#/src/colors';
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { styled } from '#/src/theme';
 import { sanitizedHTMLParser } from '#/src/tools/utils';
 
@@ -21,7 +21,7 @@ export const AccordionText = ({ text, title }) => {
     <div>
       <StyledHeading onClick={handleChange} aria-expanded={isOpen} role="button">
         {title}
-        <MaterialIcon
+        <MaterialSymbol
           position="absolute"
           icon={isOpen ? 'arrow_drop_up' : 'arrow_drop_down'}
         />

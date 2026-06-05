@@ -10,7 +10,7 @@ import {
 import { castArray } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
-import { MaterialIcon } from './MaterialIcon';
+import { MaterialSymbol } from './MaterialSymbol';
 
 type KonfoDialogProps = {
   title: string;
@@ -53,7 +53,7 @@ export const KonfoDialog = ({
           sx={{
             flexShrink: 0,
           }}>
-          <MaterialIcon icon="close" />
+          <MaterialSymbol icon="close" />
         </IconButton>
       </Box>
       <DialogContent>{content}</DialogContent>

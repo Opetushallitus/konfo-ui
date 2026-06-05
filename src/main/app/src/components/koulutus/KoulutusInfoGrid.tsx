@@ -65,7 +65,7 @@ export const KoulutusInfoGrid = ({ koulutus }: Props) => {
 
   if (!isEmpty(opinnonTyyppiText)) {
     perustiedotData.push({
-      icon: <InfoGridIcon icon="class" />,
+      icon: <InfoGridIcon icon="school" />,
       title: t('koulutus.opinnonTyyppi'),
       text: opinnonTyyppiText,
     });

@@ -17,7 +17,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { match } from 'ts-pattern';
 
 import { colors } from '#/src/colors';
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { useAutocompleteOptions } from '#/src/hooks/useAutocompleteOptions';
 import { styled, theme } from '#/src/theme';
 import { AutocompleteOption } from '#/src/types/common';
@@ -41,7 +41,7 @@ const createRenderOption = (t: TFunction) => {
             const tarjoajatText = getToteutustenTarjoajat(t, k.toteutustenTarjoajat);
             return tarjoajatText ? (
               <Box display="flex" alignItems="center" flexDirection="row">
-                <MaterialIcon variant="outlined" icon="home_work" />
+                <MaterialSymbol variant="outlined" icon="home_work" />
                 <Typography pl={1} variant="body2">
                   {tarjoajatText}
                 </Typography>

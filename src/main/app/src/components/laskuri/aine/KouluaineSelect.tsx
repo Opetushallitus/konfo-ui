@@ -11,7 +11,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { styled } from '#/src/theme';
 
 import { ARVOSANA_VALUES, Kouluaine, Kieliaine } from './Kouluaine';
@@ -128,7 +128,7 @@ export const KouluaineSelect = ({
           className={classes.poistakieli}
           onClick={removeLisaKieli}
           aria-label={t('pistelaskuri.aine.removekieli')}>
-          <MaterialIcon icon="delete" variant="outlined" />
+          <MaterialSymbol icon="delete" variant="outlined" />
         </IconButton>
       )}
     </AineSelectControl>

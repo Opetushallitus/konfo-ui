@@ -2,7 +2,7 @@ import { Avatar, Button, Grid, Paper, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { styled } from '#/src/theme';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
@@ -32,7 +32,7 @@ export const ErrorMessage = ({ onRetry = () => {} }: { onRetry?: () => void }) =
                   width: 60,
                   height: 60,
                 }}>
-                <MaterialIcon icon="error_outline" />
+                <MaterialSymbol icon="error" />
               </Avatar>
             </Grid>
             <Grid item>

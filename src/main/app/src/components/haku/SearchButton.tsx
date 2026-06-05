@@ -3,7 +3,7 @@ import React from 'react';
 import { IconButton, Button, useMediaQuery } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { theme } from '#/src/theme';
 
 export const SearchButton = ({ isKeywordValid }: { isKeywordValid: boolean }) => {
@@ -12,7 +12,7 @@ export const SearchButton = ({ isKeywordValid }: { isKeywordValid: boolean }) =>
   const mdUp = useMediaQuery(theme.breakpoints.up('md'));
   return mdUp ? (
     <Button
-      startIcon={<MaterialIcon icon="search" />}
+      startIcon={<MaterialSymbol icon="search" />}
       disabled={!isKeywordValid}
       type="submit"
       variant="contained"
@@ -34,7 +34,7 @@ export const SearchButton = ({ isKeywordValid }: { isKeywordValid: boolean }) =>
       type="submit"
       sx={{ marginRight: theme.spacing(1) }}
       aria-label={t('haku.etsi')}>
-      <MaterialIcon icon="search" />
+      <MaterialSymbol icon="search" />
     </IconButton>
   );
 };

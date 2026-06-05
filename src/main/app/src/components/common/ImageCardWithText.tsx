@@ -1,7 +1,7 @@
 import { Typography, Box } from '@mui/material';
 
 import { colors } from '#/src/colors';
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { styled } from '#/src/theme';
 
 const TitleBox = styled(Box)({
@@ -33,7 +33,7 @@ export const ImageCardWithText = (props: { image: string; cardText: string }) =>
         <Typography height="100%" variant="subtitle1" component="p" color="inherit">
           {cardText}
         </Typography>
-        <MaterialIcon icon="chevron_right" sx={{ marginTop: '2px' }} />
+        <MaterialSymbol icon="chevron_right" sx={{ marginTop: '2px' }} />
       </TitleBox>
     </Box>
   );

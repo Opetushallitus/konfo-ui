@@ -7,7 +7,7 @@ import {
   LoadingCircle,
   OverlayLoadingCircle,
 } from '#/src/components/common/LoadingCircle';
-import { createMaterialIcon } from '#/src/components/common/MaterialIcon';
+import { createMaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { PageSection } from '#/src/components/common/PageSection';
 import { Pagination } from '#/src/components/common/Pagination';
 
@@ -18,9 +18,9 @@ type Props = {
   isOppilaitosOsa: boolean;
 };
 
-const PublicIcon = createMaterialIcon('public');
-const HourglassIcon = createMaterialIcon('hourglass_empty');
-const EuroSymbolIcon = createMaterialIcon('euro_symbol');
+const PublicIcon = createMaterialSymbol('public');
+const HourglassIcon = createMaterialSymbol('hourglass_empty');
+const EuroSymbolIcon = createMaterialSymbol('euro_symbol');
 
 export const TarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
   const { t } = useTranslation();

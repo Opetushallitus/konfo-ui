@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { educationTypeColorCode } from '#/src/colors';
 import { OppilaitosKorttiLogo } from '#/src/components/common/KorttiLogo';
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { SmartLink } from '#/src/components/common/SmartLink';
 import { styled } from '#/src/theme';
 
@@ -90,7 +90,7 @@ export const OppilaitosCard = ({
               justifyContent="center"
               wrap="nowrap">
               <Grid item className={classes.iconContainer}>
-                <MaterialIcon icon="public" className={classes.icon} />
+                <MaterialSymbol icon="public" className={classes.icon} />
               </Grid>
               <Grid item>
                 <Typography variant="body1" noWrap>

@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 
 import { colors, educationTypeColorCode } from '#/src/colors';
 import { AdditionalInfoWithIcon } from '#/src/components/common/AdditionalInfoWithIcon';
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { SmartLink } from '#/src/components/common/SmartLink';
 import { KOULUTUS_TYYPPI } from '#/src/constants';
 import { styled } from '#/src/theme';
@@ -241,14 +241,14 @@ export const EntiteettiKortti = ({
           {erityisopetusHeaderText && (
             <AdditionalInfoWithIcon
               translationKey={erityisopetusHeaderText}
-              icon={<MaterialIcon icon="directions" variant="outlined" />}
+              icon={<MaterialSymbol icon="directions" variant="outlined" />}
             />
           )}
 
           {jarjestaaUrheilijanAmmKoulutusta && (
             <AdditionalInfoWithIcon
               translationKey="haku.urheilijan-amm-koulutus"
-              icon={<MaterialIcon icon="sports_soccer" />}
+              icon={<MaterialSymbol icon="sports_soccer" />}
             />
           )}
 

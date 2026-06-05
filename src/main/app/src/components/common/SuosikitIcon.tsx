@@ -1,7 +1,7 @@
 import { Badge } from '@mui/material';
 
 import { colors } from '#/src/colors';
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { useSuosikitCount } from '#/src/hooks/useSuosikitSelection';
 import { styled } from '#/src/theme';
 
@@ -15,7 +15,7 @@ export const DarkBadge = styled(Badge)({
 export const SuosikitIcon = () => {
   return (
     <DarkBadge badgeContent={useSuosikitCount()} data-testid="suosikit-badge">
-      <MaterialIcon icon="favorite_border" />
+      <MaterialSymbol icon="favorite" />
     </DarkBadge>
   );
 };

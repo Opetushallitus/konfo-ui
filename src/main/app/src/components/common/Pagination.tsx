@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 
 import { Box } from '@mui/material';
 
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { MuiFlatPagination } from '#/src/components/MuiFlatPagination';
 import { styled } from '#/src/theme';
 import { scrollToId } from '#/src/tools/utils';
@@ -82,8 +82,8 @@ export const Pagination = ({
         otherPageColor="secondary"
         currentPageColor="primary"
         size="small"
-        previousPageLabel={<MaterialIcon icon="chevron_left" />}
-        nextPageLabel={<MaterialIcon icon="chevron_right" />}
+        previousPageLabel={<MaterialSymbol icon="chevron_left" />}
+        nextPageLabel={<MaterialSymbol icon="chevron_right" />}
       />
     </StyledBox>
   ) : null;

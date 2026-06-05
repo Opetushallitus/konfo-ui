@@ -7,7 +7,7 @@ import {
   EntiteettiKorttiTiivistetty,
 } from '#/src/components/common/EntiteettiKortti';
 import { KoulutusKorttiLogo } from '#/src/components/common/KorttiLogo';
-import { createMaterialIcon } from '#/src/components/common/MaterialIcon';
+import { createMaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { KOULUTUS_TYYPPI } from '#/src/constants';
 import { useVisibleKoulutustyyppi } from '#/src/hooks/useVisibleKoulutustyyppi';
 import { localize } from '#/src/tools/localization';
@@ -89,14 +89,14 @@ export const KoulutusKortti = ({ koulutus, isSmall }: Props) => {
       kuvaus={localizedKuvaus}
       iconTexts={[
         isEmpty(tutkintonimikkeetText)
-          ? [koulutustyyppiText, createMaterialIcon('extension', 'outlined')]
-          : [tutkintonimikkeetText, createMaterialIcon('school', 'outlined')],
+          ? [koulutustyyppiText, createMaterialSymbol('extension', 'outlined')]
+          : [tutkintonimikkeetText, createMaterialSymbol('school', 'outlined')],
         [
           getLocalizedKoulutusLaajuus(koulutus),
-          createMaterialIcon('timelapse', 'outlined'),
+          createMaterialSymbol('timelapse', 'outlined'),
         ],
         toteutustenTarjoajatText
-          ? [toteutustenTarjoajatText, createMaterialIcon('home_work', 'outlined')]
+          ? [toteutustenTarjoajatText, createMaterialSymbol('home_work', 'outlined')]
           : undefined,
       ]}
       isSmall={isSmall}
@@ -131,14 +131,14 @@ export const KoulutusKorttiTiivistetty = ({ koulutus, isSmall }: Props) => {
       header={localize(koulutus)}
       iconTexts={[
         isEmpty(tutkintonimikkeetText)
-          ? [koulutustyyppiText, createMaterialIcon('extension', 'outlined')]
-          : [tutkintonimikkeetText, createMaterialIcon('school', 'outlined')],
+          ? [koulutustyyppiText, createMaterialSymbol('extension', 'outlined')]
+          : [tutkintonimikkeetText, createMaterialSymbol('school', 'outlined')],
         [
           getLocalizedKoulutusLaajuus(koulutus),
-          createMaterialIcon('timelapse', 'outlined'),
+          createMaterialSymbol('timelapse', 'outlined'),
         ],
         toteutustenTarjoajatText
-          ? [toteutustenTarjoajatText, createMaterialIcon('home_work', 'outlined')]
+          ? [toteutustenTarjoajatText, createMaterialSymbol('home_work', 'outlined')]
           : undefined,
       ]}
       isSmall={isSmall}

@@ -17,7 +17,7 @@ import OPOLogoEN from '#/src/assets/images/opintopolku_logo_header_en.svg?react'
 import OPOLogoFI from '#/src/assets/images/opintopolku_logo_header_fi.svg?react';
 import OPOLogoSV from '#/src/assets/images/opintopolku_logo_header_sv.svg?react';
 import { colors } from '#/src/colors';
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { SideMenu } from '#/src/components/common/SideMenu';
 import { styled, theme } from '#/src/theme';
 import { getLanguage } from '#/src/tools/localization';
@@ -162,7 +162,7 @@ export const Header = ({
             edge="start"
             className={classes.menuButton}>
             <Box className={classes.menuBox}>
-              {isOpen ? <MaterialIcon icon="close" /> : <MaterialIcon icon="menu" />}
+              {isOpen ? <MaterialSymbol icon="close" /> : <MaterialSymbol icon="menu" />}
               <Typography className={classes.menuText}>{t('valikko')}</Typography>
             </Box>
           </IconButton>
@@ -196,7 +196,7 @@ export const Header = ({
             <SuosikitButton Component={ToolbarLinkButton} />
             <ToolbarLinkButton
               href={urls.url('oma-opintopolku')}
-              startIcon={<MaterialIcon icon="apps" />}
+              startIcon={<MaterialSymbol icon="apps" />}
               target="_blank">
               {t('oma-opintopolku')}
             </ToolbarLinkButton>

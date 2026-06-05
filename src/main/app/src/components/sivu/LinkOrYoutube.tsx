@@ -4,7 +4,7 @@ import { Link } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { AccessibleInvisibleText } from '#/src/components/common/accessibility/AccessibleInvisibleText';
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { styled } from '#/src/theme';
 import { parseUrl } from '#/src/tools/utils';
 
@@ -86,7 +86,7 @@ export const LinkOrYoutube = ({
         {absolute && (
           <>
             <AccessibleInvisibleText text={` (${t('avautuu-uuteen-valilehteen')})`} />
-            <MaterialIcon icon="open_in_new" aria-hidden="true" />
+            <MaterialSymbol icon="open_in_new" aria-hidden="true" />
           </>
         )}
       </StyledLink>

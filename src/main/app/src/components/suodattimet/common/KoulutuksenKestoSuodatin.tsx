@@ -12,7 +12,7 @@ import {
   SuodatinAccordionSummary,
 } from '#/src/components/common/Filter/CustomizedMuiComponents';
 import { NumberRangeSlider } from '#/src/components/common/Filter/NumberRangeSlider';
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { RAJAIN_TYPES } from '#/src/constants';
 import { useRajainItems } from '#/src/tools/filters';
 import { NumberRangeRajainItem, RajainComponentProps } from '#/src/types/SuodatinTypes';
@@ -138,7 +138,8 @@ export const KoulutuksenKestoSuodatin = ({
   return (
     <SuodatinAccordion elevation={elevation} defaultExpanded={expanded} square>
       {!summaryHidden && (
-        <SuodatinAccordionSummary expandIcon={<MaterialIcon icon="expand_more" />}>
+        <SuodatinAccordionSummary
+          expandIcon={<MaterialSymbol icon="keyboard_arrow_down" />}>
           <Grid
             container
             justifyContent="space-between"

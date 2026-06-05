@@ -13,7 +13,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { styled } from '#/src/theme';
 
 import { ARVOSANA_VALUES } from './Kouluaine';
@@ -135,7 +135,7 @@ export const ValinnainenArvosana = ({
             className={classes.gradeDelete}
             onClick={removeValinnaisaine}
             aria-label={t('pistelaskuri.aine.removevalinnainen')}>
-            <MaterialIcon icon="delete" variant="outlined" />
+            <MaterialSymbol icon="delete" variant="outlined" />
           </IconButton>
         </SelectContainer>
       </InputLabel>

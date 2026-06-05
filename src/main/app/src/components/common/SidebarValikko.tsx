@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { useSideMenu } from '#/src/hooks';
 import { useContentful } from '#/src/hooks/useContentful';
 import { styled } from '#/src/theme';
@@ -164,7 +164,7 @@ const ValikkoItem = ({
       }}>
       <ListItemText className={classes.valintaText}>{name}</ListItemText>
       <ListItemIcon className={classes.valintaIconBase} aria-hidden="true">
-        <MaterialIcon icon="chevron_right" className={classes.valintaIcon} />
+        <MaterialSymbol icon="chevron_right" className={classes.valintaIcon} />
       </ListItemIcon>
     </ListItemLink>
   );
@@ -198,7 +198,7 @@ export const SidebarValikko = (props: {
         {parent ? (
           <ListItemLink className={classes.parentOtsikko} onClick={deselect}>
             <ListItemIcon className={classes.parentOtsikkoIconBase}>
-              <MaterialIcon icon="chevron_left" className={classes.parentOtsikkoIcon} />
+              <MaterialSymbol icon="chevron_left" className={classes.parentOtsikkoIcon} />
             </ListItemIcon>
             <ListItemText>{parent.name}</ListItemText>
           </ListItemLink>

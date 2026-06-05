@@ -3,7 +3,7 @@ import React, { useRef, useState } from 'react';
 import { Typography, Box, Button } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { PopoverWithArrow } from '#/src/components/common/PopoverWithArrow';
 import { styled } from '#/src/theme';
 
@@ -43,7 +43,9 @@ export const Suodatin = ({ id, children, header }: Props) => {
         {header}
       </Typography>
       <ExpandButton
-        endIcon={<MaterialIcon icon={isOpen ? 'expand_less' : 'expand_more'} />}
+        endIcon={
+          <MaterialSymbol icon={isOpen ? 'keyboard_arrow_up' : 'keyboard_arrow_down'} />
+        }
         onClick={() => setIsOpen(true)}
         ref={anchorRef}
         aria-label={t('haku.valitse')}

@@ -2,7 +2,7 @@ import { Grid, Typography, ButtonGroup, Button } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { HakutulosSlice } from '#/src/store/reducers/hakutulosSlice';
 import { styled } from '#/src/theme';
 
@@ -65,8 +65,10 @@ export const MobileToggleOrderByButtonMenu = () => {
             isActive={sort === 'name'}
             onClick={sort === 'name' ? toggleNameSortOrder : toggleToNameSort}
             endIcon={
-              <MaterialIcon
-                icon={sortOrder === 'name_desc' ? 'expand_less' : 'expand_more'}
+              <MaterialSymbol
+                icon={
+                  sortOrder === 'name_desc' ? 'keyboard_arrow_up' : 'keyboard_arrow_down'
+                }
               />
             }>
             {sortOrder === 'name_desc'

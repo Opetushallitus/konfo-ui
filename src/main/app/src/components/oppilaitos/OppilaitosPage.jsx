@@ -9,7 +9,7 @@ import { Esittelyvideo } from '#/src/components/common/Esittelyvideo';
 import { HtmlTextBox } from '#/src/components/common/HtmlTextBox';
 import { InfoBanner } from '#/src/components/common/InfoBanner';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { Murupolku } from '#/src/components/common/Murupolku';
 import { PageSection } from '#/src/components/common/PageSection';
 import { TeemakuvaImage } from '#/src/components/common/TeemakuvaImage';
@@ -89,7 +89,7 @@ export const OppilaitosPage = (props) => {
             <InfoBanner
               heading={t('oppilaitos.jarjestaa-urheilijan-amm-koulutusta-otsikko')}
               bodytext={t('oppilaitos.jarjestaa-urheilijan-amm-koulutusta-teksti')}
-              icon={<MaterialIcon icon="sports_soccer" />}
+              icon={<MaterialSymbol icon="sports_soccer" />}
             />
           )}
           <Box

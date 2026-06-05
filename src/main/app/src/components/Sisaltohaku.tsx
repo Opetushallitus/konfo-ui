@@ -17,7 +17,7 @@ import { useNavigate } from 'react-router-dom';
 
 import koulutusPlaceholderImg from '#/src/assets/images/Opolkuhts.png';
 import { colors } from '#/src/colors';
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { Murupolku } from '#/src/components/common/Murupolku';
 import { SmartLink } from '#/src/components/common/SmartLink';
 import { MuiFlatPagination } from '#/src/components/MuiFlatPagination';
@@ -195,7 +195,7 @@ export const Sisaltohaku = () => {
               color="primary"
               className={classes.iconButton}
               aria-label={t('sidebar.etsi-tietoa-opintopolusta')}>
-              <MaterialIcon icon="search" />
+              <MaterialSymbol icon="search" />
             </Button>
           </Paper>
         </Grid>

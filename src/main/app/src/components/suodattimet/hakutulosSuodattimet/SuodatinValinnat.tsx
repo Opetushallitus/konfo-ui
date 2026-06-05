@@ -3,7 +3,7 @@ import React from 'react';
 import { Button, Chip, Grid } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { getFilterStateChangesForDelete } from '#/src/tools/filters';
 import { translateRajainItem } from '#/src/tools/localization';
 import { RajainItem, SetRajainValues } from '#/src/types/SuodatinTypes';
@@ -50,7 +50,7 @@ export const ChipList = ({
       <Grid item>
         <Button
           size="small"
-          startIcon={<MaterialIcon icon="clear" />}
+          startIcon={<MaterialSymbol icon="close" />}
           sx={{
             fontWeight: 600,
             fontSize: 14,

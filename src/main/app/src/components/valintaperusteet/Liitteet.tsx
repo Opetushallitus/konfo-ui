@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { colors } from '#/src/colors';
 import { ExternalLink } from '#/src/components/common/ExternalLink';
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
-import { createMaterialIcon } from '#/src/components/common/MaterialIcon';
+import { createMaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { Heading, HeadingBoundary } from '#/src/components/Heading';
 import { localize, localizeOsoite } from '#/src/tools/localization';
 import { useOsoitteet } from '#/src/tools/useOppilaitosOsoite';
@@ -19,7 +19,7 @@ const LIITTEEN_TOIMITUSTAPA = {
   MUU_OSOITE: 'osoite',
 };
 
-const FileIcon = createMaterialIcon('insert_drive_file', 'outlined');
+const FileIcon = createMaterialSymbol('draft', 'outlined');
 
 type ToimituspaikkaProps = {
   postiosoite?: string;

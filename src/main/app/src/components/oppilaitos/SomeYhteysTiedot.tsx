@@ -19,7 +19,7 @@ import { Koodi, Translateable } from '#/src/types/common';
 import { useSomeKoodit } from './hooks';
 import { AccessibleInvisibleText } from '../common/accessibility/AccessibleInvisibleText';
 import { ExternalLinkButton } from '../common/ExternalLinkButton';
-import { MaterialIcon } from '../common/MaterialIcon';
+import { MaterialSymbol } from '../common/MaterialSymbol';
 
 export type Some = {
   sosiaalinenmedia_1: string;
@@ -105,7 +105,7 @@ const SomeIconWithLink = ({
   return useDefault ? (
     <Box className={classes.placeHolder}>
       <Link href={someUrl} target="_blank" title={someText}>
-        <MaterialIcon
+        <MaterialSymbol
           icon="groups"
           fontSize="large"
           htmlColor="white"
