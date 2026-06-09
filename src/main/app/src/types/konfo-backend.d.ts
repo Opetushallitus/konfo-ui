@@ -3747,9 +3747,31 @@ export interface components {
             opintojenLaajuusyksikko?: components["schemas"]["OpintojenLaajuusyksikko"];
             tutkinnonOsat?: components["schemas"]["TutkinnonOsa"];
         };
+        PaikallinenTutkinnonOsa: {
+            /**
+             * @description Paikallisen tutkinnon osan opetussuunnitelman id
+             * @example 123
+             */
+            opetussuunnitelmaId?: string;
+            /**
+             * @description Paikallisen tutkinnon osan id
+             * @example 456
+             */
+            tutkinnonosaId?: string;
+            /** @description Paikallisen tutkinnon osan nimi eri kielillä */
+            nimi?: components["schemas"]["Nimi"];
+            /** @description Paikallisen tutkinnon osan laajuus osaamispisteinä */
+            laajuus?: number;
+            /** @description Paikallisen tutkinnon osan laajuusyksikkö */
+            laajuusyksikko?: components["schemas"]["OpintojenLaajuusyksikko"];
+            /** @description Paikallisen tutkinnon osan ammattitaidon osoittamistavat HTML-muodossa eri kielillä */
+            ammattitaidonosoittamistavat?: components["schemas"]["Teksti"];
+            /** @description Paikallisen tutkinnon osan ammattitaitovaatimukset HTML-muodossa eri kielillä */
+            ammattitaitovaatimukset?: components["schemas"]["Teksti"];
+        };
         Kunta: {
             /**
-             * @description Kunnan koodi URI. Viittaa [koodistoon](https://virkailija.untuvaopintopolku.fi/koodisto-service/ui/koodisto/view/kunta/1)
+             * @description Kunnan koodi URI. Viittaa [koodistoon](https:///koodisto-service/ui/koodisto/view/kunta/1)
              * @example kunta_091
              */
             koodiUri?: string;
@@ -3763,7 +3785,7 @@ export interface components {
         };
         Maakunta: {
             /**
-             * @description Maakunnan koodi URI. Viittaa [koodistoon](https://virkailija.untuvaopintopolku.fi/koodisto-service/ui/koodisto/view/maakunta/1)
+             * @description Maakunnan koodi URI. Viittaa [koodistoon](https:///koodisto-service/ui/koodisto/view/maakunta/1)
              * @example maakunta_01
              */
             maakoodiUri?: string;
@@ -3777,7 +3799,7 @@ export interface components {
         };
         KoulutusKoodi: {
             /**
-             * @description Koulutuksen koodi URI. Viittaa [koodistoon](https://virkailija.untuvaopintopolku.fi/koodisto-service/ui/koodisto/view/koulutus/11)
+             * @description Koulutuksen koodi URI. Viittaa [koodistoon](https:///koodisto-service/ui/koodisto/view/koulutus/11)
              * @example koulutus_301102#11
              */
             koodiUri?: string;
@@ -3792,7 +3814,7 @@ export interface components {
         };
         Koulutusala1: {
             /**
-             * @description Koulutusalan koodi URI. Viittaa [koodistoon](https://virkailija.untuvaopintopolku.fi/koodisto-service/ui/koodisto/view/kansallinenkoulutusluokitus2016koulutusalataso1/1)
+             * @description Koulutusalan koodi URI. Viittaa [koodistoon](https:///koodisto-service/ui/koodisto/view/kansallinenkoulutusluokitus2016koulutusalataso1/1)
              * @example kansallinenkoulutusluokitus2016koulutusalataso1_054#1
              */
             koodiUri?: string;
@@ -3807,7 +3829,7 @@ export interface components {
         };
         Koulutusala2: {
             /**
-             * @description Koulutusalan koodi URI. Viittaa [koodistoon](https://virkailija.untuvaopintopolku.fi/koodisto-service/ui/koodisto/view/kansallinenkoulutusluokitus2016koulutusalataso2/1)
+             * @description Koulutusalan koodi URI. Viittaa [koodistoon](https:///koodisto-service/ui/koodisto/view/kansallinenkoulutusluokitus2016koulutusalataso2/1)
              * @example kansallinenkoulutusluokitus2016koulutusalataso2_054#1
              */
             koodiUri?: string;
@@ -3822,7 +3844,7 @@ export interface components {
         };
         KoulutusLisatietoKoodi: {
             /**
-             * @description Lisätiedon otsikon koodi URI. Viittaa [koodistoon](https://virkailija.untuvaopintopolku.fi/koodisto-service/ui/koodisto/view/koulutuksenlisatiedot/1)
+             * @description Lisätiedon otsikon koodi URI. Viittaa [koodistoon](https:///koodisto-service/ui/koodisto/view/koulutuksenlisatiedot/1)
              * @example koulutuksenlisatiedot_03#1
              */
             koodiUri?: string;
@@ -3837,7 +3859,7 @@ export interface components {
         };
         Tutkintonimike: {
             /**
-             * @description Tutkintonimikkeen koodi URI. Viittaa [koodistoon](https://virkailija.untuvaopintopolku.fi/koodisto-service/ui/koodisto/view/tutkintonimikkeet/2)
+             * @description Tutkintonimikkeen koodi URI. Viittaa [koodistoon](https:///koodisto-service/ui/koodisto/view/tutkintonimikkeet/2)
              * @example tutkintonimikkeet_10024
              */
             koodiUri?: string;
@@ -3851,7 +3873,7 @@ export interface components {
         };
         TutkintonimikeKk: {
             /**
-             * @description Kk-tutkintonimikkeen koodi URI. Viittaa [koodistoon](https://virkailija.untuvaopintopolku.fi/koodisto-service/ui/koodisto/view/tutkintonimikekk/2)
+             * @description Kk-tutkintonimikkeen koodi URI. Viittaa [koodistoon](https:///koodisto-service/ui/koodisto/view/tutkintonimikekk/2)
              * @example tutkintonimikekk_110
              */
             koodiUri?: string;
@@ -3865,7 +3887,7 @@ export interface components {
         };
         OpintojenLaajuus: {
             /**
-             * @description Opintojen laajuus. Viittaa [koodistoon](https://virkailija.untuvaopintopolku.fi/koodisto-service/ui/koodisto/view/opintojenlaajuus/1)
+             * @description Opintojen laajuus. Viittaa [koodistoon](https:///koodisto-service/ui/koodisto/view/opintojenlaajuus/1)
              * @example opintojenlaajuus_40
              */
             koodiUri?: string;
@@ -3879,7 +3901,7 @@ export interface components {
         };
         OpintojenLaajuusyksikko: {
             /**
-             * @description Tutkinnon laajuus. Viittaa [koodistoon](https://virkailija.untuvaopintopolku.fi/koodisto-service/ui/koodisto/view/opintojenlaajuusyksikko/1)
+             * @description Tutkinnon laajuus. Viittaa [koodistoon](https:///koodisto-service/ui/koodisto/view/opintojenlaajuusyksikko/1)
              * @example opintojenlaajuus_40
              */
             koodiUri?: string;
@@ -3893,7 +3915,7 @@ export interface components {
         };
         Opetuskieli: {
             /**
-             * @description Opetuskieli. Viittaa [koodistoon](https://virkailija.untuvaopintopolku.fi/koodisto-service/ui/koodisto/view/oppilaitoksenopetuskieli/1)
+             * @description Opetuskieli. Viittaa [koodistoon](https:///koodisto-service/ui/koodisto/view/oppilaitoksenopetuskieli/1)
              * @example oppilaitoksenopetuskieli_1
              */
             koodiUri?: string;
@@ -3907,7 +3929,7 @@ export interface components {
         };
         Opetustapa: {
             /**
-             * @description Opetustapa. Viittaa [koodistoon](https://virkailija.untuvaopintopolku.fi/koodisto-service/ui/koodisto/view/opetuspaikkakk/1)
+             * @description Opetustapa. Viittaa [koodistoon](https:///koodisto-service/ui/koodisto/view/opetuspaikkakk/1)
              * @example opetuspaikkakk_1
              */
             koodiUri?: string;
@@ -3921,7 +3943,7 @@ export interface components {
         };
         Opetusaika: {
             /**
-             * @description Opetusaika. Viittaa [koodistoon](https://virkailija.untuvaopintopolku.fi/koodisto-service/ui/koodisto/view/opetusaikakk/1)
+             * @description Opetusaika. Viittaa [koodistoon](https:///koodisto-service/ui/koodisto/view/opetusaikakk/1)
              * @example opetusaikakk_1
              */
             koodiUri?: string;
@@ -3935,7 +3957,7 @@ export interface components {
         };
         Alkamiskausi: {
             /**
-             * @description Alkamiskausi. Viittaa [koodistoon](https://virkailija.untuvaopintopolku.fi/koodisto-service/ui/koodisto/view/kausi/1)
+             * @description Alkamiskausi. Viittaa [koodistoon](https:///koodisto-service/ui/koodisto/view/kausi/1)
              * @example kausi_s
              */
             koodiUri?: string;
@@ -3949,7 +3971,7 @@ export interface components {
         };
         Pohjakoulutusvaatimus: {
             /**
-             * @description Hakukohteen pohjakoulutusvaatimus. Viittaa [koodistoon](https://virkailija.untuvaopintopolku.fi/koodisto-service/ui/koodisto/view/pohjakoulutusvaatimuskouta/1)
+             * @description Hakukohteen pohjakoulutusvaatimus. Viittaa [koodistoon](https:///koodisto-service/ui/koodisto/view/pohjakoulutusvaatimuskouta/1)
              * @example pohjakoulutusvaatimuskouta_pk
              */
             koodiUri?: string;
@@ -3963,7 +3985,7 @@ export interface components {
         };
         Postinumero: {
             /**
-             * @description Postinumero. Viittaa [koodistoon](https://virkailija.untuvaopintopolku.fi/koodisto-service/ui/koodisto/view/posti/2)
+             * @description Postinumero. Viittaa [koodistoon](https:///koodisto-service/ui/koodisto/view/posti/2)
              * @example posti_04230#2
              */
             koodiUri?: string;
@@ -3977,7 +3999,7 @@ export interface components {
         };
         LiitteenTyyppi: {
             /**
-             * @description Liitteen tyyppi. Viittaa [koodistoon](https://virkailija.untuvaopintopolku.fi/koodisto-service/ui/koodisto/view/liitetyypitamm/1)
+             * @description Liitteen tyyppi. Viittaa [koodistoon](https:///koodisto-service/ui/koodisto/view/liitetyypitamm/1)
              * @example liitetyypitamm_3#1
              */
             koodi?: string;
@@ -3991,7 +4013,7 @@ export interface components {
         };
         ValintakokeenTyyppi: {
             /**
-             * @description Valintakokeen tyyppi. Viittaa [koodistoon](https://virkailija.untuvaopintopolku.fi/koodisto-service/ui/koodisto/view/valintakokeentyyppi/1)
+             * @description Valintakokeen tyyppi. Viittaa [koodistoon](https:///koodisto-service/ui/koodisto/view/valintakokeentyyppi/1)
              * @example liitetyypitamm_3#1
              */
             koodi?: string;
@@ -4005,7 +4027,7 @@ export interface components {
         };
         Hakutapa: {
             /**
-             * @description Hakutapa. Viittaa [koodistoon](https://virkailija.untuvaopintopolku.fi/koodisto-service/ui/koodisto/view/hakutapa/1)
+             * @description Hakutapa. Viittaa [koodistoon](https:///koodisto-service/ui/koodisto/view/hakutapa/1)
              * @example hakutapa_03#1
              */
             koodi?: string;
@@ -4019,7 +4041,7 @@ export interface components {
         };
         HaunKohdejoukko: {
             /**
-             * @description Haun kohdejoukko. Viittaa [koodistoon](https://virkailija.untuvaopintopolku.fi/koodisto-service/ui/koodisto/view/haunkohdejoukko/1)
+             * @description Haun kohdejoukko. Viittaa [koodistoon](https:///koodisto-service/ui/koodisto/view/haunkohdejoukko/1)
              * @example haunkohdejoukko_03#1
              */
             koodi?: string;
@@ -4033,7 +4055,7 @@ export interface components {
         };
         HaunKohdejoukonTarkenne: {
             /**
-             * @description Haun kohdejoukon tarkenne. Viittaa [koodistoon](https://virkailija.untuvaopintopolku.fi/koodisto-service/ui/koodisto/view/haunkohdejoukontarkenne/1)
+             * @description Haun kohdejoukon tarkenne. Viittaa [koodistoon](https:///koodisto-service/ui/koodisto/view/haunkohdejoukontarkenne/1)
              * @example haunkohdejoukontarkenne_03#1
              */
             koodi?: string;
@@ -4047,7 +4069,7 @@ export interface components {
         };
         Valintatapa: {
             /**
-             * @description Valintatapa. Viittaa [koodistoon](https://virkailija.untuvaopintopolku.fi/koodisto-service/ui/koodisto/view/valintatapajono/1)
+             * @description Valintatapa. Viittaa [koodistoon](https:///koodisto-service/ui/koodisto/view/valintatapajono/1)
              * @example valintatapajono_av#1
              */
             koodi?: string;
@@ -4061,7 +4083,7 @@ export interface components {
         };
         Osaamistausta: {
             /**
-             * @description Osaamistausta. Viittaa [koodistoon](https://virkailija.untuvaopintopolku.fi/koodisto-service/ui/koodisto/view/osaamistausta/1)
+             * @description Osaamistausta. Viittaa [koodistoon](https:///koodisto-service/ui/koodisto/view/osaamistausta/1)
              * @example osaamistausta_1
              */
             koodiUri?: string;
@@ -4070,7 +4092,7 @@ export interface components {
         };
         Osaamisala: {
             /**
-             * @description Osaamisala. Viittaa [koodistoon](https://virkailija.untuvaopintopolku.fi/koodisto-service/ui/koodisto/view/osaamisala/1)
+             * @description Osaamisala. Viittaa [koodistoon](https:///koodisto-service/ui/koodisto/view/osaamisala/1)
              * @example osaamisala_1
              */
             koodiUri?: string;
@@ -4079,7 +4101,7 @@ export interface components {
         };
         OpinnonTyyppi: {
             /**
-             * @description Opinnon tyyppi. Viittaa [koodistoon](https://virkailija.untuvaopintopolku.fi/koodisto-service/ui/koodisto/view/opinnontyyppi/1)
+             * @description Opinnon tyyppi. Viittaa [koodistoon](https:///koodisto-service/ui/koodisto/view/opinnontyyppi/1)
              * @example opinnontyyppi_2
              */
             koodiUri?: string;
@@ -4093,7 +4115,7 @@ export interface components {
         };
         TutkinnonOsa: {
             /**
-             * @description TutkinnonOsa. Viittaa [koodistoon](https://virkailija.untuvaopintopolku.fi/koodisto-service/ui/koodisto/view/tutkinnonosat/1)
+             * @description TutkinnonOsa. Viittaa [koodistoon](https:///koodisto-service/ui/koodisto/view/tutkinnonosat/1)
              * @example tutkinnonosat_1
              */
             koodiUri?: string;
@@ -4221,6 +4243,8 @@ export interface components {
             tunniste?: string;
             opinnonTyyppi?: components["schemas"]["OpinnonTyyppi"];
             tutkinnonOsat?: components["schemas"]["TutkinnonOsaEperuste"][];
+            /** @description Koulutuksen paikalliset tutkinnon osat */
+            paikallisetTutkinnonOsat?: components["schemas"]["PaikallinenTutkinnonOsa"][];
         };
         Toteutus: {
             /**
@@ -4256,8 +4280,7 @@ export interface components {
             kielivalinta?: components["schemas"]["Kieli"][];
             /** @description Toteutuksen näytettävä nimi eri kielillä. Kielet on määritetty toteutuksen kielivalinnassa. */
             nimi?: components["schemas"]["Nimi"];
-            /**
-             * @example {
+            /** @example {
              *       "tyyppi": "amm",
              *       "kuvaus": {
              *         "fi": "Suomenkielinen kuvaus",
@@ -4370,8 +4393,7 @@ export interface components {
              *           }
              *         }
              *       ]
-             *     }
-             */
+             *     } */
             metadata?: components["schemas"]["AmmatillinenToteutusMetadata"];
             /** @description Toteutuksen luonut organisaatio */
             organisaatio?: components["schemas"]["Organisaatio"];
