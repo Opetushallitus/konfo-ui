@@ -20,7 +20,7 @@ import {
   formatAloitus,
   formatMaksullisuusTitle,
   formatMaksullisuusText,
-  isLukuvuosimaksullinen,
+  isLukuvuosimaksullinenKkToteutus,
 } from './utils';
 
 const getYksikkoSymbol = (yksikko?: Yksikko) => {
@@ -210,7 +210,7 @@ export const ToteutusInfoGrid = ({
     }
   );
 
-  if (isLukuvuosimaksullinen(opetus?.maksut)) {
+  if (isLukuvuosimaksullinenKkToteutus(opetus?.maksut)) {
     perustiedotData.push({
       icon: 'ApurahaIcon',
       title: t('toteutus.apuraha'),
