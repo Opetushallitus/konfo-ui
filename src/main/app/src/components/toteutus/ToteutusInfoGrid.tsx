@@ -210,7 +210,7 @@ export const ToteutusInfoGrid = ({
     }
   );
 
-  if (isLukuvuosimaksullinenKkToteutus(opetus?.maksut)) {
+  if (isLukuvuosimaksullinenKkToteutus(opetus?.maksut, koulutustyyppi)) {
     perustiedotData.push({
       icon: 'ApurahaIcon',
       title: t('toteutus.apuraha'),
