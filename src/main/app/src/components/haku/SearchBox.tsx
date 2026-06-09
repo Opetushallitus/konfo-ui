@@ -13,7 +13,7 @@ import {
 import { TFunction } from 'i18next';
 import { identity, isString, omit, size } from 'lodash';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { match } from 'ts-pattern';
 
 import { colors } from '#/src/colors';
@@ -33,8 +33,9 @@ const createRenderOption = (t: TFunction) => {
     props: React.HTMLAttributes<HTMLLIElement>,
     option: AutocompleteOption
   ) {
+    const overriddenProps = { ...props, 'aria-selected': false as const };
     return (
-      <li {...props} style={{ display: 'block' }} key={option.link}>
+      <li {...overriddenProps} style={{ display: 'block' }} key={option.link}>
         <Box>{option.label}</Box>
         {match(option)
           .with({ type: 'koulutus' }, (k) => {
@@ -54,10 +55,10 @@ const createRenderOption = (t: TFunction) => {
   };
 };
 
-const createRenderInput = (t: TFunction) => {
+const createRenderInput = (t: TFunction, descriptionId: string) => {
   return function KonfoAutocompleteInput(params: AutocompleteRenderInputParams) {
-    const { InputProps } = params;
-    const rest = omit(params, ['InputProps', 'InputLabelProps']);
+    const { InputProps, inputProps: paramInputProps } = params;
+    const rest = omit(params, ['InputProps', 'InputLabelProps', 'inputProps']);
     return (
       <InputBase
         sx={{
@@ -74,6 +75,11 @@ const createRenderInput = (t: TFunction) => {
         placeholder={t('haku.kehoite')}
         {...InputProps}
         {...rest}
+        inputProps={{
+          ...paramInputProps,
+          'aria-describedby': descriptionId,
+          'aria-label': t('haku.kehoite'),
+        }}
       />
     );
   };
@@ -116,11 +122,6 @@ const createRenderAutocompleteGroup = (t: TFunction) => {
   };
 };
 
-const useIsOptionEqualToValue = () => {
-  const { pathname, search: urlSearch } = useLocation();
-  return (option: AutocompleteOption) => option.link === pathname + urlSearch;
-};
-
 export const SearchBox = ({
   keyword,
   doSearch,
@@ -133,6 +134,7 @@ export const SearchBox = ({
   const { setSearchPhraseDebounced, isFetching, data } = useAutoComplete();
 
   const [inputValue, setInputValue] = useState<string>(() => keyword || '');
+  const [highlightedLabel, setHighlightedLabel] = useState('');
   const isKeywordValid = checkIsKeywordValid(inputValue);
 
   const { t } = useTranslation();
@@ -156,7 +158,8 @@ export const SearchBox = ({
   );
 
   const navigate = useNavigate();
-  const isOptionEqualToValue = useIsOptionEqualToValue();
+
+  const hintId = 'searchbox-autocomplete-hint';
 
   return (
     <Paper
@@ -183,6 +186,38 @@ export const SearchBox = ({
         borderRadius: '2px',
       }}
       elevation={4}>
+      <span
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        style={{
+          border: 0,
+          clip: 'rect(0 0 0 0)',
+          height: 1,
+          margin: -1,
+          overflow: 'hidden',
+          padding: 0,
+          position: 'absolute',
+          width: 1,
+          whiteSpace: 'nowrap',
+        }}>
+        {highlightedLabel}
+      </span>
+      <span
+        id={hintId}
+        style={{
+          border: 0,
+          clip: 'rect(0 0 0 0)',
+          height: 1,
+          margin: -1,
+          overflow: 'hidden',
+          padding: 0,
+          position: 'absolute',
+          width: 1,
+          whiteSpace: 'nowrap',
+        }}>
+        {t('haku.ehdotus-navigoi-sivulle')}
+      </span>
       <Tooltip
         placement="bottom-start"
         open={!isKeywordValid}
@@ -192,13 +227,26 @@ export const SearchBox = ({
           key={keyword}
           inputValue={inputValue}
           freeSolo={true}
-          isOptionEqualToValue={isOptionEqualToValue}
           options={allHits}
           filterOptions={identity}
           noOptionsText={t('haku.ei-ehdotuksia')}
           loadingText={t('haku.lataus-käynnissä')}
           loading={isFetching}
           groupBy={(option) => option.type}
+          clearText={t('haku.tyhjenna-hakuehto')}
+          componentsProps={{
+            clearIndicator: {
+              tabIndex: 0,
+              sx: (muiTheme) => ({
+                '&.Mui-focusVisible': {
+                  backgroundColor: muiTheme.palette.action.hover,
+                },
+              }),
+            },
+          }}
+          onHighlightChange={(_e, option) => {
+            setHighlightedLabel(option == null || isString(option) ? '' : option.label);
+          }}
           onChange={(_e, val) => {
             if (!isString(val) && val?.link) {
               navigate(val.link);
@@ -212,7 +260,7 @@ export const SearchBox = ({
           }}
           renderGroup={createRenderAutocompleteGroup(t)}
           renderOption={createRenderOption(t)}
-          renderInput={createRenderInput(t)}
+          renderInput={createRenderInput(t, hintId)}
         />
       </Tooltip>
       {rajaaButton}
