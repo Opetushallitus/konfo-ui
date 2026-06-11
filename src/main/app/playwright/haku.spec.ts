@@ -21,6 +21,40 @@ test.describe('Haku', () => {
     await mocksFromFile(page, 'haku.mocks.json');
   });
 
+  test('Autocomplete option highlighted via keyboard should have aria-selected="true"', async ({
+    page,
+  }) => {
+    await page.route(
+      '/konfo-backend/search/autocomplete**',
+      fixtureFromFile('search-autocomplete-auto.json')
+    );
+
+    await page.goto('/konfo/fi/haku');
+
+    const searchInput = getSearchInput(page);
+    await searchInput.fill('auto');
+
+    const firstOption = page.locator('[role="option"]').first();
+    await expect(firstOption).toBeVisible();
+
+    // Ennen navigaatiota kaikilla optioilla aria-selected="false"
+    for (const option of await page.locator('[role="option"]').all()) {
+      await expect(option).toHaveAttribute('aria-selected', 'false');
+    }
+
+    // Nuoli alas korostaa ensimmäisen option
+    await searchInput.press('ArrowDown');
+
+    // Korostetulla optiolla pitää olla aria-selected="true", jotta ruudunlukija ei lue "ei valittu"
+    const highlightedOption = page.locator('[role="option"].Mui-focused');
+    await expect(highlightedOption).toHaveAttribute('aria-selected', 'true');
+
+    // Muilla optioilla edelleen aria-selected="false"
+    for (const option of await page.locator('[role="option"]:not(.Mui-focused)').all()) {
+      await expect(option).toHaveAttribute('aria-selected', 'false');
+    }
+  });
+
   test('Should show autocomplete suggestions', async ({ page }) => {
     test.slow();
     await page.route(
