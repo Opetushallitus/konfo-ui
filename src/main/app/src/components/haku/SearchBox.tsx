@@ -28,16 +28,15 @@ import { SearchButton } from './SearchButton';
 
 const checkIsKeywordValid = (word: string) => size(word) === 0 || size(word) > 2;
 
-const createRenderOption = (t: TFunction) => {
+const createRenderOption = (t: TFunction, highlightedLink: string | null) => {
   return function KonfoAutocompleteOption(
     props: React.HTMLAttributes<HTMLLIElement>,
     option: AutocompleteOption
   ) {
-    const isFocused = (props.className ?? '').includes('Mui-focused');
     return (
       <li
         {...props}
-        aria-selected={isFocused}
+        aria-selected={option.link === highlightedLink}
         style={{ display: 'block' }}
         key={option.link}>
         <Box>{option.label}</Box>
@@ -139,6 +138,7 @@ export const SearchBox = ({
 
   const [inputValue, setInputValue] = useState<string>(() => keyword || '');
   const [highlightedLabel, setHighlightedLabel] = useState('');
+  const [highlightedLink, setHighlightedLink] = useState<string | null>(null);
   const isKeywordValid = checkIsKeywordValid(inputValue);
 
   const { t } = useTranslation();
@@ -250,6 +250,7 @@ export const SearchBox = ({
           }}
           onHighlightChange={(_e, option) => {
             setHighlightedLabel(option == null || isString(option) ? '' : option.label);
+            setHighlightedLink(option == null || isString(option) ? null : option.link);
           }}
           onChange={(_e, val) => {
             if (!isString(val) && val?.link) {
@@ -263,7 +264,7 @@ export const SearchBox = ({
             }
           }}
           renderGroup={createRenderAutocompleteGroup(t)}
-          renderOption={createRenderOption(t)}
+          renderOption={createRenderOption(t, highlightedLink)}
           renderInput={createRenderInput(t, hintId)}
         />
       </Tooltip>
