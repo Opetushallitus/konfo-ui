@@ -33,9 +33,13 @@ const createRenderOption = (t: TFunction) => {
     props: React.HTMLAttributes<HTMLLIElement>,
     option: AutocompleteOption
   ) {
-    const overriddenProps = { ...props, 'aria-selected': false as const };
+    const isFocused = (props.className ?? '').includes('Mui-focused');
     return (
-      <li {...overriddenProps} style={{ display: 'block' }} key={option.link}>
+      <li
+        {...props}
+        aria-selected={isFocused}
+        style={{ display: 'block' }}
+        key={option.link}>
         <Box>{option.label}</Box>
         {match(option)
           .with({ type: 'koulutus' }, (k) => {
