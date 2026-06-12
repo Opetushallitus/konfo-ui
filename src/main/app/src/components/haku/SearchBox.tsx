@@ -33,20 +33,28 @@ const createRenderOption = (t: TFunction, highlightedLink: string | null) => {
     props: React.HTMLAttributes<HTMLLIElement>,
     option: AutocompleteOption
   ) {
+    const isHighlighted = option.link === highlightedLink;
+    const liProps = isHighlighted ? omit(props, 'aria-selected') : props;
     return (
       <li
-        {...props}
-        aria-selected={option.link === highlightedLink}
-        style={{ display: 'block' }}
-        key={option.link}>
-        <Box>{option.label}</Box>
+        {...liProps}
+        key={option.link}
+        style={{
+          ...(liProps as { style?: React.CSSProperties }).style,
+          display: 'block',
+        }}>
+        <Box role="presentation">{option.label}</Box>
         {match(option)
           .with({ type: 'koulutus' }, (k) => {
             const tarjoajatText = getToteutustenTarjoajat(t, k.toteutustenTarjoajat);
             return tarjoajatText ? (
-              <Box display="flex" alignItems="center" flexDirection="row">
-                <MaterialIcon variant="outlined" icon="home_work" />
-                <Typography pl={1} variant="body2">
+              <Box
+                display="flex"
+                alignItems="center"
+                flexDirection="row"
+                role="presentation">
+                <MaterialIcon variant="outlined" icon="home_work" role="presentation" />
+                <Typography pl={1} variant="body2" role="presentation">
                   {tarjoajatText}
                 </Typography>
               </Box>
@@ -62,6 +70,12 @@ const createRenderInput = (t: TFunction, descriptionId: string) => {
   return function KonfoAutocompleteInput(params: AutocompleteRenderInputParams) {
     const { InputProps, inputProps: paramInputProps } = params;
     const rest = omit(params, ['InputProps', 'InputLabelProps', 'inputProps']);
+    // MUI passes aria-activedescendant="" when no option is highlighted; empty string
+    // causes getElementById("") errors in Firefox
+    const inputProps =
+      paramInputProps['aria-activedescendant'] === ''
+        ? omit(paramInputProps, 'aria-activedescendant')
+        : paramInputProps;
     return (
       <InputBase
         sx={{
@@ -79,7 +93,7 @@ const createRenderInput = (t: TFunction, descriptionId: string) => {
         {...InputProps}
         {...rest}
         inputProps={{
-          ...paramInputProps,
+          ...inputProps,
           'aria-describedby': descriptionId,
           'aria-label': t('haku.kehoite'),
         }}
@@ -89,7 +103,7 @@ const createRenderInput = (t: TFunction, descriptionId: string) => {
 };
 
 const AutocompleteGroupList = styled('ul')`
-  list-style-type: 'none';
+  list-style: none;
   margin: 0;
   padding: 0;
   &[data-title]::before {
@@ -117,9 +131,9 @@ const createRenderAutocompleteGroup = (t: TFunction) => {
     const title = t(getTranslationKey(group));
     return (
       <li key={key}>
-        <nav aria-label={title}>
-          <AutocompleteGroupList data-title={title}>{children}</AutocompleteGroupList>
-        </nav>
+        <AutocompleteGroupList role="group" aria-label={title} data-title={title}>
+          {children}
+        </AutocompleteGroupList>
       </li>
     );
   };
@@ -228,6 +242,7 @@ export const SearchBox = ({
         title={t('haku.syota-ainakin-kolme-merkkia') || ''}>
         <Autocomplete
           fullWidth={true}
+          disablePortal={true}
           key={keyword}
           inputValue={inputValue}
           freeSolo={true}
@@ -249,8 +264,9 @@ export const SearchBox = ({
             },
           }}
           onHighlightChange={(_e, option) => {
-            setHighlightedLabel(option == null || isString(option) ? '' : option.label);
-            setHighlightedLink(option == null || isString(option) ? null : option.link);
+            const isNull = option == null || isString(option);
+            setHighlightedLabel(isNull ? '' : option.label);
+            setHighlightedLink(isNull ? null : option.link);
           }}
           onChange={(_e, val) => {
             if (!isString(val) && val?.link) {
