@@ -21,7 +21,7 @@ test.describe('Haku', () => {
     await mocksFromFile(page, 'haku.mocks.json');
   });
 
-  test('Autocomplete option highlighted via keyboard should have aria-selected="true"', async ({
+  test('Autocomplete highlighted option is announced via live region and has no aria-selected', async ({
     page,
   }) => {
     await page.route(
@@ -37,22 +37,20 @@ test.describe('Haku', () => {
     const firstOption = page.locator('[role="option"]').first();
     await expect(firstOption).toBeVisible();
 
-    // Ennen navigaatiota kaikilla optioilla aria-selected="false"
+    // Ei-korostetuilla optioilla on aria-selected="false" (Firefox-navigointia varten)
     for (const option of await page.locator('[role="option"]').all()) {
       await expect(option).toHaveAttribute('aria-selected', 'false');
     }
 
-    // Nuoli alas korostaa ensimmäisen option
+    const liveRegion = page.locator('[role="status"][aria-atomic="true"]');
+    await expect(liveRegion).toBeEmpty();
+
+    // Nuoli alas korostaa ensimmäisen option — aria-live-alue päivittyy sen labelilla
+    // Korostetulta optiolta aria-selected poistettu, jotta NVDA ei lue "valittuna" tai "ei valittu"
     await searchInput.press('ArrowDown');
-
-    // Korostetulla optiolla pitää olla aria-selected="true", jotta ruudunlukija ei lue "ei valittu"
+    await expect(liveRegion).toContainText('koulutus nimi fi');
     const highlightedOption = page.locator('[role="option"].Mui-focused');
-    await expect(highlightedOption).toHaveAttribute('aria-selected', 'true');
-
-    // Muilla optioilla edelleen aria-selected="false"
-    for (const option of await page.locator('[role="option"]:not(.Mui-focused)').all()) {
-      await expect(option).toHaveAttribute('aria-selected', 'false');
-    }
+    await expect(highlightedOption).not.toHaveAttribute('aria-selected');
   });
 
   test('Should show autocomplete suggestions', async ({ page }) => {
@@ -69,8 +67,8 @@ test.describe('Haku', () => {
     await page.goto('/konfo/fi/haku');
 
     const searchInput = getSearchInput(page);
-    const koulutuksetNav = page.getByRole('navigation', { name: 'Koulutukset' });
-    const oppilaitoksetNav = page.getByRole('navigation', { name: 'Oppilaitokset' });
+    const koulutuksetNav = page.getByRole('group', { name: 'Koulutukset' });
+    const oppilaitoksetNav = page.getByRole('group', { name: 'Oppilaitokset' });
 
     await expect(searchInput).toBeVisible();
     await searchInput.fill('auto');
