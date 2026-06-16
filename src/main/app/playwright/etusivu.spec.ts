@@ -1,3 +1,4 @@
+import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 
 import {
@@ -42,6 +43,33 @@ test.describe('Etusivu', () => {
     await expect(page.getByAltText('Opintopolun logo')).toHaveCount(0);
     await expect(page.getByAltText('Opetushallituksen logo')).toHaveCount(0);
     await expect(page.locator('footer img[alt=""]')).toHaveCount(2);
+  });
+
+  test('Footer should have contentinfo landmark', async ({ page }) => {
+    await page.goto('/konfo/fi');
+    // eslint-disable-next-line playwright/no-networkidle
+    await page.waitForLoadState('networkidle');
+
+    await expect(page.getByRole('contentinfo')).toBeVisible();
+
+    const footer = page.getByRole('contentinfo');
+    await expect(
+      footer.getByRole('navigation', { name: 'Alatunnisteen valikko' })
+    ).toBeVisible();
+
+    const logoImages = footer.locator('img');
+    for (const img of await logoImages.all()) {
+      await expect(img).toHaveAttribute('alt', '');
+    }
+
+    const results = await new AxeBuilder({ page })
+      .withRules([
+        'landmark-contentinfo-is-top-level',
+        'landmark-no-duplicate-contentinfo',
+        'image-alt',
+      ])
+      .analyze();
+    expect(results.violations).toEqual([]);
   });
 
   test('Should pass koulutustyyppi filter selection to haku page', async ({ page }) => {
