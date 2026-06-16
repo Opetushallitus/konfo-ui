@@ -6,7 +6,7 @@ import {
   SuodatinAccordionDetails,
   SuodatinAccordionSummary,
 } from '#/src/components/common/Filter/CustomizedMuiComponents';
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { styled } from '#/src/theme';
 
 import { useSearch } from '../hakutulosHooks';
@@ -30,7 +30,8 @@ export const MobileToggleKoulutusOppilaitos = () => {
 
   return (
     <SuodatinAccordion style={{ boxShadow: 'none' }} defaultExpanded elevation={0}>
-      <SuodatinAccordionSummary expandIcon={<MaterialIcon icon="expand_more" />}>
+      <SuodatinAccordionSummary
+        expandIcon={<MaterialSymbol icon="keyboard_arrow_down" />}>
         <Typography variant="subtitle1" component="span">
           {t('haku.kategoria')}
         </Typography>

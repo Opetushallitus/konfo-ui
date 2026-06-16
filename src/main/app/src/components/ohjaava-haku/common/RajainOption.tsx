@@ -3,7 +3,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { StyledButton } from '#/src/components/ohjaava-haku/common/StyledButton';
 import { styled } from '#/src/theme';
 import { localize } from '#/src/tools/localization';
@@ -57,7 +57,7 @@ export const RajainOption = ({
   return (
     <OptionButton
       {...(isRajainSelected && {
-        startIcon: <MaterialIcon icon="check" />,
+        startIcon: <MaterialSymbol icon="check" />,
       })}
       key={id}
       onClick={() => toggleAllSelectedRajainValues(rajainId, rajainValueIds)}

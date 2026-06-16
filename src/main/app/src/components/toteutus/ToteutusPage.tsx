@@ -13,7 +13,7 @@ import { HtmlTextBox } from '#/src/components/common/HtmlTextBox';
 import { InfoBanner } from '#/src/components/common/InfoBanner';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { Murupolku } from '#/src/components/common/Murupolku';
 import { PageSection } from '#/src/components/common/PageSection';
 import { TeemakuvaImage } from '#/src/components/common/TeemakuvaImage';
@@ -214,7 +214,7 @@ export const ToteutusPage = () => {
           <InfoBanner
             heading={erityisopetusHeading}
             bodytext={erityisopetusText}
-            icon={<MaterialIcon icon="directions" variant="outlined" />}
+            icon={<MaterialSymbol icon="directions" variant="outlined" />}
           />
         )}
         <Asiasanat toteutus={toteutus} />

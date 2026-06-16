@@ -1,6 +1,6 @@
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { styled } from '#/src/theme';
 
-export const InfoGridIcon = styled(MaterialIcon)(({ theme }) => ({
+export const InfoGridIcon = styled(MaterialSymbol)(({ theme }) => ({
   color: theme.palette.primary.main,
 }));

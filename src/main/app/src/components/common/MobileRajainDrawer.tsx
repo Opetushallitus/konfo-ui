@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { theme } from '#/src/theme';
 
 import { ShowSearchResultsButton } from './ShowSearchResultsButton';
@@ -59,7 +59,7 @@ export const MobileRajainDrawer = ({
             wrap="nowrap">
             <Grid item>
               <IconButton color="inherit" onClick={toggleOpen}>
-                <MaterialIcon icon="close" />
+                <MaterialSymbol icon="close" />
               </IconButton>
             </Grid>
             <Grid item>

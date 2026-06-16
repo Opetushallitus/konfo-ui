@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 import { IconBackground } from '#/src/components/common/IconBackground';
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { PageSection } from '#/src/components/common/PageSection';
 import { styled } from '#/src/theme';
 import { localize } from '#/src/tools/localization';
@@ -41,7 +41,7 @@ export const ToteutusHakuEiSahkoista = ({ toteutus }: Props) => {
           justifyContent="center"
           alignItems="center">
           <IconBackground>
-            <MaterialIcon
+            <MaterialSymbol
               icon="description"
               variant="outlined"
               sx={{ fontSize: 40, color: colors.white }}

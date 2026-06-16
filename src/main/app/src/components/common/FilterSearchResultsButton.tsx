@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Badge, Button, ButtonProps } from '@mui/material';
 
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { useSideMenu } from '#/src/hooks';
 import { useHakutulosWidth } from '#/src/store/reducers/appSlice';
 
@@ -39,7 +39,7 @@ export const FilterSearchResultsButton = ({
       variant={inline ? 'text' : 'contained'}
       endIcon={
         <Badge color="error" badgeContent={selectedRajainCount}>
-          <MaterialIcon icon="filter_list" />
+          <MaterialSymbol icon="filter_list" />
         </Badge>
       }
       {...rest}>

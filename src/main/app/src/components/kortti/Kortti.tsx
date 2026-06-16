@@ -4,7 +4,7 @@ import { Grid, Card, CardContent, CardMedia, Link } from '@mui/material';
 import clsx from 'clsx';
 
 import { colors } from '#/src/colors';
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { useContentful } from '#/src/hooks/useContentful';
 import { styled } from '#/src/theme';
 
@@ -88,7 +88,7 @@ export const Kortti = ({ id }: { id: string }) => {
             .filter(Boolean)
             .map((page) => (
               <div className={classes.link} key={page.id}>
-                <MaterialIcon icon="chevron_right" />
+                <MaterialSymbol icon="chevron_right" />
                 <Link className={classes.linkElement} href={forwardTo(page.id)}>
                   {page.name}
                 </Link>

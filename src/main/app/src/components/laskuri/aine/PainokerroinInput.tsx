@@ -12,7 +12,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { Kouluaine } from '#/src/components/laskuri/aine/Kouluaine';
 import { isEligiblePainokerroin } from '#/src/components/laskuri/Keskiarvo';
 import { styled } from '#/src/theme';
@@ -153,7 +153,7 @@ export const PainokerroinInput = ({ labelId, kouluaine, updatePainokerroin }: Pr
                 className={classes.delete}
                 onClick={removePainokerroin}
                 aria-label={t('pistelaskuri.aine.removepainokerroin')}>
-                <MaterialIcon icon="delete" variant="outlined" />
+                <MaterialSymbol icon="delete" variant="outlined" />
               </IconButton>
             </InputContainer>
           </InputLabel>

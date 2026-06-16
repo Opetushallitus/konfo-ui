@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { MobileLanguageSelection } from '#/src/components/common/MobileLanguageSelection';
 import { Murupolku } from '#/src/components/common/Murupolku';
 import { SidebarValikko } from '#/src/components/common/SidebarValikko';
@@ -142,7 +142,7 @@ export const SideMenu = (props: {
             <TextButtonLink
               href={urls.url('oma-opintopolku')}
               target="_blank"
-              startIcon={<MaterialIcon icon="apps" />}>
+              startIcon={<MaterialSymbol icon="apps" />}>
               {t('oma-opintopolku')}
             </TextButtonLink>
             <MobileLanguageSelection />
@@ -177,7 +177,7 @@ export const SideMenu = (props: {
             color="primary"
             className={classes.iconButton}
             aria-label={t('sidebar.etsi-tietoa-opintopolusta')}>
-            <MaterialIcon icon="search" />
+            <MaterialSymbol icon="search" />
           </Button>
         </Paper>
       </div>

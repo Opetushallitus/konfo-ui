@@ -20,7 +20,7 @@ import { Koodi, Suosikki, Translateable } from '#/src/types/common';
 
 import { ContentWrapper } from './common/ContentWrapper';
 import { OppilaitosKorttiLogo } from './common/KorttiLogo';
-import { MaterialIcon } from './common/MaterialIcon';
+import { MaterialSymbol } from './common/MaterialSymbol';
 import { Murupolku } from './common/Murupolku';
 import { QueryResult } from './common/QueryResultWrapper';
 import { TextWithBackground } from './common/TextWithBackground';
@@ -75,7 +75,7 @@ const Tutkintonimikkeet = ({
 }) => {
   return tutkintonimikkeet ? (
     <>
-      <MaterialIcon icon="school" variant="outlined" />
+      <MaterialSymbol icon="school" variant="outlined" />
       <Typography display="flex" marginLeft={1} sx={{ whiteSpace: 'pre' }}>
         {tutkintonimikkeet.map((tn: { nimi: Translateable }) => localize(tn)).join('\n')}
       </Typography>
@@ -134,7 +134,7 @@ const SuosikkiKortti = ({
             <Tutkintonimikkeet tutkintonimikkeet={hakukohdeSuosikki.tutkintonimikkeet} />
           </Box>
           <Box display="flex">
-            <MaterialIcon icon="public" />
+            <MaterialSymbol icon="public" />
             <Typography display="flex" marginLeft={1}>
               {localize(hakukohdeSuosikki.jarjestyspaikka?.paikkakunta)}
             </Typography>
@@ -288,7 +288,7 @@ export const SuosikitPage = () => {
         {suosikitCount > 0 ? (
           <>
             <Box marginRight={1}>
-              <MaterialIcon icon="favorite" color="primary" />
+              <MaterialSymbol icon="favorite" color="primary" />
             </Box>
             {t('suosikit.tallennettu-hakukohde', { count: suosikitCount })}
           </>

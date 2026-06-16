@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Box, Button, Link } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { useNotifications } from '#/src/hooks/useNotifications';
 import { useSuosikitSelection } from '#/src/hooks/useSuosikitSelection';
 
@@ -16,13 +16,9 @@ const ToggleIcon = ({
   isAdded: boolean;
   confirmRemove: boolean;
 }) => {
-  const toggleIcon = isAdded
-    ? confirmRemove
-      ? 'delete'
-      : 'favorite'
-    : 'favorite_border';
+  const toggleIcon = isAdded ? (confirmRemove ? 'delete' : 'favorite') : 'favorite';
 
-  return <MaterialIcon icon={toggleIcon} />;
+  return <MaterialSymbol icon={toggleIcon} />;
 };
 
 export const ToggleSuosikkiButton = ({

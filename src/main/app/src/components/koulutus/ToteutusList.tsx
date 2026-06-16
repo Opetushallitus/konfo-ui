@@ -7,7 +7,7 @@ import { match } from 'ts-pattern';
 
 import { EntiteettiKortti } from '#/src/components/common/EntiteettiKortti';
 import { OppilaitosKorttiLogo } from '#/src/components/common/KorttiLogo';
-import { createMaterialIcon } from '#/src/components/common/MaterialIcon';
+import { createMaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { PageSection } from '#/src/components/common/PageSection';
 import { Pagination } from '#/src/components/common/Pagination';
 import { QueryResultWrapper } from '#/src/components/common/QueryResultWrapper';
@@ -187,13 +187,13 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                         localizeArrayToCommaSeparated(toteutus.kunnat, {
                           sorted: true,
                         }),
-                        createMaterialIcon('public'),
+                        createMaterialSymbol('public'),
                       ],
                       [
                         localizeArrayToCommaSeparated(toteutus.opetusajat, {
                           sorted: true,
                         }),
-                        createMaterialIcon('hourglass_empty'),
+                        createMaterialSymbol('hourglass_empty'),
                       ],
                       [
                         getLocalizedMaksullisuus(
@@ -202,7 +202,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                           toteutus?.maksunMaara,
                           toteutus?.lukuvuosimaksunMaara
                         ),
-                        createMaterialIcon('euro_symbol'),
+                        createMaterialSymbol('euro_symbol'),
                       ],
                       [
                         toteutus.hakuAuki ? (

@@ -4,7 +4,7 @@ import { Tabs, Tab, useTheme } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { useHakutulosWidth } from '#/src/store/reducers/appSlice';
 import { styled } from '#/src/theme';
 
@@ -76,7 +76,7 @@ export const HakutulosTabs = () => {
       <Tab
         value="koulutus"
         icon={
-          <MaterialIcon
+          <MaterialSymbol
             icon="school"
             variant="outlined"
             className={classes.tabIconMargin}
@@ -101,7 +101,7 @@ export const HakutulosTabs = () => {
         disableRipple
         value="oppilaitos"
         icon={
-          <MaterialIcon
+          <MaterialSymbol
             variant="outlined"
             icon="home_work"
             className={classes.tabIconMargin}

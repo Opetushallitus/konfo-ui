@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { match } from 'ts-pattern';
 
 import { NumberRangeSlider } from '#/src/components/common/Filter/NumberRangeSlider';
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import {
   InputContainer,
   InputFieldContainer,
@@ -173,7 +173,7 @@ const MaksullisuusInput = ({
     });
   };
 
-  const unit = () => <MaterialIcon icon="euro_symbol" fontSize="small" />;
+  const unit = () => <MaterialSymbol icon="euro_symbol" fontSize="small" />;
   const errorId = 'maksullisuus-error';
   return (
     <Grid container direction="column" wrap="nowrap">

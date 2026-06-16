@@ -1,6 +1,6 @@
 import { TFunction } from 'i18next';
 
-import { MaterialIconVariant } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbolVariant } from '#/src/components/common/MaterialSymbol';
 import { localize } from '#/src/tools/localization';
 import { isNonNil } from '#/src/tools/utils';
 import { VertailuSuosikki } from '#/src/types/common';
@@ -13,8 +13,8 @@ import { VertailuPistemaara } from './VertailuPistemaara';
 import { VertailuValintakokeet } from './VertailuValintakokeet';
 
 export const VERTAILU_FIELDS_ORDER: Array<{
-  icon: MaterialIconName;
-  iconVariant: MaterialIconVariant;
+  icon: MaterialSymbolName;
+  iconVariant: MaterialSymbolVariant;
   fieldId: keyof SuosikitVertailuMask;
   getLabel: (t: TFunction, vertailuSuosikki?: VertailuSuosikki) => string;
   renderValue: (vertailuSuosikki: VertailuSuosikki, t: TFunction) => React.ReactNode;
@@ -40,7 +40,7 @@ export const VERTAILU_FIELDS_ORDER: Array<{
     ),
   },
   {
-    icon: 'people',
+    icon: 'group',
     iconVariant: 'outlined',
     fieldId: 'aloituspaikat-ensisijaiset-hakijat',
     getLabel: (t, vertailuSuosikki) =>
@@ -58,7 +58,7 @@ export const VERTAILU_FIELDS_ORDER: Array<{
     },
   },
   {
-    icon: 'people',
+    icon: 'group',
     iconVariant: 'outlined',
     fieldId: 'aloituspaikat',
     getLabel: (t) => t('suosikit-vertailu.aloituspaikat'),
@@ -70,7 +70,7 @@ export const VERTAILU_FIELDS_ORDER: Array<{
     },
   },
   {
-    icon: 'people',
+    icon: 'group',
     iconVariant: 'outlined',
     fieldId: 'opiskelijoita',
     getLabel: (t) => t('suosikit-vertailu.opiskelijoita'),
@@ -105,7 +105,7 @@ export const VERTAILU_FIELDS_ORDER: Array<{
       ) : undefined,
   },
   {
-    icon: 'chat_bubble_outline',
+    icon: 'chat_bubble',
     iconVariant: 'filled',
     fieldId: 'kielivalikoima',
     getLabel: (t) => t('suosikit-vertailu.kielivalikoima'),

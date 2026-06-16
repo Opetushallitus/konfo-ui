@@ -24,7 +24,10 @@ import { useTranslation } from 'react-i18next';
 import { colors } from '#/src/colors';
 import { AdditionalInfoWithIcon } from '#/src/components/common/AdditionalInfoWithIcon';
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
-import { MaterialIcon, createMaterialIcon } from '#/src/components/common/MaterialIcon';
+import {
+  MaterialSymbol,
+  createMaterialSymbol,
+} from '#/src/components/common/MaterialSymbol';
 import { PageSection } from '#/src/components/common/PageSection';
 import { ToggleSuosikkiButton } from '#/src/components/common/ToggleSuosikkiButton';
 import { useDemoLinks } from '#/src/components/toteutus/hooks';
@@ -193,7 +196,7 @@ const HakuCardGrid = ({
                           <Box mt={1}>
                             <AdditionalInfoWithIcon
                               translationKey="haku.urheilijan-amm-koulutus"
-                              icon={<MaterialIcon icon="sports_soccer" />}
+                              icon={<MaterialSymbol icon="sports_soccer" />}
                             />
                           </Box>
                         )}
@@ -341,12 +344,12 @@ const HakuCardGrid = ({
   );
 };
 
-const CalendarTodayOutlinedIcon = createMaterialIcon('calendar_today', 'outlined');
-const AutorenewIcon = createMaterialIcon('calendar_today', 'outlined');
+const CalendarTodayOutlinedIcon = createMaterialSymbol('calendar_today', 'outlined');
+const AutorenewIcon = createMaterialSymbol('calendar_today', 'outlined');
 
 const typeToIconMap = {
   hakutapa_01: CalendarTodayOutlinedIcon, // Yhteishaku
-  hakutapa_02: createMaterialIcon('pin_drop'), // Erillishaku
+  hakutapa_02: createMaterialSymbol('pin_drop'), // Erillishaku
   hakutapa_03: AutorenewIcon, // Jatkuva haku
   hakutapa_04: AutorenewIcon, // Joustava haku
   // TODO: hakutapa_05 + 06: Lisähaku / Siirtohaku (järjestys selvitettävä)

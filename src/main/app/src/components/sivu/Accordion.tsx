@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Accordion as MuiAccordion, AccordionSummary, Typography } from '@mui/material';
 
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { styled } from '#/src/theme';
 
 const StyledAccordion = styled(MuiAccordion)({
@@ -23,7 +23,7 @@ const StyledAccordion = styled(MuiAccordion)({
 export const Summary = ({ children }: React.PropsWithChildren) => {
   return (
     <AccordionSummary
-      expandIcon={<MaterialIcon icon="expand_more" />}
+      expandIcon={<MaterialSymbol icon="keyboard_arrow_down" />}
       aria-controls="panel1a-content">
       <Typography>{children}</Typography>
     </AccordionSummary>

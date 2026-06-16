@@ -45,12 +45,12 @@ export const OppilaitosinfoGrid = ({
       text: paikkakunnat,
     },
     {
-      icon: <InfoGridIcon icon="people_outline" />,
+      icon: <InfoGridIcon icon="group" />,
       title: t('oppilaitos.opiskelojoita'),
       text: toString(opiskelijoita),
     },
     {
-      icon: <InfoGridIcon icon="chat_bubble_outline" />,
+      icon: <InfoGridIcon icon="chat_bubble" />,
       title: t('oppilaitos.opetuskielet'),
       text: opetuskielet,
     },

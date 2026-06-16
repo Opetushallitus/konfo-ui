@@ -4,7 +4,7 @@ import { Backdrop, IconButton, Tooltip } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { styled } from '#/src/theme';
 
 const PREFIX = 'LabelTooltip';
@@ -88,7 +88,7 @@ export const LabelTooltip = ({ title, sx = {} }: Props) => {
               aria-label={t('sulje')}
               className={classes.closeIcon}
               onClick={handleClose}>
-              <MaterialIcon icon="close" />
+              <MaterialSymbol icon="close" />
             </IconButton>
           </>
         }>
@@ -100,7 +100,7 @@ export const LabelTooltip = ({ title, sx = {} }: Props) => {
             setOpen((isOpen) => !isOpen);
           }}
           onFocus={(e) => e.stopPropagation()}>
-          <MaterialIcon icon="info" variant="outlined" />
+          <MaterialSymbol icon="info" variant="outlined" />
         </IconButton>
       </Tooltip>
     </Root>

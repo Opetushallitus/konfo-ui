@@ -4,7 +4,7 @@ import { Box, Typography, List, ListItem, Button } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { AllLanguagesTooltip } from '#/src/components/common/AllLanguagesTooltip/AllLanguagesTooltip';
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { PAINOTETUT_OPPIAINEET_LUKIO_KAIKKI_OPTIONS } from '#/src/constants';
 import { styled } from '#/src/theme';
 import { translate } from '#/src/tools/localization';
@@ -64,7 +64,11 @@ export const PainotetutArvosanat = ({ painotetutArvosanat }: Props) => {
       {painotetutArvosanat.length > MAX_ITEMS_TO_ALWAYS_SHOW && (
         <Button
           color="secondary"
-          endIcon={<MaterialIcon icon={hideRest ? 'expand_more' : 'expand_less'} />}
+          endIcon={
+            <MaterialSymbol
+              icon={hideRest ? 'keyboard_arrow_down' : 'keyboard_arrow_up'}
+            />
+          }
           fullWidth
           onClick={() => setHideRest(!hideRest)}>
           {hideRest ? t('haku.näytä_lisää') : t('haku.näytä_vähemmän')}

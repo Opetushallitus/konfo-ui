@@ -2,7 +2,7 @@ import { Box, Button, CircularProgress, Divider, Hidden, Popover } from '@mui/ma
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { styled } from '#/src/theme';
 
 import { HakupalkkiFilters } from './HakupalkkiFilters';
@@ -61,7 +61,9 @@ export const RajaaPopoverButton = ({
             isLoading ? (
               <CircularProgress size={25} color="inherit" />
             ) : (
-              <MaterialIcon icon={isPopoverOpen ? 'expand_less' : 'expand_more'} />
+              <MaterialSymbol
+                icon={isPopoverOpen ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}
+              />
             )
           }
           onClick={handleDesktopBtnClick}

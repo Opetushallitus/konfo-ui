@@ -2,7 +2,7 @@ import { Button, Link, useMediaQuery } from '@mui/material';
 import { isString } from 'lodash';
 
 import { colors } from '#/src/colors';
-import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { MaterialSymbol } from '#/src/components/common/MaterialSymbol';
 import { useSideMenu } from '#/src/hooks';
 import { styled, theme } from '#/src/theme';
 
@@ -138,7 +138,7 @@ export const MurupolkuFragment = ({
     isXLargeDown || menuVisible ? shortenName(normalizedName) : normalizedName;
 
   const homeIcon = isHome ? (
-    <MaterialIcon
+    <MaterialSymbol
       icon="home"
       variant="outlined"
       aria-hidden="true"
@@ -175,7 +175,7 @@ export const MurupolkuFragment = ({
   return (
     <Root isLast={isLast} isHome={isHome}>
       {!isHome && (
-        <MaterialIcon
+        <MaterialSymbol
           icon="arrow_forward_ios"
           aria-hidden="true"
           className={classes.arrow}
