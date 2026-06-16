@@ -14,11 +14,8 @@ import { QueryResultWrapper } from '#/src/components/common/QueryResultWrapper';
 import { TextWithBackground } from '#/src/components/common/TextWithBackground';
 import { KOULUTUS_TYYPPI } from '#/src/constants';
 import { useToteutusRajainOrder } from '#/src/hooks/useToteutusRajainOrder';
-import {
-  localize,
-  getLocalizedMaksullisuus,
-  localizeArrayToCommaSeparated,
-} from '#/src/tools/localization';
+import { getLocalizedMaksullisuus } from '#/src/tools/getLocalizedMaksullisuus';
+import { localize, localizeArrayToCommaSeparated } from '#/src/tools/localization';
 import { getLocalizedOpintojenLaajuus } from '#/src/tools/utils';
 import { KoutaKoulutustyyppi, RajainName, TODOType } from '#/src/types/common';
 import { Jarjestaja } from '#/src/types/ToteutusTypes';
@@ -200,8 +197,10 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                       ],
                       [
                         getLocalizedMaksullisuus(
-                          toteutus.maksullisuustyyppi,
-                          toteutus.maksunMaara
+                          toteutus?.koulutustyyppi,
+                          toteutus?.maksullisuustyypit,
+                          toteutus?.maksunMaara,
+                          toteutus?.lukuvuosimaksunMaara
                         ),
                         createMaterialIcon('euro_symbol'),
                       ],
