@@ -11,17 +11,15 @@ test.describe('Etusivu (mobiili)', () => {
 
   test('Footer should not overlap main content on mobile', async ({ page }) => {
     await page.goto('/konfo/fi');
-    // eslint-disable-next-line playwright/no-networkidle
-    await page.waitForLoadState('networkidle');
 
     const mainContent = page.locator('#app-main-content');
     const footer = page.getByRole('contentinfo');
 
+    await expect(mainContent).toBeVisible();
+    await expect(footer).toBeVisible();
+
     const mainBox = await mainContent.boundingBox();
     const footerBox = await footer.boundingBox();
-
-    expect(mainBox).not.toBeNull();
-    expect(footerBox).not.toBeNull();
 
     expect(footerBox!.y).toBeGreaterThanOrEqual(mainBox!.y + mainBox!.height);
   });
