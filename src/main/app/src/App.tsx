@@ -103,14 +103,14 @@ const MainContent = styled('main')(
     minWidth: 0,
     flexGrow: 1,
     padding: 0,
-    ...(isSmall
+    ...(isSmall && menuVisible
       ? {
           position: 'absolute',
           left: 0,
           right: 0,
           overflow: 'hidden',
-          top: menuVisible ? 0 : 'auto',
-          bottom: menuVisible ? 0 : 'auto',
+          top: 0,
+          bottom: 0,
         }
       : {}),
   })
