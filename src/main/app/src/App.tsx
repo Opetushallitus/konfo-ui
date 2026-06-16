@@ -266,6 +266,17 @@ export const App = () => {
     }
   }, [isFetching, isAtEtusivu, titleObj, language, pathname]);
 
+  useEffect(() => {
+    if (isSmall && menuVisible) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isSmall, menuVisible]);
+
   // Tämä alustaa Elisan chatin käyttöön
   useChat();
 
