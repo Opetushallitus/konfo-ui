@@ -272,9 +272,6 @@ export const App = () => {
     } else {
       document.body.style.overflow = '';
     }
-    return () => {
-      document.body.style.overflow = '';
-    };
   }, [isSmall, menuVisible]);
 
   // Tämä alustaa Elisan chatin käyttöön
