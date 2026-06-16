@@ -79,6 +79,7 @@ const ContentColumn = styled('div')(
     minWidth: 0,
     display: 'flex',
     flexDirection: 'column',
+    ...(isSmall ? { overflowX: 'hidden' } : {}),
     ...(menuVisible
       ? {
           transition: theme.transitions.create('margin', {
