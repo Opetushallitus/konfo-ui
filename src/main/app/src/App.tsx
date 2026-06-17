@@ -79,6 +79,7 @@ const ContentColumn = styled('div')(
     minWidth: 0,
     display: 'flex',
     flexDirection: 'column',
+    ...(isSmall ? { overflowX: 'clip' } : {}),
     ...(menuVisible
       ? {
           transition: theme.transitions.create('margin', {
@@ -103,14 +104,14 @@ const MainContent = styled('main')(
     minWidth: 0,
     flexGrow: 1,
     padding: 0,
-    ...(isSmall
+    ...(isSmall && menuVisible
       ? {
           position: 'absolute',
           left: 0,
           right: 0,
           overflow: 'hidden',
-          top: menuVisible ? 0 : 'auto',
-          bottom: menuVisible ? 0 : 'auto',
+          top: 0,
+          bottom: 0,
         }
       : {}),
   })
@@ -264,6 +265,14 @@ export const App = () => {
       }
     }
   }, [isFetching, isAtEtusivu, titleObj, language, pathname]);
+
+  useEffect(() => {
+    if (isSmall && menuVisible) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+  }, [isSmall, menuVisible]);
 
   // Tämä alustaa Elisan chatin käyttöön
   useChat();
