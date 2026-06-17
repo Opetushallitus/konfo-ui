@@ -13,7 +13,7 @@ import {
 import { TFunction } from 'i18next';
 import { identity, isString, omit, size } from 'lodash';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { match } from 'ts-pattern';
 
 import { colors } from '#/src/colors';
@@ -28,21 +28,33 @@ import { SearchButton } from './SearchButton';
 
 const checkIsKeywordValid = (word: string) => size(word) === 0 || size(word) > 2;
 
-const createRenderOption = (t: TFunction) => {
+const createRenderOption = (t: TFunction, highlightedLink: string | null) => {
   return function KonfoAutocompleteOption(
     props: React.HTMLAttributes<HTMLLIElement>,
     option: AutocompleteOption
   ) {
+    const isHighlighted = option.link === highlightedLink;
+    const liProps = isHighlighted ? omit(props, 'aria-selected') : props;
     return (
-      <li {...props} style={{ display: 'block' }} key={option.link}>
-        <Box>{option.label}</Box>
+      <li
+        {...liProps}
+        key={option.link}
+        style={{
+          ...(liProps as { style?: React.CSSProperties }).style,
+          display: 'block',
+        }}>
+        <Box role="presentation">{option.label}</Box>
         {match(option)
           .with({ type: 'koulutus' }, (k) => {
             const tarjoajatText = getToteutustenTarjoajat(t, k.toteutustenTarjoajat);
             return tarjoajatText ? (
-              <Box display="flex" alignItems="center" flexDirection="row">
-                <MaterialIcon variant="outlined" icon="home_work" />
-                <Typography pl={1} variant="body2">
+              <Box
+                display="flex"
+                alignItems="center"
+                flexDirection="row"
+                role="presentation">
+                <MaterialIcon variant="outlined" icon="home_work" role="presentation" />
+                <Typography pl={1} variant="body2" role="presentation">
                   {tarjoajatText}
                 </Typography>
               </Box>
@@ -54,10 +66,16 @@ const createRenderOption = (t: TFunction) => {
   };
 };
 
-const createRenderInput = (t: TFunction) => {
+const createRenderInput = (t: TFunction, descriptionId: string) => {
   return function KonfoAutocompleteInput(params: AutocompleteRenderInputParams) {
-    const { InputProps } = params;
-    const rest = omit(params, ['InputProps', 'InputLabelProps']);
+    const { InputProps, inputProps: paramInputProps } = params;
+    const rest = omit(params, ['InputProps', 'InputLabelProps', 'inputProps']);
+    // MUI passes aria-activedescendant="" when no option is highlighted; empty string
+    // causes getElementById("") errors in Firefox
+    const inputProps =
+      paramInputProps['aria-activedescendant'] === ''
+        ? omit(paramInputProps, 'aria-activedescendant')
+        : paramInputProps;
     return (
       <InputBase
         sx={{
@@ -74,13 +92,18 @@ const createRenderInput = (t: TFunction) => {
         placeholder={t('haku.kehoite')}
         {...InputProps}
         {...rest}
+        inputProps={{
+          ...inputProps,
+          'aria-describedby': descriptionId,
+          'aria-label': t('haku.kehoite'),
+        }}
       />
     );
   };
 };
 
 const AutocompleteGroupList = styled('ul')`
-  list-style-type: 'none';
+  list-style: none;
   margin: 0;
   padding: 0;
   &[data-title]::before {
@@ -108,17 +131,12 @@ const createRenderAutocompleteGroup = (t: TFunction) => {
     const title = t(getTranslationKey(group));
     return (
       <li key={key}>
-        <nav aria-label={title}>
-          <AutocompleteGroupList data-title={title}>{children}</AutocompleteGroupList>
-        </nav>
+        <AutocompleteGroupList role="group" aria-label={title} data-title={title}>
+          {children}
+        </AutocompleteGroupList>
       </li>
     );
   };
-};
-
-const useIsOptionEqualToValue = () => {
-  const { pathname, search: urlSearch } = useLocation();
-  return (option: AutocompleteOption) => option.link === pathname + urlSearch;
 };
 
 export const SearchBox = ({
@@ -133,6 +151,8 @@ export const SearchBox = ({
   const { setSearchPhraseDebounced, isFetching, data } = useAutoComplete();
 
   const [inputValue, setInputValue] = useState<string>(() => keyword || '');
+  const [highlightedLabel, setHighlightedLabel] = useState('');
+  const [highlightedLink, setHighlightedLink] = useState<string | null>(null);
   const isKeywordValid = checkIsKeywordValid(inputValue);
 
   const { t } = useTranslation();
@@ -156,7 +176,8 @@ export const SearchBox = ({
   );
 
   const navigate = useNavigate();
-  const isOptionEqualToValue = useIsOptionEqualToValue();
+
+  const hintId = 'searchbox-autocomplete-hint';
 
   return (
     <Paper
@@ -183,22 +204,70 @@ export const SearchBox = ({
         borderRadius: '2px',
       }}
       elevation={4}>
+      <span
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        style={{
+          border: 0,
+          clip: 'rect(0 0 0 0)',
+          height: 1,
+          margin: -1,
+          overflow: 'hidden',
+          padding: 0,
+          position: 'absolute',
+          width: 1,
+          whiteSpace: 'nowrap',
+        }}>
+        {highlightedLabel}
+      </span>
+      <span
+        id={hintId}
+        style={{
+          border: 0,
+          clip: 'rect(0 0 0 0)',
+          height: 1,
+          margin: -1,
+          overflow: 'hidden',
+          padding: 0,
+          position: 'absolute',
+          width: 1,
+          whiteSpace: 'nowrap',
+        }}>
+        {t('haku.ehdotus-navigoi-sivulle')}
+      </span>
       <Tooltip
         placement="bottom-start"
         open={!isKeywordValid}
         title={t('haku.syota-ainakin-kolme-merkkia') || ''}>
         <Autocomplete
           fullWidth={true}
+          disablePortal={true}
           key={keyword}
           inputValue={inputValue}
           freeSolo={true}
-          isOptionEqualToValue={isOptionEqualToValue}
           options={allHits}
           filterOptions={identity}
           noOptionsText={t('haku.ei-ehdotuksia')}
           loadingText={t('haku.lataus-käynnissä')}
           loading={isFetching}
           groupBy={(option) => option.type}
+          clearText={t('haku.tyhjenna-hakuehto')}
+          componentsProps={{
+            clearIndicator: {
+              tabIndex: 0,
+              sx: (muiTheme) => ({
+                '&.Mui-focusVisible': {
+                  backgroundColor: muiTheme.palette.action.hover,
+                },
+              }),
+            },
+          }}
+          onHighlightChange={(_e, option) => {
+            const isNull = option == null || isString(option);
+            setHighlightedLabel(isNull ? '' : option.label);
+            setHighlightedLink(isNull ? null : option.link);
+          }}
           onChange={(_e, val) => {
             if (!isString(val) && val?.link) {
               navigate(val.link);
@@ -211,8 +280,8 @@ export const SearchBox = ({
             }
           }}
           renderGroup={createRenderAutocompleteGroup(t)}
-          renderOption={createRenderOption(t)}
-          renderInput={createRenderInput(t)}
+          renderOption={createRenderOption(t, highlightedLink)}
+          renderInput={createRenderInput(t, hintId)}
         />
       </Tooltip>
       {rajaaButton}
