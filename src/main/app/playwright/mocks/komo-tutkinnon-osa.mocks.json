@@ -13217,8 +13217,8 @@
                 "fi": "Paikallinen hevosten ruokkiminen",
                 "sv": "Lokal utfodring av hästar"
               },
-              "laajuus": 10,
-              "laajuusyksikko": {
+              "opintojenLaajuusNumero": 10,
+              "opintojenLaajuusyksikko": {
                 "fi": "osaamispistettä"
               },
               "ammattitaidonosoittamistavat": {
@@ -13235,8 +13235,8 @@
                 "fi": "Paikallinen tallinhoidon erikoistyöt",
                 "sv": "Lokalt specialarbete för stallskötsel"
               },
-              "laajuus": 5,
-              "laajuusyksikko": {
+              "opintojenLaajuusNumero": 5,
+              "opintojenLaajuusyksikko": {
                 "fi": "osaamispistettä"
               },
               "ammattitaidonosoittamistavat": {
