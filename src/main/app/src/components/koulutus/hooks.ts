@@ -60,9 +60,12 @@ export const fetchKoulutus = async (
       ePerusteIds.map((ePerusteId) => getEperusteKuvaus(ePerusteId))
     );
 
+    const paikallisetTutkinnonOsat: Array<TutkinnonOsa> =
+      koulutusData?.metadata?.paikallisetTutkinnonOsat ?? [];
     const yksikko = tutkinnonOsat[0]?.opintojenLaajuusyksikko;
-    const pisteet = tutkinnonOsat
+    const pisteet = [...tutkinnonOsat, ...paikallisetTutkinnonOsat]
       .map((tutkinnonOsa) => tutkinnonOsa.opintojenLaajuusNumero)
+      .filter(Boolean)
       .join(' + ');
 
     set(koulutusData, 'metadata.opintojenLaajuusyksikko', yksikko);

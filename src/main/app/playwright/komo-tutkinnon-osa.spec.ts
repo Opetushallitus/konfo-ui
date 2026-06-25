@@ -14,7 +14,7 @@ test.describe('Tutkinnon osa KOMO', () => {
       '(testi) Hevosten hyvinvoinnista huolehtiminen'
     );
     await expect(page.getByTestId('koulutustyyppi')).toHaveText('Tutkinnon osa');
-    await expect(page.getByText('25 + 20 osaamispistettä')).toBeVisible();
+    await expect(page.getByText('25 + 20 + 10 + 5 osaamispistettä')).toBeVisible();
     await expect(
       page.getByRole('button', { name: 'Hevosten hyvinvoinnista huolehtiminen' })
     ).toHaveAttribute('aria-expanded', 'false');
