@@ -1,10 +1,9 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useMemo, useState } from 'react';
 
 import { Box, Button, Grid, Paper } from '@mui/material';
 import { isEmpty, size, sortBy, take } from 'lodash';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
-import { useEffectOnce } from 'react-use';
 
 import { colors } from '#/src/colors';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
@@ -59,11 +58,11 @@ export const Etusivu = () => {
     }
   }, [isLoading, uutislinkit]);
 
-  useEffectOnce(() => {
+  useLayoutEffect(() => {
     // NOTE: Tyhjätään aina kaikki hakutulosvalinnat kun saavutaan etusivulle
     setKeyword('');
     clearRajainValues();
-  });
+  }, [setKeyword, clearRajainValues]);
   const pikalinkitData = getOne(pikalinkit);
 
   const pageSectionGap = usePageSectionGap();

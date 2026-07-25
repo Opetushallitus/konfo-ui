@@ -1,6 +1,11 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useLayoutEffect } from 'react';
 
 import { Box } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { useLocation, useParams } from 'react-router-dom';
+
+import { syncKeywordFromUrl } from '#/src/store/reducers/hakutulosSlice';
+import { getLanguage } from '#/src/tools/localization';
 
 import { useSearch } from './hakutulosHooks';
 import { SearchBox } from './SearchBox';
@@ -10,7 +15,17 @@ export const Hakupalkki = ({
 }: {
   rajaaButton?: React.JSX.Element | null;
 }) => {
-  const { keyword, goToSearchPage, setKeyword } = useSearch();
+  const { draftKeyword, goToSearchPage, setKeyword, setDraftKeyword } = useSearch();
+  const { keyword: urlKeyword } = useParams();
+  const { pathname } = useLocation();
+  const dispatch = useDispatch();
+  const isHakuPage = pathname.startsWith(`/${getLanguage()}/haku`);
+
+  useLayoutEffect(() => {
+    if (isHakuPage) {
+      dispatch(syncKeywordFromUrl({ keyword: urlKeyword ?? '' }));
+    }
+  }, [dispatch, isHakuPage, urlKeyword]);
 
   const doSearch = useCallback(
     (phrase: string) => {
@@ -23,9 +38,9 @@ export const Hakupalkki = ({
   return (
     <Box marginBottom={1}>
       <SearchBox
-        key={keyword}
-        keyword={keyword}
+        draftKeyword={draftKeyword}
         doSearch={doSearch}
+        setDraftKeyword={setDraftKeyword}
         rajaaButton={rajaaButton}
       />
     </Box>

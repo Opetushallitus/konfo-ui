@@ -13,6 +13,8 @@ import {
 // State data getters
 export const getKeyword = (state: RootState) => state.hakutulos.keyword;
 
+export const getDraftKeyword = (state: RootState) => state.hakutulos.draftKeyword;
+
 export const getKoulutusOffset = (state: RootState) => state.hakutulos.koulutusOffset;
 
 export const getOppilaitosOffset = (state: RootState) => state.hakutulos.oppilaitosOffset;

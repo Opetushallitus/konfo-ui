@@ -45,12 +45,14 @@ import {
   setOrder,
   clearRajainValues as clearReduxRajainValues,
   setKeyword,
+  setDraftKeyword,
   RajainValues,
 } from '#/src/store/reducers/hakutulosSlice';
 import {
   getRajainValues,
   getIsAnyFilterSelected,
   getKeyword,
+  getDraftKeyword,
   getKoulutusOffset,
   getKoulutusPage,
   getOppilaitosOffset,
@@ -153,6 +155,7 @@ export const useSearch = () => {
 
   const requestParams = useSelector(getSearchRequestParams);
   const { keyword } = requestParams;
+  const draftKeyword = useSelector(getDraftKeyword);
 
   const koulutusPage = useSelector(getKoulutusPage);
   const oppilaitosPage = useSelector(getOppilaitosPage);
@@ -261,6 +264,11 @@ export const useSearch = () => {
     [dispatch]
   );
 
+  const setDraftKeywordCb = useCallback(
+    (k: string) => dispatch(setDraftKeyword({ keyword: k })),
+    [dispatch]
+  );
+
   const setRajainValues = useCallback(
     (changes: any) => {
       dispatch(setReduxRajainValues(changes));
@@ -278,7 +286,9 @@ export const useSearch = () => {
 
   return {
     keyword,
+    draftKeyword,
     setKeyword: setKeywordCb,
+    setDraftKeyword: setDraftKeywordCb,
     isFetching,
     isAnyRajainSelected,
     status,

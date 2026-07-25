@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 
 import {
   Box,
@@ -139,7 +139,7 @@ const useSyncedHakuParams = () => {
   const dispatch = useDispatch();
 
   // Kun URL:n search-parametrit muuttuu, synkataan muutokset reduxiin
-  useEffect(() => {
+  useLayoutEffect(() => {
     dispatch(urlParamsChanged({ keyword, search }));
   }, [dispatch, search, keyword]);
 };
