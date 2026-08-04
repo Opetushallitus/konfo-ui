@@ -105,7 +105,6 @@ export type HakutulosSlice = {
   oppilaitosOffset: number;
   keyword: string;
   draftKeyword: string;
-  isDraftKeywordModified: boolean;
 } & RajainValues;
 
 export const HAKUTULOS_INITIAL: HakutulosSlice = {
@@ -122,7 +121,6 @@ export const HAKUTULOS_INITIAL: HakutulosSlice = {
   // Persistoidut suodatinvalinnat
   keyword: '',
   draftKeyword: '',
-  isDraftKeywordModified: false,
   ...HAKU_RAJAIMET_INITIAL,
 };
 
@@ -146,20 +144,10 @@ export const hakutulosSlice = createSlice({
     setKeyword: (state, { payload }: PayloadAction<{ keyword: string }>) => {
       state.keyword = payload.keyword;
       state.draftKeyword = payload.keyword;
-      state.isDraftKeywordModified = false;
       resetOffset(state);
     },
     setDraftKeyword: (state, { payload }: PayloadAction<{ keyword: string }>) => {
       state.draftKeyword = payload.keyword;
-      state.isDraftKeywordModified = state.keyword !== payload.keyword;
-    },
-    syncKeywordFromUrl: (state, { payload }: PayloadAction<{ keyword: string }>) => {
-      const keywordChanged = state.keyword !== payload.keyword;
-      state.keyword = payload.keyword;
-      if (keywordChanged || !state.isDraftKeywordModified) {
-        state.draftKeyword = payload.keyword;
-        state.isDraftKeywordModified = false;
-      }
     },
     setSelectedTab: (
       state,
@@ -172,7 +160,6 @@ export const hakutulosSlice = createSlice({
       { payload: newValues }: PayloadAction<Partial<RajainValues>>
     ) => {
       state.keyword = state.draftKeyword;
-      state.isDraftKeywordModified = false;
       Object.assign(
         state,
         mapValues(newValues, (v) => (Array.isArray(v) ? sortArray(v) : v))
@@ -184,7 +171,6 @@ export const hakutulosSlice = createSlice({
     },
     clearRajainValues: (state) => {
       state.keyword = state.draftKeyword;
-      state.isDraftKeywordModified = false;
       Object.assign(state, HAKU_RAJAIMET_INITIAL);
       resetOffset(state);
     },
@@ -222,10 +208,10 @@ export const hakutulosSlice = createSlice({
             if (key === 'keyword') {
               const keywordValue = value ?? '';
               const keywordChanged = state.keyword !== keywordValue;
+              const wasDraftModified = state.draftKeyword !== state.keyword;
               state.keyword = keywordValue;
-              if (keywordChanged || !state.isDraftKeywordModified) {
+              if (keywordChanged || !wasDraftModified) {
                 state.draftKeyword = keywordValue;
-                state.isDraftKeywordModified = false;
               }
             } else {
               Object.assign(state, { [key]: value ?? '' });
@@ -291,7 +277,6 @@ export const hakutulosSlice = createSlice({
 export const {
   setKeyword,
   setDraftKeyword,
-  syncKeywordFromUrl,
   setSelectedTab,
   setRajainValues,
   resetPagination,
