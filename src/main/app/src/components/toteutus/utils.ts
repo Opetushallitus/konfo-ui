@@ -128,6 +128,14 @@ const getMaksunMaara = (maksu?: Array<Maksu>): string => {
   return maksunMaara ? `${maksunMaara} €` : '';
 };
 
+const formatMaksullisuusRow = (otsikko: string, maksunmaara: string): string => {
+  if (maksunmaara) {
+    return `${otsikko}: ${maksunmaara}`;
+  } else {
+    return otsikko;
+  }
+};
+
 export const formatMaksullisuusText = (t: TFunction, maksut?: Array<Maksu>) => {
   const maksullinen = maksut?.filter(
     (maksu) => maksu.maksullisuustyyppi === MAKSULLISUUSTYYPPI.MAKSULLINEN
@@ -140,9 +148,14 @@ export const formatMaksullisuusText = (t: TFunction, maksut?: Array<Maksu>) => {
   const lukuvuosimaksunMaara = getMaksunMaara(lukuvuosimaksu);
 
   if (!isEmpty(maksullinen) && !isEmpty(lukuvuosimaksu)) {
-    const maksullinenStr = `${t('toteutus.maksullinen-opetus')}: ${maksunMaara}`;
-
-    const lukuvuosimaksuStr = `${t('toteutus.lukuvuosimaksu')}: ${lukuvuosimaksunMaara}`;
+    const maksullinenStr = formatMaksullisuusRow(
+      t('toteutus.maksullinen-opetus'),
+      maksunMaara
+    );
+    const lukuvuosimaksuStr = formatMaksullisuusRow(
+      t('toteutus.lukuvuosimaksu'),
+      lukuvuosimaksunMaara
+    );
     return `${maksullinenStr}\n${lukuvuosimaksuStr}`;
   }
 
