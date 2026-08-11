@@ -23,6 +23,8 @@ jobs:
       - name: Install dependencies
         run: |
           npm install -g contentful-cli
-          npm install @actions/core
+          # Pinned to 1.x: 2.x+ dropped CJS ("exports" has no "require" condition),
+          # which breaks the require('@actions/core') in contentfulIntegrityCheck.js.
+          npm install @actions/core@^1.11.1
       - name: Check integrity of ContentTypes
         run: node contentfulIntegrityCheck.js

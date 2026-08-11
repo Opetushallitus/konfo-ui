@@ -1,5 +1,5 @@
-const fs = require('fs');
-const exec = require('child_process').execSync;
+const fs = require('node:fs');
+const exec = require('node:child_process').execSync;
 const core = require('@actions/core');
 
 const fieldEqual = (masterField, testiField) => {
@@ -18,25 +18,21 @@ const compareType = (masterType, testiType) => {
     differences['description'] = {error: 'differences', master: masterType.description, testi: testiType.description};
   }
 
-  if (masterType.fields.length >= testiType.fields.length) {
-    masterType.fields.forEach((masterField) => {
-      const testiField = testiType.fields.find((field) => field.name === masterField.name);
-      if (!testiField) {
-        differences[masterField.name] = {error: 'missing from testi'}
-      } else if (!fieldEqual(masterField, testiField)){
-        differences[masterField.name] = {error: 'differences', master: masterField, testi: testiField}
-      }
-    })
-  } else {
-    testiType.fields.forEach((testiField) => {
-      const masterField = masterType.fields.find((field) => field.name === masterType.name);
-      if (!masterField) {
-        differences[testiField.name] = {error: 'missing from testi'}
-      } else if (!fieldEqual(masterField, testiField)){
-        differences[testiField.name] = {error: 'differences', master: masterField, testi: testiField}
-      }
-    })
-  }
+  masterType.fields.forEach((masterField) => {
+    const testiField = testiType.fields.find((field) => field.id === masterField.id);
+    if (!testiField) {
+      differences[masterField.id] = {error: 'missing from testi'}
+    } else if (!fieldEqual(masterField, testiField)){
+      differences[masterField.id] = {error: 'differences', master: masterField, testi: testiField}
+    }
+  })
+
+  testiType.fields.forEach((testiField) => {
+    const hasMasterField = masterType.fields.some((field) => field.id === testiField.id);
+    if (!hasMasterField) {
+      differences[testiField.id] = {error: 'missing from master'}
+    }
+  })
 
   return differences;
 }
