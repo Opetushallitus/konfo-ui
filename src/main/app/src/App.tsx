@@ -2,27 +2,14 @@ import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 
 import { useMediaQuery, Box, CssBaseline } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
-import Cookies from 'js-cookie';
-import { includes } from 'lodash';
-import { useTranslation } from 'react-i18next';
 import { useIsFetching } from 'react-query';
-import {
-  Navigate,
-  Routes,
-  Route,
-  useLocation,
-  useParams,
-  Outlet,
-} from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 
 import { CookieDrawer } from '#/src/components/common/CookieDrawer';
 import { CookieModal } from '#/src/components/common/CookieModal';
 import { HeadingBoundary } from '#/src/components/Heading';
-import { OhjaavaHakuLink } from '#/src/components/ohjaava-haku/OhjaavaHakuLink';
 import { useSideMenu } from '#/src/hooks';
-import { NotFound } from '#/src/NotFound';
 import { styled } from '#/src/theme';
-import { supportedLanguages } from '#/src/tools/i18n';
 import { getLanguage } from '#/src/tools/localization';
 import { useChat } from '#/src/useChat';
 
@@ -31,24 +18,7 @@ import { Footer } from './components/common/Footer';
 import { Header } from './components/common/Header';
 import { Notifications } from './components/common/Notifications';
 import { SkipToContent } from './components/common/SkipToContent';
-import { Etusivu } from './components/Etusivu';
-import { Hairiotiedote } from './components/Hairiotiedote';
-import { HakuPage } from './components/haku/HakuPage';
-import { Hakupalkki } from './components/haku/Hakupalkki';
-import { KoulutusPage } from './components/koulutus/KoulutusPage';
-import { OhjaavaHakuPage } from './components/ohjaava-haku/OhjaavaHakuPage';
-import { OppilaitosPage } from './components/oppilaitos/OppilaitosPage';
 import { Palvelut } from './components/palvelu/Palvelut';
-import { ReactiveBorder } from './components/ReactiveBorder';
-import { Sisaltohaku } from './components/Sisaltohaku';
-import { SivuRouter } from './components/sivu/SivuRouter';
-import { SuosikitPage } from './components/SuosikitPage';
-import { SuosikitVertailuPage } from './components/SuosikitVertailuPage';
-import { ToteutusPage } from './components/toteutus/ToteutusPage';
-import {
-  ValintaperustePage,
-  ValintaperustePreviewPage,
-} from './components/valintaperusteet/ValintaperustePage';
 import { SIDEMENU_WIDTH } from './constants';
 import { useIsAtEtusivu } from './store/reducers/appSlice';
 import { getHeaderHeight, theme } from './theme';
@@ -115,84 +85,6 @@ const MainContent = styled('main')(
         }
       : {}),
   })
-);
-
-const TranslatedRoute = () => {
-  const { i18n } = useTranslation();
-  const location = useLocation();
-  const params = useParams();
-  const selectedLanguage = params?.lng;
-  const isSupportedLanguageSelected = includes(supportedLanguages, selectedLanguage);
-
-  useEffect(() => {
-    if (selectedLanguage && isSupportedLanguageSelected) {
-      i18n.changeLanguage(selectedLanguage);
-      Cookies.set('lang', selectedLanguage, {
-        expires: 1800,
-        path: '/',
-      });
-    }
-  }, [i18n, selectedLanguage, isSupportedLanguageSelected]);
-
-  if (!isSupportedLanguageSelected) {
-    const langCookie = Cookies.get('lang');
-    const newLocation = {
-      ...location,
-      pathname: '/' + (langCookie ? langCookie : 'fi') + location.pathname,
-    };
-
-    return <Navigate to={newLocation} replace />;
-  }
-
-  return <Outlet />;
-};
-
-const KonfoRoutes = () => (
-  <Routes>
-    <Route path="/:lng?" element={<TranslatedRoute />}>
-      <Route
-        element={
-          <>
-            <Hairiotiedote />
-            <Outlet />
-          </>
-        }>
-        <Route path="" element={<Etusivu />} />
-        <Route path="sisaltohaku" element={<Sisaltohaku />} />
-        <Route path="ohjaava-haku" element={<OhjaavaHakuPage />} />
-        <Route
-          element={
-            <>
-              <div style={{ margin: 'auto', maxWidth: '1600px' }}>
-                <ReactiveBorder>
-                  <Hakupalkki />
-                  <OhjaavaHakuLink />
-                </ReactiveBorder>
-              </div>
-              <Outlet />
-            </>
-          }>
-          <Route path="suosikit" element={<SuosikitPage />} />
-          <Route path="suosikit/vertailu" element={<SuosikitVertailuPage />} />
-          <Route path="haku/:keyword?" element={<HakuPage />} />
-          <Route path="koulutus/:oid" element={<KoulutusPage />} />
-          <Route path="oppilaitos/:oid" element={<OppilaitosPage />} />
-          <Route path="oppilaitososa/:oid" element={<OppilaitosPage oppilaitosOsa />} />
-          <Route path="toteutus/:oid" element={<ToteutusPage />} />
-          <Route path="sivu/:id" element={<SivuRouter />} />
-          <Route
-            path="hakukohde/:hakukohdeOid/valintaperuste"
-            element={<ValintaperustePage />}
-          />
-          <Route
-            path="valintaperuste/:valintaperusteId"
-            element={<ValintaperustePreviewPage />}
-          />
-        </Route>
-      </Route>
-      <Route path="*" element={<NotFound />} />
-    </Route>
-  </Routes>
 );
 
 const defaultTitle = (lang: string) => {
@@ -299,7 +191,7 @@ export const App = () => {
           <MainContent id="app-main-content" isSmall={isSmall} menuVisible={menuVisible}>
             <HeadingBoundary>
               <MatomoTracker />
-              <KonfoRoutes />
+              <Outlet />
               <HeadingBoundary>
                 <Notifications />
                 <Palvelut />

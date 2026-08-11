@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import { Box, Button, Grid, Paper } from '@mui/material';
 import { isEmpty, size, sortBy, take } from 'lodash';
@@ -15,7 +15,6 @@ import { getOne } from '#/src/tools/getOne';
 
 import { CondGrid } from './CondGrid';
 import { ContentSection } from './ContentSection';
-import { useSearch } from './haku/hakutulosHooks';
 import { HeadingBoundary } from './Heading';
 import { Jumpotron } from './Jumpotron';
 import { Kortti } from './kortti/Kortti';
@@ -38,7 +37,6 @@ const ShowMoreButton = styled(Button)({
 export const Etusivu = () => {
   const { t } = useTranslation();
 
-  const { clearRajainValues, setKeyword } = useSearch();
   const { data, isLoading } = useContentful();
   const { info: infoData, uutiset, kortit, infoYhteishaku, pikalinkit, content } = data;
 
@@ -58,11 +56,6 @@ export const Etusivu = () => {
     }
   }, [isLoading, uutislinkit]);
 
-  useLayoutEffect(() => {
-    // NOTE: Tyhjätään aina kaikki hakutulosvalinnat kun saavutaan etusivulle
-    setKeyword('');
-    clearRajainValues();
-  }, [setKeyword, clearRajainValues]);
   const pikalinkitData = getOne(pikalinkit);
 
   const pageSectionGap = usePageSectionGap();

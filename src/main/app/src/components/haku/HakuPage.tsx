@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React from 'react';
 
 import {
   Box,
@@ -11,8 +11,6 @@ import {
   useTheme,
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
@@ -22,9 +20,7 @@ import { Pagination } from '#/src/components/common/Pagination';
 import { PAGE_SIZE_OPTIONS, PAGE_SORT_OPTIONS } from '#/src/constants';
 import { useContentWidth } from '#/src/hooks/useContentWidth';
 import { useHakutulosWidth } from '#/src/store/reducers/appSlice';
-import { urlParamsChanged } from '#/src/store/reducers/hakutulosSlice';
 import { styled } from '#/src/theme';
-import { useUrlParams } from '#/src/tools/useUrlParams';
 import { safeParseNumber } from '#/src/tools/utils';
 
 import { BackendErrorMessage } from './hakutulos/BackendErrorMessage';
@@ -132,18 +128,6 @@ const StyledSelect = styled(Select)({
   '&.Mui-focused': coloredBorder(colors.brandGreen),
 });
 
-const useSyncedHakuParams = () => {
-  const { search } = useUrlParams();
-  const { keyword } = useParams<any>();
-
-  const dispatch = useDispatch();
-
-  // Kun URL:n search-parametrit muuttuu, synkataan muutokset reduxiin
-  useLayoutEffect(() => {
-    dispatch(urlParamsChanged({ keyword, search }));
-  }, [dispatch, search, keyword]);
-};
-
 const getPageSortTranslationKey = (sort: string) => {
   switch (sort) {
     case 'score_desc':
@@ -177,8 +161,6 @@ const ExpandMore = (props: SvgIconProps) => (
 export const HakuPage = () => {
   const theme = useTheme();
   const { t } = useTranslation();
-
-  useSyncedHakuParams();
 
   const {
     selectedTab,
