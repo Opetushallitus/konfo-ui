@@ -36,11 +36,12 @@ jobs:
           timezoneLinux: "Europe/Helsinki"
 
       - name: Build with Maven
-
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git clone https://github.com/Opetushallitus/ci-tools.git
           source ci-tools/common/setup-tools.sh
-          mvn clean spotless:check package -B
+          mvn --settings settings.xml clean spotless:check package -B
 
       - uses: actions/cache@v3
         id: restore-build
