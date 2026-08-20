@@ -284,6 +284,16 @@ describe('formatMaksullisuusText', () => {
     );
   });
 
+  it('should return text with both maksullinen opetus and lukuvuosimaksu when both are defined, but no maksun määrä', () => {
+    const maksut = [
+      { maksullisuustyyppi: MAKSULLISUUSTYYPPI.MAKSULLINEN },
+      { maksullisuustyyppi: MAKSULLISUUSTYYPPI.LUKUVUOSIMAKSU },
+    ];
+    expect(formatMaksullisuusText(t, maksut)).toEqual(
+      `toteutus.maksullinen-opetus\ntoteutus.lukuvuosimaksu`
+    );
+  });
+
   it('should return toteutus.ei-maksua when unknown maksullisuustyyppi', () => {
     const maksut = [
       {

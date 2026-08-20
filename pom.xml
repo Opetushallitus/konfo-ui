@@ -100,7 +100,7 @@
         <dependency>
             <groupId>fi.vm.sade.java-utils</groupId>
             <artifactId>java-properties</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback.access</groupId>
@@ -121,18 +121,17 @@
     </dependencies>
     <repositories>
         <repository>
-            <id>oph-sade-artifactory-snapshots</id>
-            <url>https://artifactory.opintopolku.fi/artifactory/oph-sade-snapshot-local</url>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/opetushallitus/packages</url>
             <releases>
                 <enabled>false</enabled>
+                <checksumPolicy>warn</checksumPolicy>
             </releases>
             <snapshots>
                 <enabled>true</enabled>
+                <updatePolicy>daily</updatePolicy>
+                <checksumPolicy>warn</checksumPolicy>
             </snapshots>
-        </repository>
-        <repository>
-            <id>oph-sade-artifactory-releases</id>
-            <url>https://artifactory.opintopolku.fi/artifactory/oph-sade-release-local</url>
         </repository>
     </repositories>
     <build>
