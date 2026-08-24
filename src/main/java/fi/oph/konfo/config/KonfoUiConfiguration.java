@@ -80,6 +80,9 @@ public class KonfoUiConfiguration extends OphProperties {
         "eperusteet-service.eperuste.tiedot", this.require("eperusteet-service.eperuste.tiedot"));
     this.frontProperties.setProperty(
         "eperusteet-service.osaamismerkki", this.require("eperusteet-service.osaamismerkki"));
+    this.frontProperties.setProperty(
+        "eperusteet-service.toteutussuunnitelma.sisalto",
+        this.require("eperusteet-service.toteutussuunnitelma.sisalto"));
     this.frontProperties.setProperty("oma-opintopolku", this.require("oma-opintopolku"));
     this.frontProperties.setProperty(
         "konfo-backend.haku.demo", this.require("konfo-backend.haku.demo"));
