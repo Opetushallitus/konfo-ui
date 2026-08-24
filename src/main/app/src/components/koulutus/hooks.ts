@@ -133,7 +133,7 @@ export const useKoulutus = ({
   osaamisalakuvaukset = false,
 }: UseKoulutusProps) => {
   return useQuery(
-    ['fetchKoulutus', { oid, isDraft }],
+    ['fetchKoulutus', { oid, isDraft, osaamisalakuvaukset }],
     () => fetchKoulutus(oid!, isDraft, osaamisalakuvaukset),
     {
       select: selectKoulutus,
