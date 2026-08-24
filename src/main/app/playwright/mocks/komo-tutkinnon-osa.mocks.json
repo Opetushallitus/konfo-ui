@@ -10807,7 +10807,10 @@
           "_id": "5930977"
         },
         "voimassaoloLoppuu": null,
-        "kielet": ["sv", "fi"],
+        "kielet": [
+          "sv",
+          "fi"
+        ],
         "suoritustavat": [
           {
             "suoritustapakoodi": "reformi",
@@ -12927,7 +12930,10 @@
               "nimi": "Antti Sarjanoja"
             },
             "modified": "2021-01-12T12:20",
-            "organisaatiot": ["1.2.246.562.10.594252633210", "1.2.246.562.10.19460928302"]
+            "organisaatiot": [
+              "1.2.246.562.10.594252633210",
+              "1.2.246.562.10.19460928302"
+            ]
           },
           {
             "oid": "1.2.246.562.17.00000000000000000469",
@@ -13040,7 +13046,10 @@
               "nimi": "Antti Sarjanoja"
             },
             "modified": "2020-12-03T15:15",
-            "organisaatiot": ["1.2.246.562.10.594252633210", "1.2.246.562.10.60871080721"]
+            "organisaatiot": [
+              "1.2.246.562.10.594252633210",
+              "1.2.246.562.10.60871080721"
+            ]
           },
           {
             "oid": "1.2.246.562.17.00000000000000000485",
@@ -13081,7 +13090,10 @@
               "nimi": "Antti Sarjanoja"
             },
             "modified": "2020-12-17T09:07",
-            "organisaatiot": ["1.2.246.562.10.594252633210", "1.2.246.562.10.94620157316"]
+            "organisaatiot": [
+              "1.2.246.562.10.594252633210",
+              "1.2.246.562.10.94620157316"
+            ]
           }
         ],
         "esikatselu": true,
@@ -13095,10 +13107,16 @@
           "nimi": "Antti Sarjanoja"
         },
         "oid": "1.2.246.562.13.00000000000000000622",
-        "kielivalinta": ["fi", "sv"],
+        "kielivalinta": [
+          "fi",
+          "sv"
+        ],
         "timestamp": 1610625789935,
         "julkinen": true,
-        "organisaatiot": ["1.2.246.562.10.594252633210", "1.2.246.562.10.81934895871"],
+        "organisaatiot": [
+          "1.2.246.562.10.594252633210",
+          "1.2.246.562.10.81934895871"
+        ],
         "organisaatio": {
           "paikkakunta": {
             "koodiUri": "kunta_398",
@@ -13190,6 +13208,44 @@
                 "en": "Agriculture, forestry, fisheries and veterinary"
               }
             }
+          ],
+          "paikallisetTutkinnonOsat": [
+            {
+              "opetussuunnitelmaId": "12345",
+              "tutkinnonosaId": "67890",
+              "nimi": {
+                "fi": "Paikallinen hevosten ruokkiminen",
+                "sv": "Lokal utfodring av hästar"
+              },
+              "opintojenLaajuusNumero": 10,
+              "opintojenLaajuusyksikko": {
+                "fi": "osaamispistettä"
+              },
+              "ammattitaidonosoittamistavat": {
+                "fi": "<p>Opiskelija osoittaa ammattitaitonsa paikallisessa näytössä.</p>"
+              },
+              "ammattitaitovaatimukset": {
+                "fi": "<p>Opiskelija osaa ruokkia hevoset oikein.</p>"
+              }
+            },
+            {
+              "opetussuunnitelmaId": "99999",
+              "tutkinnonosaId": "11111",
+              "nimi": {
+                "fi": "Paikallinen tallinhoidon erikoistyöt",
+                "sv": "Lokalt specialarbete för stallskötsel"
+              },
+              "opintojenLaajuusNumero": 5,
+              "opintojenLaajuusyksikko": {
+                "fi": "osaamispistettä"
+              },
+              "ammattitaidonosoittamistavat": {
+                "fi": "<p>Opiskelija osoittaa tallinhoidon erikoistyöt näytössä.</p>"
+              },
+              "ammattitaitovaatimukset": {
+                "fi": "<p>Opiskelija osaa suorittaa tallinhoidon erikoistyöt.</p>"
+              }
+            }
           ]
         },
         "koulutustyyppi": "amm-tutkinnon-osa"
@@ -13209,7 +13265,9 @@
             "kuvaus": {
               "fi": "<p>Kuvausta</p>"
             },
-            "opetuskielet": ["oppilaitoksenopetuskieli_1"],
+            "opetuskielet": [
+              "oppilaitoksenopetuskieli_1"
+            ],
             "toteutusOid": "1.2.246.562.17.00000000000000000487",
             "opetusajat": [
               {
@@ -13250,7 +13308,9 @@
             "kuvaus": {
               "fi": "<p>Testikuvaus <strong>lorem ipsum </strong>asdf</p>"
             },
-            "opetuskielet": ["oppilaitoksenopetuskieli_1"],
+            "opetuskielet": [
+              "oppilaitoksenopetuskieli_1"
+            ],
             "toteutusOid": "1.2.246.562.17.00000000000000000469",
             "opetusajat": [
               {
@@ -13296,7 +13356,9 @@
             "kuvaus": {
               "sv": "<p>Lorem ipsum 2</p>"
             },
-            "opetuskielet": ["oppilaitoksenopetuskieli_2"],
+            "opetuskielet": [
+              "oppilaitoksenopetuskieli_2"
+            ],
             "toteutusOid": "1.2.246.562.17.00000000000000000486",
             "opetusajat": [
               {
@@ -13335,7 +13397,10 @@
           {
             "maksunMaara": null,
             "kuvaus": {},
-            "opetuskielet": ["oppilaitoksenopetuskieli_2", "oppilaitoksenopetuskieli_4"],
+            "opetuskielet": [
+              "oppilaitoksenopetuskieli_2",
+              "oppilaitoksenopetuskieli_4"
+            ],
             "toteutusOid": "1.2.246.562.17.00000000000000000485",
             "opetusajat": [
               {

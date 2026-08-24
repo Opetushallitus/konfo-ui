@@ -60,9 +60,12 @@ export const fetchKoulutus = async (
       ePerusteIds.map((ePerusteId) => getEperusteKuvaus(ePerusteId))
     );
 
+    const paikallisetTutkinnonOsat: Array<TutkinnonOsa> =
+      koulutusData?.metadata?.paikallisetTutkinnonOsat ?? [];
     const yksikko = tutkinnonOsat[0]?.opintojenLaajuusyksikko;
-    const pisteet = tutkinnonOsat
+    const pisteet = [...tutkinnonOsat, ...paikallisetTutkinnonOsat]
       .map((tutkinnonOsa) => tutkinnonOsa.opintojenLaajuusNumero)
+      .filter(Boolean)
       .join(' + ');
 
     set(koulutusData, 'metadata.opintojenLaajuusyksikko', yksikko);
@@ -93,6 +96,7 @@ const selectKoulutus = (koulutusData: KoulutusExtendedData) => {
       eperusteet: koulutusData.eperusteet,
       ePerusteId: koulutusData?.ePerusteId,
       tutkinnonOsat: koulutusData.metadata?.tutkinnonOsat,
+      paikallisetTutkinnonOsat: koulutusData.metadata?.paikallisetTutkinnonOsat,
       tyotehtavatJoissaVoiToimia:
         koulutusData.metadata?.kuvaus?.tyotehtavatJoissaVoiToimia,
       suorittaneenOsaaminen: koulutusData.metadata?.kuvaus?.suorittaneenOsaaminen,
@@ -133,7 +137,7 @@ export const useKoulutus = ({
   osaamisalakuvaukset = false,
 }: UseKoulutusProps) => {
   return useQuery(
-    ['fetchKoulutus', { oid, isDraft }],
+    ['fetchKoulutus', { oid, isDraft, osaamisalakuvaukset }],
     () => fetchKoulutus(oid!, isDraft, osaamisalakuvaukset),
     {
       select: selectKoulutus,
