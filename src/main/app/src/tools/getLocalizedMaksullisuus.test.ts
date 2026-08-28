@@ -24,7 +24,7 @@ describe('getLocalizedMaksullisuus', () => {
     ).toEqual('toteutus.maksuton');
   });
 
-  it('should return maksun maara for maksullinen toteutus', () => {
+  it('should return maksullinen opetus label and maara for maksullinen toteutus', () => {
     expect(
       getLocalizedMaksullisuus(
         KOULUTUS_TYYPPI.AMKKOULUTUS,
@@ -32,7 +32,7 @@ describe('getLocalizedMaksullisuus', () => {
         250.5,
         undefined
       )
-    ).toEqual(250.5);
+    ).toEqual('toteutus.maksullinen-opetus: 250.5 €');
   });
 
   it('should return empty string for maksullinen toteutus when maksun maara is undefined', () => {
@@ -112,7 +112,7 @@ describe('getLocalizedMaksullisuus', () => {
     ).toEqual('toteutus.lukuvuosimaksu: 500 €');
   });
 
-  it('should return only maksun maara when lukuvuosimaksun maara is undefined', () => {
+  it('should return maksullinen opetus label and maara when lukuvuosimaksun maara is undefined', () => {
     expect(
       getLocalizedMaksullisuus(
         KOULUTUS_TYYPPI.AMM,
@@ -120,7 +120,7 @@ describe('getLocalizedMaksullisuus', () => {
         230,
         undefined
       )
-    ).toEqual(230);
+    ).toEqual('toteutus.maksullinen-opetus: 230 €');
   });
 
   it('should return toteutus.lukuvuosimaksu-kk for lukuvuosimaksullinen amk-toteutus when maksun maara is undefined', () => {
@@ -134,7 +134,7 @@ describe('getLocalizedMaksullisuus', () => {
     ).toEqual('toteutus.lukuvuosimaksu-kk: 500');
   });
 
-  it('should return only maksun maara for kk-toteutus when lukuvuosimaksun maara is undefined', () => {
+  it('should return maksullinen opetus label and maara for kk-toteutus when lukuvuosimaksun maara is undefined', () => {
     expect(
       getLocalizedMaksullisuus(
         KOULUTUS_TYYPPI.AMKKOULUTUS,
@@ -142,6 +142,6 @@ describe('getLocalizedMaksullisuus', () => {
         230,
         undefined
       )
-    ).toEqual(230);
+    ).toEqual('toteutus.maksullinen-opetus: 230 €');
   });
 });
