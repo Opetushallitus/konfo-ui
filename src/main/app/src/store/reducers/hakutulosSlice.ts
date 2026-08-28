@@ -104,6 +104,7 @@ export type HakutulosSlice = {
   koulutusOffset: number;
   oppilaitosOffset: number;
   keyword: string;
+  draftKeyword: string;
 } & RajainValues;
 
 export const HAKUTULOS_INITIAL: HakutulosSlice = {
@@ -119,6 +120,7 @@ export const HAKUTULOS_INITIAL: HakutulosSlice = {
 
   // Persistoidut suodatinvalinnat
   keyword: '',
+  draftKeyword: '',
   ...HAKU_RAJAIMET_INITIAL,
 };
 
@@ -141,7 +143,11 @@ export const hakutulosSlice = createSlice({
   reducers: {
     setKeyword: (state, { payload }: PayloadAction<{ keyword: string }>) => {
       state.keyword = payload.keyword;
+      state.draftKeyword = payload.keyword;
       resetOffset(state);
+    },
+    setDraftKeyword: (state, { payload }: PayloadAction<{ keyword: string }>) => {
+      state.draftKeyword = payload.keyword;
     },
     setSelectedTab: (
       state,
@@ -153,6 +159,7 @@ export const hakutulosSlice = createSlice({
       state,
       { payload: newValues }: PayloadAction<Partial<RajainValues>>
     ) => {
+      state.keyword = state.draftKeyword;
       Object.assign(
         state,
         mapValues(newValues, (v) => (Array.isArray(v) ? sortArray(v) : v))
@@ -163,6 +170,7 @@ export const hakutulosSlice = createSlice({
       resetOffset(state);
     },
     clearRajainValues: (state) => {
+      state.keyword = state.draftKeyword;
       Object.assign(state, HAKU_RAJAIMET_INITIAL);
       resetOffset(state);
     },
@@ -197,7 +205,17 @@ export const hakutulosSlice = createSlice({
       forEach(params, (value, key) => {
         match(key)
           .with('keyword', 'size', 'order', 'sort', () => {
-            Object.assign(state, { [key]: value });
+            if (key === 'keyword') {
+              const keywordValue = value ?? '';
+              const keywordChanged = state.keyword !== keywordValue;
+              const wasDraftModified = state.draftKeyword !== state.keyword;
+              state.keyword = keywordValue;
+              if (keywordChanged || !wasDraftModified) {
+                state.draftKeyword = keywordValue;
+              }
+            } else {
+              Object.assign(state, { [key]: value ?? '' });
+            }
           })
           .with(RAJAIN_TYPES.SIJAINTI, () => {
             const valueList = getParamValueList(value);
@@ -258,6 +276,7 @@ export const hakutulosSlice = createSlice({
 
 export const {
   setKeyword,
+  setDraftKeyword,
   setSelectedTab,
   setRajainValues,
   resetPagination,

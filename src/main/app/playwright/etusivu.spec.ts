@@ -98,4 +98,29 @@ test.describe('Etusivu', () => {
       '/konfo/fi/haku/auto?koulutustyyppi=lk&order=desc&size=20&sort=score'
     );
   });
+
+  test('Search keyword stays in the search field after searching from front page', async ({
+    page,
+  }) => {
+    await page.route(
+      '/konfo-backend/search/oppilaitokset**',
+      fixtureFromFile('search-oppilaitokset-all.json')
+    );
+
+    await page.route(
+      '/konfo-backend/search/koulutukset**',
+      fixtureFromFile('search-koulutukset-auto.json')
+    );
+
+    await page.goto('/konfo');
+    await getSearchInput(page).fill('ajoneuvo');
+    await getSearchButton(page).click();
+
+    await expectURLEndsWith(
+      page,
+      '/konfo/fi/haku/ajoneuvo?order=desc&size=20&sort=score'
+    );
+    await expect(page.getByRole('progressbar').last()).toBeHidden();
+    await expect(getSearchInput(page)).toHaveValue('ajoneuvo');
+  });
 });

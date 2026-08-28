@@ -6,20 +6,18 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+import { RouterProvider } from 'react-router-dom';
 import 'typeface-open-sans';
 import StackTrace from 'stacktrace-js';
 
 import { postClientError } from '#/src/api/konfoApi';
-import { App } from '#/src/App';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
-import { ScrollToTop } from '#/src/ScrollToTop';
+import { router } from '#/src/router';
 import { store } from '#/src/store';
 import { theme } from '#/src/theme';
 import { isPlaywright, isProd } from '#/src/tools/utils';
 
 import { GenericError } from './GenericError';
-import { InitGate } from './InitGate';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -95,14 +93,9 @@ root.render(
       <QueryClientProvider client={queryClient}>
         {!isPlaywright && <ReactQueryDevtools initialIsOpen={false} />}
         <Provider store={store}>
-          <BrowserRouter basename="/konfo">
-            <ThemeProvider theme={theme}>
-              <InitGate>
-                <ScrollToTop />
-                <App />
-              </InitGate>
-            </ThemeProvider>
-          </BrowserRouter>
+          <ThemeProvider theme={theme}>
+            <RouterProvider router={router} />
+          </ThemeProvider>
         </Provider>
       </QueryClientProvider>
     </Suspense>

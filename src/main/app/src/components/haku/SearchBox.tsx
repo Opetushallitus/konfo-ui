@@ -140,31 +140,32 @@ const createRenderAutocompleteGroup = (t: TFunction) => {
 };
 
 export const SearchBox = ({
-  keyword,
+  draftKeyword,
   doSearch,
+  setDraftKeyword,
   rajaaButton,
 }: {
-  keyword: string;
+  draftKeyword: string;
   doSearch: (keyword: string) => void;
+  setDraftKeyword: (keyword: string) => void;
   rajaaButton?: React.JSX.Element | null;
 }) => {
   const { setSearchPhraseDebounced, isFetching, data } = useAutoComplete();
 
-  const [inputValue, setInputValue] = useState<string>(() => keyword || '');
   const [highlightedLabel, setHighlightedLabel] = useState('');
   const [highlightedLink, setHighlightedLink] = useState<string | null>(null);
-  const isKeywordValid = checkIsKeywordValid(inputValue);
+  const isKeywordValid = checkIsKeywordValid(draftKeyword);
 
   const { t } = useTranslation();
 
   const koulutusOptions = useAutocompleteOptions(
-    inputValue,
+    draftKeyword,
     'koulutus',
     t,
     data?.koulutukset
   );
   const oppilaitosOptions = useAutocompleteOptions(
-    inputValue,
+    draftKeyword,
     'oppilaitos',
     t,
     data?.oppilaitokset
@@ -243,8 +244,7 @@ export const SearchBox = ({
         <Autocomplete
           fullWidth={true}
           disablePortal={true}
-          key={keyword}
-          inputValue={inputValue}
+          inputValue={draftKeyword}
           freeSolo={true}
           options={allHits}
           filterOptions={identity}
@@ -275,7 +275,7 @@ export const SearchBox = ({
           }}
           onInputChange={(_e, newInputValue, reason) => {
             if (reason !== 'reset') {
-              setInputValue(newInputValue);
+              setDraftKeyword(newInputValue);
               setSearchPhraseDebounced(newInputValue);
             }
           }}

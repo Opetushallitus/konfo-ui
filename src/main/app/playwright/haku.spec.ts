@@ -223,6 +223,92 @@ test.describe('Haku', () => {
     await expect(hakuKaynnissaChk).not.toBeChecked();
   });
 
+  test('Search keyword from URL is shown in the search field', async ({ page }) => {
+    await page.route(
+      '/konfo-backend/search/koulutukset**',
+      fixtureFromFile('search-koulutukset-auto.json')
+    );
+    await page.goto('/konfo/fi/haku/ajoneuvo?order=desc&size=20&sort=score');
+    await expect(page.getByRole('progressbar').last()).toBeHidden();
+
+    await expect(getSearchInput(page)).toHaveValue('ajoneuvo');
+  });
+
+  test('Cleared search keyword is not sent when changing filters', async ({ page }) => {
+    await page.route(
+      '/konfo-backend/search/koulutukset**',
+      fixtureFromFile('search-koulutukset-auto.json')
+    );
+    await page.goto('/konfo/fi/haku');
+
+    const searchInput = getSearchInput(page);
+    await searchInput.fill('auto');
+    await getSearchButton(page).click();
+    await expectURLEndsWith(page, '/konfo/fi/haku/auto?order=desc&size=20&sort=score');
+
+    await searchInput.fill('');
+
+    const requestPromiseForFilterWithoutKeyword = page.waitForRequest(
+      (request) => {
+        const requestUrl = new URL(request.url());
+        return (
+          requestUrl.pathname === '/konfo-backend/search/koulutukset' &&
+          requestUrl.searchParams.get('hakukaynnissa') === 'true' &&
+          !requestUrl.searchParams.has('keyword') &&
+          request.method() === 'GET'
+        );
+      },
+      { timeout: 5000 }
+    );
+
+    const hakukaynnissaFilter = page.getByTestId('hakukaynnissa-filter');
+    const hakuKaynnissaChk = hakukaynnissaFilter.locator(
+      'input[type="checkbox"][aria-labelledby="filter-list-label-hakukaynnissa"]'
+    );
+    await hakuKaynnissaChk.click();
+
+    await requestPromiseForFilterWithoutKeyword;
+    await expectURLEndsWith(
+      page,
+      '/konfo/fi/haku?hakukaynnissa=true&order=desc&size=20&sort=score'
+    );
+  });
+
+  test('Editing search keyword does not update search results before search or filter change', async ({
+    page,
+  }) => {
+    await page.route(
+      '/konfo-backend/search/koulutukset**',
+      fixtureFromFile('search-koulutukset-auto.json')
+    );
+    await page.goto('/konfo/fi/haku');
+
+    const searchInput = getSearchInput(page);
+    await searchInput.fill('auto');
+    await getSearchButton(page).click();
+    await expectURLEndsWith(page, '/konfo/fi/haku/auto?order=desc&size=20&sort=score');
+
+    const requestPromiseForEditedKeyword = page
+      .waitForRequest(
+        (request) => {
+          const requestUrl = new URL(request.url());
+          return (
+            requestUrl.pathname === '/konfo-backend/search/koulutukset' &&
+            requestUrl.searchParams.get('keyword') === 'ajoneuvo' &&
+            request.method() === 'GET'
+          );
+        },
+        { timeout: 1000 }
+      )
+      .then(() => true)
+      .catch(() => false);
+
+    await searchInput.fill('ajoneuvo');
+
+    await expect(requestPromiseForEditedKeyword).resolves.toBe(false);
+    await expectURLEndsWith(page, '/konfo/fi/haku/auto?order=desc&size=20&sort=score');
+  });
+
   test('Hakutapa filter checkboxes', async ({ page }) => {
     await page.route(
       '/konfo-backend/search/koulutukset**',

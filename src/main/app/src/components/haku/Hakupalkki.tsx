@@ -10,7 +10,7 @@ export const Hakupalkki = ({
 }: {
   rajaaButton?: React.JSX.Element | null;
 }) => {
-  const { keyword, goToSearchPage, setKeyword } = useSearch();
+  const { draftKeyword, goToSearchPage, setKeyword, setDraftKeyword } = useSearch();
 
   const doSearch = useCallback(
     (phrase: string) => {
@@ -23,9 +23,9 @@ export const Hakupalkki = ({
   return (
     <Box marginBottom={1}>
       <SearchBox
-        key={keyword}
-        keyword={keyword}
+        draftKeyword={draftKeyword}
         doSearch={doSearch}
+        setDraftKeyword={setDraftKeyword}
         rajaaButton={rajaaButton}
       />
     </Box>
