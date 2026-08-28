@@ -51,7 +51,7 @@ export const getLocalizedMaksullisuus = (
   } else if (isMaksullinen && maksuAmount) {
     return maksuAmount;
   } else if (isLukuvuosimaksullinen && lukuvuosimaksuAmount) {
-    return lukuvuosimaksuAmount;
+    return `${getTranslationForKey('toteutus.lukuvuosimaksu')}: ${lukuvuosimaksuAmount} €`;
   } else {
     return '';
   }
