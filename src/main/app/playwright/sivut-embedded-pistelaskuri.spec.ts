@@ -20,7 +20,9 @@ test.describe('Embedded pistelaskuri', () => {
     );
 
     await page.goto('/konfo/fi/sivu/pistelaskuritesti?haku=1.2.3.4');
-    await expect(page.locator('h3')).toHaveText('Perusopetuksen keskiarvot');
+    await expect(
+      page.getByRole('heading', { name: 'Perusopetuksen keskiarvot', exact: true })
+    ).toBeVisible();
 
     await page.locator('.keskiarvo__laskuri__input').nth(0).fill('8');
     await page.locator('.keskiarvo__laskuri__input').nth(1).fill('9');
@@ -62,9 +64,13 @@ test.describe('Embedded pistelaskuri', () => {
   test('calculates average with weighting', async ({ page }) => {
     await page.goto('/konfo/fi/sivu/pistelaskuritesti');
 
-    await expect(page.locator('h3')).toHaveText('Perusopetuksen keskiarvot');
+    await expect(
+      page.getByRole('heading', { name: 'Perusopetuksen keskiarvot', exact: true })
+    ).toBeVisible();
     await page.locator('.keskiarvo__laskuri__changecalcbutton').click();
-    await expect(page.locator('h3')).toHaveText('Perusopetuksen arvosanat');
+    await expect(
+      page.getByRole('heading', { name: 'Perusopetuksen arvosanat', exact: true })
+    ).toBeVisible();
 
     const aidinkieliInput = page.getByTestId('kouluaineinput__kouluaineet.aidinkieli');
     await aidinkieliInput.locator('.kouluaine__gradeselect').click();
