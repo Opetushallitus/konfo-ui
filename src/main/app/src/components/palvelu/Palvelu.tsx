@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
+import { Heading } from '#/src/components/Heading';
 import { useSideMenu } from '#/src/hooks';
 import { useContentful } from '#/src/hooks/useContentful';
 import { styled } from '#/src/theme';
@@ -71,7 +72,7 @@ export const Palvelu = ({ id }: { id: string }) => {
         <StyledCardHeader
           avatar={<Avatar src={assetUrl(a?.url)} alt="" />}
           disableTypography={true}
-          title={palvelu.name}
+          title={<Heading variant="inherit">{palvelu.name}</Heading>}
           subheader=""
         />
         {palvelu.content && (
