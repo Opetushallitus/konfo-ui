@@ -20,6 +20,14 @@ test.describe('Etusivu', () => {
     await expect(page.locator('h1')).toContainText('Ammatillinen koulutus');
   });
 
+  test('Should render palvelu card titles as headings', async ({ page }) => {
+    await page.goto('/konfo/fi');
+    await expect(page.getByRole('heading', { name: 'eHOKS', exact: true })).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: 'Neuvonta ja ohjaus', exact: true })
+    ).toBeVisible();
+  });
+
   test('Should have skip to content link hidden by default, and show it when pressing tab', async ({
     page,
   }) => {
