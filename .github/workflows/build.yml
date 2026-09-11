@@ -15,9 +15,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # v3
 
-      - uses: actions/cache@v3
+      - uses: actions/cache@6f8efc29b200d32929f49075959781ed54ec270c # v3
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
@@ -25,13 +25,13 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Set up JDK 21
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@e9fbacdec3bb3b6036605a3e6f7995d66773a8c6 # v3
         with:
           java-version: '21'
           distribution: 'corretto'
           cache: 'maven'
 
-      - uses: szenius/set-timezone@v1.2
+      - uses: szenius/set-timezone@ce9c440bc3af4f51b28d7ef7e5c47ee8f26c8dcb # v1.2
         with:
           timezoneLinux: "Europe/Helsinki"
 
@@ -43,7 +43,7 @@ jobs:
           source ci-tools/common/setup-tools.sh
           mvn --settings settings.xml clean spotless:check package -B
 
-      - uses: actions/cache@v3
+      - uses: actions/cache@6f8efc29b200d32929f49075959781ed54ec270c # v3
         id: restore-build
         with:
           path: target
@@ -55,18 +55,18 @@ jobs:
       run:
         working-directory: ./src/main/app
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # v3
       - uses: pnpm/action-setup@c5ba7f7862a0f64c1b1a05fbac13e0b8e86ba08c
         with:
           version: 10.22.0
           run_install: false
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@3235b876344d2a9aa001b8d1453c930bba69e610 # v3
         with:
           node-version-file: '.nvmrc'
           cache: 'pnpm'
           cache-dependency-path: src/main/app/pnpm-lock.yaml
       - name: Cache pnpm store
-        uses: actions/cache@v3
+        uses: actions/cache@6f8efc29b200d32929f49075959781ed54ec270c # v3
         with:
           path: ~/.pnpm-store
           key: ${{ runner.os }}-pnpm-${{ hashFiles('src/main/app/pnpm-lock.yaml') }}
@@ -80,7 +80,7 @@ jobs:
           PLAYWRIGHT_VERSION=$(node -p "require(require.resolve('@playwright/test/package.json')).version")
           echo "PLAYWRIGHT_VERSION=${PLAYWRIGHT_VERSION}" >> $GITHUB_ENV
       - name: Cache playwright binaries
-        uses: actions/cache@v3
+        uses: actions/cache@6f8efc29b200d32929f49075959781ed54ec270c # v3
         id: playwright-cache
         with:
           path: |
@@ -102,9 +102,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # v3
 
-      - uses: actions/cache@v3
+      - uses: actions/cache@6f8efc29b200d32929f49075959781ed54ec270c # v3
         id: restore-build
         with:
           path: target
