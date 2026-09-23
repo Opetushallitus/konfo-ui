@@ -1811,6 +1811,132 @@ export interface paths {
                      * @example 100
                      */
                     koulutuksenkestokuukausina_max?: number;
+                    /**
+                     * @description Pilkulla eroteltu lista koulutuksen maksullisuustyyppejä
+                     * @example [
+                     *       "maksuton",
+                     *       "maksullinen",
+                     *       "lukuvuosimaksu",
+                     *       "lukuvuosimaksu_amm_lk",
+                     *       "lukuvuosimaksu_kk"
+                     *     ]
+                     */
+                    maksullisuustyyppi?: string[];
+                    /**
+                     * @description Koulutuksen maksun minimimäärä. Käytetään vain jos maksullisuustyypiksi valittu "maksullinen"
+                     * @example 100
+                     */
+                    maksunmaara_min?: number;
+                    /**
+                     * @description Koulutuksen maksun maksimimäärä. Käytetään vain jos maksullisuustyypiksi valittu "maksullinen"
+                     * @example 100
+                     */
+                    maksunmaara_max?: number;
+                    /**
+                     * @description Koulutuksen lukuvuosimaksun minimimäärä. Käytetään vain jos maksullisuustyypiksi valittu "lukuvuosimaksu"
+                     * @example 100
+                     */
+                    lukuvuosimaksunmaara_min?: number;
+                    /**
+                     * @description Koulutuksen lukuvuosimaksun maksimimäärä. Käytetään vain jos maksullisuustyypiksi valittu "lukuvuosimaksu"
+                     * @example 100
+                     */
+                    lukuvuosimaksunmaara_max?: number;
+                    /**
+                     * @description Ammatillisten (amm, amm-tutkinnon-osa, amm-osaamisala, amm-muu, telma) ja lukiokoulutuksen lukuvuosimaksun minimimäärä. Käytetään vain jos maksullisuustyypiksi valittu "lukuvuosimaksu_amm_lk"
+                     * @example 100
+                     */
+                    lukuvuosimaksunmaara_amm_lk_min?: number;
+                    /**
+                     * @description Ammatillisten (amm, amm-tutkinnon-osa, amm-osaamisala, amm-muu, telma) ja lukiokoulutuksen lukuvuosimaksun maksimimäärä. Käytetään vain jos maksullisuustyypiksi valittu "lukuvuosimaksu_amm_lk"
+                     * @example 100
+                     */
+                    lukuvuosimaksunmaara_amm_lk_max?: number;
+                    /**
+                     * @description Yliopisto- ja AMK-koulutuksen lukuvuosimaksun minimimäärä. Käytetään vain jos maksullisuustyypiksi valittu "lukuvuosimaksu_kk"
+                     * @example 100
+                     */
+                    lukuvuosimaksunmaara_kk_min?: number;
+                    /**
+                     * @description Yliopisto- ja AMK-koulutuksen lukuvuosimaksun maksimimäärä. Käytetään vain jos maksullisuustyypiksi valittu "lukuvuosimaksu_kk"
+                     * @example 100
+                     */
+                    lukuvuosimaksunmaara_kk_max?: number;
+                    /** @description Haetaanko koulutuksia, joilla on käytössä apuraha? Käytetään vain jos maksullisuustyypiksi valittu "lukuvuosimaksu" */
+                    apuraha?: boolean;
+                    /**
+                     * @description Pilkulla eroteltuna "valintatapajono"-koodiston koodeja
+                     * @example [
+                     *       "valintatapajono_av",
+                     *       "valintatapajono_tv"
+                     *     ]
+                     */
+                    valintatapa?: string[];
+                    /** @description Palautetaan koulutukset, joiden haku on käynissä */
+                    hakukaynnissa?: boolean;
+                    /** @description Haetaanko koulutuksia, joilla on JOTPA-rahoitus? */
+                    jotpa?: boolean;
+                    /** @description Haetaanko koulutuksia, jotka ovat työvoimakoulutusta? */
+                    tyovoimakoulutus?: boolean;
+                    /** @description Haetaanko koulutuksia, jotka ovat täydennyskoulutusta? */
+                    taydennyskoulutus?: boolean;
+                    /** @description Haetaanko koulutuksia, jotka on määritelty pieniksi osaamiskokonaisuuksiksi? */
+                    pieniosaamiskokonaisuus?: boolean;
+                    /**
+                     * @description Pilkulla eroteltuna "hakutapa"-koodiston koodeja
+                     * @example [
+                     *       "hakutapa_01",
+                     *       "hakutapa_03"
+                     *     ]
+                     */
+                    hakutapa?: string[];
+                    /**
+                     * @description Pilkulla eroteltuna yhteishakujen oideja
+                     * @example [
+                     *       "1.2.246.562.29.00000000000000000800"
+                     *     ]
+                     */
+                    yhteishaku?: string[];
+                    /**
+                     * @description Pilkulla eroteltuna "pohjakoulutusvaatimuskonfo"-koodiston koodeja
+                     * @example [
+                     *       "pohjakoulutusvaatimuskonfo_am",
+                     *       "pohjakoulutusvaatimuskonfo_102"
+                     *     ]
+                     */
+                    pohjakoulutusvaatimus?: string[];
+                    /**
+                     * @description Pilkulla eroteltuna "lukiopainotukset"-koodiston koodeja
+                     * @example [
+                     *       "lukiopainotukset_0111",
+                     *       "lukiopainotukset_001"
+                     *     ]
+                     */
+                    lukiopainotukset?: string[];
+                    /**
+                     * @description Pilkulla eroteltuna "lukiolinjaterityinenkoulutustehtava"-koodiston koodeja
+                     * @example [
+                     *       "lukiolinjaterityinenkoulutustehtava_0100",
+                     *       "lukiolinjaterityinenkoulutustehtava_0126"
+                     *     ]
+                     */
+                    lukiolinjaterityinenkoulutustehtava?: string[];
+                    /**
+                     * @description Pilkulla eroteltuna ammatillisten koulutusten "osaamisala"-koodiston koodeja
+                     * @example [
+                     *       "osaamisala_1756",
+                     *       "osaamisala_3076"
+                     *     ]
+                     */
+                    osaamisala?: string[];
+                    /**
+                     * @description Pilkulla eroteltuna alkamiskausi-tunnisteita (merkkijono). Validit arvot ovat muotoa "<vuosi>-kevat/syksy" (esim. esim. "2022-kevat") tai "henkilokohtainen"
+                     * @example [
+                     *       "henkilokohtainen",
+                     *       "2022-kevat"
+                     *     ]
+                     */
+                    alkamiskausi?: string[];
                     /** @description Palautetaan koulutukset, joiden hakuaika alkaa x vuorokauden sisällä. */
                     hakualkaapaivissa?: number;
                 };
