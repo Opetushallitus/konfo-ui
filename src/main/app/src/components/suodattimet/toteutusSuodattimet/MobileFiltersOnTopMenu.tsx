@@ -6,13 +6,12 @@ import { t } from 'i18next';
 import { colors } from '#/src/colors';
 import { FilterSearchResultsButton } from '#/src/components/common/FilterSearchResultsButton';
 import { MobileRajainDrawer } from '#/src/components/common/MobileRajainDrawer';
-import { useToteutusRajainOrder } from '#/src/hooks/useToteutusRajainOrder';
 import { RajainValues } from '#/src/store/reducers/hakutulosSlice';
 import { RajainName } from '#/src/types/common';
-import { SetRajainValues } from '#/src/types/SuodatinTypes';
+import { RajainOrderItem, SetRajainValues } from '#/src/types/SuodatinTypes';
 
 type Props = {
-  koulutustyyppi?: string;
+  rajainOrder: Array<RajainOrderItem>;
   rajainCount: number;
   hitCount: number;
   loading: boolean;
@@ -23,7 +22,7 @@ type Props = {
 };
 
 export const MobileFiltersOnTopMenu = ({
-  koulutustyyppi,
+  rajainOrder,
   rajainCount,
   hitCount,
   loading,
@@ -34,8 +33,6 @@ export const MobileFiltersOnTopMenu = ({
 }: Props) => {
   const [isDrawerOpen, setDrawerOpen] = useState(false);
   const onToggleDrawer = useCallback(() => setDrawerOpen(!isDrawerOpen), [isDrawerOpen]);
-
-  const rajainOrder = useToteutusRajainOrder({ koulutustyyppi });
 
   return (
     <>

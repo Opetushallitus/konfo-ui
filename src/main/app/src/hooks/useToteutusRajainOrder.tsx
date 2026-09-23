@@ -15,7 +15,7 @@ import { ValintatapaSuodatin } from '#/src/components/suodattimet/common/Valinta
 import { AmmOsaamisalatSuodatin } from '#/src/components/suodattimet/toteutusSuodattimet/AmmOsaamisalatSuodatin';
 import { LukiolinjatSuodatin } from '#/src/components/suodattimet/toteutusSuodattimet/LukiolinjatSuodatin';
 import { KOULUTUS_TYYPPI, KORKEAKOULU_KOULUTUSTYYPIT } from '#/src/constants';
-import { RajainComponentProps } from '#/src/types/SuodatinTypes';
+import { RajainOrderItem } from '#/src/types/SuodatinTypes';
 
 import { VaativanErityisenTuenSuodatin } from '../components/suodattimet/toteutusSuodattimet/VaativanErityisenTuenSuodatin';
 
@@ -95,9 +95,5 @@ export const useToteutusRajainOrder = ({
       id: 'vaativan-tuen-koulutukset',
       Component: VaativanErityisenTuenSuodatin,
     },
-  ].filter(Boolean) as Array<{
-    id: string;
-    Component: (props: RajainComponentProps) => React.JSX.Element;
-    props?: RajainComponentProps;
-  }>;
+  ].filter(Boolean) as Array<RajainOrderItem>;
 };

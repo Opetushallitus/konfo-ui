@@ -1,8 +1,7 @@
-import { useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 
 import { filter, map, size, compact } from 'lodash';
 import { useQueries, useQuery } from 'react-query';
-import { useDispatch, useSelector } from 'react-redux';
 
 import {
   getKoodistonKoodit,
@@ -10,17 +9,23 @@ import {
   getOppilaitosOsa,
   getOppilaitosTarjonta,
 } from '#/src/api/konfoApi';
+import { useAppDispatch, useAppSelector } from '#/src/hooks/reduxHooks';
+import { RajainValues } from '#/src/store/reducers/hakutulosSlice';
 import {
   setTarjontaPagination,
   setTulevaTarjontaPagination,
   resetPagination,
+  setTarjontaRajainValues,
+  clearTarjontaRajainValues,
 } from '#/src/store/reducers/oppilaitosSlice';
 import {
   getTarjontaPaginationProps,
   getTulevaTarjontaPaginationProps,
+  getTarjontaRajainValues,
 } from '#/src/store/reducers/oppilaitosSliceSelector';
 import { getLocalizedMaksullisuus } from '#/src/tools/getLocalizedMaksullisuus';
 import { localize, localizeArrayToCommaSeparated } from '#/src/tools/localization';
+import { createRajainQueryParams } from '#/src/tools/rajainQueryParams';
 import { getLocalizedOpintojenLaajuus } from '#/src/tools/utils';
 import { Koodi } from '#/src/types/common';
 import { Organisaatio } from '#/src/types/ToteutusTypes';
@@ -120,6 +125,7 @@ type UsePaginatedTarjontaProps = {
 
 const selectTarjonta = (tarjonta: any) => {
   return {
+    rajainOptions: tarjonta?.filters || {},
     values: map(tarjonta?.hits, (t: any) => ({
       toteutusName: localize(t.nimi),
       description: localize(t.kuvaus),
@@ -159,22 +165,36 @@ const selectTulevaTarjonta = (tulevaTarjonta: any) => {
 };
 
 export const usePaginatedTarjonta = ({ oid, isTuleva }: UsePaginatedTarjontaProps) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   // Reset pagination when oid changes (which means that another oppilaitos-page was opened)
   useEffect(() => {
     dispatch(resetPagination());
   }, [dispatch, oid]);
 
-  const paginationProps = useSelector((state) =>
+  const paginationProps = useAppSelector((state) =>
     isTuleva ? getTulevaTarjontaPaginationProps(state) : getTarjontaPaginationProps(state)
   );
+
+  const rajainValues = useAppSelector(getTarjontaRajainValues);
+
+  const setRajainValues = useCallback(
+    (newValues: Partial<RajainValues>) => {
+      dispatch(setTarjontaRajainValues(newValues));
+    },
+    [dispatch]
+  );
+
+  const clearRajainValues = useCallback(() => {
+    dispatch(clearTarjontaRajainValues());
+  }, [dispatch]);
 
   const fetchProps = {
     oid,
     requestParams: {
       tuleva: isTuleva,
       ...paginationProps,
+      ...(isTuleva ? {} : createRajainQueryParams(rajainValues)),
     },
   };
 
@@ -201,8 +221,17 @@ export const usePaginatedTarjonta = ({ oid, isTuleva }: UsePaginatedTarjontaProp
             : setTarjontaPagination({ ...paginationProps, ...newPagination })
         );
       },
+      ...(isTuleva ? {} : { rajainValues, setRajainValues, clearRajainValues }),
     }),
-    [result, paginationProps, isTuleva, dispatch]
+    [
+      result,
+      paginationProps,
+      isTuleva,
+      dispatch,
+      rajainValues,
+      setRajainValues,
+      clearRajainValues,
+    ]
   );
 };
 

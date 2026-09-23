@@ -1,17 +1,17 @@
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { EntiteettiKortti } from '#/src/components/common/EntiteettiKortti';
 import { OppilaitosKorttiLogo } from '#/src/components/common/KorttiLogo';
-import {
-  LoadingCircle,
-  OverlayLoadingCircle,
-} from '#/src/components/common/LoadingCircle';
 import { createMaterialIcon } from '#/src/components/common/MaterialIcon';
 import { PageSection } from '#/src/components/common/PageSection';
 import { Pagination } from '#/src/components/common/Pagination';
+import { QueryResultWrapper } from '#/src/components/common/QueryResultWrapper';
+import { RajainFiltersBar } from '#/src/components/suodattimet/RajainFiltersBar';
+import { useOppilaitosTarjontaRajainOrder } from '#/src/hooks/useOppilaitosTarjontaRajainOrder';
 
 import { usePaginatedTarjonta } from './hooks';
+import { useSelectedFilters } from '../haku/hakutulosHooks';
 
 type Props = {
   oid: string;
@@ -24,65 +24,92 @@ const EuroSymbolIcon = createMaterialIcon('euro_symbol');
 
 export const TarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
   const { t } = useTranslation();
-  const { queryResult, pagination, setPagination } = usePaginatedTarjonta({
+  const {
+    queryResult,
+    pagination,
+    setPagination,
+    rajainValues = {},
+    setRajainValues,
+    clearRajainValues,
+  } = usePaginatedTarjonta({
     oid,
     isOppilaitosOsa,
     isTuleva: false,
   });
 
-  const { data: tarjonta = {} as any, status, isFetching } = queryResult;
-  const { values, total } = tarjonta;
+  const { data: tarjonta = {} as any, isLoading } = queryResult;
+  const { values, total, rajainOptions = {} } = tarjonta;
 
-  const scrolltargetId = 'tarjonta-list';
+  const allSelectedFilters = useSelectedFilters(rajainOptions, rajainValues);
+  const someSelected = allSelectedFilters.flat.length > 0;
+  const someValuesToShow = isLoading || values?.length > 0;
 
-  switch (status) {
-    case 'loading':
-      return <LoadingCircle />;
-    case 'success':
-      return tarjonta.hasHits ? (
-        <PageSection
-          heading={t('oppilaitos.oppilaitoksessa-jarjestettavat-koulutukset')}
-          headingProps={{
-            id: scrolltargetId,
-          }}>
-          <Pagination
-            total={total}
-            pagination={pagination}
-            setPagination={setPagination}
-          />
-          <Box position="relative" sx={{ width: '100%', maxWidth: '900px' }}>
-            <OverlayLoadingCircle isLoading={isFetching} />
-            <Box flexDirection="column" alignItems="stretch">
-              {values?.map((toteutus: any) => (
-                <Box key={toteutus?.toteutusOid}>
-                  <EntiteettiKortti
-                    koulutustyyppi={toteutus?.tyyppi}
-                    to={`/toteutus/${toteutus?.toteutusOid}`}
-                    logoElement={<OppilaitosKorttiLogo image={toteutus?.kuva} alt="" />}
-                    header={toteutus?.toteutusName}
-                    kuvaus={toteutus?.description}
-                    jarjestaaUrheilijanAmmKoulutusta={
-                      toteutus?.jarjestaaUrheilijanAmmKoulutusta
-                    }
-                    iconTexts={[
-                      [toteutus?.locations, PublicIcon],
-                      [toteutus?.opetustapa, HourglassIcon],
-                      [toteutus?.price, EuroSymbolIcon],
-                    ]}
-                  />
-                </Box>
-              ))}
-            </Box>
+  const rajainOrder = useOppilaitosTarjontaRajainOrder({ rajainValues });
+
+  const scrollTargetId = 'tarjonta-list';
+
+  return (
+    <PageSection
+      heading={t('oppilaitos.oppilaitoksessa-jarjestettavat-koulutukset')}
+      headingProps={{
+        id: scrollTargetId,
+      }}>
+      <RajainFiltersBar
+        rajainOrder={rajainOrder}
+        rajainOptions={rajainOptions}
+        rajainValues={rajainValues}
+        setRajainValues={setRajainValues!}
+        clearRajainValues={clearRajainValues!}
+        allSelectedFilters={allSelectedFilters}
+        loading={isLoading}
+        hitCount={total}
+      />
+      <Pagination total={total} pagination={pagination} setPagination={setPagination} />
+      <QueryResultWrapper queryResult={queryResult}>
+        {someValuesToShow ? (
+          <Box
+            sx={{
+              flexDirection: 'column',
+              alignItems: 'center',
+              width: '100%',
+              maxWidth: '900px',
+            }}>
+            {values?.map((toteutus: any) => (
+              <Box key={toteutus?.toteutusOid}>
+                <EntiteettiKortti
+                  koulutustyyppi={toteutus?.tyyppi}
+                  to={`/toteutus/${toteutus?.toteutusOid}`}
+                  logoElement={<OppilaitosKorttiLogo image={toteutus?.kuva} alt="" />}
+                  header={toteutus?.toteutusName}
+                  kuvaus={toteutus?.description}
+                  jarjestaaUrheilijanAmmKoulutusta={
+                    toteutus?.jarjestaaUrheilijanAmmKoulutusta
+                  }
+                  iconTexts={[
+                    [toteutus?.locations, PublicIcon],
+                    [toteutus?.opetustapa, HourglassIcon],
+                    [toteutus?.price, EuroSymbolIcon],
+                  ]}
+                />
+              </Box>
+            ))}
           </Box>
-          <Pagination
-            total={total}
-            pagination={pagination}
-            setPagination={setPagination}
-            scrollTargetId={scrolltargetId}
-          />
-        </PageSection>
-      ) : null;
-    default:
-      return null;
-  }
+        ) : (
+          <Typography variant="body1" paragraph>
+            {t(
+              someSelected
+                ? 'oppilaitos.ei-rajaimia-vastaavia-toteutuksia'
+                : 'oppilaitos.ei-toteutuksia'
+            )}
+          </Typography>
+        )}
+      </QueryResultWrapper>
+      <Pagination
+        total={total}
+        pagination={pagination}
+        setPagination={setPagination}
+        scrollTargetId={scrollTargetId}
+      />
+    </PageSection>
+  );
 };
