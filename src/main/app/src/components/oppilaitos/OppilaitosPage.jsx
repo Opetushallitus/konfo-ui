@@ -25,7 +25,6 @@ import { OppilaitosinfoGrid } from './OppilaitosinfoGrid';
 import { OppilaitosOsaList } from './OppilaitosOsaList';
 import { TarjontaList } from './TarjontaList';
 import { TietoaOpiskelusta } from './TietoaOpiskelusta';
-import { TulevaTarjontaList } from './TulevaTarjontaList';
 import { Yhteystiedot } from './Yhteystiedot';
 import { ExternalLinkButton } from '../common/ExternalLinkButton';
 
@@ -138,7 +137,6 @@ export const OppilaitosPage = (props) => {
             <HtmlTextBox heading={t('oppilaitos.esittely')} html={esittelyHtml} />
           )}
           <TarjontaList oid={oid} isOppilaitosOsa={isOppilaitosOsa} />
-          <TulevaTarjontaList oid={oid} isOppilaitosOsa={isOppilaitosOsa} />
           {size(tietoaOpiskelusta) > 0 && (
             <TietoaOpiskelusta
               heading={t('oppilaitos.tietoa-opiskelusta')}
