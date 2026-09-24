@@ -53,11 +53,13 @@ describe('combineLisatiedot', () => {
   test('palauttaa koulutuksen lisätiedot, jos toteutuksella ei ole lisätietoja', () => {
     expect(combineLisatiedot([SISALTO_KOULUTUS], [])).toEqual([SISALTO_KOULUTUS]);
     expect(combineLisatiedot([SISALTO_KOULUTUS], undefined)).toEqual([SISALTO_KOULUTUS]);
+    expect(combineLisatiedot([SISALTO_KOULUTUS], null)).toEqual([SISALTO_KOULUTUS]);
   });
 
   test('palauttaa toteutuksen lisätiedot, jos koulutuksella ei ole lisätietoja', () => {
     expect(combineLisatiedot([], [SISALTO_TOTEUTUS])).toEqual([SISALTO_TOTEUTUS]);
     expect(combineLisatiedot(undefined, [SISALTO_TOTEUTUS])).toEqual([SISALTO_TOTEUTUS]);
+    expect(combineLisatiedot(null, [SISALTO_TOTEUTUS])).toEqual([SISALTO_TOTEUTUS]);
   });
 
   test('toteutuksen lisätieto korvaa koulutuksen lisätiedon samalla otsikolla', () => {

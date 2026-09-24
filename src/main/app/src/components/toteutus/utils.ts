@@ -60,22 +60,25 @@ const hasTeksti = (lisatieto: KoulutusLisatieto) =>
 // lisätiedon, jotta samaa lisätietoa ei näytetä toteutussivulla kahteen kertaan.
 // Tyhjä toteutuksen lisätieto ei korvaa koulutuksen lisätietoa.
 export const combineLisatiedot = (
-  koulutuksenLisatiedot: Array<KoulutusLisatieto> = [],
-  toteutuksenLisatiedot: Array<KoulutusLisatieto> = []
+  koulutuksenLisatiedot?: Array<KoulutusLisatieto> | null,
+  toteutuksenLisatiedot?: Array<KoulutusLisatieto> | null
 ) => {
+  const koulutuksenTiedot = koulutuksenLisatiedot ?? [];
+  const toteutuksenTiedot = toteutuksenLisatiedot ?? [];
+
   const korvaavatByOtsikko = new Map(
-    toteutuksenLisatiedot
+    toteutuksenTiedot
       .filter((lisatieto) => otsikkoKoodi(lisatieto) && hasTeksti(lisatieto))
       .map((lisatieto) => [otsikkoKoodi(lisatieto), lisatieto])
   );
-  const koulutuksenOtsikot = new Set(compact(koulutuksenLisatiedot.map(otsikkoKoodi)));
+  const koulutuksenOtsikot = new Set(compact(koulutuksenTiedot.map(otsikkoKoodi)));
 
   return [
     // Korvattu lisätieto säilyttää koulutuksen lisätietojen mukaisen järjestyksen
-    ...koulutuksenLisatiedot.map(
+    ...koulutuksenTiedot.map(
       (lisatieto) => korvaavatByOtsikko.get(otsikkoKoodi(lisatieto)) ?? lisatieto
     ),
-    ...toteutuksenLisatiedot.filter((lisatieto) => {
+    ...toteutuksenTiedot.filter((lisatieto) => {
       const koodi = otsikkoKoodi(lisatieto);
       return !koodi || !koulutuksenOtsikot.has(koodi);
     }),
