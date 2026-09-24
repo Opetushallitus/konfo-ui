@@ -7,6 +7,7 @@ import { Hakukohde } from '#/src/types/HakukohdeTypes';
 import { Maksu, Maksullisuustyyppi } from '#/src/types/ToteutusTypes';
 
 import {
+  combineLisatiedot,
   demoLinksPerLomakeId,
   formatAloitus,
   formatMaksullisuusText,
@@ -27,6 +28,81 @@ describe('toteutus utils', () => {
     ],
   ])('formatAloitus', (input, output) => {
     expect(formatAloitus(input as any, identity as any)).toEqual(output);
+  });
+});
+
+const lisatieto = (koodiUri?: string, teksti?: Record<string, string>) => ({
+  otsikko: { koodiUri, nimi: { fi: `Otsikko ${koodiUri}` } },
+  teksti,
+});
+
+const SISALTO_KOULUTUS = lisatieto('koulutuksenlisatiedot_03#1', {
+  fi: 'Koulutuksen sisältö',
+});
+const SISALTO_TOTEUTUS = lisatieto('koulutuksenlisatiedot_03#1', {
+  fi: 'Toteutuksen sisältö',
+});
+const URAPALVELUT_KOULUTUS = lisatieto('koulutuksenlisatiedot_05#1', {
+  fi: 'Koulutuksen urapalvelut',
+});
+const OPISKELIJARUOKAILU_TOTEUTUS = lisatieto('koulutuksenlisatiedot_06#1', {
+  fi: 'Toteutuksen opiskelijaruokailu',
+});
+
+describe('combineLisatiedot', () => {
+  test('palauttaa koulutuksen lisätiedot, jos toteutuksella ei ole lisätietoja', () => {
+    expect(combineLisatiedot([SISALTO_KOULUTUS], [])).toEqual([SISALTO_KOULUTUS]);
+    expect(combineLisatiedot([SISALTO_KOULUTUS], undefined)).toEqual([SISALTO_KOULUTUS]);
+  });
+
+  test('palauttaa toteutuksen lisätiedot, jos koulutuksella ei ole lisätietoja', () => {
+    expect(combineLisatiedot([], [SISALTO_TOTEUTUS])).toEqual([SISALTO_TOTEUTUS]);
+    expect(combineLisatiedot(undefined, [SISALTO_TOTEUTUS])).toEqual([SISALTO_TOTEUTUS]);
+  });
+
+  test('toteutuksen lisätieto korvaa koulutuksen lisätiedon samalla otsikolla', () => {
+    expect(combineLisatiedot([SISALTO_KOULUTUS], [SISALTO_TOTEUTUS])).toEqual([
+      SISALTO_TOTEUTUS,
+    ]);
+  });
+
+  test('otsikkokoodin versio ei vaikuta korvaamiseen', () => {
+    const sisaltoToteutusEriVersio = lisatieto('koulutuksenlisatiedot_03#2', {
+      fi: 'Toteutuksen sisältö',
+    });
+    expect(combineLisatiedot([SISALTO_KOULUTUS], [sisaltoToteutusEriVersio])).toEqual([
+      sisaltoToteutusEriVersio,
+    ]);
+  });
+
+  test('eri otsikolliset lisätiedot näytetään kaikki, korvattu säilyttää paikkansa', () => {
+    expect(
+      combineLisatiedot(
+        [SISALTO_KOULUTUS, URAPALVELUT_KOULUTUS],
+        [OPISKELIJARUOKAILU_TOTEUTUS, SISALTO_TOTEUTUS]
+      )
+    ).toEqual([SISALTO_TOTEUTUS, URAPALVELUT_KOULUTUS, OPISKELIJARUOKAILU_TOTEUTUS]);
+  });
+
+  test('tyhjä toteutuksen lisätieto ei korvaa koulutuksen lisätietoa', () => {
+    const tyhjatToteutuksenLisatiedot = [
+      lisatieto('koulutuksenlisatiedot_03#1', undefined),
+      lisatieto('koulutuksenlisatiedot_03#1', {}),
+      lisatieto('koulutuksenlisatiedot_03#1', { fi: '' }),
+      lisatieto('koulutuksenlisatiedot_03#1', { fi: '  ' }),
+    ];
+    tyhjatToteutuksenLisatiedot.forEach((tyhja) => {
+      expect(combineLisatiedot([SISALTO_KOULUTUS], [tyhja])).toEqual([SISALTO_KOULUTUS]);
+    });
+  });
+
+  test('lisätieto ilman otsikkokoodia näytetään erillisenä', () => {
+    const ilmanKoodia = lisatieto(undefined, { fi: 'Koulutuksen lisätieto' });
+    const ilmanKoodiaToteutus = lisatieto(undefined, { fi: 'Toteutuksen lisätieto' });
+    expect(combineLisatiedot([ilmanKoodia], [ilmanKoodiaToteutus])).toEqual([
+      ilmanKoodia,
+      ilmanKoodiaToteutus,
+    ]);
   });
 });
 

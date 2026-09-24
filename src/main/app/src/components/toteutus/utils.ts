@@ -1,5 +1,5 @@
 import { TFunction } from 'i18next';
-import { isEmpty, some } from 'lodash';
+import { compact, isEmpty, some, trim, values } from 'lodash';
 
 import { getHakuDemo } from '#/src/api/konfoApi';
 import {
@@ -9,7 +9,12 @@ import {
   Koulutustyyppi,
 } from '#/src/constants';
 import { localize } from '#/src/tools/localization';
-import { Alkamiskausi, KoutaKoulutustyyppi, Translateable } from '#/src/types/common';
+import {
+  Alkamiskausi,
+  KoulutusLisatieto,
+  KoutaKoulutustyyppi,
+  Translateable,
+} from '#/src/types/common';
 import { Hakukohde } from '#/src/types/HakukohdeTypes';
 import { Maksu } from '#/src/types/ToteutusTypes';
 
@@ -42,6 +47,39 @@ export const formatAloitus = (
     default:
       return {};
   }
+};
+
+// KoodiUrien versiot jätetään huomiotta
+const otsikkoKoodi = (lisatieto: KoulutusLisatieto) =>
+  lisatieto?.otsikko?.koodiUri?.split('#')[0];
+
+const hasTeksti = (lisatieto: KoulutusLisatieto) =>
+  some(values(lisatieto?.teksti), (teksti) => !isEmpty(trim(teksti)));
+
+// Toteutukselle tallennettu lisätieto korvaa koulutuksen samalla otsikolla tallennetun
+// lisätiedon, jotta samaa lisätietoa ei näytetä toteutussivulla kahteen kertaan.
+// Tyhjä toteutuksen lisätieto ei korvaa koulutuksen lisätietoa.
+export const combineLisatiedot = (
+  koulutuksenLisatiedot: Array<KoulutusLisatieto> = [],
+  toteutuksenLisatiedot: Array<KoulutusLisatieto> = []
+) => {
+  const korvaavatByOtsikko = new Map(
+    toteutuksenLisatiedot
+      .filter((lisatieto) => otsikkoKoodi(lisatieto) && hasTeksti(lisatieto))
+      .map((lisatieto) => [otsikkoKoodi(lisatieto), lisatieto])
+  );
+  const koulutuksenOtsikot = new Set(compact(koulutuksenLisatiedot.map(otsikkoKoodi)));
+
+  return [
+    // Korvattu lisätieto säilyttää koulutuksen lisätietojen mukaisen järjestyksen
+    ...koulutuksenLisatiedot.map(
+      (lisatieto) => korvaavatByOtsikko.get(otsikkoKoodi(lisatieto)) ?? lisatieto
+    ),
+    ...toteutuksenLisatiedot.filter((lisatieto) => {
+      const koodi = otsikkoKoodi(lisatieto);
+      return !koodi || !koulutuksenOtsikot.has(koodi);
+    }),
+  ];
 };
 
 const formDemoLink = (link: Translateable): Translateable => {
