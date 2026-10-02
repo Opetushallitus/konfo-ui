@@ -93,7 +93,9 @@ export const VertaaHakukohteeseen = ({ tulos }: Props) => {
 
   return (
     <Box marginTop={4}>
-      <Typography variant="h4">{t('vertaa-hakukohteeseen.header')}</Typography>
+      <Typography variant="h4" component="h3">
+        {t('vertaa-hakukohteeseen.header')}
+      </Typography>
       <Typography variant="body1" sx={{ marginBottom: '0.5rem' }}>
         {t('vertaa-hakukohteeseen.vertaa-ohje')}
       </Typography>
@@ -162,6 +164,10 @@ export const VertaaHakukohteeseen = ({ tulos }: Props) => {
                 placeholder={t('vertaa-hakukohteeseen.etsi-hakukohteita')}
                 {...InputProps}
                 {...rest}
+                inputProps={{
+                  ...rest.inputProps,
+                  'aria-label': t('vertaa-hakukohteeseen.etsi-hakukohteita'),
+                }}
               />
             );
           }}
@@ -185,6 +191,7 @@ export const VertaaHakukohteeseen = ({ tulos }: Props) => {
             }}>
             <Typography
               variant="h5"
+              component="h4"
               sx={{
                 marginBottom: theme.spacing(2),
               }}>
