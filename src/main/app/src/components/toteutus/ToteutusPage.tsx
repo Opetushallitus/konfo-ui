@@ -43,6 +43,7 @@ import { Osaamismerkit } from './Osaamismerkit';
 import { ToteutuksenYhteystiedot } from './ToteutuksenYhteystiedot';
 import { ToteutusHakutiedot } from './ToteutusHakutiedot';
 import { ToteutusInfoGrid } from './ToteutusInfoGrid';
+import { combineLisatiedot } from './utils';
 import { Osaamistavoitteet } from '../common/Osaamistavoitteet';
 import { useKoulutus } from '../koulutus/hooks';
 import { PisteContainer } from '../laskuri/PisteContainer';
@@ -159,7 +160,7 @@ export const ToteutusPage = () => {
   const { hakuParamsStr } = useSelector(getHakuParams);
 
   const combinedLisatiedot = useMemo(
-    () => [...(koulutus?.lisatiedot || []), ...(opetus?.lisatiedot || [])],
+    () => combineLisatiedot(koulutus?.lisatiedot, opetus?.lisatiedot),
     [koulutus?.lisatiedot, opetus?.lisatiedot]
   );
 
