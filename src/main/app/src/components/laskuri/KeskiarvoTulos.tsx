@@ -40,7 +40,7 @@ const TulosContainer = styled(Box)(({ theme }) => ({
   gridTemplateColumns: '1fr 1fr',
   gridTemplateRows: '1fr auto',
   columnGap: '20px',
-  h3: {
+  '& .MuiTypography-h3': {
     fontSize: '1.25rem',
   },
   [theme.breakpoints.down('sm')]: {

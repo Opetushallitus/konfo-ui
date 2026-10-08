@@ -99,6 +99,13 @@ export const VertaaHakukohteeseen = ({ tulos }: Props) => {
       <Typography variant="body1" sx={{ marginBottom: '0.5rem' }}>
         {t('vertaa-hakukohteeseen.vertaa-ohje')}
       </Typography>
+      <Typography
+        component="label"
+        htmlFor="hakukohde-haku"
+        variant="body1"
+        sx={{ display: 'block', fontWeight: 'bold', marginBottom: '0.5rem' }}>
+        {t('vertaa-hakukohteeseen.etsi-hakukohteita')}
+      </Typography>
       <Paper
         component="form"
         onSubmit={(event: React.ChangeEvent<HTMLFormElement>) => {
@@ -120,6 +127,7 @@ export const VertaaHakukohteeseen = ({ tulos }: Props) => {
           borderRadius: '2px',
         }}>
         <Autocomplete
+          id="hakukohde-haku"
           fullWidth={true}
           freeSolo={true}
           options={options}
@@ -161,13 +169,8 @@ export const VertaaHakukohteeseen = ({ tulos }: Props) => {
                 }}
                 type="text"
                 name="keyword"
-                placeholder={t('vertaa-hakukohteeseen.etsi-hakukohteita')}
                 {...InputProps}
                 {...rest}
-                inputProps={{
-                  ...rest.inputProps,
-                  'aria-label': t('vertaa-hakukohteeseen.etsi-hakukohteita'),
-                }}
               />
             );
           }}
