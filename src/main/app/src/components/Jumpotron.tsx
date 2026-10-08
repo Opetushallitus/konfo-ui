@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Grid, Box, Hidden, Paper, useMediaQuery, Link } from '@mui/material';
+import { Box, Grid, Hidden, Link, Paper, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/system';
 import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -12,6 +12,7 @@ import { StyledOutlinedButton } from '#/src/components/OutlinedButton';
 import { usePageSectionGap } from '#/src/hooks/usePageSectionGap';
 import { styled } from '#/src/theme';
 
+import { HakuLabel } from './haku/HakuLabel';
 import { Hakupalkki } from './haku/Hakupalkki';
 import { useSearch } from './haku/hakutulosHooks';
 import { MobileFiltersOnTopMenu } from './haku/MobileFiltersOnTopMenu';
@@ -94,6 +95,7 @@ export const Jumpotron = () => {
                 <JumpotronTitle>{t('jumpotron.otsikko')}</JumpotronTitle>
               </Box>
               <Box>
+                <HakuLabel inverted={true} />
                 <Hakupalkki
                   rajaaButton={
                     isEmpty(koulutusFilters) ? null : (

@@ -79,18 +79,6 @@ const customStyles: Styles = {
   }),
 };
 
-const screenReaderOnly = {
-  border: 0,
-  clip: 'rect(0 0 0 0)',
-  height: 1,
-  margin: -1,
-  overflow: 'hidden',
-  padding: 0,
-  position: 'absolute' as const,
-  width: 1,
-  whiteSpace: 'nowrap' as const,
-};
-
 const LoadingIndicator = () => <CircularProgress size={25} color="inherit" />;
 
 type DropdownIndicatorProps = RSDropdownIndicatorProps<
@@ -314,7 +302,7 @@ type Props = {
   onItemChange: (value: TODOType) => void;
   options?: OptionsType;
   optionsLoading?: boolean;
-  selectPlaceholder?: string;
+  labelText?: string;
   additionalContent?: React.JSX.Element;
   isCountVisible?: boolean;
 };
@@ -334,7 +322,7 @@ export const Filter = ({
   onItemChange,
   options,
   optionsLoading,
-  selectPlaceholder,
+  labelText,
   additionalContent,
   expandValues = false,
   defaultExpandAlakoodit = false,
@@ -355,7 +343,6 @@ export const Filter = ({
   const contentId = `${panelBase}-region`;
   const selectId = `${panelBase}-district-search`;
   const selectLabelId = `${selectId}-label`;
-  const selectHintId = `${selectId}-hint`;
 
   useEffect(() => {
     if (expanded && inputRef.current) {
@@ -395,16 +382,12 @@ export const Filter = ({
                 htmlFor={selectId}
                 id={selectLabelId}
                 style={{ display: 'block', marginBottom: '4px', fontSize: '0.875rem' }}>
-                {t('haku.etsi-paikkakunta-tai-alue')}
+                {labelText || t('haku.etsi')}
               </label>
-              <div id={selectHintId} style={screenReaderOnly}>
-                {selectPlaceholder || t('haku.etsi')}
-              </div>
 
               <Select
                 inputId={selectId}
                 aria-labelledby={selectLabelId}
-                aria-describedby={selectHintId}
                 ref={inputRef}
                 components={{ DropdownIndicator, LoadingIndicator, Option }}
                 styles={customStyles}
@@ -414,7 +397,7 @@ export const Filter = ({
                 options={options}
                 className="basic-multi-select"
                 classNamePrefix="select"
-                placeholder={selectPlaceholder || t('haku.etsi')}
+                placeholder={t('haku.etsi')}
                 onChange={(item) => {
                   if (item) {
                     onItemChange(item);
