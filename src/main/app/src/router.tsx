@@ -9,6 +9,7 @@ import {
 import { App } from '#/src/App';
 import { Etusivu } from '#/src/components/Etusivu';
 import { Hairiotiedote } from '#/src/components/Hairiotiedote';
+import { HakuLabel } from '#/src/components/haku/HakuLabel';
 import { HakuPage } from '#/src/components/haku/HakuPage';
 import { Hakupalkki } from '#/src/components/haku/Hakupalkki';
 import { KoulutusPage } from '#/src/components/koulutus/KoulutusPage';
@@ -81,6 +82,7 @@ const routes: Array<RouteObject> = [
                   <>
                     <div style={{ margin: 'auto', maxWidth: '1600px' }}>
                       <ReactiveBorder>
+                        <HakuLabel />
                         <Hakupalkki />
                         <OhjaavaHakuLink />
                       </ReactiveBorder>

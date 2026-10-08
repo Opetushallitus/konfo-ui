@@ -52,7 +52,7 @@ export const getCookie = async (context: BrowserContext, name: string) => {
 };
 
 export const getSearchInput = (page: Page) =>
-  page.getByPlaceholder('Etsi koulutuksia tai oppilaitoksia');
+  page.getByLabel('Etsi koulutuksia tai oppilaitoksia');
 
 export const getSearchButton = (page: Page) => page.getByRole('button', { name: /Etsi/ });
 

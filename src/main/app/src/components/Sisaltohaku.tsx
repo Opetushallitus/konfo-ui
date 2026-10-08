@@ -174,6 +174,11 @@ export const Sisaltohaku = () => {
           <Murupolku path={[{ name: t('sisaltohaku.otsikko') }]} />
         </Grid>
         <Grid item xs={12}>
+          <label htmlFor="sisaltohaku-search-input" id="sisaltohaku-search-label">
+            {t('sidebar.etsi-tietoa-opintopolusta')}:
+          </label>
+        </Grid>
+        <Grid item xs={12}>
           <Paper
             component="form"
             onSubmit={doSearch}
@@ -184,9 +189,9 @@ export const Sisaltohaku = () => {
               defaultValue={search}
               onKeyDown={(event) => event.key === 'Enter' && doSearch(event)}
               onChange={({ target }) => setSearch(trim(target.value))}
-              placeholder={t('sidebar.etsi-tietoa-opintopolusta')}
               inputProps={{
-                'aria-label': t('sidebar.etsi-tietoa-opintopolusta'),
+                'aria-labelledby': 'sisaltohaku-search-label',
+                id: 'sisaltohaku-search-input',
               }}
             />
             <Button
