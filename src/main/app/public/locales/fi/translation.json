@@ -763,6 +763,7 @@
     "ka-lukuaineet": "Lukuaineiden keskiarvo *",
     "ka-taito": "Taide- ja taitoaineiden keskiarvo *",
     "ka-kaikki": "Kaikkien aineiden keskiarvo *",
+    "pakolliset-kentat": "Tähdellä (*) merkityt kentät ovat pakollisia.",
     "graafi": {
       "heading": "Aiemmat sisäänpääsyn pisteet yhteishaussa",
       "laske-ja-vertaa": "Laske pistemääräsi ja vertaa",

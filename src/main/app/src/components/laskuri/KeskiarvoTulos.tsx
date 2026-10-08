@@ -40,7 +40,7 @@ const TulosContainer = styled(Box)(({ theme }) => ({
   gridTemplateColumns: '1fr 1fr',
   gridTemplateRows: '1fr auto',
   columnGap: '20px',
-  h3: {
+  '& .MuiTypography-h3': {
     fontSize: '1.25rem',
   },
   [theme.breakpoints.down('sm')]: {
@@ -173,6 +173,8 @@ export const KeskiarvoTulos = ({ tulos, embedded, kouluaineet, rootRef }: Props)
     return tulos.keskiarvoPainotettu;
   };
 
+  const headingTag = embedded ? 'h2' : 'h3';
+
   const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -182,14 +184,11 @@ export const KeskiarvoTulos = ({ tulos, embedded, kouluaineet, rootRef }: Props)
 
   return (
     <TulosContainer>
-      <Typography variant="h3" id="pistelaskuri__lukio__header">
+      <Typography variant="h3" component={headingTag} id="pistelaskuri__lukio__header">
         {t('pistelaskuri.lukio.header')}
       </Typography>
       {!isSmall && (
-        <Typography
-          variant="h3"
-          id="pistelaskuri__ammatillinen__header"
-          aria-hidden="true">
+        <Typography variant="h3" component={headingTag} aria-hidden="true">
           {t('pistelaskuri.ammatillinen.header')}
         </Typography>
       )}
@@ -218,12 +217,16 @@ export const KeskiarvoTulos = ({ tulos, embedded, kouluaineet, rootRef }: Props)
         </Paper>
       </Box>
       {isSmall ? (
-        <Typography variant="h3" id="pistelaskuri__ammatillinen__header">
+        <Typography
+          variant="h3"
+          component={headingTag}
+          id="pistelaskuri__ammatillinen__header">
           {t('pistelaskuri.ammatillinen.header')}
         </Typography>
       ) : (
         <Typography
           variant="h3"
+          component={headingTag}
           id="pistelaskuri__ammatillinen__header"
           style={visuallyHidden}>
           {t('pistelaskuri.ammatillinen.header')}

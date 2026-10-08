@@ -93,9 +93,18 @@ export const VertaaHakukohteeseen = ({ tulos }: Props) => {
 
   return (
     <Box marginTop={4}>
-      <Typography variant="h4">{t('vertaa-hakukohteeseen.header')}</Typography>
+      <Typography variant="h4" component="h3">
+        {t('vertaa-hakukohteeseen.header')}
+      </Typography>
       <Typography variant="body1" sx={{ marginBottom: '0.5rem' }}>
         {t('vertaa-hakukohteeseen.vertaa-ohje')}
+      </Typography>
+      <Typography
+        component="label"
+        htmlFor="hakukohde-haku"
+        variant="body1"
+        sx={{ display: 'block', fontWeight: 'bold', marginBottom: '0.5rem' }}>
+        {t('vertaa-hakukohteeseen.etsi-hakukohteita')}
       </Typography>
       <Paper
         component="form"
@@ -118,6 +127,7 @@ export const VertaaHakukohteeseen = ({ tulos }: Props) => {
           borderRadius: '2px',
         }}>
         <Autocomplete
+          id="hakukohde-haku"
           fullWidth={true}
           freeSolo={true}
           options={options}
@@ -159,7 +169,6 @@ export const VertaaHakukohteeseen = ({ tulos }: Props) => {
                 }}
                 type="text"
                 name="keyword"
-                placeholder={t('vertaa-hakukohteeseen.etsi-hakukohteita')}
                 {...InputProps}
                 {...rest}
               />
@@ -185,6 +194,7 @@ export const VertaaHakukohteeseen = ({ tulos }: Props) => {
             }}>
             <Typography
               variant="h5"
+              component="h4"
               sx={{
                 marginBottom: theme.spacing(2),
               }}>
