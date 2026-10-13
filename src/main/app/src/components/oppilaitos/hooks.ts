@@ -135,6 +135,7 @@ const selectTarjonta = (tarjonta: any) => {
       kuva: t.kuva,
       toteutusOid: t.toteutusOid,
       jarjestaaUrheilijanAmmKoulutusta: t.jarjestaaUrheilijanAmmKoulutusta,
+      hakuAuki: t.hakuAuki,
     })),
     hasHits: size(tarjonta?.hits) > 0,
     total: tarjonta?.total,

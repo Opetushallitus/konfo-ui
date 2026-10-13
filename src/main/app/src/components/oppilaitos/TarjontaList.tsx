@@ -12,6 +12,7 @@ import { PageSection } from '#/src/components/common/PageSection';
 import { Pagination } from '#/src/components/common/Pagination';
 
 import { usePaginatedTarjonta } from './hooks';
+import { TextWithBackground } from '../common/TextWithBackground';
 
 type Props = {
   oid: string;
@@ -64,10 +65,21 @@ export const TarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
                     jarjestaaUrheilijanAmmKoulutusta={
                       toteutus?.jarjestaaUrheilijanAmmKoulutusta
                     }
+                    wrapIconTexts={true}
                     iconTexts={[
                       [toteutus?.locations, PublicIcon],
                       [toteutus?.opetustapa, HourglassIcon],
                       [toteutus?.price, EuroSymbolIcon],
+                      [
+                        toteutus.hakuAuki ? (
+                          <TextWithBackground>
+                            {t('haku.hakukaynnissa')}
+                          </TextWithBackground>
+                        ) : (
+                          <></>
+                        ),
+                        undefined,
+                      ],
                     ]}
                   />
                 </Box>
