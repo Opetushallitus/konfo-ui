@@ -94,6 +94,7 @@ export const SijaintiSuodatin = (props: RajainComponentProps) => {
       name={t('haku.sijainti')}
       rajainItems={usedRajainValues}
       onItemChange={onItemChange}
+      labelText={t('haku.etsi-paikkakunta-tai-alue')}
       expandValues
       displaySelected
     />

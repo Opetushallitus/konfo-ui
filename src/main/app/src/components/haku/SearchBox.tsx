@@ -89,13 +89,15 @@ const createRenderInput = (t: TFunction, descriptionId: string) => {
         }}
         type="text"
         name="keyword"
-        placeholder={t('haku.kehoite')}
+        placeholder={t('haku.hakusana')}
         {...InputProps}
         {...rest}
         inputProps={{
           ...inputProps,
           'aria-describedby': descriptionId,
           'aria-label': t('haku.kehoite'),
+          'aria-labelledby': 'searchbox-label',
+          id: 'searchbox-input',
         }}
       />
     );

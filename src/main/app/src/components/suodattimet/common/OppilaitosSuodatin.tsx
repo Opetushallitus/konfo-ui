@@ -64,7 +64,7 @@ export const OppilaitosSuodatin = (props: RajainComponentProps) => {
     <Filter
       {...rest}
       name={t('haku.oppilaitos')}
-      selectPlaceholder={t('haku.etsi-oppilaitos')}
+      labelText={t('haku.etsi-oppilaitos')}
       rajainItems={usedRajainItems}
       onItemChange={onItemChange}
       options={options}
