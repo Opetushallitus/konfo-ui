@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useId, useRef, useState } from 'react';
 
 import { Backdrop, IconButton, Tooltip } from '@mui/material';
 import { useTranslation } from 'react-i18next';
@@ -52,9 +52,16 @@ type Props = {
 export const LabelTooltip = ({ title, sx = {} }: Props) => {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
+  const infoButtonRef = useRef<HTMLButtonElement>(null);
+  const tooltipId = useId();
   const handleClose = (e: React.SyntheticEvent<Element, Event> | Event) => {
     e.stopPropagation();
     setOpen(false);
+  };
+  // Return focus to the info button so that keyboard users don't lose their place on the page
+  const closeAndRestoreFocus = (e: React.SyntheticEvent<Element, Event> | Event) => {
+    handleClose(e);
+    infoButtonRef.current?.focus();
   };
 
   return (
@@ -66,9 +73,11 @@ export const LabelTooltip = ({ title, sx = {} }: Props) => {
         sx={{ cursor: 'auto' }}
       />
       <Tooltip
+        id={tooltipId}
+        describeChild
         sx={sx}
         open={open}
-        onClose={handleClose}
+        onClose={closeAndRestoreFocus}
         PopperProps={{
           disablePortal: true,
           onClick: (e) => e.stopPropagation(),
@@ -87,13 +96,16 @@ export const LabelTooltip = ({ title, sx = {} }: Props) => {
             <IconButton
               aria-label={t('sulje')}
               className={classes.closeIcon}
-              onClick={handleClose}>
+              onClick={closeAndRestoreFocus}>
               <MaterialIcon icon="close" />
             </IconButton>
           </>
         }>
         <IconButton
+          ref={infoButtonRef}
           aria-label={t('nayta-lisatiedot')}
+          aria-expanded={open}
+          aria-controls={open ? tooltipId : undefined}
           sx={{ padding: 0, minHeight: 0, minWidth: 0 }}
           onClick={(e) => {
             e.stopPropagation();

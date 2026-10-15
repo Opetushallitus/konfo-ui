@@ -187,6 +187,16 @@ export const theme = createTheme({
         disableRipple: true,
       },
     },
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          '&.Mui-focusVisible': {
+            outline: 'none',
+            boxShadow: focusRing.onLight,
+          },
+        },
+      },
+    },
     MuiCard: {
       styleOverrides: {
         root: {

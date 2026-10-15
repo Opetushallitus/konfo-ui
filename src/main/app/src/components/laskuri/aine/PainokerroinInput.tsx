@@ -1,14 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useId, useState } from 'react';
 
-import {
-  InputLabel,
-  FormControl,
-  IconButton,
-  Input,
-  Typography,
-  Button,
-  Box,
-} from '@mui/material';
+import { FormControl, IconButton, Input, Typography, Button, Box } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
@@ -25,6 +17,7 @@ const classes = {
   labelContainer: `${PREFIX}labelcontainer`,
   delete: `${PREFIX}delete`,
   error: `${PREFIX}error`,
+  hint: `${PREFIX}hint`,
   add: `${PREFIX}add`,
 };
 
@@ -85,6 +78,10 @@ const PainokerroinControl = styled(FormControl)(({ theme }) => ({
       maxWidth: '100%',
     },
   },
+  [`& .${classes.hint}`]: {
+    color: colors.grey700,
+    lineHeight: '1rem',
+  },
   [`& .${classes.add}`]: {
     marginTop: '1.6rem',
     whiteSpace: 'nowrap',
@@ -124,6 +121,12 @@ export const PainokerroinInput = ({ labelId, kouluaine, updatePainokerroin }: Pr
     setInputtedPainokerroin(kouluaine.painokerroin);
   }, [kouluaine]);
 
+  const inputId = useId();
+  const hintId = `${inputId}-ohje`;
+  const errorId = `${inputId}-virhe`;
+  const showError =
+    inputtedPainokerroin !== '' && !isEligiblePainokerroin(inputtedPainokerroin);
+
   const handlePainokerroinChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newPk = event.target.value;
     setInputtedPainokerroin(newPk);
@@ -136,18 +139,25 @@ export const PainokerroinInput = ({ labelId, kouluaine, updatePainokerroin }: Pr
     <PainokerroinControl variant="standard" sx={{ minWidth: 220 }}>
       {showPainokerroin ? (
         <>
-          <InputLabel id={`${labelId}-painokerroin`} className={classes.labelContainer}>
-            <Typography className={classes.label}>
+          <Box className={classes.labelContainer}>
+            <Typography
+              component="label"
+              id={`${labelId}-painokerroin`}
+              htmlFor={inputId}
+              className={classes.label}>
               {t('pistelaskuri.aine.painokerroin')}
             </Typography>
             <InputContainer>
               <Input
+                id={inputId}
                 className={classes.input}
                 onChange={handlePainokerroinChange}
                 value={inputtedPainokerroin}
                 error={!isEligiblePainokerroin(inputtedPainokerroin)}
                 disableUnderline={true}
-                placeholder={t('pistelaskuri.aine.painokerroin-placeholder')}
+                inputProps={{
+                  'aria-describedby': showError ? `${hintId} ${errorId}` : hintId,
+                }}
               />
               <IconButton
                 className={classes.delete}
@@ -156,13 +166,15 @@ export const PainokerroinInput = ({ labelId, kouluaine, updatePainokerroin }: Pr
                 <MaterialIcon icon="delete" variant="outlined" />
               </IconButton>
             </InputContainer>
-          </InputLabel>
-          {inputtedPainokerroin !== '' &&
-            !isEligiblePainokerroin(inputtedPainokerroin) && (
-              <Typography variant="body2" className={classes.error}>
-                {t('pistelaskuri.error.painokerroin')}
-              </Typography>
-            )}
+            <Typography variant="body2" id={hintId} className={classes.hint}>
+              {t('pistelaskuri.aine.painokerroin-placeholder')}
+            </Typography>
+          </Box>
+          {showError && (
+            <Typography variant="body2" id={errorId} className={classes.error}>
+              {t('pistelaskuri.error.painokerroin')}
+            </Typography>
+          )}
         </>
       ) : (
         <Button

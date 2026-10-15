@@ -102,7 +102,10 @@ export const KeskiarvoAineLaskuri = ({
 
   return (
     <LaskuriContainer>
-      <Typography variant="h3" sx={{ fontSize: '1.625rem' }}>
+      <Typography
+        variant="h3"
+        component={embedded ? 'h2' : 'h3'}
+        sx={{ fontSize: '1.625rem' }}>
         {t('pistelaskuri.aine.heading')}
       </Typography>
       <Button className={classes.changeCalcButton} onClick={() => changeCalculator(true)}>
@@ -116,7 +119,10 @@ export const KeskiarvoAineLaskuri = ({
           )
         }
       />
-      <Typography variant="h4" sx={{ marginBottom: '1.375rem', fontSize: '1.25rem' }}>
+      <Typography
+        variant="h4"
+        component={embedded ? 'h3' : 'h4'}
+        sx={{ marginBottom: '1.375rem', fontSize: '1.25rem' }}>
         {t('pistelaskuri.aine.lukuaineet')}
       </Typography>
       {kouluaineet.kielet.map((kieliaine: Kouluaine, index: number) => (
@@ -162,7 +168,10 @@ export const KeskiarvoAineLaskuri = ({
           embedded={embedded}
         />
       ))}
-      <Typography variant="h4" sx={{ margin: '2rem 0 1.375rem', fontSize: '1.25rem' }}>
+      <Typography
+        variant="h4"
+        component={embedded ? 'h3' : 'h4'}
+        sx={{ margin: '2rem 0 1.375rem', fontSize: '1.25rem' }}>
         {t('pistelaskuri.aine.taitoaineet')}
       </Typography>
       {kouluaineet.taitoaineet.map((taitoaine: Kouluaine, index: number) => (
