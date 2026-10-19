@@ -45,7 +45,7 @@ export const TarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
   const someSelected = allSelectedFilters.flat.length > 0;
   const someValuesToShow = isLoading || values?.length > 0;
 
-  const rajainOrder = useOppilaitosTarjontaRajainOrder({ rajainValues });
+  const rajainOrder = useOppilaitosTarjontaRajainOrder({ rajainValues, rajainOptions });
 
   const scrollTargetId = 'tarjonta-list';
 

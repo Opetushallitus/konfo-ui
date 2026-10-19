@@ -1,4 +1,4 @@
-import { intersection, includes } from 'lodash';
+import { intersection, includes, isEmpty } from 'lodash';
 
 import { AlkamiskausiSuodatin } from '#/src/components/suodattimet/common/AlkamiskausiSuodatin';
 import { HakuaikaRajain } from '#/src/components/suodattimet/common/HakuaikaRajain';
@@ -21,10 +21,20 @@ import { RajainOrderItem } from '#/src/types/SuodatinTypes';
 
 export const useOppilaitosTarjontaRajainOrder = ({
   rajainValues,
+  rajainOptions,
 }: {
   rajainValues: Partial<RajainValues>;
+  rajainOptions: Record<string, any>;
 }) => {
   const selectedTyypit = (rajainValues.koulutustyyppi ?? []) as Array<string>;
+
+  // Koulutustyypin lukumäärä ei riipu valitusta koulutustyypistä, joten se kertoo, onko oppilaitoksella tämän tyyppistä tarjontaa
+  const hasTarjontaa = (koulutustyyppi: string) =>
+    (rajainOptions?.koulutustyyppi?.[koulutustyyppi]?.count ?? 0) > 0;
+
+  const showLukioRajaimet =
+    includes(selectedTyypit, KOULUTUS_TYYPPI.LUKIOKOULUTUS) ||
+    (isEmpty(selectedTyypit) && hasTarjontaa(KOULUTUS_TYYPPI.LUKIOKOULUTUS));
 
   return [
     {
@@ -75,14 +85,14 @@ export const useOppilaitosTarjontaRajainOrder = ({
       id: 'valintatapa',
       Component: ValintatapaSuodatin,
     },
-    includes(selectedTyypit, KOULUTUS_TYYPPI.LUKIOKOULUTUS) && {
+    showLukioRajaimet && {
       id: 'lukiopainotukset',
       Component: LukiolinjatSuodatin,
       props: {
         name: 'lukiopainotukset',
       },
     },
-    includes(selectedTyypit, KOULUTUS_TYYPPI.LUKIOKOULUTUS) && {
+    showLukioRajaimet && {
       id: 'lukiolinjaterityinenkoulutustehtava',
       Component: LukiolinjatSuodatin,
       props: {
