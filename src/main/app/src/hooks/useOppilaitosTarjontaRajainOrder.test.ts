@@ -111,4 +111,62 @@ describe('useOppilaitosTarjontaRajainOrder', () => {
       );
     });
   });
+
+  describe('valintatapa', () => {
+    const kkOptions = (yoCount: number, amkCount: number) => ({
+      koulutustyyppi: {
+        lk: { count: 1 },
+        yo: {
+          count: yoCount,
+          alakoodit: { kandi: { count: yoCount }, maisteri: { count: 0 } },
+        },
+        amk: {
+          count: amkCount,
+          alakoodit: {
+            'amk-alempi': { count: amkCount },
+            'amm-ope-erityisope-ja-opo': { count: 0 },
+          },
+        },
+      },
+    });
+
+    test.each([
+      [1, 0],
+      [0, 1],
+    ])(
+      'is shown when oppilaitos has korkeakoulutarjontaa (yo: %i, amk: %i) and no koulutustyyppi is selected',
+      (yoCount, amkCount) => {
+        expect(
+          getRajainIds({ koulutustyyppi: [] }, kkOptions(yoCount, amkCount))
+        ).toContain('valintatapa');
+      }
+    );
+
+    test('is hidden when oppilaitos has no korkeakoulutarjontaa', () => {
+      expect(getRajainIds({ koulutustyyppi: [] }, kkOptions(0, 0))).not.toContain(
+        'valintatapa'
+      );
+    });
+
+    test.each([
+      ['yo'],
+      ['amk'],
+      ['kandi'],
+      ['amk-alempi'],
+      ['amm-ope-erityisope-ja-opo'],
+    ])('is shown when %s is selected', (koulutustyyppi) => {
+      expect(
+        getRajainIds(
+          { koulutustyyppi: [koulutustyyppi] as RajainValues['koulutustyyppi'] },
+          kkOptions(1, 1)
+        )
+      ).toContain('valintatapa');
+    });
+
+    test('is hidden when only another koulutustyyppi is selected', () => {
+      expect(getRajainIds({ koulutustyyppi: ['lk'] }, kkOptions(1, 1))).not.toContain(
+        'valintatapa'
+      );
+    });
+  });
 });
