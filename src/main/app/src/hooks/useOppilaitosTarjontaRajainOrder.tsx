@@ -14,10 +14,11 @@ import { ValintatapaSuodatin } from '#/src/components/suodattimet/common/Valinta
 import { KoulutustyyppiSuodatin } from '#/src/components/suodattimet/hakutulosSuodattimet/KoulutustyyppiSuodatin';
 import { AmmOsaamisalatSuodatin } from '#/src/components/suodattimet/toteutusSuodattimet/AmmOsaamisalatSuodatin';
 import { LukiolinjatSuodatin } from '#/src/components/suodattimet/toteutusSuodattimet/LukiolinjatSuodatin';
-import { VaativanErityisenTuenSuodatin } from '#/src/components/suodattimet/toteutusSuodattimet/VaativanErityisenTuenSuodatin';
 import { KOULUTUS_TYYPPI, KORKEAKOULU_KOULUTUSTYYPIT } from '#/src/constants';
 import { RajainValues } from '#/src/store/reducers/hakutulosSlice';
 import { RajainOrderItem } from '#/src/types/SuodatinTypes';
+
+const AMM_ERITYISOPETUS_KOULUTUSTYYPPI = 'koulutustyyppi_4';
 
 export const useOppilaitosTarjontaRajainOrder = ({
   rajainValues,
@@ -35,6 +36,23 @@ export const useOppilaitosTarjontaRajainOrder = ({
   const showLukioRajaimet =
     includes(selectedTyypit, KOULUTUS_TYYPPI.LUKIOKOULUTUS) ||
     (isEmpty(selectedTyypit) && hasTarjontaa(KOULUTUS_TYYPPI.LUKIOKOULUTUS));
+
+  // Ammatillisen perustutkinnon erityisopetuksena (koulutustyyppi_4) lukumäärä on vaativan tuen koulutusten alla
+  const ammErityisopetusCount =
+    rajainOptions?.koulutustyyppi?.['vaativan-tuen-koulutukset']?.alakoodit?.[
+      AMM_ERITYISOPETUS_KOULUTUSTYYPPI
+    ]?.count ?? 0;
+  // Pelkän alakoodin valinta ei valitse yläkoodia, joten ammatilliseksi tulkitaan myös amm:n alakoodit
+  const ammTyypit = [
+    KOULUTUS_TYYPPI.AMM,
+    AMM_ERITYISOPETUS_KOULUTUSTYYPPI,
+    ...Object.keys(rajainOptions?.koulutustyyppi?.[KOULUTUS_TYYPPI.AMM]?.alakoodit ?? {}),
+  ];
+
+  const showOsaamisalaRajain =
+    intersection(ammTyypit, selectedTyypit).length > 0 ||
+    (isEmpty(selectedTyypit) &&
+      (hasTarjontaa(KOULUTUS_TYYPPI.AMM) || ammErityisopetusCount > 0));
 
   return [
     {
@@ -99,14 +117,9 @@ export const useOppilaitosTarjontaRajainOrder = ({
         name: 'lukiolinjat_er',
       },
     },
-    includes(selectedTyypit, KOULUTUS_TYYPPI.AMM) && {
+    showOsaamisalaRajain && {
       id: 'osaamisala',
       Component: AmmOsaamisalatSuodatin,
-    },
-    intersection([KOULUTUS_TYYPPI.AMM, KOULUTUS_TYYPPI.TUVA], selectedTyypit).length >
-      0 && {
-      id: 'vaativan-tuen-koulutukset',
-      Component: VaativanErityisenTuenSuodatin,
     },
   ].filter(Boolean) as Array<RajainOrderItem>;
 };
