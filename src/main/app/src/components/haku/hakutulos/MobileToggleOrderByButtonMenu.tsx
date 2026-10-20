@@ -1,4 +1,5 @@
-import { Grid, Typography, ButtonGroup, Button } from '@mui/material';
+import { Typography, ButtonGroup, Button } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
@@ -49,12 +50,12 @@ export const MobileToggleOrderByButtonMenu = () => {
       justifyContent="space-between"
       alignItems="flex-start"
       style={{ padding: '12px 24px' }}>
-      <Grid item xs={12} sm={4}>
+      <Grid size={{ xs: 12, sm: 4 }}>
         <Typography variant="subtitle1" component="span" noWrap>
           {t('haku.jarjestys')}
         </Typography>
       </Grid>
-      <Grid item xs={12} sm style={{ padding: '20px 0' }}>
+      <Grid size={{ xs: 12, sm: 'grow' }} style={{ padding: '20px 0' }}>
         <ButtonGroup fullWidth>
           <SortOrderButton
             isActive={sort === 'score'}

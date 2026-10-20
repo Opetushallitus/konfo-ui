@@ -1,5 +1,4 @@
 import {
-  Hidden,
   Paper,
   Typography,
   useMediaQuery,
@@ -31,6 +30,8 @@ const classes = {
   iconTexts: `${PREFIX}-iconTexts`,
   icon: `${PREFIX}-icon`,
   logo: `${PREFIX}-logo`,
+  topTeemakuva: `${PREFIX}-topTeemakuva`,
+  bottomTeemakuva: `${PREFIX}-bottomTeemakuva`,
   heading: `${PREFIX}-heading`,
 };
 
@@ -110,6 +111,23 @@ const StyledSmartLink = styled(SmartLink, {
     display: 'inline-block',
     position: 'relative',
     float: 'right',
+  },
+
+  [`& .${classes.topTeemakuva}`]: {
+    [theme.breakpoints.up('sm')]: {
+      display: 'inline-block',
+      position: 'relative',
+      float: 'right',
+    },
+  },
+
+  [`& .${classes.bottomTeemakuva}`]: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'block',
+      position: 'relative',
+      clear: 'both',
+      float: 'left',
+    },
   },
 
   [`& .${classes.heading}`]: {
@@ -215,15 +233,14 @@ export const EntiteettiKortti = ({
             </Box>
           )}
           {teemakuvaElement && (
-            <Hidden smDown>
-              <Box
-                paddingLeft={2}
-                paddingBottom={2}
-                className={classes.logo}
-                style={{ maxWidth: '50%' }}>
-                {teemakuvaElement}
-              </Box>
-            </Hidden>
+            <Box
+              paddingLeft={2}
+              paddingBottom={2}
+              className={classes.topTeemakuva}
+              style={{ maxWidth: '50%' }}
+              sx={{ display: { xs: 'none', sm: 'block' } }}>
+              {teemakuvaElement}
+            </Box>
           )}
           <Box display="inline">
             {preHeader && (
@@ -253,27 +270,22 @@ export const EntiteettiKortti = ({
           )}
 
           {kuvaus && (
-            <Hidden xsDown>
-              <Typography component="div" className={classes.kuvaus} variant="body1">
-                {sanitizedHTMLParser(kuvaus)}
-              </Typography>
-            </Hidden>
+            <Typography
+              component="div"
+              className={classes.kuvaus}
+              variant="body1"
+              sx={{ display: { xs: 'none', sm: 'block' } }}>
+              {sanitizedHTMLParser(kuvaus)}
+            </Typography>
           )}
           <IconTextBox iconTexts={iconTexts} />
           {teemakuvaElement && (
-            <Hidden smUp>
-              <Box
-                paddingTop={2}
-                className={classes.logo}
-                style={{
-                  display: 'block',
-                  position: 'relative',
-                  clear: 'both',
-                  float: 'left',
-                }}>
-                {teemakuvaElement}
-              </Box>
-            </Hidden>
+            <Box
+              paddingTop={2}
+              className={classes.bottomTeemakuva}
+              sx={{ display: { xs: 'block', sm: 'none' } }}>
+              {teemakuvaElement}
+            </Box>
           )}
         </Box>
       </Paper>

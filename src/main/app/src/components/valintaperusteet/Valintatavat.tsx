@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Box, Divider, Grid, Typography } from '@mui/material';
+import { Box, Divider, Typography } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
@@ -19,7 +20,7 @@ export const Valintatavat = ({ hakukohteenKynnysehto, valintatavat = [] }: Props
   const { t } = useTranslation();
 
   return (
-    <Grid item xs={12}>
+    <Grid size={{ xs: 12 }}>
       <Box py={4}>
         <Divider />
       </Box>

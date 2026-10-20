@@ -1,6 +1,5 @@
-import React from 'react';
-
-import { Grid, Link, Typography, useTheme } from '@mui/material';
+import { Link, Typography, useTheme } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import { size } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
@@ -58,13 +57,15 @@ export const HakutulosResults = ({
       spacing={3}
       style={{ padding: theme.spacing(9) }}
       direction="column">
-      <Grid item>
+      <Grid>
         <Typography variant="h1">{t('haku.ei-hakutuloksia')}</Typography>
       </Grid>
-      <Grid item>
-        <Typography paragraph>{t('haku.summary', { keyword: keyword || '' })}</Typography>
+      <Grid>
+        <Typography component="p" paddingBottom={2}>
+          {t('haku.summary', { keyword: keyword || '' })}
+        </Typography>
       </Grid>
-      <Grid item>
+      <Grid>
         <Link underline="always" variant="body1" href="/">
           {t('haku.siirry-opintopolun-etusivulle')}
         </Link>

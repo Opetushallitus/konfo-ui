@@ -1,4 +1,5 @@
-import { Button, Card, CardActions, CardContent, Grid, Typography } from '@mui/material';
+import { Button, Card, CardActions, CardContent, Typography } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 
 import { styled } from '#/src/theme';
 
@@ -21,7 +22,7 @@ export const HakuKaynnissaCard = ({ title, text, href, buttonText }: Props) => {
     <StyledCard elevation={2}>
       <CardContent>
         <Grid container alignItems="center" justifyContent="space-between">
-          <Grid item>
+          <Grid>
             <Typography variant="h4" gutterBottom>
               {title}
             </Typography>

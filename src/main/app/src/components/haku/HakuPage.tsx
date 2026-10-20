@@ -1,8 +1,5 @@
-import React from 'react';
-
 import {
   Box,
-  Grid,
   MenuItem,
   Paper,
   Select,
@@ -10,6 +7,7 @@ import {
   Typography,
   useTheme,
 } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
@@ -190,20 +188,18 @@ export const HakuPage = () => {
         <h1 style={{ display: 'none' }}>{t('haku.otsikko')}</h1>
         <Grid
           container
-          item
-          xs={12}
+          size={{ xs: 12 }}
           alignItems="center"
           className={classes.murupolkuContainer}>
           <Murupolku path={[{ name: t('haku.otsikko') }]} />
         </Grid>
         <Grid
           container
-          item
           alignItems="flex-end"
           spacing={2}
           style={{ marginBottom: theme.spacing(2) }}>
           {isContentMdUp && (
-            <Grid item lg={3} md={4} sm={12}>
+            <Grid size={{ lg: 3, md: 4, sm: 12 }}>
               <Typography sx={{ pt: '10px' }} variant="h5" component="h2">
                 {t('haku.rajaa-tuloksia')}
               </Typography>
@@ -226,17 +222,14 @@ export const HakuPage = () => {
           )}
           <Grid
             container
-            item
-            lg={9}
-            md={8}
-            sm={12}
+            size={{ lg: 9, md: 8, sm: 12 }}
             justifyContent="space-between"
             alignItems="baseline">
-            <Grid item lg={6} md={7} xs={12} className={classes.toggleWrapper}>
+            <Grid size={{ lg: 6, md: 7, xs: 12 }} className={classes.toggleWrapper}>
               <HakutulosTabs />
             </Grid>
             {isContentMdUp && (
-              <Grid item style={{ paddingTop: 6 }}>
+              <Grid style={{ paddingTop: 6 }}>
                 <Box
                   id="label-results-per-page"
                   component="span"
@@ -294,9 +287,9 @@ export const HakuPage = () => {
             )}
           </Grid>
         </Grid>
-        <Grid item container spacing={2} wrap="nowrap">
+        <Grid container spacing={2} wrap="nowrap">
           {isContentMdUp ? <Suodatinpalkki /> : <MobileFiltersOnTopMenu />}
-          <Grid item container direction="column" xs ref={hakutulosRef as any}>
+          <Grid container direction="column" size="grow" ref={hakutulosRef as any}>
             {isHakutulosSmUp && isAnyRajainSelected && <RajainValinnat />}
             {isFetching && <LoadingCircle />}
             {!isFetching && status === 'error' && <BackendErrorMessage />}

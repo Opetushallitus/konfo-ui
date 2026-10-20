@@ -1,4 +1,5 @@
-import { Avatar, Box, Card, CardContent, CardHeader, Grid } from '@mui/material';
+import { Avatar, Box, Card, CardContent, CardHeader } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -58,7 +59,7 @@ export const Palvelu = ({ id }: { id: string }) => {
   };
 
   return (
-    <Grid item xs={12} sm={isMenuOpen ? 12 : 6} md={isMenuOpen ? 6 : 4}>
+    <Grid size={{ xs: 12, ...(isMenuOpen ? { sm: 12, md: 6 } : { sm: 6, md: 4 }) }}>
       <PalveluCard
         palvelu={palvelu}
         key={palvelu.id}

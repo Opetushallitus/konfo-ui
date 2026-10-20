@@ -1,6 +1,5 @@
-import React from 'react';
-
-import { Grid, Card, CardContent, CardMedia, Link } from '@mui/material';
+import { Card, CardContent, CardMedia, Link } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import clsx from 'clsx';
 
 import { colors } from '#/src/colors';
@@ -73,7 +72,7 @@ export const Kortti = ({ id }: { id: string }) => {
   const imgUrl = assetUrl(a?.url);
 
   return (
-    <StyledGrid item xs={12} sm={6} md={4}>
+    <StyledGrid size={{ xs: 12, sm: 6, md: 4 }}>
       <Card className={clsx(classes.card, classes[kortti.color])}>
         <CardMedia
           className={classes.media}

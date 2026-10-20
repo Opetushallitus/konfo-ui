@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import { isEmpty, filter, flatten, includes, map } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
@@ -99,10 +100,8 @@ export const ToteutuksenYhteystiedot = ({
               <Spacer />
               {oppilaitos.metadata.esittely && (
                 <Grid
-                  item
                   container
-                  sm={12}
-                  md={6}
+                  size={{ sm: 12, md: 6 }}
                   direction="column"
                   alignItems="center">
                   {oppilaitos.logo && (

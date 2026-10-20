@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
-import { Box, Grid, Hidden, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import { size } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { match } from 'ts-pattern';
@@ -41,7 +42,7 @@ type JarjestajaData = {
 
 const SuodatinGridItem: React.FC<React.PropsWithChildren> = ({ children }) => {
   return (
-    <Grid item sx={{ minWidth: '250px' }} xs={6} lg={4}>
+    <Grid sx={{ minWidth: '250px' }} size={{ xs: 6, lg: 4 }}>
       {children}
     </Grid>
   );
@@ -99,7 +100,10 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
           id: scrollTargetId,
         }}>
         <>
-          <Hidden mdDown>
+          <Box
+            sx={{
+              display: { xs: 'none', md: 'block' },
+            }}>
             {someSelected && (
               <div>
                 <SuodatinValinnat
@@ -111,12 +115,11 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
             )}
             <Grid
               container
-              item
               direction="row"
               justifyContent="center"
               mb={2}
               spacing={2}
-              sm={10}>
+              size={{ sm: 10 }}>
               {rajainOrder.map(({ Component, props, id }) => {
                 const customProps = getRajainProps({ id, setPreventClicks });
                 return (
@@ -134,8 +137,11 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                 );
               })}
             </Grid>
-          </Hidden>
-          <Hidden mdUp>
+          </Box>
+          <Box
+            sx={{
+              display: { xs: 'block', md: 'none' },
+            }}>
             <MobileFiltersOnTopMenu
               koulutustyyppi={koulutustyyppi}
               rajainCount={size(allSelectedFilters?.flat)}
@@ -146,7 +152,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
               rajainValues={rajainValues}
               rajainOptions={rajainOptions}
             />
-          </Hidden>
+          </Box>
         </>
         <Pagination total={total} pagination={pagination} setPagination={setPagination} />
         <QueryResultWrapper queryResult={queryResult}>
@@ -220,7 +226,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
               ))}
             </Box>
           ) : (
-            <Typography variant="body1" paragraph>
+            <Typography variant="body1" component="p" paddingBottom={2}>
               {t(
                 someSelected
                   ? 'koulutus.ei-rajaimia-vastaavia-toteutuksia'

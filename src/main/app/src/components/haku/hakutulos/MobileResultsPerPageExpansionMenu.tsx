@@ -1,4 +1,5 @@
-import { Grid, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import { toString, min, max } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
@@ -23,12 +24,12 @@ export const MobileResultsPerPageExpansionMenu = () => {
       justifyContent="space-between"
       alignItems="flex-start"
       sx={{ padding: '12px 24px' }}>
-      <Grid item xs={12} sm={4}>
+      <Grid size={{ xs: 12, sm: 4 }}>
         <Typography variant="subtitle1" component="span" noWrap>
           {t('haku.tuloksia-per-sivu')}
         </Typography>
       </Grid>
-      <Grid item xs={12} sm>
+      <Grid size={{ xs: 12, sm: 'grow' }}>
         <SuodatinSlider
           value={pagination.size}
           track={false}

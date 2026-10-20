@@ -1,6 +1,4 @@
-import React from 'react';
-
-import { Grid } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import { useTranslation } from 'react-i18next';
 
 import { RajainOption } from '#/src/components/ohjaava-haku/common/RajainOption';
@@ -36,11 +34,11 @@ export const QuestionWithOptions = ({
   );
 
   return (
-    <Grid item container sx={{ width: '100%' }}>
+    <Grid container sx={{ width: '100%' }}>
       <QuestionInfoText
         questionInfo={t(`ohjaava-haku.kysymykset.info-text-for-options`)}
       />
-      <StyledQuestion item>
+      <StyledQuestion>
         {rajainOptionsToShow.map(({ id, rajainId, nimi, rajainValueIds }) => {
           const isRajainSelected = getIsRajainSelected(
             allSelectedRajainValues,

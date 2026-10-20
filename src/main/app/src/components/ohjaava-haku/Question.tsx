@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
-import { Grid, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import { useTranslation } from 'react-i18next';
 
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
@@ -62,7 +63,7 @@ const QuestionContainer = styled(Grid)(({ theme }) => ({
 }));
 
 export const QuestionInfoText = ({ questionInfo }: { questionInfo: string }) => (
-  <Grid item xs={12} marginBottom="1rem">
+  <Grid size={{ xs: 12 }} marginBottom="1rem">
     <Typography>{questionInfo}</Typography>
   </Grid>
 );
@@ -96,17 +97,17 @@ export const Question = ({
   const [errorKey, setErrorKey] = useState('');
 
   return (
-    <QuestionContainer container item>
-      <Grid item xs={12}>
+    <QuestionContainer container>
+      <Grid size={{ xs: 12 }}>
         <Heading variant="h2">{questionTitle}</Heading>
       </Grid>
-      <Grid container item>
+      <Grid container>
         {isFetching ? (
-          <Grid item sx={{ margin: 'auto' }}>
+          <Grid sx={{ margin: 'auto' }}>
             <LoadingCircle />
           </Grid>
         ) : (
-          <Grid item>
+          <Grid>
             {questionId == 'koulutuksenkestokuukausina' ? (
               <KoulutuksenKesto
                 rajainItems={sortedRajainItems}

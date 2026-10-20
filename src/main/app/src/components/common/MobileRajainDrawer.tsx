@@ -4,12 +4,12 @@ import {
   AppBar,
   Button,
   Container,
-  Grid,
   IconButton,
   SwipeableDrawer,
   Toolbar,
   Typography,
 } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import { useTranslation } from 'react-i18next';
 
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
@@ -57,17 +57,17 @@ export const MobileRajainDrawer = ({
             justifyContent="space-between"
             alignItems="center"
             wrap="nowrap">
-            <Grid item>
+            <Grid>
               <IconButton color="inherit" onClick={toggleOpen}>
                 <MaterialIcon icon="close" />
               </IconButton>
             </Grid>
-            <Grid item>
+            <Grid>
               <Typography variant="body1" noWrap color="inherit">
                 {t('haku.rajaa-tuloksia')}
               </Typography>
             </Grid>
-            <Grid item style={{ paddingRight: '10px' }}>
+            <Grid style={{ paddingRight: '10px' }}>
               {rajainCount > 0 && (
                 <Button
                   color="inherit"

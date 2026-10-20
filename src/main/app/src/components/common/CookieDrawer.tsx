@@ -1,14 +1,7 @@
 import React from 'react';
 
-import {
-  Button,
-  Typography,
-  ButtonGroup,
-  Drawer,
-  Grid,
-  Container,
-  Hidden,
-} from '@mui/material';
+import { Button, Typography, ButtonGroup, Drawer, Container } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import { useTranslation } from 'react-i18next';
 
 import { useContentful } from '#/src/hooks/useContentful';
@@ -78,10 +71,12 @@ export const CookieDrawer = () => {
     <Drawer
       variant="persistent"
       id="oph-cookie-drawer"
-      PaperProps={{
-        sx: {
-          boxShadow: '0 0 20px rgba(0, 0, 0, 0.25)',
-          zIndex: 1300,
+      slotProps={{
+        paper: {
+          sx: {
+            boxShadow: '0 0 20px rgba(0, 0, 0, 0.25)',
+            zIndex: 1300,
+          },
         },
       }}
       anchor="bottom"
@@ -89,7 +84,7 @@ export const CookieDrawer = () => {
       open={!isLoading && isCookieDrawerVisible}>
       <Container maxWidth="xl" sx={{ paddingTop: '10px', paddingBottom: '10px' }}>
         <Grid container spacing={1} justifyContent="space-between" alignItems="center">
-          <Grid item xs={12} md={5} xl={6}>
+          <Grid size={{ xs: 12, md: 5, xl: 6 }}>
             <Typography variant="h4" sx={{ marginLeft: '0px' }}>
               {fields.heading}
             </Typography>
@@ -104,35 +99,30 @@ export const CookieDrawer = () => {
           </Grid>
           <Grid
             sx={{ margin: '10px 0' }}
-            item
             container
             justifyContent={{
               xs: 'flex-start',
               sm: 'center',
             }}
-            xs={12}
-            md={7}
-            xl={6}>
-            <Hidden smDown>
-              <StyledButtonLink
-                variant="text"
-                onClick={() => setCookieModalVisibility(true)}>
-                {t('cookieModal.cookie-settings')}
-              </StyledButtonLink>
-            </Hidden>
+            size={{ xs: 12, md: 7, xl: 6 }}>
+            <StyledButtonLink
+              variant="text"
+              sx={{ display: { xs: 'none', sm: 'block' } }}
+              onClick={() => setCookieModalVisibility(true)}>
+              {t('cookieModal.cookie-settings')}
+            </StyledButtonLink>
             <ButtonGroup
               orientation="horizontal"
               color="primary"
               sx={{
                 flexWrap: 'wrap',
               }}>
-              <Hidden smUp>
-                <StyledButtonLink
-                  variant="text"
-                  onClick={() => setCookieModalVisibility(true)}>
-                  {t('cookieModal.cookie-settings')}
-                </StyledButtonLink>
-              </Hidden>
+              <StyledButtonLink
+                variant="text"
+                sx={{ display: { xs: 'block', sm: 'none' } }}
+                onClick={() => setCookieModalVisibility(true)}>
+                {t('cookieModal.cookie-settings')}
+              </StyledButtonLink>
               <StyledButton
                 variant="contained"
                 color="primary"

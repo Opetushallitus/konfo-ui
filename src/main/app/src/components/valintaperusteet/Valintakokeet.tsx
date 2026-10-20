@@ -1,4 +1,5 @@
-import { Box, Card, CardContent, Divider, Grid, Typography } from '@mui/material';
+import { Box, Card, CardContent, Divider, Typography } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
@@ -41,20 +42,20 @@ const TilaisuusComponent = ({
   return (
     <Grid padding="10px 20px" container key={`koetilaisuus-${index}`}>
       <HeadingBoundary>
-        <Grid item xs={6}>
+        <Grid size={{ xs: 6 }}>
           <Box py={1}>
             <ValintakoeSubHeading>{t('valintaperuste.alkaa')}</ValintakoeSubHeading>
             <Typography variant="body1">{localize(formatoituAlkaa)}</Typography>
           </Box>
         </Grid>
-        <Grid item xs={6}>
+        <Grid size={{ xs: 6 }}>
           <Box py={1}>
             <ValintakoeSubHeading>{t('valintaperuste.paattyy')}</ValintakoeSubHeading>
             <Typography variant="body1">{localize(formatoituPaattyy)}</Typography>
           </Box>
         </Grid>
         {postinumero ? (
-          <Grid item xs={12}>
+          <Grid size={{ xs: 12 }}>
             <Box py={1}>
               <ValintakoeSubHeading>
                 {t('valintaperuste.jarjestyspaikka')}
@@ -67,7 +68,7 @@ const TilaisuusComponent = ({
           </Grid>
         ) : null}
         {!isEmpty(lisatietoja) && (
-          <Grid item xs={12}>
+          <Grid size={{ xs: 12 }}>
             <Box py={1}>
               <ValintakoeSubHeading>
                 {t('valintaperuste.lisatietoja')}
@@ -121,7 +122,7 @@ export const Valintakokeet = ({
   const { t } = useTranslation();
 
   return (
-    <Grid item container direction="column" xs={12}>
+    <Grid container direction="column" size={{ xs: 12 }}>
       <Box py={4}>
         <Divider />
       </Box>

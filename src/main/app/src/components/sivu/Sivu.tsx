@@ -1,6 +1,6 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 
-import { Grid } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 
 import { colors } from '#/src/colors';
 import { Askem } from '#/src/components/common/Askem';
@@ -60,7 +60,7 @@ export const Sivu = ({ id }: { id: string }) => {
         justifyContent="center"
         spacing={2}
         alignItems="center">
-        <Grid item xs={12} sm={12} md={tableOfContents ? 10 : 8}>
+        <Grid size={{ xs: 12, sm: 12, ...(tableOfContents ? { md: 10 } : { md: 8 }) }}>
           <Murupolku path={murupolku(pageId)} />
           <SivuHeading>{name}</SivuHeading>
           <p>{description}</p>
@@ -68,13 +68,13 @@ export const Sivu = ({ id }: { id: string }) => {
       </Grid>
       <Grid container direction="row" spacing={2} justifyContent="center">
         {tableOfContents ? (
-          <Grid item xs={12} sm={12} md={3}>
+          <Grid size={{ xs: 12, sm: 12, md: 3 }}>
             <TableOfContents content={content} />
           </Grid>
         ) : null}
-        <Grid item xs={12} sm={12} md={tableOfContents ? 7 : 8}>
+        <Grid size={{ xs: 12, sm: 12, ...(tableOfContents ? { md: 7 } : { md: 8 }) }}>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={12} md={12}>
+            <Grid size={{ xs: 12, sm: 12, md: 12 }}>
               <Sisalto content={content} rootRef={rootRef} />
               <Askem />
             </Grid>

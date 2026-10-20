@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import { Box, Typography, List, ListItem, Button } from '@mui/material';
 import { useTranslation } from 'react-i18next';

@@ -54,8 +54,8 @@ export const MobileLanguageSelection = () => {
             </ListItemIcon>
             <ListItemText
               primary={t(`kielivalinta.header.${langOption.code}`)}
-              primaryTypographyProps={{
-                fontWeight: 'bolder',
+              slotProps={{
+                primary: { fontWeight: 'bolder' },
               }}
             />
           </ListItemButton>

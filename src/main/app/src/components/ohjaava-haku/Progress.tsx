@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Grid, useMediaQuery, useTheme, ButtonProps } from '@mui/material';
+import { useMediaQuery, useTheme, ButtonProps } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
@@ -13,11 +14,7 @@ import { QuestionType } from './Question';
 import { getHasBeenAnswered } from './utils';
 
 const MobileProgressBar = ({ progress }: { progress: string }) => {
-  return (
-    <Grid item sx={{ marginBottom: '1rem' }}>
-      {progress}
-    </Grid>
-  );
+  return <Grid sx={{ marginBottom: '1rem' }}>{progress}</Grid>;
 };
 
 const ProgressSivupalkki = styled(Grid)({
@@ -45,7 +42,7 @@ export const Progress = React.forwardRef<HTMLButtonElement, ButtonProps>((_, ref
       {isMobile ? (
         <MobileProgressBar progress={progressStr} />
       ) : (
-        <ProgressSivupalkki container item direction="column">
+        <ProgressSivupalkki container direction="column">
           {questions.map((question: QuestionType, index: number) => {
             const questionId = question.id;
             const hasBeenAnswered = getHasBeenAnswered(
