@@ -1,6 +1,5 @@
-import React from 'react';
-
-import { Box, Divider, Grid } from '@mui/material';
+import { Box, Divider } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import { useTranslation } from 'react-i18next';
 
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
@@ -16,7 +15,7 @@ export const Hakukelpoisuus = ({ hakukelpoisuus }: Props) => {
   const { t } = useTranslation();
 
   return (
-    <Grid item xs={12}>
+    <Grid size={{ xs: 12 }}>
       <Box py={4}>
         <Divider />
       </Box>

@@ -1,12 +1,5 @@
-import {
-  Box,
-  Button,
-  ButtonGroup,
-  Divider,
-  Grid,
-  Paper,
-  Typography,
-} from '@mui/material';
+import { Box, Button, ButtonGroup, Divider, Paper, Typography } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import {
   isEmpty,
   sortBy,
@@ -162,11 +155,11 @@ const HakuCardGrid = ({
               : '';
 
             return (
-              <Grid key={hakukohde.hakukohdeOid} item xs={12} role="listitem">
+              <Grid key={hakukohde.hakukohdeOid} size={{ xs: 12 }} role="listitem">
                 <Paper className={classes.paper}>
                   <Box m={4}>
                     <Grid container spacing={3} display="flex" flexDirection="column">
-                      <Grid item display="inline-block" position="relative">
+                      <Grid display="inline-block" position="relative">
                         {isToisenAsteenYhteishaku(hakukohde) && (
                           <Box sx={{ float: 'right', marginLeft: 1 }}>
                             <ToggleSuosikkiButton
@@ -198,10 +191,10 @@ const HakuCardGrid = ({
                           </Box>
                         )}
                       </Grid>
-                      <Grid item>
+                      <Grid>
                         <Divider />
                       </Grid>
-                      <Grid item>
+                      <Grid>
                         <HakutietoTable
                           items={[
                             {
@@ -271,7 +264,7 @@ const HakuCardGrid = ({
                           ]}
                         />
                       </Grid>
-                      <Grid item>
+                      <Grid>
                         <ButtonGroup
                           className={classes.lomakeButtonGroup}
                           orientation="horizontal"
@@ -378,7 +371,7 @@ export const ToteutusHakukohteet = ({ toteutus, oppilaitosOsat }: Props) => {
   );
 
   return (
-    <Grid item xs={12} sm={12} md={10} lg={8}>
+    <Grid size={{ xs: 12, sm: 12, md: 10, lg: 8 }}>
       <PageSection heading={t('toteutus.koulutuksen-hakukohteet')}>
         <Grid container direction="column" spacing={2}>
           {map(sortedByHakutapaAndHakuaika, ([hakutapaKoodiUri, h]) => {

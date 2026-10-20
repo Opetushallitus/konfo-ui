@@ -69,9 +69,8 @@ export const LabelTooltip = ({ title, sx = {} }: Props) => {
         sx={sx}
         open={open}
         onClose={handleClose}
-        PopperProps={{
-          disablePortal: true,
-          onClick: (e) => e.stopPropagation(),
+        slotProps={{
+          popper: { disablePortal: true, onClick: (e) => e.stopPropagation() },
         }}
         disableFocusListener
         disableHoverListener

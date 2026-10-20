@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 
-import { Box, Typography, Input, InputLabel, Grid, Button } from '@mui/material';
+import { Box, Typography, Input, InputLabel, Button } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import { matches } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
@@ -131,7 +132,9 @@ export const KeskiarvoLaskuri = ({
         container
         justifyContent="space-evenly"
         columns={{ xs: 1, xl: embedded ? 10 : 3 }}>
-        <Grid item xs={1} xl={embedded ? 3 : 1} className={classes.inputContainer}>
+        <Grid
+          size={{ xs: 1, ...(embedded ? { xl: 3 } : { xl: 1 }) }}
+          className={classes.inputContainer}>
           <InputLabel>
             <Typography sx={{ fontWeight: '600' }}>
               {t('pistelaskuri.ka-lukuaineet')}
@@ -157,9 +160,7 @@ export const KeskiarvoLaskuri = ({
         </Grid>
         <Grid
           className={classes.inputContainer}
-          item
-          xs={1}
-          xl={embedded ? 4 : 1}
+          size={{ xs: 1, ...(embedded ? { xl: 4 } : { xl: 1 }) }}
           sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
           <InputLabel>
             <Typography sx={{ fontWeight: '600' }}>
@@ -187,7 +188,9 @@ export const KeskiarvoLaskuri = ({
             </Typography>
           )}
         </Grid>
-        <Grid item xs={1} xl={embedded ? 3 : 1} className={classes.inputContainer}>
+        <Grid
+          size={{ xs: 1, ...(embedded ? { xl: 3 } : { xl: 1 }) }}
+          className={classes.inputContainer}>
           <InputLabel>
             <Typography sx={{ fontWeight: '600' }}>
               {t('pistelaskuri.ka-kaikki')}

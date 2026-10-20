@@ -4,7 +4,6 @@ import {
   Box,
   Button,
   CircularProgress,
-  Grid,
   IconButton,
   List,
   ListItem,
@@ -13,6 +12,7 @@ import {
   ListItemText,
   Typography,
 } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import { useTranslation } from 'react-i18next';
 import Select, {
   components,
@@ -225,12 +225,12 @@ export const FilterCheckbox = ({
             indeterminate={isIndeterminate(value)}
             tabIndex={-1}
             disableRipple
-            inputProps={{ 'aria-labelledby': labelId }}
+            slotProps={{ input: { 'aria-labelledby': labelId } }}
           />
         </ListItemIcon>
         <ListItemText
           id={labelId}
-          primaryTypographyProps={{ variant: 'body2' }}
+          slotProps={{ primary: { variant: 'body2' } }}
           primary={translateRajainItem(value, t)}
         />
         {tooltipText && (
@@ -390,7 +390,7 @@ export const Filter = ({
         <Grid container direction="column" wrap="nowrap">
           {additionalContent}
           {options && rajainItems.length > HIDE_NOT_EXPANDED_AMOUNT && (
-            <Grid item style={{ padding: '20px 0', zIndex: 2 }}>
+            <Grid style={{ padding: '20px 0', zIndex: 2 }}>
               <label
                 htmlFor={selectId}
                 id={selectLabelId}
@@ -437,7 +437,7 @@ export const Filter = ({
               />
             </Grid>
           )}
-          <Grid item>
+          <Grid>
             <List style={{ width: '100%' }}>
               {rajainItems
                 .filter((v) =>

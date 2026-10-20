@@ -1,4 +1,4 @@
-import React, { RefObject } from 'react';
+import { RefObject } from 'react';
 
 import { Link, Typography } from '@mui/material';
 import Markdown from 'markdown-to-jsx';

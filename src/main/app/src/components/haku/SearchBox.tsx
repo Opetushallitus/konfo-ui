@@ -253,7 +253,7 @@ export const SearchBox = ({
           loading={isFetching}
           groupBy={(option) => option.type}
           clearText={t('haku.tyhjenna-hakuehto')}
-          componentsProps={{
+          slotProps={{
             clearIndicator: {
               tabIndex: 0,
               sx: (muiTheme) => ({

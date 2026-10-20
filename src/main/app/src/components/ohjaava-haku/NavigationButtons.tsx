@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Grid } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
@@ -96,8 +96,7 @@ export const NavigationButtons = ({
 
   return (
     <ButtonContainer
-      item
-      xs={12}
+      size={{ xs: 12 }}
       {...(isLastQuestion && {
         sx: {
           gridTemplateColumns: '25fr 25fr 25fr 25fr',

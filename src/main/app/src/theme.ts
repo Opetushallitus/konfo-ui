@@ -1,6 +1,6 @@
-import { createTheme } from '@mui/material';
+import { ButtonProps } from '@mui/material';
+import { createTheme, Theme } from '@mui/material/styles';
 import { createStyled } from '@mui/system';
-import createBreakpoints from '@mui/system/createTheme/createBreakpoints';
 
 import { colors } from './colors';
 import { SmartLink } from './components/common/SmartLink';
@@ -11,7 +11,6 @@ import { SmartLink } from './components/common/SmartLink';
 const HEADER_HEIGHT_PX = 72;
 
 const breakpoints = {
-  ...createBreakpoints({}),
   values: {
     xs: 0,
     sm: 600,
@@ -33,7 +32,9 @@ export const focusRing = {
   onDark: `0 0 0 2px  ${colors.brandGreen}, 0 0 0 4px ${colors.white}`,
 };
 
-export const theme = createTheme({
+const themeWithBreakpoints = createTheme({ breakpoints });
+
+export const theme = createTheme(themeWithBreakpoints, {
   headerHeight: HEADER_HEIGHT_PX,
   breakpoints,
   palette: {
@@ -65,7 +66,7 @@ export const theme = createTheme({
       color: colors.grey900,
       lineHeight: '3rem',
       marginBottom: '1.5rem',
-      [breakpoints.down('sm')]: {
+      [themeWithBreakpoints.breakpoints.down('sm')]: {
         fontSize: '1.8rem',
         letterSpacing: '-0.075rem',
         lineHeight: '2.375rem',
@@ -77,7 +78,7 @@ export const theme = createTheme({
       color: colors.grey900,
       lineHeight: '2.25rem',
       marginBottom: '1rem',
-      [breakpoints.down('sm')]: {
+      [themeWithBreakpoints.breakpoints.down('sm')]: {
         fontSize: '1.75rem',
         lineHeight: '2rem',
         ...cssBreakWordRule,
@@ -89,7 +90,7 @@ export const theme = createTheme({
       lineHeight: '2rem',
       marginBottom: '0.5rem',
       color: colors.grey900,
-      [breakpoints.down('sm')]: {
+      [themeWithBreakpoints.breakpoints.down('sm')]: {
         fontSize: '1.5rem',
         lineHeight: '1.875rem',
         ...cssBreakWordRule,
@@ -101,7 +102,7 @@ export const theme = createTheme({
       fontWeight: '700',
       lineHeight: '1.75rem',
       marginBottom: '0.5rem',
-      [breakpoints.down('sm')]: {
+      [themeWithBreakpoints.breakpoints.down('sm')]: {
         fontSize: '1.25rem',
         lineHeight: '1.5rem',
       },
@@ -112,7 +113,7 @@ export const theme = createTheme({
       fontWeight: '700',
       lineHeight: '1.75rem',
       marginBottom: '0.25rem',
-      [breakpoints.down('sm')]: {
+      [themeWithBreakpoints.breakpoints.down('sm')]: {
         lineHeight: '1.5rem',
       },
     },
@@ -126,7 +127,7 @@ export const theme = createTheme({
       fontWeight: 400,
       lineHeight: '1.6875rem',
       color: colors.grey900,
-      [breakpoints.down('sm')]: {
+      [themeWithBreakpoints.breakpoints.down('sm')]: {
         lineHeight: '1.6875rem',
       },
     },
@@ -146,7 +147,13 @@ export const theme = createTheme({
     },
     MuiButton: {
       styleOverrides: {
-        root: ({ ownerState, theme: myTheme }) => {
+        root: ({
+          ownerState,
+          theme: myTheme,
+        }: {
+          ownerState: ButtonProps;
+          theme: Theme;
+        }) => {
           return {
             ...myTheme.typography.body1,
             color: ownerState.color,
@@ -311,6 +318,8 @@ export const theme = createTheme({
   },
 });
 
-export const getHeaderHeight = (themeProp: typeof theme) => themeProp.headerHeight;
+export const getHeaderHeight = (themeProp: Theme) => {
+  return themeProp.headerHeight;
+};
 
 export const styled = createStyled({ defaultTheme: theme });

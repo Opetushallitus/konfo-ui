@@ -14,8 +14,8 @@ import {
   AccordionSummary,
   AccordionDetails,
   Chip,
-  Grid,
 } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
 
@@ -125,7 +125,7 @@ export const CookieModal = () => {
   };
 
   const handleAccordionExpandedChange = (
-    e: React.SyntheticEvent,
+    _: React.SyntheticEvent,
     isExpanded: boolean
   ) => {
     setFullCookieInfoOpen(isExpanded);
@@ -230,7 +230,7 @@ export const CookieModal = () => {
             direction="row"
             justifyContent="space-between"
             alignItems="center">
-            <Grid item>
+            <Grid>
               <ButtonGroup orientation="horizontal" color="primary">
                 <StyledButton
                   sx={{
@@ -251,7 +251,7 @@ export const CookieModal = () => {
                 </StyledButton>
               </ButtonGroup>
             </Grid>
-            <Grid item>
+            <Grid>
               <Chip
                 sx={{ float: 'right' }}
                 variant="outlined"

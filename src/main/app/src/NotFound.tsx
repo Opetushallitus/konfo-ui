@@ -1,6 +1,5 @@
-import React from 'react';
-
-import { Grid, Button, Typography } from '@mui/material';
+import { Button, Typography } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
@@ -24,27 +23,27 @@ export const NotFound = () => {
         justifyContent="center"
         alignItems="center"
         spacing={5}>
-        <Grid item>
+        <Grid>
           <Typography variant="h1" component="h1" color="secondary">
             {t('ei-loydy.404')}
           </Typography>
         </Grid>
-        <Grid item>
+        <Grid>
           <Typography variant="h1" component="h1">
             {t('ei-loydy.sivua-ei-löytynyt')}
           </Typography>
-          <Typography variant="body1" paragraph>
+          <Typography variant="body1" component="p" marginBottom={2}>
             {t('ei-loydy.linkki-on-virheellinen')}
           </Typography>
         </Grid>
-        <Grid item>
+        <Grid>
           <Grid
             container
             direction="row"
             justifyContent="center"
             alignItems="center"
             spacing={2}>
-            <Grid item>
+            <Grid>
               <Button
                 variant="contained"
                 aria-label={t('ei-loydy.etusivulle')}
@@ -53,7 +52,7 @@ export const NotFound = () => {
                 {t('ei-loydy.etusivulle')}
               </Button>
             </Grid>
-            <Grid item>
+            <Grid>
               <Button
                 variant="outlined"
                 color="primary"

@@ -1,4 +1,5 @@
-import { Box, Grid, Link, Typography } from '@mui/material';
+import { Box, Link, Typography } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import { useTranslation } from 'react-i18next';
 import { useParams, Navigate } from 'react-router-dom';
 
@@ -15,7 +16,7 @@ const NotFound = ({ loading }: { loading: boolean }) => {
   return (
     <Grid container direction="row" justifyContent="center" alignItems="center">
       {loading ? null : (
-        <Grid item xs={12} sm={6} md={6} margin={1}>
+        <Grid size={{ xs: 12, sm: 6, md: 6 }} margin={1}>
           <Heading>{t('sisaltohaku.sivua-ei-löytynyt')}</Heading>
           <Typography>{t('sisaltohaku.etsimääsi-ei-löydy')}</Typography>
           <Box marginTop={2}>

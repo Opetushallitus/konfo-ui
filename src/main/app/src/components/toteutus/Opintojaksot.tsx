@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Button, Link, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 

@@ -1,6 +1,5 @@
-import React from 'react';
-
-import { Avatar, Button, Grid, Link, Paper, Typography } from '@mui/material';
+import { Avatar, Button, Link, Paper, Typography } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
@@ -17,10 +16,6 @@ const classes = {
 };
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
-  [`& .${classes.gridOuterContainerRoot}`]: {
-    paddingTop: theme.spacing(5),
-  },
-
   [`& .${classes.paperRoot}`]: {
     width: '80%',
     borderTop: `5px solid ${colors.red}`,
@@ -55,29 +50,29 @@ export const BackendErrorMessage = () => {
   return (
     <StyledGrid
       container
-      classes={{ root: classes.gridOuterContainerRoot }}
+      sx={{ paddingTop: 5 }}
       spacing={4}
       alignItems="center"
       direction="column">
-      <Grid item style={{ width: '100%' }}>
+      <Grid style={{ width: '100%' }}>
         <Paper classes={{ root: classes.paperRoot }}>
           <Grid container spacing={4} direction="column" alignItems="center">
-            <Grid item>
+            <Grid>
               <Avatar classes={{ root: classes.avatarRoot }}>
                 <MaterialIcon icon="error_outline" fontSize="large" />
               </Avatar>
             </Grid>
-            <Grid item>
+            <Grid>
               <Typography variant="h5" style={{ fontWeight: 'bold' }}>
                 {t('haku.tapahtui-tekninen-virhe')}
               </Typography>
             </Grid>
-            <Grid item>
+            <Grid>
               <Typography variant="body1">
                 {t('haku.odota-hetki-ja-kokeile-suorita-toiminto-uudestaan')}
               </Typography>
             </Grid>
-            <Grid item>
+            <Grid>
               <Button
                 classes={{ root: classes.buttonRoot }}
                 variant="contained"
@@ -90,7 +85,7 @@ export const BackendErrorMessage = () => {
           </Grid>
         </Paper>
       </Grid>
-      <Grid item>
+      <Grid>
         <Link underline="always" href="/" variant="body1">
           {t('haku.siirry-opintopolun-etusivulle')}
         </Link>

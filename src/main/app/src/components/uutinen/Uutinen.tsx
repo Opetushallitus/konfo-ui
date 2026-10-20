@@ -1,6 +1,7 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 
-import { Box, Card, CardContent, CardMedia, Grid } from '@mui/material';
+import { Box, Card, CardContent, CardMedia } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -24,8 +25,7 @@ const UutinenInfoItem = withDefaultProps(
     lineHeight: '19px',
   }),
   {
-    item: true,
-    xs: 6,
+    size: { xs: 6 },
   }
 );
 
@@ -75,7 +75,8 @@ export const Uutinen = ({ id }: { id: string }) => {
   const timestamp = uutinen.formatoituUpdated || uutinen.formatoituCreated;
 
   return (
-    <Grid item xs={12} sm={isMenuOpen ? 12 : 6} md={isMenuOpen ? 6 : 4}>
+    <Grid size={{ xs: 12, ...(isMenuOpen ? { sm: 12, md: 6 } : { sm: 6, md: 4 }) }}>
+      {' '}
       <UutinenCard
         elevation={3}
         tabIndex={0}

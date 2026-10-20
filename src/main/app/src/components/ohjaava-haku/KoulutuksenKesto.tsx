@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
-import { Grid, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import { isEmpty, isFinite, toNumber } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { match } from 'ts-pattern';
@@ -143,8 +144,8 @@ export const KoulutuksenKesto = ({
   return (
     <Grid container direction="column" wrap="nowrap">
       <QuestionInfoText questionInfo={t(`ohjaava-haku.kysymykset.info-text`)} />
-      <InputContainer item container direction="row" wrap="nowrap">
-        <InputFieldContainer item container direction="column" wrap="nowrap" xs={3}>
+      <InputContainer container direction="row" wrap="nowrap">
+        <InputFieldContainer container direction="column" wrap="nowrap" size={{ xs: 3 }}>
           <CustomInputLabel translationKey="ohjaava-haku.kysymykset.koulutuksenkestokuukausina.opiskelen-vahintaan" />
           <InputFieldContainer>
             <InputWithUnit
@@ -172,7 +173,7 @@ export const KoulutuksenKesto = ({
           </InputFieldContainer>
         </InputFieldContainer>
         <Ndash />
-        <InputFieldContainer item container direction="column" wrap="nowrap" xs={3}>
+        <InputFieldContainer container direction="column" wrap="nowrap" size={{ xs: 3 }}>
           <CustomInputLabel translationKey="ohjaava-haku.kysymykset.koulutuksenkestokuukausina.opiskelen-enintaan" />
           <InputFieldContainer>
             <InputWithUnit

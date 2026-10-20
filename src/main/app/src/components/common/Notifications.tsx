@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { Alert, Box, CustomTheme, Snackbar, useTheme } from '@mui/material';
+import { Alert, Box, Snackbar, useTheme } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
 import { useLocation } from 'react-router-dom';
 import { usePrevious } from 'react-use';
@@ -34,13 +34,13 @@ export const Notifications = () => {
   return (
     <Snackbar
       sx={{
-        marginTop: `${getHeaderHeight(theme as CustomTheme)}px`,
+        marginTop: `${getHeaderHeight(theme)}px`,
         // Ruudunlukijoille on ongelmallista, jos notifikaatio poistetaan automaattisesti,
         // joten piilotetaan notifikaatio vain visuaalisesti.
         ...(notifications.length > 0 ? {} : visuallyHidden),
       }}
-      TransitionProps={{
-        appear: false,
+      slotProps={{
+        transition: { appear: false },
       }}
       onMouseEnter={clearTimeouts}
       onMouseLeave={resetTimeouts}

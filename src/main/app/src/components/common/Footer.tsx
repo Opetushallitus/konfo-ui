@@ -1,6 +1,6 @@
 import { Link, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid2';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
 
@@ -111,7 +111,7 @@ export const Footer = () => {
     <Root>
       <WithSideMargins>
         <Grid container>
-          <Grid item xs={12}>
+          <Grid size={{ xs: 12 }}>
             <Hr>
               <StyledOphIcon alt="" src={OpintopolkuFooterLogo()} />
             </Hr>
@@ -124,17 +124,17 @@ export const Footer = () => {
             justifyContent="space-evenly"
             alignItems="flex-start"
             paddingY={2}>
-            <Grid item xs={12} sm={4} md={3}>
+            <Grid size={{ xs: 12, sm: 4, md: 3 }}>
               <Box m={1}>
                 <Markdown options={overrides}>{content ?? ''}</Markdown>
               </Box>
             </Grid>
-            <Grid item xs={12} sm={4} md={3}>
+            <Grid size={{ xs: 12, sm: 4, md: 3 }}>
               <Box m={1}>
                 <Markdown options={overrides}>{contentCenter ?? ''}</Markdown>
               </Box>
             </Grid>
-            <Grid item xs={12} sm={4} md={3}>
+            <Grid size={{ xs: 12, sm: 4, md: 3 }}>
               <Box m={1}>
                 <Markdown options={overrides}>{contentRight ?? ''}</Markdown>
               </Box>
@@ -142,14 +142,14 @@ export const Footer = () => {
           </Grid>
         </nav>
         <Grid container>
-          <Grid item xs={12}>
+          <Grid size={{ xs: 12 }}>
             <Hr>
               <StyledIcon alt="" src={OPHFooterLogo()} />
             </Hr>
           </Grid>
         </Grid>
         <Grid container justifyContent="center">
-          <Grid item xs={12} sm={12} md={8}>
+          <Grid size={{ xs: 12, sm: 12, md: 8 }}>
             <Markdown options={overrides}>{lopputekstit || ''}</Markdown>
           </Grid>
         </Grid>

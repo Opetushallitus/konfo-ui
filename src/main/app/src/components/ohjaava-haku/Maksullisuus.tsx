@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
-import { Box, Grid, useMediaQuery, useTheme } from '@mui/material';
+import { Box, useMediaQuery, useTheme } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { match } from 'ts-pattern';
@@ -177,8 +178,8 @@ const MaksullisuusInput = ({
   const errorId = 'maksullisuus-error';
   return (
     <Grid container direction="column" wrap="nowrap">
-      <InputContainer item container direction="row" wrap="nowrap">
-        <InputFieldContainer item container direction="column" wrap="nowrap" xs={3}>
+      <InputContainer container direction="row" wrap="nowrap">
+        <InputFieldContainer container direction="column" wrap="nowrap" size={{ xs: 3 }}>
           <CustomInputLabel translationKey="ohjaava-haku.kysymykset.maksullisuustyyppi.vahintaan" />
           <InputFieldContainer>
             <InputWithUnit
@@ -195,7 +196,7 @@ const MaksullisuusInput = ({
           </InputFieldContainer>
         </InputFieldContainer>
         <Ndash />
-        <InputFieldContainer item container direction="column" wrap="nowrap" xs={3}>
+        <InputFieldContainer container direction="column" wrap="nowrap" size={{ xs: 3 }}>
           <CustomInputLabel translationKey="ohjaava-haku.kysymykset.maksullisuustyyppi.enintaan" />
           <InputFieldContainer>
             <InputWithUnit
@@ -213,7 +214,7 @@ const MaksullisuusInput = ({
         </InputFieldContainer>
       </InputContainer>
       {!isEmpty(errorKey) && <ErrorMessage id={errorId} errorKey={errorKey} />}
-      <Grid item sx={{ mx: 1 }}>
+      <Grid sx={{ mx: 1 }}>
         <MaksullisuusRangeSlider
           rangeValues={rangeValues}
           undefinedRajainValues={undefinedRajainValues}
@@ -248,7 +249,7 @@ export const Maksullisuus = ({
     combineMaksunMaaraWithMaksullisuustyyppi(filteredRajainItems);
 
   return (
-    <StyledQuestion item>
+    <StyledQuestion>
       <QuestionInfoText
         questionInfo={t(`ohjaava-haku.kysymykset.info-text-for-options`)}
       />

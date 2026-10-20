@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Drawer, Paper, InputBase, Button, Box, Hidden } from '@mui/material';
+import { Drawer, Paper, InputBase, Button, Box } from '@mui/material';
 import { includes, last } from 'lodash';
 import { urls } from 'oph-urls-js';
 import { useTranslation } from 'react-i18next';
@@ -136,18 +136,23 @@ export const SideMenu = (props: {
       }}
       isSmall={props.isSmall}>
       <div className={classes.inputBackground}>
-        <Hidden smUp>
-          <Box mb={2} display="flex" flexDirection="column" alignItems="flex-start">
-            <SuosikitButton onClick={closeMenu} />
-            <TextButtonLink
-              href={urls.url('oma-opintopolku')}
-              target="_blank"
-              startIcon={<MaterialIcon icon="apps" />}>
-              {t('oma-opintopolku')}
-            </TextButtonLink>
-            <MobileLanguageSelection />
-          </Box>
-        </Hidden>
+        <Box
+          mb={2}
+          display="flex"
+          flexDirection="column"
+          alignItems="flex-start"
+          sx={{
+            display: { xs: 'block', sm: 'none' },
+          }}>
+          <SuosikitButton onClick={closeMenu} />
+          <TextButtonLink
+            href={urls.url('oma-opintopolku')}
+            target="_blank"
+            startIcon={<MaterialIcon icon="apps" />}>
+            {t('oma-opintopolku')}
+          </TextButtonLink>
+          <MobileLanguageSelection />
+        </Box>
         <label htmlFor="sidebar-search-input">
           {t('sidebar.etsi-tietoa-opintopolusta')}:
         </label>

@@ -1,6 +1,5 @@
 import {
   Box,
-  Grid,
   Paper,
   Table,
   TableBody,
@@ -9,6 +8,7 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
@@ -34,7 +34,7 @@ const HeaderCell = styled(TableCell)({
 const SubHeaderCell = TableCell;
 
 const Teksti = ({ data }: SisaltoTeksti) => (
-  <Grid item xs={12}>
+  <Grid size={{ xs: 12 }}>
     <LocalizedHTML data={data} replace={tagHeaders} />
   </Grid>
 );

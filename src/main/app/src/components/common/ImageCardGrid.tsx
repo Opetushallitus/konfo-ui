@@ -1,4 +1,5 @@
-import { Grid, useTheme, useMediaQuery, Link } from '@mui/material';
+import { useTheme, useMediaQuery, Link } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 
 import { ImageCardWithText } from '#/src/components/common/ImageCardWithText';
 
@@ -15,7 +16,7 @@ export const ImageCardGrid = (props: {
         const cardElement = <ImageCardWithText image={card.image} cardText={card.text} />;
 
         return (
-          <Grid item key={`ImageCardWithText-${i}`}>
+          <Grid key={`ImageCardWithText-${i}`}>
             {cardIsLink ? <Link href={card.link}>{cardElement}</Link> : cardElement}
           </Grid>
         );
