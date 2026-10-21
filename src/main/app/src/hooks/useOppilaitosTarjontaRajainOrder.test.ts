@@ -169,4 +169,19 @@ describe('useOppilaitosTarjontaRajainOrder', () => {
       );
     });
   });
+
+  describe('toimipiste', () => {
+    test('is shown after hakutapa when oppilaitoksella on toimipisteitä, joilla on toteutuksia', () => {
+      const ids = getRajainIds(
+        {},
+        { toimipiste: { '1.2.246.562.10.1': { count: 1, nimi: { fi: 'Toimipiste' } } } }
+      );
+      expect(ids[ids.indexOf('hakutapa') + 1]).toEqual('toimipiste');
+    });
+
+    test('is hidden when there are no toimipisteitä', () => {
+      expect(getRajainIds({}, { toimipiste: {} })).not.toContain('toimipiste');
+      expect(getRajainIds({}, {})).not.toContain('toimipiste');
+    });
+  });
 });

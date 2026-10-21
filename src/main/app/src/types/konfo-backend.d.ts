@@ -1930,6 +1930,14 @@ export interface paths {
                      */
                     osaamisala?: string[];
                     /**
+                     * @description Pilkulla eroteltuna oppilaitoksen toimipisteiden oideja. Ylemmän toimipisteen valinta kattaa myös sen alla olevat toimipisteet.
+                     * @example [
+                     *       "1.2.246.562.10.93483820482",
+                     *       "1.2.246.562.10.29176843357"
+                     *     ]
+                     */
+                    toimipiste?: string[];
+                    /**
                      * @description Pilkulla eroteltuna alkamiskausi-tunnisteita (merkkijono). Validit arvot ovat muotoa "<vuosi>-kevat/syksy" (esim. esim. "2022-kevat") tai "henkilokohtainen"
                      * @example [
                      *       "henkilokohtainen",
