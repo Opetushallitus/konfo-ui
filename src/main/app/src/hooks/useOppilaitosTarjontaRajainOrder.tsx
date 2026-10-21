@@ -10,6 +10,7 @@ import { OpetuskieliSuodatin } from '#/src/components/suodattimet/common/OpetusK
 import { OpetustapaSuodatin } from '#/src/components/suodattimet/common/OpetustapaSuodatin';
 import { PohjakoulutusvaatimusSuodatin } from '#/src/components/suodattimet/common/PohjakoulutusvaatimusSuodatin';
 import { SijaintiSuodatin } from '#/src/components/suodattimet/common/SijaintiSuodatin';
+import { ToimipisteSuodatin } from '#/src/components/suodattimet/common/ToimipisteSuodatin';
 import { ValintatapaSuodatin } from '#/src/components/suodattimet/common/ValintatapaSuodatin';
 import { KoulutustyyppiSuodatin } from '#/src/components/suodattimet/hakutulosSuodattimet/KoulutustyyppiSuodatin';
 import { AmmOsaamisalatSuodatin } from '#/src/components/suodattimet/toteutusSuodattimet/AmmOsaamisalatSuodatin';
@@ -71,6 +72,9 @@ export const useOppilaitosTarjontaRajainOrder = ({
     hasTarjontaa(KOULUTUS_TYYPPI.AMM) || ammErityisopetusCount > 0
   );
 
+  // Toimipisteet tulevat vastauksessa vain, jos niillä on toteutuksia
+  const showToimipisteRajain = !isEmpty(rajainOptions?.toimipiste);
+
   const showValintatapaRajain = showForKoulutustyypit(
     KORKEAKOULU_YLAKOODIT.flatMap(withAlakoodit),
     KORKEAKOULU_YLAKOODIT.some(hasTarjontaa)
@@ -120,6 +124,10 @@ export const useOppilaitosTarjontaRajainOrder = ({
     {
       id: 'hakutapa',
       Component: HakutapaSuodatin,
+    },
+    showToimipisteRajain && {
+      id: 'toimipiste',
+      Component: ToimipisteSuodatin,
     },
     showValintatapaRajain && {
       id: 'valintatapa',

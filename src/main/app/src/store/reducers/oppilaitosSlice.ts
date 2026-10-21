@@ -10,10 +10,11 @@ export const initialState = {
   tulevaSize: 3,
   tulevaOffset: 0,
   order: 'asc',
-  rajainValues: pick(
-    HAKU_RAJAIMET_INITIAL,
-    TOTEUTUS_RAJAIN_NAMES
-  ) as Partial<RajainValues>,
+  rajainValues: {
+    ...pick(HAKU_RAJAIMET_INITIAL, TOTEUTUS_RAJAIN_NAMES),
+    // Toimipisterajain on vain oppilaitoksen tarjonnassa
+    toimipiste: HAKU_RAJAIMET_INITIAL.toimipiste,
+  } as Partial<RajainValues>,
 };
 
 export const oppilaitosSlice = createSlice({
