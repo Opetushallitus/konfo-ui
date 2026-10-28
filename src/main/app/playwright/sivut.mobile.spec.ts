@@ -15,7 +15,7 @@ test.describe('Sivut (mobiili)', () => {
       '/konfo/fi/sivu/paikan-vastaanotto-ja-ilmoittautuminen-korkeakouluun'
     );
     await page.getByRole('button', { name: /valikko/i }).click();
-    await page.getByRole('link', { name: /Svenska/i, includeHidden: true }).click();
+    await page.getByRole('link', { name: /Svenska/i, includeHidden: false }).click();
 
     await expectURLEndsWith(
       page,
