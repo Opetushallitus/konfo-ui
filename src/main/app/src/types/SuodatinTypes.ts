@@ -21,6 +21,12 @@ export type RajainComponentProps = {
   rajainValues: Partial<RajainValues>; // kaikkien rajainten valitut arvot
 };
 
+export type RajainOrderItem = {
+  id: string;
+  Component: (props: RajainComponentProps) => React.JSX.Element;
+  props?: RajainComponentProps;
+};
+
 export type RajainItem = CheckboxRajainItem | BooleanRajainItem | NumberRangeRajainItem;
 
 export interface RajainBase {
@@ -102,6 +108,7 @@ const CHECKBOX_RAJAIN_IDS = [
   RAJAIN_TYPES.MAKSULLISUUSTYYPPI,
   RAJAIN_TYPES.ALKAMISKAUSI,
   RAJAIN_TYPES.OPPILAITOS,
+  RAJAIN_TYPES.TOIMIPISTE,
   RAJAIN_TYPES.HAKUALKAAPAIVISSA,
 ] as const;
 
