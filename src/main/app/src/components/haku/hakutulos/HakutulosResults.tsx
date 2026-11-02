@@ -1,5 +1,4 @@
-import { Link, Typography, useTheme } from '@mui/material';
-import Grid from '@mui/material/Grid2';
+import { Link, Grid, Typography, useTheme } from '@mui/material';
 import { size } from 'lodash';
 import { useTranslation } from 'react-i18next';
 

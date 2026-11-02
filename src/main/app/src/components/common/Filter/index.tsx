@@ -4,6 +4,7 @@ import {
   Box,
   Button,
   CircularProgress,
+  Grid,
   IconButton,
   List,
   ListItem,
@@ -12,7 +13,6 @@ import {
   ListItemText,
   Typography,
 } from '@mui/material';
-import Grid from '@mui/material/Grid2';
 import { useTranslation } from 'react-i18next';
 import Select, {
   components,

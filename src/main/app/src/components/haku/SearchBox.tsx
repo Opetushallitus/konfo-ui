@@ -264,7 +264,7 @@ export const SearchBox = ({
             },
           }}
           onHighlightChange={(_e, option) => {
-            const isNull = option == null || isString(option);
+            const isNull = option === null || isString(option);
             setHighlightedLabel(isNull ? '' : option.label);
             setHighlightedLink(isNull ? null : option.link);
           }}

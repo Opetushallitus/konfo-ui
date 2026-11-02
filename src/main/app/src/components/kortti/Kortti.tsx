@@ -1,5 +1,4 @@
-import { Card, CardContent, CardMedia, Link } from '@mui/material';
-import Grid from '@mui/material/Grid2';
+import { Card, CardContent, CardMedia, Grid, Link } from '@mui/material';
 import clsx from 'clsx';
 
 import { colors } from '#/src/colors';

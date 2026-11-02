@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 
-import Grid from '@mui/material/Grid2';
+import { Grid } from '@mui/material';
 
 import { colors } from '#/src/colors';
 import { Askem } from '#/src/components/common/Askem';

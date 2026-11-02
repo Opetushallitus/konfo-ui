@@ -1,5 +1,4 @@
-import { GridSize, Typography } from '@mui/material';
-import Grid from '@mui/material/Grid2';
+import { GridSize, Grid, Typography } from '@mui/material';
 import { isEmpty } from 'lodash';
 
 import { LabelTooltip } from '#/src/components/common/LabelTooltip';

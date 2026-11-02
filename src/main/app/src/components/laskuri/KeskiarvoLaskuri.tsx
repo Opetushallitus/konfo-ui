@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { Box, Typography, Input, InputLabel, Button } from '@mui/material';
-import Grid from '@mui/material/Grid2';
+import { Box, Typography, Input, InputLabel, Button, Grid } from '@mui/material';
 import { matches } from 'lodash';
 import { useTranslation } from 'react-i18next';
 

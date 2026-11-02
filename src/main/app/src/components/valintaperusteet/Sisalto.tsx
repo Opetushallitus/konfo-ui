@@ -1,5 +1,6 @@
 import {
   Box,
+  Grid,
   Paper,
   Table,
   TableBody,
@@ -8,7 +9,6 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material';
-import Grid from '@mui/material/Grid2';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';

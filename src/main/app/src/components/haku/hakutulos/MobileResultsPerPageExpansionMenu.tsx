@@ -1,5 +1,4 @@
-import { Typography } from '@mui/material';
-import Grid from '@mui/material/Grid2';
+import { Grid, Typography } from '@mui/material';
 import { toString, min, max } from 'lodash';
 import { useTranslation } from 'react-i18next';
 

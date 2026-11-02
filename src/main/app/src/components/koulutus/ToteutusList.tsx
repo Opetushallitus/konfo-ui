@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
-import { Box, Typography } from '@mui/material';
-import Grid from '@mui/material/Grid2';
+import { Box, Grid, Typography } from '@mui/material';
 import { size } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { match } from 'ts-pattern';

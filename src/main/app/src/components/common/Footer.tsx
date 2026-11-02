@@ -1,6 +1,4 @@
-import { Link, Typography } from '@mui/material';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid2';
+import { Box, Grid, Link, Typography } from '@mui/material';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
 

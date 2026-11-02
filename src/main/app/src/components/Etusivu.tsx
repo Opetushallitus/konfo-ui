@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 
-import { Box, Button, Paper } from '@mui/material';
-import Grid from '@mui/material/Grid2';
+import { Box, Button, Grid, Paper } from '@mui/material';
 import { isEmpty, size, sortBy, take } from 'lodash';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';

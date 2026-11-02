@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
-import { Box, Paper, useMediaQuery, Link } from '@mui/material';
-import Grid from '@mui/material/Grid2';
+import { Box, Grid, Paper, useMediaQuery, Link } from '@mui/material';
 import { useTheme } from '@mui/system';
 import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
