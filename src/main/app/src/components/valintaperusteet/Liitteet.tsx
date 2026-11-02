@@ -1,5 +1,4 @@
-import { Box, Card, CardContent, Divider, Typography } from '@mui/material';
-import Grid from '@mui/material/Grid2';
+import { Box, Card, CardContent, Divider, Grid, Typography } from '@mui/material';
 import { isEmpty, groupBy, map } from 'lodash';
 import { useTranslation } from 'react-i18next';
 

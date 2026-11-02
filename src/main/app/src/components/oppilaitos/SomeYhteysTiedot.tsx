@@ -1,5 +1,4 @@
-import { Link, Icon, Box } from '@mui/material';
-import Grid from '@mui/material/Grid2';
+import { Link, Icon, Box, Grid } from '@mui/material';
 import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 

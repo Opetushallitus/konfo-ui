@@ -1,5 +1,4 @@
-import { Box } from '@mui/material';
-import Grid from '@mui/material/Grid2';
+import { Box, Grid } from '@mui/material';
 
 import { NDASH } from '#/src/constants';
 

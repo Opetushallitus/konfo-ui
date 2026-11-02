@@ -1,5 +1,4 @@
-import { Avatar, Box, Card, CardContent, CardHeader } from '@mui/material';
-import Grid from '@mui/material/Grid2';
+import { Avatar, Box, Card, CardContent, CardHeader, Grid } from '@mui/material';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';

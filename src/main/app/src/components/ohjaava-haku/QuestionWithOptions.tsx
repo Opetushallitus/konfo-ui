@@ -1,4 +1,4 @@
-import Grid from '@mui/material/Grid2';
+import { Grid } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { RajainOption } from '#/src/components/ohjaava-haku/common/RajainOption';

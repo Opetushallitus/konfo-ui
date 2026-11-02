@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { Box, Link, Paper, useMediaQuery, useTheme } from '@mui/material';
-import Grid from '@mui/material/Grid2';
+import { Box, Grid, Link, Paper, useMediaQuery, useTheme } from '@mui/material';
 import { size } from 'lodash';
 import Markdown from 'markdown-to-jsx';
 

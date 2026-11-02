@@ -6,6 +6,7 @@ import {
   Typography,
   ButtonGroup,
   Divider,
+  Grid,
   Modal,
   FormControlLabel,
   FormGroup,
@@ -15,7 +16,6 @@ import {
   AccordionDetails,
   Chip,
 } from '@mui/material';
-import Grid from '@mui/material/Grid2';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
 

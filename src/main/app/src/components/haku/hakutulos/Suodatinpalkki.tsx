@@ -1,4 +1,4 @@
-import Grid from '@mui/material/Grid2';
+import { Grid } from '@mui/material';
 
 import { useSearch } from '#/src/components/haku/hakutulosHooks';
 import { styled } from '#/src/theme';

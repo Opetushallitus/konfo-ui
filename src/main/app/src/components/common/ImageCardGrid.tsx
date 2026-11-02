@@ -1,5 +1,4 @@
-import { useTheme, useMediaQuery, Link } from '@mui/material';
-import Grid from '@mui/material/Grid2';
+import { useTheme, useMediaQuery, Grid, Link } from '@mui/material';
 
 import { ImageCardWithText } from '#/src/components/common/ImageCardWithText';
 

@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 
-import { Box, Paper, Typography, useMediaQuery, useTheme } from '@mui/material';
-import Grid from '@mui/material/Grid2';
+import { Box, Grid, Paper, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { hasIn, isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 

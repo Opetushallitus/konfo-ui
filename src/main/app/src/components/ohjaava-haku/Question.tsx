@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
-import { Typography } from '@mui/material';
-import Grid from '@mui/material/Grid2';
+import { Grid, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';

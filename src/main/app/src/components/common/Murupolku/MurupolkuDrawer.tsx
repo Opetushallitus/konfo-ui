@@ -1,5 +1,4 @@
-import { Box, Drawer, IconButton, Toolbar, Typography } from '@mui/material';
-import Grid from '@mui/material/Grid2';
+import { Box, Drawer, Grid, IconButton, Toolbar, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
