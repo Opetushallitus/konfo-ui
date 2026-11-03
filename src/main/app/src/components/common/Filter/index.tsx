@@ -315,6 +315,7 @@ type Props = {
   options?: OptionsType;
   optionsLoading?: boolean;
   selectPlaceholder?: string;
+  selectLabel?: string;
   additionalContent?: React.JSX.Element;
   isCountVisible?: boolean;
 };
@@ -335,6 +336,7 @@ export const Filter = ({
   options,
   optionsLoading,
   selectPlaceholder,
+  selectLabel,
   additionalContent,
   expandValues = false,
   defaultExpandAlakoodit = false,
@@ -395,7 +397,7 @@ export const Filter = ({
                 htmlFor={selectId}
                 id={selectLabelId}
                 style={{ display: 'block', marginBottom: '4px', fontSize: '0.875rem' }}>
-                {t('haku.etsi-paikkakunta-tai-alue')}
+                {selectLabel ?? t('haku.etsi-paikkakunta-tai-alue')}
               </label>
               <div id={selectHintId} style={screenReaderOnly}>
                 {selectPlaceholder || t('haku.etsi')}
