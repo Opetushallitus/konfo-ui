@@ -29,7 +29,9 @@ export default defineConfig(({ mode }) => {
       rollupOptions: {
         output: {
           manualChunks: (id) => {
-            if (id.includes('victory') || id.includes('d3')) {
+            // Paketin nimen perusteella, koska pnpm:n hakemistonimissä olevat hashit voivat
+            // sisältää esim. merkkijonon "d3"
+            if (/[\\/]node_modules[\\/](victory|d3)[^\\/]*[\\/]/.test(id)) {
               return 'victory';
             } else if (id.includes('react-select')) {
               return 'react-select';
