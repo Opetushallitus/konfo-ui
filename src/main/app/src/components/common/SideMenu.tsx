@@ -17,8 +17,8 @@ import { useContentful } from '#/src/hooks/useContentful';
 import { getHeaderHeight, styled } from '#/src/theme';
 import { getOne } from '#/src/tools/getOne';
 
-import { SuosikitButton } from './SuosikitButton';
 import { TextButtonLink } from './TextButtonLink';
+import { useSuosikitLink } from '../../hooks/useSuosikitLink';
 
 const PREFIX = 'SideMenu';
 
@@ -104,6 +104,7 @@ export const SideMenu = (props: {
   const { menuVisible, isSmall, closeMenu, searchRef } = props;
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
+  const suosikitLink = useSuosikitLink();
 
   const { data, isLoading } = useContentful();
   const [selected, setSelected] = useState<Array<string>>([]);
@@ -140,14 +141,12 @@ export const SideMenu = (props: {
       isSmall={props.isSmall}>
       <div className={classes.inputBackground}>
         <Box
-          mb={2}
-          display="flex"
-          flexDirection="column"
-          alignItems="flex-start"
           sx={{
-            display: { xs: 'block', sm: 'none' },
+            display: { xs: 'flex', sm: 'none' },
+            flexDirection: 'column',
+            alignItems: 'flex-start',
           }}>
-          <SuosikitButton onClick={closeMenu} />
+          {suosikitLink && <TextButtonLink {...suosikitLink} onClick={closeMenu} />}
           <TextButtonLink
             href={urls.url('oma-opintopolku')}
             target="_blank"
