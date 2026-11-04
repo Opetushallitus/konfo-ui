@@ -112,13 +112,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                 />
               </div>
             )}
-            <Grid
-              container
-              direction="row"
-              justifyContent="center"
-              mb={2}
-              spacing={2}
-              size={{ sm: 10 }}>
+            <Grid container direction="row" justifyContent="center" mb={2} spacing={2}>
               {rajainOrder.map(({ Component, props, id }) => {
                 const customProps = getRajainProps({ id, setPreventClicks });
                 return (

@@ -56,14 +56,21 @@ export const SummaryContent = ({
 
   const chipLabel = numberOfItems || selectedValues.length;
   return (
-    <Grid container justifyContent="space-between" alignItems="center" wrap="nowrap">
+    <Grid
+      container
+      sx={{
+        flexGrow: 1,
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexWrap: 'nowrap',
+      }}>
       <Grid style={{ paddingRight: '8px' }}>
         <Typography variant="subtitle1" component="span">
           {filterName}
         </Typography>
       </Grid>
       {displaySelected && (
-        <Grid>
+        <Grid size="auto">
           {stringTooLongForChip(selectedFiltersStr) ? (
             <SuodatinMobileChip label={chipLabel} />
           ) : (

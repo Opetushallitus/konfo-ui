@@ -34,7 +34,7 @@ export const HakutietoTable = ({
               <HakutietoHeading>{heading}</HakutietoHeading>
             </Grid>
             {!isEmpty(modalText) && (
-              <Grid>
+              <Grid size="auto">
                 <LabelTooltip title={<LocalizedHTML noMargin data={modalText} />} />
               </Grid>
             )}

@@ -86,7 +86,7 @@ export const OppilaitosCard = ({
               spacing={1}
               justifyContent="center"
               wrap="nowrap">
-              <Grid className={classes.iconContainer}>
+              <Grid size="auto" className={classes.iconContainer}>
                 <MaterialIcon icon="public" className={classes.icon} />
               </Grid>
               <Grid>

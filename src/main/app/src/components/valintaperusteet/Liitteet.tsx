@@ -133,7 +133,7 @@ const LiiteCard = ({
           <CardContent>
             <Grid container>
               {liitteet.map(({ nimi, kuvaus }, i) => (
-                <Grid container key={`liite-${nimi}-${i}`}>
+                <Grid container size={{ xs: 12 }} key={`liite-${nimi}-${i}`}>
                   <Grid container size={{ xs: 1 }} justifyContent="flex-end">
                     <FileIcon
                       sx={{

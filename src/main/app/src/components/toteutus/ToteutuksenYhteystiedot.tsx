@@ -100,7 +100,7 @@ export const ToteutuksenYhteystiedot = ({
               {oppilaitos.metadata.esittely && (
                 <Grid
                   container
-                  size={{ sm: 12, md: 6 }}
+                  sx={{ maxWidth: { sm: '100%', md: '50%' } }}
                   direction="column"
                   alignItems="center">
                   {oppilaitos.logo && (
