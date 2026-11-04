@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Button, Link, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
@@ -23,7 +21,7 @@ const OpintojaksoContent = ({ opintojakso }: { opintojakso: Opintojakso }) => {
         variant="outlined"
         size="large"
         color="primary">
-        {t('toteutus.lue-lisää-opintojaksosta')}
+        {t('toteutus.lue-lisaa-opintojaksosta')}
       </Button>
     </>
   );
@@ -47,7 +45,9 @@ export const Opintojaksot = ({ opintojaksot }: { opintojaksot: Array<Opintojakso
                 {localize(opintojakso?.nimi)}
               </Link>
               &#44;&nbsp;
-              <Typography>{getLocalizedOpintojenLaajuus(opintojakso)}</Typography>
+              <Typography component="span">
+                {getLocalizedOpintojenLaajuus(opintojakso)}
+              </Typography>
             </>
           ),
           content: <OpintojaksoContent opintojakso={opintojakso} />,
