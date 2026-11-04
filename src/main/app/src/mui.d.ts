@@ -29,3 +29,10 @@ declare module '@mui/material/Button' {
     inverted: true;
   }
 }
+
+declare module '@mui/material/Typography' {
+  interface TypographyPropsVariantOverrides {
+    h6: true;
+    overline: true;
+  }
+}
