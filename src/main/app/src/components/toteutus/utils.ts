@@ -1,5 +1,5 @@
 import { TFunction } from 'i18next';
-import { compact, isEmpty, some, trim, values } from 'lodash';
+import { compact, isEmpty, some, trim, values } from 'lodash-es';
 
 import { getHakuDemo } from '#/src/api/konfoApi';
 import {

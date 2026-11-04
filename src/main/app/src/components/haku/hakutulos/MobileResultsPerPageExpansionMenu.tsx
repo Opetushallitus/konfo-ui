@@ -1,5 +1,5 @@
 import { Grid, Typography } from '@mui/material';
-import { toString, min, max } from 'lodash';
+import { toString, min, max } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import { SuodatinSlider } from '#/src/components/common/Filter/CustomizedMuiComponents';

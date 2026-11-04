@@ -1,4 +1,4 @@
-import { includes } from 'lodash';
+import { includes } from 'lodash-es';
 import { urls } from 'oph-urls-js';
 
 import { useHakuunValitut } from '#/src/hooks/useSuosikitSelection';

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 import Cookies from 'js-cookie';
-import { includes } from 'lodash';
+import { includes } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 import { Navigate, Outlet, useLocation, useParams } from 'react-router-dom';
 

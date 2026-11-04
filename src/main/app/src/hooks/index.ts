@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef } from 'react';
 
 import { useMediaQuery } from '@mui/material';
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'lodash-es';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { SIDEMENU_WIDTH } from '#/src/constants';

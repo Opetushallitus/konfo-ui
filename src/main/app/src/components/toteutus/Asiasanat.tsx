@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { Box, Grid } from '@mui/material';
-import { uniq } from 'lodash';
+import { uniq } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import { SmartLink } from '#/src/components/common/SmartLink';

@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { isEmpty, uniqBy } from 'lodash';
+import { isEmpty, uniqBy } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import { educationTypeColorCode } from '#/src/colors';

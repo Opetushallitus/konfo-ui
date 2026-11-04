@@ -11,7 +11,7 @@ import {
   Typography,
   Link,
 } from '@mui/material';
-import { isEmpty, trim } from 'lodash';
+import { isEmpty, trim } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 

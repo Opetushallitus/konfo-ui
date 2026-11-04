@@ -14,7 +14,7 @@ import {
   forEach,
   some,
   merge,
-} from 'lodash';
+} from 'lodash-es';
 import { useQuery, UseQueryOptions } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';

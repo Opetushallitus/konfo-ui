@@ -1,4 +1,4 @@
-import { isNumber, sum } from 'lodash';
+import { isNumber, sum } from 'lodash-es';
 
 import { Kouluaineet, Kouluaine } from './aine/Kouluaine';
 import { LocalStorable } from './LocalStorageUtil';

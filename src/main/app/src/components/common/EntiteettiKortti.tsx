@@ -6,7 +6,7 @@ import {
   Box,
   SvgIconProps,
 } from '@mui/material';
-import { trim, isEmpty } from 'lodash';
+import { trim, isEmpty } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import { colors, educationTypeColorCode } from '#/src/colors';

@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 
 import { Grid } from '@mui/material';
 import { produce } from 'immer';
-import { isEmpty, isNumber, concat } from 'lodash';
+import { isEmpty, isNumber, concat } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';

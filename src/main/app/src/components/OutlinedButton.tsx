@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Button, ButtonProps } from '@mui/material';
-import { castArray } from 'lodash';
+import { castArray } from 'lodash-es';
 
 import { styled } from '#/src/theme';
 

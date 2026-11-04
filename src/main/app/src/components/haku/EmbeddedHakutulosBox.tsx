@@ -1,5 +1,5 @@
 import { Box, Button, Typography, useTheme } from '@mui/material';
-import { last, omit } from 'lodash';
+import { last, omit } from 'lodash-es';
 import qs from 'query-string';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';

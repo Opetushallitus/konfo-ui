@@ -1,5 +1,5 @@
 import { Typography } from '@mui/material';
-import { sortBy, castArray } from 'lodash';
+import { sortBy, castArray } from 'lodash-es';
 
 import { SuodatinSlider } from './CustomizedMuiComponents';
 

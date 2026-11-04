@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import { Box, Grid, Typography } from '@mui/material';
-import { some, isEmpty, uniq } from 'lodash';
+import { some, isEmpty, uniq } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';

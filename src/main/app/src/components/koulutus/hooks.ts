@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import { set, uniq, omit, mapValues, forEach } from 'lodash';
+import { set, uniq, omit, mapValues, forEach } from 'lodash-es';
 import { useQuery } from 'react-query';
 import { P, match } from 'ts-pattern';
 

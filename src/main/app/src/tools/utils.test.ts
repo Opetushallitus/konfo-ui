@@ -1,5 +1,5 @@
 import { TFunction } from 'i18next';
-import { capitalize } from 'lodash';
+import { capitalize } from 'lodash-es';
 
 import {
   getSearchAddress,

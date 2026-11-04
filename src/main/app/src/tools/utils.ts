@@ -10,7 +10,7 @@ import {
   find,
   kebabCase,
   merge,
-} from 'lodash';
+} from 'lodash-es';
 
 import { NDASH } from '#/src/constants';
 import {

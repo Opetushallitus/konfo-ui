@@ -1,5 +1,5 @@
 import { Box, Card, CardContent, Divider, Grid, Typography } from '@mui/material';
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';

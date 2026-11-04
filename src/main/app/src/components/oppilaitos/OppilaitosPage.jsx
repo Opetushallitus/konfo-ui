@@ -1,5 +1,5 @@
 import { Box, Typography } from '@mui/material';
-import { isEmpty, size } from 'lodash';
+import { isEmpty, size } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';

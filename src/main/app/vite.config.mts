@@ -2,7 +2,6 @@ import dns from 'dns';
 import path from 'path';
 import url from 'url';
 
-import { optimizeLodashImports } from '@optimize-lodash/rollup-plugin';
 import react from '@vitejs/plugin-react';
 import browserslistToEsbuild from 'browserslist-to-esbuild';
 import { defineConfig, loadEnv } from 'vite';
@@ -70,7 +69,6 @@ export default defineConfig(({ mode }) => {
           },
         ],
       }),
-      optimizeLodashImports(),
       // Tuotanto-buildissa karsitaan devaus-plugineja hidastamasta
       ...(isDev
         ? [

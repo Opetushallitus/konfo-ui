@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from 'react';
 
-import { filter, map, size, compact } from 'lodash';
+import { filter, map, size, compact } from 'lodash-es';
 import { useQueries, useQuery } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 

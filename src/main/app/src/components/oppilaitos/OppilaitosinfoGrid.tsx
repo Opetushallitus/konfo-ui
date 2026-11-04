@@ -1,4 +1,4 @@
-import { flow, map, join, toString, isEmpty, isEqual } from 'lodash';
+import { flow, map, join, toString, isEmpty, isEqual } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import { InfoGrid } from '#/src/components/common/InfoGrid';

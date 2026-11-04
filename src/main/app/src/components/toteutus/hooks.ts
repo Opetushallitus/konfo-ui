@@ -1,4 +1,4 @@
-import { flow, map, sortBy, uniqBy, pick } from 'lodash';
+import { flow, map, sortBy, uniqBy, pick } from 'lodash-es';
 import { useQuery } from 'react-query';
 
 import { getToteutus } from '#/src/api/konfoApi';

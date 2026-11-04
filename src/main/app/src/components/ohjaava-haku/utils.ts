@@ -1,4 +1,4 @@
-import { isEmpty, isUndefined, some } from 'lodash';
+import { isEmpty, isUndefined, some } from 'lodash-es';
 
 import { RajainItem } from '#/src/types/SuodatinTypes';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Box, Divider, Grid, Typography } from '@mui/material';
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';

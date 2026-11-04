@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Box, Grid, Typography } from '@mui/material';
-import { size } from 'lodash';
+import { size } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 import { match } from 'ts-pattern';
 
