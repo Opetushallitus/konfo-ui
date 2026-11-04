@@ -24,6 +24,7 @@ const classes = {
   input: `${PREFIX}input`,
   optionDisabled: `${PREFIX}option--disabled`,
   gradeLabel: `${PREFIX}gradelabel`,
+  gradeLabelText: `${PREFIX}gradelabeltext`,
   gradeSelect: `${PREFIX}gradeselect`,
   gradeDelete: `${PREFIX}gradeDelete`,
 };
@@ -46,6 +47,13 @@ const ValinnainenControl = styled(FormControl)(({ theme }) => ({
       alignItems: 'stretch',
       width: '100%',
     },
+  },
+  [`& .${classes.gradeLabelText}`]: {
+    position: 'relative',
+    transform: 'none',
+    fontSize: '1rem',
+    fontWeight: 'normal',
+    lineHeight: '1.6rem',
   },
   [`& .${classes.gradeDelete}`]: {
     color: colors.brandGreen,
@@ -106,8 +114,10 @@ export const ValinnainenArvosana = ({
 
   return (
     <ValinnainenControl variant="standard" sx={{ minWidth: 220 }}>
-      <InputLabel id={`${labelId}-${index}`} className={classes.gradeLabel}>
-        {t('pistelaskuri.aine.valinnaisaine')}
+      <Box className={classes.gradeLabel}>
+        <InputLabel id={`${labelId}-${index}`} className={classes.gradeLabelText}>
+          {t('pistelaskuri.aine.valinnaisaine')}
+        </InputLabel>
         <SelectContainer>
           <Select
             autoFocus
@@ -138,7 +148,7 @@ export const ValinnainenArvosana = ({
             <MaterialIcon icon="delete" variant="outlined" />
           </IconButton>
         </SelectContainer>
-      </InputLabel>
+      </Box>
     </ValinnainenControl>
   );
 };

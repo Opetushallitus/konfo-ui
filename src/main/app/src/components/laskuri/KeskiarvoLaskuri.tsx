@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { Box, Typography, Input, InputLabel, Grid, Button } from '@mui/material';
+import { Box, Typography, Input, Grid, Button } from '@mui/material';
 import { matches } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
@@ -17,6 +17,7 @@ const PREFIX = 'keskiarvo__laskuri__';
 const classes = {
   input: `${PREFIX}input`,
   error: `${PREFIX}error`,
+  hint: `${PREFIX}hint`,
   inputContainer: `${PREFIX}input__container`,
   changeCalcButton: `${PREFIX}changecalcbutton`,
 };
@@ -25,9 +26,6 @@ const LaskuriContainer = styled(Box, {
   shouldForwardProp: (propName) => propName !== 'embedded',
 })<{ embedded: boolean }>(({ theme, embedded }) => ({
   [`& .${classes.inputContainer}`]: {
-    ['&:last-of-type label']: {
-      overflow: 'visible',
-    },
     [theme.breakpoints.down('xl')]: {
       marginTop: '1.5rem',
       '&:first-of-type': {
@@ -52,6 +50,9 @@ const LaskuriContainer = styled(Box, {
     [`& .${classes.error}`]: {
       color: colors.red,
       maxWidth: '60%',
+    },
+    [`& .${classes.hint}`]: {
+      color: colors.grey700,
     },
   },
   [`& .${classes.changeCalcButton}`]: {
@@ -78,6 +79,54 @@ type Props = {
 
 const keskiArvotIsEmpty = (kat: Keskiarvot) =>
   matches(kat)({ lukuaineet: '', taideTaitoAineet: '', kaikki: '', suorittanut: true });
+
+type KeskiarvoInputProps = {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  tooltip?: React.ReactNode;
+};
+
+const KeskiarvoInput = ({ id, label, value, onChange, tooltip }: KeskiarvoInputProps) => {
+  const { t } = useTranslation();
+  const isValid = isValidKeskiarvo(value);
+  const hintId = `${id}-ohje`;
+  const errorId = `${id}-virhe`;
+
+  return (
+    <>
+      <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+        <Typography component="label" htmlFor={id} sx={{ fontWeight: '600' }}>
+          {label}
+        </Typography>
+        {tooltip}
+      </Box>
+      <Typography variant="body2" id={hintId} className={classes.hint}>
+        {t('pistelaskuri.ka-placeholder')}
+      </Typography>
+      <Input
+        id={id}
+        className={classes.input}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+          onChange(event.target.value)
+        }
+        value={value}
+        error={!isValid}
+        disableUnderline={true}
+        inputProps={{
+          required: true,
+          'aria-describedby': isValid ? hintId : `${hintId} ${errorId}`,
+        }}
+      />
+      {!isValid && (
+        <Typography variant="body2" id={errorId} className={classes.error}>
+          {t('pistelaskuri.error.keskiarvo')}
+        </Typography>
+      )}
+    </>
+  );
+};
 
 export const KeskiarvoLaskuri = ({
   changeCalculator,
@@ -119,7 +168,10 @@ export const KeskiarvoLaskuri = ({
     <LaskuriContainer
       embedded={embedded}
       aria-label={t('pistelaskuri.keskiarvot-header')}>
-      <Typography variant="h3" sx={{ fontSize: '1.25rem' }}>
+      <Typography
+        variant="h3"
+        component={embedded ? 'h2' : 'h3'}
+        sx={{ fontSize: '1.25rem' }}>
         {t('pistelaskuri.keskiarvot-header')}
       </Typography>
       <Button
@@ -127,88 +179,54 @@ export const KeskiarvoLaskuri = ({
         onClick={() => changeCalculator(false)}>
         {t('pistelaskuri.vaihdalaskin')}
       </Button>
+      <Typography sx={{ marginBottom: '1rem' }}>
+        {t('pistelaskuri.pakolliset-kentat')}
+      </Typography>
       <Grid
         container
         justifyContent="space-evenly"
         columns={{ xs: 1, xl: embedded ? 10 : 3 }}>
         <Grid item xs={1} xl={embedded ? 3 : 1} className={classes.inputContainer}>
-          <InputLabel>
-            <Typography sx={{ fontWeight: '600' }}>
-              {t('pistelaskuri.ka-lukuaineet')}
-            </Typography>
-            <Input
-              className={classes.input}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                changeKeskiarvo(event.target.value, (ka: Keskiarvot, val: string) =>
-                  Object.assign({}, ka, { lukuaineet: val })
-                )
-              }
-              value={keskiarvot?.lukuaineet}
-              error={!isValidKeskiarvo(keskiarvot?.lukuaineet)}
-              disableUnderline={true}
-              placeholder={t('pistelaskuri.ka-placeholder')}
-            />
-          </InputLabel>
-          {!isValidKeskiarvo(keskiarvot?.lukuaineet) && (
-            <Typography variant="body2" className={classes.error}>
-              {t('pistelaskuri.error.keskiarvo')}
-            </Typography>
-          )}
-        </Grid>
-        <Grid
-          className={classes.inputContainer}
-          item
-          xs={1}
-          xl={embedded ? 4 : 1}
-          sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
-          <InputLabel>
-            <Typography sx={{ fontWeight: '600' }}>
-              {t('pistelaskuri.ka-taito')}
-            </Typography>
-            <Input
-              className={classes.input}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                changeKeskiarvo(event.target.value, (ka: Keskiarvot, val: string) =>
-                  Object.assign({}, ka, { taideTaitoAineet: val })
-                )
-              }
-              value={keskiarvot?.taideTaitoAineet}
-              disableUnderline={true}
-              placeholder={t('pistelaskuri.ka-placeholder')}
-            />
-          </InputLabel>
-          <LabelTooltip
-            title={t('pistelaskuri.taide-info')}
-            sx={{ marginLeft: '3px', color: colors.brandGreen }}
+          <KeskiarvoInput
+            id="keskiarvo-lukuaineet"
+            label={t('pistelaskuri.ka-lukuaineet')}
+            value={keskiarvot?.lukuaineet}
+            onChange={(val) =>
+              changeKeskiarvo(val, (ka: Keskiarvot, v: string) =>
+                Object.assign({}, ka, { lukuaineet: v })
+              )
+            }
           />
-          {!isValidKeskiarvo(keskiarvot?.taideTaitoAineet) && (
-            <Typography variant="body2" className={classes.error}>
-              {t('pistelaskuri.error.keskiarvo')}
-            </Typography>
-          )}
+        </Grid>
+        <Grid item xs={1} xl={embedded ? 4 : 1} className={classes.inputContainer}>
+          <KeskiarvoInput
+            id="keskiarvo-taideTaitoAineet"
+            label={t('pistelaskuri.ka-taito')}
+            value={keskiarvot?.taideTaitoAineet}
+            onChange={(val) =>
+              changeKeskiarvo(val, (ka: Keskiarvot, v: string) =>
+                Object.assign({}, ka, { taideTaitoAineet: v })
+              )
+            }
+            tooltip={
+              <LabelTooltip
+                title={t('pistelaskuri.taide-info')}
+                sx={{ marginLeft: '3px', color: colors.brandGreen }}
+              />
+            }
+          />
         </Grid>
         <Grid item xs={1} xl={embedded ? 3 : 1} className={classes.inputContainer}>
-          <InputLabel>
-            <Typography sx={{ fontWeight: '600' }}>
-              {t('pistelaskuri.ka-kaikki')}
-            </Typography>
-            <Input
-              className={classes.input}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                changeKeskiarvo(event.target.value, (ka: Keskiarvot, val: string) =>
-                  Object.assign({}, ka, { kaikki: val })
-                )
-              }
-              value={keskiarvot?.kaikki}
-              disableUnderline={true}
-              placeholder={t('pistelaskuri.ka-placeholder')}
-            />
-          </InputLabel>
-          {!isValidKeskiarvo(keskiarvot?.kaikki) && (
-            <Typography variant="body2" className={classes.error}>
-              {t('pistelaskuri.error.keskiarvo')}
-            </Typography>
-          )}
+          <KeskiarvoInput
+            id="keskiarvo-kaikki"
+            label={t('pistelaskuri.ka-kaikki')}
+            value={keskiarvot?.kaikki}
+            onChange={(val) =>
+              changeKeskiarvo(val, (ka: Keskiarvot, v: string) =>
+                Object.assign({}, ka, { kaikki: v })
+              )
+            }
+          />
         </Grid>
       </Grid>
       <SuorittanutCheckbox
