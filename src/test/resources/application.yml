@@ -1,0 +1,17 @@
+# Testikonfiguraatio, rakenne vastaa oph-configuration/konfoui.yml.templatea
+server:
+  servlet:
+    context-path: /konfo
+bucket:
+  url: https://content.example.test/
+host:
+  host-oppija: https://oppija.example.test
+  old-oppija-base-url-fi: ""
+  old-oppija-base-url-sv: ""
+  old-oppija-base-url-en: ""
+  host-eperusteet-service: https://eperusteet.example.test
+kartta:
+  host: https://kartta.example.test
+  pid: test-pid
+konfo-ui:
+  nayta-filtterien-hakutulos-luvut: false
