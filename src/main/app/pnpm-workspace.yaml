@@ -1,13 +1,6 @@
 preferFrozenLockfile: true
 minimumReleaseAge: 4320
 
-overrides:
-  minimatch@3: ^3.1.5
-  minimatch@5: ^5.1.9
-  minimatch@9: ^9.0.7
-  form-data: ^4.0.6
-  js-cookie: ^3.0.7
-
 patchedDependencies:
   '@mui/material@7.3.11': patches/@mui__material@7.3.11.patch
 
