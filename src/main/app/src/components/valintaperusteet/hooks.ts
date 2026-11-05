@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 
 import {
   getHakukohde,
@@ -39,14 +39,12 @@ const getValintaperustePageData = async (hakukohdeOid: string, isDraft: boolean)
 
 export const useValintaperustePageData = ({ hakukohdeOid }: PageDataProps) => {
   const { isDraft } = useUrlParams();
-  return useQuery<PageData>(
-    ['getValintaperustePageData', hakukohdeOid],
-    () => getValintaperustePageData(hakukohdeOid!, isDraft),
-    {
-      refetchOnWindowFocus: false,
-      enabled: Boolean(hakukohdeOid),
-    }
-  );
+  return useQuery<PageData>({
+    queryKey: ['getValintaperustePageData', hakukohdeOid],
+    queryFn: () => getValintaperustePageData(hakukohdeOid!, isDraft),
+    refetchOnWindowFocus: false,
+    enabled: Boolean(hakukohdeOid),
+  });
 };
 
 type PreviewPageDataProps = {
@@ -70,12 +68,10 @@ export const useValintaperustePreviewPageData = ({
   valintaperusteId,
 }: PreviewPageDataProps) => {
   const { isDraft } = useUrlParams();
-  return useQuery<PreviewPageData>(
-    ['getValintaperustePreviewPageData', valintaperusteId],
-    () => getValintaperustePreviewPageData(valintaperusteId!, isDraft),
-    {
-      refetchOnWindowFocus: false,
-      enabled: Boolean(valintaperusteId),
-    }
-  );
+  return useQuery<PreviewPageData>({
+    queryKey: ['getValintaperustePreviewPageData', valintaperusteId],
+    queryFn: () => getValintaperustePreviewPageData(valintaperusteId!, isDraft),
+    refetchOnWindowFocus: false,
+    enabled: Boolean(valintaperusteId),
+  });
 };

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { set, uniq, omit, mapValues, forEach } from 'lodash-es';
-import { useQuery } from 'react-query';
 import { P, match } from 'ts-pattern';
 
 import {
@@ -136,14 +136,12 @@ export const useKoulutus = ({
   isDraft,
   osaamisalakuvaukset = false,
 }: UseKoulutusProps) => {
-  return useQuery(
-    ['fetchKoulutus', { oid, isDraft, osaamisalakuvaukset }],
-    () => fetchKoulutus(oid!, isDraft, osaamisalakuvaukset),
-    {
-      select: selectKoulutus,
-      enabled: Boolean(oid),
-    }
-  );
+  return useQuery({
+    queryKey: ['fetchKoulutus', { oid, isDraft, osaamisalakuvaukset }],
+    queryFn: () => fetchKoulutus(oid!, isDraft, osaamisalakuvaukset),
+    select: selectKoulutus,
+    enabled: Boolean(oid),
+  });
 };
 
 const selectJarjestajat = (data: any) => {
@@ -251,16 +249,14 @@ export const useKoulutusJarjestajat = ({
     },
   };
 
-  const result = useQuery(
-    ['getKoulutusJarjestajat', fetchProps],
-    () => getKoulutusJarjestajat(fetchProps),
-    {
-      enabled: Boolean(oid),
-      keepPreviousData: true,
-      staleTime: 60 * 1000,
-      select: selectJarjestajat,
-    }
-  );
+  const result = useQuery({
+    queryKey: ['getKoulutusJarjestajat', fetchProps],
+    queryFn: () => getKoulutusJarjestajat(fetchProps),
+    enabled: Boolean(oid),
+    placeholderData: keepPreviousData,
+    staleTime: 60 * 1000,
+    select: selectJarjestajat,
+  });
 
   return useMemo(
     (): any => ({

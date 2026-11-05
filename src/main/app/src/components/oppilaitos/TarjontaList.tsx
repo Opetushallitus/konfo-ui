@@ -37,7 +37,7 @@ export const TarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
   const scrolltargetId = 'tarjonta-list';
 
   switch (status) {
-    case 'loading':
+    case 'pending':
       return <LoadingCircle />;
     case 'success':
       return tarjonta.hasHits ? (

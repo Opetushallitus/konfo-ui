@@ -1,8 +1,8 @@
 import { Box, Button, Typography, useTheme } from '@mui/material';
+import { useQuery } from '@tanstack/react-query';
 import { last, omit } from 'lodash-es';
 import qs from 'query-string';
 import { useTranslation } from 'react-i18next';
-import { useQuery } from 'react-query';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 
 import { searchKoulutukset } from '#/src/api/konfoApi';
@@ -44,16 +44,13 @@ const useKoulutusSearch = ({ searchParams, size }: Props) => {
         }
       : baseParams;
 
-  return useQuery<unknown, unknown, KoulutusQueryResult>(
-    ['searchKoulutukset', { search: searchParmsWithKeyword }],
-    ({ signal }) => searchKoulutukset(searchParmsWithKeyword, signal),
-    {
-      keepPreviousData: false,
-      refetchOnMount: false,
-      refetchOnWindowFocus: false,
-      enabled: true,
-    }
-  );
+  return useQuery<unknown, Error, KoulutusQueryResult>({
+    queryKey: ['searchKoulutukset', { search: searchParmsWithKeyword }],
+    queryFn: ({ signal }) => searchKoulutukset(searchParmsWithKeyword, signal),
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    enabled: true,
+  });
 };
 
 const navigateToHakupage = ({ searchParams }: Props, navigate: NavigateFunction) => {

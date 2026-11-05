@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { QueryObserverResult } from 'react-query';
+import { QueryObserverResult } from '@tanstack/react-query';
 
-import { getCombinedQueryStatus } from './queryResultUtils';
+import { getCombinedQueryStatus, getQueryStatus } from './queryResultUtils';
 import { ErrorMessage } from '../ErrorMessage';
 import { LoadingCircle, LoadingCircleWrapper } from '../LoadingCircle';
 
@@ -27,7 +27,7 @@ const createQueryResultWrapper =
       errors = queryResult?.map(({ error }) => error).filter(Boolean);
       refetch = () => queryResult.forEach((result) => result.refetch());
     } else {
-      status = queryResult?.status;
+      status = getQueryStatus(queryResult);
       isFetching = queryResult?.isFetching;
       errors = queryResult?.error ? [queryResult?.error] : undefined;
       refetch = queryResult?.refetch;

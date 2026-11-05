@@ -26,7 +26,7 @@ export const InitGate = ({ children }: PropsWithChildren) => {
 
   useSyncAppPage();
 
-  if ([urlStatus, i18nStatus, configurationStatus].includes('loading')) {
+  if ([urlStatus, i18nStatus, configurationStatus].includes('pending')) {
     return <LoadingCircleUntranslated hiddenLabel="Sovellusta ladataan..." />;
   } else if ([urlStatus, i18nStatus, configurationStatus].includes('error')) {
     return <div>Sovelluksen lataaminen epäonnistui!</div>;

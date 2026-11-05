@@ -1,7 +1,7 @@
 import { Alert, Box, Button, Collapse, Link, Tooltip, Typography } from '@mui/material';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { isEmpty } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
-import { useQuery, useQueryClient } from 'react-query';
 import { TransitionGroup } from 'react-transition-group';
 import { usePrevious } from 'react-use';
 
@@ -58,14 +58,12 @@ const useSuosikitData = (oids?: Array<string>) => {
     );
   }
 
-  return useQuery(
-    ['getSuosikit', oids],
-    () => getHakukohdeSuosikit({ 'hakukohde-oids': oids! }),
-    {
-      enabled: !isEmpty(oids),
-      refetchOnWindowFocus: false,
-    }
-  );
+  return useQuery({
+    queryKey: ['getSuosikit', oids],
+    queryFn: () => getHakukohdeSuosikit({ 'hakukohde-oids': oids! }),
+    enabled: !isEmpty(oids),
+    refetchOnWindowFocus: false,
+  });
 };
 
 const Tutkintonimikkeet = ({
