@@ -17,9 +17,9 @@ import { LukiolinjatSuodatin } from '#/src/components/suodattimet/toteutusSuodat
 import { KOULUTUS_TYYPPI, KORKEAKOULU_KOULUTUSTYYPIT } from '#/src/constants';
 import { RajainComponentProps } from '#/src/types/SuodatinTypes';
 
-import { VaativanErityisenTuenSuodatin } from '../components/suodattimet/toteutusSuodattimet/VaativanErityisenTuenSuodatin';
+import { VaativanErityisenTuenSuodatin } from '#/src/components/suodattimet/toteutusSuodattimet/VaativanErityisenTuenSuodatin';
 
-export const useToteutusRajainOrder = ({
+export const getToteutusRajainOrder = ({
   koulutustyyppi,
 }: {
   koulutustyyppi?: string;

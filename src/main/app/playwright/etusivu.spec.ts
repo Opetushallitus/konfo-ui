@@ -13,6 +13,7 @@ test.describe('Etusivu', () => {
   test.beforeEach(async ({ page, context, baseURL }) => {
     await setupCommonTest({ page, context, baseURL });
   });
+
   test('Should have cards with working links', async ({ page }) => {
     await page.goto('/konfo');
     await page.locator('a[href*="/sivu/ammatillinen-koulutus"]').click();

@@ -31,9 +31,7 @@ import {
 import { marks } from './maksullisuusRajainUtils';
 
 type MaksunMaaraRajainName =
-  | 'maksunmaara'
-  | 'lukuvuosimaksunmaara_kk'
-  | 'lukuvuosimaksunmaara_amm_lk';
+  'maksunmaara' | 'lukuvuosimaksunmaara_kk' | 'lukuvuosimaksunmaara_amm_lk';
 
 const getCheckboxRajain = (rajainItems: Array<RajainItem>, id: string): RajainItem =>
   rajainItems.find((r) => r.id === id) ?? {

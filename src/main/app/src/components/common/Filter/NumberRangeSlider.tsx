@@ -48,8 +48,8 @@ export const NumberRangeSlider = ({
         </Typography>
       )}
       <SuodatinSlider
-        {...(sliderLabel && { 'aria-labelledby': 'suodatin-slider' })}
         key={valueToKey(values)}
+        {...(sliderLabel && { 'aria-labelledby': 'suodatin-slider' })}
         disabled={disabled}
         defaultValue={values}
         min={min}

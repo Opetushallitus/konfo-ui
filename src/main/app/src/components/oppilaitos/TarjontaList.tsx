@@ -70,16 +70,14 @@ export const TarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
                       [toteutus?.locations, PublicIcon],
                       [toteutus?.opetustapa, HourglassIcon],
                       [toteutus?.price, EuroSymbolIcon],
-                      [
-                        toteutus.hakuAuki ? (
-                          <TextWithBackground>
-                            {t('haku.hakukaynnissa')}
-                          </TextWithBackground>
-                        ) : (
-                          <></>
-                        ),
-                        undefined,
-                      ],
+                      toteutus.hakuAuki
+                        ? [
+                            <TextWithBackground key="haku-kaynnissa">
+                              {t('haku.hakukaynnissa')}
+                            </TextWithBackground>,
+                            undefined,
+                          ]
+                        : undefined,
                     ]}
                   />
                 </Box>

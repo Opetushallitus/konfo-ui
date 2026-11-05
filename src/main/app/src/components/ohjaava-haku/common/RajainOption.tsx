@@ -56,10 +56,10 @@ export const RajainOption = ({
 
   return (
     <OptionButton
+      key={id}
       {...(isRajainSelected && {
         startIcon: <MaterialIcon icon="check" />,
       })}
-      key={id}
       onClick={() => toggleAllSelectedRajainValues(rajainId, rajainValueIds)}
       {...(isRajainSelected && { 'data-selected': true })}>
       {useRajainOptionNameFromRajain

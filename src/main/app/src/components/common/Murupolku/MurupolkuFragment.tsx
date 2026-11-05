@@ -107,7 +107,7 @@ const shortenName = (name: string) => {
     }
   };
 
-  let match: RegExpExecArray | null = null;
+  let match: RegExpExecArray | null;
   const re = /\s/g;
   while ((match = re.exec(name)) !== null) {
     const currentIndex = re.lastIndex - match.length;

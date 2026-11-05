@@ -104,8 +104,8 @@ export const OhjaavaHakuPage = () => {
   }
 
   return (
-    <OhjaavaHakuContext.Provider value={storeRef.current}>
+    <OhjaavaHakuContext value={storeRef.current}>
       <OhjaavaHaku />
-    </OhjaavaHakuContext.Provider>
+    </OhjaavaHakuContext>
   );
 };

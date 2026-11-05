@@ -7,6 +7,7 @@ test.describe('KOMO osaamisala', () => {
     await setupCommonTest({ page, context, baseURL });
     await mocksFromFile(page, 'komo-osaamisala.mocks.json');
   });
+
   test('Osaamisala KOMO renders properly', async ({ page }) => {
     await page.goto('/konfo/fi/koulutus/1.2.246.562.13.00000000000000000623');
     await expect(page.locator('h1')).toContainText('Hevosten kengittämisen osaamisala');

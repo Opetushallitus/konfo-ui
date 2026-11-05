@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react';
+import { createContext, use } from 'react';
 
 import { createStore, useStore } from 'zustand';
 
@@ -66,7 +66,7 @@ export type OhjaavaHakuStore = ReturnType<typeof createOhjaavaHakuStore>;
 export const OhjaavaHakuContext = createContext<OhjaavaHakuStore | undefined>(undefined);
 
 export const useOhjaavaHaku = <T>(selector: (state: OhjaavaHakuState) => T): T => {
-  const context = useContext(OhjaavaHakuContext);
+  const context = use(OhjaavaHakuContext);
   if (!context) {
     throw new Error(`useOhjaavaHaku must be used within OhjaavaHakuContext`);
   }

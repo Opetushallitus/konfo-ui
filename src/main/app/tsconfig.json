@@ -28,7 +28,6 @@
     "src/**/*.tsx",
     "src/**/*.jsx",
     "src/**/*.js",
-    ".eslintrc.js",
     "*.config.ts",
     "*.config.mts"
   ],

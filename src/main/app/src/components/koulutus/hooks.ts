@@ -195,13 +195,13 @@ export const useKoulutusJarjestajat = ({
 
   const previousPage = usePreviousPage();
 
-  const hasSetInitialFilters = useRef(false);
+  const hasSetInitialFiltersRef = useRef(false);
 
   useEffect(() => {
-    if (previousPage === 'haku' && !hasSetInitialFilters.current) {
+    if (previousPage === 'haku' && !hasSetInitialFiltersRef.current) {
       setRajainValues(initialValues);
       setPagination({ offset: 0 });
-      hasSetInitialFilters.current = true;
+      hasSetInitialFiltersRef.current = true;
     }
   }, [oid, setRajainValues, initialValues, previousPage, setPagination]);
 

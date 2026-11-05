@@ -11,7 +11,7 @@ import {
 import { HakupisteLaskelma } from './Keskiarvo';
 
 type Props = {
-  rootRef: React.MutableRefObject<HTMLDivElement | null>;
+  rootRef: React.RefObject<HTMLDivElement | null>;
 };
 
 export const EmbeddedPistelaskuri = ({ rootRef }: Props) => {

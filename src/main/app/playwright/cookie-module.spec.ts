@@ -20,6 +20,7 @@ test.describe('Cookie consent button clicking and cockie saving into browser mem
     expect(Boolean(mandatoryValue)).toBe(mandatory);
     expect(Boolean(statisticsValue)).toBe(statistics);
   };
+
   test('"Evästeasetukset"-button should open modal-window from drawer and "Salli vain pakolliset evästeet"-button should store mandatory cookies', async ({
     page,
     context,

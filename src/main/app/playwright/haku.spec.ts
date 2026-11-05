@@ -431,13 +431,13 @@ test.describe('Haku', () => {
     const currentButtonPage1 = page.getByRole('link', {
       name: 'Sivu 1 / 114, nykyinen sivu',
     });
-    const page2Button = page.getByRole('link', { name: 'Siirry sivulle 2 / 114' });
+    const secondPageLink = page.getByRole('link', { name: 'Siirry sivulle 2 / 114' });
 
     await expect(currentButtonPage1).toHaveAttribute(
       'aria-label',
       'Sivu 1 / 114, nykyinen sivu'
     );
-    await expect(page2Button).not.toHaveAttribute('aria-current');
+    await expect(secondPageLink).not.toHaveAttribute('aria-current');
 
     // Pyynnössä täytyy olla parametrina page=2
     const requestPromiseForPage2Click = page.waitForRequest(
@@ -450,7 +450,7 @@ test.describe('Haku', () => {
       },
       { timeout: 5000 }
     );
-    await page2Button.click();
+    await secondPageLink.click();
     await requestPromiseForPage2Click;
 
     const currentButtonPage2 = page.getByRole('link', {
@@ -487,6 +487,6 @@ test.describe('Haku', () => {
       'aria-label',
       'Sivu 1 / 114, nykyinen sivu'
     );
-    await expect(page2Button).not.toHaveAttribute('aria-current');
+    await expect(secondPageLink).not.toHaveAttribute('aria-current');
   });
 });

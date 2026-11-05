@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-interface */
-
 import { PaletteColorOptions } from '@mui/material/styles';
 
 declare module '@mui/material/styles' {

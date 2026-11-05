@@ -13,7 +13,7 @@ import { Pagination } from '#/src/components/common/Pagination';
 import { QueryResultWrapper } from '#/src/components/common/QueryResultWrapper';
 import { TextWithBackground } from '#/src/components/common/TextWithBackground';
 import { KOULUTUS_TYYPPI } from '#/src/constants';
-import { useToteutusRajainOrder } from '#/src/hooks/useToteutusRajainOrder';
+import { getToteutusRajainOrder } from '#/src/tools/getToteutusRajainOrder';
 import { getLocalizedMaksullisuus } from '#/src/tools/getLocalizedMaksullisuus';
 import { localize, localizeArrayToCommaSeparated } from '#/src/tools/localization';
 import { getLocalizedOpintojenLaajuus } from '#/src/tools/utils';
@@ -89,7 +89,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
 
   const [preventClicks, setPreventClicks] = useState(false);
 
-  const rajainOrder = useToteutusRajainOrder({ koulutustyyppi });
+  const rajainOrder = getToteutusRajainOrder({ koulutustyyppi });
 
   return (
     <Box>
@@ -203,16 +203,14 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                         ),
                         createMaterialIcon('euro_symbol'),
                       ],
-                      [
-                        toteutus.hakuAuki ? (
-                          <TextWithBackground>
-                            {t('haku.hakukaynnissa')}
-                          </TextWithBackground>
-                        ) : (
-                          <></>
-                        ),
-                        undefined,
-                      ],
+                      toteutus.hakuAuki
+                        ? [
+                            <TextWithBackground key="haku-kaynnissa">
+                              {t('haku.hakukaynnissa')}
+                            </TextWithBackground>,
+                            undefined,
+                          ]
+                        : undefined,
                     ]}
                   />
                 </Box>

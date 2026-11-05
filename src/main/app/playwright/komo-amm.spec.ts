@@ -7,6 +7,7 @@ test.describe('KOMO amm', () => {
     await setupCommonTest({ page, context, baseURL });
     await mocksFromFile(page, 'komo-amm.mocks.json');
   });
+
   test('Amm KOMO renders properly with kuvaus and osaamistavoitteet', async ({
     page,
   }) => {
