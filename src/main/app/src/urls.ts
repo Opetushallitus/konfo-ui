@@ -55,4 +55,6 @@ export const configureUrls = async () => {
   } else {
     await urls.load('/konfo/rest/config/frontProperties');
   }
+  // React Query does not allow undefined as query data
+  return null;
 };
