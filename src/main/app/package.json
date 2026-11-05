@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "homepage": "/konfo",
   "private": true,
-  "packageManager": "pnpm@10.22.0",
   "scripts": {
     "prepare": "cd ../../../ && husky",
     "start": "vite dev",
@@ -120,18 +119,6 @@
     "vite-plugin-svgr": "^4.3.0",
     "vitest": "^3.2.4"
   },
-  "pnpm": {
-    "overrides": {
-      "minimatch@3": "^3.1.5",
-      "minimatch@5": "^5.1.9",
-      "minimatch@9": "^9.0.7",
-      "form-data": "^4.0.6",
-      "js-cookie": "^3.0.7"
-    },
-    "patchedDependencies": {
-      "@mui/material@7.3.11": "patches/@mui__material@7.3.11.patch"
-    }
-  },
   "lint-staged": {
     "*.{json,css,md}": [
       "prettier --write"
@@ -155,7 +142,9 @@
   },
   "devEngines": {
     "packageManager": {
-      "name": "pnpm"
+      "name": "pnpm",
+      "version": "^12.0.0",
+      "onFail": "error"
     }
   }
 }
