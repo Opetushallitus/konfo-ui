@@ -173,8 +173,8 @@ importers:
         specifier: ^4.18.1
         version: 4.18.1
       markdown-to-jsx:
-        specifier: ^7.7.17
-        version: 7.7.17(react@19.3.1)
+        specifier: ^9.10.4
+        version: 9.10.4(react@19.3.1)(solid-js@1.9.18)
       oph-urls-js:
         specifier: github:Opetushallitus/oph-urls-js#9fc4edaa04c10fa974f124b5c228c41c2c6f0bc5
         version: https://codeload.github.com/Opetushallitus/oph-urls-js/tar.gz/9fc4edaa04c10fa974f124b5c228c41c2c6f0bc5
@@ -3246,13 +3246,22 @@ packages:
   magic-string@1.4.5:
     resolution: {integrity: sha512-oLLC2+YvQUfAa+vxoufE/yc1icb87M9iXIRqAoR/2EhE/8cb3SF/+Gi0c2By1B+5Vz2e2vQtUvHiu1+63Znh+w==}
 
-  markdown-to-jsx@7.7.17:
-    resolution: {integrity: sha512-7mG/1feQ0TX5I7YyMZVDgCC/y2I3CiEhIRQIhyov9nGBP5eoVrOXXHuL5ZP8GRfxVZKRiXWJgwXkb9It+nQZfQ==}
-    engines: {node: '>= 10'}
+  markdown-to-jsx@9.10.4:
+    resolution: {integrity: sha512-l0jxHMVbWzE2AWzBpNrxZAMcjZfpUOMjzK/AWTzvto2Oc+eki3WNEMMwTYHeM/ZogjbHbg1A518ytYMsHcMjVQ==}
+    engines: {node: '>= 18'}
     peerDependencies:
-      react: '>= 0.14.0'
+      react: '>= 16.0.0'
+      react-native: '*'
+      solid-js: '>=1.0.0'
+      vue: '>=3.0.0'
     peerDependenciesMeta:
       react:
+        optional: true
+      react-native:
+        optional: true
+      solid-js:
+        optional: true
+      vue:
         optional: true
 
   math-intrinsics@1.1.0:
@@ -7730,9 +7739,10 @@ snapshots:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.6.0
 
-  markdown-to-jsx@7.7.17(react@19.3.1):
+  markdown-to-jsx@9.10.4(react@19.3.1)(solid-js@1.9.18):
     optionalDependencies:
       react: 19.3.1
+      solid-js: 1.9.18
 
   math-intrinsics@1.1.0: {}
 

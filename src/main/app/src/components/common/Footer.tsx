@@ -1,5 +1,5 @@
 import { Box, Grid, Link, Typography } from '@mui/material';
-import Markdown from 'markdown-to-jsx';
+import Markdown from 'markdown-to-jsx/react';
 import { useTranslation } from 'react-i18next';
 
 import OPOLogoFooterFI from '#/src/assets/images/OpetushallitusIcon.svg';
