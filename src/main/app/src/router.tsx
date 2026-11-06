@@ -37,6 +37,8 @@ import {
   urlParamsChanged,
 } from '#/src/store/reducers/hakutulosSlice';
 
+import { TutuOpasPage } from './components/tutu-opas/TutuOpasPage';
+
 // Ajetaan aina kun etusivulle navigoidaan (myös selaimen takaisin/eteenpäin-napeilla),
 // eli hakutulosvalinnat ovat tyhjät ennen kuin sivu renderöityy - ei vaadi erillistä efektiä.
 const resetHakuStateLoader = () => {
@@ -77,6 +79,10 @@ const routes: Array<RouteObject> = [
               { index: true, element: <Etusivu />, loader: resetHakuStateLoader },
               { path: 'sisaltohaku', element: <Sisaltohaku /> },
               { path: 'ohjaava-haku', element: <OhjaavaHakuPage /> },
+              {
+                path: 'tutkintojen-tunnustaminen/palveluopas',
+                element: <TutuOpasPage />,
+              },
               {
                 element: (
                   <>

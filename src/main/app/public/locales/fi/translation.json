@@ -914,5 +914,22 @@
     "hakulomakkeelle-voi-vieda-enintaan": "Hakulomakkeelle voi viedä enintään {{max}} hakukohdetta.",
     "aloituspaikat": "Aloituspaikat",
     "aloituspaikat-ensisijaiset-hakijat": "Aloituspaikat / Ensisijaiset hakijat {{year}}"
+  },
+  "tutu": {
+    "tutu": "Tutkintojen tunnustaminen",
+    "tutu-opas": {
+      "tutu-opas": "Tutkintojen tunnustamisen palveluopas",
+      "start-page": {
+        "intro": "Oletko suorittanut ulkomailla korkeakoulututkinnon tai ammatillisen tutkinnon? Tahdotko työskennellä ammatissasi tai jatkaa opintoja Suomessa?",
+        "info-list": {
+          "heading": "Tutkintojen tunnustamisen palveluoppaan avulla saat selville",
+          "paatos": "tarvitsetko päätöksen tutkinnon tunnustamisesta",
+          "hakeminen": "mistä ja miten haet päätöstä ja",
+          "lisatiedot": "mistä saat lisätietoja."
+        },
+        "ending": "Palveluopas neuvoo sinua vaihe vaiheelta. Voit käyttää sitä suomeksi, ruotsiksi tai englanniksi.",
+        "aloita": "Aloita"
+      }
+    }
   }
 }
