@@ -132,6 +132,13 @@ export const theme = createTheme({
         lineHeight: '1.6875rem',
       },
     },
+    // oph-design-system vaatii tyypityksessään label-variantin kaikilta teemoilta
+    label: {
+      fontSize: '1rem',
+      fontWeight: 600,
+      lineHeight: '1.5rem',
+      color: colors.grey900,
+    },
   },
 
   components: {
