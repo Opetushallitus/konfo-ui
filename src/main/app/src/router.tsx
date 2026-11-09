@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 
 import { App } from '#/src/App';
+import { OphThemeRoute } from '#/src/components/common/OphThemeRoute';
 import { Etusivu } from '#/src/components/Etusivu';
 import { Hairiotiedote } from '#/src/components/Hairiotiedote';
 import { HakuLabel } from '#/src/components/haku/HakuLabel';
@@ -23,6 +24,7 @@ import { SuosikitPage } from '#/src/components/SuosikitPage';
 import { SuosikitVertailuPage } from '#/src/components/SuosikitVertailuPage';
 import { ToteutusPage } from '#/src/components/toteutus/ToteutusPage';
 import { TranslatedRoute } from '#/src/components/TranslatedRoute';
+import { UusiEtusivu } from '#/src/components/uusi-etusivu/UusiEtusivu';
 import {
   ValintaperustePage,
   ValintaperustePreviewPage,
@@ -75,6 +77,16 @@ const routes: Array<RouteObject> = [
             ),
             children: [
               { index: true, element: <Etusivu />, loader: resetHakuStateLoader },
+              {
+                element: <OphThemeRoute />,
+                children: [
+                  {
+                    path: 'etusivu',
+                    element: <UusiEtusivu />,
+                    loader: resetHakuStateLoader,
+                  },
+                ],
+              },
               { path: 'sisaltohaku', element: <Sisaltohaku /> },
               { path: 'ohjaava-haku', element: <OhjaavaHakuPage /> },
               {
