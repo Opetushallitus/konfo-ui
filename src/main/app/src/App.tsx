@@ -7,21 +7,17 @@ import { matchPath, Outlet, useLocation } from 'react-router-dom';
 
 import { CookieDrawer } from '#/src/components/common/CookieDrawer';
 import { CookieModal } from '#/src/components/common/CookieModal';
-import { HeadingBoundary } from '#/src/components/Heading';
 import { useSideMenu } from '#/src/hooks';
 import { styled } from '#/src/theme';
 import { getLanguage } from '#/src/tools/localization';
 import { useChat } from '#/src/useChat';
 
 import { Draft } from './components/common/Draft';
-import { Footer } from './components/common/Footer';
 import { Header } from './components/common/Header';
-import { Notifications } from './components/common/Notifications';
 import { SkipToContent } from './components/common/SkipToContent';
-import { Palvelut } from './components/palvelu/Palvelut';
 import { SIDEMENU_WIDTH } from './constants';
 import { useIsAtEtusivu } from './store/reducers/appSlice';
-import { getHeaderHeight, theme } from './theme';
+import { theme } from './theme';
 
 declare global {
   interface Window {
@@ -65,25 +61,6 @@ const ContentColumn = styled('div')(
           }),
           marginLeft: 0,
         }),
-  })
-);
-
-const MainContent = styled('main')(
-  ({ isSmall, menuVisible }: { isSmall?: boolean; menuVisible?: boolean }) => ({
-    marginTop: getHeaderHeight(theme),
-    minWidth: 0,
-    flexGrow: 1,
-    padding: 0,
-    ...(isSmall && menuVisible
-      ? {
-          position: 'absolute',
-          left: 0,
-          right: 0,
-          overflow: 'hidden',
-          top: 0,
-          bottom: 0,
-        }
-      : {}),
   })
 );
 
@@ -208,17 +185,9 @@ export const App = () => {
           sideMenuKey={sideMenuKey}
         />
         <ContentColumn isSmall={isSmall} menuVisible={menuVisible}>
-          <MainContent id="app-main-content" isSmall={isSmall} menuVisible={menuVisible}>
-            <HeadingBoundary>
-              <MatomoTracker />
-              <Outlet />
-              <HeadingBoundary>
-                <Notifications />
-                <Palvelut />
-              </HeadingBoundary>
-            </HeadingBoundary>
-          </MainContent>
-          <Footer />
+          <MatomoTracker />
+          {/* Sivupohja (DefaultLayout tai UusiEtusivu) renderöi pääsisällön (<main>) ja footerin */}
+          <Outlet />
         </ContentColumn>
       </Box>
     </div>

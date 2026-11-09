@@ -89,11 +89,10 @@ const OpintopolkuFooterLogo = () => {
 };
 
 const OPHFooterLogo = () => {
-  switch (getLanguage()) {
-    case 'en':
-      return OPHIconEN;
-    default:
-      return OPHIcon;
+  if (getLanguage() === 'en') {
+    return OPHIconEN;
+  } else {
+    return OPHIcon;
   }
 };
 
@@ -119,21 +118,22 @@ export const Footer = () => {
           <Grid
             container
             direction="row"
-            justifyContent="space-evenly"
+            justifyContent="space-between"
             alignItems="flex-start"
+            gap={1}
             paddingY={2}>
             <Grid size={{ xs: 12, sm: 4, md: 3 }}>
-              <Box m={1}>
+              <Box marginY={1}>
                 <Markdown options={overrides}>{content ?? ''}</Markdown>
               </Box>
             </Grid>
             <Grid size={{ xs: 12, sm: 4, md: 3 }}>
-              <Box m={1}>
+              <Box marginY={1}>
                 <Markdown options={overrides}>{contentCenter ?? ''}</Markdown>
               </Box>
             </Grid>
             <Grid size={{ xs: 12, sm: 4, md: 3 }}>
-              <Box m={1}>
+              <Box marginY={1}>
                 <Markdown options={overrides}>{contentRight ?? ''}</Markdown>
               </Box>
             </Grid>

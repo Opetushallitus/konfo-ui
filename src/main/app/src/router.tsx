@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 
 import { App } from '#/src/App';
+import { DefaultLayout } from '#/src/components/common/DefaultLayout';
 import { OphThemeRoute } from '#/src/components/common/OphThemeRoute';
 import { Etusivu } from '#/src/components/Etusivu';
 import { Hairiotiedote } from '#/src/components/Hairiotiedote';
@@ -68,63 +69,73 @@ const routes: Array<RouteObject> = [
         path: ':lng?',
         element: <TranslatedRoute />,
         children: [
+          // Uusi etusivu renderöi oman sivupohjansa (pääsisältö, palvelut ja footer)
           {
             element: (
-              <>
-                <Hairiotiedote />
-                <Outlet />
-              </>
+              <OphThemeRoute>
+                <DefaultLayout palvelutVisible={false} contentMaxWidth={1200} />
+              </OphThemeRoute>
             ),
             children: [
-              { index: true, element: <Etusivu />, loader: resetHakuStateLoader },
               {
-                element: <OphThemeRoute />,
-                children: [
-                  {
-                    path: 'etusivu',
-                    element: <UusiEtusivu />,
-                    loader: resetHakuStateLoader,
-                  },
-                ],
+                path: 'etusivu',
+                element: <UusiEtusivu />,
+                loader: resetHakuStateLoader,
               },
-              { path: 'sisaltohaku', element: <Sisaltohaku /> },
-              { path: 'ohjaava-haku', element: <OhjaavaHakuPage /> },
+            ],
+          },
+          {
+            element: <DefaultLayout palvelutVisible={true} />,
+            children: [
               {
                 element: (
                   <>
-                    <div style={{ margin: 'auto', maxWidth: '1600px' }}>
-                      <ReactiveBorder>
-                        <HakuLabel />
-                        <Hakupalkki />
-                        <OhjaavaHakuLink />
-                      </ReactiveBorder>
-                    </div>
+                    <Hairiotiedote />
                     <Outlet />
                   </>
                 ),
                 children: [
-                  { path: 'suosikit', element: <SuosikitPage /> },
-                  { path: 'suosikit/vertailu', element: <SuosikitVertailuPage /> },
+                  { index: true, element: <Etusivu />, loader: resetHakuStateLoader },
+                  { path: 'sisaltohaku', element: <Sisaltohaku /> },
+                  { path: 'ohjaava-haku', element: <OhjaavaHakuPage /> },
                   {
-                    path: 'haku/:keyword?',
-                    element: <HakuPage />,
-                    loader: syncHakuParamsLoader,
-                  },
-                  { path: 'koulutus/:oid', element: <KoulutusPage /> },
-                  { path: 'oppilaitos/:oid', element: <OppilaitosPage /> },
-                  {
-                    path: 'oppilaitososa/:oid',
-                    element: <OppilaitosPage oppilaitosOsa />,
-                  },
-                  { path: 'toteutus/:oid', element: <ToteutusPage /> },
-                  { path: 'sivu/:id', element: <SivuRouter /> },
-                  {
-                    path: 'hakukohde/:hakukohdeOid/valintaperuste',
-                    element: <ValintaperustePage />,
-                  },
-                  {
-                    path: 'valintaperuste/:valintaperusteId',
-                    element: <ValintaperustePreviewPage />,
+                    element: (
+                      <>
+                        <div style={{ margin: 'auto', maxWidth: '1600px' }}>
+                          <ReactiveBorder>
+                            <HakuLabel />
+                            <Hakupalkki />
+                            <OhjaavaHakuLink />
+                          </ReactiveBorder>
+                        </div>
+                        <Outlet />
+                      </>
+                    ),
+                    children: [
+                      { path: 'suosikit', element: <SuosikitPage /> },
+                      { path: 'suosikit/vertailu', element: <SuosikitVertailuPage /> },
+                      {
+                        path: 'haku/:keyword?',
+                        element: <HakuPage />,
+                        loader: syncHakuParamsLoader,
+                      },
+                      { path: 'koulutus/:oid', element: <KoulutusPage /> },
+                      { path: 'oppilaitos/:oid', element: <OppilaitosPage /> },
+                      {
+                        path: 'oppilaitososa/:oid',
+                        element: <OppilaitosPage oppilaitosOsa />,
+                      },
+                      { path: 'toteutus/:oid', element: <ToteutusPage /> },
+                      { path: 'sivu/:id', element: <SivuRouter /> },
+                      {
+                        path: 'hakukohde/:hakukohdeOid/valintaperuste',
+                        element: <ValintaperustePage />,
+                      },
+                      {
+                        path: 'valintaperuste/:valintaperusteId',
+                        element: <ValintaperustePreviewPage />,
+                      },
+                    ],
                   },
                 ],
               },
@@ -132,7 +143,10 @@ const routes: Array<RouteObject> = [
           },
         ],
       },
-      { path: '*', element: <NotFound /> },
+      {
+        element: <DefaultLayout palvelutVisible={true} />,
+        children: [{ path: '*', element: <NotFound /> }],
+      },
     ],
   },
 ];
