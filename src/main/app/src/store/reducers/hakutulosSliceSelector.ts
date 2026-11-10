@@ -325,6 +325,7 @@ export const TOTEUTUS_RAJAIN_NAMES = [
   'maksunmaara',
   'lukuvuosimaksunmaara_kk',
   'lukuvuosimaksunmaara_amm_lk',
+  'apuraha',
   'hakualkaapaivissa',
 ];
 

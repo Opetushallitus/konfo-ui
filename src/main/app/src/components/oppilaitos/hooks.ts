@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { filter, map, size, compact } from 'lodash';
 import { useQueries, useQuery } from 'react-query';
@@ -10,7 +10,9 @@ import {
   getOppilaitosTarjonta,
 } from '#/src/api/konfoApi';
 import { useAppDispatch, useAppSelector } from '#/src/hooks/reduxHooks';
-import { RajainValues } from '#/src/store/reducers/hakutulosSlice';
+import { usePreviousPage } from '#/src/store/reducers/appSlice';
+import { HAKU_RAJAIMET_INITIAL, RajainValues } from '#/src/store/reducers/hakutulosSlice';
+import { getInitialToteutusRajainValues } from '#/src/store/reducers/hakutulosSliceSelector';
 import {
   setTarjontaPagination,
   setTulevaTarjontaPagination,
@@ -189,6 +191,26 @@ export const usePaginatedTarjonta = ({ oid, isTuleva }: UsePaginatedTarjontaProp
   const clearRajainValues = useCallback(() => {
     dispatch(clearTarjontaRajainValues());
   }, [dispatch]);
+
+  // Tämä haetaan vain kerran alkuarvoja varten + Haetaan tarjonta hakusivulta periytyneillä rajaimilla
+  const initialRajainValues = useAppSelector(getInitialToteutusRajainValues);
+
+  const [initialValues] = useState(initialRajainValues);
+
+  const previousPage = usePreviousPage();
+
+  const hasSetInitialRajaimet = useRef(false);
+
+  useEffect(() => {
+    if (!isTuleva && previousPage === 'haku' && !hasSetInitialRajaimet.current) {
+      // Toimipisterajain ei periydy hakusivulta, joten tyhjennetään edellisen oppilaitoksen valinta
+      setRajainValues({
+        ...initialValues,
+        toimipiste: HAKU_RAJAIMET_INITIAL.toimipiste,
+      });
+      hasSetInitialRajaimet.current = true;
+    }
+  }, [isTuleva, setRajainValues, initialValues, previousPage]);
 
   const fetchProps = {
     oid,
