@@ -931,6 +931,21 @@
       "otsikko": "Kirjautuneen palvelut",
       "oma-opintopolku-otsikko": "Oma Opintopolku",
       "oma-opintopolku-teksti": "Hakemukset, opiskelupaikan vastaanotto ja opintosuoritukset sekä muut opintopolun kirjautuneen palvelut."
+    },
+    "muut-palvelut": {
+      "otsikko": "Muut palvelut",
+      "opetushallitus-otsikko": "Opetushallitus",
+      "opetushallitus-teksti": "Opetushallitus on kansallinen koulutuksen, kielen ja kansainvälistymisen asiantuntija, kehittäjä ja palveluntuottaja.",
+      "eperusteet-otsikko": "ePerusteet",
+      "eperusteet-teksti": "ePerusteet-palvelussa löytyvät kaikki opetussuunnitelmien, tutkintojen ja koulutusten perusteet varhaiskasvatuksesta toiselle asteelle. ",
+      "ehoks-otsikko": "eHoks",
+      "ehoks-teksti": "eHOKS kokoaa yhteen paikkaan tietoja ammatillisen koulutuksen opiskelijoiden henkilökohtaisista osaamisen kehittämissuunnitelmista.",
+      "osaamispolku-otsikko": "Osaamispolku",
+      "osaamispolku-teksti": "Osaamispolku auttaa kartoittamaan osaamisesi ja kiinnostuksen kohteesi. Palvelu ehdottaa sinulle sopivia opiskelu- ja työurapolkuja.",
+      "study-in-finland-otsikko": "Study in Finland",
+      "study-in-finland-teksti": "Guide to university studies in Finland for Immigrants. Brought to you by The Finnish National Agency for Education.",
+      "europassi-otsikko": "Europassi",
+      "europassi-teksti": "Europassi on tarkoitettu kaikille, jotka tarvitsevat kansainvälistä työkalua oman osaamisensa ja taitojensa osoittamiseen."
     }
   }
 }

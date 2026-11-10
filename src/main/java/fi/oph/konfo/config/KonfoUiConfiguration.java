@@ -1,6 +1,7 @@
 package fi.oph.konfo.config;
 
 import fi.vm.sade.properties.OphProperties;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -84,6 +85,17 @@ public class KonfoUiConfiguration extends OphProperties {
         "eperusteet-service.toteutussuunnitelma.sisalto",
         this.require("eperusteet-service.toteutussuunnitelma.sisalto"));
     this.frontProperties.setProperty("oma-opintopolku", this.require("oma-opintopolku"));
+    for (String palvelu :
+        List.of(
+            "opetushallitus",
+            "eperusteet",
+            "ehoks",
+            "osaamispolku",
+            "study-in-finland",
+            "europassi")) {
+      String key = "muut-palvelut." + palvelu;
+      this.frontProperties.setProperty(key, this.require(key));
+    }
     this.frontProperties.setProperty(
         "konfo-backend.haku.demo", this.require("konfo-backend.haku.demo"));
     this.frontProperties.setProperty(

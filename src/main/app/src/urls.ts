@@ -45,6 +45,12 @@ const development = {
   'eperusteet-service.toteutussuunnitelma.sisalto':
     'https://eperusteet.opintopolku.fi/#/$1/toteutussuunnitelma/$2/ammatillinen/sisalto/$3',
   'oma-opintopolku': 'https://testiopintopolku.fi/oma-opintopolku',
+  'muut-palvelut.opetushallitus': 'https://www.oph.fi/$1',
+  'muut-palvelut.eperusteet': 'https://eperusteet.opintopolku.fi/',
+  'muut-palvelut.ehoks': 'https://testiopintopolku.fi/ehoks',
+  'muut-palvelut.osaamispolku': 'https://osaamispolku.fi/',
+  'muut-palvelut.study-in-finland': 'https://www.studyinfinland.fi/',
+  'muut-palvelut.europassi': 'https://europass.europa.eu/$1',
   'ataru.hakemus-haku': 'https://testiopintopolku.fi/hakemus/haku/$1',
 };
 
