@@ -917,6 +917,15 @@
   },
   "opintopolku-etusivu": {
     "nayta-kaikki": "Näytä kaikki koulutukset ja oppilaitokset",
-    "hae-otsikko": "Hae koulutuksia ja oppilaitoksia"
+    "hae-otsikko": "Hae koulutuksia ja oppilaitoksia",
+    "koulutustieto": {
+      "otsikko": "Koulutustieto",
+      "hakeutuminen-koulutukseen-otsikko": "Hakeutuminen koulutukseen",
+      "hakeutuminen-koulutukseen-teksti": "Tietoja ja ohjeet hakemisesta peruskoulun jälkeiseen koulutukseen, korkeakoulutukseen ja muihin koulutuksiin.",
+      "kielitutkinnot-otsikko": "Kielitutkinnot",
+      "kielitutkinnot-teksti": "Kielitaidon todistaminen työ- tai opiskelupaikan haussa sekä kansalaisuuden tai oleskeluluvan hakemisessa.",
+      "tutkintojen-tunnustaminen-otsikko": "Tutkintojen tunnustaminen",
+      "tutkintojen-tunnustaminen-teksti": "Ulkomailla suoritetun tutkinnon rinnastaminen Suomessa työ- tai -opiskelupaikkaa varten."
+    }
   }
 }

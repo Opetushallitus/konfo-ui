@@ -1,11 +1,12 @@
 import { useCallback, useState } from 'react';
 
-import { Box, useMediaQuery } from '@mui/material';
+import { Box, Paper, SxProps, Theme, useMediaQuery } from '@mui/material';
 import { ophColors, OphLink, OphTypography } from '@opetushallitus/oph-design-system';
 import { isEmpty } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import HeroImage from '#/src/assets/images/uusi_opintopolku_hero.jpg';
+import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { Hakupalkki } from '#/src/components/haku/Hakupalkki';
 import { useAllSelectedFilters, useSearch } from '#/src/components/haku/hakutulosHooks';
 import { RajaimetPopover } from '#/src/components/haku/RajaimetPopover';
@@ -188,6 +189,103 @@ const EtusivuHaku = () => {
   );
 };
 
+const KoulutustietoPaper = ({
+  icon,
+  heading,
+  text,
+  backgroundColor,
+  to,
+  sx,
+}: {
+  icon: MaterialIconName;
+  heading: string;
+  text: string;
+  backgroundColor: string;
+  to: string;
+  sx?: SxProps<Theme>;
+}) => (
+  <Paper
+    elevation={0}
+    component={RouterLink}
+    to={to}
+    sx={[
+      {
+        backgroundColor,
+        color: 'white',
+        textDecoration: 'none',
+        '&:focus-visible': {
+          outline: `2px solid ${ophColors.black}`,
+          outlineOffset: '2px',
+        },
+        padding: 4,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+        gap: 2,
+      },
+      ...(Array.isArray(sx) ? sx : [sx]),
+    ]}>
+    <MaterialIcon icon={icon} variant="outlined" aria-hidden sx={{ fontSize: '64px' }} />
+    <OphTypography variant="h3" component="h3" sx={{ color: 'inherit' }}>
+      {heading}
+    </OphTypography>
+    <OphTypography sx={{ color: 'inherit' }}>{text}</OphTypography>
+  </Paper>
+);
+
+const KOULUTUSTIETO_LINKS = {
+  hakeutuminenKoulutukseen: '/',
+  kielitutkinnot: '/kielitutkinnot',
+  tutkintojenTunnustaminen: '/tutkintojen-tunnustaminen',
+};
+
+const Koulutustieto = () => {
+  const { t } = useTranslation();
+
+  return (
+    <Box component="section" sx={{ marginTop: 6 }}>
+      <SectionHeading component="h2">
+        {t('opintopolku-etusivu.koulutustieto.otsikko')}
+      </SectionHeading>
+      <Box
+        sx={{
+          display: 'grid',
+          gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' },
+          gap: 4,
+        }}>
+        <KoulutustietoPaper
+          icon="school"
+          heading={t(
+            'opintopolku-etusivu.koulutustieto.hakeutuminen-koulutukseen-otsikko'
+          )}
+          text={t('opintopolku-etusivu.koulutustieto.hakeutuminen-koulutukseen-teksti')}
+          backgroundColor={ophColors.green2}
+          to={KOULUTUSTIETO_LINKS.hakeutuminenKoulutukseen}
+          sx={{ gridColumn: '1 / -1' }}
+        />
+        <KoulutustietoPaper
+          icon="language"
+          heading={t('opintopolku-etusivu.koulutustieto.kielitutkinnot-otsikko')}
+          text={t('opintopolku-etusivu.koulutustieto.kielitutkinnot-teksti')}
+          backgroundColor={ophColors.cyan1}
+          to={KOULUTUSTIETO_LINKS.kielitutkinnot}
+        />
+        <KoulutustietoPaper
+          icon="home_work"
+          heading={t(
+            'opintopolku-etusivu.koulutustieto.tutkintojen-tunnustaminen-otsikko'
+          )}
+          text={t('opintopolku-etusivu.koulutustieto.tutkintojen-tunnustaminen-teksti')}
+          backgroundColor={ophColors.cyan1}
+          to={KOULUTUSTIETO_LINKS.tutkintojenTunnustaminen}
+        />
+      </Box>
+    </Box>
+  );
+};
+
 export const OpintopolkuEtusivu = () => {
   return (
     <Box sx={{ width: '100%', minHeight: 0 }}>
@@ -264,6 +362,7 @@ export const OpintopolkuEtusivu = () => {
         }}>
         <WithSideMargins>
           <EtusivuHaku />
+          <Koulutustieto />
         </WithSideMargins>
       </Box>
     </Box>
