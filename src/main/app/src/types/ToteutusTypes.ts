@@ -106,7 +106,7 @@ export type ToteutusMetadata = {
   ammatillinenPerustutkintoErityisopetuksena: boolean;
   jarjestetaanErityisopetuksena: boolean;
   hakutermi: 'hakeutuminen' | 'ilmoittautuminen';
-  hakulomaketyyppi: Hakulomaketyyppi;
+  hakulomaketyyppi?: Hakulomaketyyppi;
   lisatietoaHakeutumisesta?: Translateable;
   opintojenLaajuusNumero?: number;
   opintojenLaajuusyksikko?: Koodi;

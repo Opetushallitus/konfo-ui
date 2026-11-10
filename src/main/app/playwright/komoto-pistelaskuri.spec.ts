@@ -47,9 +47,9 @@ test.describe('Pistelaskuri KOMOTO', () => {
     );
 
     await page.locator('.PisteContainer__openbutton').click();
-    await page.locator('.keskiarvo__laskuri__input').nth(0).fill('8');
-    await page.locator('.keskiarvo__laskuri__input').nth(1).fill('9');
-    await page.locator('.keskiarvo__laskuri__input').nth(2).fill('6');
+    await page.locator('.keskiarvo__laskuri__input input').nth(0).fill('8');
+    await page.locator('.keskiarvo__laskuri__input input').nth(1).fill('9');
+    await page.locator('.keskiarvo__laskuri__input input').nth(2).fill('6');
     await page.locator('.Pistelaskuri__calculatebutton').click();
     await expect(keskiarvoPalleroTulokset.nth(0)).toHaveText('8');
     await expect(keskiarvoPalleroTulokset.nth(1)).toHaveText('18');
@@ -102,9 +102,9 @@ test.describe('Pistelaskuri KOMOTO', () => {
     const keskiarvoPalleroTulokset = getKeskiarvoPalleroTulokset(page);
 
     await page.locator('.PisteContainer__openbutton').click();
-    await page.locator('.keskiarvo__laskuri__input').nth(0).fill('8');
-    await page.locator('.keskiarvo__laskuri__input').nth(1).fill('9');
-    await page.locator('.keskiarvo__laskuri__input').nth(2).fill('6');
+    await page.locator('.keskiarvo__laskuri__input input').nth(0).fill('8');
+    await page.locator('.keskiarvo__laskuri__input input').nth(1).fill('9');
+    await page.locator('.keskiarvo__laskuri__input input').nth(2).fill('6');
     await page.locator('.MuiCheckbox-root input').click();
     await page.locator('.Pistelaskuri__calculatebutton').click();
     await expect(keskiarvoPalleroTulokset.nth(0)).toHaveText('8');

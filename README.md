@@ -57,9 +57,9 @@ ja ajaa sitten kaikki testit toisessa terminaalissa komennolla
     pnpm run playwright
 
 `preview:watch` npm skiripti buildaa sovelluksen jääden tarkkailemaan muutoksia, ja käynnistää testi-palvelimen, joka servaa buildatun sovelluksen.
-Testien ajaminen Viten dev-serveriä vasten (`npm run start`) on paljon hitaampaa kuin servattua tuotanto-buildia vasten, ja aikakatkaisuja voi tulla, vaikka rajoja on kasvatettu.
+Testien ajaminen Viten dev-serveriä vasten (`pnpm run start`) on paljon hitaampaa kuin servattua tuotanto-buildia vasten, ja aikakatkaisuja voi tulla, vaikka rajoja on kasvatettu.
 
-Yksittäisten testien ajamisessa ei ole niin väliä, miten sovellus on käynnistetty (`npm run start` tai `npm run preview:watch`). Kätevintä yksittäisten Playwright-testien ajaminen ja debuggaminen on käyttämällä "Visual Studio Code"-editorissa virallista Playwright-pluginia: https://playwright.dev/docs/getting-started-vscode
+Yksittäisten testien ajamisessa ei ole niin väliä, miten sovellus on käynnistetty (`pnpm run start` tai `pnpm run preview:watch`). Kätevintä yksittäisten Playwright-testien ajaminen ja debuggaminen on käyttämällä "Visual Studio Code"-editorissa virallista Playwright-pluginia: https://playwright.dev/docs/getting-started-vscode
 
 Yksittäisiä testejä voi myös ajaa [Playwrightin UI-moodissa](https://playwright.dev/docs/test-ui-mode), jonka saa käynnistettyä komennolla:
 

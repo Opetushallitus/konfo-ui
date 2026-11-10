@@ -101,7 +101,7 @@ export const SideMenu = (props: {
   closeMenu: () => void;
   searchRef: React.RefObject<HTMLInputElement | null>;
 }) => {
-  const { menuVisible, closeMenu, searchRef } = props;
+  const { menuVisible, isSmall, closeMenu, searchRef } = props;
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
 
@@ -121,6 +121,9 @@ export const SideMenu = (props: {
 
   const doSearch = (event: React.SyntheticEvent) => {
     event.preventDefault();
+    if (isSmall) {
+      closeMenu();
+    }
     navigate(`/${i18n.language}/sisaltohaku/?hakusana=${search}`);
   };
 
