@@ -926,6 +926,11 @@
       "kielitutkinnot-teksti": "Kielitaidon todistaminen työ- tai opiskelupaikan haussa sekä kansalaisuuden tai oleskeluluvan hakemisessa.",
       "tutkintojen-tunnustaminen-otsikko": "Tutkintojen tunnustaminen",
       "tutkintojen-tunnustaminen-teksti": "Ulkomailla suoritetun tutkinnon rinnastaminen Suomessa työ- tai -opiskelupaikkaa varten."
+    },
+    "kirjautuneen-palvelut": {
+      "otsikko": "Kirjautuneen palvelut",
+      "oma-opintopolku-otsikko": "Oma Opintopolku",
+      "oma-opintopolku-teksti": "Hakemukset, opiskelupaikan vastaanotto ja opintosuoritukset sekä muut opintopolun kirjautuneen palvelut."
     }
   }
 }

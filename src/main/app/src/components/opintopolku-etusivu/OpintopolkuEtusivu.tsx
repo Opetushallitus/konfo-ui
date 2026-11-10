@@ -5,6 +5,7 @@ import { ophColors, OphLink, OphTypography } from '@opetushallitus/oph-design-sy
 import { isEmpty } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
+import OpintopolkuKnotIcon from '#/src/assets/images/opintopolku-knot-color.svg';
 import HeroImage from '#/src/assets/images/uusi_opintopolku_hero.jpg';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { Hakupalkki } from '#/src/components/haku/Hakupalkki';
@@ -228,9 +229,7 @@ const KoulutustietoPaper = ({
       ...(Array.isArray(sx) ? sx : [sx]),
     ]}>
     <MaterialIcon icon={icon} variant="outlined" aria-hidden sx={{ fontSize: '64px' }} />
-    <OphTypography variant="h3" component="h3" sx={{ color: 'inherit' }}>
-      {heading}
-    </OphTypography>
+    <PaperHeading color="inherit">{heading}</PaperHeading>
     <OphTypography sx={{ color: 'inherit' }}>{text}</OphTypography>
   </Paper>
 );
@@ -282,6 +281,48 @@ const Koulutustieto = () => {
           to={KOULUTUSTIETO_LINKS.tutkintojenTunnustaminen}
         />
       </Box>
+    </Box>
+  );
+};
+
+const PaperHeading = ({
+  children,
+  color,
+}: {
+  children: React.ReactNode;
+  color: string;
+}) => (
+  <OphTypography component="h3" sx={{ fontSize: '24px', color, fontWeight: 600 }}>
+    {children}
+  </OphTypography>
+);
+
+const KirjautuneenPalvelut = () => {
+  const { t } = useTranslation();
+
+  return (
+    <Box component="section" sx={{ marginTop: 6 }}>
+      <SectionHeading component="h2">
+        {t('opintopolku-etusivu.kirjautuneen-palvelut.otsikko')}
+      </SectionHeading>
+      <Paper
+        sx={{
+          borderTop: `4px solid ${ophColors.green2}`,
+          padding: 4,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          textAlign: 'center',
+          gap: 2,
+        }}>
+        <Box component="img" src={OpintopolkuKnotIcon} alt="" sx={{ height: '38px' }} />
+        <PaperHeading color={ophColors.green2}>
+          {t('opintopolku-etusivu.kirjautuneen-palvelut.oma-opintopolku-otsikko')}
+        </PaperHeading>
+        <OphTypography>
+          {t('opintopolku-etusivu.kirjautuneen-palvelut.oma-opintopolku-teksti')}
+        </OphTypography>
+      </Paper>
     </Box>
   );
 };
@@ -363,6 +404,7 @@ export const OpintopolkuEtusivu = () => {
         <WithSideMargins>
           <EtusivuHaku />
           <Koulutustieto />
+          <KirjautuneenPalvelut />
         </WithSideMargins>
       </Box>
     </Box>
