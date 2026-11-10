@@ -914,5 +914,9 @@
     "hakulomakkeelle-voi-vieda-enintaan": "Hakulomakkeelle voi viedä enintään {{max}} hakukohdetta.",
     "aloituspaikat": "Aloituspaikat",
     "aloituspaikat-ensisijaiset-hakijat": "Aloituspaikat / Ensisijaiset hakijat {{year}}"
+  },
+  "opintopolku-etusivu": {
+    "nayta-kaikki": "Näytä kaikki koulutukset ja oppilaitokset",
+    "hae-otsikko": "Hae koulutuksia ja oppilaitoksia"
   }
 }

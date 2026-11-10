@@ -9,7 +9,7 @@ import {
 import { App } from '#/src/App';
 import { DefaultLayout } from '#/src/components/common/DefaultLayout';
 import { OphThemeRoute } from '#/src/components/common/OphThemeRoute';
-import { Etusivu } from '#/src/components/Etusivu';
+import { KonfoEtusivu } from '#/src/components/KonfoEtusivu';
 import { Hairiotiedote } from '#/src/components/Hairiotiedote';
 import { HakuLabel } from '#/src/components/haku/HakuLabel';
 import { HakuPage } from '#/src/components/haku/HakuPage';
@@ -25,7 +25,7 @@ import { SuosikitPage } from '#/src/components/SuosikitPage';
 import { SuosikitVertailuPage } from '#/src/components/SuosikitVertailuPage';
 import { ToteutusPage } from '#/src/components/toteutus/ToteutusPage';
 import { TranslatedRoute } from '#/src/components/TranslatedRoute';
-import { UusiEtusivu } from '#/src/components/uusi-etusivu/UusiEtusivu';
+import { OpintopolkuEtusivu } from '#/src/components/opintopolku-etusivu/OpintopolkuEtusivu';
 import {
   ValintaperustePage,
   ValintaperustePreviewPage,
@@ -79,7 +79,7 @@ const routes: Array<RouteObject> = [
             children: [
               {
                 path: 'etusivu',
-                element: <UusiEtusivu />,
+                element: <OpintopolkuEtusivu />,
                 loader: resetHakuStateLoader,
               },
             ],
@@ -95,7 +95,11 @@ const routes: Array<RouteObject> = [
                   </>
                 ),
                 children: [
-                  { index: true, element: <Etusivu />, loader: resetHakuStateLoader },
+                  {
+                    index: true,
+                    element: <KonfoEtusivu />,
+                    loader: resetHakuStateLoader,
+                  },
                   { path: 'sisaltohaku', element: <Sisaltohaku /> },
                   { path: 'ohjaava-haku', element: <OhjaavaHakuPage /> },
                   {
