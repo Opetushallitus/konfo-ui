@@ -1,7 +1,5 @@
-import React from 'react';
-
-import { Grid, Link, Icon, Box } from '@mui/material';
-import { isEmpty } from 'lodash';
+import { Link, Icon, Box, Grid } from '@mui/material';
+import { isEmpty } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import FacebookIcon from '#/src/assets/images/somelogos/some_facebook.svg';
@@ -152,7 +150,7 @@ export const SomeRow = ({ some }: { some: Some }) => {
           .filter(([someKey]) => someKey !== BLOG_KEY)
           .sort(([keyA], [keyB]) => (keyA > keyB ? 1 : -1))
           .map(([someKey, someUrl]: Array<string>) => (
-            <Grid item sm={1.6} key={`some-${someKey}`}>
+            <Grid size={{ sm: 1.6 }} key={`some-${someKey}`}>
               <SomeIconWithLink
                 someKey={someKey}
                 someUrl={someUrl}
@@ -181,14 +179,14 @@ export const BlogAndWebsite = ({
       alignItems="flex-start"
       sx={{ marginTop: '0.3rem' }}>
       {hasBlogi && (
-        <Grid item sm={5.5}>
+        <Grid size={{ sm: 5.5 }}>
           <ExternalLinkButton href={some.sosiaalinenmedia_5}>
             {t('oppilaitos.blogi')}
           </ExternalLinkButton>
         </Grid>
       )}
       {wwwSivu && (
-        <Grid item sm={5.5}>
+        <Grid size={{ sm: 5.5 }}>
           <ExternalLinkButton href={localize(wwwSivu?.url)}>
             {isEmpty(wwwSivu.nimi)
               ? t('oppilaitos.oppilaitoksen-www-sivut')

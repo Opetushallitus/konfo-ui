@@ -25,7 +25,7 @@ export const Esittelyvideo = ({
           top: 0,
           left: 0,
         }}
-        url={videoUrl}
+        src={videoUrl}
         muted
         playing
         controls

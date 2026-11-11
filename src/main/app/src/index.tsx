@@ -1,13 +1,13 @@
 import React, { Suspense } from 'react';
 
 import { ThemeProvider } from '@mui/material/styles';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { createRoot } from 'react-dom/client';
 import { ErrorBoundary } from 'react-error-boundary';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
 import { Provider } from 'react-redux';
 import { RouterProvider } from 'react-router-dom';
-import 'typeface-open-sans';
+import 'typeface-open-sans/index.css';
 import StackTrace from 'stacktrace-js';
 
 import { postClientError } from '#/src/api/konfoApi';

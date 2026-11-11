@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { Box, Grid, Link, Paper, useMediaQuery, useTheme } from '@mui/material';
-import { size } from 'lodash';
-import Markdown from 'markdown-to-jsx';
+import { size } from 'lodash-es';
+import Markdown from 'markdown-to-jsx/react';
 
 import { colors } from '#/src/colors';
 import { styled } from '#/src/theme';
@@ -48,7 +48,7 @@ const PikalinkkiGroup = (group: ContentfulContent) => {
   const isSM = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <Grid item xs={12} sm={6} md={4}>
+    <Grid size={{ xs: 12, sm: 6, md: 4 }}>
       <Heading
         variant={isSM ? 'h4' : 'h3'}
         sx={{

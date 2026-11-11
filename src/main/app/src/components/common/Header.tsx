@@ -1,14 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-import {
-  AppBar,
-  Box,
-  Chip,
-  Hidden,
-  IconButton,
-  Toolbar,
-  Typography,
-} from '@mui/material';
+import { AppBar, Box, Chip, IconButton, Toolbar, Typography } from '@mui/material';
 import Link from '@mui/material/Link';
 import { urls } from 'oph-urls-js';
 import { useTranslation } from 'react-i18next';
@@ -23,8 +15,8 @@ import { styled, theme } from '#/src/theme';
 import { getLanguage } from '#/src/tools/localization';
 
 import { LanguageAccordion } from './LanguageAccordion';
-import { SuosikitButton } from './SuosikitButton';
-import { TextButtonLink } from './TextButtonLink';
+import { SmartLink } from './SmartLink';
+import { useSuosikitLink } from '../../hooks/useSuosikitLink';
 
 const PREFIX = 'Header';
 
@@ -100,23 +92,34 @@ const getTestiLabel = () => {
   }
 };
 
-export const ToolbarLinkButton = styled(TextButtonLink)({
+const ToolbarLinkStyled = styled(SmartLink)({
+  padding: '5px 5px 0 5px',
   display: 'flex',
   flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: '1px',
   color: colors.white,
   textDecoration: 'none',
   flexShrink: 0,
-  '&:hover': {
-    textDecoration: 'none',
-  },
-  '& .MuiButton-startIcon': {
-    margin: '0 0 1px 0',
-  },
-  '& .MuiButton-startIcon > svg': {
+  '& svg': {
     fontSize: '26px',
-    margin: 0,
+  },
+  '&:focus-visible': {
+    outline: `1px solid ${colors.white}`,
   },
 });
+
+const ToolbarLink = ({
+  startIcon,
+  children,
+  ...rest
+}: React.ComponentProps<typeof ToolbarLinkStyled> & { startIcon?: React.ReactNode }) => (
+  <ToolbarLinkStyled {...rest}>
+    {startIcon}
+    {children}
+  </ToolbarLinkStyled>
+);
 
 export const Header = ({
   toggleMenu,
@@ -136,6 +139,7 @@ export const Header = ({
   sideMenuKey: number;
 }) => {
   const { t } = useTranslation();
+  const suosikitLink = useSuosikitLink();
 
   const testiLabel = getTestiLabel();
   const showTestiLabel = testiLabel != null;
@@ -191,18 +195,20 @@ export const Header = ({
             <Chip className={classes.testi} size="small" label={testiLabel} />
           )}
         </Box>
-        <Hidden smDown>
-          <Box display="flex" columnGap={2} marginRight="170px">
-            <SuosikitButton Component={ToolbarLinkButton} />
-            <ToolbarLinkButton
-              href={urls.url('oma-opintopolku')}
-              startIcon={<MaterialIcon icon="apps" />}
-              target="_blank">
-              {t('oma-opintopolku')}
-            </ToolbarLinkButton>
-          </Box>
-          <LanguageAccordion />
-        </Hidden>
+        <Box
+          display="flex"
+          columnGap={2}
+          marginRight="170px"
+          sx={{ display: { xs: 'none', sm: 'flex' } }}>
+          {suosikitLink && <ToolbarLink {...suosikitLink} />}
+          <ToolbarLink
+            href={urls.url('oma-opintopolku')}
+            target="_blank"
+            startIcon={<MaterialIcon icon="apps" />}>
+            {t('oma-opintopolku')}
+          </ToolbarLink>
+        </Box>
+        <LanguageAccordion />
       </Toolbar>
     </StyledAppBar>
   );

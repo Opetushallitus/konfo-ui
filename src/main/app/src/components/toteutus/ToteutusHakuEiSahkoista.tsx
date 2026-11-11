@@ -47,10 +47,10 @@ export const ToteutusHakuEiSahkoista = ({ toteutus }: Props) => {
               sx={{ fontSize: 40, color: colors.white }}
             />
           </IconBackground>
-          <Grid item>
+          <Grid>
             <StyledNimi>{t('toteutus.ei-sahkoista-hakua')}</StyledNimi>
           </Grid>
-          <Grid item>
+          <Grid>
             <Typography variant="body1" component="div">
               {sanitizedHTMLParser(localize(toteutusMetadata?.lisatietoaHakeutumisesta))}
             </Typography>

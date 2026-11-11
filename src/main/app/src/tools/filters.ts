@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { sortBy, some, ceil, mapValues, castArray, includes, toPairs } from 'lodash';
+import { sortBy, some, ceil, mapValues, castArray, includes, toPairs } from 'lodash-es';
 import { match, P } from 'ts-pattern';
 
 import { RAJAIN_TYPES, YHTEISHAKU_KOODI_URI } from '#/src/constants';

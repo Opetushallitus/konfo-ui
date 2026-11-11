@@ -1,5 +1,5 @@
 import { TFunction } from 'i18next';
-import { isString, flow, map, filter, isEmpty, trim, uniq } from 'lodash';
+import { isString, flow, map, filter, isEmpty, trim, uniq } from 'lodash-es';
 
 import { Koodi, Translateable, TranslateableKoodi } from '#/src/types/common';
 import { RajainItem } from '#/src/types/SuodatinTypes';

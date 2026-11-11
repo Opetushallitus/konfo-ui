@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
 
 import { debounce } from '@mui/material';
+import { keepPreviousData, useQuery, UseQueryOptions } from '@tanstack/react-query';
 import {
   flow,
   pickBy,
@@ -14,8 +15,7 @@ import {
   forEach,
   some,
   merge,
-} from 'lodash';
-import { useQuery, UseQueryOptions } from 'react-query';
+} from 'lodash-es';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { match, P } from 'ts-pattern';
@@ -79,21 +79,23 @@ type Pagination = {
   offset?: number;
 };
 
+type SearchQueryOptions = Omit<UseQueryOptions<TODOType>, 'queryKey' | 'queryFn'>;
+
 const createSearchQueryHook =
   <T>(
     key: string,
     fn: (params: T, signal?: AbortSignal) => any,
-    defaultOptions: UseQueryOptions<TODOType> = {}
+    defaultOptions: SearchQueryOptions = {}
   ) =>
-  (requestParams: T, options: UseQueryOptions<TODOType> = {}) =>
-    useQuery<T, unknown, TODOType>(
-      [key, requestParams],
-      ({ signal }) => fn(requestParams, signal),
-      merge({}, defaultOptions, options)
-    );
+  (requestParams: T, options: SearchQueryOptions = {}) =>
+    useQuery<TODOType>({
+      ...merge({}, defaultOptions, options),
+      queryKey: [key, requestParams],
+      queryFn: ({ signal }) => fn(requestParams, signal),
+    });
 
 const useKoulutusSearch = createSearchQueryHook('searchKoulutukset', searchKoulutukset, {
-  keepPreviousData: true,
+  placeholderData: keepPreviousData,
   refetchOnMount: false,
   refetchOnWindowFocus: false,
 });
@@ -102,20 +104,18 @@ const useOppilaitosSearch = createSearchQueryHook(
   'searchOppilaitokset',
   searchOppilaitokset,
   {
-    keepPreviousData: true,
+    placeholderData: keepPreviousData,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
   }
 );
 
 const useAutoCompleteQuery = (requestParams: any) =>
-  useQuery(
-    ['autoCompleteSearch', requestParams],
-    () => autoCompleteSearch(requestParams),
-    {
-      enabled: size(requestParams.searchPhrase) >= 3,
-    }
-  );
+  useQuery({
+    queryKey: ['autoCompleteSearch', requestParams],
+    queryFn: () => autoCompleteSearch(requestParams),
+    enabled: size(requestParams.searchPhrase) >= 3,
+  });
 
 export const useAutoComplete = () => {
   const rajainParams = useSelector(getRajainParams);

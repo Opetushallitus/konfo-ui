@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Grid } from '@mui/material';
 import { urls } from 'oph-urls-js';
@@ -127,11 +127,9 @@ export const OskariKartta = ({ id, osoite, postitoimipaikka }: Props) => {
 
   return (
     <Grid
-      item
       container
       justifyContent="center"
-      md={6}
-      sm={12}
+      size={{ md: 6, sm: 12 }}
       // Ei poisteta domista vaan piilotetaan koska channel eventit räjähtää mikäli dom-elementti puuttuu
       style={{
         ...(error && { flexBasis: 0, height: 0, visibility: 'hidden', padding: 0 }),

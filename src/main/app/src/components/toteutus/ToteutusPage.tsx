@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import { Box, Grid, Typography } from '@mui/material';
-import { some, isEmpty, uniq } from 'lodash';
+import { some, isEmpty, uniq } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -92,7 +92,11 @@ export const ToteutusPage = () => {
 
   const { state: menuVisible } = useSideMenu();
 
-  const { data: toteutus, status: toteutusStatus } = useToteutus({
+  const {
+    data: toteutus,
+    status: toteutusStatus,
+    isLoading: isToteutusLoading,
+  } = useToteutus({
     oid,
     isDraft,
   });
@@ -113,7 +117,11 @@ export const ToteutusPage = () => {
     osaamistavoitteet: toteutuksenOsaamistavoitteet,
   } = toteutus?.metadata ?? {};
 
-  const { data: koulutus, status: koulutusStatus } = useKoulutus({
+  const {
+    data: koulutus,
+    status: koulutusStatus,
+    isLoading: isKoulutusLoading,
+  } = useKoulutus({
     oid: koulutusOid,
     isDraft,
   });
@@ -151,8 +159,8 @@ export const ToteutusPage = () => {
 
   const loading =
     !notFound &&
-    (koulutusStatus === 'loading' ||
-      toteutusStatus === 'loading' ||
+    (isKoulutusLoading ||
+      isToteutusLoading ||
       (hasOppilaitokset && some(oppilaitokset, 'isLoading')));
 
   const hasAnyHakukohde = some(hakutiedot, (v: Hakutieto) => v.hakukohteet.length > 0);
@@ -310,9 +318,9 @@ export const ToteutusPage = () => {
             isLukio={toteutus?.koulutustyyppi === 'lk'}
           />
         )}
-        <Box id="haut" display="flex" justifyContent="center">
+        <Grid container id="haut" justifyContent="center">
           <ToteutusHakutiedot toteutus={toteutus} oppilaitosOsat={oppilaitosOsat} />
-        </Box>
+        </Grid>
         {combinedLisatiedot.length > 0 && (
           <PageSection heading={t('koulutus.lisätietoa')}>
             <Accordion
@@ -334,35 +342,35 @@ export const ToteutusPage = () => {
                 alignItems="flex-start">
                 {yhteyshenkilot?.map((yhteyshenkilo: any, i: number) => (
                   <Grid
-                    item
                     key={i}
-                    xs={12}
-                    sm={menuVisible ? 12 : 6}
-                    md={menuVisible ? 12 : 6}
-                    lg={6}>
+                    size={{
+                      xs: 12,
+                      lg: 6,
+                      ...(menuVisible ? { sm: 12, md: 12 } : { sm: 6, md: 6 }),
+                    }}>
                     <Grid container direction="column">
-                      <Grid item>
+                      <Grid>
                         <Typography variant="h5">
                           {localize(yhteyshenkilo.nimi)}
                         </Typography>
                       </Grid>
-                      <Grid item>
+                      <Grid>
                         <Typography variant="body1">
                           {localize(yhteyshenkilo.titteli)}
                         </Typography>
                       </Grid>
-                      <Grid item>
+                      <Grid>
                         <Typography variant="body1">
                           {localize(yhteyshenkilo.sahkoposti)}
                         </Typography>
                       </Grid>
-                      <Grid item>
+                      <Grid>
                         <Typography variant="body1">
                           {localize(yhteyshenkilo.puhelinnumero)}
                         </Typography>
                       </Grid>
                       {!isEmpty(yhteyshenkilo.wwwSivu) && (
-                        <Grid item>
+                        <Grid>
                           <YhteystiedotLink href={localize(yhteyshenkilo.wwwSivu)}>
                             {localize(yhteyshenkilo.wwwSivuTeksti) ||
                               localize(yhteyshenkilo.wwwSivu)}

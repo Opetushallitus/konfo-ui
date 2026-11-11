@@ -1,9 +1,7 @@
-import React from 'react';
-
 import { Box, Typography } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
 import { TFunction } from 'i18next';
-import { join } from 'lodash';
+import { join } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import { localize } from '#/src/tools/localization';
@@ -75,7 +73,7 @@ export const AccessibleGraafi = ({ hakukohde, tulos, isLukio }: Props) => {
       role="region"
       aria-live="assertive"
       aria-hidden={false}
-      sx={visuallyHidden}
+      style={visuallyHidden}
       id="graph__accessible__label">
       <Typography>
         {t('pistelaskuri.graafi.saavutettavuus.saate', {

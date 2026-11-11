@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Button, SelectChangeEvent, Box } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 

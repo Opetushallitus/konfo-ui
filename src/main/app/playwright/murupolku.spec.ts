@@ -1,5 +1,5 @@
 import { Page, test, expect } from '@playwright/test';
-import { isNumber } from 'lodash';
+import { isNumber } from 'lodash-es';
 
 import { mocksFromFile, setupCommonTest } from './test-tools';
 

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { BoxProps, TypographyVariant } from '@mui/material';
 
 import { Heading, HeadingBoundary } from './Heading';

@@ -59,7 +59,7 @@ export const PopoverWithArrow = ({
         horizontal: 'left',
       }}
       marginTop={marginTop}>
-      <ArrowBox component="div">{content}</ArrowBox>
+      <ArrowBox>{content}</ArrowBox>
     </StyledPopover>
   );
 };

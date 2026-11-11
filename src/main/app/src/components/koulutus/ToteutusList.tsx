@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import { Box, Grid, Hidden, Typography } from '@mui/material';
-import { size } from 'lodash';
+import { Box, Grid, Typography } from '@mui/material';
+import { size } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 import { match } from 'ts-pattern';
 
@@ -13,7 +13,7 @@ import { Pagination } from '#/src/components/common/Pagination';
 import { QueryResultWrapper } from '#/src/components/common/QueryResultWrapper';
 import { TextWithBackground } from '#/src/components/common/TextWithBackground';
 import { KOULUTUS_TYYPPI } from '#/src/constants';
-import { useToteutusRajainOrder } from '#/src/hooks/useToteutusRajainOrder';
+import { getToteutusRajainOrder } from '#/src/tools/getToteutusRajainOrder';
 import { getLocalizedMaksullisuus } from '#/src/tools/getLocalizedMaksullisuus';
 import { localize, localizeArrayToCommaSeparated } from '#/src/tools/localization';
 import { getLocalizedOpintojenLaajuus } from '#/src/tools/utils';
@@ -41,7 +41,7 @@ type JarjestajaData = {
 
 const SuodatinGridItem: React.FC<React.PropsWithChildren> = ({ children }) => {
   return (
-    <Grid item sx={{ minWidth: '250px' }} xs={6} lg={4}>
+    <Grid sx={{ minWidth: '250px' }} size={{ xs: 6, lg: 4 }}>
       {children}
     </Grid>
   );
@@ -89,7 +89,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
 
   const [preventClicks, setPreventClicks] = useState(false);
 
-  const rajainOrder = useToteutusRajainOrder({ koulutustyyppi });
+  const rajainOrder = getToteutusRajainOrder({ koulutustyyppi });
 
   return (
     <Box>
@@ -99,7 +99,10 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
           id: scrollTargetId,
         }}>
         <>
-          <Hidden mdDown>
+          <Box
+            sx={{
+              display: { xs: 'none', md: 'block' },
+            }}>
             {someSelected && (
               <div>
                 <SuodatinValinnat
@@ -109,14 +112,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                 />
               </div>
             )}
-            <Grid
-              container
-              item
-              direction="row"
-              justifyContent="center"
-              mb={2}
-              spacing={2}
-              sm={10}>
+            <Grid container direction="row" justifyContent="center" mb={2} spacing={2}>
               {rajainOrder.map(({ Component, props, id }) => {
                 const customProps = getRajainProps({ id, setPreventClicks });
                 return (
@@ -134,8 +130,11 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                 );
               })}
             </Grid>
-          </Hidden>
-          <Hidden mdUp>
+          </Box>
+          <Box
+            sx={{
+              display: { xs: 'block', md: 'none' },
+            }}>
             <MobileFiltersOnTopMenu
               koulutustyyppi={koulutustyyppi}
               rajainCount={size(allSelectedFilters?.flat)}
@@ -146,7 +145,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
               rajainValues={rajainValues}
               rajainOptions={rajainOptions}
             />
-          </Hidden>
+          </Box>
         </>
         <Pagination total={total} pagination={pagination} setPagination={setPagination} />
         <QueryResultWrapper queryResult={queryResult}>
@@ -204,23 +203,21 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                         ),
                         createMaterialIcon('euro_symbol'),
                       ],
-                      [
-                        toteutus.hakuAuki ? (
-                          <TextWithBackground>
-                            {t('haku.hakukaynnissa')}
-                          </TextWithBackground>
-                        ) : (
-                          <></>
-                        ),
-                        undefined,
-                      ],
+                      toteutus.hakuAuki
+                        ? [
+                            <TextWithBackground key="haku-kaynnissa">
+                              {t('haku.hakukaynnissa')}
+                            </TextWithBackground>,
+                            undefined,
+                          ]
+                        : undefined,
                     ]}
                   />
                 </Box>
               ))}
             </Box>
           ) : (
-            <Typography variant="body1" paragraph>
+            <Typography variant="body1" component="p" paddingBottom={2}>
               {t(
                 someSelected
                   ? 'koulutus.ei-rajaimia-vastaavia-toteutuksia'

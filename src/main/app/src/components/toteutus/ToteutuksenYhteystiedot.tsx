@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 
 import { Box, Grid, Typography } from '@mui/material';
-import { isEmpty, filter, flatten, includes, map } from 'lodash';
+import { isEmpty, filter, flatten, includes, map } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import { OppilaitosKorttiLogo } from '#/src/components/common/KorttiLogo';
@@ -99,10 +99,8 @@ export const ToteutuksenYhteystiedot = ({
               <Spacer />
               {oppilaitos.metadata.esittely && (
                 <Grid
-                  item
                   container
-                  sm={12}
-                  md={6}
+                  sx={{ maxWidth: { sm: '100%', md: '50%' } }}
                   direction="column"
                   alignItems="center">
                   {oppilaitos.logo && (

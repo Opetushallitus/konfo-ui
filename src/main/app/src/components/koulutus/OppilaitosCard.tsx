@@ -63,7 +63,7 @@ export const OppilaitosCard = ({
   const { t } = useTranslation();
 
   return (
-    <StyledGrid item xs={12} sm={6} md={4} tyyppi={tyyppi}>
+    <StyledGrid size={{ xs: 12, sm: 6, md: 4 }} tyyppi={tyyppi}>
       <SmartLink href={`/oppilaitos/${oppilaitosOid}`}>
         <Paper className={classes.paper}>
           <Grid
@@ -73,26 +73,23 @@ export const OppilaitosCard = ({
             direction="column"
             spacing={3}
             className={classes.content}>
-            <Grid item>
+            <Grid>
               <OppilaitosKorttiLogo
                 alt={t('oppilaitos.oppilaitoksen-logo')}
                 image={image}
               />
             </Grid>
-            <Grid item className={classes.heading}>
-              {heading}
-            </Grid>
+            <Grid className={classes.heading}>{heading}</Grid>
             <Grid
-              item
               container
               direction="row"
               spacing={1}
               justifyContent="center"
               wrap="nowrap">
-              <Grid item className={classes.iconContainer}>
+              <Grid size="auto" className={classes.iconContainer}>
                 <MaterialIcon icon="public" className={classes.icon} />
               </Grid>
-              <Grid item>
+              <Grid>
                 <Typography variant="body1" noWrap>
                   {locations}
                 </Typography>

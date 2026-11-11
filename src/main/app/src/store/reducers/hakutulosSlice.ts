@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { forEach, split, mapValues, includes, noop, isEqual } from 'lodash';
+import { forEach, split, mapValues, includes, noop, isEqual } from 'lodash-es';
 import { match } from 'ts-pattern';
 
 import { RAJAIN_TYPES, MAKSULLISUUSTYYPPI_RAJAIN } from '#/src/constants';

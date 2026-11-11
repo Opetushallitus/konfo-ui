@@ -1,5 +1,5 @@
 import { Typography } from '@mui/material';
-import { sortBy, castArray } from 'lodash';
+import { sortBy, castArray } from 'lodash-es';
 
 import { SuodatinSlider } from './CustomizedMuiComponents';
 
@@ -48,8 +48,8 @@ export const NumberRangeSlider = ({
         </Typography>
       )}
       <SuodatinSlider
-        {...(sliderLabel && { 'aria-labelledby': 'suodatin-slider' })}
         key={valueToKey(values)}
+        {...(sliderLabel && { 'aria-labelledby': 'suodatin-slider' })}
         disabled={disabled}
         defaultValue={values}
         min={min}

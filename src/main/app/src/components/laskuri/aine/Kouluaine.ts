@@ -1,4 +1,4 @@
-import { range, isEqual } from 'lodash';
+import { range, isEqual } from 'lodash-es';
 
 import { PainotettuArvosana } from '#/src/types/HakukohdeTypes';
 

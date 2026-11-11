@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Grid } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
@@ -68,7 +66,7 @@ export const Sisallysluettelo = (props: Props) => {
 
   return (
     <StyledGrid container direction="row" justifyContent="center" alignItems="center">
-      <Grid item xs={10}>
+      <Grid size={{ xs: 10 }}>
         {visibleIds.map((name, i) => (
           <StyledSmartLink key={`${name}-${i}`} aria-label={name} href={`#${toId(name)}`}>
             {name}

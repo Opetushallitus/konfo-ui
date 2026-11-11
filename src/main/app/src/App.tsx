@@ -2,8 +2,8 @@ import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 
 import { useMediaQuery, Box, CssBaseline } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
-import { useIsFetching } from 'react-query';
-import { Outlet, useLocation } from 'react-router-dom';
+import { useIsFetching } from '@tanstack/react-query';
+import { matchPath, Outlet, useLocation } from 'react-router-dom';
 
 import { CookieDrawer } from '#/src/components/common/CookieDrawer';
 import { CookieModal } from '#/src/components/common/CookieModal';
@@ -120,6 +120,19 @@ type TitleObject = {
   path?: string;
 };
 
+const HAKU_PATH_PATTERN = '/:lng/haku/:keyword?';
+
+const isOnlyHakuKeywordChange = (previousPathname: string | null, pathname: string) => {
+  if (previousPathname == null) {
+    return false;
+  }
+  const previous = matchPath(HAKU_PATH_PATTERN, previousPathname);
+  const current = matchPath(HAKU_PATH_PATTERN, pathname);
+  return (
+    previous != null && current != null && previous.params.lng === current.params.lng
+  );
+};
+
 export const App = () => {
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
   const [titleObj, setTitleObj] = useState<TitleObject>();
@@ -131,9 +144,16 @@ export const App = () => {
   const [sideMenuKey, setSideMenuKey] = useState(1);
 
   const focusRef = useRef<HTMLSpanElement>(null);
+  const previousPathnameRef = useRef<string>(null);
 
   useLayoutEffect(() => {
-    focusRef?.current?.focus();
+    const previousPathname = previousPathnameRef.current;
+    previousPathnameRef.current = pathname;
+    // Hakusanan vaihtuminen hakusivulla (/haku -> /haku/:keyword) ei ole sivunvaihto,
+    // joten fokus pidetään hakukentässä.
+    if (!isOnlyHakuKeywordChange(previousPathname, pathname)) {
+      focusRef?.current?.focus();
+    }
   }, [pathname]);
 
   useLayoutEffect(() => {

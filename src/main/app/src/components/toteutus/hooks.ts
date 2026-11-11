@@ -1,5 +1,5 @@
-import { flow, map, sortBy, uniqBy, pick } from 'lodash';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
+import { flow, map, sortBy, uniqBy, pick } from 'lodash-es';
 
 import { getToteutus } from '#/src/api/konfoApi';
 import { Hakulomaketyyppi } from '#/src/constants';
@@ -88,23 +88,19 @@ type UseToteutusProps = {
 };
 
 export const useToteutus = ({ oid, isDraft }: UseToteutusProps) => {
-  return useQuery<Toteutus>(
-    ['getToteutus', { oid, isDraft }],
-    () => getToteutus(oid!, isDraft),
-    {
-      select: selectToteutus,
-      enabled: Boolean(oid),
-    }
-  );
+  return useQuery<Toteutus>({
+    queryKey: ['getToteutus', { oid, isDraft }],
+    queryFn: () => getToteutus(oid!, isDraft),
+    select: selectToteutus,
+    enabled: Boolean(oid),
+  });
 };
 
 export const useDemoLinks = (hakukohteet: Array<Hakukohde>) => {
   const hakukohdeOids = hakukohteet.map((hakukohde) => hakukohde.hakukohdeOid);
-  return useQuery<Map<string, undefined | Map<string, Translateable>>>(
-    ['demoLinksPerLomakeId', { hakukohdeOids }],
-    () => demoLinksPerLomakeId(hakukohteet),
-    {
-      enabled: Boolean(hakukohteet),
-    }
-  );
+  return useQuery<Map<string, undefined | Map<string, Translateable>>>({
+    queryKey: ['demoLinksPerLomakeId', { hakukohdeOids }],
+    queryFn: () => demoLinksPerLomakeId(hakukohteet),
+    enabled: Boolean(hakukohteet),
+  });
 };

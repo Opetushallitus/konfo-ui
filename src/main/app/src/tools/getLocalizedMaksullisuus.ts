@@ -1,4 +1,4 @@
-import { isEmpty, some } from 'lodash';
+import { isEmpty, some } from 'lodash-es';
 
 import { KOULUTUS_TYYPPI, Koulutustyyppi, MAKSULLISUUSTYYPPI } from '#/src/constants';
 import { Maksullisuustyyppi } from '#/src/types/ToteutusTypes';

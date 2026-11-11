@@ -1,5 +1,5 @@
 import { Typography } from '@mui/material';
-import { map, isEmpty } from 'lodash';
+import { map, isEmpty } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import { Accordion } from '#/src/components/common/Accordion';

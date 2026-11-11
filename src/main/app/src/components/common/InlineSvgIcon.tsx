@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { SvgIcon, SvgIconProps } from '@mui/material';
 import SVG from 'react-inlinesvg';
 

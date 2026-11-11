@@ -1,5 +1,5 @@
 import { TFunction } from 'i18next';
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import { InfoGrid } from '#/src/components/common/InfoGrid';

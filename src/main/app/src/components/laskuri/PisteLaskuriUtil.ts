@@ -14,16 +14,16 @@ export const showPisteLaskuri = (
 ): boolean => {
   return Boolean(
     tyyppi &&
-      [KOULUTUS_TYYPPI.AMM.toString(), KOULUTUS_TYYPPI.LUKIOKOULUTUS.toString()].includes(
-        tyyppi
-      ) &&
-      !ammatillinenPerustutkintoErityisopetuksena &&
-      toteutus?.hakutiedot?.some(
-        (hakutieto: Hakutieto) =>
-          hakutieto?.hakutapa?.koodiUri &&
-          hakutieto?.hakutapa?.koodiUri.includes(YHTEISHAKU_KOODI_URI) &&
-          hakutieto?.kohdejoukko?.koodiUri?.includes(TOISEN_ASTEEN_YHTEISHAUN_KOHDEJOUKKO)
-      )
+    [KOULUTUS_TYYPPI.AMM.toString(), KOULUTUS_TYYPPI.LUKIOKOULUTUS.toString()].includes(
+      tyyppi
+    ) &&
+    !ammatillinenPerustutkintoErityisopetuksena &&
+    toteutus?.hakutiedot?.some(
+      (hakutieto: Hakutieto) =>
+        hakutieto?.hakutapa?.koodiUri &&
+        hakutieto?.hakutapa?.koodiUri.includes(YHTEISHAKU_KOODI_URI) &&
+        hakutieto?.kohdejoukko?.koodiUri?.includes(TOISEN_ASTEEN_YHTEISHAUN_KOHDEJOUKKO)
+    )
   );
 };
 

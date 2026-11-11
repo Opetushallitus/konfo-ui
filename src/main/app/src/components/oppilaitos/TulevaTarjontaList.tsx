@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { isEmpty, uniqBy } from 'lodash';
+import { isEmpty, uniqBy } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import { educationTypeColorCode } from '#/src/colors';
@@ -50,7 +50,7 @@ export const TulevaTarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
   const scrollTargetId = 'tuleva-tarjonta-list';
 
   switch (status) {
-    case 'loading':
+    case 'pending':
       return <LoadingCircle />;
     case 'success':
       return isEmpty(values) ? null : (

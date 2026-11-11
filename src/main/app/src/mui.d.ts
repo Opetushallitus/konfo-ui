@@ -1,15 +1,13 @@
-/* eslint-disable @typescript-eslint/no-empty-interface */
-
-import { PaletteColorOptions, Theme, ThemeOptions } from '@mui/material/styles';
+import { PaletteColorOptions } from '@mui/material/styles';
 
 declare module '@mui/material/styles' {
-  interface CustomTheme extends Theme {
+  interface Theme {
     headerHeight: number;
   }
 
   // allow configuration using `createTheme`
-  interface CustomThemeOptions extends ThemeOptions {
-    headerHeight: number;
+  interface ThemeOptions {
+    headerHeight?: number;
   }
 
   interface CustomPalette {
@@ -22,12 +20,17 @@ declare module '@mui/material/styles' {
 
   interface Palette extends CustomPalette {}
   interface PaletteOptions extends CustomPaletteOptions {}
-
-  export function createTheme(options?: CustomThemeOptions): CustomTheme;
 }
 
 declare module '@mui/material/Button' {
   interface ButtonPropsColorOverrides {
     inverted: true;
+  }
+}
+
+declare module '@mui/material/Typography' {
+  interface TypographyPropsVariantOverrides {
+    h6: true;
+    overline: true;
   }
 }

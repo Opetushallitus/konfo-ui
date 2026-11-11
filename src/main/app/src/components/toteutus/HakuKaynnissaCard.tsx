@@ -21,7 +21,7 @@ export const HakuKaynnissaCard = ({ title, text, href, buttonText }: Props) => {
     <StyledCard elevation={2}>
       <CardContent>
         <Grid container alignItems="center" justifyContent="space-between">
-          <Grid item>
+          <Grid>
             <Typography variant="h4" gutterBottom>
               {title}
             </Typography>

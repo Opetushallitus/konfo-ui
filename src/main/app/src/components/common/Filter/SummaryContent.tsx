@@ -1,8 +1,8 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 
 import { Grid, Typography } from '@mui/material';
 import { TFunction } from 'i18next';
-import { inRange, size } from 'lodash';
+import { inRange, size } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 import { P, match } from 'ts-pattern';
 
@@ -56,14 +56,21 @@ export const SummaryContent = ({
 
   const chipLabel = numberOfItems || selectedValues.length;
   return (
-    <Grid container justifyContent="space-between" alignItems="center" wrap="nowrap">
-      <Grid item style={{ paddingRight: '8px' }}>
+    <Grid
+      container
+      sx={{
+        flexGrow: 1,
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexWrap: 'nowrap',
+      }}>
+      <Grid style={{ paddingRight: '8px' }}>
         <Typography variant="subtitle1" component="span">
           {filterName}
         </Typography>
       </Grid>
       {displaySelected && (
-        <Grid item>
+        <Grid size="auto">
           {stringTooLongForChip(selectedFiltersStr) ? (
             <SuodatinMobileChip label={chipLabel} />
           ) : (

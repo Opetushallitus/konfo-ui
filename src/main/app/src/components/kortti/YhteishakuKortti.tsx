@@ -1,8 +1,6 @@
-import React from 'react';
-
-import { Grid, Card, CardContent, Paper, Button } from '@mui/material';
+import { Card, CardContent, Paper, Button, Grid } from '@mui/material';
 import clsx from 'clsx';
-import Markdown from 'markdown-to-jsx';
+import Markdown from 'markdown-to-jsx/react';
 
 import { colors } from '#/src/colors';
 import { useContentful } from '#/src/hooks/useContentful';
@@ -120,7 +118,7 @@ export const YhteishakuKortti = ({ id, n }: { id: string; n: number }) => {
   const width = Math.max(12 / n, 6);
 
   return (
-    <StyledGrid item xs={12} sm={12} md={12} lg={12} xl={width}>
+    <StyledGrid size={{ xs: 12, sm: 12, md: 12, lg: 12, ...{ xl: width } }}>
       <Card className={clsx(classes.card, colorClass)}>
         <CardContent>
           <h2 className={classes.otsikko}>{yhInfo.otsikko}</h2>
@@ -130,7 +128,7 @@ export const YhteishakuKortti = ({ id, n }: { id: string; n: number }) => {
             </span>
           </Paper>
 
-          <Grid item className={classes.buttons}>
+          <Grid className={classes.buttons}>
             {yhInfo.linkkiHakulomakkeelle && yhInfo.tekstiHakulomakkeelle ? (
               <Button
                 className={isKK ? classes.hakulomakeButtonKk : classes.hakulomakeButton}

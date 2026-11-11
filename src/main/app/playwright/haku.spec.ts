@@ -14,6 +14,10 @@ test.describe('Haku', () => {
     await setupCommonTest({ page, context, baseURL });
 
     await page.route(
+      '/konfo-backend/search/koulutukset**',
+      fixtureFromFile('search-koulutukset-all.json')
+    );
+    await page.route(
       '/konfo-backend/search/oppilaitokset**',
       fixtureFromFile('search-oppilaitokset-all.json')
     );
@@ -50,6 +54,17 @@ test.describe('Haku', () => {
     await searchInput.press('ArrowDown');
     await expect(liveRegion).toContainText('koulutus nimi fi');
     const highlightedOption = page.locator('[role="option"].Mui-focused');
+    await expect(highlightedOption).toContainText('koulutus nimi fi');
+    await expect(searchInput).toHaveAttribute(
+      'aria-activedescendant',
+      (await highlightedOption.getAttribute('id')) ?? ''
+    );
+    await expect(highlightedOption).not.toHaveAttribute('aria-selected');
+
+    // Korostuksen siirtyessä edellisen option aria-selected palautetaan
+    await searchInput.press('ArrowDown');
+    await expect(liveRegion).toContainText('Näytä 1 hakuehdoilla löytyvä koulutus');
+    await expect(firstOption).toHaveAttribute('aria-selected', 'false');
     await expect(highlightedOption).not.toHaveAttribute('aria-selected');
   });
 
@@ -69,16 +84,17 @@ test.describe('Haku', () => {
     const searchInput = getSearchInput(page);
     const koulutuksetNav = page.getByRole('group', { name: 'Koulutukset' });
     const oppilaitoksetNav = page.getByRole('group', { name: 'Oppilaitokset' });
+    const hakuPage = page.getByTestId('koulutustyyppi-filter');
 
     await expect(searchInput).toBeVisible();
     await searchInput.fill('auto');
     await koulutuksetNav.getByText('koulutus nimi fi').click();
     await expect(page).toHaveURL(new RegExp('/konfo/fi/koulutus/123456$'));
     await page.goBack({ waitUntil: 'domcontentloaded' });
+    // goBack palaa jo popstatessa, mutta reitti commitoidaan vasta myöhemmin, jolloin App
+    // siirtää fokuksen pois hakukentästä ja sulkee ehdotukset. Odotetaan hakusivun renderöitymistä.
+    await expect(hakuPage).toBeVisible();
     await searchInput.click();
-    await expect(
-      koulutuksetNav.getByText('Näytä 1 hakuehdoilla löytyvä koulutus')
-    ).toBeVisible();
     await koulutuksetNav.getByText('Näytä 1 hakuehdoilla löytyvä koulutus').click();
     await expectURLEndsWith(
       page,
@@ -89,6 +105,7 @@ test.describe('Haku', () => {
     await oppilaitoksetNav.getByText('oppilaitos nimi fi').click();
     await expect(page).toHaveURL(new RegExp('/konfo/fi/oppilaitos/654321$'));
     await page.goBack({ waitUntil: 'domcontentloaded' });
+    await expect(hakuPage).toBeVisible();
     await getSearchInput(page).click();
     await oppilaitoksetNav.getByText('Näytä 1 hakuehdoilla löytyvä oppilaitos').click();
     await expectURLEndsWith(
@@ -414,13 +431,13 @@ test.describe('Haku', () => {
     const currentButtonPage1 = page.getByRole('link', {
       name: 'Sivu 1 / 114, nykyinen sivu',
     });
-    const page2Button = page.getByRole('link', { name: 'Siirry sivulle 2 / 114' });
+    const secondPageLink = page.getByRole('link', { name: 'Siirry sivulle 2 / 114' });
 
     await expect(currentButtonPage1).toHaveAttribute(
       'aria-label',
       'Sivu 1 / 114, nykyinen sivu'
     );
-    await expect(page2Button).not.toHaveAttribute('aria-current');
+    await expect(secondPageLink).not.toHaveAttribute('aria-current');
 
     // Pyynnössä täytyy olla parametrina page=2
     const requestPromiseForPage2Click = page.waitForRequest(
@@ -433,7 +450,7 @@ test.describe('Haku', () => {
       },
       { timeout: 5000 }
     );
-    await page2Button.click();
+    await secondPageLink.click();
     await requestPromiseForPage2Click;
 
     const currentButtonPage2 = page.getByRole('link', {
@@ -470,6 +487,6 @@ test.describe('Haku', () => {
       'aria-label',
       'Sivu 1 / 114, nykyinen sivu'
     );
-    await expect(page2Button).not.toHaveAttribute('aria-current');
+    await expect(secondPageLink).not.toHaveAttribute('aria-current');
   });
 });

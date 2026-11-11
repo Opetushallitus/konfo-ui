@@ -10,7 +10,7 @@ import {
   Typography,
   useTheme,
 } from '@mui/material';
-import { isString, omit, sortBy } from 'lodash';
+import { isString, omit, sortBy } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
@@ -62,11 +62,11 @@ export const VertaaHakukohteeseen = ({ tulos }: Props) => {
         .filter((hakukohde) =>
           Boolean(
             hakukohde &&
-              [
-                KOULUTUS_TYYPPI.AMM.toString(),
-                KOULUTUS_TYYPPI.LUKIOKOULUTUS.toString(),
-              ].includes(hakukohde.koulutustyyppi) &&
-              !hakukohde.ammatillinenPerustutkintoErityisopetuksena
+            [
+              KOULUTUS_TYYPPI.AMM.toString(),
+              KOULUTUS_TYYPPI.LUKIOKOULUTUS.toString(),
+            ].includes(hakukohde.koulutustyyppi) &&
+            !hakukohde.ammatillinenPerustutkintoErityisopetuksena
           )
         )
         .map((hakukohde) => {
@@ -152,7 +152,10 @@ export const VertaaHakukohteeseen = ({ tulos }: Props) => {
           })}
           renderOption={(props: React.HTMLAttributes<HTMLLIElement>, option: Option) => {
             return (
-              <li {...props} style={{ display: 'block' }} key={option.value.oid}>
+              <li
+                key={option.value.oid}
+                {...omit(props, 'key')}
+                style={{ display: 'block' }}>
                 <Box>{option.label}</Box>
               </li>
             );

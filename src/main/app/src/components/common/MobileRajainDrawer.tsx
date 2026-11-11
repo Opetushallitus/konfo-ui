@@ -54,20 +54,23 @@ export const MobileRajainDrawer = ({
         <Toolbar variant="dense" disableGutters>
           <Grid
             container
-            justifyContent="space-between"
-            alignItems="center"
-            wrap="nowrap">
-            <Grid item>
+            sx={{
+              flexGrow: 1,
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              flexWrap: 'nowrap',
+            }}>
+            <Grid size="auto">
               <IconButton color="inherit" onClick={toggleOpen}>
                 <MaterialIcon icon="close" />
               </IconButton>
             </Grid>
-            <Grid item>
+            <Grid>
               <Typography variant="body1" noWrap color="inherit">
                 {t('haku.rajaa-tuloksia')}
               </Typography>
             </Grid>
-            <Grid item style={{ paddingRight: '10px' }}>
+            <Grid size="auto" style={{ paddingRight: '10px' }}>
               {rajainCount > 0 && (
                 <Button
                   color="inherit"

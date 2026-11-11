@@ -2,16 +2,16 @@ import React, { useState, useCallback, SyntheticEvent } from 'react';
 
 import {
   Button,
-  Grid,
   Card,
   CardContent,
+  Grid,
   Paper,
   CardMedia,
   InputBase,
   Typography,
   Link,
 } from '@mui/material';
-import { isEmpty, trim } from 'lodash';
+import { isEmpty, trim } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
@@ -78,7 +78,7 @@ const Result = ({ id, url, image, sivu, assetUrl }: ResultProps) => {
   const { t } = useTranslation();
 
   return (
-    <Grid item xs={12} key={id}>
+    <Grid size={{ xs: 12 }} key={id}>
       <SmartLink href={url}>
         <Card
           classes={{
@@ -170,15 +170,15 @@ export const Sisaltohaku = () => {
         spacing={2}
         className={classes.sisaltohaku}
         alignItems="center">
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <Murupolku path={[{ name: t('sisaltohaku.otsikko') }]} />
         </Grid>
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <label htmlFor="sisaltohaku-search-input" id="sisaltohaku-search-label">
             {t('sidebar.etsi-tietoa-opintopolusta')}:
           </label>
         </Grid>
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <Paper
             component="form"
             onSubmit={doSearch}
@@ -207,13 +207,13 @@ export const Sisaltohaku = () => {
         {activeSearch && isEmpty(results) ? (
           isLoading ? null : (
             <React.Fragment>
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <h1>{t('sisaltohaku.eituloksia')}</h1>
               </Grid>
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <span>{t('sisaltohaku.summary', { hakusana: hakusana || '' })}</span>
               </Grid>
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <Link underline="always" href="/">
                   {t('sisaltohaku.takaisin')}
                 </Link>
@@ -247,7 +247,7 @@ export const Sisaltohaku = () => {
                 limit={PAGESIZE}
                 offset={offset}
                 total={results.length}
-                onClick={(e, newOffset) => setOffset(newOffset)}
+                onClick={(_, newOffset) => setOffset(newOffset)}
               />
             )}
           </>

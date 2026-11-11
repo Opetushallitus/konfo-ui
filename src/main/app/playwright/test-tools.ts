@@ -2,7 +2,7 @@ import path from 'path';
 
 import AxeBuilder from '@axe-core/playwright';
 import { BrowserContext, Locator, Page, Route, expect } from '@playwright/test';
-import { escapeRegExp } from 'lodash';
+import { escapeRegExp } from 'lodash-es';
 
 const MOCKS_PATH = path.resolve(__dirname, './mocks');
 
@@ -81,7 +81,5 @@ export const expectPageAccessibilityOk = async (page: Page) => {
 };
 
 // For debugging
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const outerHTML = (l: Locator) => l.evaluate((el) => el.outerHTML);
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const innerHTML = (l: Locator) => l.evaluate((el) => el.innerHTML);

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Box, Typography, BoxProps, useMediaQuery, TypographyProps } from '@mui/material';
-import { kebabCase, uniqueId } from 'lodash';
+import { kebabCase, uniqueId } from 'lodash-es';
 
 import { theme } from '#/src/theme';
 
