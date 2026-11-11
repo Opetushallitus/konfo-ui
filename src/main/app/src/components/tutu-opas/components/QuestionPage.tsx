@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { OphButton, OphTypography } from '@opetushallitus/oph-design-system';
 import { useTranslation } from 'react-i18next';
 
@@ -44,7 +44,9 @@ export const QuestionPage = ({
 
   return (
     <>
-      <OphTypography variant="h1">{translation?.question}</OphTypography>
+      <OphTypography variant="h1" sx={{ marginBottom: '24px' }}>
+        {translation?.question}
+      </OphTypography>
       {isEmpty(answerOptions) ? (
         <>
           <Box>{parsedResponseBody}</Box>
@@ -54,6 +56,9 @@ export const QuestionPage = ({
         </>
       ) : (
         <>
+          <Typography sx={{ marginBottom: '16px' }}>
+            {t('tutu.tutu-opas.valitse-yksi')}
+          </Typography>
           <AnswerOptions
             answerOptions={answerOptions}
             setCurrentObject={setCurrentObject}
