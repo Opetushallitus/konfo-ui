@@ -36,6 +36,7 @@ import {
   setKeyword,
   urlParamsChanged,
 } from '#/src/store/reducers/hakutulosSlice';
+import { OphThemeRoute } from '#/src/components/common/OphThemeRoute';
 
 import { TutuOpas } from './components/tutu-opas/TutuOpas';
 
@@ -80,8 +81,13 @@ const routes: Array<RouteObject> = [
               { path: 'sisaltohaku', element: <Sisaltohaku /> },
               { path: 'ohjaava-haku', element: <OhjaavaHakuPage /> },
               {
-                path: 'tutkintojen-tunnustaminen/tutkintojen-tunnustamisen-palveluopas',
-                element: <TutuOpas />,
+                element: <OphThemeRoute />,
+                children: [
+                  {
+                    path: 'tutkintojen-tunnustaminen/tutkintojen-tunnustamisen-palveluopas',
+                    element: <TutuOpas />,
+                  },
+                ],
               },
               {
                 element: (
