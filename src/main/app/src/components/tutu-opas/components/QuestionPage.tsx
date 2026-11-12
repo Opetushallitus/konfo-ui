@@ -35,6 +35,9 @@ export const QuestionPage = ({
       if (domNode instanceof Element && domNode.name === 'a') {
         if (domNode.attribs.href.startsWith('/node')) {
           domNode.attribs.href = `https://oph.fi/${language}/${domNode.attribs.href}`;
+        }
+
+        if (domNode.attribs.href.includes('oph.fi')) {
           domNode.attribs.target = '_blank';
         }
 
