@@ -17,8 +17,8 @@ export const SearchButton = ({
   const isOph = variant === 'oph';
 
   const mdUp = useMediaQuery(theme.breakpoints.up('md'));
-  // oph-variantissa aina tekstillinen painike, myös kapeilla näytöillä
-  return mdUp || isOph ? (
+  // Kapeilla näytöillä molemmissa varianteissa pelkkä suurennuslasi-painike
+  return mdUp ? (
     <Button
       startIcon={<MaterialIcon icon="search" />}
       disabled={!isKeywordValid}
