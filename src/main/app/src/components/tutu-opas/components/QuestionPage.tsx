@@ -42,6 +42,7 @@ export const QuestionPage = ({
     },
   });
 
+  const optionsLabelId = 'valitse-yksi-label';
   return (
     <>
       <OphTypography variant="h1" sx={{ marginBottom: '24px' }}>
@@ -56,13 +57,14 @@ export const QuestionPage = ({
         </>
       ) : (
         <>
-          <Typography sx={{ marginBottom: '16px' }}>
+          <Typography id={optionsLabelId} sx={{ marginBottom: '16px' }}>
             {t('tutu.tutu-opas.valitse-yksi')}
           </Typography>
           <AnswerOptions
             answerOptions={answerOptions}
             setCurrentObject={setCurrentObject}
             tutuConfigObjects={tutuConfigObjects}
+            labelId={optionsLabelId}
           />
           <OphButton onClick={() => setIsStartPage(true)}>
             {t('tutu.aloita-alusta')}

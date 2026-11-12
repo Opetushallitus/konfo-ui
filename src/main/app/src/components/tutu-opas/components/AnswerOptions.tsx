@@ -42,13 +42,15 @@ export const AnswerOptions = ({
   answerOptions,
   setCurrentObject,
   tutuConfigObjects,
+  labelId,
 }: {
   answerOptions?: Array<AnswerOptionType>;
   setCurrentObject: Dispatch<TutuObject | undefined>;
   tutuConfigObjects: Array<TutuObject>;
+  labelId: string;
 }) => {
   return (
-    <Box display="flex" flexDirection="column">
+    <Box display="flex" flexDirection="column" aria-labelledby={labelId}>
       {answerOptions?.map((answerOption: AnswerOptionType) => (
         <AnswerOption
           answerOption={answerOption}
