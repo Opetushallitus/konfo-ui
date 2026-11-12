@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Dispatch, useState } from 'react';
 import { LanguageCode } from '#/src/types/common';
 import { useLanguageState } from '#/src/hooks';
-import { isEmpty } from 'lodash-es';
+import { isEmpty, some } from 'lodash-es';
 import parse, { Element, DOMNode } from 'html-react-parser';
 import { TutuObject } from '../types';
 import { NavigationButton } from '../components/NavigationButton';
@@ -32,12 +32,20 @@ export const QuestionPage = ({
 
   const parsedBody = parse(translation?.body || '', {
     replace(domNode: DOMNode) {
-      if (
-        domNode instanceof Element &&
-        domNode.name === 'a' &&
-        domNode.attribs.href.startsWith('/node')
-      ) {
-        domNode.attribs.href = `https://oph.fi/${language}/${domNode.attribs.href}`;
+      if (domNode instanceof Element && domNode.name === 'a') {
+        if (domNode.attribs.href.startsWith('/node')) {
+          domNode.attribs.href = `https://oph.fi/${language}/${domNode.attribs.href}`;
+          domNode.attribs.target = '_blank';
+        }
+
+        if (
+          some(['opintopolku.fi', 'studieinfo.fi', 'studyinfo.fi'], (domain: string) => {
+            return domNode.attribs.href.includes(domain);
+          })
+        ) {
+          domNode.attribs.href = `/konfo/${language}`;
+          domNode.attribs.target = '';
+        }
       }
     },
   });
@@ -48,10 +56,14 @@ export const QuestionPage = ({
       <OphTypography variant="h1" sx={{ marginBottom: '24px' }}>
         {translation?.question}
       </OphTypography>
+
       {isEmpty(answerOptions) ? (
         <>
           <Box>{parsedBody}</Box>
-          <NavigationButton variant="contained" onClick={() => setIsStartPage(true)}>
+          <NavigationButton
+            variant="contained"
+            onClick={() => setIsStartPage(true)}
+            sx={{ marginTop: '12px' }}>
             {t('tutu.aloita-alusta')}
           </NavigationButton>
         </>
