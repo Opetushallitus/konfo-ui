@@ -1,0 +1,2079 @@
+[
+  {
+    "id": 2269,
+    "uuid": "92ea3ec4-0ee8-4a28-808d-466821b015ba",
+    "status": true,
+    "is_frontpage": false,
+    "created": 1560175890,
+    "changed": 1651834545,
+    "translations": {
+      "fi": {
+        "name": "Wizard 0: Mitä haluat tehdä?",
+        "question": "Mitä haluat tehdä?",
+        "body": null,
+        "answers": [
+          {
+            "id": 38570,
+            "label": null,
+            "target": null
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 3541,
+    "uuid": "c3aaa0a4-20ea-4169-8339-1fd85c71a9d9",
+    "status": true,
+    "is_frontpage": true,
+    "created": 1561538538,
+    "changed": 1675330225,
+    "translations": {
+      "fi": {
+        "name": "Wizard 0: Mitä haluat tehdä Suomessa?",
+        "question": "Mitä haluat tehdä Suomessa?",
+        "body": null,
+        "answers": [
+          {
+            "id": 11296,
+            "label": "Haluan työskennellä",
+            "target": 7841
+          },
+          {
+            "id": 11304,
+            "label": "Haluan opiskella",
+            "target": 7842
+          },
+          {
+            "id": 11408,
+            "label": "En vielä tiedä",
+            "target": 4054
+          }
+        ]
+      },
+      "sv": {
+        "name": "Wizard 0: Vad vill du göra i Finland?",
+        "question": "Vad vill du göra i Finland?",
+        "body": null,
+        "answers": [
+          {
+            "id": 11296,
+            "label": "Jag vill arbeta",
+            "target": 7841
+          },
+          {
+            "id": 11304,
+            "label": "Jag vill studera",
+            "target": 7842
+          },
+          {
+            "id": 11408,
+            "label": "Jag vet inte ännu",
+            "target": 4054
+          }
+        ]
+      },
+      "en": {
+        "name": "Wizard 0: What would you like to do in Finland?",
+        "question": "What would you like to do in Finland?",
+        "body": null,
+        "answers": [
+          {
+            "id": 11296,
+            "label": "I would like to work",
+            "target": 7841
+          },
+          {
+            "id": 11304,
+            "label": "I would like to study",
+            "target": 7842
+          },
+          {
+            "id": 11408,
+            "label": "I don’t know yet",
+            "target": 4054
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 4051,
+    "uuid": "47907744-d7d2-43e4-aed0-bcd48717ce9a",
+    "status": true,
+    "is_frontpage": false,
+    "created": 1562668016,
+    "changed": 1756970512,
+    "translations": {
+      "fi": {
+        "name": "Wizard 1: Valitse ammattiala",
+        "question": "Valitse ammattiala",
+        "body": null,
+        "answers": [
+          {
+            "id": 11314,
+            "label": "Opetus",
+            "target": 4169
+          },
+          {
+            "id": 11316,
+            "label": "Varhaiskasvatus",
+            "target": 5635
+          },
+          {
+            "id": 11317,
+            "label": "Terveydenhuolto",
+            "target": 4058
+          },
+          {
+            "id": 11319,
+            "label": "Sosiaalihuolto",
+            "target": 4059
+          },
+          {
+            "id": 11321,
+            "label": "Kirkolliset tehtävät",
+            "target": 4060
+          },
+          {
+            "id": 11327,
+            "label": "Eläimet ja elintarviketurvallisuus",
+            "target": 4061
+          },
+          {
+            "id": 11331,
+            "label": "Liikenne",
+            "target": 4062
+          },
+          {
+            "id": 11332,
+            "label": "Oikeustieteellinen ala",
+            "target": 4063
+          },
+          {
+            "id": 11411,
+            "label": "Pelastusala",
+            "target": 5649
+          },
+          {
+            "id": 60932,
+            "label": "Rakennettu ympäristö",
+            "target": 18777
+          },
+          {
+            "id": 11409,
+            "label": "Muu",
+            "target": 4083
+          }
+        ]
+      },
+      "sv": {
+        "name": "Wizard 1: Välj ett yrkesområde",
+        "question": "Välj ett yrkesområde",
+        "body": null,
+        "answers": [
+          {
+            "id": 11314,
+            "label": "Undervisning",
+            "target": 4169
+          },
+          {
+            "id": 11316,
+            "label": "Småbarnspedagogik",
+            "target": 5635
+          },
+          {
+            "id": 11317,
+            "label": "Hälsovård",
+            "target": 4058
+          },
+          {
+            "id": 11319,
+            "label": "Socialvård",
+            "target": 4059
+          },
+          {
+            "id": 11321,
+            "label": "Kyrkliga uppgifter",
+            "target": 4060
+          },
+          {
+            "id": 11327,
+            "label": "Djur och livsmedelssäkerhet",
+            "target": 4061
+          },
+          {
+            "id": 11331,
+            "label": "Trafik",
+            "target": 4062
+          },
+          {
+            "id": 11332,
+            "label": "Juridiska området",
+            "target": 4063
+          },
+          {
+            "id": 11411,
+            "label": "Räddningsbranschen",
+            "target": 5649
+          },
+          {
+            "id": 60932,
+            "label": "Den byggda miljön",
+            "target": 18777
+          },
+          {
+            "id": 11409,
+            "label": "Annan",
+            "target": 4083
+          }
+        ]
+      },
+      "en": {
+        "name": "Wizard 1: Choose the professional field that you are qualified in",
+        "question": "What is the professional field that you are qualified in?",
+        "body": null,
+        "answers": [
+          {
+            "id": 11314,
+            "label": "Teaching",
+            "target": 4169
+          },
+          {
+            "id": 11316,
+            "label": "Early childhood education and care",
+            "target": 5635
+          },
+          {
+            "id": 11317,
+            "label": "Healthcare",
+            "target": 4058
+          },
+          {
+            "id": 11319,
+            "label": "Social welfare",
+            "target": 4059
+          },
+          {
+            "id": 11321,
+            "label": "Ecclesiastical posts",
+            "target": 4060
+          },
+          {
+            "id": 11327,
+            "label": "Animals and food security",
+            "target": 4061
+          },
+          {
+            "id": 11331,
+            "label": "Transport",
+            "target": 4062
+          },
+          {
+            "id": 11332,
+            "label": "Law",
+            "target": 4063
+          },
+          {
+            "id": 11411,
+            "label": "Fire and rescue services",
+            "target": 5649
+          },
+          {
+            "id": 60932,
+            "label": "Built Environment",
+            "target": 18777
+          },
+          {
+            "id": 11409,
+            "label": "Other",
+            "target": 4083
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 4053,
+    "uuid": "cdbd0fbc-e201-4c60-882d-cf46c7228bea",
+    "status": true,
+    "is_frontpage": false,
+    "created": 1562668274,
+    "changed": 1679563042,
+    "translations": {
+      "fi": {
+        "name": "Wizard 2: Hae opiskelupaikkaa suomalaisesta oppilaitoksesta tai korkeakoulusta",
+        "question": "Hae opiskelupaikkaa suomalaisesta oppilaitoksesta tai korkeakoulusta",
+        "body": "<p>Oppilaitos tai korkeakoulu päättää opiskelijaksi ottamisesta. Oppilaitos tai korkeakoulu päättää myös aiempien opintojesi hyväksilukemisesta suomalaiseen tutkintoon. Et tarvitse Opetushallituksen päätöstä tutkintosi tunnustamisesta.</p>\r\n\r\n<p>Tutustu opiskelumahdollisuuksiin Opintopolku-palvelussa.<a href=\"https://opintopolku.fi/\"> Siirry Opintopolku-palveluun</a></p>\r\n\r\n<p>Maahanmuuttajille ohjausta tarjoavat myös korkeakoulujen<strong> SIMHE-palvelut</strong>.&nbsp;<a data-entity-substitution=\"canonical\" data-entity-type=\"node\" data-entity-uuid=\"586f02d2-623d-4945-b6bf-0b852f90d825\" href=\"/node/813\">Siirry lisätietoihin&nbsp;SIMHE-palveluista</a></p>\r\n",
+        "answers": []
+      },
+      "sv": {
+        "name": "Wizard 2: Sök en studieplats i en finländsk läroanstalt eller högskola",
+        "question": "Sök en studieplats i en finländsk läroanstalt eller högskola",
+        "body": "<p>Läroanstalten eller högskolan beslutar om antagning av studerande. Läroanstalten eller högskolan beslutar om tillgodoräknande av dina tidigare studier i en finländsk examen.&nbsp;Du behöver inte Utbildningsstyrelsens beslut om erkännande av examen.</p>\r\n\r\n<p>Bekanta dig med studiemöjligheter i Studieinfo-tjänsten.&nbsp;<a href=\"https://studieinfo.fi/\" target=\"_blank\">Gå till Studieinfo-tjänsten</a></p>\r\n\r\n<p>Även högskolornas<strong> SIMHE-tjänster</strong> erbjuder handledning för invandrare.&nbsp;<a href=\"https://www.oph.fi/fi/korkeakoulujen-simhe-palvelut\">Läs mer om SIMHE-tjänsterna på Utbildningsstyrelsens webbplats</a>&nbsp;(på finska / på engelska)</p>\r\n",
+        "answers": []
+      },
+      "en": {
+        "name": "Wizard 2: Apply for a study place in a Finnish educational institution or higher education institution",
+        "question": "Apply for a study place in a Finnish educational institution or higher education institution",
+        "body": "<p>The institution decides whether you are admitted as a student. The institution also decides whether your previous studies will be credited towards a Finnish qualification. You don't need a decision on recognition made by the Finnish National Agency for Education.</p><p>Familiarise yourself with the study opportunities at Studyinfo.fi.&nbsp;</p><section class=\"ckeditor-template-wrapper\"><div class=\"ckeditor-template-content\"><div class=\"field field-link arrow-links\"><p><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\">Studyinfo.fi</a></p></div></div></section><p>The<strong>&nbsp;SIMHE services</strong> of higher education institutions also offer guidance to immigrants.&nbsp;</p><section class=\"ckeditor-template-wrapper\"><div class=\"ckeditor-template-content\"><div class=\"field field-link arrow-links\"><ul class=\"list-reset\"><li class=\"space-top space-top--half\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\">SIMHE services</a></li></ul></div></div></section>",
+        "answers": []
+      }
+    }
+  },
+  {
+    "id": 4054,
+    "uuid": "9f2e3ac5-b13a-41c3-b340-8639351a4b5b",
+    "status": true,
+    "is_frontpage": false,
+    "created": 1562668740,
+    "changed": 1679568350,
+    "translations": {
+      "fi": {
+        "name": "Wizard 3: Et ainakaan vielä tarvitse päätöstä tutkinnon tunnustamisesta. Tutki ensin vaihtoehtoja.",
+        "question": "Et ainakaan vielä tarvitse päätöstä tutkinnon tunnustamisesta. Tutki ensin vaihtoehtoja. ",
+        "body": "<p>Tutustu opiskelumahdollisuuksiin Opintopolku-palvelussa.&nbsp;<a href=\"https://opintopolku.fi/\">Siirry Opintopolku-palveluun</a></p>\r\n\r\n<p>Maahanmuuttajille ohjausta tarjoavat myös korkeakoulujen SIMHE-palvelut.&nbsp;<a data-entity-substitution=\"canonical\" data-entity-type=\"node\" data-entity-uuid=\"586f02d2-623d-4945-b6bf-0b852f90d825\" href=\"/node/813\">Lue lisää SIMHE-palveluista Opetushallituksen verkkosivuilta</a>.&nbsp;</p>\r\n",
+        "answers": []
+      },
+      "sv": {
+        "name": "Wizard 3: I detta skede behöver du inget beslut om examenserkännande. Bekanta dig först med olika alternativ.",
+        "question": "I detta skede behöver du inget beslut om examenserkännande. Bekanta dig först med olika alternativ.",
+        "body": "<p>Bekanta dig med studiemöjligheter i Studieinfo-tjänsten.&nbsp;<a href=\"https://studieinfo.fi/\" target=\"_blank\">Gå till Studieinfo-tjänsten</a></p><p>Även högskolornas SIMHE-tjänster erbjuder handledning för invandrare.&nbsp;<a href=\"https://www.oph.fi/sv/hogskolornas-simhe-tjanster\">Läs mer om SIMHE-tjänsterna på Utbildningsstyrelsens webbplats</a></p>",
+        "answers": []
+      },
+      "en": {
+        "name": "Wizard 3: At this stage, you don't need a decision on recognition by the Finnish National Agency for Education. Explore the options first.",
+        "question": "At this stage, you don't need a decision on recognition by the Finnish National Agency for Education. Explore the options first.",
+        "body": "<p>Familiarise yourself with the study opportunities in the Studyinfo-service.&nbsp;<a href=\"https://studyinfo.fi/\" target=\"_blank\">Go to the Studyinfo-service</a></p>\r\n\r\n<p>The&nbsp;SIMHE-services of higher education institutions also offer guidance to immigrants.&nbsp;<a href=\"https://www.oph.fi/en/simhe-services-higher-education-institutions\">Read more about the SIMHE-services on the Finnish National Agency for Education’s website</a></p>\r\n",
+        "answers": []
+      }
+    }
+  },
+  {
+    "id": 4057,
+    "uuid": "967f2418-18d5-409e-ae2e-4d22f1fc7c0f",
+    "status": true,
+    "is_frontpage": false,
+    "created": 1562669933,
+    "changed": 1569925068,
+    "translations": {
+      "fi": {
+        "name": "Wizard 1.2 Oletko EU- tai ETA-maan tai Sveitsin kansalainen? (vaka)",
+        "question": "Oletko EU-/ETA-maan tai Sveitsin kansalainen tai onko sinulla asiakirja, jonka perusteella sinua tulisi kohdella kuin EU-kansalaista?",
+        "body": null,
+        "answers": [
+          {
+            "id": 11359,
+            "label": "Kyllä",
+            "target": 4075
+          },
+          {
+            "id": 11396,
+            "label": "En",
+            "target": 4080
+          }
+        ]
+      },
+      "sv": {
+        "name": "Wizard 1.2 Är du medborgare i ett EU-/EES-land eller Schweiz?",
+        "question": "Är du medborgare i ett EU-/EES-land eller Schweiz eller har du ett dokument enligt vilket du borde behandlas som en EU-medborgare?",
+        "body": null,
+        "answers": [
+          {
+            "id": 11359,
+            "label": "Ja",
+            "target": 4075
+          },
+          {
+            "id": 11396,
+            "label": "Nej",
+            "target": 4080
+          }
+        ]
+      },
+      "en": {
+        "name": "Wizard 1.2 Are you a citizen of an EU/EEA country or Switzerland?",
+        "question": "Are you a citizen of an EU/EEA country or Switzerland or do you have a document that entitles you to be treated as an EU citizen?",
+        "body": null,
+        "answers": [
+          {
+            "id": 11359,
+            "label": "Yes",
+            "target": 4075
+          },
+          {
+            "id": 11396,
+            "label": "No",
+            "target": 4080
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 4058,
+    "uuid": "35b142f4-17df-45a9-9e8d-a50e026fa0c2",
+    "status": true,
+    "is_frontpage": false,
+    "created": 1562670111,
+    "changed": 1790261244,
+    "translations": {
+      "fi": {
+        "name": "Wizard 1.3 Terveydenhuolto",
+        "question": "Lupa- ja valvontavirasto päättää terveydenhuollon ammattioikeuksista.",
+        "body": "<p>Ammattioikeudet tarvitaan esimerkiksi näihin ammatteihin:<br>- farmaseutti&nbsp;<br>- fysioterapeutti<br>- hammaslääkäri<br>- kätilö&nbsp;<br>- lähihoitaja<br>- lääkäri<br>- proviisori<br>- sairaanhoitaja</p><p>Jos haet terveydenhuollon ammattioikeuksia, ota yhteyttä Lupa- ja valvontavirastoon.</p><section class=\"ckeditor-template-wrapper\"><div class=\"ckeditor-template-content\"><div class=\"field field-link arrow-links\"><ul class=\"list-reset\"><li class=\"space-top space-top--half\" data-list-item-id=\"e4d3d5c143d7adc73b731b19ac291e8bd\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"https://lvv.fi/sosiaali-ja-terveydenhuolto\" data-entity-type=\"external\">Lupa- ja valvontavirasto</a></li></ul></div></div></section>",
+        "answers": []
+      },
+      "sv": {
+        "name": "Wizard 1.3 Hälsovård",
+        "question": "Tillstånds-och tillsynsverket beslutar om rätt att utöva yrke inom hälsovården.",
+        "body": "<p>Rätt att utöva yrke behövs till exempel för dessa yrken:</p><ul><li data-list-item-id=\"e4abf6f50798455ff5b95ad4f263daef3\">farmaceut</li><li data-list-item-id=\"e7ec159192db92497b903568fa35fb8f1\">fysioterapeut</li><li data-list-item-id=\"ec8e6aa25c3cc55532c6f96655cf22c10\">tandläkare</li><li data-list-item-id=\"e71e1d3afb3186853d42cd4c8d6f79389\">barnmorska</li><li data-list-item-id=\"eeb2d667e349e7c215238770215b45e85\">närvårdare</li><li data-list-item-id=\"edc9b4f4031a9f5c22b1d21bc59dade4d\">läkare</li><li data-list-item-id=\"e4a91307d48cea43796477603437aeaba\">provisor</li><li data-list-item-id=\"e999513e082d2471609ae3c0bc00b8f4d\">sjukskötare</li></ul><p>Om du ansöker om rätt att utöva ett yrke inom hälsovården, kontakta Tillstånds-och tillsynsverket.</p><section class=\"ckeditor-template-wrapper\"><div class=\"ckeditor-template-content\"><div class=\"field field-link arrow-links\"><ul class=\"list-reset\"><li class=\"space-top space-top--half\" data-list-item-id=\"ed9c2b169eb4c8eb26d83d33b044cc05e\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"https://lvv.fi/sv/social-och-halsovard\" data-entity-type=\"external\">Tillstånds-och tillsynsverket</a></li></ul></div></div></section>",
+        "answers": []
+      },
+      "en": {
+        "name": "Wizard 1.3 Healthcare",
+        "question": "The Finnish Supervisory Agency decides on the professional practice rights of healthcare professionals.",
+        "body": "<p>Professional practice rights are required for example for the following professions:</p><ul><li data-list-item-id=\"e13656801e2a673a3c895d675a3419d79\">pharmaceutical dispenser</li><li data-list-item-id=\"ec93782e6940920e4eac4a2bd6ea20d3e\">physiotherapist</li><li data-list-item-id=\"e1798535491141ef816e6d5d6b22ea8d1\">dentist</li><li data-list-item-id=\"e64821afd9d2e65b762acf1a9f56aacc4\">midwife</li><li data-list-item-id=\"eaad35bcb342ca0b62a9f308fc7ac8bf1\">practical nurse</li><li data-list-item-id=\"e6d55d0b95ff7e47d2c2af095468ceba5\">physician</li><li data-list-item-id=\"ec48e33e35006ebaa9d71280e0de79cdc\">pharmacist</li><li data-list-item-id=\"ed5b6ea5571d5da8d33c4c099e4beb27b\">registered nurse</li></ul><p>If you are applying for professional practice rights in healthcare, contact the Finnish Supervisory Agency.</p><section class=\"ckeditor-template-wrapper\"><div class=\"ckeditor-template-content\"><div class=\"field field-link arrow-links\"><ul class=\"list-reset\"><li class=\"space-top space-top--half\" data-list-item-id=\"e5a4b26a83c582fff826aa30c64e0845c\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"https://lvv.fi/en/healthcare-and-social-welfare\" data-entity-type=\"external\">Finnish Supervisory Agency</a></li></ul></div></div></section>",
+        "answers": []
+      }
+    }
+  },
+  {
+    "id": 4059,
+    "uuid": "6368b2dd-2ec9-4434-84a5-6865f1719bdd",
+    "status": true,
+    "is_frontpage": false,
+    "created": 1562670504,
+    "changed": 1790261536,
+    "translations": {
+      "fi": {
+        "name": "Wizard 1.4 Sosiaalihuolto",
+        "question": "Lupa- ja valvontavirasto päättää sosiaalihuollon ammattioikeuksista. ",
+        "body": "<p>Ammattioikeudet tarvitaan esimerkiksi näihin sosiaalihuollon ammatteihin:<br>- lähihoitaja&nbsp;<br>- sosiaalityöntekijä<br>- sosionomi</p><p>Jos haet sosiaalihuollon ammattioikeuksia, ota yhteyttä Lupa- ja valvontavirastoon.</p><section class=\"ckeditor-template-wrapper\"><div class=\"ckeditor-template-content\"><div class=\"field field-link arrow-links\"><ul class=\"list-reset\"><li class=\"space-top space-top--half\" data-list-item-id=\"e70702714d4afa367d22058ec59a3affa\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"https://lvv.fi/sosiaali-ja-terveydenhuolto\" data-entity-type=\"external\">Lupa- ja valvontavirasto</a></li></ul></div></div></section>",
+        "answers": []
+      },
+      "sv": {
+        "name": "Wizard 1.4 Socialvården",
+        "question": "Tillstånds-och tillsynsverket beslutar om rätt att utöva yrke inom socialvården.",
+        "body": "<p>Rätt att utöva yrke behövs till exempel för dessa yrken inom socialvården:</p><ul><li data-list-item-id=\"e01b72e2f91ff7094896e6fd012427355\">närvårdare&nbsp;</li><li data-list-item-id=\"e3ae9e64ce5571ceff0e0ddf086071f36\">socialarbetare</li><li data-list-item-id=\"edfe5c217d9589f1bf8b6743d14fdb04d\">socionom</li></ul><p>Om du ansöker om rätt att utöva ett yrke inom socialvården, kontakta Valvira.</p><section class=\"ckeditor-template-wrapper\"><div class=\"ckeditor-template-content\"><div class=\"field field-link arrow-links\"><ul class=\"list-reset\"><li class=\"space-top space-top--half\" data-list-item-id=\"ed93b8ca9d7fa7cfa0cc0003a7eea0d44\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"https://valvira.fi/sv/yrkesrattigheter/arbeta-inom-social-och-halsovardsbranchen\">Valvira</a></li></ul></div></div></section>",
+        "answers": []
+      },
+      "en": {
+        "name": "Wizard 1.4 Social welfare",
+        "question": "The Finnish Supervisory Agency decides on the professional practice rights of social welfare professionals.",
+        "body": "<p>Professional practice rights are required for example for the following professions in social welfare:</p><ul><li data-list-item-id=\"e953070c417f90f34b2d42988ed4b4503\">practical nurse&nbsp;</li><li data-list-item-id=\"ecac2301a6b6065d3e4160b0909c92ff3\">social worker</li><li data-list-item-id=\"e083fd38098b17f8f7701c17b0b5651b7\">social service professional</li></ul><p>If you are applying for professional practice rights in social welfare, contact Valvira.</p><section class=\"ckeditor-template-wrapper\"><div class=\"ckeditor-template-content\"><div class=\"field field-link arrow-links\"><ul class=\"list-reset\"><li class=\"space-top space-top--half\" data-list-item-id=\"e5ceb3a3cadd00685ec091a7c82533a65\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"https://valvira.fi/en/rights-to-practise/planning-to-work-in-the-social-welfare-and-health-care-field\">Valvira</a></li></ul></div></div></section>",
+        "answers": []
+      }
+    }
+  },
+  {
+    "id": 4060,
+    "uuid": "afd47f61-804f-4e10-81fe-2367232c25f9",
+    "status": true,
+    "is_frontpage": false,
+    "created": 1562670726,
+    "changed": 1702643708,
+    "translations": {
+      "fi": {
+        "name": "Wizard 1.5: Kirkolliset tehtävät",
+        "question": "Pätevyydestä kirkollisiin tehtäviin päättävät Kirkkohallitus ja Kirkollishallitus.",
+        "body": "<p>Jos haet pätevyyttä Suomen evankelis-luterilaisen kirkon virkaan tai tehtävään, ota yhteyttä Kirkkohallitukseen.</p><p><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"https://evl.fi/tietoa-meista/kirkon-organisaatio/paatoksenteko-kirkossa/kirkkohallitus/\">Siirry Kirkkohallituksen verkkosivuille</a><br><br>Jos haet pätevyyttä Suomen ortodoksisen kirkon virkaan tai tehtävään, ota yhteyttä Kirkollishallitukseen.</p><section class=\"ckeditor-template-wrapper\"><div class=\"ckeditor-template-content\"><div class=\"field field-link arrow-links\"><ul class=\"list-reset\"><li class=\"space-top space-top--half\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"https://ort.fi/hallinto-ja-paatoksenteko/kirkollishallitus\">Siirry Kirkollishallituksen verkkosivuille</a></li></ul></div></div></section>",
+        "answers": []
+      },
+      "sv": {
+        "name": "Wizard 1.5: Kyrkliga uppgifter",
+        "question": "Den evangelisk-lutherska Kyrkostyrelsen och ortodoxa Kyrkostyrelsen beslutar om yrkeskvalifikationer för kyrkliga uppgifter.",
+        "body": "<p>Om du ansöker om erkännande av yrkeskvalifikationer för en tjänst eller en uppgift inom den evangelisk-lutherska kyrkan i Finland, kontakta Kyrkostyrelsen (evangelisk-luthersk).</p><p><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"https://evl.fi/sv/fakta-om-kyrkan/organisation-och-beslutsfattande/beslutsfattandet-i-kyrkan/kyrkostyrelsen/\">Gå till Kyrkostyrelsens webbplats</a></p><p>Om du ansöker om erkännande av yrkeskvalifikationer för en tjänst eller en uppgift inom den ortodoxa kyrkan i Finland, kontakta Kyrkostyrelsen (ortodox).</p><section class=\"ckeditor-template-wrapper\"><div class=\"ckeditor-template-content\"><div class=\"field field-link arrow-links\"><ul class=\"list-reset\"><li class=\"space-top space-top--half\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"https://ort.fi/sv\">Gå till Kyrkostyrelsens webbplats</a></li></ul></div></div></section>",
+        "answers": []
+      },
+      "en": {
+        "name": "Wizard 1.5: Ecclesiastical posts",
+        "question": "Decisions on eligibility for ecclesiastical posts are made by the Church Council and the Church Administrative Council.",
+        "body": "<p>If you are applying for eligibility for a post or position at the Evangelical Lutheran Church of Finland, contact the Church Council.</p><section class=\"ckeditor-template-wrapper\"><div class=\"ckeditor-template-content\"><div class=\"field field-link arrow-links\"><ul class=\"list-reset\"><li class=\"space-top space-top--half\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"https://evl.fi/en/\">Go to the website of the Church Council</a></li></ul></div></div></section><p>If you are applying for eligibility for a post or position at the Orthodox Church of Finland, contact the Church Administrative Council.</p><p><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"https://ort.fi/\">Go to the website of the Church Administrative Council &nbsp;(website available in Finnish, Swedish and Russian)</a></p>",
+        "answers": []
+      }
+    }
+  },
+  {
+    "id": 4061,
+    "uuid": "662541e2-4377-4d7c-b4d0-245f72aed514",
+    "status": true,
+    "is_frontpage": false,
+    "created": 1562671203,
+    "changed": 1703144412,
+    "translations": {
+      "fi": {
+        "name": "Wizard 1.6 Eläimet ja elintarviketurvallisuus",
+        "question": "Ruokavirasto päättää pätevyydestä näihin ammatteihin, jotka liittyvät eläimiin tai elintarviketurvallisuuteen:",
+        "body": "<ul><li>broilerikasvattaja&nbsp;</li><li>eläinlääkäri&nbsp;</li><li>erikoiseläinlääkäri&nbsp;</li><li>seminologi</li></ul><p>Ota yhteyttä Ruokavirastoon, jos haet pätevyyttä johonkin näistä&nbsp;ammateista.</p><section class=\"ckeditor-template-wrapper\"><div class=\"ckeditor-template-content\"><div class=\"field field-link arrow-links\"><ul class=\"list-reset\"><li class=\"space-top space-top--half\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"https://www.ruokavirasto.fi/\">Siirry Ruokaviraston verkkosivuille</a></li></ul></div></div></section><p>&nbsp;</p>",
+        "answers": []
+      },
+      "sv": {
+        "name": "Wizard 1.6 Djur eller livsmedelssäkerhet",
+        "question": "Livsmedelsverket beslutar om yrkeskvalifikationer för följande yrken som gäller djur eller livsmedelssäkerhet:",
+        "body": "<ul><li>broileruppfödare&nbsp;</li><li>veterinär&nbsp;</li><li>specialveterinär&nbsp;</li><li>seminolog</li></ul><p>Kontakta Livsmedelsverket om du ansöker om yrkeskvalifikationer för ett av dessa yrken.</p><section class=\"ckeditor-template-wrapper\"><div class=\"ckeditor-template-content\"><div class=\"field field-link arrow-links\"><ul class=\"list-reset\"><li class=\"space-top space-top--half\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"https://www.ruokavirasto.fi/sv/\">Gå till Livsmedelsverkets webbplats</a></li></ul></div></div></section>",
+        "answers": []
+      },
+      "en": {
+        "name": "Wizard 1.6 Animals and food safety",
+        "question": "The Finnish Food Authority decides on eligibility for the following professions related to animals or food safety:",
+        "body": "<ul><li>broiler breeder&nbsp;</li><li>veterinary surgeon&nbsp;</li><li>veterinary specialist&nbsp;</li><li>inseminator</li></ul><p>Contact the Finnish Food Authority if you are applying for eligibility for one of these professions.</p><section class=\"ckeditor-template-wrapper\"><div class=\"ckeditor-template-content\"><div class=\"field field-link arrow-links\"><ul class=\"list-reset\"><li class=\"space-top space-top--half\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"https://www.ruokavirasto.fi/en/\">Go to the Finnish Food Authority’s website</a></li></ul></div></div></section>",
+        "answers": []
+      }
+    }
+  },
+  {
+    "id": 4062,
+    "uuid": "f8cae1b7-bcad-48de-9b19-0fceeef74278",
+    "status": true,
+    "is_frontpage": false,
+    "created": 1562672296,
+    "changed": 1702907288,
+    "translations": {
+      "fi": {
+        "name": "Wizard 1.7 Liikenne",
+        "question": "Liikenne- ja viestintävirasto Traficom päättää pätevyydestä näihin ammatteihin:",
+        "body": "<ul><li>ajokokeen vastaanottaja</li><li>ajoneuvojen yksittäishyväksyjä</li><li>autokoulun johtaja</li><li>katsastaja</li><li>katsastustoiminnasta vastaava henkilö</li><li>liikenneopettaja</li><li>merenkulun ammatit</li><li>yksittäishyväksyntöjen myöntämisestä vastaava henkilö.</li></ul><p>Ota yhteyttä Traficomiin, jos haet pätevyyttä johonkin näistä ammateista.</p><section class=\"ckeditor-template-wrapper\"><div class=\"ckeditor-template-content\"><div class=\"field field-link arrow-links\"><ul class=\"list-reset\"><li class=\"space-top space-top--half\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"https://www.traficom.fi/fi\">Siirry Traficomin sivuille</a></li></ul></div></div></section>",
+        "answers": []
+      },
+      "sv": {
+        "name": "Wizard 1.7 Transport",
+        "question": "Transport- och kommunikationsverket Traficom beslutar om yrkeskvalifikationer för följande yrken:",
+        "body": "<ul><li>förarprövare</li><li>utförare av enskilt godkännande av fordon</li><li>föreståndare i bilskola</li><li>besiktare</li><li>person som svarar för besiktningsverksamhet</li><li>trafiklärare</li><li>yrken inom sjöfart</li><li>den som svarar för beviljandet av enskilda godkännanden</li></ul><p>Kontakta Traficom om du ansöker om yrkeskvalifikationer för ett av dessa yrken.</p><section class=\"ckeditor-template-wrapper\"><div class=\"ckeditor-template-content\"><div class=\"field field-link arrow-links\"><ul class=\"list-reset\"><li class=\"space-top space-top--half\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\">Gå till Traficoms webbplats</a></li></ul></div></div></section>",
+        "answers": []
+      },
+      "en": {
+        "name": "Wizard 1.7 Traffic",
+        "question": "The Finnish Transport and Communications Agency, Traficom decides on eligibility for the following professions:",
+        "body": "<ul><li>driving examiner</li><li>person performing individual approval procedures</li><li>head of instruction at a driving school</li><li>vehicle inspector</li><li>person responsible for vehicle inspections</li><li>driving instructor</li><li>seafaring professions</li><li>person responsible for the individual approval procedure</li></ul><p>Contact Traficom if you are applying for eligibility for one of these professions.</p><section class=\"ckeditor-template-wrapper\"><div class=\"ckeditor-template-content\"><div class=\"field field-link arrow-links\"><ul class=\"list-reset\"><li class=\"space-top space-top--half\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"https://www.traficom.fi/en\">Go to Traficom’s website</a></li></ul></div></div></section>",
+        "answers": []
+      }
+    }
+  },
+  {
+    "id": 4063,
+    "uuid": "7ff53e04-85e7-4eed-8ed2-94c1e3aba7ef",
+    "status": true,
+    "is_frontpage": false,
+    "created": 1562672395,
+    "changed": 1564484035,
+    "translations": {
+      "fi": {
+        "name": "Wizard 1.8 Oikeustieteellinen ala",
+        "question": "Valitse oikeustieteellisen alan ammatti, johon haluat pätevöityä myös Suomessa.",
+        "body": null,
+        "answers": [
+          {
+            "id": 11333,
+            "label": "Asianajaja",
+            "target": 4065
+          },
+          {
+            "id": 11334,
+            "label": "Muu ammatti tai tehtävä, johon tarvitaan oikeustieteen maisterin tutkinto",
+            "target": 4064
+          }
+        ]
+      },
+      "sv": {
+        "name": "Wizard 1.8  Juridiska området",
+        "question": "Välj ett yrke inom det juridiska området som du vill kvalificera dig för i Finland.",
+        "body": null,
+        "answers": [
+          {
+            "id": 11333,
+            "label": "Advokat",
+            "target": 4065
+          },
+          {
+            "id": 11334,
+            "label": "Ett annat yrke eller en annan uppgift för vilken behövs juris magisterexamen",
+            "target": 4064
+          }
+        ]
+      },
+      "en": {
+        "name": "Wizard 1.8 Law",
+        "question": "Select a profession in the field of law that you would like to qualify for in Finland.",
+        "body": null,
+        "answers": [
+          {
+            "id": 11333,
+            "label": "Advocate",
+            "target": 4065
+          },
+          {
+            "id": 11334,
+            "label": "Some other profession or position requiring a Master of Laws degree.",
+            "target": 4064
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 4064,
+    "uuid": "5e6a7a65-b11a-4971-b27f-45783c1ace13",
+    "status": true,
+    "is_frontpage": false,
+    "created": 1562672604,
+    "changed": 1702907851,
+    "translations": {
+      "fi": {
+        "name": "Wizard 1.8.1 OTM",
+        "question": "Opetushallitus päättää ulkomaisten tutkintojen rinnastamisesta oikeustieteen maisterin tutkintoon.",
+        "body": "<p>Opetushallitus voi rinnastaa ulkomaisen tutkinnon&nbsp;oikeustieteen maisterin tutkintoon, jos tutkinto vastaa tasoltaan ja sisällöltään Suomessa suoritettavaa&nbsp;oikeustieteen maisterin tutkintoa. Päätöksissä määrätään yleensä Suomessa suoritettavia täydentäviä opintoja.</p><p><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"/node/364\" data-entity-type=\"node\" data-entity-uuid=\"c82dcf8c-0229-45ff-ad5b-6040bf23537c\" data-entity-substitution=\"canonical\">Siirry lisätietoihin oikeustieteellisen alan tutkintojen rinnastamisesta</a></p><p><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"/node/565\" data-entity-type=\"node\" data-entity-uuid=\"86f3c8a4-8065-4ccb-aea9-ec3b2c20b127\" data-entity-substitution=\"canonical\">Siirry lisätietoihin päätöksen hakemisesta</a></p><p>Jos tutkintosi ei ole ylempi korkeakoulututkinto (Master), hae suomalaiseen yliopistoon suorittamaan oikeustieteen maisterin tutkintoa.&nbsp;Yliopisto päättää opiskelijaksi ottamisesta. Yliopisto päättää myös aiempien opintojesi hyväksilukemisesta suomalaiseen tutkintoon. Et tarvitse Opetushallituksen päätöstä tutkintosi tunnustamisesta.</p><p>Tutustu opiskelumahdollisuuksiin Opintopolku-palvelussa.</p><p><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"https://opintopolku.fi/konfo/fi/\">Siirry Opintopolku-palveluun</a></p>",
+        "answers": []
+      },
+      "sv": {
+        "name": "Wizard 1.8.1 Juris magisterexamen",
+        "question": "Utbildningsstyrelsen beslutar om jämställande av utländska examina med juris magisterexamen.",
+        "body": "<p>Utbildningsstyrelsen kan jämställa en utländsk examen med en juris magisterexamen, om examen i fråga om nivå och innehåll motsvarar den juris magisterexamen som avläggs i Finland. I besluten fordras ofta kompletterande studier som avläggs i Finland.</p><p><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"/node/364\" data-entity-type=\"node\" data-entity-uuid=\"c82dcf8c-0229-45ff-ad5b-6040bf23537c\" data-entity-substitution=\"canonical\">Gå till närmare information om jämställande av examina inom det juridiska området</a></p><p><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"/node/565\" data-entity-type=\"node\" data-entity-uuid=\"86f3c8a4-8065-4ccb-aea9-ec3b2c20b127\" data-entity-substitution=\"canonical\">Gå till närmare information om ansökan om beslut</a></p><p>Om din examen inte är en högre högskoleexamen (Master), sök till ett finländskt universitet för att avlägga juris magisterexamen. Universitetet beslutar om antagning av studerande. Universitetet beslutar om tillgodoräknande av dina tidigare studier i en finländsk examen.&nbsp;Du behöver inte Utbildningsstyrelsens beslut om erkännande av examen.</p><p>Bekanta dig med studiemöjligheter i Studieinfo-tjänsten.</p><section class=\"ckeditor-template-wrapper\"><div class=\"ckeditor-template-content\"><div class=\"field field-link arrow-links\"><ul class=\"list-reset\"><li class=\"space-top space-top--half\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"https://opintopolku.fi/konfo/sv/\">Gå till Studieinfo-tjänsten</a></li></ul></div></div></section>",
+        "answers": []
+      },
+      "en": {
+        "name": "Wizard 1.8.1 OTM",
+        "question": "The Finnish National Agency for Education decides on the recognition of the comparability of foreign qualifications with the Finnish Master of Laws degree.",
+        "body": "<p>The Finnish National Agency for Education may recognise the comparability of a foreign qualification with the Finnish Master of Laws degree if the level and content of the qualification correspond to the Master of Laws degree completed in Finland. As a general rule, the decisions require applicants to complete supplementing studies in Finland.</p><p><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"/node/364\" data-entity-type=\"node\" data-entity-uuid=\"c82dcf8c-0229-45ff-ad5b-6040bf23537c\" data-entity-substitution=\"canonical\">Go to additional information on the recognition of the comparability of qualifications in the field of law</a></p><p><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"/node/565\" data-entity-type=\"node\" data-entity-uuid=\"86f3c8a4-8065-4ccb-aea9-ec3b2c20b127\" data-entity-substitution=\"canonical\">Go to additional information on applying for a decision</a></p><p>If your qualification is not a master’s degree, apply to a Finnish university to complete the Master of Laws degree. The university decides whether you are admitted as a student. The university also decides whether your previous studies will be credited towards a Finnish qualification. You don't need a decision on recognition made by the Finnish National Agency for Education.</p><p>Familiarise yourself with the study opportunities in the Studyinfo service.</p><section class=\"ckeditor-template-wrapper\"><div class=\"ckeditor-template-content\"><div class=\"field field-link arrow-links\"><ul class=\"list-reset\"><li class=\"space-top space-top--half\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"https://opintopolku.fi/konfo/en/\">Go to the Studyinfo service</a></li></ul></div></div></section>",
+        "answers": []
+      }
+    }
+  },
+  {
+    "id": 4065,
+    "uuid": "4ecc7f20-ac0d-49cb-b229-24ec30e93d4c",
+    "status": true,
+    "is_frontpage": false,
+    "created": 1562672795,
+    "changed": 1702908426,
+    "translations": {
+      "fi": {
+        "name": "Wizard 1.8.2 Asianajaja",
+        "question": "Asianajajan ammattinimikettä voi Suomessa käyttää vain Suomen asianajajaliiton jäsen.",
+        "body": "<section class=\"ckeditor-template-wrapper\"><div class=\"ckeditor-template-content\"><div class=\"field field-link arrow-links\"><ul class=\"list-reset\"><li class=\"space-top space-top--half\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"https://asianajajaliitto.fi/\">Siirry Suomen asianajajaliiton verkkosivuille</a></li></ul></div></div></section>",
+        "answers": []
+      },
+      "sv": {
+        "name": "Wizard 1.8.2 Advokat",
+        "question": "I Finland kan yrkesbeteckningen advokat endast användas av en medlem i Finlands advokatförbund.",
+        "body": "<section class=\"ckeditor-template-wrapper\"><div class=\"ckeditor-template-content\"><div class=\"field field-link arrow-links\"><ul class=\"list-reset\"><li class=\"space-top space-top--half\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"https://asianajajaliitto.fi/sv/\">Gå till Finlands advokatförbunds webbplats</a></li></ul></div></div></section>",
+        "answers": []
+      },
+      "en": {
+        "name": "Wizard 1.8.2 Attorney",
+        "question": "In Finland, the professional title of attorney can be used only by a member of the Finnish Bar Association.",
+        "body": "<section class=\"ckeditor-template-wrapper\"><div class=\"ckeditor-template-content\"><div class=\"field field-link arrow-links\"><ul class=\"list-reset\"><li class=\"space-top space-top--half\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"https://asianajajaliitto.fi/en/\">Go to the Finnish Bar Association’s website</a></li></ul></div></div></section>",
+        "answers": []
+      }
+    }
+  },
+  {
+    "id": 4068,
+    "uuid": "ea0e5cce-dc84-4911-b21f-4420d2607074",
+    "status": true,
+    "is_frontpage": false,
+    "created": 1562673472,
+    "changed": 1572532848,
+    "translations": {
+      "fi": {
+        "name": "Wizard 4 Haetko julkiseen virkaan?",
+        "question": "Haetko virkaan tai tehtävään, johon vaaditaan lain perusteella korkeakoulututkinto? Tällaisia tehtäviä on erityisesti julkisella sektorilla eli valtiolla ja kunnissa.",
+        "body": null,
+        "answers": [
+          {
+            "id": 11336,
+            "label": "Kyllä",
+            "target": 4069
+          },
+          {
+            "id": 11337,
+            "label": "En",
+            "target": 4070
+          }
+        ]
+      },
+      "sv": {
+        "name": "Wizard 4 Söker du till en tjänst eller uppgift i den offentliga sektorn?",
+        "question": "Söker du till en tjänst eller uppgift som enligt lagen kräver högskoleexamen? Sådana uppgifter finns särskilt i den offentliga sektorn, dvs. vid staten och i kommunerna.",
+        "body": null,
+        "answers": [
+          {
+            "id": 11336,
+            "label": "Ja",
+            "target": 4069
+          },
+          {
+            "id": 11337,
+            "label": "Nej",
+            "target": 4070
+          }
+        ]
+      },
+      "en": {
+        "name": "Wizard 4 Are you applying for a public post?",
+        "question": "Are you applying for a post or a position for which the statutory eligibility requirement is a higher education degree? Such positions exist especially in the public sector, in other words, in Government and in municipalities.",
+        "body": null,
+        "answers": [
+          {
+            "id": 11336,
+            "label": "Yes",
+            "target": 4069
+          },
+          {
+            "id": 11337,
+            "label": "No",
+            "target": 4070
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 4069,
+    "uuid": "e731b0ca-73da-49db-ad43-08724588779e",
+    "status": true,
+    "is_frontpage": false,
+    "created": 1562673610,
+    "changed": 1570004307,
+    "translations": {
+      "fi": {
+        "name": "Wizard 4.1 Onko alempi korkeakoulututkinto?",
+        "question": "Onko tutkintosi vähintään alempi korkeakoulututkinto (esim. Bachelor, licence, ijaza)?",
+        "body": null,
+        "answers": [
+          {
+            "id": 11344,
+            "label": "Kyllä",
+            "target": 4071
+          },
+          {
+            "id": 11345,
+            "label": "Ei",
+            "target": 5684
+          }
+        ]
+      },
+      "sv": {
+        "name": "Wizard 4.1 Är din examen minst en lägre högskoleexamen",
+        "question": "Är din examen minst en lägre högskoleexamen (till exempel Bachelor, licence, ijaza)?",
+        "body": null,
+        "answers": [
+          {
+            "id": 11344,
+            "label": "Ja",
+            "target": 4071
+          },
+          {
+            "id": 11345,
+            "label": "Nej",
+            "target": 5684
+          }
+        ]
+      },
+      "en": {
+        "name": "Wizard 4.1 Is your qualification at least a bachelor’s level?",
+        "question": "Is your qualification at least a bachelor’s level qualification? (e.g. a bachelor’s degree, licence, ijaza)?",
+        "body": null,
+        "answers": [
+          {
+            "id": 11344,
+            "label": "Yes",
+            "target": 4071
+          },
+          {
+            "id": 11345,
+            "label": "No",
+            "target": 5684
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 4070,
+    "uuid": "f4415bcb-2b6a-42a1-9587-69eb7178db09",
+    "status": true,
+    "is_frontpage": false,
+    "created": 1562673788,
+    "changed": 1790260959,
+    "translations": {
+      "fi": {
+        "name": "Wizard 4.2 Työnantaja arvioi",
+        "question": "Tarkista, onko ammatti Suomessa säännelty",
+        "body": "<p><a href=\"/node/95\" data-entity-type=\"node\" data-entity-uuid=\"a39739b2-268a-458e-b776-3dadcbd1f6fc\" data-entity-substitution=\"canonical\">Siirry säänneltyjen ammattien luetteloon</a></p><p><strong>Jos ammatti on säännelty</strong>, kysy lisätietoa toimivaltaiselta viranomaiselta.&nbsp;</p><p>Voit myös tutustua opiskelumahdollisuuksiin Opintopolku-palvelussa.</p><p><a href=\"https://opintopolku.fi/\" target=\"_blank\">Siirry Opintopolku-palveluun</a></p><p>&nbsp;</p><p><strong>Jos ammatti ei ole säännelty</strong>, <span>voit harjoittaa sitä ilman viranomaisen päätöstä tutkinnon tunnustamisesta.</span></p><p>Jos sinulla on ammatillinen tutkinto, voit halutessasi hakea Opetushallituksen lausuntoa.</p><p><a href=\"/node/342\" data-entity-type=\"node\" data-entity-uuid=\"ba52f8f5-c95d-42ee-82af-761cd4536ff1\" data-entity-substitution=\"canonical\">Siirry lisätietoihin lausunnoista</a></p><p>&nbsp;</p><p>Maahanmuuttajille ohjausta tarjoavat myös korkeakoulujen SIMHE-palvelut.</p><p><a href=\"https://www.oph.fi/node/813\" data-entity-type=\"node\" data-entity-uuid=\"586f02d2-623d-4945-b6bf-0b852f90d825\" data-entity-substitution=\"canonical\" target=\"_blank\">Lue lisää SIMHE-palveluista Opetushallituksen verkkosivuilta</a>.</p>",
+        "answers": []
+      },
+      "sv": {
+        "name": "Wizard 4.2 Arbetsgivaren bedömer",
+        "question": "Kolla om yrket är reglerat i Finland",
+        "body": "<p><a href=\"/node/95\" data-entity-type=\"node\" data-entity-uuid=\"a39739b2-268a-458e-b776-3dadcbd1f6fc\" data-entity-substitution=\"canonical\">Gå till förteckningen över reglerade yrken</a></p><p><strong>Om yrket är reglerat</strong>, kontakta den behöriga myndigheten för ytterligare information.</p><p>Du kan också bekanta dig med studiemöjligheter i Studieinfo-tjänsten.</p><p><a href=\"http://www.studieinfo.fi\">Gå till Studieinfo-tjänsten</a></p><p>&nbsp;</p><p><strong>Om yrket inte är reglerat</strong>, kan du utöva det utan att en myndighet har fattat beslut om erkännande av din examen.</p><p>Om du har en yrkesinriktad examen kan du ansöka om ett utlåtande från Utbildningsstyrelsen.</p><p><a href=\"https://www.oph.fi/sv/tjanster/utlatanden-om-yrkesinriktade-examina-som-avlagts-utomlands\">Gå till närmare information om utlåtanden</a></p>",
+        "answers": []
+      },
+      "en": {
+        "name": "Wizard 4.2 Employer will assess your eligibility",
+        "question": "Please check whether the profession is regulated in Finland",
+        "body": "<p><a href=\"/node/95\" data-entity-type=\"node\" data-entity-uuid=\"a39739b2-268a-458e-b776-3dadcbd1f6fc\" data-entity-substitution=\"canonical\">Go to the list of regulated professions</a></p><p><strong>If the profession is regulated</strong>, please contact the competent authority for further information on the required qualifications.&nbsp;</p><p>You can also familiarise yourself with the study opportunities in the Studyinfo-service.</p><p><a href=\"https://studyinfo.fi/wp2/en/\" target=\"_blank\">Go to the Studyinfo-service</a></p><p>&nbsp;</p><p><strong>If the profession is not regulated</strong>, you may practise it without an authority’s decision on the recognition of your qualification.</p><p>If you hold a foreign vocational qualification, you can apply to the Finnish National Agency for Education for an advisory statement.</p><p><a href=\"https://www.oph.fi/en/services/advisory-statements-vocational-qualifications-completed-abroad\">Go to additional information on advisory statements</a></p><p>&nbsp;</p><p>The&nbsp;SIMHE-services of higher education institutions also offer guidance to immigrants.</p><p><a href=\"https://www.oph.fi/en/simhe-services-higher-education-institutions\" target=\"_blank\">Read more about the SIMHE-services on the Finnish National Agency for Education’s website</a></p>",
+        "answers": []
+      }
+    }
+  },
+  {
+    "id": 4071,
+    "uuid": "3414701e-f7a3-4fca-9def-1088b2b782f7",
+    "status": true,
+    "is_frontpage": false,
+    "created": 1562674099,
+    "changed": 1677766335,
+    "translations": {
+      "fi": {
+        "name": "Wizard 4.1.1 Hae rinnastamispäätöstä",
+        "question": "Hae päätöstä tutkinnon tason rinnastamisesta. ",
+        "body": "<p>Lue tutkinnon tason&nbsp;rinnastamisesta tutkintojen tunnustamisen verkkosivuilta.</p>\r\n\r\n<p><a data-entity-substitution=\"canonical\" data-entity-type=\"node\" data-entity-uuid=\"2e8963f5-c391-4b2a-b790-8b6b53547ce6\" href=\"/node/94\">Siirry verkkosivuille</a></p>\r\n",
+        "answers": []
+      },
+      "sv": {
+        "name": "Wizard 4.1.1 Ansök om Utbildningsstyrelsens beslut",
+        "question": "Ansök om jämställande av nivån på en examen.",
+        "body": "<p>Läs om jämställande av examina på webbplatsen för erkännande av examina.</p>\r\n\r\n<p><a href=\"https://www.oph.fi/sv/tjanster/jamstallande-av-nivan-pa-en-hogskoleexamen\">Gå till webbplatsen</a></p>\r\n",
+        "answers": []
+      },
+      "en": {
+        "name": "Wizard 4.1.1 Apply for a decision",
+        "question": "Apply for recognition of the level of your degree as comparable to a higher education degree completed in Finland.",
+        "body": "<p>Read more about recognition of the level of a foreign higher education degree from the recognition of qualifications website.</p>\r\n\r\n<p><a href=\"https://www.oph.fi/en/services/recognition-level-foreign-higher-education-degree\">Go to the website</a></p>\r\n",
+        "answers": []
+      }
+    }
+  },
+  {
+    "id": 4072,
+    "uuid": "4b0e02c9-7a75-4f9a-8c20-44d4d3036705",
+    "status": false,
+    "is_frontpage": false,
+    "created": 1562674475,
+    "changed": 1575358559,
+    "translations": {
+      "fi": {
+        "name": "Wizard 4.3 Selvitä tutkintosi asema",
+        "question": "Selvitä, mikä on tutkintosi asema suoritusmaan koulutusjärjestelmässä. Tarvittaessa lähetä sähköpostia Opetushallitukseen: \r\nrecognition@oph.fi",
+        "body": null,
+        "answers": []
+      }
+    }
+  },
+  {
+    "id": 4073,
+    "uuid": "b94a874b-4265-43c7-b765-2ebf5d07d51c",
+    "status": true,
+    "is_frontpage": false,
+    "created": 1562674737,
+    "changed": 1564484007,
+    "translations": {
+      "fi": {
+        "name": "Wizard 4.1.2 Suorita korkeakoulututkinto Suomessa",
+        "question": null,
+        "body": "<p>Sinun pitää suorittaa korkeakoulututkinto Suomessa.&nbsp;Oppilaitos tai korkeakoulu päättää opiskelijavalinnasta. Oppilaitos tai korkeakoulu päättää myös aiempien opintojesi hyväksilukemisesta suomalaiseen tutkintoon.&nbsp;</p>\r\n\r\n<p>Tutustu opiskelumahdollisuuksiin Opintopolku-palvelussa. <a href=\"www.opintopolku.fi\">Siirry Opintopolku-palveluun</a>.</p>\r\n\r\n<p>Maahanmuuttajille ohjausta tarjoavat myös SIMHE-palvelut. <a data-entity-substitution=\"canonical\" data-entity-type=\"node\" data-entity-uuid=\"586f02d2-623d-4945-b6bf-0b852f90d825\" href=\"/node/813\">Lue lisää SIMHE-palveluista Opetushallituksen verkkosivuilta</a>.</p>\r\n",
+        "answers": []
+      },
+      "sv": {
+        "name": "Wizard 4.1.2 Du ska avlägga en högskoleexamen i Finland",
+        "question": null,
+        "body": "<p>Du ska avlägga en högskoleexamen i Finland. Läroanstalten eller högskolan beslutar om antagning av studerande. Läroanstalten eller högskolan beslutar om tillgodoräknande av dina tidigare studier i en finländsk examen.&nbsp;</p>\r\n\r\n<p>Bekanta dig med studiemöjligheter i Studieinfo-tjänsten. <a href=\"https://studieinfo.fi/\">Gå till Studieinfo-tjänsten</a></p>\r\n\r\n<p>Även högskolornas SIMHE-tjänster erbjuder handledning för invandrare. <a data-entity-substitution=\"canonical\" data-entity-type=\"node\" data-entity-uuid=\"586f02d2-623d-4945-b6bf-0b852f90d825\" href=\"/node/813\">Läs mer om SIMHE-tjänsterna på Utbildningsstyrelsens webbplats (på finska / på engelska)</a><br />\r\n&nbsp;</p>\r\n",
+        "answers": []
+      },
+      "en": {
+        "name": "Wizard 4.1.2 Complete a higher education degree in Finland",
+        "question": null,
+        "body": "<p>You have to complete a higher education degree in Finland.&nbsp;The higher education institution decides on student admissions. The institution also decides whether your previous studies will be credited towards a Finnish degree.</p>\r\n\r\n<p>Familiarise yourself with the study opportunities in the Studyinfo-service.&nbsp;<a href=\"https://www.oph.fi/fi/node/www.opintopolku.fi\">Go to the Studyinfo-service</a>.</p>\r\n\r\n<p>The SIMHE-services also offer guidance to immigrants.&nbsp;<a href=\"https://www.oph.fi/en/simhe-services-higher-education-institutions\">Read more about the SIMHE-services on the Finnish National Agency for Education’s website</a>.</p>\r\n",
+        "answers": []
+      }
+    }
+  },
+  {
+    "id": 4075,
+    "uuid": "be6c95ba-237e-413d-a570-d229514316a6",
+    "status": true,
+    "is_frontpage": false,
+    "created": 1562675755,
+    "changed": 1587037072,
+    "translations": {
+      "fi": {
+        "name": "Wizard 5 Hae ammattipätevyyden tunnustamista VAKA",
+        "question": "Hae Opetushallituksen päätöstä kelpoisuudesta varhaiskasvatuksen ammattiin.",
+        "body": "<p>Opetushallitus käsittelee hakemuksesi asiakirjojen perusteella. Lähtökohta on, että toisessa jäsenmaassa hankittu ammattipätevyys tunnustetaan.</p>\r\n\r\n<p><a href=\"https://www.oph.fi/fi/palvelut/opetushallituksen-paatokset-patevyydesta-varhaiskasvatuksen-tehtaviin#anchor-varhaiskasvatuksen-ammattipatevyys-eu-eta-maasta\">Siirry lisätietoihin varhaiskasvatuksen ammattipätevyyden tunnustamisesta</a></p>\r\n\r\n<p><a data-entity-substitution=\"canonical\" data-entity-type=\"node\" data-entity-uuid=\"86f3c8a4-8065-4ccb-aea9-ec3b2c20b127\" href=\"/node/565\">Siirry lisätietoihin päätöksen hakemisesta</a></p>\r\n",
+        "answers": []
+      },
+      "sv": {
+        "name": "Wizard 5 Ansök om beslut om erkännande av yrkeskvalifikationer VAKA",
+        "question": "Ansök hos Utbildningsstyrelsen om behörighet för ett yrke inom småbarnspedagogik.",
+        "body": "<p>Utbildningsstyrelsen behandlar din ansökan utifrån dokumenten. Utgångspunkten är att yrkeskvalifikationer som skaffats i ett annat medlemsland erkänns.</p>\r\n\r\n<p><a href=\"https://www.oph.fi/sv/tjanster/utbildningsstyrelsens-beslut-om-behorighet-till-yrken-inom-smabarnspedagogik#anchor-yrkeskvalifikationer-inom-smabarnspedagogik-som-forvarvats-i-ett-eu-ees-land\">Gå till närmare information om erkännande av yrkeskvalifikationer&nbsp;inom småbarnspedagogik</a></p>\r\n\r\n<p><a href=\"https://www.oph.fi/sv/tjanster/att-ansoka-om-beslut-om-erkannande-av-examen\">Gå till närmare information om ansökan om beslut</a></p>\r\n",
+        "answers": []
+      },
+      "en": {
+        "name": "Wizard 5 Apply for a decision on the recognition of professional qualifications VAKA",
+        "question": "Apply to the Finnish National Agency for Education for eligibility for a profession in early childhood education and care.",
+        "body": "<p>The Finnish National Agency for Education will process your application based on the relevant documents. The principle is that professional qualifications obtained in another member state are recognised.</p>\r\n\r\n<p><a href=\"https://www.oph.fi/en/services/early-childhood-education-and-care-professions#anchor-professional-qualifications-for-an-ecec-profession-gained-in-another-eu-eea-member-state\">Go to additional information on the recognition of professional qualifications&nbsp;in early childhood education and care</a></p>\r\n\r\n<p><a href=\"https://www.oph.fi/en/services/applying-finnish-national-agency-education-decision-recognition-qualification\">Go to additional information on applying for a decision</a></p>\r\n",
+        "answers": []
+      }
+    }
+  },
+  {
+    "id": 4080,
+    "uuid": "93b5e732-cea3-4f49-8cf7-10ac20594304",
+    "status": true,
+    "is_frontpage": false,
+    "created": 1562678264,
+    "changed": 1564484007,
+    "translations": {
+      "fi": {
+        "name": "Wizard 6 Onko koulutus valmistanut samaan ammattiin ja vastaako se tasoltaan suomalaista?",
+        "question": "Onko koulutuksesi valmistanut samaan ammattiin tai tehtävään ja vastaako se tasoltaan Suomessa vaadittavaa koulutusta?",
+        "body": null,
+        "answers": [
+          {
+            "id": 11388,
+            "label": "Kyllä",
+            "target": 4081
+          },
+          {
+            "id": 11395,
+            "label": "Ei",
+            "target": 4082
+          }
+        ]
+      },
+      "sv": {
+        "name": "Wizard 6 Har din utbildning gett dig kvalifikationer för samma yrke eller uppgift och motsvarar dess nivå den utbildning som krävs i Finland?",
+        "question": "Har din utbildning gett dig kvalifikationer för samma yrke eller uppgift och motsvarar dess nivå den utbildning som krävs i Finland?",
+        "body": null,
+        "answers": [
+          {
+            "id": 11388,
+            "label": "Ja",
+            "target": 4081
+          },
+          {
+            "id": 11395,
+            "label": "Nej",
+            "target": 4082
+          }
+        ]
+      },
+      "en": {
+        "name": "Wizard 6 Has your education qualified you for the same profession?",
+        "question": "Has your education and training qualified you for the same profession or position and does its level correspond to the qualification required in Finland?",
+        "body": null,
+        "answers": [
+          {
+            "id": 11388,
+            "label": "Yes",
+            "target": 4081
+          },
+          {
+            "id": 11395,
+            "label": "No",
+            "target": 4082
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 4081,
+    "uuid": "bf738b03-d58e-4692-881a-660c6cc1bc3f",
+    "status": true,
+    "is_frontpage": false,
+    "created": 1562678496,
+    "changed": 1587043770,
+    "translations": {
+      "fi": {
+        "name": "Wizard 6.1 Hae rinnastamispäätöstä tiettyihin opintoihin (VAKA)",
+        "question": "Hae Opetushallituksen päätöstä kelpoisuudesta varhaiskasvatuksen ammattiin.",
+        "body": "<p>Opetushallitus käsittelee hakemuksesi asiakirjojen perusteella. Opetushallitus vertaa ulkomaisia opintojasi niihin opintoihin, jotka Suomessa vaaditaan samaan varhaiskasvatuksen ammattiin.</p>\r\n\r\n<p><a href=\"https://www.oph.fi/fi/palvelut/opetushallituksen-paatokset-patevyydesta-varhaiskasvatuksen-tehtaviin#anchor-varhaiskasvatuksen-koulutuksen-rinnastaminen\">Siirry lisätietoihin varhaiskasvatuksen koulutuksen rinnastamisesta</a></p>\r\n\r\n<p><a data-entity-substitution=\"canonical\" data-entity-type=\"node\" data-entity-uuid=\"86f3c8a4-8065-4ccb-aea9-ec3b2c20b127\" href=\"/node/565\">Siirry lisätietoihin päätöksen hakemisesta</a></p>\r\n",
+        "answers": []
+      },
+      "sv": {
+        "name": "Wizard 6.1 Beslut om jämställande av högskolestudier (VAKA)",
+        "question": "Ansök hos Utbildningsstyrelsen om behörighet för ett yrke inom småbarnspedagogik.",
+        "body": "<p>Utbildningsstyrelsen behandlar din ansökan på basis av de bifogade handlingarna. Utbildningsstyrelsen jämför dina högskolestudier med de studier som ger behörighet för samma uppgifter inom småbarnspedagogik.</p>\r\n\r\n<p><a href=\"https://www.oph.fi/sv/tjanster/utbildningsstyrelsens-beslut-om-behorighet-till-yrken-inom-smabarnspedagogik#anchor-jamstallande-av-utbildning-inom-smabarnspedagogik\">Gå till närmare information om jämställande av utbildning inom småbarnspedagogik</a></p>\r\n\r\n<p><a href=\"https://www.oph.fi/sv/tjanster/att-ansoka-om-beslut-om-erkannande-av-examen\">Gå till närmare information om ansökan om beslut</a></p>\r\n",
+        "answers": []
+      },
+      "en": {
+        "name": "Wizard 6.1 Apply for a decision on the recognition of the comparability of your higher education studies VAKA",
+        "question": "Apply to the Finnish National Agency for Education for eligibility for a profession in early childhood education and care (ECEC).",
+        "body": "<p>The Finnish National Agency for Education will process your application based on the relevant documents. The Agency will compare your higher education studies to the higher education&nbsp;studies required for the same ECEC profession in Finland.</p>\r\n\r\n<p><a href=\"https://www.oph.fi/en/services/early-childhood-education-and-care-professions#anchor-recognition-of-higher-education-studies-in-ecec\">Go to additional information on&nbsp;the recognition of higher education studies in ECEC</a></p>\r\n\r\n<p><a href=\"https://www.oph.fi/en/services/applying-finnish-national-agency-education-decision-recognition-qualification\">Go to additional information on applying for a decision</a></p>\r\n\r\n<p>&nbsp;</p>\r\n",
+        "answers": []
+      }
+    }
+  },
+  {
+    "id": 4082,
+    "uuid": "df5edad7-7bbf-40e7-b2ab-334cd49afb79",
+    "status": true,
+    "is_frontpage": false,
+    "created": 1562679251,
+    "changed": 1688725363,
+    "translations": {
+      "fi": {
+        "name": "Wizard 6.2 Suorita tutkinto",
+        "question": "Selvitä, mikä tutkinto tehtävään vaaditaan Suomessa. Hae sitten suorittamaan tutkintoa. Et tarvitse Opetushallituksen päätöstä tutkinnon tunnustamisesta.",
+        "body": "<p>Koulutuksen järjestäjä päättää opiskelijaksi ottamisesta. Koulutuksen järjestäjä päättää myös aiempien opintojeni ja työkokemuksen hyväksilukemisesta tutkintoon.</p>\r\n\r\n<p>Tutustu opiskelumahdollisuuksiin Opintopolku-palvelussa.&nbsp;<a href=\"https://www.opintopolku.fi\">Siirry Opintopolku-palveluun</a></p>\r\n\r\n<p>Maahanmuuttajille ohjausta tarjoavat myös korkeakoulujen SIMHE-palvelut.&nbsp;<a data-entity-substitution=\"canonical\" data-entity-type=\"node\" data-entity-uuid=\"586f02d2-623d-4945-b6bf-0b852f90d825\" href=\"/node/813\">Siirry lisätietoihin&nbsp;SIMHE-palveluista</a><br />\r\n&nbsp;</p>\r\n",
+        "answers": []
+      },
+      "sv": {
+        "name": "Wizard 6.2 Komplettera din utbildning",
+        "question": "Du måste komplettera en behörighetsgivande examen i Finland. Ta reda på hur man skaffar behörighet för yrket i Finland. Sök dig sedan till studier. Du behöver inte Utbildningsstyrelsens beslut om erkännande av examen.",
+        "body": "<p>Utbildningsanordnaren beslutar om beviljande av studierätt. Utbildningsanordnaren beslutar också om tillgodoräknande av dina tidigare studier och arbetserfarenhet som en del av examen.</p>\r\n\r\n<p>Bekanta dig med studiemöjligheter i Studieinfo-tjänsten.</p>\r\n\r\n<p><a href=\"https://studieinfo.fi/wp/sv/\">Gå till Studieinfo-tjänsten</a></p>\r\n\r\n<p>Även högskolornas SIMHE-tjänster erbjuder handledning för invandrare.</p>\r\n\r\n<p><a data-entity-substitution=\"canonical\" data-entity-type=\"node\" data-entity-uuid=\"586f02d2-623d-4945-b6bf-0b852f90d825\" href=\"/node/813\">Gå till mer information om SIMHE-tjänsterna (på finska / på engelska)</a></p>\r\n",
+        "answers": []
+      },
+      "en": {
+        "name": "Wizard 6.2 Complete the required qualification",
+        "question": "You will need to complete the required qualification in Finland. Find out the qualification requirements for the profession. Then apply to an institution where you can complete the required qualification. You don't need a decision on recognition made by the Finnish National Agency for Education.",
+        "body": "<p>The education provider decides whether a right to study is granted. The education provider also decides whether your previous studies or professional experience will be credited towards the qualification completed in Finland.</p>\r\n\r\n<p>Familiarise yourself with the study opportunities in the Studyinfo-service. Go to the <a href=\"https://studyinfo.fi/wp2/en/\">Studyinfo-service</a></p>\r\n\r\n<p>The&nbsp;SIMHE-services of higher education institutions also offer guidance to immigrants. <a data-entity-substitution=\"canonical\" data-entity-type=\"node\" data-entity-uuid=\"586f02d2-623d-4945-b6bf-0b852f90d825\" href=\"/node/813\">Go to additional information on the SIMHE-services</a></p>\r\n",
+        "answers": []
+      }
+    }
+  },
+  {
+    "id": 4083,
+    "uuid": "a1a9dba7-3b8c-4209-a67f-b88dd349e867",
+    "status": true,
+    "is_frontpage": false,
+    "created": 1562679991,
+    "changed": 1566992092,
+    "translations": {
+      "fi": {
+        "name": "Wizard 1.10 Muu ammatti",
+        "question": "Onko ammattisi jokin seuraavista?",
+        "body": "<ul>\r\n\t<li>hätäkeskuspäivystäjä</li>\r\n\t<li>kattilalaitosten käytön valvoja</li>\r\n\t<li>kylmäasentaja</li>\r\n\t<li>nosturinkuljettaja (ajoneuvonosturinkuljettaja, torninosturinkuljettaja tai kuormausnosturinkuljettaja)</li>\r\n\t<li>nuohooja</li>\r\n\t<li>panostaja</li>\r\n\t<li>sukeltaja</li>\r\n\t<li>sähkötöiden johtaja/ käytön johtaja</li>\r\n\t<li>tilintarkastaja</li>\r\n\t<li>turvallisuusalan elinkeinoluvan haltijan vastaava hoitaja</li>\r\n\t<li>vartija (rikosseuraamusala)</li>\r\n\t<li>vartija (yksityiset turvallisuuspalvelut)</li>\r\n</ul>\r\n",
+        "answers": [
+          {
+            "id": 11397,
+            "label": "Kyllä",
+            "target": 4085
+          },
+          {
+            "id": 11398,
+            "label": "Ei",
+            "target": 4068
+          }
+        ]
+      },
+      "sv": {
+        "name": "Wizard 1.10 Annat yrke",
+        "question": "Är ditt yrke något av följande?",
+        "body": "<ul>\r\n\t<li>nödcentralsjourhavande</li>\r\n\t<li>driftsövervakare av pannanläggningar</li>\r\n\t<li>kylmontör</li>\r\n\t<li>kranförare (fordonskranförare, tornkranförare eller lastkranförare)</li>\r\n\t<li>sotare</li>\r\n\t<li>laddare</li>\r\n\t<li>dykare</li>\r\n\t<li>ledare av elarbete/driftsledare</li>\r\n\t<li>revisor</li>\r\n\t<li>ansvarig föreståndare hos en innehavare av näringstillstånd för säkerhetsbranschen</li>\r\n\t<li>väktare (brottspåföljdsbranschen)</li>\r\n\t<li>väktare (privata säkerhetstjänster)</li>\r\n</ul>\r\n",
+        "answers": [
+          {
+            "id": 11397,
+            "label": "Ja",
+            "target": 4085
+          },
+          {
+            "id": 11398,
+            "label": "Nej",
+            "target": 4068
+          }
+        ]
+      },
+      "en": {
+        "name": "Wizard 1.10 Other profession",
+        "question": "Is your profession one of the following?",
+        "body": "<ul>\r\n\t<li>emergency response centre operator</li>\r\n\t<li>supervisor for power plants</li>\r\n\t<li>refrigeration fitter</li>\r\n\t<li>crane operator (mobile crane operator, tower crane operator or loading crane operator)</li>\r\n\t<li>chimneysweep</li>\r\n\t<li>shotfirer</li>\r\n\t<li>diver</li>\r\n\t<li>electrical contractor’s electrical work supervisor/ supervisor of operation of electrical equipment</li>\r\n\t<li>auditor</li>\r\n\t<li>manager responsible for the holder of a private security company licence</li>\r\n\t<li>warder (prison and probation services)</li>\r\n\t<li>security guard (private security services)</li>\r\n</ul>\r\n",
+        "answers": [
+          {
+            "id": 11397,
+            "label": "Yes",
+            "target": 4085
+          },
+          {
+            "id": 11398,
+            "label": "No",
+            "target": 4068
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 4085,
+    "uuid": "0b5cb3be-db56-4eff-9553-59e666147270",
+    "status": true,
+    "is_frontpage": false,
+    "created": 1562680095,
+    "changed": 1702643006,
+    "translations": {
+      "fi": {
+        "name": "Wizard 1.10.1 Etsi oikea viranomainen",
+        "question": "Ota yhteyttä toimivaltaiseen viranomaiseen.",
+        "body": "<p>Katso säänneltyjen ammattien luettelosta, mikä viranomainen tekee päätöksen pätevyydestä ammattiin. Ota sitten yhteyttä suoraan viranomaiseen.</p><section class=\"ckeditor-template-wrapper\"><div class=\"ckeditor-template-content\"><div class=\"field field-link arrow-links\"><ul class=\"list-reset\"><li class=\"space-top space-top--half\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"/node/95\" data-entity-type=\"node\" data-entity-uuid=\"a39739b2-268a-458e-b776-3dadcbd1f6fc\" data-entity-substitution=\"canonical\">Siirry säänneltyjen ammattien luetteloon</a></li></ul></div></div></section>",
+        "answers": []
+      },
+      "sv": {
+        "name": "Wizard 1.10.1 Kontakta en behörig myndighet",
+        "question": "Kontakta en behörig myndighet.",
+        "body": "<p>Se i förteckningen över reglerade yrken vilken myndighet som fattar beslutet om behörighet för att yrke. Kontakta sedan direkt myndigheten.</p><section class=\"ckeditor-template-wrapper\"><div class=\"ckeditor-template-content\"><div class=\"field field-link arrow-links\"><ul class=\"list-reset\"><li class=\"space-top space-top--half\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"/node/95\" data-entity-type=\"node\" data-entity-uuid=\"a39739b2-268a-458e-b776-3dadcbd1f6fc\" data-entity-substitution=\"canonical\">Gå till förteckningen över reglerade yrken</a></li></ul></div></div></section>",
+        "answers": []
+      },
+      "en": {
+        "name": "Wizard 1.10.1 Contact the competent authority",
+        "question": "Contact the competent authority.",
+        "body": "<p>From the list of regulated professions, see which authority decides on the applicant's eligibility for the profession in question. Then contact the authority directly.</p><section class=\"ckeditor-template-wrapper\"><div class=\"ckeditor-template-content\"><div class=\"field field-link arrow-links\"><ul class=\"list-reset\"><li class=\"space-top space-top--half\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"/node/95\" data-entity-type=\"node\" data-entity-uuid=\"a39739b2-268a-458e-b776-3dadcbd1f6fc\" data-entity-substitution=\"canonical\">Go to the list of regulated professions</a></li></ul></div></div></section>",
+        "answers": []
+      }
+    }
+  },
+  {
+    "id": 4169,
+    "uuid": "f3058c84-52a3-40e6-a97c-66452aa033f5",
+    "status": true,
+    "is_frontpage": false,
+    "created": 1562922187,
+    "changed": 1564484007,
+    "translations": {
+      "fi": {
+        "name": "Wizard 7: Oletko pätevöitynyt ulkomailla samaan opetustehtävään?",
+        "question": "Oletko pätevöitynyt ulkomailla samaan opetustehtävään?",
+        "body": null,
+        "answers": [
+          {
+            "id": 11587,
+            "label": "Kyllä",
+            "target": 4170
+          },
+          {
+            "id": 11588,
+            "label": "En",
+            "target": 4172
+          }
+        ]
+      },
+      "sv": {
+        "name": "Wizard 7: Har du fått behörighet utomlands för samma undervisningsuppgift?",
+        "question": "Har du fått behörighet utomlands för samma undervisningsuppgift?",
+        "body": null,
+        "answers": [
+          {
+            "id": 11587,
+            "label": "Ja",
+            "target": 4170
+          },
+          {
+            "id": 11588,
+            "label": "Nej",
+            "target": 4172
+          }
+        ]
+      },
+      "en": {
+        "name": "Wizard 7: Have you obtained qualifications in another country for the same teaching profession?",
+        "question": "Have you obtained qualifications in another country for the same teaching profession?",
+        "body": null,
+        "answers": [
+          {
+            "id": 11587,
+            "label": "Yes",
+            "target": 4170
+          },
+          {
+            "id": 11588,
+            "label": "No",
+            "target": 4172
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 4170,
+    "uuid": "8f38d599-b38d-42e4-8848-f3424f64c7b2",
+    "status": true,
+    "is_frontpage": false,
+    "created": 1562922871,
+    "changed": 1564484007,
+    "translations": {
+      "fi": {
+        "name": "Wizard 7.1: Oletko pätevöitynyt EU-/ETA-maassa tai Sveitsissä?",
+        "question": "Oletko pätevöitynyt EU-/ETA-maassa tai Sveitsissä?",
+        "body": null,
+        "answers": [
+          {
+            "id": 11596,
+            "label": "Kyllä",
+            "target": 4176
+          },
+          {
+            "id": 11597,
+            "label": "En",
+            "target": 4177
+          }
+        ]
+      },
+      "sv": {
+        "name": "Wizard 7.1: Har du fått din behörighet i ett EU/EES-land eller i Schweiz?",
+        "question": "Har du fått din behörighet i ett EU/EES-land eller i Schweiz?",
+        "body": null,
+        "answers": [
+          {
+            "id": 11596,
+            "label": "Ja",
+            "target": 4176
+          },
+          {
+            "id": 11597,
+            "label": "Nej",
+            "target": 4177
+          }
+        ]
+      },
+      "en": {
+        "name": "Wizard 7.1: Did you obtain your qualifications in an EU/EEA member state or Switzerland?",
+        "question": "Did you obtain your qualifications in an EU/EEA member state or Switzerland?",
+        "body": null,
+        "answers": [
+          {
+            "id": 11596,
+            "label": "Yes",
+            "target": 4176
+          },
+          {
+            "id": 11597,
+            "label": "No",
+            "target": 4177
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 4172,
+    "uuid": "8b505bf0-3c0f-4621-9580-6ea76c498099",
+    "status": true,
+    "is_frontpage": false,
+    "created": 1562922963,
+    "changed": 1679569916,
+    "translations": {
+      "fi": {
+        "name": "Wizard 7.2: Selvitä, miten tehtävään pätevöidytään Suomessa ja hakeudu suorittamaan vaadittavaa tutkintoa tai opintokokonaisuutta.",
+        "question": "Selvitä, miten tehtävään pätevöidytään Suomessa ja hakeudu opintoihin.",
+        "body": "<p>Koulutuksen järjestäjä päättää opinto-oikeuden myöntämisestä. Koulutuksen järjestäjä päättää myös aikaisempien opintojesi hyväksilukemisesta osaksi Suomessa suoritettavaa koulutusta.</p>\r\n\r\n<p>Tutustu opiskelumahdollisuuksiin Opintopolku-palvelussa. Siirry&nbsp;<a href=\"https://opintopolku.fi/\">Opintopolku-palveluun</a>.</p>\r\n\r\n<p>Jos ulkomainen tutkintosi on vähintään alempi korkeakoulututkinto (esim. Bachelor tai licence), voit tarvittaessa hakea Opetushallituksen päätöstä korkeakoulututkinnon tason ja mahdollisten opettajankoulutuksen opintojen rinnastamisesta.</p>\r\n\r\n<p><a data-entity-substitution=\"canonical\" data-entity-type=\"node\" data-entity-uuid=\"0efde6bd-50d0-4060-b108-477e377fbb39\" href=\"/node/362\">Lue lisää Opetushallituksen päätöksistä, jotka koskevat pätevyyttä opetustehtäviin</a>.</p>\r\n\r\n<p>Maahanmuuttajille ohjausta tarjoavat myös korkeakoulujen SIMHE-palvelut. <a data-entity-substitution=\"canonical\" data-entity-type=\"node\" data-entity-uuid=\"586f02d2-623d-4945-b6bf-0b852f90d825\" href=\"https://www.oph.fi/node/813\">Siirry lisätietoihin&nbsp;SIMHE-palveluista</a>.&nbsp;</p>\r\n",
+        "answers": []
+      },
+      "sv": {
+        "name": "Wizard 7.2: Ta reda på hur man skaffar behörighet för uppgiften i Finland",
+        "question": null,
+        "body": "<p>Ta reda på hur man skaffar behörighet för uppgiften i Finland och ansök sedan om en studieplats för att avlägga den examen eller studiehelhet som krävs.</p>\r\n\r\n<p><a href=\"https://studieinfo.fi/\">Läs mer på Studieinfo.fi</a></p>\r\n\r\n<p>Om din utländska examen är minst en lägre högskoleexamen (t.ex. Bachelor eller licence), ansök vid behov om Utbildningsstyrelsens beslut om att jämställa din högskoleexamens nivå och eventuella studier inom lärarutbildningen.</p>\r\n",
+        "answers": []
+      },
+      "en": {
+        "name": "Wizard 7.2: Find out what are the qualification requirements for the post in Finland",
+        "question": null,
+        "body": "<p>Find out which are the qualification requirements for the post in Finland and look for an institution where you can complete the required degree or studies.</p>\r\n\r\n<p>The instutition decides whether a right to study is granted. It &nbsp;also decides whether your previous studies will be credited towards a degree or study module completed in Finland.</p>\r\n\r\n<p><a href=\"https://studyinfo.fi/wp2/en/\">Read more from the Studyinfo-service.</a></p>\r\n\r\n<p>If your foreign degree is at least bachelor’s level (e.g. bachelor’s degree, &nbsp;licence or ijaza), you can apply to the Finnish National Agency for Education for a decision on the recognition of the level of your higher education degree and teacher education studies you have completed.</p>\r\n\r\n<p>Read more about the Finnish National Agency for Education’s decisions concerning eligibility for teaching positions. <a href=\"https://www.oph.fi/en/services/teaching-positions\">Go to the website</a></p>\r\n\r\n<p>The&nbsp;SIMHE-services of higher education institutions also offer guidance to immigrants. <a data-entity-substitution=\"canonical\" data-entity-type=\"node\" data-entity-uuid=\"586f02d2-623d-4945-b6bf-0b852f90d825\" href=\"/node/813\">Go to additional information on the SIMHE-services</a></p>\r\n",
+        "answers": []
+      }
+    }
+  },
+  {
+    "id": 4176,
+    "uuid": "bde06749-5911-4998-8d25-3a1ae9e73f58",
+    "status": true,
+    "is_frontpage": false,
+    "created": 1562924422,
+    "changed": 1566977012,
+    "translations": {
+      "fi": {
+        "name": "Wizard 7.3: Oletko EU-/ETA-maan tai Sveitsin kansalainen",
+        "question": "Oletko EU-/ETA-maan tai Sveitsin kansalainen tai onko sinulla asiakirja, jonka perusteella sinua tulisi kohdella kuin EU-kansalaista?",
+        "body": null,
+        "answers": [
+          {
+            "id": 11590,
+            "label": "Kyllä",
+            "target": 4186
+          },
+          {
+            "id": 11591,
+            "label": "Ei",
+            "target": 4177
+          }
+        ]
+      },
+      "sv": {
+        "name": "Wizard 7.3: Är du medborgare i ett EU/EES-land eller i Schweiz",
+        "question": "Är du medborgare i ett EU/EES-land eller i Schweiz eller har du en handling på basis av vilken du bör behandlas som EU-medborgare?",
+        "body": null,
+        "answers": [
+          {
+            "id": 11590,
+            "label": "Ja",
+            "target": 4186
+          },
+          {
+            "id": 11591,
+            "label": "Nej",
+            "target": 4177
+          }
+        ]
+      },
+      "en": {
+        "name": "Wizard 7.3: Are you a citizen of an EU/EEA member state or Switzerland",
+        "question": "Are you a citizen of an EU/EEA member state or Switzerland or do you have a document that entitles you to be treated as an EU/EEA citizen?",
+        "body": "<p>Are you a citizen of an EU/EEA member state or Switzerland or do you have a document that entitles you to be treated as an EU/EEA citizen?</p>\r\n",
+        "answers": [
+          {
+            "id": 11590,
+            "label": "Yes",
+            "target": 4186
+          },
+          {
+            "id": 11591,
+            "label": "No",
+            "target": 4177
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 4177,
+    "uuid": "84214233-741b-46aa-a05b-5f0809960c3f",
+    "status": true,
+    "is_frontpage": false,
+    "created": 1562924533,
+    "changed": 1564484007,
+    "translations": {
+      "fi": {
+        "name": "Wizard 7.4: Haetko kelpoisuutta vain vieraskieliseen opetukseen perusopetuksessa tai lukiossa?",
+        "question": "Haetko kelpoisuutta vain vieraskieliseen opetukseen perusopetuksessa tai lukiossa?",
+        "body": null,
+        "answers": [
+          {
+            "id": 11592,
+            "label": "Kyllä",
+            "target": 4180
+          },
+          {
+            "id": 11593,
+            "label": "En",
+            "target": 4178
+          }
+        ]
+      },
+      "sv": {
+        "name": "Wizard 7.4: Ansöker du endast om behörighet för undervisning på ett främmande språk inom den grundläggande utbildningen eller i gymnasiet?",
+        "question": "Ansöker du endast om behörighet för undervisning på ett främmande språk inom den grundläggande utbildningen eller i gymnasiet?",
+        "body": null,
+        "answers": [
+          {
+            "id": 11592,
+            "label": "Ja",
+            "target": 4180
+          },
+          {
+            "id": 11593,
+            "label": "Nej",
+            "target": 4178
+          }
+        ]
+      },
+      "en": {
+        "name": "Wizard 7.4: Are you applying only for eligibility to provide foreign-language instruction in basic or general upper secondary education?",
+        "question": "Are you applying only for eligibility to provide foreign-language instruction in basic or general upper secondary education?",
+        "body": null,
+        "answers": [
+          {
+            "id": 11592,
+            "label": "Yes",
+            "target": 4180
+          },
+          {
+            "id": 11593,
+            "label": "No",
+            "target": 4178
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 4178,
+    "uuid": "928dca99-d389-4da2-953b-eb97beffeb7c",
+    "status": true,
+    "is_frontpage": false,
+    "created": 1562924604,
+    "changed": 1593622990,
+    "translations": {
+      "fi": {
+        "name": "Wizard 7.5: Onko tutkintosi vähintään ylempi korkakoulututkinto?",
+        "question": "Jos haet kelpoisuutta opettaa perusopetuksessa tai lukiossa, onko tutkintosi vähintään ylempi korkeakoulututkinto (esim. Master)?",
+        "body": "<p>Jos haet kelpoisuutta opettaa ammatillisessa koulutuksessa tai vapaassa sivistystyössä, onko tutkintosi vähintään alempi korkeakoulututkinto (esim. Bachelor tai licence)?</p>\r\n",
+        "answers": [
+          {
+            "id": 11598,
+            "label": "Kyllä",
+            "target": 4188
+          },
+          {
+            "id": 11599,
+            "label": "Ei",
+            "target": 4172
+          }
+        ]
+      },
+      "sv": {
+        "name": "Wizard 7.5: är din utländska examen minst en högre högskoleexamen (t.ex. Master)?",
+        "question": "Om du ansöker om behörighet att undervisa inom den grundläggande utbildningen eller i gymnasiet, är din examen minst en högre högskoleexamen (t.ex. Master)?",
+        "body": "<p>Om du ansöker om behörighet att undervisa inom yrkesutbildningen eller det fria bildningsarbetet, är din examen minst en lägre högskoleexamen (t.ex. Bachelor eller licence)?</p>\r\n",
+        "answers": [
+          {
+            "id": 11598,
+            "label": "Ja",
+            "target": 4188
+          },
+          {
+            "id": 11599,
+            "label": "Nej",
+            "target": 4172
+          }
+        ]
+      },
+      "en": {
+        "name": "Wizard 7.5: Is your foreign degree at least master-level?",
+        "question": "If you are applying for eligibility to teach in basic education or in general upper secondary education, is your degree at least master-level?",
+        "body": "<p>If you are applying for eligibility to teach in vocational education and training or liberal adult education, is your degree at least bachelor-level (e.g. bachelor‘s degree, licence or ijaza)?</p>\r\n",
+        "answers": [
+          {
+            "id": 11598,
+            "label": "Yes",
+            "target": 4188
+          },
+          {
+            "id": 11599,
+            "label": "No",
+            "target": 4172
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 4180,
+    "uuid": "92e5e31d-52cb-4cf9-9c22-9b8b3d7f92bf",
+    "status": true,
+    "is_frontpage": false,
+    "created": 1562924759,
+    "changed": 1587042958,
+    "translations": {
+      "fi": {
+        "name": "Wizard 7.6: Oletko suorittanut opettajankoulutuksen sillä vieraalla kielellä, jolla aiot opettaa Suomessa",
+        "question": "Oletko suorittanut opettajankoulutuksen sillä vieraalla kielellä, jolla aiot opettaa Suomessa ja joka on tutkinnon suoritusmaan virallinen kieli (esim. englanti)?",
+        "body": "<p>ja</p>\r\n\r\n<p>Onko ulkomainen tutkintosi vähintään alempi korkeakoulututkinto (esim. Bachelor tai licence)?</p>\r\n",
+        "answers": [
+          {
+            "id": 11594,
+            "label": "Kyllä",
+            "target": 4192
+          },
+          {
+            "id": 11595,
+            "label": "Ei",
+            "target": 4172
+          }
+        ]
+      },
+      "sv": {
+        "name": "Wizard 7.6: Har du avlagt din lärarutbildning på det främmande språk som du kommer att undervisa på i Finland",
+        "question": "Har du avlagt din lärarutbildning på det främmande språk som du kommer att undervisa på i Finland och som är det officiella språket i landet där du avlagt din examen (t.ex. engelska)?",
+        "body": "<p>och</p>\r\n\r\n<p>Är din utländska examen minst en lägre<br />\r\nhögskoleexamen (t.ex. Bachelor eller licence)?</p>\r\n",
+        "answers": [
+          {
+            "id": 11594,
+            "label": "Ja",
+            "target": 4192
+          },
+          {
+            "id": 11595,
+            "label": "Nej",
+            "target": 4172
+          }
+        ]
+      },
+      "en": {
+        "name": "Wizard 7.6: Have you completed your teacher training in the foreign language in which you wish to teach?",
+        "question": "Have you completed your teacher training in the foreign language in which you intend to teach in Finland, and\r\nis that language an official language in the country in where you obtained your qualification (e.g. English)?\r\n",
+        "body": "<p>and</p>\r\n\r\n<p>Is your foreign degree at least a bachelor-level degree (e.g. Bachelor's degree, licence or ijaza)?</p>\r\n",
+        "answers": [
+          {
+            "id": 11594,
+            "label": "Yes",
+            "target": 4192
+          },
+          {
+            "id": 11595,
+            "label": "No",
+            "target": 4172
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 4186,
+    "uuid": "94a87d79-c6e8-444b-974b-908efc18a474",
+    "status": true,
+    "is_frontpage": false,
+    "created": 1562926224,
+    "changed": 1587025533,
+    "translations": {
+      "fi": {
+        "name": "Wizard 7.7.1: Hae Opetushallitukselta päätöstä ammattipätevyyden tunnustamisesta",
+        "question": "Hae Opetushallitukselta päätöstä kelpoisuudesta opetusalan ammattiin.",
+        "body": "<p>Opetushallitus käsittelee hakemuksesi asiakirjojen perusteella. Lähtökohta on, että toisessa jäsenmaassa hankittu ammattipätevyys tunnustetaan.</p>\r\n\r\n<p><a href=\"https://www.oph.fi/fi/palvelut/opetushallituksen-paatokset-patevyydesta-opetustehtaviin#anchor-opettajan-ammattipatevyys-eu--tai-eta-maasta\" target=\"”_blank”\">Siirry lisätietoihin opettajan ammattipätevyyden tunnustamisesta</a></p>\r\n\r\n<p><a data-entity-substitution=\"canonical\" data-entity-type=\"node\" data-entity-uuid=\"86f3c8a4-8065-4ccb-aea9-ec3b2c20b127\" href=\"/node/565\">Siirry lisätietoihin päätöksen hakemisesta</a></p>\r\n\r\n<p>&nbsp;</p>\r\n",
+        "answers": []
+      },
+      "sv": {
+        "name": "Wizard 7.7.1: Ansök hos Utbildningsstyrelsen om behörighet för ett yrke",
+        "question": "Ansök hos Utbildningsstyrelsen om behörighet för ett yrke inom undervisningsområdet.",
+        "body": "<p>Utbildningsstyrelsen behandlar din ansökan utifrån dokumenten. Utgångspunkten är att yrkeskvalifikationer som skaffats i ett annat medlemsland erkänns.</p>\r\n\r\n<p><a href=\"https://www.oph.fi/sv/tjanster/utbildningsstyrelsens-beslut-om-behorighet-undervisningsuppgifter#anchor-lararens-yrkeskvalifikationer-som-forvarvats-i-ett-eu--ees-land\">Gå till närmare information om erkännande av lärarens yrkeskvalifikationer</a></p>\r\n\r\n<p><a href=\"https://www.oph.fi/sv/tjanster/att-ansoka-om-beslut-om-erkannande-av-examen\">Gå till närmare information om ansökan om beslut</a></p>\r\n",
+        "answers": []
+      },
+      "en": {
+        "name": "Wizard 7.7.1:Apply to the Finnish National Agency for Education for a decision on the recognition of professional qualifications",
+        "question": "Apply to the Finnish National Agency for Education for a decision on eligibility for a teaching position.",
+        "body": "<p>The Finnish National Agency for Education will process your application based on the relevant documents. The principle is that professional qualifications obtained in another member state are recognised.</p>\r\n\r\n<p><a href=\"https://www.oph.fi/en/services/recognition-teaching-qualifications-and-teacher-training-studies#anchor-professional-qualifications-for-teaching-gained-in-an-eu-eea-member-state\">Go to additional information on the recognition of professional qualification for teaching</a></p>\r\n\r\n<p><a href=\"https://www.oph.fi/en/services/applying-finnish-national-agency-education-decision-recognition-qualification\">Go to additional information on applying for a decision</a></p>\r\n",
+        "answers": []
+      }
+    }
+  },
+  {
+    "id": 4188,
+    "uuid": "ca013544-5c6c-45a7-b82e-4f77f87ad9b7",
+    "status": true,
+    "is_frontpage": false,
+    "created": 1562926660,
+    "changed": 1587039756,
+    "translations": {
+      "fi": {
+        "name": "Wizard 7.7.2: Hae Opetushallitukselta päätöstä korkeakouluopintojen rinnastamisesta.",
+        "question": "Hae Opetushallitukselta päätöstä kelpoisuudesta opetusalan ammattiin.",
+        "body": "<p>Opetushallitus käsittelee hakemuksesi asiakirjojen perusteella. Opetushallitus vertaa ulkomaisia opintojasi niihin opintoihin, jotka Suomessa vaaditaan samaan opetustehtävään.&nbsp;</p>\r\n\r\n<p><a href=\"https://www.oph.fi/fi/palvelut/opetushallituksen-paatokset-patevyydesta-opetustehtaviin#anchor-rinnastamispaatokset-opettajankoulutuksesta\">Siirry lisätietoihin opettajankoulutuksen rinnastamisesta</a></p>\r\n\r\n<p><a data-entity-substitution=\"canonical\" data-entity-type=\"node\" data-entity-uuid=\"86f3c8a4-8065-4ccb-aea9-ec3b2c20b127\" href=\"/node/565\">Siirry lisätietoihin päätöksen hakemisesta</a></p>\r\n",
+        "answers": []
+      },
+      "sv": {
+        "name": "Wizard 7.7.2: Ansök hos Utbildningsstyrelsen om behörighet för ett yrke inom undervisningsområdet (UO)",
+        "question": "Ansök hos Utbildningsstyrelsen om behörighet för ett yrke inom undervisningsområdet",
+        "body": "<p>Utbildningsstyrelsen behandlar din ansökan på basis av de bifogade handlingarna. Utbildningsstyrelsen jämför dina högskolestudier med de studier som ger behörighet för samma undervisningsuppgift i Finland.</p>\r\n\r\n<p><a href=\"https://www.oph.fi/sv/tjanster/utbildningsstyrelsens-beslut-om-behorighet-undervisningsuppgifter#anchor-jamstallande-av-hogskolestudier-inom-lararutbildning\">Gå till närmare information om erkännande av yrkeskvalifikationer&nbsp;inom undervisningsområdet</a></p>\r\n\r\n<p><a href=\"https://www.oph.fi/sv/tjanster/att-ansoka-om-beslut-om-erkannande-av-examen\">Gå till närmare information om ansökan om beslut</a></p>\r\n",
+        "answers": []
+      },
+      "en": {
+        "name": "Wizard 7.7.2: Apply to the Finnish National Agency for Education for eligibility for a teaching position (UO)",
+        "question": "Apply to the Finnish National Agency for Education for eligibility for a teaching position.",
+        "body": "<p>The Finnish National Agency for Education will process your application based on the relevant documents. The Agency will compare your higher education studies to the teacher education studies required for the same teaching post in Finland.</p>\r\n\r\n<p><a href=\"https://www.oph.fi/en/services/recognition-teaching-qualifications-and-teacher-education-studies#anchor-recognition-of-teacher-education-studies\">Go to additional information on the recognition of teacher education&nbsp;studies</a></p>\r\n\r\n<p><a href=\"https://www.oph.fi/en/services/applying-finnish-national-agency-education-decision-recognition-qualification\">Go to additional information on applying for a decision</a></p>\r\n",
+        "answers": []
+      }
+    }
+  },
+  {
+    "id": 4192,
+    "uuid": "516275a8-32a2-45d4-be7f-f230e9dea8ef",
+    "status": true,
+    "is_frontpage": false,
+    "created": 1562927070,
+    "changed": 1749038896,
+    "translations": {
+      "fi": {
+        "name": "Wizard 7.7.3: Hae Opetushallitukselta päätöstä riittävistä opinnoista vieraskieliseen opetukseen",
+        "question": "Hae Opetushallitukselta päätöstä riittävistä opinnoista vieraskieliseen opetukseen",
+        "body": "<p>Opetushallitus käsittelee hakemuksesi asiakirjojen perusteella. Opetushallitus vertaa korkeakouluopintojasi opettajankoulutuksen opintoihin, jotka Suomessa vaaditaan samaan opetustehtävään.</p>\r\n\r\n<p><a href=\"https://www.oph.fi/fi/palvelut/opetushallituksen-paatokset-patevyydesta-opetustehtaviin#anchor-opetus-vieraalla-kielella\">Siirry lisätietoihin Opetushallituksen päätöksistä, jotka koskevat vieraskielistä opetusta</a></p>\r\n\r\n<p><a data-entity-substitution=\"canonical\" data-entity-type=\"node\" data-entity-uuid=\"86f3c8a4-8065-4ccb-aea9-ec3b2c20b127\" href=\"/node/565\">Siirry lisätietoihin päätöksen hakemisesta</a></p>\r\n",
+        "answers": []
+      },
+      "sv": {
+        "name": "Wizard 7.7.3: Ansök hos Utbildningsstyrelsen om beslut om tillräckliga studier för att undervisa på ett främmande språk",
+        "question": "Ansök hos Utbildningsstyrelsen om beslut om tillräckliga studier för att undervisa på ett främmande språk",
+        "body": "<p>Utbildningsstyrelsen behandlar din ansökan på basis av de bifogade handlingarna. Utbildningsstyrelsen jämför dina högskolestudier med de studier inom lärarutbildningen som krävs för samma undervisningsuppgift i Finland.</p>\r\n\r\n<p><a href=\"https://www.oph.fi/sv/tjanster/utbildningsstyrelsens-beslut-om-behorighet-undervisningsuppgifter#anchor-undervisning-pa-frammande-sprak\">Gå till närmare information om beslut för undervisning på främmande språk</a></p>\r\n\r\n<p><a href=\"https://www.oph.fi/sv/tjanster/att-ansoka-om-beslut-om-erkannande-av-examen\">Gå till närmare information om ansökan om beslut</a></p>\r\n",
+        "answers": []
+      },
+      "en": {
+        "name": "Wizard 7.7.3: Apply for a decision on the recognition of professional qualifications for a teaching positions (RO)",
+        "question": "Apply for a decision on sufficient studies to teach in a language other than Finnish, Swedish or Sami",
+        "body": "<p>The Finnish National Agency for Education will process your application based on the relevant documents. The Agency will compare your higher education studies to the teacher education studies required for the same teaching post in Finland.</p>\r\n\r\n<p><a href=\"https://www.oph.fi/en/services/recognition-teaching-qualifications-and-teacher-education-studies#anchor-teaching-in-a-foreign-language\">Go to additional information on the decisions on sufficient studies for teaching in a foreign language</a></p>\r\n\r\n<p><a href=\"https://www.oph.fi/en/services/applying-finnish-national-agency-education-decision-recognition-qualification\">Go to additional information on applying for a decision</a></p>\r\n",
+        "answers": []
+      }
+    }
+  },
+  {
+    "id": 5635,
+    "uuid": "a086852a-2dce-469e-9021-331afe667088",
+    "status": true,
+    "is_frontpage": false,
+    "created": 1566981840,
+    "changed": 1569925055,
+    "translations": {
+      "fi": {
+        "name": "Wizard 1.2.0 Oletko pätevöitynyt samaan varhaiskasvatuksen ammattiin?",
+        "question": "Oletko pätevöitynyt samaan varhaiskasvatuksen ammattiin toisessa EU- tai ETA-maassa tai Sveitsissä?",
+        "body": null,
+        "answers": [
+          {
+            "id": 14706,
+            "label": "Kyllä",
+            "target": 4057
+          },
+          {
+            "id": 14707,
+            "label": "En",
+            "target": 6240
+          }
+        ]
+      },
+      "sv": {
+        "name": "Wizard 1.2.0 Har du kvalificerat dig för samma yrke inom småbarnspedagogik?",
+        "question": "Har du kvalificerat dig för samma yrke inom småbarnspedagogik i ett annat EU- eller EES-land eller i Schweiz?",
+        "body": null,
+        "answers": [
+          {
+            "id": 14706,
+            "label": "Ja",
+            "target": 4057
+          },
+          {
+            "id": 14707,
+            "label": "Nej",
+            "target": 6240
+          }
+        ]
+      },
+      "en": {
+        "name": "Wizard 1.2.0 Have you qualified for the same profession in early childhood education and care?",
+        "question": "Have you qualified for the same profession in early childhood education and care in another EU/EEA country or Switzerland?",
+        "body": null,
+        "answers": [
+          {
+            "id": 14706,
+            "label": "Yes",
+            "target": 4057
+          },
+          {
+            "id": 14707,
+            "label": "No",
+            "target": 6240
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 5649,
+    "uuid": "a6790e26-a559-4a5a-ac4d-3656b513f39c",
+    "status": true,
+    "is_frontpage": false,
+    "created": 1566984790,
+    "changed": 1714461295,
+    "translations": {
+      "fi": {
+        "name": "Wizard 1.9 Pelastusala",
+        "question": "Pelastusopisto päättää ammattipätevyyden tunnustamisesta näihin ammatteihin:",
+        "body": "<ul><li>pelastusalan alipäällystö</li><li>pelastusalan miehistö</li><li>pelastusalan päällystö</li><li>hätäkeskuspäivystäjä</li><li>nuohooja</li></ul><p>Ota yhteyttä Pelastusopistoon, jos haet pätevyyttä johonkin näistä ammateista.</p><section class=\"ckeditor-template-wrapper\"><div class=\"ckeditor-template-content\"><div class=\"field field-link arrow-links\"><ul class=\"list-reset\"><li class=\"space-top space-top--half\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"https://www.pelastusopisto.fi/pelastustoimen-ammattipatevyyksien-tunnustaminen/\">Siirry Pelastusopiston sivuille</a></li></ul></div></div></section>",
+        "answers": []
+      },
+      "sv": {
+        "name": "Wizard 1.9 Räddningsbranschen",
+        "question": "Räddningsinstitutet beslutar om yrkeskvalifikationer för följande yrken:",
+        "body": "<ul><li><span lang=\"SV\">befälet i räddningsbranschen</span></li><li><span lang=\"SV\">manskap i räddningsbranschen</span></li><li><span lang=\"SV\">underbefälet i räddningsbranschen</span></li><li><span lang=\"SV\">jourhavande vid nödcentraler</span></li><li><span lang=\"SV\">sotare</span></li></ul><p><span lang=\"SV\">Kontakta Räddningsinstitutet om du ansöker om yrkeskvalifikationer för ett av dessa yrken.</span></p><section class=\"ckeditor-template-wrapper\"><div class=\"ckeditor-template-content\"><div class=\"field field-link arrow-links\"><ul class=\"list-reset\"><li class=\"space-top space-top--half\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"https://www.pelastusopisto.fi/pelastustoimen-ammattipatevyyksien-tunnustaminen/\"><span lang=\"SV\">Till Räddningsinstitutets webbplats (på finska)</span></a></li></ul></div></div></section>",
+        "answers": []
+      },
+      "en": {
+        "name": "Wizard 1.9 Fire and rescue services",
+        "question": "The Emergency Services Academy decides on eligibility for the following professions: ",
+        "body": "<ul><li><span lang=\"EN-US\">fire and rescue services crew member</span></li><li><span lang=\"EN-US\">fire and rescue services sub-officer</span></li><li><span lang=\"EN-US\">fire officer</span></li><li><span lang=\"EN-US\">chimneysweep</span></li><li><span lang=\"EN-US\">emergency response centre operator</span></li></ul><p><span lang=\"EN-US\">If you are applying for the recognition of professional qualifications in rescue services, contact the Emergency Services Academy.</span></p><section class=\"ckeditor-template-wrapper\"><div class=\"ckeditor-template-content\"><div class=\"field field-link arrow-links\"><ul class=\"list-reset\"><li class=\"space-top space-top--half\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"https://www.pelastusopisto.fi/pelastustoimen-ammattipatevyyksien-tunnustaminen/\">Further information in Finnish on the website of the Emergency Services Academy</a></li></ul></div></div></section>",
+        "answers": []
+      }
+    }
+  },
+  {
+    "id": 5677,
+    "uuid": "c0c5aa47-febc-40e7-8882-fe758324f7d7",
+    "status": true,
+    "is_frontpage": false,
+    "created": 1566991010,
+    "changed": 1587037528,
+    "translations": {
+      "fi": {
+        "name": "Wizard 1.9.1 Oletko EU- tai ETA-maan tai Sveitsin kansalainen? (pelastusala)",
+        "question": "Oletko EU- tai ETA-maan tai Sveitsin kansalainen?",
+        "body": null,
+        "answers": [
+          {
+            "id": 14725,
+            "label": "Kyllä",
+            "target": 7853
+          },
+          {
+            "id": 14726,
+            "label": "En",
+            "target": 4082
+          }
+        ]
+      },
+      "sv": {
+        "name": "Wizard 1.9.1 Är du medborgare i ett annat än ett EU- eller ett EES-land eller i Schweiz?",
+        "question": "Är du medborgare i ett annat än ett EU- eller ett EES-land eller i Schweiz?",
+        "body": null,
+        "answers": [
+          {
+            "id": 14725,
+            "label": "Ja",
+            "target": 7853
+          },
+          {
+            "id": 14726,
+            "label": "Nej",
+            "target": 4082
+          }
+        ]
+      },
+      "en": {
+        "name": "Wizard 1.9.1 Are you a citizen of an EU/EEA country or Switzerland?",
+        "question": "Are you a citizen of an EU/EEA country or Switzerland?",
+        "body": null,
+        "answers": [
+          {
+            "id": 14725,
+            "label": "Yes",
+            "target": 7853
+          },
+          {
+            "id": 14726,
+            "label": "No",
+            "target": 4082
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 5684,
+    "uuid": "6f4ae188-10ad-466f-9218-f20b927bef66",
+    "status": true,
+    "is_frontpage": false,
+    "created": 1566992481,
+    "changed": 1569921589,
+    "translations": {
+      "fi": {
+        "name": "Hakeudu suorittamaan korkeakoulututkintoa Suomessa",
+        "question": "Hakeudu suorittamaan korkeakoulututkintoa.",
+        "body": "<p>Tutustu opiskelumahdollisuuksiin Opintopolku-palvelussa. <a href=\"https://www.opintopolku.fi/\" target=\"_blank\">Siirry Opintopolku-palveluun</a>.</p>\r\n\r\n<p>Voit hakea opiskelupaikkaa suomalaisesta oppilaitoksesta tai korkeakoulusta.&nbsp;Oppilaitos tai korkeakoulu päättää opiskelijaksi ottamisesta. Oppilaitos tai korkeakoulu päättää myös aiempien opintojesi hyväksilukemisesta suomalaiseen tutkintoon.&nbsp;</p>\r\n\r\n<p>Maahanmuuttajille ohjausta tarjoavat myös korkeakoulujen SIMHE-palvelut. <a data-entity-substitution=\"canonical\" data-entity-type=\"node\" data-entity-uuid=\"586f02d2-623d-4945-b6bf-0b852f90d825\" href=\"https://www.oph.fi/node/813\">Siirry lisätietoihin&nbsp;SIMHE-palveluista</a>.&nbsp;</p>\r\n",
+        "answers": []
+      },
+      "sv": {
+        "name": "Sök dig till att avlägga högskoleexamen i Finland",
+        "question": "Sök dig till att avlägga högskoleexamen i Finland",
+        "body": "<p>Bekanta dig med studiemöjligheter i Studieinfo-tjänsten. <a href=\"https://studieinfo.fi/wp/sv/\">Gå till Studieinfo-tjänsten</a></p>\r\n\r\n<p>Du kan söka en studieplats i en finländsk läroanstalt eller högskola. Läroanstalten eller högskolan beslutar om antagning av studerande. Läroanstalten eller högskolan beslutar om tillgodoräknande av dina tidigare studier i en finländsk examen.</p>\r\n\r\n<p>Även högskolornas SIMHE-tjänster erbjuder handledning för invandrare. <a href=\"https://www.oph.fi/fi/korkeakoulujen-simhe-palvelut\">Gå till mer information om SIMHE-tjänsterna (på finska / på engelska)</a></p>\r\n",
+        "answers": []
+      },
+      "en": {
+        "name": "Apply to a Finnish higher education institution to complete a degree",
+        "question": null,
+        "body": "<p>Familiarise yourself with the study opportunities in the Studyinfo-service. Go to the <a href=\"https://studyinfo.fi/wp2/en/\">Studyinfo-service.</a></p>\r\n\r\n<p>You can apply for a study place in a Finnish educational institution or higher education institution. The institution decides whether you are admitted as a student. The institution also decides whether your previous studies will be credited towards a Finnish qualification.</p>\r\n\r\n<p>The&nbsp;SIMHE-services of higher education institutions also offer guidance to immigrants. Go to additional information on the <a href=\"https://www.oph.fi/en/simhe-services-higher-education-institutions\">SIMHE-services.</a></p>\r\n",
+        "answers": []
+      }
+    }
+  },
+  {
+    "id": 6240,
+    "uuid": "b5209d97-eb8c-4e48-8bb2-6c04bf998c92",
+    "status": true,
+    "is_frontpage": false,
+    "created": 1569916162,
+    "changed": 1569921380,
+    "translations": {
+      "fi": {
+        "name": "Wizard 1.2.1 Onko tutkinto vähintään alempi korkeakoulututkinto (vaka)",
+        "question": "Onko tutkintosi vähintään alempi korkeakoulututkinto (esim. Bachelor, licence, ijaza)?",
+        "body": null,
+        "answers": [
+          {
+            "id": 15967,
+            "label": "Kyllä",
+            "target": 4080
+          },
+          {
+            "id": 15968,
+            "label": "Ei",
+            "target": 4082
+          }
+        ]
+      },
+      "sv": {
+        "name": "Wizard 1.2.1 Är din examen minst en lägre högskoleexamen?",
+        "question": "Är din examen minst en lägre högskoleexamen (till exempel Bachelor, licence, ijaza)?",
+        "body": null,
+        "answers": [
+          {
+            "id": 15967,
+            "label": "Ja",
+            "target": 4080
+          },
+          {
+            "id": 15968,
+            "label": "Nej",
+            "target": 4082
+          }
+        ]
+      },
+      "en": {
+        "name": "Wizard 1.2.1 Is your qualification at least a bachelor-level degree?",
+        "question": "Is your qualification at least a bachelor-level degree? (e.g. bachelor’s degree, licence, ijaza)?",
+        "body": null,
+        "answers": [
+          {
+            "id": 15967,
+            "label": "Yes",
+            "target": 4080
+          },
+          {
+            "id": 15968,
+            "label": "No",
+            "target": 4082
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 7841,
+    "uuid": "2b4a9720-e8e0-4522-954c-f6ff24f4094d",
+    "status": true,
+    "is_frontpage": false,
+    "created": 1586946392,
+    "changed": 1675331834,
+    "translations": {
+      "fi": {
+        "name": "Wizard 0.1 Millaisissa tehtävissä haluat työskennellä?",
+        "question": "Millaisissa tehtävissä haluat työskennellä?",
+        "body": null,
+        "answers": [
+          {
+            "id": 21665,
+            "label": "Ammatissa, johon olen opiskellut toisessa maassa",
+            "target": 4051
+          },
+          {
+            "id": 21666,
+            "label": "Valtion tai kunnan tehtävissä tai muissa tehtävissä, joihin vaaditaan lain mukaan tietyn tasoinen korkeakoulututkinto",
+            "target": 4069
+          },
+          {
+            "id": 21667,
+            "label": "Muissa tehtävissä",
+            "target": 4070
+          }
+        ]
+      },
+      "sv": {
+        "name": "Wizard 0.1I vilka slags uppgifter vill du arbeta? ",
+        "question": "I vilka slags uppgifter vill du arbeta?",
+        "body": null,
+        "answers": [
+          {
+            "id": 21665,
+            "label": "I yrkesområdet som jag har studerat i ett annat land ",
+            "target": 4051
+          },
+          {
+            "id": 21666,
+            "label": "I uppgifter inom staten eller kommunen eller i andra uppgifter som enligt lagen kräver högskoleexamen på viss nivå?",
+            "target": 4069
+          },
+          {
+            "id": 21667,
+            "label": "I andra uppgifter ",
+            "target": 4070
+          }
+        ]
+      },
+      "en": {
+        "name": "Wizard 0.1 What profession would you like to work in?",
+        "question": "What profession would you like to work in?",
+        "body": null,
+        "answers": [
+          {
+            "id": 21665,
+            "label": "In the professional field that I studied in another country",
+            "target": 4051
+          },
+          {
+            "id": 21666,
+            "label": "In a government or municipal occupation or in a profession for which a higher education degree of a certain level is required by the law",
+            "target": 4069
+          },
+          {
+            "id": 21667,
+            "label": "In some other profession",
+            "target": 4070
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 7842,
+    "uuid": "19cf045b-cf08-4c5c-8f6d-6aa407557dfb",
+    "status": true,
+    "is_frontpage": false,
+    "created": 1586949979,
+    "changed": 1675333008,
+    "translations": {
+      "fi": {
+        "name": "Wizard 0.2 Mitä haluat opiskella?",
+        "question": "Mitä haluat opiskella?",
+        "body": null,
+        "answers": [
+          {
+            "id": 21686,
+            "label": "Olen saanut Opetushallituksen rinnastamispäätöksen ja haluan suorittaa päätöksessä vaaditut täydentävät opinnot. ",
+            "target": 7846
+          },
+          {
+            "id": 21674,
+            "label": "Haluan suorittaa Suomessa ammattiin pätevöittäviä opintoja, esimerkiksi opettajankoulutuksen opintoja. ",
+            "target": 7845
+          },
+          {
+            "id": 21673,
+            "label": "Haluan suorittaa tutkinnon tai muita kuin edellä mainittuja opintoja.",
+            "target": 4053
+          }
+        ]
+      },
+      "sv": {
+        "name": "Wizard 0.2 Vad vill du studera?",
+        "question": "Vad vill du studera?",
+        "body": null,
+        "answers": [
+          {
+            "id": 21686,
+            "label": "Jag har fått Utbildningsstyrelsens beslut om jämställande och jag vill avlägga de kompletterande studierna som krävs i beslutet. ",
+            "target": 7846
+          },
+          {
+            "id": 21674,
+            "label": "Jag vill genomföra studier i Finland som ger behörighet till ett yrke, till exempel studier inom lärarutbildningen. ",
+            "target": 7845
+          },
+          {
+            "id": 21673,
+            "label": "Jag vill avlägga en examen eller andra studier än de som nämns ovan. \r\n",
+            "target": 4053
+          }
+        ]
+      },
+      "en": {
+        "name": "Wizard 0.2 What would you like to study?",
+        "question": "What would you like to study?",
+        "body": null,
+        "answers": [
+          {
+            "id": 21686,
+            "label": "I have received a decision on recognition from the Finnish National Agency for Education and would like to complete the supplementing studies required in the decision. ",
+            "target": 7846
+          },
+          {
+            "id": 21674,
+            "label": "I would like to complete studies required for eligibility for a profession, such as teacher training studies.",
+            "target": 7845
+          },
+          {
+            "id": 21673,
+            "label": "I would like to complete a degree or some other studies. ",
+            "target": 4053
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 7845,
+    "uuid": "c2a15101-f00a-4eed-9a8c-76117186f7db",
+    "status": true,
+    "is_frontpage": false,
+    "created": 1586950135,
+    "changed": 1702640837,
+    "translations": {
+      "fi": {
+        "name": "Wizard 0.2.2 Lue koulutustarjonnasta ja opintoihin hakemisesta Opintopolku-palvelusta.",
+        "question": "Lue koulutustarjonnasta ja opintoihin hakemisesta Opintopolku-palvelusta.",
+        "body": "<section class=\"ckeditor-template-wrapper\"><div class=\"ckeditor-template-content\"><div class=\"field field-link arrow-links\"><ul class=\"list-reset\"><li class=\"space-top space-top--half\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"https://opintopolku.fi/konfo/fi/\">Siirry Opintopolku-palveluun</a></li></ul></div></div></section><p>Jos haet suorittamaan opettajankoulutuksen tai varhaiskasvatuksen opintoja, tarvitset todennäköisesti Opetushallituksen päätöksen tutkinnon rinnastamisesta.&nbsp;&nbsp;</p><p>Jos aiot pätevöityä aineenopettajaksi, saatat tarvita myös Opetushallituksen päätöksen&nbsp;opintojesi rinnastamisesta&nbsp;opetettavan aineen opintoihin.</p><ul class=\"list-reset\"><li class=\"space-top space-top--half\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"/node/362\" data-entity-type=\"node\" data-entity-uuid=\"0efde6bd-50d0-4060-b108-477e377fbb39\" data-entity-substitution=\"canonical\">Lue lisää päätöksistä, jotka koskevat kelpoisuutta opetustehtäviin</a></li><li class=\"space-top space-top--half\"><p><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"/node/363\" data-entity-type=\"node\" data-entity-uuid=\"1d4a0f27-2720-4a65-810c-40524a63e849\" data-entity-substitution=\"canonical\">Lue lisää päätöksistä, jotka koskevat kelpoisuutta varhaiskasvatuksen tehtäviin</a></p><p>&nbsp;</p></li></ul>",
+        "answers": []
+      },
+      "sv": {
+        "name": "Wizard 0.2.2 Läs mer om utbildningsutbudet och ansökning till utbildning i tjänsten Studieinfo.  ",
+        "question": "Läs mer om utbildningsutbudet och ansökning till utbildning i tjänsten Studieinfo.  ",
+        "body": "<section class=\"ckeditor-template-wrapper\"><div class=\"ckeditor-template-content\"><div class=\"field field-link arrow-links\"><ul class=\"list-reset\"><li class=\"space-top space-top--half\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"https://studieinfo.fi/\">Gå till Studieinfo-tjänsten</a></li></ul></div></div></section><p>Om du söker till studier inom lärarutbildningen eller inom småbarnspedagogiken, behöver du sannolikt Utbildningsstyrelsens beslut om jämställandet av examen.&nbsp;</p><p>Om du vill få behörighet som ämneslärare, kan du eventuellt också behöva Utbildningsstyrelsens beslut om att dina studier jämställs med studier i ämnet som undervisas.</p><ul class=\"list-reset\"><li class=\"space-top space-top--half\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"/node/362\" data-entity-type=\"node\" data-entity-uuid=\"0efde6bd-50d0-4060-b108-477e377fbb39\" data-entity-substitution=\"canonical\">Läs mer om Utbildningsstyrelsens beslut om behörighet för undervisningsuppgifter</a></li><li class=\"space-top space-top--half\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"/node/363\" data-entity-type=\"node\" data-entity-uuid=\"1d4a0f27-2720-4a65-810c-40524a63e849\" data-entity-substitution=\"canonical\">Läs mer om Utbildningsstyrelsens beslut om behörighet till yrken inom småbarnspedagogik</a></li></ul>",
+        "answers": []
+      },
+      "en": {
+        "name": "Wizard 0.2.2 Read more about study options and applying in Opintopolku service. ",
+        "question": "Read more about study options and applying at Studyinfo.fi. ",
+        "body": "<section class=\"ckeditor-template-wrapper\"><div class=\"ckeditor-template-content\"><div class=\"field field-link arrow-links\"><ul class=\"list-reset\"><li class=\"space-top space-top--half\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"https://opintopolku.fi/konfo/en/\">Go to Studyinfo.fi</a></li></ul></div></div></section><p>If you apply for teacher training studies or qualifying studies in early childhood education and care, you will probably need a decision on the recognition of your foreign degree from the Finnish National Agency for Education.&nbsp;</p><p>If you want to qualify as a subject teacher, you might also need a decision on&nbsp;comparability of your studies to studies in a teaching subject.&nbsp;</p><ul class=\"list-reset\"><li class=\"space-top space-top--half\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"/node/362\" data-entity-type=\"node\" data-entity-uuid=\"0efde6bd-50d0-4060-b108-477e377fbb39\" data-entity-substitution=\"canonical\">Read more about recognition of teaching qualifications and teacher training studies</a></li><li class=\"space-top space-top--half\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"/node/363\" data-entity-type=\"node\" data-entity-uuid=\"1d4a0f27-2720-4a65-810c-40524a63e849\" data-entity-substitution=\"canonical\">Read more about recognition of qualifications in early childhood education and care</a></li></ul>",
+        "answers": []
+      }
+    }
+  },
+  {
+    "id": 7846,
+    "uuid": "88a7bf71-7e2a-45dd-aa84-6f3c49b9774d",
+    "status": true,
+    "is_frontpage": false,
+    "created": 1586955098,
+    "changed": 1702642526,
+    "translations": {
+      "fi": {
+        "name": "Wizard 0.2.3 Lue ohjeet, jotka olet saanut päätöksen mukana",
+        "question": "Lue ohjeet, jotka olet saanut päätöksen mukana. ",
+        "body": "<p><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"/node/9172\" data-entity-type=\"node\" data-entity-uuid=\"5e53e55b-fc32-44f1-ba9e-b44aa3bc6a47\" data-entity-substitution=\"canonical\">Siirry päätöksen saaneiden ohjeisiin</a></p><p>Ota yhteyttä suomalaiseen korkeakouluun opintojen suorittamiseksi.&nbsp;Lue koulutustarjonnasta&nbsp;ja opintoihin hakemisesta&nbsp;Opintopolku-palvelusta.</p><section class=\"ckeditor-template-wrapper\"><div class=\"ckeditor-template-content\"><div class=\"field field-link arrow-links\"><ul class=\"list-reset\"><li class=\"space-top space-top--half\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"https://opintopolku.fi/konfo/fi/\">Siirry Opintopolku-palveluun</a></li></ul></div></div></section>",
+        "answers": []
+      },
+      "sv": {
+        "name": "Wizard 0.2.3 Läs anvisningarna som du fått i samband med beslutet",
+        "question": "Läs anvisningarna som du fått i samband med beslutet.",
+        "body": "<section class=\"ckeditor-template-wrapper\"><div class=\"ckeditor-template-content\"><div class=\"field field-link arrow-links\"><ul class=\"list-reset\"><li class=\"space-top space-top--half\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"/node/9172\" data-entity-type=\"node\" data-entity-uuid=\"5e53e55b-fc32-44f1-ba9e-b44aa3bc6a47\" data-entity-substitution=\"canonical\">Gå till information till personer som fått beslut</a></li></ul></div></div></section><p>Kontakta en finländsk högskola för att genomföra studierna.</p><p>Läs mer om utbildningsutbudet och ansökning till utbildning i tjänsten Studieinfo.</p><p><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"https://opintopolku.fi/konfo/sv/\">Gå till Studieinfo-tjänsten</a></p>",
+        "answers": []
+      },
+      "en": {
+        "name": "Wizard 0.2.3 Read the instructions you’ve received enclosed with the decision. ",
+        "question": "Read the instructions you’ve received enclosed with the decision.  ",
+        "body": "<section class=\"ckeditor-template-wrapper\"><div class=\"ckeditor-template-content\"><div class=\"field field-link arrow-links\"><ul class=\"list-reset\"><li class=\"space-top space-top--half\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"/node/9172\" data-entity-type=\"node\" data-entity-uuid=\"5e53e55b-fc32-44f1-ba9e-b44aa3bc6a47\" data-entity-substitution=\"canonical\">Go to information for recipients of a recognition decision</a></li></ul></div></div></section><p>Contact a Finnish higher education institution in order to complete the studies. Read about study options and applying in Opintopolku service.</p><p><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"https://opintopolku.fi/konfo/en/\">Go to the Studyinfo-service</a></p>",
+        "answers": []
+      }
+    }
+  },
+  {
+    "id": 18777,
+    "uuid": "163d6de2-b0bf-472a-8f5b-41b4f6d23baa",
+    "status": true,
+    "is_frontpage": false,
+    "created": 1756969964,
+    "changed": 1756990503,
+    "translations": {
+      "fi": {
+        "name": "Wizard 1.11 Rakennettu ympäristö",
+        "question": "Toimivaltaisia viranomaisia rakentamisen säännellyissä ammateissa ovat ympäristöministeriö sekä sen valtuuttamat toimielimet",
+        "body": "<p>Rakentamislain (751/2023) ja sen nojalla säädetyn mukaisesti rakentamisen säänneltyjä suunnittelutehtäviä ja työnjohtotehtäviä ovat:</p><ul><li>rakennussuunnittelu</li><li>kantavien rakenteiden suunnittelu</li><li>pohjarakenteiden suunnittelu</li><li>kalliorakenteiden suunnittelu</li><li>ilmanvaihdon suunnittelu</li><li>kiinteistön vesi- ja viemärilaitteiston suunnittelu</li><li>rakennusfysikaalinen suunnittelu</li><li>kosteusvaurion korjaustyön suunnittelu</li><li>akustiikan suunnittelu</li><li>maisemarakentamisen suunnittelu</li><li>vastaavan työnjohtajan työnjohtotehtävä</li><li>kiinteistön vesi- ja viemärilaitteiston rakentamisesta vastaavan työnjohtajan työnjohtotehtävä (kvv-työnjohtaja)</li><li>ilmanvaihtolaitteiston rakentamisesta vastaavan työnjohtajan työnjohtotehtävä (iv-työnjohtaja)</li></ul><p>Lisätietoa:</p><section class=\"ckeditor-template-wrapper\"><div class=\"ckeditor-template-content\"><div class=\"field field-link arrow-links\"><ul class=\"list-reset\"><li class=\"space-top space-top--half\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"https://ym.fi/patevyyden-osoittamislaki\">Ympäristöministeriö</a></li><li class=\"space-top space-top--half\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"https://www.kiwa.com/fi/fi/\">Kiwa Oy:n verkkosivut</a></li><li class=\"space-top space-top--half\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"https://www.seti.fi/\">SETI Oy:n verkkosivut</a></li><li class=\"space-top space-top--half\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"https://fise.fi/\">Fise Oy:n verkkosivut</a></li></ul></div></div></section>",
+        "answers": []
+      },
+      "sv": {
+        "name": "Wizard 1.11 Den byggda miljön",
+        "question": "Behöriga myndigheter för de reglerade yrkena inom byggande är miljöministeriet samt organ som bemyndigats av ministeriet",
+        "body": "<p>I enlighet med bygglagen (751/2023) och vad som föreskrivs med stöd av den är följande projekterings- och arbetsledningsuppgifter inom byggande reglerade yrken:</p><ul><li>byggnadsprojektering</li><li>projektering av bärande konstruktioner</li><li>projektering av geokonstruktioner</li><li>projektering av bergkonstruktioner</li><li>projektering av ventilation</li><li>projektering av en fastighets vatten- och avloppsanordningar</li><li>byggnadsfysikalisk projektering</li><li>projektering av reparation av fuktskador</li><li>projektering av akustik</li><li>projektering av landskapsbyggande</li><li>arbetsledningsuppgifter för ansvariga arbetsledare</li><li>arbetsledningsuppgifter för ansvariga arbetsledare som ansvarar för byggandet av en fastighets vatten- och avloppsanordningar (FVA-arbetsledare)</li><li>arbetsledningsuppgifter för ansvariga arbetsledare som ansvarar för byggande av ventilationsanordningar (arbetsledare för ventilation)</li></ul><p>Ytterligare information</p><section class=\"ckeditor-template-wrapper\"><div class=\"ckeditor-template-content\"><div class=\"field field-link arrow-links\"><ul class=\"list-reset\"><li class=\"space-top space-top--half\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"https://ym.fi/sv/lag-om-pavisande-av-kompetensen\">Miljöministeriets webbplats</a></li><li class=\"space-top space-top--half\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"https://www.kiwa.com/fi/fi/\">Kiwa Ab:s webbplats (på finska)</a></li><li class=\"space-top space-top--half\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"https://www.seti.fi/sv/startsida\">SETI Ab:s webbplats</a></li><li class=\"space-top space-top--half\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"https://fise.fi/se/\">Fise Ab:s webbplats</a></li></ul></div></div></section><p>&nbsp;</p>",
+        "answers": []
+      },
+      "en": {
+        "name": "Wizard 1.11 Built Environment",
+        "question": "The competent authorities for regulated professions in construction are the Ministry of the Environment and the bodies authorized by it",
+        "body": "<p>According to the Building Act (751/2023) and the regulations issued under it, the regulated design and site management tasks in construction are:</p><ul><li>building design</li><li>the design of load-bearing structures</li><li>the design of foundations</li><li>the design of rock structures</li><li>ventilation design</li><li>the design of a property's water supply and sewage system</li><li>building physics design</li><li>the design of moisture damage repair work</li><li>acoustics design</li><li>landscape construction design</li><li>a site manager's management task</li><li>the management task of a foreman responsible for the construction of a property's water supply and sewage system (a WSS foreman)</li><li>the management task of a foreman responsible for the construction of a ventilation system (a VS foreman)</li></ul><p>Further information:</p><section class=\"ckeditor-template-wrapper\"><div class=\"ckeditor-template-content\"><div class=\"field field-link arrow-links\"><ul class=\"list-reset\"><li class=\"space-top space-top--half\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"https://ym.fi/patevyyden-osoittamislaki\">Ministry of the Environment website (in Finnish)</a></li><li class=\"space-top space-top--half\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"https://www.kiwa.com/fi/fi/\">Kiwa Oy website</a></li><li class=\"space-top space-top--half\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"https://www.seti.fi/\">SETI Personal and Company Assessment Ltd website</a></li><li class=\"space-top space-top--half\"><a class=\"link link--arrow link--arrow--include-icon field field-link arrow-links\" href=\"https://fise.fi/en/\">Fise Oy website</a></li></ul></div></div></section><p>&nbsp;</p>",
+        "answers": []
+      }
+    }
+  }
+]
