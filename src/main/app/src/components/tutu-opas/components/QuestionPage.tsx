@@ -30,7 +30,7 @@ export const QuestionPage = ({
   const translation = currentObject?.translations[language as LanguageCode];
   const answerOptions = translation?.answers;
 
-  const parsedResponseBody = parse(translation?.body || '', {
+  const parsedBody = parse(translation?.body || '', {
     replace(domNode: DOMNode) {
       if (
         domNode instanceof Element &&
@@ -50,7 +50,7 @@ export const QuestionPage = ({
       </OphTypography>
       {isEmpty(answerOptions) ? (
         <>
-          <Box>{parsedResponseBody}</Box>
+          <Box>{parsedBody}</Box>
           <NavigationButton variant="contained" onClick={() => setIsStartPage(true)}>
             {t('tutu.aloita-alusta')}
           </NavigationButton>
@@ -60,6 +60,7 @@ export const QuestionPage = ({
           <Typography id={optionsLabelId} sx={{ marginBottom: '16px' }}>
             {t('tutu.tutu-opas.valitse-yksi')}
           </Typography>
+          <Box>{parsedBody}</Box>
           <AnswerOptions
             answerOptions={answerOptions}
             setCurrentObject={setCurrentObject}
