@@ -19,22 +19,26 @@ const AnswerOption = ({
   );
 
   return (
-    <OphButton
-      onClick={() => setCurrentObject(nextAnswerObject)}
-      variant="contained"
-      sx={{
-        backgroundColor: ophColors.green5,
-        color: ophColors.grey900,
-        marginBottom: '0.5rem',
-        justifyContent: 'left',
-        textAlign: 'left',
-        '&:hover': {
-          backgroundColor: ophColors.green2,
-          color: ophColors.white,
-        },
-      }}>
-      {answerOption?.label}
-    </OphButton>
+    <>
+      {nextAnswerId && (
+        <OphButton
+          onClick={() => setCurrentObject(nextAnswerObject)}
+          variant="contained"
+          sx={{
+            backgroundColor: ophColors.green5,
+            color: ophColors.grey900,
+            marginBottom: '0.5rem',
+            justifyContent: 'left',
+            textAlign: 'left',
+            '&:hover': {
+              backgroundColor: ophColors.green2,
+              color: ophColors.white,
+            },
+          }}>
+          {answerOption?.label}
+        </OphButton>
+      )}
+    </>
   );
 };
 
