@@ -333,3 +333,11 @@ export const getInitialToteutusRajainValues = createSelector(
   [getRajainValues],
   (checkedValues) => pick(checkedValues, TOTEUTUS_RAJAIN_NAMES)
 );
+
+// Koulutusala on rajaimena oppilaitoksen tarjonnassa, mutta ei koulutuksen järjestäjissä
+export const OPPILAITOS_TARJONTA_RAJAIN_NAMES = [...TOTEUTUS_RAJAIN_NAMES, 'koulutusala'];
+
+export const getInitialOppilaitosTarjontaRajainValues = createSelector(
+  [getRajainValues],
+  (checkedValues) => pick(checkedValues, OPPILAITOS_TARJONTA_RAJAIN_NAMES)
+);

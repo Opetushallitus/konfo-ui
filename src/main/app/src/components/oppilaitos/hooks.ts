@@ -12,7 +12,7 @@ import {
 import { useAppDispatch, useAppSelector } from '#/src/hooks/reduxHooks';
 import { usePreviousPage } from '#/src/store/reducers/appSlice';
 import { HAKU_RAJAIMET_INITIAL, RajainValues } from '#/src/store/reducers/hakutulosSlice';
-import { getInitialToteutusRajainValues } from '#/src/store/reducers/hakutulosSliceSelector';
+import { getInitialOppilaitosTarjontaRajainValues } from '#/src/store/reducers/hakutulosSliceSelector';
 import {
   setTarjontaPagination,
   setTulevaTarjontaPagination,
@@ -193,7 +193,7 @@ export const usePaginatedTarjonta = ({ oid, isTuleva }: UsePaginatedTarjontaProp
   }, [dispatch]);
 
   // Tämä haetaan vain kerran alkuarvoja varten + Haetaan tarjonta hakusivulta periytyneillä rajaimilla
-  const initialRajainValues = useAppSelector(getInitialToteutusRajainValues);
+  const initialRajainValues = useAppSelector(getInitialOppilaitosTarjontaRajainValues);
 
   const [initialValues] = useState(initialRajainValues);
 

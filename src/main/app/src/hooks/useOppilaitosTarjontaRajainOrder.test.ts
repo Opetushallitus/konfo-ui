@@ -170,6 +170,11 @@ describe('useOppilaitosTarjontaRajainOrder', () => {
     });
   });
 
+  test('shows koulutusala after koulutuksen kesto', () => {
+    const ids = getRajainIds({}, {});
+    expect(ids[ids.indexOf('koulutuksenkesto') + 1]).toEqual('koulutusala');
+  });
+
   describe('toimipiste', () => {
     test('is shown after hakutapa when oppilaitoksella on toimipisteitä, joilla on toteutuksia', () => {
       const ids = getRajainIds(

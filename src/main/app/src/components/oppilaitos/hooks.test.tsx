@@ -28,6 +28,7 @@ const INHERITED_RAJAIMET = {
   taydennyskoulutus: true,
   pieniosaamiskokonaisuus: true,
   apuraha: true,
+  koulutusala: ['kansallinenkoulutusluokitus2016koulutusalataso1_04'],
 };
 
 const renderTarjonta = (previousPage: string) => {
@@ -77,6 +78,7 @@ describe('usePaginatedTarjonta', () => {
           taydennyskoulutus: 'true',
           pieniosaamiskokonaisuus: 'true',
           apuraha: 'true',
+          koulutusala: 'kansallinenkoulutusluokitus2016koulutusalataso1_04',
         }),
       })
     );

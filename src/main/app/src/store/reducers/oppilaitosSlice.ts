@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { isEqual, pick } from 'lodash';
 
 import { HAKU_RAJAIMET_INITIAL, RajainValues } from './hakutulosSlice';
-import { TOTEUTUS_RAJAIN_NAMES } from './hakutulosSliceSelector';
+import { OPPILAITOS_TARJONTA_RAJAIN_NAMES } from './hakutulosSliceSelector';
 
 export const initialState = {
   size: 5,
@@ -11,7 +11,7 @@ export const initialState = {
   tulevaOffset: 0,
   order: 'asc',
   rajainValues: {
-    ...pick(HAKU_RAJAIMET_INITIAL, TOTEUTUS_RAJAIN_NAMES),
+    ...pick(HAKU_RAJAIMET_INITIAL, OPPILAITOS_TARJONTA_RAJAIN_NAMES),
     // Toimipisterajain on vain oppilaitoksen tarjonnassa
     toimipiste: HAKU_RAJAIMET_INITIAL.toimipiste,
   } as Partial<RajainValues>,

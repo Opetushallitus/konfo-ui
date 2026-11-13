@@ -12,6 +12,7 @@ import { PohjakoulutusvaatimusSuodatin } from '#/src/components/suodattimet/comm
 import { SijaintiSuodatin } from '#/src/components/suodattimet/common/SijaintiSuodatin';
 import { ToimipisteSuodatin } from '#/src/components/suodattimet/common/ToimipisteSuodatin';
 import { ValintatapaSuodatin } from '#/src/components/suodattimet/common/ValintatapaSuodatin';
+import { KoulutusalaSuodatin } from '#/src/components/suodattimet/hakutulosSuodattimet/KoulutusalaSuodatin';
 import { KoulutustyyppiSuodatin } from '#/src/components/suodattimet/hakutulosSuodattimet/KoulutustyyppiSuodatin';
 import { AmmOsaamisalatSuodatin } from '#/src/components/suodattimet/toteutusSuodattimet/AmmOsaamisalatSuodatin';
 import { LukiolinjatSuodatin } from '#/src/components/suodattimet/toteutusSuodattimet/LukiolinjatSuodatin';
@@ -104,6 +105,10 @@ export const useOppilaitosTarjontaRajainOrder = ({
     {
       id: 'koulutuksenkesto',
       Component: KoulutuksenKestoSuodatin,
+    },
+    {
+      id: 'koulutusala',
+      Component: KoulutusalaSuodatin,
     },
     {
       id: 'maksullisuus',

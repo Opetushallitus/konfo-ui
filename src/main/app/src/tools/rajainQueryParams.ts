@@ -31,7 +31,7 @@ export const createRajainQueryParams = (
         ...((values.kunta as Array<string>) ?? []),
       ],
     },
-    ['maakunta', 'kunta', 'koulutusala', 'koulutustyyppi-muu']
+    ['maakunta', 'kunta']
   );
   return mapValues(valuesWithSijainti, (v) =>
     match(v)
