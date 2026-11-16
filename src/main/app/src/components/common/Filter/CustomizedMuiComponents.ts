@@ -4,10 +4,17 @@ import {
   AccordionSummary,
   AccordionDetails,
   Slider,
+  ListItemButton,
 } from '@mui/material';
 
 import { colors } from '#/src/colors';
 import { styled } from '#/src/theme';
+
+export const SuodatinListItemButton = styled(ListItemButton)({
+  '&:hover, &.Mui-selected': {
+    boxShadow: `inset 0 0 0 2px ${colors.grey700}`,
+  },
+});
 
 export const SuodatinAccordion = styled(Accordion)({
   // Piilotetaan default väliviiva (koska sitä ei saa pysymään näkyvissä -> korvattu Dividerilla)
