@@ -1,6 +1,6 @@
 import { Card, CardContent, Paper, Button, Grid } from '@mui/material';
 import clsx from 'clsx';
-import Markdown from 'markdown-to-jsx';
+import Markdown from 'markdown-to-jsx/react';
 
 import { colors } from '#/src/colors';
 import { useContentful } from '#/src/hooks/useContentful';

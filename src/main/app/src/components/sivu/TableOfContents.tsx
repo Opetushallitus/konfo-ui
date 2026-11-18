@@ -1,4 +1,4 @@
-import Markdown from 'markdown-to-jsx';
+import Markdown from 'markdown-to-jsx/react';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';

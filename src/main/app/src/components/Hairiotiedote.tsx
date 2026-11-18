@@ -1,6 +1,6 @@
 import { Alert, Stack } from '@mui/material';
 import { includes, isEmpty, size, sortBy } from 'lodash-es';
-import Markdown from 'markdown-to-jsx';
+import Markdown from 'markdown-to-jsx/react';
 import { useTranslation } from 'react-i18next';
 
 import { useContentful } from '#/src/hooks/useContentful';

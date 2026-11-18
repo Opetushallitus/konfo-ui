@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import { Box, Card, CardContent, CardMedia, Grid } from '@mui/material';
-import Markdown from 'markdown-to-jsx';
+import Markdown from 'markdown-to-jsx/react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
