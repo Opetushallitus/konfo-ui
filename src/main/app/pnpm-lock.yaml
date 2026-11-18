@@ -105,13 +105,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-overrides:
-  minimatch@3: ^3.1.5
-  minimatch@5: ^5.1.9
-  minimatch@9: ^9.0.7
-  form-data: ^4.0.6
-  js-cookie: ^3.0.7
-
 patchedDependencies:
   '@mui/material@7.3.11': 0462124349a68085995958ef814d21ce78cb7ac1e2a307c8cabf4dc47abd7157
 
@@ -174,7 +167,7 @@ importers:
         specifier: ^11.2.9
         version: 11.2.9
       js-cookie:
-        specifier: ^3.0.7
+        specifier: ^3.0.8
         version: 3.0.8
       lodash-es:
         specifier: ^4.18.1
