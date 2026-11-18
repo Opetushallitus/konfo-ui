@@ -8,6 +8,7 @@ test.describe('Sivut (mobiili)', () => {
   test.beforeEach(async ({ page, context, baseURL }) => {
     await setupCommonTest({ page, context, baseURL });
   });
+
   test('Language change should be reflected in URL and page content', async ({
     page,
   }) => {

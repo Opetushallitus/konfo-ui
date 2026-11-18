@@ -43,7 +43,7 @@ const getAsiasanatForLanguage = (asiasanat: Array<any>, language: string) => {
 
 const UNEXPANDED_ASIASANA_LIMIT = 10;
 
-const useVisibleAsiasanat = (asiasanat: Array<string>, isExpanded: boolean) => {
+const getVisibleAsiasanat = (asiasanat: Array<string>, isExpanded: boolean) => {
   if (isExpanded) {
     return uniq(asiasanat);
   } else {
@@ -61,7 +61,7 @@ const AsiasanatExpander = ({
     translatedAsiasanat?.length <= UNEXPANDED_ASIASANA_LIMIT
   );
 
-  const visibleAsiasanat = useVisibleAsiasanat(translatedAsiasanat, isExpanded);
+  const visibleAsiasanat = getVisibleAsiasanat(translatedAsiasanat, isExpanded);
 
   return (
     <Box mt={4}>

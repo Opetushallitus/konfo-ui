@@ -28,7 +28,7 @@ const KORKEAKOULU_YLAKOODIT: Array<string> = [
   KOULUTUS_TYYPPI.AMKKOULUTUS,
 ];
 
-export const useOppilaitosTarjontaRajainOrder = ({
+export const getOppilaitosTarjontaRajainOrder = ({
   rajainValues,
   rajainOptions,
 }: {

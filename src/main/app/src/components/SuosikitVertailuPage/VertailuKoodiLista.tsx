@@ -18,7 +18,9 @@ export const VertailuKoodiLista = ({
     (emptyText ?? t('suosikit-vertailu.ei-maaritelty'))
   ) : (
     <VertailuList>
-      {koodit?.map((k) => <li key={k?.koodi?.koodiUri}>{localize(k?.koodi?.nimi)}</li>)}
+      {koodit?.map((k) => (
+        <li key={k?.koodi?.koodiUri}>{localize(k?.koodi?.nimi)}</li>
+      ))}
     </VertailuList>
   );
 };

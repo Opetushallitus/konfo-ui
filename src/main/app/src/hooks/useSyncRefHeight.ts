@@ -1,6 +1,6 @@
-import { MutableRefObject, useLayoutEffect } from 'react';
+import { RefObject, useLayoutEffect } from 'react';
 
-type Target = MutableRefObject<HTMLElement | null>;
+type Target = RefObject<HTMLElement | null>;
 
 // Store all elements per key, so it is easy to retrieve them
 const store: Record<string, Array<Target>> = {};

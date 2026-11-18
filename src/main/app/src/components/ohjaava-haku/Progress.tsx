@@ -52,6 +52,7 @@ export const Progress = React.forwardRef<HTMLButtonElement, ButtonProps>((_, ref
             const isPastQuestion = index < currentQuestionIndex;
             return (
               <StyledButton
+                key={questionId}
                 {...(index === 0 && { ref })}
                 variant={isPastQuestion || isCurrentQuestion ? 'contained' : 'outlined'}
                 disableElevation
@@ -72,7 +73,6 @@ export const Progress = React.forwardRef<HTMLButtonElement, ButtonProps>((_, ref
                     backgroundColor: colors.darkerGrayishGreenBg,
                   },
                 }}
-                key={questionId}
                 onClick={() => setCurrentQuestionIndex(index)}
                 {...(hasBeenAnswered &&
                   isPastQuestion && {

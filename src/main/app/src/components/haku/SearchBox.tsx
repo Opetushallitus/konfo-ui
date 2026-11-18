@@ -34,11 +34,11 @@ const createRenderOption = (t: TFunction, highlightedLink: string | null) => {
     option: AutocompleteOption
   ) {
     const isHighlighted = option.link === highlightedLink;
-    const liProps = isHighlighted ? omit(props, 'aria-selected') : props;
+    const liProps = omit(props, isHighlighted ? ['key', 'aria-selected'] : ['key']);
     return (
       <li
-        {...liProps}
         key={option.link}
+        {...liProps}
         style={{
           ...(liProps as { style?: React.CSSProperties }).style,
           display: 'block',

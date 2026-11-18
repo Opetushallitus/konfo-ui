@@ -6,18 +6,18 @@ import { focusElement, scrollToId } from '#/src/tools/utils';
 
 export const useScrollToHash = () => {
   const location = useLocation();
-  const lastHash = useRef('');
+  const lastHashRef = useRef('');
 
   useEffect(() => {
     const { hash } = location;
     if (hash) {
-      lastHash.current = hash.slice(1); // safe hash for further use after navigation
+      lastHashRef.current = hash.slice(1); // safe hash for further use after navigation
     }
-    if (lastHash.current) {
-      const target = document.getElementById(lastHash.current);
-      scrollToId(lastHash.current);
+    if (lastHashRef.current) {
+      const target = document.getElementById(lastHashRef.current);
+      scrollToId(lastHashRef.current);
       focusElement(target);
-      lastHash.current = '';
+      lastHashRef.current = '';
     }
   }, [location]);
 };

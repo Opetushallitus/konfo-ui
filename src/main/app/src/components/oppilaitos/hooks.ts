@@ -199,16 +199,16 @@ export const usePaginatedTarjonta = ({ oid, isTuleva }: UsePaginatedTarjontaProp
 
   const previousPage = usePreviousPage();
 
-  const hasSetInitialRajaimet = useRef(false);
+  const hasSetInitialRajaimetRef = useRef(false);
 
   useEffect(() => {
-    if (!isTuleva && previousPage === 'haku' && !hasSetInitialRajaimet.current) {
+    if (!isTuleva && previousPage === 'haku' && !hasSetInitialRajaimetRef.current) {
       // Toimipisterajain ei periydy hakusivulta, joten tyhjennetään edellisen oppilaitoksen valinta
       setRajainValues({
         ...initialValues,
         toimipiste: HAKU_RAJAIMET_INITIAL.toimipiste,
       });
-      hasSetInitialRajaimet.current = true;
+      hasSetInitialRajaimetRef.current = true;
     }
   }, [isTuleva, setRajainValues, initialValues, previousPage]);
 
