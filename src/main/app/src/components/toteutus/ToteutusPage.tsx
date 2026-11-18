@@ -92,7 +92,11 @@ export const ToteutusPage = () => {
 
   const { state: menuVisible } = useSideMenu();
 
-  const { data: toteutus, status: toteutusStatus } = useToteutus({
+  const {
+    data: toteutus,
+    status: toteutusStatus,
+    isLoading: isToteutusLoading,
+  } = useToteutus({
     oid,
     isDraft,
   });
@@ -113,7 +117,11 @@ export const ToteutusPage = () => {
     osaamistavoitteet: toteutuksenOsaamistavoitteet,
   } = toteutus?.metadata ?? {};
 
-  const { data: koulutus, status: koulutusStatus } = useKoulutus({
+  const {
+    data: koulutus,
+    status: koulutusStatus,
+    isLoading: isKoulutusLoading,
+  } = useKoulutus({
     oid: koulutusOid,
     isDraft,
   });
@@ -151,8 +159,8 @@ export const ToteutusPage = () => {
 
   const loading =
     !notFound &&
-    (koulutusStatus === 'loading' ||
-      toteutusStatus === 'loading' ||
+    (isKoulutusLoading ||
+      isToteutusLoading ||
       (hasOppilaitokset && some(oppilaitokset, 'isLoading')));
 
   const hasAnyHakukohde = some(hakutiedot, (v: Hakutieto) => v.hakukohteet.length > 0);

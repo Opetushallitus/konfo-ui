@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
+import { keepPreviousData, useQueries, useQuery } from '@tanstack/react-query';
 import { filter, map, size, compact } from 'lodash-es';
-import { useQueries, useQuery } from 'react-query';
 
 import {
   getKoodistonKoodit,
@@ -78,10 +78,11 @@ type UseOppilaitosProps = {
 };
 
 export const useOppilaitos = ({ oid, isOppilaitosOsa, isDraft }: UseOppilaitosProps) => {
-  const { data = {}, ...rest } = useQuery(
-    ['getOppilaitos', { oid, isOppilaitosOsa, isDraft }],
-    () => (isOppilaitosOsa ? getOppilaitosOsa(oid, isDraft) : getOppilaitos(oid, isDraft))
-  );
+  const { data = {}, ...rest } = useQuery({
+    queryKey: ['getOppilaitos', { oid, isOppilaitosOsa, isDraft }],
+    queryFn: () =>
+      isOppilaitosOsa ? getOppilaitosOsa(oid, isDraft) : getOppilaitos(oid, isDraft),
+  });
   return useMemo(
     () => handleOppilaitosData(isOppilaitosOsa, data, rest),
     [isOppilaitosOsa, data, rest]
@@ -100,15 +101,15 @@ export const useOppilaitokset = ({
   isOppilaitosOsa,
   isDraft,
 }: UseOppilaitoksetProps) => {
-  const results = useQueries(
-    oids.map((oid) => ({
+  const results = useQueries({
+    queries: oids.map((oid) => ({
       queryKey: ['getOppilaitos', { oid, isDraft }],
       // NOTE: getOppilaitos palauttaa myös oppilaitoksen osia, jos oideilla niitä löytyy
       queryFn: () => getOppilaitos(oid, isDraft),
       refetchOnMount: false,
       retryOnMount: false,
-    }))
-  );
+    })),
+  });
 
   return useMemo(
     () =>
@@ -221,17 +222,15 @@ export const usePaginatedTarjonta = ({ oid, isTuleva }: UsePaginatedTarjontaProp
     },
   };
 
-  const result = useQuery(
-    ['getPaginatedTarjonta', fetchProps],
-    () => getOppilaitosTarjonta(fetchProps),
-    {
-      enabled: Boolean(oid),
-      keepPreviousData: true,
-      staleTime: 60 * 1000,
-      select: (tarjontaData: any) =>
-        isTuleva ? selectTulevaTarjonta(tarjontaData) : selectTarjonta(tarjontaData),
-    }
-  );
+  const result = useQuery({
+    queryKey: ['getPaginatedTarjonta', fetchProps],
+    queryFn: () => getOppilaitosTarjonta(fetchProps),
+    enabled: Boolean(oid),
+    placeholderData: keepPreviousData,
+    staleTime: 60 * 1000,
+    select: (tarjontaData: any) =>
+      isTuleva ? selectTulevaTarjonta(tarjontaData) : selectTarjonta(tarjontaData),
+  });
 
   return useMemo(
     () => ({
@@ -259,11 +258,11 @@ export const usePaginatedTarjonta = ({ oid, isTuleva }: UsePaginatedTarjontaProp
 };
 
 export const useSomeKoodit = () => {
-  const { data } = useQuery<Array<Koodi>>(
-    ['getKoodistonKooditSome'],
-    () => getKoodistonKoodit('sosiaalinenmedia'),
-    { staleTime: Infinity }
-  );
+  const { data } = useQuery<Array<Koodi>>({
+    queryKey: ['getKoodistonKooditSome'],
+    queryFn: () => getKoodistonKoodit('sosiaalinenmedia'),
+    staleTime: Infinity,
+  });
   return useMemo(() => {
     return data;
   }, [data]);

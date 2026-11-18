@@ -50,7 +50,7 @@ export const OppilaitosPage = (props) => {
   const hakuUrl = useSelector(getHakuUrl);
 
   switch (status) {
-    case 'loading':
+    case 'pending':
       return <LoadingCircle />;
     case 'error':
       return <NotFound />;

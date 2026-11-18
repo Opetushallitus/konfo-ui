@@ -112,7 +112,7 @@ const Osalaskut = ({ osalasku }: OsalaskutProps) => {
       <Box className={classes.osalaskutSection}>
         <Box className={classes.osalaskutDisc} sx={{ backgroundColor: colors.sunglow }} />
         <Typography variant="body1" className={classes.textBlock}>
-          {t('pistelaskuri.pisteet.osalasku.kaikki', osalasku)}
+          {t('pistelaskuri.pisteet.osalasku.kaikki', { kaikki: osalasku.kaikki })}
         </Typography>
       </Box>
       <Box className={classes.osalaskutSection}>
@@ -121,7 +121,9 @@ const Osalaskut = ({ osalasku }: OsalaskutProps) => {
           sx={{ backgroundColor: colors.brandGreen }}
         />
         <Typography variant="body1" className={classes.textBlock}>
-          {t('pistelaskuri.pisteet.osalasku.taito', osalasku)}
+          {t('pistelaskuri.pisteet.osalasku.taito', {
+            taideTaitoAineet: osalasku.taideTaitoAineet,
+          })}
         </Typography>
       </Box>
       <Box className={classes.osalaskutSection}>
@@ -130,7 +132,9 @@ const Osalaskut = ({ osalasku }: OsalaskutProps) => {
           variant="body1"
           className={classes.textBlock}
           sx={{ lineHeight: '1.3rem' }}>
-          {t('pistelaskuri.pisteet.osalasku.suoritettu', osalasku)}
+          {t('pistelaskuri.pisteet.osalasku.suoritettu', {
+            suorittanutBonus: osalasku.suorittanutBonus,
+          })}
         </Typography>
       </Box>
       <Box className={classes.osalaskutSection}>

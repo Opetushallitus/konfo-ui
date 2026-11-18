@@ -274,7 +274,7 @@ export const KoulutusPage = () => {
   const soraKuvaus = koulutus?.sorakuvaus;
 
   switch (status) {
-    case 'loading':
+    case 'pending':
       return <LoadingCircle />;
     case 'error':
       return <NotFound />;

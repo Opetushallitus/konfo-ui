@@ -1,6 +1,6 @@
+import { useQuery } from '@tanstack/react-query';
 import { isEmpty } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
-import { useQuery } from 'react-query';
 
 import { getToteutusOsaamisalaKuvaus } from '#/src/api/konfoApi';
 import { Accordion } from '#/src/components/common/Accordion';
@@ -18,13 +18,11 @@ type UseOsaamisalatProps = {
 };
 
 const useOsaamisalaKuvaukset = ({ ePerusteId, requestParams }: UseOsaamisalatProps) =>
-  useQuery(
-    ['getOsaamisalatPageData', { ePerusteId, requestParams }],
-    () => getToteutusOsaamisalaKuvaus({ ePerusteId, requestParams }),
-    {
-      enabled: ePerusteId != null && !isEmpty(requestParams),
-    }
-  );
+  useQuery({
+    queryKey: ['getOsaamisalatPageData', { ePerusteId, requestParams }],
+    queryFn: () => getToteutusOsaamisalaKuvaus({ ePerusteId, requestParams }),
+    enabled: ePerusteId != null && !isEmpty(requestParams),
+  });
 
 export const Osaamisalat = ({
   toteutus,

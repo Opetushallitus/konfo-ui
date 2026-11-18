@@ -1,5 +1,5 @@
+import { useQuery } from '@tanstack/react-query';
 import { isEmpty } from 'lodash-es';
-import { useQuery } from 'react-query';
 
 import { getOppilaitos, getOppilaitosOsa } from '#/src/api/konfoApi';
 import { parseOsoiteData } from '#/src/tools/utils';
@@ -53,17 +53,15 @@ export const useOsoitteet = (
   oppilaitosOids: Array<string>,
   isOppilaitosOsa?: boolean
 ) => {
-  const { data: osoitteet = [], ...rest } = useQuery(
-    ['getOppilaitosOsoitteet', oppilaitosOids],
-    () =>
+  const { data: osoitteet = [], ...rest } = useQuery({
+    queryKey: ['getOppilaitosOsoitteet', oppilaitosOids],
+    queryFn: () =>
       isOppilaitosOsa
         ? fetchOppilaitosOsaOsoitteet(oppilaitosOids)
         : fetchOppilaitosOsoitteet(oppilaitosOids),
-    {
-      refetchOnWindowFocus: false,
-      retryOnMount: false,
-    }
-  );
+    refetchOnWindowFocus: false,
+    retryOnMount: false,
+  });
 
   return { osoitteet, ...rest } as any;
 };

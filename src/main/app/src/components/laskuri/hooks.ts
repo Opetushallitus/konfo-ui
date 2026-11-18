@@ -1,17 +1,17 @@
 import { useMemo } from 'react';
 
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 
 import { getKoodistonKoodit, searchHakukohteet } from '#/src/api/konfoApi';
 import { translate } from '#/src/tools/localization';
 import { HakukohdeSearchParams, Koodi } from '#/src/types/common';
 
 export const useKieliKoodit = () => {
-  const { data } = useQuery<Array<Koodi>>(
-    ['getKoodistonKooditKielivalikoima'],
-    () => getKoodistonKoodit('kielivalikoima'),
-    { staleTime: Infinity }
-  );
+  const { data } = useQuery<Array<Koodi>>({
+    queryKey: ['getKoodistonKooditKielivalikoima'],
+    queryFn: () => getKoodistonKoodit('kielivalikoima'),
+    staleTime: Infinity,
+  });
   return useMemo(() => {
     return data?.sort((a: Koodi, b: Koodi) => {
       const aName = translate(a.nimi).toLowerCase();
@@ -22,4 +22,7 @@ export const useKieliKoodit = () => {
 };
 
 export const useHakukohdeSearch = (requestParams: HakukohdeSearchParams) =>
-  useQuery([requestParams], ({ signal }) => searchHakukohteet(requestParams, signal), {});
+  useQuery({
+    queryKey: [requestParams],
+    queryFn: ({ signal }) => searchHakukohteet(requestParams, signal),
+  });
