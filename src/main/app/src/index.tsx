@@ -7,7 +7,7 @@ import { createRoot } from 'react-dom/client';
 import { ErrorBoundary } from 'react-error-boundary';
 import { Provider } from 'react-redux';
 import { RouterProvider } from 'react-router-dom';
-import 'typeface-open-sans';
+import 'typeface-open-sans/index.css';
 import StackTrace from 'stacktrace-js';
 
 import { postClientError } from '#/src/api/konfoApi';

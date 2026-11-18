@@ -62,10 +62,12 @@ export default defineConfig(({ mode }) => {
           {
             src: 'node_modules/@material-design-icons/svg/outlined/*.svg',
             dest: 'icons/material/outlined',
+            rename: { stripBase: true },
           },
           {
             src: 'node_modules/@material-design-icons/svg/filled/*.svg',
             dest: 'icons/material/filled',
+            rename: { stripBase: true },
           },
         ],
       }),
