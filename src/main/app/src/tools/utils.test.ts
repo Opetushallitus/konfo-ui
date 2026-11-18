@@ -72,7 +72,7 @@ describe('Utils/getLocalizedOpintojenLaajuus', () => {
         },
       },
       {},
-      'undefined 10 viikkoa',
+      '10 viikkoa',
     ],
     [
       {
@@ -82,7 +82,7 @@ describe('Utils/getLocalizedOpintojenLaajuus', () => {
         },
       },
       {},
-      'undefined 10 viikkoa',
+      '10 viikkoa',
     ],
     [
       {
