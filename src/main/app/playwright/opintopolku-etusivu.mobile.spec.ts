@@ -82,9 +82,10 @@ test.describe('Opintopolun etusivu (mobiili)', () => {
     const boxes = await Promise.all(
       [hakeutuminen, kielitutkinnot, tunnustaminen].map((l) => l.boundingBox())
     );
-    // Kaikki samassa sarakkeessa allekkain
+    // Kaikki samassa sarakkeessa allekkain. Linkki on vain laatikon keskitetty otsikko, joten verrataan keskikohtia.
+    const centerX = (box: { x: number; width: number }) => box.x + box.width / 2;
     for (let i = 1; i < boxes.length; i++) {
-      expect(boxes[i]!.x).toBeCloseTo(boxes[0]!.x, 0);
+      expect(centerX(boxes[i]!)).toBeCloseTo(centerX(boxes[0]!), 0);
       expect(boxes[i]!.y).toBeGreaterThan(boxes[i - 1]!.y + boxes[i - 1]!.height - 1);
     }
   });

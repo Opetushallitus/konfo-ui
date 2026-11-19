@@ -30,16 +30,10 @@ export const MuutPalvelut = ({ osio }: { osio: EtusivuOsio }) =>
           return (
             <Paper
               key={nosto.id}
-              component="a"
-              // Osa osoitteista on kielikohtaisia, joten kieli välitetään parametrina ($1)
-              href={nosto.href}
               sx={{
-                position: 'relative',
                 color: ophColors.grey900,
                 ...LINK_PAPER_SX,
                 borderRadius: '10px',
-                // Laaja varjo, joka näkyy selvästi myös yläreunassa (ei siirretty alaspäin)
-                boxShadow: '3px 3px 10px 4px rgba(0, 0, 0, 0.12)',
                 paddingX: 2.5,
                 paddingY: 3,
                 display: 'flex',
@@ -62,7 +56,7 @@ export const MuutPalvelut = ({ osio }: { osio: EtusivuOsio }) =>
               <Box
                 sx={{ display: 'flex', alignItems: 'center', gap: 2, paddingRight: 4 }}>
                 <Box component="img" src={nosto.kuvaUrl} alt="" sx={{ height: '40px' }} />
-                <PaperHeading color="inherit" fontWeight={400}>
+                <PaperHeading color="inherit" fontWeight={400} to={nosto.href}>
                   {nosto.otsikko}
                 </PaperHeading>
               </Box>
