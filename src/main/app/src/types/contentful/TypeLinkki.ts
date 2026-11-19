@@ -3,6 +3,8 @@ import type { ChainModifiers, Entry, EntryFieldTypes, EntrySkeletonType, LocaleC
 export interface TypeLinkkiFields {
     href?: EntryFieldTypes.Symbol;
     teksti: EntryFieldTypes.Symbol;
+    avautuuUuteenIkkunaan?: EntryFieldTypes.Boolean;
+    variant?: EntryFieldTypes.Symbol<"contained" | "outlined" | "text">;
 }
 
 export type TypeLinkkiSkeleton = EntrySkeletonType<TypeLinkkiFields, "linkki">;

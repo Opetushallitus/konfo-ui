@@ -9,6 +9,7 @@ export interface TypeNostoFields {
     julkaisuaika?: EntryFieldTypes.Date;
     tyyppi?: EntryFieldTypes.Symbol;
     asiasanat?: EntryFieldTypes.Array<EntryFieldTypes.Symbol>;
+    color?: EntryFieldTypes.Symbol<"cyan1" | "green2" | "purple1">;
 }
 
 export type TypeNostoSkeleton = EntrySkeletonType<TypeNostoFields, "nosto">;
