@@ -1,0 +1,52 @@
+diff --git a/esm/useAutocomplete/useAutocomplete.js b/esm/useAutocomplete/useAutocomplete.js
+index 287d381a2cd984099170497fc6a29290257d9886..aab4da9dcf88cfe7943f409ff9a1017714d2f6e4 100644
+--- a/esm/useAutocomplete/useAutocomplete.js
++++ b/esm/useAutocomplete/useAutocomplete.js
+@@ -566,7 +566,21 @@ function useAutocomplete(props) {
+       }
+     }, [componentName]);
+   }
++  // konfo-ui patch: when filteredOptionsChanged flips back to false on the first re-render after
++  // new options, the effect would re-run and reset a keyboard highlight set in between
++  // (https://github.com/mui/material-ui/issues/48093). Skip re-syncing when that flip is the only change.
++  const highlightSyncDepsRef = React.useRef(null);
+   React.useEffect(() => {
++    const prevDeps = highlightSyncDepsRef.current;
++    highlightSyncDepsRef.current = {
++      syncHighlightedIndex,
++      filteredOptionsChanged,
++      popupOpen,
++      disableCloseOnSelect
++    };
++    if (prevDeps && prevDeps.filteredOptionsChanged && !filteredOptionsChanged && prevDeps.syncHighlightedIndex === syncHighlightedIndex && prevDeps.popupOpen === popupOpen && prevDeps.disableCloseOnSelect === disableCloseOnSelect) {
++      return;
++    }
+     if (filteredOptionsChanged || popupOpen && !disableCloseOnSelect) {
+       syncHighlightedIndex();
+     }
+diff --git a/useAutocomplete/useAutocomplete.js b/useAutocomplete/useAutocomplete.js
+index 72a97b8e57fddbcd2363177672656607b031184e..76a49aab7f9c6c5494891f9c93b83fd0d6f2f6f5 100644
+--- a/useAutocomplete/useAutocomplete.js
++++ b/useAutocomplete/useAutocomplete.js
+@@ -574,7 +574,21 @@ function useAutocomplete(props) {
+       }
+     }, [componentName]);
+   }
++  // konfo-ui patch: when filteredOptionsChanged flips back to false on the first re-render after
++  // new options, the effect would re-run and reset a keyboard highlight set in between
++  // (https://github.com/mui/material-ui/issues/48093). Skip re-syncing when that flip is the only change.
++  const highlightSyncDepsRef = React.useRef(null);
+   React.useEffect(() => {
++    const prevDeps = highlightSyncDepsRef.current;
++    highlightSyncDepsRef.current = {
++      syncHighlightedIndex,
++      filteredOptionsChanged,
++      popupOpen,
++      disableCloseOnSelect
++    };
++    if (prevDeps && prevDeps.filteredOptionsChanged && !filteredOptionsChanged && prevDeps.syncHighlightedIndex === syncHighlightedIndex && prevDeps.popupOpen === popupOpen && prevDeps.disableCloseOnSelect === disableCloseOnSelect) {
++      return;
++    }
+     if (filteredOptionsChanged || popupOpen && !disableCloseOnSelect) {
+       syncHighlightedIndex();
+     }
