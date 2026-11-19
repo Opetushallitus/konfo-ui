@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react';
 
-import { findKey, find, isEmpty } from 'lodash';
+import { findKey, find, isEmpty } from 'lodash-es';
 import { urls } from 'oph-urls-js';
 
 import { getContentfulData, getContentfulManifest } from '#/src/api/konfoApi';

@@ -11,7 +11,7 @@ import {
   Autocomplete,
 } from '@mui/material';
 import { TFunction } from 'i18next';
-import { identity, isString, omit, size } from 'lodash';
+import { identity, isString, omit, size } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { match } from 'ts-pattern';
@@ -34,11 +34,11 @@ const createRenderOption = (t: TFunction, highlightedLink: string | null) => {
     option: AutocompleteOption
   ) {
     const isHighlighted = option.link === highlightedLink;
-    const liProps = isHighlighted ? omit(props, 'aria-selected') : props;
+    const liProps = omit(props, isHighlighted ? ['key', 'aria-selected'] : ['key']);
     return (
       <li
-        {...liProps}
         key={option.link}
+        {...liProps}
         style={{
           ...(liProps as { style?: React.CSSProperties }).style,
           display: 'block',
@@ -255,7 +255,7 @@ export const SearchBox = ({
           loading={isFetching}
           groupBy={(option) => option.type}
           clearText={t('haku.tyhjenna-hakuehto')}
-          componentsProps={{
+          slotProps={{
             clearIndicator: {
               tabIndex: 0,
               sx: (muiTheme) => ({
@@ -266,7 +266,7 @@ export const SearchBox = ({
             },
           }}
           onHighlightChange={(_e, option) => {
-            const isNull = option == null || isString(option);
+            const isNull = option === null || isString(option);
             setHighlightedLabel(isNull ? '' : option.label);
             setHighlightedLink(isNull ? null : option.link);
           }}
@@ -276,7 +276,7 @@ export const SearchBox = ({
             }
           }}
           onInputChange={(_e, newInputValue, reason) => {
-            if (reason !== 'reset') {
+            if (reason === 'clear' || reason === 'input') {
               setDraftKeyword(newInputValue);
               setSearchPhraseDebounced(newInputValue);
             }

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import { set, uniq } from 'lodash';
-import { useQuery } from 'react-query';
+import { useQuery, keepPreviousData } from '@tanstack/react-query';
+import { set, uniq } from 'lodash-es';
 
 import {
   getEperusteKuvaus,
@@ -135,14 +135,12 @@ export const useKoulutus = ({
   isDraft,
   osaamisalakuvaukset = false,
 }: UseKoulutusProps) => {
-  return useQuery(
-    ['fetchKoulutus', { oid, isDraft, osaamisalakuvaukset }],
-    () => fetchKoulutus(oid!, isDraft, osaamisalakuvaukset),
-    {
-      select: selectKoulutus,
-      enabled: Boolean(oid),
-    }
-  );
+  return useQuery({
+    queryKey: ['fetchKoulutus', { oid, isDraft, osaamisalakuvaukset }],
+    queryFn: () => fetchKoulutus(oid!, isDraft, osaamisalakuvaukset),
+    select: selectKoulutus,
+    enabled: Boolean(oid),
+  });
 };
 
 const selectJarjestajat = (data: any) => {
@@ -194,13 +192,13 @@ export const useKoulutusJarjestajat = ({
 
   const previousPage = usePreviousPage();
 
-  const hasSetInitialFilters = useRef(false);
+  const hasSetInitialFiltersRef = useRef(false);
 
   useEffect(() => {
-    if (previousPage === 'haku' && !hasSetInitialFilters.current) {
+    if (previousPage === 'haku' && !hasSetInitialFiltersRef.current) {
       setRajainValues(initialValues);
       setPagination({ offset: 0 });
-      hasSetInitialFilters.current = true;
+      hasSetInitialFiltersRef.current = true;
     }
   }, [oid, setRajainValues, initialValues, previousPage, setPagination]);
 
@@ -213,16 +211,14 @@ export const useKoulutusJarjestajat = ({
     },
   };
 
-  const result = useQuery(
-    ['getKoulutusJarjestajat', fetchProps],
-    () => getKoulutusJarjestajat(fetchProps),
-    {
-      enabled: Boolean(oid),
-      keepPreviousData: true,
-      staleTime: 60 * 1000,
-      select: selectJarjestajat,
-    }
-  );
+  const result = useQuery({
+    queryKey: ['getKoulutusJarjestajat', fetchProps],
+    queryFn: () => getKoulutusJarjestajat(fetchProps),
+    enabled: Boolean(oid),
+    placeholderData: keepPreviousData,
+    staleTime: 60 * 1000,
+    select: selectJarjestajat,
+  });
 
   return useMemo(
     (): any => ({

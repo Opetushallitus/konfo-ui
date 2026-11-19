@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Box, Typography, useTheme, useMediaQuery } from '@mui/material';
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'lodash-es';
 
 import DefaultHeroImage from '#/src/assets/images/herokuva_default.png';
 import { ImageCardGrid } from '#/src/components/common/ImageCardGrid';

@@ -1,4 +1,4 @@
-import { identity } from 'lodash';
+import { identity } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 import { vi } from 'vitest';
 

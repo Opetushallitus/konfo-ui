@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig, InternalAxiosRequestConfig } from 'axios';
 import Cookies from 'js-cookie';
-import { includes, isEmpty, map } from 'lodash';
+import { includes, isEmpty, map } from 'lodash-es';
 import { urls } from 'oph-urls-js';
 import qs from 'query-string';
 

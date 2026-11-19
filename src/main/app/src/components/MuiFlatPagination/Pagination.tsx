@@ -1,17 +1,16 @@
 import * as React from 'react';
 
-import { PropTypes, StandardProps } from '@mui/material';
-// eslint-disable-next-line no-restricted-imports
-import { createStyles, WithStyles, withStyles } from '@mui/styles';
+import { PropTypes } from '@mui/material';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
+import { withStyles } from 'tss-react/mui';
 
 import { computePages, PagePosition, Position } from './core';
 import { PageButton, PageButtonClassKey, PageVariant } from './PageButton';
 
 export type PaginationClassKey = PageButtonClassKey;
 
-const styles = createStyles<PaginationClassKey, PaginationProps>({
+const styles = {
   root: {},
   rootCurrent: {},
   rootEllipsis: {},
@@ -36,7 +35,7 @@ const styles = createStyles<PaginationClassKey, PaginationProps>({
   sizeLargeEnd: {},
   sizeLargeStandard: {},
   fullWidth: {},
-});
+};
 
 export interface RenderButtonProps {
   offset: number;
@@ -44,12 +43,7 @@ export interface RenderButtonProps {
   children: React.ReactNode;
 }
 
-export interface PaginationProps
-  extends StandardProps<
-    React.HTMLAttributes<HTMLDivElement>,
-    PaginationClassKey,
-    'onClick'
-  > {
+export interface PaginationProps {
   limit: number;
   offset: number;
   total: number;
@@ -62,23 +56,24 @@ export interface PaginationProps
   fullWidth?: boolean;
   innerButtonCount?: number;
   nextPageLabel?: React.ReactNode;
-  onClick?: (ev: React.MouseEvent<HTMLElement>, offset: number, page: number) => void;
+  onClick: (ev: React.MouseEvent<HTMLElement>, offset: number, page: number) => void;
   renderButton?: (props: RenderButtonProps) => React.ReactElement<any>;
   otherPageColor?: PropTypes.Color;
   outerButtonCount?: number;
   previousPageLabel?: React.ReactNode;
   reduced?: boolean;
   size?: 'small' | 'medium' | 'large';
+  classes?: Partial<Record<PaginationClassKey, string>>;
+  className?: string;
+  children?: Array<React.ReactElement>;
 }
 
-const UnstyledPagination: React.FunctionComponent<
-  PaginationProps & WithStyles<PaginationClassKey>
-> = ({
+const UnstyledPagination: React.FunctionComponent<PaginationProps> = ({
   limit = 1,
   offset = 0,
   total = 0,
   centerRipple = false,
-  classes,
+  classes = {},
   className: classNameProp,
   component = 'div',
   currentPageColor = 'secondary',
@@ -176,9 +171,6 @@ const UnstyledPagination: React.FunctionComponent<
   );
 };
 
-export const MuiFlatPagination: React.ComponentType<PaginationProps> = withStyles(
-  styles,
-  {
-    name: 'MuiFlatPagination',
-  }
-)(UnstyledPagination);
+export const MuiFlatPagination = withStyles(UnstyledPagination, styles, {
+  name: 'MuiFlatPagination',
+});

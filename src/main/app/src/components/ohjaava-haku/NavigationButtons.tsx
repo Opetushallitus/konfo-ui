@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Grid } from '@mui/material';
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import { StyledButton } from '#/src/components/ohjaava-haku/common/StyledButton';
@@ -96,8 +96,7 @@ export const NavigationButtons = ({
 
   return (
     <ButtonContainer
-      item
-      xs={12}
+      size={{ xs: 12 }}
       {...(isLastQuestion && {
         sx: {
           gridTemplateColumns: '25fr 25fr 25fr 25fr',

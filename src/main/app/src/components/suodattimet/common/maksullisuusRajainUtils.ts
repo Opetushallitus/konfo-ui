@@ -1,4 +1,4 @@
-import { range } from 'lodash';
+import { range } from 'lodash-es';
 
 const MAX_NUMBER_OF_SLIDER_MARKS = 5;
 const ALLOWED_SLIDER_MARK_BASES = [1, 2, 2.5, 5];

@@ -60,20 +60,23 @@ export const MurupolkuDrawer = ({ path, onClose, isOpen }: MurupolkuDrawerProps)
         <Toolbar variant="dense" disableGutters className={classes.drawerToolbar}>
           <Grid
             container
-            justifyContent="space-between"
-            alignItems="center"
-            wrap="nowrap">
-            <Grid item>
+            sx={{
+              flexGrow: 1,
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              flexWrap: 'nowrap',
+            }}>
+            <Grid>
               <IconButton color="inherit" onClick={() => onClose()}>
                 <MaterialIcon icon="close" />
               </IconButton>
             </Grid>
-            <Grid item>
+            <Grid>
               <Typography variant="body1" noWrap color="inherit">
                 {t('murupolku')}
               </Typography>
             </Grid>
-            <Grid item />
+            <Grid />
           </Grid>
         </Toolbar>
         <Box className={classes.drawerContainer}>

@@ -1,4 +1,4 @@
-import { find } from 'lodash';
+import { find } from 'lodash-es';
 import { P, match } from 'ts-pattern';
 
 import { RajainItem } from '#/src/types/SuodatinTypes';

@@ -2,7 +2,6 @@ import dns from 'dns';
 import path from 'path';
 import url from 'url';
 
-import { optimizeLodashImports } from '@optimize-lodash/rollup-plugin';
 import react from '@vitejs/plugin-react';
 import browserslistToEsbuild from 'browserslist-to-esbuild';
 import { defineConfig, loadEnv } from 'vite';
@@ -29,7 +28,9 @@ export default defineConfig(({ mode }) => {
       rollupOptions: {
         output: {
           manualChunks: (id) => {
-            if (id.includes('victory') || id.includes('d3')) {
+            // Paketin nimen perusteella, koska pnpm:n hakemistonimissä olevat hashit voivat
+            // sisältää esim. merkkijonon "d3"
+            if (/[\\/]node_modules[\\/](victory|d3)[^\\/]*[\\/]/.test(id)) {
               return 'victory';
             } else if (id.includes('react-select')) {
               return 'react-select';
@@ -61,21 +62,22 @@ export default defineConfig(({ mode }) => {
           {
             src: 'node_modules/@material-design-icons/svg/outlined/*.svg',
             dest: 'icons/material/outlined',
+            rename: { stripBase: true },
           },
           {
             src: 'node_modules/@material-design-icons/svg/filled/*.svg',
             dest: 'icons/material/filled',
+            rename: { stripBase: true },
           },
         ],
       }),
-      optimizeLodashImports(),
       // Tuotanto-buildissa karsitaan devaus-plugineja hidastamasta
       ...(isDev
         ? [
             checker({
               typescript: true,
               eslint: {
-                lintCommand: 'eslint "./src/**/*.{js,jsx,ts,tsx}"',
+                lintCommand: 'eslint ./src',
               },
               overlay: {
                 initialIsOpen: false,

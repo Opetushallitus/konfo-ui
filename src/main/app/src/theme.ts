@@ -1,6 +1,6 @@
-import { createTheme } from '@mui/material';
-import { createStyled } from '@mui/system';
-import createBreakpoints from '@mui/system/createTheme/createBreakpoints';
+import { ButtonProps } from '@mui/material';
+import { createTheme, Theme } from '@mui/material/styles';
+import { createBreakpoints, createStyled } from '@mui/system';
 
 import { colors } from './colors';
 import { SmartLink } from './components/common/SmartLink';
@@ -10,17 +10,17 @@ import { SmartLink } from './components/common/SmartLink';
 
 const HEADER_HEIGHT_PX = 72;
 
-const breakpoints = {
-  ...createBreakpoints({}),
-  values: {
-    xs: 0,
-    sm: 600,
-    md: 900,
-    lg: 1200,
-    xl: 1600,
-    xxl: 1920,
-  },
+const breakpointValues = {
+  xs: 0,
+  sm: 600,
+  md: 900,
+  lg: 1200,
+  xl: 1600,
+  xxl: 1920,
 };
+
+// Breakpoint helpers for media queries needed before the theme is created
+const breakpoints = createBreakpoints({ values: breakpointValues });
 
 const cssBreakWordRule = {
   wordBreak: 'break-word',
@@ -33,9 +33,11 @@ export const focusRing = {
   onDark: `0 0 0 2px  ${colors.brandGreen}, 0 0 0 4px ${colors.white}`,
 };
 
+const FONT_FAMILY = 'Open Sans, sans-serif';
+
 export const theme = createTheme({
   headerHeight: HEADER_HEIGHT_PX,
-  breakpoints,
+  breakpoints: { values: breakpointValues },
   palette: {
     primary: {
       main: colors.brandGreen,
@@ -54,10 +56,10 @@ export const theme = createTheme({
     },
   },
   typography: {
+    fontFamily: FONT_FAMILY,
     button: {
       textTransform: 'none',
     },
-    fontFamily: 'Open Sans, Arial, Roboto, sans-serif',
     h1: {
       fontSize: '2.5rem',
       letterSpacing: '-0.09375rem',
@@ -130,6 +132,13 @@ export const theme = createTheme({
         lineHeight: '1.6875rem',
       },
     },
+    // oph-design-system vaatii tyypityksessään label-variantin kaikilta teemoilta
+    label: {
+      fontSize: '1rem',
+      fontWeight: 600,
+      lineHeight: '1.5rem',
+      color: colors.grey900,
+    },
   },
 
   components: {
@@ -146,7 +155,13 @@ export const theme = createTheme({
     },
     MuiButton: {
       styleOverrides: {
-        root: ({ ownerState, theme: myTheme }) => {
+        root: ({
+          ownerState,
+          theme: myTheme,
+        }: {
+          ownerState: ButtonProps;
+          theme: Theme;
+        }) => {
           return {
             ...myTheme.typography.body1,
             color: ownerState.color,
@@ -321,6 +336,8 @@ export const theme = createTheme({
   },
 });
 
-export const getHeaderHeight = (themeProp: typeof theme) => themeProp.headerHeight;
+export const getHeaderHeight = (themeProp: Theme) => {
+  return themeProp.headerHeight;
+};
 
 export const styled = createStyled({ defaultTheme: theme });

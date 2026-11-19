@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-import { Box, Grid, Hidden, Link, Paper, useMediaQuery } from '@mui/material';
+import { Box, Grid, Link, Paper, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/system';
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import Image from '#/src/assets/images/o-EDUCATION-facebook.jpg';
@@ -88,7 +88,7 @@ export const Jumpotron = () => {
   return (
     <Root mb={pageSectionGap}>
       <Grid container direction="row" justifyContent="flex-start" alignItems="center">
-        <Grid item xs={12} sm={12} md={10} lg={8}>
+        <Grid size={{ xs: 12, sm: 12, md: 10, lg: 8 }}>
           <ReactiveBorder>
             <JumpotronPaper>
               <Box>
@@ -118,9 +118,12 @@ export const Jumpotron = () => {
                   marginTop={2}>
                   <OhjaavaHakuLink inverted={true} />
                   <ShowAllResultsLink>{t('jumpotron.naytakaikki')}</ShowAllResultsLink>
-                  <Hidden mdUp>
+                  <Box
+                    sx={{
+                      display: { xs: 'block', md: 'none' },
+                    }}>
                     <MobileFiltersOnTopMenu isButtonInline={true} />
-                  </Hidden>
+                  </Box>
                 </Box>
               </Box>
             </JumpotronPaper>

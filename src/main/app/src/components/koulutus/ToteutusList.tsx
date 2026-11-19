@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Box, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { match } from 'ts-pattern';
@@ -12,8 +10,8 @@ import { Pagination } from '#/src/components/common/Pagination';
 import { QueryResultWrapper } from '#/src/components/common/QueryResultWrapper';
 import { TextWithBackground } from '#/src/components/common/TextWithBackground';
 import { KOULUTUS_TYYPPI } from '#/src/constants';
-import { useToteutusRajainOrder } from '#/src/hooks/useToteutusRajainOrder';
 import { getLocalizedMaksullisuus } from '#/src/tools/getLocalizedMaksullisuus';
+import { getToteutusRajainOrder } from '#/src/tools/getToteutusRajainOrder';
 import { localize, localizeArrayToCommaSeparated } from '#/src/tools/localization';
 import { getLocalizedOpintojenLaajuus } from '#/src/tools/utils';
 import { KoutaKoulutustyyppi, RajainName, TODOType } from '#/src/types/common';
@@ -63,7 +61,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
 
   const scrollTargetId = 'toteutus-list';
 
-  const rajainOrder = useToteutusRajainOrder({ koulutustyyppi });
+  const rajainOrder = getToteutusRajainOrder({ koulutustyyppi });
 
   return (
     <Box>
@@ -138,23 +136,21 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
                         ),
                         createMaterialIcon('euro_symbol'),
                       ],
-                      [
-                        toteutus.hakuAuki ? (
-                          <TextWithBackground>
-                            {t('haku.hakukaynnissa')}
-                          </TextWithBackground>
-                        ) : (
-                          <></>
-                        ),
-                        undefined,
-                      ],
+                      toteutus.hakuAuki
+                        ? [
+                            <TextWithBackground key="haku-kaynnissa">
+                              {t('haku.hakukaynnissa')}
+                            </TextWithBackground>,
+                            undefined,
+                          ]
+                        : undefined,
                     ]}
                   />
                 </Box>
               ))}
             </Box>
           ) : (
-            <Typography variant="body1" paragraph>
+            <Typography variant="body1" component="p" paddingBottom={2}>
               {t(
                 someSelected
                   ? 'koulutus.ei-rajaimia-vastaavia-toteutuksia'

@@ -1,7 +1,7 @@
 import { RajainValues } from '#/src/store/reducers/hakutulosSlice';
 import { renderHook } from '#/src/test-utils';
 
-import { useOppilaitosTarjontaRajainOrder } from './useOppilaitosTarjontaRajainOrder';
+import { getOppilaitosTarjontaRajainOrder } from './getOppilaitosTarjontaRajainOrder';
 
 const LUKIO_RAJAIMET = ['lukiopainotukset', 'lukiolinjaterityinenkoulutustehtava'];
 
@@ -10,7 +10,7 @@ const getRajainIds = (
   rajainOptions: Record<string, any>
 ) =>
   renderHook(() =>
-    useOppilaitosTarjontaRajainOrder({ rajainValues, rajainOptions })
+    getOppilaitosTarjontaRajainOrder({ rajainValues, rajainOptions })
   ).result.current.map((rajain) => rajain.id);
 
 const optionsWithLukioCount = (count: number) => ({

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { IconButton, Button, useMediaQuery } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 

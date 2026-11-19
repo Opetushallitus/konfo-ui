@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import { TFunction } from 'i18next';
-import { isEmpty, omit, concat } from 'lodash';
+import { isEmpty, omit, concat } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import { localize } from '#/src/tools/localization';

@@ -1,9 +1,6 @@
-import React from 'react';
-
-import { Grid } from '@mui/material';
-import Typography from '@mui/material/Typography';
+import { Grid, Typography } from '@mui/material';
 import { TFunction } from 'i18next';
-import { isEqual, ceil, range, round } from 'lodash';
+import { isEqual, ceil, range, round } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -141,10 +138,13 @@ export const KoulutuksenKestoSuodatin = ({
         <SuodatinAccordionSummary expandIcon={<MaterialIcon icon="expand_more" />}>
           <Grid
             container
-            justifyContent="space-between"
-            alignItems="center"
-            wrap="nowrap">
-            <Grid item style={{ paddingRight: '8px' }}>
+            sx={{
+              flexGrow: 1,
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              flexWrap: 'nowrap',
+            }}>
+            <Grid style={{ paddingRight: '8px' }}>
               <Typography variant="subtitle1" component="span">
                 {t('haku.koulutuksenkestokuukausina')}
               </Typography>
@@ -180,7 +180,7 @@ export const KoulutuksenKestoSlider = ({
   const { t } = useTranslation();
   const labelFormatter = (val: number) => rangeText(val, t);
   return (
-    <Grid item sx={{ mx: 1 }}>
+    <Grid sx={{ mx: 1 }}>
       <NumberRangeSlider
         values={rangeValues}
         min={undefinedRajainValues[0]}

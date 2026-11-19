@@ -6,6 +6,7 @@ test.describe('Sivut', () => {
   test.beforeEach(async ({ page, context, baseURL }) => {
     await setupCommonTest({ page, context, baseURL });
   });
+
   test('Language change should be reflected in URL and page content', async ({
     page,
   }) => {
@@ -19,7 +20,7 @@ test.describe('Sivut', () => {
       })
     ).toBeVisible();
     await page.getByRole('button', { name: /suomi/i }).click();
-    await page.getByRole('link', { name: /Svenska/i, includeHidden: true }).click();
+    await page.getByRole('link', { name: /Svenska/i, includeHidden: false }).click();
 
     await expect(
       page.getByRole('heading', {

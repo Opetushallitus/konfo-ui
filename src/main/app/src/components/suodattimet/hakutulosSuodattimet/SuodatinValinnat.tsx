@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Button, Chip, Grid } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
@@ -27,7 +25,7 @@ export const ChipList = ({
       wrap="nowrap"
       justifyContent="space-between"
       style={{ paddingBottom: '5px' }}>
-      <Grid item style={{ paddingTop: '5px' }}>
+      <Grid size="grow" style={{ paddingTop: '5px' }}>
         {filters.map((entry) => (
           <Chip
             size="small"
@@ -47,7 +45,7 @@ export const ChipList = ({
           />
         ))}
       </Grid>
-      <Grid item>
+      <Grid size="auto">
         <Button
           size="small"
           startIcon={<MaterialIcon icon="clear" />}

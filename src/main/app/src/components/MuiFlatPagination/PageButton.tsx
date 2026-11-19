@@ -1,9 +1,8 @@
 import * as React from 'react';
 
-import { PropTypes, StandardProps, Button, Theme, ButtonProps } from '@mui/material';
-// eslint-disable-next-line no-restricted-imports
-import { WithStyles, withStyles, createStyles } from '@mui/styles';
+import { PropTypes, Button, Theme, ButtonProps } from '@mui/material';
 import clsx from 'clsx';
+import { withStyles } from 'tss-react/mui';
 
 import { colors } from '#/src/colors';
 
@@ -36,80 +35,77 @@ export type PageButtonClassKey =
   | 'sizeLargeStandard'
   | 'fullWidth';
 
-const styles = (theme: Theme) =>
-  createStyles<PageButtonClassKey, PageButtonProps>({
-    root: {
-      minWidth: 16,
-    },
-    rootCurrent: {
-      paddingLeft: theme.spacing(1.5),
-      paddingRight: theme.spacing(1.5),
-    },
-    rootEllipsis: {
-      paddingLeft: theme.spacing(0.5),
-      paddingRight: theme.spacing(0.5),
-    },
-    rootEnd: {
-      paddingLeft: theme.spacing(1.5),
-      paddingRight: theme.spacing(1.5),
-    },
-    rootStandard: {
-      paddingLeft: theme.spacing(1.5),
-      paddingRight: theme.spacing(1.5),
-    },
-    label: {},
-    text: {},
-    textPrimary: {},
-    textSecondary: {},
-    colorInherit: {},
-    colorInheritCurrent: {},
-    colorInheritOther: {},
-    disabled: {},
-    sizeSmall: {
-      minWidth: 8,
-    },
-    sizeSmallCurrent: {
-      paddingLeft: theme.spacing(1),
-      paddingRight: theme.spacing(1),
-    },
-    sizeSmallEllipsis: {
-      paddingLeft: theme.spacing(0.25),
-      paddingRight: theme.spacing(0.25),
-    },
-    sizeSmallEnd: {
-      paddingLeft: theme.spacing(1),
-      paddingRight: theme.spacing(1),
-    },
-    sizeSmallStandard: {
-      paddingLeft: theme.spacing(1),
-      paddingRight: theme.spacing(1),
-    },
-    sizeLarge: {
-      minWidth: 24,
-    },
-    sizeLargeCurrent: {
-      paddingLeft: theme.spacing(2),
-      paddingRight: theme.spacing(2),
-    },
-    sizeLargeEllipsis: {
-      paddingLeft: theme.spacing(0.75),
-      paddingRight: theme.spacing(0.75),
-    },
-    sizeLargeEnd: {
-      paddingLeft: theme.spacing(2),
-      paddingRight: theme.spacing(2),
-    },
-    sizeLargeStandard: {
-      paddingLeft: theme.spacing(2),
-      paddingRight: theme.spacing(2),
-    },
-    fullWidth: {},
-  });
-
+const styles = (theme: Theme) => ({
+  root: {
+    minWidth: 16,
+  },
+  rootCurrent: {
+    paddingLeft: theme.spacing(1.5),
+    paddingRight: theme.spacing(1.5),
+  },
+  rootEllipsis: {
+    paddingLeft: theme.spacing(0.5),
+    paddingRight: theme.spacing(0.5),
+  },
+  rootEnd: {
+    paddingLeft: theme.spacing(1.5),
+    paddingRight: theme.spacing(1.5),
+  },
+  rootStandard: {
+    paddingLeft: theme.spacing(1.5),
+    paddingRight: theme.spacing(1.5),
+  },
+  label: {},
+  text: {},
+  textPrimary: {},
+  textSecondary: {},
+  colorInherit: {},
+  colorInheritCurrent: {},
+  colorInheritOther: {},
+  disabled: {},
+  sizeSmall: {
+    minWidth: 8,
+  },
+  sizeSmallCurrent: {
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
+  },
+  sizeSmallEllipsis: {
+    paddingLeft: theme.spacing(0.25),
+    paddingRight: theme.spacing(0.25),
+  },
+  sizeSmallEnd: {
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
+  },
+  sizeSmallStandard: {
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
+  },
+  sizeLarge: {
+    minWidth: 24,
+  },
+  sizeLargeCurrent: {
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+  },
+  sizeLargeEllipsis: {
+    paddingLeft: theme.spacing(0.75),
+    paddingRight: theme.spacing(0.75),
+  },
+  sizeLargeEnd: {
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+  },
+  sizeLargeStandard: {
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+  },
+  fullWidth: {},
+});
 export type PageVariant = 'current' | 'ellipsis' | 'end' | 'standard';
 
-export interface PageButtonProps
-  extends StandardProps<ButtonProps, PageButtonClassKey, 'onClick'> {
+export type PageButtonProps = {
   limit: number;
   page: number;
   total: number;
@@ -118,7 +114,8 @@ export interface PageButtonProps
   onClick?: (ev: React.MouseEvent<HTMLElement>, offset: number, page: number) => void;
   renderButton?: (props: RenderButtonProps) => React.ReactElement<any>;
   otherPageColor?: PropTypes.Color;
-}
+  classes: Partial<Record<PageButtonClassKey, string>>;
+} & Omit<ButtonProps, 'onClick'>;
 
 const handleClick =
   (
@@ -130,9 +127,7 @@ const handleClick =
     onClick(ev, getOffset(page, limit), page);
   };
 
-const UnstyledPageButton: React.FunctionComponent<
-  PageButtonProps & WithStyles<PageButtonClassKey>
-> = ({
+const UnstyledPageButton: React.FunctionComponent<PageButtonProps> = ({
   limit = 1,
   page = 0,
   total = 0,
@@ -156,20 +151,20 @@ const UnstyledPageButton: React.FunctionComponent<
   const isLarge = size === 'large';
 
   const {
-    rootCurrent,
-    rootEllipsis,
-    rootEnd,
-    rootStandard,
-    colorInheritCurrent,
-    colorInheritOther,
-    sizeSmallCurrent,
-    sizeSmallEllipsis,
-    sizeSmallEnd,
-    sizeSmallStandard,
-    sizeLargeCurrent,
-    sizeLargeEllipsis,
-    sizeLargeEnd,
-    sizeLargeStandard,
+    rootCurrent = '',
+    rootEllipsis = '',
+    rootEnd = '',
+    rootStandard = '',
+    colorInheritCurrent = '',
+    colorInheritOther = '',
+    sizeSmallCurrent = '',
+    sizeSmallEllipsis = '',
+    sizeSmallEnd = '',
+    sizeSmallStandard = '',
+    sizeLargeCurrent = '',
+    sizeLargeEllipsis = '',
+    sizeLargeEnd = '',
+    sizeLargeStandard = '',
     ...classes
   } = classesProp;
   classes.root = clsx(classes.root, {
@@ -229,6 +224,6 @@ const UnstyledPageButton: React.FunctionComponent<
   return button;
 };
 
-export const PageButton: React.ComponentType<PageButtonProps> = withStyles(styles, {
+export const PageButton = withStyles(UnstyledPageButton, styles, {
   name: 'MuiFlatPageButton',
-})(UnstyledPageButton);
+});

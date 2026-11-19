@@ -1,4 +1,4 @@
-import { omit, mapValues, forEach } from 'lodash';
+import { omit, mapValues, forEach } from 'lodash-es';
 import { P, match } from 'ts-pattern';
 
 import { isNumberRangeRajainId } from '#/src/types/SuodatinTypes';

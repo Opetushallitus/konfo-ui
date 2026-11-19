@@ -1,4 +1,4 @@
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import { localize } from '#/src/tools/localization';
@@ -18,7 +18,9 @@ export const VertailuKoodiLista = ({
     (emptyText ?? t('suosikit-vertailu.ei-maaritelty'))
   ) : (
     <VertailuList>
-      {koodit?.map((k) => <li key={k?.koodi?.koodiUri}>{localize(k?.koodi?.nimi)}</li>)}
+      {koodit?.map((k) => (
+        <li key={k?.koodi?.koodiUri}>{localize(k?.koodi?.nimi)}</li>
+      ))}
     </VertailuList>
   );
 };

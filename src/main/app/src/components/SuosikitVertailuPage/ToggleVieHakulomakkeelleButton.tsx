@@ -1,5 +1,5 @@
 import { Tooltip } from '@mui/material';
-import { includes } from 'lodash';
+import { includes } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import { useNotifications } from '#/src/hooks/useNotifications';

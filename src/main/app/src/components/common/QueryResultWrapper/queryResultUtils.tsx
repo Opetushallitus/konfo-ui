@@ -1,12 +1,25 @@
-import { QueryObserverResult } from 'react-query';
+import { QueryObserverResult } from '@tanstack/react-query';
 
-export const getCombinedQueryStatus = (responses: Array<QueryObserverResult> = []) => {
+export type QueryStatus = 'idle' | 'loading' | 'error' | 'success';
+
+// Erottaa ladattavan kyselyn (pending + fetching) kyselystä, jota ei ole vielä käynnistetty (pending + idle, esim. enabled: false)
+export const getQueryStatus = (res?: QueryObserverResult): QueryStatus | undefined => {
+  if (res?.status === 'pending') {
+    return res.fetchStatus === 'idle' ? 'idle' : 'loading';
+  }
+  return res?.status;
+};
+
+export const getCombinedQueryStatus = (
+  responses: Array<QueryObserverResult> = []
+): QueryStatus => {
+  const statuses = responses.map(getQueryStatus);
   switch (true) {
-    case responses.some((res) => res?.status === 'loading'):
+    case statuses.some((status) => status === 'loading'):
       return 'loading';
-    case responses.some((res) => res?.status === 'error'):
+    case statuses.some((status) => status === 'error'):
       return 'error';
-    case responses.every((res) => res?.status === 'success'):
+    case statuses.every((status) => status === 'success'):
       return 'success';
     default:
       return 'idle';

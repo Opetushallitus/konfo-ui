@@ -1,0 +1,10 @@
+<configuration>
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>${konfo.test.access-log}</file>
+        <encoder>
+            <pattern>%h "%r" %s</pattern>
+        </encoder>
+    </appender>
+
+    <appender-ref ref="FILE" />
+</configuration>

@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import { formatISO } from 'date-fns';
-import { castArray, orderBy, toPairs } from 'lodash';
+import { castArray, orderBy, toPairs } from 'lodash-es';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 import { createWithEqualityFn as create } from 'zustand/traditional';
