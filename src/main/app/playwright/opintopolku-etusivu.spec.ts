@@ -38,11 +38,11 @@ test.describe('Opintopolun etusivu', () => {
         exact: false,
       })
     ).toBeVisible();
-    const heroImage = page.locator('img.hero-image');
-    await expect(heroImage).toHaveAttribute(
-      'src',
-      /herokuva_opintopolku_etusivu_desktop\.svg$/
-    );
+    // Selain valitsee kuvan <picture>-elementin <source>-ehdon perusteella (currentSrc)
+    const heroImage = page.locator('.hero-image img');
+    await expect
+      .poll(() => heroImage.evaluate((img: HTMLImageElement) => img.currentSrc))
+      .toMatch(/herokuva_opintopolku_etusivu_desktop\.svg$/);
     await expect(heroImage).toHaveAttribute('alt', '');
   });
 

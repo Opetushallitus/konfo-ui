@@ -1,4 +1,4 @@
-import { IconButton, Button, useMediaQuery } from '@mui/material';
+import { IconButton, Button } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
@@ -9,14 +9,15 @@ import type { SearchBoxVariant } from './SearchBox';
 export const SearchButton = ({
   isKeywordValid,
   variant = 'default',
+  mdUp,
 }: {
   isKeywordValid: boolean;
   variant?: SearchBoxVariant;
+  mdUp: boolean;
 }) => {
   const { t } = useTranslation();
   const isOph = variant === 'oph';
 
-  const mdUp = useMediaQuery(theme.breakpoints.up('md'));
   // Kapeilla näytöillä molemmissa varianteissa pelkkä suurennuslasi-painike
   return mdUp ? (
     <Button

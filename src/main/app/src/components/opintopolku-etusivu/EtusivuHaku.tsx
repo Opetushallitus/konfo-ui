@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 
 import { Box, useMediaQuery } from '@mui/material';
 import { Stack, useTheme } from '@mui/system';
@@ -21,19 +21,18 @@ export const EtusivuHaku = () => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const isPopoverOpen = Boolean(anchorEl);
   const [isDrawerOpen, setDrawerOpen] = useState(false);
-  const toggleDrawer = useCallback(() => setDrawerOpen((open) => !open), []);
+  const toggleDrawer = () => setDrawerOpen((open) => !open);
   // Isoilla näytöillä rajaimet popoverissa, pienillä alhaalta avautuvassa laatikossa
   const isSmall = useMediaQuery(theme.breakpoints.down('md'));
 
   const { koulutusData, isFetching } = useSearch();
-  const allSelectedFilters = useAllSelectedFilters();
-  const selectedCount = allSelectedFilters?.flat?.length ?? 0;
+  const selectedCount = useAllSelectedFilters().flat.length;
   const hasFilters = !isEmpty(koulutusData?.filters);
   const showPopover = hasFilters && !isSmall;
   const showDrawer = hasFilters && isSmall;
 
   return (
-    <Box>
+    <>
       {showPopover && <RajaimetPopover anchorEl={anchorEl} setAnchorEl={setAnchorEl} />}
       {showDrawer && (
         <RajaimetDrawer
@@ -89,6 +88,6 @@ export const EtusivuHaku = () => {
           )}
         </Box>
       </Stack>
-    </Box>
+    </>
   );
 };

@@ -28,10 +28,11 @@ test.describe('Opintopolun etusivu (mobiili)', () => {
   test('Should render hero with mobile image', async ({ page }) => {
     await page.goto(ETUSIVU_URL);
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Opintopolku');
-    await expect(page.locator('img.hero-image')).toHaveAttribute(
-      'src',
-      /herokuva_opintopolku_etusivu_mobiili\.svg$/
-    );
+    // Selain valitsee kuvan <picture>-elementin <source>-ehdon perusteella (currentSrc)
+    const heroImage = page.locator('.hero-image img');
+    await expect
+      .poll(() => heroImage.evaluate((img: HTMLImageElement) => img.currentSrc))
+      .toMatch(/herokuva_opintopolku_etusivu_mobiili\.svg$/);
   });
 
   test('Should search with keyword using icon search button', async ({ page }) => {

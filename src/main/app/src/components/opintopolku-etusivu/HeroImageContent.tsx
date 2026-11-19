@@ -1,4 +1,4 @@
-import { Box, useMediaQuery } from '@mui/material';
+import { Box } from '@mui/material';
 import { useTheme } from '@mui/system';
 import { useTranslation } from 'react-i18next';
 
@@ -55,11 +55,14 @@ const HeroWrapper = styled(Box)(({ theme }) => ({
   },
   '& .hero-image': {
     display: 'block',
-    width: '100%',
-    height: 'auto',
     marginBottom: `-${HERO_DESKTOP_CONTENT_OVERLAP}`,
     [theme.breakpoints.down('md')]: {
       marginBottom: 0,
+    },
+    '& img': {
+      display: 'block',
+      width: '100%',
+      height: 'auto',
     },
   },
   '& .hero-content': {
@@ -93,22 +96,26 @@ export const HeroImageContent = ({
   kuvaMobiili?: string;
 }) => {
   const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const { t } = useTranslation();
 
   return (
     <HeroWrapper>
       {/* Kuva normaalissa virrassa koko heron levyisenä, joten hero on kuvan korkuinen ilman
             että kuvan mittoja tarvitsee tietää. Isolla näytöllä negatiivinen alamarginaali nostaa
-            sivun sisällön kuvan alaosan (raidan) päälle. Pienen näytön kuvassa ei ole raitaa. */}
-      <Box
-        component="img"
-        className="hero-image"
-        src={isSmallScreen ? kuvaMobiili : kuvaDesktop}
-        // Sivun suurin kuva: ladataan ensimmäisenä
-        fetchPriority="high"
-        alt=""
-      />
+            sivun sisällön kuvan alaosan (raidan) päälle. Pienen näytön kuvassa ei ole raitaa.
+            Selain valitsee kuvan <source>-elementin mediaehdon perusteella jo ennen Reactia, joten
+            vain näytön kokoon sopiva kuva ladataan. */}
+      <picture className="hero-image">
+        {/* Mobiilikuva oletuksena, isommilla näytöillä desktop-kuva. Puuttuva kuva korvataan toisella, jottei kuva jää tyhjäksi. */}
+        {kuvaDesktop && (
+          <source
+            media={`(min-width: ${theme.breakpoints.values.sm}px)`}
+            srcSet={kuvaDesktop}
+          />
+        )}
+        {/* Sivun suurin kuva: ladataan ensimmäisenä */}
+        <img src={kuvaMobiili ?? kuvaDesktop} fetchPriority="high" alt="" />
+      </picture>
       <Box className="hero-content">
         {/* Sivumarginaalit samoin kuin footerissa ja palveluissa */}
         <WithSideMargins>
