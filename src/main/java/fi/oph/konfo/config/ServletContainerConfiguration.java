@@ -6,11 +6,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.web.embedded.tomcat.TomcatConnectorCustomizer;
-import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.tomcat.TomcatConnectorCustomizer;
+import org.springframework.boot.tomcat.servlet.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.WebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
-import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
+import org.springframework.boot.web.server.servlet.ConfigurableServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -34,7 +34,7 @@ public class ServletContainerConfiguration {
   @ConditionalOnProperty("konfo-ui.uses-ssl-proxy")
   public WebServerFactoryCustomizer sslProxyCustomizer(
       @Autowired KonfoUiConfiguration configuration) {
-    LOG.info("Enabling HTTPS Proxu configuration");
+    LOG.info("Enabling HTTPS Proxy configuration");
     return (WebServerFactory container) -> {
       if (container instanceof ConfigurableServletWebServerFactory) {
         TomcatServletWebServerFactory tomcat = (TomcatServletWebServerFactory) container;
