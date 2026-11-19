@@ -1,11 +1,11 @@
 import { Box } from '@mui/material';
 import { ophColors } from '@opetushallitus/oph-design-system';
 import HeroImage from '#/src/assets/images/uusi_opintopolku_hero.jpg';
+import { WithSideMargins } from '#/src/components/WithSideMargins';
 import { styled } from '#/src/theme';
 
-// Hero-kuva saa olla korkeintaan kuvan oman levyinen, sisältö (teksti ym.) korkeintaan 1200px
+// Hero-kuva saa olla korkeintaan kuvan oman levyinen
 const HERO_MAX_WIDTH = 1705;
-const CONTENT_MAX_WIDTH = 1200;
 
 // Käyrien koordinaatisto: alla olevat px-arvot (esim. raidan paksuus) ovat tarkkoja, kun hero on
 // WIDTH levyinen. Kaikki skaalautuu suhteessa leveyteen.
@@ -135,54 +135,43 @@ export const UusiEtusivu = () => {
           <Box
             className="hero-content"
             sx={{
-              // margin-/padding-%:t lasketaan aina vanhemman leveydestä. Absoluuttisesti sijoitetun
-              // elementin top-% lasketaan sen sijaan vanhemman (hero-image) korkeudesta.
               position: 'absolute',
-              // left/right 0 + maxWidth + auto-marginaalit keskittävät absoluuttisen laatikon
               left: 0,
               right: 0,
-              maxWidth: `${CONTENT_MAX_WIDTH}px`,
-              marginLeft: 'auto',
-              marginRight: 'auto',
-              paddingX: 8,
             }}>
-            {/* Teksti enintään sisältöpalstan puoleen väliin asti */}
-            <Box
-              sx={{
-                maxWidth: '52%',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                marginTop: TEXT_TOP_MARGIN,
-              }}>
-              <h1>Opintopolku</h1>
-              <hr />
-              <p>
-                Kaikki Suomen koulutukset ja oppilaitokset yhdessä palvelussa. Opintopolku
-                tarjoaa myös kielitutkintojen suorittamista sekä ulkomailla suoritettujen
-                tutkintojen tunnustamista Suomessa.
-              </p>
-            </Box>
+            {/* Sivumarginaalit samoin kuin footerissa ja palveluissa */}
+            <WithSideMargins>
+              {/* Teksti enintään sisältöpalstan puoleen väliin asti */}
+              <Box
+                sx={{
+                  maxWidth: '52%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'flex-start',
+                  marginTop: TEXT_TOP_MARGIN,
+                }}>
+                <h1>Opintopolku</h1>
+                <hr />
+                <p>
+                  Kaikki Suomen koulutukset ja oppilaitokset yhdessä palvelussa.
+                  Opintopolku tarjoaa myös kielitutkintojen suorittamista sekä ulkomailla
+                  suoritettujen tutkintojen tunnustamista Suomessa.
+                </p>
+              </Box>
+            </WithSideMargins>
           </Box>
         </Box>
       </HeroWrapper>
-      {/* Sivun sisältö: enintään CONTENT_MAX_WIDTH levyinen ja keskitetty, kuten heron teksti */}
+      {/* Sivun sisältö: sivumarginaalit samoin kuin footerissa ja palveluissa */}
       <Box
         className="page-content"
         sx={{
           // Piirretään raidan päälle (raita on absoluuttisesti sijoitettu ja jatkuu kuvan alle)
           position: 'relative',
-          width: '100%',
-          maxWidth: `${CONTENT_MAX_WIDTH}px`,
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          paddingX: 8,
           paddingY: 2,
-          display: 'flex',
-          flexDirection: 'column',
           color: 'black',
         }}>
-        Tekstiä tähän osioon...
+        <WithSideMargins>Tekstiä tähän osioon...</WithSideMargins>
       </Box>
     </Box>
   );
