@@ -79,7 +79,12 @@ const routes: Array<RouteObject> = [
             children: [
               {
                 path: 'etusivu',
-                element: <OpintopolkuEtusivu />,
+                element: (
+                  <>
+                    <Hairiotiedote />
+                    <OpintopolkuEtusivu />
+                  </>
+                ),
                 loader: resetHakuStateLoader,
               },
             ],
