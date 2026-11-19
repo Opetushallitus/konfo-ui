@@ -1,5 +1,4 @@
-import { Icon, Paper, Typography } from '@mui/material';
-import Grid from '@mui/material/Grid2';
+import { Grid, Icon, Paper, Typography } from '@mui/material';
 import { isString } from 'lodash';
 
 import ApurahaIcon from '#/src/assets/images/Apuraha.svg';

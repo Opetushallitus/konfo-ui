@@ -1,5 +1,4 @@
-import { Card, CardContent, Paper, Button } from '@mui/material';
-import Grid from '@mui/material/Grid2';
+import { Card, CardContent, Paper, Button, Grid } from '@mui/material';
 import clsx from 'clsx';
 import Markdown from 'markdown-to-jsx';
 

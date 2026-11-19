@@ -1,5 +1,4 @@
-import { Box, Divider, Typography } from '@mui/material';
-import Grid from '@mui/material/Grid2';
+import { Box, Divider, Grid, Typography } from '@mui/material';
 import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 

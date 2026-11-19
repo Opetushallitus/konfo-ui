@@ -48,6 +48,7 @@ test.describe('Haku', () => {
     // Nuoli alas korostaa ensimmäisen option — aria-live-alue päivittyy sen labelilla
     // Korostetulta optiolta aria-selected poistettu, jotta NVDA ei lue "valittuna" tai "ei valittu"
     await searchInput.press('ArrowDown');
+    await searchInput.press('ArrowDown');
     await expect(liveRegion).toContainText('koulutus nimi fi');
     const highlightedOption = page.locator('[role="option"].Mui-focused');
     await expect(highlightedOption).not.toHaveAttribute('aria-selected');

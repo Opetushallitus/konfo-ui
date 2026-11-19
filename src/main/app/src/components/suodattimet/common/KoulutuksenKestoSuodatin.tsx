@@ -1,5 +1,4 @@
-import Grid from '@mui/material/Grid2';
-import Typography from '@mui/material/Typography';
+import { Grid, Typography } from '@mui/material';
 import { TFunction } from 'i18next';
 import { isEqual, ceil, range, round } from 'lodash';
 import { useTranslation } from 'react-i18next';

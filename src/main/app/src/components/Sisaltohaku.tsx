@@ -4,13 +4,13 @@ import {
   Button,
   Card,
   CardContent,
+  Grid,
   Paper,
   CardMedia,
   InputBase,
   Typography,
   Link,
 } from '@mui/material';
-import Grid from '@mui/material/Grid2';
 import { isEmpty, trim } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';

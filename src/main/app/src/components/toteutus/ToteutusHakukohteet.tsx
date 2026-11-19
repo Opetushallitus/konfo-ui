@@ -1,5 +1,12 @@
-import { Box, Button, ButtonGroup, Divider, Paper, Typography } from '@mui/material';
-import Grid from '@mui/material/Grid2';
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  Divider,
+  Grid,
+  Paper,
+  Typography,
+} from '@mui/material';
 import {
   isEmpty,
   sortBy,

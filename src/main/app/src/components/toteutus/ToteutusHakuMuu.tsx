@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 
-import { Button, Paper, Typography } from '@mui/material';
-import Grid from '@mui/material/Grid2';
+import { Button, Grid, Paper, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';

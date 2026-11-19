@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 
-import Grid from '@mui/material/Grid2';
+import { Grid } from '@mui/material';
 import { produce } from 'immer';
 import { isEmpty, isNumber, concat } from 'lodash';
 import { useTranslation } from 'react-i18next';

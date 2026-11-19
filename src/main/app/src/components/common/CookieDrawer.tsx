@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { Button, Typography, ButtonGroup, Drawer, Container } from '@mui/material';
-import Grid from '@mui/material/Grid2';
+import { Button, Typography, ButtonGroup, Drawer, Container, Grid } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { useContentful } from '#/src/hooks/useContentful';

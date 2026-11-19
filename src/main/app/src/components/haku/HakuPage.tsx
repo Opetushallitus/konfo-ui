@@ -1,5 +1,6 @@
 import {
   Box,
+  Grid,
   MenuItem,
   Paper,
   Select,
@@ -7,7 +8,6 @@ import {
   Typography,
   useTheme,
 } from '@mui/material';
-import Grid from '@mui/material/Grid2';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';

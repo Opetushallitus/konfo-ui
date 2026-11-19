@@ -4,12 +4,12 @@ import {
   AppBar,
   Button,
   Container,
+  Grid,
   IconButton,
   SwipeableDrawer,
   Toolbar,
   Typography,
 } from '@mui/material';
-import Grid from '@mui/material/Grid2';
 import { useTranslation } from 'react-i18next';
 
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
