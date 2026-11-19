@@ -8,7 +8,6 @@ import {
   IconButton,
   List,
   ListItem,
-  ListItemButton,
   ListItemIcon,
   ListItemText,
   Typography,
@@ -34,6 +33,7 @@ import {
   SuodatinAccordion,
   SuodatinAccordionDetails,
   SuodatinAccordionSummary,
+  SuodatinListItemButton,
 } from './CustomizedMuiComponents';
 import { isIndeterminate } from './isIndeterminate';
 import { SummaryContent } from './SummaryContent';
@@ -52,11 +52,15 @@ type OptionsType = Array<OptionType>;
 
 type Styles = StylesConfig<OptionType, false, GroupBase<OptionType>>;
 const customStyles: Styles = {
-  control: (provided) => ({
+  control: (provided, { isFocused }) => ({
     ...provided,
     minHeight: '34px',
     borderRadius: '2px',
     cursor: 'text',
+    borderColor: isFocused ? colors.brandGreen : colors.grey600,
+    '&:hover': {
+      borderColor: isFocused ? colors.brandGreen : colors.grey700,
+    },
   }),
   placeholder: (provided) => ({
     ...provided,
@@ -100,7 +104,7 @@ const Option = React.forwardRef(
 
     return (
       <ListItem key={data?.id} disablePadding>
-        <ListItemButton
+        <SuodatinListItemButton
           ref={ref}
           {...innerProps}
           dense
@@ -113,7 +117,7 @@ const Option = React.forwardRef(
             style={{ pointerEvents: 'none' }}
           />
           {data?.label}
-        </ListItemButton>
+        </SuodatinListItemButton>
       </ListItem>
     );
   }
@@ -187,7 +191,7 @@ export const FilterCheckbox = ({
 
   return (
     <ListItem key={id} disablePadding>
-      <ListItemButton
+      <SuodatinListItemButton
         dense
         disableGutters
         onClick={() => onChange(value)}
@@ -230,7 +234,7 @@ export const FilterCheckbox = ({
         {isCountVisible && (
           <Typography marginLeft={1} variant="body2">{`(${count})`}</Typography>
         )}
-      </ListItemButton>
+      </SuodatinListItemButton>
     </ListItem>
   );
 };
