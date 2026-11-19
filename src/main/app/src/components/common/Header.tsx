@@ -15,8 +15,8 @@ import { styled, theme } from '#/src/theme';
 import { getLanguage } from '#/src/tools/localization';
 
 import { LanguageAccordion } from './LanguageAccordion';
-import { SuosikitButton } from './SuosikitButton';
-import { TextButtonLink } from './TextButtonLink';
+import { SmartLink } from './SmartLink';
+import { useSuosikitLink } from '../../hooks/useSuosikitLink';
 
 const PREFIX = 'Header';
 
@@ -92,23 +92,34 @@ const getTestiLabel = () => {
   }
 };
 
-export const ToolbarLinkButton = styled(TextButtonLink)({
+const ToolbarLinkStyled = styled(SmartLink)({
+  padding: '5px 5px 0 5px',
   display: 'flex',
   flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: '1px',
   color: colors.white,
   textDecoration: 'none',
   flexShrink: 0,
-  '&:hover': {
-    textDecoration: 'none',
-  },
-  '& .MuiButton-startIcon': {
-    margin: '0 0 1px 0',
-  },
-  '& .MuiButton-startIcon > svg': {
+  '& svg': {
     fontSize: '26px',
-    margin: 0,
+  },
+  '&:focus-visible': {
+    outline: `1px solid ${colors.white}`,
   },
 });
+
+const ToolbarLink = ({
+  startIcon,
+  children,
+  ...rest
+}: React.ComponentProps<typeof ToolbarLinkStyled> & { startIcon?: React.ReactNode }) => (
+  <ToolbarLinkStyled {...rest}>
+    {startIcon}
+    {children}
+  </ToolbarLinkStyled>
+);
 
 export const Header = ({
   toggleMenu,
@@ -128,6 +139,7 @@ export const Header = ({
   sideMenuKey: number;
 }) => {
   const { t } = useTranslation();
+  const suosikitLink = useSuosikitLink();
 
   const testiLabel = getTestiLabel();
   const showTestiLabel = testiLabel != null;
@@ -187,14 +199,14 @@ export const Header = ({
           display="flex"
           columnGap={2}
           marginRight="170px"
-          sx={{ display: { xs: 'none', sm: 'block' } }}>
-          <SuosikitButton Component={ToolbarLinkButton} />
-          <ToolbarLinkButton
+          sx={{ display: { xs: 'none', sm: 'flex' } }}>
+          {suosikitLink && <ToolbarLink {...suosikitLink} />}
+          <ToolbarLink
             href={urls.url('oma-opintopolku')}
-            startIcon={<MaterialIcon icon="apps" />}
-            target="_blank">
+            target="_blank"
+            startIcon={<MaterialIcon icon="apps" />}>
             {t('oma-opintopolku')}
-          </ToolbarLinkButton>
+          </ToolbarLink>
         </Box>
         <LanguageAccordion />
       </Toolbar>
