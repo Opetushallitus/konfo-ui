@@ -45,7 +45,7 @@ export const KirjautuneenPalvelut = ({
             }}>
             <Box
               component="img"
-              src={assetUrl(nosto.ikoni?.url)}
+              src={assetUrl(nosto.kuva?.url)}
               alt=""
               sx={{ height: '38px' }}
             />

@@ -82,7 +82,7 @@ export const Koulutustieto = ({ contentfulData }: { contentfulData: ContentfulDa
           return (
             <KoulutustietoPaper
               key={nostoRef.id}
-              icon={assetUrl(nosto.ikoni?.url)}
+              icon={assetUrl(nosto.kuva?.url)}
               heading={nosto.otsikko}
               text={nosto.teksti}
               backgroundColor={index === 0 ? ophColors.cyan1 : ophColors.green2}
