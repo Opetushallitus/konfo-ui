@@ -6,11 +6,18 @@ import { HeroImageContent } from '#/src/components/opintopolku-etusivu/HeroImage
 import { KirjautuneenPalvelut } from '#/src/components/opintopolku-etusivu/KirjautuneenPalvelut';
 import { Koulutustieto } from '#/src/components/opintopolku-etusivu/Koulutustieto';
 import { MuutPalvelut } from '#/src/components/opintopolku-etusivu/MuutPalvelut';
+import { useOpintopolkuEtusivuData } from '#/src/components/opintopolku-etusivu/useOpintopolkuEtusivuData';
 import { WithSideMargins } from '#/src/components/WithSideMargins';
-import { useContentful } from '#/src/hooks/useContentful';
 
 export const OpintopolkuEtusivu = () => {
-  const { data: contentfulData, isLoading } = useContentful();
+  const {
+    isLoading,
+    heroKuvaDesktop,
+    heroKuvaMobiili,
+    koulutustieto,
+    kirjautuneenPalvelut,
+    muutPalvelut,
+  } = useOpintopolkuEtusivuData();
 
   return (
     <Box sx={{ width: '100%', minHeight: 0 }}>
@@ -18,16 +25,16 @@ export const OpintopolkuEtusivu = () => {
         <LoadingCircle />
       ) : (
         <>
-          <HeroImageContent contentfulData={contentfulData} />
+          <HeroImageContent kuvaDesktop={heroKuvaDesktop} kuvaMobiili={heroKuvaMobiili} />
           {/* Sivun sisältö: sivumarginaalit samoin kuin footerissa ja palveluissa.
           position: relative on välttämätön: isolla näytöllä sisältö nousee hero-kuvan alaosan
           päälle, ja koska hero on sijoitettu (relative), se piirrettäisiin muuten sisällön päälle. */}
           <Box sx={{ position: 'relative', marginTop: 4 }}>
             <WithSideMargins>
               <EtusivuHaku />
-              <Koulutustieto contentfulData={contentfulData} />
-              <KirjautuneenPalvelut contentfulData={contentfulData} />
-              <MuutPalvelut contentfulData={contentfulData} />
+              <Koulutustieto osio={koulutustieto} />
+              <KirjautuneenPalvelut osio={kirjautuneenPalvelut} />
+              <MuutPalvelut osio={muutPalvelut} />
             </WithSideMargins>
           </Box>
         </>

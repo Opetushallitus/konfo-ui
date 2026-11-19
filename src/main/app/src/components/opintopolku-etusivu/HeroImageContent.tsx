@@ -3,10 +3,7 @@ import { useTheme } from '@mui/system';
 import { useTranslation } from 'react-i18next';
 
 import { WithSideMargins } from '#/src/components/WithSideMargins';
-import { useContentful } from '#/src/hooks/useContentful';
 import { styled } from '#/src/theme';
-import { getOne } from '#/src/tools/getOne';
-import { ContentfulData } from '#/src/types/ContentfulTypes';
 
 const HERO_MAX_WIDTH = 1700;
 
@@ -89,19 +86,14 @@ const HeroWrapper = styled(Box)(({ theme }) => ({
 }));
 
 export const HeroImageContent = ({
-  contentfulData,
+  kuvaDesktop,
+  kuvaMobiili,
 }: {
-  contentfulData: ContentfulData;
+  kuvaDesktop?: string;
+  kuvaMobiili?: string;
 }) => {
   const theme = useTheme();
-  const { assetUrl } = useContentful();
-
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
-
-  const opintopolkuEtusivuData = getOne(contentfulData?.opintopolkuEtusivu);
-  const heroImageMobile = assetUrl(opintopolkuEtusivuData?.kuvaMobiili?.url);
-  const heroImageDesktop = assetUrl(opintopolkuEtusivuData?.kuvaDesktop?.url);
-
   const { t } = useTranslation();
 
   return (
@@ -112,7 +104,7 @@ export const HeroImageContent = ({
       <Box
         component="img"
         className="hero-image"
-        src={isSmallScreen ? heroImageMobile : heroImageDesktop}
+        src={isSmallScreen ? kuvaMobiili : kuvaDesktop}
         alt=""
       />
       <Box className="hero-content">

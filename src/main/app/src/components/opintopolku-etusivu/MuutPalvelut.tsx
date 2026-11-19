@@ -3,30 +3,20 @@ import { ophColors, OphTypography } from '@opetushallitus/oph-design-system';
 
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import {
-  getNostoHref,
   LINK_PAPER_SX,
   PaperHeading,
   SectionHeading,
 } from '#/src/components/opintopolku-etusivu/opintopolkuEtusivuUtils';
-import { useContentful } from '#/src/hooks/useContentful';
-import { getOne } from '#/src/tools/getOne';
-import { ContentfulData } from '#/src/types/ContentfulTypes';
+import { EtusivuOsio } from '#/src/components/opintopolku-etusivu/useOpintopolkuEtusivuData';
 
 // Muut palvelut -osio: kuusi valkoista laatikkoa, isoilla näytöillä kolme rivissä. Kuvake otsikon
 // vasemmalla puolella ja sisältö tasattu vasemmalle.
 const MUUT_PALVELUT_MIN_WIDTH = '300px';
 
-export const MuutPalvelut = ({ contentfulData }: { contentfulData: ContentfulData }) => {
-  const { assetUrl } = useContentful();
-
-  const etusivuData = getOne(contentfulData.opintopolkuEtusivu);
-  const muutPalvelutOtsikko = etusivuData?.muutPalvelutOtsikko;
-  const nostot = contentfulData.nosto;
-  const muutPalvelutNostot = etusivuData?.muutPalvelutNostot ?? [];
-
-  return muutPalvelutNostot.length > 0 ? (
+export const MuutPalvelut = ({ osio }: { osio: EtusivuOsio }) =>
+  osio.nostot.length > 0 ? (
     <Box component="section" sx={{ marginTop: 6 }}>
-      <SectionHeading component="h2">{muutPalvelutOtsikko}</SectionHeading>
+      <SectionHeading component="h2">{osio.otsikko}</SectionHeading>
       <Box
         sx={{
           display: 'grid',
@@ -36,14 +26,13 @@ export const MuutPalvelut = ({ contentfulData }: { contentfulData: ContentfulDat
           gridTemplateColumns: `repeat(auto-fill, minmax(max(min(100%, ${MUUT_PALVELUT_MIN_WIDTH}), calc((100% - 64px) / 3)), 1fr))`,
           gap: 4,
         }}>
-        {muutPalvelutNostot.map((nostoRef) => {
-          const nosto = nostot[nostoRef.id ?? ''];
+        {osio.nostot.map((nosto) => {
           return (
             <Paper
               key={nosto.id}
               component="a"
               // Osa osoitteista on kielikohtaisia, joten kieli välitetään parametrina ($1)
-              href={getNostoHref(nosto, contentfulData)}
+              href={nosto.href}
               sx={{
                 position: 'relative',
                 color: ophColors.grey900,
@@ -72,12 +61,7 @@ export const MuutPalvelut = ({ contentfulData }: { contentfulData: ContentfulDat
               {/* Oikea reunus jättää tilaa nuolelle */}
               <Box
                 sx={{ display: 'flex', alignItems: 'center', gap: 2, paddingRight: 4 }}>
-                <Box
-                  component="img"
-                  src={assetUrl(nosto.kuva?.url)}
-                  alt=""
-                  sx={{ height: '40px' }}
-                />
+                <Box component="img" src={nosto.kuvaUrl} alt="" sx={{ height: '40px' }} />
                 <PaperHeading color="inherit" fontWeight={400}>
                   {nosto.otsikko}
                 </PaperHeading>
@@ -89,4 +73,3 @@ export const MuutPalvelut = ({ contentfulData }: { contentfulData: ContentfulDat
       </Box>
     </Box>
   ) : null;
-};
