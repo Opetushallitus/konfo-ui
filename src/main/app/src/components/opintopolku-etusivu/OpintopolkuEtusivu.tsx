@@ -1,8 +1,22 @@
-import { Box } from '@mui/material';
-import { ophColors } from '@opetushallitus/oph-design-system';
+import { useCallback, useState } from 'react';
+
+import { Box, useMediaQuery } from '@mui/material';
+import { ophColors, OphLink, OphTypography } from '@opetushallitus/oph-design-system';
+import { isEmpty } from 'lodash-es';
+import { useTranslation } from 'react-i18next';
+
 import HeroImage from '#/src/assets/images/uusi_opintopolku_hero.jpg';
+import { Hakupalkki } from '#/src/components/haku/Hakupalkki';
+import { useAllSelectedFilters, useSearch } from '#/src/components/haku/hakutulosHooks';
+import { RajaimetPopover } from '#/src/components/haku/RajaimetPopover';
+import {
+  RajaaButton,
+  RajaimetDrawer,
+} from '#/src/components/opintopolku-etusivu/OpintopolkuEtusivuRajaimet';
 import { WithSideMargins } from '#/src/components/WithSideMargins';
 import { styled } from '#/src/theme';
+import { Link as RouterLink } from 'react-router-dom';
+import { Stack, useTheme } from '@mui/system';
 
 // Hero-kuva saa olla korkeintaan kuvan oman levyinen
 const HERO_MAX_WIDTH = 1705;
@@ -97,7 +111,84 @@ const HeroWrapper = styled(Box)({
   },
 });
 
-export const UusiEtusivu = () => {
+const SectionHeading = styled(OphTypography)(({ theme }) => ({
+  fontSize: '32px',
+  fontWeight: 400,
+  marginBottom: theme.spacing(4),
+}));
+
+// Hakupalkki rajaa-painikkeella ja linkki kaikkiin hakutuloksiin (kuten nykyisen etusivun Jumpotronissa)
+const EtusivuHaku = () => {
+  const theme = useTheme();
+  const { t } = useTranslation();
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const isPopoverOpen = Boolean(anchorEl);
+  const [isDrawerOpen, setDrawerOpen] = useState(false);
+  const toggleDrawer = useCallback(() => setDrawerOpen((open) => !open), []);
+  // Isoilla näytöillä rajaimet popoverissa, pienillä alhaalta avautuvassa laatikossa
+  const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
+
+  const { koulutusData, isFetching } = useSearch();
+  const allSelectedFilters = useAllSelectedFilters();
+  const selectedCount = allSelectedFilters?.flat?.length ?? 0;
+  const hasFilters = !isEmpty(koulutusData?.filters);
+
+  return (
+    <Box>
+      {hasFilters && isMdUp && (
+        <RajaimetPopover anchorEl={anchorEl} setAnchorEl={setAnchorEl} />
+      )}
+      {hasFilters && !isMdUp && (
+        <RajaimetDrawer
+          isOpen={isDrawerOpen}
+          toggleOpen={toggleDrawer}
+          selectedCount={selectedCount}
+        />
+      )}
+      <Stack>
+        <SectionHeading component="h2">
+          {t('opintopolku-etusivu.hae-otsikko')}
+        </SectionHeading>
+        <Hakupalkki
+          variant="oph"
+          // Isoilla näytöillä rajaa-painike hakukentän sisällä, pienillä linkin vieressä (alla)
+          rajaaButton={
+            hasFilters && isMdUp ? (
+              <RajaaButton
+                isOpen={isPopoverOpen}
+                isLoading={isFetching}
+                selectedCount={selectedCount}
+                onClick={(event) => setAnchorEl(event.currentTarget)}
+              />
+            ) : null
+          }
+        />
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'flex-start',
+            gap: 2,
+          }}>
+          <OphLink sx={{ display: 'block' }} component={RouterLink} to="/haku">
+            {t('opintopolku-etusivu.nayta-kaikki')}
+          </OphLink>
+          {hasFilters && !isMdUp && (
+            <RajaaButton
+              isOpen={isDrawerOpen}
+              isLoading={isFetching}
+              selectedCount={selectedCount}
+              onClick={toggleDrawer}
+              showDivider={false}
+            />
+          )}
+        </Box>
+      </Stack>
+    </Box>
+  );
+};
+
+export const OpintopolkuEtusivu = () => {
   return (
     <Box sx={{ width: '100%', minHeight: 0 }}>
       <HeroWrapper>
@@ -171,7 +262,9 @@ export const UusiEtusivu = () => {
           paddingY: 2,
           color: 'black',
         }}>
-        <WithSideMargins>Tekstiä tähän osioon...</WithSideMargins>
+        <WithSideMargins>
+          <EtusivuHaku />
+        </WithSideMargins>
       </Box>
     </Box>
   );

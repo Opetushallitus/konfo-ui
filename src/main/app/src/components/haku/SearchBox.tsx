@@ -10,6 +10,7 @@ import {
   Tooltip,
   Autocomplete,
 } from '@mui/material';
+import { OphInput } from '@opetushallitus/oph-design-system';
 import { TFunction } from 'i18next';
 import { identity, isString, omit, size } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
@@ -66,7 +67,16 @@ const createRenderOption = (t: TFunction, highlightedLink: string | null) => {
   };
 };
 
-const createRenderInput = (t: TFunction, descriptionId: string) => {
+// default: Konfon tyyli (varjostettu laatikko, hakupainike kentän sisällä)
+// oph: oph-design-systemin OphInput oletustyyleillä, hakupainike kentän ulkopuolella oikealla
+export type SearchBoxVariant = 'default' | 'oph';
+
+const createRenderInput = (
+  t: TFunction,
+  descriptionId: string,
+  variant: SearchBoxVariant,
+  rajaaButton: React.JSX.Element | null
+) => {
   return function KonfoAutocompleteInput(params: AutocompleteRenderInputParams) {
     const { InputProps, inputProps: paramInputProps } = params;
     const rest = omit(params, ['InputProps', 'InputLabelProps', 'inputProps']);
@@ -76,7 +86,35 @@ const createRenderInput = (t: TFunction, descriptionId: string) => {
       paramInputProps['aria-activedescendant'] === ''
         ? omit(paramInputProps, 'aria-activedescendant')
         : paramInputProps;
-    return (
+    const sharedInputProps = {
+      ...inputProps,
+      'aria-describedby': descriptionId,
+      'aria-label': t('haku.kehoite'),
+      'aria-labelledby': 'searchbox-label',
+      id: 'searchbox-input',
+    };
+
+    // Sama rakenne molemmissa varianteissa: rajaa-painike on kentän sisällä oikealla
+    // Autocompleten tyhjennyspainikkeen jälkeen. Variantti vaihtaa vain kenttäkomponentin.
+    const commonProps = {
+      type: 'text',
+      name: 'keyword',
+      placeholder: t('haku.hakusana'),
+      ...InputProps,
+      ...rest,
+      endAdornment: (
+        <>
+          {InputProps.endAdornment}
+          {rajaaButton}
+        </>
+      ),
+      inputProps: sharedInputProps,
+    };
+
+    return variant === 'oph' ? (
+      // OphInput oletustyyleillä
+      <OphInput {...commonProps} />
+    ) : (
       <InputBase
         sx={{
           borderRadius: 0,
@@ -87,18 +125,7 @@ const createRenderInput = (t: TFunction, descriptionId: string) => {
             opacity: 0.85,
           },
         }}
-        type="text"
-        name="keyword"
-        placeholder={t('haku.hakusana')}
-        {...InputProps}
-        {...rest}
-        inputProps={{
-          ...inputProps,
-          'aria-describedby': descriptionId,
-          'aria-label': t('haku.kehoite'),
-          'aria-labelledby': 'searchbox-label',
-          id: 'searchbox-input',
-        }}
+        {...commonProps}
       />
     );
   };
@@ -145,13 +172,16 @@ export const SearchBox = ({
   draftKeyword,
   doSearch,
   setDraftKeyword,
-  rajaaButton,
+  rajaaButton = null,
+  variant = 'default',
 }: {
   draftKeyword: string;
   doSearch: (keyword: string) => void;
   setDraftKeyword: (keyword: string) => void;
   rajaaButton?: React.JSX.Element | null;
+  variant?: SearchBoxVariant;
 }) => {
+  const isOph = variant === 'oph';
   const { setSearchPhraseDebounced, isFetching, data } = useAutoComplete();
 
   const [highlightedLabel, setHighlightedLabel] = useState('');
@@ -191,22 +221,34 @@ export const SearchBox = ({
         const keywordValue = formData.get('keyword')?.toString() ?? '';
         doSearch(keywordValue);
       }}
-      sx={{
-        [theme.breakpoints.up('md')]: {
-          height: theme.spacing(9),
-        },
-        [theme.breakpoints.down('sm')]: {
-          height: theme.spacing(7),
-        },
-        paddingLeft: theme.spacing(2),
-        display: 'flex',
-        width: '100%',
-        alignItems: 'center',
-        boxSizing: 'border-box',
-        border: `1px solid ${colors.grey500}`,
-        borderRadius: '2px',
-      }}
-      elevation={4}>
+      sx={
+        isOph
+          ? {
+              // Ei laatikkoa, varjoa eikä paddingia: kenttä ja hakupainike vierekkäin.
+              // stretch: hakupainike venyy hakukentän korkuiseksi.
+              display: 'flex',
+              width: '100%',
+              alignItems: 'stretch',
+              gap: 2,
+              backgroundColor: 'transparent',
+            }
+          : {
+              [theme.breakpoints.up('md')]: {
+                height: theme.spacing(9),
+              },
+              [theme.breakpoints.down('sm')]: {
+                height: theme.spacing(7),
+              },
+              paddingLeft: theme.spacing(2),
+              display: 'flex',
+              width: '100%',
+              alignItems: 'center',
+              boxSizing: 'border-box',
+              border: `1px solid ${colors.grey500}`,
+              borderRadius: '2px',
+            }
+      }
+      elevation={isOph ? 0 : 4}>
       <span
         role="status"
         aria-live="polite"
@@ -245,6 +287,35 @@ export const SearchBox = ({
         title={t('haku.syota-ainakin-kolme-merkkia') || ''}>
         <Autocomplete
           fullWidth={true}
+          sx={{
+            // Rajaa-painike on kentän sisällä (createRenderInput). Autocomplete sijoittaa
+            // tyhjennyspainikkeen absoluuttisesti kentän oikeaan reunaan, jolloin se menisi
+            // rajaa-painikkeen päälle. Palautetaan normaaliin virtaan, jotta järjestys on:
+            // teksti, tyhjennyspainike, rajaa-painike.
+            '& .MuiAutocomplete-endAdornment': {
+              position: 'static',
+              transform: 'none',
+            },
+            // Ei tarvita tyhjennyspainikkeelle varattua lisätilaa oikealla (&&& ohittaa
+            // Autocompleten oman, tarkemman säännön)
+            '&&& .MuiAutocomplete-inputRoot': {
+              paddingRight: theme.spacing(1),
+              // Autocompleten oletus flex-wrap: wrap (monivalintojen chipeille) rivittäisi
+              // rajaa-painikkeen kentän alle piiloon. Pidetään kaikki samalla rivillä.
+              flexWrap: 'nowrap',
+            },
+            // oph-variantti (OphInput): Autocomplete lisää outlined-kentälle oman 9px paddingin ja
+            // muuttaa tekstikentän paddingia, mikä kasvattaa kentän korkeutta. Palautetaan
+            // oph-design-systemin oletuspaddingit (kenttä 0, tekstikenttä 8px 12px).
+            '&&& .MuiOutlinedInput-root': {
+              paddingTop: 0,
+              paddingBottom: 0,
+              paddingLeft: 0,
+              '& .MuiAutocomplete-input': {
+                padding: theme.spacing(1.5, 2),
+              },
+            },
+          }}
           disablePortal={true}
           inputValue={draftKeyword}
           freeSolo={true}
@@ -283,11 +354,10 @@ export const SearchBox = ({
           }}
           renderGroup={createRenderAutocompleteGroup(t)}
           renderOption={createRenderOption(t, highlightedLink)}
-          renderInput={createRenderInput(t, hintId)}
+          renderInput={createRenderInput(t, hintId, variant, rajaaButton)}
         />
       </Tooltip>
-      {rajaaButton}
-      <SearchButton isKeywordValid={isKeywordValid} />
+      <SearchButton isKeywordValid={isKeywordValid} variant={variant} />
     </Paper>
   );
 };

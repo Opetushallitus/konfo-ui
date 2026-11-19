@@ -9,7 +9,8 @@ import { HakupalkkiFilters } from './HakupalkkiFilters';
 
 const StyledPopover = styled(Popover)(() => ({
   '& .MuiPopover-paper': {
-    paddingTop: '10px',
+    // Sivuilla ja alhaalla tilaa ArrowBoxin varjolle, ettei paperin overflow leikkaa sitä
+    padding: '10px 8px 8px',
     background: 'transparent',
   },
 }));
@@ -19,6 +20,7 @@ const ArrowBox = styled(Box)(() => ({
   background: colors.white,
   border: `4px solid ${colors.white}`,
   borderRadius: '4px',
+  boxShadow: '0 2px 6px rgba(0, 0, 0, 0.2)',
   '&:after, &:before': {
     bottom: '100%',
     left: '50%',
