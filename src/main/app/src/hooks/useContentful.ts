@@ -32,6 +32,7 @@ const initialContentfulData: ContentfulData = {
   tutkintojenTunnustamisenPalveluopas: {},
   opintopolkuEtusivu: {},
   kielitutkinnotLaskeutumissivu: {},
+  tutkintojenTunnustaminenLaskeutumissivu: {},
   nosto: {},
   linkki: {},
   faq: {},

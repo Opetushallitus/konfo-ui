@@ -41,6 +41,7 @@ import {
   setKeyword,
   urlParamsChanged,
 } from '#/src/store/reducers/hakutulosSlice';
+import { TutuLaskeutumissivu } from '#/src/components/tutu-laskeutumissivu/TutuLaskeutumissivu';
 
 import { TutuOpas } from './components/tutu-opas/TutuOpas';
 
@@ -107,6 +108,19 @@ const routes: Array<RouteObject> = [
               {
                 path: 'kielitutkinnot',
                 element: <KielitutkinnotPage />,
+              },
+            ],
+          },
+          {
+            element: (
+              <OphThemeRoute>
+                <DefaultLayout palvelutVisible={false} contentMaxWidth={1200} />
+              </OphThemeRoute>
+            ),
+            children: [
+              {
+                path: 'tutkintojen-tunnustaminen',
+                element: <TutuLaskeutumissivu />,
               },
             ],
           },

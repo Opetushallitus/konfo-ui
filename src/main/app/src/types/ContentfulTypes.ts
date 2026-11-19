@@ -29,6 +29,7 @@ import {
   TypeTutkintojenTunnustamisenPalveluopas,
   TypeOpintopolkuEtusivu,
   TypeKielitutkinnotLaskeutumissivu,
+  TypeTutkintojenTunnustaminenLaskeutumissivu,
   TypeNosto,
   TypeLinkki,
   TypeFaq,
@@ -119,6 +120,9 @@ export type ContentfulOpintopolkuEtusivu = ContentfulItem<
 export type ContentfulKielitutkinnotLaskeutumissivu = ContentfulItem<
   TypeKielitutkinnotLaskeutumissivu<Mod, ''>
 >;
+export type ContentfulTutkintojenTunnustaminenLaskeutumissivu = ContentfulItem<
+  TypeTutkintojenTunnustaminenLaskeutumissivu<Mod, ''>
+>;
 export type ContentfulNosto = ContentfulItem<TypeNosto<Mod, ''>>;
 export type ContentfulLinkki = ContentfulItem<TypeLinkki<Mod, ''>>;
 export type ContentfulFaq = ContentfulItem<TypeFaq<Mod, ''>>;
@@ -150,6 +154,7 @@ export type ContentfulData = {
   nosto: CfRecord<ContentfulNosto>;
   linkki: CfRecord<ContentfulLinkki>;
   faq: CfRecord<ContentfulFaq>;
+  tutkintojenTunnustaminenLaskeutumissivu: CfRecord<ContentfulTutkintojenTunnustaminenLaskeutumissivu>;
 };
 
 type ContentTypeId = keyof ContentfulData;

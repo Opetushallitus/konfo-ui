@@ -949,5 +949,9 @@
     "ingressi": "Yleiset kielitutkinnot ovat aikuisille tarkoitettuja kielitutkintoja. Tutkinnoissa arvioidaan yleiskielen osaamista käytännön tilanteissa. Saat suoritetusta tutkinnosta todistuksen, jolla voit osoittaa virallisesti kielitaitosi eri kielissä.",
     "kuvaus": "<p>Yleisen kielitutkinnon voit suorittaa seuraavissa kielissä: englanti, espanja, italia, pohjoissaame, ranska, ruotsi, saksa, suomi ja venäjä. Kaikissa tutkinnoissa on neljä osakoetta: puheen ymmärtäminen, puhuminen, tekstin ymmärtäminen ja kirjoittaminen. Saat jokaisesta osakokeesta oman taitotasoarvion.</p><p>YKI-todistuksia voit käyttää esimerkiksi, kun</p><ul><li>haet työ- tai opiskelupaikkaa</li><li>haet Suomen kansalaisuutta tai pysyvää oleskelulupaa (suomen ja ruotsin kielen tutkinnot)</li><li>sinun täytyy todistaa työnantajalle, millä tasolla osaat kieltä.</li></ul>",
     "julkaistu": "Julkaistu {{pvm}}"
+  },
+  "tutu-laskeutumissivu": {
+    "hero-title": "Tutkintojen tunnustaminen",
+    "hero-text": "Tutkintojen tunnustamisella tarkoitetaan päätöstä siitä, millaisen kelpoisuuden toisessa maassa suoritettu tutkinto antaa työtä tai opiskelupaikkaa haettaessa. Päätöksiä tekevät viranomaiset, oppilaitokset ja korkeakoulut sekä työnantajat."
   }
 }
