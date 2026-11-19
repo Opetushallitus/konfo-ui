@@ -1,8 +1,8 @@
 import { Box, Paper, SxProps, Theme } from '@mui/material';
 import { ophColors, OphTypography } from '@opetushallitus/oph-design-system';
-import { Link as RouterLink } from 'react-router-dom';
 
 import { InlineSvgIcon } from '#/src/components/common/InlineSvgIcon';
+import { SmartLink } from '#/src/components/common/SmartLink';
 import {
   LINK_PAPER_SX,
   PaperHeading,
@@ -29,8 +29,8 @@ const KoulutustietoPaper = ({
 }) => (
   <Paper
     elevation={0}
-    component={RouterLink}
-    to={to}
+    component={SmartLink}
+    href={to}
     sx={[
       {
         backgroundColor,
