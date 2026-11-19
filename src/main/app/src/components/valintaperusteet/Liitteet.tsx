@@ -1,5 +1,5 @@
 import { Box, Card, CardContent, Divider, Grid, Typography } from '@mui/material';
-import { isEmpty, groupBy, map } from 'lodash';
+import { isEmpty, groupBy, map } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';

@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 
 import { Box } from '@mui/material';
 import List from '@mui/material/List';
-import { isEqual } from 'lodash';
+import { isEqual } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 import { P, match } from 'ts-pattern';
 

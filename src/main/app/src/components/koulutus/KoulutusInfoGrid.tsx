@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import { ExternalLink } from '#/src/components/common/ExternalLink';

@@ -1,5 +1,5 @@
 import { Button, Link, useMediaQuery } from '@mui/material';
-import { isString } from 'lodash';
+import { isString } from 'lodash-es';
 
 import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';

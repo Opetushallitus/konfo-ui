@@ -5,7 +5,7 @@ import {
   Element as DomElement,
   Text,
 } from 'html-react-parser';
-import { includes } from 'lodash';
+import { includes } from 'lodash-es';
 
 import { toId } from '#/src/tools/utils';
 

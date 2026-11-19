@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Box, Grid, useMediaQuery, useTheme } from '@mui/material';
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 import { match } from 'ts-pattern';
 

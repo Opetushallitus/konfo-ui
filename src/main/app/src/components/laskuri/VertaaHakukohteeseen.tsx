@@ -10,7 +10,7 @@ import {
   Typography,
   useTheme,
 } from '@mui/material';
-import { isString, omit, sortBy } from 'lodash';
+import { isString, omit, sortBy } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';

@@ -1,5 +1,5 @@
 import { Alert, Box, Button, Collapse, Link, Tooltip, Typography } from '@mui/material';
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 import { useQuery, useQueryClient } from 'react-query';
 import { TransitionGroup } from 'react-transition-group';

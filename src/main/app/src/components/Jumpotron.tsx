@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { Box, Grid, Link, Paper, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/system';
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import Image from '#/src/assets/images/o-EDUCATION-facebook.jpg';

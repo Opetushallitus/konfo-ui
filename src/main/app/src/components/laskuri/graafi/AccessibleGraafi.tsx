@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
 import { TFunction } from 'i18next';
-import { join } from 'lodash';
+import { join } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import { localize } from '#/src/tools/localization';

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import { filter, map, size, compact } from 'lodash';
+import { filter, map, size, compact } from 'lodash-es';
 import { useQueries, useQuery } from 'react-query';
 
 import {

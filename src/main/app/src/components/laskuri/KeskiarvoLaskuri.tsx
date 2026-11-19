@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { Box, Typography, Input, Button, Grid } from '@mui/material';
-import { matches } from 'lodash';
+import { matches } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';

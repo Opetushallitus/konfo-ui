@@ -1,6 +1,6 @@
 import { Grid, Typography } from '@mui/material';
 import { TFunction } from 'i18next';
-import { isEqual, ceil, range, round } from 'lodash';
+import { isEqual, ceil, range, round } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import {

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 import { Box, Typography, Button } from '@mui/material';
-import { isEqual } from 'lodash';
+import { isEqual } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';

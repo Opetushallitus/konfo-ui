@@ -1,4 +1,4 @@
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'lodash-es';
 import { useQuery } from 'react-query';
 
 import { getOppilaitos, getOppilaitosOsa } from '#/src/api/konfoApi';

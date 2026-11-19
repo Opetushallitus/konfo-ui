@@ -2,7 +2,7 @@ import path from 'path';
 
 import AxeBuilder from '@axe-core/playwright';
 import { BrowserContext, Locator, Page, Route, expect } from '@playwright/test';
-import { escapeRegExp } from 'lodash';
+import { escapeRegExp } from 'lodash-es';
 
 const MOCKS_PATH = path.resolve(__dirname, './mocks');
 

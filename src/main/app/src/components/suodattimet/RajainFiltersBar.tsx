@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Box, Grid } from '@mui/material';
-import { size } from 'lodash';
+import { size } from 'lodash-es';
 import { match } from 'ts-pattern';
 
 import { RajainValues } from '#/src/store/reducers/hakutulosSlice';

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { useTranslation } from 'react-i18next';
 
 import { RAJAIN_TYPES } from '#/src/constants';

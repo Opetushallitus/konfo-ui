@@ -1,5 +1,5 @@
 import { Link, Icon, Box, Grid } from '@mui/material';
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import FacebookIcon from '#/src/assets/images/somelogos/some_facebook.svg';

@@ -1,5 +1,5 @@
 import { Alert, Stack } from '@mui/material';
-import { includes, isEmpty, size, sortBy } from 'lodash';
+import { includes, isEmpty, size, sortBy } from 'lodash-es';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
 

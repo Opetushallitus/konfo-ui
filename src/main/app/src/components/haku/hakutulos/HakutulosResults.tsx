@@ -1,5 +1,5 @@
 import { Link, Grid, Typography, useTheme } from '@mui/material';
-import { size } from 'lodash';
+import { size } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import { useHakutulosWidth } from '#/src/store/reducers/appSlice';

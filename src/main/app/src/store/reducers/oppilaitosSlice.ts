@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { isEqual, pick } from 'lodash';
+import { isEqual, pick } from 'lodash-es';
 
 import { HAKU_RAJAIMET_INITIAL, RajainValues } from './hakutulosSlice';
 import { OPPILAITOS_TARJONTA_RAJAIN_NAMES } from './hakutulosSliceSelector';

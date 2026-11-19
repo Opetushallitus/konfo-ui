@@ -1,5 +1,5 @@
 import { Grid, Icon, Paper, Typography } from '@mui/material';
-import { isString } from 'lodash';
+import { isString } from 'lodash-es';
 
 import ApurahaIcon from '#/src/assets/images/Apuraha.svg';
 import KoulutuksenLaajuusIcon from '#/src/assets/images/koulutuksen_laajuus.svg';

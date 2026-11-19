@@ -1,4 +1,4 @@
-import { intersection, isEmpty } from 'lodash';
+import { intersection, isEmpty } from 'lodash-es';
 
 import { AlkamiskausiSuodatin } from '#/src/components/suodattimet/common/AlkamiskausiSuodatin';
 import { HakuaikaRajain } from '#/src/components/suodattimet/common/HakuaikaRajain';

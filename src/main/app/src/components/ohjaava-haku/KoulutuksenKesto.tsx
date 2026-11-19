@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Grid, Typography } from '@mui/material';
-import { isEmpty, isFinite, toNumber } from 'lodash';
+import { isEmpty, isFinite, toNumber } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 import { match } from 'ts-pattern';
 

@@ -11,7 +11,7 @@ import {
   Autocomplete,
 } from '@mui/material';
 import { TFunction } from 'i18next';
-import { identity, isString, omit, size } from 'lodash';
+import { identity, isString, omit, size } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { match } from 'ts-pattern';

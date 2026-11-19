@@ -1,4 +1,4 @@
-import { includes } from 'lodash';
+import { includes } from 'lodash-es';
 
 import { AlkamiskausiSuodatin } from '#/src/components/suodattimet/common/AlkamiskausiSuodatin';
 import { HakuaikaRajain } from '#/src/components/suodattimet/common/HakuaikaRajain';

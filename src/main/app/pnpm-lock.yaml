@@ -65,8 +65,8 @@ importers:
       js-cookie:
         specifier: ^3.0.7
         version: 3.0.8
-      lodash:
-        specifier: ^4.18.0
+      lodash-es:
+        specifier: ^4.18.1
         version: 4.18.1
       markdown-to-jsx:
         specifier: ^7.7.6
@@ -153,9 +153,6 @@ importers:
       '@material-design-icons/svg':
         specifier: ^0.14.15
         version: 0.14.15
-      '@optimize-lodash/rollup-plugin':
-        specifier: ^4.0.3
-        version: 4.0.3(rollup@4.52.5)
       '@playwright/test':
         specifier: ^1.52.0
         version: 1.52.0
@@ -177,6 +174,9 @@ importers:
       '@types/lodash':
         specifier: ^4.17.17
         version: 4.17.17
+      '@types/lodash-es':
+        specifier: ^4.17.12
+        version: 4.17.12
       '@types/node':
         specifier: ^20.19.4
         version: 20.19.4
@@ -816,16 +816,6 @@ packages:
     resolution: {integrity: sha512-eFLP2yjiK+xMRGcv9k9jOWV08HB+/Cgg1ND91zS4Uwgp1krMoL39Is+hIqnZOKkmiEMtiv8k5EDqCVv+DTRywg==}
     engines: {node: '>=18.0.0'}
 
-  '@optimize-lodash/rollup-plugin@4.0.3':
-    resolution: {integrity: sha512-zp9Yj8LL0QlUBXFmSI2EUI0phg9KvW9x1ZdsEhYuyxhNC1KiEUQR8ZEdH/GF8ZRPiKAL1fUJ8195wYlzhFsspA==}
-    engines: {node: '>= 12'}
-    peerDependencies:
-      rollup: '>=2.x'
-
-  '@optimize-lodash/transform@3.0.2':
-    resolution: {integrity: sha512-wkRhFMnzY9BQDc6mK1ORw+NN+v2DYY8HRI1P5n9Lvh7iwXzGeef5XKHQYIMFggGLPkGjlX14tjlXiEzb4SqJPg==}
-    engines: {node: '>= 12'}
-
   '@pkgr/core@0.2.4':
     resolution: {integrity: sha512-ROFF39F6ZrnzSUEmQQZUar0Jt4xVoP9WnDRdWwF4NNcXs3xBTLgBUDoOwW141y1jP+S8nahIbdxbFC7IShw9Iw==}
     engines: {node: ^12.20.0 || ^14.18.0 || >=16.0.0}
@@ -861,15 +851,6 @@ packages:
 
   '@rolldown/pluginutils@1.0.0-beta.27':
     resolution: {integrity: sha512-+d0F4MKMCbeVUJwG96uQ4SgAznZNSq93I3V+9NHA4OpvqG8mRCpGdKmK8l/dl02h2CCDHwW2FqilnTyDcAnqjA==}
-
-  '@rollup/pluginutils@5.0.2':
-    resolution: {integrity: sha512-pTd9rIsP92h+B6wWwFbW8RkZv4hiR/xKsqre4SIuAOaOEQRxi0lqLke9k2/7WegC85GgUs9pjmOjCUi3In4vwA==}
-    engines: {node: '>=14.0.0'}
-    peerDependencies:
-      rollup: ^1.20.0||^2.0.0||^3.0.0
-    peerDependenciesMeta:
-      rollup:
-        optional: true
 
   '@rollup/pluginutils@5.1.4':
     resolution: {integrity: sha512-USm05zrsFxYLPdWWq+K3STlWiT/3ELn3RcV5hJMghpeAIhxfsUIg6mt12CBJBInWMV4VneoV7SfGv8xIwo2qNQ==}
@@ -1209,6 +1190,9 @@ packages:
 
   '@types/json5@0.0.29':
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
+
+  '@types/lodash-es@4.17.12':
+    resolution: {integrity: sha512-0NgftHUcV4v34VhXm8QBSftKVXtbkBG3ViCjs6+eJ5a6y6Mi/jiFGPc1sC7QK+9BFhWrURE3EOggmWaSxL9OzQ==}
 
   '@types/lodash@4.17.17':
     resolution: {integrity: sha512-RRVJ+J3J+WmyOTqnz3PiBLA501eKwXl2noseKOrNo/6+XEHjTAxO4xHvxQB6QuNm+s4WRbn6rSiap8+EA+ykFQ==}
@@ -3078,6 +3062,9 @@ packages:
     resolution: {integrity: sha512-iPZK6eYjbxRu3uB4/WZ3EsEIMJFMqAoopl3R+zuq0UjcAm/MO6KCweDgPfP3elTztoKP3KtnVHxTn2NHBSDVUw==}
     engines: {node: '>=10'}
 
+  lodash-es@4.18.1:
+    resolution: {integrity: sha512-J8xewKD/Gk22OZbhpOVSwcs60zhd95ESDwezOFuA3/099925PdHJ7OFHNTGtajL3AlZkykD32HykiMo+BIBI8A==}
+
   lodash.clonedeep@4.5.0:
     resolution: {integrity: sha512-H5ZhCF25riFd9uB5UCkVKo61m3S/xZk1x4wA6yp/L3RFP6Z/eHH1ymQcGLo7J3GMPfm0V/7m1tryHuGVxpqEBQ==}
 
@@ -3142,10 +3129,6 @@ packages:
   lz-string@1.5.0:
     resolution: {integrity: sha512-h5bgJWpxJNswbU7qCrV0tIKQCaS3blPDrqKWx+QxzuzL1zGUzij9XCWLrSLsJPu5t+eWA/ycetzYAO5IOMcWAQ==}
     hasBin: true
-
-  magic-string@0.27.0:
-    resolution: {integrity: sha512-8UnnX2PeRAPZuN12svgR9j7M1uWMovg/CEnIwIG0LFkXSJJe4PdfUGiTGl8V9bsBHFUtfVINcSyYxd7q+kx9fA==}
-    engines: {node: '>=12'}
 
   magic-string@0.30.17:
     resolution: {integrity: sha512-sNPKHvyjVf7gyjwS4xGTaW/mCnF8wnjtifKBEhxfZ7E/S8tQ0rssrwGNn6q8JH/ohItJfSQp9mBtQYuTlH5QnA==}
@@ -5392,17 +5375,6 @@ snapshots:
     dependencies:
       '@oclif/core': 4.3.0
 
-  '@optimize-lodash/rollup-plugin@4.0.3(rollup@4.52.5)':
-    dependencies:
-      '@optimize-lodash/transform': 3.0.2
-      '@rollup/pluginutils': 5.0.2(rollup@4.52.5)
-      rollup: 4.52.5
-
-  '@optimize-lodash/transform@3.0.2':
-    dependencies:
-      estree-walker: 2.0.2
-      magic-string: 0.27.0
-
   '@pkgr/core@0.2.4': {}
 
   '@playwright/test@1.52.0':
@@ -5447,14 +5419,6 @@ snapshots:
       react-redux: 9.2.0(@types/react@19.1.5)(react@19.1.0)(redux@5.0.1)
 
   '@rolldown/pluginutils@1.0.0-beta.27': {}
-
-  '@rollup/pluginutils@5.0.2(rollup@4.52.5)':
-    dependencies:
-      '@types/estree': 1.0.8
-      estree-walker: 2.0.2
-      picomatch: 2.3.1
-    optionalDependencies:
-      rollup: 4.52.5
 
   '@rollup/pluginutils@5.1.4(rollup@4.52.5)':
     dependencies:
@@ -5773,6 +5737,10 @@ snapshots:
   '@types/js-cookie@3.0.6': {}
 
   '@types/json5@0.0.29': {}
+
+  '@types/lodash-es@4.17.12':
+    dependencies:
+      '@types/lodash': 4.17.17
 
   '@types/lodash@4.17.17': {}
 
@@ -7981,6 +7949,8 @@ snapshots:
     dependencies:
       p-locate: 5.0.0
 
+  lodash-es@4.18.1: {}
+
   lodash.clonedeep@4.5.0: {}
 
   lodash.includes@4.3.0: {}
@@ -8038,10 +8008,6 @@ snapshots:
       yallist: 3.1.1
 
   lz-string@1.5.0: {}
-
-  magic-string@0.27.0:
-    dependencies:
-      '@jridgewell/sourcemap-codec': 1.5.0
 
   magic-string@0.30.17:
     dependencies:

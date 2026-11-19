@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import { Box, Grid, Paper, Typography, useMediaQuery, useTheme } from '@mui/material';
-import { hasIn, isEmpty } from 'lodash';
+import { hasIn, isEmpty } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import { OskariKartta } from '#/src/components/common/OskariKartta';

@@ -1,4 +1,4 @@
-import { findKey } from 'lodash';
+import { findKey } from 'lodash-es';
 
 import { SlugIdData, SlugsToIds } from '../types/common';
 

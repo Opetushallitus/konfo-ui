@@ -1,6 +1,6 @@
 import { Box, Typography } from '@mui/material';
 import { TFunction } from 'i18next';
-import { head, isEmpty } from 'lodash';
+import { head, isEmpty } from 'lodash-es';
 import { urls } from 'oph-urls-js';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Drawer, Paper, InputBase, Button, Box } from '@mui/material';
-import { includes, last } from 'lodash';
+import { includes, last } from 'lodash-es';
 import { urls } from 'oph-urls-js';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';

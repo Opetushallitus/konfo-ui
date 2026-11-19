@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import { set, uniq } from 'lodash';
+import { set, uniq } from 'lodash-es';
 import { useQuery } from 'react-query';
 
 import {

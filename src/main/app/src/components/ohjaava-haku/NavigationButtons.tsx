@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Grid } from '@mui/material';
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import { StyledButton } from '#/src/components/ohjaava-haku/common/StyledButton';

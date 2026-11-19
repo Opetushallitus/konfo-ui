@@ -1,4 +1,4 @@
-import { isEqual } from 'lodash';
+import { isEqual } from 'lodash-es';
 import { create } from 'zustand';
 
 import { HakupisteLaskelma } from '../laskuri/Keskiarvo';

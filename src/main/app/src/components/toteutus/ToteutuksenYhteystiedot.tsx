@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 
 import { Box, Grid, Typography } from '@mui/material';
-import { isEmpty, filter, flatten, includes, map } from 'lodash';
+import { isEmpty, filter, flatten, includes, map } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import { OppilaitosKorttiLogo } from '#/src/components/common/KorttiLogo';

@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 
-import { sortBy } from 'lodash';
+import { sortBy } from 'lodash-es';
 
 import { Filter } from '#/src/components/common/Filter';
 import { useConfig } from '#/src/config';
