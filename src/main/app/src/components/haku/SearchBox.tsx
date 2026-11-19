@@ -278,8 +278,6 @@ export const SearchBox = ({
           onInputChange={(_e, newInputValue, reason) => {
             if (reason === 'clear' || reason === 'input') {
               setDraftKeyword(newInputValue);
-            }
-            if (reason !== 'reset') {
               setSearchPhraseDebounced(newInputValue);
             }
           }}
