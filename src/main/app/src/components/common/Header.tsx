@@ -208,7 +208,7 @@ export const Header = ({
             {t('oma-opintopolku')}
           </ToolbarLink>
         </Box>
-        <LanguageAccordion />
+        <LanguageAccordion sx={{ display: { xs: 'none', sm: 'block' } }} />
       </Toolbar>
     </StyledAppBar>
   );

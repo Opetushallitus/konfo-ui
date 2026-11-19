@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import {
   Accordion,
+  type AccordionProps,
   Box,
   ListItemText,
   AccordionSummary,
@@ -59,19 +60,19 @@ const StyledListItemButton = styled(ListItemButton)({
 
 const LANG_ACCORDION_CONTENT_ID = 'language-accordion-content';
 
-export const LanguageAccordion = () => {
+export const LanguageAccordion = ({ sx }: { sx?: AccordionProps['sx'] }) => {
   const { t } = useTranslation();
-  const [language, setLanguage]: any = useLanguageState();
+  const [language, setLanguage] = useLanguageState();
   const [isOpen, setOpen] = useState(false);
 
   const handleChange = (langCode: string) => {
     setOpen(false);
-    setLanguage?.(langCode);
+    setLanguage(langCode);
     (document.activeElement as HTMLElement).blur();
   };
 
   return (
-    <StyledAccordion disableGutters expanded={isOpen}>
+    <StyledAccordion disableGutters expanded={isOpen} sx={sx}>
       <StyledAccordionSummary
         aria-label={t('kielivalinta.valitse-kieli-taman-sivun-kieli-on')}
         aria-expanded={isOpen}

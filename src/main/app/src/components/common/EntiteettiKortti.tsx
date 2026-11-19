@@ -270,11 +270,7 @@ export const EntiteettiKortti = ({
           )}
 
           {kuvaus && (
-            <Typography
-              component="div"
-              className={classes.kuvaus}
-              variant="body1"
-              sx={{ display: { xs: 'none', sm: 'block' } }}>
+            <Typography component="div" className={classes.kuvaus} variant="body1">
               {sanitizedHTMLParser(kuvaus)}
             </Typography>
           )}
