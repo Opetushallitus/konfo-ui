@@ -92,7 +92,7 @@ export const InfoGrid = (props: Props) => {
                   </Typography>
                 </Grid>
                 {e?.modalText && (
-                  <Grid>
+                  <Grid size="auto">
                     <LabelTooltip title={e?.modalText} />
                   </Grid>
                 )}

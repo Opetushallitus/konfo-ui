@@ -138,9 +138,12 @@ export const KoulutuksenKestoSuodatin = ({
         <SuodatinAccordionSummary expandIcon={<MaterialIcon icon="expand_more" />}>
           <Grid
             container
-            justifyContent="space-between"
-            alignItems="center"
-            wrap="nowrap">
+            sx={{
+              flexGrow: 1,
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              flexWrap: 'nowrap',
+            }}>
             <Grid style={{ paddingRight: '8px' }}>
               <Typography variant="subtitle1" component="span">
                 {t('haku.koulutuksenkestokuukausina')}

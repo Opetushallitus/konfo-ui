@@ -25,7 +25,7 @@ export const ChipList = ({
       wrap="nowrap"
       justifyContent="space-between"
       style={{ paddingBottom: '5px' }}>
-      <Grid style={{ paddingTop: '5px' }}>
+      <Grid size="grow" style={{ paddingTop: '5px' }}>
         {filters.map((entry) => (
           <Chip
             size="small"
@@ -45,7 +45,7 @@ export const ChipList = ({
           />
         ))}
       </Grid>
-      <Grid>
+      <Grid size="auto">
         <Button
           size="small"
           startIcon={<MaterialIcon icon="clear" />}

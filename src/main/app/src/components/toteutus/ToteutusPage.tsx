@@ -310,9 +310,9 @@ export const ToteutusPage = () => {
             isLukio={toteutus?.koulutustyyppi === 'lk'}
           />
         )}
-        <Box id="haut" display="flex" justifyContent="center">
+        <Grid container id="haut" justifyContent="center">
           <ToteutusHakutiedot toteutus={toteutus} oppilaitosOsat={oppilaitosOsat} />
-        </Box>
+        </Grid>
         {combinedLisatiedot.length > 0 && (
           <PageSection heading={t('koulutus.lisätietoa')}>
             <Accordion

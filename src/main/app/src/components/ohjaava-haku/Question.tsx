@@ -44,6 +44,7 @@ export type Rajain = {
 type RajainKey = keyof typeof RAJAIN_TYPES;
 
 const QuestionContainer = styled(Grid)(({ theme }) => ({
+  width: '100%',
   maxWidth: '75%',
   margin: '0 2rem',
 
