@@ -5,8 +5,8 @@ import { Stack, useTheme } from '@mui/system';
 import { OphButton, OphInput, OphLink } from '@opetushallitus/oph-design-system';
 import { isEmpty } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
-import { Link as RouterLink } from 'react-router-dom';
 
+import { SmartLink } from '#/src/components/common/SmartLink';
 import { Hakupalkki } from '#/src/components/haku/Hakupalkki';
 import { useAllSelectedFilters, useSearch } from '#/src/components/haku/hakutulosHooks';
 import { MobileFiltersOnTopMenu } from '#/src/components/haku/MobileFiltersOnTopMenu';
@@ -59,6 +59,10 @@ export const EtusivuHaku = () => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   // Isoilla näytöillä rajaimet popoverissa, pienillä alhaalta avautuvassa laatikossa
   const isSmall = useMediaQuery(theme.breakpoints.down('md'));
+  // Popover poistuu pienellä näytöllä, joten suljetaan se, ettei se avaudu uudelleen isommalla
+  if (isSmall && anchorEl) {
+    setAnchorEl(null);
+  }
 
   const { koulutusData, isFetching } = useSearch();
   const selectedCount = useAllSelectedFilters().flat.length;
@@ -99,11 +103,11 @@ export const EtusivuHaku = () => {
           marginTop: theme.spacing(1),
         }}>
         {isSmall ? (
-          <OphLink component={RouterLink} to="/haku">
+          <OphLink component={SmartLink} href="/haku">
             {t('opintopolku-etusivu.nayta-kaikki')}
           </OphLink>
         ) : (
-          <OphButton component={RouterLink} to="/haku" variant="outlined">
+          <OphButton component={SmartLink} href="/haku" variant="outlined">
             {t('opintopolku-etusivu.nayta-kaikki')}
           </OphButton>
         )}
