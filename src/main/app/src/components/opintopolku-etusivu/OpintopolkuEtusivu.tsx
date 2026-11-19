@@ -1,7 +1,12 @@
 import { useCallback, useState } from 'react';
 
 import { Box, Paper, SxProps, Theme, useMediaQuery } from '@mui/material';
-import { ophColors, OphLink, OphTypography } from '@opetushallitus/oph-design-system';
+import {
+  OphButton,
+  ophColors,
+  OphLink,
+  OphTypography,
+} from '@opetushallitus/oph-design-system';
 import { isEmpty } from 'lodash-es';
 import { urls } from 'oph-urls-js';
 import { useTranslation } from 'react-i18next';
@@ -142,6 +147,8 @@ const EtusivuHaku = () => {
   const selectedCount = allSelectedFilters?.flat?.length ?? 0;
   const hasFilters = !isEmpty(koulutusData?.filters);
 
+  const isSmall = useMediaQuery(theme.breakpoints.down('md'));
+
   return (
     <Box>
       {hasFilters && isMdUp && (
@@ -178,17 +185,26 @@ const EtusivuHaku = () => {
             justifyContent: 'space-between',
             alignItems: 'flex-start',
             gap: 2,
+            marginTop: theme.spacing(1),
           }}>
-          <OphLink sx={{ display: 'block' }} component={RouterLink} to="/haku">
-            {t('opintopolku-etusivu.nayta-kaikki')}
-          </OphLink>
+          {isSmall ? (
+            <OphLink component={RouterLink} to="/haku">
+              {t('opintopolku-etusivu.nayta-kaikki')}
+            </OphLink>
+          ) : (
+            <OphButton
+              component={RouterLink}
+              to="/haku"
+              variant={isSmall ? 'text' : 'outlined'}>
+              {t('opintopolku-etusivu.nayta-kaikki')}
+            </OphButton>
+          )}
           {hasFilters && !isMdUp && (
             <RajaaButton
               isOpen={isDrawerOpen}
               isLoading={isFetching}
               selectedCount={selectedCount}
               onClick={toggleDrawer}
-              showDivider={false}
             />
           )}
         </Box>
