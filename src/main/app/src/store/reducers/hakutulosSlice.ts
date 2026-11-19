@@ -36,6 +36,7 @@ export type RajainValues = {
   maksullisuus: Array<string>;
   sijainti: Array<string>;
   oppilaitos: Array<string>; // Vain toteutusten haussa
+  toimipiste: Array<string>; // Vain oppilaitoksen tarjonnan haussa
   koulutuksenkestokuukausina: RangeRajainValue<'koulutuksenkestokuukausina'>;
   maksullisuustyyppi: Array<MAKSULLISUUSTYYPPI_RAJAIN>;
   maksunmaara: RangeRajainValue<'maksunmaara'>;
@@ -68,6 +69,7 @@ export const HAKU_RAJAIMET_INITIAL = {
   osaamisala: [],
   opetusaika: [],
   oppilaitos: [],
+  toimipiste: [],
   maksullisuus: [],
   koulutuksenkestokuukausina: {
     koulutuksenkestokuukausina_min: 0,

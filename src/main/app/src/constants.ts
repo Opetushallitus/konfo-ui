@@ -34,6 +34,7 @@ export const RAJAIN_TYPES = {
   SIJAINTI: 'sijainti', // TODO: Poista tämä kun konfo-backend ei enää käytä sijaintirajainta vaan kunta + maakunta
   ALKAMISKAUSI: 'alkamiskausi',
   OPPILAITOS: 'oppilaitos',
+  TOIMIPISTE: 'toimipiste',
   HAKUALKAAPAIVISSA: 'hakualkaapaivissa',
 } as const;
 

@@ -105,6 +105,7 @@ Voit vaihtaa URL:n osoittamaan eri ympäristöön tai vaikka lokaalisti käynnis
 ## Spring boot (erikoistapaukset)
 
 **Huom** lokaalidevauksessa ei todennäköisesti tarvitse koskaan käynnistää spring boottia, mutta tässä on ohjeet siihen mikäli tällainen tarve tulee.
+**21.9.2026 todettu että lokaali Spring Boot -backend ei käynnisty, tässä kohtaa ei selvitellä tarkemmin koska käyttötarve on vähäinen**
 
 Projektin saa buildattua komennolla:
 

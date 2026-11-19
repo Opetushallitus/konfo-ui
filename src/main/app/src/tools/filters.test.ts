@@ -121,4 +121,62 @@ describe('hakutulosSuodattimet utils', () => {
       ).map((item) => item.id)
     ).toEqual(['2023-syksy', '2024-kevat', '2024-syksy', 'henkilokohtainen']);
   });
+
+  describe('toimipiste', () => {
+    const toimipisteCounts = {
+      toimipiste: {
+        ylempi: {
+          count: 3,
+          nimi: { fi: 'Ylempi toimipiste' },
+          alakoodit: {
+            alempi1: { count: 2, nimi: { fi: 'Alempi toimipiste 1' } },
+            alempi2: { count: 1, nimi: { fi: 'Alempi toimipiste 2' } },
+          },
+        },
+        erillinen: { count: 1, nimi: { fi: 'Erillinen toimipiste' } },
+      },
+    };
+
+    const rajainItems = (toimipiste: Array<string>) =>
+      getRajainValueInUIFormat(
+        toimipisteCounts as any,
+        { ...HAKU_RAJAIMET_INITIAL, toimipiste },
+        'toimipiste'
+      );
+
+    const ylempi = (toimipiste: Array<string>) =>
+      rajainItems(toimipiste).find((item) => item.id === 'ylempi') as CheckboxRajainItem;
+
+    test('alemmat toimipisteet ovat ylemmän alakoodeja', () => {
+      expect(ylempi([]).alakoodit?.map((alakoodi) => alakoodi.id)).toEqual([
+        'alempi1',
+        'alempi2',
+      ]);
+    });
+
+    test('ylemmän toimipisteen valinta valitsee myös alemmat', () => {
+      expect(getStateChangesForCheckboxRajaimet(rajainItems([]))(ylempi([]))).toEqual({
+        toimipiste: ['ylempi', 'alempi1', 'alempi2'],
+      });
+    });
+
+    test('kaikkien alempien valinta valitsee myös ylemmän', () => {
+      const alempi2 = ylempi(['alempi1']).alakoodit!.find(
+        (alakoodi) => alakoodi.id === 'alempi2'
+      )!;
+      expect(
+        getStateChangesForCheckboxRajaimet(rajainItems(['alempi1']))(alempi2)
+      ).toEqual({ toimipiste: ['alempi1', 'alempi2', 'ylempi'] });
+    });
+
+    test('alemman valinnan poisto poistaa myös ylemmän valinnan', () => {
+      const selected = ['ylempi', 'alempi1', 'alempi2'];
+      const alempi1 = ylempi(selected).alakoodit!.find(
+        (alakoodi) => alakoodi.id === 'alempi1'
+      )!;
+      expect(getStateChangesForCheckboxRajaimet(rajainItems(selected))(alempi1)).toEqual({
+        toimipiste: ['alempi2'],
+      });
+    });
+  });
 });
