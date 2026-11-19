@@ -82,7 +82,6 @@ module.exports = {
         usePrettierrc: true,
       },
     ],
-    'import/no-default-export': 'error',
     'import/no-duplicates': 'error',
     'import/no-anonymous-default-export': 'off',
     'import/order': [

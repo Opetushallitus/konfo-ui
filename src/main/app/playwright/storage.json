@@ -1,7 +1,7 @@
 {
   "origins": [
     {
-      "origin": "localhost",
+      "origin": "http://localhost:3005",
       "localStorage": [
         {
           "name": "isPlaywright",
