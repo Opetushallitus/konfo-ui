@@ -15,7 +15,7 @@ const getRajaaButton = (page: Page) =>
   page.getByRole('button', { name: /^Rajaa etsimääsi/ });
 
 const getSection = (page: Page, name: string) =>
-  page.locator('section').filter({ has: page.getByRole('heading', { level: 2, name }) });
+  page.getByRole('region', { name, exact: true });
 
 test.describe('Opintopolun etusivu', () => {
   test.beforeEach(async ({ page, context, baseURL }) => {
@@ -161,7 +161,8 @@ test.describe('Opintopolun etusivu', () => {
     await rajaaButton.click();
     await page.getByTestId('valitse_koulutustyyppi').click();
     await page
-      .locator('input[type="checkbox"][aria-labelledby="filter-list-label-lk"]:visible')
+      .getByRole('checkbox', { name: 'Lukiokoulutukset', exact: true })
+      .filter({ visible: true })
       .check();
     await page.keyboard.press('Escape');
     await page.keyboard.press('Escape');

@@ -60,9 +60,7 @@ test.describe('Opintopolun etusivu (mobiili)', () => {
     const drawer = page.getByRole('dialog');
     await expect(drawer).toBeVisible();
     await drawer.getByRole('button', { name: /^Koulutustyyppi/ }).click();
-    await drawer
-      .locator('input[type="checkbox"][aria-labelledby="filter-list-label-lk"]')
-      .check();
+    await drawer.getByRole('checkbox', { name: 'Lukiokoulutukset', exact: true }).check();
     await expect(drawer.getByRole('button', { name: 'Poista valitut' })).toBeVisible();
     await drawer.getByRole('button', { name: /^Näytä \d+ hakutulos/ }).click();
 
