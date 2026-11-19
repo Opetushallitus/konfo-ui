@@ -8,18 +8,9 @@ import {
   OphTypography,
 } from '@opetushallitus/oph-design-system';
 import { isEmpty } from 'lodash-es';
-import { urls } from 'oph-urls-js';
 import { useTranslation } from 'react-i18next';
 
-import EHoksIcon from '#/src/assets/images/palvelu-icons/ehoks.png';
-import EPerusteetIcon from '#/src/assets/images/palvelu-icons/eperusteet.png';
-import EuropassiIcon from '#/src/assets/images/palvelu-icons/europassi.png';
-import OpetushallitusIcon from '#/src/assets/images/palvelu-icons/opetushallitus.png';
-import OpintopolkuKnotIcon from '#/src/assets/images/palvelu-icons/opintopolku-knot-color.svg';
-import OsaamispolkuIcon from '#/src/assets/images/palvelu-icons/osaamispolku.png';
-import StudyInFinlandIcon from '#/src/assets/images/palvelu-icons/study-in-finland.png';
-import HeroImageDesktop from '#/src/assets/images/herokuva_opintopolku_etusivu_desktop.jpg';
-import HeroImageMobile from '#/src/assets/images/herokuva_opintopolku_etusivu_mobiili.jpg';
+import { InlineSvgIcon } from '#/src/components/common/InlineSvgIcon';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { Hakupalkki } from '#/src/components/haku/Hakupalkki';
 import { useAllSelectedFilters, useSearch } from '#/src/components/haku/hakutulosHooks';
@@ -32,6 +23,10 @@ import { WithSideMargins } from '#/src/components/WithSideMargins';
 import { styled } from '#/src/theme';
 import { Link as RouterLink } from 'react-router-dom';
 import { Stack, useTheme } from '@mui/system';
+import { useContentful } from '#/src/hooks/useContentful';
+import { LoadingCircle } from '../common/LoadingCircle';
+import { ContentfulData } from '#/src/types/ContentfulTypes';
+import { getOne } from '#/src/tools/getOne';
 
 const HERO_MAX_WIDTH = 1700;
 
@@ -214,13 +209,13 @@ const KoulutustietoPaper = ({
   icon,
   heading,
   text,
-  backgroundColor,
   to,
+  backgroundColor,
   sx,
 }: {
-  icon: MaterialIconName;
+  icon?: string;
   heading: string;
-  text: string;
+  text?: string;
   backgroundColor: string;
   to: string;
   sx?: SxProps<Theme>;
@@ -248,58 +243,45 @@ const KoulutustietoPaper = ({
       },
       ...(Array.isArray(sx) ? sx : [sx]),
     ]}>
-    <MaterialIcon icon={icon} variant="outlined" aria-hidden sx={{ fontSize: '64px' }} />
+    {/* SVG upotetaan sivulle (kuten MaterialIcon), jolloin se saa tekstin värin (currentColor).
+        Koristekuva: otsikko kertoo jo sisällön. */}
+    {icon && <InlineSvgIcon src={icon} aria-hidden sx={{ fontSize: '64px' }} />}
     <PaperHeading color="inherit">{heading}</PaperHeading>
     <OphTypography sx={{ color: 'inherit' }}>{text}</OphTypography>
   </Paper>
 );
 
-const KOULUTUSTIETO_LINKS = {
-  hakeutuminenKoulutukseen: '/',
-  kielitutkinnot: '/kielitutkinnot',
-  tutkintojenTunnustaminen: '/tutkintojen-tunnustaminen',
-};
+const Koulutustieto = ({ contentfulData }: { contentfulData: ContentfulData }) => {
+  // Contentfulin kuvien url:t ovat suhteellisia sisältö-bucketiin, assetUrl lisää alun
+  const { assetUrl } = useContentful();
 
-const Koulutustieto = () => {
-  const { t } = useTranslation();
+  const etusivuData = getOne(contentfulData?.opintopolkuEtusivu);
+  const otsikko = etusivuData?.koulutustietoOtsikko;
+  const nostot = contentfulData.nosto;
 
   return (
     <Box component="section" sx={{ marginTop: 6 }}>
-      <SectionHeading component="h2">
-        {t('opintopolku-etusivu.koulutustieto.otsikko')}
-      </SectionHeading>
+      <SectionHeading component="h2">{otsikko}</SectionHeading>
       <Box
         sx={{
           display: 'grid',
           gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' },
           gap: 4,
         }}>
-        <KoulutustietoPaper
-          icon="school"
-          heading={t(
-            'opintopolku-etusivu.koulutustieto.hakeutuminen-koulutukseen-otsikko'
-          )}
-          text={t('opintopolku-etusivu.koulutustieto.hakeutuminen-koulutukseen-teksti')}
-          backgroundColor={ophColors.green2}
-          to={KOULUTUSTIETO_LINKS.hakeutuminenKoulutukseen}
-          sx={{ gridColumn: '1 / -1' }}
-        />
-        <KoulutustietoPaper
-          icon="language"
-          heading={t('opintopolku-etusivu.koulutustieto.kielitutkinnot-otsikko')}
-          text={t('opintopolku-etusivu.koulutustieto.kielitutkinnot-teksti')}
-          backgroundColor={ophColors.cyan1}
-          to={KOULUTUSTIETO_LINKS.kielitutkinnot}
-        />
-        <KoulutustietoPaper
-          icon="home_work"
-          heading={t(
-            'opintopolku-etusivu.koulutustieto.tutkintojen-tunnustaminen-otsikko'
-          )}
-          text={t('opintopolku-etusivu.koulutustieto.tutkintojen-tunnustaminen-teksti')}
-          backgroundColor={ophColors.cyan1}
-          to={KOULUTUSTIETO_LINKS.tutkintojenTunnustaminen}
-        />
+        {etusivuData?.koulutustietoNostot?.map((nostoRef, index) => {
+          const nosto = nostot[nostoRef?.id ?? ''];
+          return (
+            <KoulutustietoPaper
+              key={nostoRef.id}
+              icon={assetUrl(nosto.ikoni?.url)}
+              heading={nosto.otsikko}
+              text={nosto.teksti}
+              backgroundColor={index === 0 ? ophColors.cyan1 : ophColors.green2}
+              to={nosto.linkki ?? ''}
+              sx={index === 0 ? { gridColumn: '1 / -1' } : undefined}
+            />
+          );
+        })}
       </Box>
     </Box>
   );
@@ -319,61 +301,65 @@ const PaperHeading = ({
   </OphTypography>
 );
 
-const KirjautuneenPalvelut = () => {
-  const { t } = useTranslation();
+const KirjautuneenPalvelut = ({ contentfulData }: { contentfulData: ContentfulData }) => {
+  const { assetUrl } = useContentful();
+
+  const etusivuData = getOne(contentfulData?.opintopolkuEtusivu);
+  const otsikko = etusivuData?.kirjautuneenPalvelutOtsikko;
+  const nostot = contentfulData.nosto;
+  const kirjautuneenPalvelutNostot = etusivuData?.kirjautuneenPalvelutNostot;
 
   return (
     <Box component="section" sx={{ marginTop: 6 }}>
-      <SectionHeading component="h2">
-        {t('opintopolku-etusivu.kirjautuneen-palvelut.otsikko')}
-      </SectionHeading>
-      <Paper
-        component="a"
-        href={urls.url('oma-opintopolku')}
-        sx={{
-          ...LINK_PAPER_SX,
-          color: ophColors.grey900,
-          borderTop: `4px solid ${ophColors.green2}`,
-          padding: 4,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          textAlign: 'center',
-          gap: 2,
-        }}>
-        <Box component="img" src={OpintopolkuKnotIcon} alt="" sx={{ height: '38px' }} />
-        <PaperHeading color={ophColors.green2}>
-          {t('opintopolku-etusivu.kirjautuneen-palvelut.oma-opintopolku-otsikko')}
-        </PaperHeading>
-        <OphTypography sx={{ color: 'inherit' }}>
-          {t('opintopolku-etusivu.kirjautuneen-palvelut.oma-opintopolku-teksti')}
-        </OphTypography>
-      </Paper>
+      <SectionHeading component="h2">{otsikko}</SectionHeading>
+      {kirjautuneenPalvelutNostot?.map((nostoRef, index) => {
+        const nosto = nostot[nostoRef?.id ?? ''];
+        return (
+          <Paper
+            key={nostoRef?.id ?? index}
+            component="a"
+            href={nosto.linkki}
+            sx={{
+              ...LINK_PAPER_SX,
+              color: ophColors.grey900,
+              borderTop: `4px solid ${ophColors.green2}`,
+              padding: 4,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              textAlign: 'center',
+              gap: 2,
+            }}>
+            <Box
+              component="img"
+              src={assetUrl(nosto.ikoni?.url)}
+              alt=""
+              sx={{ height: '38px' }}
+            />
+            <PaperHeading color={ophColors.green2}>{nosto?.otsikko}</PaperHeading>
+            <OphTypography sx={{ color: 'inherit' }}>{nosto.teksti}</OphTypography>
+          </Paper>
+        );
+      })}
     </Box>
   );
 };
-
-const MUUT_PALVELUT = [
-  { id: 'opetushallitus', icon: OpetushallitusIcon },
-  { id: 'eperusteet', icon: EPerusteetIcon },
-  { id: 'ehoks', icon: EHoksIcon },
-  { id: 'osaamispolku', icon: OsaamispolkuIcon },
-  { id: 'study-in-finland', icon: StudyInFinlandIcon },
-  { id: 'europassi', icon: EuropassiIcon },
-];
 
 // Muut palvelut -osio: kuusi valkoista laatikkoa, isoilla näytöillä kolme rivissä. Kuvake otsikon
 // vasemmalla puolella ja sisältö tasattu vasemmalle.
 const MUUT_PALVELUT_MIN_WIDTH = '300px';
 
-const MuutPalvelut = () => {
-  const { t, i18n } = useTranslation();
+const MuutPalvelut = ({ contentfulData }: { contentfulData: ContentfulData }) => {
+  const { assetUrl } = useContentful();
+
+  const etusivuData = getOne(contentfulData.opintopolkuEtusivu);
+  const muutPalvelutOtsikko = etusivuData?.muutPalvelutOtsikko;
+  const nostot = contentfulData.nosto;
+  const muutPalvelutNostot = etusivuData?.muutPalvelutNostot;
 
   return (
     <Box component="section" sx={{ marginTop: 6 }}>
-      <SectionHeading component="h2">
-        {t('opintopolku-etusivu.muut-palvelut.otsikko')}
-      </SectionHeading>
+      <SectionHeading component="h2">{muutPalvelutOtsikko}</SectionHeading>
       <Box
         sx={{
           display: 'grid',
@@ -383,52 +369,72 @@ const MuutPalvelut = () => {
           gridTemplateColumns: `repeat(auto-fill, minmax(max(min(100%, ${MUUT_PALVELUT_MIN_WIDTH}), calc((100% - 64px) / 3)), 1fr))`,
           gap: 4,
         }}>
-        {MUUT_PALVELUT.map(({ id, icon }) => (
-          <Paper
-            key={id}
-            component="a"
-            // Osa osoitteista on kielikohtaisia, joten kieli välitetään parametrina ($1)
-            href={urls.url(`muut-palvelut.${id}`, i18n.language)}
-            sx={{
-              position: 'relative',
-              color: ophColors.grey900,
-              ...LINK_PAPER_SX,
-              borderRadius: '10px',
-              // Laaja varjo, joka näkyy selvästi myös yläreunassa (ei siirretty alaspäin)
-              boxShadow: '3px 3px 10px 4px rgba(0, 0, 0, 0.12)',
-              paddingX: 2.5,
-              paddingY: 3,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'flex-start',
-              textAlign: 'left',
-              gap: 2,
-            }}>
-            <MaterialIcon
-              icon="arrow_forward"
-              aria-hidden
-              sx={{ position: 'absolute', top: 30, right: 16, color: ophColors.grey500 }}
-            />
-            {/* Oikea reunus jättää tilaa nuolelle */}
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, paddingRight: 4 }}>
-              <Box component="img" src={icon} alt="" sx={{ height: '40px' }} />
-              <PaperHeading color="inherit" fontWeight={400}>
-                {t(`opintopolku-etusivu.muut-palvelut.${id}-otsikko`)}
-              </PaperHeading>
-            </Box>
-            <OphTypography sx={{ color: 'inherit' }}>
-              {t(`opintopolku-etusivu.muut-palvelut.${id}-teksti`)}
-            </OphTypography>
-          </Paper>
-        ))}
+        {muutPalvelutNostot?.map((nostoRef) => {
+          const nosto = nostot[nostoRef.id ?? ''];
+          return (
+            <Paper
+              key={nosto.id}
+              component="a"
+              // Osa osoitteista on kielikohtaisia, joten kieli välitetään parametrina ($1)
+              href={nosto.linkki}
+              sx={{
+                position: 'relative',
+                color: ophColors.grey900,
+                ...LINK_PAPER_SX,
+                borderRadius: '10px',
+                // Laaja varjo, joka näkyy selvästi myös yläreunassa (ei siirretty alaspäin)
+                boxShadow: '3px 3px 10px 4px rgba(0, 0, 0, 0.12)',
+                paddingX: 2.5,
+                paddingY: 3,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                textAlign: 'left',
+                gap: 2,
+              }}>
+              <MaterialIcon
+                icon="arrow_forward"
+                aria-hidden
+                sx={{
+                  position: 'absolute',
+                  top: 30,
+                  right: 16,
+                  color: ophColors.grey500,
+                }}
+              />
+              {/* Oikea reunus jättää tilaa nuolelle */}
+              <Box
+                sx={{ display: 'flex', alignItems: 'center', gap: 2, paddingRight: 4 }}>
+                <Box
+                  component="img"
+                  src={assetUrl(nosto.ikoni?.url)}
+                  alt=""
+                  sx={{ height: '40px' }}
+                />
+                <PaperHeading color="inherit" fontWeight={400}>
+                  {nosto.otsikko}
+                </PaperHeading>
+              </Box>
+              <OphTypography sx={{ color: 'inherit' }}>{nosto.teksti}</OphTypography>
+            </Paper>
+          );
+        })}
       </Box>
     </Box>
   );
 };
 
-const HeroImageContent = () => {
+const HeroImageContent = ({ contentfulData }: { contentfulData: ContentfulData }) => {
   const theme = useTheme();
+  const { assetUrl } = useContentful();
+
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const opintopolkuEtusivuData = getOne(contentfulData?.opintopolkuEtusivu);
+  const heroImageMobile = assetUrl(opintopolkuEtusivuData?.kuvaMobiili?.url);
+  const heroImageDesktop = assetUrl(opintopolkuEtusivuData?.kuvaDesktop?.url);
+
+  const { t } = useTranslation();
 
   return (
     <HeroWrapper>
@@ -438,7 +444,7 @@ const HeroImageContent = () => {
       <Box
         component="img"
         className="hero-image"
-        src={isSmallScreen ? HeroImageMobile : HeroImageDesktop}
+        src={isSmallScreen ? heroImageMobile : heroImageDesktop}
         alt=""
       />
       <Box className="hero-content">
@@ -446,13 +452,9 @@ const HeroImageContent = () => {
         <WithSideMargins>
           {/* Teksti enintään sisältöpalstan puoleen väliin asti */}
           <Box className="hero-text">
-            <h1>Opintopolku</h1>
+            <h1>{t('opintopolku-etusivu.hero-title')}</h1>
             <hr />
-            <p>
-              Kaikki Suomen koulutukset ja oppilaitokset yhdessä palvelussa. Opintopolku
-              tarjoaa myös kielitutkintojen suorittamista sekä ulkomailla suoritettujen
-              tutkintojen tunnustamista Suomessa.
-            </p>
+            <p>{t('opintopolku-etusivu.hero-text')}</p>
           </Box>
         </WithSideMargins>
       </Box>
@@ -461,20 +463,28 @@ const HeroImageContent = () => {
 };
 
 export const OpintopolkuEtusivu = () => {
+  const { data: contentfulData, isLoading } = useContentful();
+
   return (
     <Box sx={{ width: '100%', minHeight: 0 }}>
-      <HeroImageContent />
-      {/* Sivun sisältö: sivumarginaalit samoin kuin footerissa ja palveluissa.
+      {isLoading ? (
+        <LoadingCircle />
+      ) : (
+        <>
+          <HeroImageContent contentfulData={contentfulData} />
+          {/* Sivun sisältö: sivumarginaalit samoin kuin footerissa ja palveluissa.
           position: relative on välttämätön: isolla näytöllä sisältö nousee hero-kuvan alaosan
           päälle, ja koska hero on sijoitettu (relative), se piirrettäisiin muuten sisällön päälle. */}
-      <Box sx={{ position: 'relative', marginTop: 4 }}>
-        <WithSideMargins>
-          <EtusivuHaku />
-          <Koulutustieto />
-          <KirjautuneenPalvelut />
-          <MuutPalvelut />
-        </WithSideMargins>
-      </Box>
+          <Box sx={{ position: 'relative', marginTop: 4 }}>
+            <WithSideMargins>
+              <EtusivuHaku />
+              <Koulutustieto contentfulData={contentfulData} />
+              <KirjautuneenPalvelut contentfulData={contentfulData} />
+              <MuutPalvelut contentfulData={contentfulData} />
+            </WithSideMargins>
+          </Box>
+        </>
+      )}
     </Box>
   );
 };

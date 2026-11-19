@@ -11,4 +11,4 @@ export interface TypeSivuFields {
 }
 
 export type TypeSivuSkeleton = EntrySkeletonType<TypeSivuFields, "sivu">;
-export type TypeSivu<Modifiers extends ChainModifiers, Locales extends LocaleCode> = Entry<TypeSivuSkeleton, Modifiers, Locales>;
+export type TypeSivu<Modifiers extends ChainModifiers, Locales extends LocaleCode = LocaleCode> = Entry<TypeSivuSkeleton, Modifiers, Locales>;

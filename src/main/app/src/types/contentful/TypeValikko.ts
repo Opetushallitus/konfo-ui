@@ -8,4 +8,4 @@ export interface TypeValikkoFields {
 }
 
 export type TypeValikkoSkeleton = EntrySkeletonType<TypeValikkoFields, "valikko">;
-export type TypeValikko<Modifiers extends ChainModifiers, Locales extends LocaleCode> = Entry<TypeValikkoSkeleton, Modifiers, Locales>;
+export type TypeValikko<Modifiers extends ChainModifiers, Locales extends LocaleCode = LocaleCode> = Entry<TypeValikkoSkeleton, Modifiers, Locales>;
