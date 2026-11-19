@@ -1,6 +1,6 @@
 import { ButtonProps } from '@mui/material';
 import { createTheme, Theme } from '@mui/material/styles';
-import { createStyled } from '@mui/system';
+import { createBreakpoints, createStyled } from '@mui/system';
 
 import { colors } from './colors';
 import { SmartLink } from './components/common/SmartLink';
@@ -10,16 +10,17 @@ import { SmartLink } from './components/common/SmartLink';
 
 const HEADER_HEIGHT_PX = 72;
 
-const breakpoints = {
-  values: {
-    xs: 0,
-    sm: 600,
-    md: 900,
-    lg: 1200,
-    xl: 1600,
-    xxl: 1920,
-  },
+const breakpointValues = {
+  xs: 0,
+  sm: 600,
+  md: 900,
+  lg: 1200,
+  xl: 1600,
+  xxl: 1920,
 };
+
+// Breakpoint helpers for media queries needed before the theme is created
+const breakpoints = createBreakpoints({ values: breakpointValues });
 
 const cssBreakWordRule = {
   wordBreak: 'break-word',
@@ -32,11 +33,11 @@ export const focusRing = {
   onDark: `0 0 0 2px  ${colors.brandGreen}, 0 0 0 4px ${colors.white}`,
 };
 
-const themeWithBreakpoints = createTheme({ breakpoints });
+const FONT_FAMILY = 'Open Sans, sans-serif';
 
-export const theme = createTheme(themeWithBreakpoints, {
+export const theme = createTheme({
   headerHeight: HEADER_HEIGHT_PX,
-  breakpoints,
+  breakpoints: { values: breakpointValues },
   palette: {
     primary: {
       main: colors.brandGreen,
@@ -55,10 +56,10 @@ export const theme = createTheme(themeWithBreakpoints, {
     },
   },
   typography: {
+    fontFamily: FONT_FAMILY,
     button: {
       textTransform: 'none',
     },
-    fontFamily: 'Open Sans, Arial, Roboto, sans-serif',
     h1: {
       fontSize: '2.5rem',
       letterSpacing: '-0.09375rem',
@@ -66,7 +67,7 @@ export const theme = createTheme(themeWithBreakpoints, {
       color: colors.grey900,
       lineHeight: '3rem',
       marginBottom: '1.5rem',
-      [themeWithBreakpoints.breakpoints.down('sm')]: {
+      [breakpoints.down('sm')]: {
         fontSize: '1.8rem',
         letterSpacing: '-0.075rem',
         lineHeight: '2.375rem',
@@ -78,7 +79,7 @@ export const theme = createTheme(themeWithBreakpoints, {
       color: colors.grey900,
       lineHeight: '2.25rem',
       marginBottom: '1rem',
-      [themeWithBreakpoints.breakpoints.down('sm')]: {
+      [breakpoints.down('sm')]: {
         fontSize: '1.75rem',
         lineHeight: '2rem',
         ...cssBreakWordRule,
@@ -90,7 +91,7 @@ export const theme = createTheme(themeWithBreakpoints, {
       lineHeight: '2rem',
       marginBottom: '0.5rem',
       color: colors.grey900,
-      [themeWithBreakpoints.breakpoints.down('sm')]: {
+      [breakpoints.down('sm')]: {
         fontSize: '1.5rem',
         lineHeight: '1.875rem',
         ...cssBreakWordRule,
@@ -102,7 +103,7 @@ export const theme = createTheme(themeWithBreakpoints, {
       fontWeight: '700',
       lineHeight: '1.75rem',
       marginBottom: '0.5rem',
-      [themeWithBreakpoints.breakpoints.down('sm')]: {
+      [breakpoints.down('sm')]: {
         fontSize: '1.25rem',
         lineHeight: '1.5rem',
       },
@@ -113,7 +114,7 @@ export const theme = createTheme(themeWithBreakpoints, {
       fontWeight: '700',
       lineHeight: '1.75rem',
       marginBottom: '0.25rem',
-      [themeWithBreakpoints.breakpoints.down('sm')]: {
+      [breakpoints.down('sm')]: {
         lineHeight: '1.5rem',
       },
     },
@@ -127,7 +128,7 @@ export const theme = createTheme(themeWithBreakpoints, {
       fontWeight: 400,
       lineHeight: '1.6875rem',
       color: colors.grey900,
-      [themeWithBreakpoints.breakpoints.down('sm')]: {
+      [breakpoints.down('sm')]: {
         lineHeight: '1.6875rem',
       },
     },
