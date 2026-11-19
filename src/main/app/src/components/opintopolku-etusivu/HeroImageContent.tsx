@@ -105,6 +105,8 @@ export const HeroImageContent = ({
         component="img"
         className="hero-image"
         src={isSmallScreen ? kuvaMobiili : kuvaDesktop}
+        // Sivun suurin kuva: ladataan ensimmäisenä
+        fetchPriority="high"
         alt=""
       />
       <Box className="hero-content">

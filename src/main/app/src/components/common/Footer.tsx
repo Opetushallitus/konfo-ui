@@ -88,13 +88,7 @@ const OpintopolkuFooterLogo = () => {
   }
 };
 
-const OPHFooterLogo = () => {
-  if (getLanguage() === 'en') {
-    return OPHIconEN;
-  } else {
-    return OPHIcon;
-  }
-};
+const OPHFooterLogo = () => (getLanguage() === 'en' ? OPHIconEN : OPHIcon);
 
 export const Footer = () => {
   const { t } = useTranslation();

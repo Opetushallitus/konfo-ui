@@ -1,7 +1,9 @@
 // Uuden etusivun osioiden yhteiset osat
+import { Box } from '@mui/material';
 import { ophColors, OphTypography } from '@opetushallitus/oph-design-system';
 
 import { SmartLink } from '#/src/components/common/SmartLink';
+import { EtusivuOsio } from '#/src/components/opintopolku-etusivu/useOpintopolkuEtusivuData';
 import { styled } from '#/src/theme';
 
 export const SectionHeading = styled(OphTypography)(({ theme }) => ({
@@ -9,6 +11,21 @@ export const SectionHeading = styled(OphTypography)(({ theme }) => ({
   fontWeight: 400,
   marginBottom: theme.spacing(4),
 }));
+
+// Etusivun osio otsikkoineen. Osiota ei näytetä, jos siinä ei ole nostoja.
+export const EtusivuSection = ({
+  osio,
+  children,
+}: {
+  osio: EtusivuOsio;
+  children: React.ReactNode;
+}) =>
+  osio.nostot.length > 0 ? (
+    <Box component="section" sx={{ marginTop: 6 }}>
+      <SectionHeading component="h2">{osio.otsikko}</SectionHeading>
+      {children}
+    </Box>
+  ) : null;
 
 const PAPER_LINK_CLASS = 'paper-link';
 
@@ -33,11 +50,14 @@ export const PaperHeading = ({
   </OphTypography>
 );
 
-// Linkkinä toimivien laatikoiden yhteinen tyyli. Hiiri- ja kohdistustyylit ovat laatikossa: otsikko
-// alleviivataan, kun laatikon päällä on hiiri, ja näppäimistön kohdistus näytetään koko laatikon
-// ympärillä.
+// Linkkinä toimivien laatikoiden yhteinen tyyli. Sisältö allekkain. Hiiri- ja kohdistustyylit ovat
+// laatikossa: otsikko alleviivataan, kun laatikon päällä on hiiri, ja näppäimistön kohdistus
+// näytetään koko laatikon ympärillä.
 export const LINK_PAPER_SX = {
   position: 'relative',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 2,
   [`& .${PAPER_LINK_CLASS}`]: {
     color: 'inherit',
     textDecoration: 'none',

@@ -30,7 +30,7 @@ const ArrowBox = styled(Box)(() => ({
   },
 }));
 
-const POPOVER_ID = 'filters-popover';
+export const POPOVER_ID = 'filters-popover';
 
 export const RajaaPopoverButton = ({
   isPopoverOpen,

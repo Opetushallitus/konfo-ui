@@ -69,7 +69,7 @@ const routes: Array<RouteObject> = [
         path: ':lng?',
         element: <TranslatedRoute />,
         children: [
-          // Uusi etusivu renderöi oman sivupohjansa (pääsisältö, palvelut ja footer)
+          // Uusi etusivu: oph-design-systemin teema, ei palveluita ja sisältö rajattu 1200px levyiseksi
           {
             element: (
               <OphThemeRoute>
@@ -85,7 +85,7 @@ const routes: Array<RouteObject> = [
             ],
           },
           {
-            element: <DefaultLayout palvelutVisible={true} />,
+            element: <DefaultLayout />,
             children: [
               {
                 element: (
@@ -148,7 +148,7 @@ const routes: Array<RouteObject> = [
         ],
       },
       {
-        element: <DefaultLayout palvelutVisible={true} />,
+        element: <DefaultLayout />,
         children: [{ path: '*', element: <NotFound /> }],
       },
     ],
