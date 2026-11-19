@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 
-import { Grid } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import { produce } from 'immer';
 import { isEmpty, isNumber, concat } from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -45,9 +45,7 @@ const RowContainer = withDefaultProps(
 const Row: React.FC<React.PropsWithChildren> = ({ children }) => {
   return (
     <RowContainer justifyContent="center">
-      <Grid item xs={12} sm={12} md={10}>
-        {children}
-      </Grid>
+      <Grid size={{ xs: 12, sm: 12, md: 10 }}>{children}</Grid>
     </RowContainer>
   );
 };
@@ -89,7 +87,7 @@ const ValintaperusteContent = ({
 
   return (
     <React.Fragment>
-      <Grid item xs={12} md={3}>
+      <Grid size={{ xs: 12, md: 3 }}>
         <Sisallysluettelo
           {...{
             hakukelpoisuusVisible,
@@ -103,7 +101,7 @@ const ValintaperusteContent = ({
           }}
         />
       </Grid>
-      <Grid item container xs={12} md={6} spacing={2}>
+      <Grid container size={{ xs: 12, md: 6 }} spacing={2}>
         {hakukelpoisuusVisible && <Hakukelpoisuus hakukelpoisuus={hakukelpoisuus} />}
         {kuvausVisible && <Kuvaus kuvaus={kuvaus} sisalto={sisalto} />}
         {alinHyvaksyttyKeskiarvoVisible && (
@@ -165,11 +163,11 @@ export const ValintaperustePreviewPage = () => {
     default:
       return (
         <RowContainer spacing={0} justifyContent="flex-start">
-          <Grid item xs={12} md={3} />
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 3 }} />
+          <Grid size={{ xs: 12, md: 6 }}>
             <Heading>{t('lomake.valintaperusteet')}</Heading>
           </Grid>
-          <Grid item xs={12} md={3} />
+          <Grid size={{ xs: 12, md: 3 }} />
           <ValintaperusteContent
             {...{
               valintaperuste,
@@ -248,14 +246,14 @@ export const ValintaperustePage = () => {
             />
           </Row>
           <RowContainer spacing={0} justifyContent="flex-start">
-            <Grid item xs={12} md={3} />
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 3 }} />
+            <Grid size={{ xs: 12, md: 6 }}>
               <Paluu paluuLinkki={toteutusLink} />
               <Heading>
                 {t('lomake.valintaperusteet') + ' - ' + localize(hakukohde?.nimi)}
               </Heading>
             </Grid>
-            <Grid item xs={12} md={3} />
+            <Grid size={{ xs: 12, md: 3 }} />
             <ValintaperusteContent
               {...{
                 hakukohde,

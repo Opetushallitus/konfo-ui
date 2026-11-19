@@ -1,6 +1,7 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 
-import { Box, Grid, Paper, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Paper, Typography, useMediaQuery, useTheme } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import { hasIn, isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
@@ -41,12 +42,12 @@ const parseYhteystieto =
 
 const YhteystietoRow = ({ title, text }: { title: string; text: string }) => (
   <Grid container spacing={1} alignItems="flex-start">
-    <Grid item sm={4}>
+    <Grid size={{ sm: 4 }}>
       <Typography variant="body1" noWrap>
         {title}
       </Typography>
     </Grid>
-    <Grid item sm={8}>
+    <Grid size={{ sm: 8 }}>
       <Typography variant="body1">{text}</Typography>
     </Grid>
   </Grid>
@@ -147,7 +148,7 @@ export const Yhteystiedot = ({
             spacing={5}
             alignItems="center"
             justifyContent="center">
-            <Grid item container justifyContent="center" sm={12} md={6}>
+            <Grid container justifyContent="center" size={{ sm: 12, md: 6 }}>
               <Paper style={{ padding: '40px', width: '100%', maxWidth: 600 }}>
                 <Typography gutterBottom variant="h4">
                   {nimi || id}

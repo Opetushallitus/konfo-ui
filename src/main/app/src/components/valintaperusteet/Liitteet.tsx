@@ -1,4 +1,5 @@
-import { Box, Card, CardContent, Divider, Grid, Typography } from '@mui/material';
+import { Box, Card, CardContent, Divider, Typography } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import { isEmpty, groupBy, map } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
@@ -134,7 +135,7 @@ const LiiteCard = ({
             <Grid container>
               {liitteet.map(({ nimi, kuvaus }, i) => (
                 <Grid container key={`liite-${nimi}-${i}`}>
-                  <Grid item container xs={1} justifyContent="flex-end">
+                  <Grid container size={{ xs: 1 }} justifyContent="flex-end">
                     <FileIcon
                       sx={{
                         color: colors.brandGreen,
@@ -142,7 +143,7 @@ const LiiteCard = ({
                       }}
                     />
                   </Grid>
-                  <Grid item xs={11}>
+                  <Grid size={{ xs: 11 }}>
                     <Box m={1}>
                       <Heading variant="h5">{localize(nimi)}</Heading>
                       <Box style={{ overflowWrap: 'break-word' }}>
@@ -152,21 +153,21 @@ const LiiteCard = ({
                   </Grid>
                 </Grid>
               ))}
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <Box m={1}>
                   <Divider />
                 </Box>
               </Grid>
-              <Grid item xs={1}></Grid>
-              <Grid item xs={11}>
+              <Grid size={{ xs: 1 }}></Grid>
+              <Grid size={{ xs: 11 }}>
                 <ToimituspaikkaByToimitustapa
                   toimitustapa={toimitustapa}
                   toimitusosoite={toimitusosoite}
                   hakijapalveluidenYhteystiedot={hakijapalveluidenYhteystiedot}
                 />
               </Grid>
-              <Grid item xs={1}></Grid>
-              <Grid item xs={11}>
+              <Grid size={{ xs: 1 }}></Grid>
+              <Grid size={{ xs: 11 }}>
                 <Box m={1}>
                   <Heading variant="h5">
                     {t('valintaperuste.toimitettava-viimeistään')}
@@ -205,7 +206,7 @@ export const Liitteet = ({ liitteet, hakukohde, organisaatioOid }: Props) => {
     hakukohde.liitteetOnkoSamaToimitusosoite && hakukohde.liitteidenToimitusosoite;
 
   return (
-    <Grid item container direction="column" xs={12}>
+    <Grid container direction="column" size={{ xs: 12 }}>
       <Box py={4}>
         <Divider />
       </Box>

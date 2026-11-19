@@ -53,7 +53,7 @@ export type Alkamiskausi = {
 export type TODOType = any; // NOTE: Just a temporary type for documenting not-yet-typed stuff until everything is typed
 export type ValueOf<T> = T[keyof T];
 
-declare module '@mui/system/createTheme/createBreakpoints' {
+declare module '@mui/material/styles' {
   interface BreakpointOverrides {
     xxl: true;
   }

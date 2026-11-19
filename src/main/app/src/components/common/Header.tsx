@@ -1,14 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-import {
-  AppBar,
-  Box,
-  Chip,
-  Hidden,
-  IconButton,
-  Toolbar,
-  Typography,
-} from '@mui/material';
+import { AppBar, Box, Chip, IconButton, Toolbar, Typography } from '@mui/material';
 import Link from '@mui/material/Link';
 import { urls } from 'oph-urls-js';
 import { useTranslation } from 'react-i18next';
@@ -191,18 +183,20 @@ export const Header = ({
             <Chip className={classes.testi} size="small" label={testiLabel} />
           )}
         </Box>
-        <Hidden smDown>
-          <Box display="flex" columnGap={2} marginRight="170px">
-            <SuosikitButton Component={ToolbarLinkButton} />
-            <ToolbarLinkButton
-              href={urls.url('oma-opintopolku')}
-              startIcon={<MaterialIcon icon="apps" />}
-              target="_blank">
-              {t('oma-opintopolku')}
-            </ToolbarLinkButton>
-          </Box>
-          <LanguageAccordion />
-        </Hidden>
+        <Box
+          display="flex"
+          columnGap={2}
+          marginRight="170px"
+          sx={{ display: { xs: 'none', sm: 'block' } }}>
+          <SuosikitButton Component={ToolbarLinkButton} />
+          <ToolbarLinkButton
+            href={urls.url('oma-opintopolku')}
+            startIcon={<MaterialIcon icon="apps" />}
+            target="_blank">
+            {t('oma-opintopolku')}
+          </ToolbarLinkButton>
+        </Box>
+        <LanguageAccordion />
       </Toolbar>
     </StyledAppBar>
   );

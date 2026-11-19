@@ -103,9 +103,8 @@ export const LanguageAccordion = () => {
                   <ListItemText
                     lang={langOption.ISOCode}
                     primary={t(`kielivalinta.header.${langOption.code}`)}
-                    primaryTypographyProps={{
-                      color: colors.white,
-                      paddingLeft: '30px',
+                    slotProps={{
+                      primary: { color: colors.white, paddingLeft: '30px' },
                     }}
                   />
                 </StyledListItemButton>

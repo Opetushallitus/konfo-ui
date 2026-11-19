@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
-import { Grid, Hidden } from '@mui/material';
+import { Box } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import { size } from 'lodash';
 import { match } from 'ts-pattern';
 
@@ -14,7 +15,7 @@ import { MobileFiltersOnTopMenu } from './toteutusSuodattimet/MobileFiltersOnTop
 
 const SuodatinGridItem: React.FC<React.PropsWithChildren> = ({ children }) => {
   return (
-    <Grid item sx={{ minWidth: '250px' }} xs={6} lg={4}>
+    <Grid sx={{ minWidth: '250px' }} size={{ xs: 6, lg: 4 }}>
       {children}
     </Grid>
   );
@@ -61,7 +62,10 @@ export const RajainFiltersBar = ({
 
   return (
     <>
-      <Hidden mdDown>
+      <Box
+        sx={{
+          display: { xs: 'none', md: 'block' },
+        }}>
         {someSelected && (
           <div>
             <SuodatinValinnat
@@ -73,12 +77,11 @@ export const RajainFiltersBar = ({
         )}
         <Grid
           container
-          item
           direction="row"
           justifyContent="center"
           mb={2}
           spacing={2}
-          sm={10}>
+          size={{ sm: 10 }}>
           {rajainOrder.map(({ Component, props, id }) => {
             const customProps = getRajainProps({ id, setPreventClicks });
             return (
@@ -96,8 +99,11 @@ export const RajainFiltersBar = ({
             );
           })}
         </Grid>
-      </Hidden>
-      <Hidden mdUp>
+      </Box>
+      <Box
+        sx={{
+          display: { xs: 'block', md: 'none' },
+        }}>
         <MobileFiltersOnTopMenu
           rajainOrder={rajainOrder}
           rajainCount={size(allSelectedFilters?.flat)}
@@ -108,7 +114,7 @@ export const RajainFiltersBar = ({
           rajainValues={rajainValues}
           rajainOptions={rajainOptions}
         />
-      </Hidden>
+      </Box>
       <div
         id="prevent-clicks"
         style={{

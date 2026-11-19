@@ -1,4 +1,5 @@
-import { Box, Drawer, Grid, IconButton, Toolbar, Typography } from '@mui/material';
+import { Box, Drawer, IconButton, Toolbar, Typography } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
@@ -63,17 +64,17 @@ export const MurupolkuDrawer = ({ path, onClose, isOpen }: MurupolkuDrawerProps)
             justifyContent="space-between"
             alignItems="center"
             wrap="nowrap">
-            <Grid item>
+            <Grid>
               <IconButton color="inherit" onClick={() => onClose()}>
                 <MaterialIcon icon="close" />
               </IconButton>
             </Grid>
-            <Grid item>
+            <Grid>
               <Typography variant="body1" noWrap color="inherit">
                 {t('murupolku')}
               </Typography>
             </Grid>
-            <Grid item />
+            <Grid />
           </Grid>
         </Toolbar>
         <Box className={classes.drawerContainer}>

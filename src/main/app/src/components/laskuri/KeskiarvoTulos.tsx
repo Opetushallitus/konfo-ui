@@ -150,7 +150,7 @@ type Props = {
   tulos: HakupisteLaskelma;
   embedded: boolean;
   kouluaineet: Kouluaineet;
-  rootRef: React.MutableRefObject<HTMLDivElement | null>;
+  rootRef: React.RefObject<HTMLDivElement | null>;
 };
 
 export const KeskiarvoTulos = ({ tulos, embedded, kouluaineet, rootRef }: Props) => {

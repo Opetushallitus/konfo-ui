@@ -80,7 +80,7 @@ type Props = {
   tulos: HakupisteLaskelma | null;
   embedded?: boolean;
   closeFn?: () => void;
-  rootRef: React.MutableRefObject<HTMLDivElement | null>;
+  rootRef: React.RefObject<HTMLDivElement | null>;
 };
 
 export const Pistelaskuri = ({

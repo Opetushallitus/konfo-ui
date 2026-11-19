@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 import { Box, Typography, Button } from '@mui/material';
 import { isEqual } from 'lodash';
@@ -94,7 +94,7 @@ export const KeskiarvoAineLaskuri = ({
   const removeKieli = (index: number) => {
     const aineet: Kouluaineet = { ...kouluaineet };
     aineet.lisakielet = aineet.lisakielet.filter(
-      (val: Kouluaine, id: number) => id !== index
+      (_: Kouluaine, id: number) => id !== index
     );
     updateKouluaineetToCalculate(aineet);
     LocalStorageUtil.save(KOULUAINE_STORE_KEY, aineet);

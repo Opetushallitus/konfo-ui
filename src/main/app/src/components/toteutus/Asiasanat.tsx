@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
-import { Box, Grid } from '@mui/material';
+import { Box } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import { uniq } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
@@ -67,7 +68,7 @@ const AsiasanatExpander = ({
     <Box mt={4}>
       <Grid alignItems="center" justifyContent="center" container spacing={1}>
         {visibleAsiasanat.map((asiasana: string) => (
-          <Grid item key={asiasana}>
+          <Grid key={asiasana}>
             <SmartLink href={`/haku/${asiasana}`} target="_blank" rel="noopener">
               <TextWithBackground>{asiasana}</TextWithBackground>
             </SmartLink>

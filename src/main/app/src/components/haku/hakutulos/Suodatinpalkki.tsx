@@ -1,6 +1,4 @@
-import React from 'react';
-
-import { Grid } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 
 import { useSearch } from '#/src/components/haku/hakutulosHooks';
 import { styled } from '#/src/theme';
@@ -17,7 +15,7 @@ export const Suodatinpalkki = () => {
   const { setRajainValues, rajainValues, rajainOptions } = useSearch();
 
   return (
-    <StyledGrid item lg={3} md={4}>
+    <StyledGrid size={{ lg: 3, md: 4 }}>
       {HAKU_RAJAIMET_ORDER.map(({ id, Component }, index) => (
         <Component
           key={id}

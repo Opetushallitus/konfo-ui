@@ -1,4 +1,5 @@
-import { Avatar, Button, Grid, Paper, Typography } from '@mui/material';
+import { Avatar, Button, Paper, Typography } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
@@ -22,10 +23,10 @@ export const ErrorMessage = ({ onRetry = () => {} }: { onRetry?: () => void }) =
 
   return (
     <Grid container paddingTop={5} spacing={4} alignItems="center" direction="column">
-      <Grid item sx={{ width: '100%' }}>
+      <Grid sx={{ width: '100%' }}>
         <StyledPaper>
           <Grid container spacing={4} direction="column" alignItems="center">
-            <Grid item>
+            <Grid>
               <Avatar
                 sx={{
                   backgroundColor: colors.red,
@@ -35,15 +36,15 @@ export const ErrorMessage = ({ onRetry = () => {} }: { onRetry?: () => void }) =
                 <MaterialIcon icon="error_outline" />
               </Avatar>
             </Grid>
-            <Grid item>
+            <Grid>
               <Typography variant="h5" style={{ fontWeight: 'bold' }}>
                 {t('latausvirhe.otsikko')}
               </Typography>
             </Grid>
-            <Grid item>
+            <Grid>
               <Typography variant="body1">{t('latausvirhe.teksti')}</Typography>
             </Grid>
-            <Grid item>
+            <Grid>
               <Button
                 sx={{
                   fontWeight: 600,

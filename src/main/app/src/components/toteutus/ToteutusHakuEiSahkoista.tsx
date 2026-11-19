@@ -1,4 +1,5 @@
-import { Grid, Paper, Typography } from '@mui/material';
+import { Paper, Typography } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
@@ -47,10 +48,10 @@ export const ToteutusHakuEiSahkoista = ({ toteutus }: Props) => {
               sx={{ fontSize: 40, color: colors.white }}
             />
           </IconBackground>
-          <Grid item>
+          <Grid>
             <StyledNimi>{t('toteutus.ei-sahkoista-hakua')}</StyledNimi>
           </Grid>
-          <Grid item>
+          <Grid>
             <Typography variant="body1" component="div">
               {sanitizedHTMLParser(localize(toteutusMetadata?.lisatietoaHakeutumisesta))}
             </Typography>

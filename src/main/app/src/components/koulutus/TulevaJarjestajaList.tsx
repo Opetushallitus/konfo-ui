@@ -1,6 +1,4 @@
-import React from 'react';
-
-import { Grid } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import { useTranslation } from 'react-i18next';
 
 import { PageSection } from '#/src/components/common/PageSection';

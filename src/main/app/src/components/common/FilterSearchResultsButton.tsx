@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Badge, Button, ButtonProps } from '@mui/material';
 
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';

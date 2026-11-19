@@ -154,7 +154,7 @@ export const ToteutusList = ({ oid, koulutustyyppi }: Props) => {
               ))}
             </Box>
           ) : (
-            <Typography variant="body1" paragraph>
+            <Typography variant="body1" component="p" paddingBottom={2}>
               {t(
                 someSelected
                   ? 'koulutus.ei-rajaimia-vastaavia-toteutuksia'

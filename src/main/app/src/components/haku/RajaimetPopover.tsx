@@ -1,4 +1,4 @@
-import { Box, Button, CircularProgress, Divider, Hidden, Popover } from '@mui/material';
+import { Box, Button, CircularProgress, Divider, Popover } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
@@ -46,36 +46,35 @@ export const RajaaPopoverButton = ({
   };
 
   return (
-    <Hidden mdDown>
-      <Box
-        component="div"
+    <Box
+      component="div"
+      sx={{
+        borderLeft: `2px solid ${colors.grey500}`,
+        paddingLeft: '10px',
+        marginLeft: '10px',
+        display: { xs: 'none', md: 'block' },
+      }}>
+      <Divider orientation="vertical" />
+      <Button
+        aria-describedby={POPOVER_ID}
+        endIcon={
+          isLoading ? (
+            <CircularProgress size={25} color="inherit" />
+          ) : (
+            <MaterialIcon icon={isPopoverOpen ? 'expand_less' : 'expand_more'} />
+          )
+        }
+        onClick={handleDesktopBtnClick}
         sx={{
-          borderLeft: `2px solid ${colors.grey500}`,
-          paddingLeft: '10px',
-          marginLeft: '10px',
+          height: '40px',
+          fontSize: '16px',
+          fontWeight: '600',
+          lineHeight: '16px',
+          textAlign: 'center',
         }}>
-        <Divider orientation="vertical" />
-        <Button
-          aria-describedby={POPOVER_ID}
-          endIcon={
-            isLoading ? (
-              <CircularProgress size={25} color="inherit" />
-            ) : (
-              <MaterialIcon icon={isPopoverOpen ? 'expand_less' : 'expand_more'} />
-            )
-          }
-          onClick={handleDesktopBtnClick}
-          sx={{
-            height: '40px',
-            fontSize: '16px',
-            fontWeight: '600',
-            lineHeight: '16px',
-            textAlign: 'center',
-          }}>
-          {t('haku.rajaa')}
-        </Button>
-      </Box>
-    </Hidden>
+        {t('haku.rajaa')}
+      </Button>
+    </Box>
   );
 };
 
@@ -93,25 +92,24 @@ export const RajaimetPopover = ({
   };
 
   return (
-    <Hidden mdDown>
-      <StyledPopover
-        id={POPOVER_ID}
-        open={isPopoverOpen}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        elevation={0}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'center',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
-        }}>
-        <ArrowBox component="div">
-          <HakupalkkiFilters />
-        </ArrowBox>
-      </StyledPopover>
-    </Hidden>
+    <StyledPopover
+      id={POPOVER_ID}
+      open={isPopoverOpen}
+      anchorEl={anchorEl}
+      onClose={handleClose}
+      elevation={0}
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'center',
+      }}
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'center',
+      }}
+      sx={{ display: { xs: 'none', md: 'block' } }}>
+      <ArrowBox>
+        <HakupalkkiFilters />
+      </ArrowBox>
+    </StyledPopover>
   );
 };

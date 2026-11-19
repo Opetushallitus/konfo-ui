@@ -1,6 +1,7 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 
-import { Button, Grid, Paper, Typography } from '@mui/material';
+import { Button, Paper, Typography } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
@@ -96,7 +97,7 @@ export const ToteutusHakuMuu = ({ toteutus }: Props) => {
     <PageSection heading={hakeuduTaiIlmoittauduTrans}>
       <StyledPaper>
         <Grid container direction="column" spacing={2}>
-          <Grid item>
+          <Grid>
             <Typography
               variant="h5"
               component="p"
@@ -107,20 +108,20 @@ export const ToteutusHakuMuu = ({ toteutus }: Props) => {
               {localize(muuHaku.nimi)}
             </Typography>
           </Grid>
-          <Grid item>
+          <Grid>
             <HakuaikaRivi hakuaika={muuHaku?.hakuaika} hakutermi={muuHaku.hakutermi} />
           </Grid>
-          <Grid item>
+          <Grid>
             <AlkamiskausiRivi alkamiskausi={alkamiskausi} />
           </Grid>
           {muuHaku.aloituspaikat && (
-            <Grid item container direction="row">
-              <Grid item xs md={4}>
+            <Grid container direction="row">
+              <Grid size={{ xs: 'grow', md: 4 }}>
                 <Typography noWrap variant="body1">
                   {t('toteutus.opiskelupaikkoja:')}
                 </Typography>
               </Grid>
-              <Grid item xs>
+              <Grid size="grow">
                 <Typography variant="body1" fontWeight="bold" noWrap>
                   {muuHaku.aloituspaikat}
                 </Typography>
@@ -128,7 +129,7 @@ export const ToteutusHakuMuu = ({ toteutus }: Props) => {
             </Grid>
           )}
           {muuHaku.lisatietoaHakeutumisesta && (
-            <Grid item>
+            <Grid>
               <AccordionText
                 title={
                   muuHaku.hakutermi === 'hakeutuminen'
@@ -140,7 +141,7 @@ export const ToteutusHakuMuu = ({ toteutus }: Props) => {
             </Grid>
           )}
           {muuHaku.lisatietoaValintaperusteista && (
-            <Grid item>
+            <Grid>
               <AccordionText
                 title={t('toteutus.lisatietoa-valintaperusteista')}
                 text={localize(muuHaku.lisatietoaValintaperusteista)}
@@ -155,7 +156,7 @@ export const ToteutusHakuMuu = ({ toteutus }: Props) => {
                 />
                 </Grid>
                */}
-          <Grid item>
+          <Grid>
             <Button
               variant="contained"
               size="large"

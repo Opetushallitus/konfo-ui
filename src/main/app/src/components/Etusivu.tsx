@@ -1,6 +1,7 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
-import { Box, Button, Grid, Paper } from '@mui/material';
+import { Box, Button, Paper } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import { isEmpty, size, sortBy, take } from 'lodash';
 import Markdown from 'markdown-to-jsx';
 import { useTranslation } from 'react-i18next';
@@ -72,10 +73,10 @@ export const Etusivu = () => {
             rowSpacing={pageSectionGap}
             direction="column"
             alignItems="stretch">
-            <CondGrid item>
+            <CondGrid>
               {!isEmpty(yhteishakuInfos) && (
                 <ContentSection>
-                  <CondGrid container item spacing={3}>
+                  <CondGrid container spacing={3}>
                     {yhteishakuInfos.map(({ id }) => (
                       <YhteishakuKortti id={id} key={id} n={yhteishakuInfos.length} />
                     ))}
@@ -84,12 +85,12 @@ export const Etusivu = () => {
               )}
             </CondGrid>
             {!isEmpty(infos) && (
-              <CondGrid item>
+              <CondGrid>
                 <ContentSection>
                   <CondGrid container direction="column" rowSpacing={3}>
                     {infos.map((info) =>
                       info?.content ? (
-                        <CondGrid item xs={12} key={info.id}>
+                        <CondGrid size={{ xs: 12 }} key={info.id}>
                           <StyledInfo elevation={0}>
                             <Markdown>{info.content}</Markdown>
                           </StyledInfo>
@@ -100,11 +101,11 @@ export const Etusivu = () => {
                 </ContentSection>
               </CondGrid>
             )}
-            <CondGrid item>
+            <CondGrid>
               <Pikalinkit pikalinkit={pikalinkitData} content={content} />
             </CondGrid>
             {!isEmpty(getOne(kortit)?.kortit) && (
-              <CondGrid item>
+              <CondGrid>
                 <ContentSection heading={getOne(kortit)?.name ?? t('oikopolut')}>
                   <CondGrid container spacing={3}>
                     {/* Kortit-sisältötyyppi kuvaa korttilistauksen etusivulla, joten niitä on aina vain yksi */}
@@ -116,7 +117,7 @@ export const Etusivu = () => {
               </CondGrid>
             )}
             {!isEmpty(uutislinkit) && (
-              <CondGrid item>
+              <CondGrid>
                 <ContentSection
                   heading={getOne(uutiset)?.name ?? t('ajankohtaista-ja-uutisia')}>
                   <Grid container spacing={3}>

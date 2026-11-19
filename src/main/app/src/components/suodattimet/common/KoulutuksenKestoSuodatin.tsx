@@ -1,6 +1,4 @@
-import React from 'react';
-
-import { Grid } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import Typography from '@mui/material/Typography';
 import { TFunction } from 'i18next';
 import { isEqual, ceil, range, round } from 'lodash';
@@ -144,7 +142,7 @@ export const KoulutuksenKestoSuodatin = ({
             justifyContent="space-between"
             alignItems="center"
             wrap="nowrap">
-            <Grid item style={{ paddingRight: '8px' }}>
+            <Grid style={{ paddingRight: '8px' }}>
               <Typography variant="subtitle1" component="span">
                 {t('haku.koulutuksenkestokuukausina')}
               </Typography>
@@ -180,7 +178,7 @@ export const KoulutuksenKestoSlider = ({
   const { t } = useTranslation();
   const labelFormatter = (val: number) => rangeText(val, t);
   return (
-    <Grid item sx={{ mx: 1 }}>
+    <Grid sx={{ mx: 1 }}>
       <NumberRangeSlider
         values={rangeValues}
         min={undefinedRajainValues[0]}

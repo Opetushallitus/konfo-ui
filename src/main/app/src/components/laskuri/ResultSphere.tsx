@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Box, Typography, useTheme, useMediaQuery } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { VictoryContainer, VictoryPie } from 'victory';
