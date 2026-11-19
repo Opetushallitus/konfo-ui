@@ -13,7 +13,7 @@ export interface TypeTutkintojenTunnustaminenLaskeutumissivuFields {
     useinKysytytKysymyksetOtsikko: EntryFieldTypes.Symbol;
     useinKysytytKysymyksetLista?: EntryFieldTypes.EntryLink<TypeUseinKysytytKysymyksetSkeleton>;
     yhteystiedotOtsikko: EntryFieldTypes.Symbol;
-    yhteystiedotSislt?: EntryFieldTypes.Text;
+    yhteystiedotSisalto?: EntryFieldTypes.Text;
 }
 
 export type TypeTutkintojenTunnustaminenLaskeutumissivuSkeleton = EntrySkeletonType<TypeTutkintojenTunnustaminenLaskeutumissivuFields, "tutkintojenTunnustaminenLaskeutumissivu">;

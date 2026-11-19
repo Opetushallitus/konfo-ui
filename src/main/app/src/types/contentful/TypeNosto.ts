@@ -1,11 +1,11 @@
 import type { ChainModifiers, Entry, EntryFieldTypes, EntrySkeletonType, LocaleCode } from "contentful";
+import type { TypeLinkkiSkeleton } from "./TypeLinkki";
 
 export interface TypeNostoFields {
     otsikko: EntryFieldTypes.Symbol;
     kuva?: EntryFieldTypes.AssetLink;
-    ikoni?: EntryFieldTypes.AssetLink;
     teksti?: EntryFieldTypes.Text;
-    linkki?: EntryFieldTypes.Symbol;
+    linkit?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeLinkkiSkeleton>>;
     julkaisuaika?: EntryFieldTypes.Date;
     tyyppi?: EntryFieldTypes.Symbol;
     asiasanat?: EntryFieldTypes.Array<EntryFieldTypes.Symbol>;
