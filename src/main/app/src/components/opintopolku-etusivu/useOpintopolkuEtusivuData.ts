@@ -31,7 +31,7 @@ export type EtusivuOsio = {
   nostot: Array<EtusivuNosto>;
 };
 
-type NostoRef = { id: string } | undefined;
+export type NostoRef = { id: string } | undefined;
 
 const toEtusivuNosto =
   (data: ContentfulData, assetUrl: (url?: string) => string | undefined) =>
