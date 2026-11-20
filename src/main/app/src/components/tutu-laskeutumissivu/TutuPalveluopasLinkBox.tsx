@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next';
 import { SmartLink } from '../common/SmartLink';
 
 const StyledMarkdown = styled(Markdown)({
+  marginTop: theme.spacing(1),
   lineHeight: 1.5,
   fontSize: 14,
   '& p': {
@@ -42,10 +43,9 @@ const StyledButton = styled(OphButton)({
 const Nosto = styled(Paper)({
   backgroundColor: ophColors.cyan1,
   color: 'white',
-  ...LINK_PAPER_SX,
   padding: theme.spacing(2.5),
-  display: 'flex',
   flexWrap: 'wrap',
+  ...LINK_PAPER_SX,
   flexDirection: 'row',
   gap: theme.spacing(2.5),
 });
@@ -57,9 +57,13 @@ const NostoKuva = styled(Box)({
 }) as typeof Box; // https://mui.com/material-ui/guides/typescript/#complications-with-the-component-prop
 
 const NostoTextContainer = styled(Box)({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'start',
   color: 'white',
   flex: '2',
   minWidth: '50%',
+  gap: theme.spacing(2),
 });
 
 const NostoTyyppi = styled(OphTypography)({
@@ -75,7 +79,6 @@ const NostoOtsikko = styled(OphTypography)({
   fontSize: '18px',
   color: 'inherit',
   fontWeight: 600,
-  marginBottom: 2,
 });
 
 export const TutuPalveluopasLinkBox = ({ osio }: { osio: Osio }) => {
@@ -84,35 +87,31 @@ export const TutuPalveluopasLinkBox = ({ osio }: { osio: Osio }) => {
   const headingId = useId();
 
   return (
-    // Koko laatikko toimii linkkinä ja klikattavana elementtinä, ei pelkästään StyledButton
-    <>
+    <Box component="section" aria-labelledby={headingId} sx={{ marginTop: 6 }}>
+      <SectionHeading component="h2" id={headingId}>
+        {osio.otsikko}
+      </SectionHeading>
       {nosto.href ? (
+        // Koko laatikko toimii linkkinä ja klikattavana elementtinä, ei pelkästään StyledButton
         <SmartLink href={nosto.href}>
-          <Box component="section" aria-labelledby={headingId} sx={{ marginTop: 6 }}>
-            <SectionHeading component="h2" id={headingId}>
-              {osio.otsikko}
-            </SectionHeading>
-            {nosto ? (
-              <Nosto key={nosto.id}>
-                {nosto.kuvaUrl && (
-                  <NostoKuva component="img" src={nosto.kuvaUrl} alt="" />
+          {nosto ? (
+            <Nosto>
+              {nosto.kuvaUrl && <NostoKuva component="img" src={nosto.kuvaUrl} alt="" />}
+              <NostoTextContainer>
+                {nosto.tyyppi && <NostoTyyppi>{nosto.tyyppi}</NostoTyyppi>}
+                {nosto.otsikko && (
+                  <NostoOtsikko component="h3">{nosto.otsikko}</NostoOtsikko>
                 )}
-                <NostoTextContainer>
-                  {nosto.tyyppi && <NostoTyyppi>{nosto.tyyppi}</NostoTyyppi>}
-                  {nosto.otsikko && (
-                    <NostoOtsikko component="h3">{nosto.otsikko}</NostoOtsikko>
-                  )}
-                  {nosto.teksti && <StyledMarkdown>{nosto.teksti}</StyledMarkdown>}
-                  <StyledButton>
-                    {t('tutu-laskeutumissivu.aloita-selvitys')}
-                    <ArrowForward sx={{ marginLeft: theme.spacing(1), fontSize: 18 }} />
-                  </StyledButton>
-                </NostoTextContainer>
-              </Nosto>
-            ) : null}
-          </Box>
+                {nosto.teksti && <StyledMarkdown>{nosto.teksti}</StyledMarkdown>}
+                <StyledButton>
+                  {t('tutu-laskeutumissivu.aloita-selvitys')}
+                  <ArrowForward sx={{ marginLeft: theme.spacing(1), fontSize: 18 }} />
+                </StyledButton>
+              </NostoTextContainer>
+            </Nosto>
+          ) : null}
         </SmartLink>
       ) : null}
-    </>
+    </Box>
   );
 };
