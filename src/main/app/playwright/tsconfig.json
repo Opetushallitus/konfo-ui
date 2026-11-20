@@ -1,14 +1,14 @@
 {
-    "extends": "../tsconfig.paths.json",
-    "compilerOptions": {
-      "allowSyntheticDefaultImports": true,
-      "resolveJsonModule": true,
-      "module": "esnext",
-      "moduleResolution": "node"
-    },
-    "include": [
-      "./**/*.ts",
-      "../src/constants.ts",
-      "../src/types/*"
-    ]
-  }
+  "extends": "../tsconfig.paths.json",
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "module": "esnext",
+    "moduleResolution": "bundler"
+  },
+  "include": [
+    "./**/*.ts",
+    "../src/constants.ts",
+    "../src/types/*"
+  ]
+}

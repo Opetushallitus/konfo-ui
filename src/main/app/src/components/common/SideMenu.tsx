@@ -213,6 +213,21 @@ export const SideMenu = (props: {
           );
         })
       )}
+      {!isLoading && !selectedValikko && (
+        <SidebarValikko
+          name={t('tutu.tutu')}
+          deselect={popSelected}
+          select={selectValikko}
+          links={[]}
+          internalLinks={[
+            {
+              name: t('tutu.tutu-opas.tutu-opas'),
+              href: '/tutkintojen-tunnustaminen/tutkintojen-tunnustamisen-palveluopas',
+            },
+          ]}
+          closeMenu={closeMenu}
+        />
+      )}
     </StyledDrawer>
   );
 };
