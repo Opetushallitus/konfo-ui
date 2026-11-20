@@ -11,6 +11,13 @@ import { TutuObject } from '../types';
 import { NavigationButton } from '../components/NavigationButton';
 import { AnswerOptions } from '../components/AnswerOptions';
 
+const OPINTOPOLKU_DOMAINS = ['opintopolku.fi', 'studieinfo.fi', 'studyinfo.fi'];
+const isOneOfOpintopolkuDomains = (domNode: Element) => {
+  return some(OPINTOPOLKU_DOMAINS, (domain: string) =>
+    domNode.attribs.href.includes(domain)
+  );
+};
+
 export const QuestionPage = ({
   setIsStartPage,
   tutuConfigObjects,
@@ -29,7 +36,6 @@ export const QuestionPage = ({
   const language = lng ?? 'fi';
   const translation = currentObject?.translations[language as LanguageCode];
   const answerOptions = translation?.answers;
-
   const parsedBody = parse(translation?.body || '', {
     replace(domNode: DOMNode) {
       if (domNode instanceof Element && domNode.name === 'a') {
@@ -37,17 +43,13 @@ export const QuestionPage = ({
           domNode.attribs.href = `https://oph.fi/${language}/${domNode.attribs.href}`;
         }
 
-        if (domNode.attribs.href.includes('oph.fi')) {
-          domNode.attribs.target = '_blank';
-        }
-
-        if (
-          some(['opintopolku.fi', 'studieinfo.fi', 'studyinfo.fi'], (domain: string) => {
-            return domNode.attribs.href.includes(domain);
-          })
-        ) {
+        if (isOneOfOpintopolkuDomains(domNode)) {
           domNode.attribs.href = `/konfo/${language}`;
           domNode.attribs.target = '';
+        }
+
+        if (!isOneOfOpintopolkuDomains(domNode)) {
+          domNode.attribs.target = '_blank';
         }
       }
     },
