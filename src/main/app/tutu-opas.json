@@ -1261,14 +1261,14 @@
       },
       "sv": {
         "name": "Wizard 7.2: Ta reda på hur man skaffar behörighet för uppgiften i Finland",
-        "question": null,
-        "body": "<p>Ta reda på hur man skaffar behörighet för uppgiften i Finland och ansök sedan om en studieplats för att avlägga den examen eller studiehelhet som krävs.</p>\r\n\r\n<p><a href=\"https://studieinfo.fi/\">Läs mer på Studieinfo.fi</a></p>\r\n\r\n<p>Om din utländska examen är minst en lägre högskoleexamen (t.ex. Bachelor eller licence), ansök vid behov om Utbildningsstyrelsens beslut om att jämställa din högskoleexamens nivå och eventuella studier inom lärarutbildningen.</p>\r\n",
+        "question": "Ta reda på hur man skaffar behörighet för uppgiften i Finland och ansök sedan om en studieplats för att avlägga den examen eller studiehelhet som krävs.",
+        "body": "<p><a href=\"https://studieinfo.fi/\">Läs mer på Studieinfo.fi</a></p>\r\n\r\n<p>Om din utländska examen är minst en lägre högskoleexamen (t.ex. Bachelor eller licence), ansök vid behov om Utbildningsstyrelsens beslut om att jämställa din högskoleexamens nivå och eventuella studier inom lärarutbildningen.</p>\r\n",
         "answers": []
       },
       "en": {
         "name": "Wizard 7.2: Find out what are the qualification requirements for the post in Finland",
-        "question": null,
-        "body": "<p>Find out which are the qualification requirements for the post in Finland and look for an institution where you can complete the required degree or studies.</p>\r\n\r\n<p>The instutition decides whether a right to study is granted. It &nbsp;also decides whether your previous studies will be credited towards a degree or study module completed in Finland.</p>\r\n\r\n<p><a href=\"https://studyinfo.fi/wp2/en/\">Read more from the Studyinfo-service.</a></p>\r\n\r\n<p>If your foreign degree is at least bachelor’s level (e.g. bachelor’s degree, &nbsp;licence or ijaza), you can apply to the Finnish National Agency for Education for a decision on the recognition of the level of your higher education degree and teacher education studies you have completed.</p>\r\n\r\n<p>Read more about the Finnish National Agency for Education’s decisions concerning eligibility for teaching positions. <a href=\"https://www.oph.fi/en/services/teaching-positions\">Go to the website</a></p>\r\n\r\n<p>The&nbsp;SIMHE-services of higher education institutions also offer guidance to immigrants. <a data-entity-substitution=\"canonical\" data-entity-type=\"node\" data-entity-uuid=\"586f02d2-623d-4945-b6bf-0b852f90d825\" href=\"/node/813\">Go to additional information on the SIMHE-services</a></p>\r\n",
+        "question": "Find out which are the qualification requirements for the post in Finland and look for an institution where you can complete the required degree or studies.",
+        "body": "<p>The instutition decides whether a right to study is granted. It &nbsp;also decides whether your previous studies will be credited towards a degree or study module completed in Finland.</p>\r\n\r\n<p><a href=\"https://studyinfo.fi/wp2/en/\">Read more from the Studyinfo-service.</a></p>\r\n\r\n<p>If your foreign degree is at least bachelor’s level (e.g. bachelor’s degree, &nbsp;licence or ijaza), you can apply to the Finnish National Agency for Education for a decision on the recognition of the level of your higher education degree and teacher education studies you have completed.</p>\r\n\r\n<p>Read more about the Finnish National Agency for Education’s decisions concerning eligibility for teaching positions. <a href=\"https://www.oph.fi/en/services/teaching-positions\">Go to the website</a></p>\r\n\r\n<p>The&nbsp;SIMHE-services of higher education institutions also offer guidance to immigrants. <a data-entity-substitution=\"canonical\" data-entity-type=\"node\" data-entity-uuid=\"586f02d2-623d-4945-b6bf-0b852f90d825\" href=\"/node/813\">Go to additional information on the SIMHE-services</a></p>\r\n",
         "answers": []
       }
     }
@@ -1773,7 +1773,7 @@
       },
       "en": {
         "name": "Apply to a Finnish higher education institution to complete a degree",
-        "question": null,
+        "question": "Apply to a Finnish higher education institution to complete a degree",
         "body": "<p>Familiarise yourself with the study opportunities in the Studyinfo-service. Go to the <a href=\"https://studyinfo.fi/wp2/en/\">Studyinfo-service.</a></p>\r\n\r\n<p>You can apply for a study place in a Finnish educational institution or higher education institution. The institution decides whether you are admitted as a student. The institution also decides whether your previous studies will be credited towards a Finnish qualification.</p>\r\n\r\n<p>The&nbsp;SIMHE-services of higher education institutions also offer guidance to immigrants. Go to additional information on the <a href=\"https://www.oph.fi/en/simhe-services-higher-education-institutions\">SIMHE-services.</a></p>\r\n",
         "answers": []
       }
