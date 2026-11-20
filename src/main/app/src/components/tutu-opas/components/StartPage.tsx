@@ -4,22 +4,26 @@ import { useTranslation } from 'react-i18next';
 import { NavigationButton } from './NavigationButton';
 
 import { Dispatch } from 'react';
+import { useTheme } from '@mui/system';
 
 export const StartPage = ({ setIsStartPage }: { setIsStartPage: Dispatch<boolean> }) => {
   const { t } = useTranslation();
+  const theme = useTheme();
 
   const translationKeys = ['paatos', 'hakeminen', 'lisatiedot'];
 
   return (
     <>
-      <OphTypography variant="h1" sx={{ marginBottom: '24px', alignSelf: 'center' }}>
+      <OphTypography
+        variant="h1"
+        sx={{ marginBottom: theme.spacing(3), alignSelf: 'center' }}>
         {t('tutu.tutu-opas.tutu-opas')}
       </OphTypography>
-      <OphTypography sx={{ marginBottom: '24px' }}>
+      <OphTypography sx={{ marginBottom: theme.spacing(3) }}>
         {t('tutu.tutu-opas.start-page.intro')}
       </OphTypography>
       <OphTypography>{t('tutu.tutu-opas.start-page.info-list.heading')}</OphTypography>
-      <List sx={{ listStyleType: 'disc', padding: '0 0 0 1.5rem' }}>
+      <List sx={{ listStyleType: 'disc', padding: `0 0 0 ${theme.spacing(3)}` }}>
         {translationKeys.map((key: string) => (
           <ListItem key={key} sx={{ display: 'list-item', padding: 0 }}>
             {t(`tutu.tutu-opas.start-page.info-list.${key}`)}
@@ -27,7 +31,7 @@ export const StartPage = ({ setIsStartPage }: { setIsStartPage: Dispatch<boolean
         ))}
       </List>
       <Box>
-        <OphTypography sx={{ margin: '24px 0' }}>
+        <OphTypography sx={{ margin: `${theme.spacing(3)} 0` }}>
           {t('tutu.tutu-opas.start-page.ending')}
         </OphTypography>
       </Box>
