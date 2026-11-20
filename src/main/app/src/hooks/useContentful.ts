@@ -29,6 +29,7 @@ const initialContentfulData: ContentfulData = {
   valikko: {},
   valikot: {},
   hairiotiedote: {},
+  tutkintojenTunnustamisenPalveluopas: {},
 };
 
 const assetUrl = (url?: string) =>
