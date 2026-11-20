@@ -7,7 +7,12 @@ import { EtusivuNosto, NostoRef } from '../opintopolku-etusivu/useOpintopolkuEtu
 
 export type Osio = {
   otsikko?: string;
-  nosto: EtusivuNosto;
+  nosto: Nosto;
+};
+
+type Nosto = Omit<EtusivuNosto, 'linkit'> & {
+  href?: string;
+  tyyppi?: string;
 };
 
 // Hakee uuden etusivun tiedot contentfulista ja purkaa viittaukset (nostot, linkit, kuvat) valmiiksi,
@@ -18,7 +23,7 @@ export const useTutuLaskeutumissivuData = () => {
   const etusivu = useMemo(() => {
     const tutuLaskeutumissivuData = getOne(data.tutkintojenTunnustaminenLaskeutumissivu);
 
-    const toNosto = (nosto: ContentfulNosto): EtusivuNosto => ({
+    const toNosto = (nosto: ContentfulNosto): Nosto => ({
       id: nosto?.id,
       otsikko: nosto?.otsikko,
       teksti: nosto?.teksti,
