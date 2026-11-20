@@ -40,7 +40,7 @@ export const QuestionPage = ({
     replace(domNode: DOMNode) {
       if (domNode instanceof Element && domNode.name === 'a') {
         if (domNode.attribs.href.startsWith('/node')) {
-          domNode.attribs.href = `https://oph.fi/${language}/${domNode.attribs.href}`;
+          domNode.attribs.href = `https://oph.fi/${language}${domNode.attribs.href}`;
         }
 
         if (isOneOfOpintopolkuDomains(domNode)) {
