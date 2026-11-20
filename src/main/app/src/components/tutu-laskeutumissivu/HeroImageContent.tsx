@@ -2,11 +2,8 @@ import { Box, Typography, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/system';
 import { useTranslation } from 'react-i18next';
 
-import { useContentful } from '#/src/hooks/useContentful';
 import { styled } from '#/src/theme';
-import { getOne } from '#/src/tools/getOne';
-import { ContentfulData } from '#/src/types/ContentfulTypes';
-import { ophColors } from '@opetushallitus/oph-design-system';
+import { ophColors, OphTypography } from '@opetushallitus/oph-design-system';
 import { WithSideMargins } from '../WithSideMargins';
 
 const HERO_MAX_WIDTH = 1700;
@@ -28,9 +25,9 @@ const HeroWrapper = styled(Box)(({ theme }) => ({
   },
 }));
 
-const BackgroundImage = styled(Box)<{ backgroundImageUrl?: string }>(
-  ({ theme, backgroundImageUrl }) => ({
-    backgroundImage: `url(${backgroundImageUrl})`,
+const BackgroundImage = styled(Box)<{ background_image_url?: string }>(
+  ({ theme, background_image_url }) => ({
+    backgroundImage: `url(${background_image_url})`,
     backgroundPosition: 'top right',
     backgroundRepeat: 'no-repeat',
     [theme.breakpoints.down('md')]: {
@@ -80,32 +77,27 @@ const HorizontalLine = styled('hr')(({ theme }) => ({
 }));
 
 export const HeroImageContent = ({
-  contentfulData,
+  heroImageDesktop,
+  heroImageMobile,
 }: {
-  contentfulData: ContentfulData;
+  heroImageDesktop?: string;
+  heroImageMobile?: string;
 }) => {
+  const { t } = useTranslation();
   const theme = useTheme();
-  const { assetUrl } = useContentful();
 
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
 
-  const tutuLaskeutumissivuData = getOne(
-    contentfulData?.tutkintojenTunnustaminenLaskeutumissivu
-  );
-  const heroImageMobile = assetUrl(tutuLaskeutumissivuData?.kuvaMobiili?.url);
-  const heroImageDesktop = assetUrl(tutuLaskeutumissivuData?.kuvaDesktop?.url);
   const backgroundImage = isSmallScreen ? heroImageMobile : heroImageDesktop;
-
-  const { t } = useTranslation();
 
   return (
     <HeroWrapper>
-      <BackgroundImage backgroundImageUrl={backgroundImage}>
+      <BackgroundImage background_image_url={backgroundImage}>
         <WithSideMargins>
           <HeroTextContainer>
             <HeroHeading variant="h1">{t('tutu-laskeutumissivu.hero-title')}</HeroHeading>
             <HorizontalLine />
-            <Typography>{t('tutu-laskeutumissivu.hero-text')}</Typography>
+            <OphTypography>{t('tutu-laskeutumissivu.hero-text')}</OphTypography>
           </HeroTextContainer>
         </WithSideMargins>
       </BackgroundImage>
