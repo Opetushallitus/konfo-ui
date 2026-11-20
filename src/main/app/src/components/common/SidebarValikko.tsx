@@ -177,11 +177,13 @@ export const SidebarValikko = (props: {
   closeMenu: () => void;
   name: string;
   links: Array<ContentfulLink>;
+  // Sovelluksen sisäiset linkit, jotka eivät tule Contentfulista. href ilman kielietuliitettä.
+  internalLinks?: Array<{ name: string; href: string }>;
 }) => {
   const navigate = useNavigate();
   const { i18n } = useTranslation();
   const { forwardTo } = useContentful();
-  const { parent, select, deselect, closeMenu, name, links } = props;
+  const { parent, select, deselect, closeMenu, name, links, internalLinks = [] } = props;
   const { keepMenuVisible } = useSideMenu();
 
   const forwardToPage = (e: React.MouseEvent, href: string) => {
@@ -225,6 +227,14 @@ export const SidebarValikko = (props: {
             );
           }
         })}
+        {internalLinks.map((link) => (
+          <SivuItem
+            key={`sivu-item-${link.name}`}
+            name={link.name}
+            href={`/${i18n.language}${link.href}`}
+            onClick={forwardToPage}
+          />
+        ))}
       </StyledList>
     </nav>
   );
