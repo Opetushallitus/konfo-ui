@@ -77,10 +77,10 @@ export const QuestionPage = ({
         </>
       ) : (
         <>
+          <Box>{parsedBody}</Box>
           <Typography id={optionsLabelId} sx={{ marginBottom: '16px' }}>
             {t('tutu.tutu-opas.valitse-yksi')}
           </Typography>
-          <Box>{parsedBody}</Box>
           <AnswerOptions
             answerOptions={answerOptions}
             setCurrentObject={setCurrentObject}
