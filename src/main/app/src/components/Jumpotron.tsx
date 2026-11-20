@@ -122,7 +122,7 @@ export const Jumpotron = () => {
                     sx={{
                       display: { xs: 'block', md: 'none' },
                     }}>
-                    <MobileFiltersOnTopMenu isButtonInline={true} />
+                    <MobileFiltersOnTopMenu mode="etusivu" isButtonInline={true} />
                   </Box>
                 </Box>
               </Box>

@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 
 import { Box, Divider } from '@mui/material';
-import { t } from 'i18next';
+import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 import { FilterSearchResultsButton } from '#/src/components/common/FilterSearchResultsButton';
@@ -31,6 +31,7 @@ export const MobileFiltersOnTopMenu = ({
   rajainValues,
   rajainOptions,
 }: Props) => {
+  const { t } = useTranslation();
   const [isDrawerOpen, setDrawerOpen] = useState(false);
   const onToggleDrawer = useCallback(() => setDrawerOpen(!isDrawerOpen), [isDrawerOpen]);
 

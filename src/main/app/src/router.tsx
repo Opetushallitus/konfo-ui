@@ -7,7 +7,9 @@ import {
 } from 'react-router-dom';
 
 import { App } from '#/src/App';
-import { Etusivu } from '#/src/components/Etusivu';
+import { DefaultLayout } from '#/src/components/common/DefaultLayout';
+import { OphThemeRoute } from '#/src/components/common/OphThemeRoute';
+import { KonfoEtusivu } from '#/src/components/KonfoEtusivu';
 import { Hairiotiedote } from '#/src/components/Hairiotiedote';
 import { HakuLabel } from '#/src/components/haku/HakuLabel';
 import { HakuPage } from '#/src/components/haku/HakuPage';
@@ -23,6 +25,7 @@ import { SuosikitPage } from '#/src/components/SuosikitPage';
 import { SuosikitVertailuPage } from '#/src/components/SuosikitVertailuPage';
 import { ToteutusPage } from '#/src/components/toteutus/ToteutusPage';
 import { TranslatedRoute } from '#/src/components/TranslatedRoute';
+import { OpintopolkuEtusivu } from '#/src/components/opintopolku-etusivu/OpintopolkuEtusivu';
 import {
   ValintaperustePage,
   ValintaperustePreviewPage,
@@ -66,53 +69,82 @@ const routes: Array<RouteObject> = [
         path: ':lng?',
         element: <TranslatedRoute />,
         children: [
+          // Uusi etusivu: oph-design-systemin teema, ei palveluita ja sisältö rajattu 1200px levyiseksi
           {
             element: (
-              <>
-                <Hairiotiedote />
-                <Outlet />
-              </>
+              <OphThemeRoute>
+                <DefaultLayout palvelutVisible={false} contentMaxWidth={1200} />
+              </OphThemeRoute>
             ),
             children: [
-              { index: true, element: <Etusivu />, loader: resetHakuStateLoader },
-              { path: 'sisaltohaku', element: <Sisaltohaku /> },
-              { path: 'ohjaava-haku', element: <OhjaavaHakuPage /> },
+              {
+                path: 'etusivu',
+                element: (
+                  <>
+                    <Hairiotiedote />
+                    <OpintopolkuEtusivu />
+                  </>
+                ),
+                loader: resetHakuStateLoader,
+              },
+            ],
+          },
+          {
+            element: <DefaultLayout />,
+            children: [
               {
                 element: (
                   <>
-                    <div style={{ margin: 'auto', maxWidth: '1600px' }}>
-                      <ReactiveBorder>
-                        <HakuLabel />
-                        <Hakupalkki />
-                        <OhjaavaHakuLink />
-                      </ReactiveBorder>
-                    </div>
+                    <Hairiotiedote />
                     <Outlet />
                   </>
                 ),
                 children: [
-                  { path: 'suosikit', element: <SuosikitPage /> },
-                  { path: 'suosikit/vertailu', element: <SuosikitVertailuPage /> },
                   {
-                    path: 'haku/:keyword?',
-                    element: <HakuPage />,
-                    loader: syncHakuParamsLoader,
+                    index: true,
+                    element: <KonfoEtusivu />,
+                    loader: resetHakuStateLoader,
                   },
-                  { path: 'koulutus/:oid', element: <KoulutusPage /> },
-                  { path: 'oppilaitos/:oid', element: <OppilaitosPage /> },
+                  { path: 'sisaltohaku', element: <Sisaltohaku /> },
+                  { path: 'ohjaava-haku', element: <OhjaavaHakuPage /> },
                   {
-                    path: 'oppilaitososa/:oid',
-                    element: <OppilaitosPage oppilaitosOsa />,
-                  },
-                  { path: 'toteutus/:oid', element: <ToteutusPage /> },
-                  { path: 'sivu/:id', element: <SivuRouter /> },
-                  {
-                    path: 'hakukohde/:hakukohdeOid/valintaperuste',
-                    element: <ValintaperustePage />,
-                  },
-                  {
-                    path: 'valintaperuste/:valintaperusteId',
-                    element: <ValintaperustePreviewPage />,
+                    element: (
+                      <>
+                        <div style={{ margin: 'auto', maxWidth: '1600px' }}>
+                          <ReactiveBorder>
+                            <HakuLabel />
+                            <Hakupalkki />
+                            <OhjaavaHakuLink />
+                          </ReactiveBorder>
+                        </div>
+                        <Outlet />
+                      </>
+                    ),
+                    children: [
+                      { path: 'suosikit', element: <SuosikitPage /> },
+                      { path: 'suosikit/vertailu', element: <SuosikitVertailuPage /> },
+                      {
+                        path: 'haku/:keyword?',
+                        element: <HakuPage />,
+                        loader: syncHakuParamsLoader,
+                      },
+                      { path: 'koulutus/:oid', element: <KoulutusPage /> },
+                      { path: 'oppilaitos/:oid', element: <OppilaitosPage /> },
+                      {
+                        path: 'oppilaitososa/:oid',
+                        element: <OppilaitosPage oppilaitosOsa />,
+                      },
+                      { path: 'toteutus/:oid', element: <ToteutusPage /> },
+                      { path: 'sivu/:id', element: <SivuRouter /> },
+                      {
+                        path: 'hakukohde/:hakukohdeOid/valintaperuste',
+                        element: <ValintaperustePage />,
+                      },
+                      {
+                        path: 'valintaperuste/:valintaperusteId',
+                        element: <ValintaperustePreviewPage />,
+                      },
+                    ],
                   },
                 ],
               },
@@ -120,7 +152,10 @@ const routes: Array<RouteObject> = [
           },
         ],
       },
-      { path: '*', element: <NotFound /> },
+      {
+        element: <DefaultLayout />,
+        children: [{ path: '*', element: <NotFound /> }],
+      },
     ],
   },
 ];

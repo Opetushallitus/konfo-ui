@@ -3,12 +3,16 @@ import React, { useMemo, useState } from 'react';
 import {
   Box,
   InputBase,
+  InputBaseProps,
   AutocompleteRenderGroupParams,
   AutocompleteRenderInputParams,
   Typography,
   Paper,
   Tooltip,
   Autocomplete,
+  SxProps,
+  Theme,
+  useMediaQuery,
 } from '@mui/material';
 import { TFunction } from 'i18next';
 import { identity, isString, omit, size } from 'lodash-es';
@@ -24,7 +28,7 @@ import { AutocompleteOption } from '#/src/types/common';
 
 import { getToteutustenTarjoajat } from './hakutulos/hakutulosKortit/getToteutustenTarjoajat';
 import { useAutoComplete } from './hakutulosHooks';
-import { SearchButton } from './SearchButton';
+import { SEARCH_BUTTON_CLASS, SearchButton } from './SearchButton';
 
 const checkIsKeywordValid = (word: string) => size(word) === 0 || size(word) > 2;
 
@@ -66,7 +70,25 @@ const createRenderOption = (t: TFunction, highlightedLink: string | null) => {
   };
 };
 
-const createRenderInput = (t: TFunction, descriptionId: string) => {
+const KonfoInput = styled(InputBase)({
+  borderRadius: 0,
+  flex: 1,
+  width: '100%',
+  '& .MuiAutocomplete-input::placeholder': {
+    color: colors.grey700,
+    opacity: 0.85,
+  },
+});
+
+type SearchInputComponent = React.ComponentType<Omit<InputBaseProps, 'ref'>>;
+
+const createRenderInput = (
+  t: TFunction,
+  descriptionId: string,
+  InputComponent: SearchInputComponent,
+  // Kentän sisään Autocompleten tyhjennyspainikkeen jälkeen sijoitettava sisältö
+  endAdornment: React.ReactNode
+) => {
   return function KonfoAutocompleteInput(params: AutocompleteRenderInputParams) {
     const { InputProps, inputProps: paramInputProps } = params;
     const rest = omit(params, ['InputProps', 'InputLabelProps', 'inputProps']);
@@ -77,21 +99,22 @@ const createRenderInput = (t: TFunction, descriptionId: string) => {
         ? omit(paramInputProps, 'aria-activedescendant')
         : paramInputProps;
     return (
-      <InputBase
-        sx={{
-          borderRadius: 0,
-          flex: 1,
-          width: '100%',
-          '& .MuiAutocomplete-input::placeholder': {
-            color: colors.grey700,
-            opacity: 0.85,
-          },
-        }}
+      <InputComponent
         type="text"
         name="keyword"
         placeholder={t('haku.hakusana')}
         {...InputProps}
         {...rest}
+        endAdornment={
+          endAdornment ? (
+            <>
+              {InputProps.endAdornment}
+              {endAdornment}
+            </>
+          ) : (
+            InputProps.endAdornment
+          )
+        }
         inputProps={{
           ...inputProps,
           'aria-describedby': descriptionId,
@@ -141,22 +164,73 @@ const createRenderAutocompleteGroup = (t: TFunction) => {
   };
 };
 
+// Konfon hakulaatikko: varjostettu laatikko, jonka sisällä kenttä, rajaa- ja hakupainike
+const KONFO_FORM_SX: SxProps<Theme> = {
+  [theme.breakpoints.up('md')]: {
+    height: theme.spacing(9),
+  },
+  [theme.breakpoints.down('sm')]: {
+    height: theme.spacing(7),
+  },
+  paddingLeft: theme.spacing(2),
+  display: 'flex',
+  width: '100%',
+  alignItems: 'center',
+  boxSizing: 'border-box',
+  border: `1px solid ${colors.grey500}`,
+  borderRadius: '2px',
+  [`& .${SEARCH_BUTTON_CLASS}`]: {
+    [theme.breakpoints.up('md')]: {
+      display: 'inline-flex',
+      fontSize: '16px',
+      fontWeight: '600',
+      textAlign: 'center',
+      marginLeft: theme.spacing(3),
+      marginRight: theme.spacing(3),
+      padding: `${theme.spacing(1)} ${theme.spacing(2)}`,
+    },
+    [theme.breakpoints.down('md')]: {
+      marginRight: theme.spacing(1),
+    },
+  },
+};
+
+export type SearchBoxLayoutProps = {
+  // Kentän jälkeen sijoitettava rajaa-painike
+  rajaaButton?: React.ReactNode;
+  // Kenttäkomponentti (oletuksena Konfon tyylinen InputBase)
+  InputComponent?: SearchInputComponent;
+  // Kentän sisään Autocompleten tyhjennyspainikkeen jälkeen sijoitettava sisältö
+  inputEndAdornment?: React.ReactNode;
+  // Hakupainike kentän sisään (inputEndAdornmentin jälkeen) kentän perään sijoittamisen sijaan
+  searchButtonInInput?: boolean;
+  // Lomakkeen (kentän ja painikkeiden) tyylit Konfon hakulaatikon tyylien sijaan
+  sx?: SxProps<Theme>;
+};
+
 export const SearchBox = ({
   draftKeyword,
   doSearch,
   setDraftKeyword,
-  rajaaButton,
+  rajaaButton = null,
+  InputComponent = KonfoInput,
+  inputEndAdornment = null,
+  searchButtonInInput = false,
+  sx = KONFO_FORM_SX,
 }: {
   draftKeyword: string;
   doSearch: (keyword: string) => void;
   setDraftKeyword: (keyword: string) => void;
-  rajaaButton?: React.JSX.Element | null;
-}) => {
+} & SearchBoxLayoutProps) => {
   const { setSearchPhraseDebounced, isFetching, data } = useAutoComplete();
 
   const [highlightedLabel, setHighlightedLabel] = useState('');
   const [highlightedLink, setHighlightedLink] = useState<string | null>(null);
   const isKeywordValid = checkIsKeywordValid(draftKeyword);
+
+  // Isoilla näytöillä tekstillinen Etsi-painike, kapeilla pelkkä suurennuslasi
+  const mdUp = useMediaQuery(theme.breakpoints.up('md'));
+  const searchButton = <SearchButton isKeywordValid={isKeywordValid} mdUp={mdUp} />;
 
   const { t } = useTranslation();
 
@@ -191,21 +265,7 @@ export const SearchBox = ({
         const keywordValue = formData.get('keyword')?.toString() ?? '';
         doSearch(keywordValue);
       }}
-      sx={{
-        [theme.breakpoints.up('md')]: {
-          height: theme.spacing(9),
-        },
-        [theme.breakpoints.down('sm')]: {
-          height: theme.spacing(7),
-        },
-        paddingLeft: theme.spacing(2),
-        display: 'flex',
-        width: '100%',
-        alignItems: 'center',
-        boxSizing: 'border-box',
-        border: `1px solid ${colors.grey500}`,
-        borderRadius: '2px',
-      }}
+      sx={sx}
       elevation={4}>
       <span
         role="status"
@@ -283,11 +343,23 @@ export const SearchBox = ({
           }}
           renderGroup={createRenderAutocompleteGroup(t)}
           renderOption={createRenderOption(t, highlightedLink)}
-          renderInput={createRenderInput(t, hintId)}
+          renderInput={createRenderInput(
+            t,
+            hintId,
+            InputComponent,
+            searchButtonInInput ? (
+              <>
+                {inputEndAdornment}
+                {searchButton}
+              </>
+            ) : (
+              inputEndAdornment
+            )
+          )}
         />
       </Tooltip>
       {rajaaButton}
-      <SearchButton isKeywordValid={isKeywordValid} />
+      {!searchButtonInInput && searchButton}
     </Paper>
   );
 };

@@ -917,5 +917,12 @@
     "hakulomakkeelle-voi-vieda-enintaan": "Hakulomakkeelle voi viedä enintään {{max}} hakukohdetta.",
     "aloituspaikat": "Aloituspaikat",
     "aloituspaikat-ensisijaiset-hakijat": "Aloituspaikat / Ensisijaiset hakijat {{year}}"
+  },
+  "opintopolku-etusivu": {
+    "hero-title": "Opintopolku",
+    "hero-text": "Kaikki Suomen koulutukset ja oppilaitokset yhdessä palvelussa. Opintopolku tarjoaa myös kielitutkintojen suorittamista sekä ulkomailla suoritettujen tutkintojen tunnustamista Suomessa.",
+    "nayta-kaikki": "Näytä kaikki koulutukset ja oppilaitokset",
+    "rajaa-etsimaasi": "Rajaa etsimääsi",
+    "hae-otsikko": "Hae koulutuksia ja oppilaitoksia"
   }
 }

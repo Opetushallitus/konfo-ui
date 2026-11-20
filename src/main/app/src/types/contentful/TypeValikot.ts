@@ -8,4 +8,4 @@ export interface TypeValikotFields {
 }
 
 export type TypeValikotSkeleton = EntrySkeletonType<TypeValikotFields, "valikot">;
-export type TypeValikot<Modifiers extends ChainModifiers, Locales extends LocaleCode> = Entry<TypeValikotSkeleton, Modifiers, Locales>;
+export type TypeValikot<Modifiers extends ChainModifiers, Locales extends LocaleCode = LocaleCode> = Entry<TypeValikotSkeleton, Modifiers, Locales>;
