@@ -120,7 +120,12 @@ const routes: Array<RouteObject> = [
             children: [
               {
                 path: 'tutkintojen-tunnustaminen',
-                element: <TutuLaskeutumissivu />,
+                element: (
+                  <>
+                    <Hairiotiedote />
+                    <TutuLaskeutumissivu />,
+                  </>
+                ),
               },
             ],
           },
