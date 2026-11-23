@@ -5,9 +5,10 @@ import { HeroImageContent } from '#/src/components/tutu-laskeutumissivu/HeroImag
 import { WithSideMargins } from '#/src/components/WithSideMargins';
 import { TutuPalveluopasLinkBox } from './TutuPalveluopasLinkBox';
 import { useTutuLaskeutumissivuData } from './useTutuLaskeutumissivuData';
+import { Yhteystiedot } from './Yhteystiedot';
 
 export const TutuLaskeutumissivu = () => {
-  const { isLoading, heroKuvaDesktop, heroKuvaMobiili, tutuPalveluopas } =
+  const { isLoading, heroKuvaDesktop, heroKuvaMobiili, tutuPalveluopas, yhteystiedot } =
     useTutuLaskeutumissivuData();
 
   return (
@@ -22,6 +23,7 @@ export const TutuLaskeutumissivu = () => {
           />
           <WithSideMargins>
             <TutuPalveluopasLinkBox osio={tutuPalveluopas} />
+            <Yhteystiedot yhteystiedot={yhteystiedot} />
           </WithSideMargins>
         </>
       )}

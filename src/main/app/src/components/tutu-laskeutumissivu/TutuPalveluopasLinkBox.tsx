@@ -32,17 +32,17 @@ const StyledMarkdown = styled(Markdown)({
 
 const StyledButton = styled(OphButton)({
   color: ophColors.cyan1,
-  backgroundColor: 'white',
+  backgroundColor: ophColors.white,
   fontSize: 14,
   '&:hover': {
     color: ophColors.cyan1,
-    backgroundColor: 'white',
+    backgroundColor: ophColors.white,
   },
 });
 
 const Nosto = styled(Paper)({
   backgroundColor: ophColors.cyan1,
-  color: 'white',
+  color: ophColors.white,
   padding: theme.spacing(2.5),
   flexWrap: 'wrap',
   ...LINK_PAPER_SX,
@@ -87,13 +87,13 @@ export const TutuPalveluopasLinkBox = ({ osio }: { osio: Osio }) => {
   const headingId = useId();
 
   return (
-    <Box component="section" aria-labelledby={headingId} sx={{ marginTop: 6 }}>
+    <Box component="section" sx={{ marginTop: 6 }}>
       <SectionHeading component="h2" id={headingId}>
         {osio.otsikko}
       </SectionHeading>
       {nosto.href ? (
         // Koko laatikko toimii linkkinä ja klikattavana elementtinä, ei pelkästään StyledButton
-        <SmartLink href={nosto.href}>
+        <SmartLink href={nosto.href} aria-labelledby={headingId}>
           {nosto ? (
             <Nosto>
               {nosto.kuvaUrl && <NostoKuva component="img" src={nosto.kuvaUrl} alt="" />}

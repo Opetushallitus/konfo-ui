@@ -62,7 +62,7 @@ const HeroTextContainer = styled(Box)(({ theme }) => ({
   },
 }));
 
-const HorizontalLine = styled('hr')(({ theme }) => ({
+export const HorizontalLine = styled('hr')(({ theme }) => ({
   border: 'none',
   width: '65px',
   display: 'inline-block',

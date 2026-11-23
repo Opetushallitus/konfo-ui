@@ -15,6 +15,11 @@ type Nosto = Omit<EtusivuNosto, 'linkit'> & {
   tyyppi?: string;
 };
 
+export type YhteystiedotType = {
+  otsikko?: string;
+  sisalto?: string;
+};
+
 // Hakee uuden etusivun tiedot contentfulista ja purkaa viittaukset (nostot, linkit, kuvat) valmiiksi,
 // jotta komponenttien ei tarvitse käsitellä contentfulin tietorakennetta
 export const useTutuLaskeutumissivuData = () => {
@@ -44,6 +49,10 @@ export const useTutuLaskeutumissivuData = () => {
         tutuLaskeutumissivuData?.paatoksenTarveOtsikko,
         tutuLaskeutumissivuData?.paatoksenTarveNosto
       ),
+      yhteystiedot: {
+        otsikko: tutuLaskeutumissivuData?.yhteystiedotOtsikko,
+        sisalto: tutuLaskeutumissivuData?.yhteystiedotSisalto,
+      },
     };
   }, [data, assetUrl]);
 
