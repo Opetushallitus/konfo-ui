@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 
+import { toNostoOsio } from '#/src/components/opintopolku-etusivu/useOpintopolkuEtusivuData';
 import { useContentful } from '#/src/hooks/useContentful';
 import { getOne } from '#/src/tools/getOne';
 
@@ -13,6 +14,12 @@ export const useKielitutkinnotData = () => {
 
     return {
       heroKuvaDesktop: assetUrl(sivuData?.kuvaDesktop?.url),
+      ykiTestiinOsallistuminen: toNostoOsio(
+        data,
+        assetUrl,
+        sivuData?.ykiTestiinOsallistuminenOtsikko,
+        sivuData?.ykiTestiinOsallistuminenNostot
+      ),
     };
   }, [data, assetUrl]);
 
