@@ -12,7 +12,7 @@ const HEADER_HEIGHT_PX = 72;
 
 const breakpointValues = {
   xs: 0,
-  sm: 600,
+  sm: 680,
   md: 900,
   lg: 1200,
   xl: 1600,
