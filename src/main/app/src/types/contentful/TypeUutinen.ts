@@ -9,4 +9,4 @@ export interface TypeUutinenFields {
 }
 
 export type TypeUutinenSkeleton = EntrySkeletonType<TypeUutinenFields, "uutinen">;
-export type TypeUutinen<Modifiers extends ChainModifiers, Locales extends LocaleCode> = Entry<TypeUutinenSkeleton, Modifiers, Locales>;
+export type TypeUutinen<Modifiers extends ChainModifiers, Locales extends LocaleCode = LocaleCode> = Entry<TypeUutinenSkeleton, Modifiers, Locales>;
