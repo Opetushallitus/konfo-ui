@@ -15,6 +15,7 @@ export const TutuLaskeutumissivu = () => {
     heroKuvaMobiili,
     tutuPalveluopas,
     paatoksenHakeminen,
+    tutuUKK,
     yhteystiedot,
   } = useTutuLaskeutumissivuData();
 
@@ -31,6 +32,7 @@ export const TutuLaskeutumissivu = () => {
           <WithSideMargins>
             <TutuPalveluopasLinkBox osio={tutuPalveluopas} />
             <KielitutkinnotNostoOsio osio={paatoksenHakeminen} />
+            <KielitutkinnotNostoOsio osio={tutuUKK} />
             <Yhteystiedot yhteystiedot={yhteystiedot} />
           </WithSideMargins>
         </>

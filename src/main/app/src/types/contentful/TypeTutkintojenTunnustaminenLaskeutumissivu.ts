@@ -10,7 +10,7 @@ export interface TypeTutkintojenTunnustaminenLaskeutumissivuFields {
     paatoksenHakeminenOtsikko: EntryFieldTypes.Symbol;
     paatoksenHakeminenKortit?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeNostoSkeleton>>;
     useinKysytytKysymyksetOtsikko: EntryFieldTypes.Symbol;
-    useinKysytytKysymyksetLista?: EntryFieldTypes.EntryLink<TypeNostoSkeleton>;
+    useinKysytytKysymyksetLista?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeNostoSkeleton>>;
     yhteystiedotOtsikko: EntryFieldTypes.Symbol;
     yhteystiedotSisalto?: EntryFieldTypes.Text;
 }

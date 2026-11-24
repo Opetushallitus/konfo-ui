@@ -54,10 +54,13 @@ export const useTutuLaskeutumissivuData = () => {
           data.nosto[tutuLaskeutumissivuData?.paatoksenTarveNosto?.id ?? '']
         ),
       },
-
       paatoksenHakeminen: toOsio(
         tutuLaskeutumissivuData?.paatoksenHakeminenOtsikko,
         tutuLaskeutumissivuData?.paatoksenHakeminenKortit
+      ),
+      tutuUKK: toOsio(
+        tutuLaskeutumissivuData?.useinKysytytKysymyksetOtsikko,
+        tutuLaskeutumissivuData?.useinKysytytKysymyksetLista
       ),
       yhteystiedot: {
         otsikko: tutuLaskeutumissivuData?.yhteystiedotOtsikko,
