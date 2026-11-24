@@ -42,14 +42,16 @@ export const PaperHeading = ({
   children,
   color = 'inherit',
   fontWeight = 600,
+  fontSize = '24px',
   to,
 }: {
   children: React.ReactNode;
   color?: string;
   fontWeight?: number;
+  fontSize?: string;
   to?: string;
 }) => (
-  <OphTypography component="h3" sx={{ fontSize: '24px', color, fontWeight }}>
+  <OphTypography component="h3" sx={{ fontSize, color, fontWeight }}>
     {to ? (
       <SmartLink className={PAPER_LINK_CLASS} href={to}>
         {children}

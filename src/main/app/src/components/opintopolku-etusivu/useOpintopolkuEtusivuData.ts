@@ -29,6 +29,37 @@ export type EtusivuOsio = {
 
 type NostoRef = { id: string } | undefined;
 
+const toEtusivuNosto =
+  (data: ContentfulData, assetUrl: (url?: string) => string | undefined) =>
+  (nosto: ContentfulNosto): EtusivuNosto => ({
+    id: nosto.id,
+    otsikko: nosto.otsikko,
+    teksti: nosto.teksti,
+    kuvaUrl: assetUrl(nosto.kuva?.url),
+    color: nosto.color,
+    linkit: nosto.linkit?.map((linkRef) => {
+      const linkki = data.linkki[linkRef.id ?? ''];
+      return {
+        id: linkki.id,
+        teksti: linkki.teksti,
+        href: linkki.href,
+        variant: linkki.variant,
+      };
+    }),
+  });
+
+// Muodostaa osion otsikosta ja nostoviittauksista. Käytetään myös muilla contentful-sivuilla,
+// joilla on samanlaisia nosto-osioita (esim. kielitutkintojen laskeutumissivu).
+export const toNostoOsio = (
+  data: ContentfulData,
+  assetUrl: (url?: string) => string | undefined,
+  otsikko?: string,
+  nostoRefs: Array<NostoRef> = []
+): EtusivuOsio => ({
+  otsikko,
+  nostot: resolveNostot(data, nostoRefs).map(toEtusivuNosto(data, assetUrl)),
+});
+
 // Hakee uuden etusivun tiedot contentfulista ja purkaa viittaukset (nostot, linkit, kuvat) valmiiksi,
 // jotta komponenttien ei tarvitse käsitellä contentfulin tietorakennetta
 export const useOpintopolkuEtusivuData = () => {
@@ -37,28 +68,8 @@ export const useOpintopolkuEtusivuData = () => {
   const etusivu = useMemo(() => {
     const etusivuData = getOne(data.opintopolkuEtusivu);
 
-    // Etusivun nostoilla on aina vain yksi linkki
-    const toEtusivuNosto = (nosto: ContentfulNosto): EtusivuNosto => ({
-      id: nosto.id,
-      otsikko: nosto.otsikko,
-      teksti: nosto.teksti,
-      kuvaUrl: assetUrl(nosto.kuva?.url),
-      color: nosto.color,
-      linkit: nosto.linkit?.map((linkRef) => {
-        const linkki = data.linkki[linkRef.id ?? ''];
-        return {
-          id: linkki.id,
-          teksti: linkki.teksti,
-          href: linkki.href,
-          variant: linkki.variant,
-        };
-      }),
-    });
-
-    const toOsio = (otsikko?: string, nostoRefs: Array<NostoRef> = []): EtusivuOsio => ({
-      otsikko,
-      nostot: resolveNostot(data, nostoRefs).map(toEtusivuNosto),
-    });
+    const toOsio = (otsikko?: string, nostoRefs?: Array<NostoRef>) =>
+      toNostoOsio(data, assetUrl, otsikko, nostoRefs);
 
     return {
       heroKuvaDesktop: assetUrl(etusivuData?.kuvaDesktop?.url),
