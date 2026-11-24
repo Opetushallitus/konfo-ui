@@ -26,6 +26,12 @@ export const useKielitutkinnotData = () => {
         sivuData?.ykiLisatietoaOtsikko,
         sivuData?.ykiLisatietoaNostot
       ),
+      ajankohtaista: toNostoOsio(
+        data,
+        assetUrl,
+        sivuData?.ajankohtaistaOtsikko,
+        sivuData?.ajankohtaistaNostot
+      ),
       useinKysytytKysymykset: {
         otsikko: sivuData?.useinKysytytKysymyksetOtsikko,
         // Ohitetaan viittaukset, joita vastaavaa kysymystä ei löydy (esim. julkaisematon)

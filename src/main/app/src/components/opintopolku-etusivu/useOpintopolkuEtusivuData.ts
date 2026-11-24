@@ -7,6 +7,7 @@ import {
   ContentfulLinkki,
   ContentfulNosto,
 } from '#/src/types/ContentfulTypes';
+import { parseArrayField } from '#/src/tools/utils';
 
 export type EtusivuNosto = {
   id: string;
@@ -14,6 +15,9 @@ export type EtusivuNosto = {
   teksti?: string;
   kuvaUrl?: string;
   color?: ContentfulNosto['color'];
+  tyyppi?: string;
+  asiasanat?: Array<string>;
+  julkaisuaika?: string;
   linkit?: Array<{
     id: string;
     teksti?: string;
@@ -37,6 +41,9 @@ const toEtusivuNosto =
     teksti: nosto.teksti,
     kuvaUrl: assetUrl(nosto.kuva?.url),
     color: nosto.color,
+    tyyppi: nosto.tyyppi,
+    asiasanat: parseArrayField(nosto.asiasanat),
+    julkaisuaika: nosto.julkaisuaika,
     linkit: nosto.linkit?.map((linkRef) => {
       const linkki = data.linkki[linkRef.id ?? ''];
       return {
