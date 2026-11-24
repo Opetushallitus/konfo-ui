@@ -15,8 +15,6 @@ export const KirjautuneenPalvelut = ({ osio }: { osio: EtusivuOsio }) =>
       {osio.nostot.map((nosto) => (
         <Paper
           key={nosto.id}
-          component="a"
-          href={nosto.href}
           sx={{
             ...LINK_PAPER_SX,
             color: ophColors.grey900,
@@ -29,7 +27,9 @@ export const KirjautuneenPalvelut = ({ osio }: { osio: EtusivuOsio }) =>
             gap: 2,
           }}>
           <Box component="img" src={nosto.kuvaUrl} alt="" sx={{ height: '38px' }} />
-          <PaperHeading color={ophColors.green2}>{nosto.otsikko}</PaperHeading>
+          <PaperHeading color={ophColors.green2} to={nosto.href}>
+            {nosto.otsikko}
+          </PaperHeading>
           <OphTypography sx={{ color: 'inherit' }}>{nosto.teksti}</OphTypography>
         </Paper>
       ))}
