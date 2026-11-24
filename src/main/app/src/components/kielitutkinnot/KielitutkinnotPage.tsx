@@ -2,12 +2,12 @@ import { Box } from '@mui/material';
 
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { KielitutkinnotHero } from '#/src/components/kielitutkinnot/KielitutkinnotHero';
+import { KielitutkinnotNostoOsio } from '#/src/components/kielitutkinnot/KielitutkinnotNostoOsio';
 import { useKielitutkinnotData } from '#/src/components/kielitutkinnot/useKielitutkinnotData';
-import { YkiTestiinOsallistuminen } from '#/src/components/kielitutkinnot/YkiTestiinOsallistuminen';
 import { WithSideMargins } from '#/src/components/WithSideMargins';
 
 export const KielitutkinnotPage = () => {
-  const { isLoading, heroKuvaDesktop, ykiTestiinOsallistuminen } =
+  const { isLoading, heroKuvaDesktop, ykiTestiinOsallistuminen, ykiLisatietoa } =
     useKielitutkinnotData();
 
   return (
@@ -19,7 +19,8 @@ export const KielitutkinnotPage = () => {
           <KielitutkinnotHero kuvaDesktop={heroKuvaDesktop} />
           <Box sx={{ position: 'relative', marginTop: 4 }}>
             <WithSideMargins>
-              <YkiTestiinOsallistuminen osio={ykiTestiinOsallistuminen} />
+              <KielitutkinnotNostoOsio osio={ykiTestiinOsallistuminen} />
+              <KielitutkinnotNostoOsio osio={ykiLisatietoa} />
               {/* TODO: Kielitutkintojen laskeutumissivun muu sisältö */}
             </WithSideMargins>
           </Box>
