@@ -9,14 +9,14 @@ import { MainContent } from './MainContent';
 import { Notifications } from './Notifications';
 
 type DefaultLayoutProps = {
-  palvelutVisible: boolean;
+  palvelutVisible?: boolean;
   // Tekstialueen enimmäisleveys (px) sisällölle ja footerille. Oletuksena ei rajausta.
   contentMaxWidth?: number;
 };
 
 // Oletussivupohja: sivun sisältö, ilmoitukset, palvelut ja footer.
 export const DefaultLayout = ({
-  palvelutVisible,
+  palvelutVisible = true,
   contentMaxWidth,
 }: DefaultLayoutProps) => (
   <ContentMaxWidthContext value={contentMaxWidth}>

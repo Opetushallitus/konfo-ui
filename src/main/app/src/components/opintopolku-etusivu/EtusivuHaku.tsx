@@ -23,21 +23,19 @@ export const EtusivuHaku = () => {
   const [isDrawerOpen, setDrawerOpen] = useState(false);
   const toggleDrawer = useCallback(() => setDrawerOpen((open) => !open), []);
   // Isoilla näytöillä rajaimet popoverissa, pienillä alhaalta avautuvassa laatikossa
-  const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
+  const isSmall = useMediaQuery(theme.breakpoints.down('md'));
 
   const { koulutusData, isFetching } = useSearch();
   const allSelectedFilters = useAllSelectedFilters();
   const selectedCount = allSelectedFilters?.flat?.length ?? 0;
   const hasFilters = !isEmpty(koulutusData?.filters);
-
-  const isSmall = useMediaQuery(theme.breakpoints.down('md'));
+  const showPopover = hasFilters && !isSmall;
+  const showDrawer = hasFilters && isSmall;
 
   return (
     <Box>
-      {hasFilters && isMdUp && (
-        <RajaimetPopover anchorEl={anchorEl} setAnchorEl={setAnchorEl} />
-      )}
-      {hasFilters && !isMdUp && (
+      {showPopover && <RajaimetPopover anchorEl={anchorEl} setAnchorEl={setAnchorEl} />}
+      {showDrawer && (
         <RajaimetDrawer
           isOpen={isDrawerOpen}
           toggleOpen={toggleDrawer}
@@ -52,10 +50,11 @@ export const EtusivuHaku = () => {
           variant="oph"
           // Isoilla näytöillä rajaa-painike hakukentän sisällä, pienillä linkin vieressä (alla)
           rajaaButton={
-            hasFilters && isMdUp ? (
+            showPopover ? (
               <RajaaButton
                 isOpen={isPopoverOpen}
                 isLoading={isFetching}
+                isSmall={false}
                 selectedCount={selectedCount}
                 onClick={(event) => setAnchorEl(event.currentTarget)}
               />
@@ -75,17 +74,15 @@ export const EtusivuHaku = () => {
               {t('opintopolku-etusivu.nayta-kaikki')}
             </OphLink>
           ) : (
-            <OphButton
-              component={RouterLink}
-              to="/haku"
-              variant={isSmall ? 'text' : 'outlined'}>
+            <OphButton component={RouterLink} to="/haku" variant="outlined">
               {t('opintopolku-etusivu.nayta-kaikki')}
             </OphButton>
           )}
-          {hasFilters && !isMdUp && (
+          {showDrawer && (
             <RajaaButton
               isOpen={isDrawerOpen}
               isLoading={isFetching}
+              isSmall
               selectedCount={selectedCount}
               onClick={toggleDrawer}
             />

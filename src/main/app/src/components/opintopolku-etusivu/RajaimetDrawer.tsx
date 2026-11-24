@@ -1,6 +1,4 @@
-// Uuden etusivun rajaa-painike ja rajainvalinnat. Isoilla näytöillä rajaimet avautuvat popoveriin
-// (kuten nykyisellä etusivulla), pienillä näytöillä alhaalta avautuvaan laatikkoon (drawer).
-import React, { useCallback, useMemo } from 'react';
+import React from 'react';
 
 import { Divider } from '@mui/material';
 
@@ -8,8 +6,6 @@ import { MobileRajainDrawer } from '#/src/components/common/MobileRajainDrawer';
 import { HAKU_RAJAIMET_ORDER } from '#/src/components/haku/hakutulos/HAKU_RAJAIMET_ORDER';
 import { MobileToggleKoulutusOppilaitos } from '#/src/components/haku/hakutulos/MobileToggleKoulutusOppilaitos';
 import { useSearch } from '#/src/components/haku/hakutulosHooks';
-
-export const RAJAIMET_POPOVER_ID = 'filters-popover';
 
 // Pienten näyttöjen rajainvalinnat. Koottu samoista osista kuin MobileFiltersOnTopMenu etusivulla.
 export const RajaimetDrawer = ({
@@ -32,16 +28,14 @@ export const RajaimetDrawer = ({
     rajainValues,
   } = useSearch();
 
-  const hitCount = useMemo(
-    () => (selectedTab === 'koulutus' ? koulutusData?.total : oppilaitosData?.total),
-    [selectedTab, koulutusData, oppilaitosData]
-  );
+  const hitCount =
+    selectedTab === 'koulutus' ? koulutusData?.total : oppilaitosData?.total;
 
   // "Näytä tulokset" siirtyy hakusivulle valituilla rajaimilla
-  const onShowResults = useCallback(() => {
+  const onShowResults = () => {
     goToSearchPage();
     toggleOpen();
-  }, [goToSearchPage, toggleOpen]);
+  };
 
   return (
     <MobileRajainDrawer

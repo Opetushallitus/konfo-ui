@@ -5,8 +5,9 @@ import { useOphTheme } from '@opetushallitus/oph-design-system/theme';
 import { theme as konfoTheme } from '#/src/theme';
 import { getLanguage } from '#/src/tools/localization';
 
-// Layout-reitti, joka vaihtaa alireittien sisällön käyttämään oph-design-systemin teemaa.
-// Header, sivuvalikko ja footer (App.tsx) ovat tämän ulkopuolella, joten ne säilyttävät Konfon teeman.
+// Vaihtaa lapsielementtien (esim. sivupohjan sisältöineen ja footereineen) teemaksi
+// oph-design-systemin teeman. Header ja sivuvalikko (App.tsx) ovat tämän ulkopuolella, joten ne
+// säilyttävät Konfon teeman.
 // Käytetään ThemeProvideria OphThemeProviderin sijaan, koska jälkimmäinen lisää globaalin CssBaselinen.
 export const OphThemeRoute = ({ children }: { children: React.ReactNode }) => {
   const ophTheme = useOphTheme({
