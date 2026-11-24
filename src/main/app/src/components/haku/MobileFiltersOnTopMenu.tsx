@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useState } from 'react';
 
 import { Divider } from '@mui/material';
-import { t } from 'i18next';
+import { useTranslation } from 'react-i18next';
 
 import { FilterSearchResultsButton } from '#/src/components/common/FilterSearchResultsButton';
 import { MobileRajainDrawer } from '#/src/components/common/MobileRajainDrawer';
@@ -18,6 +18,8 @@ export const MobileFiltersOnTopMenu = ({
 }: {
   isButtonInline?: boolean;
 }) => {
+  const { t } = useTranslation();
+
   const isAtEtusivu = useIsAtEtusivu();
 
   const {

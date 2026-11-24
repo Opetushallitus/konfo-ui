@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
 import { Box, Divider } from '@mui/material';
-import { t } from 'i18next';
 
 import { colors } from '#/src/colors';
 import { FilterSearchResultsButton } from '#/src/components/common/FilterSearchResultsButton';
@@ -9,6 +8,7 @@ import { MobileRajainDrawer } from '#/src/components/common/MobileRajainDrawer';
 import { RajainValues } from '#/src/store/reducers/hakutulosSlice';
 import { RajainName } from '#/src/types/common';
 import { RajainOrderItem, SetRajainValues } from '#/src/types/SuodatinTypes';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   rajainOrder: Array<RajainOrderItem>;
@@ -31,6 +31,7 @@ export const MobileFiltersOnTopMenu = ({
   rajainValues,
   rajainOptions,
 }: Props) => {
+  const { t } = useTranslation();
   const [isDrawerOpen, setDrawerOpen] = useState(false);
   const onToggleDrawer = useCallback(() => setDrawerOpen(!isDrawerOpen), [isDrawerOpen]);
 
