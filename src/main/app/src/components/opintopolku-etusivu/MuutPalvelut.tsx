@@ -73,7 +73,7 @@ export const MuutPalvelut = ({ contentfulData }: { contentfulData: ContentfulDat
                 sx={{ display: 'flex', alignItems: 'center', gap: 2, paddingRight: 4 }}>
                 <Box
                   component="img"
-                  src={assetUrl(nosto.ikoni?.url)}
+                  src={assetUrl(nosto.kuva?.url)}
                   alt=""
                   sx={{ height: '40px' }}
                 />
