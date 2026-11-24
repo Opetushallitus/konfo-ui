@@ -86,7 +86,16 @@ export const LinkOrYoutube = ({
         {absolute && (
           <>
             <AccessibleInvisibleText text={` (${t('avautuu-uuteen-valilehteen')})`} />
-            <MaterialIcon icon="open_in_new" aria-hidden="true" />
+            <MaterialIcon
+              icon="open_in_new"
+              aria-hidden="true"
+              sx={{
+                verticalAlign: 'middle',
+                marginLeft: '5px',
+                marginBottom: '1px',
+                fontSize: '20px',
+              }}
+            />
           </>
         )}
       </StyledLink>

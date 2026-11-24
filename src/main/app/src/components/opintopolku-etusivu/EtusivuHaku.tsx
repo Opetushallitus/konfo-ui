@@ -15,8 +15,7 @@ import {
   RajaimetPopover,
 } from '#/src/components/haku/RajaimetPopover';
 import { styled } from '#/src/theme';
-
-import { SectionHeading } from './opintopolkuEtusivuUtils';
+import { PageSectionHeading } from '../PageSectionHeading';
 
 // Hakukenttä oph-design-systemin oletustyyleillä. Rajaa-painike (ja kapeilla näytöillä
 // hakupainike) on kentän sisällä Autocompleten tyhjennyspainikkeen jälkeen.
@@ -73,9 +72,9 @@ export const EtusivuHaku = () => {
   return (
     <Stack>
       {showPopover && <RajaimetPopover anchorEl={anchorEl} setAnchorEl={setAnchorEl} />}
-      <SectionHeading component="h2">
+      <PageSectionHeading component="h2">
         {t('opintopolku-etusivu.hae-otsikko')}
-      </SectionHeading>
+      </PageSectionHeading>
       <Hakupalkki
         InputComponent={EtusivuSearchInput}
         sx={SEARCH_FORM_SX}

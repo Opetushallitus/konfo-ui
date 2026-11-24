@@ -7,13 +7,7 @@ import { OphTypography } from '@opetushallitus/oph-design-system';
 import { SmartLink } from '#/src/components/common/SmartLink';
 import { PAPER_LINK_CLASS } from '#/src/components/opintopolku-etusivu/linkPaperStyles';
 import { EtusivuOsio } from '#/src/components/opintopolku-etusivu/useOpintopolkuEtusivuData';
-import { styled } from '#/src/theme';
-
-export const SectionHeading = styled(OphTypography)(({ theme }) => ({
-  fontSize: '32px',
-  fontWeight: 400,
-  marginBottom: theme.spacing(4),
-}));
+import { PageSectionHeading } from '#/src/components/PageSectionHeading';
 
 // Etusivun osio otsikkoineen. Osiota ei näytetä, jos siinä ei ole nostoja.
 // Otsikko nimeää osion, jolloin se on ruudunlukijalle nimetty alue (region-maamerkki).
@@ -27,9 +21,9 @@ export const EtusivuSection = ({
   const headingId = useId();
   return osio.nostot.length > 0 ? (
     <Box component="section" aria-labelledby={headingId} sx={{ marginTop: 6 }}>
-      <SectionHeading component="h2" id={headingId}>
+      <PageSectionHeading component="h2" id={headingId}>
         {osio.otsikko}
-      </SectionHeading>
+      </PageSectionHeading>
       {children}
     </Box>
   ) : null;

@@ -26,6 +26,14 @@ export const useKielitutkinnotData = () => {
         sivuData?.ykiLisatietoaOtsikko,
         sivuData?.ykiLisatietoaNostot
       ),
+      useinKysytytKysymykset: {
+        otsikko: sivuData?.useinKysytytKysymyksetOtsikko,
+        // Ohitetaan viittaukset, joita vastaavaa kysymystä ei löydy (esim. julkaisematon)
+        kysymykset: (sivuData?.useinKysytytKysymyksetLista ?? []).flatMap((ref) => {
+          const faq = data.faq[ref?.id ?? ''];
+          return faq ? [{ id: faq.id, kysymys: faq.question, vastaus: faq.answer }] : [];
+        }),
+      },
     };
   }, [data, assetUrl]);
 

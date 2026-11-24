@@ -33,6 +33,7 @@ const initialContentfulData: ContentfulData = {
   kielitutkinnotLaskeutumissivu: {},
   nosto: {},
   linkki: {},
+  faq: {},
 };
 
 const assetUrl = (url?: string) =>
