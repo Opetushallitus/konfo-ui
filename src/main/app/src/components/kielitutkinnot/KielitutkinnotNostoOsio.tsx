@@ -58,7 +58,8 @@ export const KielitutkinnotNostoOsio = ({ osio }: { osio: EtusivuOsio }) => (
               color={ophColors.green2}
               fontSize="20px"
               fontWeight={400}
-              to={nosto.linkit?.[0]?.href}>
+              to={nosto.linkit?.[0]?.href}
+              linkShouldOpenInNewTab={nosto.linkit?.[0].avautuuUuteenIkkunaan}>
               {nosto.otsikko}
             </PaperHeading>
             <OphTypography variant="body2" sx={{ color: 'inherit', flexGrow: 1 }}>

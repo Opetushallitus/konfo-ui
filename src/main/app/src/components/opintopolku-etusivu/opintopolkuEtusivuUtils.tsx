@@ -8,6 +8,7 @@ import { SmartLink } from '#/src/components/common/SmartLink';
 import { PAPER_LINK_CLASS } from '#/src/components/opintopolku-etusivu/linkPaperStyles';
 import { EtusivuOsio } from '#/src/components/opintopolku-etusivu/useOpintopolkuEtusivuData';
 import { PageSectionHeading } from '#/src/components/PageSectionHeading';
+import { MaterialIcon } from '../common/MaterialIcon';
 
 // Etusivun osio otsikkoineen. Osiota ei näytetä, jos siinä ei ole nostoja.
 // Otsikko nimeää osion, jolloin se on ruudunlukijalle nimetty alue (region-maamerkki).
@@ -38,12 +39,14 @@ export const PaperHeading = ({
   fontWeight = 600,
   fontSize = '24px',
   to,
+  linkShouldOpenInNewTab,
 }: {
   children: React.ReactNode;
   color?: string;
   fontWeight?: number;
   fontSize?: string;
   to?: string;
+  linkShouldOpenInNewTab?: boolean;
 }) => (
   <OphTypography component="h3" sx={{ fontSize, color, fontWeight }}>
     {to ? (
@@ -52,6 +55,13 @@ export const PaperHeading = ({
       </SmartLink>
     ) : (
       children
+    )}
+    {linkShouldOpenInNewTab && (
+      <MaterialIcon
+        icon="open_in_new"
+        aria-hidden="true"
+        sx={{ verticalAlign: 'middle', fontSize: '18px', paddingLeft: '6px' }}
+      />
     )}
   </OphTypography>
 );
