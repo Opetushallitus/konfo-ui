@@ -71,6 +71,10 @@
         "nosto": {
           "fi": "1763280000000/fi/nosto.json",
           "sv": "1763280000000/fi/nosto.json"
+        },
+        "linkki": {
+          "fi": "1763280000000/fi/linkki.json",
+          "sv": "1763280000000/fi/linkki.json"
         }
       },
       "status": 200
@@ -3833,7 +3837,7 @@
             "id": "6BorX3StVK5k5rtIHhz20l",
             "url": "bjsyfobsxzam/6BorX3StVK5k5rtIHhz20l/bbd2e28294ab8f89bfcfef0431e5ccef/faq.e49945eb.svg"
           },
-          "linkki": "/konfo"
+          "linkit": [{ "id": "linkki-hakeutuminen", "name": "Hakeutuminen koulutukseen", "type": "linkki" }]
         },
         {
           "id": "nosto-kielitutkinnot",
@@ -3847,7 +3851,7 @@
             "id": "6BorX3StVK5k5rtIHhz20l",
             "url": "bjsyfobsxzam/6BorX3StVK5k5rtIHhz20l/bbd2e28294ab8f89bfcfef0431e5ccef/faq.e49945eb.svg"
           },
-          "linkki": "/konfo/kielitutkinnot"
+          "linkit": [{ "id": "linkki-kielitutkinnot", "name": "Kielitutkinnot", "type": "linkki" }]
         },
         {
           "id": "nosto-tunnustaminen",
@@ -3861,7 +3865,7 @@
             "id": "6BorX3StVK5k5rtIHhz20l",
             "url": "bjsyfobsxzam/6BorX3StVK5k5rtIHhz20l/bbd2e28294ab8f89bfcfef0431e5ccef/faq.e49945eb.svg"
           },
-          "linkki": "/konfo/tutkintojen-tunnustaminen"
+          "linkit": [{ "id": "linkki-tunnustaminen", "name": "Tutkintojen tunnustaminen", "type": "linkki" }]
         },
         {
           "id": "nosto-oma-opintopolku",
@@ -3875,7 +3879,7 @@
             "id": "1w7rtuwqWaPlLPzNB0GyKR",
             "url": "bjsyfobsxzam/1w7rtuwqWaPlLPzNB0GyKR/2e0735e53e214719ee459665b85ae9e6/ehoks.fdeaa517.svg"
           },
-          "linkki": "https://opintopolku.fi/oma-opintopolku"
+          "linkit": [{ "id": "linkki-oma-opintopolku", "name": "Oma Opintopolku", "type": "linkki" }]
         },
         {
           "id": "nosto-opetushallitus",
@@ -3889,7 +3893,7 @@
             "id": "1w7rtuwqWaPlLPzNB0GyKR",
             "url": "bjsyfobsxzam/1w7rtuwqWaPlLPzNB0GyKR/2e0735e53e214719ee459665b85ae9e6/ehoks.fdeaa517.svg"
           },
-          "linkki": "https://www.oph.fi/fi"
+          "linkit": [{ "id": "linkki-opetushallitus", "name": "Opetushallitus", "type": "linkki" }]
         },
         {
           "id": "nosto-osaamispolku",
@@ -3903,7 +3907,69 @@
             "id": "1w7rtuwqWaPlLPzNB0GyKR",
             "url": "bjsyfobsxzam/1w7rtuwqWaPlLPzNB0GyKR/2e0735e53e214719ee459665b85ae9e6/ehoks.fdeaa517.svg"
           },
-          "linkki": "https://osaamispolku.fi/"
+          "linkit": [{ "id": "linkki-osaamispolku", "name": "Osaamispolku", "type": "linkki" }]
+        }
+      ],
+      "status": 200
+    }
+  },
+  {
+    "url": "https://konfo-content.untuvaopintopolku.fi/1763280000000/fi/linkki.json",
+    "response": {
+      "body": [
+        {
+          "id": "linkki-hakeutuminen",
+          "name": "Hakeutuminen koulutukseen",
+          "type": "linkki",
+          "created": "2026-11-01T10:00:00.000Z",
+          "updated": "2026-11-01T10:00:00.000Z",
+          "teksti": "Hakeutuminen koulutukseen",
+          "href": "/konfo"
+        },
+        {
+          "id": "linkki-kielitutkinnot",
+          "name": "Kielitutkinnot",
+          "type": "linkki",
+          "created": "2026-11-01T10:00:00.000Z",
+          "updated": "2026-11-01T10:00:00.000Z",
+          "teksti": "Kielitutkinnot",
+          "href": "/konfo/kielitutkinnot"
+        },
+        {
+          "id": "linkki-tunnustaminen",
+          "name": "Tutkintojen tunnustaminen",
+          "type": "linkki",
+          "created": "2026-11-01T10:00:00.000Z",
+          "updated": "2026-11-01T10:00:00.000Z",
+          "teksti": "Tutkintojen tunnustaminen",
+          "href": "/konfo/tutkintojen-tunnustaminen"
+        },
+        {
+          "id": "linkki-oma-opintopolku",
+          "name": "Oma Opintopolku",
+          "type": "linkki",
+          "created": "2026-11-01T10:00:00.000Z",
+          "updated": "2026-11-01T10:00:00.000Z",
+          "teksti": "Oma Opintopolku",
+          "href": "https://opintopolku.fi/oma-opintopolku"
+        },
+        {
+          "id": "linkki-opetushallitus",
+          "name": "Opetushallitus",
+          "type": "linkki",
+          "created": "2026-11-01T10:00:00.000Z",
+          "updated": "2026-11-01T10:00:00.000Z",
+          "teksti": "Opetushallitus",
+          "href": "https://www.oph.fi/fi"
+        },
+        {
+          "id": "linkki-osaamispolku",
+          "name": "Osaamispolku",
+          "type": "linkki",
+          "created": "2026-11-01T10:00:00.000Z",
+          "updated": "2026-11-01T10:00:00.000Z",
+          "teksti": "Osaamispolku",
+          "href": "https://osaamispolku.fi/"
         }
       ],
       "status": 200
