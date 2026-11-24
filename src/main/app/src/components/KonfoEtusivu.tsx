@@ -34,7 +34,7 @@ const ShowMoreButton = styled(Button)({
   textTransform: 'none',
 });
 
-export const Etusivu = () => {
+export const KonfoEtusivu = () => {
   const { t } = useTranslation();
 
   const { data, isLoading } = useContentful();
