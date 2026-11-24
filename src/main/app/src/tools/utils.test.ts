@@ -6,6 +6,7 @@ import {
   getLocalizedOpintojenLaajuus,
   createHtmlListElement,
   createOsaamismerkinKuvausHtml,
+  parseArrayField,
 } from './utils';
 import { NDASH, OSAAMISMERKKI_JULKAISUTILA } from '../constants';
 import { OsaamismerkkikuvausEntity } from '../types/common';
@@ -299,5 +300,24 @@ describe('createOsaamismerkinKuvausHtml', () => {
 
   test('should return empty string when osaamismerkki is not defined', () => {
     expect(createOsaamismerkinKuvausHtml(mockedT as TFunction, undefined)).toEqual('');
+  });
+});
+
+describe('parseArrayField', () => {
+  test.each([
+    [
+      ['a', 'b'],
+      ['a', 'b'],
+    ],
+    ['["a","b"]', ['a', 'b']],
+    ['[]', []],
+    ['', []],
+    ['not json', []],
+    ['{"a":1}', []],
+    [undefined, []],
+    [null, []],
+    [42, []],
+  ])('parseArrayField(%j) -> %j', (input, expected) => {
+    expect(parseArrayField(input)).toEqual(expected);
   });
 });
