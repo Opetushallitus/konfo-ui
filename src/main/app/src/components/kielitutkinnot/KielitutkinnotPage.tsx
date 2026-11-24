@@ -16,6 +16,7 @@ export const KielitutkinnotPage = () => {
     ykiLisatietoa,
     useinKysytytKysymykset,
     ajankohtaista,
+    julkaisut,
   } = useKielitutkinnotData();
 
   return (
@@ -34,6 +35,7 @@ export const KielitutkinnotPage = () => {
                 kysymykset={useinKysytytKysymykset.kysymykset}
               />
               <Ajankohtaista osio={ajankohtaista} />
+              <KielitutkinnotNostoOsio osio={julkaisut} naytaNuoli={false} />
               {/* TODO: Kielitutkintojen laskeutumissivun muu sisältö */}
             </WithSideMargins>
           </Box>

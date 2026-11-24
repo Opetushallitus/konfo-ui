@@ -10,9 +10,15 @@ import {
 import { EtusivuOsio } from '#/src/components/opintopolku-etusivu/useOpintopolkuEtusivuData';
 
 // Kielitutkintojen laskeutumissivun nosto-osio (esim. YKI-testiin osallistuminen, Lisätietoa YKI:stä):
-// laatikoissa kuva ylhäällä (jos nostolla on kuva), sen alla vihreä otsikko, pieni teksti ja nuoli.
-// Isoilla näytöillä neljä laatikkoa rinnakkain.
-export const KielitutkinnotNostoOsio = ({ osio }: { osio: EtusivuOsio }) => (
+// laatikoissa kuva ylhäällä (jos nostolla on kuva), sen alla vihreä otsikko, pieni teksti ja
+// nuoli (paitsi jos naytaNuoli on false, esim. Julkaisut). Isoilla näytöillä neljä laatikkoa rinnakkain.
+export const KielitutkinnotNostoOsio = ({
+  osio,
+  naytaNuoli = true,
+}: {
+  osio: EtusivuOsio;
+  naytaNuoli?: boolean;
+}) => (
   <EtusivuSection osio={osio}>
     <Box
       sx={{
@@ -64,12 +70,14 @@ export const KielitutkinnotNostoOsio = ({ osio }: { osio: EtusivuOsio }) => (
             <OphTypography variant="body2" sx={{ color: 'inherit', flexGrow: 1 }}>
               {nosto.teksti}
             </OphTypography>
-            <MaterialIcon
-              icon="arrow_forward"
-              aria-hidden
-              className="arrow_icon"
-              sx={{ color: ophColors.grey400, alignSelf: 'flex-start' }}
-            />
+            {naytaNuoli && (
+              <MaterialIcon
+                icon="arrow_forward"
+                aria-hidden
+                className="arrow_icon"
+                sx={{ color: ophColors.grey400, alignSelf: 'flex-start' }}
+              />
+            )}
           </Box>
         </Paper>
       ))}
