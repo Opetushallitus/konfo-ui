@@ -71,7 +71,6 @@ export const RajaaButton = ({
         endIcon={endIcon}
         sx={{
           fontWeight: 600,
-          whiteSpace: 'nowrap',
           // Normaalikokoinen painike, mutta ilman pystysuuntaista paddingia ja marginaalia, jotta
           // se ei kasvata hakukentän korkeutta
           paddingY: 0,
