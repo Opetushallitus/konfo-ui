@@ -81,6 +81,13 @@ const NostoOtsikko = styled(OphTypography)({
   fontWeight: 600,
 });
 
+const StyledSmartLink = styled(SmartLink)({
+  '&:focus-visible': {
+    outlineOffset: '2px',
+    outline: `2px solid ${ophColors.black}`,
+  },
+});
+
 export const TutuPalveluopasLinkBox = ({ osio }: { osio: Osio }) => {
   const { t } = useTranslation();
   const { nosto } = osio;
@@ -91,26 +98,24 @@ export const TutuPalveluopasLinkBox = ({ osio }: { osio: Osio }) => {
       <SectionHeading component="h2" id={headingId}>
         {osio.otsikko}
       </SectionHeading>
-      {nosto.href ? (
+      {nosto?.href ? (
         // Koko laatikko toimii linkkinä ja klikattavana elementtinä, ei pelkästään StyledButton
-        <SmartLink href={nosto.href} aria-labelledby={headingId}>
-          {nosto ? (
-            <Nosto>
-              {nosto.kuvaUrl && <NostoKuva component="img" src={nosto.kuvaUrl} alt="" />}
-              <NostoTextContainer>
-                {nosto.tyyppi && <NostoTyyppi>{nosto.tyyppi}</NostoTyyppi>}
-                {nosto.otsikko && (
-                  <NostoOtsikko component="h3">{nosto.otsikko}</NostoOtsikko>
-                )}
-                {nosto.teksti && <StyledMarkdown>{nosto.teksti}</StyledMarkdown>}
-                <StyledButton>
-                  {t('tutu-laskeutumissivu.aloita-selvitys')}
-                  <ArrowForward sx={{ marginLeft: theme.spacing(1), fontSize: 18 }} />
-                </StyledButton>
-              </NostoTextContainer>
-            </Nosto>
-          ) : null}
-        </SmartLink>
+        <StyledSmartLink href={nosto.href} aria-labelledby={headingId}>
+          <Nosto>
+            {nosto.kuvaUrl && <NostoKuva component="img" src={nosto.kuvaUrl} alt="" />}
+            <NostoTextContainer>
+              {nosto.tyyppi && <NostoTyyppi>{nosto.tyyppi}</NostoTyyppi>}
+              {nosto.otsikko && (
+                <NostoOtsikko component="h3">{nosto.otsikko}</NostoOtsikko>
+              )}
+              {nosto.teksti && <StyledMarkdown>{nosto.teksti}</StyledMarkdown>}
+              <StyledButton>
+                {t('tutu-laskeutumissivu.aloita-selvitys')}
+                <ArrowForward sx={{ marginLeft: theme.spacing(1), fontSize: 18 }} />
+              </StyledButton>
+            </NostoTextContainer>
+          </Nosto>
+        </StyledSmartLink>
       ) : null}
     </Box>
   );
