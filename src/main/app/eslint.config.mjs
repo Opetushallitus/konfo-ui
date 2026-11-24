@@ -9,6 +9,27 @@ import playwright from 'eslint-plugin-playwright';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import globals from 'globals';
 
+const restrictedImports = {
+  paths: [
+    '@mui/styles',
+    {
+      name: '@emotion/styled',
+      message: 'Please use "import { styled } from \'#/src/theme\'"',
+    },
+  ],
+  patterns: [
+    {
+      group: ['@mui/*'],
+      importNames: ['styled'],
+      message: 'Please use "import { styled } from \'#/src/theme\'"',
+    },
+    {
+      group: ['lodash', 'lodash/**', 'lodash-fp', 'lodash-fp/**'],
+      message: 'Import from lodash-es, not lodash or lodash-fp.',
+    },
+  ],
+};
+
 export default defineConfig([
   globalIgnores([
     'build/',
@@ -75,29 +96,7 @@ export default defineConfig([
       '@eslint-react/no-forward-ref': 'off',
       'no-empty': 'off',
       'no-duplicate-imports': ['error', { allowSeparateTypeImports: true }],
-      'no-restricted-imports': [
-        'error',
-        {
-          paths: [
-            '@mui/styles',
-            {
-              name: '@emotion/styled',
-              message: 'Please use "import { styled } from \'#/src/theme\'"',
-            },
-          ],
-          patterns: [
-            {
-              group: ['@mui/*'],
-              importNames: ['styled'],
-              message: 'Please use "import { styled } from \'#/src/theme\'"',
-            },
-            {
-              group: ['lodash', 'lodash/**', 'lodash-fp', 'lodash-fp/**'],
-              message: 'Import from lodash-es, not lodash or lodash-fp.',
-            },
-          ],
-        },
-      ],
+      'no-restricted-imports': ['error', restrictedImports],
       '@typescript-eslint/no-deprecated': 'error',
       '@typescript-eslint/no-shadow': 'error',
       '@typescript-eslint/no-empty-function': 'off',
@@ -135,6 +134,26 @@ export default defineConfig([
     rules: {
       'playwright/expect-expect': 'off',
       '@typescript-eslint/no-floating-promises': 'error',
+    },
+  },
+  {
+    files: ['playwright/*.spec.ts'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          ...restrictedImports,
+          paths: [
+            ...restrictedImports.paths,
+            {
+              name: '@playwright/test',
+              importNames: ['test', 'expect'],
+              message:
+                'Import test and expect from "./test-fixtures" so that external requests are blocked.',
+            },
+          ],
+        },
+      ],
     },
   },
 ]);
