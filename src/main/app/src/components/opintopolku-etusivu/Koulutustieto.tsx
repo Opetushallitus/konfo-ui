@@ -4,14 +4,11 @@ import { ophColors, OphTypography } from '@opetushallitus/oph-design-system';
 import { InlineSvgIcon } from '#/src/components/common/InlineSvgIcon';
 import { SmartLink } from '#/src/components/common/SmartLink';
 import {
-  getNostoHref,
   LINK_PAPER_SX,
   PaperHeading,
   SectionHeading,
 } from '#/src/components/opintopolku-etusivu/opintopolkuEtusivuUtils';
-import { useContentful } from '#/src/hooks/useContentful';
-import { getOne } from '#/src/tools/getOne';
-import { ContentfulData } from '#/src/types/ContentfulTypes';
+import { EtusivuOsio } from '#/src/components/opintopolku-etusivu/useOpintopolkuEtusivuData';
 
 const KoulutustietoPaper = ({
   icon,
@@ -59,39 +56,28 @@ const KoulutustietoPaper = ({
   </Paper>
 );
 
-export const Koulutustieto = ({ contentfulData }: { contentfulData: ContentfulData }) => {
-  // Contentfulin kuvien url:t ovat suhteellisia sisältö-bucketiin, assetUrl lisää alun
-  const { assetUrl } = useContentful();
-
-  const etusivuData = getOne(contentfulData?.opintopolkuEtusivu);
-  const otsikko = etusivuData?.koulutustietoOtsikko;
-  const nostot = contentfulData.nosto;
-
-  const koulutustietoNostot = etusivuData?.koulutustietoNostot ?? [];
-
-  return koulutustietoNostot.length > 0 ? (
+export const Koulutustieto = ({ osio }: { osio: EtusivuOsio }) => {
+  return osio.nostot.length > 0 ? (
     <Box component="section" sx={{ marginTop: 6 }}>
-      <SectionHeading component="h2">{otsikko}</SectionHeading>
+      <SectionHeading component="h2">{osio.otsikko}</SectionHeading>
       <Box
         sx={{
           display: 'grid',
           gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' },
           gap: 4,
         }}>
-        {koulutustietoNostot?.map((nostoRef, index) => {
-          const nosto = nostot[nostoRef?.id ?? ''];
-          return (
-            <KoulutustietoPaper
-              key={nostoRef.id}
-              icon={assetUrl(nosto.kuva?.url)}
-              heading={nosto.otsikko}
-              text={nosto.teksti}
-              backgroundColor={index === 0 ? ophColors.cyan1 : ophColors.green2}
-              to={getNostoHref(nosto, contentfulData) ?? ''}
-              sx={index === 0 ? { gridColumn: '1 / -1' } : undefined}
-            />
-          );
-        })}
+        {osio.nostot.map((nosto, index) => (
+          <KoulutustietoPaper
+            key={nosto.id}
+            icon={nosto.kuvaUrl}
+            heading={nosto.otsikko}
+            text={nosto.teksti}
+            backgroundColor={index === 0 ? ophColors.cyan1 : ophColors.green2}
+            // SmartLink poistaa linkin alusta /konfo:n (routerin basename) ja lisää kielen
+            to={nosto.href ?? ''}
+            sx={index === 0 ? { gridColumn: '1 / -1' } : undefined}
+          />
+        ))}
       </Box>
     </Box>
   ) : null;

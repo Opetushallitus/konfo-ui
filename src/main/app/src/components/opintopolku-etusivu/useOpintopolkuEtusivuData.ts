@@ -1,0 +1,69 @@
+import { useMemo } from 'react';
+
+import { useContentful } from '#/src/hooks/useContentful';
+import { getOne } from '#/src/tools/getOne';
+import { ContentfulData, ContentfulNosto } from '#/src/types/ContentfulTypes';
+
+export type EtusivuNosto = {
+  id: string;
+  otsikko: string;
+  teksti?: string;
+  kuvaUrl?: string;
+  href?: string;
+};
+
+export type EtusivuOsio = {
+  otsikko?: string;
+  nostot: Array<EtusivuNosto>;
+};
+
+type NostoRef = { id: string } | undefined;
+
+// Hakee uuden etusivun tiedot contentfulista ja purkaa viittaukset (nostot, linkit, kuvat) valmiiksi,
+// jotta komponenttien ei tarvitse käsitellä contentfulin tietorakennetta
+export const useOpintopolkuEtusivuData = () => {
+  const { data, isLoading, assetUrl } = useContentful();
+
+  const etusivu = useMemo(() => {
+    const etusivuData = getOne(data.opintopolkuEtusivu);
+
+    // Etusivun nostoilla on aina vain yksi linkki
+    const toEtusivuNosto = (nosto: ContentfulNosto): EtusivuNosto => ({
+      id: nosto.id,
+      otsikko: nosto.otsikko,
+      teksti: nosto.teksti,
+      kuvaUrl: assetUrl(nosto.kuva?.url),
+      href: data.linkki[nosto.linkit?.[0]?.id ?? '']?.href,
+    });
+
+    const toOsio = (otsikko?: string, nostoRefs: Array<NostoRef> = []): EtusivuOsio => ({
+      otsikko,
+      nostot: resolveNostot(data, nostoRefs).map(toEtusivuNosto),
+    });
+
+    return {
+      heroKuvaDesktop: assetUrl(etusivuData?.kuvaDesktop?.url),
+      heroKuvaMobiili: assetUrl(etusivuData?.kuvaMobiili?.url),
+      koulutustieto: toOsio(
+        etusivuData?.koulutustietoOtsikko,
+        etusivuData?.koulutustietoNostot
+      ),
+      kirjautuneenPalvelut: toOsio(
+        etusivuData?.kirjautuneenPalvelutOtsikko,
+        etusivuData?.kirjautuneenPalvelutNostot
+      ),
+      muutPalvelut: toOsio(
+        etusivuData?.muutPalvelutOtsikko,
+        etusivuData?.muutPalvelutNostot
+      ),
+    };
+  }, [data, assetUrl]);
+
+  return { ...etusivu, isLoading };
+};
+
+// Ohitetaan viittaukset, joita vastaavaa nostoa ei löydy (esim. julkaisematon nosto)
+const resolveNostot = (data: ContentfulData, nostoRefs: Array<NostoRef>) =>
+  nostoRefs
+    .map((ref) => data.nosto[ref?.id ?? ''])
+    .filter((nosto): nosto is ContentfulNosto => nosto !== undefined);
