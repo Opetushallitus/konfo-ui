@@ -22,7 +22,6 @@ export const Koulutustieto = ({ osio }: { osio: EtusivuOsio }) => (
         return (
           <Paper
             key={nosto.id}
-            elevation={0}
             sx={{
               // Ensimmäinen laatikko koko rivin levyisenä
               gridColumn: isFirst ? '1 / -1' : undefined,
@@ -39,9 +38,7 @@ export const Koulutustieto = ({ osio }: { osio: EtusivuOsio }) => (
             {nosto.kuvaUrl && (
               <InlineSvgIcon src={nosto.kuvaUrl} aria-hidden sx={{ fontSize: '64px' }} />
             )}
-            <PaperHeading color="inherit" to={nosto.href}>
-              {nosto.otsikko}
-            </PaperHeading>
+            <PaperHeading to={nosto.href}>{nosto.otsikko}</PaperHeading>
             <OphTypography sx={{ color: 'inherit' }}>{nosto.teksti}</OphTypography>
           </Paper>
         );

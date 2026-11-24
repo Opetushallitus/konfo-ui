@@ -173,6 +173,36 @@ const createRenderAutocompleteGroup = (t: TFunction) => {
   };
 };
 
+const AUTOCOMPLETE_SX = {
+  // Rajaa-painike on kentän sisällä (createRenderInput). Autocomplete sijoittaa
+  // tyhjennyspainikkeen absoluuttisesti kentän oikeaan reunaan, jolloin se menisi
+  // rajaa-painikkeen päälle. Palautetaan normaaliin virtaan, jotta järjestys on:
+  // teksti, tyhjennyspainike, rajaa-painike.
+  '& .MuiAutocomplete-endAdornment': {
+    position: 'static',
+    transform: 'none',
+  },
+  // Ei tarvita tyhjennyspainikkeelle varattua lisätilaa oikealla (&&& ohittaa
+  // Autocompleten oman, tarkemman säännön)
+  '&&& .MuiAutocomplete-inputRoot': {
+    paddingRight: theme.spacing(1),
+    // Autocompleten oletus flex-wrap: wrap (monivalintojen chipeille) rivittäisi
+    // rajaa-painikkeen kentän alle piiloon. Pidetään kaikki samalla rivillä.
+    flexWrap: 'nowrap',
+  },
+  // oph-variantti (OphInput): Autocomplete lisää outlined-kentälle oman 9px paddingin ja
+  // muuttaa tekstikentän paddingia, mikä kasvattaa kentän korkeutta. Palautetaan
+  // oph-design-systemin oletuspaddingit (kenttä 0, tekstikenttä 8px 12px).
+  '&&& .MuiOutlinedInput-root': {
+    paddingTop: 0,
+    paddingBottom: 0,
+    paddingLeft: 0,
+    '& .MuiAutocomplete-input': {
+      padding: theme.spacing(1.5, 2),
+    },
+  },
+} as const;
+
 export const SearchBox = ({
   draftKeyword,
   doSearch,
@@ -196,7 +226,9 @@ export const SearchBox = ({
   // oph-variantissa kapeilla näytöillä suurennuslasi-painike on kentän sisällä, muuten kentän
   // jälkeen (isoilla näytöillä tekstillinen Etsi-painike kentän ulkopuolella)
   const mdUp = useMediaQuery(theme.breakpoints.up('md'));
-  const searchButton = <SearchButton isKeywordValid={isKeywordValid} variant={variant} />;
+  const searchButton = (
+    <SearchButton isKeywordValid={isKeywordValid} variant={variant} mdUp={mdUp} />
+  );
   const isSearchButtonInside = isOph && !mdUp;
 
   const { t } = useTranslation();
@@ -298,35 +330,7 @@ export const SearchBox = ({
         title={t('haku.syota-ainakin-kolme-merkkia') || ''}>
         <Autocomplete
           fullWidth={true}
-          sx={{
-            // Rajaa-painike on kentän sisällä (createRenderInput). Autocomplete sijoittaa
-            // tyhjennyspainikkeen absoluuttisesti kentän oikeaan reunaan, jolloin se menisi
-            // rajaa-painikkeen päälle. Palautetaan normaaliin virtaan, jotta järjestys on:
-            // teksti, tyhjennyspainike, rajaa-painike.
-            '& .MuiAutocomplete-endAdornment': {
-              position: 'static',
-              transform: 'none',
-            },
-            // Ei tarvita tyhjennyspainikkeelle varattua lisätilaa oikealla (&&& ohittaa
-            // Autocompleten oman, tarkemman säännön)
-            '&&& .MuiAutocomplete-inputRoot': {
-              paddingRight: theme.spacing(1),
-              // Autocompleten oletus flex-wrap: wrap (monivalintojen chipeille) rivittäisi
-              // rajaa-painikkeen kentän alle piiloon. Pidetään kaikki samalla rivillä.
-              flexWrap: 'nowrap',
-            },
-            // oph-variantti (OphInput): Autocomplete lisää outlined-kentälle oman 9px paddingin ja
-            // muuttaa tekstikentän paddingia, mikä kasvattaa kentän korkeutta. Palautetaan
-            // oph-design-systemin oletuspaddingit (kenttä 0, tekstikenttä 8px 12px).
-            '&&& .MuiOutlinedInput-root': {
-              paddingTop: 0,
-              paddingBottom: 0,
-              paddingLeft: 0,
-              '& .MuiAutocomplete-input': {
-                padding: theme.spacing(1.5, 2),
-              },
-            },
-          }}
+          sx={AUTOCOMPLETE_SX}
           disablePortal={true}
           inputValue={draftKeyword}
           freeSolo={true}
