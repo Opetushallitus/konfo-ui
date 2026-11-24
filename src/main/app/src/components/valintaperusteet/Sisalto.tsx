@@ -34,7 +34,7 @@ const HeaderCell = styled(TableCell)({
 const SubHeaderCell = TableCell;
 
 const Teksti = ({ data }: SisaltoTeksti) => (
-  <Grid item xs={12}>
+  <Grid size={{ xs: 12 }}>
     <LocalizedHTML data={data} replace={tagHeaders} />
   </Grid>
 );

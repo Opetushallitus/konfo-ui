@@ -44,7 +44,7 @@ export const PainotetutArvosanat = ({ arvosanat }: Props) => {
   const { t } = useTranslation();
 
   return (
-    <Grid item xs={12}>
+    <Grid size={{ xs: 12 }}>
       <Box py={4}>
         <Divider />
       </Box>

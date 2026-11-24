@@ -8,7 +8,7 @@ import { PageSection } from '#/src/components/common/PageSection';
 import { Pagination } from '#/src/components/common/Pagination';
 import { QueryResultWrapper } from '#/src/components/common/QueryResultWrapper';
 import { RajainFiltersBar } from '#/src/components/suodattimet/RajainFiltersBar';
-import { useOppilaitosTarjontaRajainOrder } from '#/src/hooks/useOppilaitosTarjontaRajainOrder';
+import { getOppilaitosTarjontaRajainOrder } from '#/src/tools/getOppilaitosTarjontaRajainOrder';
 
 import { usePaginatedTarjonta } from './hooks';
 import { TextWithBackground } from '../common/TextWithBackground';
@@ -45,7 +45,7 @@ export const TarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
   const someSelected = allSelectedFilters.flat.length > 0;
   const someValuesToShow = isLoading || values?.length > 0;
 
-  const rajainOrder = useOppilaitosTarjontaRajainOrder({ rajainValues, rajainOptions });
+  const rajainOrder = getOppilaitosTarjontaRajainOrder({ rajainValues, rajainOptions });
 
   const scrollTargetId = 'tarjonta-list';
 
@@ -91,21 +91,21 @@ export const TarjontaList = ({ oid, isOppilaitosOsa }: Props) => {
                     [toteutus?.locations, PublicIcon],
                     [toteutus?.opetustapa, HourglassIcon],
                     [toteutus?.price, EuroSymbolIcon],
-                    [
-                      toteutus.hakuAuki ? (
-                        <TextWithBackground>{t('haku.hakukaynnissa')}</TextWithBackground>
-                      ) : (
-                        <></>
-                      ),
-                      undefined,
-                    ],
+                    toteutus.hakuAuki
+                      ? [
+                          <TextWithBackground key="haku-kaynnissa">
+                            {t('haku.hakukaynnissa')}
+                          </TextWithBackground>,
+                          undefined,
+                        ]
+                      : undefined,
                   ]}
                 />
               </Box>
             ))}
           </Box>
         ) : (
-          <Typography variant="body1" paragraph>
+          <Typography variant="body1" component="p">
             {t(
               someSelected
                 ? 'oppilaitos.ei-rajaimia-vastaavia-toteutuksia'

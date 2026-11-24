@@ -1,5 +1,5 @@
 import { produce } from 'immer';
-import { set, flow, mapValues } from 'lodash';
+import { set, flow, mapValues } from 'lodash-es';
 
 import { RAJAIN_TYPES } from '#/src/constants';
 import {

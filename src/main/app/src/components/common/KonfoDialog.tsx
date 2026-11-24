@@ -7,7 +7,7 @@ import {
   DialogTitle,
   IconButton,
 } from '@mui/material';
-import { castArray } from 'lodash';
+import { castArray } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import { MaterialIcon } from './MaterialIcon';

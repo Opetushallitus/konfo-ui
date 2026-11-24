@@ -9,6 +9,7 @@ test.describe('Embedded pistelaskuri', () => {
   test.beforeEach(async ({ page, context, baseURL }) => {
     await setupCommonTest({ page, context, baseURL });
   });
+
   test('calculates average and clears values', async ({ page }) => {
     await page.route(
       '/konfo-backend/search/hakukohteet**',
@@ -68,6 +69,7 @@ test.describe('Embedded pistelaskuri', () => {
     await expect(page.locator('.MuiCheckbox-root input')).toBeChecked();
     await expect(page.getByText('Vertaa pisteitä hakukohteeseen')).toBeHidden();
   });
+
   test('calculates average with weighting', async ({ page }) => {
     await page.goto('/konfo/fi/sivu/pistelaskuritesti');
 
@@ -110,6 +112,7 @@ test.describe('Embedded pistelaskuri', () => {
     await expect(keskiarvoPalleroTulokset.nth(2)).toHaveText('21');
     await expect(keskiarvoPalleroTulokset.nth(3)).toHaveText('19');
   });
+
   test('average inputs are accessible', async ({ page }) => {
     await page.goto('/konfo/fi/sivu/pistelaskuritesti');
 
@@ -134,6 +137,7 @@ test.describe('Embedded pistelaskuri', () => {
       /Esim\. 8,4.*Syötä keskiarvo väliltä 4-10/s
     );
   });
+
   test('info tooltip can be used with keyboard', async ({ page }) => {
     await page.goto('/konfo/fi/sivu/pistelaskuritesti');
 

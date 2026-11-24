@@ -1,4 +1,4 @@
-import { Box, Hidden, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { colors, educationTypeColorCode } from '#/src/colors';
@@ -30,13 +30,17 @@ export const InfoBox = () => {
         backgroundColor: educationTypeColorCode.ammatillinenGreenBg,
         marginBottom: '1rem',
       }}>
-      <Hidden smDown>
-        <InfoIcon icon="info" variant="outlined" />
-      </Hidden>
+      <InfoIcon
+        icon="info"
+        variant="outlined"
+        sx={{ display: { xs: 'none', sm: 'block' } }}
+      />
       <Typography variant="body1">
-        <Hidden smUp>
-          <InfoIcon icon="info" variant="outlined" />
-        </Hidden>
+        <InfoIcon
+          icon="info"
+          variant="outlined"
+          sx={{ display: { xs: 'inline', sm: 'none' } }}
+        />
         {t('pistelaskuri.graafi.info')}
         <span style={{ fontWeight: 600 }}>
           &nbsp;{t('pistelaskuri.graafi.info-rohkaisu')}

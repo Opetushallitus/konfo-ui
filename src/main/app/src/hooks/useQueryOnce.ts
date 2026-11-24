@@ -1,14 +1,21 @@
-import { QueryFunction, QueryKey, useQuery, UseQueryOptions } from 'react-query';
+import {
+  QueryFunction,
+  QueryKey,
+  useQuery,
+  UseQueryOptions,
+} from '@tanstack/react-query';
 
 // Load asynchronous data once and then cache it forever
 export const useQueryOnce = <T = unknown>(
-  key: QueryKey,
+  key: string | QueryKey,
   fn: QueryFunction<T, QueryKey>,
-  options: UseQueryOptions<T> = {}
+  options: Omit<UseQueryOptions<T>, 'queryKey' | 'queryFn'> = {}
 ) => {
-  return useQuery<T>(key, fn, {
+  return useQuery<T>({
+    queryKey: typeof key === 'string' ? [key] : key,
+    queryFn: fn,
     staleTime: Infinity,
-    cacheTime: Infinity,
+    gcTime: Infinity,
     refetchOnMount: false,
     retry: 1,
     ...options,

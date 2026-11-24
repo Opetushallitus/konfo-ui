@@ -1,7 +1,5 @@
-import React from 'react';
-
 import { Box, Divider, Grid, Typography } from '@mui/material';
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
@@ -21,7 +19,7 @@ export const Kuvaus = ({ kuvaus, sisalto = [] }: Props) => {
   const { t } = useTranslation();
 
   return (
-    <Grid item xs={12}>
+    <Grid size={{ xs: 12 }}>
       <Box py={4}>
         <Divider />
       </Box>

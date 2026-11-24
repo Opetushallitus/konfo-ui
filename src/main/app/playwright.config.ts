@@ -1,3 +1,5 @@
+import path from 'node:path';
+
 import { defineConfig, devices } from '@playwright/test';
 
 /**
@@ -33,7 +35,7 @@ export default defineConfig({
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
     testIdAttribute: 'data-testid',
-    storageState: './playwright/storage.json',
+    storageState: path.resolve(__dirname, './playwright/storage.json'),
   },
 
   /* Configure projects for major browsers */

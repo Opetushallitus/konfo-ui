@@ -1,5 +1,5 @@
 import { Button, ButtonProps } from '@mui/material';
-import { castArray } from 'lodash';
+import { castArray } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import { AccessibleInvisibleText } from './accessibility/AccessibleInvisibleText';

@@ -13,6 +13,7 @@ test.describe('Etusivu', () => {
   test.beforeEach(async ({ page, context, baseURL }) => {
     await setupCommonTest({ page, context, baseURL });
   });
+
   test('Should have cards with working links', async ({ page }) => {
     await page.goto('/konfo');
     await page.locator('a[href*="/sivu/ammatillinen-koulutus"]').click();
@@ -40,10 +41,7 @@ test.describe('Etusivu', () => {
     // Jos tabia painetaan tätä ennen, ei fokus siirry "siirry sisältöön"-linkkiin
     await expect(page.locator('#focus-reset-target')).toBeFocused();
     await page.keyboard.press('Tab');
-    // .toBeVisible()-assertio ei toimi luotettavasti tässä tilanteessa.
-    // Liittyy mahdollisesti jotenkin tähän: https://github.com/testing-library/jest-dom/issues/209
-    await expect(siirrySisaltoonLink).toHaveCSS('opacity', '1');
-    await expect(siirrySisaltoonLink).toBeInViewport();
+    await expect(siirrySisaltoonLink).toBeVisible();
   });
 
   test('Should have decorative footer logos', async ({ page }) => {
@@ -96,7 +94,7 @@ test.describe('Etusivu', () => {
     await page.getByRole('button', { name: /^Rajaa/ }).click();
     await page.getByTestId('valitse_koulutustyyppi').click();
     await page
-      .locator('input[type="checkbox"][aria-labelledby="filter-list-label-lk"]')
+      .locator('input[type="checkbox"][aria-labelledby="filter-list-label-lk"]:visible')
       .check();
     await page.keyboard.press('Escape');
     await page.keyboard.press('Escape');

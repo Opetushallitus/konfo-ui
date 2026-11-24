@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { truncate } from 'lodash';
+import { truncate } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import { stripTags } from '#/src/tools/utils';

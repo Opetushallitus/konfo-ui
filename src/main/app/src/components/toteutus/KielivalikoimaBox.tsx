@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { isEmpty, every, size } from 'lodash';
+import { isEmpty, every, size } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import { ColoredPaperContent } from '#/src/components/common/ColoredPaperContent';

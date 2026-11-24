@@ -14,13 +14,12 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
     "experimentalDecorators": true,
-    "baseUrl": ".",
     "noFallthroughCasesInSwitch": true
   },
   "include": [
@@ -28,7 +27,6 @@
     "src/**/*.tsx",
     "src/**/*.jsx",
     "src/**/*.js",
-    ".eslintrc.js",
     "*.config.ts",
     "*.config.mts"
   ],

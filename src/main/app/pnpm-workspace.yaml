@@ -1,0 +1,8 @@
+preferFrozenLockfile: true
+minimumReleaseAge: 4320
+
+patchedDependencies:
+  '@mui/material@7.3.11': patches/@mui__material@7.3.11.patch
+
+allowBuilds:
+  esbuild: true

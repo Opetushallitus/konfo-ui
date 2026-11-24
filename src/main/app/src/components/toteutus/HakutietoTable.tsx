@@ -1,5 +1,5 @@
-import { Grid, GridSize, Typography } from '@mui/material';
-import { isEmpty } from 'lodash';
+import { GridSize, Grid, Typography } from '@mui/material';
+import { isEmpty } from 'lodash-es';
 
 import { LabelTooltip } from '#/src/components/common/LabelTooltip';
 import { LocalizedHTML } from '#/src/components/common/LocalizedHTML';
@@ -28,18 +28,18 @@ export const HakutietoTable = ({
   return (
     <Grid container direction="row" spacing={3}>
       {items.filter(isTruthy).map(({ size, heading, content, modalText }) => (
-        <Grid key={heading} item xs={size}>
-          <Grid item container spacing={1} wrap="nowrap" alignItems="flex-start">
-            <Grid item>
+        <Grid key={heading} size={{ xs: size }}>
+          <Grid container spacing={1} wrap="nowrap" alignItems="flex-start">
+            <Grid>
               <HakutietoHeading>{heading}</HakutietoHeading>
             </Grid>
             {!isEmpty(modalText) && (
-              <Grid item>
+              <Grid size="auto">
                 <LabelTooltip title={<LocalizedHTML noMargin data={modalText} />} />
               </Grid>
             )}
           </Grid>
-          <Grid item>
+          <Grid>
             {content.map((v: string, i: number) => (
               <Typography key={`${heading}-text-${i}`} variant="body1">
                 {v}

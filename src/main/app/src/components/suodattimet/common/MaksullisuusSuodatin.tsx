@@ -1,8 +1,8 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 
 import { Box } from '@mui/material';
 import List from '@mui/material/List';
-import { isEqual } from 'lodash';
+import { isEqual } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 import { P, match } from 'ts-pattern';
 
@@ -31,9 +31,7 @@ import {
 import { marks } from './maksullisuusRajainUtils';
 
 type MaksunMaaraRajainName =
-  | 'maksunmaara'
-  | 'lukuvuosimaksunmaara_kk'
-  | 'lukuvuosimaksunmaara_amm_lk';
+  'maksunmaara' | 'lukuvuosimaksunmaara_kk' | 'lukuvuosimaksunmaara_amm_lk';
 
 const getCheckboxRajain = (rajainItems: Array<RajainItem>, id: string): RajainItem =>
   rajainItems.find((r) => r.id === id) ?? {

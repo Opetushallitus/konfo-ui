@@ -1,5 +1,5 @@
 import { Grid, Icon, Paper, Typography } from '@mui/material';
-import { isString } from 'lodash';
+import { isString } from 'lodash-es';
 
 import ApurahaIcon from '#/src/assets/images/Apuraha.svg';
 import KoulutuksenLaajuusIcon from '#/src/assets/images/koulutuksen_laajuus.svg';
@@ -60,14 +60,11 @@ export const InfoGrid = (props: Props) => {
         spacing={5}>
         {gridData.map((e, index) => (
           <Grid
-            item
             container
             spacing={1}
-            xs={12}
-            md={6}
-            lg={4}
+            size={{ xs: 12, md: 6, lg: 4 }}
             key={`info-grid-${e.id}-${index}`}>
-            <Grid item>
+            <Grid>
               {isString(e.icon) ? (
                 <Icon>
                   <img src={iconLookupTable[e.icon]} alt="" />
@@ -77,15 +74,14 @@ export const InfoGrid = (props: Props) => {
               )}
             </Grid>
             <Grid
-              item
-              xs={10}
+              size={{ xs: 10 }}
               spacing={1}
               alignContent="flex-start"
               container
               direction="column"
               wrap="nowrap">
-              <Grid item container spacing={1} wrap="nowrap" alignItems="flex-start">
-                <Grid item>
+              <Grid container spacing={1} wrap="nowrap" alignItems="flex-start">
+                <Grid>
                   <Typography
                     sx={{
                       fontWeight: 600,
@@ -96,12 +92,12 @@ export const InfoGrid = (props: Props) => {
                   </Typography>
                 </Grid>
                 {e?.modalText && (
-                  <Grid item>
+                  <Grid size="auto">
                     <LabelTooltip title={e?.modalText} />
                   </Grid>
                 )}
               </Grid>
-              <Grid item>
+              <Grid>
                 {e.text.split('\n').map((line, i) => (
                   <Typography
                     component="div"

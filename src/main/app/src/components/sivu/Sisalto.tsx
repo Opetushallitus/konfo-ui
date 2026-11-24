@@ -1,7 +1,7 @@
-import React, { RefObject } from 'react';
+import { RefObject } from 'react';
 
 import { Link, Typography } from '@mui/material';
-import Markdown from 'markdown-to-jsx';
+import Markdown from 'markdown-to-jsx/react';
 
 import { EmbeddedPistelaskuri } from '#/src/components/laskuri/EmbeddedPistelaskuri';
 import { ImageComponent } from '#/src/components/sivu/ImageComponent';

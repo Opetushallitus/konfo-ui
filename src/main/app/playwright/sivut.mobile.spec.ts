@@ -8,6 +8,7 @@ test.describe('Sivut (mobiili)', () => {
   test.beforeEach(async ({ page, context, baseURL }) => {
     await setupCommonTest({ page, context, baseURL });
   });
+
   test('Language change should be reflected in URL and page content', async ({
     page,
   }) => {
@@ -15,7 +16,7 @@ test.describe('Sivut (mobiili)', () => {
       '/konfo/fi/sivu/paikan-vastaanotto-ja-ilmoittautuminen-korkeakouluun'
     );
     await page.getByRole('button', { name: /valikko/i }).click();
-    await page.getByRole('link', { name: /Svenska/i, includeHidden: true }).click();
+    await page.getByRole('link', { name: /Svenska/i, includeHidden: false }).click();
 
     await expectURLEndsWith(
       page,

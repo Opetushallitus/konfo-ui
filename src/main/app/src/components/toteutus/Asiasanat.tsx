@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import { Box, Grid } from '@mui/material';
-import { uniq } from 'lodash';
+import { uniq } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import { SmartLink } from '#/src/components/common/SmartLink';
@@ -43,7 +43,7 @@ const getAsiasanatForLanguage = (asiasanat: Array<any>, language: string) => {
 
 const UNEXPANDED_ASIASANA_LIMIT = 10;
 
-const useVisibleAsiasanat = (asiasanat: Array<string>, isExpanded: boolean) => {
+const getVisibleAsiasanat = (asiasanat: Array<string>, isExpanded: boolean) => {
   if (isExpanded) {
     return uniq(asiasanat);
   } else {
@@ -61,13 +61,13 @@ const AsiasanatExpander = ({
     translatedAsiasanat?.length <= UNEXPANDED_ASIASANA_LIMIT
   );
 
-  const visibleAsiasanat = useVisibleAsiasanat(translatedAsiasanat, isExpanded);
+  const visibleAsiasanat = getVisibleAsiasanat(translatedAsiasanat, isExpanded);
 
   return (
     <Box mt={4}>
       <Grid alignItems="center" justifyContent="center" container spacing={1}>
         {visibleAsiasanat.map((asiasana: string) => (
-          <Grid item key={asiasana}>
+          <Grid key={asiasana}>
             <SmartLink href={`/haku/${asiasana}`} target="_blank" rel="noopener">
               <TextWithBackground>{asiasana}</TextWithBackground>
             </SmartLink>

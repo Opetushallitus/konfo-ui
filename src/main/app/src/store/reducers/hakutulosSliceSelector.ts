@@ -1,5 +1,5 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { pick, some, size as _size, concat, keys, includes } from 'lodash';
+import { pick, some, size as _size, concat, keys, includes } from 'lodash-es';
 import qs from 'query-string';
 
 import { RAJAIN_TYPES_ARR } from '#/src/constants';

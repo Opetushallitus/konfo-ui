@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
-import { Box, Typography, Input, Grid, Button } from '@mui/material';
-import { matches } from 'lodash';
+import { Box, Typography, Input, Button, Grid } from '@mui/material';
+import { matches } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
@@ -186,7 +186,9 @@ export const KeskiarvoLaskuri = ({
         container
         justifyContent="space-evenly"
         columns={{ xs: 1, xl: embedded ? 10 : 3 }}>
-        <Grid item xs={1} xl={embedded ? 3 : 1} className={classes.inputContainer}>
+        <Grid
+          size={{ xs: 1, ...(embedded ? { xl: 3 } : { xl: 1 }) }}
+          className={classes.inputContainer}>
           <KeskiarvoInput
             id="keskiarvo-lukuaineet"
             label={t('pistelaskuri.ka-lukuaineet')}
@@ -198,7 +200,9 @@ export const KeskiarvoLaskuri = ({
             }
           />
         </Grid>
-        <Grid item xs={1} xl={embedded ? 4 : 1} className={classes.inputContainer}>
+        <Grid
+          size={{ xs: 1, ...(embedded ? { xl: 4 } : { xl: 1 }) }}
+          className={classes.inputContainer}>
           <KeskiarvoInput
             id="keskiarvo-taideTaitoAineet"
             label={t('pistelaskuri.ka-taito')}
@@ -216,7 +220,9 @@ export const KeskiarvoLaskuri = ({
             }
           />
         </Grid>
-        <Grid item xs={1} xl={embedded ? 3 : 1} className={classes.inputContainer}>
+        <Grid
+          size={{ xs: 1, ...(embedded ? { xl: 3 } : { xl: 1 }) }}
+          className={classes.inputContainer}>
           <KeskiarvoInput
             id="keskiarvo-kaikki"
             label={t('pistelaskuri.ka-kaikki')}

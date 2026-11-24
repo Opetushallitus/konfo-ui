@@ -1,5 +1,5 @@
 import { PayloadAction, createSelector, createSlice } from '@reduxjs/toolkit';
-import { isEqual, merge, pick } from 'lodash';
+import { isEqual, merge, pick } from 'lodash-es';
 
 import { RootState } from '#/src/store';
 import { getPaginationPage } from '#/src/tools/utils';
