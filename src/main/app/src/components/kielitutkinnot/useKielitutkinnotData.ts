@@ -20,6 +20,12 @@ export const useKielitutkinnotData = () => {
         sivuData?.ykiTestiinOsallistuminenOtsikko,
         sivuData?.ykiTestiinOsallistuminenNostot
       ),
+      ykiLisatietoa: toNostoOsio(
+        data,
+        assetUrl,
+        sivuData?.ykiLisatietoaOtsikko,
+        sivuData?.ykiLisatietoaNostot
+      ),
     };
   }, [data, assetUrl]);
 

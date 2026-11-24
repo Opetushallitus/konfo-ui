@@ -9,9 +9,10 @@ import {
 } from '#/src/components/opintopolku-etusivu/opintopolkuEtusivuUtils';
 import { EtusivuOsio } from '#/src/components/opintopolku-etusivu/useOpintopolkuEtusivuData';
 
-// YKI-testiin osallistuminen -osio: laatikoissa kuva ylhäällä, sen alla vihreä otsikko, pieni teksti
-// ja nuoli. Isoilla näytöillä neljä laatikkoa rinnakkain.
-export const YkiTestiinOsallistuminen = ({ osio }: { osio: EtusivuOsio }) => (
+// Kielitutkintojen laskeutumissivun nosto-osio (esim. YKI-testiin osallistuminen, Lisätietoa YKI:stä):
+// laatikoissa kuva ylhäällä (jos nostolla on kuva), sen alla vihreä otsikko, pieni teksti ja nuoli.
+// Isoilla näytöillä neljä laatikkoa rinnakkain.
+export const KielitutkinnotNostoOsio = ({ osio }: { osio: EtusivuOsio }) => (
   <EtusivuSection osio={osio}>
     <Box
       sx={{
