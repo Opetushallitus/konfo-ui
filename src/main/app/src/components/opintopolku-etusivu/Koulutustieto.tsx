@@ -108,7 +108,18 @@ export const Koulutustieto = ({ osio }: { osio: EtusivuOsio }) => (
             <PaperHeading to={singleNostoLink?.href}>{nosto.otsikko}</PaperHeading>
             <OphTypography sx={{ color: 'inherit' }}>{nosto.teksti}</OphTypography>
             {!singleNostoLink && (
-              <Stack direction="row" spacing={2}>
+              <Stack
+                direction="row"
+                gap={2}
+                sx={{
+                  flexWrap: 'wrap',
+                  justifyContent: 'center',
+                  '& > *': {
+                    flex: '1 1 0',
+                    minWidth: 'min-content',
+                    maxWidth: 'max-content',
+                  },
+                }}>
                 {nosto.linkit?.map((link) => (
                   <LinkButton
                     key={link.id}
