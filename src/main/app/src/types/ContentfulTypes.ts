@@ -28,6 +28,7 @@ import {
   TypeHairiotiedote,
   TypeTutkintojenTunnustamisenPalveluopas,
   TypeOpintopolkuEtusivu,
+  TypeKielitutkinnotLaskeutumissivu,
   TypeNosto,
   TypeLinkki,
 } from './contentful';
@@ -114,6 +115,9 @@ export type ContentfulTutkintojenTunnustamisenPalveluopas = ContentfulItem<
 export type ContentfulOpintopolkuEtusivu = ContentfulItem<
   TypeOpintopolkuEtusivu<Mod, ''>
 >;
+export type ContentfulKielitutkinnotLaskeutumissivu = ContentfulItem<
+  TypeKielitutkinnotLaskeutumissivu<Mod, ''>
+>;
 export type ContentfulNosto = ContentfulItem<TypeNosto<Mod, ''>>;
 export type ContentfulLinkki = ContentfulItem<TypeLinkki<Mod, ''>>;
 
@@ -140,6 +144,7 @@ export type ContentfulData = {
   hairiotiedote: CfRecord<ContentfulHairiotiedote>;
   tutkintojenTunnustamisenPalveluopas: CfRecord<ContentfulTutkintojenTunnustamisenPalveluopas>;
   opintopolkuEtusivu: CfRecord<ContentfulOpintopolkuEtusivu>;
+  kielitutkinnotLaskeutumissivu: CfRecord<ContentfulKielitutkinnotLaskeutumissivu>;
   nosto: CfRecord<ContentfulNosto>;
   linkki: CfRecord<ContentfulLinkki>;
 };

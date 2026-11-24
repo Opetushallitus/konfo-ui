@@ -5,13 +5,13 @@ import type { TypeNostoSkeleton } from "./TypeNosto";
 export interface TypeKielitutkinnotLaskeutumissivuFields {
     nimi: EntryFieldTypes.Symbol;
     kuvaDesktop: EntryFieldTypes.AssetLink;
-    kuvaMobiili: EntryFieldTypes.AssetLink;
+    kuvaMobiili?: EntryFieldTypes.AssetLink;
     ykiTestiinOsallistuminenOtsikko: EntryFieldTypes.Symbol;
-    ykiTestiinOsallistuminenNostot: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeNostoSkeleton>>;
+    ykiTestiinOsallistuminenNostot?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeNostoSkeleton>>;
     ykiLisatietoaOtsikko: EntryFieldTypes.Symbol;
-    ykiLisatietoaNostot: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeNostoSkeleton>>;
+    ykiLisatietoaNostot?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeNostoSkeleton>>;
     useinKysytytKysymyksetOtsikko: EntryFieldTypes.Symbol;
-    useinKysytytKysymyksetLista: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeFaqSkeleton>>;
+    useinKysytytKysymyksetLista?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeFaqSkeleton>>;
     ajankohtaistaOtsikko: EntryFieldTypes.Symbol;
     ajankohtaistaNostot?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeNostoSkeleton>>;
     julkaisutOtsikko?: EntryFieldTypes.Symbol;

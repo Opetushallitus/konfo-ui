@@ -14,6 +14,7 @@ import { KonfoEtusivu } from '#/src/components/KonfoEtusivu';
 import { HakuLabel } from '#/src/components/haku/HakuLabel';
 import { HakuPage } from '#/src/components/haku/HakuPage';
 import { Hakupalkki } from '#/src/components/haku/Hakupalkki';
+import { KielitutkinnotPage } from '#/src/components/kielitutkinnot/KielitutkinnotPage';
 import { KoulutusPage } from '#/src/components/koulutus/KoulutusPage';
 import { OhjaavaHakuLink } from '#/src/components/ohjaava-haku/OhjaavaHakuLink';
 import { OhjaavaHakuPage } from '#/src/components/ohjaava-haku/OhjaavaHakuPage';
@@ -72,7 +73,7 @@ const routes: Array<RouteObject> = [
         path: ':lng?',
         element: <TranslatedRoute />,
         children: [
-          // Uusi etusivu: oph-design-systemin teema, ei palveluita ja sisältö rajattu 1200px levyiseksi
+          // Uusi etusivu ja kielitutkintojen sivu: oph-design-systemin teema, ei palveluita ja sisältö rajattu 1200px levyiseksi
           {
             element: (
               <OphThemeRoute>
@@ -102,6 +103,10 @@ const routes: Array<RouteObject> = [
               {
                 path: 'tutkintojen-tunnustaminen/tutkintojen-tunnustamisen-palveluopas',
                 element: <TutuOpas />,
+              },
+              {
+                path: 'kielitutkinnot',
+                element: <KielitutkinnotPage />,
               },
             ],
           },
