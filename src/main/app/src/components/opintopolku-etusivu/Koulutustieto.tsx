@@ -25,7 +25,7 @@ export const Koulutustieto = ({ osio }: { osio: EtusivuOsio }) => (
             sx={{
               // Ensimmäinen laatikko koko rivin levyisenä
               gridColumn: isFirst ? '1 / -1' : undefined,
-              backgroundColor: isFirst ? ophColors.cyan1 : ophColors.green2,
+              backgroundColor: isFirst ? ophColors.green2 : ophColors.cyan1,
               color: 'white',
               ...LINK_PAPER_SX,
               padding: 4,
