@@ -10,6 +10,8 @@ import { MobileRajainDrawer } from '#/src/components/common/MobileRajainDrawer';
 import { HAKU_RAJAIMET_ORDER } from '#/src/components/haku/hakutulos/HAKU_RAJAIMET_ORDER';
 import { MobileToggleKoulutusOppilaitos } from '#/src/components/haku/hakutulos/MobileToggleKoulutusOppilaitos';
 import { useSearch } from '#/src/components/haku/hakutulosHooks';
+import { useMediaQuery, useTheme } from '@mui/system';
+import { match, P } from 'ts-pattern';
 
 export const RAJAIMET_POPOVER_ID = 'filters-popover';
 
@@ -20,32 +22,53 @@ export const RajaaButton = ({
   isLoading,
   selectedCount,
   onClick,
-  showDivider = true,
 }: {
   isOpen: boolean;
   isLoading: boolean;
   selectedCount: number;
   onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  // Erotinviiva vasemmalla, kun painike on hakukentän sisällä
-  showDivider?: boolean;
 }) => {
   const { t } = useTranslation();
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
+
+  const endIcon = match([isLoading, isSmallScreen])
+    .with([true, P.any], () => <CircularProgress size={20} color="inherit" />)
+    .with([P.any, true], () => (
+      <Badge badgeContent={selectedCount} showZero={false} color="error">
+        <MaterialIcon icon="filter_list" />
+      </Badge>
+    ))
+    .with([P.any, false], () => (
+      <>
+        {selectedCount > 0 && (
+          <Badge
+            badgeContent={selectedCount}
+            color="error"
+            // Ilman lapsielementtiä: badge normaalissa virrassa kuvakkeen tavoin (ei kulmassa)
+            sx={{
+              alignItems: 'center',
+              '& .MuiBadge-badge': {
+                position: 'static',
+                transform: 'none',
+                marginRight: '2px',
+              },
+            }}
+          />
+        )}
+        <MaterialIcon icon="expand_more" />
+      </>
+    ))
+    .otherwise(() => null);
 
   return (
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
-      {showDivider && (
-        <Divider orientation="vertical" flexItem sx={{ marginY: 1, marginX: 1 }} />
-      )}
+      {!isSmallScreen && <Divider orientation="vertical" flexItem />}
       <Button
         aria-describedby={RAJAIMET_POPOVER_ID}
         aria-expanded={isOpen}
         onClick={onClick}
-        startIcon={
-          <Badge color="error" badgeContent={selectedCount}>
-            <MaterialIcon icon="filter_list" />
-          </Badge>
-        }
-        endIcon={isLoading ? <CircularProgress size={20} color="inherit" /> : null}
+        endIcon={endIcon}
         sx={{
           fontWeight: 600,
           whiteSpace: 'nowrap',
@@ -54,7 +77,7 @@ export const RajaaButton = ({
           paddingY: 0,
           marginY: 0,
         }}>
-        {t('haku.rajaa')}
+        {t('opintopolku-etusivu.rajaa-etsimaasi')}
       </Button>
     </Box>
   );
