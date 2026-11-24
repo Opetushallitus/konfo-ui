@@ -31,6 +31,7 @@ import {
   TypeKielitutkinnotLaskeutumissivu,
   TypeNosto,
   TypeLinkki,
+  TypeFaq,
 } from './contentful';
 
 export type CommonContentfulFields = {
@@ -120,6 +121,7 @@ export type ContentfulKielitutkinnotLaskeutumissivu = ContentfulItem<
 >;
 export type ContentfulNosto = ContentfulItem<TypeNosto<Mod, ''>>;
 export type ContentfulLinkki = ContentfulItem<TypeLinkki<Mod, ''>>;
+export type ContentfulFaq = ContentfulItem<TypeFaq<Mod, ''>>;
 
 export type CfRecord<T> = Record<string, T>;
 
@@ -147,6 +149,7 @@ export type ContentfulData = {
   kielitutkinnotLaskeutumissivu: CfRecord<ContentfulKielitutkinnotLaskeutumissivu>;
   nosto: CfRecord<ContentfulNosto>;
   linkki: CfRecord<ContentfulLinkki>;
+  faq: CfRecord<ContentfulFaq>;
 };
 
 type ContentTypeId = keyof ContentfulData;
