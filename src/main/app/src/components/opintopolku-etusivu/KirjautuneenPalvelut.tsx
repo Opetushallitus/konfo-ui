@@ -1,9 +1,9 @@
 import { Box, Paper } from '@mui/material';
 import { ophColors, OphTypography } from '@opetushallitus/oph-design-system';
 
+import { LINK_PAPER_SX } from '#/src/components/opintopolku-etusivu/linkPaperStyles';
 import {
   EtusivuSection,
-  LINK_PAPER_SX,
   PaperHeading,
 } from '#/src/components/opintopolku-etusivu/opintopolkuEtusivuUtils';
 import { EtusivuOsio } from '#/src/components/opintopolku-etusivu/useOpintopolkuEtusivuData';
