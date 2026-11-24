@@ -39,6 +39,11 @@ export const setupCommonTest = async ({ page, context, baseURL }) => {
   ]);
   await page.route('**/faq.e49945eb.svg', fixtureFromFile('faq.e49945eb.svg'));
   await page.route('**/ehoks.fdeaa517.svg', fixtureFromFile('ehoks.fdeaa517.svg'));
+  // Uuden etusivun hero-kuvat (sisältö ei ole testeille olennainen)
+  await page.route(
+    '**/herokuva_opintopolku_etusivu_*.svg',
+    fixtureFromFile('faq.e49945eb.svg')
+  );
 
   await page.route('**/sv/translation.json', (route) => route.fulfill({ json: {} }));
   await page.route('https://occhat.elisa.fi/**', (route) => route.fulfill({ json: {} }));

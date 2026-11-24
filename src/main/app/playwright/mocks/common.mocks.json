@@ -63,6 +63,14 @@
         "ohjeetJaTuki": {
           "fi": "1581944186497/fi/ohjeetJaTuki.json",
           "sv": "1581944186497/sv/ohjeetJaTuki.json"
+        },
+        "opintopolkuEtusivu": {
+          "fi": "1763280000000/fi/opintopolkuEtusivu.json",
+          "sv": "1763280000000/fi/opintopolkuEtusivu.json"
+        },
+        "nosto": {
+          "fi": "1763280000000/fi/nosto.json",
+          "sv": "1763280000000/fi/nosto.json"
         }
       },
       "status": 200
@@ -3765,6 +3773,137 @@
               "type": "palvelu"
             }
           ]
+        }
+      ],
+      "status": 200
+    }
+  },
+  {
+    "url": "https://konfo-content.untuvaopintopolku.fi/1763280000000/fi/opintopolkuEtusivu.json",
+    "response": {
+      "body": [
+        {
+          "id": "etusivu-1",
+          "name": "Opintopolun etusivu",
+          "type": "opintopolkuEtusivu",
+          "created": "2026-11-01T10:00:00.000Z",
+          "updated": "2026-11-01T10:00:00.000Z",
+          "nimi": "Opintopolun etusivu",
+          "kuvaDesktop": {
+            "id": "hero-desktop",
+            "url": "bjsyfobsxzam/hero-desktop/herokuva_opintopolku_etusivu_desktop.svg"
+          },
+          "kuvaMobiili": {
+            "id": "hero-mobiili",
+            "url": "bjsyfobsxzam/hero-mobiili/herokuva_opintopolku_etusivu_mobiili.svg"
+          },
+          "koulutustietoOtsikko": "Koulutustieto",
+          "koulutustietoNostot": [
+            { "id": "nosto-hakeutuminen", "name": "Hakeutuminen koulutukseen", "type": "nosto" },
+            { "id": "nosto-kielitutkinnot", "name": "Kielitutkinnot", "type": "nosto" },
+            { "id": "nosto-tunnustaminen", "name": "Tutkintojen tunnustaminen", "type": "nosto" }
+          ],
+          "kirjautuneenPalvelutOtsikko": "Kirjautuneen palvelut",
+          "kirjautuneenPalvelutNostot": [
+            { "id": "nosto-oma-opintopolku", "name": "Oma Opintopolku", "type": "nosto" }
+          ],
+          "muutPalvelutOtsikko": "Muut palvelut",
+          "muutPalvelutNostot": [
+            { "id": "nosto-opetushallitus", "name": "Opetushallitus", "type": "nosto" },
+            { "id": "nosto-osaamispolku", "name": "Osaamispolku", "type": "nosto" }
+          ]
+        }
+      ],
+      "status": 200
+    }
+  },
+  {
+    "url": "https://konfo-content.untuvaopintopolku.fi/1763280000000/fi/nosto.json",
+    "response": {
+      "body": [
+        {
+          "id": "nosto-hakeutuminen",
+          "name": "Hakeutuminen koulutukseen",
+          "type": "nosto",
+          "created": "2026-11-01T10:00:00.000Z",
+          "updated": "2026-11-01T10:00:00.000Z",
+          "otsikko": "Hakeutuminen koulutukseen",
+          "teksti": "Tietoja ja ohjeet hakemisesta peruskoulun jälkeiseen koulutukseen.",
+          "ikoni": {
+            "id": "6BorX3StVK5k5rtIHhz20l",
+            "url": "bjsyfobsxzam/6BorX3StVK5k5rtIHhz20l/bbd2e28294ab8f89bfcfef0431e5ccef/faq.e49945eb.svg"
+          },
+          "linkki": "/konfo"
+        },
+        {
+          "id": "nosto-kielitutkinnot",
+          "name": "Kielitutkinnot",
+          "type": "nosto",
+          "created": "2026-11-01T10:00:00.000Z",
+          "updated": "2026-11-01T10:00:00.000Z",
+          "otsikko": "Kielitutkinnot",
+          "teksti": "Kielitaidon todistaminen työ- tai opiskelupaikan haussa.",
+          "ikoni": {
+            "id": "6BorX3StVK5k5rtIHhz20l",
+            "url": "bjsyfobsxzam/6BorX3StVK5k5rtIHhz20l/bbd2e28294ab8f89bfcfef0431e5ccef/faq.e49945eb.svg"
+          },
+          "linkki": "/konfo/kielitutkinnot"
+        },
+        {
+          "id": "nosto-tunnustaminen",
+          "name": "Tutkintojen tunnustaminen",
+          "type": "nosto",
+          "created": "2026-11-01T10:00:00.000Z",
+          "updated": "2026-11-01T10:00:00.000Z",
+          "otsikko": "Tutkintojen tunnustaminen",
+          "teksti": "Ulkomailla suoritetun tutkinnon rinnastaminen Suomessa.",
+          "ikoni": {
+            "id": "6BorX3StVK5k5rtIHhz20l",
+            "url": "bjsyfobsxzam/6BorX3StVK5k5rtIHhz20l/bbd2e28294ab8f89bfcfef0431e5ccef/faq.e49945eb.svg"
+          },
+          "linkki": "/konfo/tutkintojen-tunnustaminen"
+        },
+        {
+          "id": "nosto-oma-opintopolku",
+          "name": "Oma Opintopolku",
+          "type": "nosto",
+          "created": "2026-11-01T10:00:00.000Z",
+          "updated": "2026-11-01T10:00:00.000Z",
+          "otsikko": "Oma Opintopolku",
+          "teksti": "Hakemukset, opiskelupaikan vastaanotto ja opintosuoritukset.",
+          "ikoni": {
+            "id": "1w7rtuwqWaPlLPzNB0GyKR",
+            "url": "bjsyfobsxzam/1w7rtuwqWaPlLPzNB0GyKR/2e0735e53e214719ee459665b85ae9e6/ehoks.fdeaa517.svg"
+          },
+          "linkki": "https://opintopolku.fi/oma-opintopolku"
+        },
+        {
+          "id": "nosto-opetushallitus",
+          "name": "Opetushallitus",
+          "type": "nosto",
+          "created": "2026-11-01T10:00:00.000Z",
+          "updated": "2026-11-01T10:00:00.000Z",
+          "otsikko": "Opetushallitus",
+          "teksti": "Opetushallitus on kansallinen koulutuksen, kielen ja kansainvälistymisen asiantuntija.",
+          "ikoni": {
+            "id": "1w7rtuwqWaPlLPzNB0GyKR",
+            "url": "bjsyfobsxzam/1w7rtuwqWaPlLPzNB0GyKR/2e0735e53e214719ee459665b85ae9e6/ehoks.fdeaa517.svg"
+          },
+          "linkki": "https://www.oph.fi/fi"
+        },
+        {
+          "id": "nosto-osaamispolku",
+          "name": "Osaamispolku",
+          "type": "nosto",
+          "created": "2026-11-01T10:00:00.000Z",
+          "updated": "2026-11-01T10:00:00.000Z",
+          "otsikko": "Osaamispolku",
+          "teksti": "Osaamispolku auttaa kartoittamaan osaamisesi ja kiinnostuksen kohteesi.",
+          "ikoni": {
+            "id": "1w7rtuwqWaPlLPzNB0GyKR",
+            "url": "bjsyfobsxzam/1w7rtuwqWaPlLPzNB0GyKR/2e0735e53e214719ee459665b85ae9e6/ehoks.fdeaa517.svg"
+          },
+          "linkki": "https://osaamispolku.fi/"
         }
       ],
       "status": 200
