@@ -2,14 +2,24 @@ import { useMemo } from 'react';
 
 import { useContentful } from '#/src/hooks/useContentful';
 import { getOne } from '#/src/tools/getOne';
-import { ContentfulData, ContentfulNosto } from '#/src/types/ContentfulTypes';
+import {
+  ContentfulData,
+  ContentfulLinkki,
+  ContentfulNosto,
+} from '#/src/types/ContentfulTypes';
 
 export type EtusivuNosto = {
   id: string;
   otsikko: string;
   teksti?: string;
   kuvaUrl?: string;
-  href?: string;
+  color?: ContentfulNosto['color'];
+  linkit?: Array<{
+    id: string;
+    teksti?: string;
+    href?: string;
+    variant?: ContentfulLinkki['variant'];
+  }>;
 };
 
 export type EtusivuOsio = {
@@ -33,7 +43,16 @@ export const useOpintopolkuEtusivuData = () => {
       otsikko: nosto.otsikko,
       teksti: nosto.teksti,
       kuvaUrl: assetUrl(nosto.kuva?.url),
-      href: data.linkki[nosto.linkit?.[0]?.id ?? '']?.href,
+      color: nosto.color,
+      linkit: nosto.linkit?.map((linkRef) => {
+        const linkki = data.linkki[linkRef.id ?? ''];
+        return {
+          id: linkki.id,
+          teksti: linkki.teksti,
+          href: linkki.href,
+          variant: linkki.variant,
+        };
+      }),
     });
 
     const toOsio = (otsikko?: string, nostoRefs: Array<NostoRef> = []): EtusivuOsio => ({

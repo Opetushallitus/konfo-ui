@@ -22,7 +22,7 @@ export const KirjautuneenPalvelut = ({ osio }: { osio: EtusivuOsio }) => (
           textAlign: 'center',
         }}>
         <Box component="img" src={nosto.kuvaUrl} alt="" sx={{ height: '38px' }} />
-        <PaperHeading color={ophColors.green2} to={nosto.href}>
+        <PaperHeading color={ophColors.green2} to={nosto.linkit?.[0]?.href}>
           {nosto.otsikko}
         </PaperHeading>
         <OphTypography sx={{ color: 'inherit' }}>{nosto.teksti}</OphTypography>

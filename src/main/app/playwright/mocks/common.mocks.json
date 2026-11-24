@@ -3805,7 +3805,8 @@
           "koulutustietoNostot": [
             { "id": "nosto-hakeutuminen", "name": "Hakeutuminen koulutukseen", "type": "nosto" },
             { "id": "nosto-kielitutkinnot", "name": "Kielitutkinnot", "type": "nosto" },
-            { "id": "nosto-tunnustaminen", "name": "Tutkintojen tunnustaminen", "type": "nosto" }
+            { "id": "nosto-tunnustaminen", "name": "Tutkintojen tunnustaminen", "type": "nosto" },
+            { "id": "nosto-yhteishaku", "name": "Yhteishaku", "type": "nosto" }
           ],
           "kirjautuneenPalvelutOtsikko": "Kirjautuneen palvelut",
           "kirjautuneenPalvelutNostot": [
@@ -3866,6 +3867,21 @@
             "url": "bjsyfobsxzam/6BorX3StVK5k5rtIHhz20l/bbd2e28294ab8f89bfcfef0431e5ccef/faq.e49945eb.svg"
           },
           "linkit": [{ "id": "linkki-tunnustaminen", "name": "Tutkintojen tunnustaminen", "type": "linkki" }]
+        },
+        {
+          "id": "nosto-yhteishaku",
+          "name": "Yhteishaku",
+          "type": "nosto",
+          "created": "2026-11-01T10:00:00.000Z",
+          "updated": "2026-11-01T10:00:00.000Z",
+          "otsikko": "Yhteishaku",
+          "teksti": "Hae opiskelemaan yhteishaussa.",
+          "color": "purple1",
+          "linkit": [
+            { "id": "linkki-yhteishaku-hae", "name": "Hae yhteishaussa", "type": "linkki" },
+            { "id": "linkki-yhteishaku-lisatietoa", "name": "Lisätietoa yhteishausta", "type": "linkki" },
+            { "id": "linkki-yhteishaku-ohjeet", "name": "Hakuohjeet", "type": "linkki" }
+          ]
         },
         {
           "id": "nosto-oma-opintopolku",
@@ -3943,6 +3959,36 @@
           "updated": "2026-11-01T10:00:00.000Z",
           "teksti": "Tutkintojen tunnustaminen",
           "href": "/konfo/tutkintojen-tunnustaminen"
+        },
+        {
+          "id": "linkki-yhteishaku-hae",
+          "name": "Hae yhteishaussa",
+          "type": "linkki",
+          "created": "2026-11-01T10:00:00.000Z",
+          "updated": "2026-11-01T10:00:00.000Z",
+          "teksti": "Hae yhteishaussa",
+          "href": "/konfo/haku",
+          "variant": "contained"
+        },
+        {
+          "id": "linkki-yhteishaku-lisatietoa",
+          "name": "Lisätietoa yhteishausta",
+          "type": "linkki",
+          "created": "2026-11-01T10:00:00.000Z",
+          "updated": "2026-11-01T10:00:00.000Z",
+          "teksti": "Lisätietoa yhteishausta",
+          "href": "https://www.oph.fi/fi/yhteishaku",
+          "variant": "outlined"
+        },
+        {
+          "id": "linkki-yhteishaku-ohjeet",
+          "name": "Hakuohjeet",
+          "type": "linkki",
+          "created": "2026-11-01T10:00:00.000Z",
+          "updated": "2026-11-01T10:00:00.000Z",
+          "teksti": "Hakuohjeet",
+          "href": "/konfo/sisaltohaku",
+          "variant": "text"
         },
         {
           "id": "linkki-oma-opintopolku",

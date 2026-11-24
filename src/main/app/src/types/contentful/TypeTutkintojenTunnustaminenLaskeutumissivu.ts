@@ -1,6 +1,5 @@
 import type { ChainModifiers, Entry, EntryFieldTypes, EntrySkeletonType, LocaleCode } from "contentful";
 import type { TypeNostoSkeleton } from "./TypeNosto";
-import type { TypeUseinKysytytKysymyksetSkeleton } from "./TypeUseinKysytytKysymykset";
 
 export interface TypeTutkintojenTunnustaminenLaskeutumissivuFields {
     nimi: EntryFieldTypes.Symbol;
@@ -11,7 +10,7 @@ export interface TypeTutkintojenTunnustaminenLaskeutumissivuFields {
     paatoksenHakeminenOtsikko: EntryFieldTypes.Symbol;
     paatoksenHakeminenKortit?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeNostoSkeleton>>;
     useinKysytytKysymyksetOtsikko: EntryFieldTypes.Symbol;
-    useinKysytytKysymyksetLista?: EntryFieldTypes.EntryLink<TypeUseinKysytytKysymyksetSkeleton>;
+    useinKysytytKysymyksetLista?: EntryFieldTypes.EntryLink<TypeNostoSkeleton>;
     yhteystiedotOtsikko: EntryFieldTypes.Symbol;
     yhteystiedotSisalto?: EntryFieldTypes.Text;
 }
