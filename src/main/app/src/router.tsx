@@ -109,15 +109,6 @@ const routes: Array<RouteObject> = [
                 path: 'kielitutkinnot',
                 element: <KielitutkinnotPage />,
               },
-            ],
-          },
-          {
-            element: (
-              <OphThemeRoute>
-                <DefaultLayout palvelutVisible={false} contentMaxWidth={1200} />
-              </OphThemeRoute>
-            ),
-            children: [
               {
                 path: 'tutkintojen-tunnustaminen',
                 element: (

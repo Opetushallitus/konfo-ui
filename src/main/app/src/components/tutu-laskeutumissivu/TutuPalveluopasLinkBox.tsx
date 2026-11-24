@@ -3,7 +3,7 @@ import { ArrowForward } from '@mui/icons-material';
 import { OphButton, ophColors, OphTypography } from '@opetushallitus/oph-design-system';
 
 import { LINK_PAPER_SX } from '#/src/components/opintopolku-etusivu/linkPaperStyles';
-import { SectionHeading } from '#/src/components/opintopolku-etusivu/opintopolkuEtusivuUtils';
+import { PageSectionHeading } from '#/src/components/PageSectionHeading';
 import { Osio } from './useTutuLaskeutumissivuData';
 import { useId } from 'react';
 import Markdown from 'markdown-to-jsx/react';
@@ -95,9 +95,9 @@ export const TutuPalveluopasLinkBox = ({ osio }: { osio: Osio }) => {
 
   return (
     <Box component="section" sx={{ marginTop: 6 }}>
-      <SectionHeading component="h2" id={headingId}>
+      <PageSectionHeading component="h2" id={headingId}>
         {osio.otsikko}
-      </SectionHeading>
+      </PageSectionHeading>
       {nosto?.href ? (
         // Koko laatikko toimii linkkinä ja klikattavana elementtinä, ei pelkästään StyledButton
         <StyledSmartLink href={nosto.href} aria-labelledby={headingId}>
