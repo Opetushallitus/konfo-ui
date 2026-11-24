@@ -3,9 +3,14 @@ import { useMemo } from 'react';
 import { useContentful } from '#/src/hooks/useContentful';
 import { getOne } from '#/src/tools/getOne';
 import { ContentfulNosto } from '#/src/types/ContentfulTypes';
-import { EtusivuNosto, NostoRef } from '../opintopolku-etusivu/useOpintopolkuEtusivuData';
+import {
+  EtusivuNosto,
+  EtusivuOsio,
+  NostoRef,
+  toNostoOsio,
+} from '../opintopolku-etusivu/useOpintopolkuEtusivuData';
 
-export type Osio = {
+export type OsioWithSingleNosto = {
   otsikko?: string;
   nosto: Nosto;
 };
@@ -28,7 +33,7 @@ export const useTutuLaskeutumissivuData = () => {
   const etusivu = useMemo(() => {
     const tutuLaskeutumissivuData = getOne(data.tutkintojenTunnustaminenLaskeutumissivu);
 
-    const toNosto = (nosto: ContentfulNosto): Nosto => ({
+    const toSingleNosto = (nosto: ContentfulNosto): Nosto => ({
       id: nosto?.id,
       otsikko: nosto?.otsikko,
       teksti: nosto?.teksti,
@@ -37,17 +42,22 @@ export const useTutuLaskeutumissivuData = () => {
       tyyppi: nosto?.tyyppi,
     });
 
-    const toOsio = (otsikko?: string, nostoRef?: NostoRef): Osio => ({
-      otsikko,
-      nosto: toNosto(data.nosto[nostoRef?.id ?? '']),
-    });
+    const toOsio = (otsikko?: string, nostoRefs?: Array<NostoRef>): EtusivuOsio =>
+      toNostoOsio(data, assetUrl, otsikko, nostoRefs);
 
     return {
       heroKuvaDesktop: assetUrl(tutuLaskeutumissivuData?.kuvaDesktop?.url),
       heroKuvaMobiili: assetUrl(tutuLaskeutumissivuData?.kuvaMobiili?.url),
-      tutuPalveluopas: toOsio(
-        tutuLaskeutumissivuData?.paatoksenTarveOtsikko,
-        tutuLaskeutumissivuData?.paatoksenTarveNosto
+      tutuPalveluopas: {
+        otsikko: tutuLaskeutumissivuData?.paatoksenTarveOtsikko,
+        nosto: toSingleNosto(
+          data.nosto[tutuLaskeutumissivuData?.paatoksenTarveNosto?.id ?? '']
+        ),
+      },
+
+      paatoksenHakeminen: toOsio(
+        tutuLaskeutumissivuData?.paatoksenHakeminenOtsikko,
+        tutuLaskeutumissivuData?.paatoksenHakeminenKortit
       ),
       yhteystiedot: {
         otsikko: tutuLaskeutumissivuData?.yhteystiedotOtsikko,

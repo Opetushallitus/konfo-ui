@@ -6,10 +6,17 @@ import { WithSideMargins } from '#/src/components/WithSideMargins';
 import { TutuPalveluopasLinkBox } from './TutuPalveluopasLinkBox';
 import { useTutuLaskeutumissivuData } from './useTutuLaskeutumissivuData';
 import { Yhteystiedot } from './Yhteystiedot';
+import { KielitutkinnotNostoOsio } from '../kielitutkinnot/KielitutkinnotNostoOsio';
 
 export const TutuLaskeutumissivu = () => {
-  const { isLoading, heroKuvaDesktop, heroKuvaMobiili, tutuPalveluopas, yhteystiedot } =
-    useTutuLaskeutumissivuData();
+  const {
+    isLoading,
+    heroKuvaDesktop,
+    heroKuvaMobiili,
+    tutuPalveluopas,
+    paatoksenHakeminen,
+    yhteystiedot,
+  } = useTutuLaskeutumissivuData();
 
   return (
     <Box sx={{ width: '100%', minHeight: 0 }}>
@@ -23,6 +30,7 @@ export const TutuLaskeutumissivu = () => {
           />
           <WithSideMargins>
             <TutuPalveluopasLinkBox osio={tutuPalveluopas} />
+            <KielitutkinnotNostoOsio osio={paatoksenHakeminen} />
             <Yhteystiedot yhteystiedot={yhteystiedot} />
           </WithSideMargins>
         </>

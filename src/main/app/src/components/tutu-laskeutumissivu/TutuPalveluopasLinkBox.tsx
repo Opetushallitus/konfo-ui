@@ -4,7 +4,7 @@ import { OphButton, ophColors, OphTypography } from '@opetushallitus/oph-design-
 
 import { LINK_PAPER_SX } from '#/src/components/opintopolku-etusivu/linkPaperStyles';
 import { PageSectionHeading } from '#/src/components/PageSectionHeading';
-import { Osio } from './useTutuLaskeutumissivuData';
+import { OsioWithSingleNosto } from './useTutuLaskeutumissivuData';
 import { useId } from 'react';
 import Markdown from 'markdown-to-jsx/react';
 import { styled, theme } from '#/src/theme';
@@ -88,7 +88,7 @@ const StyledSmartLink = styled(SmartLink)({
   },
 });
 
-export const TutuPalveluopasLinkBox = ({ osio }: { osio: Osio }) => {
+export const TutuPalveluopasLinkBox = ({ osio }: { osio: OsioWithSingleNosto }) => {
   const { t } = useTranslation();
   const { nosto } = osio;
   const headingId = useId();
