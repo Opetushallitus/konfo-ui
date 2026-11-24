@@ -27,6 +27,7 @@ import {
   TypeValikot,
   TypeHairiotiedote,
   TypeOpintopolkuEtusivu,
+  TypeKielitutkinnotLaskeutumissivu,
   TypeNosto,
   TypeLinkki,
 } from './contentful';
@@ -110,6 +111,9 @@ export type ContentfulHairiotiedote = ContentfulItem<TypeHairiotiedote<Mod, ''>>
 export type ContentfulOpintopolkuEtusivu = ContentfulItem<
   TypeOpintopolkuEtusivu<Mod, ''>
 >;
+export type ContentfulKielitutkinnotLaskeutumissivu = ContentfulItem<
+  TypeKielitutkinnotLaskeutumissivu<Mod, ''>
+>;
 export type ContentfulNosto = ContentfulItem<TypeNosto<Mod, ''>>;
 export type ContentfulLinkki = ContentfulItem<TypeLinkki<Mod, ''>>;
 
@@ -135,6 +139,7 @@ export type ContentfulData = {
   valikot: CfRecord<ContentfulValikot>;
   hairiotiedote: CfRecord<ContentfulHairiotiedote>;
   opintopolkuEtusivu: CfRecord<ContentfulOpintopolkuEtusivu>;
+  kielitutkinnotLaskeutumissivu: CfRecord<ContentfulKielitutkinnotLaskeutumissivu>;
   nosto: CfRecord<ContentfulNosto>;
   linkki: CfRecord<ContentfulLinkki>;
 };
