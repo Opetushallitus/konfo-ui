@@ -1,6 +1,7 @@
 import { Box } from '@mui/material';
 
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
+import { Ajankohtaista } from '#/src/components/kielitutkinnot/Ajankohtaista';
 import { KielitutkinnotHero } from '#/src/components/kielitutkinnot/KielitutkinnotHero';
 import { KielitutkinnotNostoOsio } from '#/src/components/kielitutkinnot/KielitutkinnotNostoOsio';
 import { UseinKysytytKysymykset } from '#/src/components/kielitutkinnot/UseinKysytytKysymykset';
@@ -14,6 +15,7 @@ export const KielitutkinnotPage = () => {
     ykiTestiinOsallistuminen,
     ykiLisatietoa,
     useinKysytytKysymykset,
+    ajankohtaista,
   } = useKielitutkinnotData();
 
   return (
@@ -31,6 +33,7 @@ export const KielitutkinnotPage = () => {
                 otsikko={useinKysytytKysymykset.otsikko}
                 kysymykset={useinKysytytKysymykset.kysymykset}
               />
+              <Ajankohtaista osio={ajankohtaista} />
               {/* TODO: Kielitutkintojen laskeutumissivun muu sisältö */}
             </WithSideMargins>
           </Box>
