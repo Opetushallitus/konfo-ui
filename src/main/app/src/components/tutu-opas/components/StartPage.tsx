@@ -19,7 +19,7 @@ export const StartPage = ({ setIsStartPage }: { setIsStartPage: Dispatch<boolean
         {t('tutu.tutu-opas.start-page.intro')}
       </OphTypography>
       <OphTypography>{t('tutu.tutu-opas.start-page.info-list.heading')}</OphTypography>
-      <List sx={{ listStyleType: 'disc', paddingLeft: '1.5rem' }}>
+      <List sx={{ listStyleType: 'disc', padding: '0 0 0 1.5rem' }}>
         {translationKeys.map((key: string) => (
           <ListItem key={key} sx={{ display: 'list-item', padding: 0 }}>
             {t(`tutu.tutu-opas.start-page.info-list.${key}`)}
