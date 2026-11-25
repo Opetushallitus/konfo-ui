@@ -16,7 +16,7 @@ import { useTheme } from '@mui/system';
 const OPINTOPOLKU_DOMAINS = ['opintopolku.fi', 'studieinfo.fi', 'studyinfo.fi'];
 const isOneOfOpintopolkuDomains = (domNode: Element) => {
   return some(OPINTOPOLKU_DOMAINS, (domain: string) =>
-    domNode.attribs.href.includes(domain)
+    domNode?.attribs?.href?.includes(domain)
   );
 };
 
@@ -42,7 +42,7 @@ export const QuestionPage = ({
   const parsedBody = parse(translation?.body || '', {
     replace(domNode: DOMNode) {
       if (domNode instanceof Element && domNode.name === 'a') {
-        if (domNode.attribs.href.startsWith('/node')) {
+        if (domNode?.attribs?.href?.startsWith('/node')) {
           domNode.attribs.href = `https://oph.fi/${language}${domNode.attribs.href}`;
         }
 
