@@ -61,9 +61,11 @@ export const KielitutkinnotNostoOsio = ({ osio }: { osio: EtusivuOsio }) => (
               to={nosto.linkit?.[0]?.href}
               otsikko={nosto.otsikko}
             />
-            <OphTypography variant="body2" sx={{ color: 'inherit', flexGrow: 1 }}>
-              {nosto.teksti}
-            </OphTypography>
+            {nosto.teksti && (
+              <OphTypography variant="body2" sx={{ color: 'inherit', flexGrow: 1 }}>
+                {nosto.teksti}
+              </OphTypography>
+            )}
             <MaterialIcon
               icon="arrow_forward"
               aria-hidden
