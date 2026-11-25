@@ -13,6 +13,8 @@ export interface TypeTutkintojenTunnustaminenLaskeutumissivuFields {
     useinKysytytKysymyksetLista?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeNostoSkeleton>>;
     yhteystiedotOtsikko: EntryFieldTypes.Symbol;
     yhteystiedotSisalto?: EntryFieldTypes.Text;
+    videotOtsikko:  EntryFieldTypes.Symbol;
+    videot:  EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeNostoSkeleton>>;
 }
 
 export type TypeTutkintojenTunnustaminenLaskeutumissivuSkeleton = EntrySkeletonType<TypeTutkintojenTunnustaminenLaskeutumissivuFields, "tutkintojenTunnustaminenLaskeutumissivu">;

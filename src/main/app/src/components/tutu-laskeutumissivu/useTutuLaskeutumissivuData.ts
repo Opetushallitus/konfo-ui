@@ -62,6 +62,10 @@ export const useTutuLaskeutumissivuData = () => {
         tutuLaskeutumissivuData?.useinKysytytKysymyksetOtsikko,
         tutuLaskeutumissivuData?.useinKysytytKysymyksetLista
       ),
+      videot: toOsio(
+        tutuLaskeutumissivuData?.videotOtsikko,
+        tutuLaskeutumissivuData?.videot
+      ),
       yhteystiedot: {
         otsikko: tutuLaskeutumissivuData?.yhteystiedotOtsikko,
         sisalto: tutuLaskeutumissivuData?.yhteystiedotSisalto,
