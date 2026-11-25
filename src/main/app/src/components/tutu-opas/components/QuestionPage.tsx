@@ -11,6 +11,7 @@ import { TutuObject } from '../types';
 import { NavigationButton } from '../components/NavigationButton';
 import { AnswerOptions } from '../components/AnswerOptions';
 import { ExternalLink } from '../../common/ExternalLink';
+import { useTheme } from '@mui/system';
 
 const OPINTOPOLKU_DOMAINS = ['opintopolku.fi', 'studieinfo.fi', 'studyinfo.fi'];
 const isOneOfOpintopolkuDomains = (domNode: Element) => {
@@ -28,6 +29,7 @@ export const QuestionPage = ({
 }) => {
   const [lng] = useLanguageState();
   const { t } = useTranslation();
+  const theme = useTheme();
 
   const frontPageObject = tutuConfigObjects.find((obj: TutuObject) => obj.is_frontpage);
   const [currentObject, setCurrentObject] = useState<TutuObject | undefined>(
@@ -61,7 +63,7 @@ export const QuestionPage = ({
   const optionsLabelId = 'valitse-yksi-label';
   return (
     <>
-      <OphTypography variant="h1" sx={{ marginBottom: '24px' }}>
+      <OphTypography variant="h1" sx={{ marginBottom: theme.spacing(3) }}>
         {translation?.question}
       </OphTypography>
 
@@ -71,14 +73,14 @@ export const QuestionPage = ({
           <NavigationButton
             variant="contained"
             onClick={() => setIsStartPage(true)}
-            sx={{ marginTop: '12px' }}>
+            sx={{ marginTop: theme.spacing(1.5) }}>
             {t('tutu.aloita-alusta')}
           </NavigationButton>
         </>
       ) : (
         <>
           <Box>{parsedBody}</Box>
-          <Typography id={optionsLabelId} sx={{ marginBottom: '16px' }}>
+          <Typography id={optionsLabelId} sx={{ marginBottom: theme.spacing(2) }}>
             {t('tutu.tutu-opas.valitse-yksi')}
           </Typography>
           <AnswerOptions

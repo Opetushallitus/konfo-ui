@@ -3,6 +3,7 @@ import { OphButton, ophColors } from '@opetushallitus/oph-design-system';
 
 import { Dispatch } from 'react';
 import { AnswerOptionType, TutuObject } from '../types';
+import { useTheme } from '@mui/system';
 
 const AnswerOption = ({
   answerOption,
@@ -13,6 +14,8 @@ const AnswerOption = ({
   setCurrentObject: Dispatch<TutuObject | undefined>;
   tutuConfigObjects: Array<TutuObject>;
 }) => {
+  const theme = useTheme();
+
   const nextAnswerId = answerOption?.target;
   const nextAnswerObject = tutuConfigObjects.find(
     (tutuOption: TutuObject) => tutuOption.id === nextAnswerId
@@ -27,7 +30,7 @@ const AnswerOption = ({
           sx={{
             backgroundColor: ophColors.green5,
             color: ophColors.grey900,
-            marginBottom: '0.5rem',
+            marginBottom: theme.spacing(1),
             justifyContent: 'left',
             textAlign: 'left',
             '&:hover': {
