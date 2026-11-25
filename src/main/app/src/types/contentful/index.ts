@@ -11,6 +11,7 @@ export type { TypePalvelu, TypePalveluFields, TypePalveluSkeleton } from "./Type
 export type { TypePalvelut, TypePalvelutFields, TypePalvelutSkeleton } from "./TypePalvelut";
 export type { TypePikalinkit, TypePikalinkitFields, TypePikalinkitSkeleton } from "./TypePikalinkit";
 export type { TypeSivu, TypeSivuFields, TypeSivuSkeleton } from "./TypeSivu";
+export type { TypeTutkintojenTunnustamisenPalveluopas, TypeTutkintojenTunnustamisenPalveluopasFields, TypeTutkintojenTunnustamisenPalveluopasSkeleton } from "./TypeTutkintojenTunnustamisenPalveluopas";
 export type { TypeUutinen, TypeUutinenFields, TypeUutinenSkeleton } from "./TypeUutinen";
 export type { TypeUutiset, TypeUutisetFields, TypeUutisetSkeleton } from "./TypeUutiset";
 export type { TypeValikko, TypeValikkoFields, TypeValikkoSkeleton } from "./TypeValikko";

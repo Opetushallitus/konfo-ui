@@ -1,7 +1,44 @@
-import { expect, test } from '@playwright/test';
+import { expect, Page, test } from '@playwright/test';
+
+import commonMocks from './mocks/common.mocks.json' with { type: 'json' };
+import { getFixtureData, setupCommonTest } from './test-tools';
+
+const CONTENT_URL = 'https://konfo-content.untuvaopintopolku.fi';
+const TUTU_OPAS_PATH = '1763640000000/fi/tutkintojenTunnustamisenPalveluopas.json';
+
+const mockTutuOpasContentful = async (page: Page) => {
+  const manifest = commonMocks.find((mock) => mock.url === `${CONTENT_URL}/manifest.json`)
+    ?.response.body;
+
+  await page.route(`${CONTENT_URL}/manifest.json`, (route) =>
+    route.fulfill({
+      json: {
+        ...manifest,
+        tutkintojenTunnustamisenPalveluopas: { fi: TUTU_OPAS_PATH },
+      },
+    })
+  );
+
+  const opasJson = await getFixtureData('tutu-opas.json');
+
+  await page.route(`${CONTENT_URL}/${TUTU_OPAS_PATH}`, (route) =>
+    route.fulfill({
+      json: [
+        {
+          id: 'tutu-palveluopas-test',
+          type: 'tutkintojenTunnustamisenPalveluopas',
+          nimi: 'Tutkintojen tunnustamisen palveluopas',
+          opasJson,
+        },
+      ],
+    })
+  );
+};
 
 test.describe('Tutkintojen tunnustamisen palveluopas', () => {
-  test.beforeEach(async ({ page }) => {
+  test.beforeEach(async ({ page, context, baseURL }) => {
+    await setupCommonTest({ page, context, baseURL });
+    await mockTutuOpasContentful(page);
     await page.goto(
       '/konfo/fi/tutkintojen-tunnustaminen/tutkintojen-tunnustamisen-palveluopas'
     );
