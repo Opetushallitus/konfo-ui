@@ -40,6 +40,7 @@ import {
   setKeyword,
   urlParamsChanged,
 } from '#/src/store/reducers/hakutulosSlice';
+
 import { TutuOpas } from './components/tutu-opas/TutuOpas';
 
 // Ajetaan aina kun etusivulle navigoidaan (myös selaimen takaisin/eteenpäin-napeilla),
