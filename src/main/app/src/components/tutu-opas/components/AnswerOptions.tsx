@@ -21,11 +21,16 @@ const AnswerOption = ({
     (tutuOption: TutuObject) => tutuOption.id === nextAnswerId
   );
 
+  const selectOption = () => {
+    setCurrentObject(nextAnswerObject);
+    window.scrollTo(0, 0);
+  };
+
   return (
     <>
       {nextAnswerId && (
         <OphButton
-          onClick={() => setCurrentObject(nextAnswerObject)}
+          onClick={selectOption}
           variant="contained"
           sx={{
             backgroundColor: ophColors.green5,

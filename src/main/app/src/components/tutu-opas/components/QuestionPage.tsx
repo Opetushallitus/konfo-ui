@@ -67,6 +67,11 @@ export const QuestionPage = ({
     translation?.body || ''
   );
 
+  const goBackToStart = () => {
+    setIsStartPage(true);
+    window.scrollTo(0, 0);
+  };
+
   const optionsLabelId = 'valitse-yksi-label';
   return (
     <>
@@ -79,7 +84,7 @@ export const QuestionPage = ({
           <Box>{parsedBody}</Box>
           <NavigationButton
             variant="contained"
-            onClick={() => setIsStartPage(true)}
+            onClick={goBackToStart}
             sx={{ marginTop: theme.spacing(1.5) }}>
             {t('tutu.aloita-alusta')}
           </NavigationButton>
@@ -96,9 +101,7 @@ export const QuestionPage = ({
             tutuConfigObjects={tutuConfigObjects}
             labelId={optionsLabelId}
           />
-          <OphButton onClick={() => setIsStartPage(true)}>
-            {t('tutu.aloita-alusta')}
-          </OphButton>
+          <OphButton onClick={goBackToStart}>{t('tutu.aloita-alusta')}</OphButton>
         </>
       )}
     </>
