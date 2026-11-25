@@ -37,7 +37,7 @@ export const QuestionPage = ({
         domNode.name === 'a' &&
         domNode.attribs.href.startsWith('/node')
       ) {
-        domNode.attribs.href = 'https://oph.fi' + domNode.attribs.href;
+        domNode.attribs.href = `https://oph.fi/${language}/${domNode.attribs.href}`;
       }
     },
   });
