@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { OphButton } from '@opetushallitus/oph-design-system';
+import { OphButton, ophColors } from '@opetushallitus/oph-design-system';
 
 import { Dispatch } from 'react';
 import { AnswerOptionType, TutuObject } from '../types';
@@ -23,9 +23,15 @@ const AnswerOption = ({
       onClick={() => setCurrentObject(nextAnswerObject)}
       variant="contained"
       sx={{
+        backgroundColor: ophColors.green5,
+        color: ophColors.grey900,
         marginBottom: '0.5rem',
         justifyContent: 'left',
         textAlign: 'left',
+        '&:hover': {
+          backgroundColor: ophColors.green2,
+          color: ophColors.white,
+        },
       }}>
       {answerOption?.label}
     </OphButton>
