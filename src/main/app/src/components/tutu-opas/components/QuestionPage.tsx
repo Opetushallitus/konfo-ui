@@ -6,10 +6,11 @@ import { Dispatch, useState } from 'react';
 import { LanguageCode } from '#/src/types/common';
 import { useLanguageState } from '#/src/hooks';
 import { isEmpty, some } from 'lodash-es';
-import parse, { Element, DOMNode } from 'html-react-parser';
+import parse, { Element, DOMNode, domToReact, Text } from 'html-react-parser';
 import { TutuObject } from '../types';
 import { NavigationButton } from '../components/NavigationButton';
 import { AnswerOptions } from '../components/AnswerOptions';
+import { ExternalLink } from '../../common/ExternalLink';
 
 const OPINTOPOLKU_DOMAINS = ['opintopolku.fi', 'studieinfo.fi', 'studyinfo.fi'];
 const isOneOfOpintopolkuDomains = (domNode: Element) => {
@@ -46,10 +47,12 @@ export const QuestionPage = ({
         if (isOneOfOpintopolkuDomains(domNode)) {
           domNode.attribs.href = `/konfo/${language}`;
           domNode.attribs.target = '';
-        }
-
-        if (!isOneOfOpintopolkuDomains(domNode)) {
-          domNode.attribs.target = '_blank';
+        } else {
+          return (
+            <ExternalLink href={domNode.attribs.href}>
+              {domToReact(domNode.children as Array<Text>)}
+            </ExternalLink>
+          );
         }
       }
     },
