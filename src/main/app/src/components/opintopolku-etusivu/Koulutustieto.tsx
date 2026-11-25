@@ -105,7 +105,7 @@ export const Koulutustieto = ({ osio }: { osio: EtusivuOsio }) => (
             {nosto.kuvaUrl && (
               <InlineSvgIcon src={nosto.kuvaUrl} aria-hidden sx={{ fontSize: '64px' }} />
             )}
-            <PaperHeading to={singleNostoLink?.href}>{nosto.otsikko}</PaperHeading>
+            <PaperHeading to={singleNostoLink?.href} otsikko={nosto.otsikko} />
             <OphTypography sx={{ color: 'inherit' }}>{nosto.teksti}</OphTypography>
             {!singleNostoLink && (
               <Stack

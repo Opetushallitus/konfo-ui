@@ -8,7 +8,10 @@ import {
   EtusivuSection,
   PaperHeading,
 } from '#/src/components/opintopolku-etusivu/opintopolkuEtusivuUtils';
-import { EtusivuOsio } from '#/src/components/opintopolku-etusivu/useOpintopolkuEtusivuData';
+import {
+  EtusivuNosto,
+  EtusivuOsio,
+} from '#/src/components/opintopolku-etusivu/useOpintopolkuEtusivuData';
 
 // Julkaisuaika (ISO 8601) muodossa D.M.YYYY
 const formatJulkaisuaika = (julkaisuaika: string) => {
@@ -33,7 +36,7 @@ export const Ajankohtaista = ({ osio }: { osio: EtusivuOsio }) => {
           },
           gap: 4,
         }}>
-        {osio.nostot.map((nosto) => {
+        {osio.nostot.map((nosto: EtusivuNosto) => {
           const julkaistu = nosto.julkaisuaika && formatJulkaisuaika(nosto.julkaisuaika);
           return (
             <Paper
@@ -75,9 +78,9 @@ export const Ajankohtaista = ({ osio }: { osio: EtusivuOsio }) => {
                   color={ophColors.green2}
                   fontSize="20px"
                   fontWeight={400}
-                  to={nosto.linkit?.[0]?.href}>
-                  {nosto.otsikko}
-                </PaperHeading>
+                  to={nosto.linkit?.[0]?.href}
+                  otsikko={nosto.otsikko}
+                />
                 {nosto.asiasanat && nosto.asiasanat.length > 0 && (
                   <Box
                     component="ul"

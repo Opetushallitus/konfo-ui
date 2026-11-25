@@ -9,7 +9,7 @@ import { PAPER_LINK_CLASS } from '#/src/components/opintopolku-etusivu/linkPaper
 import { EtusivuOsio } from '#/src/components/opintopolku-etusivu/useOpintopolkuEtusivuData';
 import { PageSectionHeading } from '#/src/components/PageSectionHeading';
 import { ExternalLink } from '../common/ExternalLink';
-import { isUndefined } from 'lodash-es';
+import { isString, isUndefined } from 'lodash-es';
 
 // Etusivun osio otsikkoineen. Osiota ei näytetä, jos siinä ei ole nostoja.
 // Otsikko nimeää osion, jolloin se on ruudunlukijalle nimetty alue (region-maamerkki).
@@ -34,11 +34,12 @@ export const EtusivuSection = ({
 const PaperHeadingContent = ({
   children,
   to,
+  linkShouldOpenInNewTab,
 }: {
   children: React.ReactNode;
   to?: string;
+  linkShouldOpenInNewTab?: boolean;
 }) => {
-  const linkShouldOpenInNewTab = !to?.includes('konfo/');
   switch (true) {
     case to && linkShouldOpenInNewTab:
       return (
@@ -57,25 +58,58 @@ const PaperHeadingContent = ({
   }
 };
 
+const parseValidExternalURL = (to?: string): URL | undefined => {
+  if (to) {
+    try {
+      return new URL(to);
+    } catch (error) {
+      console.warn(error);
+      return undefined;
+    }
+  }
+};
+
+const otsikkoWithExternalDomain = (
+  linkShouldOpenInNewTab?: boolean,
+  otsikko?: string,
+  to?: URL | string
+): string => {
+  const domain =
+    !isString(to) && linkShouldOpenInNewTab
+      ? to?.hostname?.replace('www.', '')
+      : undefined;
+
+  const domainStr = domain ? ` (${domain})` : '';
+  return `${otsikko ?? ''}${domainStr}`;
+};
+
 // Laatikon otsikko on laatikon ainoa linkki. Linkin ::after-elementti venytetään koko laatikon
 // kokoiseksi (LINK_PAPER_SX), jolloin koko laatikko on klikattava, mutta ruudunlukija lukee
 // linkin nimeksi vain otsikon.
 export const PaperHeading = ({
-  children,
   color = 'inherit',
   fontWeight = 600,
   fontSize = '24px',
   to,
+  otsikko,
 }: {
-  children: React.ReactNode;
   color?: string;
   fontWeight?: number;
   fontSize?: string;
   to?: string;
+  otsikko?: string;
 }) => {
+  const parsedURL = parseValidExternalURL(to);
+  // Linkki on konfo-linkki, jos se sisältää sanan konfo ja se ei ole ns. ulkoinen linkki, joka sisältää sanan konfo eli sitä ei pystytä parsimaan URLiksi
+  const isKonfoLink = to?.includes('konfo') && !parsedURL;
+  const validURL = isKonfoLink ? to : parseValidExternalURL(to);
   return (
     <OphTypography component="h3" sx={{ fontSize, color, fontWeight }}>
-      <PaperHeadingContent to={to}>{children}</PaperHeadingContent>
+      <PaperHeadingContent
+        to={validURL && validURL.toString()}
+        linkShouldOpenInNewTab={!isKonfoLink}>
+        {otsikkoWithExternalDomain(!isKonfoLink, otsikko, validURL)}
+      </PaperHeadingContent>
     </OphTypography>
   );
 };

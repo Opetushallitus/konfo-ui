@@ -49,9 +49,11 @@ export const MuutPalvelut = ({ osio }: { osio: EtusivuOsio }) => (
           {/* Oikea reunus jättää tilaa nuolelle */}
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, paddingRight: 4 }}>
             <Box component="img" src={nosto.kuvaUrl} alt="" sx={{ height: '40px' }} />
-            <PaperHeading fontWeight={400} to={nosto.linkit?.[0]?.href}>
-              {nosto.otsikko}
-            </PaperHeading>
+            <PaperHeading
+              fontWeight={400}
+              to={nosto.linkit?.[0]?.href}
+              otsikko={nosto.otsikko}
+            />
           </Box>
           <OphTypography sx={{ color: 'inherit' }}>{nosto.teksti}</OphTypography>
         </Paper>
