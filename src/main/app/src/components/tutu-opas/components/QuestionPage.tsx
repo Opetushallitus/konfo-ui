@@ -1,5 +1,5 @@
 import { Box, Typography } from '@mui/material';
-import { OphButton, OphTypography } from '@opetushallitus/oph-design-system';
+import { OphButton, OphLink, OphTypography } from '@opetushallitus/oph-design-system';
 import { useTranslation } from 'react-i18next';
 
 import { Dispatch, useState } from 'react';
@@ -31,6 +31,11 @@ const parseTranslationBody = (language: LanguageCode, translationBody: string) =
         if (isOneOfOpintopolkuDomains(domNode)) {
           domNode.attribs.href = `/konfo/${language}`;
           domNode.attribs.target = '';
+          return (
+            <OphLink href={domNode.attribs.href} variant="body1">
+              {domToReact(domNode.children as Array<Text>)}
+            </OphLink>
+          );
         } else {
           return (
             <ExternalLink href={domNode.attribs.href}>
