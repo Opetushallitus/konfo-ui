@@ -125,7 +125,7 @@ export const Header = ({
   toggleMenu,
   isOpen,
   refreshSideMenu,
-  isSmall,
+  isMenuOverlay: isMenuOverlay,
   menuVisible,
   closeMenu,
   sideMenuKey,
@@ -133,7 +133,7 @@ export const Header = ({
   toggleMenu: () => void;
   isOpen: boolean;
   refreshSideMenu: () => void;
-  isSmall: boolean;
+  isMenuOverlay: boolean;
   menuVisible: boolean;
   closeMenu: () => void;
   sideMenuKey: number;
@@ -173,7 +173,7 @@ export const Header = ({
           <Box sx={{ position: 'absolute' }}>
             <SideMenu
               key={`sidemenu-key-${sideMenuKey}`}
-              isSmall={isSmall}
+              isMenuOverlay={isMenuOverlay}
               menuVisible={menuVisible}
               closeMenu={closeMenu}
               searchRef={searchRef}

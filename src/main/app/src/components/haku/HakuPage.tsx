@@ -16,7 +16,6 @@ import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { Murupolku } from '#/src/components/common/Murupolku';
 import { Pagination } from '#/src/components/common/Pagination';
 import { PAGE_SIZE_OPTIONS, PAGE_SORT_OPTIONS } from '#/src/constants';
-import { useContentWidth } from '#/src/hooks/useContentWidth';
 import { useHakutulosWidth } from '#/src/store/reducers/appSlice';
 import { styled } from '#/src/theme';
 import { safeParseNumber } from '#/src/tools/utils';
@@ -29,6 +28,7 @@ import { Suodatinpalkki } from './hakutulos/Suodatinpalkki';
 import { useAllSelectedFilters, useSearch, useSearchSortOrder } from './hakutulosHooks';
 import { MobileFiltersOnTopMenu } from './MobileFiltersOnTopMenu';
 import { SuodatinValinnat } from '../suodattimet/hakutulosSuodattimet/SuodatinValinnat';
+import { useMediaQuery } from '@mui/system';
 
 const PREFIX = 'HakuPage';
 
@@ -179,8 +179,7 @@ export const HakuPage = () => {
   const hakutulosRef = useSyncHakutulosWidth();
   const [hakutulosWidth] = useHakutulosWidth();
   const isHakutulosSmUp = hakutulosWidth >= theme.breakpoints.values['sm'];
-  const contentWidth = useContentWidth();
-  const isContentMdUp = contentWidth >= theme.breakpoints.values['md'];
+  const isContentMdUp = useMediaQuery(theme.breakpoints.up('md'));
 
   return (
     <StyledGrid className={classes.hakutulosSisalto}>

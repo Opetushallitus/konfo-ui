@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 
-import { useMediaQuery, Box, CssBaseline } from '@mui/material';
+import { Box, CssBaseline } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
 import { useIsFetching } from '@tanstack/react-query';
 import { matchPath, Outlet, useLocation } from 'react-router-dom';
 
 import { CookieDrawer } from '#/src/components/common/CookieDrawer';
 import { CookieModal } from '#/src/components/common/CookieModal';
-import { useSideMenu } from '#/src/hooks';
 import { styled } from '#/src/theme';
 import { getLanguage } from '#/src/tools/localization';
 import { useChat } from '#/src/useChat';
@@ -18,6 +17,7 @@ import { SkipToContent } from './components/common/SkipToContent';
 import { SIDEMENU_WIDTH } from './constants';
 import { useIsAtEtusivu } from './store/reducers/appSlice';
 import { theme } from './theme';
+import { useSideMenu } from './hooks/useSideMenu';
 
 declare global {
   interface Window {
@@ -40,19 +40,25 @@ const MatomoTracker: React.FC = () => {
 };
 
 const ContentColumn = styled('div')(
-  ({ isSmall, menuVisible }: { isSmall?: boolean; menuVisible?: boolean }) => ({
+  ({
+    isMenuOverlay,
+    menuVisible,
+  }: {
+    isMenuOverlay?: boolean;
+    menuVisible?: boolean;
+  }) => ({
     flexGrow: 1,
     minWidth: 0,
     display: 'flex',
     flexDirection: 'column',
-    ...(isSmall ? { overflowX: 'clip' } : {}),
+    ...(isMenuOverlay ? { overflowX: 'clip' } : {}),
     ...(menuVisible
       ? {
           transition: theme.transitions.create('margin', {
             easing: theme.transitions.easing.easeOut,
             duration: theme.transitions.duration.enteringScreen,
           }),
-          marginLeft: isSmall ? 0 : SIDEMENU_WIDTH,
+          marginLeft: isMenuOverlay ? 0 : SIDEMENU_WIDTH,
         }
       : {
           transition: theme.transitions.create('margin', {
@@ -111,11 +117,15 @@ const isOnlyHakuKeywordChange = (previousPathname: string | null, pathname: stri
 };
 
 export const App = () => {
-  const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
   const [titleObj, setTitleObj] = useState<TitleObject>();
   const language = getLanguage();
   const { pathname } = useLocation();
-  const { state: menuVisible, toggleMenu, closeMenu } = useSideMenu();
+  const {
+    isMenuOpen: menuVisible,
+    isMenuOverlay: isNotFullHD,
+    toggleMenu,
+    closeMenu,
+  } = useSideMenu();
   const isAtEtusivu = useIsAtEtusivu();
   const isFetching = useIsFetching();
   const [sideMenuKey, setSideMenuKey] = useState(1);
@@ -155,14 +165,6 @@ export const App = () => {
     }
   }, [isFetching, isAtEtusivu, titleObj, language, pathname]);
 
-  useEffect(() => {
-    if (isSmall && menuVisible) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-  }, [isSmall, menuVisible]);
-
   // Tämä alustaa Elisan chatin käyttöön
   useChat();
 
@@ -179,12 +181,12 @@ export const App = () => {
           toggleMenu={toggleMenu}
           isOpen={menuVisible}
           refreshSideMenu={() => setSideMenuKey(sideMenuKey + 1)}
-          isSmall={isSmall}
+          isMenuOverlay={isNotFullHD}
           menuVisible={menuVisible}
           closeMenu={closeMenu}
           sideMenuKey={sideMenuKey}
         />
-        <ContentColumn isSmall={isSmall} menuVisible={menuVisible}>
+        <ContentColumn isMenuOverlay={isNotFullHD} menuVisible={menuVisible}>
           <MatomoTracker />
           {/* Sivupohja (DefaultLayout tai Etusivu) renderöi pääsisällön (<main>) ja footerin */}
           <Outlet />

@@ -1,12 +1,8 @@
 import { useCallback, useEffect, useRef } from 'react';
 
-import { useMediaQuery } from '@mui/material';
 import { isEmpty } from 'lodash-es';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { SIDEMENU_WIDTH } from '#/src/constants';
-import { useSideMenuOpen } from '#/src/store/reducers/appSlice';
-import { theme } from '#/src/theme';
 import { i18n } from '#/src/tools/i18n';
 
 export const useLanguageState = (): [string | undefined, (newLang: string) => void] => {
@@ -44,25 +40,3 @@ export function usePreviousNonEmpty<T>(value?: T) {
 
   return ref.current;
 }
-
-export const useSideMenu = () => {
-  const [menuOpen, setMenuState] = useSideMenuOpen();
-
-  const toggleMenu = useCallback(() => {
-    setMenuState(!menuOpen);
-  }, [menuOpen, setMenuState]);
-
-  const closeMenu = useCallback(() => {
-    setMenuState(false);
-  }, [setMenuState]);
-
-  const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
-
-  return {
-    keepMenuVisible: !isSmall && menuOpen,
-    state: menuOpen,
-    toggleMenu,
-    closeMenu,
-    width: menuOpen ? SIDEMENU_WIDTH : 0,
-  };
-};

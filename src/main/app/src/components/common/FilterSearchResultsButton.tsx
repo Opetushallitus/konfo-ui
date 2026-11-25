@@ -1,7 +1,6 @@
 import { Badge, Button, ButtonProps } from '@mui/material';
 
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
-import { useSideMenu } from '#/src/hooks';
 import { useHakutulosWidth } from '#/src/store/reducers/appSlice';
 
 export const FilterSearchResultsButton = ({
@@ -15,7 +14,6 @@ export const FilterSearchResultsButton = ({
   selectedRajainCount?: number;
   inline?: boolean;
 } & ButtonProps) => {
-  const { width: sideMenuWidth } = useSideMenu();
   const [hakutulosWidth] = useHakutulosWidth();
 
   return (
@@ -31,7 +29,7 @@ export const FilterSearchResultsButton = ({
               zIndex: 1,
               bottom: 30,
               translate: '-50%',
-              left: `${sideMenuWidth + Math.round(hakutulosWidth / 2)}px`,
+              left: `${Math.round(hakutulosWidth / 2)}px`,
             }),
       }}
       variant={inline ? 'text' : 'contained'}

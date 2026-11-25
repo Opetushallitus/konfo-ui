@@ -1,10 +1,10 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 
 import { Drawer, Paper, InputBase, Button, Box } from '@mui/material';
 import { includes, last } from 'lodash-es';
 import { urls } from 'oph-urls-js';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
@@ -35,15 +35,28 @@ const classes = {
 };
 
 const StyledDrawer = styled(Drawer, {
-  shouldForwardProp: (prop) => !includes(['isSmall'], prop),
-})<{ isSmall: boolean }>(({ theme, isSmall }) => ({
-  width: isSmall ? '100%' : SIDEMENU_WIDTH,
-  flexShrink: 0,
+  shouldForwardProp: (prop) => !includes(['isMenuOverlay'], prop),
+})<{ isMenuOverlay: boolean }>(({ theme, isMenuOverlay }) => ({
+  ...(isMenuOverlay
+    ? {
+        // Temporary-tilassa juuri on koko näytön Modal. Pidetään header sen yläpuolella,
+        // jotta headerin painikkeet toimivat valikon ollessa auki.
+        zIndex: theme.zIndex.appBar - 1,
+        '& .MuiBackdrop-root': {
+          top: getHeaderHeight(theme),
+          backgroundColor: 'rgba(0, 0, 0, 0.2)',
+        },
+      }
+    : {
+        width: SIDEMENU_WIDTH,
+        flexShrink: 0,
+      }),
 
   [`& .${classes.drawerPaper}`]: {
     marginTop: getHeaderHeight(theme),
     height: `calc(100% - ${getHeaderHeight(theme)}px)`,
-    width: isSmall ? '100%' : SIDEMENU_WIDTH,
+    width: isMenuOverlay ? '100%' : SIDEMENU_WIDTH,
+    maxWidth: SIDEMENU_WIDTH,
   },
 
   [`& .${classes.inputBackground}`]: {
@@ -95,16 +108,40 @@ const StyledDrawer = styled(Drawer, {
   },
 }));
 
+const withoutLanguagePrefix = (pathname: string) =>
+  pathname.replace(/^\/(fi|sv|en)(?=\/|$)/, '');
+
 export const SideMenu = (props: {
   menuVisible?: boolean;
-  isSmall: boolean;
+  isMenuOverlay: boolean;
   closeMenu: () => void;
   searchRef: React.RefObject<HTMLInputElement | null>;
 }) => {
-  const { menuVisible, isSmall, closeMenu, searchRef } = props;
+  const { menuVisible, isMenuOverlay, closeMenu, searchRef } = props;
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const suosikitLink = useSuosikitLink();
+  const { pathname } = useLocation();
+
+  // Sisällön päällä oleva valikko suljetaan, kun jotain valitaan. Sivua siirtävä valikko jää auki.
+  const closeOverlayMenu = () => {
+    if (isMenuOverlay) {
+      closeMenu();
+    }
+  };
+
+  // Suljetaan päällä oleva valikko sivun vaihtuessa (esim. murupolun kautta). Pelkkä kielen
+  // vaihto (/fi/... -> /sv/...) ei ole sivunvaihto, joten valikko jää silloin auki.
+  const pathWithoutLanguage = withoutLanguagePrefix(pathname);
+  const previousPathRef = useRef(pathWithoutLanguage);
+  useEffect(() => {
+    if (previousPathRef.current !== pathWithoutLanguage) {
+      previousPathRef.current = pathWithoutLanguage;
+      if (isMenuOverlay) {
+        closeMenu();
+      }
+    }
+  }, [pathWithoutLanguage, isMenuOverlay, closeMenu]);
 
   const { data, isLoading } = useContentful();
   const [selected, setSelected] = useState<Array<string>>([]);
@@ -122,7 +159,7 @@ export const SideMenu = (props: {
 
   const doSearch = (event: React.SyntheticEvent) => {
     event.preventDefault();
-    if (isSmall) {
+    if (isMenuOverlay) {
       closeMenu();
     }
     navigate(`/${i18n.language}/sisaltohaku/?hakusana=${search}`);
@@ -133,12 +170,20 @@ export const SideMenu = (props: {
       id="side-menu"
       open={menuVisible}
       className={classes.drawer}
-      variant="persistent"
+      // Pienillä näytöillä valikko on sisällön päällä (temporary): Modal tuo taustan,
+      // vierityksen eston, fokuksen hallinnan ja Esc-sulkemisen. Muuten valikko siirtää sisältöä.
+      variant={isMenuOverlay ? 'temporary' : 'persistent'}
+      onClose={closeMenu}
+      ModalProps={{
+        keepMounted: true,
+        // Header fokusoi hakukentän valikon avautuessa
+        disableAutoFocus: true,
+      }}
       anchor="left"
       classes={{
         paper: classes.drawerPaper,
       }}
-      isSmall={props.isSmall}>
+      isMenuOverlay={props.isMenuOverlay}>
       <div className={classes.inputBackground}>
         <Box
           sx={{
@@ -146,7 +191,9 @@ export const SideMenu = (props: {
             flexDirection: 'column',
             alignItems: 'flex-start',
           }}>
-          {suosikitLink && <TextButtonLink {...suosikitLink} onClick={closeMenu} />}
+          {suosikitLink && (
+            <TextButtonLink {...suosikitLink} onClick={closeOverlayMenu} />
+          )}
           <TextButtonLink
             href={urls.url('oma-opintopolku')}
             target="_blank"
@@ -208,7 +255,7 @@ export const SideMenu = (props: {
                 deselect={popSelected}
                 select={selectValikko}
                 links={links}
-                closeMenu={closeMenu}
+                closeMenu={closeOverlayMenu}
               />
               {/* Tutkintojen tunnustaminen näytetään toisena olevan ("Hae koulutukseen") valikon jälkeen */}
               {!selectedValikko && index === 1 && (
@@ -223,7 +270,7 @@ export const SideMenu = (props: {
                       href: '/tutkintojen-tunnustaminen/tutkintojen-tunnustamisen-palveluopas',
                     },
                   ]}
-                  closeMenu={closeMenu}
+                  closeMenu={closeOverlayMenu}
                 />
               )}
             </Fragment>

@@ -8,12 +8,12 @@ const getLocationPage = (location: Location) => location?.pathname?.split('/')?.
 
 type AppState = {
   hakutulosWidth: number;
-  sideMenuOpen: boolean;
+  isSideMenuOpen: boolean;
   currentPage: string | undefined;
   previousPage: string | undefined;
   closedHairiotiedotteetIds: Array<string>;
   setHakutulosWidth: (width: number) => void;
-  setMenuState: (isOpen: boolean) => void;
+  setIsSideMenuOpen: (isOpen: boolean) => void;
   locationChanged: (location: Location) => void;
   setClosedHairiotiedotteetIds: (ids: Array<string>) => void;
 };
@@ -21,7 +21,7 @@ type AppState = {
 const useAppState = create<AppState>()(
   immer((set) => ({
     hakutulosWidth: 0,
-    sideMenuOpen: !(window.innerWidth < KEEP_VALIKKO_OPEN_WIDTH),
+    isSideMenuOpen: window.innerWidth >= KEEP_VALIKKO_OPEN_WIDTH,
     // currentPage tallennettu vain, jotta voidaan päätellä previousPage
     currentPage: undefined,
     previousPage: undefined,
@@ -30,9 +30,9 @@ const useAppState = create<AppState>()(
       set((state) => {
         state.hakutulosWidth = width;
       }),
-    setMenuState: (isOpen) =>
+    setIsSideMenuOpen: (isOpen) =>
       set((state) => {
-        state.sideMenuOpen = isOpen;
+        state.isSideMenuOpen = isOpen;
       }),
     locationChanged: (location: Location) =>
       set((state) => {
@@ -49,12 +49,12 @@ const useAppState = create<AppState>()(
   }))
 );
 
-export const useSideMenuOpen = (): [
-  AppState['sideMenuOpen'],
-  AppState['setMenuState'],
+export const useIsSideMenuOpen = (): [
+  AppState['isSideMenuOpen'],
+  AppState['setIsSideMenuOpen'],
 ] => {
-  const { sideMenuOpen, setMenuState } = useAppState();
-  return [sideMenuOpen, setMenuState];
+  const { isSideMenuOpen, setIsSideMenuOpen } = useAppState();
+  return [isSideMenuOpen, setIsSideMenuOpen];
 };
 
 export const usePreviousPage = () => useAppState((state) => state.previousPage);

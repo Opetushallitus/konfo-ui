@@ -3,7 +3,6 @@ import { isString } from 'lodash-es';
 
 import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
-import { useSideMenu } from '#/src/hooks';
 import { styled, theme } from '#/src/theme';
 
 import type { MurupolkuFragmentProps } from './types';
@@ -128,14 +127,12 @@ export const MurupolkuFragment = ({
   isHome,
 }: MurupolkuFragmentProps) => {
   const isXLargeDown = useMediaQuery(theme.breakpoints.down('xl'));
-  const { state: menuVisible } = useSideMenu();
   const interactiveHref = isString(link) ? link : undefined;
   const isInteractiveLink = Boolean(interactiveHref) && (!isLast || isHome);
   const ariaCurrent = isLast ? 'page' : undefined;
 
   const normalizedName = name.trim();
-  const shortenedName =
-    isXLargeDown || menuVisible ? shortenName(normalizedName) : normalizedName;
+  const shortenedName = isXLargeDown ? shortenName(normalizedName) : normalizedName;
 
   const homeIcon = isHome ? (
     <MaterialIcon

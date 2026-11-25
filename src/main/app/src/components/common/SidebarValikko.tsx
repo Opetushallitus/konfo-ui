@@ -13,7 +13,6 @@ import { useNavigate } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
-import { useSideMenu } from '#/src/hooks';
 import { useContentful } from '#/src/hooks/useContentful';
 import { styled } from '#/src/theme';
 import { ContentfulLink, ContentfulValikko } from '#/src/types/ContentfulTypes';
@@ -183,15 +182,12 @@ export const SidebarValikko = (props: {
   const navigate = useNavigate();
   const { i18n } = useTranslation();
   const { forwardTo } = useContentful();
-  const { parent, select, deselect, closeMenu, name, links, internalLinks = [] } = props;
-  const { keepMenuVisible } = useSideMenu();
+  const { parent, select, deselect, closeMenu, name, links, internalLinks } = props;
 
   const forwardToPage = (e: React.MouseEvent, href: string) => {
     e.preventDefault();
     navigate(href);
-    if (!keepMenuVisible) {
-      closeMenu();
-    }
+    closeMenu();
   };
 
   return (
@@ -227,7 +223,7 @@ export const SidebarValikko = (props: {
             );
           }
         })}
-        {internalLinks.map((link) => (
+        {internalLinks?.map((link) => (
           <SivuItem
             key={`internal-item-${link.href}`}
             name={link.name}

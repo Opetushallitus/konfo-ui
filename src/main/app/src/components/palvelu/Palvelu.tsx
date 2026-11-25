@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 
 import { colors } from '#/src/colors';
 import { Heading } from '#/src/components/Heading';
-import { useSideMenu } from '#/src/hooks';
 import { useContentful } from '#/src/hooks/useContentful';
 import { styled } from '#/src/theme';
 import { withDefaultProps } from '#/src/tools/withDefaultProps';
@@ -45,7 +44,6 @@ export const Palvelu = ({ id }: { id: string }) => {
   const navigate = useNavigate();
   const { data, forwardTo, assetUrl } = useContentful();
   const { i18n } = useTranslation();
-  const { state: isMenuOpen } = useSideMenu();
   const { asset } = data;
   const palvelu = data.palvelu[id];
 
@@ -58,7 +56,7 @@ export const Palvelu = ({ id }: { id: string }) => {
   };
 
   return (
-    <Grid size={{ xs: 12, ...(isMenuOpen ? { sm: 12, md: 6 } : { sm: 6, md: 4 }) }}>
+    <Grid size={{ xs: 12, sm: 6, lg: 4 }}>
       <PalveluCard
         palvelu={palvelu}
         key={palvelu.id}

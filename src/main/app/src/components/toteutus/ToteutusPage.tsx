@@ -21,7 +21,6 @@ import { TextButtonLink } from '#/src/components/common/TextButtonLink';
 import { Heading } from '#/src/components/Heading';
 import { useOppilaitokset } from '#/src/components/oppilaitos/hooks';
 import { KOULUTUS_TYYPPI } from '#/src/constants';
-import { useSideMenu } from '#/src/hooks';
 import { NotFound } from '#/src/NotFound';
 import { getHakuParams, getHakuUrl } from '#/src/store/reducers/hakutulosSliceSelector';
 import { styled } from '#/src/theme';
@@ -89,8 +88,6 @@ export const ToteutusPage = () => {
   const { oid } = useParams<{ oid: string }>();
   const { t } = useTranslation();
   const { isDraft } = useUrlParams();
-
-  const { state: menuVisible } = useSideMenu();
 
   const {
     data: toteutus,
@@ -341,13 +338,7 @@ export const ToteutusPage = () => {
                 justifyContent="flex-start"
                 alignItems="flex-start">
                 {yhteyshenkilot?.map((yhteyshenkilo: any, i: number) => (
-                  <Grid
-                    key={i}
-                    size={{
-                      xs: 12,
-                      lg: 6,
-                      ...(menuVisible ? { sm: 12, md: 12 } : { sm: 6, md: 6 }),
-                    }}>
+                  <Grid key={i} size={{ xs: 12, sm: 6 }}>
                     <Grid container direction="column">
                       <Grid>
                         <Typography variant="h5">

@@ -40,8 +40,8 @@ export const RAJAIN_TYPES = {
 
 export const RAJAIN_TYPES_ARR = Object.values(RAJAIN_TYPES);
 
-export const SIDEMENU_WIDTH = 330;
-export const KEEP_VALIKKO_OPEN_WIDTH = 1366;
+export const SIDEMENU_WIDTH = 450;
+export const KEEP_VALIKKO_OPEN_WIDTH = 1920;
 
 export const LANG_NAME_BY_CODE = {
   fi: 'suomi',

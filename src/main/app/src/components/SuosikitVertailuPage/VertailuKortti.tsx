@@ -1,12 +1,11 @@
 import React, { useRef } from 'react';
 
-import { Box, Divider, Link, Typography, useTheme } from '@mui/material';
+import { Box, Divider, Link, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { KorttiLogo } from '#/src/components/common/KorttiLogo';
 import { MaterialIcon, MaterialIconVariant } from '#/src/components/common/MaterialIcon';
 import { TextButton } from '#/src/components/common/TextButton';
-import { useContentWidth } from '#/src/hooks/useContentWidth';
 import { useSuosikitSelection } from '#/src/hooks/useSuosikitSelection';
 import { useSyncRefHeight } from '#/src/hooks/useSyncRefHeight';
 import { useTruncatedKuvaus } from '#/src/hooks/useTruncatedKuvaus';
@@ -17,12 +16,11 @@ import { useSuosikitVertailuMask } from './useSuosikitVertailuMask';
 import { VERTAILU_FIELDS_ORDER } from './VERTAILU_FIELDS_ORDER';
 import { Heading } from '../Heading';
 import { PaperWithTopColor } from '../PaperWithTopColor';
+import { useMediaQuery, useTheme } from '@mui/system';
 
 const useIsContentSmall = () => {
   const theme = useTheme();
-
-  const contentWidth = useContentWidth();
-  return contentWidth <= theme.breakpoints.values['sm'];
+  return useMediaQuery(theme.breakpoints.down('sm'));
 };
 
 const InfoItem = ({
@@ -74,6 +72,7 @@ export const VertailuKortti = ({
   const { mask } = useSuosikitVertailuMask();
 
   const headerRef = useRef(null);
+
   const isContentSmall = useIsContentSmall();
 
   useSyncRefHeight([['header', headerRef]], { enabled: !isContentSmall });
