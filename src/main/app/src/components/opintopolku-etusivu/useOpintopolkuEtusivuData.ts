@@ -23,7 +23,6 @@ export type EtusivuNosto = {
     teksti?: string;
     href?: string;
     variant?: ContentfulLinkki['variant'];
-    avautuuUuteenIkkunaan?: boolean;
   }>;
 };
 
@@ -52,7 +51,6 @@ const toEtusivuNosto =
         teksti: linkki.teksti,
         href: linkki.href,
         variant: linkki.variant,
-        avautuuUuteenIkkunaan: linkki.avautuuUuteenIkkunaan === 'true',
       };
     }),
   });

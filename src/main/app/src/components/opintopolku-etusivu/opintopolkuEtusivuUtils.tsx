@@ -8,7 +8,8 @@ import { SmartLink } from '#/src/components/common/SmartLink';
 import { PAPER_LINK_CLASS } from '#/src/components/opintopolku-etusivu/linkPaperStyles';
 import { EtusivuOsio } from '#/src/components/opintopolku-etusivu/useOpintopolkuEtusivuData';
 import { PageSectionHeading } from '#/src/components/PageSectionHeading';
-import { MaterialIcon } from '../common/MaterialIcon';
+import { ExternalLink } from '../common/ExternalLink';
+import { isUndefined } from 'lodash-es';
 
 // Etusivun osio otsikkoineen. Osiota ei näytetä, jos siinä ei ole nostoja.
 // Otsikko nimeää osion, jolloin se on ruudunlukijalle nimetty alue (region-maamerkki).
@@ -30,6 +31,32 @@ export const EtusivuSection = ({
   ) : null;
 };
 
+const PaperHeadingContent = ({
+  children,
+  to,
+}: {
+  children: React.ReactNode;
+  to?: string;
+}) => {
+  const linkShouldOpenInNewTab = !to?.includes('konfo/');
+  switch (true) {
+    case to && linkShouldOpenInNewTab:
+      return (
+        <ExternalLink className={PAPER_LINK_CLASS} href={to}>
+          {children}
+        </ExternalLink>
+      );
+    case !isUndefined(to):
+      return (
+        <SmartLink className={PAPER_LINK_CLASS} href={to}>
+          {children}
+        </SmartLink>
+      );
+    default:
+      return <>{children}</>;
+  }
+};
+
 // Laatikon otsikko on laatikon ainoa linkki. Linkin ::after-elementti venytetään koko laatikon
 // kokoiseksi (LINK_PAPER_SX), jolloin koko laatikko on klikattava, mutta ruudunlukija lukee
 // linkin nimeksi vain otsikon.
@@ -39,31 +66,16 @@ export const PaperHeading = ({
   fontWeight = 600,
   fontSize = '24px',
   to,
-  linkShouldOpenInNewTab,
 }: {
   children: React.ReactNode;
   color?: string;
   fontWeight?: number;
   fontSize?: string;
   to?: string;
-  linkShouldOpenInNewTab?: boolean;
-}) => (
-  <OphTypography component="h3" sx={{ fontSize, color, fontWeight }}>
-    {to ? (
-      <SmartLink className={PAPER_LINK_CLASS} href={to}>
-        {children}
-      </SmartLink>
-    ) : (
-      children
-    )}
-    {linkShouldOpenInNewTab && (
-      <MaterialIcon
-        icon="open_in_new"
-        aria-hidden="true"
-        sx={{ verticalAlign: 'middle', fontSize: '18px', paddingLeft: '6px' }}
-      />
-    )}
-  </OphTypography>
-);
-
-export const OPINTOPOLKU_ETUSIVU_MAX_WIDTH = 1440;
+}) => {
+  return (
+    <OphTypography component="h3" sx={{ fontSize, color, fontWeight }}>
+      <PaperHeadingContent to={to}>{children}</PaperHeadingContent>
+    </OphTypography>
+  );
+};
