@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Dispatch, useState } from 'react';
 import { LanguageCode } from '#/src/types/common';
 import { useLanguageState } from '#/src/hooks';
-import { isEmpty, some } from 'lodash-es';
+import { isEmpty } from 'lodash-es';
 import parse, { Element, DOMNode, domToReact, Text } from 'html-react-parser';
 import { TutuObject } from '../types';
 import { NavigationButton } from '../components/NavigationButton';
@@ -15,7 +15,7 @@ import { useTheme } from '@mui/system';
 
 const OPINTOPOLKU_DOMAINS = ['opintopolku.fi', 'studieinfo.fi', 'studyinfo.fi'];
 const isOneOfOpintopolkuDomains = (domNode: Element) => {
-  return some(OPINTOPOLKU_DOMAINS, (domain: string) =>
+  return OPINTOPOLKU_DOMAINS.some((domain: string) =>
     domNode?.attribs?.href?.includes(domain)
   );
 };
