@@ -20,26 +20,8 @@ const isOneOfOpintopolkuDomains = (domNode: Element) => {
   );
 };
 
-export const QuestionPage = ({
-  setIsStartPage,
-  tutuConfigObjects,
-}: {
-  setIsStartPage: Dispatch<boolean>;
-  tutuConfigObjects: Array<TutuObject>;
-}) => {
-  const [lng] = useLanguageState();
-  const { t } = useTranslation();
-  const theme = useTheme();
-
-  const frontPageObject = tutuConfigObjects.find((obj: TutuObject) => obj.is_frontpage);
-  const [currentObject, setCurrentObject] = useState<TutuObject | undefined>(
-    frontPageObject
-  );
-
-  const language = lng ?? 'fi';
-  const translation = currentObject?.translations[language as LanguageCode];
-  const answerOptions = translation?.answers;
-  const parsedBody = parse(translation?.body || '', {
+const parseTranslationBody = (language: LanguageCode, translationBody: string) => {
+  return parse(translationBody, {
     replace(domNode: DOMNode) {
       if (domNode instanceof Element && domNode.name === 'a') {
         if (domNode?.attribs?.href?.startsWith('/node')) {
@@ -59,6 +41,31 @@ export const QuestionPage = ({
       }
     },
   });
+};
+
+export const QuestionPage = ({
+  setIsStartPage,
+  tutuConfigObjects,
+}: {
+  setIsStartPage: Dispatch<boolean>;
+  tutuConfigObjects: Array<TutuObject>;
+}) => {
+  const [lng] = useLanguageState();
+  const { t } = useTranslation();
+  const theme = useTheme();
+
+  const frontPageObject = tutuConfigObjects.find((obj: TutuObject) => obj.is_frontpage);
+  const [currentObject, setCurrentObject] = useState<TutuObject | undefined>(
+    frontPageObject
+  );
+
+  const language = lng ?? 'fi';
+  const translation = currentObject?.translations[language as LanguageCode];
+  const answerOptions = translation?.answers;
+  const parsedBody = parseTranslationBody(
+    language as LanguageCode,
+    translation?.body || ''
+  );
 
   const optionsLabelId = 'valitse-yksi-label';
   return (
