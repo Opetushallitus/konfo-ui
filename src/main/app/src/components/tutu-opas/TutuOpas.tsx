@@ -27,7 +27,8 @@ const parseOpasJson = (opasJson: unknown): Array<TutuObject> => {
 
 const TutuOpasContent = () => {
   const [isStartPage, setIsStartPage] = useState<boolean>(true);
-  const { data, isLoading } = useContentful();
+  // Palveluoppaan JSON sisältää kaikkien kielten käännökset, joten se luetaan aina suomenkielisestä spacesta
+  const { data, isLoading } = useContentful({ language: 'fi' });
 
   const opasJson = Object.values(data.tutkintojenTunnustamisenPalveluopas ?? {})[0]
     ?.opasJson;

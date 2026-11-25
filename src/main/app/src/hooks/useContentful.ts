@@ -59,8 +59,14 @@ const useForwardTo = (contentfulData?: ContentfulData) => {
   return useCallback(forwardTo, [forwardTo]);
 };
 
-export const useContentful = () => {
-  const [lng] = useLanguageState();
+type UseContentfulOptions = {
+  // Kieli (ja siten Contentful-space), jonka sisältö ladataan. Oletuksena käyttöliittymän kieli.
+  language?: LanguageCode;
+};
+
+export const useContentful = ({ language }: UseContentfulOptions = {}) => {
+  const [uiLanguage] = useLanguageState();
+  const lng = language ?? uiLanguage;
 
   const { data: manifest } = useQueryOnce('getManifest', getContentfulManifest);
 
