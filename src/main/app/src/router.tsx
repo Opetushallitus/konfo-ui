@@ -111,12 +111,7 @@ const routes: Array<RouteObject> = [
               },
               {
                 path: 'tutkintojen-tunnustaminen',
-                element: (
-                  <>
-                    <Hairiotiedote />
-                    <TutuLaskeutumissivu />,
-                  </>
-                ),
+                element: <TutuLaskeutumissivu />,
               },
             ],
           },
