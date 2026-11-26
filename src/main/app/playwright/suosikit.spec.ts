@@ -1,6 +1,7 @@
-import { Locator, Page, Route, expect, test } from '@playwright/test';
+import { Locator, Page, Route } from '@playwright/test';
 import { escapeRegExp } from 'lodash-es';
 
+import { expect, test } from './test-fixtures';
 import {
   expectURLEndsWith,
   fixtureFromFile,

@@ -1,10 +1,11 @@
 import { Alert, Stack } from '@mui/material';
-import { includes, isEmpty, size, sortBy } from 'lodash-es';
+import { includes, size, sortBy } from 'lodash-es';
 import Markdown from 'markdown-to-jsx/react';
 import { useTranslation } from 'react-i18next';
 
 import { useContentful } from '#/src/hooks/useContentful';
 import { useClosedHairioTiedotteet } from '#/src/store/reducers/appSlice';
+import { parseArrayField } from '#/src/tools/utils';
 import { ContentfulHairiotiedote } from '#/src/types/ContentfulTypes';
 
 const HairiotiedoteViesti = (viesti: ContentfulHairiotiedote) => {
@@ -29,14 +30,8 @@ export const Hairiotiedote = () => {
   const { hairiotiedote } = data;
 
   const opintopolkuHairiotiedotteet = Object.values(hairiotiedote ?? {}).filter(
-    (tiedote: ContentfulHairiotiedote) => {
-      const whereShown = tiedote?.whereShown;
-      if (isEmpty(whereShown)) {
-        return false;
-      } else {
-        return JSON.parse(whereShown).includes('Opintopolku.fi');
-      }
-    }
+    (tiedote: ContentfulHairiotiedote) =>
+      parseArrayField<string>(tiedote?.whereShown).includes('Opintopolku.fi')
   );
 
   const sortedOpintopolkuHairiotiedotteet = sortBy(opintopolkuHairiotiedotteet, [

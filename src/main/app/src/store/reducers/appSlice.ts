@@ -63,7 +63,11 @@ export const usePreviousPage = () => useAppState((state) => state.previousPage);
 // aiheutti ongelmia reitityksessä
 export const useCurrentPage = () => getLocationPage(useLocation());
 
-export const useIsAtEtusivu = () => useCurrentPage() === '';
+// Nykyinen etusivu ('') tai uusi etusivu ('etusivu')
+export const useIsAtEtusivu = () => {
+  const page = useCurrentPage();
+  return page === '' || page === 'etusivu';
+};
 
 export const useClosedHairioTiedotteet = (): [
   AppState['closedHairiotiedotteetIds'],

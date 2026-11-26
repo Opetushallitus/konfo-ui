@@ -7,4 +7,4 @@ export interface TypeContentFields {
 }
 
 export type TypeContentSkeleton = EntrySkeletonType<TypeContentFields, "content">;
-export type TypeContent<Modifiers extends ChainModifiers, Locales extends LocaleCode> = Entry<TypeContentSkeleton, Modifiers, Locales>;
+export type TypeContent<Modifiers extends ChainModifiers, Locales extends LocaleCode = LocaleCode> = Entry<TypeContentSkeleton, Modifiers, Locales>;

@@ -37,11 +37,29 @@ export const setupCommonTest = async ({ page, context, baseURL }) => {
       url: new URL(baseURL).origin,
     },
   ]);
-  await page.route('**/faq.e49945eb.svg', fixtureFromFile('faq.e49945eb.svg'));
-  await page.route('**/ehoks.fdeaa517.svg', fixtureFromFile('ehoks.fdeaa517.svg'));
+  await setupCommonMocks(page);
+};
+
+// Images from konfo-files (koulutus/oppilaitos images) and konfo-content (Contentful assets)
+const imageUrl = (ext: string) =>
+  new RegExp(String.raw`^https://(konfo-files|konfo-content)\.[^/]+/.*\.(${ext})$`, 'i');
+
+// Embedded iframes (Oskari map, YouTube videos)
+const emptyHtml = (route: Route) => route.fulfill({ contentType: 'text/html', body: '' });
+
+export const setupCommonMocks = async (page: Page) => {
+  await page.route(imageUrl('jpe?g'), fixtureFromFile('placeholder.jpg'));
+  await page.route(imageUrl('png'), fixtureFromFile('placeholder.png'));
+  await page.route(imageUrl('svg'), fixtureFromFile('placeholder.svg'));
 
   await page.route('**/sv/translation.json', (route) => route.fulfill({ json: {} }));
   await page.route('https://occhat.elisa.fi/**', (route) => route.fulfill({ json: {} }));
+  await page.route('https://cdn.askem.com/**', (route) =>
+    route.fulfill({ contentType: 'application/javascript', body: '' })
+  );
+
+  await page.route('https://hkp.maanmittauslaitos.fi/**', emptyHtml);
+  await page.route('https://www.youtube.com/embed/**', emptyHtml);
 
   await mocksFromFile(page, 'common.mocks.json');
 };

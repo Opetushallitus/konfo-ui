@@ -1,6 +1,7 @@
-import { Page, test, expect } from '@playwright/test';
+import { Page } from '@playwright/test';
 import { isNumber } from 'lodash-es';
 
+import { expect, test } from './test-fixtures';
 import { mocksFromFile, setupCommonTest } from './test-tools';
 
 const assertBreadcrumb = async (

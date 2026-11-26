@@ -15,4 +15,4 @@ export interface TypeInfoYhteishakuFields {
 }
 
 export type TypeInfoYhteishakuSkeleton = EntrySkeletonType<TypeInfoYhteishakuFields, "infoYhteishaku">;
-export type TypeInfoYhteishaku<Modifiers extends ChainModifiers, Locales extends LocaleCode> = Entry<TypeInfoYhteishakuSkeleton, Modifiers, Locales>;
+export type TypeInfoYhteishaku<Modifiers extends ChainModifiers, Locales extends LocaleCode = LocaleCode> = Entry<TypeInfoYhteishakuSkeleton, Modifiers, Locales>;

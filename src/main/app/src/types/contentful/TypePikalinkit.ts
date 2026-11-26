@@ -7,4 +7,4 @@ export interface TypePikalinkitFields {
 }
 
 export type TypePikalinkitSkeleton = EntrySkeletonType<TypePikalinkitFields, "pikalinkit">;
-export type TypePikalinkit<Modifiers extends ChainModifiers, Locales extends LocaleCode> = Entry<TypePikalinkitSkeleton, Modifiers, Locales>;
+export type TypePikalinkit<Modifiers extends ChainModifiers, Locales extends LocaleCode = LocaleCode> = Entry<TypePikalinkitSkeleton, Modifiers, Locales>;

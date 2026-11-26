@@ -7,4 +7,4 @@ export interface TypeKortitFields {
 }
 
 export type TypeKortitSkeleton = EntrySkeletonType<TypeKortitFields, "kortit">;
-export type TypeKortit<Modifiers extends ChainModifiers, Locales extends LocaleCode> = Entry<TypeKortitSkeleton, Modifiers, Locales>;
+export type TypeKortit<Modifiers extends ChainModifiers, Locales extends LocaleCode = LocaleCode> = Entry<TypeKortitSkeleton, Modifiers, Locales>;

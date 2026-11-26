@@ -1,5 +1,6 @@
-import { devices, test } from '@playwright/test';
+import { devices } from '@playwright/test';
 
+import { test } from './test-fixtures';
 import { expectURLEndsWith, setupCommonTest } from './test-tools';
 
 test.use({ ...devices['Galaxy S9+'] });
