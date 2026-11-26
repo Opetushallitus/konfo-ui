@@ -23,9 +23,8 @@ const Root = styled('div', {
   },
   ...(contentMaxWidth
     ? {
-        // content-box: maxWidth rajaa tekstialueen, ja sivumarginaalit (padding) tulevat sen ulkopuolelle
-        boxSizing: 'content-box',
-        width: 'auto',
+        // maxWidth sisältää sivumarginaalit (padding), joten palsta on kokonaisuudessaan enintään
+        // contentMaxWidth levyinen ja sille voi antaa taustavärin.
         maxWidth: contentMaxWidth,
         marginLeft: 'auto',
         marginRight: 'auto',

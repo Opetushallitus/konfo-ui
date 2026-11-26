@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { WithSideMargins } from '#/src/components/WithSideMargins';
 import { styled } from '#/src/theme';
 
-const HERO_MAX_WIDTH = 1440;
+import { OPINTOPOLKU_ETUSIVU_MAX_WIDTH } from './opintopolkuEtusivuUtils';
 
 // Ison näytön kuvassa on kaareva alareuna, sen alla raita ja valkoista tilaa. Sivun sisältö
 // nostetaan näin paljon kuvan alaosan päälle, jotta se alkaa suunnilleen kaaren alta. Prosentit
@@ -17,7 +17,8 @@ const HERO_DESKTOP_CONTENT_OVERLAP = '7%';
 // ei onnistu CSS:llä, koska pituutta ei voi muuttaa luvuksi pow()/exp()-funktioille.)
 const TEXT_TOP_MAX_PX = 180;
 const TEXT_TOP_ZERO_WIDTH = 700;
-const TEXT_TOP_SLOPE = TEXT_TOP_MAX_PX / (HERO_MAX_WIDTH - TEXT_TOP_ZERO_WIDTH);
+const TEXT_TOP_SLOPE =
+  TEXT_TOP_MAX_PX / (OPINTOPOLKU_ETUSIVU_MAX_WIDTH - TEXT_TOP_ZERO_WIDTH);
 const TEXT_TOP_MARGIN = `clamp(0px, calc((100cqw - ${TEXT_TOP_ZERO_WIDTH}px) * ${TEXT_TOP_SLOPE.toFixed(4)}), ${TEXT_TOP_MAX_PX}px)`;
 
 const TITLE_LINE_HEIGHT = 1.4;
@@ -35,7 +36,7 @@ const HeroWrapper = styled(Box)(({ theme }) => {
   const mobileHrMargin = theme.spacing(1);
   return {
     position: 'relative',
-    maxWidth: `${HERO_MAX_WIDTH}px`,
+    maxWidth: `${OPINTOPOLKU_ETUSIVU_MAX_WIDTH}px`,
     marginLeft: 'auto',
     marginRight: 'auto',
     color: 'white',
@@ -45,7 +46,7 @@ const HeroWrapper = styled(Box)(({ theme }) => {
       color: 'inherit',
     },
     '& h1': {
-      fontSize: `clamp(30px, ${((64 / HERO_MAX_WIDTH) * 100).toFixed(2)}vw, 64px)`,
+      fontSize: `clamp(30px, ${((64 / OPINTOPOLKU_ETUSIVU_MAX_WIDTH) * 100).toFixed(2)}vw, 64px)`,
       margin: 0,
       lineHeight: TITLE_LINE_HEIGHT,
       [theme.breakpoints.down('sm')]: {

@@ -59,3 +59,5 @@ export const PaperHeading = ({
     )}
   </OphTypography>
 );
+
+export const OPINTOPOLKU_ETUSIVU_MAX_WIDTH = 1440;

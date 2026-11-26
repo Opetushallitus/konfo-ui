@@ -15,9 +15,11 @@ import { styled, theme } from '#/src/theme';
 import { getOne } from '#/src/tools/getOne';
 import { getLanguage } from '#/src/tools/localization';
 
+// Välit paddingeina eikä marginaaleina, jotta taustavärit ulottuvat oikein: yläväli on
+// MainContentin alapaddingina ja alaväli footerin omana paddingina (marginaali valuisi
+// sisältöpalstan ulkopuolelle, jolloin palstan valkoinen tausta ei ulottuisi alareunaan asti).
 const Root = styled('footer')({
-  marginTop: theme.spacing(8),
-  marginBottom: theme.spacing(12),
+  paddingBottom: theme.spacing(12),
   lineHeight: '21px',
   '.MuiLink-root.Mui-focusVisible': {
     outline: '1px solid black',

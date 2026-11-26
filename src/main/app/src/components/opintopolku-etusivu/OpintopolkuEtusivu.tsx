@@ -20,7 +20,7 @@ export const OpintopolkuEtusivu = () => {
   } = useOpintopolkuEtusivuData();
 
   return (
-    <Box sx={{ width: '100%', minHeight: 0 }}>
+    <>
       {isLoading ? (
         <LoadingCircle />
       ) : (
@@ -29,7 +29,7 @@ export const OpintopolkuEtusivu = () => {
           {/* Sivun sisältö: sivumarginaalit samoin kuin footerissa ja palveluissa.
           position: relative on välttämätön: isolla näytöllä sisältö nousee hero-kuvan alaosan
           päälle, ja koska hero on sijoitettu (relative), se piirrettäisiin muuten sisällön päälle. */}
-          <Box sx={{ position: 'relative', marginTop: 4 }}>
+          <Box sx={{ position: 'relative', marginTop: 4, backgroundColor: 'white' }}>
             <WithSideMargins>
               <EtusivuHaku />
               <Koulutustieto osio={koulutustieto} />
@@ -39,6 +39,6 @@ export const OpintopolkuEtusivu = () => {
           </Box>
         </>
       )}
-    </Box>
+    </>
   );
 };
