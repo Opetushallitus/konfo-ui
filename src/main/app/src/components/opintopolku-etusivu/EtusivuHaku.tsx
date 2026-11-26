@@ -38,6 +38,7 @@ const EtusivuSearchInput = styled(OphInput)(({ theme }) => ({
   '& .MuiAutocomplete-endAdornment': {
     position: 'static',
     transform: 'none',
+    marginRight: theme.spacing(1),
   },
 }));
 
