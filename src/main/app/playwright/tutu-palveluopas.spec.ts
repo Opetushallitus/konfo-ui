@@ -1,4 +1,5 @@
-import { expect, Page, test } from '@playwright/test';
+import { Page } from '@playwright/test';
+import { test, expect } from './test-fixtures';
 
 import commonMocks from './mocks/common.mocks.json' with { type: 'json' };
 import { getFixtureData, setupCommonTest } from './test-tools';
