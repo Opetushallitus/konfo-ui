@@ -24,9 +24,6 @@ export const LINK_PAPER_SX = {
   '&:hover': {
     boxShadow: '3px 3px 12px 0px rgba(0, 0, 0, 0.25)',
   },
-  [`&:hover .${PAPER_LINK_CLASS}, & .${PAPER_LINK_CLASS}:focus-visible`]: {
-    textDecoration: 'underline',
-  },
   [`&:has(.${PAPER_LINK_CLASS}:focus-visible)`]: {
     outline: `2px solid ${ophColors.black}`,
     outlineOffset: '2px',
