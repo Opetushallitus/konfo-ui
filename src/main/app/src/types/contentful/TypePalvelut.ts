@@ -7,4 +7,4 @@ export interface TypePalvelutFields {
 }
 
 export type TypePalvelutSkeleton = EntrySkeletonType<TypePalvelutFields, "palvelut">;
-export type TypePalvelut<Modifiers extends ChainModifiers, Locales extends LocaleCode> = Entry<TypePalvelutSkeleton, Modifiers, Locales>;
+export type TypePalvelut<Modifiers extends ChainModifiers, Locales extends LocaleCode = LocaleCode> = Entry<TypePalvelutSkeleton, Modifiers, Locales>;

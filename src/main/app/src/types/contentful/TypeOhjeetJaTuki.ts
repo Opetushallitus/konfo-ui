@@ -7,4 +7,4 @@ export interface TypeOhjeetJaTukiFields {
 }
 
 export type TypeOhjeetJaTukiSkeleton = EntrySkeletonType<TypeOhjeetJaTukiFields, "ohjeetJaTuki">;
-export type TypeOhjeetJaTuki<Modifiers extends ChainModifiers, Locales extends LocaleCode> = Entry<TypeOhjeetJaTukiSkeleton, Modifiers, Locales>;
+export type TypeOhjeetJaTuki<Modifiers extends ChainModifiers, Locales extends LocaleCode = LocaleCode> = Entry<TypeOhjeetJaTukiSkeleton, Modifiers, Locales>;

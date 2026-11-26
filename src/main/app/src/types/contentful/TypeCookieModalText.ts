@@ -22,4 +22,4 @@ export interface TypeCookieModalTextFields {
 }
 
 export type TypeCookieModalTextSkeleton = EntrySkeletonType<TypeCookieModalTextFields, "cookieModalText">;
-export type TypeCookieModalText<Modifiers extends ChainModifiers, Locales extends LocaleCode> = Entry<TypeCookieModalTextSkeleton, Modifiers, Locales>;
+export type TypeCookieModalText<Modifiers extends ChainModifiers, Locales extends LocaleCode = LocaleCode> = Entry<TypeCookieModalTextSkeleton, Modifiers, Locales>;
