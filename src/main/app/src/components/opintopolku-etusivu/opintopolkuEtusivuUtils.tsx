@@ -2,13 +2,12 @@
 import { useId } from 'react';
 
 import { Box } from '@mui/material';
-import { OphTypography } from '@opetushallitus/oph-design-system';
+import { OphLink, OphTypography } from '@opetushallitus/oph-design-system';
 
 import { SmartLink } from '#/src/components/common/SmartLink';
 import { PAPER_LINK_CLASS } from '#/src/components/opintopolku-etusivu/linkPaperStyles';
 import { EtusivuOsio } from '#/src/components/opintopolku-etusivu/useOpintopolkuEtusivuData';
 import { PageSectionHeading } from '#/src/components/PageSectionHeading';
-import { ExternalLink } from '../common/ExternalLink';
 import { isUndefined } from 'lodash-es';
 
 // Etusivun osio otsikkoineen. Osiota ei näytetä, jos siinä ei ole nostoja.
@@ -43,9 +42,9 @@ const PaperHeadingContent = ({
   switch (true) {
     case to && linkShouldOpenInNewTab:
       return (
-        <ExternalLink className={PAPER_LINK_CLASS} href={to}>
+        <OphLink className={PAPER_LINK_CLASS} href={to} target="_blank" variant="body1">
           {children}
-        </ExternalLink>
+        </OphLink>
       );
     case !isUndefined(to):
       return (
