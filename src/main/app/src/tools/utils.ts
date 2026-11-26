@@ -267,6 +267,22 @@ export const safeParseNumber = (num?: string | number) => {
 
 export const parseUrl = (url: string) => tryCatch(() => new URL(url));
 
+/**
+ * Palauttaa kentän arvon taulukkona riippumatta siitä, onko se jo valmiiksi taulukko
+ * vai JSON-muotoinen merkkijono (esim. '["a","b"]'). Virheellisellä tai puuttuvalla
+ * arvolla palautetaan tyhjä taulukko.
+ */
+export const parseArrayField = <T = unknown>(value: unknown): Array<T> => {
+  if (Array.isArray(value)) {
+    return value;
+  }
+  if (isString(value)) {
+    const parsed = tryCatch(() => JSON.parse(value));
+    return Array.isArray(parsed) ? parsed : [];
+  }
+  return [];
+};
+
 const defaultCompareFn = <T>(a: T, b: T) => (a < b ? -1 : 1);
 
 export const sortArray = <T>(
