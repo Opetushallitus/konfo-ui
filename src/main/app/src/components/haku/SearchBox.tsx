@@ -9,6 +9,7 @@ import {
   Paper,
   Tooltip,
   Autocomplete,
+  useMediaQuery,
 } from '@mui/material';
 import { OphInput } from '@opetushallitus/oph-design-system';
 import { TFunction } from 'i18next';
@@ -68,14 +69,17 @@ const createRenderOption = (t: TFunction, highlightedLink: string | null) => {
 };
 
 // default: Konfon tyyli (varjostettu laatikko, hakupainike kentän sisällä)
-// oph: oph-design-systemin OphInput oletustyyleillä, hakupainike kentän ulkopuolella oikealla
+// oph: oph-design-systemin OphInput oletustyyleillä, hakupainike isoilla näytöillä kentän
+// ulkopuolella oikealla ja kapeilla näytöillä suurennuslasina kentän sisällä
 export type SearchBoxVariant = 'default' | 'oph';
 
 const createRenderInput = (
   t: TFunction,
   descriptionId: string,
   variant: SearchBoxVariant,
-  rajaaButton: React.JSX.Element | null
+  rajaaButton: React.JSX.Element | null,
+  // Kentän sisään sijoitettava hakupainike (oph-variantti kapeilla näytöillä)
+  searchButton: React.JSX.Element | null
 ) => {
   return function KonfoAutocompleteInput(params: AutocompleteRenderInputParams) {
     const { InputProps, inputProps: paramInputProps } = params;
@@ -106,6 +110,7 @@ const createRenderInput = (
         <>
           {InputProps.endAdornment}
           {rajaaButton}
+          {searchButton}
         </>
       ),
       inputProps: sharedInputProps,
@@ -187,6 +192,12 @@ export const SearchBox = ({
   const [highlightedLabel, setHighlightedLabel] = useState('');
   const [highlightedLink, setHighlightedLink] = useState<string | null>(null);
   const isKeywordValid = checkIsKeywordValid(draftKeyword);
+
+  // oph-variantissa kapeilla näytöillä suurennuslasi-painike on kentän sisällä, muuten kentän
+  // jälkeen (isoilla näytöillä tekstillinen Etsi-painike kentän ulkopuolella)
+  const mdUp = useMediaQuery(theme.breakpoints.up('md'));
+  const searchButton = <SearchButton isKeywordValid={isKeywordValid} variant={variant} />;
+  const isSearchButtonInside = isOph && !mdUp;
 
   const { t } = useTranslation();
 
@@ -354,10 +365,16 @@ export const SearchBox = ({
           }}
           renderGroup={createRenderAutocompleteGroup(t)}
           renderOption={createRenderOption(t, highlightedLink)}
-          renderInput={createRenderInput(t, hintId, variant, rajaaButton)}
+          renderInput={createRenderInput(
+            t,
+            hintId,
+            variant,
+            rajaaButton,
+            isSearchButtonInside ? searchButton : null
+          )}
         />
       </Tooltip>
-      <SearchButton isKeywordValid={isKeywordValid} variant={variant} />
+      {!isSearchButtonInside && searchButton}
     </Paper>
   );
 };
