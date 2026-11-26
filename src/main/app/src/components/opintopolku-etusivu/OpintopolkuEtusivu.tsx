@@ -3,9 +3,16 @@ import { useCallback, useState } from 'react';
 import { Box, Paper, SxProps, Theme, useMediaQuery } from '@mui/material';
 import { ophColors, OphLink, OphTypography } from '@opetushallitus/oph-design-system';
 import { isEmpty } from 'lodash-es';
+import { urls } from 'oph-urls-js';
 import { useTranslation } from 'react-i18next';
 
-import OpintopolkuKnotIcon from '#/src/assets/images/opintopolku-knot-color.svg';
+import EHoksIcon from '#/src/assets/images/palvelu-icons/ehoks.png';
+import EPerusteetIcon from '#/src/assets/images/palvelu-icons/eperusteet.png';
+import EuropassiIcon from '#/src/assets/images/palvelu-icons/europassi.png';
+import OpetushallitusIcon from '#/src/assets/images/palvelu-icons/opetushallitus.png';
+import OpintopolkuKnotIcon from '#/src/assets/images/palvelu-icons/opintopolku-knot-color.svg';
+import OsaamispolkuIcon from '#/src/assets/images/palvelu-icons/osaamispolku.png';
+import StudyInFinlandIcon from '#/src/assets/images/palvelu-icons/study-in-finland.png';
 import HeroImage from '#/src/assets/images/uusi_opintopolku_hero.jpg';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { Hakupalkki } from '#/src/components/haku/Hakupalkki';
@@ -190,6 +197,15 @@ const EtusivuHaku = () => {
   );
 };
 
+// Linkkinä toimivien laatikoiden yhteinen tyyli: ei linkin alleviivausta koko laatikolle, vaan
+// otsikko alleviivataan, kun laatikon päällä on hiiri tai näppäimistön kohdistus
+const LINK_PAPER_SX = {
+  textDecoration: 'none',
+  '&:hover h3, &:focus-visible h3': {
+    textDecoration: 'underline',
+  },
+};
+
 const KoulutustietoPaper = ({
   icon,
   heading,
@@ -213,7 +229,7 @@ const KoulutustietoPaper = ({
       {
         backgroundColor,
         color: 'white',
-        textDecoration: 'none',
+        ...LINK_PAPER_SX,
         '&:focus-visible': {
           outline: `2px solid ${ophColors.black}`,
           outlineOffset: '2px',
@@ -288,11 +304,13 @@ const Koulutustieto = () => {
 const PaperHeading = ({
   children,
   color,
+  fontWeight = 600,
 }: {
   children: React.ReactNode;
   color: string;
+  fontWeight?: number;
 }) => (
-  <OphTypography component="h3" sx={{ fontSize: '24px', color, fontWeight: 600 }}>
+  <OphTypography component="h3" sx={{ fontSize: '24px', color, fontWeight }}>
     {children}
   </OphTypography>
 );
@@ -306,7 +324,11 @@ const KirjautuneenPalvelut = () => {
         {t('opintopolku-etusivu.kirjautuneen-palvelut.otsikko')}
       </SectionHeading>
       <Paper
+        component="a"
+        href={urls.url('oma-opintopolku')}
         sx={{
+          ...LINK_PAPER_SX,
+          color: ophColors.grey900,
           borderTop: `4px solid ${ophColors.green2}`,
           padding: 4,
           display: 'flex',
@@ -319,10 +341,83 @@ const KirjautuneenPalvelut = () => {
         <PaperHeading color={ophColors.green2}>
           {t('opintopolku-etusivu.kirjautuneen-palvelut.oma-opintopolku-otsikko')}
         </PaperHeading>
-        <OphTypography>
+        <OphTypography sx={{ color: 'inherit' }}>
           {t('opintopolku-etusivu.kirjautuneen-palvelut.oma-opintopolku-teksti')}
         </OphTypography>
       </Paper>
+    </Box>
+  );
+};
+
+const MUUT_PALVELUT = [
+  { id: 'opetushallitus', icon: OpetushallitusIcon },
+  { id: 'eperusteet', icon: EPerusteetIcon },
+  { id: 'ehoks', icon: EHoksIcon },
+  { id: 'osaamispolku', icon: OsaamispolkuIcon },
+  { id: 'study-in-finland', icon: StudyInFinlandIcon },
+  { id: 'europassi', icon: EuropassiIcon },
+];
+
+// Muut palvelut -osio: kuusi valkoista laatikkoa, isoilla näytöillä kolme rivissä. Kuvake otsikon
+// vasemmalla puolella ja sisältö tasattu vasemmalle.
+const MUUT_PALVELUT_MIN_WIDTH = '300px';
+
+const MuutPalvelut = () => {
+  const { t, i18n } = useTranslation();
+
+  return (
+    <Box component="section" sx={{ marginTop: 6 }}>
+      <SectionHeading component="h2">
+        {t('opintopolku-etusivu.muut-palvelut.otsikko')}
+      </SectionHeading>
+      <Box
+        sx={{
+          display: 'grid',
+          // Laatikot rivittyvät käytettävissä olevan leveyden mukaan: jokainen vähintään
+          // MUUT_PALVELUT_MIN_WIDTH levyinen (tai koko leveys, jos tilaa on vähemmän) ja enintään
+          // kolme rivissä (1/3 leveydestä kahden 32px välin jälkeen)
+          gridTemplateColumns: `repeat(auto-fill, minmax(max(min(100%, ${MUUT_PALVELUT_MIN_WIDTH}), calc((100% - 64px) / 3)), 1fr))`,
+          gap: 4,
+        }}>
+        {MUUT_PALVELUT.map(({ id, icon }) => (
+          <Paper
+            key={id}
+            component="a"
+            // Osa osoitteista on kielikohtaisia, joten kieli välitetään parametrina ($1)
+            href={urls.url(`muut-palvelut.${id}`, i18n.language)}
+            sx={{
+              position: 'relative',
+              color: ophColors.grey900,
+              ...LINK_PAPER_SX,
+              borderRadius: '10px',
+              // Laaja varjo, joka näkyy selvästi myös yläreunassa (ei siirretty alaspäin)
+              boxShadow: '3px 3px 10px 4px rgba(0, 0, 0, 0.12)',
+              paddingX: 2.5,
+              paddingY: 3,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-start',
+              textAlign: 'left',
+              gap: 2,
+            }}>
+            <MaterialIcon
+              icon="arrow_forward"
+              aria-hidden
+              sx={{ position: 'absolute', top: 30, right: 16, color: ophColors.grey500 }}
+            />
+            {/* Oikea reunus jättää tilaa nuolelle */}
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, paddingRight: 4 }}>
+              <Box component="img" src={icon} alt="" sx={{ height: '40px' }} />
+              <PaperHeading color="inherit" fontWeight={400}>
+                {t(`opintopolku-etusivu.muut-palvelut.${id}-otsikko`)}
+              </PaperHeading>
+            </Box>
+            <OphTypography sx={{ color: 'inherit' }}>
+              {t(`opintopolku-etusivu.muut-palvelut.${id}-teksti`)}
+            </OphTypography>
+          </Paper>
+        ))}
+      </Box>
     </Box>
   );
 };
@@ -405,6 +500,7 @@ export const OpintopolkuEtusivu = () => {
           <EtusivuHaku />
           <Koulutustieto />
           <KirjautuneenPalvelut />
+          <MuutPalvelut />
         </WithSideMargins>
       </Box>
     </Box>
