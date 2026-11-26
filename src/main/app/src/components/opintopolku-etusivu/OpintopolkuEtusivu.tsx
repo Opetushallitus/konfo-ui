@@ -33,19 +33,12 @@ import { styled } from '#/src/theme';
 import { Link as RouterLink } from 'react-router-dom';
 import { Stack, useTheme } from '@mui/system';
 
-// Hero-kuvan mitat. Kuvassa on mukana kaareva alareuna, sen alla oleva raita ja valkoista tilaa.
-const HERO_IMAGE_WIDTH = 1708;
-const HERO_IMAGE_HEIGHT = 718;
-// Herosta normaalissa virrassa oleva osa (täydellä leveydellä): suunnilleen kaaren kohdalle, joten
-// sivun sisältö alkaa kaaren alta ja piirretään kuvan alaosan (raidan) päälle
-const HERO_HEIGHT = 596;
+const HERO_MAX_WIDTH = 1700;
 
-// Pienten näyttöjen hero-kuva: kaareva alareuna, mutta ei raitaa
-const HERO_IMAGE_MOBILE_WIDTH = 750;
-const HERO_IMAGE_MOBILE_HEIGHT = 1282;
-
-// Hero-kuva saa olla korkeintaan kuvan oman levyinen
-const HERO_MAX_WIDTH = HERO_IMAGE_WIDTH;
+// Ison näytön kuvassa on kaareva alareuna, sen alla raita ja valkoista tilaa. Sivun sisältö
+// nostetaan näin paljon kuvan alaosan päälle, jotta se alkaa suunnilleen kaaren alta. Prosentit
+// ovat suhteessa leveyteen (CSS:n marginaaliprosentit lasketaan aina leveydestä).
+const HERO_DESKTOP_CONTENT_OVERLAP = '7%';
 
 // Tekstin yläetäisyys: täysi arvo heron täydellä leveydellä ja pienenee kapeammalla nopeammin kuin
 // kuvan korkeus, niin että se on 0 jo TEXT_TOP_ZERO_WIDTH-levyisellä herolla. (Aito eksponenttikäyrä
@@ -56,11 +49,10 @@ const TEXT_TOP_SLOPE = TEXT_TOP_MAX_PX / (HERO_MAX_WIDTH - TEXT_TOP_ZERO_WIDTH);
 const TEXT_TOP_MARGIN = `clamp(15px, calc((100cqw - ${TEXT_TOP_ZERO_WIDTH}px) * ${TEXT_TOP_SLOPE.toFixed(4)}), ${TEXT_TOP_MAX_PX}px)`;
 
 const HeroWrapper = styled(Box)(({ theme }) => ({
+  position: 'relative',
   maxWidth: `${HERO_MAX_WIDTH}px`,
   marginLeft: 'auto',
   marginRight: 'auto',
-
-  position: 'relative',
   color: 'white',
   '& h1': {
     fontSize: `clamp(30px, ${((64 / HERO_MAX_WIDTH) * 100).toFixed(2)}vw, 64px)`,
@@ -88,6 +80,36 @@ const HeroWrapper = styled(Box)(({ theme }) => ({
       lineHeight: 1.4,
     },
     fontWeight: 600,
+  },
+  '& .hero-image': {
+    display: 'block',
+    width: '100%',
+    height: 'auto',
+    marginBottom: `-${HERO_DESKTOP_CONTENT_OVERLAP}`,
+    [theme.breakpoints.down('md')]: {
+      marginBottom: 0,
+    },
+  },
+  '& .hero-content': {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    [theme.breakpoints.down('sm')]: {
+      top: 'auto',
+      bottom: '10%',
+    },
+  },
+  '& .hero-text': {
+    maxWidth: '52%',
+    marginTop: TEXT_TOP_MARGIN,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    [theme.breakpoints.down('sm')]: {
+      maxWidth: '100%',
+      marginTop: 0,
+    },
   },
 }));
 
@@ -410,72 +432,29 @@ const HeroImageContent = () => {
 
   return (
     <HeroWrapper>
-      {/* Ison näytön kuva taustana: absoluuttisesti sijoitettu, joten sen alaosa (raita ja
-          valkoinen tila) ei vie tilaa eikä työnnä sivun sisältöä alemmas, vaan jää sisällön alle. */}
-      {!isSmallScreen && (
-        <Box
-          className="hero-image"
-          aria-hidden
-          sx={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            aspectRatio: `${HERO_IMAGE_WIDTH} / ${HERO_IMAGE_HEIGHT}`,
-            backgroundImage: `url(${HeroImageDesktop})`,
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: '100%',
-          }}
-        />
-      )}
+      {/* Kuva normaalissa virrassa koko heron levyisenä, joten hero on kuvan korkuinen ilman
+            että kuvan mittoja tarvitsee tietää. Isolla näytöllä negatiivinen alamarginaali nostaa
+            sivun sisällön kuvan alaosan (raidan) päälle. Pienen näytön kuvassa ei ole raitaa. */}
       <Box
-        className="hero"
-        sx={{
-          // Isolla näytöllä normaalissa virrassa kaaren korkuisena. Pienellä näytöllä kuvassa ei ole
-          // raitaa, joten hero on koko kuvan korkuinen ja kuva on sen taustana.
-          // relative toimii tekstilaatikon sijoituskontekstina.
-          position: 'relative',
-          aspectRatio: isSmallScreen
-            ? `${HERO_IMAGE_MOBILE_WIDTH} / ${HERO_IMAGE_MOBILE_HEIGHT}`
-            : `${HERO_IMAGE_WIDTH} / ${HERO_HEIGHT}`,
-          // Ilman tätä aspectRatio on vain toivekorkeus ja sisältö voi venyttää laatikkoa
-          // korkeammaksi (aspect-ratio-laatikon oletus min-height: auto)
-          minHeight: 0,
-          ...(isSmallScreen && {
-            backgroundImage: `url(${HeroImageMobile})`,
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: '100%',
-          }),
-        }}>
-        <Box
-          className="hero-content"
-          sx={{
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            bottom: isSmallScreen ? '10%' : undefined,
-          }}>
-          {/* Sivumarginaalit samoin kuin footerissa ja palveluissa */}
-          <WithSideMargins>
-            {/* Teksti enintään sisältöpalstan puoleen väliin asti */}
-            <Box
-              sx={{
-                maxWidth: isSmallScreen ? '100%' : '52%',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                marginTop: isSmallScreen ? 0 : TEXT_TOP_MARGIN,
-              }}>
-              <h1>Opintopolku</h1>
-              <hr />
-              <p>
-                Kaikki Suomen koulutukset ja oppilaitokset yhdessä palvelussa. Opintopolku
-                tarjoaa myös kielitutkintojen suorittamista sekä ulkomailla suoritettujen
-                tutkintojen tunnustamista Suomessa.
-              </p>
-            </Box>
-          </WithSideMargins>
-        </Box>
+        component="img"
+        className="hero-image"
+        src={isSmallScreen ? HeroImageMobile : HeroImageDesktop}
+        alt=""
+      />
+      <Box className="hero-content">
+        {/* Sivumarginaalit samoin kuin footerissa ja palveluissa */}
+        <WithSideMargins>
+          {/* Teksti enintään sisältöpalstan puoleen väliin asti */}
+          <Box className="hero-text">
+            <h1>Opintopolku</h1>
+            <hr />
+            <p>
+              Kaikki Suomen koulutukset ja oppilaitokset yhdessä palvelussa. Opintopolku
+              tarjoaa myös kielitutkintojen suorittamista sekä ulkomailla suoritettujen
+              tutkintojen tunnustamista Suomessa.
+            </p>
+          </Box>
+        </WithSideMargins>
       </Box>
     </HeroWrapper>
   );
@@ -485,15 +464,10 @@ export const OpintopolkuEtusivu = () => {
   return (
     <Box sx={{ width: '100%', minHeight: 0 }}>
       <HeroImageContent />
-      {/* Sivun sisältö: sivumarginaalit samoin kuin footerissa ja palveluissa */}
-      <Box
-        className="page-content"
-        sx={{
-          // Piirretään hero-kuvan alaosan päälle (kuva on absoluuttisesti sijoitettu ja jatkuu tämän alle)
-          position: 'relative',
-          paddingY: 2,
-          color: 'black',
-        }}>
+      {/* Sivun sisältö: sivumarginaalit samoin kuin footerissa ja palveluissa.
+          position: relative on välttämätön: isolla näytöllä sisältö nousee hero-kuvan alaosan
+          päälle, ja koska hero on sijoitettu (relative), se piirrettäisiin muuten sisällön päälle. */}
+      <Box sx={{ position: 'relative', marginTop: 4 }}>
         <WithSideMargins>
           <EtusivuHaku />
           <Koulutustieto />
