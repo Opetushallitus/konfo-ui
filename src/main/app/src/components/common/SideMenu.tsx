@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 
 import { Drawer, Paper, InputBase, Button, Box } from '@mui/material';
 import { includes, last } from 'lodash-es';
@@ -196,20 +196,37 @@ export const SideMenu = (props: {
       {isLoading ? (
         <LoadingCircle />
       ) : (
-        linkit.map((linkkiValikko) => {
+        linkit.map((linkkiValikko, index) => {
           const id = linkkiValikko.id;
           const links = linkkiValikko.linkki || [];
 
           return (
-            <SidebarValikko
-              key={id}
-              parent={selectedValikko}
-              name={linkkiValikko.name}
-              deselect={popSelected}
-              select={selectValikko}
-              links={links}
-              closeMenu={closeMenu}
-            />
+            <Fragment key={id}>
+              <SidebarValikko
+                parent={selectedValikko}
+                name={linkkiValikko.name}
+                deselect={popSelected}
+                select={selectValikko}
+                links={links}
+                closeMenu={closeMenu}
+              />
+              {/* Tutkintojen tunnustaminen näytetään toisena olevan ("Hae koulutukseen") valikon jälkeen */}
+              {!selectedValikko && index === 1 && (
+                <SidebarValikko
+                  name={t('tutu.tutu')}
+                  deselect={popSelected}
+                  select={selectValikko}
+                  links={[]}
+                  internalLinks={[
+                    {
+                      name: t('tutu.tutu-opas.tutu-opas'),
+                      href: '/tutkintojen-tunnustaminen/tutkintojen-tunnustamisen-palveluopas',
+                    },
+                  ]}
+                  closeMenu={closeMenu}
+                />
+              )}
+            </Fragment>
           );
         })
       )}

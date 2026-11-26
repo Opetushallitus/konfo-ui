@@ -29,6 +29,7 @@ const initialContentfulData: ContentfulData = {
   valikko: {},
   valikot: {},
   hairiotiedote: {},
+  tutkintojenTunnustamisenPalveluopas: {},
 };
 
 const assetUrl = (url?: string) =>
@@ -58,12 +59,25 @@ const useForwardTo = (contentfulData?: ContentfulData) => {
   return useCallback(forwardTo, [forwardTo]);
 };
 
-export const useContentful = () => {
-  const [lng] = useLanguageState();
+type UseContentfulOptions = {
+  // Kieli (ja siten Contentful-space), jonka sisältö ladataan. Oletuksena käyttöliittymän kieli.
+  language?: LanguageCode;
+};
 
-  const { data: manifest } = useQueryOnce('getManifest', getContentfulManifest);
+export const useContentful = ({ language }: UseContentfulOptions = {}) => {
+  const [uiLanguage] = useLanguageState();
+  const lng = language ?? uiLanguage;
 
-  const { data, isLoading: isLoadingContent } = useQueryOnce(
+  const { data: manifest, isError: isManifestError } = useQueryOnce(
+    'getManifest',
+    getContentfulManifest
+  );
+
+  const {
+    data,
+    isLoading: isLoadingContent,
+    isError: isContentError,
+  } = useQueryOnce(
     ['getContentfulData', manifest, lng],
     () => getContentfulData(manifest!, lng as LanguageCode),
     { enabled: Boolean(manifest) }
@@ -105,7 +119,16 @@ export const useContentful = () => {
       slugsToIds,
       data: contentfulData ?? initialContentfulData,
       isLoading: isLoadingContent || isEmpty(slugsToIds),
+      isError: isManifestError || isContentError,
     }),
-    [forwardTo, murupolku, slugsToIds, contentfulData, isLoadingContent]
+    [
+      forwardTo,
+      murupolku,
+      slugsToIds,
+      contentfulData,
+      isLoadingContent,
+      isManifestError,
+      isContentError,
+    ]
   );
 };
