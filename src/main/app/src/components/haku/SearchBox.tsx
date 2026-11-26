@@ -120,7 +120,6 @@ const createRenderInput = (
           'aria-describedby': descriptionId,
           'aria-label': t('haku.kehoite'),
           'aria-labelledby': 'searchbox-label',
-          id: 'searchbox-input',
         }}
       />
     );
@@ -304,6 +303,7 @@ export const SearchBox = ({
         open={!isKeywordValid}
         title={t('haku.syota-ainakin-kolme-merkkia') || ''}>
         <Autocomplete
+          id="searchbox-input"
           fullWidth={true}
           disablePortal={true}
           inputValue={draftKeyword}
