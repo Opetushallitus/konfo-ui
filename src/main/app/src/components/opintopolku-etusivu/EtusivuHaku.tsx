@@ -2,26 +2,61 @@ import { useState } from 'react';
 
 import { Box, useMediaQuery } from '@mui/material';
 import { Stack, useTheme } from '@mui/system';
-import { OphButton, OphLink } from '@opetushallitus/oph-design-system';
+import { OphButton, OphInput, OphLink } from '@opetushallitus/oph-design-system';
 import { isEmpty } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
 
 import { Hakupalkki } from '#/src/components/haku/Hakupalkki';
 import { useAllSelectedFilters, useSearch } from '#/src/components/haku/hakutulosHooks';
-import { RajaimetPopover } from '#/src/components/haku/RajaimetPopover';
+import { MobileFiltersOnTopMenu } from '#/src/components/haku/MobileFiltersOnTopMenu';
+import {
+  RajaaPopoverButton,
+  RajaimetPopover,
+} from '#/src/components/haku/RajaimetPopover';
+import { styled } from '#/src/theme';
+
 import { SectionHeading } from './opintopolkuEtusivuUtils';
-import { RajaimetDrawer } from './RajaimetDrawer';
-import { RajaaButton } from './RajaaButton';
+
+// Hakukenttä oph-design-systemin oletustyyleillä. Rajaa-painike (ja kapeilla näytöillä
+// hakupainike) on kentän sisällä Autocompleten tyhjennyspainikkeen jälkeen.
+const EtusivuSearchInput = styled(OphInput)(({ theme }) => ({
+  // Autocomplete lisää outlined-kentälle oman paddingin, varaa oikealle tilaa absoluuttisesti
+  // sijoitetulle tyhjennyspainikkeelle ja rivittää sisällön (monivalintojen chipeille).
+  // Palautetaan oph-design-systemin oletuspaddingit ja pidetään kaikki samalla rivillä.
+  // &&&& ohittaa Autocompleten omat, tarkemmat säännöt.
+  '&&&&': {
+    padding: 0,
+    paddingRight: theme.spacing(1),
+    flexWrap: 'nowrap',
+  },
+  '&&&& .MuiAutocomplete-input': {
+    padding: theme.spacing(1.5, 2),
+  },
+  // Tyhjennyspainike normaaliin virtaan, jotta järjestys on: teksti, tyhjennyspainike,
+  // rajaa-painike
+  '& .MuiAutocomplete-endAdornment': {
+    position: 'static',
+    transform: 'none',
+  },
+}));
+
+// Kenttä ja hakupainike vierekkäin ilman Konfon hakulaatikkoa. stretch: hakupainike venyy
+// hakukentän korkuiseksi.
+const SEARCH_FORM_SX = {
+  display: 'flex',
+  width: '100%',
+  alignItems: 'stretch',
+  gap: 2,
+  backgroundColor: 'transparent',
+  boxShadow: 'none',
+} as const;
 
 // Hakupalkki rajaa-painikkeella ja linkki kaikkiin hakutuloksiin (kuten nykyisen etusivun Jumpotronissa)
 export const EtusivuHaku = () => {
   const theme = useTheme();
   const { t } = useTranslation();
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
-  const isPopoverOpen = Boolean(anchorEl);
-  const [isDrawerOpen, setDrawerOpen] = useState(false);
-  const toggleDrawer = () => setDrawerOpen((open) => !open);
   // Isoilla näytöillä rajaimet popoverissa, pienillä alhaalta avautuvassa laatikossa
   const isSmall = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -32,62 +67,55 @@ export const EtusivuHaku = () => {
   const showDrawer = hasFilters && isSmall;
 
   return (
-    <>
+    <Stack>
       {showPopover && <RajaimetPopover anchorEl={anchorEl} setAnchorEl={setAnchorEl} />}
-      {showDrawer && (
-        <RajaimetDrawer
-          isOpen={isDrawerOpen}
-          toggleOpen={toggleDrawer}
-          selectedCount={selectedCount}
-        />
-      )}
-      <Stack>
-        <SectionHeading component="h2">
-          {t('opintopolku-etusivu.hae-otsikko')}
-        </SectionHeading>
-        <Hakupalkki
-          variant="oph"
-          // Isoilla näytöillä rajaa-painike hakukentän sisällä, pienillä linkin vieressä (alla)
-          rajaaButton={
-            showPopover ? (
-              <RajaaButton
-                isOpen={isPopoverOpen}
-                isLoading={isFetching}
-                isSmall={false}
-                selectedCount={selectedCount}
-                onClick={(event) => setAnchorEl(event.currentTarget)}
-              />
-            ) : null
-          }
-        />
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'flex-start',
-            gap: 2,
-            marginTop: theme.spacing(1),
-          }}>
-          {isSmall ? (
-            <OphLink component={RouterLink} to="/haku">
-              {t('opintopolku-etusivu.nayta-kaikki')}
-            </OphLink>
-          ) : (
-            <OphButton component={RouterLink} to="/haku" variant="outlined">
-              {t('opintopolku-etusivu.nayta-kaikki')}
-            </OphButton>
-          )}
-          {showDrawer && (
-            <RajaaButton
-              isOpen={isDrawerOpen}
+      <SectionHeading component="h2">
+        {t('opintopolku-etusivu.hae-otsikko')}
+      </SectionHeading>
+      <Hakupalkki
+        InputComponent={EtusivuSearchInput}
+        sx={SEARCH_FORM_SX}
+        // Isoilla näytöillä rajaa-painike hakukentän sisällä, pienillä linkin vieressä (alla).
+        // Isoilla näytöillä Etsi-painike kentän vieressä, pienillä suurennuslasi kentän sisällä.
+        inputEndAdornment={
+          showPopover ? (
+            <RajaaPopoverButton
+              variant="oph"
+              isPopoverOpen={Boolean(anchorEl)}
               isLoading={isFetching}
-              isSmall
               selectedCount={selectedCount}
-              onClick={toggleDrawer}
+              setAnchorEl={setAnchorEl}
             />
-          )}
-        </Box>
-      </Stack>
-    </>
+          ) : null
+        }
+        searchButtonInInput={isSmall}
+      />
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'flex-start',
+          gap: 2,
+          marginTop: theme.spacing(1),
+        }}>
+        {isSmall ? (
+          <OphLink component={RouterLink} to="/haku">
+            {t('opintopolku-etusivu.nayta-kaikki')}
+          </OphLink>
+        ) : (
+          <OphButton component={RouterLink} to="/haku" variant="outlined">
+            {t('opintopolku-etusivu.nayta-kaikki')}
+          </OphButton>
+        )}
+        {showDrawer && (
+          <MobileFiltersOnTopMenu
+            mode="etusivu"
+            isButtonInline
+            buttonLabel={t('opintopolku-etusivu.rajaa-etsimaasi')}
+            buttonTextColor="primary.main"
+          />
+        )}
+      </Box>
+    </Stack>
   );
 };

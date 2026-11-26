@@ -1,4 +1,4 @@
-import { Box, Button, CircularProgress, Divider, Popover } from '@mui/material';
+import { Badge, Box, Button, CircularProgress, Divider, Popover } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
@@ -30,51 +30,84 @@ const ArrowBox = styled(Box)(() => ({
   },
 }));
 
-export const POPOVER_ID = 'filters-popover';
+const POPOVER_ID = 'filters-popover';
 
+// Valittujen rajainten määrä ilman lapsielementtiä: badge normaalissa virrassa kuvakkeen tavoin
+// (ei kulmassa)
+const InlineBadge = ({ count }: { count: number }) =>
+  count > 0 ? (
+    <Badge
+      badgeContent={count}
+      color="error"
+      sx={{
+        alignItems: 'center',
+        '& .MuiBadge-badge': {
+          position: 'static',
+          transform: 'none',
+          marginRight: '2px',
+        },
+      }}
+    />
+  ) : null;
+
+// default: Konfon etusivun rajaa-painike hakukentän vieressä
+// oph: uuden etusivun rajaa-painike hakukentän sisällä. Valittujen rajainten määrä badgena ja
+// ei pystysuuntaista paddingia, jotta painike ei kasvata hakukentän korkeutta.
 export const RajaaPopoverButton = ({
   isPopoverOpen,
   isLoading,
   setAnchorEl,
+  variant = 'default',
+  selectedCount = 0,
 }: {
   isPopoverOpen: boolean;
   isLoading: boolean;
   setAnchorEl: (el: HTMLButtonElement) => void;
+  variant?: 'default' | 'oph';
+  selectedCount?: number;
 }) => {
   const { t } = useTranslation();
-
-  const handleDesktopBtnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(e.currentTarget);
-  };
+  const isOph = variant === 'oph';
 
   return (
     <Box
-      component="div"
-      sx={{
-        borderLeft: `2px solid ${colors.grey500}`,
-        paddingLeft: '10px',
-        marginLeft: '10px',
-        display: { xs: 'none', md: 'block' },
-      }}>
-      <Divider orientation="vertical" />
+      sx={
+        isOph
+          ? { display: 'flex', alignItems: 'center' }
+          : {
+              borderLeft: `2px solid ${colors.grey500}`,
+              paddingLeft: '10px',
+              marginLeft: '10px',
+              display: { xs: 'none', md: 'block' },
+            }
+      }>
+      <Divider orientation="vertical" flexItem={isOph} />
       <Button
         aria-describedby={POPOVER_ID}
+        aria-expanded={isPopoverOpen}
         endIcon={
           isLoading ? (
             <CircularProgress size={25} color="inherit" />
           ) : (
-            <MaterialIcon icon={isPopoverOpen ? 'expand_less' : 'expand_more'} />
+            <>
+              {isOph && <InlineBadge count={selectedCount} />}
+              <MaterialIcon icon={isPopoverOpen ? 'expand_less' : 'expand_more'} />
+            </>
           )
         }
-        onClick={handleDesktopBtnClick}
-        sx={{
-          height: '40px',
-          fontSize: '16px',
-          fontWeight: '600',
-          lineHeight: '16px',
-          textAlign: 'center',
-        }}>
-        {t('haku.rajaa')}
+        onClick={(e) => setAnchorEl(e.currentTarget)}
+        sx={
+          isOph
+            ? { fontWeight: 600, paddingY: 0, marginY: 0 }
+            : {
+                height: '40px',
+                fontSize: '16px',
+                fontWeight: '600',
+                lineHeight: '16px',
+                textAlign: 'center',
+              }
+        }>
+        {isOph ? t('opintopolku-etusivu.rajaa-etsimaasi') : t('haku.rajaa')}
       </Button>
     </Box>
   );

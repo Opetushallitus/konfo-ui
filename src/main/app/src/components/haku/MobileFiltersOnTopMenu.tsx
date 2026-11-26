@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 
 import { FilterSearchResultsButton } from '#/src/components/common/FilterSearchResultsButton';
 import { MobileRajainDrawer } from '#/src/components/common/MobileRajainDrawer';
-import { useIsAtEtusivu } from '#/src/store/reducers/appSlice';
 
 import { HAKU_RAJAIMET_ORDER } from './hakutulos/HAKU_RAJAIMET_ORDER';
 import { MobileResultsPerPageExpansionMenu } from './hakutulos/MobileResultsPerPageExpansionMenu';
@@ -13,14 +12,24 @@ import { MobileToggleKoulutusOppilaitos } from './hakutulos/MobileToggleKoulutus
 import { MobileToggleOrderByButtonMenu } from './hakutulos/MobileToggleOrderByButtonMenu';
 import { useAllSelectedFilters, useSearch } from './hakutulosHooks';
 
+// etusivu: "Näytä tulokset" siirtyy hakusivulle, ja laatikossa valitaan koulutukset/oppilaitokset
+// haku: hakusivulla tulokset ovat jo näkyvissä, ja laatikossa on järjestys ja sivukoko
+export type MobileFiltersMode = 'etusivu' | 'haku';
+
 export const MobileFiltersOnTopMenu = ({
+  mode = 'haku',
   isButtonInline = false,
+  buttonLabel,
+  buttonTextColor = 'white',
 }: {
+  mode?: MobileFiltersMode;
   isButtonInline?: boolean;
+  buttonLabel?: string;
+  buttonTextColor?: string;
 }) => {
   const { t } = useTranslation();
 
-  const isAtEtusivu = useIsAtEtusivu();
+  const isEtusivuMode = mode === 'etusivu';
 
   const {
     koulutusData,
@@ -45,21 +54,21 @@ export const MobileFiltersOnTopMenu = ({
   const onToggleDrawer = useCallback(() => setDrawerOpen((s) => !s), []);
 
   const onShowResults = useCallback(() => {
-    if (isAtEtusivu) {
+    if (isEtusivuMode) {
       goToSearchPage();
     }
     onToggleDrawer();
-  }, [isAtEtusivu, goToSearchPage, onToggleDrawer]);
+  }, [isEtusivuMode, goToSearchPage, onToggleDrawer]);
 
   return (
     <>
       {!isDrawerOpen && (
         <FilterSearchResultsButton
           inline={isButtonInline}
-          textColor="white"
+          textColor={buttonTextColor}
           selectedRajainCount={rajainCount}
           onClick={onToggleDrawer}>
-          {isAtEtusivu ? t('haku.rajaa') : t('haku.rajaa-tuloksia')}
+          {buttonLabel ?? (isEtusivuMode ? t('haku.rajaa') : t('haku.rajaa-tuloksia'))}
         </FilterSearchResultsButton>
       )}
       <MobileRajainDrawer
@@ -69,7 +78,7 @@ export const MobileFiltersOnTopMenu = ({
         clearRajainValues={clearRajainValues}
         rajainCount={rajainCount}
         resultCount={hitCount}>
-        {isAtEtusivu && (
+        {isEtusivuMode && (
           <>
             <MobileToggleKoulutusOppilaitos />
             <Divider />
@@ -87,7 +96,7 @@ export const MobileFiltersOnTopMenu = ({
             <Divider />
           </React.Fragment>
         ))}
-        {!isAtEtusivu && (
+        {!isEtusivuMode && (
           <>
             <MobileToggleOrderByButtonMenu />
             <MobileResultsPerPageExpansionMenu />
