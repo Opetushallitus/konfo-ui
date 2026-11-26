@@ -6,19 +6,14 @@ import { Dispatch, useState } from 'react';
 import { LanguageCode } from '#/src/types/common';
 import { useLanguageState } from '#/src/hooks';
 import { isEmpty } from 'lodash-es';
+import { useTheme } from '@mui/system';
 import parse, { Element, DOMNode, domToReact, Text } from 'html-react-parser';
-import { TutuObject } from '../types';
+import { ExternalLink } from '#/src/components/common/ExternalLink';
+import { isAbsoluteKonfoUrl } from '#/src/components/common/localizeHref';
+import { SmartLink } from '#/src/components/common/SmartLink';
 import { NavigationButton } from '../components/NavigationButton';
 import { AnswerOptions } from '../components/AnswerOptions';
-import { ExternalLink } from '../../common/ExternalLink';
-import { useTheme } from '@mui/system';
-
-const OPINTOPOLKU_DOMAINS = ['opintopolku.fi', 'studieinfo.fi', 'studyinfo.fi'];
-const isOneOfOpintopolkuDomains = (domNode: Element) => {
-  return OPINTOPOLKU_DOMAINS.some((domain: string) =>
-    domNode?.attribs?.href?.includes(domain)
-  );
-};
+import { TutuObject } from '../types';
 
 const parseTranslationBody = (language: LanguageCode, translationBody: string) => {
   return parse(translationBody, {
@@ -28,11 +23,14 @@ const parseTranslationBody = (language: LanguageCode, translationBody: string) =
           domNode.attribs.href = `https://oph.fi/${language}${domNode.attribs.href}`;
         }
 
-        if (isOneOfOpintopolkuDomains(domNode)) {
-          domNode.attribs.href = `/konfo/${language}`;
-          domNode.attribs.target = '';
+        // SmartLink muuttaa absoluuttiset Konfo-linkit sovelluksen sisäisiksi poluiksi.
+        if (isAbsoluteKonfoUrl(domNode.attribs.href)) {
           return (
-            <OphLink href={domNode.attribs.href} variant="body1">
+            <OphLink
+              component={SmartLink}
+              href={domNode.attribs.href}
+              iconVisible={false}
+              variant="body1">
               {domToReact(domNode.children as Array<Text>)}
             </OphLink>
           );
