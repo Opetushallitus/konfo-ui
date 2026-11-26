@@ -4,6 +4,7 @@ import { ophColors, OphTypography } from '@opetushallitus/oph-design-system';
 import { InlineSvgIcon } from '#/src/components/common/InlineSvgIcon';
 import { SmartLink } from '#/src/components/common/SmartLink';
 import {
+  getNostoHref,
   LINK_PAPER_SX,
   PaperHeading,
   SectionHeading,
@@ -86,7 +87,7 @@ export const Koulutustieto = ({ contentfulData }: { contentfulData: ContentfulDa
               heading={nosto.otsikko}
               text={nosto.teksti}
               backgroundColor={index === 0 ? ophColors.cyan1 : ophColors.green2}
-              to={nosto.linkki ?? ''}
+              to={getNostoHref(nosto, contentfulData) ?? ''}
               sx={index === 0 ? { gridColumn: '1 / -1' } : undefined}
             />
           );

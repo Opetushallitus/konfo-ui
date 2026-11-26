@@ -7,6 +7,7 @@ export type { TypeInfo, TypeInfoFields, TypeInfoSkeleton } from "./TypeInfo";
 export type { TypeInfoYhteishaku, TypeInfoYhteishakuFields, TypeInfoYhteishakuSkeleton } from "./TypeInfoYhteishaku";
 export type { TypeKortit, TypeKortitFields, TypeKortitSkeleton } from "./TypeKortit";
 export type { TypeKortti, TypeKorttiFields, TypeKorttiSkeleton } from "./TypeKortti";
+export type { TypeLinkki, TypeLinkkiFields, TypeLinkkiSkeleton } from "./TypeLinkki";
 export type { TypeNosto, TypeNostoFields, TypeNostoSkeleton } from "./TypeNosto";
 export type { TypeOhjeetJaTuki, TypeOhjeetJaTukiFields, TypeOhjeetJaTukiSkeleton } from "./TypeOhjeetJaTuki";
 export type { TypeOpintopolkuEtusivu, TypeOpintopolkuEtusivuFields, TypeOpintopolkuEtusivuSkeleton } from "./TypeOpintopolkuEtusivu";

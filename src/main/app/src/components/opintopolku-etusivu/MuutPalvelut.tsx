@@ -3,6 +3,7 @@ import { ophColors, OphTypography } from '@opetushallitus/oph-design-system';
 
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import {
+  getNostoHref,
   LINK_PAPER_SX,
   PaperHeading,
   SectionHeading,
@@ -42,7 +43,7 @@ export const MuutPalvelut = ({ contentfulData }: { contentfulData: ContentfulDat
               key={nosto.id}
               component="a"
               // Osa osoitteista on kielikohtaisia, joten kieli välitetään parametrina ($1)
-              href={nosto.linkki}
+              href={getNostoHref(nosto, contentfulData)}
               sx={{
                 position: 'relative',
                 color: ophColors.grey900,

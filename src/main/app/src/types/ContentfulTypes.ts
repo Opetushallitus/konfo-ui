@@ -29,6 +29,7 @@ import {
   TypeTutkintojenTunnustamisenPalveluopas,
   TypeOpintopolkuEtusivu,
   TypeNosto,
+  TypeLinkki,
 } from './contentful';
 
 export type CommonContentfulFields = {
@@ -114,6 +115,7 @@ export type ContentfulOpintopolkuEtusivu = ContentfulItem<
   TypeOpintopolkuEtusivu<Mod, ''>
 >;
 export type ContentfulNosto = ContentfulItem<TypeNosto<Mod, ''>>;
+export type ContentfulLinkki = ContentfulItem<TypeLinkki<Mod, ''>>;
 
 export type CfRecord<T> = Record<string, T>;
 
@@ -139,6 +141,7 @@ export type ContentfulData = {
   tutkintojenTunnustamisenPalveluopas: CfRecord<ContentfulTutkintojenTunnustamisenPalveluopas>;
   opintopolkuEtusivu: CfRecord<ContentfulOpintopolkuEtusivu>;
   nosto: CfRecord<ContentfulNosto>;
+  linkki: CfRecord<ContentfulLinkki>;
 };
 
 type ContentTypeId = keyof ContentfulData;

@@ -2,6 +2,7 @@ import { Box, Paper } from '@mui/material';
 import { ophColors, OphTypography } from '@opetushallitus/oph-design-system';
 
 import {
+  getNostoHref,
   LINK_PAPER_SX,
   PaperHeading,
   SectionHeading,
@@ -31,7 +32,7 @@ export const KirjautuneenPalvelut = ({
           <Paper
             key={nostoRef?.id ?? index}
             component="a"
-            href={nosto.linkki}
+            href={getNostoHref(nosto, contentfulData)}
             sx={{
               ...LINK_PAPER_SX,
               color: ophColors.grey900,

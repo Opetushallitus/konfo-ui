@@ -2,6 +2,13 @@
 import { OphTypography } from '@opetushallitus/oph-design-system';
 
 import { styled } from '#/src/theme';
+import { ContentfulData, ContentfulNosto } from '#/src/types/ContentfulTypes';
+
+// Etusivun nostoilla on aina vain yksi linkki
+export const getNostoHref = (
+  nosto: ContentfulNosto | undefined,
+  contentfulData: ContentfulData
+) => contentfulData.linkki?.[nosto?.linkit?.[0]?.id ?? '']?.href;
 
 export const SectionHeading = styled(OphTypography)(({ theme }) => ({
   fontSize: '32px',
