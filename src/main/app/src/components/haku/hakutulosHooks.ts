@@ -145,7 +145,7 @@ export const useAutoComplete = () => {
 };
 
 const isOnPageWithHaku = (currentPage: string) =>
-  ['', 'haku', 'ohjaava-haku'].includes(currentPage);
+  ['', 'etusivu', 'haku', 'ohjaava-haku'].includes(currentPage);
 
 export const useSearch = () => {
   const isAnyRajainSelected = useSelector(getIsAnyFilterSelected);

@@ -936,5 +936,9 @@
       },
       "valitse-yksi": "Valitse yksi vastausvaihtoehto."
     }
+  },
+  "opintopolku-etusivu": {
+    "nayta-kaikki": "Näytä kaikki koulutukset ja oppilaitokset",
+    "hae-otsikko": "Hae koulutuksia ja oppilaitoksia"
   }
 }

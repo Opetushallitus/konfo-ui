@@ -3,12 +3,14 @@ import React, { useCallback } from 'react';
 import { Box } from '@mui/material';
 
 import { useSearch } from './hakutulosHooks';
-import { SearchBox } from './SearchBox';
+import { SearchBox, SearchBoxVariant } from './SearchBox';
 
 export const Hakupalkki = ({
   rajaaButton = null,
+  variant = 'default',
 }: {
   rajaaButton?: React.JSX.Element | null;
+  variant?: SearchBoxVariant;
 }) => {
   const { draftKeyword, goToSearchPage, setKeyword, setDraftKeyword } = useSearch();
 
@@ -27,6 +29,7 @@ export const Hakupalkki = ({
         doSearch={doSearch}
         setDraftKeyword={setDraftKeyword}
         rajaaButton={rajaaButton}
+        variant={variant}
       />
     </Box>
   );

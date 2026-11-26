@@ -186,7 +186,7 @@ export const App = () => {
         />
         <ContentColumn isSmall={isSmall} menuVisible={menuVisible}>
           <MatomoTracker />
-          {/* Sivupohja (DefaultLayout tai UusiEtusivu) renderöi pääsisällön (<main>) ja footerin */}
+          {/* Sivupohja (DefaultLayout tai Etusivu) renderöi pääsisällön (<main>) ja footerin */}
           <Outlet />
         </ContentColumn>
       </Box>
