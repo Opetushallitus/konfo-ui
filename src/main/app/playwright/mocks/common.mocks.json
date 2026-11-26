@@ -3829,7 +3829,7 @@
           "updated": "2026-11-01T10:00:00.000Z",
           "otsikko": "Hakeutuminen koulutukseen",
           "teksti": "Tietoja ja ohjeet hakemisesta peruskoulun jälkeiseen koulutukseen.",
-          "ikoni": {
+          "kuva": {
             "id": "6BorX3StVK5k5rtIHhz20l",
             "url": "bjsyfobsxzam/6BorX3StVK5k5rtIHhz20l/bbd2e28294ab8f89bfcfef0431e5ccef/faq.e49945eb.svg"
           },
@@ -3843,7 +3843,7 @@
           "updated": "2026-11-01T10:00:00.000Z",
           "otsikko": "Kielitutkinnot",
           "teksti": "Kielitaidon todistaminen työ- tai opiskelupaikan haussa.",
-          "ikoni": {
+          "kuva": {
             "id": "6BorX3StVK5k5rtIHhz20l",
             "url": "bjsyfobsxzam/6BorX3StVK5k5rtIHhz20l/bbd2e28294ab8f89bfcfef0431e5ccef/faq.e49945eb.svg"
           },
@@ -3857,7 +3857,7 @@
           "updated": "2026-11-01T10:00:00.000Z",
           "otsikko": "Tutkintojen tunnustaminen",
           "teksti": "Ulkomailla suoritetun tutkinnon rinnastaminen Suomessa.",
-          "ikoni": {
+          "kuva": {
             "id": "6BorX3StVK5k5rtIHhz20l",
             "url": "bjsyfobsxzam/6BorX3StVK5k5rtIHhz20l/bbd2e28294ab8f89bfcfef0431e5ccef/faq.e49945eb.svg"
           },
@@ -3871,7 +3871,7 @@
           "updated": "2026-11-01T10:00:00.000Z",
           "otsikko": "Oma Opintopolku",
           "teksti": "Hakemukset, opiskelupaikan vastaanotto ja opintosuoritukset.",
-          "ikoni": {
+          "kuva": {
             "id": "1w7rtuwqWaPlLPzNB0GyKR",
             "url": "bjsyfobsxzam/1w7rtuwqWaPlLPzNB0GyKR/2e0735e53e214719ee459665b85ae9e6/ehoks.fdeaa517.svg"
           },
@@ -3885,7 +3885,7 @@
           "updated": "2026-11-01T10:00:00.000Z",
           "otsikko": "Opetushallitus",
           "teksti": "Opetushallitus on kansallinen koulutuksen, kielen ja kansainvälistymisen asiantuntija.",
-          "ikoni": {
+          "kuva": {
             "id": "1w7rtuwqWaPlLPzNB0GyKR",
             "url": "bjsyfobsxzam/1w7rtuwqWaPlLPzNB0GyKR/2e0735e53e214719ee459665b85ae9e6/ehoks.fdeaa517.svg"
           },
@@ -3899,7 +3899,7 @@
           "updated": "2026-11-01T10:00:00.000Z",
           "otsikko": "Osaamispolku",
           "teksti": "Osaamispolku auttaa kartoittamaan osaamisesi ja kiinnostuksen kohteesi.",
-          "ikoni": {
+          "kuva": {
             "id": "1w7rtuwqWaPlLPzNB0GyKR",
             "url": "bjsyfobsxzam/1w7rtuwqWaPlLPzNB0GyKR/2e0735e53e214719ee459665b85ae9e6/ehoks.fdeaa517.svg"
           },
