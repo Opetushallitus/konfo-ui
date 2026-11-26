@@ -8,12 +8,14 @@ import { useLanguageState } from '#/src/hooks';
 import { isEmpty } from 'lodash-es';
 import { useTheme } from '@mui/system';
 import parse, { Element, DOMNode, domToReact, Text } from 'html-react-parser';
+import { ErrorMessage } from '#/src/components/common/ErrorMessage';
 import { ExternalLink } from '#/src/components/common/ExternalLink';
 import { isAbsoluteKonfoUrl } from '#/src/components/common/localizeHref';
 import { SmartLink } from '#/src/components/common/SmartLink';
 import { NavigationButton } from '../components/NavigationButton';
 import { AnswerOptions } from '../components/AnswerOptions';
 import { TutuObject } from '../types';
+import { getTutuTranslation } from '../utils';
 
 const parseTranslationBody = (language: LanguageCode, translationBody: string) => {
   return parse(translationBody, {
@@ -62,11 +64,10 @@ export const QuestionPage = ({
     frontPageObject
   );
 
-  const language = lng ?? 'fi';
-  const translation = currentObject?.translations[language as LanguageCode];
+  const translation = getTutuTranslation(currentObject, lng);
   const answerOptions = translation?.answers;
   const parsedBody = parseTranslationBody(
-    language as LanguageCode,
+    (lng ?? 'fi') as LanguageCode,
     translation?.body || ''
   );
 
@@ -74,6 +75,10 @@ export const QuestionPage = ({
     setIsStartPage(true);
     window.scrollTo(0, 0);
   };
+
+  if (!translation) {
+    return <ErrorMessage onRetry={goBackToStart} />;
+  }
 
   const optionsLabelId = 'valitse-yksi-label';
   return (

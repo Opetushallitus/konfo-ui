@@ -2,8 +2,10 @@ import { Box } from '@mui/material';
 import { OphButton, ophColors } from '@opetushallitus/oph-design-system';
 
 import { Dispatch } from 'react';
-import { AnswerOptionType, TutuObject } from '../types';
 import { useTheme } from '@mui/system';
+import { useLanguageState } from '#/src/hooks';
+import { AnswerOptionType, TutuObject } from '../types';
+import { getTutuTranslation } from '../utils';
 
 const AnswerOption = ({
   answerOption,
@@ -15,11 +17,14 @@ const AnswerOption = ({
   tutuConfigObjects: Array<TutuObject>;
 }) => {
   const theme = useTheme();
+  const [lng] = useLanguageState();
 
   const nextAnswerId = answerOption?.target;
   const nextAnswerObject = tutuConfigObjects.find(
     (tutuOption: TutuObject) => tutuOption.id === nextAnswerId
   );
+  // Ei näytetä vastausvaihtoehtoa, jonka kohdetta ei löydy tai jolle ei ole sisältöä
+  const hasValidTarget = Boolean(getTutuTranslation(nextAnswerObject, lng));
 
   const selectOption = () => {
     setCurrentObject(nextAnswerObject);
@@ -28,7 +33,7 @@ const AnswerOption = ({
 
   return (
     <>
-      {nextAnswerId && (
+      {hasValidTarget && (
         <OphButton
           onClick={selectOption}
           variant="contained"
