@@ -1,5 +1,6 @@
-import { Box } from '@mui/material';
-import { useTheme } from '@mui/system';
+import { type CSSProperties, useCallback, useState } from 'react';
+
+import { Box, useTheme } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { WithSideMargins } from '#/src/components/WithSideMargins';
@@ -16,9 +17,24 @@ const HERO_DESKTOP_CONTENT_OVERLAP = '7%';
 // kuvan korkeus, niin että se on 0 jo TEXT_TOP_ZERO_WIDTH-levyisellä herolla. (Aito eksponenttikäyrä
 // ei onnistu CSS:llä, koska pituutta ei voi muuttaa luvuksi pow()/exp()-funktioille.)
 const TEXT_TOP_MAX_PX = 180;
-const TEXT_TOP_ZERO_WIDTH = 800;
+const TEXT_TOP_ZERO_WIDTH = 700;
 const TEXT_TOP_SLOPE = TEXT_TOP_MAX_PX / (HERO_MAX_WIDTH - TEXT_TOP_ZERO_WIDTH);
-const TEXT_TOP_MARGIN = `clamp(15px, calc((100cqw - ${TEXT_TOP_ZERO_WIDTH}px) * ${TEXT_TOP_SLOPE.toFixed(4)}), ${TEXT_TOP_MAX_PX}px)`;
+const TEXT_TOP_MARGIN = `clamp(0px, calc((100cqw - ${TEXT_TOP_ZERO_WIDTH}px) * ${TEXT_TOP_SLOPE.toFixed(4)}), ${TEXT_TOP_MAX_PX}px)`;
+
+// Mobiilikuvan yläosasta rajataan pois MOBILE_CROP_MAX osuus kuvan korkeudesta juuri
+// mobiilirajan (sm) alapuolella, ja rajaus pienenee nollaan MOBILE_CROP_ZERO_WIDTH-levyiseen
+// kuvaan mennessä. Rajauksen pituus = kuvan korkeus/leveys -suhde * kuvan leveydestä laskettu
+// lineaarinen pituus. (Osuus kertaa korkeus olisi leveyden suhteen toisen asteen lauseke, mitä
+// CSS ei osaa laskea, joten välillä rajaus on hieman suurempi kuin tarkka osuus.)
+const MOBILE_CROP_MAX = 0.2;
+const MOBILE_CROP_ZERO_WIDTH = 500;
+const HEIGHT_RATIO_VAR = '--hero-image-height-ratio';
+const getMobileCrop = (mobileBreakpoint: number) => {
+  const fullCropWidth = mobileBreakpoint - 1;
+  const slope =
+    (MOBILE_CROP_MAX * fullCropWidth) / (fullCropWidth - MOBILE_CROP_ZERO_WIDTH);
+  return `max(0px, var(${HEIGHT_RATIO_VAR}, 0) * (100cqw - ${MOBILE_CROP_ZERO_WIDTH}px) * ${slope.toFixed(4)})`;
+};
 
 const HeroWrapper = styled(Box)(({ theme }) => ({
   position: 'relative',
@@ -64,6 +80,15 @@ const HeroWrapper = styled(Box)(({ theme }) => ({
       width: '100%',
       height: 'auto',
     },
+    [theme.breakpoints.down('sm')]: {
+      // Rajattu yläosa piiloon. overflow: hidden estää myös kuvan negatiivisen marginaalin
+      // siirtymisen kuvaelementin ulkopuolelle. 100cqw = kuvan leveys.
+      overflow: 'hidden',
+      containerType: 'inline-size',
+      '& img': {
+        marginTop: `calc(-1 * ${getMobileCrop(theme.breakpoints.values.sm)})`,
+      },
+    },
   },
   '& .hero-content': {
     position: 'absolute',
@@ -98,8 +123,20 @@ export const HeroImageContent = ({
   const theme = useTheme();
   const { t } = useTranslation();
 
+  // Ladatun kuvan korkeus/leveys -suhde mobiilikuvan rajausta varten. Päivittyy, kun selain
+  // vaihtaa kuvaa näytön leveyden mukaan.
+  const [heightRatio, setHeightRatio] = useState<number>();
+  const updateHeightRatio = useCallback((img: HTMLImageElement | null) => {
+    if (img?.complete && img.naturalWidth > 0) {
+      setHeightRatio(img.naturalHeight / img.naturalWidth);
+    }
+  }, []);
+
   return (
-    <HeroWrapper>
+    <HeroWrapper
+      style={
+        heightRatio ? ({ [HEIGHT_RATIO_VAR]: heightRatio } as CSSProperties) : undefined
+      }>
       {/* Kuva normaalissa virrassa koko heron levyisenä, joten hero on kuvan korkuinen ilman
             että kuvan mittoja tarvitsee tietää. Isolla näytöllä negatiivinen alamarginaali nostaa
             sivun sisällön kuvan alaosan (raidan) päälle. Pienen näytön kuvassa ei ole raitaa.
@@ -114,7 +151,13 @@ export const HeroImageContent = ({
           />
         )}
         {/* Sivun suurin kuva: ladataan ensimmäisenä */}
-        <img src={kuvaMobiili ?? kuvaDesktop} fetchPriority="high" alt="" />
+        <img
+          ref={updateHeightRatio}
+          onLoad={(event) => updateHeightRatio(event.currentTarget)}
+          src={kuvaMobiili ?? kuvaDesktop}
+          fetchPriority="high"
+          alt=""
+        />
       </picture>
       <Box className="hero-content">
         {/* Sivumarginaalit samoin kuin footerissa ja palveluissa */}
