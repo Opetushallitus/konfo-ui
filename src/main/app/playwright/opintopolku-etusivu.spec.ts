@@ -70,10 +70,40 @@ test.describe('Opintopolun etusivu', () => {
     ]) {
       await expect(section.getByRole('heading', { level: 3, name })).toBeVisible();
     }
-    await expect(section.getByRole('link')).toHaveCount(3);
+    // Kolme yhden linkin nostoa ja kolmen linkin nosto (Yhteishaku)
+    await expect(section.getByRole('link')).toHaveCount(6);
 
     await section.getByRole('link', { name: 'Hakeutuminen koulutukseen' }).click();
     await expect(page).toHaveURL(/\/konfo\/fi\/$/);
+  });
+
+  test('Should render koulutustieto nosto with multiple links as link buttons', async ({
+    page,
+  }) => {
+    await page.goto(ETUSIVU_URL);
+    const section = getSection(page, 'Koulutustieto');
+
+    // Monen linkin nostossa otsikko ei ole linkki, vaan linkit ovat erillisiä painikkeita
+    await expect(
+      section.getByRole('heading', { level: 3, name: 'Yhteishaku' })
+    ).toBeVisible();
+    await expect(section.getByRole('link', { name: 'Yhteishaku' })).toHaveCount(0);
+
+    // Sisäiset linkit lokalisoidaan nykyiselle kielelle
+    await expect(section.getByRole('link', { name: 'Hae yhteishaussa' })).toHaveAttribute(
+      'href',
+      '/konfo/fi/haku'
+    );
+    await expect(
+      section.getByRole('link', { name: 'Lisätietoa yhteishausta' })
+    ).toHaveAttribute('href', 'https://www.oph.fi/fi/yhteishaku');
+    await expect(section.getByRole('link', { name: 'Hakuohjeet' })).toHaveAttribute(
+      'href',
+      '/konfo/fi/sisaltohaku'
+    );
+
+    await section.getByRole('link', { name: 'Hae yhteishaussa' }).click();
+    await expect(page).toHaveURL(/\/konfo\/fi\/haku(\?.*)?$/);
   });
 
   test('Should render kirjautuneen palvelut and muut palvelut nostot as links', async ({

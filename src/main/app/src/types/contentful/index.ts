@@ -5,6 +5,7 @@ export type { TypeFooter, TypeFooterFields, TypeFooterSkeleton } from "./TypeFoo
 export type { TypeHairiotiedote, TypeHairiotiedoteFields, TypeHairiotiedoteSkeleton } from "./TypeHairiotiedote";
 export type { TypeInfo, TypeInfoFields, TypeInfoSkeleton } from "./TypeInfo";
 export type { TypeInfoYhteishaku, TypeInfoYhteishakuFields, TypeInfoYhteishakuSkeleton } from "./TypeInfoYhteishaku";
+export type { TypeKielitutkinnotLaskeutumissivu, TypeKielitutkinnotLaskeutumissivuFields, TypeKielitutkinnotLaskeutumissivuSkeleton } from "./TypeKielitutkinnotLaskeutumissivu";
 export type { TypeKortit, TypeKortitFields, TypeKortitSkeleton } from "./TypeKortit";
 export type { TypeKortti, TypeKorttiFields, TypeKorttiSkeleton } from "./TypeKortti";
 export type { TypeLinkki, TypeLinkkiFields, TypeLinkkiSkeleton } from "./TypeLinkki";
@@ -17,7 +18,6 @@ export type { TypePikalinkit, TypePikalinkitFields, TypePikalinkitSkeleton } fro
 export type { TypeSivu, TypeSivuFields, TypeSivuSkeleton } from "./TypeSivu";
 export type { TypeTutkintojenTunnustamisenPalveluopas, TypeTutkintojenTunnustamisenPalveluopasFields, TypeTutkintojenTunnustamisenPalveluopasSkeleton } from "./TypeTutkintojenTunnustamisenPalveluopas";
 export type { TypeTutkintojenTunnustaminenLaskeutumissivu, TypeTutkintojenTunnustaminenLaskeutumissivuFields, TypeTutkintojenTunnustaminenLaskeutumissivuSkeleton } from "./TypeTutkintojenTunnustaminenLaskeutumissivu";
-export type { TypeUseinKysytytKysymykset, TypeUseinKysytytKysymyksetFields, TypeUseinKysytytKysymyksetSkeleton } from "./TypeUseinKysytytKysymykset";
 export type { TypeUutinen, TypeUutinenFields, TypeUutinenSkeleton } from "./TypeUutinen";
 export type { TypeUutiset, TypeUutisetFields, TypeUutisetSkeleton } from "./TypeUutiset";
 export type { TypeValikko, TypeValikkoFields, TypeValikkoSkeleton } from "./TypeValikko";
