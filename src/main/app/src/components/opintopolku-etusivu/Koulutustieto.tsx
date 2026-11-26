@@ -2,7 +2,6 @@ import { Box, Paper, SxProps, Theme } from '@mui/material';
 import { ophColors, OphTypography } from '@opetushallitus/oph-design-system';
 
 import { InlineSvgIcon } from '#/src/components/common/InlineSvgIcon';
-import { SmartLink } from '#/src/components/common/SmartLink';
 import {
   LINK_PAPER_SX,
   PaperHeading,
@@ -22,22 +21,16 @@ const KoulutustietoPaper = ({
   heading: string;
   text?: string;
   backgroundColor: string;
-  to: string;
+  to?: string;
   sx?: SxProps<Theme>;
 }) => (
   <Paper
     elevation={0}
-    component={SmartLink}
-    href={to}
     sx={[
       {
         backgroundColor,
         color: 'white',
         ...LINK_PAPER_SX,
-        '&:focus-visible': {
-          outline: `2px solid ${ophColors.black}`,
-          outlineOffset: '2px',
-        },
         padding: 4,
         display: 'flex',
         flexDirection: 'column',
@@ -51,13 +44,15 @@ const KoulutustietoPaper = ({
     {/* SVG upotetaan sivulle (kuten MaterialIcon), jolloin se saa tekstin värin (currentColor).
         Koristekuva: otsikko kertoo jo sisällön. */}
     {icon && <InlineSvgIcon src={icon} aria-hidden sx={{ fontSize: '64px' }} />}
-    <PaperHeading color="inherit">{heading}</PaperHeading>
+    <PaperHeading color="inherit" to={to}>
+      {heading}
+    </PaperHeading>
     <OphTypography sx={{ color: 'inherit' }}>{text}</OphTypography>
   </Paper>
 );
 
-export const Koulutustieto = ({ osio }: { osio: EtusivuOsio }) => {
-  return osio.nostot.length > 0 ? (
+export const Koulutustieto = ({ osio }: { osio: EtusivuOsio }) =>
+  osio.nostot.length > 0 ? (
     <Box component="section" sx={{ marginTop: 6 }}>
       <SectionHeading component="h2">{osio.otsikko}</SectionHeading>
       <Box
@@ -73,12 +68,10 @@ export const Koulutustieto = ({ osio }: { osio: EtusivuOsio }) => {
             heading={nosto.otsikko}
             text={nosto.teksti}
             backgroundColor={index === 0 ? ophColors.cyan1 : ophColors.green2}
-            // SmartLink poistaa linkin alusta /konfo:n (routerin basename) ja lisää kielen
-            to={nosto.href ?? ''}
+            to={nosto.href}
             sx={index === 0 ? { gridColumn: '1 / -1' } : undefined}
           />
         ))}
       </Box>
     </Box>
   ) : null;
-};
