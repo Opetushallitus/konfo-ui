@@ -49,11 +49,9 @@ export const Nosto = ({ nosto }: { nosto: EtusivuNosto }) => {
           to={nosto.linkit?.[0]?.href}
           otsikko={nosto.otsikko}
         />
-        {nosto.teksti && (
-          <OphTypography variant="body2" sx={{ color: 'inherit', flexGrow: 1 }}>
-            {nosto.teksti}
-          </OphTypography>
-        )}
+        <OphTypography variant="body2" sx={{ color: 'inherit', flexGrow: 1 }}>
+          {nosto.teksti}
+        </OphTypography>
         <MaterialIcon
           icon="arrow_forward"
           aria-hidden

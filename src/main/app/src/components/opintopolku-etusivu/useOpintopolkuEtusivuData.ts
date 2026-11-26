@@ -100,5 +100,5 @@ export const useOpintopolkuEtusivuData = () => {
 };
 
 // Ohitetaan viittaukset, joita vastaavaa nostoa ei löydy (esim. julkaisematon nosto)
-const resolveNostot = (data: ContentfulData, nostoRefs: Array<NostoRef>) =>
+export const resolveNostot = (data: ContentfulData, nostoRefs: Array<NostoRef>) =>
   nostoRefs.flatMap((ref) => data.nosto[ref?.id ?? ''] ?? []);
