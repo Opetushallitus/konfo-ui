@@ -229,7 +229,7 @@ export const SidebarValikko = (props: {
         })}
         {internalLinks.map((link) => (
           <SivuItem
-            key={`sivu-item-${link.name}`}
+            key={`internal-item-${link.href}`}
             name={link.name}
             href={`/${i18n.language}${link.href}`}
             onClick={forwardToPage}

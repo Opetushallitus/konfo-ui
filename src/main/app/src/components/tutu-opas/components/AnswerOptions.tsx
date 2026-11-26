@@ -67,7 +67,7 @@ export const AnswerOptions = ({
   labelId: string;
 }) => {
   return (
-    <Box display="flex" flexDirection="column" aria-labelledby={labelId}>
+    <Box display="flex" flexDirection="column" role="group" aria-labelledby={labelId}>
       {answerOptions?.map((answerOption: AnswerOptionType) => (
         <AnswerOption
           answerOption={answerOption}
