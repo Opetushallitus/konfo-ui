@@ -37,3 +37,5 @@ src/main/app/.vscode/
 scripts/*.json
 
 .pnpm-store/
+
+.claude/
