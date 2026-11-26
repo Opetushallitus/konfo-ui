@@ -4,3 +4,4 @@ tsconfig.json
 package-lock.json
 src/types/contentful/*
 konfo-backend.d.ts
+pnpm-lock.yaml

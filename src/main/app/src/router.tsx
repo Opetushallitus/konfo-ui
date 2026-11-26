@@ -7,8 +7,10 @@ import {
 } from 'react-router-dom';
 
 import { App } from '#/src/App';
-import { Etusivu } from '#/src/components/Etusivu';
-import { Hairiotiedote } from '#/src/components/Hairiotiedote';
+import { colors } from '#/src/colors';
+import { DefaultLayout } from '#/src/components/common/DefaultLayout';
+import { OphThemeRoute } from '#/src/components/common/OphThemeRoute';
+import { KonfoEtusivu } from '#/src/components/KonfoEtusivu';
 import { HakuLabel } from '#/src/components/haku/HakuLabel';
 import { HakuPage } from '#/src/components/haku/HakuPage';
 import { Hakupalkki } from '#/src/components/haku/Hakupalkki';
@@ -23,6 +25,8 @@ import { SuosikitPage } from '#/src/components/SuosikitPage';
 import { SuosikitVertailuPage } from '#/src/components/SuosikitVertailuPage';
 import { ToteutusPage } from '#/src/components/toteutus/ToteutusPage';
 import { TranslatedRoute } from '#/src/components/TranslatedRoute';
+import { OpintopolkuEtusivu } from '#/src/components/opintopolku-etusivu/OpintopolkuEtusivu';
+import { OPINTOPOLKU_ETUSIVU_MAX_WIDTH } from '#/src/components/opintopolku-etusivu/opintopolkuEtusivuUtils';
 import {
   ValintaperustePage,
   ValintaperustePreviewPage,
@@ -36,8 +40,6 @@ import {
   setKeyword,
   urlParamsChanged,
 } from '#/src/store/reducers/hakutulosSlice';
-import { OphThemeRoute } from '#/src/components/common/OphThemeRoute';
-
 import { TutuOpas } from './components/tutu-opas/TutuOpas';
 
 // Ajetaan aina kun etusivulle navigoidaan (myös selaimen takaisin/eteenpäin-napeilla),
@@ -69,26 +71,49 @@ const routes: Array<RouteObject> = [
         path: ':lng?',
         element: <TranslatedRoute />,
         children: [
+          // Uusi etusivu: oph-design-systemin teema, ei palveluita ja sisältö rajattu 1200px levyiseksi
           {
             element: (
-              <>
-                <Hairiotiedote />
-                <Outlet />
-              </>
+              <OphThemeRoute>
+                <DefaultLayout
+                  palvelutVisible={false}
+                  contentMaxWidth={1200}
+                  pageMaxWidth={OPINTOPOLKU_ETUSIVU_MAX_WIDTH}
+                  backgroundColor={colors.pageBackgroundGray}
+                />
+              </OphThemeRoute>
             ),
             children: [
-              { index: true, element: <Etusivu />, loader: resetHakuStateLoader },
+              {
+                path: 'etusivu',
+                element: <OpintopolkuEtusivu />,
+                loader: resetHakuStateLoader,
+              },
+            ],
+          },
+          {
+            element: (
+              <OphThemeRoute>
+                <DefaultLayout />
+              </OphThemeRoute>
+            ),
+            children: [
+              {
+                path: 'tutkintojen-tunnustaminen/tutkintojen-tunnustamisen-palveluopas',
+                element: <TutuOpas />,
+              },
+            ],
+          },
+          {
+            element: <DefaultLayout />,
+            children: [
+              {
+                index: true,
+                element: <KonfoEtusivu />,
+                loader: resetHakuStateLoader,
+              },
               { path: 'sisaltohaku', element: <Sisaltohaku /> },
               { path: 'ohjaava-haku', element: <OhjaavaHakuPage /> },
-              {
-                element: <OphThemeRoute />,
-                children: [
-                  {
-                    path: 'tutkintojen-tunnustaminen/tutkintojen-tunnustamisen-palveluopas',
-                    element: <TutuOpas />,
-                  },
-                ],
-              },
               {
                 element: (
                   <>
@@ -132,7 +157,10 @@ const routes: Array<RouteObject> = [
           },
         ],
       },
-      { path: '*', element: <NotFound /> },
+      {
+        element: <DefaultLayout hairiotiedoteVisible={false} palvelutVisible={false} />,
+        children: [{ path: '*', element: <NotFound /> }],
+      },
     ],
   },
 ];

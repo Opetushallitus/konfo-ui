@@ -9,4 +9,4 @@ export interface TypeHairiotiedoteFields {
 }
 
 export type TypeHairiotiedoteSkeleton = EntrySkeletonType<TypeHairiotiedoteFields, "hairiotiedote">;
-export type TypeHairiotiedote<Modifiers extends ChainModifiers, Locales extends LocaleCode> = Entry<TypeHairiotiedoteSkeleton, Modifiers, Locales>;
+export type TypeHairiotiedote<Modifiers extends ChainModifiers, Locales extends LocaleCode = LocaleCode> = Entry<TypeHairiotiedoteSkeleton, Modifiers, Locales>;

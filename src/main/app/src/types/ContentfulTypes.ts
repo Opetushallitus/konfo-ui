@@ -27,6 +27,9 @@ import {
   TypeValikot,
   TypeHairiotiedote,
   TypeTutkintojenTunnustamisenPalveluopas,
+  TypeOpintopolkuEtusivu,
+  TypeNosto,
+  TypeLinkki,
 } from './contentful';
 
 export type CommonContentfulFields = {
@@ -108,6 +111,11 @@ export type ContentfulHairiotiedote = ContentfulItem<TypeHairiotiedote<Mod, ''>>
 export type ContentfulTutkintojenTunnustamisenPalveluopas = ContentfulItem<
   TypeTutkintojenTunnustamisenPalveluopas<Mod, ''>
 >;
+export type ContentfulOpintopolkuEtusivu = ContentfulItem<
+  TypeOpintopolkuEtusivu<Mod, ''>
+>;
+export type ContentfulNosto = ContentfulItem<TypeNosto<Mod, ''>>;
+export type ContentfulLinkki = ContentfulItem<TypeLinkki<Mod, ''>>;
 
 export type CfRecord<T> = Record<string, T>;
 
@@ -131,6 +139,9 @@ export type ContentfulData = {
   valikot: CfRecord<ContentfulValikot>;
   hairiotiedote: CfRecord<ContentfulHairiotiedote>;
   tutkintojenTunnustamisenPalveluopas: CfRecord<ContentfulTutkintojenTunnustamisenPalveluopas>;
+  opintopolkuEtusivu: CfRecord<ContentfulOpintopolkuEtusivu>;
+  nosto: CfRecord<ContentfulNosto>;
+  linkki: CfRecord<ContentfulLinkki>;
 };
 
 type ContentTypeId = keyof ContentfulData;

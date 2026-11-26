@@ -1,5 +1,4 @@
-import { test, expect } from '@playwright/test';
-
+import { expect, test } from './test-fixtures';
 import { mocksFromFile, setupCommonTest } from './test-tools';
 
 test.describe('KOMO osaamisala', () => {

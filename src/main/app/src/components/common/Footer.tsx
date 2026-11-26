@@ -15,9 +15,11 @@ import { styled, theme } from '#/src/theme';
 import { getOne } from '#/src/tools/getOne';
 import { getLanguage } from '#/src/tools/localization';
 
+// Välit paddingeina eikä marginaaleina, jotta taustavärit ulottuvat oikein: yläväli on
+// MainContentin alapaddingina ja alaväli footerin omana paddingina (marginaali valuisi
+// sisältöpalstan ulkopuolelle, jolloin palstan valkoinen tausta ei ulottuisi alareunaan asti).
 const Root = styled('footer')({
-  marginTop: theme.spacing(8),
-  marginBottom: theme.spacing(12),
+  paddingBottom: theme.spacing(12),
   lineHeight: '21px',
   '.MuiLink-root.Mui-focusVisible': {
     outline: '1px solid black',
@@ -88,14 +90,7 @@ const OpintopolkuFooterLogo = () => {
   }
 };
 
-const OPHFooterLogo = () => {
-  switch (getLanguage()) {
-    case 'en':
-      return OPHIconEN;
-    default:
-      return OPHIcon;
-  }
-};
+const OPHFooterLogo = () => (getLanguage() === 'en' ? OPHIconEN : OPHIcon);
 
 export const Footer = () => {
   const { t } = useTranslation();
@@ -119,21 +114,22 @@ export const Footer = () => {
           <Grid
             container
             direction="row"
-            justifyContent="space-evenly"
+            justifyContent="space-between"
             alignItems="flex-start"
+            gap={1}
             paddingY={2}>
             <Grid size={{ xs: 12, sm: 4, md: 3 }}>
-              <Box m={1}>
+              <Box marginY={1}>
                 <Markdown options={overrides}>{content ?? ''}</Markdown>
               </Box>
             </Grid>
             <Grid size={{ xs: 12, sm: 4, md: 3 }}>
-              <Box m={1}>
+              <Box marginY={1}>
                 <Markdown options={overrides}>{contentCenter ?? ''}</Markdown>
               </Box>
             </Grid>
             <Grid size={{ xs: 12, sm: 4, md: 3 }}>
-              <Box m={1}>
+              <Box marginY={1}>
                 <Markdown options={overrides}>{contentRight ?? ''}</Markdown>
               </Box>
             </Grid>

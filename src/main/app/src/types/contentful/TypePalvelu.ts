@@ -10,4 +10,4 @@ export interface TypePalveluFields {
 }
 
 export type TypePalveluSkeleton = EntrySkeletonType<TypePalveluFields, "palvelu">;
-export type TypePalvelu<Modifiers extends ChainModifiers, Locales extends LocaleCode> = Entry<TypePalveluSkeleton, Modifiers, Locales>;
+export type TypePalvelu<Modifiers extends ChainModifiers, Locales extends LocaleCode = LocaleCode> = Entry<TypePalveluSkeleton, Modifiers, Locales>;

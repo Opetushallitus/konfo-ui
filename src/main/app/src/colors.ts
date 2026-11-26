@@ -32,6 +32,7 @@ export const colors = {
   brightGreenBg: '#64bc46',
   lightGrayishGreenBg: '#e3ecdd', // Ohjaava haku
   darkerGrayishGreenBg: '#a5c291', // Ohjaava haku hover
+  pageBackgroundGray: '#FAFAFA', // Page background color
 };
 
 // NOTE: kts. speksi Invision -> Oppija styleguide -> Konfo-UI colors

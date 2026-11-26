@@ -6,4 +6,4 @@ export interface TypeInfoFields {
 }
 
 export type TypeInfoSkeleton = EntrySkeletonType<TypeInfoFields, "info">;
-export type TypeInfo<Modifiers extends ChainModifiers, Locales extends LocaleCode> = Entry<TypeInfoSkeleton, Modifiers, Locales>;
+export type TypeInfo<Modifiers extends ChainModifiers, Locales extends LocaleCode = LocaleCode> = Entry<TypeInfoSkeleton, Modifiers, Locales>;

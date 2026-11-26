@@ -10,4 +10,4 @@ export interface TypeUutisetFields {
 }
 
 export type TypeUutisetSkeleton = EntrySkeletonType<TypeUutisetFields, "uutiset">;
-export type TypeUutiset<Modifiers extends ChainModifiers, Locales extends LocaleCode> = Entry<TypeUutisetSkeleton, Modifiers, Locales>;
+export type TypeUutiset<Modifiers extends ChainModifiers, Locales extends LocaleCode = LocaleCode> = Entry<TypeUutisetSkeleton, Modifiers, Locales>;

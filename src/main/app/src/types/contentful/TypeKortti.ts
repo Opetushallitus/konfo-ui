@@ -9,4 +9,4 @@ export interface TypeKorttiFields {
 }
 
 export type TypeKorttiSkeleton = EntrySkeletonType<TypeKorttiFields, "kortti">;
-export type TypeKortti<Modifiers extends ChainModifiers, Locales extends LocaleCode> = Entry<TypeKorttiSkeleton, Modifiers, Locales>;
+export type TypeKortti<Modifiers extends ChainModifiers, Locales extends LocaleCode = LocaleCode> = Entry<TypeKorttiSkeleton, Modifiers, Locales>;

@@ -1,5 +1,6 @@
-import { expect, Page, test } from '@playwright/test';
+import { Page } from '@playwright/test';
 
+import { expect, test } from './test-fixtures';
 import { fixtureFromFile, setupCommonTest } from './test-tools';
 
 const getKeskiarvoPalleroTulokset = (page: Page) =>
