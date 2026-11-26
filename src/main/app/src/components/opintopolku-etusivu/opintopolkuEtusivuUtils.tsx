@@ -34,23 +34,27 @@ const PAPER_LINK_CLASS = 'paper-link';
 // linkin nimeksi vain otsikon.
 export const PaperHeading = ({
   children,
-  color,
+  color = 'inherit',
   fontWeight = 600,
   to,
 }: {
   children: React.ReactNode;
-  color: string;
+  color?: string;
   fontWeight?: number;
   to?: string;
 }) => (
   <OphTypography component="h3" sx={{ fontSize: '24px', color, fontWeight }}>
-    <SmartLink className={PAPER_LINK_CLASS} href={to}>
-      {children}
-    </SmartLink>
+    {to ? (
+      <SmartLink className={PAPER_LINK_CLASS} href={to}>
+        {children}
+      </SmartLink>
+    ) : (
+      children
+    )}
   </OphTypography>
 );
 
-// Linkkinä toimivien laatikoiden yhteinen tyyli. Sisältö allekkain. Hiiri- ja kohdistustyylit ovat
+// Linkkinä toimivien laatikoiden yhteinen tyyli. Sisältö allekkain. Kaikilla laatikoilla sama varjo. Hiiri- ja kohdistustyylit ovat
 // laatikossa: otsikko alleviivataan, kun laatikon päällä on hiiri, ja näppäimistön kohdistus
 // näytetään koko laatikon ympärillä.
 export const LINK_PAPER_SX = {

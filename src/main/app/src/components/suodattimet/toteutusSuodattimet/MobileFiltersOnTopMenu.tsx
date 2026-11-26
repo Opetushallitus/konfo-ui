@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 
 import { Box, Divider } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 import { colors } from '#/src/colors';
 import { FilterSearchResultsButton } from '#/src/components/common/FilterSearchResultsButton';
@@ -8,7 +9,6 @@ import { MobileRajainDrawer } from '#/src/components/common/MobileRajainDrawer';
 import { RajainValues } from '#/src/store/reducers/hakutulosSlice';
 import { RajainName } from '#/src/types/common';
 import { RajainOrderItem, SetRajainValues } from '#/src/types/SuodatinTypes';
-import { useTranslation } from 'react-i18next';
 
 type Props = {
   rajainOrder: Array<RajainOrderItem>;
