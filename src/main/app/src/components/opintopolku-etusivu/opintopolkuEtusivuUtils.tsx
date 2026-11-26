@@ -9,7 +9,7 @@ import { PAPER_LINK_CLASS } from '#/src/components/opintopolku-etusivu/linkPaper
 import { EtusivuOsio } from '#/src/components/opintopolku-etusivu/useOpintopolkuEtusivuData';
 import { PageSectionHeading } from '#/src/components/PageSectionHeading';
 import { ExternalLink } from '../common/ExternalLink';
-import { isString, isUndefined } from 'lodash-es';
+import { isUndefined } from 'lodash-es';
 
 // Etusivun osio otsikkoineen. Osiota ei näytetä, jos siinä ei ole nostoja.
 // Otsikko nimeää osion, jolloin se on ruudunlukijalle nimetty alue (region-maamerkki).
@@ -58,12 +58,12 @@ const PaperHeadingContent = ({
   }
 };
 
-const parseValidExternalURL = (to?: string): URL | undefined => {
+const parseExternalURL = (to?: string): URL | undefined => {
   if (to) {
     try {
       return new URL(to);
     } catch (error) {
-      console.warn(error);
+      console.debug(error);
       return undefined;
     }
   }
@@ -72,11 +72,13 @@ const parseValidExternalURL = (to?: string): URL | undefined => {
 const otsikkoWithExternalDomain = (
   linkShouldOpenInNewTab?: boolean,
   otsikko?: string,
-  to?: URL | string
+  to?: string
 ): string => {
+  const parsedURL = parseExternalURL(to);
+
   const domain =
-    !isString(to) && linkShouldOpenInNewTab
-      ? to?.hostname?.replace('www.', '')
+    parsedURL && linkShouldOpenInNewTab
+      ? parsedURL?.hostname?.replace('www.', '')
       : undefined;
 
   const domainStr = domain ? ` (${domain})` : '';
@@ -99,16 +101,11 @@ export const PaperHeading = ({
   to?: string;
   otsikko?: string;
 }) => {
-  const parsedURL = parseValidExternalURL(to);
-  // Linkki on konfo-linkki, jos se sisältää sanan konfo ja se ei ole ns. ulkoinen linkki, joka sisältää sanan konfo eli sitä ei pystytä parsimaan URLiksi
-  const isKonfoLink = to?.includes('konfo') && !parsedURL;
-  const validURL = isKonfoLink ? to : parseValidExternalURL(to);
+  const isKonfoLink = to?.includes('/konfo');
   return (
     <OphTypography component="h3" sx={{ fontSize, color, fontWeight }}>
-      <PaperHeadingContent
-        to={validURL && validURL.toString()}
-        linkShouldOpenInNewTab={!isKonfoLink}>
-        {otsikkoWithExternalDomain(!isKonfoLink, otsikko, validURL)}
+      <PaperHeadingContent to={to} linkShouldOpenInNewTab={!isKonfoLink}>
+        {otsikkoWithExternalDomain(!isKonfoLink, otsikko, to)}
       </PaperHeadingContent>
     </OphTypography>
   );
