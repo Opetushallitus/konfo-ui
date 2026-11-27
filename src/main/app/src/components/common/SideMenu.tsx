@@ -12,7 +12,12 @@ import { OphButton, ophColors } from '@opetushallitus/oph-design-system';
 import { includes, last } from 'lodash-es';
 import { urls } from 'oph-urls-js';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useNavigate } from 'react-router-dom';
+import {
+  NavigationType,
+  useLocation,
+  useNavigate,
+  useNavigationType,
+} from 'react-router-dom';
 
 import { EtusivuLink } from '#/src/components/common/EtusivuLink';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
@@ -112,17 +117,20 @@ export const SideMenu = (props: {
   };
 
   // Suljetaan päällä oleva valikko sivun vaihtuessa (esim. murupolun kautta). Pelkkä kielen
-  // vaihto (/fi/... -> /sv/...) ei ole sivunvaihto, joten valikko jää silloin auki.
+  // vaihto (/fi/... -> /sv/...) ei ole sivunvaihto, joten valikko jää silloin auki. Myöskään
+  // uudelleenohjaukset (REPLACE) eivät sulje valikkoa, koska kielen vaihdon jälkeen esim.
+  // Contentful-sivun slug vaihdetaan uudelleenohjauksella valitun kielen mukaiseksi.
+  const navigationType = useNavigationType();
   const pathWithoutLanguage = withoutLanguagePrefix(pathname);
   const previousPathRef = useRef(pathWithoutLanguage);
   useEffect(() => {
     if (previousPathRef.current !== pathWithoutLanguage) {
       previousPathRef.current = pathWithoutLanguage;
-      if (isMenuOverlay) {
+      if (isMenuOverlay && navigationType !== NavigationType.Replace) {
         closeMenu();
       }
     }
-  }, [pathWithoutLanguage, isMenuOverlay, closeMenu]);
+  }, [pathWithoutLanguage, navigationType, isMenuOverlay, closeMenu]);
 
   const { data, isLoading } = useContentful();
   const [selected, setSelected] = useState<Array<string>>([]);
