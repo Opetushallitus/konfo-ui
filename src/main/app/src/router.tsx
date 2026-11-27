@@ -92,6 +92,14 @@ const routes: Array<RouteObject> = [
                 element: <OpintopolkuEtusivu />,
                 loader: resetHakuStateLoader,
               },
+              {
+                path: 'kielitutkinnot',
+                element: <KielitutkinnotPage />,
+              },
+              {
+                path: 'tutkintojen-tunnustaminen',
+                element: <TutuLaskeutumissivu />,
+              },
             ],
           },
           {
@@ -104,14 +112,6 @@ const routes: Array<RouteObject> = [
               {
                 path: 'tutkintojen-tunnustaminen/tutkintojen-tunnustamisen-palveluopas',
                 element: <TutuOpas />,
-              },
-              {
-                path: 'kielitutkinnot',
-                element: <KielitutkinnotPage />,
-              },
-              {
-                path: 'tutkintojen-tunnustaminen',
-                element: <TutuLaskeutumissivu />,
               },
             ],
           },
