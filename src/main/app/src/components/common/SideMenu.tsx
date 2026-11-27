@@ -1,15 +1,25 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 
-import { Drawer, drawerClasses, InputBase, Button, Box } from '@mui/material';
+import {
+  Drawer,
+  drawerClasses,
+  InputBase,
+  inputBaseClasses,
+  Box,
+  Stack,
+} from '@mui/material';
+import { OphButton } from '@opetushallitus/oph-design-system';
 import { includes, last } from 'lodash-es';
 import { urls } from 'oph-urls-js';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { colors } from '#/src/colors';
 import { EtusivuLink } from '#/src/components/common/EtusivuLink';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { MobileLanguageSelection } from '#/src/components/common/MobileLanguageSelection';
+import { OphThemeRoute } from '#/src/components/common/OphThemeRoute';
 import { SidebarValikko } from '#/src/components/common/SidebarValikko';
 import { SIDEMENU_WIDTH } from '#/src/constants';
 import { useContentful } from '#/src/hooks/useContentful';
@@ -18,8 +28,6 @@ import { getOne } from '#/src/tools/getOne';
 
 import { TextButtonLink } from './TextButtonLink';
 import { useSuosikitLink } from '../../hooks/useSuosikitLink';
-import { Stack } from '@mui/system';
-import { colors } from '#/src/colors';
 
 const StyledDrawer = styled(Drawer, {
   shouldForwardProp: (prop) => !includes(['isMenuOverlay'], prop),
@@ -50,14 +58,21 @@ const StyledDrawer = styled(Drawer, {
 }));
 
 const SearchForm = styled('form')(({ theme }) => ({
-  height: '38px',
-  display: 'flex',
-  alignItems: 'center',
+  width: `calc(100% - ${theme.spacing(1.5)})`,
+}));
+
+const SEARCH_INPUT_RADIUS = '4px';
+
+const SearchInput = styled(InputBase)(({ theme }) => ({
+  width: '100%',
+  height: '42px',
   boxSizing: 'border-box',
   border: '1px solid',
   borderColor: colors.grey500,
-  borderRadius: '2px',
-  width: `calc(100% - ${theme.spacing(1.5)})`,
+  borderRadius: SEARCH_INPUT_RADIUS,
+  [`& .${inputBaseClasses.input}`]: {
+    paddingLeft: theme.spacing(1),
+  },
 }));
 
 const withoutLanguagePrefix = (pathname: string) =>
@@ -116,116 +131,119 @@ export const SideMenu = (props: {
     if (isMenuOverlay) {
       closeMenu();
     }
-    navigate(`/${i18n.language}/sisaltohaku/?hakusana=${search}`);
+    navigate(`/${i18n.language}/sisaltohaku/?hakusana=${encodeURIComponent(search)}`);
   };
 
   return (
-    <StyledDrawer
-      id="side-menu"
-      open={menuVisible}
-      // Pienillä näytöillä valikko on sisällön päällä (temporary): Modal tuo taustan,
-      // vierityksen eston, fokuksen hallinnan ja Esc-sulkemisen. Muuten valikko siirtää sisältöä.
-      variant={isMenuOverlay ? 'temporary' : 'persistent'}
-      onClose={closeMenu}
-      ModalProps={{
-        keepMounted: true,
-        // Header fokusoi hakukentän valikon avautuessa
-        disableAutoFocus: true,
-      }}
-      anchor="left"
-      isMenuOverlay={isMenuOverlay}>
-      <Stack gap={3}>
-        <Box>
-          <label htmlFor={SEARCH_INPUT_ID}>
-            {t('sidebar.etsi-tietoa-opintopolusta')}:
-          </label>
+    <OphThemeRoute>
+      <StyledDrawer
+        id="side-menu"
+        open={menuVisible}
+        // Pienillä näytöillä valikko on sisällön päällä (temporary): Modal tuo taustan,
+        // vierityksen eston, fokuksen hallinnan ja Esc-sulkemisen. Muuten valikko siirtää sisältöä.
+        variant={isMenuOverlay ? 'temporary' : 'persistent'}
+        onClose={closeMenu}
+        ModalProps={{
+          keepMounted: true,
+          // Header fokusoi hakukentän valikon avautuessa
+          disableAutoFocus: true,
+        }}
+        anchor="left"
+        isMenuOverlay={isMenuOverlay}>
+        <Stack gap={3}>
           <SearchForm onSubmit={doSearch} role="search">
-            <InputBase
-              sx={{ flex: 1, borderRadius: 0, margin: 1 }}
+            <Box
+              component="label"
+              htmlFor={SEARCH_INPUT_ID}
+              sx={{ display: 'block', fontSize: '18px', marginBottom: 1 }}>
+              {t('sidebar.etsi-tietoa-opintopolusta')}:
+            </Box>
+            <SearchInput
+              id={SEARCH_INPUT_ID}
               value={search}
-              onKeyUp={(event) => {
-                if (event.key === 'Enter') {
-                  doSearch(event);
-                }
-              }}
               inputRef={searchRef}
               onChange={({ target }) => setSearch(target.value)}
-              inputProps={{
-                id: SEARCH_INPUT_ID,
-              }}
+              endAdornment={
+                <OphButton
+                  type="submit"
+                  variant="contained"
+                  sx={{
+                    alignSelf: 'stretch',
+                    minWidth: '40px',
+                    maxWidth: '40px',
+                    // Nappi peittää inputin reunaviivan oikealta, ylhäältä ja alhaalta
+                    margin: '-1px -1px -1px 0',
+                    borderRadius: `0 ${SEARCH_INPUT_RADIUS} ${SEARCH_INPUT_RADIUS} 0`,
+                  }}
+                  aria-label={t('sidebar.etsi-tietoa-opintopolusta')}>
+                  <MaterialIcon icon="search" />
+                </OphButton>
+              }
             />
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              sx={{ minWidth: '40px', maxWidth: '40px', borderRadius: 0 }}
-              aria-label={t('sidebar.etsi-tietoa-opintopolusta')}>
-              <MaterialIcon icon="search" />
-            </Button>
           </SearchForm>
-        </Box>
 
-        <Box
-          sx={{
-            display: { xs: 'flex', sm: 'none' },
-            flexDirection: 'column',
-            alignItems: 'flex-start',
-            gap: 0.5,
-          }}>
-          <EtusivuLink onClick={closeOverlayMenu} />
-          {suosikitLink && (
-            <TextButtonLink {...suosikitLink} onClick={closeOverlayMenu} />
-          )}
-          <TextButtonLink
-            href={urls.url('oma-opintopolku')}
-            target="_blank"
-            startIcon={<MaterialIcon icon="apps" />}>
-            {t('oma-opintopolku')}
-          </TextButtonLink>
-        </Box>
+          <Box
+            sx={{
+              display: { xs: 'flex', sm: 'none' },
+              flexDirection: 'column',
+              alignItems: 'flex-start',
+              gap: 0.5,
+            }}>
+            <EtusivuLink onClick={closeOverlayMenu} />
+            {suosikitLink && (
+              <TextButtonLink {...suosikitLink} onClick={closeOverlayMenu} />
+            )}
+            <TextButtonLink
+              href={urls.url('oma-opintopolku')}
+              target="_blank"
+              startIcon={<MaterialIcon icon="apps" />}>
+              {t('oma-opintopolku')}
+            </TextButtonLink>
+          </Box>
 
-        <MobileLanguageSelection />
+          <MobileLanguageSelection />
 
-        <Box>
-          {isLoading ? (
-            <LoadingCircle />
-          ) : (
-            linkit.map((linkkiValikko, index) => {
-              const id = linkkiValikko.id;
-              const links = linkkiValikko.linkki || [];
+          <Box>
+            {isLoading ? (
+              <LoadingCircle />
+            ) : (
+              linkit.map((linkkiValikko, index) => {
+                const id = linkkiValikko.id;
+                const links = linkkiValikko.linkki || [];
 
-              return (
-                <Fragment key={id}>
-                  <SidebarValikko
-                    parent={selectedValikko}
-                    name={linkkiValikko.name}
-                    deselect={popSelected}
-                    select={selectValikko}
-                    links={links}
-                    closeMenu={closeOverlayMenu}
-                  />
-                  {/* Tutkintojen tunnustaminen näytetään toisena olevan ("Hae koulutukseen") valikon jälkeen */}
-                  {!selectedValikko && index === 1 && (
+                return (
+                  <Fragment key={id}>
                     <SidebarValikko
-                      name={t('tutu.tutu')}
+                      parent={selectedValikko}
+                      name={linkkiValikko.name}
                       deselect={popSelected}
                       select={selectValikko}
-                      links={[]}
-                      internalLinks={[
-                        {
-                          name: t('tutu.tutu-opas.tutu-opas'),
-                          href: '/tutkintojen-tunnustaminen/tutkintojen-tunnustamisen-palveluopas',
-                        },
-                      ]}
+                      links={links}
                       closeMenu={closeOverlayMenu}
                     />
-                  )}
-                </Fragment>
-              );
-            })
-          )}
-        </Box>
-      </Stack>
-    </StyledDrawer>
+                    {/* Tutkintojen tunnustaminen näytetään toisena olevan ("Hae koulutukseen") valikon jälkeen */}
+                    {!selectedValikko && index === 1 && (
+                      <SidebarValikko
+                        name={t('tutu.tutu')}
+                        deselect={popSelected}
+                        select={selectValikko}
+                        links={[]}
+                        internalLinks={[
+                          {
+                            name: t('tutu.tutu-opas.tutu-opas'),
+                            href: '/tutkintojen-tunnustaminen/tutkintojen-tunnustamisen-palveluopas',
+                          },
+                        ]}
+                        closeMenu={closeOverlayMenu}
+                      />
+                    )}
+                  </Fragment>
+                );
+              })
+            )}
+          </Box>
+        </Stack>
+      </StyledDrawer>
+    </OphThemeRoute>
   );
 };

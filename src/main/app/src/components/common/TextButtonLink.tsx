@@ -8,8 +8,8 @@ export const TextButtonLink = (props: TextButtonLinkProps) => (
   <Button
     variant="text"
     disableRipple
-
     sx={{
+      paddingLeft: '3px',
       // Yhtenäinen ikonikoko: MUI pienentää startIconin ensimmäisen lapsen 20px:iin,
       // mutta esim. Badgeen kääritty ikoni jäisi muuten 24px:iin.
       [`& .${buttonClasses.startIcon} > *:nth-of-type(1)`]: {

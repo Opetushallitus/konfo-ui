@@ -22,13 +22,23 @@ export const MobileLanguageSelection = () => {
   };
 
   return (
-    <List aria-label={t('kielivalinta.valitse-kieli-taman-sivun-kieli-on')} dense>
+    // Tyylit määritelty tässä, koska sivuvalikko käyttää oph-design-systemin teemaa, josta
+    // puuttuvat Konfon teeman List-komponenttien ylikirjoitukset
+    <List
+      aria-label={t('kielivalinta.valitse-kieli-taman-sivun-kieli-on')}
+      dense
+      disablePadding>
       {LANG_OPTIONS.map((langOption) => (
-        <ListItem key={langOption.code}>
+        <ListItem
+          key={langOption.code}
+          sx={{ paddingTop: 0, paddingBottom: 0, paddingLeft: 0, paddingRight: '4px' }}>
           <ListItemButton
             sx={{
               paddingLeft: 0,
               color: colors.brandGreen,
+              '&:hover': {
+                backgroundColor: 'transparent',
+              },
               '&.Mui-disabled': {
                 opacity: 1,
                 color: colors.green900,
@@ -39,7 +49,7 @@ export const MobileLanguageSelection = () => {
             role="link"
             lang={langOption.ISOCode}
             aria-label={t(`kielivalinta.${langOption.code}`)}>
-            <ListItemIcon>
+            <ListItemIcon sx={{ minWidth: 32 }}>
               {isEqual(language, langOption.code) && (
                 <MaterialIcon sx={{ color: colors.green900 }} icon="check" />
               )}
@@ -47,7 +57,8 @@ export const MobileLanguageSelection = () => {
             <ListItemText
               primary={t(`kielivalinta.header.${langOption.code}`)}
               slotProps={{
-                primary: { fontWeight: 'bolder' },
+                // OPH-teeman typografialla on oma värinsä, joten peritään väri napista
+                primary: { fontWeight: 'bolder', width: '100%', color: 'inherit' },
               }}
             />
           </ListItemButton>
