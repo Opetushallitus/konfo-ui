@@ -4,9 +4,14 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
+import { SmartLink } from '#/src/components/common/SmartLink';
 import { useContentful } from '#/src/hooks/useContentful';
 import { styled } from '#/src/theme';
-import { ContentfulLink, ContentfulValikko } from '#/src/types/ContentfulTypes';
+import {
+  ContentfulLink,
+  ContentfulLinkki,
+  ContentfulValikko,
+} from '#/src/types/ContentfulTypes';
 import { ophColors } from '@opetushallitus/oph-design-system';
 
 const Otsikko = styled('h2')(({ theme }) => ({
@@ -92,6 +97,29 @@ const SivuItem = ({
   </BorderedItem>
 );
 
+const MenuSmartLink = styled(SmartLink)(menuItemStyles);
+
+const LinkkiItem = ({
+  linkki,
+  onClick,
+}: {
+  linkki: ContentfulLinkki;
+  onClick: () => void;
+}) => (
+  <BorderedItem>
+    <MenuSmartLink href={linkki.href} onClick={onClick}>
+      {linkki.ikoni && (
+        <IconBox aria-hidden="true" sx={{ color: ophColors.green2 }}>
+          <MaterialIcon icon={linkki.ikoni as MaterialIconName} variant="outlined" />
+        </IconBox>
+      )}
+      <MenuText sx={linkki.ikoni ? { paddingLeft: 0 } : undefined}>
+        {linkki.teksti}
+      </MenuText>
+    </MenuSmartLink>
+  </BorderedItem>
+);
+
 const ValikkoItem = ({
   name,
   id,
@@ -111,10 +139,36 @@ const ValikkoItem = ({
   </BorderedItem>
 );
 
-export const SidebarValikko = (props: {
-  parent?: ContentfulValikko;
-  select: (id: string) => void;
+// Paluu avatusta valikosta edelliselle tasolle
+export const SidebarTakaisin = ({
+  valikko,
+  deselect,
+}: {
+  valikko: ContentfulValikko;
   deselect: () => void;
+}) => (
+  <MenuButton
+    type="button"
+    onClick={deselect}
+    sx={{
+      marginTop: 4,
+      paddingLeft: 0,
+      backgroundColor: ophColors.grey50,
+      fontWeight: 600,
+    }}>
+    <IconBox
+      aria-hidden="true"
+      sx={{
+        backgroundColor: ophColors.green2,
+      }}>
+      <MaterialIcon icon="chevron_left" sx={{ color: ophColors.white }} />
+    </IconBox>
+    <MenuText>{valikko.name}</MenuText>
+  </MenuButton>
+);
+
+export const SidebarValikko = (props: {
+  select: (id: string) => void;
   closeMenu: () => void;
   name: string;
   links: Array<ContentfulLink>;
@@ -123,8 +177,8 @@ export const SidebarValikko = (props: {
 }) => {
   const navigate = useNavigate();
   const { i18n } = useTranslation();
-  const { forwardTo } = useContentful();
-  const { parent, select, deselect, closeMenu, name, links, internalLinks } = props;
+  const { forwardTo, data } = useContentful();
+  const { select, closeMenu, name, links, internalLinks } = props;
   const headingId = useId();
 
   const forwardToPage = (e: React.MouseEvent, href: string) => {
@@ -135,45 +189,40 @@ export const SidebarValikko = (props: {
 
   return (
     <nav aria-labelledby={headingId}>
-      {parent ? (
-        <MenuButton
-          type="button"
-          onClick={deselect}
-          sx={{
-            marginTop: 4,
-            paddingLeft: 0,
-            backgroundColor: ophColors.grey50,
-            fontWeight: 600,
-          }}>
-          <IconBox
-            aria-hidden="true"
-            sx={{
-              backgroundColor: ophColors.green2,
-            }}>
-            <MaterialIcon icon="chevron_left" sx={{ color: ophColors.white }} />
-          </IconBox>
-          <MenuText>{parent.name}</MenuText>
-        </MenuButton>
-      ) : null}
       <Otsikko id={headingId}>{name}</Otsikko>
       <MenuList>
-        {links.map((i) =>
-          i.type === 'sivu' ? (
-            <SivuItem
-              key={`sivu-item-${i.name}`}
-              name={i.name}
-              href={`/${i18n.language}${forwardTo(i.id)}`}
-              onClick={forwardToPage}
-            />
-          ) : (
-            <ValikkoItem
-              key={`valikko-item-${i.name}`}
-              name={i.name}
-              id={i.id}
-              select={select}
-            />
-          )
-        )}
+        {links.map((i) => {
+          switch (i.type) {
+            case 'sivu':
+              return (
+                <SivuItem
+                  key={`sivu-item-${i.id}`}
+                  name={i.name}
+                  href={`/${i18n.language}${forwardTo(i.id)}`}
+                  onClick={forwardToPage}
+                />
+              );
+            case 'linkki': {
+              const linkki = data.linkki[i.id];
+              return linkki ? (
+                <LinkkiItem
+                  key={`linkki-item-${i.id}`}
+                  linkki={linkki}
+                  onClick={closeMenu}
+                />
+              ) : null;
+            }
+            default:
+              return (
+                <ValikkoItem
+                  key={`valikko-item-${i.id}`}
+                  name={i.name}
+                  id={i.id}
+                  select={select}
+                />
+              );
+          }
+        })}
         {internalLinks?.map((link) => (
           <SivuItem
             key={`internal-item-${link.href}`}

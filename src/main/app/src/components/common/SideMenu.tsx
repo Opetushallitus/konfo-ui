@@ -19,11 +19,12 @@ import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { MobileLanguageSelection } from '#/src/components/common/MobileLanguageSelection';
 import { OphThemeRoute } from '#/src/components/common/OphThemeRoute';
-import { SidebarValikko } from '#/src/components/common/SidebarValikko';
+import { SidebarTakaisin, SidebarValikko } from '#/src/components/common/SidebarValikko';
 import { SIDEMENU_WIDTH } from '#/src/constants';
 import { useContentful } from '#/src/hooks/useContentful';
 import { getHeaderHeight, styled } from '#/src/theme';
 import { getOne } from '#/src/tools/getOne';
+import { ContentfulLink, ContentfulValikko } from '#/src/types/ContentfulTypes';
 
 import { TextButtonLink } from './TextButtonLink';
 import { useSuosikitLink } from '../../hooks/useSuosikitLink';
@@ -78,6 +79,19 @@ const withoutLanguagePrefix = (pathname: string) =>
 
 const SEARCH_INPUT_ID = 'side-menu-search-input';
 
+// Valikon osio: otsikko (alivalikon nimi) ja sen alla näytettävät linkit
+type Osio = {
+  id: string;
+  name: string;
+  links: Array<ContentfulLink>;
+};
+
+const toOsio = (v: ContentfulValikko): Osio => ({
+  id: v.id,
+  name: v.name,
+  links: v.linkki ?? [],
+});
+
 export const SideMenu = (props: {
   menuVisible?: boolean;
   isMenuOverlay: boolean;
@@ -114,15 +128,30 @@ export const SideMenu = (props: {
   const [selected, setSelected] = useState<Array<string>>([]);
   const [search, setSearch] = useState('');
 
-  const { valikot, valikko } = data;
+  const { paavalikko, valikko } = data;
   const selectValikko = (newValikkoId: string) =>
     setSelected([...selected, newValikkoId]);
   const popSelected = () => setSelected(selected.slice(0, -1));
   const lastSelected = last(selected);
   const selectedValikko = lastSelected ? valikko?.[lastSelected] : undefined;
-  const linkit = selectedValikko
-    ? [selectedValikko]
-    : (getOne(valikot)?.valikot ?? []).map((v) => valikko[v.id]);
+
+  // Jos avatun valikon kaikki kohdat ovat alivalikoita, näytetään alivalikot omina
+  // otsikoituina osioinaan. Muuten kohdat näytetään avatun valikon otsikon alla.
+  const toOsiot = (avattu: ContentfulValikko): Array<Osio> => {
+    const alivalikot = (avattu.linkki ?? []).map((link) =>
+      link.type === 'valikko' ? valikko[link.id] : undefined
+    );
+    return alivalikot.length > 0 && alivalikot.every(Boolean)
+      ? (alivalikot as Array<ContentfulValikko>).map(toOsio)
+      : [toOsio(avattu)];
+  };
+
+  const osiot: Array<Osio> = selectedValikko
+    ? toOsiot(selectedValikko)
+    : (getOne(paavalikko)?.valikot ?? [])
+        .map((v) => valikko[v.id])
+        .filter(Boolean)
+        .map(toOsio);
 
   const doSearch = (event: React.SyntheticEvent) => {
     event.preventDefault();
@@ -205,25 +234,22 @@ export const SideMenu = (props: {
           {isLoading ? (
             <LoadingCircle />
           ) : (
-            linkit.map((linkkiValikko, index) => {
-              const id = linkkiValikko.id;
-              const links = linkkiValikko.linkki || [];
-
-              return (
-                <Fragment key={id}>
+            <>
+              {selectedValikko && (
+                <SidebarTakaisin valikko={selectedValikko} deselect={popSelected} />
+              )}
+              {osiot.map((osio, index) => (
+                <Fragment key={osio.id}>
                   <SidebarValikko
-                    parent={selectedValikko}
-                    name={linkkiValikko.name}
-                    deselect={popSelected}
+                    name={osio.name}
                     select={selectValikko}
-                    links={links}
+                    links={osio.links}
                     closeMenu={closeOverlayMenu}
                   />
                   {/* Tutkintojen tunnustaminen näytetään toisena olevan ("Hae koulutukseen") valikon jälkeen */}
                   {!selectedValikko && index === 1 && (
                     <SidebarValikko
                       name={t('tutu.tutu')}
-                      deselect={popSelected}
                       select={selectValikko}
                       links={[]}
                       internalLinks={[
@@ -236,8 +262,8 @@ export const SideMenu = (props: {
                     />
                   )}
                 </Fragment>
-              );
-            })
+              ))}
+            </>
           )}
         </Box>
       </StyledDrawer>

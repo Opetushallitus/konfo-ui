@@ -1,10 +1,11 @@
 import type { ChainModifiers, Entry, EntryFieldTypes, EntrySkeletonType, LocaleCode } from "contentful";
+import type { TypeLinkkiSkeleton } from "./TypeLinkki";
 import type { TypeSivuSkeleton } from "./TypeSivu";
 
 export interface TypeValikkoFields {
     name?: EntryFieldTypes.Symbol;
     slug?: EntryFieldTypes.Symbol;
-    linkki?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeSivuSkeleton | TypeValikkoSkeleton>>;
+    linkki?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeLinkkiSkeleton | TypeSivuSkeleton | TypeValikkoSkeleton>>;
 }
 
 export type TypeValikkoSkeleton = EntrySkeletonType<TypeValikkoFields, "valikko">;

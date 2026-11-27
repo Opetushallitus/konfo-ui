@@ -12,12 +12,13 @@ export type { TypeLinkki, TypeLinkkiFields, TypeLinkkiSkeleton } from "./TypeLin
 export type { TypeNosto, TypeNostoFields, TypeNostoSkeleton } from "./TypeNosto";
 export type { TypeOhjeetJaTuki, TypeOhjeetJaTukiFields, TypeOhjeetJaTukiSkeleton } from "./TypeOhjeetJaTuki";
 export type { TypeOpintopolkuEtusivu, TypeOpintopolkuEtusivuFields, TypeOpintopolkuEtusivuSkeleton } from "./TypeOpintopolkuEtusivu";
+export type { TypePaavalikko, TypePaavalikkoFields, TypePaavalikkoSkeleton } from "./TypePaavalikko";
 export type { TypePalvelu, TypePalveluFields, TypePalveluSkeleton } from "./TypePalvelu";
 export type { TypePalvelut, TypePalvelutFields, TypePalvelutSkeleton } from "./TypePalvelut";
 export type { TypePikalinkit, TypePikalinkitFields, TypePikalinkitSkeleton } from "./TypePikalinkit";
 export type { TypeSivu, TypeSivuFields, TypeSivuSkeleton } from "./TypeSivu";
-export type { TypeTutkintojenTunnustamisenPalveluopas, TypeTutkintojenTunnustamisenPalveluopasFields, TypeTutkintojenTunnustamisenPalveluopasSkeleton } from "./TypeTutkintojenTunnustamisenPalveluopas";
 export type { TypeTutkintojenTunnustaminenLaskeutumissivu, TypeTutkintojenTunnustaminenLaskeutumissivuFields, TypeTutkintojenTunnustaminenLaskeutumissivuSkeleton } from "./TypeTutkintojenTunnustaminenLaskeutumissivu";
+export type { TypeTutkintojenTunnustamisenPalveluopas, TypeTutkintojenTunnustamisenPalveluopasFields, TypeTutkintojenTunnustamisenPalveluopasSkeleton } from "./TypeTutkintojenTunnustamisenPalveluopas";
 export type { TypeUutinen, TypeUutinenFields, TypeUutinenSkeleton } from "./TypeUutinen";
 export type { TypeUutiset, TypeUutisetFields, TypeUutisetSkeleton } from "./TypeUutiset";
 export type { TypeValikko, TypeValikkoFields, TypeValikkoSkeleton } from "./TypeValikko";

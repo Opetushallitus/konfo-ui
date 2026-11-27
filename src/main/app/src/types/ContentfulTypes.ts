@@ -24,7 +24,7 @@ import {
   TypeUutinen,
   TypeUutiset,
   TypeValikko,
-  TypeValikot,
+  TypePaavalikko,
   TypeHairiotiedote,
   TypeTutkintojenTunnustamisenPalveluopas,
   TypeOpintopolkuEtusivu,
@@ -106,7 +106,7 @@ export type ContentfulSivu = ContentfulItem<TypeSivu<Mod, ''>>;
 export type ContentfulUutinen = ContentfulItem<TypeUutinen<Mod, ''>>;
 export type ContentfulUutiset = ContentfulItem<TypeUutiset<Mod, ''>>;
 export type ContentfulValikko = ContentfulItem<TypeValikko<Mod, ''>>;
-export type ContentfulValikot = ContentfulItem<TypeValikot<Mod, ''>>;
+export type ContentfulPaavalikko = ContentfulItem<TypePaavalikko<Mod, ''>>;
 export type ContentfulHairiotiedote = ContentfulItem<TypeHairiotiedote<Mod, ''>>;
 export type ContentfulTutkintojenTunnustamisenPalveluopas = ContentfulItem<
   TypeTutkintojenTunnustamisenPalveluopas<Mod, ''>
@@ -136,7 +136,7 @@ export type ContentfulData = {
   uutinen: CfRecord<ContentfulUutinen>;
   uutiset: CfRecord<ContentfulUutiset>;
   valikko: CfRecord<ContentfulValikko>;
-  valikot: CfRecord<ContentfulValikot>;
+  paavalikko: CfRecord<ContentfulPaavalikko>;
   hairiotiedote: CfRecord<ContentfulHairiotiedote>;
   tutkintojenTunnustamisenPalveluopas: CfRecord<ContentfulTutkintojenTunnustamisenPalveluopas>;
   opintopolkuEtusivu: CfRecord<ContentfulOpintopolkuEtusivu>;

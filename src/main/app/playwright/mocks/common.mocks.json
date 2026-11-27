@@ -40,9 +40,9 @@
           "fi": "1610105911028/fi/uutinen.json",
           "sv": "1610105911028/sv/uutinen.json"
         },
-        "valikot": {
-          "fi": "1587477941420/fi/valikot.json",
-          "sv": "1587477941420/sv/valikot.json"
+        "paavalikko": {
+          "fi": "1587477941420/fi/paavalikko.json",
+          "sv": "1587477941420/sv/paavalikko.json"
         },
         "kortit": {
           "fi": "1610104156309/fi/kortit.json",
@@ -3095,13 +3095,14 @@
     }
   },
   {
-    "url": "https://konfo-content.untuvaopintopolku.fi/1587477941420/fi/valikot.json",
+    "url": "https://konfo-content.untuvaopintopolku.fi/1587477941420/fi/paavalikko.json",
     "response": {
       "body": [
         {
           "id": "2nVR8h3O8Xtb8QDIVEp9Ly",
-          "name": "Päätason valikot",
-          "type": "valikot",
+          "name": "Päävalikko",
+          "nimi": "Päävalikko",
+          "type": "paavalikko",
           "created": "2020-01-03T08:51:13.180Z",
           "updated": "2020-04-21T14:05:42.292Z",
           "valikot": [
@@ -3132,13 +3133,14 @@
     }
   },
   {
-    "url": "https://konfo-content.untuvaopintopolku.fi/1587477941420/sv/valikot.json",
+    "url": "https://konfo-content.untuvaopintopolku.fi/1587477941420/sv/paavalikko.json",
     "response": {
       "body": [
         {
           "id": "2nVR8h3O8Xtb8QDIVEp9Ly",
-          "name": "Päätason valikot",
-          "type": "valikot",
+          "name": "Päävalikko",
+          "nimi": "Päävalikko",
+          "type": "paavalikko",
           "created": "2020-01-03T08:51:13.180Z",
           "updated": "2020-04-21T14:05:42.292Z",
           "valikot": [

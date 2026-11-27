@@ -5,6 +5,7 @@ export interface TypeLinkkiFields {
     teksti: EntryFieldTypes.Symbol;
     avautuuUuteenIkkunaan?: EntryFieldTypes.Boolean;
     variant?: EntryFieldTypes.Symbol<"contained" | "outlined" | "text">;
+    ikoni?: EntryFieldTypes.Symbol;
 }
 
 export type TypeLinkkiSkeleton = EntrySkeletonType<TypeLinkkiFields, "linkki">;

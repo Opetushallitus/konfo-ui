@@ -27,7 +27,7 @@ const initialContentfulData: ContentfulData = {
   uutinen: {},
   uutiset: {},
   valikko: {},
-  valikot: {},
+  paavalikko: {},
   hairiotiedote: {},
   tutkintojenTunnustamisenPalveluopas: {},
   opintopolkuEtusivu: {},
