@@ -17,20 +17,17 @@ type Props = {
 
 export const Kuvaus = ({ kuvaus, sisalto = [] }: Props) => {
   const { t } = useTranslation();
+  const heading = t('valintaperuste.kuvaus');
 
   return (
     <Grid size={{ xs: 12 }}>
       <Box py={4}>
         <Divider />
       </Box>
-      {!isEmpty(kuvaus) && (
-        <Box>
-          <Typography id={toId(t('valintaperuste.kuvaus'))} variant="h2">
-            {t('valintaperuste.kuvaus')}
-          </Typography>
-          <LocalizedHTML data={kuvaus} replace={tagHeaders} />
-        </Box>
-      )}
+      <Typography id={toId(heading)} variant="h2">
+        {heading}
+      </Typography>
+      {!isEmpty(kuvaus) && <LocalizedHTML data={kuvaus} replace={tagHeaders} />}
       {sisalto?.length > 0 && <Box>{sisalto.map(SisaltoComponent)}</Box>}
     </Grid>
   );
