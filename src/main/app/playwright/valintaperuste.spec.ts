@@ -22,4 +22,35 @@ test.describe('Valintaperuste page', () => {
     ).toBeVisible();
     await page.getByRole('button', { name: /Tilaisuus 1/ }).click();
   });
+
+  test('description link focuses the heading with a content block and blank Kuvauksen tarkenne', async ({
+    page,
+  }) => {
+    const descriptionText = 'Hakijat valitaan haastattelun perusteella.';
+    await page.route('**/konfo-backend/valintaperuste/*', (route) =>
+      route.fulfill({
+        json: {
+          metadata: {
+            sisalto: [{ tyyppi: 'teksti', data: { fi: `<p>${descriptionText}</p>` } }],
+          },
+        },
+      })
+    );
+
+    await page.goto(
+      '/konfo/fi/hakukohde/1.2.246.562.20.00000000000000000191/valintaperuste'
+    );
+
+    const descriptionLabel = 'Valintaperusteen kuvaus';
+    const heading = page.getByRole('heading', {
+      name: descriptionLabel,
+      level: 2,
+      exact: true,
+    });
+    await expect(heading).toBeVisible();
+    await expect(page.getByText(descriptionText, { exact: true })).toBeVisible();
+
+    await page.getByRole('link', { name: descriptionLabel, exact: true }).click();
+    await expect(heading).toBeFocused();
+  });
 });
