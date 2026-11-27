@@ -95,7 +95,7 @@ export const HeroImageContent = ({
       <BackgroundImage background_image_url={backgroundImage}>
         <WithSideMargins>
           <HeroTextContainer>
-            <HeroHeading variant="h1">{t('tutu-laskeutumissivu.hero-title')}</HeroHeading>
+            <HeroHeading variant="h1">{t('tutu-laskeutumissivu.title')}</HeroHeading>
             <HorizontalLine />
             <OphTypography>{t('tutu-laskeutumissivu.hero-text')}</OphTypography>
           </HeroTextContainer>

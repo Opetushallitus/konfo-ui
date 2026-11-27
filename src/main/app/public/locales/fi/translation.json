@@ -951,7 +951,7 @@
     "julkaistu": "Julkaistu {{pvm}}"
   },
   "tutu-laskeutumissivu": {
-    "hero-title": "Tutkintojen tunnustaminen",
+    "title": "Tutkintojen tunnustaminen",
     "hero-text": "Tutkintojen tunnustamisella tarkoitetaan päätöstä siitä, millaisen kelpoisuuden toisessa maassa suoritettu tutkinto antaa työtä tai opiskelupaikkaa haettaessa. Päätöksiä tekevät viranomaiset, oppilaitokset ja korkeakoulut sekä työnantajat.",
     "aloita-selvitys": "Aloita selvitys"
   }

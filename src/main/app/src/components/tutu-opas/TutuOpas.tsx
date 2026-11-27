@@ -12,6 +12,7 @@ import { useContentful } from '#/src/hooks/useContentful';
 import { QuestionPage } from './components/QuestionPage';
 import { StartPage } from './components/StartPage';
 import { TutuObject } from './types';
+import { useLanguageState } from '#/src/hooks';
 
 const parseOpasJson = (opasJson: unknown): Array<TutuObject> => {
   if (typeof opasJson === 'string') {
@@ -59,11 +60,20 @@ const TutuOpasContent = () => {
 export const TutuOpas = () => {
   const { t } = useTranslation();
   const theme = useTheme();
+  const [language] = useLanguageState();
 
   return (
     <Container maxWidth="md" sx={{ marginBottom: theme.spacing(8) }}>
       <Box marginBottom={theme.spacing(3)}>
-        <Murupolku path={[{ name: t('tutu.tutu-opas.tutu-opas'), link: '/' }]} />
+        <Murupolku
+          path={[
+            {
+              name: t('tutu-laskeutumissivu.title'),
+              link: `/konfo/${language}/tutkintojen-tunnustaminen`,
+            },
+            { name: t('tutu.tutu-opas.tutu-opas') },
+          ]}
+        />
       </Box>
       <TutuOpasContent />
     </Container>
