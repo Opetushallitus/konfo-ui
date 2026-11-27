@@ -8,13 +8,12 @@ import {
   Box,
   Stack,
 } from '@mui/material';
-import { OphButton } from '@opetushallitus/oph-design-system';
+import { OphButton, ophColors } from '@opetushallitus/oph-design-system';
 import { includes, last } from 'lodash-es';
 import { urls } from 'oph-urls-js';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { colors } from '#/src/colors';
 import { EtusivuLink } from '#/src/components/common/EtusivuLink';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
@@ -48,8 +47,7 @@ const StyledDrawer = styled(Drawer, {
       }),
 
   [`& .${drawerClasses.paper}`]: {
-    paddingLeft: theme.spacing(1.5),
-    paddingTop: theme.spacing(2),
+    padding: theme.spacing(2, 1.5, 4, 1.5),
     marginTop: getHeaderHeight(theme),
     height: `calc(100% - ${getHeaderHeight(theme)}px)`,
     width: isMenuOverlay ? '100%' : SIDEMENU_WIDTH,
@@ -68,7 +66,7 @@ const SearchInput = styled(InputBase)(({ theme }) => ({
   height: '42px',
   boxSizing: 'border-box',
   border: '1px solid',
-  borderColor: colors.grey500,
+  borderColor: ophColors.grey400,
   borderRadius: SEARCH_INPUT_RADIUS,
   [`& .${inputBaseClasses.input}`]: {
     paddingLeft: theme.spacing(1),
@@ -202,47 +200,46 @@ export const SideMenu = (props: {
           </Box>
 
           <MobileLanguageSelection />
+        </Stack>
+        <Box>
+          {isLoading ? (
+            <LoadingCircle />
+          ) : (
+            linkit.map((linkkiValikko, index) => {
+              const id = linkkiValikko.id;
+              const links = linkkiValikko.linkki || [];
 
-          <Box>
-            {isLoading ? (
-              <LoadingCircle />
-            ) : (
-              linkit.map((linkkiValikko, index) => {
-                const id = linkkiValikko.id;
-                const links = linkkiValikko.linkki || [];
-
-                return (
-                  <Fragment key={id}>
+              return (
+                <Fragment key={id}>
+                  <SidebarValikko
+                    parent={selectedValikko}
+                    name={linkkiValikko.name}
+                    deselect={popSelected}
+                    select={selectValikko}
+                    links={links}
+                    closeMenu={closeOverlayMenu}
+                  />
+                  {/* Tutkintojen tunnustaminen näytetään toisena olevan ("Hae koulutukseen") valikon jälkeen */}
+                  {!selectedValikko && index === 1 && (
                     <SidebarValikko
-                      parent={selectedValikko}
-                      name={linkkiValikko.name}
+                      name={t('tutu.tutu')}
                       deselect={popSelected}
                       select={selectValikko}
-                      links={links}
+                      links={[]}
+                      internalLinks={[
+                        {
+                          name: t('tutu.tutu-opas.tutu-opas'),
+                          href: '/tutkintojen-tunnustaminen/tutkintojen-tunnustamisen-palveluopas',
+                        },
+                      ]}
                       closeMenu={closeOverlayMenu}
                     />
-                    {/* Tutkintojen tunnustaminen näytetään toisena olevan ("Hae koulutukseen") valikon jälkeen */}
-                    {!selectedValikko && index === 1 && (
-                      <SidebarValikko
-                        name={t('tutu.tutu')}
-                        deselect={popSelected}
-                        select={selectValikko}
-                        links={[]}
-                        internalLinks={[
-                          {
-                            name: t('tutu.tutu-opas.tutu-opas'),
-                            href: '/tutkintojen-tunnustaminen/tutkintojen-tunnustamisen-palveluopas',
-                          },
-                        ]}
-                        closeMenu={closeOverlayMenu}
-                      />
-                    )}
-                  </Fragment>
-                );
-              })
-            )}
-          </Box>
-        </Stack>
+                  )}
+                </Fragment>
+              );
+            })
+          )}
+        </Box>
       </StyledDrawer>
     </OphThemeRoute>
   );
