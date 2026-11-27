@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Grid, Link, Typography } from '@mui/material';
 import { some, isEmpty, uniq } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -17,7 +17,6 @@ import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { Murupolku } from '#/src/components/common/Murupolku';
 import { PageSection } from '#/src/components/common/PageSection';
 import { TeemakuvaImage } from '#/src/components/common/TeemakuvaImage';
-import { TextButtonLink } from '#/src/components/common/TextButtonLink';
 import { Heading } from '#/src/components/Heading';
 import { useOppilaitokset } from '#/src/components/oppilaitos/hooks';
 import { KOULUTUS_TYYPPI } from '#/src/constants';
@@ -60,12 +59,15 @@ const OppilaitosHeadingText = styled(Typography)(({ theme }) => ({
   textAlign: 'center',
 }));
 
-const OppilaitosHeadingLink = styled(TextButtonLink)({
-  display: 'flex',
+const OppilaitosHeadingLink = styled(Link)({
+  display: 'block',
+  padding: '6px 8px',
   fontSize: '1.25rem',
-  textDecoration: 'none',
   textAlign: 'center',
-  flexShrink: 0,
+  textDecoration: 'none',
+  '&:hover': {
+    textDecoration: 'underline',
+  },
 });
 
 const ToteutusHeading = styled(Heading)({

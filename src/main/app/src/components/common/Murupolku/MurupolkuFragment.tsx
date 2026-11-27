@@ -2,6 +2,7 @@ import { Button, Link, useMediaQuery } from '@mui/material';
 import { isString } from 'lodash-es';
 
 import { colors } from '#/src/colors';
+import { EtusivuLink } from '#/src/components/common/EtusivuLink';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { styled, theme } from '#/src/theme';
 
@@ -10,7 +11,7 @@ import type { MurupolkuFragmentProps } from './types';
 const PREFIX = 'MurupolkuFragment';
 
 const classes = {
-  home: `${PREFIX}-home`,
+  homeLink: `${PREFIX}-homeLink`,
   arrow: `${PREFIX}-arrow`,
   link: `${PREFIX}Link`,
   text: `${PREFIX}Text`,
@@ -25,11 +26,8 @@ type RootProps = {
 const Root = styled('span', {
   shouldForwardProp: (propName) => !['isLast', 'isHome'].includes(propName as string),
 })<RootProps>(({ isLast, isHome }) => ({
-  [`& .${classes.home}`]: {
-    display: 'inline',
+  [`& .${classes.homeLink}`]: {
     marginRight: BREADCRUMB_ICON_SPACING,
-    verticalAlign: 'text-bottom',
-    fontSize: '22px',
   },
 
   [`& .${classes.arrow}`]: {
@@ -134,16 +132,11 @@ export const MurupolkuFragment = ({
   const normalizedName = name.trim();
   const shortenedName = isXLargeDown ? shortenName(normalizedName) : normalizedName;
 
-  const homeIcon = isHome ? (
-    <MaterialIcon
-      icon="home"
-      variant="outlined"
-      aria-hidden="true"
-      className={classes.home}
-    />
-  ) : null;
-
   const renderContent = () => {
+    if (isHome) {
+      return <EtusivuLink className={classes.homeLink} onClick={closeDrawer} />;
+    }
+
     if (isCollapsedPart) {
       return (
         <Button className={classes.collapsedPart} onClick={openDrawer}>
@@ -155,7 +148,6 @@ export const MurupolkuFragment = ({
     if (isInteractiveLink) {
       return (
         <Link href={interactiveHref} className={classes.link} onClick={closeDrawer}>
-          {homeIcon}
           {shortenedName}
         </Link>
       );
@@ -163,7 +155,6 @@ export const MurupolkuFragment = ({
 
     return (
       <span className={classes.text} aria-current={ariaCurrent}>
-        {homeIcon}
         {shortenedName}
       </span>
     );

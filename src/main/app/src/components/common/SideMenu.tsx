@@ -1,16 +1,15 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 
-import { Drawer, Paper, InputBase, Button, Box } from '@mui/material';
+import { Drawer, drawerClasses, InputBase, Button, Box } from '@mui/material';
 import { includes, last } from 'lodash-es';
 import { urls } from 'oph-urls-js';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { colors } from '#/src/colors';
+import { EtusivuLink } from '#/src/components/common/EtusivuLink';
 import { LoadingCircle } from '#/src/components/common/LoadingCircle';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { MobileLanguageSelection } from '#/src/components/common/MobileLanguageSelection';
-import { Murupolku } from '#/src/components/common/Murupolku';
 import { SidebarValikko } from '#/src/components/common/SidebarValikko';
 import { SIDEMENU_WIDTH } from '#/src/constants';
 import { useContentful } from '#/src/hooks/useContentful';
@@ -19,20 +18,8 @@ import { getOne } from '#/src/tools/getOne';
 
 import { TextButtonLink } from './TextButtonLink';
 import { useSuosikitLink } from '../../hooks/useSuosikitLink';
-
-const PREFIX = 'SideMenu';
-
-const classes = {
-  drawer: `${PREFIX}Drawer`,
-  drawerPaper: `${PREFIX}DrawerPaper`,
-  inputBackground: `${PREFIX}InputBackground`,
-  murupolku: `${PREFIX}Murupolku`,
-  inputRoot: `${PREFIX}InputRoot`,
-  input: `${PREFIX}Input`,
-  iconButton: `${PREFIX}IconButton`,
-  divider: `${PREFIX}Divider`,
-  drawerHeader: `${PREFIX}DrawerHeader`,
-};
+import { Stack } from '@mui/system';
+import { colors } from '#/src/colors';
 
 const StyledDrawer = styled(Drawer, {
   shouldForwardProp: (prop) => !includes(['isMenuOverlay'], prop),
@@ -52,64 +39,31 @@ const StyledDrawer = styled(Drawer, {
         flexShrink: 0,
       }),
 
-  [`& .${classes.drawerPaper}`]: {
+  [`& .${drawerClasses.paper}`]: {
+    paddingLeft: theme.spacing(1.5),
+    paddingTop: theme.spacing(2),
     marginTop: getHeaderHeight(theme),
     height: `calc(100% - ${getHeaderHeight(theme)}px)`,
     width: isMenuOverlay ? '100%' : SIDEMENU_WIDTH,
     maxWidth: SIDEMENU_WIDTH,
   },
+}));
 
-  [`& .${classes.inputBackground}`]: {
-    backgroundColor: colors.white,
-    paddingLeft: '20px',
-    paddingTop: '20px',
-    paddingBottom: '20px',
-  },
-
-  [`& .${classes.murupolku}`]: {
-    paddingLeft: '20px',
-    paddingTop: '20px',
-    paddingBottom: '20px',
-  },
-
-  [`& .${classes.inputRoot}`]: {
-    height: '38px',
-    display: 'flex',
-    alignItems: 'center',
-    boxSizing: 'border-box',
-    border: '1px solid #B2B2B2',
-    borderRadius: '2px',
-    width: 290,
-  },
-
-  [`& .${classes.input}`]: {
-    borderRadius: 0,
-    marginLeft: theme.spacing(1),
-    flex: 1,
-  },
-
-  [`& .${classes.iconButton}`]: {
-    minWidth: '40px',
-    maxWidth: '40px',
-    borderRadius: 0,
-  },
-
-  [`& .${classes.divider}`]: {
-    height: 28,
-    margin: 4,
-  },
-
-  [`& .${classes.drawerHeader}`]: {
-    display: 'flex',
-    alignItems: 'center',
-    padding: theme.spacing(0, 1),
-    ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
-  },
+const SearchForm = styled('form')(({ theme }) => ({
+  height: '38px',
+  display: 'flex',
+  alignItems: 'center',
+  boxSizing: 'border-box',
+  border: '1px solid',
+  borderColor: colors.grey500,
+  borderRadius: '2px',
+  width: `calc(100% - ${theme.spacing(1.5)})`,
 }));
 
 const withoutLanguagePrefix = (pathname: string) =>
   pathname.replace(/^\/(fi|sv|en)(?=\/|$)/, '');
+
+const SEARCH_INPUT_ID = 'side-menu-search-input';
 
 export const SideMenu = (props: {
   menuVisible?: boolean;
@@ -152,7 +106,7 @@ export const SideMenu = (props: {
     setSelected([...selected, newValikkoId]);
   const popSelected = () => setSelected(selected.slice(0, -1));
   const lastSelected = last(selected);
-  const selectedValikko = lastSelected ? (valikko ?? {})[lastSelected] : undefined;
+  const selectedValikko = lastSelected ? valikko?.[lastSelected] : undefined;
   const linkit = selectedValikko
     ? [selectedValikko]
     : (getOne(valikot)?.valikot ?? []).map((v) => valikko[v.id]);
@@ -169,7 +123,6 @@ export const SideMenu = (props: {
     <StyledDrawer
       id="side-menu"
       open={menuVisible}
-      className={classes.drawer}
       // Pienillä näytöillä valikko on sisällön päällä (temporary): Modal tuo taustan,
       // vierityksen eston, fokuksen hallinnan ja Esc-sulkemisen. Muuten valikko siirtää sisältöä.
       variant={isMenuOverlay ? 'temporary' : 'persistent'}
@@ -180,17 +133,46 @@ export const SideMenu = (props: {
         disableAutoFocus: true,
       }}
       anchor="left"
-      classes={{
-        paper: classes.drawerPaper,
-      }}
-      isMenuOverlay={props.isMenuOverlay}>
-      <div className={classes.inputBackground}>
+      isMenuOverlay={isMenuOverlay}>
+      <Stack gap={3}>
+        <Box>
+          <label htmlFor={SEARCH_INPUT_ID}>
+            {t('sidebar.etsi-tietoa-opintopolusta')}:
+          </label>
+          <SearchForm onSubmit={doSearch} role="search">
+            <InputBase
+              sx={{ flex: 1, borderRadius: 0, margin: 1 }}
+              value={search}
+              onKeyUp={(event) => {
+                if (event.key === 'Enter') {
+                  doSearch(event);
+                }
+              }}
+              inputRef={searchRef}
+              onChange={({ target }) => setSearch(target.value)}
+              inputProps={{
+                id: SEARCH_INPUT_ID,
+              }}
+            />
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              sx={{ minWidth: '40px', maxWidth: '40px', borderRadius: 0 }}
+              aria-label={t('sidebar.etsi-tietoa-opintopolusta')}>
+              <MaterialIcon icon="search" />
+            </Button>
+          </SearchForm>
+        </Box>
+
         <Box
           sx={{
             display: { xs: 'flex', sm: 'none' },
             flexDirection: 'column',
             alignItems: 'flex-start',
+            gap: 0.5,
           }}>
+          <EtusivuLink onClick={closeOverlayMenu} />
           {suosikitLink && (
             <TextButtonLink {...suosikitLink} onClick={closeOverlayMenu} />
           )}
@@ -200,83 +182,50 @@ export const SideMenu = (props: {
             startIcon={<MaterialIcon icon="apps" />}>
             {t('oma-opintopolku')}
           </TextButtonLink>
-          <MobileLanguageSelection />
         </Box>
-        <label htmlFor="sidebar-search-input">
-          {t('sidebar.etsi-tietoa-opintopolusta')}:
-        </label>
-        <Paper
-          component="form"
-          onSubmit={doSearch}
-          className={classes.inputRoot}
-          role="search"
-          elevation={0}>
-          <InputBase
-            className={classes.input}
-            value={search}
-            onKeyUp={(event) => {
-              if (event.key === 'Enter') {
-                doSearch(event);
-              }
-            }}
-            inputRef={searchRef}
-            onChange={({ target }) => setSearch(target.value)}
-            inputProps={{
-              id: 'sidebar-search-input',
-            }}
-          />
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            className={classes.iconButton}
-            aria-label={t('sidebar.etsi-tietoa-opintopolusta')}>
-            <MaterialIcon icon="search" />
-          </Button>
-        </Paper>
-      </div>
-      {selectedValikko ? null : (
-        <div className={classes.murupolku}>
-          <Murupolku path={[]} />
-        </div>
-      )}
-      {isLoading ? (
-        <LoadingCircle />
-      ) : (
-        linkit.map((linkkiValikko, index) => {
-          const id = linkkiValikko.id;
-          const links = linkkiValikko.linkki || [];
 
-          return (
-            <Fragment key={id}>
-              <SidebarValikko
-                parent={selectedValikko}
-                name={linkkiValikko.name}
-                deselect={popSelected}
-                select={selectValikko}
-                links={links}
-                closeMenu={closeOverlayMenu}
-              />
-              {/* Tutkintojen tunnustaminen näytetään toisena olevan ("Hae koulutukseen") valikon jälkeen */}
-              {!selectedValikko && index === 1 && (
-                <SidebarValikko
-                  name={t('tutu.tutu')}
-                  deselect={popSelected}
-                  select={selectValikko}
-                  links={[]}
-                  internalLinks={[
-                    {
-                      name: t('tutu.tutu-opas.tutu-opas'),
-                      href: '/tutkintojen-tunnustaminen/tutkintojen-tunnustamisen-palveluopas',
-                    },
-                  ]}
-                  closeMenu={closeOverlayMenu}
-                />
-              )}
-            </Fragment>
-          );
-        })
-      )}
+        <MobileLanguageSelection />
+
+        <Box>
+          {isLoading ? (
+            <LoadingCircle />
+          ) : (
+            linkit.map((linkkiValikko, index) => {
+              const id = linkkiValikko.id;
+              const links = linkkiValikko.linkki || [];
+
+              return (
+                <Fragment key={id}>
+                  <SidebarValikko
+                    parent={selectedValikko}
+                    name={linkkiValikko.name}
+                    deselect={popSelected}
+                    select={selectValikko}
+                    links={links}
+                    closeMenu={closeOverlayMenu}
+                  />
+                  {/* Tutkintojen tunnustaminen näytetään toisena olevan ("Hae koulutukseen") valikon jälkeen */}
+                  {!selectedValikko && index === 1 && (
+                    <SidebarValikko
+                      name={t('tutu.tutu')}
+                      deselect={popSelected}
+                      select={selectValikko}
+                      links={[]}
+                      internalLinks={[
+                        {
+                          name: t('tutu.tutu-opas.tutu-opas'),
+                          href: '/tutkintojen-tunnustaminen/tutkintojen-tunnustamisen-palveluopas',
+                        },
+                      ]}
+                      closeMenu={closeOverlayMenu}
+                    />
+                  )}
+                </Fragment>
+              );
+            })
+          )}
+        </Box>
+      </Stack>
     </StyledDrawer>
   );
 };

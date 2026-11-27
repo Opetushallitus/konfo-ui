@@ -12,12 +12,6 @@ import { colors } from '#/src/colors';
 import { MaterialIcon } from '#/src/components/common/MaterialIcon';
 import { LANG_OPTIONS } from '#/src/constants';
 import { useLanguageState } from '#/src/hooks';
-import { styled } from '#/src/theme';
-
-const StyledLangNavList = styled(List)({
-  padding: '20px 0',
-  maxWidth: '150px',
-});
 
 export const MobileLanguageSelection = () => {
   const { t } = useTranslation();
@@ -28,9 +22,7 @@ export const MobileLanguageSelection = () => {
   };
 
   return (
-    <StyledLangNavList
-      aria-label={t('kielivalinta.valitse-kieli-taman-sivun-kieli-on')}
-      dense>
+    <List aria-label={t('kielivalinta.valitse-kieli-taman-sivun-kieli-on')} dense>
       {LANG_OPTIONS.map((langOption) => (
         <ListItem key={langOption.code}>
           <ListItemButton
@@ -61,6 +53,6 @@ export const MobileLanguageSelection = () => {
           </ListItemButton>
         </ListItem>
       ))}
-    </StyledLangNavList>
+    </List>
   );
 };

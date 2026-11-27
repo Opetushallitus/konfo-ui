@@ -35,7 +35,6 @@ const classes = {
 
 const StyledList = styled(List)({
   color: colors.brandGreen,
-  marginLeft: '20px',
   [`& .${classes.valikko}`]: {
     paddingTop: '0',
     paddingBottom: '0',
